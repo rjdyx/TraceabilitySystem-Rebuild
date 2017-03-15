@@ -17,7 +17,12 @@ const notFound = resolve => {
         resolve(require('../views/404.vue'));
     }, 'fourOFour');
 };
-
+//---------------------------基础信息管理----------------------------------
+const basic = resolve => {
+    require.ensure(['../components/public/basic.vue'], () =>{
+        resolve(require('../components/public/basic.vue'));
+    }, 'basic');
+};
 
 const routes = [
     
@@ -25,7 +30,14 @@ const routes = [
     {
         path: '/',
         name: 'index',
-        component: index
+        component: index,
+        children:[
+            {
+                path:'',
+                name:'basic',
+                component:basic
+            },
+        ]
     },
     {
         path: '/404',
