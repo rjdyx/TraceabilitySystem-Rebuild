@@ -1,15 +1,15 @@
 /**
  * 中间内容标题组件
- * 
+ *  
  * @author 舒丹彤
  * @date 2017/3/15 
  * 
  */ 
  <template>
 	<div class="title">
-     <h2>种植基础资料</h2>   
-    </div>
-</template>
+     <h2>{{title}}</h2>   
+  </div>
+</template> 
 
 <script>
 	export default {
@@ -18,6 +18,12 @@
             return {
                 
             } 
+        },
+        props:{
+            title:{
+              type:String,
+              default:'种植基础资料'
+            }
         },
         computed: {},
          methods: {

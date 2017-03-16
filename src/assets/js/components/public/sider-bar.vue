@@ -6,14 +6,16 @@
  * 
  */ 
  <template>
-<!-- <div>hgr</div> -->
      <el-menu
         :router="true" 
         class="left-menu" theme="dark">
       <el-submenu 
         v-for="(menu, index) in menus"
         :index="menu.name">
-            <template slot="title">{{menu.name}}</template>
+            <template slot="title">
+            <img :src="menu.src" class="menu-img">
+            {{menu.name}}
+            </template>
             <el-menu-item 
                 v-for="(subMenu, subIndex) in menu.children" 
                 :index="subMenu.path" @click="clickEvent(menu, subMenu)" exact>
@@ -21,30 +23,7 @@
             </el-menu-item>
       </el-submenu>
     </el-menu>
-<!-- 
-        <div class="sider-bar">
-            <el-row class="tac"> 
-				<el-col> 
-				    <el-menu class="el-menu-vertical-demo" theme="dark">
-				      <el-submenu v-for="siderbar in siderbars">
-				        <template slot="title">
-				        	<img :src="siderbar.src" class="sider-img">
-				        	<span>{{siderbar.name}}</span>
-				        </template>
-				          <el-menu-item v-for="subNavbar in siderbars.children">
-				          	uerhu
-				          	
-				          	<template >
-				          		<span>{{subNavbar.name}}</span>
-				          	</template>
-				          </el-menu-item>
-				      </el-submenu>
-				</el-menu>
-
-		 </el-col>
-		 </el-row>
-
-        </div> -->
+ 
 
 </template>
 
@@ -85,7 +64,12 @@ import {mapMutations} from 'vuex'
     @import "../../../sass/function";
     .left-menu{
         width:180px;
-        height:100%;
+        height:1000px;
+    }
+    .menu-img{
+    	display: inline-block;
+    	vertical-align: middle;
+    	padding-right: 5px;
     }
 	
 </style>

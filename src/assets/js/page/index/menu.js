@@ -1,13 +1,15 @@
 /**
  * 左菜单栏数据
  */
+
 export default [ 
 	{  
         name:'养殖管理',
-        role: 'message',
+        role: 'plant',
+        src:'/public/images/plant.png',
         children: [
             {
-                path: '/index/message/crew/0',
+                path: '/basic',
                 name:'基础信息管理'
             },
             {
@@ -42,7 +44,8 @@ export default [
     },
     {
         name:'屠宰加工管理',
-        role: 'reaction',
+        role: 'pet',
+        src:'/public/images/pet.png',
         children: [
             {
                 path: '/index/reaction/early-warning/0',
@@ -72,11 +75,11 @@ export default [
     },
     {
         name:'种植管理',
-        role: 'beast',
-        isEvent: false,
+        role: 'plantation',
+        src:'/public/images/plantation.png',
         children: [
             {
-                path: '/webapp/beast',
+
                 name:'基础信息管理'
             },
             {
@@ -108,7 +111,7 @@ export default [
     {
         name:'果蔬采收管理',
         role: 'beast',
-        isEvent: false,
+        src:'/public/images/vegetable.png',
         children: [
             {
                 path: '/webapp/beast',
@@ -117,6 +120,94 @@ export default [
             {
                 path: '/webapp/beast',
                 name:'采收检测管理'
+            },
+        ]
+    },
+    {
+        name:'果蔬加工管理',
+        role: 'product',
+        src:'/public/images/product.png',
+        children: [
+            {
+                path: '/webapp/beast',
+                name:'基础信息管理'
+            },
+            {
+                path: '/webapp/beast',
+                name:'加工批次管理'
+            },
+            {
+                path: '/webapp/beast',
+                name:'产品溯源管理'
+            },
+            {
+                path: '/webapp/beast',
+                name:'出库单管理'
+            },
+        ]
+    },
+    {
+        name:'物流管理',
+        role: 'express',
+        src:'/public/images/express.png',
+        children: [
+            {
+                path: '/webapp/beast',
+                name:'基础信息管理'
+            },
+            {
+                path: '/webapp/beast',
+                name:'代发货管理'
+            },
+            {
+                path: '/webapp/beast',
+                name:'已发货管理'
+            },
+        ]
+    },
+    {
+        name:'销售管理',
+        role: 'sale',
+        src:'/public/images/sale.png',
+        children: [
+            {
+                path: '/webapp/beast',
+                name:'销售基础管理'
+            },
+            {
+                path: '/webapp/beast',
+                name:'销售入库管理'
+            },
+            {
+                path: '/webapp/beast',
+                name:'销售商品库'
+            },
+            {
+                path: '/webapp/beast',
+                name:'销售订单管理'
+            },
+        ]
+    },
+    {
+        name:'系统管理',
+        role: 'system',
+        src:'/public/images/system.png',
+        children: [
+            {
+                path: '/webapp/beast',
+                name:'公司信息管理'
+            },
+            {
+                path: '/webapp/beast',
+                name:'用户管理'
+            },
+            {
+                path: '/webapp/beast',
+                name:'日志管理'
+            },
+            {
+                path: '/webapp/beast',
+                name:'报表统计'
             },
         ]
     },

@@ -25,22 +25,22 @@ import menu from '../page/index/menu.js'
         		navbars:[
         			{
         				name:'首页',
-        				src:'../../../../public/images/time.png'
+        				src:'/public/images/time.png'
         			},{
         				name:'test',
-        				src:'../../../../public/images/test.png'
+        				src:'/public/images/test.png'
         			},{
         				name:'帮助',
-        				src:'../../../../public/images/help.png'
+        				src:'/public/images/help.png'
         			},{
         				name:'设置',
-        				src:'../../../../public/images/set.png'
+        				src:'/public/images/set.png'
         			},{
         				name:'问题反馈',
-        				src:'../../../../public/images/question.png'
+        				src:'/public/images/question.png'
         			},{
         				name:'退出',
-        				src:'../../../../public/images/back.png'
+        				src:'/public/images/back.png'
         			}
         		],
                 menus:menu,

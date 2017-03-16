@@ -1,14 +1,10 @@
 
 const state = {
   navbarName: '',
-  subNavBarName: ''
+  subNavBarName: '',
+  title:''
 }
 
-// getters
-const getters = {}
-
-// actions
-const actions = {}
 
 // mutations
 const mutations = {
@@ -19,13 +15,14 @@ const mutations = {
 
   setSubNavBarName(state, subNavBarName) {
     state.subNavBarName = subNavBarName
-  }
+  },
+  setTitle(state, title) {
+          state.title = title;
+        },
 
 }
 
 export default {
   state,
-  getters,
-  actions,
   mutations
 }

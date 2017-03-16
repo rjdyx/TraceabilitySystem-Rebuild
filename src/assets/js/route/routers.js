@@ -19,8 +19,8 @@ const notFound = resolve => {
 };
 //---------------------------基础信息管理----------------------------------
 const basic = resolve => {
-    require.ensure(['../components/public/basic.vue'], () =>{
-        resolve(require('../components/public/basic.vue'));
+    require.ensure(['../page/plant-basic/basic.vue'], () =>{ 
+        resolve(require('../page/plant-basic/basic.vue'));
     }, 'basic');
 };
 
@@ -34,7 +34,7 @@ const routes = [
         children:[
             {
                 path:'',
-                name:'basic',
+                name:'plant-basic',
                 component:basic
             },
         ]

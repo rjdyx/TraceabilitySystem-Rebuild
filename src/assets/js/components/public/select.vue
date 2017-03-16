@@ -17,7 +17,10 @@
  * 是否必填：false
  * 默认值：'/'
  * 描述：搜索时请求的url
- 
+ * 
+ *
+ * 
+ * 
  * Events:
  * 
  * @function callback
@@ -29,26 +32,35 @@
  *        last_page: ,  //分页总数
  *        query_text: , //搜索输入框内容
  *    }
+ * 
+ * 
+ * Slots:
+ *  
+ * @name 
+ * 位置：输入框之前
+ * 默认内容：<el-select></el-select>
+ * 
  */
 <template>
     <div class="search-top">
-        <el-input v-model="input" placeholder="请输入种植场进行搜索" size="small"></el-input>
-        <el-button size="small">搜索</el-button>
+            <el-select v-model="value" :placeholder="placeholder" class="select">
+                <el-option
+                  v-for="item in options"
+                  :label="item.label"
+                  :value="item.value">
+                </el-option>
+          </el-select>
     </div>
 </template>
 
 <script> 
 
     export default {
-        name:'search',
+        name:'select',
         props:{
             placeholder: {
                 type: String,
-                default: '搜索'
-            },
-            searchUrl: {
-                type: String,
-                default: '/'
+                default: '种植场基地'
             },
             params: {
                 type: Object,
@@ -59,21 +71,19 @@
         },
         data (){
             return {
-                searchInput: '',
+                options:[
+                  {
+                    value:'选项1',
+                    label:'阿克苏基地'
+                  }
+                ]
             }
         },
         computed: {
 
         },
         methods:{
-
-
-            /**
-             * 查询
-             */
-            search () {
-            }
-
+        	
         }
 
     }

@@ -8,16 +8,16 @@
 <template>
     <header class="header">
       <div class="head_logo">
-      	<img src="../../../../../public/logo2.png" />
+      	<img src="/public/images/logo2.png" />
       </div>
       <div class="head_des">
-      	农产品质量安全溯源系统
+      	{{logo}}
       </div>
       <!--右侧菜单栏-->
       <div class="head_right">
       	<ul>
       		<li>
-      			<img src="../../../../../public/images/time.png" />
+      			<img src="/public/images/time.png" />
       			<span>{{time}}</span>
       		</li>
       		<template v-for="navbar in navbars">
@@ -36,6 +36,7 @@
     name:'MyHead',
     data:function(){
     	return{
+    	logo:'农产品质量安全溯源系统',
         time:''
     	}
     },
@@ -55,21 +56,20 @@
         }
       },
       initData(cur){
-        console.log('in')
         setInterval(()=>{
           let date = null;
-        if(cur){
-          date=new Date(cur);
-        }else{
-          date=new Date();
-        }
-        let h=date.getHours();
-        let m=date.getMinutes();
-        let s=date.getSeconds();
-        this.checkTime('m')
-        this.checkTime('s')
-        var str=h+':'+m+':'+s
-        this.time=str
+	        if(cur){
+	          date=new Date(cur);
+	        }else{
+	          date=new Date();
+	        }
+	        let h=date.getHours();
+	        let m=date.getMinutes();
+	        let s=date.getSeconds();
+	        this.checkTime('m')
+	        this.checkTime('s')
+	        var str=h+':'+m+':'+s
+	        this.time=str
       },1000)
       }
     },

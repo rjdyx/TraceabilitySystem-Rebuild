@@ -7,14 +7,16 @@
  */ 
  <template>
 	<div class="basic">
-        <contain-title></contain-title>
+        <contain-title :title="title"></contain-title>
         <basic-content></basic-content>
     </div>
 </template>
 
 <script>
-import ContainTitle from '../public/contain-title.vue'
-import BasicContent from '../public/basic-content.vue'
+import ContainTitle from 'components/public/contain-title.vue'
+import BasicContent from '../plant-basic/basic-content.vue'
+import {mapMutations} from 'vuex'
+
 	export default {
         name:'Basic',
         data (){
@@ -22,8 +24,18 @@ import BasicContent from '../public/basic-content.vue'
                 
             } 
         },
-        computed: {},
-        methods: {},
+        computed: {
+
+        },
+        
+        mounted() {
+            // this.setTitle('种植')
+        },
+        methods: {
+            // ...mapMutations([
+            //     'setTitle'
+            //     ])
+        },
         components:{
             ContainTitle,
             BasicContent
