@@ -1,11 +1,11 @@
-/**
+/*
  * tab组件
  * @description tab栏的种植场信息组件
  * @author 舒丹彤
  * @date 2017/3/15 
  * 
  */ 
-<template>
+<template> 
 <div>
       <ul class="search">
         <li> 
@@ -25,28 +25,7 @@
         </li>
     </ul>
     <div class="plantation-table">
-        <el-table :data="tableData"  style="width: 100%">
-            <el-table-column  type="selection"  width="212"> </el-table-column>
-            <el-table-column prop="plantation" label="种植场名称" width="180" sortable align="center">
-            </el-table-column>
-            <el-table-column prop="area" label="种植面积" width="244" sortable align="center">
-            </el-table-column>
-            <el-table-column prop="operator" label="负责人" width="212" sortable align="center">
-            </el-table-column>
-            <el-table-column prop="address" label="详细地址" width="270" sortable align="center">
-            </el-table-column>
-            <el-table-column prop="phone" label="联系电话" width="212" sortable align="center">
-            </el-table-column>
-            <el-table-column prop="memo" label="备注信息" width="211">
-            </el-table-column>
-            <el-table-column label="操作" width="150" align="center">
-                <template scope="scope">
-                    <el-button type="text" size="small" class="oparate">视频</el-button>
-                    <el-button type="text" size="small" class="oparate">查看</el-button>
-                    <el-button type="text" size="small" class="oparate">删除</el-button>
-                </template>
-            </el-table-column>
-        </el-table>
+        <basic-table :tableData="tableData"></basic-table>
     <el-col class="table-footer">
         <el-checkbox v-model="allChecked" class="checkall"></el-checkbox>
         <el-button class="delete">删除</el-button>
@@ -61,11 +40,13 @@
 </template>
 
 <script>
+import BasicTable from '../plant-basic/basic-table.vue'
 	export default {
         name:'BasicPlantation',
         
         data (){
             return {
+                listLoading:false,
                 page:'1',
                 record:'4',
                 tableData: [{
@@ -104,8 +85,19 @@
             }
         },
         computed: {},
-         methods: {
-            
+        components:{
+          BasicTable
+        },
+        methods: {
+            //删除
+            handleDel: function (index, row) {
+              this.$confirm('确认删除该记录吗?', '提示', {
+                type: 'warning'
+              }).then(() => {
+              }).catch(() => {
+
+              });
+            },
         }
        
 

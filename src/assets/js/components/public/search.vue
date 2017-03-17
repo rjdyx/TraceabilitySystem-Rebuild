@@ -12,7 +12,7 @@
  * 默认值：'搜索'
  * 描述：input输入框的placeholder值
  * 
- * @param  searchUrl 
+ * @param  searchUrl  
  * 类型：String
  * 是否必填：false
  * 默认值：'/'
@@ -32,7 +32,7 @@
  */
 <template>
     <div class="search-top">
-        <el-input v-model="input" placeholder="请输入种植场进行搜索" size="small"></el-input>
+        <el-input v-model="input" placeholder="placeholder" size="small"></el-input>
         <el-button size="small">搜索</el-button>
     </div>
 </template>
@@ -44,7 +44,7 @@
         props:{
             placeholder: {
                 type: String,
-                default: '搜索'
+                default: '请输入种植场进行搜索'
             },
             searchUrl: {
                 type: String,

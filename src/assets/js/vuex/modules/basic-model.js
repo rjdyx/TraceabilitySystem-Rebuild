@@ -5,7 +5,6 @@ const state = {
   title:''
 }
 
-
 // mutations
 const mutations = {
 

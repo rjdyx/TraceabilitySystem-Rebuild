@@ -1,326 +1,92 @@
-/**
- * 
- * 最顶层基础模板组件
- * @description 最顶层的组件，但不包含登录、404页面这些组件
- * @author 舒丹彤
- * @date 2017/03/16
- * 
- */
 <template>
-    <div class="middle">
-    
-        <!-- 导航条模块 -->
-        <el-breadcrumb separator="/" id="nav" v-if="navbarName">
-            <el-breadcrumb-item>{{navbarName}}</el-breadcrumb-item>
-            <el-breadcrumb-item>{{subNavBarName}}</el-breadcrumb-item>
-        </el-breadcrumb>
-
-        <!-- tabs模块 -->
-        <el-tabs v-model="activeName" id="tabs" @tab-click="tabClick">
-            <el-tab-pane v-for="(model, index) in models" :label="model.tab" :name="'index' + index"></el-tab-pane>
-        </el-tabs>
-
-        <!-- 操作模块 -->
-        <div id="operate">
-            <div id="btns">
-                
-                <component 
-                    v-for="operate in operateComponent" 
-                    :is="operate.component" 
-                    :params="operate.params" 
-                    :model="models[modelIndex]" 
-                    class="operateBtns"
-                ></component>
-
-                <router-link v-if="!hideAddButton" :to="'/index/new-form/' + url + '/new'" exact>
-                    <el-button type="primary" icon="plus">新增</el-button>
-                </router-link>
-                
-                <el-button v-if="!hideDeleteButton" type="primary" icon="delete" @click="handleDelete">删除</el-button>
-
-                <component 
-                	v-for="typeOperate in typeComponent" 
-                	:is="typeOperate.component" 
-                	:params="typeOperate.params" 
-                	class="operateBtns"
-            	></component>
-
-            </div>
-            <div id="inputs">
-                <el-input
-                  :placeholder="searchPlaceholder"
-                  icon="search"
-                  v-model="inputValue"
-                  :on-icon-click="search">
-                </el-input>
-            </div>
-        </div>
- 
-        <!-- 列表模块 -->
-        <vue-perfect-scrollbar id="list">
-            <el-table
-                :data="tableData" 
-                @selection-change="handleSelectionChange">
-                <el-table-column
-                  type="selection"
-                  width="55">
-                </el-table-column>
-                <template v-for="(item, index) in theads">
-                	<template v-if="colComponent[protos[index]] == null">
-                		<el-table-column
-		                	:prop="protos[index]"
-		                    :label="item"
-		                    :min-width="widths[index]"
-                            show-overflow-tooltip>
-		                </el-table-column>
-                	</template>
-                	<template v-else>
-                		<el-table-column
-		                    :label="item"
-		                    :min-width="widths[index]"
-                            show-overflow-tooltip>
-		                  <template scope="scope">
-		                  	<component :is="colComponent[protos[index]]" :scope="scope"></component>
-		                  </template>
-		                </el-table-column>
-                	</template>
-                </template>
-                <el-table-column
-                    label="操作"
-                    :width="150">
-                    <template scope="scope">
-                        <component v-if="colComponent.operation" :is="colComponent.operation" :scope="scope" :model="models[modelIndex]"></component>
-                        <edit v-else :scope="scope" :model="models[modelIndex]"></edit>
-                    </template>
-                </el-table-column>
-              </el-table>
-        </vue-perfect-scrollbar>
-
-        <!-- 分页模块 -->
-        <el-pagination
-            :current-page="paginator.current_page"
-            :page-size="paginator.per_page"
-            layout="prev, pager, next, jumper"
-            :total="paginator.total"
-            @current-change="pageChange"
-            class="pagination">
-        </el-pagination>
-
-
-    </div>
+<div>
+		<!-- tab栏 -->
+	<el-tabs v-model="activeName" id="tabs" @tab-click="tabClick">
+		<el-tab-pane v-for="(model,index) in models" :label="model.tab" :name="'index'+index"></el-tab-pane>
+	</el-tabs>
+	<!-- 列表模块 -->
+	<el-table :data="tableData" @selection-change="handleSelectionChange">
+		<el-table-column type="selection" width="55"></el-table-column>
+		<template v-for="(item,index) in theads">
+				<el-table-column 
+					:props="protos[index]" 
+					:label="item" 
+					:min-width="widths[index]" 
+					show-overflow-tooltip>
+				</el-table-column>
+		</template>
+		<el-table-column 
+		label="操作" 
+		:width="150">
+			<template scope="scope">
+				<component v-if="colComponent.operation" :is="colComponent.operation" :scope="scope" :model="models[modelIndex]">
+				</component>
+			</template>
+		</el-table-column>
+	</el-table>
+</div>
 </template>
 
-<style lang="sass" scoped>
-    @import "../../../sass/function";
-
-
-    #nav {
-        height: pxToRem(62);
-        line-height: pxToRem(62);
-        padding-left: pxToRem(25);
-        font-size: pxToRem(20);
-    }
-
-    #tabs {
-        height: pxToRem(62);
-        line-height: pxToRem(62);
-        padding: 0 pxToRem(25);
-    }
-
-    #operate {
-        height: pxToRem(62);
-        line-height: pxToRem(62);
-        padding: 0 pxToRem(25);
-        margin-top: pxToRem(10);
-
-        #btns {
-            float: left;
-
-            .operateBtns {
-            	display: inline-block;
-            	margin: 0 pxToRem(10);
-            }
-        }
-
-        #inputs {
-            float: right;
-        }
-    }
-
-    .pagination {
-        position: absolute;
-        bottom: 35px;
-        left: 0;
-        right: 0;
-        text-align: center;
-    }
-
-</style>
 
 <script>
 
-    import Edit from 'components/public/edit.vue'
-    import computed from './computed.js' 
+import computed from './computed.js' 
 
-    export default{
-        name:'BasicModel',
-        props: {
-            models: {
-            	type: Array,
-            	default () {
-            		return [
-            			{
-            				key: 'orgManage',
-            				tab: '用户管理',
-                            url: 'org',
-            				urlParams: {},
-                            searchPlaceholder: '',
-            				newComponent: null,
-                            operateComponent: [{component: null, params: {}}],
-                            hideAddButton: false,
-                            hideDeleteButton: false,
-            				typeComponent: [{component: null, params: {}}],
-            				theads: ['机构名称'],
-            				protos: ['name'],
-            				widths: [50],
-            				colComponent: []
-            			}
-            		]
-            	}
-            }
-        },
-        data () {
-        	return {
-                compute: this,
-                // 搜索框内容
-        		inputValue: '',
-                // tab模块选择标志
-                activeName: 'index' + this.$route.params.index,
-                // tab对应的模块下标
-                modelIndex: this.$route.params.index,
-                // 列表数据
+	 export default{
+	 	name:'BasicModel',
+	 	props:{
+	 		models:{
+	 			type:Array,
+	 			default(){
+	 				return[
+	 					{
+	 						key:'',
+	 						tab:'种植管理',
+	 						urlParams:{},//从后台获取的所有数据
+	 						theads:['种植管理'],
+	 						protos:['name'],
+	 						widths:[50],
+	 						colComponent:[]
+
+	 					}
+	 				]
+	 			}
+	 		}
+	 	},
+	 	data(){
+	 		return{
+	 			compute:this,
+	 			// tab模块选择标志
+	 			activeName:'index'+this.$route.params.index,
+	 			//tab对应的模块下标
+	 			modelIndex:this.$route.params.index,
+	 			// 列表数据
                 tableData: [], 
                 // 被选中的列表项数组
                 multipleSelection: [],
-                // 分页对象
-                paginator: {
-                    // 当前页
-                    current_page: 0,
-                    // 总页数
-                    total: 0,
-                    // 每页数目
-                    per_page: 0
-                }
-        	}
-        },
-        mixins: [computed],
-        watch: {
-            key () {
-                this.tableData = []
-                this.getAllMsg()
-            }
-        },
-        components: {
-            Edit
-        },
-        mounted () {
-            this.getAllMsg()
-        },
-        methods: {
 
-            /**
-             * 初始化
-             */ 
-            init (index=0) {
-                this.inputValue = ''
-                this.activeName = 'index' + index
-                this.modelIndex = index
-                this.$set(this, 'tableData', [])
-                this.$set(this, 'multipleSelection', [])
-            },
-
-            /**
-             * 获取所有数据
-             */
-            getAllMsg (params='') {
-                let host = '/query'
-                if(params.length) host += '?' + params
-                axios.get(this.$adminUrl(this.url) + host, {params: this.urlParams})
-                    .then((responce) => {
-                        this.$set(this, 'tableData', responce.data.data)
-                        this.paginator = responce.data
-                    })
-            },
-            /**
-             * 搜索
-             */
-            search () {
-                this.getAllMsg('query_text=' + this.inputValue)
-            },
-
-            /**
+	 		}
+	 	},
+	 	methods:{
+	 		init(index=0){
+	 			this.activeName=index
+	 			this.modelIndex=index
+	 			this.$set(this,'tableData',[])
+	 			this.$set(this,'multipleSelection',[])
+	 		},
+	 		/**
              * 列表选择事件
              */
             handleSelectionChange (val) {
                 this.multipleSelection = val
             },
 
-            /**
-             * tab点击事件
-             */
-            tabClick(tab, event) {
-            	this.modelIndex = tab.$data.index
-                let model = this.$route.params.model
-                this.$router.push('/index/' + this.$route.fullPath.split('/')[2] + '/' + model + '/' + this.modelIndex)
-            },
-
-
-            /**
-             * 删除
-             */
-            handleDelete () {
-                let ids = []
-                this.multipleSelection.forEach((item) => {
-                    ids.push(item.id)
-                })
-                if(!ids.length) {
-                    return this.$message('请选择')
-                }
-                this.$confirm('确定删除?', '提示', {
-                    confirmButtonText: '确定',
-                    cancelButtonText: '取消',
-                    type: 'warning'
-                }).then(() => {
-                    axios.delete(this.$adminUrl(this.url), {data: {ids: ids}})
-                    .then((responce) => {
-                        if(typeof responce.data !== 'number') {
-                            this.$message('被使用，无法删除')
-                            return false
-                        }
-                        this.$message({
-                          message: '成功删除' + responce.data + '条',
-                          type: 'success'
-                        })
-
-                        if(this.tableData.length == this.multipleSelection.length) {
-                            this.$set(this, 'tableData', [])
-                        } else {
-                            let newArr = this.$deleteArrayWith(this.tableData, this.multipleSelection, 'id')
-                            this.$set(this, 'tableData', newArr)
-                        }
-                        this.$set(this, 'multipleSelection', [])
-                    })
-                })
-                
-            },
-
-            /**
-             * 点击分页
-             */
-            pageChange (val) {
-                this.getAllMsg('page='+ val +'&query_text=' + this.inputValue)
-            }
-        }
-    }
-
+            // tab点击事件
+	 		tabClick(tab,event){
+	 			this.modelIndex=tab.$data.index
+	 			let model=this.$route.params.model
+	 			this.$route.push('/index/'+this.$route.fullPath.split('/')[2]+'/'+model+'/'+this.modelIndex)
+	 		},
+	 	}
+	 }
 </script>

@@ -23,20 +23,30 @@ const basic = resolve => {
         resolve(require('../page/plant-basic/basic.vue'));
     }, 'basic');
 };
+//---------------------------基础信息管理----------------------------------
+//const middle = resolve => {
+//  require.ensure(['../page/middle/middle.vue'], () =>{
+//      resolve(require('../page/middle/middle.vue'));
+//  }, 'middle');
+//};
 
 const routes = [
-    
-
     {
         path: '/',
-        name: 'index',
         component: index,
         children:[
-            {
-                path:'',
-                name:'plant-basic',
-                component:basic
-            },
+//       {
+//           path: '',
+////           alias: '',
+//           name:'middle',
+//           component:middle,
+////           meta:{requiresAuth: true}
+//       },
+                  {
+                      path:'',
+                      name:'plant-basic',
+                      component:basic
+                  },
         ]
     },
     {

@@ -8,7 +8,7 @@
  * 
  * @param  placeholder 
  * 类型：String
- * 是否必填：false
+ * 是否必填：false 
  * 默认值：'搜索'
  * 描述：input输入框的placeholder值
  * 
@@ -56,7 +56,7 @@
 <script> 
 
     export default {
-        name:'select',
+        name:'SelectSection',
         props:{
             placeholder: {
                 type: String,

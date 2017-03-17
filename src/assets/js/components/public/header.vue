@@ -16,7 +16,7 @@
       <!--右侧菜单栏-->
       <div class="head_right">
       	<ul>
-      		<li>
+      		<li> 
       			<img src="/public/images/time.png" />
       			<span>{{time}}</span>
       		</li>

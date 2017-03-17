@@ -16,7 +16,7 @@
 
     export default {
         name:'NewBuild',
-        props:{
+        props:{ 
            
         },
         data (){

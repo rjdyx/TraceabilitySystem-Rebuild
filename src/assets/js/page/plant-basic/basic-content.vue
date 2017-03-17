@@ -1,6 +1,5 @@
 /**
  * 中间内容标题组件
- * 
  * @author 舒丹彤
  * @date 2017/3/15 
  * 
@@ -14,10 +13,13 @@
             <el-tab-pane label="种植区信息" name="second">
 				<basic-plantarea></basic-plantarea>
             </el-tab-pane>
-            <el-tab-pane label="果蔬档案" name="third">角色管理</el-tab-pane>
-            <el-tab-pane label="肥料档案" name="fourth">定时任务补偿</el-tab-pane>
-            <el-tab-pane label="农药药档案" name="five">定时任务补偿</el-tab-pane>
-            <el-tab-pane label="专家档案" name="six">定时任务补偿</el-tab-pane>
+            <el-tab-pane label="果蔬档案" name="third">
+                果蔬档案
+                <!-- <vegetable-archive></vegetable-archive> -->
+            </el-tab-pane>
+            <el-tab-pane label="肥料档案" name="fourth">肥料档案</el-tab-pane>
+            <el-tab-pane label="农药药档案" name="five">农药药档案</el-tab-pane>
+            <el-tab-pane label="专家档案" name="six">专家档案</el-tab-pane>
         </el-tabs>
     </div>
 </template>
@@ -25,6 +27,7 @@
 <script>
 import BasicPlantation from '../plant-basic/basic-plantation.vue'
 import BasicPlantarea from '../plant-basic/basic-plantarea.vue'
+
 	export default {
         name:'BasicContent',
         data (){
@@ -43,7 +46,7 @@ import BasicPlantarea from '../plant-basic/basic-plantarea.vue'
     	components:{
     		BasicPlantation,
     		BasicPlantarea,
-
+            // vegetableArchive
     	}
        
 

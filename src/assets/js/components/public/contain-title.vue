@@ -19,17 +19,15 @@
                 
             } 
         },
-        props:{
+        props:{ 
             title:{
               type:String,
               default:'种植基础资料'
             }
         },
         computed: {},
-         methods: {
-    }
-       
-
+        methods: {
+        },
     }
 </script>
 
