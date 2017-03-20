@@ -1,17 +1,19 @@
-export default { 
-    cultivate:[
+import TypeManage from 'components/public/type-manage.vue'
+import Add from 'components/public/add.vue'
+export default {
+    cultivateBase:[
         {  
             key: 'cultivation',
             tab: '养殖场信息',
             url: 'org',
             searchPlaceholder: '请输入养殖场进行搜索',
-            typeComponent: [{component: '', params: {title: '机构类别管理', type: 1}}],
             theads: ['序号', '养殖场名称', '养殖面积', '负责人', '养殖畜禽种类', '养殖规模', '详细地址', '备注信息'],
             protos: ['name', 'org_level', 'address', 'zipcode', 'phone', 'cellphone', 'fax', 'meno'],
             widths: [50, 50, 50, 50, 50, 50, 50,50],
-            colComponent: {}
+            colComponent: {},
+            operateComponent: [{component: Add, params: {status: 1}}],
         },
-        {  
+        {
             key: 'cultivate',
             tab: '养殖区信息',
             url: 'org',
@@ -144,6 +146,32 @@ export default {
             widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
         },
     ], 
+    cultivate:[
+        {
+            key: 'expertManage',
+            tab: '养殖批次信息',
+            url: 'expert',
+            searchPlaceholder: '请输入养殖批次号进行搜索',
+            typeComponent: [{component: '', params: {title: '专家领域管理', type: 2}}],
+            theads: ['序号', '所属养殖区','养殖批次号','畜禽名称','密度', '数量', '养殖方式', '养殖人', '养殖日期', '已传图片', '备注信息'],
+            protos: ['name', 'expert_area', 'org_name',  'degree', 'duty', 'title', 'address', 'zipcode', 'company', 'officephone', 'homephone', 'cellphone', 'email', 'meno'],
+            widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
+            // colComponent: {sex: Sex}
+        },
+    ],
+    feed:[
+        {
+            key: 'expertManage',
+            tab: '饲料使用管理',
+            url: 'expert',
+            searchPlaceholder: '请输入饲料名称进行搜索',
+            typeComponent: [{component: '', params: {title: '专家领域管理', type: 2}}],
+            theads: ['序号', '所属养殖区','养殖批次号','畜禽名称','饲料名称', '喂养日期', '平均喂养量', '饲料员', '指导专家', '备注信息'],
+            protos: ['name', 'expert_area', 'org_name',  'degree', 'duty', 'title', 'address', 'zipcode', 'company', 'officephone', 'homephone', 'cellphone', 'email', 'meno'],
+            widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
+            // colComponent: {sex: Sex}
+        },
+    ],
     crew:[
         {
             key: 'expertManage',

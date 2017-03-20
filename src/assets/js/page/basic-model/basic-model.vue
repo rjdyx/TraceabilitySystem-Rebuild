@@ -14,11 +14,20 @@
 	          :on-icon-click="search" class="search" size="small">
 	        </el-input>
 	        <el-button size="small">搜索</el-button>
-        <div id="btns">
+
+	         <component 
+                    v-for="operate in operateComponent" 
+                    :is="operate.component" 
+                    :params="operate.params" 
+                    :model="models[modelIndex]" 
+                    class="operateBtns"
+                ></component>
+        <!--<div id="btns">
+        	
         	<el-button type="primary" size="small" @click="handleAdd">新建</el-button>
 	        <el-button type="primary" class="put-table" size="small">导出表格</el-button>
             <el-button type="primary" size="small">导入</el-button> 
-        </div>
+        </div>-->
 	  </div>
      </div>
  
@@ -44,8 +53,6 @@
 			</template>
 		</el-table-column>
 	</el-table>
-
-	<add></add>
 </div>
 </template>
 
@@ -69,7 +76,8 @@ import computed from './computed.js'
 	 						protos:['name'],
 	 						widths:[50],
 	 						colComponent:[],
-	 						title:''
+	 						title:'',
+	 						operateComponent: [{component: null, params: {}}],
 	 					},
 	 				]
 	 			}
@@ -146,4 +154,9 @@ import computed from './computed.js'
 	 #btns{
 	 	float:right;
 	 }
+	 .operateBtns {
+	 			background: red;
+            	display: inline-block;
+            	margin: 0 pxToRem(10);
+            }
 </style>

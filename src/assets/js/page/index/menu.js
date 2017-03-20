@@ -1,7 +1,7 @@
 /**
  * 左菜单栏数据
  */
-
+ 
 export default [ 
 	{  
         name:'养殖管理',
@@ -9,20 +9,16 @@ export default [
         src:'/public/images/plant.png',
         children: [
             {
-                path: '/index/message/cultivate/0',
+                path: '/index/message/cultivateBase/0',
                 name:'基础信息管理'
             },
             {
-                path: '/index/message/org/ ',
+                path: '/index/message/cultivate/0',
                 name:'养殖批次管理'
             },
             {
-                path: '/index/message/command/0',
+                path: '/index/message/feed/0',
                 name:'饲料使用管理'
-            },
-            {
-                path: '/index/message/condition/0',
-                name:'畜禽病疫管理'
             },
             {
                 path: '/index/message/condition/0',
