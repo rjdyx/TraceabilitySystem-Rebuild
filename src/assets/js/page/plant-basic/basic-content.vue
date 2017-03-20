@@ -1,39 +1,30 @@
 /**
- * 中间内容标题组件
+ * 中间内容组件
  * @author 舒丹彤
  * @date 2017/3/15 
  * 
  */ 
  <template>
 	<div class="content">
-        <el-tabs v-model="activeName2" type="card" @tab-click="handleClick">
-            <el-tab-pane label="种植场信息" name="first">
-				<basic-plantation></basic-plantation>
-            </el-tab-pane>
-            <el-tab-pane label="种植区信息" name="second">
-				<basic-plantarea></basic-plantarea>
-            </el-tab-pane>
-            <el-tab-pane label="果蔬档案" name="third">
-                果蔬档案
-                <!-- <vegetable-archive></vegetable-archive> -->
-            </el-tab-pane>
-            <el-tab-pane label="肥料档案" name="fourth">肥料档案</el-tab-pane>
-            <el-tab-pane label="农药药档案" name="five">农药药档案</el-tab-pane>
-            <el-tab-pane label="专家档案" name="six">专家档案</el-tab-pane>
-        </el-tabs>
-    </div>
+        <basic-model :models="models[type]"></basic-model>
+    </div> 
 </template>
-
+ 
 <script>
-import BasicPlantation from '../plant-basic/basic-plantation.vue'
-import BasicPlantarea from '../plant-basic/basic-plantarea.vue'
+import BasicModel from '../basic-model/basic-model.vue'
+import message from './message.js'
+import reaction from './reaction.js'
+   
 
-	export default {
+	export default { 
         name:'BasicContent',
         data (){
+            let modelObj={}
+            Object.assign(modelObj,message,reaction)
             return {
             	checked:[],//勾选框数组
                 activeName2: 'first',
+                models:modelObj
 
             } 
         },
@@ -44,10 +35,17 @@ import BasicPlantarea from '../plant-basic/basic-plantarea.vue'
 
     	},
     	components:{
-    		BasicPlantation,
-    		BasicPlantarea,
-            // vegetableArchive
-    	}
+            BasicModel
+    	},
+        computed:{
+            type(){
+                return this.$route.params.model
+            }
+        },
+        beforeRouteUpdate (to, from, next) {
+            this.$refs.basicModel.init(to.params.index)
+            next()
+        },
        
 
     }

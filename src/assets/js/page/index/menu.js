@@ -9,11 +9,11 @@ export default [
         src:'/public/images/plant.png',
         children: [
             {
-                path: '/basic',
+                path: '/index/message/cultivate/0',
                 name:'基础信息管理'
             },
             {
-                path: '/index/message/org/0',
+                path: '/index/message/org/ ',
                 name:'养殖批次管理'
             },
             {
@@ -73,17 +73,17 @@ export default [
             },
         ]
     },
-    {
+    { 
         name:'种植管理',
         role: 'plantation',
         src:'/public/images/plantation.png',
-        children: [
+        children: [ 
             {
-
+                path:'/index/message/org/0',
                 name:'基础信息管理'
             },
-            {
-                path: '/webapp/beast',
+            { 
+                path: '/index/message/crew/0',
                 name:'种植批次管理'
             },
             {

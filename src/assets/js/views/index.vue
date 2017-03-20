@@ -11,6 +11,7 @@
     	<my-header :navbars="navbars"></my-header>
     	<sider-bar :menus='menus'></sider-bar>
     	<router-view></router-view>
+    	<add></add>
     </div>
 </template>
 

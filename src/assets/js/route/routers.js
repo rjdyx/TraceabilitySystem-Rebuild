@@ -23,30 +23,35 @@ const basic = resolve => {
         resolve(require('../page/plant-basic/basic.vue'));
     }, 'basic');
 };
+
 //---------------------------基础信息管理----------------------------------
 //const middle = resolve => {
 //  require.ensure(['../page/middle/middle.vue'], () =>{
 //      resolve(require('../page/middle/middle.vue'));
 //  }, 'middle');
-//};
+//}; 
 
 const routes = [
     {
         path: '/',
+        name: 'index',
+        component: index
+    },
+    {
+        path: '/index',
         component: index,
         children:[
-//       {
-//           path: '',
-////           alias: '',
-//           name:'middle',
-//           component:middle,
-////           meta:{requiresAuth: true}
-//       },
-                  {
-                      path:'',
-                      name:'plant-basic',
-                      component:basic
-                  },
+      {
+                path: 'message/:model/:index',
+                alias: 'reaction/:model/:index',
+                component: basic,
+                meta: { requiresAuth: true }
+            },
+              // {
+              //     path:'',
+              //     name:'plant-basic',
+              //     component:basic
+              // },
         ]
     },
     {

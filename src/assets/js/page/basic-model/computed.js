@@ -1,13 +1,6 @@
-import {mapGetters} from 'vuex'
-
 export default {
 
     computed: {
-
-    	...mapGetters([
-    		'navbarName',
-    		'subNavBarName'
-		]),
 
         modelUrlParams () {
             return this.$route.params.model
@@ -25,9 +18,9 @@ export default {
             return this.models[this.modelIndex].urlParams
         },
 
-        // searchPlaceholder () {
-        //     return this.models[this.modelIndex].searchPlaceholder
-        // },
+        searchPlaceholder () {
+            return this.models[this.modelIndex].searchPlaceholder
+        },
 
         theads () {
             return this.models[this.modelIndex].theads
@@ -45,25 +38,6 @@ export default {
             return this.models[this.modelIndex].colComponent
         },
 
-        // typeComponent () {
-        //     return this.models[this.modelIndex].typeComponent
-        // },
-
-        // operateComponent () {
-        //     return this.models[this.modelIndex].operateComponent
-        // },
-
-        // hideAddButton () {
-        //     return this.models[this.modelIndex].hideAddButton
-        // },
-
-        // hideDeleteButton () {
-        //     return this.models[this.modelIndex].hideDeleteButton
-        // },
-
-        // newComponent () {
-        //     return this.models[this.modelIndex].newComponent
-        // }
     }
 
 }
