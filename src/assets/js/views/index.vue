@@ -25,7 +25,7 @@ import menu from '../page/index/menu.js'
         		navbars:[
         			{
         				name:'首页',
-        				src:'/public/images/time.png'
+        				src:'/public/images/home.png'
         			},{
         				name:'test',
         				src:'/public/images/test.png'
@@ -58,5 +58,8 @@ import menu from '../page/index/menu.js'
 
     @import "../../sass/function";
     @import "../../sass/_percent.scss";
-
+    .wrap{
+        width:100%;
+        overflow:hidden;
+    }
 </style>

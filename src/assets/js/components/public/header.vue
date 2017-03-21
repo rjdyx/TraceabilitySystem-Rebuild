@@ -84,7 +84,6 @@
     @import "../../../sass/function";
 .header {
   height: 66px;
-  width: 100%;
   background: #0099cc;
   overflow: hidden;
   position: relative;

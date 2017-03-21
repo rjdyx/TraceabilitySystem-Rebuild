@@ -7,14 +7,16 @@
  */
 <template> 
     <div>
-        <el-button type="primary" size="small">新建</el-button>
+        <el-button size="small">全部果蔬档案</el-button>
+        <el-button size="small">蔬菜类</el-button>
+        <el-button size="small">水果类</el-button>
     </div>
 </template>
 
 <script> 
 
     export default {
-        name:'NewBuild',
+        name:'vegetableBtn',
         props:{ 
            
         },

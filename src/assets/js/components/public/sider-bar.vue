@@ -18,7 +18,7 @@
             </template>
             <el-menu-item 
                 v-for="(subMenu, subIndex) in menu.children" 
-                :index="subMenu.path" @click="clickEvent(menu, subMenu)" exact>
+                :index="subMenu.path" exact>
                 {{subMenu.name}}
             </el-menu-item>
       </el-submenu>
@@ -64,7 +64,7 @@ import {mapMutations} from 'vuex'
     @import "../../../sass/function";
     .left-menu{
         width:180px;
-        height:1000px;
+        float:left;
     }
     .menu-img{
     	display: inline-block;

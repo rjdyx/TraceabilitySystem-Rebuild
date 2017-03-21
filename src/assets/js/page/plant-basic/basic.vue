@@ -52,10 +52,8 @@ import BasicContent from '../plant-basic/basic-content.vue'
 <style lang="sass" scoped>
     @import "../../../sass/function";
     .basic{
-    	width: 1693px;
     	height: 100%;
-        position: absolute;
-        left: 190px;
-        top: 66px;
+        overflow:hidden;
+        padding-left:10px;
     }
 </style>

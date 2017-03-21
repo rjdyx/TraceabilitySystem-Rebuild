@@ -1,5 +1,5 @@
 export default {
-
+ 
     computed: {
 
         modelUrlParams () {
@@ -37,7 +37,24 @@ export default {
         colComponent () {
             return this.models[this.modelIndex].colComponent
         },
-
+        operateComponent () {
+            return this.models[this.modelIndex].operateComponent
+        },
+        typeComponent () {
+            return this.models[this.modelIndex].typeComponent
+        },
+        dateComponent () {
+            return this.models[this.modelIndex].dateComponent
+        },
+        onlyComponent () {
+            return this.models[this.modelIndex].onlyComponent
+        },
+        placeholder () {
+           return this.models[this.modelIndex].placeholder
+       },
+       options () {
+           return this.models[this.modelIndex].options
+       }
     }
 
 }
