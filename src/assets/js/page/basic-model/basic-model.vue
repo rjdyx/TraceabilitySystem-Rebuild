@@ -1,30 +1,31 @@
 <template>
-<div>  
+<div>   
+	<!-- 标题 -->
+	<contain-title :settitle="settitle">
+	</contain-title>
 	<!-- tab栏 --> 
 	<el-tabs v-model="activeName" type="card" id="tabs" @tab-click="tabClick">
 		<el-tab-pane v-for="(model,index) in models" :label="model.tab" :name="'index'+index"></el-tab-pane>
 	</el-tabs> 
 	<!-- 操作模块 -->
-       <div id="operate">
+       <div id="operate"> 
       			 
         <!-- 搜索框 -->
 		 <div id="inputs">
-				
+				<!-- 果蔬按钮 -->
 				 <component 
                     v-for="operate in onlyComponent" 
                     :is="operate.component"
                     class="fl" 
                 ></component>
-
+				<!-- 下拉选框 -->
 		 		<component 
                     v-for="seoperate in operateComponent" 
                     :is="seoperate.component" 
                     class="operateBtns"
-                    :placeholder="placeholder"
                     :options="seoperate.params"
                     :value="seoperate.params.value"
                 ></component>
-
                 <!-- 日期 -->
                 <component 
                     v-for="dateoperate in dateComponent" 
@@ -32,33 +33,28 @@
                     :params="dateoperate.params"
                     class="operateBtns"
                 ></component>
-<!-- 
-        <div id="btns">
-        	<el-button type="primary" size="small" @click="handleAdd">新建</el-button>
-	        <el-button type="primary" class="put-table" size="small">导出表格</el-button>
-            <el-button type="primary" size="small">导入</el-button> 
-        </div> -->
 	  	</div>
 	  <!-- 新建模块 -->
 	  <new v-if="isShow" :theads="theads" :tab="tab"></new>
+
+				<!-- 搜索 -->
+
 		        <el-input
 		          :placeholder="searchPlaceholder"
 		          v-model="inputValue"
 		          :on-icon-click="search" class="search" size="small">
 		        </el-input>
 		        <el-button size="small">搜索</el-button>
-
+				<!-- 操作按钮 -->
 	         	<component 
                 	v-for="typeOperate in typeComponent" 
                 	:is="typeOperate.component" 
                 	:params="typeOperate.params"
                 	class="operateBtns fr"
             	></component>
+
 	 </div>
 
- 
-
-	
 	<!-- 列表模块 -->
 	<el-table :data="tableData" @selection-change="handleSelectionChange">
 		<el-table-column type="selection" width="55"></el-table-column>
@@ -73,10 +69,6 @@
 		<el-table-column 
 		label="操作" 
 		:width="150">
-			<template scope="scope">
-				<component v-if="colComponent.operation" :is="colComponent.operation" :scope="scope" :model="models[modelIndex]">
-				</component>
-			</template>
 		</el-table-column>
 	</el-table>
 </div>
@@ -84,8 +76,11 @@
 
 
 <script>
+
 import computed from './computed.js';
-import New from "../../components/public/new.vue";
+import New from "../../components/public/new.vue"; 
+import ContainTitle from 'components/public/contain-title.vue'
+
 	 export default{
 	 	components:{
 	 		New
@@ -99,7 +94,7 @@ import New from "../../components/public/new.vue";
 	 					{
 	 						key:'',
 	 						tab:'',
-	 						url:'org',
+	 						url:'',
 	 						urlParams:{},//从后台获取的所有数据
 	 						theads:[''],
 	 						searchPlaceholder:'',
@@ -107,7 +102,7 @@ import New from "../../components/public/new.vue";
 	 						widths:[50],
 	 						colComponent:[], 
 	 						title:'',
-	 						placeholder:'',
+	 						settitle:'',
 	 						options:[],
 	 						operateComponent: [{component: null,params: {}}],
 	 						typeComponent: [{component: null}],
@@ -138,12 +133,6 @@ import New from "../../components/public/new.vue";
 	 		}
 	 	},
 	 	mixins: [computed],
-   //      watch: {
-   //          key () {
-   //              this.tableData = []
-   //              this.getAllMsg()
-   //          }
-   //      }, 
 	 	methods:{ 
 	 		init(index=0){
 	 			this.value=""
@@ -154,26 +143,18 @@ import New from "../../components/public/new.vue";
 	 			this.$set(this,'multipleSelection',[])
 	 		},
 	 		/**
+	 		 * 
              * 列表选择事件
              */
             handleSelectionChange (val) {
                 this.multipleSelection = val
             },
-            getAllMsg (params='') {
-                let host = '/query'
-                if(params.length) host += '?' + params
-                axios.get(this.$adminUrl(this.url) + host, {params: this.urlParams})
-                    .then((responce) => {
-                        this.$set(this, 'tableData', responce.data.data)
-                        this.paginator = responce.data
-                    })
-            },
-
             // tab点击事件
 	 		tabClick(tab,event){
 	 			this.modelIndex=tab.$data.index
 	 			let model=this.$route.params.model
 	 			this.$router.push('/index/'+this.$route.fullPath.split('/')[2]+'/'+model+'/'+this.modelIndex)
+	 			this.settitle=tab.$data.index.settitle
 	 		},
 	 		// 新建点击事件
 	 		handleAdd(){
@@ -182,7 +163,9 @@ import New from "../../components/public/new.vue";
 	 		changeIsShow(){
 	 			this.isShow=false;
 	 		}
-
+	 	},
+	 	components:{
+	 		ContainTitle
 	 	}
 
 
@@ -205,7 +188,8 @@ import New from "../../components/public/new.vue";
 	 .operateBtns {
 
             	display: inline-block;
-            	margin: 0 pxToRem(10);
+            	margin-top:10px;
+            	margin-right:10px;
             }
      .fr{
      	float:right;

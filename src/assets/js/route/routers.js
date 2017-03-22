@@ -24,12 +24,6 @@ const basic = resolve => {
     }, 'basic');
 };
 
-//---------------------------基础信息管理----------------------------------
-//const middle = resolve => {
-//  require.ensure(['../page/middle/middle.vue'], () =>{
-//      resolve(require('../page/middle/middle.vue'));
-//  }, 'middle');
-//}; 
 
 const routes = [
     {
@@ -41,17 +35,13 @@ const routes = [
         path: '/index',
         component: index,
         children:[
-      {
+            {
                 path: 'message/:model/:index',
                 alias: 'reaction/:model/:index',
                 component: basic,
                 meta: { requiresAuth: true }
             },
-              // {
-              //     path:'',
-              //     name:'plant-basic',
-              //     component:basic
-              // },
+              
         ]
     },
     {

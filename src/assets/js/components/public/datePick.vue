@@ -1,5 +1,5 @@
 <template>
-       <div> 
+       <div class="date"> 
             <span>
               <label>开始日期：</label>
                 <el-date-picker 
@@ -45,6 +45,9 @@
 <style lang="sass">
   .margin{
     margin-left:10px;
+  }
+  .date{
+    margin-top:20px;
   }
 
 </style>
