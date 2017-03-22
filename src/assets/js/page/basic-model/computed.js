@@ -9,7 +9,9 @@ export default {
         key () {
             return this.models[this.modelIndex].key
         },
-
+        tab () {
+            return this.models[this.modelIndex].tab
+        },
         url () {
             return this.models[this.modelIndex].url
         },

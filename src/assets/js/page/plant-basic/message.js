@@ -1,4 +1,4 @@
-import TypeManage from 'components/public/type-manage.vue'
+// import TypeManage from 'components/public/type-manage.vue'
 import Add from 'components/public/add.vue'
 export default {
     cultivateBase:[
@@ -12,6 +12,18 @@ export default {
             widths: [50, 50, 50, 50, 50, 50, 50,50],
             colComponent: {},
             operateComponent: [{component: Add, params: {status: 1}}],
+            // newFormList: [
+            //     {title:'新建养殖场信息',form:[
+            //         {isNull:true,lable:"养殖场名称",type:"text",placeholder:"必填",rule:""},
+            //         {isNull:true,lable:"养殖面积",type:"text",placeholder:"请填写数字（必填）单位是亩",rule:""},
+            //         {isNull:false,lable:"负责人",type:"text",placeholder:"",rule:""},
+            //         {isNull:false,lable:"养殖畜禽种类",type:"text",placeholder:"",rule:""},
+            //         {isNull:false,lable:"养殖规模",type:"text",placeholder:"",rule:""},
+            //         {isNull:false,lable:"详细地址",type:"text",placeholder:"",rule:""},
+            //         {isNull:false,lable:"备注信息",type:"textarea",placeholder:"",rule:""},
+            //     ]}
+            // ],
+
         },
         {
             key: 'cultivate',
@@ -22,7 +34,7 @@ export default {
             theads: ['序号', '所属养殖场', '养殖区名称', '养殖面积', '负责人', '养殖畜禽种类', '养殖规模', '详细地址', '备注信息'],
             protos: ['name', 'org_level', 'address', 'zipcode', 'phone', 'cellphone', 'fax', 'meno'],
             widths: [50, 50, 50, 50, 50, 50, 50,50,50],
-            colComponent: {}
+            colComponent: {} 
         },
         {  
             key: 'livestock',

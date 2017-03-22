@@ -22,13 +22,14 @@
                     :model="models[modelIndex]" 
                     class="operateBtns"
                 ></component>
-        <!--<div id="btns">
-        	
+        <div id="btns">
         	<el-button type="primary" size="small" @click="handleAdd">新建</el-button>
 	        <el-button type="primary" class="put-table" size="small">导出表格</el-button>
             <el-button type="primary" size="small">导入</el-button> 
-        </div>-->
+        </div>
 	  </div>
+	  <!-- 新建模块 -->
+	  <new v-if="isShow" :theads="theads" :tab="tab"></new>
      </div>
  
 
@@ -58,8 +59,12 @@
 
 
 <script>
-import computed from './computed.js'  
+import computed from './computed.js';
+import New from "../../components/public/new.vue";
 	 export default{
+	 	components:{
+	 		New
+	 	},
 	 	name:'BasicModel',
 	 	props:{
 	 		models:{
@@ -98,6 +103,9 @@ import computed from './computed.js'
                 tableData: [], 
                 // 被选中的列表项数组
                 multipleSelection: [],
+                // 是否新建
+                isShow:false
+
 
 	 		}
 	 	},
@@ -137,7 +145,18 @@ import computed from './computed.js'
 	 			let model=this.$route.params.model
 	 			this.$router.push('/index/'+this.$route.fullPath.split('/')[2]+'/'+model+'/'+this.modelIndex)
 	 		},
+	 		// 新建点击事件
+	 		handleAdd(){
+	 			this.isShow=true;
+	 			console.log(this.tab);
+	 		},
+	 		changeIsShow(){
+	 			this.isShow=false;
+	 		}
+
 	 	}
+
+
 	 }
 </script>
 
