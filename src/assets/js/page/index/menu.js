@@ -21,19 +21,19 @@ export default [
                 name:'饲料使用管理'
             },
             {
-                path: '/index/message/condition/0',
+                path: '/index/message/plague/0',
                 name:'畜禽病疫管理'
-            },
+            }, 
             {
-                path: '/index/message/condition/0',
+                path: '/index/message/quarantine/0',
                 name:'畜禽检疫管理'
             },
             {
-                path: '/index/message/condition/0',
+                path: '/index/message/pen/0',
                 name:'畜禽圈舍管理'
             },
             {
-                path: '/index/message/condition/0',
+                path: '/index/message/slaughter/0',
                 name:'畜禽出栏管理'
             },
         ]
@@ -44,27 +44,27 @@ export default [
         src:'/public/images/pet.png',
         children: [
             {
-                path: '/index/reaction/early-warning/0',
+                path: '/index/reaction/petbasic/0',
                 name:'基础信息管理'
             },
             {
-                path: '/index/reaction/emergency/0',
+                path: '/index/reaction/petinput/0',
                 name:'畜禽入库管理'
             },
             {
-                path: '/index/reaction/emergency/0',
+                path: '/index/reaction/petProduct/0',
                 name:'加工检疫管理'
             },
             {
-                path: '/index/reaction/emergency/0',
+                path: '/index/reaction/petSerial/0',
                 name:'加工批次管理'
             },
             {
-                path: '/index/reaction/emergency/0',
+                path: '/index/reaction/petBack/0',
                 name:'产品溯源管理'
             },
             {
-                path: '/index/reaction/emergency/0',
+                path: '/index/reaction/petOutput/0',
                 name:'产品出库管理'
             },
         ]
@@ -75,7 +75,7 @@ export default [
         src:'/public/images/plantation.png',
         children: [ 
             {
-                path:'/index/message/org/0',
+                path:'/index/message/plant/0',
                 name:'基础信息管理'
             },
             { 

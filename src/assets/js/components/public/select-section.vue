@@ -3,7 +3,7 @@
  * @description 
  * @author 舒丹彤
  * @date 2017/3/16
- * 
+ *  
  * Props:
  * 
  * @param  placeholder 
@@ -43,7 +43,7 @@
  */
 <template>
     <div class="search-top">
-            <el-select v-model="value" :placeholder="placeholder" class="select">
+            <el-select  :placeholder="placeholder" class="select" size="small">
                 <el-option
                   v-for="item in options"
                   :label="item.label"
@@ -51,7 +51,7 @@
                 </el-option>
           </el-select>
     </div>
-</template>
+</template> 
 
 <script> 
 
@@ -60,23 +60,16 @@
         props:{
             placeholder: {
                 type: String,
-                default: '种植场基地'
+                default: ''
             },
-            params: {
-                type: Object,
-                default () {
-                    return {}
-                }
+            options:{
+                type:Array,
+                default:[]
             }
         },
         data (){
             return {
-                options:[
-                  {
-                    value:'选项1',
-                    label:'阿克苏基地'
-                  }
-                ]
+                    
             }
         },
         computed: {

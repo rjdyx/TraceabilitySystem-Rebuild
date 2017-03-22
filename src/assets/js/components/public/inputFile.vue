@@ -6,9 +6,12 @@
 
  */
 <template>
-	<em>*</em>
+<div>
+		<em>*</em>
 	<label for="newFile">{{title}}：</label>
 	<input id="newFile" type="file" accept="image/png,image/gif" name="file" /> 
+</div>
+
 </template>
 <script>
 	export default{

@@ -1,36 +1,61 @@
 <template>
-<div> 
+<div>  
 	<!-- tab栏 --> 
 	<el-tabs v-model="activeName" type="card" id="tabs" @tab-click="tabClick">
 		<el-tab-pane v-for="(model,index) in models" :label="model.tab" :name="'index'+index"></el-tab-pane>
 	</el-tabs> 
 	<!-- 操作模块 -->
        <div id="operate">
+      			 
         <!-- 搜索框 -->
 		 <div id="inputs">
-	        <el-input
-	          :placeholder="searchPlaceholder"
-	          v-model="inputValue"
-	          :on-icon-click="search" class="search" size="small">
-	        </el-input>
-	        <el-button size="small">搜索</el-button>
+				
+				 <component 
+                    v-for="operate in onlyComponent" 
+                    :is="operate.component"
+                    class="fl" 
+                ></component>
 
-	         <component 
-                    v-for="operate in operateComponent" 
-                    :is="operate.component" 
-                    :params="operate.params" 
-                    :model="models[modelIndex]" 
+		 		<component 
+                    v-for="seoperate in operateComponent" 
+                    :is="seoperate.component" 
+                    class="operateBtns"
+                    :placeholder="placeholder"
+                    :options="seoperate.params"
+                    :value="seoperate.params.value"
+                ></component>
+
+                <!-- 日期 -->
+                <component 
+                    v-for="dateoperate in dateComponent" 
+                    :is="dateoperate.component" 
+                    :params="dateoperate.params"
                     class="operateBtns"
                 ></component>
+<!-- 
         <div id="btns">
         	<el-button type="primary" size="small" @click="handleAdd">新建</el-button>
 	        <el-button type="primary" class="put-table" size="small">导出表格</el-button>
             <el-button type="primary" size="small">导入</el-button> 
-        </div>
-	  </div>
+        </div> -->
+	  	</div>
 	  <!-- 新建模块 -->
 	  <new v-if="isShow" :theads="theads" :tab="tab"></new>
-     </div>
+		        <el-input
+		          :placeholder="searchPlaceholder"
+		          v-model="inputValue"
+		          :on-icon-click="search" class="search" size="small">
+		        </el-input>
+		        <el-button size="small">搜索</el-button>
+
+	         	<component 
+                	v-for="typeOperate in typeComponent" 
+                	:is="typeOperate.component" 
+                	:params="typeOperate.params"
+                	class="operateBtns fr"
+            	></component>
+	 </div>
+
  
 
 	
@@ -80,17 +105,20 @@ import New from "../../components/public/new.vue";
 	 						searchPlaceholder:'',
 	 						protos:['name'],
 	 						widths:[50],
-	 						colComponent:[],
+	 						colComponent:[], 
 	 						title:'',
-	 						operateComponent: [{component: null, params: {}}],
+	 						placeholder:'',
+	 						options:[],
+	 						operateComponent: [{component: null,params: {}}],
+	 						typeComponent: [{component: null}],
+	 						dateComponent: [{component: null}],
+	 						onlyComponent:[{component: null}],
 	 					},
 	 				]
 	 			}
 	 		}
 	 	},
 	 	data(){
-
-	 		let modelIndex = this.$route.params.index?this.$route.params.index:0
 	 		return {
 	 			compute:this,
 	 			// 搜索框内容
@@ -98,7 +126,7 @@ import New from "../../components/public/new.vue";
 	 			// tab模块选择标志
 	 			activeName:'index'+this.$route.params.index,
 	 			//tab对应的模块下标
-	 			modelIndex: modelIndex,
+	 			modelIndex: this.$route.params.index,
 	 			// 列表数据
                 tableData: [], 
                 // 被选中的列表项数组
@@ -118,6 +146,8 @@ import New from "../../components/public/new.vue";
    //      }, 
 	 	methods:{ 
 	 		init(index=0){
+	 			this.value=""
+	 			this.inputValue=''
 	 			this.activeName='index' + index
 	 			this.modelIndex=index
 	 			this.$set(this,'tableData',[])
@@ -148,7 +178,6 @@ import New from "../../components/public/new.vue";
 	 		// 新建点击事件
 	 		handleAdd(){
 	 			this.isShow=true;
-	 			console.log(this.tab);
 	 		},
 	 		changeIsShow(){
 	 			this.isShow=false;
@@ -174,8 +203,14 @@ import New from "../../components/public/new.vue";
 	 	float:right;
 	 }
 	 .operateBtns {
-	 			background: red;
+
             	display: inline-block;
             	margin: 0 pxToRem(10);
             }
+     .fr{
+     	float:right;
+     }
+     .fl{
+     	float:left;
+     }
 </style>

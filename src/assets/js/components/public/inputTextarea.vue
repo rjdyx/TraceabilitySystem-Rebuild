@@ -6,13 +6,16 @@
 
  */
 <template>
-	<em>*</em><label for="newTexttarea"></label><el-input
+<div>
+		<em>*</em><label for="newTexttarea"></label><el-input
 	id="newTexttarea"
   type="textarea"
   :rows="2"
   :placeholder="placeholder"
   v-model="textarea">
 </el-input>
+</div>
+
 </template>
 <script>
 	export default{

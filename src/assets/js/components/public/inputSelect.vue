@@ -6,7 +6,8 @@
 
  */
 <template>
-	<em>*</em>
+<div>
+		<em>*</em>
 	<label for="newSelect"></label>
 	 <el-select id="newSelect" v-model="value" :placeholder="placeholder">
 	    <el-option
@@ -15,6 +16,8 @@
 	      :value="item.value">
 	    </el-option>
 	  </el-select>
+</div>
+
 </template>
 <script>
 	export default{

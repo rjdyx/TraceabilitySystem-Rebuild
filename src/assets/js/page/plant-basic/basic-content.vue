@@ -55,7 +55,6 @@ import reaction from './reaction.js'
     @import "../../../sass/function";
 .content{
     	margin-top: 15px;
-    	
     }
  
 </style>

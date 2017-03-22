@@ -15,8 +15,8 @@ export default new Vuex.Store({
     basicModel
   },
   mutations:{
-  	setTitle(state,title) {
-  		state.title= title;
-  	}
+//	setTitle(state,title) {
+//		state.title= title;
+//	}
   }
 })

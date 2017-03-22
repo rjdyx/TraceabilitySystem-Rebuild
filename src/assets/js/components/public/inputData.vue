@@ -6,9 +6,12 @@
 
  */
 <template>
-	<em>*</em>
-	<label for="newdate">{{title}}：</label>
+<div>
+		<em>*</em>
+	<label for="newdate">{{title}}</label>
 	<input type="date" id="newdate" placeholder="">    
+</div>
+
 </template>
 <script>
 	export default{

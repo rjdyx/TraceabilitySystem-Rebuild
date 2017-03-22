@@ -6,7 +6,10 @@
 
  */
 <template>
+<div>
 	<em>*</em><label for="newText"></label><el-input id="newText" v-model="input" :placeholder="placeholder"></el-input>
+</div>
+	
 </template>
 <script>
 	export default{
