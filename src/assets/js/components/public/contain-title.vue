@@ -7,12 +7,12 @@
  */ 
  <template>
 	<div class="title">
-     <h2>{{title}}</h2>   
+     <h2>{{settitle}}</h2>   
   </div>
 </template> 
 
 <script>
-	export default {
+	export default { 
         name:'ContainTitle',
         data (){
             return {
@@ -20,9 +20,9 @@
             } 
         },
         props:{ 
-            title:{
+            settitle:{
               type:String,
-              default:'种植基础资料'
+              default:''
             }
         },
         computed: {},
@@ -38,6 +38,7 @@
       padding: 20px 8px 14px 0;
       border-bottom: 2px solid #e5e5e5;
       font-size: 18px;
+      margin-bottom: 10px;
       h2 {
         border-left: 4px solid #0099cc;
         border-radius: 4px;

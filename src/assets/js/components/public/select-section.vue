@@ -43,7 +43,7 @@
  */
 <template>
     <div class="search-top">
-            <el-select  :placeholder="placeholder" class="select" size="small">
+            <el-select class="select" size="small" v-model="value">
                 <el-option
                   v-for="item in options"
                   :label="item.label"
@@ -58,10 +58,6 @@
     export default {
         name:'SelectSection',
         props:{
-            placeholder: {
-                type: String,
-                default: ''
-            },
             options:{
                 type:Array,
                 default:[]
@@ -69,7 +65,7 @@
         },
         data (){
             return {
-                    
+                  value:'',
             }
         },
         computed: {

@@ -3,6 +3,37 @@
  */
  
 export default [ 
+    {  
+        name:'基础信息管理',
+        role: 'plant',
+        src:'/public/images/plant.png',
+        children: [
+            {
+                path: '/index/message/categoryBase/0',
+                name:'分类档案管理'
+            },
+            {
+                path: '/index/message/cultivate/0',
+                name:'人员档案管理'
+            },
+            {
+                path: '/index/message/feed/0',
+                name:'专家档案管理'
+            },
+            {
+                path: '/index/message/plague/0',
+                name:'客户档案管理'
+            }, 
+            {
+                path: '/index/message/quarantine/0',
+                name:'供货商档案管理'
+            },
+            {
+                path: '/index/message/pen/0',
+                name:'产品档案管理'
+            },
+        ]
+    }, 
 	{  
         name:'养殖管理',
         role: 'plant',
@@ -22,19 +53,23 @@ export default [
             },
             {
                 path: '/index/message/plague/0',
-                name:'畜禽病疫管理'
+                name:'病疫管理'
             }, 
             {
                 path: '/index/message/quarantine/0',
-                name:'畜禽检疫管理'
+                name:'检疫管理'
             },
             {
                 path: '/index/message/pen/0',
-                name:'畜禽圈舍管理'
+                name:'无害化管理'
             },
             {
                 path: '/index/message/slaughter/0',
-                name:'畜禽出栏管理'
+                name:'出栏管理'
+            },
+            {
+                path: '/index/message/slaughter/0',
+                name:'养殖计划管理'
             },
         ]
     },
@@ -45,27 +80,15 @@ export default [
         children: [
             {
                 path: '/index/reaction/petbasic/0',
-                name:'基础信息管理'
-            },
-            {
-                path: '/index/reaction/petinput/0',
-                name:'畜禽入库管理'
-            },
-            {
-                path: '/index/reaction/petProduct/0',
-                name:'加工检疫管理'
-            },
-            {
-                path: '/index/reaction/petSerial/0',
                 name:'加工批次管理'
             },
             {
-                path: '/index/reaction/petBack/0',
-                name:'产品溯源管理'
+                path: '/index/reaction/petinput/0',
+                name:'检验检测管理'
             },
             {
-                path: '/index/reaction/petOutput/0',
-                name:'产品出库管理'
+                path: '/index/reaction/petProduct/0',
+                name:'产品溯源管理'
             },
         ]
     },
@@ -84,38 +107,15 @@ export default [
             },
             {
                 path: '/webapp/beast',
-                name:'施肥管理'
-            },
-            {
-                path: '/webapp/beast',
-                name:'病虫害管理'
-            },
-            {
-                path: '/webapp/beast',
-                name:'种植检测管理'
-            },
-            {
-                path: '/webapp/beast',
                 name:'农事管理'
             },
             {
                 path: '/webapp/beast',
                 name:'生产计划管理'
             },
-        ]
-    },
-    {
-        name:'果蔬采收管理',
-        role: 'beast',
-        src:'/public/images/vegetable.png',
-        children: [
             {
                 path: '/webapp/beast',
-                name:'采收批次管理'
-            },
-            {
-                path: '/webapp/beast',
-                name:'采收检测管理'
+                name:'采收管理'
             },
         ]
     },
@@ -126,19 +126,11 @@ export default [
         children: [
             {
                 path: '/webapp/beast',
-                name:'基础信息管理'
-            },
-            {
-                path: '/webapp/beast',
                 name:'加工批次管理'
             },
             {
                 path: '/webapp/beast',
                 name:'产品溯源管理'
-            },
-            {
-                path: '/webapp/beast',
-                name:'出库单管理'
             },
         ]
     },
@@ -153,11 +145,7 @@ export default [
             },
             {
                 path: '/webapp/beast',
-                name:'代发货管理'
-            },
-            {
-                path: '/webapp/beast',
-                name:'已发货管理'
+                name:'物流批次管理'
             },
         ]
     },
@@ -168,15 +156,11 @@ export default [
         children: [
             {
                 path: '/webapp/beast',
-                name:'销售基础管理'
+                name:'销售商品库管理'
             },
             {
                 path: '/webapp/beast',
                 name:'销售入库管理'
-            },
-            {
-                path: '/webapp/beast',
-                name:'销售商品库'
             },
             {
                 path: '/webapp/beast',
@@ -199,7 +183,7 @@ export default [
             },
             {
                 path: '/webapp/beast',
-                name:'日志管理'
+                name:'系统日志'
             },
             {
                 path: '/webapp/beast',

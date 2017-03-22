@@ -6,7 +6,7 @@
  * 
  */
 <template> 
-    <div>
+    <div class="vegetableBtn">
         <el-button size="small">全部果蔬档案</el-button>
         <el-button size="small">蔬菜类</el-button>
         <el-button size="small">水果类</el-button>
@@ -41,6 +41,5 @@
 <style lang="sass" scoped>
 
     @import "../../../sass/function";
-
 
 </style>

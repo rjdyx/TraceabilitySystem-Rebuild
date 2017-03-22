@@ -61,5 +61,6 @@ import menu from '../page/index/menu.js'
     .wrap{
         width:100%;
         overflow:hidden;
+        min-width:1280px;
     }
 </style>

@@ -4,11 +4,12 @@
  * @description 中间内容
  * @author 舒丹彤
  * @date 2017/3/15 
- * 
+ *   
  */ 
  <template> 
 	<div class="basic">
-        <contain-title :title="title"></contain-title>
+        <!-- <contain-title :settitle="settitle">
+        </contain-title> -->
         <basic-content></basic-content>
     </div>
 </template>
@@ -16,12 +17,13 @@
 <script>
 import {mapMutations} from 'vuex'
 import {mapState} from 'vuex';
-import ContainTitle from 'components/public/contain-title.vue'
 import BasicContent from '../plant-basic/basic-content.vue'
+// import ContainTitle from 'components/public/contain-title.vue'
+
 
 	export default { 
         name:'Basic',
-        data () {
+        data () { 
             return {
                 
             } 
@@ -32,17 +34,13 @@ import BasicContent from '../plant-basic/basic-content.vue'
         },
         
         mounted() {
-            // this.setTitle('种植')
         },
         methods: {
-            // ...mapMutations([
-            //     'setTitle'
-            //     ])
+
         },
         components:{
-            ContainTitle,
-            // BasicModel
-            BasicContent
+            BasicContent,
+            // ContainTitle
         }
        
 
