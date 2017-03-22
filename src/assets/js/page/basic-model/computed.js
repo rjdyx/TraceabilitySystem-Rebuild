@@ -51,6 +51,9 @@ export default {
         onlyComponent () {
             return this.models[this.modelIndex].onlyComponent
         },
+        newComponent () {
+            return this.models[this.modelIndex].newComponent
+        },
         placeholder () {
            return this.models[this.modelIndex].placeholder
        },

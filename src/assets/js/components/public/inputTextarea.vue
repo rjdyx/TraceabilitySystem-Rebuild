@@ -6,14 +6,18 @@
 
  */
 <template>
-<div>
-		<em>*</em><label for="newTexttarea"></label><el-input
-	id="newTexttarea"
-  type="textarea"
-  :rows="2"
-  :placeholder="placeholder"
-  v-model="textarea">
-</el-input>
+<div class="inputTextarea">
+	<em class="input-imp">*</em>
+	<label class="input-label" for="inputText">{{label}}&nbsp&nbsp:&nbsp&nbsp</label>
+	<el-input
+		class="input-pop"
+		id="inputTextarea"
+		size="small"
+		type="textarea"
+		:rows="2"
+		:placeholder="placeholder"
+		v-model="textarea">
+	</el-input>
 </div>
 
 </template>
@@ -24,14 +28,17 @@
 				type:Boolean,
 				default:true,
 			},
-			title:{
+			label:{
 				type:String,
 				default:"",
-			}
+			},
 			placeholder:{
 				type:String,
 				default:"必填",
 			},
+			rule:{
+				type:String,
+			}
 		},
 		data(){
 			return{
@@ -44,3 +51,9 @@
 
 	}
 </script>
+<style lang="sass" scoped="">
+	@import "../../../sass/public/inputSize.scss";
+	#inputTextarea{
+		width:312px;
+	}
+</style>

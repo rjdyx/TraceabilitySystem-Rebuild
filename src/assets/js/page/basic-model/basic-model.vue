@@ -40,7 +40,7 @@
         </div> -->
 	  	</div>
 	  <!-- 新建模块 -->
-	  <new v-if="isShow" :theads="theads" :tab="tab"></new>
+	  <new v-if="isShow" :newComponent="newComponent"></new>
 		        <el-input
 		          :placeholder="searchPlaceholder"
 		          v-model="inputValue"
@@ -113,6 +113,7 @@ import New from "../../components/public/new.vue";
 	 						typeComponent: [{component: null}],
 	 						dateComponent: [{component: null}],
 	 						onlyComponent:[{component: null}],
+	 						newComponent:[{component:null,isNull:true,label:"",placeholder:"",rule:""}],
 	 					},
 	 				]
 	 			}
@@ -175,12 +176,9 @@ import New from "../../components/public/new.vue";
 	 			let model=this.$route.params.model
 	 			this.$router.push('/index/'+this.$route.fullPath.split('/')[2]+'/'+model+'/'+this.modelIndex)
 	 		},
-	 		// 新建点击事件
-	 		handleAdd(){
-	 			this.isShow=true;
-	 		},
+
 	 		changeIsShow(){
-	 			this.isShow=false;
+	 			this.isShow=!this.isShow;
 	 		}
 
 	 	}

@@ -6,11 +6,13 @@
 
  */
 <template>
-<div>
-		<em>*</em>
-	<label for="newSelect"></label>
-	 <el-select id="newSelect" v-model="value" :placeholder="placeholder">
+<div class="inputSelect">
+	<em class="input-imp">*</em>
+	<label class="input-label" for="inputText">{{label}}&nbsp&nbsp:&nbsp&nbsp</label>
+	 <el-select id="inputSelect" v-model="value" :placeholder="placeholder" size="small">
 	    <el-option
+	      class="input-pop"
+	      size="small"
 	      v-for="item in options"
 	      :label="item.label"
 	      :value="item.value">
@@ -26,17 +28,16 @@
 				type:Boolean,
 				default:true,
 			},
-			title:{
+			label:{
 				type:String,
 				default:"",
-			}
+			},
 			placeholder:{
 				type:String,
 				default:"必填",
 			},
-			options:{
-				type:Array,
-				default:[]
+			rule:{
+				type:String,
 			}
 
 		},
@@ -51,3 +52,9 @@
 
 	}
 </script>
+<style lang="sass" scoped="">
+	@import "../../../sass/public/inputSize.scss";
+	#inputSelect{
+		width:312px;
+	}
+</style>
