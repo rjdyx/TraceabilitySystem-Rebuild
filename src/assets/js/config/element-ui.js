@@ -23,6 +23,7 @@ export
   	Select,
   	Option,
   	RadioGroup,
-  	RadioButton
+  	RadioButton,
+  	DatePicker
 } 
 from 'element-ui'

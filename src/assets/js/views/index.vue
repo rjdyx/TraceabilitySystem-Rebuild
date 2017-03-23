@@ -9,7 +9,7 @@
 <template>
     <div class="wrap">
     	<my-header :navbars="navbars"></my-header>
-    	<sider-bar :menus='menus'></sider-bar>
+    	<sider-bar :menus='menus' :show="show"></sider-bar>
     	<router-view></router-view>
     </div>
 </template>
@@ -44,6 +44,7 @@ import menu from '../page/index/menu.js'
         			}
         		],
                 menus:menu,
+                show:true
         	}
         },
         components:{
