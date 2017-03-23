@@ -179,7 +179,6 @@ export default {
                     }],
 
         },
-<<<<<<< HEAD
         {  
             settitle:'养殖基础信息管理',
             key: 'feed',
@@ -453,8 +452,6 @@ export default {
                     }],
         },
 
-        }
-
     ],
     slaughterManage:[
         {
@@ -483,8 +480,6 @@ export default {
                             ]
                     }],
         },
-
-        }
     ],
     planManage:[
         {
