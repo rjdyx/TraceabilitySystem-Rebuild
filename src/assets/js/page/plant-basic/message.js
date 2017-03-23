@@ -18,12 +18,25 @@ export default {
         {
             settitle:'分类档案管理',
             key: 'cultivation',
-            tab: '养殖场信息',
+            tab: '分类档案信息',
             url: 'org',
             searchPlaceholder: '请输入养殖场进行搜索',
-            theads: ['序号', '养殖场名称', '养殖面积', '负责人', '养殖畜禽种类', '养殖规模', '详细地址', '备注信息'],
+            theads: ['序号', '分类名称', '模块类型', '备注信息'],
             protos: ['name', 'org_level', 'address', 'zipcode', 'phone', 'cellphone', 'fax', 'meno'],
-            widths: [50, 50, 50, 50, 50, 50, 50,50],
+            widths: [50, 50, 50, 50],
+            typeComponent: [{component: importBtn},{component:output},{component: newbuildBtn}],
+        }
+    ],
+    personFile:[
+        {
+            settitle:'人员档案管理',
+            key: 'cultivation',
+            tab: '人员档案信息',
+            url: 'org',
+            searchPlaceholder: '请输入养殖场进行搜索',
+            theads: ['序号', '姓名', '身份', '性别','年龄', '联系方式','地址', '图片','备注信息'],
+            protos: ['name', 'org_level', 'address', 'zipcode', 'phone', 'cellphone', 'fax', 'meno'],
+            widths: [50, 50, 50, 50,50, 50, 50, 50],
             typeComponent: [{component: importBtn},{component:output},{component: newbuildBtn}],
             newComponent:[{tab:"养殖场信息",
                             components:[
@@ -37,17 +50,74 @@ export default {
                             ]
                     }],
         }
+
     ],
-    cultivateBase:[
-        {  
-            settitle:'养殖基础信息管理',
+    expertFile:[
+        {
+            settitle:'专家档案管理',
             key: 'cultivation',
-            tab: '养殖场信息',
+            tab: '专家档案信息',
             url: 'org',
             searchPlaceholder: '请输入养殖场进行搜索',
-            theads: ['序号', '养殖场名称', '养殖面积', '负责人', '养殖畜禽种类', '养殖规模', '详细地址', '备注信息'],
+            theads: ['序号', '专家名称', '级别', '研究领域','单位', '出生年月日','性别', '联系方式','图片'],
             protos: ['name', 'org_level', 'address', 'zipcode', 'phone', 'cellphone', 'fax', 'meno'],
-            widths: [50, 50, 50, 50, 50, 50, 50,50],
+            widths: [50, 50, 50, 50,50,50,50,50,50],
+            typeComponent: [{component: importBtn},{component:output},{component: newbuildBtn}],
+        }
+
+    ],
+    customerFile:[
+        {
+            settitle:'客户档案管理',
+            key: 'cultivation',
+            tab: '客户档案信息',
+            url: 'org',
+            searchPlaceholder: '请输入养殖场进行搜索',
+            theads: ['序号', '管理客户类型', '客户名称', '联系人','电话', '地址','传真', '邮箱','备注'],
+            protos: ['name', 'org_level', 'address', 'zipcode', 'phone', 'cellphone', 'fax', 'meno'],
+            widths: [50, 50, 50, 50,50,50,50,50,50],
+            typeComponent: [{component: importBtn},{component:output},{component: newbuildBtn}],
+        }
+
+    ],
+    supplierFile:[
+        {
+            settitle:'供货商档案管理',
+            key: 'cultivation',
+            tab: '供货商档案信息',
+            url: 'org',
+            searchPlaceholder: '请输入养殖场进行搜索',
+            theads: ['序号', '供货商名称', '电话', '联系人', '地址','备注'],
+            protos: ['name', 'org_level', 'address', 'zipcode', 'phone', 'cellphone', 'fax', 'meno'],
+            widths: [50, 50, 50, 50,50,50],
+            typeComponent: [{component: importBtn},{component:output},{component: newbuildBtn}],
+        }
+
+    ],
+    productFile:[
+        {
+            settitle:'产品档案管理',
+            key: 'cultivation',
+            tab: '产品档案信息',
+            url: 'org',
+            searchPlaceholder: '请输入养殖场进行搜索',
+            theads: ['序号', '名称', '执行标准', '卫生标准','商品型号', '商品简介','包装规格','保质期','食用方法', '存储方法','配料信息','图片','备注'],
+            protos: ['name', 'org_level', 'address', 'zipcode', 'phone', 'cellphone', 'fax', 'meno'],
+            widths: [50, 50, 50, 50,50,50,50, 50, 50, 50,50,50,50],
+            typeComponent: [{component: importBtn},{component:output},{component: newbuildBtn}],
+        }
+
+    ],
+    baseManage:[
+        {  
+            settitle:'基础信息管理',
+            key: 'cultivation',
+            tab: '畜禽档案',
+            url: 'org',
+            searchPlaceholder: '请输入养殖场进行搜索',
+            theads: ['序号', '畜禽名称', '描述', '耳标位置', '图片', '备注信息'],
+            protos: ['name', 'org_level', 'address', 'zipcode', 'phone', 'cellphone', 'fax', 'meno'],
+            widths: [50, 50, 50, 50, 50, 50],
             typeComponent: [{component: importBtn},{component:output},{component: newbuildBtn}],
             newComponent:[{tab:"新建养殖场信息",
                             components:[
@@ -64,11 +134,11 @@ export default {
         {
             settitle:'养殖基础信息管理',
             key: 'cultivate',
-            tab: '养殖区信息',
+            tab: '饲料档案',
             url: 'org',
             searchPlaceholder: '请输入养殖区进行搜索',
             typeComponent: [{component: 'TypeManage', params: {title: '机构类别管理', type: 1}}],
-            theads: ['序号', '所属养殖场', '养殖区名称', '养殖面积', '负责人', '养殖畜禽种类', '养殖规模', '详细地址', '备注信息'],
+            theads: ['序号', '分类', '名称', '用途', '包装规格', '产地', '生产厂家名称', '联系方式', '图片','备注信息'],
             protos: ['name', 'org_level', 'address', 'zipcode', 'phone', 'cellphone', 'fax', 'meno'],
             widths: [50, 50, 50, 50, 50, 50, 50,50,50],
             operateComponent: [{component: selectSection,
@@ -95,12 +165,12 @@ export default {
         {  
             settitle:'养殖基础信息管理',
             key: 'livestock',
-            tab: '畜禽档案',
+            tab: '兽药档案',
             url: 'org',
             searchPlaceholder: '请输入畜禽名称进行搜索',
-            theads: ['序号', '畜禽种类', '畜禽名称', '品种描述', 'RFID位置', '已传图片', '备注信息'],
+            theads: ['序号', '分类', '名称', '用途', '包装规格', '产地', '生产厂家名称', '联系方式','图片', '备注信息'],
             protos: ['name', 'org_level', 'address', 'zipcode', 'phone', 'cellphone', 'fax', 'meno'],
-            widths: [50, 50, 50, 50, 50, 50, 50],
+            widths: [50, 50, 50, 50, 50, 50, 50,50,50,50],
             operateComponent: [{component: selectSection,
                                 params:[
                                             {value:'',label:'请选择'},
@@ -244,20 +314,20 @@ export default {
         },
     ],
    
-    cultivate:[
+    serialManage:[
         {
             settitle:'养殖批次管理',
             key: 'expertManage',
             tab: '养殖批次信息',
             url: 'expert',
             searchPlaceholder: '请输入养殖批次号进行搜索',
-            theads: ['序号', '所属养殖区','养殖批次号','畜禽名称','密度', '数量', '养殖方式', '养殖人', '养殖日期', '已传图片', '备注信息'],
+            theads: ['序号', '批次号','养殖区','畜禽','日期', '数量', '面积', '养殖方式', '养殖人', '备注', '图片状态', '状态'],
             protos: ['name', 'expert_area', 'org_name',  'degree', 'duty', 'title', 'address', 'zipcode', 'company', 'officephone', 'homephone', 'cellphone', 'email', 'meno'],
-            widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
+            widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50,50],
             operateComponent: [{component: selectSection,
                                 params:[
                                             {value:'',label:'养殖区选择'},
-                                            {value:'',label:'示范A区'},
+                                            {value:'示范A区',label:'示范A区'},
                                 ]
                               },
                                 {component: selectSection,
@@ -286,16 +356,16 @@ export default {
                     }],
         },
     ],
-    feed:[
+    feedManage:[
         {
             settitle:'饲料使用管理',
             key: 'expertManage',
-            tab: '饲料使用管理',
+            tab: '饲料使用信息',
             url: 'expert',
             searchPlaceholder: '请输入饲料名称进行搜索',
-            theads: ['序号', '所属养殖区','养殖批次号','畜禽名称','饲料名称', '喂养日期', '平均喂养量', '饲料员', '指导专家', '备注信息'],
+            theads: ['序号', '使用日期','饲料','喂养方式','专家', '操作人员','喂养量', '类型状态', '备注'],
             protos: ['name', 'expert_area', 'org_name',  'degree', 'duty', 'title', 'address', 'zipcode', 'company', 'officephone', 'homephone', 'cellphone', 'email', 'meno'],
-            widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
+            widths: [50, 50, 50, 50, 50, 50, 50, 50, 50],
             dateComponent: [{component: datePick}],
             typeComponent: [{component:output},{component: newbuildBtn}],
             newComponent:[{tab:"饲料使用管理",
@@ -315,16 +385,16 @@ export default {
                     ],
         },
     ],
-    plague:[
+    plagueManage:[
         {
-            settitle:'病疫情管理',
+            settitle:'病疫管理',
             key: 'expertManage',
-            tab: '病疫情信息',
+            tab: '病疫信息',
             url: 'expert',
             searchPlaceholder: '请输入兽药名称',
-            theads: ['序号', '所属养殖区','养殖批次号','畜禽名称','兽药名称', '施药日期', '平均用药量', '治疗方式', '施药人', '指导专家','病情描述', '备注信息'],
+            theads: ['序号', '用药日期','病情描述','兽药','专家', '操作人员', '用药量', '治疗方式', '备注'],
             protos: ['name', 'expert_area', 'org_name',  'degree', 'duty', 'title', 'address', 'zipcode', 'company', 'officephone', 'homephone', 'cellphone', 'email', 'meno'],
-            widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
+            widths: [50, 50, 50, 50, 50, 50, 50, 50, 50],
             dateComponent: [{component: datePick}],
             typeComponent: [{component:output},{component: newbuildBtn}],
             newComponent:[{tab:"新建养殖场信息",
@@ -337,16 +407,16 @@ export default {
                     }],
         },
     ],
-    quarantine:[
+    quarantineManage:[
         {
-            settitle:'畜禽检疫管理',
+            settitle:'检疫管理',
             key: 'waningConditionManage',
-            tab: '畜禽检疫信息',
+            tab: '检疫信息',
             url: 'waningcondition',
             searchPlaceholder: '请输入检测项目名称进行',
-            theads: ['序号', '所属检测机构','养殖批次号','检测品项名称','检测内容', '检测日期', '检测结果', '审批人', '经手人', '指导专家','已传图片', '备注信息'],
+            theads: ['序号', '检测日期','检测项目名称','专家','操作人员', '检测内容', '检测结果', '审批人', '检测报告图片', '备注'],
             protos: ['type', 'code', 'description'],
-            widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
+            widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
             operateComponent: [{component: selectSection,
                                 params:[
                                             {value:'',label:'检测机构'},
@@ -365,16 +435,22 @@ export default {
                     }],
         }
     ],
-    pen:[
+    innocuityManage:[
         {
-            settitle:'畜禽圈舍管理',
-            key: 'planManage',
-            tab: '圈舍信息',
-            url: 'plan',
-            searchPlaceholder: '请输入操作内容进行搜索',
-            theads: ['序号', '所属养殖区','养殖批次号','畜禽名称','操作类型', '操作方式', '操作内容', '操作人', '指导专家', '日期','备注信息'],
-            protos: ['plan_type_name', 'name', 'content'],
-            widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
+            settitle:'无害化管理',
+            key: 'waningConditionManage',
+            tab: '无害化信息',
+            url: 'waningcondition',
+            searchPlaceholder: '请输入检测项目名称进行',
+            theads: ['序号', '无害化批次号','操作日期','操作内容','实行原因', '指导专家', '备注信息'],
+            protos: ['type', 'code', 'description'],
+            widths: [50, 50, 50, 50, 50, 50, 50],
+            operateComponent: [{component: selectSection,
+                                params:[
+                                            {value:'',label:'检测机构'},
+                                            {value:'广州市畜牧局',label:'广州市畜牧局'},
+                                ]
+                              }],
             dateComponent: [{component: datePick}],
             typeComponent: [{component:output},{component: newbuildBtn}],
             newComponent:[{tab:"新建养殖场信息",
@@ -386,17 +462,24 @@ export default {
                             ]
                     }],
         },
+
     ],
-    slaughter:[
+    slaughterManage:[
         {
-            settitle:'畜禽出栏管理',
-            key: 'planManage',
+            settitle:'出栏管理',
+            key: 'waningConditionManage',
             tab: '出栏信息',
-            url: 'plan',
-            searchPlaceholder: '请输入操作内容进行搜索',
-            theads: ['序号', '出栏批次号','所属养殖区','养殖批次号','畜禽名称', '养殖面积', '出栏数量', '出栏日期', '出栏人','备注信息'],
-            protos: ['plan_type_name', 'name', 'content'],
-            widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
+            url: 'waningcondition',
+            searchPlaceholder: '请输入检测项目名称进行',
+            theads: ['序号', '出栏日期','批次号','出栏数量','操作人员', '状态', '备注'],
+            protos: ['type', 'code', 'description'],
+            widths: [50, 50, 50, 50, 50, 50, 50],
+            operateComponent: [{component: selectSection,
+                                params:[
+                                            {value:'',label:'检测机构'},
+                                            {value:'广州市畜牧局',label:'广州市畜牧局'},
+                                ]
+                              }],
             dateComponent: [{component: datePick}],
             typeComponent: [{component:output},{component: newbuildBtn}],
             newComponent:[{tab:"新建养殖场信息",
@@ -409,14 +492,34 @@ export default {
                     }],
         },
     ],
-    petbasic:[
+    planManage:[
         {
-            settitle:'加工基础信息管理',
+            settitle:'养殖计划管理',
+            key: 'waningConditionManage',
+            tab: '养殖计划信息',
+            url: 'waningcondition',
+            searchPlaceholder: '请输入检测项目名称进行',
+            theads: ['序号', '批次号','计划日期','操作类型', '安排人员', '计划内容','操作用户', '备注', ],
+            protos: ['type', 'code', 'description'],
+            widths: [50, 50, 50, 50, 50, 50, 50],
+            operateComponent: [{component: selectSection,
+                                params:[
+                                            {value:'',label:'检测机构'},
+                                            {value:'广州市畜牧局',label:'广州市畜牧局'},
+                                ]
+                              }],
+            dateComponent: [{component: datePick}],
+            typeComponent: [{component:output},{component: newbuildBtn}],
+        }
+    ],
+    petProcess:[
+        {
+            settitle:'加工批次管理',
             key: 'planManage',
-            tab: '产品信息',
+            tab: '加工批次信息',
             url: 'plan',
             searchPlaceholder: '请输入产品名称进行搜索',
-            theads: ['序号', '所属畜禽','产品名称','产品品牌','产品规格', '生产企业', '产地', '执行标准','备注信息'],
+            theads: ['序号', '加工批次号','产品','包装日期','数量(重量)', '单位', '操作人', '录入人','备注信息'],
             protos: ['plan_type_name', 'name', 'content'],
             widths: [50, 50, 50, 50, 50, 50, 50, 50, 50],
             operateComponent: [{component: selectSection, 
@@ -427,52 +530,15 @@ export default {
                               }],
             typeComponent: [{component:output},{component:importBtn},{component: newbuildBtn}],
         },
-        {
-            key: 'planManage',
-            tab: '经销商信息',
-            url: 'plan',
-            searchPlaceholder: '请输入经销商进行搜索',
-            theads: ['序号', '经销商名称','联系人','联系电话','地址', '经销范围','备注信息'],
-            protos: ['plan_type_name', 'name', 'content'],
-            widths: [50, 50, 50, 50, 50, 50, 50],
-            typeComponent: [{component:output},{component:importBtn},{component: newbuildBtn}],
-        },
-        {
-            key: 'planManage',
-            tab: '人物信息',
-            url: 'plan',
-            searchPlaceholder: '请输入加工人名称进行搜索',
-            theads: ['序号', '姓名','性别','职位','年龄', '技术等级', '工龄', '联系电话','备注信息'],
-            protos: ['plan_type_name', 'name', 'content'],
-            widths: [50, 50, 50, 50, 50, 50, 50, 50, 50],
-            typeComponent: [{component:output},{component:importBtn},{component: newbuildBtn}],
-        },
-        {
-            key: 'planManage',
-            tab: '畜禽肢体信息',
-            url: 'plan',
-            searchPlaceholder: '请输入部位名称进行搜索',
-            theads: ['序号', '名称','编号','分类/肢体','畜禽名称','备注信息'],
-            protos: ['plan_type_name', 'name', 'content'],
-            widths: [50, 50, 50, 50, 50, 50],
-            operateComponent: [{component: selectSection, 
-                                params:[
-                                            {value:'',label:'请选择'},
-                                            {value:'分类',label:'分类'},
-                                            {value:'肢体',label:'肢体'},
-                                ]
-                              }],
-            typeComponent: [{component:output},{component: newbuildBtn}],
-        },
     ],
-    petinput:[
+    petDectect:[
         {
-            settitle:'入库批次管理',
+            settitle:'检验检测管理',
             key: 'planManage',
-            tab: '入库批次信息',
+            tab: '检验检测信息',
             url: 'plan',
             searchPlaceholder: '请输入入库批次号',
-            theads: ['序号', '入库批次号','入库日期','产品名称','数量', '入库人', '地址', '位置', '状态','备注信息'],
+            theads: ['序号', '检测名称','检测内容','检测日期','检测结果', '检测机构', '负责人', '处理方法', '图片报告','备注'],
             protos: ['plan_type_name', 'name', 'content'],
             widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
             dateComponent: [{component: datePick}],
@@ -485,20 +551,20 @@ export default {
             typeComponent: [{component:output},{component: newbuildBtn}],
         },
     ],
-    petProduct:[
+    petTrace:[
         {
-            settitle:'加工检疫管理',
+            settitle:'产品溯源管理',
             key: 'planManage',
-            tab: '加工检疫信息',
+            tab: '产品溯源码信息',
             url: 'plan',
-            searchPlaceholder: '请输入批次号进行搜索',
-            theads: ['序号', '检疫批次号','产品名称','检疫名称','检疫日期', '检疫结果', '检疫机构', '负责人', '处理方法','图片报告','备注信息'],
+            searchPlaceholder: '请输入溯源码搜索',
+            theads: ['序号', '加工批次号','产品溯源码','产品名称','生产日期', 'RFID', '肢体部位', '产地','溯源次数','备注信息'],
             protos: ['plan_type_name', 'name', 'content'],
-            widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50,50],
+            widths: [50, 50, 50, 50, 50, 50, 50, 50, 50,50],
             dateComponent: [{component: datePick}],
             operateComponent: [{component: selectSection, 
                                 params:[
-                                            {value:'',label:'请选择产品'},
+                                            {value:'',label:'产品名称'},
                                             {value:'精瘦肉',label:'精瘦肉'},
                                 ]
                               }],

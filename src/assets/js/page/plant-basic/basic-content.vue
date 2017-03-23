@@ -11,7 +11,7 @@
 </template>
  
 <script>
-import BasicModel from '../basic-model/basic-model.vue'
+import BasicModel from '../basicModel/basic-model.vue'
 import message from './message.js'
 import reaction from './reaction.js'
    
@@ -29,9 +29,6 @@ import reaction from './reaction.js'
             } 
         },
          methods: {
-         	 handleClick(tab, event) {
-		        //console.log(tab, event);
-		      }
 
     	},
     	components:{

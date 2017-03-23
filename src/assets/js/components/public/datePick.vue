@@ -5,8 +5,7 @@
                 <el-date-picker 
                   size="small"
                   v-model="value1"
-                  type="date"
-                  placeholder="选择日期">
+                  type="date">
                 </el-date-picker>
             </span>
             <span class="margin">
@@ -14,8 +13,7 @@
                 <el-date-picker 
                   size="small"
                   v-model="value2"
-                  type="date"
-                  placeholder="选择日期">
+                  type="date">
                 </el-date-picker>
             </span>
        </div>
@@ -29,10 +27,11 @@
         data(){
             return{
                 value1:'',
-                value2:''
-            }
+                value2:'',
+                dialogVisible: false
+                }
+            },
             
-        },
         methods: {
 
         }
@@ -48,6 +47,9 @@
   }
   .date{
     margin-top:20px;
+  }
+  .datePick{
+    width:110px;
   }
 
 </style>

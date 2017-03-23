@@ -6,10 +6,10 @@
 	<!-- tab栏 --> 
 	<el-tabs v-model="activeName" type="card" id="tabs" @tab-click="tabClick">
 		<el-tab-pane v-for="(model,index) in models" :label="model.tab" :name="'index'+index"></el-tab-pane>
-	</el-tabs> 
+	</el-tabs>  
 	<!-- 操作模块 -->
-       <div id="operate"> 
-      			 
+
+       <div id="operate">      			 
         <!-- 搜索框 -->
 		 <div id="inputs">
 				<!-- 果蔬按钮 -->
@@ -36,11 +36,11 @@
 	  	</div>
 	 
 		        <el-input
-		          :placeholder="searchPlaceholder"
-		          v-model="inputValue"
-		          :on-icon-click="search" class="search" size="small">
+			          :placeholder="searchPlaceholder"
+			          v-model="inputValue"
+			          :on-icon-click="search" class="searchInp" size="small">
 		        </el-input>
-		        <el-button size="small">搜索</el-button>
+		        <el-button size="small" class="searchBtn">搜索</el-button>
 				<!-- 操作按钮 -->
 	         	<component 
                 	v-for="typeOperate in typeComponent" 
@@ -54,14 +54,17 @@
  <new v-if="isShow" :newComponent="newComponent"></new>
 	<!-- 列表模块 -->
 	<el-table :data="tableData" @selection-change="handleSelectionChange">
-		<el-table-column type="selection" width="55"></el-table-column>
+		<el-table-column type="selection" width="55">
+		</el-table-column>
 			<template v-for="(item,index) in theads">
-					<el-table-column 
-						:props="protos[index]" 
-						:label="item" 
-						:min-width="widths[index]" 
-						show-overflow-tooltip>
-					</el-table-column>
+					<template>
+						<el-table-column 
+							:props="protos[index]" 
+							:label="item" 
+							:min-width="widths[index]" 
+							show-overflow-tooltip>
+						</el-table-column>
+					</template>
 			</template>
 		<el-table-column 
 		label="操作" 
@@ -71,7 +74,7 @@
 </div>
 </template>
 
-
+ 
 <script>
 
 import computed from './computed.js';
@@ -83,7 +86,7 @@ import ContainTitle from 'components/public/contain-title.vue'
 	 	props:{
 	 		models:{
 	 			type:Array, 
-	 			default(){
+	 			default(){ 
 	 				return[
 	 					{
 	 						key:'',
@@ -139,17 +142,18 @@ import ContainTitle from 'components/public/contain-title.vue'
 	 		},
 	 		/**
 	 		 * 
-             * 列表选择事件
+             * 列表选择事件 
              */
             handleSelectionChange (val) {
                 this.multipleSelection = val
             },
             // tab点击事件
 	 		tabClick(tab,event){
+	 			this.settitle=tab.$data.index.settitle
 	 			this.modelIndex=tab.$data.index
 	 			let model=this.$route.params.model
 	 			this.$router.push('/index/'+this.$route.fullPath.split('/')[2]+'/'+model+'/'+this.modelIndex)
-	 			this.settitle=tab.$data.index.settitle
+	 			
 	 		},
 
 	 		changeIsShow(){
@@ -169,7 +173,7 @@ import ContainTitle from 'components/public/contain-title.vue'
 <style lang="sass" scoped>
 	 @import "../../../sass/function";
 
-	 .search{
+	 .searchInp{
 	 	width:161px;
 	 	margin-bottom:10px;
 	 	font-size:12px;
@@ -189,5 +193,8 @@ import ContainTitle from 'components/public/contain-title.vue'
      }
      .fl{
      	float:left;
+     }
+     .searchBtn{
+     	width:62px;
      }
 </style>

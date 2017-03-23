@@ -1,13 +1,6 @@
-import {mapGetters} from 'vuex'
 
 export default {
- 
-    computed: {
-        ...mapGetters([
-            'navbarName',
-            'subNavBarName'
-        ]),
- 
+     computed:{
         modelUrlParams () {
             return this.$route.params.model
         },
@@ -60,9 +53,11 @@ export default {
         newComponent () {
             return this.models[this.modelIndex].newComponent
         },
-        placeholder () {
-           return this.models[this.modelIndex].placeholder
+       settitle () {
+           return this.models[this.modelIndex].settitle
        },
+
+
        options () {
            return this.models[this.modelIndex].options
        },
@@ -70,5 +65,4 @@ export default {
         //         return this.$store.state.author;
         // }
     }
-
 }

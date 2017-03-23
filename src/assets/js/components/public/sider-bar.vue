@@ -1,6 +1,6 @@
 /**
  * 侧边栏组件
- * @description 顶部栏
+ * @description 顶部栏 
  * @author 舒丹彤
  * @date 2017/3/15 
  * 
@@ -18,7 +18,7 @@
             </template>
             <el-menu-item 
                 v-for="(subMenu, subIndex) in menu.children" 
-                :index="subMenu.path" exact>
+                :index="subMenu.path" exact @click="clickEvent(menu,subMenu)"> 
                 {{subMenu.name}}
             </el-menu-item>
       </el-submenu>
@@ -71,5 +71,4 @@ import {mapMutations} from 'vuex'
     	vertical-align: middle;
     	padding-right: 5px;
     }
-	
 </style>
