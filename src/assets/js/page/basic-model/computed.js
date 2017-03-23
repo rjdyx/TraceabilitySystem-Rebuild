@@ -1,12 +1,5 @@
-import {mapGetters} from 'vuex'
 
 export default {
- 
-    computed: {
-        ...mapGetters([
-            'navbarName',
-            'subNavBarName'
-        ]),
  
         modelUrlParams () {
             return this.$route.params.model
@@ -52,12 +45,10 @@ export default {
         onlyComponent () {
             return this.models[this.modelIndex].onlyComponent
         },
-       settitle () {
-           return this.models[this.modelIndex].settitle
-       },
+       // settitle () {
+       //     return this.models[this.modelIndex].settitle
+       // },
        options () {
            return this.models[this.modelIndex].options
        }
     }
-
-}

@@ -8,8 +8,7 @@
 		<el-tab-pane v-for="(model,index) in models" :label="model.tab" :name="'index'+index"></el-tab-pane>
 	</el-tabs> 
 	<!-- 操作模块 -->
-       <div id="operate"> 
-      			 
+       <div id="operate"> 		 
         <!-- 搜索框 -->
 		 <div id="inputs">
 				<!-- 果蔬按钮 -->
@@ -138,10 +137,11 @@ import ContainTitle from 'components/public/contain-title.vue'
             },
             // tab点击事件
 	 		tabClick(tab,event){
+	 			this.settitle=tab.$data.index.settitle
 	 			this.modelIndex=tab.$data.index
 	 			let model=this.$route.params.model
 	 			this.$router.push('/index/'+this.$route.fullPath.split('/')[2]+'/'+model+'/'+this.modelIndex)
-	 			this.settitle=tab.$data.index.settitle
+	 			
 	 		},
 	 	},
 	 	components:{
