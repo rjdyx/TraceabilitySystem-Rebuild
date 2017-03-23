@@ -7,7 +7,7 @@
  */
 <template> 
     <div>
-        <el-button type="primary" size="small">新建</el-button>
+        <el-button type="primary" size="small"  @click="handleAdd">新建</el-button>
     </div>
 </template>
 
@@ -27,7 +27,9 @@
 
         },
         methods:{
-
+            handleAdd(){
+                this.$parent.changeIsShow();
+            }
         }
 
     }

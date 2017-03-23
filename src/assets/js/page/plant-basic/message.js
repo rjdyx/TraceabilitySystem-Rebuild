@@ -1,10 +1,17 @@
+
 import importBtn from 'components/public/import-btn.vue'
 import newbuildBtn from 'components/public/newbuild-btn.vue'
 import output from 'components/public/output.vue'
 import selectSection from 'components/public/select-section.vue'
 import datePick from 'components/public/datePick.vue'
 import vegetableBtn from 'components/public/vegetable-btn.vue'
+
 import categoryBtn from 'components/public/categoryBtn.vue'
+import inputText from "components/public/inputText.vue"
+import inputTextArea from "components/public/inputTextArea.vue"
+import inputSelect from "components/public/inputSelect.vue"
+import inputData from "components/public/inputData.vue"
+import inputFile from "components/public/inputFile.vue"
 
 export default { 
     categoryBase:[
@@ -31,6 +38,17 @@ export default {
             protos: ['name', 'org_level', 'address', 'zipcode', 'phone', 'cellphone', 'fax', 'meno'],
             widths: [50, 50, 50, 50, 50, 50, 50,50],
             typeComponent: [{component: importBtn},{component:output},{component: newbuildBtn}],
+            newComponent:[{tab:"新建养殖场信息",
+                            components:[
+                                {component:inputText,isNull:false,label:"养殖场名称",placeholder:"必填",rule:""},
+                                {component:inputText,isNull:false,label:"养殖面积",placeholder:"请填写数字（必填）单位是亩",rule:""},
+                                {component:inputText,isNull:true,label:"负责人",placeholder:"",rule:""},
+                                {component:inputText,isNull:true,label:"养殖畜禽种类",placeholder:"",rule:""},
+                                {component:inputText,isNull:true,label:"养殖规模",placeholder:"",rule:""},
+                                {component:inputText,isNull:true,label:"地址",placeholder:"",rule:""},
+                                {component:inputTextArea,isNull:true,label:"备注信息",placeholder:"",rule:""},
+                            ]
+                    }],
         },
         {
             settitle:'养殖基础信息管理',
@@ -48,7 +66,20 @@ export default {
                                             {value:'从化养殖基地',label:'从化养殖基地'}
                                         ],
                               }],
-            typeComponent: [{component: importBtn},{component:output},{component: newbuildBtn}],
+            typeComponent: [{component: importBtn},{component:output},{component: newbuildBtn}], 
+            newComponent:[{tab:"新建养殖区信息",
+                            components:[
+                                {component:inputSelect,isNull:false,label:"养殖场名称",placeholder:"请选择养殖场",rule:""},
+                                {component:inputText,isNull:false,label:"养殖区名称",placeholder:"必填",rule:""},
+                                {component:inputText,isNull:false,label:"养殖面积",placeholder:"请填写数字（必填）单位是亩",rule:""},
+                                {component:inputText,isNull:true,label:"负责人",placeholder:"",rule:""},
+                                {component:inputText,isNull:true,label:"养殖畜禽种类",placeholder:"",rule:""},
+                                {component:inputText,isNull:false,label:"养殖规模",placeholder:"请填写数字（必填）单位是亩",rule:""},
+                                {component:inputText,isNull:true,label:"详细地址",placeholder:"",rule:""},
+                                {component:inputTextArea,isNull:true,label:"备注信息",placeholder:"",rule:""},
+                            ]
+                    }],
+             
         },
         {  
             settitle:'养殖基础信息管理',
@@ -67,6 +98,16 @@ export default {
                                         ]
                               }],
             typeComponent: [{component: importBtn},{component:output},{component: newbuildBtn}],
+            newComponent:[{tab:"新建畜禽档案",
+                            components:[
+                                {component:inputText,isNull:false,label:"畜禽名称",placeholder:"必填",rule:""},
+                                {component:inputText,isNull:true,label:"品种描述",placeholder:"请填写数字（必填）单位是亩",rule:""},
+                                {component:inputText,isNull:true,label:"RFID位置",placeholder:"",rule:""},
+                                {component:inputTextArea,isNull:true,label:"备注信息",placeholder:"",rule:""},
+                                {component:inputFile,isNull:true,label:"",placeholder:"",rule:""},
+                            ]
+                    }],
+
         },
         {  
             settitle:'养殖基础信息管理',
@@ -89,6 +130,18 @@ export default {
                                 ]
                               }],
             typeComponent: [{component: importBtn},{component:output},{component: newbuildBtn}],
+            newComponent:[{tab:"新建饲料档案",
+                            components:[
+                                {component:inputSelect,isNull:false,label:"饲料类别",placeholder:"请选择类别",rule:""},
+                                {component:inputText,isNull:false,label:"饲料名称",placeholder:"必填",rule:""},
+                                {component:inputText,isNull:true,label:"用途",placeholder:"",rule:""},
+                                {component:inputText,isNull:true,label:"包装规格",placeholder:"",rule:""},
+                                {component:inputText,isNull:true,label:"生产厂家名称",placeholder:"",rule:""},
+                                {component:inputText,isNull:true,label:"产地",placeholder:"",rule:""},
+                                 {component:inputText,isNull:true,label:"联系方式",placeholder:"请输入11位的手机号（固话用-隔开）",rule:""},
+                                {component:inputTextArea,isNull:true,label:"备注信息",placeholder:"",rule:""},
+                            ]
+                    }],
         },
         {  
             settitle:'养殖基础信息管理',
@@ -110,6 +163,18 @@ export default {
                                 ]
                               }],
             typeComponent: [{component: importBtn},{component:output},{component: newbuildBtn}],
+            newComponent:[{tab:"新建农药档案",
+                            components:[
+                                {component:inputSelect,isNull:false,label:"畜药类别",placeholder:"请选择类别",rule:""},
+                                {component:inputText,isNull:false,label:"兽药名称",placeholder:"必填",rule:""},
+                                {component:inputText,isNull:true,label:"用途",placeholder:"",rule:""},
+                                {component:inputText,isNull:true,label:"包装规格",placeholder:"",rule:""},
+                                {component:inputText,isNull:true,label:"生产厂家名称",placeholder:"",rule:""},
+                                {component:inputText,isNull:true,label:"产地",placeholder:"",rule:""},
+                                {component:inputText,isNull:true,label:"联系方式",placeholder:"请输入11位的手机号（固话用-隔开）",rule:""},
+                                {component:inputTextArea,isNull:true,label:"备注信息",placeholder:"",rule:""},
+                            ]
+                    }],
         },
         {  
             settitle:'养殖基础信息管理',
@@ -121,6 +186,17 @@ export default {
             protos: ['name', 'org_level', 'address', 'zipcode', 'phone', 'cellphone', 'fax', 'meno'],
             widths: [50, 50, 50, 50, 50, 50, 50,50],
             typeComponent: [{component: importBtn},{component:output},{component: newbuildBtn}],
+            newComponent:[{tab:"新建人物档案",
+                            components:[
+                                {component:inputText,isNull:false,label:"姓名",placeholder:"必填",rule:""},
+                                {component:inputSelect,isNull:false,label:"性别",placeholder:"请选择性别",rule:""},
+                                {component:inputText,isNull:true,label:"年龄",placeholder:"必填",rule:""},
+                                {component:inputText,isNull:true,label:"身份",placeholder:"如后勤主管",rule:""},
+                                {component:inputText,isNull:false,label:"联系方式",placeholder:"",rule:""},
+                                {component:inputText,isNull:true,label:"联系地址",placeholder:"请输入11位的手机号（固话用-隔开）",rule:""},
+                                {component:inputText,isNull:true,label:"备注信息",placeholder:"",rule:""},
+                            ]
+                    }],
         },
         {  
             settitle:'养殖基础信息管理',
@@ -141,6 +217,19 @@ export default {
                                 ]
                               }],
             typeComponent: [{component: importBtn},{component:output},{component: newbuildBtn}],
+            newComponent:[{tab:"新建人物档案",
+                            components:[
+                                {component:inputSelect,isNull:false,label:"操作模块",placeholder:"饲料使用",rule:""},
+                                {component:inputText,isNull:false,label:"专家名称",placeholder:"必填",rule:""},
+                                {component:inputText,isNull:false,label:"研究领域",placeholder:"必填",rule:""},
+                                {component:inputText,isNull:false,label:"级别",placeholder:"必填",rule:""},
+                                {component:inputSelect,isNull:false,label:"性别",placeholder:"请选择性别",rule:""},
+                                {component:inputText,isNull:false,label:"年龄",placeholder:"必填",rule:""},
+                                {component:inputText,isNull:true,label:"所属单位",placeholder:"",rule:""},
+                                {component:inputText,isNull:false,label:"联系方式",placeholder:"请输入11位的手机号（固话用-隔开）",rule:""},
+                                {component:inputText,isNull:true,label:"备注信息",placeholder:"",rule:""},
+                            ]
+                    }],
         },
     ],
    
@@ -176,6 +265,14 @@ export default {
                               ],
             dateComponent: [{component: datePick}],
             typeComponent: [{component:output},{component: newbuildBtn}],
+            newComponent:[{tab:"新建养殖场信息",
+                            components:[
+                                {component:inputText,isNull:false,label:"养殖场名称",placeholder:"必填",rule:""},
+                                {component:inputText,isNull:false,label:"养殖面积",placeholder:"请填写数字（必填）单位是亩",rule:""},
+                                {component:inputText,isNull:true,label:"负责人",placeholder:"",rule:""},
+                                {component:inputText,isNull:true,label:"养殖畜禽种类",placeholder:"",rule:""},
+                            ]
+                    }],
         },
     ],
     feed:[
@@ -190,6 +287,21 @@ export default {
             widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
             dateComponent: [{component: datePick}],
             typeComponent: [{component:output},{component: newbuildBtn}],
+            newComponent:[{tab:"饲料使用管理",
+                            components:[
+                                {component:inputSelect,isNull:false,label:"饲料名称",placeholder:"饲料名称",rule:""},
+                                {component:inputText,isNull:true,label:"喂养方式",placeholder:"请填写数字（必填）单位是亩",rule:""},
+                                {component:inputSelect,isNull:false,label:"平均喂养量",placeholder:"",rule:""},
+                                {component:inputSelect,isNull:true,label:"指导专家",placeholder:"",rule:""},
+                                {component:inputSelect,isNull:false,label:"饲养员",placeholder:"请选择饲养员",rule:""},
+                                {component:inputData,isNull:true,label:"喂养日期",placeholder:"",rule:""},
+                                {component:inputTextArea,isNull:true,label:"备注信息",placeholder:"",rule:""},]
+                            },{tab:"选择养殖批次",
+                                components:[
+                                    {component:inputText,isNull:false,label:"养殖场名称",placeholder:"必填",rule:""},
+                                    ]
+                            }
+                    ],
         },
     ],
     plague:[
@@ -204,6 +316,14 @@ export default {
             widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
             dateComponent: [{component: datePick}],
             typeComponent: [{component:output},{component: newbuildBtn}],
+            newComponent:[{tab:"新建养殖场信息",
+                            components:[
+                                {component:inputText,isNull:false,label:"养殖场名称",placeholder:"必填",rule:""},
+                                {component:inputText,isNull:false,label:"养殖面积",placeholder:"请填写数字（必填）单位是亩",rule:""},
+                                {component:inputText,isNull:true,label:"负责人",placeholder:"",rule:""},
+                                {component:inputText,isNull:true,label:"养殖畜禽种类",placeholder:"",rule:""},
+                            ]
+                    }],
         },
     ],
     quarantine:[
@@ -224,6 +344,14 @@ export default {
                               }],
             dateComponent: [{component: datePick}],
             typeComponent: [{component:output},{component: newbuildBtn}],
+            newComponent:[{tab:"新建养殖场信息",
+                            components:[
+                                {component:inputText,isNull:false,label:"养殖场名称",placeholder:"必填",rule:""},
+                                {component:inputText,isNull:false,label:"养殖面积",placeholder:"请填写数字（必填）单位是亩",rule:""},
+                                {component:inputText,isNull:true,label:"负责人",placeholder:"",rule:""},
+                                {component:inputText,isNull:true,label:"养殖畜禽种类",placeholder:"",rule:""},
+                            ]
+                    }],
         }
     ],
     pen:[
@@ -238,6 +366,14 @@ export default {
             widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
             dateComponent: [{component: datePick}],
             typeComponent: [{component:output},{component: newbuildBtn}],
+            newComponent:[{tab:"新建养殖场信息",
+                            components:[
+                                {component:inputText,isNull:false,label:"养殖场名称",placeholder:"必填",rule:""},
+                                {component:inputText,isNull:false,label:"养殖面积",placeholder:"请填写数字（必填）单位是亩",rule:""},
+                                {component:inputText,isNull:true,label:"负责人",placeholder:"",rule:""},
+                                {component:inputText,isNull:true,label:"养殖畜禽种类",placeholder:"",rule:""},
+                            ]
+                    }],
         },
     ],
     slaughter:[
@@ -252,6 +388,14 @@ export default {
             widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
             dateComponent: [{component: datePick}],
             typeComponent: [{component:output},{component: newbuildBtn}],
+            newComponent:[{tab:"新建养殖场信息",
+                            components:[
+                                {component:inputText,isNull:false,label:"养殖场名称",placeholder:"必填",rule:""},
+                                {component:inputText,isNull:false,label:"养殖面积",placeholder:"请填写数字（必填）单位是亩",rule:""},
+                                {component:inputText,isNull:true,label:"负责人",placeholder:"",rule:""},
+                                {component:inputText,isNull:true,label:"养殖畜禽种类",placeholder:"",rule:""},
+                            ]
+                    }],
         },
     ],
     petbasic:[

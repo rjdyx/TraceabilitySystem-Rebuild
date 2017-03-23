@@ -32,7 +32,8 @@
                     :params="dateoperate.params"
                     class="operateBtns"
                 ></component>
-				<!-- 搜索 -->
+	  	</div>
+	 
 		        <el-input
 		          :placeholder="searchPlaceholder"
 		          v-model="inputValue"
@@ -46,10 +47,10 @@
                 	:params="typeOperate.params"
                 	class="operateBtns fr"
             	></component>
-            	
-	  	</div>
-     </div>
 
+	 </div>
+ <!-- 新建模块 -->
+ <new v-if="isShow" :newComponent="newComponent"></new>
 	<!-- 列表模块 -->
 	<el-table :data="tableData" @selection-change="handleSelectionChange">
 		<el-table-column type="selection" width="55"></el-table-column>
@@ -71,8 +72,11 @@
 
 
 <script>
-import computed from './computed.js'  
+
+import computed from './computed.js';
+import New from "../../components/public/new.vue"; 
 import ContainTitle from 'components/public/contain-title.vue'
+
 	 export default{
 	 	name:'BasicModel',
 	 	props:{
@@ -97,6 +101,7 @@ import ContainTitle from 'components/public/contain-title.vue'
 	 						typeComponent: [{component: null}],
 	 						dateComponent: [{component: null}],
 	 						onlyComponent:[{component: null}],
+	 						newComponent:[{tab:{component:null,isNull:true,label:"",placeholder:"",rule:""}}],
 	 					},
 	 				]
 	 			}
@@ -115,6 +120,9 @@ import ContainTitle from 'components/public/contain-title.vue'
                 tableData: [], 
                 // 被选中的列表项数组
                 multipleSelection: [],
+                // 是否新建
+                isShow:false
+
 
 	 		}
 	 	},
@@ -143,10 +151,17 @@ import ContainTitle from 'components/public/contain-title.vue'
 	 			this.$router.push('/index/'+this.$route.fullPath.split('/')[2]+'/'+model+'/'+this.modelIndex)
 	 			
 	 		},
+
+	 		changeIsShow(){
+	 			this.isShow=!this.isShow;
+	 		}
 	 	},
 	 	components:{
-	 		ContainTitle
+	 		ContainTitle,
+	 		New,
 	 	}
+
+
 	 }
 </script>
 

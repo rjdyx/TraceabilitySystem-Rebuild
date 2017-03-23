@@ -8,7 +8,9 @@ export default {
         key () {
             return this.models[this.modelIndex].key
         },
-
+        tab () {
+            return this.models[this.modelIndex].tab
+        },
         url () {
             return this.models[this.modelIndex].url
         },
@@ -45,9 +47,14 @@ export default {
         onlyComponent () {
             return this.models[this.modelIndex].onlyComponent
         },
-       // settitle () {
-       //     return this.models[this.modelIndex].settitle
-       // },
+        newComponent () {
+            return this.models[this.modelIndex].newComponent
+        },
+       settitle () {
+           return this.models[this.modelIndex].settitle
+       },
+
+
        options () {
            return this.models[this.modelIndex].options
        }
