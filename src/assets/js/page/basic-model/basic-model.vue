@@ -34,11 +34,7 @@
                     class="operateBtns"
                 ></component>
 	  	</div>
-	  <!-- 新建模块 -->
-	  <new v-if="isShow" :theads="theads" :tab="tab"></new>
-
-				<!-- 搜索 -->
-
+	 
 		        <el-input
 		          :placeholder="searchPlaceholder"
 		          v-model="inputValue"
@@ -54,7 +50,8 @@
             	></component>
 
 	 </div>
-
+ <!-- 新建模块 -->
+ <new v-if="isShow" :newComponent="newComponent"></new>
 	<!-- 列表模块 -->
 	<el-table :data="tableData" @selection-change="handleSelectionChange">
 		<el-table-column type="selection" width="55"></el-table-column>
@@ -82,9 +79,6 @@ import New from "../../components/public/new.vue";
 import ContainTitle from 'components/public/contain-title.vue'
 
 	 export default{
-	 	components:{
-	 		New
-	 	},
 	 	name:'BasicModel',
 	 	props:{
 	 		models:{
@@ -108,6 +102,7 @@ import ContainTitle from 'components/public/contain-title.vue'
 	 						typeComponent: [{component: null}],
 	 						dateComponent: [{component: null}],
 	 						onlyComponent:[{component: null}],
+	 						newComponent:[{tab:{component:null,isNull:true,label:"",placeholder:"",rule:""}}],
 	 					},
 	 				]
 	 			}
@@ -156,16 +151,14 @@ import ContainTitle from 'components/public/contain-title.vue'
 	 			this.$router.push('/index/'+this.$route.fullPath.split('/')[2]+'/'+model+'/'+this.modelIndex)
 	 			this.settitle=tab.$data.index.settitle
 	 		},
-	 		// 新建点击事件
-	 		handleAdd(){
-	 			this.isShow=true;
-	 		},
+
 	 		changeIsShow(){
-	 			this.isShow=false;
+	 			this.isShow=!this.isShow;
 	 		}
 	 	},
 	 	components:{
-	 		ContainTitle
+	 		ContainTitle,
+	 		New,
 	 	}
 
 

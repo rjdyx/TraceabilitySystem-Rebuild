@@ -8,15 +8,22 @@
 
 
 <template>
-<div class="newBj">
+<div class="newWrap">
 	<div class="newForm">
 		<i class="el-icon-circle-close" @click="closeClick" ></i>
 		<template>
 		  <el-tabs v-model="activeName" @tab-click="handleClick">
-		    <el-tab-pane :label="tab" name="first">
-				<!-- <ul v-for="item in theads">
-					{{item}} <input type="data">
-				</ul> -->
+		    <el-tab-pane v-for="item in newComponent" :label="item.tab" :name="item.tab" >
+		    	<div class="newMain">
+		    		<component 
+						v-for="subItem in item.components" 
+						v-bind:is="subItem.component" 
+						:isNull="subItem.isNull"
+						:label="subItem.label"
+						:placeholder="subItem.placeholder"
+						:rule="subItem.rule">
+					</component>
+		    	</div>
 				
 		    </el-tab-pane> 
 		  </el-tabs>
@@ -29,13 +36,13 @@
 	export default {
     data() {
 	    return {
-	        activeName: 'first',
+	        activeName: this.newComponent[0].tab,
 	        //表单是否显示
 	        // isShow:false,
 	      };
 	    },
 	    props:{
-	    	theads:{
+	    	newComponent:{
 	    		type:Array,
 	    		default:[]
 	    	},
@@ -45,7 +52,7 @@
 	    },
 	    methods: {
 	      handleClick(tab, event) {
-	        console.log(this.tab);
+	        
 	      },
 	      // 关闭表单事件
 	      closeClick(){
@@ -59,7 +66,7 @@
   };
 </script>
 <style lang="sass" scoped>
-.newBj{
+.newWrap{
 	position: fixed;
 	width:100%;
 	height: 100%;
@@ -67,14 +74,17 @@
 	top:0;
 	left:0;
 	z-index:2;
-}
+	text-align:center;
 	.newForm{
-		width:500px;
+		width:626px;
 		position: absolute;
 		background:white;
 		left:50%;
 		top:50%;
 		transform:translateX(-50%) translateY(-50%);
+		.newMain{
+			padding:20px 60px;
+		}
 		.el-icon-circle-close{
 			font-size:24px;
 			color:#8492a6;
@@ -90,5 +100,7 @@
 			color:#0087b5;
 		}
 	}
+}
+	
 
 </style>

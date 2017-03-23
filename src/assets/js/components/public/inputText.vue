@@ -6,10 +6,17 @@
 
  */
 <template>
-<div>
-	<em>*</em><label for="newText"></label><el-input id="newText" v-model="input" :placeholder="placeholder"></el-input>
+<div class="inputText">
+	<em class="input-imp">*</em>
+	<label class="input-label" for="inputText">{{label}}&nbsp&nbsp:&nbsp&nbsp</label>
+	<el-input 
+		class="input-pop"
+		id="inputText"  
+		size="small"
+		v-model="input" 
+		:placeholder="placeholder">
+	</el-input>
 </div>
-	
 </template>
 <script>
 	export default{
@@ -18,14 +25,17 @@
 				type:Boolean,
 				default:true,
 			},
-			title:{
+			label:{
 				type:String,
 				default:"",
-			}
+			},
 			placeholder:{
 				type:String,
-				default:"必填",
+				default:"",
 			},
+			rule:{
+				type:String,
+			}
 		},
 		data(){
 			return{
@@ -38,3 +48,6 @@
 
 	}
 </script>
+<style lang="sass" scoped="">
+	@import "../../../sass/public/inputSize.scss";
+</style>
