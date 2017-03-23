@@ -42,21 +42,21 @@ export default {
             return this.models[this.modelIndex].widths
         },
 
-        // operateComponent () {
-        //     return this.models[this.modelIndex].operateComponent
-        // },
+        operateComponent () {
+            return this.models[this.modelIndex].operateComponent
+        },
         typeComponent () {
             return this.models[this.modelIndex].typeComponent
         },
         dateComponent () {
             return this.models[this.modelIndex].dateComponent
         },
-        // onlyComponent () {
-        //     return this.models[this.modelIndex].onlyComponent
-        // },
-       // settitle () {
-       //     return this.models[this.modelIndex].settitle
-       // },
+        onlyComponent () {
+            return this.models[this.modelIndex].onlyComponent
+        },
+       settitle () {
+           return this.models[this.modelIndex].settitle
+       },
         newComponent () {
             return this.models[this.modelIndex].newComponent
         },
