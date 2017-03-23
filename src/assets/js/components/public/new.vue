@@ -9,7 +9,7 @@
 
 <template>
 <div class="newWrap">
-	<div class="newForm">
+	<form class="newForm">
 		<i class="el-icon-circle-close" @click="closeClick" ></i>
 		<template>
 		  <el-tabs v-model="activeName" @tab-click="handleClick">
@@ -24,19 +24,27 @@
 						:rule="subItem.rule">
 					</component>
 		    	</div>
-				
 		    </el-tab-pane> 
 		  </el-tabs>
 		</template>
-    </div>
+		<ActiveBox></ActiveBox>
+    </form>
 </div>
 	
 </template>
 <script>
+import ActiveBox from "./activebox.vue";
+import store from "../../vuex/index.js";
+import {mapMutations} from 'vuex'
 	export default {
+	components:{
+		ActiveBox,
+	},
     data() {
 	    return {
 	        activeName: this.newComponent[0].tab,
+	        formConList:[],
+	        // author:"",
 	        //表单是否显示
 	        // isShow:false,
 	      };
@@ -52,20 +60,26 @@
 	    },
 	    methods: {
 	      handleClick(tab, event) {
-	        
+
+                
 	      },
 	      // 关闭表单事件
 	      closeClick(){
 	      	this.$parent.changeIsShow();
 	      },
+	      
 
 
-
+	    },
+	    computed: {
+	      // author(){
+	      //   return store.state.author;
+	      // },
 	    }
 
   };
 </script>
-<style lang="sass" scoped>
+<style lang="sass">
 .newWrap{
 	position: fixed;
 	width:100%;
@@ -82,8 +96,12 @@
 		left:50%;
 		top:50%;
 		transform:translateX(-50%) translateY(-50%);
+		box-shadow:1px 1px 50px rgba(0,0,0,.3);
+		border-radius:2px;
+		// animation-d
 		.newMain{
-			padding:20px 60px;
+			padding:10px 60px 20px 60px;
+			border-bottom: 1px solid #d1dbe5;
 		}
 		.el-icon-circle-close{
 			font-size:24px;
@@ -99,6 +117,7 @@
 		.el-icon-circle-close:hover{
 			color:#0087b5;
 		}
+
 	}
 }
 	

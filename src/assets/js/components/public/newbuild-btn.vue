@@ -29,7 +29,8 @@
         methods:{
             handleAdd(){
                 this.$parent.changeIsShow();
-            }
+            },
+            
         }
 
     }

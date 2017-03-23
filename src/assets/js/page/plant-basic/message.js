@@ -25,6 +25,17 @@ export default {
             protos: ['name', 'org_level', 'address', 'zipcode', 'phone', 'cellphone', 'fax', 'meno'],
             widths: [50, 50, 50, 50, 50, 50, 50,50],
             typeComponent: [{component: importBtn},{component:output},{component: newbuildBtn}],
+            newComponent:[{tab:"养殖场信息",
+                            components:[
+                                {component:inputText,isNull:false,label:"养殖场名称",placeholder:"必填",rule:""},
+                                {component:inputText,isNull:false,label:"养殖面积",placeholder:"请填写数字（必填）单位是亩",rule:""},
+                                {component:inputText,isNull:true,label:"负责人",placeholder:"",rule:""},
+                                {component:inputText,isNull:true,label:"养殖畜禽种类",placeholder:"",rule:""},
+                                {component:inputText,isNull:true,label:"养殖规模",placeholder:"",rule:""},
+                                {component:inputText,isNull:true,label:"地址",placeholder:"",rule:""},
+                                {component:inputTextArea,isNull:true,label:"备注信息",placeholder:"",rule:""},
+                            ]
+                    }],
         }
     ],
     cultivateBase:[

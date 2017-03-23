@@ -6,7 +6,7 @@ import * as getters from './getters'
 import basicModel from './modules/basic-model'
 
 
-
+// Vue.use(Vuex)
 export default new Vuex.Store({
 	actions,
 	getters,
@@ -18,5 +18,8 @@ export default new Vuex.Store({
 //	setTitle(state,title) {
 //		state.title= title;
 //	}
-  }
+  },
+  // state:{
+  // 	author:"wuyanping"
+  // }
 })

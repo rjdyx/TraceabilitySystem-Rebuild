@@ -65,7 +65,10 @@ export default {
        },
        options () {
            return this.models[this.modelIndex].options
-       }
+       },
+        // author(){
+        //         return this.$store.state.author;
+        // }
     }
 
 }

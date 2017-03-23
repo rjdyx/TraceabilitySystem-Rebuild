@@ -7,11 +7,11 @@
  */
 <template>
 <div class="inputSelect">
-	<em class="input-imp">*</em>
-	<label class="input-label" for="inputText">{{label}}&nbsp&nbsp:&nbsp&nbsp</label>
-	 <el-select id="inputSelect" v-model="value" :placeholder="placeholder" size="small">
+	<em class="input-imp" v-if="isNull===false">*</em>
+	<label class="input-label" for="inputText">{{label}}&nbsp&nbsp:</label>
+	 <el-select id="inputSelect" class="input-pop" v-model="value" :placeholder="placeholder" size="small">
 	    <el-option
-	      class="input-pop"
+	     
 	      size="small"
 	      v-for="item in options"
 	      :label="item.label"
@@ -52,7 +52,7 @@
 
 	}
 </script>
-<style lang="sass" scoped="">
+<style lang="sass">
 	@import "../../../sass/public/inputSize.scss";
 	#inputSelect{
 		width:312px;

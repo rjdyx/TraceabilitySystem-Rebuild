@@ -7,15 +7,15 @@
  */
 <template>
 <div class="inputText">
-	<em class="input-imp">*</em>
-	<label class="input-label" for="inputText">{{label}}&nbsp&nbsp:&nbsp&nbsp</label>
+	<em class="input-imp" v-if="isNull===false">*</em>
+	<label class="input-label" for="inputText">{{label}}&nbsp&nbsp:</label>
 	<el-input 
 		class="input-pop"
 		id="inputText"  
-		size="small"
 		v-model="input" 
 		:placeholder="placeholder">
 	</el-input>
+
 </div>
 </template>
 <script>
@@ -39,15 +39,26 @@
 		},
 		data(){
 			return{
-				
+				input:"",
 			}
 		},
-		created(){
+		methods:{
+			// 点击确定（提交）时触发该控件的方法
+			verifyFn(){
+				if(isNull==false){
+					if(this.input==null){
 
+					}
+				}
+			}
 		}
-
+		
 	}
 </script>
-<style lang="sass" scoped="">
+<style lang="sass">
 	@import "../../../sass/public/inputSize.scss";
+	#inputText input{
+		outline:none;
+		height:30px;
+	}
 </style>

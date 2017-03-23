@@ -7,8 +7,8 @@
  */
 <template>
 <div class="inputData">
-	<em class="input-imp">*</em>
-	<label class="input-label" for="inputText">{{label}}&nbsp&nbsp:&nbsp&nbsp</label>
+	<em class="input-imp" v-if="isNull===false">*</em>
+	<label class="input-label" for="inputText">{{label}}&nbsp&nbsp:</label>
 	<el-date-picker 
 		class="input-pop"
 	    size="small"

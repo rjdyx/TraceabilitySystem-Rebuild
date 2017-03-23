@@ -7,8 +7,8 @@
  */
 <template>
 <div class="inputTextarea">
-	<em class="input-imp">*</em>
-	<label class="input-label" for="inputText">{{label}}&nbsp&nbsp:&nbsp&nbsp</label>
+	<em class="input-imp" v-if="isNull===false">*</em>
+	<label class="input-label" for="inputText">{{label}}&nbsp&nbsp:</label>
 	<el-input
 		class="input-pop"
 		id="inputTextarea"
@@ -16,7 +16,8 @@
 		type="textarea"
 		:rows="2"
 		:placeholder="placeholder"
-		v-model="textarea">
+		v-model="textarea"
+		>
 	</el-input>
 </div>
 
@@ -42,7 +43,7 @@
 		},
 		data(){
 			return{
-				
+				textarea:"",
 			}
 		},
 		created(){
@@ -51,9 +52,13 @@
 
 	}
 </script>
-<style lang="sass" scoped="">
+<style lang="sass">
 	@import "../../../sass/public/inputSize.scss";
 	#inputTextarea{
 		width:312px;
+		height:60px;
+		textarea{
+			resize:none;
+		}
 	}
 </style>
