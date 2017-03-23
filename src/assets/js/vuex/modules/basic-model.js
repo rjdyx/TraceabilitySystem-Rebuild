@@ -2,8 +2,7 @@
 const state = {
   navbarName: '',
   subNavBarName: '',
-  title:''
-}
+  }
 
 // getters
 const getters = {}
@@ -23,9 +22,7 @@ const mutations = {
   setSubNavBarName(state, subNavBarName) {
     state.subNavBarName = subNavBarName
   },
-  setTitle(state, title) {
-          state.title = title;
-        },
+
 
 }
 

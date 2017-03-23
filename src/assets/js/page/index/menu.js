@@ -1,6 +1,6 @@
 /**
  * 左菜单栏数据
- */
+ */ 
  
 export default [ 
     {  
@@ -13,23 +13,23 @@ export default [
                 name:'分类档案管理'
             },
             {
-                path: '/index/message/cultivate/0',
+                path: '/index/message/personFile/0',
                 name:'人员档案管理'
             },
             {
-                path: '/index/message/feed/0',
+                path: '/index/message/expertFile/0',
                 name:'专家档案管理'
             },
             {
-                path: '/index/message/plague/0',
+                path: '/index/message/customerFile/0',
                 name:'客户档案管理'
             }, 
             {
-                path: '/index/message/quarantine/0',
+                path: '/index/message/supplierFile/0',
                 name:'供货商档案管理'
             },
             {
-                path: '/index/message/pen/0',
+                path: '/index/message/productFile/0',
                 name:'产品档案管理'
             },
         ]
@@ -40,35 +40,35 @@ export default [
         src:'/public/images/plant.png',
         children: [
             {
-                path: '/index/message/cultivateBase/0',
+                path: '/index/message/baseManage/0',
                 name:'基础信息管理'
             },
             {
-                path: '/index/message/cultivate/0',
+                path: '/index/message/serialManage/0',
                 name:'养殖批次管理'
             },
             {
-                path: '/index/message/feed/0',
+                path: '/index/message/feedManage/0',
                 name:'饲料使用管理'
             },
             {
-                path: '/index/message/plague/0',
+                path: '/index/message/plagueManage/0',
                 name:'病疫管理'
             }, 
             {
-                path: '/index/message/quarantine/0',
+                path: '/index/message/quarantineManage/0',
                 name:'检疫管理'
             },
             {
-                path: '/index/message/pen/0',
+                path: '/index/message/innocuityManage/0',
                 name:'无害化管理'
             },
             {
-                path: '/index/message/slaughter/0',
+                path: '/index/message/slaughterManage/0',
                 name:'出栏管理'
             },
             {
-                path: '/index/message/slaughter/0',
+                path: '/index/message/planManage/0',
                 name:'养殖计划管理'
             },
         ]
@@ -76,18 +76,19 @@ export default [
     {
         name:'屠宰加工管理',
         role: 'pet',
+        isEvent: false,
         src:'/public/images/pet.png',
         children: [
             {
-                path: '/index/reaction/petbasic/0',
+                path: '/index/message/petProcess/0',
                 name:'加工批次管理'
             },
             {
-                path: '/index/reaction/petinput/0',
+                path: '/index/message/petDectect/0',
                 name:'检验检测管理'
             },
             {
-                path: '/index/reaction/petProduct/0',
+                path: '/index/message/petTrace/0',
                 name:'产品溯源管理'
             },
         ]
@@ -95,6 +96,7 @@ export default [
     { 
         name:'种植管理',
         role: 'plantation',
+        isEvent: false,
         src:'/public/images/plantation.png',
         children: [ 
             {
@@ -122,6 +124,7 @@ export default [
     {
         name:'果蔬加工管理',
         role: 'product',
+        isEvent: false,
         src:'/public/images/product.png',
         children: [
             {
@@ -137,6 +140,7 @@ export default [
     {
         name:'物流管理',
         role: 'express',
+        isEvent: false,
         src:'/public/images/express.png',
         children: [
             {
@@ -152,6 +156,7 @@ export default [
     {
         name:'销售管理',
         role: 'sale',
+        isEvent: false,
         src:'/public/images/sale.png',
         children: [
             {
@@ -171,6 +176,7 @@ export default [
     {
         name:'系统管理',
         role: 'system',
+        isEvent: false,
         src:'/public/images/system.png',
         children: [
             {

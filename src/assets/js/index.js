@@ -16,7 +16,7 @@ router.afterEach(route => {
 
 const app = new Vue({
   router,
-  // store,
+  store,
   render: h => h(App)
 }).$mount('#app');
 
