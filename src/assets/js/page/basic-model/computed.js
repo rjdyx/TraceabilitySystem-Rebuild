@@ -1,6 +1,6 @@
 
 export default {
- 
+     computed:{
         modelUrlParams () {
             return this.$route.params.model
         },
@@ -59,3 +59,4 @@ export default {
            return this.models[this.modelIndex].options
        }
     }
+}
