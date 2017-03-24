@@ -53,7 +53,9 @@ export default {
        settitle () {
            return this.models[this.modelIndex].settitle
        },
-
+        listComponent () {
+            return this.models[this.modelIndex].listComponent
+        },
 
        options () {
            return this.models[this.modelIndex].options

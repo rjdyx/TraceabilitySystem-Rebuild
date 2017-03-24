@@ -13,6 +13,9 @@ import inputSelect from "components/public/inputSelect.vue"
 import inputData from "components/public/inputData.vue"
 import inputFile from "components/public/inputFile.vue"
 
+
+import edit from 'components/public/edit.vue'
+
 export default { 
     categoryBase:[
         {
@@ -22,9 +25,10 @@ export default {
             url: 'org',
             searchPlaceholder: '请输入养殖场进行搜索',
             theads: ['序号', '分类名称', '模块类型', '备注信息'],
-            protos: ['name', 'org_level', 'address', 'zipcode', 'phone', 'cellphone', 'fax', 'meno'],
+            protos: ['date', 'name', 'province', 'city'],
             widths: [50, 50, 50, 50],
             typeComponent: [{component: importBtn},{component:output},{component: newbuildBtn}],
+            listComponent:[{component:edit}]
         }
     ],
     personFile:[
@@ -620,24 +624,24 @@ export default {
             typeComponent: [{component:output},{component: newbuildBtn}],
         },
     ],
-    plant:[
+    plantBase:[
         {  
             settitle:'种植基础资料',
             key: 'plantation',
-            tab: '种植场信息',
+            tab: '种植场',
             url: 'org',
             searchPlaceholder: '请输入种植场进行搜索',
-            theads: ['序号', '种植场名称', '种植面积', '负责人', '详细地址', '联系电话', '备注信息'],
+            theads: ['序号', '种植场名称','种植面积单位', '种植面积单位', '负责人', '联系电话', '详细地址', '备注信息'],
             protos: ['name', 'org_level', 'address', 'zipcode', 'phone', 'cellphone', 'fax', 'meno'],
-            widths: [50, 50, 50, 50, 50, 50, 50],
+            widths: [50, 50, 50, 50, 50, 50, 50, 50],
             typeComponent: [{component: importBtn},{component:output},{component: newbuildBtn}],
         },
         {  
             key: 'plantArea',
-            tab: '种植区信息',
+            tab: '种植区',
             url: 'org',
             searchPlaceholder: '请输入种植区进行搜索',
-            theads: ['序号', '所属种植场', '果蔬档案', '肥料档案', '种植面积', '负责人', '详细地址', '联系电话','备注信息'],
+            theads: ['序号', '种植场名称', '种植面积', '种植面积单位', '负责人', '联系电话', '详细地址','备注信息'],
             protos: ['name', 'org_level', 'address', 'zipcode', 'phone', 'cellphone', 'fax', 'meno'],
             widths: [50, 50, 50, 50, 50, 50, 50, 50,50],
             operateComponent: [{component: selectSection, 
@@ -653,7 +657,7 @@ export default {
             tab: '果蔬档案',
             url: 'org',
             searchPlaceholder: '请输入果蔬名称进行搜索',
-            theads: ['序号', '果蔬名称', '育苗品种', '移栽品种', '生长周期', '基本特征描述', '已传图片', '备注信息'],
+            theads: ['序号', '果蔬名称', '分类', '生长周期（天）', '基本特征描述','果蔬图片', '备注信息'],
             protos: ['name', 'org_level', 'address', 'zipcode', 'phone', 'cellphone', 'fax', 'meno'],
             widths: [50, 50, 50, 50, 50, 50, 50, 50],
             operateComponent: [{component: selectSection,
@@ -671,7 +675,7 @@ export default {
             tab: '肥料档案',
             url: 'org',
             searchPlaceholder: '请输入肥料名称',
-            theads: ['序号', '肥料类别', '肥料名称', '用途', '包装规格', '经销商名称', '产地', '联系方式', '备注信息'],
+            theads: ['序号', '分类', '用途', '包装规格', '日期', '产地', '经销商名称', '联系方式', '备注'],
             protos: ['name', 'org_level', 'address', 'zipcode', 'phone', 'cellphone', 'fax', 'meno'],
             widths: [50, 50, 50, 50, 50, 50, 50, 50,50],
             operateComponent: [{component: selectSection,
@@ -685,7 +689,7 @@ export default {
         },
         {
             key: 'pesticideArchive',
-            tab: '农药药档案',
+            tab: '农药档案',
             url: 'expert',
             searchPlaceholder: '请输入农药名称',
             theads: ['序号', '农药类别','农药名称','用途','防治对象', '毒性等级', '包装规格', '经销商名称', '产地', '联系方式', '备注'],
@@ -700,24 +704,48 @@ export default {
                                }],
             typeComponent: [{component: importBtn},{component:output},{component:categoryBtn},{component: newbuildBtn}],
         },
-        {
-            key: 'expertArchive',
-            tab: '专家档案',
-            url: 'expert',
-            searchPlaceholder: '请输入专家名称',
-            theads: ['序号', '专家名称','操作模块','研究领域','级别', '年龄', '性别', '联系方式', '所属单位','备注'],
-            protos: ['name', 'expert_area', 'org_name',  'degree', 'duty', 'title', 'address', 'zipcode', 'company', 'officephone', 'homephone', 'cellphone', 'email', 'meno'],
-            widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
-            operateComponent: [{component: selectSection,
-                                params:[
-                                            {value:'',label:'操作模块'},
-                                            {value:'施肥',label:'施肥'},
-                                            {value:'病虫害',label:'病虫害'},
-                                            {value:'检验检测',label:'检验检测'},
-                                            {value:'农事',label:'农事'},
-                                ]
-                              }],
-            typeComponent: [{component: importBtn},{component:output},{component: newbuildBtn}],
-        },
     ], 
+    plantSerial:[
+        {
+            settitle:'种植批次管理',
+            key: 'planManage',
+            tab: '种植批次信息',
+            url: 'plan',
+            theads: ['序号', '种植批次号','果蔬id','种植日期','种植面积', '面积单位', '种植数量', '种植人','录入人','备注'],
+            protos: ['plan_type_name', 'name', 'content'],
+            widths: [50, 50, 50, 50, 50, 50, 50, 50, 50,50],    
+        }
+
+    ],
+    plantFarm:[
+       {
+            settitle:'农事管理',
+            key: 'planManage',
+            tab: '施肥信息',
+            url: 'plan',
+            theads: ['序号', '批次号','施肥日期','天气','肥料', '施用量(Kg)', '施肥人', '施肥方法','录入人','备注'],
+            protos: ['plan_type_name', 'name', 'content'],
+            widths: [50, 50, 50, 50, 50, 50, 50, 50, 50,50],    
+        },
+        {
+            settitle:'农事管理',
+            key: 'planManage',
+            tab: '病虫害信息',
+            url: 'plan',
+            theads: ['序号', '批次号','药剂','喷洒日期','天气','使用量(L)', '施药浓度', '安全隔离期(天)','施用人','施用方法','录入人'],
+            protos: ['plan_type_name', 'name', 'content'],
+            widths: [50, 50, 50, 50, 50, 50, 50, 50, 50,50],    
+        },
+        {
+            settitle:'农事管理',
+            key: 'planManage',
+            tab: '检验检测信息',
+            url: 'plan',
+            theads: ['序号', '批次号','检验类型','检验日期','天气', '检测部门', '检查结果', '检验审批信息','负责人','录入人','备注'],
+            protos: ['plan_type_name', 'name', 'content'],
+            widths: [50, 50, 50, 50, 50, 50, 50, 50, 50,50],    
+        } 
+
+    ]
+
 }

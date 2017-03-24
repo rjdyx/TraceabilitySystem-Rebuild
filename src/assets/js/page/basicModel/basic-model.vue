@@ -26,15 +26,13 @@
                     :options="seoperate.params"
                     :value="seoperate.params.value"
                 ></component>
-                <!-- 日期 -->
+                <!-- 日期 --> 
                 <component 
                     v-for="dateoperate in dateComponent" 
                     :is="dateoperate.component" 
                     :params="dateoperate.params"
                     class="operateBtns"
                 ></component>
-	  	</div>
-	 
 		        <el-input
 			          :placeholder="searchPlaceholder"
 			          v-model="inputValue"
@@ -48,12 +46,13 @@
                 	:params="typeOperate.params"
                 	class="operateBtns fr"
             	></component>
-
-	 </div>
+	 	</div>
  <!-- 新建模块 -->
  <new v-if="isShow" :newComponent="newComponent"></new>
+ </div>
 	<!-- 列表模块 -->
 	<el-table :data="tableData" @selection-change="handleSelectionChange">
+		<!-- 序号 -->
 		<el-table-column type="selection" width="55">
 		</el-table-column>
 			<template v-for="(item,index) in theads">
@@ -63,13 +62,24 @@
 							:label="item" 
 							:min-width="widths[index]" 
 							show-overflow-tooltip>
+								
 						</el-table-column>
 					</template>
 			</template>
 		<el-table-column 
 		label="操作" 
 		:width="150">
+			<template scope="scope">
+		    	<el-button size="small" type="text" @click="handelDel(scope.$index,scope.row)">删除</el-button>   
+		    	 <component 
+                	v-for="listOperate in listComponent" 
+                	:is="listOperate.component" 
+                	:params="listOperate.params"
+                	class="listBtn"
+            	></component>
+		    </template>
 		</el-table-column>
+
 	</el-table>
 </div>
 </template>
@@ -105,6 +115,7 @@ import ContainTitle from 'components/public/contain-title.vue'
 	 						typeComponent: [{component: null}],
 	 						dateComponent: [{component: null}],
 	 						onlyComponent:[{component: null}],
+	 						listComponent:[{component:null}],
 	 						newComponent:[{tab:{component:null,isNull:true,label:"",placeholder:"",rule:""}}],
 	 					},
 	 				]
@@ -121,7 +132,14 @@ import ContainTitle from 'components/public/contain-title.vue'
 	 			//tab对应的模块下标
 	 			modelIndex: this.$route.params.index,
 	 			// 列表数据
-                tableData: [], 
+                tableData: [{
+		          date: '2016-05-03',
+		          name: '王小虎',
+		          province: '上海',
+		          city: '普陀区',
+		          address: '上海市普陀区金沙江路 1518 弄',
+		          zip: 200333
+		        }], 
                 // 被选中的列表项数组
                 multipleSelection: [],
                 // 是否新建
@@ -155,7 +173,24 @@ import ContainTitle from 'components/public/contain-title.vue'
 	 			this.$router.push('/index/'+this.$route.fullPath.split('/')[2]+'/'+model+'/'+this.modelIndex)
 	 			
 	 		},
-
+	 		//点击删除
+	 		handelDel(index,row){
+	 			this.$confirm('你确定要删除该信息吗?','信息',{
+	 				cancelButtonText:'取消',
+	 				confirmButtonText:'确定',
+	 				type:'error'
+	 			}).then(()=>{
+	 				this.$message({
+	 					type:'success',
+	 					message:'删除成功'
+	 				})
+	 			}).catch(()=>{
+	 				this.$message({
+	 					type:'info',
+	 					message:'已取消删除'
+	 				})
+	 			})
+	 		},	
 	 		changeIsShow(){
 	 			this.isShow=!this.isShow;
 	 		}
@@ -196,5 +231,13 @@ import ContainTitle from 'components/public/contain-title.vue'
      }
      .searchBtn{
      	width:62px;
+     }
+     .edit{
+     	display:inline-block;
+     	padding-right:5px;
+     }
+     .listBtn{
+     	float:left;
+     	margin-right:5px;
      }
 </style>
