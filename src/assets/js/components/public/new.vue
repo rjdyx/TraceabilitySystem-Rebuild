@@ -16,12 +16,13 @@
 		    <el-tab-pane v-for="item in newComponent" :label="item.tab" :name="item.tab" >
 		    	<div class="newMain">
 		    		<component 
-						v-for="subItem in item.components" 
-						v-bind:is="subItem.component" 
-						:isNull="subItem.isNull"
-						:label="subItem.label"
-						:placeholder="subItem.placeholder"
-						:rule="subItem.rule">
+						v-for="components in item.components" 
+						v-bind:is="components.component" 
+						:isNull="components.isNull"
+						:label="components.label"
+						:rule="components.rule"
+						:placeholder="components.placeholder"
+						:options="components.options">
 					</component>
 		    	</div>
 		    </el-tab-pane> 

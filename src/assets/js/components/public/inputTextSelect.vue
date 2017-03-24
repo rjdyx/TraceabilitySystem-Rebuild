@@ -1,21 +1,24 @@
 /**
- * inputSelect组件
+ * inputTextarea组件
  * @description 
  * @author 吴燕萍
- * @date 2017/3/21
+ * @date 2017/3/24
 
  */
 <template>
-<div class="inputSelect">
+<div class="inputTextSelect">
 	<em class="input-imp" v-if="isNull===false">*</em>
 	<label class="input-label" for="inputText">{{label}}&nbsp&nbsp:</label>
-	 <el-select id="inputSelect" class="input-pop" v-model="value"  size="small">
-	    <el-option
-	      v-for="item in options"
-	      :label="item.label"
-	      :value="item.value">
-	    </el-option>
-	  </el-select>
+	<el-input placeholder="请输入内容" id="inputTextSelect"
+	class="input-pop" v-model="input5" size="small">
+	    <el-select v-model="select" slot="append">
+	        <el-option v-for="item in options" 
+		        :label="item.label"
+		        :value="item.value" 
+		        size="small">
+	         </el-option>
+	    </el-select>
+	</el-input>
 </div>
 
 </template>
@@ -41,11 +44,11 @@
 				type:Array,
 				default:[],
 			}
-
 		},
 		data(){
 			return{
-				value:'',
+				input:"",
+				select:"",
 			}
 		},
 		created(){
@@ -56,7 +59,11 @@
 </script>
 <style lang="sass">
 	@import "../../../sass/public/inputSize.scss";
-	#inputSelect{
+
+	#inputTextSelect{
 		width:312px;
+		.el-select .el-input {
+		    width: 100px;
+		  }
 	}
 </style>

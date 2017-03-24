@@ -49,7 +49,9 @@
 	 	</div>
  <!-- 新建模块 -->
  <new v-if="isShow" :newComponent="newComponent"></new>
- </div>
+	 </div>
+	<!-- 新建模块 -->
+	<new v-if="isShow" :newComponent="newComponent"></new>
 	<!-- 列表模块 -->
 	<el-table :data="tableData" @selection-change="handleSelectionChange">
 		<!-- 序号 -->
