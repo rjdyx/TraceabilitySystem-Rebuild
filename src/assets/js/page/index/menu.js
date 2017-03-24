@@ -100,15 +100,15 @@ export default [
         src:'/public/images/plantation.png',
         children: [ 
             {
-                path:'/index/message/plant/0',
+                path:'/index/message/plantBase/0',
                 name:'基础信息管理'
             },
             { 
-                path: '/index/message/crew/0',
+                path: '/index/message/plantSerial/0',
                 name:'种植批次管理'
             },
             {
-                path: '/webapp/beast',
+                path: '/index/message/plantFarm/0',
                 name:'农事管理'
             },
             {
