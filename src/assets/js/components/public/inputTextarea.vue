@@ -7,8 +7,7 @@
  */
 <template>
 <div class="inputTextarea">
-	<em class="input-imp" v-if="isNull===false">*</em>
-	<label class="input-label" for="inputText">{{label}}&nbsp&nbsp:</label>
+	
 	<el-input
 		class="input-pop"
 		id="inputTextarea"
