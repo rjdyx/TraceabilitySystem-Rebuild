@@ -67,7 +67,7 @@
 	}
 </script>
 <style>
-	@import "../../../sass/public/inputSize.scss";
+	/*@import "../../../sass/public/inputSize.scss";*/
   .avatar-uploader .el-upload {
     border: 1px dashed #d9d9d9;
     border-radius: 6px;

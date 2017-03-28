@@ -14,6 +14,7 @@
 		</div>
 </template>
 <script>
+
 	export default {
     data() {
 	    return {
@@ -26,7 +27,7 @@
 	    methods: {
 	     	// 确定提交事件
 	     	confirmClick(){
-
+	     		this.$parent.handleClick();
 	     	},
 	     	// 取消事件
 	     	cancelClick(){

@@ -10,7 +10,7 @@
     <div class="wrap">
     	<my-header :navbars="navbars"></my-header>
     	<sider-bar :menus='menus'></sider-bar>
-    	<router-view></router-view>
+    	<router-view></router-view>     
     </div>
 </template>
 
@@ -18,6 +18,7 @@
 import MyHeader from '../components/public/header.vue';
 import SiderBar from '../components/public/sider-bar.vue';
 import menu from '../page/index/menu.js'
+
     export default{
         name:'Index',
         data(){

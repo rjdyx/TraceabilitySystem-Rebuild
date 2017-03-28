@@ -7,10 +7,7 @@
  */
 <template>
 <div class="inputTextSelect">
-	<em class="input-imp" v-if="isNull===false">*</em>
-	<label class="input-label" for="inputText">{{label}}&nbsp&nbsp:</label>
-	<el-input placeholder="请输入内容" id="inputTextSelect"
-	class="input-pop" v-model="input5" size="small">
+	<el-input placeholder="请输入内容" id="inputTextSelect" v-model="input5" size="small">
 	    <el-select v-model="select" slot="append">
 	        <el-option v-for="item in options" 
 		        :label="item.label"
@@ -25,14 +22,7 @@
 <script>
 	export default{
 		props:{
-			isNull:{
-				type:Boolean,
-				default:true,
-			},
-			label:{
-				type:String,
-				default:"",
-			},
+			
 			placeholder:{
 				type:String,
 				default:"必填",
@@ -58,12 +48,15 @@
 	}
 </script>
 <style lang="sass">
-	@import "../../../sass/public/inputSize.scss";
-
+	// @import "../../../sass/public/inputSize.scss";
+.inputTextSelect{
+	display:inline-block;
 	#inputTextSelect{
 		width:312px;
+		margin-left:10px;
 		.el-select .el-input {
 		    width: 100px;
 		  }
 	}
+}
 </style>
