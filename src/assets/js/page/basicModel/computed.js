@@ -4,7 +4,6 @@ export default {
         modelUrlParams () {
             return this.$route.params.model
         },
-
         key () {
             return this.models[this.modelIndex].key
         },
@@ -34,37 +33,24 @@ export default {
         widths () {
             return this.models[this.modelIndex].widths
         },
-
-        operateComponent () {
-            return this.models[this.modelIndex].operateComponent
-        },
         typeComponent () {
             return this.models[this.modelIndex].typeComponent
         },
-        dateComponent () {
-            return this.models[this.modelIndex].dateComponent
-        },
-        onlyComponent () {
-            return this.models[this.modelIndex].onlyComponent
-        },
-       settitle () {
-           return this.models[this.modelIndex].settitle
-       },
         newComponent () {
             return this.models[this.modelIndex].newComponent
         },
-       settitle () {
+        settitle () {
            return this.models[this.modelIndex].settitle
-       },
+        },
         listComponent () {
             return this.models[this.modelIndex].listComponent
         },
-
-       options () {
+        editComponent () {
+            return this.models[this.modelIndex].editComponent
+        },
+        options () {
            return this.models[this.modelIndex].options
-       },
-        // author(){
-        //         return this.$store.state.author;
-        // }
+        },
+        
     }
 }

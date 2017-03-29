@@ -112,11 +112,11 @@ export default [
                 name:'农事管理'
             },
             {
-                path: '/webapp/beast',
+                path: '/index/message/plantProduct/0',
                 name:'生产计划管理'
             },
             {
-                path: '/webapp/beast',
+                path: '/index/message/plantHarvest/0',
                 name:'采收管理'
             },
         ]
@@ -128,11 +128,11 @@ export default [
         src:'/public/images/product.png',
         children: [
             {
-                path: '/webapp/beast',
+                path: '/index/message/vegetableSerial/0',
                 name:'加工批次管理'
             },
             {
-                path: '/webapp/beast',
+                path: '/index/message/vegetableTrace/0',
                 name:'产品溯源管理'
             },
         ]
@@ -144,11 +144,11 @@ export default [
         src:'/public/images/express.png',
         children: [
             {
-                path: '/webapp/beast',
+                path: '/index/message/Logisticbase/0',
                 name:'基础信息管理'
             },
             {
-                path: '/webapp/beast',
+                path: '/index/message/logisticSerial/0',
                 name:'物流批次管理'
             },
         ]
@@ -160,15 +160,15 @@ export default [
         src:'/public/images/sale.png',
         children: [
             {
-                path: '/webapp/beast',
+                path: '/index/message/saleProduct/0',
                 name:'销售商品库管理'
             },
             {
-                path: '/webapp/beast',
+                path: '/index/message/saleInput/0',
                 name:'销售入库管理'
             },
             {
-                path: '/webapp/beast',
+                path: '/index/message/saleOrder/0',
                 name:'销售订单管理'
             },
         ]
@@ -180,19 +180,19 @@ export default [
         src:'/public/images/system.png',
         children: [
             {
-                path: '/webapp/beast',
+                path: '/index/message/systemCompany/0',
                 name:'公司信息管理'
             },
             {
-                path: '/webapp/beast',
+                path: '/index/message/systemUser/0',
                 name:'用户管理'
             },
             {
-                path: '/webapp/beast',
+                path: '/index/message/systemLog/0',
                 name:'系统日志'
             },
             {
-                path: '/webapp/beast',
+                path: '/index/message/systemReport/0',
                 name:'报表统计'
             },
         ]

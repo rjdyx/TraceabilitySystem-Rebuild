@@ -7,7 +7,7 @@
  */
 <template> 
     <div>
-        <el-button type="primary" size="small">导入</el-button> 
+        <el-button type="primary" size="small" class="ImportBtn">导入</el-button> 
     </div>
 </template>
 
@@ -40,5 +40,7 @@
 
     @import "../../../sass/function";
 
-
+    .ImportBtn{
+        margin-left:15px;
+    }
 </style>
