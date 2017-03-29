@@ -1,4 +1,4 @@
-<template>
+<template> 
 <div>   
 	<!-- 标题 -->
 	<contain-title :settitle="settitle">
@@ -8,80 +8,64 @@
 		<el-tab-pane v-for="(model,index) in models" :label="model.tab" :name="'index'+index"></el-tab-pane>
 	</el-tabs>  
 	<!-- 操作模块 -->
+     	<div id="operate">      			  
+		 	<div id="inputs">
 
-       <div id="operate">      			 
-        <!-- 搜索框 -->
-		 <div id="inputs">
-				<!-- 果蔬按钮 -->
-				 <component 
-                    v-for="operate in onlyComponent" 
-                    :is="operate.component"
-                    class="fl" 
-                ></component>
-				<!-- 下拉选框 -->
-		 		<component 
-                    v-for="seoperate in operateComponent" 
-                    :is="seoperate.component" 
-                    class="operateBtns"
-                    :options="seoperate.params"
-                    :value="seoperate.params.value"
-                ></component>
-                <!-- 日期 --> 
-                <component 
-                    v-for="dateoperate in dateComponent" 
-                    :is="dateoperate.component" 
-                    :params="dateoperate.params"
-                    class="operateBtns"
-                ></component>
-		        <el-input
+		 		<!-- 操作模块动态组件 -->
+				<operate :listComponent="listComponent"></operate>
+
+        		<!-- 搜索框 -->
+		        <div class="searchOp">
+		        	<el-input
 			          :placeholder="searchPlaceholder"
 			          v-model="inputValue"
 			          :on-icon-click="search" class="searchInp" size="small">
-		        </el-input>
-		        <el-button size="small" class="searchBtn">搜索</el-button>
+		        	</el-input>
+		       		<el-button size="small" class="searchBtn">搜索</el-button>
+		    	</div>
+
 				<!-- 操作按钮 -->
-	         	<component 
-                	v-for="typeOperate in typeComponent" 
-                	:is="typeOperate.component" 
+	         		<component
+                	v-for="typeOperate in typeComponent"
+                	:is="typeOperate.component"
                 	:params="typeOperate.params"
-                	class="operateBtns fr"
-            	></component>
-	 	</div>
- <!-- 新建模块 -->
- <new v-if="isShow" :newComponent="newComponent"></new>
- </div>
+                	class="fr"
+            		></component>
+
+	 		</div>
+			<!-- 新建模块 -->
+			<new v-if="isShow" :newComponent="newComponent"></new>
+ 	</div>
+
+ 	<!-- 编辑弹出框 -->
+	<pop-edit :editComponent="editComponent" v-if="editShow"></pop-edit>
+
 	<!-- 列表模块 -->
 	<el-table :data="tableData" @selection-change="handleSelectionChange">
 		<!-- 序号 -->
 		<el-table-column type="selection" width="55">
+			</el-table-column>
+				<template v-for="(item,index) in theads">
+						<template>
+							<el-table-column 
+								:props="protos[index]" 
+								:label="item"
+								:min-width="widths[index]" 
+								show-overflow-tooltip>
+							</el-table-column>
+						</template>
+				</template>
+			<el-table-column 
+			label="操作" 
+			:width="150">
+				<template scope="scope" class="operateBtn">
+			    	<el-button size="small" type="text" @click="handelDel(scope.$index,scope.row)">删除</el-button>  
+			    	<el-button class="editBtn" @click="changeEditShow" type="text">编辑</el-button> 
+			    </template>
 		</el-table-column>
-			<template v-for="(item,index) in theads">
-					<template>
-						<el-table-column 
-							:props="protos[index]" 
-							:label="item" 
-							:min-width="widths[index]" 
-							show-overflow-tooltip>
-								
-						</el-table-column>
-					</template>
-			</template>
-		<el-table-column 
-		label="操作" 
-		:width="150">
-			<template scope="scope">
-		    	<el-button size="small" type="text" @click="handelDel(scope.$index,scope.row)">删除</el-button>   
-		    	 <component 
-                	v-for="listOperate in listComponent" 
-                	:is="listOperate.component" 
-                	:params="listOperate.params"
-                	class="listBtn"
-            	></component>
-		    </template>
-		</el-table-column>
-
 	</el-table>
-</div>
+
+</div> 
 </template>
 
  
@@ -89,7 +73,10 @@
 
 import computed from './computed.js';
 import New from "../../components/public/new.vue"; 
-import ContainTitle from 'components/public/contain-title.vue'
+import ContainTitle from 'components/public/contain-title.vue';
+import edit from '../../components/public/edit.vue';
+import operate from '../../components/public/operate.vue';
+import popEdit from '../../components/public/popEdit.vue';
 
 	 export default{
 	 	name:'BasicModel',
@@ -100,7 +87,7 @@ import ContainTitle from 'components/public/contain-title.vue'
 	 				return[
 	 					{
 	 						key:'',
-	 						tab:'',
+	 						tab:'', 
 	 						url:'',
 	 						urlParams:{},//从后台获取的所有数据
 	 						theads:[''],
@@ -109,14 +96,11 @@ import ContainTitle from 'components/public/contain-title.vue'
 	 						widths:[50],
 	 						colComponent:[], 
 	 						title:'',
-	 						settitle:'',
 	 						options:[],
-	 						operateComponent: [{component: null,params: {}}],
-	 						typeComponent: [{component: null}],
-	 						dateComponent: [{component: null}],
-	 						onlyComponent:[{component: null}],
-	 						listComponent:[{component:null}],
+	 						typeComponent: [],
+	 						listComponent:[],
 	 						newComponent:[{tab:{component:null,isNull:true,label:"",placeholder:"",rule:""}}],
+	 						editComponent:[],
 	 					},
 	 				]
 	 			}
@@ -128,7 +112,7 @@ import ContainTitle from 'components/public/contain-title.vue'
 	 			// 搜索框内容
         		inputValue: '',
 	 			// tab模块选择标志
-	 			activeName:'index'+this.$route.params.index,
+	 			// activeName:'index'+this.$route.params.index,
 	 			//tab对应的模块下标
 	 			modelIndex: this.$route.params.index,
 	 			// 列表数据
@@ -143,9 +127,8 @@ import ContainTitle from 'components/public/contain-title.vue'
                 // 被选中的列表项数组
                 multipleSelection: [],
                 // 是否新建
-                isShow:false
-
-
+                isShow:false,
+                editShow:false,
 	 		}
 	 	},
 	 	mixins: [computed],
@@ -159,20 +142,22 @@ import ContainTitle from 'components/public/contain-title.vue'
 	 			this.$set(this,'multipleSelection',[])
 	 		},
 	 		/**
-	 		 * 
-             * 列表选择事件 
+	 		 * 列表选择事件 
+             * 
              */
             handleSelectionChange (val) {
                 this.multipleSelection = val
             },
+            
             // tab点击事件
-	 		tabClick(tab,event){
-	 			this.settitle=tab.$data.index.settitle
-	 			this.modelIndex=tab.$data.index
-	 			let model=this.$route.params.model
-	 			this.$router.push('/index/'+this.$route.fullPath.split('/')[2]+'/'+model+'/'+this.modelIndex)
-	 			
-	 		},
+	 		tabClick(tab, event) {
+
+            	this.modelIndex = tab.$data.index
+                let model = this.$route.params.model
+                // this.settitle=this.model.settitle
+                this.$router.push('/index/' + this.$route.fullPath.split('/')[2] + '/' + model + '/' + this.modelIndex)
+
+            },
 	 		//点击删除
 	 		handelDel(index,row){
 	 			this.$confirm('你确定要删除该信息吗?','信息',{
@@ -193,11 +178,19 @@ import ContainTitle from 'components/public/contain-title.vue'
 	 		},	
 	 		changeIsShow(){
 	 			this.isShow=!this.isShow;
+	 		},
+	 		
+	 		changeEditShow(){
+	 			this.editShow=!this.editShow;
+	 			console.log(274874)
 	 		}
 	 	},
 	 	components:{
 	 		ContainTitle,
 	 		New,
+	 		edit,
+	 		operate,
+	 		popEdit
 	 	}
 
 
@@ -239,5 +232,16 @@ import ContainTitle from 'components/public/contain-title.vue'
      .listBtn{
      	float:left;
      	margin-right:5px;
+     }
+   	 .editBtn{
+     	display:inline-block;
+     	padding-left:10px;
+     }
+     .searchOp{
+     	display:inline;
+     	margin-left: 15px;
+     }
+     .margin{
+     	margin-left:15px;
      }
 </style>

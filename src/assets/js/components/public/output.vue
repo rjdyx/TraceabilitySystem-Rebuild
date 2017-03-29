@@ -1,6 +1,6 @@
 <template>
  
-        <el-button type="primary" size="small">导出表格</el-button>
+        <el-button type="primary" size="small" class="output">导出表格</el-button>
 
 </template>
 
@@ -15,3 +15,9 @@
 
     }
 </script>
+
+<style>
+	.output{
+        margin-left:15px;
+    }
+</style>

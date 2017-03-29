@@ -24,7 +24,7 @@
 						:rule="subItem.rule">
 					</component>
 		    	</div>
-		    </el-tab-pane> 
+		    </el-tab-pane>  
 		  </el-tabs>
 		</template>
 		<ActiveBox></ActiveBox>

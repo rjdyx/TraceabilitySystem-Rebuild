@@ -49,8 +49,8 @@
 
 	}
 </script>
-<style lang="sass" scoped="">
-	@import "../../../sass/public/inputSize.scss";
+<style lang="sass">
+	/*@import "/sass/public/inputSize.scss";*/
 	#inputData{
 		width:312px;
 	}

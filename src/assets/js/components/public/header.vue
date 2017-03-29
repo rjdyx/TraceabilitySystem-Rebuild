@@ -64,10 +64,8 @@
 	          date=new Date();
 	        }
 	        let h=date.getHours();
-	        let m=date.getMinutes();
-	        let s=date.getSeconds();
-	        this.checkTime('m')
-	        this.checkTime('s')
+	        let m=this.checkTime(date.getMinutes());
+	        let s=this.checkTime(date.getSeconds());
 	        var str=h+':'+m+':'+s
 	        this.time=str
       },1000)
