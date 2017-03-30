@@ -15,8 +15,6 @@
 			<input type="file"  class="fileBtn el-upload__input" accept="image/jpeg">
 		</div>
 	</div>
-	<input class="csfile" type="file" accept="image/jpeg">
-	<img class="img">
 <!-- 	<div>
 		<el-upload
 			  class="avatar-uploader"
@@ -29,7 +27,7 @@
 			  <i v-else class="el-icon-plus avatar-uploader-icon"></i>
 		</el-upload>
 	</div> -->
-	<el-button type="primary" size="small" @click="csclick">上传图片</el-button>
+	<el-button type="primary" size="small" >上传图片</el-button>
 	<el-button type="danger" size="small">删除图片</el-button>
 </div>
 
@@ -54,25 +52,29 @@
 		data(){
 			return{
 				 imageUrl: '',
+				 file:{},
 			}
 		},
 		methods: {
-			csclick(){
-				console.log($(".csfile"));	
-			},
 			showFile(){
 				var $file=$(".fileBtn");
-				$file.click();
-				console.log($file[0].value);
-				this.beforeAvatarUpload($(".fileBtn"));
+				var _this=this;
+				 $file.click();
+				 $file.change(function(){
+					 let isJPG_isLt2M =_this.beforeAvatarUpload($file[0]);
+					 console.log(isJPG_isLt2M);
+					 if(isJPG_isLt2M){
+					 	  _this.handleAvatarScucess($file);
+					 }
+					
+				})
 			},
-		    handleAvatarScucess(res, file) {
-		    	
-		        this.imageUrl = URL.createObjectURL(file.raw);
+		    handleAvatarScucess(file) {
+		        this.imageUrl = window.URL.createObjectURL(file.value);
+		        console.log();
 		    },
 		    beforeAvatarUpload(file) {
-		    	console.log(file);
-		        const isJPG = file.type === 'image/jpeg';
+		        const isJPG = file.accept === 'image/jpeg';
 		        const isLt2M = file.size / 1024 / 1024 < 2;
 
 		        if (!isJPG) {
@@ -82,6 +84,17 @@
 		          this.$message.error('上传头像图片大小不能超过 2MB!');
 		        }
 		        return isJPG && isLt2M;
+		    },
+		    getImgUrl(fileObj){
+		    	var url;
+	            if(fileObj.files&&fileObj.files[0]){//火狐下
+	                url=window.URL.createObjectURL(fileObj.files[0]);
+	            }else{////IE下
+	                fileObj.select();
+	                url= fileObj.selection.createRange().text;
+	                document.selection.empty();
+	            }
+	            return url;
 		    }
 		}
 
