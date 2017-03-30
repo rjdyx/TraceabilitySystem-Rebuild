@@ -32,12 +32,9 @@
                 	class="operateBtns fr"
             	></component>
 	 	</div>
-	 </div>
+	</div>
 	<!-- 新建模块 -->
 	<new v-if="isShow" :newComponent="newComponent"></new>
-
-	 		</div>
- 	</div>
 
  	<!-- 编辑弹出框 -->
 	<pop-edit :editComponent="editComponent" v-if="editShow"></pop-edit>
