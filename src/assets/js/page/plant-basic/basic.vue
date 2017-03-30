@@ -23,24 +23,8 @@ import BasicContent from '../plant-basic/basic-content.vue'
 
 	export default { 
         name:'Basic',
-        data () { 
-            return {
-                
-            } 
-        },
-        computed: {
-
-	
-        },
-        
-        mounted() {
-        },
-        methods: {
-
-        },
         components:{
-            BasicContent,
-            // ContainTitle
+            BasicContent
         }
        
 

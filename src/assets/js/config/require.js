@@ -2,23 +2,23 @@
  * js库初始化
  */
 
-require('babel-polyfill'); // 解决手机端uc浏览器、qq浏览器和微信浏览器无法使用部分ES6语法
-require('animate.css'); // 动画css插件
-require('./echarts.js');
+require('babel-polyfill') // 解决手机端uc浏览器、qq浏览器和微信浏览器无法使用部分ES6语法
+require('animate.css') // 动画css插件
+require('./echarts.js')
 
 // 滚动条
 import VuePerfectScrollbar from 'vue-perfect-scrollbar'
 Vue.component('vue-perfect-scrollbar', VuePerfectScrollbar)
 
 // 路由插件
-import VueRouter from 'vue-router';	
-Vue.use(VueRouter);
+import VueRouter from 'vue-router'
+Vue.use(VueRouter)
 
 
 // 表单验证插件
-import VeeValidate from 'vee-validate';	
-import messagesZhCN from 'lang/validate/zh_CN.js';
-import messagesEn from 'lang/validate/en.js';
+import VeeValidate from 'vee-validate'
+import messagesZhCN from 'lang/validate/zh_CN.js'
+import messagesEn from 'lang/validate/en.js'
 Vue.use(VeeValidate, {
     fieldsBagName: 'vfields',
     errorBagName: 'verrors',
@@ -31,7 +31,7 @@ Vue.use(VeeValidate, {
             messages: messagesEn
         }
     }
-});
+})
 
 // const validator=new Vali
 
@@ -83,4 +83,4 @@ Object.keys(elementComponent).forEach(function (component) {
 /**
  * css库
  */
-require('sass/index.scss');
+require('sass/index.scss')

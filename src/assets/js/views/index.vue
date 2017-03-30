@@ -50,7 +50,7 @@ import menu from '../page/index/menu.js'
         },
         components:{
         	MyHeader,
-        	SiderBar,
+        	SiderBar
         },
 
     }
