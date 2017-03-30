@@ -6,8 +6,34 @@
 
  */
 <template>
+
 <div class="inputTextSelect">
-	<el-input placeholder="请输入内容" id="inputTextSelect" v-model="input5" size="small">
+	<div style="margin-top: 15px;">
+		<div class="el-input el-input-group el-input-group--append el-input-group--prepend">
+			
+			<input type="text" placeholder="请输入内容" autocomplete="off" class="el-input__inner"><!---->
+			<div class="el-input-group__append">
+				<div class="el-select"><!---->
+				<div class="el-input"><!---->
+					<i class="el-input__icon el-icon-caret-top"></i>
+					<input type="text" placeholder="请选择" readonly="readonly" autocomplete="off" class="el-input__inner"><!----><!---->
+				</div>
+				<div class="resize-triggers">
+					<div class="expand-trigger">
+						<div style="width: 111px; height: 37px;"></div>
+					</div>
+					<div class="contract-trigger"></div>
+					</div>
+				</div>
+			</div>
+			<!-- <div class="el-input-group__append">
+				<button type="button" class="el-button el-button--default">
+				<i class="el-icon-search"></i>
+				</button>
+			</div> -->
+		</div>
+	</div>
+	<!-- <el-input placeholder="请输入内容" id="inputTextSelect" v-model="input5" size="small">
 	    <el-select v-model="select" slot="append">
 	        <el-option v-for="item in options" 
 		        :label="item.label"
@@ -15,7 +41,7 @@
 		        size="small">
 	         </el-option>
 	    </el-select>
-	</el-input>
+	</el-input> -->
 </div>
 
 </template>

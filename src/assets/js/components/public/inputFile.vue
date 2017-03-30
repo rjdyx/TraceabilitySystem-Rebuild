@@ -61,41 +61,31 @@
 				var _this=this;
 				 $file.click();
 				 $file.change(function(){
-					 let isJPG_isLt2M =_this.beforeAvatarUpload($file[0]);
-					 console.log(isJPG_isLt2M);
-					 if(isJPG_isLt2M){
-					 	  _this.handleAvatarScucess($file);
-					 }
+				 		_this.imageUrl=$file[0].value;
+					 // let isJPG_isLt2M =_this.beforeAvatarUpload($file[0]);
+					 // console.log(isJPG_isLt2M);
+					 // if(isJPG_isLt2M){
+					 // 	  _this.handleAvatarScucess($file);
+					 // }
 					
 				})
 			},
-		    handleAvatarScucess(file) {
-		        this.imageUrl = window.URL.createObjectURL(file.value);
-		        console.log();
-		    },
-		    beforeAvatarUpload(file) {
-		        const isJPG = file.accept === 'image/jpeg';
-		        const isLt2M = file.size / 1024 / 1024 < 2;
+		    // handleAvatarScucess(file) {
+		    //     this.imageUrl = window.URL.createObjectURL(file.value);
+		    //     console.log();
+		    // },
+		    // beforeAvatarUpload(file) {
+		    //     const isJPG = file.accept === 'image/jpeg';
+		    //     const isLt2M = file.size / 1024 / 1024 < 2;
 
-		        if (!isJPG) {
-		          this.$message.error('上传头像图片只能是 JPG 格式!');
-		        }
-		        if (!isLt2M) {
-		          this.$message.error('上传头像图片大小不能超过 2MB!');
-		        }
-		        return isJPG && isLt2M;
-		    },
-		    getImgUrl(fileObj){
-		    	var url;
-	            if(fileObj.files&&fileObj.files[0]){//火狐下
-	                url=window.URL.createObjectURL(fileObj.files[0]);
-	            }else{////IE下
-	                fileObj.select();
-	                url= fileObj.selection.createRange().text;
-	                document.selection.empty();
-	            }
-	            return url;
-		    }
+		    //     if (!isJPG) {
+		    //       this.$message.error('上传头像图片只能是 JPG 格式!');
+		    //     }
+		    //     if (!isLt2M) {
+		    //       this.$message.error('上传头像图片大小不能超过 2MB!');
+		    //     }
+		    //     return isJPG && isLt2M;
+		    // }
 		}
 
 	}

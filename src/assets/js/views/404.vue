@@ -33,6 +33,6 @@
 </style>
 <script>
     export default{
-        name: 'fourOFour'
+      name: 'fourOFour'
     }
 </script>

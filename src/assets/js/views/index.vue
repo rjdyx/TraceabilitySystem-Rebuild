@@ -1,8 +1,8 @@
 /**
  * 
- * æº¯æº--vue,æœ€é¡¶å±‚ç»„ä»¶ 
- * @description æœ€é¡¶å±‚çš„ç»„ä»¶ï¼Œä½†ä¸åŒ…å«ç™»å½•ã€404é¡µé¢è¿™äº›ç»„ä»¶
- * @author èˆ’ä¸¹å½¤ 
+ * ËİÔ´--vue,×î¶¥²ã×é¼ş 
+ * @description ×î¶¥²ãµÄ×é¼ş£¬µ«²»°üº¬µÇÂ¼¡¢404Ò³ÃæÕâĞ©×é¼ş
+ * @author Êæµ¤Í® 
  * @date 2016/12/14
  *  
  */  
@@ -15,46 +15,47 @@
 </template>
 
 <script>
-import MyHeader from '../components/public/header.vue';
-import SiderBar from '../components/public/sider-bar.vue';
+import MyHeader from '../components/public/header.vue'
+import SiderBar from '../components/public/sider-bar.vue'
 import menu from '../page/index/menu.js'
-
-    export default{
-        name:'Index',
-        data(){
-        	return{
-        		navbars:[
-        			{
-        				name:'é¦–é¡µ',
-        				src:'/public/images/home.png'
-        			},{
-        				name:'test',
-        				src:'/public/images/test.png'
-        			},{
-        				name:'å¸®åŠ©',
-        				src:'/public/images/help.png'
-        			},{
-        				name:'è®¾ç½®',
-        				src:'/public/images/set.png'
-        			},{
-        				name:'é—®é¢˜åé¦ˆ',
-        				src:'/public/images/question.png'
-        			},{
-        				name:'é€€å‡º',
-        				src:'/public/images/back.png'
-        			}
-        		],
-                menus:menu,
-                show:true
-        	}
-        },
-        components:{
-        	MyHeader,
-        	SiderBar
-        },
-
+export
+default {
+  name: 'Index',
+  data () {
+    return {
+      navbars: [{
+        name: 'Ê×Ò³',
+        src: '/public/images/home.png'
+      },
+      {
+        name: 'test',
+        src: '/public/images/test.png'
+      },
+      {
+        name: '°ïÖú',
+        src: '/public/images/help.png'
+      },
+      {
+        name: 'ÉèÖÃ',
+        src: '/public/images/set.png'
+      },
+      {
+        name: 'ÎÊÌâ·´À¡',
+        src: '/public/images/question.png'
+      },
+      {
+        name: 'ÍË³ö',
+        src: '/public/images/back.png'
+      }],
+      menus: menu,
+      show: true
     }
-
+  },
+  components: {
+    MyHeader,
+    SiderBar
+  }
+}
 </script>
 <style lang="sass" scoped>
 

@@ -7,11 +7,10 @@ import router from './route/routers.js'
 require('./config/init')
 
 router.beforeEach((to, from, next) => {
-    next()
+  next()
 })
 
 router.afterEach(route => {
-	
 })
 
 const app = new Vue({
@@ -19,4 +18,3 @@ const app = new Vue({
   store,
   render: h => h(App)
 }).$mount('#app')
-

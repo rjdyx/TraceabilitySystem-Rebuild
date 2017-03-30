@@ -7,8 +7,8 @@
  *   
  */ 
  <template> 
-	<div class="basic">
-        <!-- <contain-title :settitle="settitle">
+	<div class='basic'>
+        <!-- <contain-title :settitle='settitle'>
         </contain-title> -->
         <basic-content></basic-content>
     </div>
@@ -16,23 +16,19 @@
 
 <script>
 import {mapMutations} from 'vuex'
-import {mapState} from 'vuex';
+import {mapState} from 'vuex'
 import BasicContent from '../plant-basic/basic-content.vue'
 // import ContainTitle from 'components/public/contain-title.vue'
-
-
-	export default { 
-        name:'Basic',
-        components:{
-            BasicContent
-        }
-       
-
-    }
+export default {
+  name: 'Basic',
+  components: {
+    BasicContent
+  }
+}
 </script>
 
-<style lang="sass" scoped>
-    @import "../../../sass/function";
+<style lang='sass' scoped>
+    @import '../../../sass/function';
     .basic{
     	height: 100%;
         overflow:hidden;

@@ -1,39 +1,38 @@
-
 /**
- * æ‰‹æœºæˆ–å›ºå®šç”µè¯éªŒè¯
+ * ÊÖ»ú»ò¹Ì¶¨µç»°ÑéÖ¤
  */
 exports.phones = () => {
-    return {
-        getMessage:(field) => 'æ ¼å¼é”™è¯¯',
-        validate: (value) => {
-            let length = value.length
-            return (length == 11 && /^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1}))+\d{8})$/.test(value)) || (length == 12 && /^(([0\+]\d{2,3}-)?(0\d{2,3})-)?(\d{7,8})(-(\d{3,}))?$/.test(value))
-        }
+  return {
+    getMessage: (field) => '¸ñÊ½´íÎó',
+    validate: (value) => {
+      let length = value.length
+      return (length === 11 && /^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1}))+\d{8})$/.test(value)) || (length === 12 && /^(([0+]\d{2,3}-)?(0\d{2,3})-)?(\d{7,8})(-(\d{3,}))?$/.test(value))
     }
+  }
 }
 
 /**
- * å›ºå®šç”µè¯éªŒè¯
+ * ¹Ì¶¨µç»°ÑéÖ¤
  */
 exports.phone = () => {
-    return {
-        getMessage:(field) => 'æ ¼å¼é”™è¯¯',
-        validate: (value) => {
-            let length = value.length
-            return length == 12 && /^(([0\+]\d{2,3}-)?(0\d{2,3})-)?(\d{7,8})(-(\d{3,}))?$/.test(value)
-        }
+  return {
+    getMessage: (field) => '¸ñÊ½´íÎó',
+    validate: (value) => {
+      let length = value.length
+      return length === 12 && /^(([0+]\d{2,3}-)?(0\d{2,3})-)?(\d{7,8})(-(\d{3,}))?$/.test(value)
     }
+  }
 }
 
 /**
- * æ‰‹æœºéªŒè¯
+ * ÊÖ»úÑéÖ¤
  */
 exports.cellphone = () => {
-    return {
-        getMessage:(field) => 'æ ¼å¼é”™è¯¯',
-        validate: (value) => {
-            let length = value.length;
-            return length == 11 && /^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1}))+\d{8})$/.test(value)
-        }
+  return {
+    getMessage: (field) => '¸ñÊ½´íÎó',
+    validate: (value) => {
+      let length = value.length
+      return length === 11 && /^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1}))+\d{8})$/.test(value)
     }
+  }
 }
