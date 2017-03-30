@@ -1,4 +1,4 @@
-<template> 
+<template>  
 <div>   
 	<!-- 标题 -->
 	<contain-title :settitle="settitle">
@@ -29,7 +29,7 @@
                 	v-for="typeOperate in typeComponent"
                 	:is="typeOperate.component"
                 	:params="typeOperate.params"
-                	class="operateBtns fr"
+                	class="fr"
             	></component>
 	 	</div>
 	</div>
@@ -42,24 +42,31 @@
 	<!-- 列表模块 -->
 	<el-table :data="tableData" @selection-change="handleSelectionChange">
 		<!-- 序号 -->
-		<el-table-column type="selection" width="55">
-			</el-table-column>
+		<el-table-column 
+			label="序号" 
+			:width="150">
+				<template scope="scope" class="operateBtn">
+			    	<el-checkbox v-model="checked"></el-checkbox>
+			    	<span name="order"></span>
+			    </template>
+		</el-table-column>
+		<!-- <el-table-column type="selection" width="55">
+			</el-table-column> -->
 				<template v-for="(item,index) in theads">
 						<template>
 							<el-table-column 
 								:props="protos[index]" 
 								:label="item"
+								:name="protos"
 								:min-width="widths[index]" 
 								show-overflow-tooltip>
 							</el-table-column>
 						</template>
 				</template>
-			<el-table-column 
-			label="操作" 
-			:width="150">
+			 <el-table-column prop="tag" label="操作" width="150" :filters="[{ text: '图片', value: '图片' }, { text: '打印', value: '打印' }]" :filter-method="filterTag">
 				<template scope="scope" class="operateBtn">
 			    	<el-button size="small" type="text" @click="handelDel(scope.$index,scope.row)">删除</el-button>  
-			    	<el-button class="editBtn" @click="changeEditShow" type="text">编辑</el-button> 
+			    	<el-button @click="changeEditShow" type="text">编辑</el-button> 
 			    </template>
 		</el-table-column>
 	</el-table>
@@ -93,13 +100,13 @@ import popEdit from '../../components/public/popEdit.vue';
 	 						searchPlaceholder:'',
 	 						protos:['name'],
 	 						widths:[50],
-	 						colComponent:[], 
 	 						title:'',
 	 						options:[],
 	 						typeComponent: [],
 	 						listComponent:[],
 	 						newComponent:[{tab:{component:null,isNull:true,label:"",placeholder:"",rule:""}}],
 	 						editComponent:[],
+
 	 					},
 	 				]
 	 			}
@@ -128,6 +135,7 @@ import popEdit from '../../components/public/popEdit.vue';
                 // 是否新建
                 isShow:false,
                 editShow:false,
+                msg:1
 	 		}
 	 	},
 	 	mixins: [computed],
@@ -150,13 +158,19 @@ import popEdit from '../../components/public/popEdit.vue';
             
             // tab点击事件
 	 		tabClick(tab, event) {
-
             	this.modelIndex = tab.$data.index
                 let model = this.$route.params.model
                 // this.settitle=this.model.settitle
                 this.$router.push('/index/' + this.$route.fullPath.split('/')[2] + '/' + model + '/' + this.modelIndex)
 
             },
+
+
+            // 操作更多选项
+	        filterTag(value, row) {
+		        return row.tag === value;
+		    },
+
 	 		//点击删除
 	 		handelDel(index,row){
 	 			this.$confirm('你确定要删除该信息吗?','信息',{
@@ -181,7 +195,6 @@ import popEdit from '../../components/public/popEdit.vue';
 	 		
 	 		changeEditShow(){
 	 			this.editShow=!this.editShow;
-	 			console.log(274874)
 	 		}
 	 	},
 	 	components:{
@@ -223,18 +236,6 @@ import popEdit from '../../components/public/popEdit.vue';
      }
      .searchBtn{
      	width:62px;
-     }
-     .edit{
-     	display:inline-block;
-     	padding-right:5px;
-     }
-     .listBtn{
-     	float:left;
-     	margin-right:5px;
-     }
-   	 .editBtn{
-     	display:inline-block;
-     	padding-left:10px;
      }
      .searchOp{
      	display:inline;
