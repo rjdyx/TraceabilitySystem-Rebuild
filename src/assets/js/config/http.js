@@ -11,11 +11,6 @@ axios.defaults.headers.common = {
 
 // axios
 axios.interceptors.request.use(function (config) {
-	// let method = config.method
-	// if(method !== 'get' && method !== 'post') {
-	// 	config.method = 'post'
-	// 	config.headers = Object.assign(config.headers,{'X-HTTP-Method-Override': method.toUpperCase()});
-	// }
 	return config
 }, function (error) {
 	return Promise.reject(error)

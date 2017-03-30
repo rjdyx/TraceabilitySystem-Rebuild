@@ -14,28 +14,9 @@
 </template>
 
 <script> 
-
-    export default {
-        name:'vegetableBtn',
-        props:{ 
-           
-        },
-        data (){
-            return {
-                
-            }
-        },
-        computed: {
-
-        },
-        methods:{
-
-        }
-
-    }
-
-
-
+export default {
+  name:'vegetableBtn'
+}
 </script>
 
 <style lang="sass" scoped>

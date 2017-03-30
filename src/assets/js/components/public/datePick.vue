@@ -1,6 +1,6 @@
 <template>
-       <div class="date"> 
-            <span>
+	<div class="date">
+		<span>
               <label>开始日期：</label>
                 <el-date-picker 
                   size="small"
@@ -8,7 +8,7 @@
                   type="date">
                 </el-date-picker>
             </span>
-            <span class="margin">
+		<span class="margin">
               <label>结束日期：</label>
                 <el-date-picker 
                   size="small"
@@ -16,40 +16,33 @@
                   type="date">
                 </el-date-picker>
             </span>
-       </div>
+	</div>
 
 </template>
 
 <script>
-
-    export default {
-        name:'datePick',
-        data(){
-            return{
-                value1:'',
-                value2:'',
-                dialogVisible: false
-                }
-            },
-            
-        methods: {
-
-        }
-
-    }
+export default {
+  name: 'datePick',
+  data () {
+    return {
+			value1: '',
+			value2: '',
+			dialogVisible: false
+		}
+},
+}
 </script>
 
-
-
 <style lang="sass">
-  .margin{
-    margin-left:10px;
-  }
-  .date{
-    margin-top:20px;
-  }
-  .datePick{
-    width:110px;
-  }
-
+	.margin {
+		margin-left: 10px;
+	}
+	
+	.date {
+		margin-top: 20px;
+	}
+	
+	.datePick {
+		width: 110px;
+	}
 </style>

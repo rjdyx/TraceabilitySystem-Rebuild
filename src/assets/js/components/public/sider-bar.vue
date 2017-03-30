@@ -29,35 +29,28 @@
 
 <script>
 import {mapMutations} from 'vuex'
-	export default {
-        name:'SiderBar',
-        props:{
-            menus: {
-                type: Array,
-                default () {
-                    return []
-                }
-            }
-        },
-        data (){
-            return {
-                
-            }
-        },
-        computed: {},
-         methods: {
-            ...mapMutations([
-                'setNavbarName',
-                'setSubNavBarName'
-            ]),
-            clickEvent(menu,subMenu){
-                this.setNavbarName(menu.name)
-                this.setSubNavBarName(subMenu.name)
-            }
+export default {
+  name: 'SiderBar',
+  props: {
+    menus: {
+      type: Array,
+      default () {
+        return []
+      }
     }
-       
-
+  },
+  computed: {},
+  methods: {
+    ...mapMutations([
+      'setNavbarName',
+      'setSubNavBarName'
+    ]),
+    clickEvent (menu, subMenu) {
+      this.setNavbarName(menu.name)
+      this.setSubNavBarName(subMenu.name)
     }
+  }
+}
 </script>
 
 <style lang="sass" scoped>

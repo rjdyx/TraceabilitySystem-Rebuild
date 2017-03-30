@@ -7,29 +7,20 @@
  */ 
  <template>
 	<div class="title">
-     <h2>{{settitle}}</h2>   
+    <h2>{{settitle}}</h2>   
   </div>
 </template> 
 
 <script>
-	export default { 
-        name:'ContainTitle',
-        data (){
-            return {
-                
-            } 
-        },
-        props:{ 
-            settitle:{
-              type:String,
-              default:''
-            }
-        },
-        computed: {},
-        methods: {
-        	
-        },
+export default {
+  name: 'ContainTitle',
+  props: {
+    settitle: {
+      type: String,
+      default: ''
     }
+  }
+}
 </script>
 
 <style lang="sass" scoped>

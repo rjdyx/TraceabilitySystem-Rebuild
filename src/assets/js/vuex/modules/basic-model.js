@@ -1,34 +1,26 @@
-
 const state = {
-  navbarName: '',
-  subNavBarName: '',
-  }
-
+	navbarName: '',
+	subNavBarName: ''
+}
 // getters
 const getters = {}
 
 // actions
 const actions = {}
 
-
-
 // mutations
 const mutations = {
 
-  setNavbarName(state, navbarName) {
-    state.navbarName = navbarName
-  },
-
-  setSubNavBarName(state, subNavBarName) {
-    state.subNavBarName = subNavBarName
-  },
-
-
+	setNavbarName( state, navbarName) {
+		state.navbarName = navbarName
+	},
+	setSubNavBarName( state, subNavBarName) {
+		state.subNavBarName = subNavBarName
+	}
 }
-
 export default {
-  state,
-   getters,
-  actions,
-  mutations
+	state,
+  getters,
+	actions,
+	mutations
 }

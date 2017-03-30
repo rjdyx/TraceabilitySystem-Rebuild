@@ -34,56 +34,27 @@
  *    }
  * 
  * 
- * Slots:
- *  
- * @name 
- * 位置：输入框之前
- * 默认内容：<el-select></el-select>
- * 
- */
 <template>
-    <div class="search-top">
-            <el-select class="select" size="small" v-model="value">
-                <el-option
-                  v-for="item in options"
-                  :label="item.label"
-                  :value="item.value">
-                </el-option>
-          </el-select>
-    </div>
-</template> 
+	<div class="search-top">
+		<el-select class="select" size="small" v-model="value">
+			<el-option v-for="item in options" :label="item.label" :value="item.value">
+			</el-option>
+		</el-select>
+	</div>
+</template>
 
-<script> 
-
-    export default {
-        name:'SelectSection',
-        props:{
-            options:{
-                type:Array,
-                default:[]
-            }
-        },
-        data (){
-            return {
-                  value:'',
-            }
-        },
-        computed: {
-
-        },
-        methods:{
-        	
-        }
-
+<script>
+export default {
+  name: 'SelectSection',
+  props: {
+      options: {
+      type: Array,
+      default: []
     }
-
-
-
+  }
+}
 </script>
 
 <style lang="sass" scoped>
-
-    @import "../../../sass/function";
-
-
+	@import "../../../sass/function";
 </style>

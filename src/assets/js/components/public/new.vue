@@ -110,85 +110,71 @@
 </template>
 <script>
 // import ActiveBox from "./activebox.vue";
-import store from "../../vuex/index.js";
-import {mapMutations} from 'vuex';
+// import store from "../../vuex/index.js";
+// import {mapMutations} from 'vuex';
 // import { Validator } from 'vee-validate';
 // import validate from "../../utils/validate.js";
 
-	export default {
-		name: 'validator-example',
-	    // validator: null,
-		components:{
-			// ActiveBox,
-		},
-	 	props:{
-	    	newComponent:{
-	    		type:Array,
-	    		default:[]
-	    	},
-	    	tab:{
-	    		type:String
-	    	}
-	    },
-	    data() {
-		  	let form = {};
-	        this.newComponent[0].components.forEach(function(item){
-	        	form[item.name]="";
-	        });
-		    return {
-		        activeName: this.newComponent[0].tab,
-		        formConList:[],
-		        form: form,
-		   
-		    };
-		},
-	    created() {
+export default {
+  name: 'validator-example',
+  // validator: null,
+  components: {
+    // ActiveBox,
+  },
+  props: {
+    newComponent: {
+      type: Array,
+      default: []
+    },
+    tab: {
+      type: String
+    }
+  },
+  data () {
+    let form = {}
+    this.newComponent[0].components.forEach(function (item) {
+      form[item.name] = ''
+    })
+    return {
+      activeName: this.newComponent[0].tab,
+      formConList: [],
+      form: form
+    }
+  },
+  mounted () {
+    console.log(this.newComponent)
+  },
+  methods: {
+    handleClick () {
 
-	    },
-	    mounted(){
-			console.log(this.newComponent);
-	    },
-	    methods: {
-	     	handleClick() {
-	      		                
-	     	},
-		    // 关闭表单事件
-		    closeClick(){
-		      	this.$parent.changeIsShow();
-		    },
-	     	// 取消事件
-	     	cancelClick(){
-	     		this.$parent.changeIsShow();
-	     	},
-	     	/**
-            * 提交表单
-            */
-	        submitForm(){
-	        	 // 验证表单
-                this.$validator.validateAll();
-                 // 如果表单报错则不提交
-                if(this.verrors.any()) {
-                	console.log(this.verrors);
-                    return false
-                }else {
-                	console.log("提交成功");
-                	for(let key  of Object.keys(this.form)) {
-				     	console.log(key + ": " + this.form[key]);
-					}	
-                }
-
-	     	},
-	   
-	    
-	    },
-	
-	    computed: {
-	      // author(){
-	      //   return store.state.author;
-	      // },
-	    }
-
-  };
+    },
+    // 关闭表单事件
+    closeClick () {
+      this.$parent.changeIsShow()
+    },
+    // 取消事件
+    cancelClick () {
+      this.$parent.changeIsShow()
+    },
+    /**
+      * 提交表单
+      */
+    submitForm () {
+      // 验证表单
+      this.$validator.validateAll()
+      // 如果表单报错则不提交
+      if (this.verrors.any()) {
+        console.log(this.verrors)
+        return false
+      } else {
+        console.log('提交成功')
+        for (let key of Object.keys(this.form)) {
+          console.log(key + ': ' + this.form[key])
+        }
+      }
+    }
+  }
+}
 </script>
 <style lang="sass">
 // @import "../../../sass/public/inputSize.scss";

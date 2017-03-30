@@ -19,41 +19,40 @@
 </div>
 </template>
 <script>
-	export default{
-		props:{
-			isNull:{
-				type:Boolean,
-				default:true,
-			},
-			label:{
-				type:String,
-				default:"",
-			},
-			placeholder:{
-				type:String,
-				default:"",
-			},
-			rule:{
-				type:String,
-			}
-		},
-		data(){
-			return{
-				input:"",
-			}
-		},
-		methods:{
-			// 点击确定（提交）时触发该控件的方法
-			verifyFn(){
-				if(isNull==false){
-					if(this.input==null){
-
-					}
-				}
-			}
-		}
-		
+export default {
+	props: {
+	isNull: {
+  type: Boolean,
+	default: true
+},
+	label: {
+	type: String,
+	default: ""
+},
+	placeholder: {
+	type: String,
+	default: ""
+},
+	rule: {
+	type: String
 	}
+},
+	data () {
+	return {
+	input: ""
+	}
+},
+	methods: {
+		// 点击确定（提交）时触发该控件的方法
+	verifyFn () {
+	if (isNull===false) {
+	if (this.input===null) {
+		}
+	}
+}
+}
+	
+}
 </script>
 <style lang="sass">
 	@import "../../../sass/public/inputSize.scss";
