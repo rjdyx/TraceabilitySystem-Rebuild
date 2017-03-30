@@ -8,21 +8,21 @@ Vue.use(Router)
 //---------------------------最顶层组件----------------------------------
 const index = resolve => {
     require.ensure(['../views/index.vue'], () =>{
-        resolve(require('../views/index.vue'));
-    }, 'index');
-};
+        resolve(require('../views/index.vue'))
+    }, 'index')
+}
 //---------------------------404----------------------------------
 const notFound = resolve => {
     require.ensure(['../views/404.vue'], () =>{
-        resolve(require('../views/404.vue'));
-    }, 'fourOFour');
-};
+        resolve(require('../views/404.vue'))
+    }, 'fourOFour')
+}
 //---------------------------基础信息管理----------------------------------
 const basic = resolve => {
     require.ensure(['../page/plant-basic/basic.vue'], () =>{ 
-        resolve(require('../page/plant-basic/basic.vue'));
-    }, 'basic');
-};
+        resolve(require('../page/plant-basic/basic.vue'))
+    }, 'basic')
+}
 
 
 const routes = [
@@ -50,8 +50,8 @@ const routes = [
         component: notFound
     }
     
-];
+]
 
 export default new Router({
     routes
-});
+})

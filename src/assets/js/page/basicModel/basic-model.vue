@@ -70,12 +70,12 @@
  
 <script>
 
-import computed from './computed.js';
-import New from "../../components/public/new.vue"; 
-import ContainTitle from 'components/public/contain-title.vue';
-import edit from '../../components/public/edit.vue';
-import operate from '../../components/public/operate.vue';
-import popEdit from '../../components/public/popEdit.vue';
+import computed from './computed.js'
+import New from "../../components/public/new.vue"
+import ContainTitle from 'components/public/contain-title.vue'
+import edit from '../../components/public/edit.vue'
+import operate from '../../components/public/operate.vue'
+import popEdit from '../../components/public/popEdit.vue'
 
 	 export default{
 	 	name:'BasicModel',
@@ -176,11 +176,11 @@ import popEdit from '../../components/public/popEdit.vue';
 	 			})
 	 		},	
 	 		changeIsShow(){
-	 			this.isShow=!this.isShow;
+	 			this.isShow=!this.isShow
 	 		},
 	 		
 	 		changeEditShow(){
-	 			this.editShow=!this.editShow;
+	 			this.editShow=!this.editShow
 	 			console.log(274874)
 	 		}
 	 	},

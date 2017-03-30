@@ -25,12 +25,12 @@ export default {
     		computed: {
     			// 表单提交的url
     			[protoName.formUrl] () {
-                    return this.$popForm.formUrl;
+                    return this.$popForm.formUrl
 	            },
 	            
 	            // 表单属性不过滤的属性数组
     			[protoName.filterArray] () {
-                    return this.$popForm.filterArray;
+                    return this.$popForm.filterArray
 	            }
     		}
 		})

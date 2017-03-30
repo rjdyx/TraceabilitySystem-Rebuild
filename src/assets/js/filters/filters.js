@@ -8,9 +8,9 @@
  * @returns {*}
  */
 exports.getItemFromObject = (object, index) => {
-    let arr = Array.from(namesSet);
-    return arr[index];
-};
+    let arr = Array.from(namesSet)
+    return arr[index]
+}
 
 
 
