@@ -7,7 +7,17 @@
  */
 <template>
 <div class="inputFile">
-	<div>
+	<div size="small" class="avatar-uploader">
+		<div class="el-upload el-upload--text" @click.stop="showFile"
+			>
+			<img v-if="imageUrl" :src="imageUrl" class="avatar">
+			<i v-else class="el-icon-plus avatar-uploader-icon"></i>
+			<input type="file"  class="fileBtn el-upload__input" accept="image/jpeg">
+		</div>
+	</div>
+	<input class="csfile" type="file" accept="image/jpeg">
+	<img class="img">
+<!-- 	<div>
 		<el-upload
 			  class="avatar-uploader"
 			  size="small"
@@ -18,8 +28,8 @@
 			  <img v-if="imageUrl" :src="imageUrl" class="avatar">
 			  <i v-else class="el-icon-plus avatar-uploader-icon"></i>
 		</el-upload>
-	</div>
-	<el-button type="primary" size="small">上传图片</el-button>
+	</div> -->
+	<el-button type="primary" size="small" @click="csclick">上传图片</el-button>
 	<el-button type="danger" size="small">删除图片</el-button>
 </div>
 
@@ -47,10 +57,21 @@
 			}
 		},
 		methods: {
+			csclick(){
+				console.log($(".csfile"));	
+			},
+			showFile(){
+				var $file=$(".fileBtn");
+				$file.click();
+				console.log($file[0].value);
+				this.beforeAvatarUpload($(".fileBtn"));
+			},
 		    handleAvatarScucess(res, file) {
+		    	
 		        this.imageUrl = URL.createObjectURL(file.raw);
 		    },
 		    beforeAvatarUpload(file) {
+		    	console.log(file);
 		        const isJPG = file.type === 'image/jpeg';
 		        const isLt2M = file.size / 1024 / 1024 < 2;
 
@@ -71,8 +92,8 @@
   .avatar-uploader .el-upload {
     border: 1px dashed #d9d9d9;
     border-radius: 6px;
-    cursor: pointer;
     position: relative;
+    cursor: pointer;
     overflow: hidden;
   }
   .avatar-uploader .el-upload:hover {
