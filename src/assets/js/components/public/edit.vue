@@ -5,17 +5,13 @@
 </template>
 
 <script>
-	export default {
-		name:'edit',
-		data () {
-			return {
-				}
-			},
-		methods:{
-			
-		}
-		}
-
+export default {
+  name: 'edit',
+  data () {
+return {
+}
+},
+}
 </script>
 
 

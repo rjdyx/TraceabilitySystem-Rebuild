@@ -5,13 +5,7 @@
 </template>
 
 <script>
-
-    export default {
-        name:'categoryBtn',
-        
-        methods: {
-
-        }
-
-    }
+export default {
+  name:'categoryBtn',
+}
 </script>

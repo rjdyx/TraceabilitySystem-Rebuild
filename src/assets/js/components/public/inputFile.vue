@@ -6,89 +6,87 @@
 
  */
 <template>
-<div class="inputFile">
-	<div size="small" class="avatar-uploader">
-		<div class="el-upload el-upload--text" @click.stop="showFile"
+<div class='inputFile'>
+	<div size='small' class='avatar-uploader'>
+		<div class='el-upload el-upload--text' @click.stop='showFile'
 			>
-			<img v-if="imageUrl" :src="imageUrl" class="avatar">
-			<i v-else class="el-icon-plus avatar-uploader-icon"></i>
-			<input type="file"  class="fileBtn el-upload__input" accept="image/jpeg">
+			<img v-if='imageUrl' :src='imageUrl' class='avatar'>
+			<i v-else class='el-icon-plus avatar-uploader-icon'></i>
+			<input type='file'  class='fileBtn el-upload__input' accept='image/jpeg'>
 		</div>
 	</div>
-	<input class="csfile" type="file" accept="image/jpeg">
-	<img class="img">
+	<input class='csfile' type='file' accept='image/jpeg'>
+	<img class='img'>
 <!-- 	<div>
 		<el-upload
-			  class="avatar-uploader"
-			  size="small"
-			  action="//jsonplaceholder.typicode.com/posts/"
-			  :show-file-list="false"
-			  :on-success="handleAvatarScucess"
-			  :before-upload="beforeAvatarUpload">
-			  <img v-if="imageUrl" :src="imageUrl" class="avatar">
-			  <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+			  class='avatar-uploader'
+			  size='small'
+			  action='//jsonplaceholder.typicode.com/posts/'
+			  :show-file-list='false'
+			  :on-success='handleAvatarScucess'
+			  :before-upload='beforeAvatarUpload'>
+			  <img v-if='imageUrl' :src='imageUrl' class='avatar'>
+			  <i v-else class='el-icon-plus avatar-uploader-icon'></i>
 		</el-upload>
 	</div> -->
-	<el-button type="primary" size="small" @click="csclick">上传图片</el-button>
-	<el-button type="danger" size="small">删除图片</el-button>
+	<el-button type='primary' size='small' @click='csclick'>上传图片</el-button>
+	<el-button type='danger' size='small'>删除图片</el-button>
 </div>
 
 </template>
 <script>
-	export default{
-		props:{
-			isNull:{
-				type:Boolean,
-				default:true,
-			},
-			label:{
-				type:String,
-				default:"",
-			},
-			placeholder:{
-				type:String,
-				default:"必填",
-			}
-
-		},
-		data(){
-			return{
-				 imageUrl: '',
-			}
-		},
-		methods: {
-			csclick(){
-				console.log($(".csfile"));	
-			},
-			showFile(){
-				var $file=$(".fileBtn");
-				$file.click();
-				console.log($file[0].value);
-				this.beforeAvatarUpload($(".fileBtn"));
-			},
-		    handleAvatarScucess(res, file) {
-		    	
-		        this.imageUrl = URL.createObjectURL(file.raw);
-		    },
-		    beforeAvatarUpload(file) {
-		    	console.log(file);
-		        const isJPG = file.type === 'image/jpeg';
-		        const isLt2M = file.size / 1024 / 1024 < 2;
-
-		        if (!isJPG) {
-		          this.$message.error('上传头像图片只能是 JPG 格式!');
-		        }
-		        if (!isLt2M) {
-		          this.$message.error('上传头像图片大小不能超过 2MB!');
-		        }
-		        return isJPG && isLt2M;
-		    }
-		}
-
-	}
+export default {
+  props:
+  {
+    isNull:
+    {
+      type: Boolean,
+   	  default: true
+    },
+    label: {
+      type: String,
+      default: ''
+    },
+    placeholder: {
+      type: String,
+      default: '必填'
+    }
+  },
+  data () {
+    return {
+      imageUrl: ''
+    }
+  },
+  methods: {
+    csclick () {
+      // console.log($('.csfile'))
+    },
+    showFile () {
+      var $file = $('.fileBtn')
+      $file.click()
+      // console.log($file[0].value)
+      this.beforeAvatarUpload($('.fileBtn'))
+    },
+    handleAvatarScucess (res, file) {
+      this.imageUrl = URL.createObjectURL(file.raw)
+    },
+    beforeAvatarUpload (file) {
+      // console.log(file)
+      const isJPG = file.type === 'image/jpeg'
+      const isLt2M = file.size / 1024 / 1024 < 2
+      if (!isJPG) {
+        this.$message.error('上传头像图片只能是 JPG 格式!')
+      }
+      if (!isLt2M) {
+        this.$message.error('上传头像图片大小不能超过 2MB!')
+      }
+      return isJPG && isLt2M
+    }
+  }
+}
 </script>
-<style lang="sass">
-	@import "../../../sass/public/inputSize.scss";
+<style lang='sass'>
+	@import '../../../sass/public/inputSize.scss';
   .avatar-uploader .el-upload {
     border: 1px dashed #d9d9d9;
     border-radius: 6px;

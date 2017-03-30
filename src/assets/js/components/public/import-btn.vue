@@ -12,28 +12,9 @@
 </template>
 
 <script> 
-
-    export default {
-        name:'ImportBtn',
-        props:{
-           
-        },
-        data (){
-            return {
-                
-            }
-        },
-        computed: {
-
-        },
-        methods:{
-
-        }
-
-    }
-
-
-
+export default {
+  name: 'ImportBtn'
+}
 </script>
 
 <style lang="sass" scoped>

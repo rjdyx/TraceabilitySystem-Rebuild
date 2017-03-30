@@ -11,21 +11,18 @@
 			<div class="inline operateBtn" v-for="item in item.components">
 				<!-- 果蔬按钮 -->
 				<div class="vegetableBtn" v-if="item.type=='vegetableBtn'">
-			        <el-button size="small">全部果蔬档案</el-button>
-			        <el-button size="small">蔬菜类</el-button>
-			        <el-button size="small">水果类</el-button>
-		    	</div>
-	    		<!-- 下拉框	 -->
-		    	<el-select class="select inline" size="small" v-model="value" v-else-if="item.type=='select'">
-		                <el-option
-		                  v-for="option in item.options"
-		                  :label="option.label"
-		                  :value="option.value">
-		                </el-option>
-		        </el-select>
-		        <!-- 日期 -->
-		          <div class="inline dateBtn" v-else-if="item.type=='date'"> 
-			            <span>
+					<el-button size="small">全部果蔬档案</el-button>
+					<el-button size="small">蔬菜类</el-button>
+					<el-button size="small">水果类</el-button>
+				</div>
+				<!-- 下拉框	 -->
+				<el-select class="select inline" size="small" v-model="value" v-else-if="item.type=='select'">
+					<el-option v-for="option in item.options" :label="option.label" :value="option.value">
+					</el-option>
+				</el-select>
+				<!-- 日期 -->
+				<div class="inline dateBtn" v-else-if="item.type=='date'">
+					<span>
 			              <label>开始日期：</label>
 			                <el-date-picker 
 			                  size="small"
@@ -33,7 +30,7 @@
 			                  type="date">
 			                </el-date-picker>
 			            </span>
-			            <span class="margin">
+					<span class="margin">
 			              <label>结束日期：</label>
 			                <el-date-picker 
 			                  size="small"
@@ -41,48 +38,43 @@
 			                  type="date">
 			                </el-date-picker>
 			            </span>
-			       </div>
+				</div>
 
-    </div>
+			</div>
 		</div>
-		
-		
-		
-		
+
 	</div>
 </template>
 
 <script>
-import store from "../../vuex/index.js";
-import {mapMutations} from 'vuex';
-	export default{
-		props:{
-			listComponent:{
-				type:Array,
-				default:[]
-			},
-		},
-		data(){
-			return{
-				value:'',
-				value1:'',
-                value2:'',
-                
-			}
+export default {
+	props: {
+		listComponent: {
+		type: Array,
+		default: []
 		}
+},
+data () {
+	return {
+	value: '',
+	value1: '',
+	value2: ''
 	}
-
+}
+}
 </script>
 
 <style lang="sass">
-	.inline{
-		display:inline-block;
-		vertical-align:middle;
+	.inline {
+		display: inline-block;
+		vertical-align: middle;
 	}
-	.operate{
-		float:left;
+	
+	.operate {
+		float: left;
 	}
-	.dateBtn{
+	
+	.dateBtn {
 		margin-left: 15px;
 	}
 </style>

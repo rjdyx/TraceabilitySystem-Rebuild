@@ -5,39 +5,27 @@
  * @date 2017/3/23
  * 
  */
-
-
 <template>
 		<div class="actionBox">
 			<el-button type="primary" @click="confirmClick">确定</el-button>
 			<el-button class="activecancel" @click="cancelClick">取消</el-button>
 		</div>
 </template>
+
 <script>
-
-	export default {
-    data() {
-	    return {
-	      
-	      };
-	    },
-	    props:{
-	    
-	    },
-	    methods: {
-	     	// 确定提交事件
-	     	confirmClick(){
-	     		this.$parent.handleClick();
-	     	},
-	     	// 取消事件
-	     	cancelClick(){
-	     		this.$parent.closeClick();
-	     	}
-
-	    }
-
-  };
+export default {
+  methods: {
+    confirmClick () {
+      this.$parent.handleClick()
+    },
+// 取消事件
+    cancelClick () {
+      this.$parent.closeClick()
+    }
+  }
+}
 </script>
+
 <style lang="sass" scoped>
 .actionBox{
 	text-align:-webkit-right;

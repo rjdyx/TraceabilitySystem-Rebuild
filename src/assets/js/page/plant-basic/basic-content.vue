@@ -1,57 +1,49 @@
-/**
- * 中间内容组件
- * @author 舒丹彤
- * @date 2017/3/15 
- * 
- */ 
- <template>
+/**  中间内容组件
+ *   @author 舒丹彤
+*    @date 2017/3/15 
+* 
+*/
+<template>
 	<div class="content">
-        <basic-model :models="models[type]"></basic-model>
-    </div> 
+		<basic-model :models="models[type]"></basic-model>
+	</div>
 </template>
- 
+
 <script>
 import BasicModel from '../basicModel/basic-model.vue'
 import message from './message.js'
 import reaction from './reaction.js'
-   
 
-	export default { 
-        name:'BasicContent',
-        data (){
-            let modelObj={}
-            Object.assign(modelObj,message,reaction)
-            return {
-            	checked:[],//勾选框数组
-                activeName2: 'first',
-                models:modelObj
+export default {
+  name: 'BasicContent',
+  data() {
+	let modelObj = {}
+	Object.assign(modelObj, message, reaction)
+	return {
+		checked: [], //勾选框数组
+		activeName2: 'first',
+		models: modelObj
 
-            } 
-        },
-         methods: {
-
-    	},
-    	components:{
-            BasicModel
-    	},
-        computed:{
-            type(){
-                return this.$route.params.model
-            }
-        },
-        beforeRouteUpdate (to, from, next) {
-            this.$refs.basicModel.init(to.params.index)
-            next()
-        },
-       
-
-    }
+	}
+},
+  components: {
+		BasicModel
+  },
+  computed: {
+	type() {
+		return this.$route.params.model
+	}
+},
+  beforeRouteUpdate(to, from, next) {
+	this.$refs.basicModel.init(to.params.index)
+	next()
+}
+}
 </script>
 
 <style lang="sass" scoped>
-    @import "../../../sass/function";
-.content{
-    	margin-top: 15px;
-    }
- 
+	@import "../../../sass/function";
+	.content {
+		margin-top: 15px;
+	}
 </style>
