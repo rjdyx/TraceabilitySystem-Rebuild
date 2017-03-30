@@ -12,9 +12,9 @@
 	<form class="newForm">
 		<i class="el-icon-circle-close" @click="closeClick" ></i>
 		<template>
-		  <el-tabs v-model="activeName" @tab-click="handleClick">
+		  <el-tabs v-model="activeName">
 		    <el-tab-pane v-for="item in newComponent" :label="item.tab" :name="item.tab" >
-		    	<div class="newMain">
+		    	<ul class="newMain">
 		    		<!-- <component 
 						v-for="components in item.components" 
 						v-bind:is="components.component" 
@@ -24,66 +24,104 @@
 						:placeholder="components.placeholder"
 						:options="components.options">
 					</component> -->
-					<div class="inputItem" v-for="item in item.components">
+					<li class="inputItem" v-for="item in item.components">
 						<em class="input-imp" v-if="item.isNull===false">*</em>
 						<label class="input-label"  v-if="item.type!=='file'" for="inputText" >{{item.label}}&nbsp&nbsp:</label>
 						<!-- 文本框 -->
-						<input class="input-pop el-input__inner" v-if="item.type=='text'" type="text" :placeholder="item.placeholder">
+						<input 
+							v-if="item.type=='text'" 
+							type="text" 
+							:placeholder="item.placeholder"
+							:name="item.name" 
+                            v-model="form[item.name]" 
+                            v-validate.initial="form[item.name]" 
+                            :data-vv-rules="item.rule" 
+                            :data-vv-as="item.label"
+                            :class="{'input-pop': true, 'el-input__inner': true,'is-error': verrors.has(item.name)}"
+							>
 						<!-- 多行文本框 -->
-						<textarea class="input-pop el-textarea__inner" v-else-if="item.type=='textarea'" name="" id="" cols="30" rows="10" :placeholder="item.placeholder"></textarea>
+						<textarea 
+							:class="{'input-pop': true, 'el-textarea__inner': true,'is-error': verrors.has(item.name)}"
+							v-else-if="item.type=='textarea'" 
+							cols="30" 
+							rows="10" 
+							:placeholder="item.placeholder"
+							:name="item.name"
+							v-model="form[item.name]" 
+                            v-validate.initial="form[item.name]" 
+                            :data-vv-rules="item.rule" 
+                            :data-vv-as="item.label"
+							>
+						</textarea>
 						<!-- 下拉框 -->
-						<select class="input-pop" v-else-if="item.type=='select'" name="" id="" :placeholder="item.placeholder">
-							<option :value="option.value" v-for="option in item.options">{{option.label}}</option>
+						<select 
+							:class="{'input-pop': true,'is-error': verrors.has(item.name)}"
+							v-else-if="item.type=='select'" 
+							:placeholder="item.placeholder"
+							:name="item.name" 
+							v-model="form[item.name]" 
+                            v-validate.initial="form[item.name]" 
+                            :data-vv-rules="item.rule" 
+                            :data-vv-as="item.label">
+								<option :value="option.value" v-for="option in item.options">{{option.label}}</option>
 						</select>
 						<!-- 日期 -->
-						<input class="input-pop el-input__inner" v-else-if="item.type=='date'" type="date" :placeholder="item.placeholder">
+						<input 
+							:class="{'input-pop': true, 'el-input__inner': true,'is-error': verrors.has(item.name)}"
+							v-else-if="item.type=='date'" 
+							type="date" 
+							:placeholder="item.placeholder"
+							:name="item.name" 
+							v-model="form[item.name]" 
+                            v-validate.initial="form[item.name]" 
+                            :data-vv-rules="item.rule" 
+                            :data-vv-as="item.label">
 						<!-- 文件 -->
-						<component v-bind:is="item.component" v-else-if="item.type=='file'"></component>
+						<component 
+							v-bind:is="item.component" 
+							v-else-if="item.type=='file'"
+							v-model="form[item.name]" 
+							>
+						</component>
 						<!-- 文本&下拉框 -->
-						<component v-bind:is="item.component" v-else-if="item.type=='textselect'":placeholder="item.placeholder" :options="item.options" :rule="item.rule"></component>
+						<component 
+							v-bind:is="item.component" 
+							v-else-if="item.type=='textselect'"
+							:placeholder="item.placeholder" 
+							:options="item.options" 
+							:rule="item.rule"
+							v-model="form[item.name]" 
+						</component>
 						<!--  -->
-				
-					</div >
-		    	</div>
+						<span v-show="verrors.has(item.name)" class="help is-danger el-form-item__error">{{ verrors.first(item.name) }}</span>
+ 
+					</li >
+		    	</ul>
 		    </el-tab-pane> 
 		  </el-tabs>
 		</template>
-
-		<div class="column is-12">
-		    <label class="label" for="email">Email</label>
-		    <p :class="{ 'control': true }">
-		        <input v-validate="'required|email'" :class="{'input': true, 'is-danger': verrors.has('email') }" name="email" type="text" placeholder="Email">
-		        <span v-show="verrors.has('email')" class="help is-danger">{{ verrors.first('email') }}</span>
-		    </p>
+		<div class="form-footer">
+			<el-button type="primary"  @click="submitForm">确定</el-button>
+			<el-button class="activecancel" @click="cancelClick">取消</el-button>
 		</div>
-	
-		<ActiveBox></ActiveBox>
     </form>
 </div>
 	
 </template>
 <script>
-import ActiveBox from "./activebox.vue";
+// import ActiveBox from "./activebox.vue";
 import store from "../../vuex/index.js";
 import {mapMutations} from 'vuex';
-
+// import { Validator } from 'vee-validate';
+// import validate from "../../utils/validate.js";
 
 	export default {
-	name: 'basic-example',
-	components:{
-		ActiveBox,
-	},
-
-    data() {
-	    return {
-	        activeName: this.newComponent[0].tab,
-	        formConList:[],
-	        // author:"",
-	        //表单是否显示
-	        // isShow:false,
-	      };
-	    },
-	    props:{
+		name: 'validator-example',
+	    // validator: null,
+		components:{
+			// ActiveBox,
+		},
+	 	props:{
 	    	newComponent:{
 	    		type:Array,
 	    		default:[]
@@ -92,44 +130,58 @@ import {mapMutations} from 'vuex';
 	    		type:String
 	    	}
 	    },
+	    data() {
+		  	let form = {};
+	        this.newComponent[0].components.forEach(function(item){
+	        	form[item.name]="";
+	        });
+		    return {
+		        activeName: this.newComponent[0].tab,
+		        formConList:[],
+		        form: form,
+		   
+		    };
+		},
+	    created() {
+
+	    },
 	    mounted(){
-	    	const myRule = {
-			  getMessage(field, params, data) {
-			      return (data && data.message) || 'Something went wrong';
-			  },
-			  validate(value) {
-			    return new Promise(resolve => {
-			      resolve({
-			        valid: value === 'trigger' ? false : !! value,
-			        data: value !== 'trigger' ? undefined : { message: 'Not this value' }
-			      });
-			    });
-			  }
-			};
-			this.$validator.extend('truthy', {
-			  getMessage: field => 'The ' + field + ' value is not truthy.',
-			  validate: value => !! value
-			});
-
-			let instance = new Validator({ trueField: 'truthy' });
-
-			// Also there is an instance 'extend' method for convience.
-			instance.extend('falsy', (value) => ! value);
-
-			instance.attach('falseField', 'falsy');
-			console.log(this.$validator);
+			console.log(this.form);
 	    },
 	    methods: {
-	      handleClick(tab, event) {
-	      		console.log(this.$validator);
-                
-	      },
-	      // 关闭表单事件
-	      closeClick(){
-	      	this.$parent.changeIsShow();
-	      },	     
+	     	handleClick() {
+	      		                
+	     	},
+		    // 关闭表单事件
+		    closeClick(){
+		      	this.$parent.changeIsShow();
+		    },
+	     	// 取消事件
+	     	cancelClick(){
+	     		this.$parent.changeIsShow();
+	     	},
+	     	/**
+            * 提交表单
+            */
+	        submitForm(){
+	        	 // 验证表单
+                this.$validator.validateAll();
+                 // 如果表单报错则不提交
+                if(this.verrors.any()) {
+                	console.log(this.verrors);
+                    return false
+                }else {
+                	console.log("提交成功");
+                	for(let key  of Object.keys(this.form)) {
+				     	console.log(key + ": " + this.form[key]);
+					}	
+                }
+
+	     	},
+	   
 	    
 	    },
+	
 	    computed: {
 	      // author(){
 	      //   return store.state.author;
@@ -163,6 +215,7 @@ import {mapMutations} from 'vuex';
 			border-bottom: 1px solid #d1dbe5;
 			.inputItem{
 				margin-bottom:8px;
+				.is-error{border-color:red}
 				.input-imp{
 						color:red;
 						font-size:20px;
@@ -220,6 +273,16 @@ import {mapMutations} from 'vuex';
 		.el-icon-circle-close:hover{
 			color:#0087b5;
 		}
+		
+		.form-footer{
+			text-align:-webkit-right;
+			padding:20px 10px 50px 0;
+			.activecancel{
+				background-color:#cccccc;
+				color:white;
+			}
+		}
+		
 
 	}
 }
