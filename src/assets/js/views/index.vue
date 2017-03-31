@@ -50,8 +50,8 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-	@import "../../sass/function";
-	@import "../../sass/_percent.scss";
+	// @import "../../sass/function";
+	// @import "../../sass/_percent.scss";
 	.wrap {
 		width: 100%;
 		overflow: hidden;

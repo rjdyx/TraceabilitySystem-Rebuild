@@ -54,7 +54,7 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-    @import "../../../sass/function";
+    // @import "../../../sass/function";
     .left-menu{
         width:180px;
         float:left;

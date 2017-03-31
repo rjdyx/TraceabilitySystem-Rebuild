@@ -23,7 +23,7 @@ export default {
 </script>
 
 <style lang='sass' scoped>
-    @import '../../../sass/function';
+    /*@import '../../../sass/function';*/
     .basic{
     	height: 100%;
         overflow:hidden;
