@@ -48,19 +48,21 @@
 
 <script>
 export default {
-	props: {
-		listComponent: {
-		type: Array,
-		default: []
-		}
-},
-data () {
-	return {
-	value: '',
-	value1: '',
-	value2: ''
-	}
-}
+  props:
+  {
+    listComponent:
+    {
+      type: Array,
+      default: []
+    }
+  },
+  data () {
+    return {
+      value: '',
+      value1: '',
+      value2: ''
+    }
+  }
 }
 </script>
 

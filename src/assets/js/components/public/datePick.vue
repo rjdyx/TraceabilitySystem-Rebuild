@@ -25,11 +25,11 @@ export default {
   name: 'datePick',
   data () {
     return {
-			value1: '',
-			value2: '',
-			dialogVisible: false
-		}
-},
+      value1: '',
+      value2: '',
+      dialogVisible: false
+    }
+  }
 }
 </script>
 

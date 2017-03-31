@@ -15,6 +15,9 @@
 			<input type='file'  class='fileBtn el-upload__input' accept='image/jpeg'>
 		</div>
 	</div>
+
+	<input class='csfile' type='file' accept='image/jpeg'>
+	<img class='img'>
 <!-- 	<div>
 		<el-upload
 			  class='avatar-uploader'
@@ -39,7 +42,7 @@ export default {
     isNull:
     {
       type: Boolean,
-   	  default: true
+      default: true
     },
     label: {
       type: String,
@@ -52,33 +55,18 @@ export default {
   },
   data () {
     return {
-      imageUrl: ''
+      imageUrl: '',
+      file: {}
     }
   },
   methods: {
-    csclick () {
-      // console.log($('.csfile'))
-    },
     showFile () {
       var $file = $('.fileBtn')
+      var _this = this
       $file.click()
-      // console.log($file[0].value)
-      this.beforeAvatarUpload($('.fileBtn'))
-    },
-    handleAvatarScucess (res, file) {
-      this.imageUrl = URL.createObjectURL(file.raw)
-    },
-    beforeAvatarUpload (file) {
-      // console.log(file)
-      const isJPG = file.type === 'image/jpeg'
-      const isLt2M = file.size / 1024 / 1024 < 2
-      if (!isJPG) {
-        this.$message.error('上传头像图片只能是 JPG 格式!')
-      }
-      if (!isLt2M) {
-        this.$message.error('上传头像图片大小不能超过 2MB!')
-      }
-      return isJPG && isLt2M
+      $file.change(function () {
+        _this.imageUrl = $file[0].value
+      })
     }
   }
 }

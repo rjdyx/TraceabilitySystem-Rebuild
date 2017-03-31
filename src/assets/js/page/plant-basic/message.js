@@ -1,9 +1,12 @@
+<<<<<<< HEAD
+=======
+
+>>>>>>> Denton
 import importBtn from 'components/public/import-btn.vue'
 import newbuildBtn from 'components/public/newbuild-btn.vue'
 import output from 'components/public/output.vue'
 import selectSection from 'components/public/select-section.vue'
 import datePick from 'components/public/datePick.vue'
-// import vegetableBtn from 'components/public/vegetable-btn.vue'
 
 import categoryBtn from 'components/public/categoryBtn.vue'
 import inputText from 'components/public/inputText.vue'
@@ -787,6 +790,7 @@ export default {
       ]
     }]
   }
+
   ],
   supplierFile: [{
     settitle: '供货商档案管理',
@@ -946,6 +950,7 @@ export default {
       ]
     }]
   }
+
   ],
   productFile: [{
     settitle: '产品档案管理',
@@ -1623,39 +1628,60 @@ export default {
       ]
     }],
     newComponent: [{
-      tab: '新建畜禽档案',
+      tab: '养殖场信息',
       components: [{
+        type: 'text',
         component: inputText,
         isNull: false,
-        label: '畜禽名称',
+        label: '养殖场名称',
         placeholder: '必填',
         rule: ''
       },
       {
+        type: 'text',
         component: inputText,
-        isNull: true,
-        label: '品种描述',
+        isNull: false,
+        label: '养殖面积',
         placeholder: '请填写数字（必填）单位是亩',
         rule: ''
       },
       {
+        type: 'text',
         component: inputText,
         isNull: true,
-        label: 'RFID位置',
+        label: '负责人',
         placeholder: '',
         rule: ''
       },
       {
+        type: 'text',
+        component: inputText,
+        isNull: true,
+        label: '养殖畜禽种类',
+        placeholder: '',
+        rule: ''
+      },
+      {
+        type: 'text',
+        component: inputText,
+        isNull: true,
+        label: '养殖规模',
+        placeholder: '',
+        rule: ''
+      },
+      {
+        type: 'text',
+        component: inputText,
+        isNull: true,
+        label: '地址',
+        placeholder: '',
+        rule: ''
+      },
+      {
+        type: 'textarea',
         component: inputTextArea,
         isNull: true,
         label: '备注信息',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        component: inputFile,
-        isNull: true,
-        label: '',
         placeholder: '',
         rule: ''
       }
@@ -1740,6 +1766,7 @@ export default {
       }
       ]
     }]
+
   },
   {
     settitle: '养殖基础信息管理',
@@ -1840,57 +1867,57 @@ export default {
       ]
     }],
     newComponent: [{
-      tab: '新建饲料档案',
+      tab: '养殖场信息',
       components: [{
-        component: inputSelect,
-        isNull: false,
-        label: '饲料类别',
-        placeholder: '请选择类别',
-        rule: ''
-      },
-      {
+        type: 'text',
         component: inputText,
         isNull: false,
-        label: '饲料名称',
+        label: '养殖场名称',
         placeholder: '必填',
         rule: ''
       },
       {
+        type: 'text',
+        component: inputText,
+        isNull: false,
+        label: '养殖面积',
+        placeholder: '请填写数字（必填）单位是亩',
+        rule: ''
+      },
+      {
+        type: 'text',
         component: inputText,
         isNull: true,
-        label: '用途',
+        label: '负责人',
         placeholder: '',
         rule: ''
       },
       {
+        type: 'text',
         component: inputText,
         isNull: true,
-        label: '包装规格',
+        label: '养殖畜禽种类',
         placeholder: '',
         rule: ''
       },
       {
+        type: 'text',
         component: inputText,
         isNull: true,
-        label: '生产厂家名称',
+        label: '养殖规模',
         placeholder: '',
         rule: ''
       },
       {
+        type: 'text',
         component: inputText,
         isNull: true,
-        label: '产地',
+        label: '地址',
         placeholder: '',
         rule: ''
       },
       {
-        component: inputText,
-        isNull: true,
-        label: '联系方式',
-        placeholder: '请输入11位的手机号（固话用-隔开）',
-        rule: ''
-      },
-      {
+        type: 'textarea',
         component: inputTextArea,
         isNull: true,
         label: '备注信息',
@@ -2618,8 +2645,9 @@ export default {
       ]
     }],
     newComponent: [{
-      tab: '新建养殖场信息',
+      tab: '养殖场信息',
       components: [{
+        type: 'text',
         component: inputText,
         isNull: false,
         label: '养殖场名称',
@@ -2627,6 +2655,7 @@ export default {
         rule: ''
       },
       {
+        type: 'text',
         component: inputText,
         isNull: false,
         label: '养殖面积',
@@ -2634,6 +2663,7 @@ export default {
         rule: ''
       },
       {
+        type: 'text',
         component: inputText,
         isNull: true,
         label: '负责人',
@@ -2641,9 +2671,34 @@ export default {
         rule: ''
       },
       {
+        type: 'text',
         component: inputText,
         isNull: true,
         label: '养殖畜禽种类',
+        placeholder: '',
+        rule: ''
+      },
+      {
+        type: 'text',
+        component: inputText,
+        isNull: true,
+        label: '养殖规模',
+        placeholder: '',
+        rule: ''
+      },
+      {
+        type: 'text',
+        component: inputText,
+        isNull: true,
+        label: '地址',
+        placeholder: '',
+        rule: ''
+      },
+      {
+        type: 'textarea',
+        component: inputTextArea,
+        isNull: true,
+        label: '备注信息',
         placeholder: '',
         rule: ''
       }
@@ -3121,8 +3176,9 @@ export default {
       ]
     }],
     newComponent: [{
-      tab: '新建养殖场信息',
+      tab: '养殖场信息',
       components: [{
+        type: 'text',
         component: inputText,
         isNull: false,
         label: '养殖场名称',
@@ -3130,6 +3186,7 @@ export default {
         rule: ''
       },
       {
+        type: 'text',
         component: inputText,
         isNull: false,
         label: '养殖面积',
@@ -3137,6 +3194,7 @@ export default {
         rule: ''
       },
       {
+        type: 'text',
         component: inputText,
         isNull: true,
         label: '负责人',
@@ -3144,9 +3202,34 @@ export default {
         rule: ''
       },
       {
+        type: 'text',
         component: inputText,
         isNull: true,
         label: '养殖畜禽种类',
+        placeholder: '',
+        rule: ''
+      },
+      {
+        type: 'text',
+        component: inputText,
+        isNull: true,
+        label: '养殖规模',
+        placeholder: '',
+        rule: ''
+      },
+      {
+        type: 'text',
+        component: inputText,
+        isNull: true,
+        label: '地址',
+        placeholder: '',
+        rule: ''
+      },
+      {
+        type: 'textarea',
+        component: inputTextArea,
+        isNull: true,
+        label: '备注信息',
         placeholder: '',
         rule: ''
       }
@@ -3365,8 +3448,9 @@ export default {
       ]
     }],
     newComponent: [{
-      tab: '新建养殖场信息',
+      tab: '养殖场信息',
       components: [{
+        type: 'text',
         component: inputText,
         isNull: false,
         label: '养殖场名称',
@@ -3374,6 +3458,7 @@ export default {
         rule: ''
       },
       {
+        type: 'text',
         component: inputText,
         isNull: false,
         label: '养殖面积',
@@ -3381,6 +3466,7 @@ export default {
         rule: ''
       },
       {
+        type: 'text',
         component: inputText,
         isNull: true,
         label: '负责人',
@@ -3388,9 +3474,34 @@ export default {
         rule: ''
       },
       {
+        type: 'text',
         component: inputText,
         isNull: true,
         label: '养殖畜禽种类',
+        placeholder: '',
+        rule: ''
+      },
+      {
+        type: 'text',
+        component: inputText,
+        isNull: true,
+        label: '养殖规模',
+        placeholder: '',
+        rule: ''
+      },
+      {
+        type: 'text',
+        component: inputText,
+        isNull: true,
+        label: '地址',
+        placeholder: '',
+        rule: ''
+      },
+      {
+        type: 'textarea',
+        component: inputTextArea,
+        isNull: true,
+        label: '备注信息',
         placeholder: '',
         rule: ''
       }
@@ -3674,32 +3785,55 @@ export default {
       }
       ]
     }],
-      newComponent: [{
-      tab: '新建出栏信息',
+    newComponent: [{
+      tab: '养殖场信息',
       components: [{
-        type: 'date',
-        component: inputDate,
+        type: 'text',
+        component: inputText,
         isNull: false,
-        label: '出栏日期',
+        label: '养殖场名称',
+        placeholder: '必填',
+        rule: ''
+      },
+      {
+        type: 'text',
+        component: inputText,
+        isNull: false,
+        label: '养殖面积',
+        placeholder: '请填写数字（必填）单位是亩',
+        rule: ''
+      },
+      {
+        type: 'text',
+        component: inputText,
+        isNull: true,
+        label: '负责人',
         placeholder: '',
         rule: ''
       },
       {
-        type: 'select',
-        component: inputSelect,
-        isNull: false,
-        label: '出栏人',
-        placeholder: '请选择人物',
-        rule: '',
-        options: [{
-          value: '',
-          label: '请选择经手人'
-        },
-        {
-          value: '郑刚',
-          label: '郑刚'
-        }
-        ]
+        type: 'text',
+        component: inputText,
+        isNull: true,
+        label: '养殖畜禽种类',
+        placeholder: '',
+        rule: ''
+      },
+      {
+        type: 'text',
+        component: inputText,
+        isNull: true,
+        label: '养殖规模',
+        placeholder: '',
+        rule: ''
+      },
+      {
+        type: 'text',
+        component: inputText,
+        isNull: true,
+        label: '地址',
+        placeholder: '',
+        rule: ''
       },
       {
         type: 'textarea',
@@ -3710,23 +3844,86 @@ export default {
         rule: ''
       }
       ]
-    },
-    {
-      tab: '选择RFID',
+    }],
+    listComponent: [],
+    editComponent: [{
+      tab: '编辑肥料档案',
       components: [{
         type: 'select',
         component: inputSelect,
-        isNull: true,
-        label: '',
+        isNull: false,
+        label: '饲料类别',
         placeholder: '',
-        rule: '请选择养殖批次',
+        rule: '',
         options: [{
           value: '',
-          label: '示范A区'
+          label: '请选择分类'
+        },
+        {
+          value: '',
+          label: '粗粮类'
         }
         ]
+      },
+      {
+        type: 'text',
+        component: inputText,
+        isNull: false,
+        label: '饲料名称',
+        placeholder: '',
+        value: '红苕汤羹',
+        rule: ''
+      },
+      {
+        type: 'text',
+        component: inputText,
+        isNull: true,
+        label: '用途',
+        placeholder: '',
+        rule: ''
+      },
+      {
+        type: 'text',
+        component: inputText,
+        isNull: true,
+        label: '包装规格',
+        placeholder: '',
+        rule: ''
+      },
+      {
+        type: 'text',
+        component: inputText,
+        isNull: true,
+        label: '生产厂家名称',
+        placeholder: '',
+        rule: ''
+      },
+      {
+        type: 'text',
+        component: inputText,
+        isNull: true,
+        label: '产地',
+        placeholder: '',
+        rule: ''
+      },
+      {
+        type: 'text',
+        component: inputText,
+        isNull: true,
+        label: '联系方式',
+        placeholder: '请输入11位手机号(固话用-隔开)',
+        rule: ''
+      },
+      {
+        type: 'textarea',
+        component: inputTextArea,
+        isNull: true,
+        label: '备注信息',
+        placeholder: '',
+        rule: ''
       }
       ]
+    }]
   }
   ],
   planManage: [{
@@ -3735,7 +3932,7 @@ export default {
     tab: '养殖计划信息',
     url: 'waningcondition',
     searchPlaceholder: '请输入检测项目名称进行',
-    theads: ['序号', '批次号', '计划日期', '操作类型', '安排人员', '计划内容', '操作用户', '备注', ],
+    theads: [ '序号', '批次号', '计划日期', '操作类型', '安排人员', '计划内容', '操作用户', '备注' ],
     protos: ['type', 'code', 'description'],
     widths: [50, 50, 50, 50, 50, 50, 50],
     typeComponent: [{
@@ -4017,7 +4214,7 @@ export default {
       }
       ]
     }]
-  },
+  }
   ],
   petTrace: [{
     settitle: '产品溯源管理',
@@ -5277,8 +5474,8 @@ export default {
         {
           value: '',
           label: '粗粮类'
-        },
-        ],
+        }
+        ]
       },
       {
         type: 'text',
@@ -6485,4 +6682,5 @@ export default {
       ]
     }]
   }]
+
 }

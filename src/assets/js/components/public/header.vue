@@ -27,49 +27,49 @@
 
 <script>
 export default {
-	name: 'MyHead',
-	data: function() {
-		return {
-			logo: '农产品质量安全溯源系统',
-			time: ''
-		}
-	},
-	props: {
-		//侧边栏数组：
-    navbars: {
-		type: Array,
-		default: []
-	}
-  },
-	methods: {
-		checkTime(i) {
-			if(i < 10) {
-				return "0" + i
-			} else {
-				return "" + i
-			}
-		},
-		initData(cur) {
-			setInterval(() => {
-				let date = null;
-				if(cur) {
-					date = new Date(cur);
-				} else {
-					date = new Date();
-				}
-				let h = date.getHours();
-				let m = this.checkTime(date.getMinutes());
-				let s = this.checkTime(date.getSeconds());
-				var str = h + ': ' + m + ': ' + s
-				this.time = str
-			}, 1000)
-		}
-	},
-	mounted() {
-		this.initData();
-		this.checkTime()
-	}
-}
+    name: 'MyHead',
+    data: function() {
+      return {
+        logo: '农产品质量安全溯源系统',
+        time: ''
+      }
+    },
+    props: {
+      //侧边栏数组：
+      navbars: {
+        type: Array,
+      default:
+        []
+      }
+    },
+    methods: {
+      checkTime(i) {
+        if (i < 10) {
+          return "0" + i
+        } else {
+          return "" + i
+        }
+      },
+      initData(cur) {
+        setInterval (() =>{
+          let date = null;
+          if (cur) {
+            date = new Date(cur);
+          } else {
+            date = new Date();
+          }
+          let h = date.getHours();
+          let m = this.checkTime(date.getMinutes());
+          let s = this.checkTime(date.getSeconds());
+          var str = h + ': ' + m + ': ' + s this.time = str
+        },
+        1000)
+      }
+    }, mounted() {
+      this.initData();
+      this.checkTime()
+    }
+  }
 </script>
 
 <style lang="sass" scoped>
