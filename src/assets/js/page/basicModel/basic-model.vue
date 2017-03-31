@@ -73,7 +73,7 @@
 
 </div> 
 </template>
-
+ 
 <script>
 import computed from './computed.js'
 import New from '../../components/public/new.vue'
@@ -209,7 +209,7 @@ export default {
 
 
 <style lang='sass' scoped>
-	 @import '../../../sass/function';
+	 /*@import '../../../sass/function';*/
 
 	 .searchInp{
 	 	width:161px;
