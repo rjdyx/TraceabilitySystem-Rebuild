@@ -7,8 +7,8 @@ require('animate.css') // 动画css插件
 require('./echarts.js')
 
 // 滚动条
-import VuePerfectScrollbar from 'vue-perfect-scrollbar'
-Vue.component('vue-perfect-scrollbar', VuePerfectScrollbar)
+// import VuePerfectScrollbar from 'vue-perfect-scrollbar'
+// Vue.component('vue-perfect-scrollbar', VuePerfectScrollbar)
 
 // 路由插件
 import VueRouter from 'vue-router'

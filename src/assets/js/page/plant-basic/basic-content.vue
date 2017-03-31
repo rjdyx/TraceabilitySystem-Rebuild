@@ -1,15 +1,4 @@
-<<<<<<< HEAD
 <template>
-=======
-
-/**
- * 中间模板组件
- * @author Êæµ¤Í®
- * @date 2017/3/15 
- * 
- */ 
- <template>
->>>>>>> Denton
 	<div class="content">
         <basic-model :models="models[type]"></basic-model>
     </div> 
@@ -55,5 +44,4 @@ export default {
 .content{
     	margin-top: 15px;
     }
- 
 </style>
