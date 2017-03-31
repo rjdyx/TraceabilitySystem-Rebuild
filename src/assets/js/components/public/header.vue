@@ -73,7 +73,7 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-	@import "../../../sass/function";
+	// @import "../../../sass/function";
 	.header {
 		height: 66px;
 		background: #0099cc;

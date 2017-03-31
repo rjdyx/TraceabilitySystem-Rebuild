@@ -21,7 +21,3 @@ export default {
   }
 }
 </script>
-
-<style lang="sass" scoped>
-	@import "../../../sass/function";
-</style>
