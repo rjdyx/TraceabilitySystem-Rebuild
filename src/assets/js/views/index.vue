@@ -16,7 +16,7 @@ default {
   data () {
     return {
       navbars: [{
-        name: 'Ê×Ò³',
+        name: 'é¦–é¡µ',
         src: '/public/images/home.png'
       },
       {
@@ -24,19 +24,19 @@ default {
         src: '/public/images/test.png'
       },
       {
-        name: '°ïÖú',
+        name: 'å¸®åŠ©',
         src: '/public/images/help.png'
       },
       {
-        name: 'ÉèÖÃ',
+        name: 'è®¾ç½®',
         src: '/public/images/set.png'
       },
       {
-        name: 'ÎÊÌâ·´À¡',
+        name: 'é—®é¢˜åé¦ˆ',
         src: '/public/images/question.png'
       },
       {
-        name: 'ÍË³ö',
+        name: 'é€€å‡º',
         src: '/public/images/back.png'
       }],
       menus: menu,

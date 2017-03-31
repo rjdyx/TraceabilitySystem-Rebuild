@@ -90,7 +90,7 @@ default {
  */
     Vue.prototype.$filterObj = (object, except = []) => {
       for (let proto of Object.keys(object)) {
-          if ((!object[proto] || object[proto] === '') && !except.includes(proto)) delete object[proto]
+        if ((!object[proto] || object[proto] === '') && !except.includes(proto)) delete object[proto]
       }
       return object
     }
