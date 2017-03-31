@@ -26,14 +26,9 @@
 	}
 </style>
 <script>
-<<<<<<< HEAD
     export default{
       name: 'fourOFour'
     }
 </script>
-=======
-	export default {
-		name: 'fourOFour'
-	}
 </script>
->>>>>>> Denton
+

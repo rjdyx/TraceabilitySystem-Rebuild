@@ -14,23 +14,22 @@ Vue.component('vue-perfect-scrollbar', VuePerfectScrollbar)
 import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 
-
 // 表单验证插件
 import VeeValidate from 'vee-validate'
 import messagesZhCN from 'lang/validate/zh_CN.js'
 import messagesEn from 'lang/validate/en.js'
 Vue.use(VeeValidate, {
-    fieldsBagName: 'vfields',
-    errorBagName: 'verrors',
-    locale: require('projectRoot/env.js').app_lang,
-    dictionary: {
-        'zh-CN': {
-            messages: messagesZhCN
-        },
-        'en': {
-            messages: messagesEn
-        }
+  fieldsBagName: 'vfields',
+  errorBagName: 'verrors',
+  locale: require('projectRoot/env.js').app_lang,
+  dictionary: {
+    'zh-CN': {
+      messages: messagesZhCN
+    },
+    'en': {
+      messages: messagesEn
     }
+  }
 })
 
 // const validator=new Vali
@@ -42,14 +41,14 @@ Vue.use(VeeValidate, {
 import 'element-ui/lib/theme-default/index.css'
 // 设置语言
 // switch (require('projectRoot/env.js').app_lang) {
-// 	case 'zh-CN':
-// 		locale.use(zhLocale);
-// 		break;
-// 	// case 'en':
-// 	// 	locale.use(enLocale);
-// 	// 	break;
-// 	default:
-// 		locale.use(zhLocale);
+// case 'zh-CN':
+// 	locale.use(zhLocale);
+// 	break;
+// // case 'en':
+// // locale.use(enLocale);
+// // break;
+// default:
+// locale.use(zhLocale);
 // }
 import * as elementComponent from './element-ui.js'
 /**
@@ -57,8 +56,7 @@ import * as elementComponent from './element-ui.js'
  */
 Object.keys(elementComponent).forEach(function (component) {
   Vue.component(elementComponent[component].name, elementComponent[component])
-})  
-
+})
 
 // vue-i18n初始化
 // import VueI18n from 'vue-i18n'
@@ -77,9 +75,6 @@ Object.keys(elementComponent).forEach(function (component) {
 // // Object.keys(locales).forEach(function (lang) {
 // //   Vue.locale(lang, locales[lang])
 // // })
-
-
-
 /**
  * css库
  */

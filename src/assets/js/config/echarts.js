@@ -1,4 +1,4 @@
-// 
+//
 /**
  * 按需引入echarts的图表和组件
  */
@@ -6,7 +6,8 @@
 require('echarts/lib/echarts')
 
 // require('echarts/lib/chart/line')
-require('echarts/lib/chart/bar')	//引入柱状图
+// 引入柱状图
+require('echarts/lib/chart/bar')
 // require('echarts/lib/chart/pie')
 // require('echarts/lib/chart/scatter')
 // require('echarts/lib/chart/radar')
@@ -29,14 +30,15 @@ require('echarts/lib/chart/bar')	//引入柱状图
 // require('echarts/lib/component/graphic')
 // require('echarts/lib/component/grid')
 // require('echarts/lib/component/legend')
-require('echarts/lib/component/tooltip')	// 引入提示框
+// 引入提示框
+require('echarts/lib/component/tooltip')
 // require('echarts/lib/component/polar')
 // require('echarts/lib/component/geo')
 // require('echarts/lib/component/parallel')
 // require('echarts/lib/component/singleAxis')
 // require('echarts/lib/component/brush')
-
-require('echarts/lib/component/title')	// 引入标题
+// 引入标题
+require('echarts/lib/component/title')
 
 // require('echarts/lib/component/dataZoom')
 // require('echarts/lib/component/visualMap')

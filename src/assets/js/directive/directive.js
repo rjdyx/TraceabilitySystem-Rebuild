@@ -30,10 +30,10 @@ exports.touchDelete = () => {
       clearTimeout(time)
     })
   }
-exports.touchDelete = () = > {
-	return(el, binding) = > {
-		let time = null el.addEventListener("touchstart", (event) = > {
-			time = setTimeout(() = > {
+exports.touchDelete = () => {
+	return(el, binding) => {
+		let time = null el.addEventListener("touchstart", (event) => {
+			time = setTimeout(() => {
 					let vm = binding.value.vm
 					let type = binding.value.type
 					let id = binding.value.id
@@ -50,11 +50,11 @@ exports.touchDelete = () = > {
 				500)
 		})
 
-		el.addEventListener("touchmove", (event) = > {
+		el.addEventListener("touchmove", (event) => {
 			clearTimeout(time)
 		})
 
-		el.addEventListener("touchend", (event) = > {
+		el.addEventListener("touchend", (event) => {
 			clearTimeout(time)
 		})
 	}
@@ -69,9 +69,9 @@ exports.focus = () => {
       el.focus()
     }
   }
-exports.focus = () = > {
+exports.focus = () => {
 	return {
-		inserted: (el, binding, vnode) = > {
+		inserted: (el, binding, vnode) => {
 			el.focus()
 		}
 	}
@@ -102,9 +102,9 @@ exports.unfocus = () => {
       }
     }
   }
-exports.unfocus = () = > {
+exports.unfocus = () => {
 	return {
-		inserted: (el, binding, vnode) = > {
+		inserted: (el, binding, vnode) => {
 			// 参数必须为数组
 			if(!(binding.value instanceof Array)) {
 
@@ -116,7 +116,7 @@ exports.unfocus = () = > {
 					console.error('the first argument must be Vue instance in v-touchstart')
 				} else {
 					let params = binding.value.slice(1) let myFunction = binding.arg
-					let $el = $(el) $el.blur(() = > {
+					let $el = $(el) $el.blur(() => {
 						binding.value[0][myFunction](event, params)
 					})
 				}
@@ -152,10 +152,10 @@ exports.touchstart = () => {
     }
   }
 }
-exports.touchstart = () = > {
+exports.touchstart = () => {
 	return {
-		bind: (el, binding) = > {
-			el.addEventListener("touchstart", (event) = > {
+		bind: (el, binding) => {
+			el.addEventListener("touchstart", (event) => {
 				// 参数必须为数组
 				if(!(binding.value instanceof Array)) {
 
@@ -188,9 +188,9 @@ exports.sticky = () => {
     }
   }
 }
-exports.sticky = () = > {
+exports.sticky = () => {
 	return {
-		bind: (el, binding, vnode) = > {
+		bind: (el, binding, vnode) => {
 			let $el = $(el) $el.sticky({
 				topSpacing: 0,
 				zIndex: 19920218
