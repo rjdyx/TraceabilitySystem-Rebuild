@@ -9,7 +9,7 @@ class PluginApi {
    * 调用函数
    */
   invokeFn (...fns) {
-    this.invoke = {status:!this.invoke.status, fns: fns}
+    this.invoke = {status: !this.invoke.status, fns: fns}
   }
   /**
    * 执行函数

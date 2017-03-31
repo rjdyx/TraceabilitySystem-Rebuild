@@ -30,4 +30,3 @@
       name: 'fourOFour'
     }
 </script>
-</script>

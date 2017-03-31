@@ -42,8 +42,8 @@ import 'element-ui/lib/theme-default/index.css'
 // 设置语言
 // switch (require('projectRoot/env.js').app_lang) {
 // case 'zh-CN':
-// 	locale.use(zhLocale);
-// 	break;
+// locale.use(zhLocale);
+// break;
 // // case 'en':
 // // locale.use(enLocale);
 // // break;

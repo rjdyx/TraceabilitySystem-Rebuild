@@ -10,8 +10,7 @@
 import MyHeader from '../components/public/header.vue'
 import SiderBar from '../components/public/sider-bar.vue'
 import menu from '../page/index/menu.js'
-export
-default {
+export default {
   name: 'Index',
   data () {
     return {
@@ -49,6 +48,7 @@ default {
   }
 }
 </script>
+
 <style lang="sass" scoped>
 	@import "../../sass/function";
 	@import "../../sass/_percent.scss";

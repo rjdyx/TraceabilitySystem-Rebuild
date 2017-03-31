@@ -15,10 +15,10 @@
 export default {
   name: 'NewBuild',
   methods: {
-    handleAdd() {
-      this.$parent.changeIsShow();
-		},
-	}
+    handleAdd () {
+      this.$parent.changeIsShow()
+    }
+  }
 }
 </script>
 

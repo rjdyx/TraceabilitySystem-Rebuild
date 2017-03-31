@@ -4,7 +4,7 @@ require('./http')
  */
 // 配置webpack动态加载模块的路径
 if (process.env.NODE_ENV === 'production') {
-  __webpack_public_path__ = '/dist/'
+  // __webpack_public_path__ = '/dist/'
 }
 
 // 注册全局组件

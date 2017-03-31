@@ -16,7 +16,7 @@
 				</li>
 				<template v-for="navbar in navbars">
 					<li class="navbar">
-						<img : src="navbar.src" />
+						<img :src="navbar.src" />
 						<span>{{navbar.name}}</span>
 					</li>
 				</template>
