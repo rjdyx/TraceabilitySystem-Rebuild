@@ -1,76 +1,63 @@
-<template>  
+17:34:32
+Denton 2017-03-31 17:34:32
+<template>
 <div>   
-	<!-- 标题 -->
-	<contain-title :settitle='settitle'>
-	</contain-title>
-	<!-- tab栏 --> 
-	<el-tabs v-model='activeName' type='card' id='tabs' @tab-click='tabClick'>
-		<el-tab-pane v-for='(model,index) in models' :label='model.tab' :name=''index'+index'></el-tab-pane>
-	</el-tabs>  
-	<!-- 操作模块 -->
-     	<div id='operate'>      			  
-		 	<div id='inputs'>
-
-		 		<!-- 操作模块动态组件 -->
-				<operate :listComponent='listComponent'></operate>
-
-        		<!-- 搜索框 -->
-		        <div class='searchOp'>
-		        	<el-input
-			          :placeholder='searchPlaceholder'
-			          v-model='inputValue'
-			          :on-icon-click='search' class='searchInp' size='small'>
-		        	</el-input>
-		       		<el-button size='small' class='searchBtn'>搜索</el-button>
-		    	</div>
-
-				<!-- 操作按钮 -->
-	         		<component
-                	v-for='typeOperate in typeComponent'
-                	:is='typeOperate.component'
-                	:params='typeOperate.params'
-                	class='fr'
-            	></component>
-	 	</div>
-	</div>
-	<!-- 新建模块 -->
-	<new v-if='isShow' :newComponent='newComponent'></new>
-
- 	<!-- 编辑弹出框 -->
-	<pop-edit :editComponent='editComponent' v-if='editShow'></pop-edit>
-
-	<!-- 列表模块 -->
-	<el-table :data='tableData' @selection-change='handleSelectionChange'>
-		<!-- 序号 -->
-		<el-table-column 
-			label='序号' 
-			:width='150'>
-				<template scope='scope' class='operateBtn'>
-			    	<el-checkbox v-model='checked'></el-checkbox>
-			    	<span name='order'></span>
-			    </template>
-		</el-table-column>
-		<!-- <el-table-column type='selection' width='55'>
-			</el-table-column> -->
-				<template v-for='(item,index) in theads'>
-						<template>
-							<el-table-column 
-								:props='protos[index]' 
-								:label='item'
-								:name='protos'
-								:min-width='widths[index]' 
-								show-overflow-tooltip>
-							</el-table-column>
-						</template>
-				</template>
-			 <el-table-column prop='tag' label='操作' width='150' :filters='[{ text: '图片', value: '图片' }, { text: '打印', value: '打印' }]' :filter-method='filterTag'>
-				<template scope='scope' class='operateBtn'>
-			    	<el-button size='small' type='text' @click='handelDel(scope.$index,scope.row)'>删除</el-button>  
-			    	<el-button @click='changeEditShow' type='text'>编辑</el-button> 
-			    </template>
-		</el-table-column>
-	</el-table>
-
+  <!-- 标题 -->
+  <contain-title :settitle="settitle">
+  </contain-title>
+  <!-- tab栏 --> 
+  <el-tabs v-model="activeName" type="card" id="tabs" @tab-click="tabClick">
+    <el-tab-pane v-for="(model,index) in models" :label="model.tab" :name="'index'+index"></el-tab-pane>
+  </el-tabs>  
+  <!-- 操作模块 -->
+      <div id="operate">              
+      <div id="inputs">   
+        <operate :listComponent="listComponent"></operate>
+            <!-- 搜索框 -->
+            <div class="searchOp"> 
+              <el-input
+                :placeholder="searchPlaceholder"
+                v-model="inputValue"
+                :on-icon-click="search" class="searchInp" size="small">
+              </el-input>
+              <el-button size="small" class="searchBtn">搜索</el-button>
+          </div>
+        <!-- 操作按钮 -->
+            <component
+                  v-for="typeOperate in typeComponent"
+                  :is="typeOperate.component"
+                  :params="typeOperate.params"
+                  class="fr"
+              ></component>
+      </div>
+    <!-- 新建模块 -->
+    <new v-if="isShow" :newComponent="newComponent"></new>
+  </div>
+  <pop-edit :editComponent="editComponent" v-if="editShow"></pop-edit>
+  <!-- 列表模块 -->
+  <el-table :data="tableData" @selection-change="handleSelectionChange">
+    <!-- 序号 -->
+    <el-table-column type="selection" width="55">
+      </el-table-column>
+        <template v-for="(item,index) in theads">
+            <template>
+              <el-table-column 
+                :props="protos[index]" 
+                :label="item"
+                :min-width="widths[index]" 
+                show-overflow-tooltip>
+              </el-table-column>
+            </template>
+        </template>
+      <el-table-column 
+      label="操作" 
+      :width="150">
+        <template scope="scope" class="operateBtn">
+            <el-button size="small" type="text" @click="handelDel(scope.$index,scope.row)">删除</el-button>  
+            <el-button class="editBtn" @click="changeEditShow" type="text">编辑</el-button> 
+          </template>
+    </el-table-column>
+  </el-table>
 </div> 
 </template>
  

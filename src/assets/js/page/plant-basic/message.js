@@ -1,22 +1,21 @@
-import importBtn from '../../components/public/import-btn.vue'
-import newbuildBtn from '../../components/public/newbuild-btn.vue'
-import output from '../../components/public/output.vue'
-import selectSection from '../../components/public/select-section.vue'
-import datePick from '../../components/public/datePick.vue'
+import importBtn from 'components/public/import-btn.vue'
+import newbuildBtn from 'components/public/newbuild-btn.vue'
+import output from 'components/public/output.vue'
+import selectSection from 'components/public/select-section.vue'
+import datePick from 'components/public/datePick.vue'
 
-import categoryBtn from '../../components/public/categoryBtn.vue'
-import inputText from '../../components/public/inputText.vue'
-import inputTextArea from '../../components/public/inputTextArea.vue'
-import inputSelect from '../../components/public/inputSelect.vue'
-import inputDate from '../../components/public/inputDate.vue'
-import inputFile from '../../components/public/inputFile.vue'
-import inputTextSelect from '../../components/public/inputTextSelect.vue'
+import categoryBtn from 'components/public/categoryBtn.vue'
+import inputText from 'components/public/inputText.vue'
+import inputTextArea from 'components/public/inputTextArea.vue'
+import inputSelect from 'components/public/inputSelect.vue'
+import inputDate from 'components/public/inputDate.vue'
+import inputFile from 'components/public/inputFile.vue'
+import inputTextSelect from 'components/public/inputTextSelect.vue'
 
 export default {
   categoryBase:
   [{
-    settitle:
-    '分类档案管理',
+    settitle: '分类档案管理',
     key: 'cultivation',
     tab: '分类档案信息',
     url: 'org',
@@ -54,6 +53,7 @@ export default {
     newComponent: [{
       tab: '养殖场信息',
       components: [{
+        name: '',
         type: 'text',
         component: inputText,
         isNull: false,
@@ -62,6 +62,7 @@ export default {
         rule: ''
       },
       {
+        name: '',
         type: 'text',
         component: inputText,
         isNull: false,
@@ -70,6 +71,7 @@ export default {
         rule: ''
       },
       {
+        name: '',
         type: 'text',
         component: inputText,
         isNull: true,
@@ -78,6 +80,7 @@ export default {
         rule: ''
       },
       {
+        name: '',
         type: 'text',
         component: inputText,
         isNull: true,
@@ -86,6 +89,7 @@ export default {
         rule: ''
       },
       {
+        name: '',
         type: 'text',
         component: inputText,
         isNull: true,
@@ -102,84 +106,7 @@ export default {
         rule: ''
       },
       {
-        type: 'textarea',
-        component: inputTextArea,
-        isNull: true,
-        label: '备注信息',
-        placeholder: '',
-        rule: ''
-      }
-      ]
-    }],
-    editComponent: [{
-      tab: '编辑肥料档案',
-      components: [{
-        type: 'select',
-        component: inputSelect,
-        isNull: false,
-        label: '饲料类别',
-        placeholder: '',
-        rule: '',
-        options: [{
-          value: '',
-          label: '请选择分类'
-        },
-        {
-          value: '',
-          label: '粗粮类'
-        }
-        ]
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: false,
-        label: '饲料名称',
-        placeholder: '',
-        value: '红苕汤羹',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '用途',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '包装规格',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '生产厂家名称',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '产地',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '联系方式',
-        placeholder: '请输入11位手机号(固话用-隔开)',
-        rule: ''
-      },
-      {
+        name: '',
         type: 'textarea',
         component: inputTextArea,
         isNull: true,
@@ -189,7 +116,6 @@ export default {
       }
       ]
     }]
-
   }],
   personFile: [{
     settitle: '人员档案管理',
@@ -212,6 +138,7 @@ export default {
     newComponent: [{
       tab: '新建人员档案信息',
       components: [{
+        name: '',
         type: 'text',
         component: inputText,
         isNull: false,
@@ -220,6 +147,7 @@ export default {
         rule: ''
       },
       {
+        name: '',
         type: 'text',
         component: inputText,
         isNull: false,
@@ -228,6 +156,7 @@ export default {
         rule: ''
       },
       {
+        name: '',
         type: 'text',
         component: inputText,
         isNull: true,
@@ -236,6 +165,7 @@ export default {
         rule: ''
       },
       {
+        name: '',
         type: 'text',
         component: inputText,
         isNull: true,
@@ -244,6 +174,7 @@ export default {
         rule: ''
       },
       {
+        name: '',
         type: 'text',
         component: inputText,
         isNull: true,
@@ -252,6 +183,7 @@ export default {
         rule: ''
       },
       {
+        name: '',
         type: 'text',
         component: inputText,
         isNull: true,
@@ -260,6 +192,7 @@ export default {
         rule: ''
       },
       {
+        name: '',
         type: 'textarea',
         component: inputTextArea,
         isNull: true,
@@ -286,84 +219,6 @@ export default {
         type: 'date',
         component: datePick
       }]
-    }],
-    editComponent: [{
-      tab: '编辑肥料档案',
-      components: [{
-        type: 'select',
-        component: inputSelect,
-        isNull: false,
-        label: '饲料类别',
-        placeholder: '',
-        rule: '',
-        options: [{
-          value: '',
-          label: '请选择分类'
-        },
-        {
-          value: '',
-          label: '粗粮类'
-        }
-        ]
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: false,
-        label: '饲料名称',
-        placeholder: '',
-        value: '红苕汤羹',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '用途',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '包装规格',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '生产厂家名称',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '产地',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '联系方式',
-        placeholder: '请输入11位手机号(固话用-隔开)',
-        rule: ''
-      },
-      {
-        type: 'textarea',
-        component: inputTextArea,
-        isNull: true,
-        label: '备注信息',
-        placeholder: '',
-        rule: ''
-      }
-      ]
     }]
   }
 
@@ -453,85 +308,7 @@ export default {
       }
       ]
     }],
-    listComponent: [],
-    editComponent: [{
-      tab: '编辑肥料档案',
-      components: [{
-        type: 'select',
-        component: inputSelect,
-        isNull: false,
-        label: '饲料类别',
-        placeholder: '',
-        rule: '',
-        options: [{
-          value: '',
-          label: '请选择分类'
-        },
-        {
-          value: '',
-          label: '粗粮类'
-        }
-        ]
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: false,
-        label: '饲料名称',
-        placeholder: '',
-        value: '红苕汤羹',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '用途',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '包装规格',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '生产厂家名称',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '产地',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '联系方式',
-        placeholder: '请输入11位手机号(固话用-隔开)',
-        rule: ''
-      },
-      {
-        type: 'textarea',
-        component: inputTextArea,
-        isNull: true,
-        label: '备注信息',
-        placeholder: '',
-        rule: ''
-      }
-      ]
-    }]
+    listComponent: []
   }
 
   ],
@@ -706,85 +483,7 @@ export default {
       }
       ]
     }],
-    listComponent: [],
-    editComponent: [{
-      tab: '编辑肥料档案',
-      components: [{
-        type: 'select',
-        component: inputSelect,
-        isNull: false,
-        label: '饲料类别',
-        placeholder: '',
-        rule: '',
-        options: [{
-          value: '',
-          label: '请选择分类'
-        },
-        {
-          value: '',
-          label: '粗粮类'
-        }
-        ]
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: false,
-        label: '饲料名称',
-        placeholder: '',
-        value: '红苕汤羹',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '用途',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '包装规格',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '生产厂家名称',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '产地',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '联系方式',
-        placeholder: '请输入11位手机号(固话用-隔开)',
-        rule: ''
-      },
-      {
-        type: 'textarea',
-        component: inputTextArea,
-        isNull: true,
-        label: '备注信息',
-        placeholder: '',
-        rule: ''
-      }
-      ]
-    }]
+    listComponent: []
   }
 
   ],
@@ -809,6 +508,7 @@ export default {
     newComponent: [{
       tab: '新建供货商档案信息',
       components: [{
+        name: '',
         type: 'text',
         component: inputText,
         isNull: false,
@@ -817,6 +517,7 @@ export default {
         rule: ''
       },
       {
+        name: '',
         type: 'text',
         component: inputText,
         isNull: false,
@@ -825,6 +526,7 @@ export default {
         rule: ''
       },
       {
+        name: '',
         type: 'text',
         component: inputText,
         isNull: true,
@@ -833,6 +535,7 @@ export default {
         rule: ''
       },
       {
+        name: '',
         type: 'text',
         component: inputText,
         isNull: true,
@@ -841,6 +544,7 @@ export default {
         rule: ''
       },
       {
+        name: '',
         type: 'text',
         component: inputText,
         isNull: true,
@@ -849,6 +553,7 @@ export default {
         rule: ''
       },
       {
+        name: '',
         type: 'text',
         component: inputText,
         isNull: true,
@@ -857,6 +562,7 @@ export default {
         rule: ''
       },
       {
+        name: '',
         type: 'textarea',
         component: inputTextArea,
         isNull: true,
@@ -866,85 +572,7 @@ export default {
       }
       ]
     }],
-    listComponent: [],
-    editComponent: [{
-      tab: '编辑肥料档案',
-      components: [{
-        type: 'select',
-        component: inputSelect,
-        isNull: false,
-        label: '饲料类别',
-        placeholder: '',
-        rule: '',
-        options: [{
-          value: '',
-          label: '请选择分类'
-        },
-        {
-          value: '',
-          label: '粗粮类'
-        }
-        ]
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: false,
-        label: '饲料名称',
-        placeholder: '',
-        value: '红苕汤羹',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '用途',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '包装规格',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '生产厂家名称',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '产地',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '联系方式',
-        placeholder: '请输入11位手机号(固话用-隔开)',
-        rule: ''
-      },
-      {
-        type: 'textarea',
-        component: inputTextArea,
-        isNull: true,
-        label: '备注信息',
-        placeholder: '',
-        rule: ''
-      }
-      ]
-    }]
+    listComponent: []
   }
 
   ],
@@ -969,6 +597,7 @@ export default {
     newComponent: [{
       tab: '新建产品档案信息',
       components: [{
+        name: '',
         type: 'text',
         component: inputText,
         isNull: false,
@@ -977,6 +606,7 @@ export default {
         rule: ''
       },
       {
+        name: '',
         type: 'text',
         component: inputText,
         isNull: false,
@@ -985,6 +615,7 @@ export default {
         rule: ''
       },
       {
+        name: '',
         type: 'text',
         component: inputText,
         isNull: true,
@@ -993,6 +624,7 @@ export default {
         rule: ''
       },
       {
+        name: '',
         type: 'text',
         component: inputText,
         isNull: true,
@@ -1001,6 +633,7 @@ export default {
         rule: ''
       },
       {
+        name: '',
         type: 'text',
         component: inputText,
         isNull: true,
@@ -1009,6 +642,7 @@ export default {
         rule: ''
       },
       {
+        name: '',
         type: 'text',
         component: inputText,
         isNull: true,
@@ -1017,6 +651,7 @@ export default {
         rule: ''
       },
       {
+        name: '',
         type: 'textarea',
         component: inputTextArea,
         isNull: true,
@@ -1026,169 +661,7 @@ export default {
       }
       ]
     }],
-    listComponent: [],
-    editComponent: [{
-      tab: '编辑肥料档案',
-      components: [{
-        type: 'select',
-        component: inputSelect,
-        isNull: false,
-        label: '饲料类别',
-        placeholder: '',
-        rule: '',
-        options: [{
-          value: '',
-          label: '请选择分类'
-        },
-        {
-          value: '',
-          label: '粗粮类'
-        }
-        ]
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: false,
-        label: '饲料名称',
-        placeholder: '',
-        value: '红苕汤羹',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '用途',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '包装规格',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '生产厂家名称',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '产地',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '联系方式',
-        placeholder: '请输入11位手机号(固话用-隔开)',
-        rule: ''
-      },
-      {
-        type: 'textarea',
-        component: inputTextArea,
-        isNull: true,
-        label: '备注信息',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        name: 'farmName',
-        type: 'select',
-        component: inputSelect,
-        isNull: false,
-        label: '养殖场名称',
-        placeholder: '请选择养殖场',
-        rule: 'required',
-        options: [{
-          value: '',
-          label: '请选择养殖场'
-        },
-        {
-          value: '从化养殖基地',
-          label: '从化养殖基地'
-        },
-        {
-          value: '华农养殖场',
-          label: '华农养殖场'
-        }]
-      },
-      {
-        name: 'areaName',
-        type: 'text',
-        component: inputText,
-        isNull: false,
-        label: '养殖区名称',
-        placeholder: '必填',
-        rule: 'required'
-      },
-      {
-        name: 'area',
-        type: 'text',
-        component: inputText,
-        isNull: false,
-        label: '养殖面积',
-        placeholder: '请填写数字（必填）单位是亩',
-        rule: 'required|numeric'
-      },
-      {
-        name: 'principal',
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '负责人',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        name: 'class',
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '养殖畜禽种类',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        name: 'scale',
-        type: 'text',
-        component: inputText,
-        isNull: false,
-        label: '养殖规模',
-        placeholder: '请填写数字（必填）单位是亩',
-        rule: 'required'
-      },
-      {
-        name: 'address',
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '详细地址',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        name: 'remarkInfo',
-        type: 'textarea',
-        component: inputTextArea,
-        isNull: true,
-        label: '备注信息',
-        placeholder: '',
-        rule: ''
-      }
-      ]
-    }]
+    listComponent: []
   }
 
   ],
@@ -1256,89 +729,21 @@ export default {
         label: '',
         placeholder: '',
         rule: ''
+      },
+      // cs
+      {
+        name: 'ts',
+        type: 'textselect',
+        component: inputTextSelect,
+        isNull: true,
+        label: '面經',
+        placeholder: '',
+        rule: ''
       }
       ]
     }],
 
-    listComponent: [],
-    editComponent: [{
-      tab: '编辑肥料档案',
-      components: [{
-        type: 'select',
-        component: inputSelect,
-        isNull: false,
-        label: '饲料类别',
-        placeholder: '',
-        rule: '',
-        options: [{
-          value: '',
-          label: '请选择分类'
-        },
-        {
-          value: '',
-          label: '粗粮类'
-        }
-        ]
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: false,
-        label: '饲料名称',
-        placeholder: '',
-        value: '红苕汤羹',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '用途',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '包装规格',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '生产厂家名称',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '产地',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '联系方式',
-        placeholder: '请输入11位手机号(固话用-隔开)',
-        rule: ''
-      },
-      {
-        type: 'textarea',
-        component: inputTextArea,
-        isNull: true,
-        label: '备注信息',
-        placeholder: '',
-        rule: ''
-      }
-      ]
-    }]
+    listComponent: []
   },
   {
     settitle: '养殖基础信息管理',
@@ -1447,86 +852,7 @@ export default {
       ]
     }],
 
-    listComponent: [],
-    editComponent: [{
-      tab: '编辑肥料档案',
-      components: [{
-        type: 'select',
-        component: inputSelect,
-        isNull: false,
-        label: '饲料类别',
-        placeholder: '',
-        rule: '',
-        options: [{
-          value: '',
-          label: '请选择分类'
-        },
-        {
-          value: '',
-          label: '粗粮类'
-        }
-        ]
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: false,
-        label: '饲料名称',
-        placeholder: '',
-        value: '红苕汤羹',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '用途',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '包装规格',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '生产厂家名称',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '产地',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '联系方式',
-        placeholder: '请输入11位手机号(固话用-隔开)',
-        rule: ''
-      },
-      {
-        type: 'textarea',
-        component: inputTextArea,
-        isNull: true,
-        label: '备注信息',
-        placeholder: '',
-        rule: ''
-      }
-      ]
-    }]
-
+    listComponent: []
   },
   {
     settitle: '养殖基础信息管理',
@@ -1549,6 +875,7 @@ export default {
     newComponent: [{
       tab: '新建农药档案',
       components: [{
+        name: '',
         type: 'select',
         component: inputSelect,
         isNull: false,
@@ -1566,6 +893,7 @@ export default {
         ]
       },
       {
+        name: '',
         type: 'text',
         component: inputText,
         isNull: false,
@@ -1574,6 +902,7 @@ export default {
         rule: ''
       },
       {
+        name: '',
         type: 'text',
         component: inputText,
         isNull: true,
@@ -1582,6 +911,7 @@ export default {
         rule: ''
       },
       {
+        name: '',
         type: 'text',
         component: inputText,
         isNull: true,
@@ -1590,6 +920,7 @@ export default {
         rule: ''
       },
       {
+        name: '',
         type: 'text',
         component: inputText,
         isNull: true,
@@ -1598,6 +929,7 @@ export default {
         rule: ''
       },
       {
+        name: '',
         type: 'text',
         component: inputText,
         isNull: true,
@@ -1606,6 +938,7 @@ export default {
         rule: ''
       },
       {
+        name: '',
         type: 'text',
         component: inputText,
         isNull: true,
@@ -1614,6 +947,7 @@ export default {
         rule: ''
       },
       {
+        name: '',
         type: 'textarea',
         component: inputTextArea,
         isNull: true,
@@ -1623,86 +957,7 @@ export default {
       }
       ]
     }],
-    listComponent: [],
-    editComponent: [{
-      tab: '编辑肥料档案',
-      components: [{
-        type: 'select',
-        component: inputSelect,
-        isNull: false,
-        label: '饲料类别',
-        placeholder: '',
-        rule: '',
-        options: [{
-          value: '',
-          label: '请选择分类'
-        },
-        {
-          value: '',
-          label: '粗粮类'
-        }
-        ]
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: false,
-        label: '饲料名称',
-        placeholder: '',
-        value: '红苕汤羹',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '用途',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '包装规格',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '生产厂家名称',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '产地',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '联系方式',
-        placeholder: '请输入11位手机号(固话用-隔开)',
-        rule: ''
-      },
-      {
-        type: 'textarea',
-        component: inputTextArea,
-        isNull: true,
-        label: '备注信息',
-        placeholder: '',
-        rule: ''
-      }
-      ]
-    }]
-
+    listComponent: []
   },
   {
     settitle: '养殖基础信息管理',
@@ -1725,6 +980,7 @@ export default {
     newComponent: [{
       tab: '新建饲料档案',
       components: [{
+        name: '',
         type: 'select',
         component: inputSelect,
         isNull: false,
@@ -1745,6 +1001,7 @@ export default {
         }]
       },
       {
+        name: '',
         type: 'text',
         component: inputText,
         isNull: false,
@@ -1753,6 +1010,7 @@ export default {
         rule: ''
       },
       {
+        name: '',
         type: 'text',
         component: inputText,
         isNull: true,
@@ -1761,6 +1019,7 @@ export default {
         rule: ''
       },
       {
+        name: '',
         type: 'text',
         component: inputText,
         isNull: true,
@@ -1769,6 +1028,7 @@ export default {
         rule: ''
       },
       {
+        name: '',
         type: 'text',
         component: inputText,
         isNull: true,
@@ -1777,6 +1037,7 @@ export default {
         rule: ''
       },
       {
+        name: '',
         type: 'text',
         component: inputText,
         isNull: true,
@@ -1785,6 +1046,7 @@ export default {
         rule: ''
       },
       {
+        name: '',
         type: 'text',
         component: inputText,
         isNull: true,
@@ -1793,6 +1055,7 @@ export default {
         rule: ''
       },
       {
+        name: '',
         type: 'textarea',
         component: inputTextArea,
         isNull: true,
@@ -1802,85 +1065,7 @@ export default {
       }
       ]
     }],
-    listComponent: [],
-    editComponent: [{
-      tab: '编辑肥料档案',
-      components: [{
-        type: 'select',
-        component: inputSelect,
-        isNull: false,
-        label: '饲料类别',
-        placeholder: '',
-        rule: '',
-        options: [{
-          value: '',
-          label: '请选择分类'
-        },
-        {
-          value: '',
-          label: '粗粮类'
-        }
-        ]
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: false,
-        label: '饲料名称',
-        placeholder: '',
-        value: '红苕汤羹',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '用途',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '包装规格',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '生产厂家名称',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '产地',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '联系方式',
-        placeholder: '请输入11位手机号(固话用-隔开)',
-        rule: ''
-      },
-      {
-        type: 'textarea',
-        component: inputTextArea,
-        isNull: true,
-        label: '备注信息',
-        placeholder: '',
-        rule: ''
-      }
-      ]
-    }]
+    listComponent: []
   },
   {
     settitle: '养殖基础信息管理',
@@ -1903,6 +1088,7 @@ export default {
     newComponent: [{
       tab: '新建农药档案',
       components: [{
+        name: '',
         type: 'select',
         component: inputSelect,
         isNull: false,
@@ -1920,6 +1106,7 @@ export default {
         ]
       },
       {
+        name: '',
         type: 'text',
         component: inputText,
         isNull: false,
@@ -1928,6 +1115,7 @@ export default {
         rule: ''
       },
       {
+        name: '',
         type: 'text',
         component: inputText,
         isNull: true,
@@ -1936,6 +1124,7 @@ export default {
         rule: ''
       },
       {
+        name: '',
         type: 'text',
         component: inputText,
         isNull: true,
@@ -1944,6 +1133,7 @@ export default {
         rule: ''
       },
       {
+        name: '',
         type: 'text',
         component: inputText,
         isNull: true,
@@ -1952,6 +1142,7 @@ export default {
         rule: ''
       },
       {
+        name: '',
         type: 'text',
         component: inputText,
         isNull: true,
@@ -1960,6 +1151,7 @@ export default {
         rule: ''
       },
       {
+        name: '',
         type: 'text',
         component: inputText,
         isNull: true,
@@ -1968,6 +1160,7 @@ export default {
         rule: ''
       },
       {
+        name: '',
         type: 'textarea',
         component: inputTextArea,
         isNull: true,
@@ -1977,85 +1170,7 @@ export default {
       }
       ]
     }],
-    listComponent: [],
-    editComponent: [{
-      tab: '编辑肥料档案',
-      components: [{
-        type: 'select',
-        component: inputSelect,
-        isNull: false,
-        label: '饲料类别',
-        placeholder: '',
-        rule: '',
-        options: [{
-          value: '',
-          label: '请选择分类'
-        },
-        {
-          value: '',
-          label: '粗粮类'
-        }
-        ]
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: false,
-        label: '饲料名称',
-        placeholder: '',
-        value: '红苕汤羹',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '用途',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '包装规格',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '生产厂家名称',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '产地',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '联系方式',
-        placeholder: '请输入11位手机号(固话用-隔开)',
-        rule: ''
-      },
-      {
-        type: 'textarea',
-        component: inputTextArea,
-        isNull: true,
-        label: '备注信息',
-        placeholder: '',
-        rule: ''
-      }
-      ]
-    }]
+    listComponent: []
   },
   {
     settitle: '养殖基础信息管理',
@@ -2078,6 +1193,7 @@ export default {
     newComponent: [{
       tab: '新建人物档案',
       components: [{
+        name: '',
         type: 'text',
         component: inputText,
         isNull: false,
@@ -2086,6 +1202,7 @@ export default {
         rule: ''
       },
       {
+        name: '',
         type: 'select',
         component: inputSelect,
         isNull: false,
@@ -2103,6 +1220,7 @@ export default {
         ]
       },
       {
+        name: '',
         type: 'text',
         component: inputText,
         isNull: true,
@@ -2111,6 +1229,7 @@ export default {
         rule: ''
       },
       {
+        name: '',
         type: 'text',
         component: inputText,
         isNull: true,
@@ -2119,6 +1238,7 @@ export default {
         rule: ''
       },
       {
+        name: '',
         type: 'text',
         component: inputText,
         isNull: false,
@@ -2127,6 +1247,7 @@ export default {
         rule: ''
       },
       {
+        name: '',
         type: 'text',
         component: inputText,
         isNull: true,
@@ -2144,85 +1265,7 @@ export default {
       }
       ]
     }],
-    listComponent: [],
-    editComponent: [{
-      tab: '编辑肥料档案',
-      components: [{
-        type: 'select',
-        component: inputSelect,
-        isNull: false,
-        label: '饲料类别',
-        placeholder: '',
-        rule: '',
-        options: [{
-          value: '',
-          label: '请选择分类'
-        },
-        {
-          value: '',
-          label: '粗粮类'
-        }
-        ]
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: false,
-        label: '饲料名称',
-        placeholder: '',
-        value: '红苕汤羹',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '用途',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '包装规格',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '生产厂家名称',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '产地',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '联系方式',
-        placeholder: '请输入11位手机号(固话用-隔开)',
-        rule: ''
-      },
-      {
-        type: 'textarea',
-        component: inputTextArea,
-        isNull: true,
-        label: '备注信息',
-        placeholder: '',
-        rule: ''
-      }
-      ]
-    }]
+    listComponent: []
   },
   {
     settitle: '养殖基础信息管理',
@@ -2344,85 +1387,7 @@ export default {
       }
       ]
     }],
-    listComponent: [],
-    editComponent: [{
-      tab: '编辑肥料档案',
-      components: [{
-        type: 'select',
-        component: inputSelect,
-        isNull: false,
-        label: '饲料类别',
-        placeholder: '',
-        rule: '',
-        options: [{
-          value: '',
-          label: '请选择分类'
-        },
-        {
-          value: '',
-          label: '粗粮类'
-        }
-        ]
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: false,
-        label: '饲料名称',
-        placeholder: '',
-        value: '红苕汤羹',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '用途',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '包装规格',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '生产厂家名称',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '产地',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '联系方式',
-        placeholder: '请输入11位手机号(固话用-隔开)',
-        rule: ''
-      },
-      {
-        type: 'textarea',
-        component: inputTextArea,
-        isNull: true,
-        label: '备注信息',
-        placeholder: '',
-        rule: ''
-      }
-      ]
-    }]
+    listComponent: []
   }
   ],
 
@@ -2520,85 +1485,7 @@ export default {
       }
       ]
     }],
-    listComponent: [],
-    editComponent: [{
-      tab: '编辑肥料档案',
-      components: [{
-        type: 'select',
-        component: inputSelect,
-        isNull: false,
-        label: '饲料类别',
-        placeholder: '',
-        rule: '',
-        options: [{
-          value: '',
-          label: '请选择分类'
-        },
-        {
-          value: '',
-          label: '粗粮类'
-        }
-        ]
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: false,
-        label: '饲料名称',
-        placeholder: '',
-        value: '红苕汤羹',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '用途',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '包装规格',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '生产厂家名称',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '产地',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '联系方式',
-        placeholder: '请输入11位手机号(固话用-隔开)',
-        rule: ''
-      },
-      {
-        type: 'textarea',
-        component: inputTextArea,
-        isNull: true,
-        label: '备注信息',
-        placeholder: '',
-        rule: ''
-      }
-      ]
-    }]
+    listComponent: []
   }
   ],
   feedManage: [{
@@ -2745,85 +1632,7 @@ export default {
       }
       ]
     }],
-    listComponent: [],
-    editComponent: [{
-      tab: '编辑肥料档案',
-      components: [{
-        type: 'select',
-        component: inputSelect,
-        isNull: false,
-        label: '饲料类别',
-        placeholder: '',
-        rule: '',
-        options: [{
-          value: '',
-          label: '请选择分类'
-        },
-        {
-          value: '',
-          label: '粗粮类'
-        }
-        ]
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: false,
-        label: '饲料名称',
-        placeholder: '',
-        value: '红苕汤羹',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '用途',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '包装规格',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '生产厂家名称',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '产地',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '联系方式',
-        placeholder: '请输入11位手机号(固话用-隔开)',
-        rule: ''
-      },
-      {
-        type: 'textarea',
-        component: inputTextArea,
-        isNull: true,
-        label: '备注信息',
-        placeholder: '',
-        rule: ''
-      }
-      ]
-    }]
+    listComponent: []
   }
   ],
   plagueManage: [{
@@ -2975,85 +1784,7 @@ export default {
       ]
     }
     ],
-    listComponent: [],
-    editComponent: [{
-      tab: '编辑肥料档案',
-      components: [{
-        type: 'select',
-        component: inputSelect,
-        isNull: false,
-        label: '饲料类别',
-        placeholder: '',
-        rule: '',
-        options: [{
-          value: '',
-          label: '请选择分类'
-        },
-        {
-          value: '',
-          label: '粗粮类'
-        }
-        ]
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: false,
-        label: '饲料名称',
-        placeholder: '',
-        value: '红苕汤羹',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '用途',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '包装规格',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '生产厂家名称',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '产地',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '联系方式',
-        placeholder: '请输入11位手机号(固话用-隔开)',
-        rule: ''
-      },
-      {
-        type: 'textarea',
-        component: inputTextArea,
-        isNull: true,
-        label: '备注信息',
-        placeholder: '',
-        rule: ''
-      }
-      ]
-    }]
+    listComponent: []
   }
   ],
   quarantineManage: [{
@@ -3171,85 +1902,7 @@ export default {
       ]
     }
     ],
-    listComponent: [],
-    editComponent: [{
-      tab: '编辑肥料档案',
-      components: [{
-        type: 'select',
-        component: inputSelect,
-        isNull: false,
-        label: '饲料类别',
-        placeholder: '',
-        rule: '',
-        options: [{
-          value: '',
-          label: '请选择分类'
-        },
-        {
-          value: '',
-          label: '粗粮类'
-        }
-        ]
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: false,
-        label: '饲料名称',
-        placeholder: '',
-        value: '红苕汤羹',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '用途',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '包装规格',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '生产厂家名称',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '产地',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '联系方式',
-        placeholder: '请输入11位手机号(固话用-隔开)',
-        rule: ''
-      },
-      {
-        type: 'textarea',
-        component: inputTextArea,
-        isNull: true,
-        label: '备注信息',
-        placeholder: '',
-        rule: ''
-      }
-      ]
-    }]
+    listComponent: []
   }],
   innocuityManage: [{
     settitle: '无害化管理',
@@ -3298,85 +1951,7 @@ export default {
       }
       ]
     }],
-    listComponent: [],
-    editComponent: [{
-      tab: '编辑肥料档案',
-      components: [{
-        type: 'select',
-        component: inputSelect,
-        isNull: false,
-        label: '饲料类别',
-        placeholder: '',
-        rule: '',
-        options: [{
-          value: '',
-          label: '请选择分类'
-        },
-        {
-          value: '',
-          label: '粗粮类'
-        }
-        ]
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: false,
-        label: '饲料名称',
-        placeholder: '',
-        value: '红苕汤羹',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '用途',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '包装规格',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '生产厂家名称',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '产地',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '联系方式',
-        placeholder: '请输入11位手机号(固话用-隔开)',
-        rule: ''
-      },
-      {
-        type: 'textarea',
-        component: inputTextArea,
-        isNull: true,
-        label: '备注信息',
-        placeholder: '',
-        rule: ''
-      }
-      ]
-    }]
+    listComponent: []
   }
 
   ],
@@ -3433,85 +2008,7 @@ export default {
       ]
     }
     ],
-    listComponent: [],
-    editComponent: [{
-      tab: '编辑肥料档案',
-      components: [{
-        type: 'select',
-        component: inputSelect,
-        isNull: false,
-        label: '饲料类别',
-        placeholder: '',
-        rule: '',
-        options: [{
-          value: '',
-          label: '请选择分类'
-        },
-        {
-          value: '',
-          label: '粗粮类'
-        }
-        ]
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: false,
-        label: '饲料名称',
-        placeholder: '',
-        value: '红苕汤羹',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '用途',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '包装规格',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '生产厂家名称',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '产地',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '联系方式',
-        placeholder: '请输入11位手机号(固话用-隔开)',
-        rule: ''
-      },
-      {
-        type: 'textarea',
-        component: inputTextArea,
-        isNull: true,
-        label: '备注信息',
-        placeholder: '',
-        rule: ''
-      }
-      ]
-    }]
+    listComponent: []
   }
   ],
   planManage: [{
@@ -3529,85 +2026,7 @@ export default {
     {
       component: newbuildBtn
     }],
-    listComponent: [],
-    editComponent: [{
-      tab: '编辑肥料档案',
-      components: [{
-        type: 'select',
-        component: inputSelect,
-        isNull: false,
-        label: '饲料类别',
-        placeholder: '',
-        rule: '',
-        options: [{
-          value: '',
-          label: '请选择分类'
-        },
-        {
-          value: '',
-          label: '粗粮类'
-        }
-        ]
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: false,
-        label: '饲料名称',
-        placeholder: '',
-        value: '红苕汤羹',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '用途',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '包装规格',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '生产厂家名称',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '产地',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '联系方式',
-        placeholder: '请输入11位手机号(固话用-隔开)',
-        rule: ''
-      },
-      {
-        type: 'textarea',
-        component: inputTextArea,
-        isNull: true,
-        label: '备注信息',
-        placeholder: '',
-        rule: ''
-      }
-      ]
-    }]
+    listComponent: []
   }],
   petProcess: [{
     settitle: '加工批次管理',
@@ -3627,85 +2046,7 @@ export default {
     {
       component: newbuildBtn
     }],
-    listComponent: [],
-    editComponent: [{
-      tab: '编辑肥料档案',
-      components: [{
-        type: 'select',
-        component: inputSelect,
-        isNull: false,
-        label: '饲料类别',
-        placeholder: '',
-        rule: '',
-        options: [{
-          value: '',
-          label: '请选择分类'
-        },
-        {
-          value: '',
-          label: '粗粮类'
-        }
-        ]
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: false,
-        label: '饲料名称',
-        placeholder: '',
-        value: '红苕汤羹',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '用途',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '包装规格',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '生产厂家名称',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '产地',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '联系方式',
-        placeholder: '请输入11位手机号(固话用-隔开)',
-        rule: ''
-      },
-      {
-        type: 'textarea',
-        component: inputTextArea,
-        isNull: true,
-        label: '备注信息',
-        placeholder: '',
-        rule: ''
-      }
-      ]
-    }]
+    listComponent: []
   }
   ],
   petDectect: [{
@@ -3723,85 +2064,7 @@ export default {
     {
       component: newbuildBtn
     }],
-    listComponent: [],
-    editComponent: [{
-      tab: '编辑肥料档案',
-      components: [{
-        type: 'select',
-        component: inputSelect,
-        isNull: false,
-        label: '饲料类别',
-        placeholder: '',
-        rule: '',
-        options: [{
-          value: '',
-          label: '请选择分类'
-        },
-        {
-          value: '',
-          label: '粗粮类'
-        }
-        ]
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: false,
-        label: '饲料名称',
-        placeholder: '',
-        value: '红苕汤羹',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '用途',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '包装规格',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '生产厂家名称',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '产地',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '联系方式',
-        placeholder: '请输入11位手机号(固话用-隔开)',
-        rule: ''
-      },
-      {
-        type: 'textarea',
-        component: inputTextArea,
-        isNull: true,
-        label: '备注信息',
-        placeholder: '',
-        rule: ''
-      }
-      ]
-    }]
+    listComponent: []
   }
   ],
   petTrace: [{
@@ -3819,85 +2082,7 @@ export default {
     {
       component: newbuildBtn
     }],
-    listComponent: [],
-    editComponent: [{
-      tab: '编辑肥料档案',
-      components: [{
-        type: 'select',
-        component: inputSelect,
-        isNull: false,
-        label: '饲料类别',
-        placeholder: '',
-        rule: '',
-        options: [{
-          value: '',
-          label: '请选择分类'
-        },
-        {
-          value: '',
-          label: '粗粮类'
-        }
-        ]
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: false,
-        label: '饲料名称',
-        placeholder: '',
-        value: '红苕汤羹',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '用途',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '包装规格',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '生产厂家名称',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '产地',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '联系方式',
-        placeholder: '请输入11位手机号(固话用-隔开)',
-        rule: ''
-      },
-      {
-        type: 'textarea',
-        component: inputTextArea,
-        isNull: true,
-        label: '备注信息',
-        placeholder: '',
-        rule: ''
-      }
-      ]
-    }]
+    listComponent: []
   }
   ],
   petSerial: [{
@@ -3915,85 +2100,7 @@ export default {
     {
       component: newbuildBtn
     }],
-    listComponent: [],
-    editComponent: [{
-      tab: '编辑肥料档案',
-      components: [{
-        type: 'select',
-        component: inputSelect,
-        isNull: false,
-        label: '饲料类别',
-        placeholder: '',
-        rule: '',
-        options: [{
-          value: '',
-          label: '请选择分类'
-        },
-        {
-          value: '',
-          label: '粗粮类'
-        }
-        ]
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: false,
-        label: '饲料名称',
-        placeholder: '',
-        value: '红苕汤羹',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '用途',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '包装规格',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '生产厂家名称',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '产地',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '联系方式',
-        placeholder: '请输入11位手机号(固话用-隔开)',
-        rule: ''
-      },
-      {
-        type: 'textarea',
-        component: inputTextArea,
-        isNull: true,
-        label: '备注信息',
-        placeholder: '',
-        rule: ''
-      }
-      ]
-    }]
+    listComponent: []
   }
   ],
   petBack: [{
@@ -4011,85 +2118,7 @@ export default {
     {
       component: newbuildBtn
     }],
-    listComponent: [],
-    editComponent: [{
-      tab: '编辑肥料档案',
-      components: [{
-        type: 'select',
-        component: inputSelect,
-        isNull: false,
-        label: '饲料类别',
-        placeholder: '',
-        rule: '',
-        options: [{
-          value: '',
-          label: '请选择分类'
-        },
-        {
-          value: '',
-          label: '粗粮类'
-        }
-        ]
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: false,
-        label: '饲料名称',
-        placeholder: '',
-        value: '红苕汤羹',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '用途',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '包装规格',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '生产厂家名称',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '产地',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '联系方式',
-        placeholder: '请输入11位手机号(固话用-隔开)',
-        rule: ''
-      },
-      {
-        type: 'textarea',
-        component: inputTextArea,
-        isNull: true,
-        label: '备注信息',
-        placeholder: '',
-        rule: ''
-      }
-      ]
-    }]
+    listComponent: []
   }
   ],
   petOutput: [{
@@ -4107,85 +2136,7 @@ export default {
     {
       component: newbuildBtn
     }],
-    listComponent: [],
-    editComponent: [{
-      tab: '编辑肥料档案',
-      components: [{
-        type: 'select',
-        component: inputSelect,
-        isNull: false,
-        label: '饲料类别',
-        placeholder: '',
-        rule: '',
-        options: [{
-          value: '',
-          label: '请选择分类'
-        },
-        {
-          value: '',
-          label: '粗粮类'
-        }
-        ]
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: false,
-        label: '饲料名称',
-        placeholder: '',
-        value: '红苕汤羹',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '用途',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '包装规格',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '生产厂家名称',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '产地',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '联系方式',
-        placeholder: '请输入11位手机号(固话用-隔开)',
-        rule: ''
-      },
-      {
-        type: 'textarea',
-        component: inputTextArea,
-        isNull: true,
-        label: '备注信息',
-        placeholder: '',
-        rule: ''
-      }
-      ]
-    }]
+    listComponent: []
   }
   ],
   plantBase: [{
@@ -4206,85 +2157,7 @@ export default {
     {
       component: newbuildBtn
     }],
-    listComponent: [],
-    editComponent: [{
-      tab: '编辑肥料档案',
-      components: [{
-        type: 'select',
-        component: inputSelect,
-        isNull: false,
-        label: '饲料类别',
-        placeholder: '',
-        rule: '',
-        options: [{
-          value: '',
-          label: '请选择分类'
-        },
-        {
-          value: '',
-          label: '粗粮类'
-        }
-        ]
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: false,
-        label: '饲料名称',
-        placeholder: '',
-        value: '红苕汤羹',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '用途',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '包装规格',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '生产厂家名称',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '产地',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '联系方式',
-        placeholder: '请输入11位手机号(固话用-隔开)',
-        rule: ''
-      },
-      {
-        type: 'textarea',
-        component: inputTextArea,
-        isNull: true,
-        label: '备注信息',
-        placeholder: '',
-        rule: ''
-      }
-      ]
-    }]
+    listComponent: []
   },
   {
     key: 'plantArea',
@@ -4303,85 +2176,7 @@ export default {
     {
       component: newbuildBtn
     }],
-    listComponent: [],
-    editComponent: [{
-      tab: '编辑肥料档案',
-      components: [{
-        type: 'select',
-        component: inputSelect,
-        isNull: false,
-        label: '饲料类别',
-        placeholder: '',
-        rule: '',
-        options: [{
-          value: '',
-          label: '请选择分类'
-        },
-        {
-          value: '',
-          label: '粗粮类'
-        }
-        ]
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: false,
-        label: '饲料名称',
-        placeholder: '',
-        value: '红苕汤羹',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '用途',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '包装规格',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '生产厂家名称',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '产地',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '联系方式',
-        placeholder: '请输入11位手机号(固话用-隔开)',
-        rule: ''
-      },
-      {
-        type: 'textarea',
-        component: inputTextArea,
-        isNull: true,
-        label: '备注信息',
-        placeholder: '',
-        rule: ''
-      }
-      ]
-    }]
+    listComponent: []
   },
   {
     key: 'vegetableArchive',
@@ -4400,85 +2195,7 @@ export default {
     {
       component: newbuildBtn
     }],
-    listComponent: [],
-    editComponent: [{
-      tab: '编辑肥料档案',
-      components: [{
-        type: 'select',
-        component: inputSelect,
-        isNull: false,
-        label: '饲料类别',
-        placeholder: '',
-        rule: '',
-        options: [{
-          value: '',
-          label: '请选择分类'
-        },
-        {
-          value: '',
-          label: '粗粮类'
-        }
-        ]
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: false,
-        label: '饲料名称',
-        placeholder: '',
-        value: '红苕汤羹',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '用途',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '包装规格',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '生产厂家名称',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '产地',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '联系方式',
-        placeholder: '请输入11位手机号(固话用-隔开)',
-        rule: ''
-      },
-      {
-        type: 'textarea',
-        component: inputTextArea,
-        isNull: true,
-        label: '备注信息',
-        placeholder: '',
-        rule: ''
-      }
-      ]
-    }]
+    listComponent: []
   },
   {
     key: 'fertilizeArchive',
@@ -4500,85 +2217,7 @@ export default {
     {
       component: newbuildBtn
     }],
-    listComponent: [],
-    editComponent: [{
-      tab: '编辑肥料档案',
-      components: [{
-        type: 'select',
-        component: inputSelect,
-        isNull: false,
-        label: '饲料类别',
-        placeholder: '',
-        rule: '',
-        options: [{
-          value: '',
-          label: '请选择分类'
-        },
-        {
-          value: '',
-          label: '粗粮类'
-        }
-        ]
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: false,
-        label: '饲料名称',
-        placeholder: '',
-        value: '红苕汤羹',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '用途',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '包装规格',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '生产厂家名称',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '产地',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '联系方式',
-        placeholder: '请输入11位手机号(固话用-隔开)',
-        rule: ''
-      },
-      {
-        type: 'textarea',
-        component: inputTextArea,
-        isNull: true,
-        label: '备注信息',
-        placeholder: '',
-        rule: ''
-      }
-      ]
-    }]
+    listComponent: []
   },
   {
     key: 'pesticideArchive',
@@ -4600,85 +2239,7 @@ export default {
     {
       component: newbuildBtn
     }],
-    listComponent: [],
-    editComponent: [{
-      tab: '编辑肥料档案',
-      components: [{
-        type: 'select',
-        component: inputSelect,
-        isNull: false,
-        label: '饲料类别',
-        placeholder: '',
-        rule: '',
-        options: [{
-          value: '',
-          label: '请选择分类'
-        },
-        {
-          value: '',
-          label: '粗粮类'
-        }
-        ]
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: false,
-        label: '饲料名称',
-        placeholder: '',
-        value: '红苕汤羹',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '用途',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '包装规格',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '生产厂家名称',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '产地',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '联系方式',
-        placeholder: '请输入11位手机号(固话用-隔开)',
-        rule: ''
-      },
-      {
-        type: 'textarea',
-        component: inputTextArea,
-        isNull: true,
-        label: '备注信息',
-        placeholder: '',
-        rule: ''
-      }
-      ]
-    }]
+    listComponent: []
   }
   ],
   plantSerial: [{
@@ -4689,85 +2250,7 @@ export default {
     theads: ['种植批次号', '果蔬id', '种植日期', '种植面积', '面积单位', '种植数量', '种植人', '录入人', '备注'],
     protos: ['plan_type_name', 'name', 'content'],
     widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
-    listComponent: [],
-    editComponent: [{
-      tab: '编辑肥料档案',
-      components: [{
-        type: 'select',
-        component: inputSelect,
-        isNull: false,
-        label: '饲料类别',
-        placeholder: '',
-        rule: '',
-        options: [{
-          value: '',
-          label: '请选择分类'
-        },
-        {
-          value: '',
-          label: '粗粮类'
-        }
-        ]
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: false,
-        label: '饲料名称',
-        placeholder: '',
-        value: '红苕汤羹',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '用途',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '包装规格',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '生产厂家名称',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '产地',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '联系方式',
-        placeholder: '请输入11位手机号(固话用-隔开)',
-        rule: ''
-      },
-      {
-        type: 'textarea',
-        component: inputTextArea,
-        isNull: true,
-        label: '备注信息',
-        placeholder: '',
-        rule: ''
-      }
-      ]
-    }]
+    listComponent: []
   }
 
   ],
@@ -4779,85 +2262,7 @@ export default {
     theads: ['批次号', '施肥日期', '天气', '肥料', '施用量(Kg)', '施肥人', '施肥方法', '录入人', '备注'],
     protos: ['plan_type_name', 'name', 'content'],
     widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
-    listComponent: [],
-    editComponent: [{
-      tab: '编辑肥料档案',
-      components: [{
-        type: 'select',
-        component: inputSelect,
-        isNull: false,
-        label: '饲料类别',
-        placeholder: '',
-        rule: '',
-        options: [{
-          value: '',
-          label: '请选择分类'
-        },
-        {
-          value: '',
-          label: '粗粮类'
-        }
-        ]
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: false,
-        label: '饲料名称',
-        placeholder: '',
-        value: '红苕汤羹',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '用途',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '包装规格',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '生产厂家名称',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '产地',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '联系方式',
-        placeholder: '请输入11位手机号(固话用-隔开)',
-        rule: ''
-      },
-      {
-        type: 'textarea',
-        component: inputTextArea,
-        isNull: true,
-        label: '备注信息',
-        placeholder: '',
-        rule: ''
-      }
-      ]
-    }]
+    listComponent: []
   },
   {
     settitle: '农事管理',
@@ -4867,85 +2272,7 @@ export default {
     theads: ['批次号', '药剂', '喷洒日期', '天气', '使用量(L)', '施药浓度', '安全隔离期(天)', '施用人', '施用方法', '录入人'],
     protos: ['plan_type_name', 'name', 'content'],
     widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
-    listComponent: [],
-    editComponent: [{
-      tab: '编辑肥料档案',
-      components: [{
-        type: 'select',
-        component: inputSelect,
-        isNull: false,
-        label: '饲料类别',
-        placeholder: '',
-        rule: '',
-        options: [{
-          value: '',
-          label: '请选择分类'
-        },
-        {
-          value: '',
-          label: '粗粮类'
-        }
-        ]
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: false,
-        label: '饲料名称',
-        placeholder: '',
-        value: '红苕汤羹',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '用途',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '包装规格',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '生产厂家名称',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '产地',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '联系方式',
-        placeholder: '请输入11位手机号(固话用-隔开)',
-        rule: ''
-      },
-      {
-        type: 'textarea',
-        component: inputTextArea,
-        isNull: true,
-        label: '备注信息',
-        placeholder: '',
-        rule: ''
-      }
-      ]
-    }]
+    listComponent: []
   },
   {
     settitle: '农事管理',
@@ -4955,85 +2282,7 @@ export default {
     theads: ['批次号', '检验类型', '检验日期', '天气', '检测部门', '检查结果', '检验审批信息', '负责人', '录入人', '备注'],
     protos: ['plan_type_name', 'name', 'content'],
     widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
-    listComponent: [],
-    editComponent: [{
-      tab: '编辑肥料档案',
-      components: [{
-        type: 'select',
-        component: inputSelect,
-        isNull: false,
-        label: '饲料类别',
-        placeholder: '',
-        rule: '',
-        options: [{
-          value: '',
-          label: '请选择分类'
-        },
-        {
-          value: '',
-          label: '粗粮类'
-        }
-        ]
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: false,
-        label: '饲料名称',
-        placeholder: '',
-        value: '红苕汤羹',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '用途',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '包装规格',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '生产厂家名称',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '产地',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '联系方式',
-        placeholder: '请输入11位手机号(固话用-隔开)',
-        rule: ''
-      },
-      {
-        type: 'textarea',
-        component: inputTextArea,
-        isNull: true,
-        label: '备注信息',
-        placeholder: '',
-        rule: ''
-      }
-      ]
-    }]
+    listComponent: []
   }
 
   ],
@@ -5045,85 +2294,7 @@ export default {
     theads: ['计划日期', '操作模块', '安排人员', '计划内容', '操作用户', '备注'],
     protos: ['plan_type_name', 'name', 'content'],
     widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
-    listComponent: [],
-    editComponent: [{
-      tab: '编辑肥料档案',
-      components: [{
-        type: 'select',
-        component: inputSelect,
-        isNull: false,
-        label: '饲料类别',
-        placeholder: '',
-        rule: '',
-        options: [{
-          value: '',
-          label: '请选择分类'
-        },
-        {
-          value: '',
-          label: '粗粮类'
-        }
-        ]
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: false,
-        label: '饲料名称',
-        placeholder: '',
-        value: '红苕汤羹',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '用途',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '包装规格',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '生产厂家名称',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '产地',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '联系方式',
-        placeholder: '请输入11位手机号(固话用-隔开)',
-        rule: ''
-      },
-      {
-        type: 'textarea',
-        component: inputTextArea,
-        isNull: true,
-        label: '备注信息',
-        placeholder: '',
-        rule: ''
-      }
-      ]
-    }]
+    listComponent: []
   }],
   plantHarvest: [{
     settitle: '采收管理',
@@ -5133,85 +2304,7 @@ export default {
     theads: ['种植', '批次号', '种植日期', '采收数量', '入库部门', '存放仓库位置', '操作人', '录入人', '备注'],
     protos: ['plan_type_name', 'name', 'content'],
     widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
-    listComponent: [],
-    editComponent: [{
-      tab: '编辑肥料档案',
-      components: [{
-        type: 'select',
-        component: inputSelect,
-        isNull: false,
-        label: '饲料类别',
-        placeholder: '',
-        rule: '',
-        options: [{
-          value: '',
-          label: '请选择分类'
-        },
-        {
-          value: '',
-          label: '粗粮类'
-        }
-        ]
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: false,
-        label: '饲料名称',
-        placeholder: '',
-        value: '红苕汤羹',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '用途',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '包装规格',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '生产厂家名称',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '产地',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '联系方式',
-        placeholder: '请输入11位手机号(固话用-隔开)',
-        rule: ''
-      },
-      {
-        type: 'textarea',
-        component: inputTextArea,
-        isNull: true,
-        label: '备注信息',
-        placeholder: '',
-        rule: ''
-      }
-      ]
-    }]
+    listComponent: []
   }],
   vegetableSerial: [{
     settitle: '加工批次管理',
@@ -5221,85 +2314,7 @@ export default {
     theads: ['加工批次号', '产品', '包装日期', '数量（重量）', '单位', '操作人', '录入人', '备注'],
     protos: ['plan_type_name', 'name', 'content'],
     widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
-    listComponent: [],
-    editComponent: [{
-      tab: '编辑肥料档案',
-      components: [{
-        type: 'select',
-        component: inputSelect,
-        isNull: false,
-        label: '饲料类别',
-        placeholder: '',
-        rule: '',
-        options: [{
-          value: '',
-          label: '请选择分类'
-        },
-        {
-          value: '',
-          label: '粗粮类'
-        }
-        ]
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: false,
-        label: '饲料名称',
-        placeholder: '',
-        value: '红苕汤羹',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '用途',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '包装规格',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '生产厂家名称',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '产地',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '联系方式',
-        placeholder: '请输入11位手机号(固话用-隔开)',
-        rule: ''
-      },
-      {
-        type: 'textarea',
-        component: inputTextArea,
-        isNull: true,
-        label: '备注信息',
-        placeholder: '',
-        rule: ''
-      }
-      ]
-    }]
+    listComponent: []
   }
   ],
   vegetableTrace: [{
@@ -5310,85 +2325,7 @@ export default {
     theads: ['追溯编码', '加工批次', '追溯次数', '加工日期', '备注'],
     protos: ['plan_type_name', 'name', 'content'],
     widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
-    listComponent: [],
-    editComponent: [{
-      tab: '编辑肥料档案',
-      components: [{
-        type: 'select',
-        component: inputSelect,
-        isNull: false,
-        label: '饲料类别',
-        placeholder: '',
-        rule: '',
-        options: [{
-          value: '',
-          label: '请选择分类'
-        },
-        {
-          value: '',
-          label: '粗粮类'
-        }
-        ]
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: false,
-        label: '饲料名称',
-        placeholder: '',
-        value: '红苕汤羹',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '用途',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '包装规格',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '生产厂家名称',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '产地',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '联系方式',
-        placeholder: '请输入11位手机号(固话用-隔开)',
-        rule: ''
-      },
-      {
-        type: 'textarea',
-        component: inputTextArea,
-        isNull: true,
-        label: '备注信息',
-        placeholder: '',
-        rule: ''
-      }
-      ]
-    }]
+    listComponent: []
   }],
   Logisticbase: [{
     settitle: '基础信息管理',
@@ -5398,85 +2335,7 @@ export default {
     theads: ['物流公司名称', '联系人', '联系电话', '地址', '备注信息'],
     protos: ['plan_type_name', 'name', 'content'],
     widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
-    listComponent: [],
-    editComponent: [{
-      tab: '编辑肥料档案',
-      components: [{
-        type: 'select',
-        component: inputSelect,
-        isNull: false,
-        label: '饲料类别',
-        placeholder: '',
-        rule: '',
-        options: [{
-          value: '',
-          label: '请选择分类'
-        },
-        {
-          value: '',
-          label: '粗粮类'
-        }
-        ]
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: false,
-        label: '饲料名称',
-        placeholder: '',
-        value: '红苕汤羹',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '用途',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '包装规格',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '生产厂家名称',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '产地',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '联系方式',
-        placeholder: '请输入11位手机号(固话用-隔开)',
-        rule: ''
-      },
-      {
-        type: 'textarea',
-        component: inputTextArea,
-        isNull: true,
-        label: '备注信息',
-        placeholder: '',
-        rule: ''
-      }
-      ]
-    }]
+    listComponent: []
   },
   {
     settitle: '基础信息管理',
@@ -5486,85 +2345,7 @@ export default {
     theads: ['车辆品牌', '车辆号码', '核载吨位', '备注信息'],
     protos: ['plan_type_name', 'name', 'content'],
     widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
-    listComponent: [],
-    editComponent: [{
-      tab: '编辑肥料档案',
-      components: [{
-        type: 'select',
-        component: inputSelect,
-        isNull: false,
-        label: '饲料类别',
-        placeholder: '',
-        rule: '',
-        options: [{
-          value: '',
-          label: '请选择分类'
-        },
-        {
-          value: '',
-          label: '粗粮类'
-        }
-        ]
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: false,
-        label: '饲料名称',
-        placeholder: '',
-        value: '红苕汤羹',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '用途',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '包装规格',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '生产厂家名称',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '产地',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '联系方式',
-        placeholder: '请输入11位手机号(固话用-隔开)',
-        rule: ''
-      },
-      {
-        type: 'textarea',
-        component: inputTextArea,
-        isNull: true,
-        label: '备注信息',
-        placeholder: '',
-        rule: ''
-      }
-      ]
-    }]
+    listComponent: []
   },
   {
     settitle: '基础信息管理',
@@ -5574,85 +2355,7 @@ export default {
     theads: ['驾驶员姓名', '性别', '联系电话', '取得驾照日期', '出生日期', '驾照类型(A1、C2...)', '备注信息'],
     protos: ['plan_type_name', 'name', 'content'],
     widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
-    listComponent: [],
-    editComponent: [{
-      tab: '编辑肥料档案',
-      components: [{
-        type: 'select',
-        component: inputSelect,
-        isNull: false,
-        label: '饲料类别',
-        placeholder: '',
-        rule: '',
-        options: [{
-          value: '',
-          label: '请选择分类'
-        },
-        {
-          value: '',
-          label: '粗粮类'
-        }
-        ]
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: false,
-        label: '饲料名称',
-        placeholder: '',
-        value: '红苕汤羹',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '用途',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '包装规格',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '生产厂家名称',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '产地',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '联系方式',
-        placeholder: '请输入11位手机号(固话用-隔开)',
-        rule: ''
-      },
-      {
-        type: 'textarea',
-        component: inputTextArea,
-        isNull: true,
-        label: '备注信息',
-        placeholder: '',
-        rule: ''
-      }
-      ]
-    }]
+    listComponent: []
   }],
   logisticSerial: [{
     settitle: '物流批次管理',
@@ -5662,85 +2365,7 @@ export default {
     theads: ['物流批次号', '物流日期', '货物名称', '数量', '运输方式', '操作人员', '物流状态', '备注信息'],
     protos: ['plan_type_name', 'name', 'content'],
     widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
-    listComponent: [],
-    editComponent: [{
-      tab: '编辑肥料档案',
-      components: [{
-        type: 'select',
-        component: inputSelect,
-        isNull: false,
-        label: '饲料类别',
-        placeholder: '',
-        rule: '',
-        options: [{
-          value: '',
-          label: '请选择分类'
-        },
-        {
-          value: '',
-          label: '粗粮类'
-        }
-        ]
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: false,
-        label: '饲料名称',
-        placeholder: '',
-        value: '红苕汤羹',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '用途',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '包装规格',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '生产厂家名称',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '产地',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '联系方式',
-        placeholder: '请输入11位手机号(固话用-隔开)',
-        rule: ''
-      },
-      {
-        type: 'textarea',
-        component: inputTextArea,
-        isNull: true,
-        label: '备注信息',
-        placeholder: '',
-        rule: ''
-      }
-      ]
-    }]
+    listComponent: []
   }],
   saleInput: [{
     settitle: '销售入库管理',
@@ -5750,85 +2375,7 @@ export default {
     theads: ['入库批次号', '商品来源', '入库日期', '仓库名称', '商品名称', '商品总数量', '库存数量', '入库人', '备注信息'],
     protos: ['plan_type_name', 'name', 'content'],
     widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
-    listComponent: [],
-    editComponent: [{
-      tab: '编辑肥料档案',
-      components: [{
-        type: 'select',
-        component: inputSelect,
-        isNull: false,
-        label: '饲料类别',
-        placeholder: '',
-        rule: '',
-        options: [{
-          value: '',
-          label: '请选择分类'
-        },
-        {
-          value: '',
-          label: '粗粮类'
-        }
-        ]
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: false,
-        label: '饲料名称',
-        placeholder: '',
-        value: '红苕汤羹',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '用途',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '包装规格',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '生产厂家名称',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '产地',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '联系方式',
-        placeholder: '请输入11位手机号(固话用-隔开)',
-        rule: ''
-      },
-      {
-        type: 'textarea',
-        component: inputTextArea,
-        isNull: true,
-        label: '备注信息',
-        placeholder: '',
-        rule: ''
-      }
-      ]
-    }]
+    listComponent: []
   }],
   saleOrder: [{
     settitle: '销售订单管理',
@@ -5838,85 +2385,7 @@ export default {
     theads: ['订单号', '商品来源', '销售日期', '客户名称', '商品名称', '数量(详情页数量)', '销售员', '备注信息'],
     protos: ['plan_type_name', 'name', 'content'],
     widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
-    listComponent: [],
-    editComponent: [{
-      tab: '编辑肥料档案',
-      components: [{
-        type: 'select',
-        component: inputSelect,
-        isNull: false,
-        label: '饲料类别',
-        placeholder: '',
-        rule: '',
-        options: [{
-          value: '',
-          label: '请选择分类'
-        },
-        {
-          value: '',
-          label: '粗粮类'
-        }
-        ]
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: false,
-        label: '饲料名称',
-        placeholder: '',
-        value: '红苕汤羹',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '用途',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '包装规格',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '生产厂家名称',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '产地',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '联系方式',
-        placeholder: '请输入11位手机号(固话用-隔开)',
-        rule: ''
-      },
-      {
-        type: 'textarea',
-        component: inputTextArea,
-        isNull: true,
-        label: '备注信息',
-        placeholder: '',
-        rule: ''
-      }
-      ]
-    }]
+    listComponent: []
   }],
   systemCompany: [{
     settitle: '公司信息管理',
@@ -5926,85 +2395,7 @@ export default {
     theads: ['公司网站名称', '公司简称', '统一社会信用代码', '经营范围', '负责人/法人', '详细地址', '电话', '传真', '员工总数', '公司编码', '公司网站', '公司logo', '备注'],
     protos: ['plan_type_name', 'name', 'content'],
     widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
-    listComponent: [],
-    editComponent: [{
-      tab: '编辑肥料档案',
-      components: [{
-        type: 'select',
-        component: inputSelect,
-        isNull: false,
-        label: '饲料类别',
-        placeholder: '',
-        rule: '',
-        options: [{
-          value: '',
-          label: '请选择分类'
-        },
-        {
-          value: '',
-          label: '粗粮类'
-        }
-        ]
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: false,
-        label: '饲料名称',
-        placeholder: '',
-        value: '红苕汤羹',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '用途',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '包装规格',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '生产厂家名称',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '产地',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '联系方式',
-        placeholder: '请输入11位手机号(固话用-隔开)',
-        rule: ''
-      },
-      {
-        type: 'textarea',
-        component: inputTextArea,
-        isNull: true,
-        label: '备注信息',
-        placeholder: '',
-        rule: ''
-      }
-      ]
-    }]
+    listComponent: []
   }],
   systemUser: [{
     settitle: '用户管理',
@@ -6014,85 +2405,7 @@ export default {
     theads: ['用户名', '姓名', '工号', '邮箱', '电话号码', '所属公司', '出生日期', '所属部门', '用户类型', '入职日期', '备注'],
     protos: ['plan_type_name', 'name', 'content'],
     widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
-    listComponent: [],
-    editComponent: [{
-      tab: '编辑肥料档案',
-      components: [{
-        type: 'select',
-        component: inputSelect,
-        isNull: false,
-        label: '饲料类别',
-        placeholder: '',
-        rule: '',
-        options: [{
-          value: '',
-          label: '请选择分类'
-        },
-        {
-          value: '',
-          label: '粗粮类'
-        }
-        ]
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: false,
-        label: '饲料名称',
-        placeholder: '',
-        value: '红苕汤羹',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '用途',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '包装规格',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '生产厂家名称',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '产地',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '联系方式',
-        placeholder: '请输入11位手机号(固话用-隔开)',
-        rule: ''
-      },
-      {
-        type: 'textarea',
-        component: inputTextArea,
-        isNull: true,
-        label: '备注信息',
-        placeholder: '',
-        rule: ''
-      }
-      ]
-    }]
+    listComponent: []
   }],
   systemLog: [{
     settitle: '系统日志',
@@ -6102,85 +2415,7 @@ export default {
     theads: ['模块名称', '操作', '内容', '日期时间', '客户端', '公司', '用户'],
     protos: ['plan_type_name', 'name', 'content'],
     widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
-    listComponent: [],
-    editComponent: [{
-      tab: '编辑肥料档案',
-      components: [{
-        type: 'select',
-        component: inputSelect,
-        isNull: false,
-        label: '饲料类别',
-        placeholder: '',
-        rule: '',
-        options: [{
-          value: '',
-          label: '请选择分类'
-        },
-        {
-          value: '',
-          label: '粗粮类'
-        }
-        ]
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: false,
-        label: '饲料名称',
-        placeholder: '',
-        value: '红苕汤羹',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '用途',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '包装规格',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '生产厂家名称',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '产地',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '联系方式',
-        placeholder: '请输入11位手机号(固话用-隔开)',
-        rule: ''
-      },
-      {
-        type: 'textarea',
-        component: inputTextArea,
-        isNull: true,
-        label: '备注信息',
-        placeholder: '',
-        rule: ''
-      }
-      ]
-    }]
+    listComponent: []
   }],
   systemReport: [{
     settitle: '系统日志',
@@ -6190,85 +2425,7 @@ export default {
     theads: ['模块名称', '操作', '内容', '日期时间', '客户端', '公司', '用户'],
     protos: ['plan_type_name', 'name', 'content'],
     widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
-    listComponent: [],
-    editComponent: [{
-      tab: '编辑肥料档案',
-      components: [{
-        type: 'select',
-        component: inputSelect,
-        isNull: false,
-        label: '饲料类别',
-        placeholder: '',
-        rule: '',
-        options: [{
-          value: '',
-          label: '请选择分类'
-        },
-        {
-          value: '',
-          label: '粗粮类'
-        }
-        ]
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: false,
-        label: '饲料名称',
-        placeholder: '',
-        value: '红苕汤羹',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '用途',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '包装规格',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '生产厂家名称',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '产地',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '联系方式',
-        placeholder: '请输入11位手机号(固话用-隔开)',
-        rule: ''
-      },
-      {
-        type: 'textarea',
-        component: inputTextArea,
-        isNull: true,
-        label: '备注信息',
-        placeholder: '',
-        rule: ''
-      }
-      ]
-    }]
+    listComponent: []
   }]
 
 }

@@ -150,7 +150,7 @@ export default[{
   name: '销售管理',
   role: 'sale',
   isEvent: false,
-  src: '/public/imagesle.png',
+  src: '/public/images/sale.png',
   children: [{
     path: '/index/messageleProduct/0',
     name: '销售商品库管理'
