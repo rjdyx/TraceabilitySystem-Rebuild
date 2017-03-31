@@ -61,7 +61,7 @@ export default {
   },
   methods: {
     showFile () {
-      var $file = $('.fileBtn')
+      var $file = this.querySelector('.fileBtn')
       var _this = this
       $file.click()
       $file.change(function () {

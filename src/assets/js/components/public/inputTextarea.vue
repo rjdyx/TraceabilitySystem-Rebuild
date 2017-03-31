@@ -13,8 +13,8 @@
 		id="inputTextarea"
 		size="small"
 		type="textarea"
-		: rows="2"
-		: placeholder="placeholder"
+		:rows="2"
+		:placeholder="placeholder"
 		v-model="textarea"
 		>
 	</el-input>
