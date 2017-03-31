@@ -1,10 +1,10 @@
-//import TypeManage from 'components/public/type-manage.vue'
-//import Sex from 'components/public/sex.vue'
-//import Add from 'components/public/add.vue'
-//import EventHandle from 'components/public/event-handle.vue'
-//import EventDetail from 'components/public/event-detail.vue'
+// import TypeManage from 'components/public/type-manage.vue'
+// import Sex from 'components/public/sex.vue'
+// import Add from 'components/public/add.vue'
+// import EventHandle from 'components/public/event-handle.vue'
+// import EventDetail from 'components/public/event-detail.vue'
 
-// export default { 
+// export default {
 //     'early-warning':[
 //         {
 //             key: 'undoWarningManage',
@@ -13,7 +13,7 @@
 //             urlParams: {status: 1},
 //             searchPlaceholder: '请输入待处理事件名称',
 //             operateComponent: [{component: '', params: {status: 1}}],
-//             hideAddButton: true, 
+//             hideAddButton: true,
 //             typeComponent: [],
 //             theads: ['事件等级', '事件类别', '事件名称', '发生地区', '事件详情'],
 //             protos: ['event_level_name', 'event_sort_name', 'name', 'location', 'detail'],

@@ -87,33 +87,33 @@ export default {
   props: {
     models: {
       type: Array,
-default () {
-  return [{
-    key: '',
-    tab: '',
-    url: '',
-    urlParams: {},
-    // 从后台获取的所有数据
-    theads: [''],
-    searchPlaceholder: '',
-    protos: ['name'],
-    widths: [50],
-    title: '',
-    options: [],
-    typeComponent: [],
-    listComponent: [],
-    newComponent: [{
-      tab: {
-        component: null,
-        isNull: true,
-        label: '',
-        placeholder: '',
-        rule: ''
+      default () {
+        return [{
+          key: '',
+          tab: '',
+          url: '',
+          urlParams: {},
+          // 从后台获取的所有数据
+          theads: [''],
+          searchPlaceholder: '',
+          protos: ['name'],
+          widths: [50],
+          title: '',
+          options: [],
+          typeComponent: [],
+          listComponent: [],
+          newComponent: [{
+            tab: {
+              component: null,
+              isNull: true,
+              label: '',
+              placeholder: '',
+              rule: ''
+            }
+          }],
+          editComponent: []
+        }]
       }
-    }],
-    editComponent: []
-  }]
-}
     }
   },
   data () {
@@ -159,13 +159,13 @@ default () {
     handleSelectionChange (val) {
       this.multipleSelection = val
     },
-// tab点击事件
-tabClick (tab, event) {
-  this.modelIndex = tab.$data.index
-  let model = this.$route.params.model
-  // this.settitle=this.model.settitle
-  this.$router.push('/index/' + this.$route.fullPath.split('/')[2] + '/' + model + '/' + this.modelIndex)
-},
+    // tab点击事件
+    tabClick (tab, event) {
+      this.modelIndex = tab.$data.index
+      let model = this.$route.params.model
+      // this.settitle=this.model.settitle
+      this.$router.push('/index/' + this.$route.fullPath.split('/')[2] + '/' + model + '/' + this.modelIndex)
+    },
     // 操作更多选项
     filterTag (value, row) {
       return row.tag === value
