@@ -118,13 +118,13 @@ module.exports = {
             'window.Vue': 'vue'
         }),
         new webpack.NormalModuleReplacementPlugin(/element-ui[\/\\]lib[\/\\]locale[\/\\]lang[\/\\]zh-CN/, 'element-ui/lib/locale/lang/en'),
-        new webpack.LoaderOptionsPlugin({
-            options: {
-                eslint: {
-                    formatter: require('eslint-friendly-formatter')
-                },
-            }
-        })
+        // new webpack.LoaderOptionsPlugin({
+        //     options: {
+        //         eslint: {
+        //             formatter: require('eslint-friendly-formatter')
+        //         },
+        //     }
+        // })
     ]
 
 }
