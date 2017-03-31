@@ -18,7 +18,7 @@
             </template>
             <el-menu-item 
                 v-for="(subMenu, subIndex) in menu.children" 
-                :index="subMenu.path" exact @click="clickEvent(menu,subMenu)"> 
+                :index="subMenu.path" exact> 
                 {{subMenu.name}}
             </el-menu-item>
       </el-submenu>
@@ -44,11 +44,7 @@ export default {
     ...mapMutations([
       'setNavbarName',
       'setSubNavBarName'
-    ]),
-    clickEvent (menu, subMenu) {
-      this.setNavbarName(menu.name)
-      this.setSubNavBarName(subMenu.name)
-    }
+    ])
   }
 }
 </script>

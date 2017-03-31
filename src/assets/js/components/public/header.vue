@@ -43,7 +43,7 @@ export default {
   methods: {
     checkTime (i) {
       if (i < 10) {
-        return '' + i
+        return '0' + i
       } else {
         return '' + i
       }
