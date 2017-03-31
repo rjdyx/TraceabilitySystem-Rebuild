@@ -29,4 +29,4 @@ export default {
   required: (field) => `${field}は必須項目です`,
   size: (field, [size]) => `${field}は${size}KB以内でなければなりません`,
   url: (field) => `${field}が正しくありません`
-};
+}

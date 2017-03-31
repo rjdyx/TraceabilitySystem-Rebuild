@@ -7,7 +7,7 @@ const path = require('path')
 const express = require('express')
 const favicon = require('serve-favicon')
 const compression = require('compression')  // 用于压缩response的中间件
-const proxyMiddleware = require('http-proxy-middleware')  //http代理中间件
+const proxyMiddleware = require('http-proxy-middleware')  // http代理中间件
 const resolve = file => path.resolve(__dirname, file)
 
 const app = express()
@@ -25,11 +25,9 @@ if (isProd) {
   })
 }
 
-
-
 // proxy
-const proxyTable = ['/images/upload/**', '/token', '/admin/c/**', '/login', '/logout'];
-const options = {target: env.app_url, changeOrigin: true};
+const proxyTable = ['/images/upload/**', '/token', '/admin/c/**', '/login', '/logout']
+const options = {target: env.app_url, changeOrigin: true}
 proxyTable.forEach(function (context) {
   app.use(proxyMiddleware(context, options))
 })
@@ -44,15 +42,11 @@ app.use(favicon('./public/suyulogo.png'))
 app.use('/public', serveCache('./public'))
 app.use('/dist', serveNoCache('./dist'))
 
-
-
 app.get(['/webapp', '/webapp/**', '/'], (req, res) => {
-
-  res.setHeader("Content-Type", "text/html");
+  res.setHeader('Content-Type', 'text/html')
   const s = Date.now()
   res.end(indexHTML)
   console.log(`whole request: ${Date.now() - s}ms`)
-
 })
 
 const port = process.env.PORT || 8080

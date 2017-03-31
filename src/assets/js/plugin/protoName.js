@@ -1,11 +1,11 @@
 
 const api = {
-	invoke: 'invokePluginApi'
+  invoke: 'invokePluginApi'
 }
 
 const popForm = {
-	formUrl: 'formUrl',
-	filterArray: 'filterArray'
+  formUrl: 'formUrl',
+  filterArray: 'filterArray'
 }
 
 export { api, popForm }
