@@ -7,7 +7,7 @@
  * @param index
  * @returns {*}
  */
-exports.getItemFromObject = (object, index) => {
-  let arr = Array.from(namesSet)
-  return arr[index]
-}
+// exports.getItemFromObject = (object, index) => {
+//   let arr = Array.from(namesSet)
+//   return arr[index]
+// }

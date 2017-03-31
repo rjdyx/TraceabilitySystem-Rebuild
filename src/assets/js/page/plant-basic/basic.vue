@@ -8,17 +8,12 @@
  */ 
  <template> 
 	<div class='basic'>
-        <!-- <contain-title :settitle='settitle'>
-        </contain-title> -->
         <basic-content></basic-content>
     </div>
 </template>
 
 <script>
-import {mapMutations} from 'vuex'
-import {mapState} from 'vuex'
 import BasicContent from '../plant-basic/basic-content.vue'
-// import ContainTitle from 'components/public/contain-title.vue'
 export default {
   name: 'Basic',
   components: {

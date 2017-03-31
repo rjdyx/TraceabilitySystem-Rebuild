@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-=======
-
->>>>>>> Denton
 import importBtn from 'components/public/import-btn.vue'
 import newbuildBtn from 'components/public/newbuild-btn.vue'
 import output from 'components/public/output.vue'
@@ -1867,28 +1863,40 @@ export default {
       ]
     }],
     newComponent: [{
-      tab: '养殖场信息',
+      tab: '新建饲料档案',
       components: [{
+        type: 'select',
+        component: inputSelect,
+        isNull: false,
+        label: '饲料类别',
+        placeholder: '请选择类别',
+        rule: '',
+        options: [{
+          value: '',
+          label: '请选择类别'
+        },
+        {
+          value: '粗粮类',
+          label: '粗粮类'
+        },
+        {
+          value: '维生素类',
+          label: '维生素类'
+        }]
+      },
+      {
         type: 'text',
         component: inputText,
         isNull: false,
-        label: '养殖场名称',
+        label: '饲料名称',
         placeholder: '必填',
         rule: ''
       },
       {
         type: 'text',
         component: inputText,
-        isNull: false,
-        label: '养殖面积',
-        placeholder: '请填写数字（必填）单位是亩',
-        rule: ''
-      },
-      {
-        type: 'text',
-        component: inputText,
         isNull: true,
-        label: '负责人',
+        label: '用途',
         placeholder: '',
         rule: ''
       },
@@ -1896,7 +1904,7 @@ export default {
         type: 'text',
         component: inputText,
         isNull: true,
-        label: '养殖畜禽种类',
+        label: '包装规格',
         placeholder: '',
         rule: ''
       },
@@ -1904,7 +1912,7 @@ export default {
         type: 'text',
         component: inputText,
         isNull: true,
-        label: '养殖规模',
+        label: '生产厂家名称',
         placeholder: '',
         rule: ''
       },
@@ -1912,8 +1920,16 @@ export default {
         type: 'text',
         component: inputText,
         isNull: true,
-        label: '地址',
+        label: '产地',
         placeholder: '',
+        rule: ''
+      },
+      {
+        type: 'text',
+        component: inputText,
+        isNull: true,
+        label: '联系方式',
+        placeholder: '请输入11位的手机号（固话用-隔开）',
         rule: ''
       },
       {
