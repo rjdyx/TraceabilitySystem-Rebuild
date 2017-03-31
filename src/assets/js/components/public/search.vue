@@ -37,49 +37,40 @@
     </div>
 </template>
 
-<script> 
-
-    export default {
-        name:'search',
-        props:{
-            placeholder: {
-                type: String,
-                default: '请输入种植场进行搜索'
-            },
-            searchUrl: {
-                type: String,
-                default: '/'
-            },
-            params: {
-                type: Object,
-                default () {
-                    return {}
-                }
-            }
-        },
-        data (){
-            return {
-                searchInput: '',
-            }
-        },
-        computed: {
-
-        },
-        methods:{
-
-
-            /**
-             * 查询
-             */
-            search () {
-            }
-
-        }
-
+<script>
+export default {
+  name: 'search',
+  props: {
+    placeholder: {
+      type: String,
+      default: '请输入种植场进行搜索'
+    },
+    searchUrl: {
+      type: String,
+      default: '/'
+    },
+    params: {
+      type: Object,
+      default () {
+        return {}
+      }
     }
+  },
+  data () {
+    return {
+      searchInput: ''
+    }
+  },
+  methods: {
 
+    /**
+   * 查询
+   */
+    search () {}
 
+  }
 
+}
 </script>
 
 <style lang="sass" scoped>

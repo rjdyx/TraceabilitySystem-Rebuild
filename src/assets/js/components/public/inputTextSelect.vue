@@ -46,26 +46,28 @@
 
 </template>
 <script>
-export default{
-	props:{
-		placeholder:{
-			type:String,
-			default:"必填",
-},
-		rule:{
-			type:String,
-},
-		options:{
-			type:Array,
-			default:[],
-}
-},
-	data(){
-		return{
-			input:"",
-			select:"",
-}
-},
+export default {
+  props:
+  {
+    placeholder:
+    {
+      type: String,
+      default: '必填'
+    },
+    rule: {
+      type: String
+    },
+    options: {
+      type: Array,
+      default: []
+    }
+  },
+  data () {
+    return {
+      input: '',
+      select: ''
+    }
+  }
 }
 </script>
 <style lang="sass">

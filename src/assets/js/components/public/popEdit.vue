@@ -45,40 +45,40 @@
 
  
 <script>
-import ActiveBox from "./activebox.vue";
-export default{
-	data() {
-		return {
-			activeName: this.editComponent[0].tab
-		}
-},
-	props: {
-		editComponent: {
-			type: Array,
-			default: []
-},
-		tab: {
-			type: String
-		}
-},
-	components: {
-		ActiveBox
-},
-	methods: {
-		handleClick (tab,event) {
-},
-	closeClick () {
-		this.$parent.changeEditShow()
-},
-	validateForm (scope) {
-  this.$validator.validateAll(scope).then(result => {
-  if (result) {
-  // eslint-disable-next-line
-  alert('Form Submitted!');
- }
-  })
+import ActiveBox from './activebox.vue'
+export default {
+  data () {
+    return {
+      activeName:
+      this.editComponent[0].tab
+    }
+  },
+  props: {
+    editComponent: {
+      type: Array,
+      default: []
+    },
+    tab: {
+      type: String
+    }
+  },
+  components: {
+    ActiveBox
+  },
+  methods: {
+    handleClick (tab, event) {},
+    closeClick () {
+      this.$parent.changeEditShow()
+    },
+    validateForm (scope) {
+      this.$validator.validateAll(scope).then(result => {
+        if (result) {
+          // eslint-disable-next-line
+          alert('Form Submitted!');
+        }
+      })
+    }
   }
-}
 }
 </script>
 

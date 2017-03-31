@@ -1,7 +1,7 @@
-<<<<<<< HEAD
+
 /**
- * �м��������
- * @author �浤ͮ
+ * 中间模板组件
+ * @author Êæµ¤Í®
  * @date 2017/3/15 
  * 
  */ 
@@ -23,7 +23,7 @@ export default {
     Object.assign(modelObj, message, reaction)
     return {
       checked: [],
-      // ��ѡ������
+      // ¹´Ñ¡¿òÊý×é
       activeName2: 'first',
       models: modelObj
     }
@@ -53,54 +53,3 @@ export default {
     }
  
 </style>
-=======
-/**  中间内容组件
- *   @author 舒丹彤
-*    @date 2017/3/15 
-* 
-*/
-<template>
-	<div class="content">
-		<basic-model :models="models[type]"></basic-model>
-	</div>
-</template>
-
-<script>
-import BasicModel from '../basicModel/basic-model.vue'
-import message from './message.js'
-import reaction from './reaction.js'
-
-export default {
-  name: 'BasicContent',
-  data() {
-	let modelObj = {}
-	Object.assign(modelObj, message, reaction)
-	return {
-		checked: [], //勾选框数组
-		activeName2: 'first',
-		models: modelObj
-
-	}
-},
-  components: {
-		BasicModel
-  },
-  computed: {
-	type() {
-		return this.$route.params.model
-	}
-},
-  beforeRouteUpdate(to, from, next) {
-	this.$refs.basicModel.init(to.params.index)
-	next()
-}
-}
-</script>
-
-<style lang="sass" scoped>
-	@import "../../../sass/function";
-	.content {
-		margin-top: 15px;
-	}
-</style>
->>>>>>> Denton

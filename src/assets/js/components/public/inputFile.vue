@@ -15,7 +15,6 @@
 			<input type='file'  class='fileBtn el-upload__input' accept='image/jpeg'>
 		</div>
 	</div>
-=======
 	<input class='csfile' type='file' accept='image/jpeg'>
 	<img class='img'>
 <!-- 	<div>
@@ -36,111 +35,39 @@
 
 </template>
 <script>
-	export default{
-		props:{
-			isNull:{
-				type:Boolean,
-				default:true,
-			},
-			label:{
-				type:String,
-				default:"",
-			},
-			placeholder:{
-				type:String,
-				default:"必填",
-			}
-
-		},
-		data(){
-			return{
-				 imageUrl: '',
-				 file:{},
-			}
-		},
-		methods: {
-			showFile(){
-				var $file=$(".fileBtn");
-				var _this=this;
-				 $file.click();
-				 $file.change(function(){
-				 		_this.imageUrl=$file[0].value;
-					 // let isJPG_isLt2M =_this.beforeAvatarUpload($file[0]);
-					 // console.log(isJPG_isLt2M);
-					 // if(isJPG_isLt2M){
-					 // 	  _this.handleAvatarScucess($file);
-					 // }
-					
-				})
-			},
-		    // handleAvatarScucess(file) {
-		    //     this.imageUrl = window.URL.createObjectURL(file.value);
-		    //     console.log();
-		    // },
-		    // beforeAvatarUpload(file) {
-		    //     const isJPG = file.accept === 'image/jpeg';
-		    //     const isLt2M = file.size / 1024 / 1024 < 2;
-
-		    //     if (!isJPG) {
-		    //       this.$message.error('上传头像图片只能是 JPG 格式!');
-		    //     }
-		    //     if (!isLt2M) {
-		    //       this.$message.error('上传头像图片大小不能超过 2MB!');
-		    //     }
-		    //     return isJPG && isLt2M;
-		    // }
-		}
-
-	}
 export default {
-  props:
-  {
-    isNull:
+    props:
     {
-      type: Boolean,
-   	  default: true
-    },
-    label: {
-      type: String,
-      default: ''
-    },
-    placeholder: {
-      type: String,
+      isNull:
+      {
+        type: Boolean,
+      default: true
+      },
+      label: {
+        type: String,
+      default:  ''
+      },
+      placeholder: {
+        type: String,
       default: '必填'
-    }
-  },
-  data () {
-    return {
-      imageUrl: ''
-    }
-  },
-  methods: {
-    csclick () {
-      // console.log($('.csfile'))
-    },
-    showFile () {
-      var $file = $('.fileBtn')
-      $file.click()
-      // console.log($file[0].value)
-      this.beforeAvatarUpload($('.fileBtn'))
-    },
-    handleAvatarScucess (res, file) {
-      this.imageUrl = URL.createObjectURL(file.raw)
-    },
-    beforeAvatarUpload (file) {
-      // console.log(file)
-      const isJPG = file.type === 'image/jpeg'
-      const isLt2M = file.size / 1024 / 1024 < 2
-      if (!isJPG) {
-        this.$message.error('上传头像图片只能是 JPG 格式!')
       }
-      if (!isLt2M) {
-        this.$message.error('上传头像图片大小不能超过 2MB!')
+    },
+    data() {
+      return {
+        imageUrl: '',
+        file: {}
       }
-      return isJPG && isLt2M
+    },
+    methods: {
+      showFile() {
+        var $file = $('.fileBtn') 
+        var _this = this $file.click() 
+        $file.change(function() {
+          _this.imageUrl = $file[0].value
+        })
+      }
     }
   }
-}
 </script>
 <style lang='sass'>
 	@import '../../../sass/public/inputSize.scss';

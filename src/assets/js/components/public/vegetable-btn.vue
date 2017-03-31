@@ -13,9 +13,9 @@
     </div>
 </template>
 
-<script> 
+<script>
 export default {
-  name:'vegetableBtn'
+  name: 'vegetableBtn'
 }
 </script>
 

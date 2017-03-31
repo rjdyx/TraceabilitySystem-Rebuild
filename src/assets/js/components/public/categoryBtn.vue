@@ -6,6 +6,6 @@
 
 <script>
 export default {
-  name:'categoryBtn',
+  name: 'categoryBtn'
 }
 </script>
