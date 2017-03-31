@@ -7,19 +7,17 @@
  */
 <template>
 <div class="inputTextarea">
-	
 	<el-input
 		class="input-pop"
 		id="inputTextarea"
 		size="small"
 		type="textarea"
-		: rows="2"
-		: placeholder="placeholder"
+		:rows="2"
+		:placeholder="placeholder"
 		v-model="textarea"
 		>
 	</el-input>
 </div>
-
 </template>
 <script>
 export default {
