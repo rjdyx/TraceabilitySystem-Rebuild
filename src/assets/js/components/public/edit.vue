@@ -8,9 +8,8 @@
 export default {
   name: 'edit',
   data () {
-return {
-}
-},
+    return {}
+  }
 }
 </script>
 

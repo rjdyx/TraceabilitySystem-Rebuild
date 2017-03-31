@@ -16,28 +16,30 @@
 </template>
 <script>
 export default {
-	props: {
-		isNull: {
-			type: Boolean,
-			default: true,
-},
-	label: {
-		type: String,
-		default: "",
-},
-	placeholder: {
-		type: String,
-		default: "",
-},
-	rule: {
-		type: String,
-	}
-},
-	data() {
-		return {
-			value2: "",
-		}
-	}
+  props:
+  {
+    isNull:
+    {
+      type: Boolean,
+      default: true
+    },
+    label: {
+      type: String,
+      default: ''
+    },
+    placeholder: {
+      type: String,
+      default: ''
+    },
+    rule: {
+      type: String
+    }
+  },
+  data () {
+    return {
+      value2: ''
+    }
+  }
 }
 </script>
 <style lang="sass">

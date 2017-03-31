@@ -47,7 +47,7 @@
 export default {
   name: 'SelectSection',
   props: {
-      options: {
+    options: {
       type: Array,
       default: []
     }
