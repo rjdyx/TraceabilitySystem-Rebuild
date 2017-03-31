@@ -1,5 +1,4 @@
-17:34:32
-Denton 2017-03-31 17:34:32
+
 <template>
 <div>   
   <!-- 标题 -->
@@ -151,7 +150,7 @@ export default {
       this.modelIndex = tab.$data.index
       let model = this.$route.params.model
       // this.settitle=this.model.settitle
-      this.$router.push('/index/' + this.$route.fullPath.split('/')[2] + '/' + model + '/' + this.modelIndex)
+      // this.$router.push('/index/' + this.$route.fullPath.split('/')[2] + '/' + model + '/' + this.modelIndex)
     },
     // 操作更多选项
     filterTag (value, row) {
@@ -174,6 +173,7 @@ export default {
           message: '已取消删除'
         })
       })
+      console.log(8237489)
     },
     changeIsShow () {
       this.isShow = !this.isShow

@@ -41,7 +41,7 @@ export default[{
     name: '基础信息管理'
   },
   {
-    path: '/index/messagerialManage/0',
+    path: '/index/message/serialManage/0',
     name: '养殖批次管理'
   },
   {
@@ -122,11 +122,11 @@ export default[{
   isEvent: false,
   src: '/public/images/product.png',
   children: [{
-    path: '/index/messageegetableSerial/0',
+    path: '/index/message/vegetableSerial/0',
     name: '加工批次管理'
   },
   {
-    path: '/index/messageegetableTrace/0',
+    path: '/index/message/vegetableTrace/0',
     name: '产品溯源管理'
   }
   ]
@@ -152,15 +152,15 @@ export default[{
   isEvent: false,
   src: '/public/images/sale.png',
   children: [{
-    path: '/index/messageleProduct/0',
+    path: '/index/message/saleProduct/0',
     name: '销售商品库管理'
   },
   {
-    path: '/index/messageleInput/0',
+    path: '/index/message/saleInput/0',
     name: '销售入库管理'
   },
   {
-    path: '/index/messageleOrder/0',
+    path: '/index/message/saleOrder/0',
     name: '销售订单管理'
   }
   ]
