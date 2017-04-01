@@ -53,6 +53,7 @@ export default {
     newComponent: [{
       tab: '养殖场信息',
       components: [{
+        name: '',
         type: 'text',
         component: inputText,
         isNull: false,
@@ -61,6 +62,7 @@ export default {
         rule: ''
       },
       {
+        name: '',
         type: 'text',
         component: inputText,
         isNull: false,
@@ -69,6 +71,7 @@ export default {
         rule: ''
       },
       {
+        name: '',
         type: 'text',
         component: inputText,
         isNull: true,
@@ -77,6 +80,7 @@ export default {
         rule: ''
       },
       {
+        name: '',
         type: 'text',
         component: inputText,
         isNull: true,
@@ -85,6 +89,7 @@ export default {
         rule: ''
       },
       {
+        name: '',
         type: 'text',
         component: inputText,
         isNull: true,
@@ -93,6 +98,7 @@ export default {
         rule: ''
       },
       {
+        name: '',
         type: 'text',
         component: inputText,
         isNull: true,
@@ -101,6 +107,7 @@ export default {
         rule: ''
       },
       {
+        name: '',
         type: 'textarea',
         component: inputTextArea,
         isNull: true,
@@ -132,6 +139,7 @@ export default {
     newComponent: [{
       tab: '新建人员档案信息',
       components: [{
+        name: '',
         type: 'text',
         component: inputText,
         isNull: false,
@@ -140,6 +148,7 @@ export default {
         rule: ''
       },
       {
+        name: '',
         type: 'text',
         component: inputText,
         isNull: false,
@@ -148,6 +157,7 @@ export default {
         rule: ''
       },
       {
+        name: '',
         type: 'text',
         component: inputText,
         isNull: true,
@@ -156,6 +166,7 @@ export default {
         rule: ''
       },
       {
+        name: '',
         type: 'text',
         component: inputText,
         isNull: true,
@@ -164,6 +175,7 @@ export default {
         rule: ''
       },
       {
+        name: '',
         type: 'text',
         component: inputText,
         isNull: true,
@@ -172,6 +184,7 @@ export default {
         rule: ''
       },
       {
+        name: '',
         type: 'text',
         component: inputText,
         isNull: true,
@@ -180,6 +193,7 @@ export default {
         rule: ''
       },
       {
+        name: '',
         type: 'textarea',
         component: inputTextArea,
         isNull: true,
@@ -496,6 +510,7 @@ export default {
     newComponent: [{
       tab: '新建供货商档案信息',
       components: [{
+        name: '',
         type: 'text',
         component: inputText,
         isNull: false,
@@ -504,6 +519,7 @@ export default {
         rule: ''
       },
       {
+        name: '',
         type: 'text',
         component: inputText,
         isNull: false,
@@ -512,6 +528,7 @@ export default {
         rule: ''
       },
       {
+        name: '',
         type: 'text',
         component: inputText,
         isNull: true,
@@ -520,6 +537,7 @@ export default {
         rule: ''
       },
       {
+        name: '',
         type: 'text',
         component: inputText,
         isNull: true,
@@ -528,6 +546,7 @@ export default {
         rule: ''
       },
       {
+        name: '',
         type: 'text',
         component: inputText,
         isNull: true,
@@ -536,6 +555,7 @@ export default {
         rule: ''
       },
       {
+        name: '',
         type: 'text',
         component: inputText,
         isNull: true,
@@ -544,6 +564,7 @@ export default {
         rule: ''
       },
       {
+        name: '',
         type: 'textarea',
         component: inputTextArea,
         isNull: true,
@@ -578,6 +599,7 @@ export default {
     newComponent: [{
       tab: '新建产品档案信息',
       components: [{
+        name: '',
         type: 'text',
         component: inputText,
         isNull: false,
@@ -586,6 +608,7 @@ export default {
         rule: ''
       },
       {
+        name: '',
         type: 'text',
         component: inputText,
         isNull: false,
@@ -594,6 +617,7 @@ export default {
         rule: ''
       },
       {
+        name: '',
         type: 'text',
         component: inputText,
         isNull: true,
@@ -602,6 +626,7 @@ export default {
         rule: ''
       },
       {
+        name: '',
         type: 'text',
         component: inputText,
         isNull: true,
@@ -610,6 +635,7 @@ export default {
         rule: ''
       },
       {
+        name: '',
         type: 'text',
         component: inputText,
         isNull: true,
@@ -618,6 +644,7 @@ export default {
         rule: ''
       },
       {
+        name: '',
         type: 'text',
         component: inputText,
         isNull: true,
@@ -626,6 +653,7 @@ export default {
         rule: ''
       },
       {
+        name: '',
         type: 'textarea',
         component: inputTextArea,
         isNull: true,
@@ -702,6 +730,15 @@ export default {
         isNull: true,
         label: '',
         placeholder: '',
+        rule: ''
+      },
+      {
+        name: 'textSelect',
+        type: 'textselect',
+        component: inputTextSelect,
+        isNull: true,
+        label: '文本和下拉',
+        placeholder: '文本和下拉',
         rule: ''
       }
       ]
@@ -839,6 +876,7 @@ export default {
     newComponent: [{
       tab: '新建农药档案',
       components: [{
+        name: '',
         type: 'select',
         component: inputSelect,
         isNull: false,
@@ -856,6 +894,7 @@ export default {
         ]
       },
       {
+        name: '',
         type: 'text',
         component: inputText,
         isNull: false,
@@ -864,6 +903,7 @@ export default {
         rule: ''
       },
       {
+        name: '',
         type: 'text',
         component: inputText,
         isNull: true,
@@ -872,6 +912,7 @@ export default {
         rule: ''
       },
       {
+        name: '',
         type: 'text',
         component: inputText,
         isNull: true,
@@ -880,6 +921,7 @@ export default {
         rule: ''
       },
       {
+        name: '',
         type: 'text',
         component: inputText,
         isNull: true,
@@ -888,6 +930,7 @@ export default {
         rule: ''
       },
       {
+        name: '',
         type: 'text',
         component: inputText,
         isNull: true,
@@ -896,6 +939,7 @@ export default {
         rule: ''
       },
       {
+        name: '',
         type: 'text',
         component: inputText,
         isNull: true,
@@ -904,6 +948,7 @@ export default {
         rule: ''
       },
       {
+        name: '',
         type: 'textarea',
         component: inputTextArea,
         isNull: true,
@@ -936,6 +981,7 @@ export default {
     newComponent: [{
       tab: '新建饲料档案',
       components: [{
+        name: '',
         type: 'select',
         component: inputSelect,
         isNull: false,
@@ -956,6 +1002,7 @@ export default {
         }]
       },
       {
+        name: '',
         type: 'text',
         component: inputText,
         isNull: false,
@@ -964,6 +1011,7 @@ export default {
         rule: ''
       },
       {
+        name: '',
         type: 'text',
         component: inputText,
         isNull: true,
@@ -972,6 +1020,7 @@ export default {
         rule: ''
       },
       {
+        name: '',
         type: 'text',
         component: inputText,
         isNull: true,
@@ -980,6 +1029,7 @@ export default {
         rule: ''
       },
       {
+        name: '',
         type: 'text',
         component: inputText,
         isNull: true,
@@ -988,6 +1038,7 @@ export default {
         rule: ''
       },
       {
+        name: '',
         type: 'text',
         component: inputText,
         isNull: true,
@@ -996,6 +1047,7 @@ export default {
         rule: ''
       },
       {
+        name: '',
         type: 'text',
         component: inputText,
         isNull: true,
@@ -1004,6 +1056,7 @@ export default {
         rule: ''
       },
       {
+        name: '',
         type: 'textarea',
         component: inputTextArea,
         isNull: true,
@@ -1036,6 +1089,7 @@ export default {
     newComponent: [{
       tab: '新建农药档案',
       components: [{
+        name: '',
         type: 'select',
         component: inputSelect,
         isNull: false,
@@ -1053,6 +1107,7 @@ export default {
         ]
       },
       {
+        name: '',
         type: 'text',
         component: inputText,
         isNull: false,
@@ -1061,6 +1116,7 @@ export default {
         rule: ''
       },
       {
+        name: '',
         type: 'text',
         component: inputText,
         isNull: true,
@@ -1069,6 +1125,7 @@ export default {
         rule: ''
       },
       {
+        name: '',
         type: 'text',
         component: inputText,
         isNull: true,
@@ -1077,6 +1134,7 @@ export default {
         rule: ''
       },
       {
+        name: '',
         type: 'text',
         component: inputText,
         isNull: true,
@@ -1085,6 +1143,7 @@ export default {
         rule: ''
       },
       {
+        name: '',
         type: 'text',
         component: inputText,
         isNull: true,
@@ -1093,6 +1152,7 @@ export default {
         rule: ''
       },
       {
+        name: '',
         type: 'text',
         component: inputText,
         isNull: true,
@@ -1101,6 +1161,7 @@ export default {
         rule: ''
       },
       {
+        name: '',
         type: 'textarea',
         component: inputTextArea,
         isNull: true,
@@ -1133,6 +1194,7 @@ export default {
     newComponent: [{
       tab: '新建人物档案',
       components: [{
+        name: '',
         type: 'text',
         component: inputText,
         isNull: false,
@@ -1141,6 +1203,7 @@ export default {
         rule: ''
       },
       {
+        name: '',
         type: 'select',
         component: inputSelect,
         isNull: false,
@@ -1158,6 +1221,7 @@ export default {
         ]
       },
       {
+        name: '',
         type: 'text',
         component: inputText,
         isNull: true,
@@ -1166,6 +1230,7 @@ export default {
         rule: ''
       },
       {
+        name: '',
         type: 'text',
         component: inputText,
         isNull: true,
@@ -1174,6 +1239,7 @@ export default {
         rule: ''
       },
       {
+        name: '',
         type: 'text',
         component: inputText,
         isNull: false,
@@ -1182,6 +1248,7 @@ export default {
         rule: ''
       },
       {
+        name: '',
         type: 'text',
         component: inputText,
         isNull: true,
@@ -1190,6 +1257,7 @@ export default {
         rule: ''
       },
       {
+        name: '',
         type: 'text',
         component: inputText,
         isNull: true,
@@ -1222,6 +1290,7 @@ export default {
     newComponent: [{
       tab: '新建人物档案',
       components: [{
+        name: '',
         type: 'select',
         component: inputSelect,
         isNull: false,
@@ -1247,6 +1316,7 @@ export default {
         ]
       },
       {
+        name: '',
         type: 'text',
         component: inputText,
         isNull: false,
@@ -1255,6 +1325,7 @@ export default {
         rule: ''
       },
       {
+        name: '',
         type: 'text',
         component: inputText,
         isNull: false,
@@ -1263,6 +1334,7 @@ export default {
         rule: ''
       },
       {
+        name: '',
         type: 'text',
         component: inputText,
         isNull: false,
@@ -1271,6 +1343,7 @@ export default {
         rule: ''
       },
       {
+        name: '',
         type: 'select',
         component: inputSelect,
         isNull: false,
@@ -1288,6 +1361,7 @@ export default {
         ]
       },
       {
+        name: '',
         type: 'text',
         component: inputText,
         isNull: false,
@@ -1296,6 +1370,7 @@ export default {
         rule: ''
       },
       {
+        name: '',
         type: 'text',
         component: inputText,
         isNull: true,
@@ -1304,6 +1379,7 @@ export default {
         rule: ''
       },
       {
+        name: '',
         type: 'text',
         component: inputText,
         isNull: false,
@@ -1312,6 +1388,7 @@ export default {
         rule: ''
       },
       {
+        name: '',
         type: 'text',
         component: inputText,
         isNull: true,
@@ -1342,6 +1419,7 @@ export default {
     newComponent: [{
       tab: '新建养殖批次',
       components: [{
+        name: '',
         type: 'select',
         component: inputSelect,
         isNull: false,
@@ -1355,6 +1433,7 @@ export default {
         ]
       },
       {
+        name: '',
         type: 'select',
         component: inputSelect,
         isNull: false,
@@ -1368,6 +1447,7 @@ export default {
         ]
       },
       {
+        name: '',
         type: 'text',
         component: inputText,
         isNull: true,
@@ -1376,6 +1456,7 @@ export default {
         rule: ''
       },
       {
+        name: '',
         type: 'text',
         component: inputText,
         isNull: true,
@@ -1384,6 +1465,7 @@ export default {
         rule: ''
       },
       {
+        name: '',
         type: 'date',
         component: inputDate,
         isNull: false,
@@ -1392,6 +1474,7 @@ export default {
         rule: ''
       },
       {
+        name: '',
         type: 'select',
         component: inputSelect,
         isNull: false,
@@ -1409,6 +1492,7 @@ export default {
         ]
       },
       {
+        name: '',
         type: 'textarea',
         component: inputTextArea,
         isNull: true,
@@ -1439,6 +1523,7 @@ export default {
     newComponent: [{
       tab: '饲料使用管理',
       components: [{
+        name: '',
         type: 'select',
         component: inputSelect,
         isNull: false,
@@ -1468,6 +1553,7 @@ export default {
         ]
       },
       {
+        name: '',
         type: 'text',
         component: inputText,
         isNull: true,
@@ -1476,6 +1562,7 @@ export default {
         rule: ''
       },
       {
+        name: '',
         type: 'textselect',
         component: inputTextSelect,
         isNull: false,
@@ -1497,6 +1584,7 @@ export default {
         ]
       },
       {
+        name: '',
         type: 'select',
         component: inputSelect,
         isNull: true,
@@ -1514,6 +1602,7 @@ export default {
         ]
       },
       {
+        name: '',
         type: 'select',
         component: inputSelect,
         isNull: false,
@@ -1531,6 +1620,7 @@ export default {
         ]
       },
       {
+        name: '',
         type: 'date',
         component: inputDate,
         isNull: true,
@@ -1539,6 +1629,7 @@ export default {
         rule: ''
       },
       {
+        name: '',
         type: 'textarea',
         component: inputTextArea,
         isNull: true,
@@ -1551,6 +1642,7 @@ export default {
     {
       tab: '选择养殖批次',
       components: [{
+        name: '',
         type: 'select',
         component: inputSelect,
         isNull: false,
@@ -1586,6 +1678,7 @@ export default {
     newComponent: [{
       tab: '新建病疫情信息',
       components: [{
+        name: '',
         type: 'select',
         component: inputSelect,
         isNull: false,
@@ -1619,6 +1712,7 @@ export default {
         ]
       },
       {
+        name: '',
         type: 'select',
         component: inputSelect,
         isNull: false,
@@ -1632,6 +1726,7 @@ export default {
         ]
       },
       {
+        name: '',
         type: 'date',
         component: inputDate,
         isNull: false,
@@ -1640,6 +1735,7 @@ export default {
         rule: ''
       },
       {
+        name: '',
         type: 'textselect',
         component: inputTextSelect,
         isNull: false,
@@ -1661,6 +1757,7 @@ export default {
         ]
       },
       {
+        name: '',
         type: 'text',
         component: inputText,
         isNull: true,
@@ -1669,6 +1766,7 @@ export default {
         rule: ''
       },
       {
+        name: '',
         type: 'select',
         component: inputSelect,
         isNull: false,
@@ -1686,6 +1784,7 @@ export default {
         ]
       },
       {
+        name: '',
         type: 'select',
         component: inputSelect,
         isNull: true,
@@ -1699,6 +1798,7 @@ export default {
         ]
       },
       {
+        name: '',
         type: 'text',
         component: inputText,
         isNull: true,
@@ -1707,6 +1807,7 @@ export default {
         rule: ''
       },
       {
+        name: '',
         type: 'textarea',
         component: inputTextArea,
         isNull: true,
@@ -1738,6 +1839,7 @@ export default {
     newComponent: [{
       tab: '新建检疫信息',
       components: [{
+        name: '',
         type: 'text',
         component: inputText,
         isNull: false,
@@ -1746,6 +1848,7 @@ export default {
         rule: ''
       },
       {
+        name: '',
         type: 'text',
         component: inputText,
         isNull: false,
@@ -1754,6 +1857,7 @@ export default {
         rule: ''
       },
       {
+        name: '',
         type: 'text',
         component: inputText,
         isNull: true,
@@ -1762,6 +1866,7 @@ export default {
         rule: ''
       },
       {
+        name: '',
         type: 'date',
         component: inputDate,
         isNull: false,
@@ -1770,6 +1875,7 @@ export default {
         rule: ''
       },
       {
+        name: '',
         type: 'select',
         component: inputSelect,
         isNull: true,
@@ -1787,6 +1893,7 @@ export default {
         ]
       },
       {
+        name: '',
         type: 'text',
         component: inputText,
         isNull: true,
@@ -1795,6 +1902,7 @@ export default {
         rule: ''
       },
       {
+        name: '',
         type: 'select',
         component: inputSelect,
         isNull: false,
@@ -1812,6 +1920,7 @@ export default {
         ]
       },
       {
+        name: '',
         type: 'select',
         component: inputSelect,
         isNull: true,
@@ -1825,6 +1934,7 @@ export default {
         ]
       },
       {
+        name: '',
         type: 'textarea',
         component: inputTextArea,
         isNull: true,
@@ -1855,6 +1965,8 @@ export default {
     newComponent: [{
       tab: '新建养殖场信息',
       components: [{
+        name: '',
+        type: '',
         component: inputText,
         isNull: false,
         label: '养殖场名称',
@@ -1862,6 +1974,8 @@ export default {
         rule: ''
       },
       {
+        name: '',
+        type: '',
         component: inputText,
         isNull: false,
         label: '养殖面积',
@@ -1869,6 +1983,8 @@ export default {
         rule: ''
       },
       {
+        name: '',
+        type: '',
         component: inputText,
         isNull: true,
         label: '负责人',
@@ -1876,6 +1992,8 @@ export default {
         rule: ''
       },
       {
+        name: '',
+        type: '',
         component: inputText,
         isNull: true,
         label: '养殖畜禽种类',
@@ -1906,6 +2024,7 @@ export default {
     newComponent: [{
       tab: '新建出栏信息',
       components: [{
+        name: '',
         type: 'date',
         component: inputDate,
         isNull: false,
@@ -1914,6 +2033,7 @@ export default {
         rule: ''
       },
       {
+        name: '',
         type: 'select',
         component: inputSelect,
         isNull: false,
@@ -1931,6 +2051,7 @@ export default {
         ]
       },
       {
+        name: '',
         type: 'textarea',
         component: inputTextArea,
         isNull: true,

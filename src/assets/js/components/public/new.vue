@@ -12,8 +12,10 @@
 	<form class="newForm">
 		<i class="el-icon-circle-close" @click="closeClick" ></i>
 		<template>
-		  <el-tabs v-model="activeName">
-		    <el-tab-pane v-for="item in newComponent" :label="item.tab" :name="item.tab" >
+		  <el-tabs v-model="activeName"  @tab-click="handleClick">
+		 	<!-- tabs标签名 -->
+		    <el-tab-pane v-for="item in newComponent" :label="item.tab" :name="item.tab">
+		   		<!-- tabs标签内容 -->
 		    	<ul class="newMain">
 		    		<!-- <component 
 						v-for="components in item.components" 
@@ -109,12 +111,6 @@
 	
 </template>
 <script>
-// import ActiveBox from "./activebox.vue";
-// import store from "../../vuex/index.js";
-// import {mapMutations} from 'vuex';
-// import { Validator } from 'vee-validate';
-// import validate from "../../utils/validate.js";
-
 export default {
   name: 'validator-example',
   // validator: null,
@@ -136,8 +132,8 @@ export default {
       form[item.name] = ''
     })
     return {
+      // 当前选中的标签页
       activeName: this.newComponent[0].tab,
-      formConList: [],
       form: form
     }
   },
@@ -145,8 +141,8 @@ export default {
     console.log(this.newComponent)
   },
   methods: {
-    handleClick () {
-
+    handleClick (tab, event) {
+      console.log(tab, event)
     },
     // 关闭表单事件
     closeClick () {

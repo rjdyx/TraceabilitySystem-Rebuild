@@ -15,23 +15,8 @@
 			<input type='file' accept='image/jpeg' class='fileBtn el-upload__input' >
 		</div>
 	</div>
-
-<!-- 	<input class='csfile' type='file' accept='image/jpeg'>
-	<img class='img'> -->
-<!-- 	<div>
-		<el-upload
-			  class='avatar-uploader'
-			  size='small'
-			  action='//jsonplaceholder.typicode.com/posts/'
-			  :show-file-list='false'
-			  :on-success='handleAvatarScucess'
-			  :before-upload='beforeAvatarUpload'>
-			  <img v-if='imageUrl' :src='imageUrl' class='avatar'>
-			  <i v-else class='el-icon-plus avatar-uploader-icon'></i>
-		</el-upload>
-	</div> -->
-	<el-button type='primary' size='small' @click='csclick'>上传图片</el-button>
-	<el-button type='danger' size='small'>删除图片</el-button>
+	<el-button type='primary' size='small' @click='uploadImgFn'>上传图片</el-button>
+	<el-button type='danger' size='small' @click='deleteImgFn'>删除图片</el-button>
 </div>
 
 </template>
@@ -67,6 +52,13 @@ export default {
       $file.change(function () {
         _this.imageUrl = $file[0].value
       })
+    },
+    // 上传图片
+    uploadImgFn () {
+    },
+    // 删除图片
+    deleteImgFn () {
+      this.imageUrl = ''
     }
   }
 }
