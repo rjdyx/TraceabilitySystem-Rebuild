@@ -3,95 +3,95 @@
  * @description 
  * @author 吴燕萍
  * @date 2017/3/24
-
  */
 <template>
-
 <div class="inputTextSelect">
-	<div style="margin-top: 15px;">
-		<div class="el-input el-input-group el-input-group--append el-input-group--prepend">
-			
-			<input  type="text" placeholder="请输入内容" autocomplete="off" class="el-input__inner inputTS-text"><!---->
-			<div class="el-input-group__append">
-				<!-- 下拉框 -->
-				<!-- <select 
-					class="input-pop"
-					placeholder="">
-						<option value="">1</option>
-						<option value="">2</option>
-						<option value="">3</option>
-				</select> -->
-				<!-- <div class="el-select">
-				<div class="el-input">
-					<i class="el-input__icon el-icon-caret-top"></i>
-					<input type="text" placeholder="请选择" readonly="readonly" autocomplete="off" class="el-input__inner inputTS-select">
-				</div>
-				<div class="resize-triggers">
-					<div class="expand-trigger">
-						<div style="width: 111px; height: 37px;"></div>
-					</div>
-					<div class="contract-trigger"></div>
-					</div>
-				</div> -->
-			</div>
-			<!-- <div class="el-input-group__append">
-				<button type="button" class="el-button el-button--default">
-				<i class="el-icon-search"></i>
-				</button>
-			</div> -->
-		</div>
+<!-- <div class="inputTextSelect" @sub-validate="subValidate"> -->
+	<div class="inputTS-text" >
+		<input  
+			:class="{'el-input__inner': true,'is-error': verrors.has(item.name)}"
+			type="text" 
+			autocomplete="off" 
+			:name="item.name"
+			:placeholder="item.placeholder"  
+			v-model="textValue"
+			:v-validate.initial="tableForm[item.name]" 
+			:data-vv-rules="item.rule" 
+			:data-vv-as="item.label"
+			>
 	</div>
-	<!-- <el-input placeholder="请输入内容" id="inputTextSelect" v-model="input5" size="small">
-	    <el-select v-model="select" slot="append">
-	        <el-option v-for="item in options" 
-		        :label="item.label"
-		        :value="item.value" 
-		        size="small">
-	         </el-option>
-	    </el-select>
-	</el-input> -->
+	<select 
+		class="inputTS-select"
+		v-model="value">
+			<option  
+				v-for="option in item.options"
+		      	:label="option.label"
+		     	:value="option.value">
+		     </option> 
+	</select>
 </div>
+
 
 </template>
 <script>
 export default {
   props:
   {
-    placeholder:
-    {
-      type: String,
-      default: '必填'
-    },
-    rule: {
-      type: String
-    },
-    options: {
-      type: Array,
-      default: []
-    }
+    item: {}
   },
   data () {
     return {
-      input: '',
-      select: ''
+      textValue: '',
+      // select选择的值
+      value: '',
+      tableForm: {}
+    }
+  },
+  mounted () {
+    // this.$on('sub-validate', function () {
+    //   this.subValidate()
+    // })
+  },
+  methods: {
+    // subValidate () {
+    //   this.$validator.validateAll()
+    // }
+  },
+  watch: {
+    textValue () {
+      this.$emit('return-value', {name: this.item.name, value: this.textValue})
     }
   }
 }
 </script>
 <style lang="sass">
-	@import "../../../sass/public/inputSize.scss";
+	// @import "../../../sass/public/inputSize.scss";
 .inputTextSelect{
 	display:inline-block;
 	width:312px;
 	margin-left:10px;
-	.inputTextSelect{
-		width:100%;
-		.inputTS-text,.inputTS-select{
-			height:28px;
+	background-color: #fff;
+    border-radius: 4px;
+    border: 1px solid #bfcbd9;
+    color: #1f2d3d;
+    .inputTS-text{
+    	display:inline-block;
+    	width:211px;
+    	border-right: 1px solid #bfcbd9;
+    	>input{
+    		box-sizing: border-box;
+			height:26px;
+			outline:none;
+			border:none;
 		}
-		.el-input {
-		    width: 100px;
-		}
+    }
+	.inputTS-select{
+		height:26px;
+		width:100px;
+		padding-left:10px;
+		display:inline-block;
+		outline:none;
+		border:none;
 	}
 	
 }

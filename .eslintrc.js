@@ -28,6 +28,8 @@ module.exports = {
     // 允许使用未声明的变量，除非在/*global */注释中提及
     'no-undef': 0,
     // Disallow Assignment in return Statement
-    'no-return-assign': 0
+    'no-return-assign': 0,
+    // Disallow camelcase naming convention
+    'camelcase': ['error', {properties: 'never'}]
   }
 }

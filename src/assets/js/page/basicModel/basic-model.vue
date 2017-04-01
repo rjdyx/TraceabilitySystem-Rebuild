@@ -30,9 +30,9 @@
               ></component>
       </div>
     <!-- 新建模块 -->
-    <new v-if="isShow" :newComponent="newComponent"></new>
+    <new v-if="isShow" :newComponent="newComponent" :editForm="editTable"></new>
   </div>
-  <pop-edit :editComponent="editComponent" v-if="editShow"></pop-edit>
+  <!-- <pop-edit :editComponent="editComponent" v-if="editShow"></pop-edit> -->
   <!-- 列表模块 -->
   <el-table :data="tableData" @selection-change="handleSelectionChange">
     <!-- 序号 -->
@@ -53,7 +53,7 @@
       :width="150">
         <template scope="scope" class="operateBtn">
             <el-button size="small" type="text" @click="handelDel(scope.$index,scope.row)">删除</el-button>  
-            <el-button class="editBtn" @click="changeEditShow" type="text">编辑</el-button> 
+            <el-button class="editBtn" @click="changeIsShow" type="text">编辑</el-button> 
           </template>
     </el-table-column>
   </el-table>
@@ -125,7 +125,8 @@ export default {
       // 是否新建
       isShow: false,
       editShow: false,
-      msg: 1
+      msg: 1,
+      editTable: {'animalName': '猪', 'varieties': '10', 'RFID': 'rfidcs', 'remarkInfo': 'remarkInfocs', 'file': 'filecs', 'textS': '10'}
     }
   },
   mixins: [computed],

@@ -17,15 +17,6 @@
 		    <el-tab-pane v-for="item in newComponent" :label="item.tab" :name="item.tab">
 		   		<!-- tabs标签内容 -->
 		    	<ul class="newMain">
-		    		<!-- <component 
-						v-for="components in item.components" 
-						v-bind:is="components.component" 
-						:isNull="components.isNull"
-						:label="components.label"
-						:rule="components.rule"
-						:placeholder="components.placeholder"
-						:options="components.options">
-					</component> -->
 					<li class="inputItem" v-for="item in item.components">
 						<em class="input-imp" v-if="item.isNull===false">*</em>
 						<label class="input-label"  v-if="item.type!=='file'" for="inputText" >{{item.label}}&nbsp&nbsp:</label>
@@ -35,8 +26,8 @@
 							type="text" 
 							:placeholder="item.placeholder"
 							:name="item.name" 
-                            v-model="form[item.name]" 
-                            v-validate.initial="form[item.name]" 
+                            v-model="tableForm[item.name]" 
+                            v-validate.initial="tableForm[item.name]" 
                             :data-vv-rules="item.rule" 
                             :data-vv-as="item.label"
                             :class="{'input-pop': true, 'el-input__inner': true,'is-error': verrors.has(item.name)}"
@@ -49,8 +40,8 @@
 							rows="10" 
 							:placeholder="item.placeholder"
 							:name="item.name"
-							v-model="form[item.name]" 
-                            v-validate.initial="form[item.name]" 
+							v-model="tableForm[item.name]" 
+                            v-validate.initial="tableForm[item.name]" 
                             :data-vv-rules="item.rule" 
                             :data-vv-as="item.label"
 							>
@@ -61,8 +52,8 @@
 							v-else-if="item.type=='select'" 
 							:placeholder="item.placeholder"
 							:name="item.name" 
-							v-model="form[item.name]" 
-                            v-validate.initial="form[item.name]" 
+							v-model="tableForm[item.name]" 
+                            v-validate.initial="tableForm[item.name]" 
                             :data-vv-rules="item.rule" 
                             :data-vv-as="item.label">
 								<option :value="option.value" v-for="option in item.options">{{option.label}}</option>
@@ -74,26 +65,25 @@
 							type="date" 
 							:placeholder="item.placeholder"
 							:name="item.name" 
-							v-model="form[item.name]" 
-                            v-validate.initial="form[item.name]" 
+							v-model="tableForm[item.name]" 
+                            v-validate.initial="tableForm[item.name]" 
                             :data-vv-rules="item.rule" 
                             :data-vv-as="item.label">
 						<!-- 文件 -->
 						<component 
 							v-bind:is="item.component" 
 							v-else-if="item.type=='file'"
-							v-model="form[item.name]" 
+							v-model="tableForm[item.name]" 
 							>
 						</component>
 						<!-- 文本&下拉框 -->
 						<component 
 							v-bind:is="item.component" 
 							v-else-if="item.type=='textselect'"
-							:placeholder="item.placeholder" 
-							:options="item.options" 
-							:rule="item.rule"
-							v-model="form[item.name]"
+							:item="item"
+							@return-value="returnValue"
 							>
+							<!-- @sub-validate="subValidate" -->
 						</component>
 						<!--  -->
 						<span v-show="verrors.has(item.name)" class="help is-danger el-form-item__error">{{ verrors.first(item.name) }}</span>
@@ -110,6 +100,7 @@
 </div>
 	
 </template>
+
 <script>
 export default {
   name: 'validator-example',
@@ -118,12 +109,21 @@ export default {
     // ActiveBox,
   },
   props: {
+    type: '',
     newComponent: {
       type: Array,
       default: []
     },
     tab: {
       type: String
+    },
+    editForm: {
+      type: Object,
+      default: {}
+    },
+    edit: {
+      type: Boolean,
+      default: false
     }
   },
   data () {
@@ -134,15 +134,26 @@ export default {
     return {
       // 当前选中的标签页
       activeName: this.newComponent[0].tab,
-      form: form
+      form: form,
+      tableForm: {}
     }
   },
   mounted () {
-    console.log(this.newComponent)
+    this.tableForm = this.edit ? this.editForm : this.form
+    console.log(this.tableForm)
   },
+  // computed: {
+  //   tableForm () {
+  //     return
+  //   }
+  // },
   methods: {
     handleClick (tab, event) {
       console.log(tab, event)
+    },
+    // 返回InputTextSelect组件的数据
+    returnValue ({name, value}) {
+      this.tableForm[name] = value
     },
     // 关闭表单事件
     closeClick () {
@@ -164,8 +175,8 @@ export default {
         return false
       } else {
         console.log('提交成功')
-        for (let key of Object.keys(this.form)) {
-          console.log(key + ': ' + this.form[key])
+        for (let key of Object.keys(this.tableForm)) {
+          console.log(key + ': ' + this.tableForm[key])
         }
       }
     }
@@ -218,27 +229,36 @@ export default {
 					}
 
 				.input-pop {
-						width:312px;
-						height:28px;
-						display:inline-block;
-						// line-height:28px;
-						// padding:2px 10px;
-						// border:2px solid #e5e5e5;
-						vertical-align:middle;
-						box-sizing:border-box;
-						margin-left:10px;
-					}
+					width:312px;
+					height:28px;
+					display:inline-block;
+					// line-height:28px;
+					// padding:2px 10px;
+					// border:2px solid #e5e5e5;
+					vertical-align:middle;
+					box-sizing:border-box;
+					margin-left:10px;
+
+				}
+				.input-pop:focus{
+				    outline: 0;
+				    border: 1px solid #bfcbd9;
+				}
+				.input-pop:hover{
+				    border: 1px solid #bfcbd9;
+				}
 				textarea.input-pop{
-						height: 60px;
-						resize:none;
+					height: 60px;
+					resize:none;
 				}
 				select.input-pop{
-						border-radius: 4px;
-					    border: 1px solid #bfcbd9;
-					    box-sizing: border-box;
-					    color: #1f2d3d;
-				        padding: 3px 10px;
+					border-radius: 4px;
+				    border: 1px solid #bfcbd9;
+				    box-sizing: border-box;
+				    color: #1f2d3d;
+			        padding: 3px 10px;
 				}
+				
 			}
 		}
 		.el-icon-circle-close{

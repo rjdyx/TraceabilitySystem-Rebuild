@@ -733,13 +733,21 @@ export default {
         rule: ''
       },
       {
-        name: 'textSelect',
+        name: 'textS',
         type: 'textselect',
         component: inputTextSelect,
         isNull: true,
         label: '文本和下拉',
         placeholder: '文本和下拉',
-        rule: ''
+        rule: 'required|numeric',
+        options: [{
+          value: '',
+          label: '(千克)'
+        },
+        {
+          value: '个',
+          label: '个'
+        }]
       }
       ]
     }],
