@@ -208,7 +208,7 @@ export default {
   ],
   expertFile: [{
     settitle: '专家档案管理',
-    key: 'cultivation',
+    key: 'expert',
     tab: '专家档案信息',
     url: 'org',
     searchPlaceholder: '请输入养殖场进行搜索',

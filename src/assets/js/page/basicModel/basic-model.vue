@@ -1,8 +1,8 @@
 /**
  * 
  * 基础模块组件
- * @author 舒丹彤
- * @date 2017/03/
+ * @author 舒丹彤 
+ * @date 2017/03/14
  * 
  */
 <template>
@@ -10,6 +10,7 @@
   <!-- 标题 -->
   <contain-title :settitle="settitle">
   </contain-title>
+    
   <!-- tab栏 --> 
   <el-tabs v-model="activeName" type="card" id="tabs" @tab-click="tabClick">
     <el-tab-pane v-for="(model,index) in models" :label="model.tab" :name="'index'+index"></el-tab-pane>
@@ -38,16 +39,18 @@
     <!-- 新建模块 -->
     <new v-if="isShow" :newComponent="newComponent"></new>
   </div>
-  <!-- <pop-edit :editComponent="editComponent" v-if="editShow"></pop-edit> -->
   <!-- 列表模块 -->
-  <el-table :data="tableData" @selection-change="handleSelectionChange">
-    <!-- 序号 -->
-    <el-table-column width="150" label="序号">
-      <template scope="scope">
-        <el-checkbox v-model="checked">{{msg}}</el-checkbox>
-      </template>
+  <el-table :data="tableData">
+      <!-- checkbox -->
+      <el-table-column width="50">
+          <template scope="scope" v-for="city in tableData">
+            <el-checkbox v-model="checked" :label="city"></el-checkbox>
+            <!-- <input type="checkbox" :label="city"> -->
+          </template>
       </el-table-column>
-
+      <!-- 序号 -->
+      <el-table-column width="80" label="序号" type="index">
+      </el-table-column>
         <template v-for="(item,index) in theads">
             <template>
               <el-table-column 
@@ -61,17 +64,40 @@
       <el-table-column 
       label="操作">
         <template scope="scope" class="operateBtn">
-            <clickMore v-if="clickMoreshow" class="clickMoreBtn"></clickMore>
-            <i @click="showMore" :class="{'active':active,'unactive':!active}"></i>
-              <i>
-                <el-button size="small" type="text" @click="handelDel(scope.$index,scope.row)" class="btn">删除</el-button>  
+            <template v-if="moreComponent!=null">
+              <clickMore v-if="clickMoreshow" class="clickMoreBtn" :moreComponent="moreComponent"></clickMore>
+              <i @click="showMore" :class="{'active':active,'unactive':!active}"></i>
+            </template>
+              <template>
+                <i>
+                <el-button size="small" type="text" @click="handelDel(scope.$index,scope.row)" class="btndel">删除</el-button>  
               </i>
               <i>
                 <el-button type="text" size="small" class="btn">编辑</el-button>
               </i>
+              </template>
           </template>
     </el-table-column>
   </el-table>
+  <div class="footer">
+    <!-- 全选 -->
+    <template>
+      <el-checkbox class="allChecked" @change="selectall"></el-checkbox>
+    </template>
+    <div class="operate-foot">
+      <el-button>删除</el-button>
+      <el-button>导出表格</el-button>
+    </div>
+    <p class="record">共有{{num}}页，{{total}}条记录</p>
+  </div>
+  <template>
+      <el-checkbox :indeterminate="isIndeterminate" v-model="checkAll" @change="handleCheckAllChange">全选</el-checkbox>
+      <!-- <div style="margin: 15px 0;"></div> -->
+      <el-checkbox-group v-model="checkedCities" @change="handleCheckedCitiesChange">
+        <el-checkbox v-for="city in cities" :label="city">{{city}}</el-checkbox>
+      </el-checkbox-group>
+    </template>
+
 </div> 
 </template>
  
@@ -83,7 +109,7 @@ import edit from '../../components/public/edit.vue'
 import operate from '../../components/public/operate.vue'
 import popEdit from '../../components/public/popEdit.vue'
 import clickMore from '../../components/public/clickMore.vue'
-
+const cityOptions = ['上海', '北京', '广州', '深圳']
 export default {
   name: 'BasicModel',
   props: {
@@ -113,7 +139,8 @@ export default {
               rule: ''
             }
           }],
-          editComponent: []
+          editComponent: [],
+          moreComponent: []
         }]
       }
     }
@@ -138,7 +165,14 @@ export default {
       // 切换点击更多按钮的状态
       active: true,
       // 点击展开更多按钮
-      clickMoreshow: false
+      clickMoreshow: false,
+      total: '',
+      checked: false,
+      allchecked: false,
+      checkAll: true,
+      checkedCities: ['上海', '北京'],
+      cities: cityOptions,
+      isIndeterminate: true
     }
   },
   mixins: [computed],
@@ -151,13 +185,19 @@ export default {
       this.$set(this, 'tableData', [])
       this.$set(this, 'multipleSelection', [])
     },
+    handleCheckAllChange (event) {
+      this.checkedCities = event.target.checked ? cityOptions : []
+      this.isIndeterminate = false
+    },
+    handleCheckedCitiesChange (value) {
+      let checkedCount = value.length
+      this.checkAll = checkedCount === this.cities.length
+      this.isIndeterminate = checkedCount > 0 && checkedCount < this.cities.length
+    },
     /**
   * 列表选择事件
      *
      */
-    handleSelectionChange (val) {
-      this.multipleSelection = val
-    },
     // tab点击事件
     tabClick (tab, event) {
       this.modelIndex = tab.$data.index
@@ -189,30 +229,16 @@ export default {
     showMore () {
       this.active = !this.active
       this.clickMoreshow = !this.clickMoreshow
-      // console.log(43658)
+    },
+    selectall () {
+      this.checked = !this.checked
     },
     // 获取数据
     getAllMsg (params = '') {
       axios.get(this.$adminUrl(this.url))
                   .then((responce) => {
                     this.$set(this, 'tableData', responce.data.data)
-                    let all = []
-                    let allmsg = responce.data.data
-                    console.log(allmsg)
-                    for (let item in allmsg) {
-                      if (allmsg.length !== 0) {
-                        all.push(allmsg[item].type)
-                      }
-                    }
-                    console.log(all)
-                    // for (let it in all) {
-                    //   switch (all[it]) {
-                    //     case 'manure':
-                    //       // this.manure = 'hi符号为覅'
-                    //       console.log(this.manure)
-                    //       console.log(83659)
-                    //   }
-                    // }
+                    this.total = this.tableData.length
                   })
     }
   },
@@ -232,6 +258,8 @@ export default {
       this.tableData = []
       this.getAllMsg()
     }
+  },
+  computed: {
   }
 }
 
@@ -239,7 +267,6 @@ export default {
 
 
 <style lang='sass'>
-
 	 .searchInp{
 	 	width:161px;
 	 	margin-bottom:10px;
@@ -303,7 +330,33 @@ export default {
      .btn span{
       border-left: 1px solid #a7bad6;
      }
+     .btndel span{
+      padding: 0px 5px 0px 5px;
+     }
      .el-table td, .el-table th.is-leaf{
         text-align: center;
+     }
+     .footer{
+      width: 100%;
+      height: 50px;
+      border: 1px solid #dfe6ec;
+      border-top: none; 
+     }
+     .allChecked{
+      padding-left: 17px;
+      padding-top: 15px;
+     }
+     .operate-foot{
+      padding-left: 15px;
+      display: inline-block;
+     }
+     .record{
+      float: right;
+      padding: 15px 10px;
+     }
+     .hu{
+      width: 100%;
+      height: 50px;
+      background: red;
      }
 </style>

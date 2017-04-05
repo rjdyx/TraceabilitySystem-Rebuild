@@ -3,12 +3,12 @@
  * @description:当点击按钮时，展开更多的操作按钮
  * @author 舒丹彤
  * @date 2017/4/1 
- * 
+ *  
  */ 
 
 <template>
 	<div>
-		<template v-for="btn in btns">
+		<template v-for="btn in moreComponent">
 			<i>
 				<el-button type="text" size="small" class="btn">{{btn.value}}</el-button>
 			</i>
@@ -20,13 +20,14 @@
 <script>
 export default {
   name: 'clickMore',
+  props: {
+    moreComponent: {
+      type: Array,
+      default: []
+    }
+  },
   data () {
     return {
-      btns: [
-          {value: '饲料'},
-          {value: '病疫'},
-          {value: '检疫'},
-          {value: '圈舍'}]
     }
   }
 }

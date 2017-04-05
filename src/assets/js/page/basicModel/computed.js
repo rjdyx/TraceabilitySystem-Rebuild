@@ -27,6 +27,9 @@ export default {
     widths () {
       return this.models[this.modelIndex].widths
     },
+    search () {
+      return this.models[this.modelIndex].search
+    },
     typeComponent () {
       return this.models[this.modelIndex].typeComponent
     },
@@ -38,6 +41,9 @@ export default {
     },
     listComponent () {
       return this.models[this.modelIndex].listComponent
+    },
+    moreComponent () {
+      return this.models[this.modelIndex].moreComponent
     },
     editComponent () {
       return this.models[this.modelIndex].editComponent
