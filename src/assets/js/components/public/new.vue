@@ -21,7 +21,7 @@
 						<em class="input-imp" v-if="item.isNull===false">*</em>
 						<label class="input-label"  v-if="item.type!=='file'" for="inputText" >{{item.label}}&nbsp&nbsp:</label>
 						<!-- 文本框 -->
-						<input 
+						<!-- <input 
 							v-if="item.type=='text'" 
 							type="text" 
 							:placeholder="item.placeholder"
@@ -31,9 +31,10 @@
                             :data-vv-rules="item.rule" 
                             :data-vv-as="item.label"
                             :class="{'input-pop': true, 'el-input__inner': true,'is-error': verrors.has(item.name)}"
-							>
+							> -->
+							<el-input v-model="input" placeholder="请输入内容"></el-input>
 						<!-- 多行文本框 -->
-						<textarea 
+						<!-- <textarea 
 							:class="{'input-pop': true, 'el-textarea__inner': true,'is-error': verrors.has(item.name)}"
 							v-else-if="item.type=='textarea'" 
 							cols="30" 
@@ -45,9 +46,15 @@
                             :data-vv-rules="item.rule" 
                             :data-vv-as="item.label"
 							>
-						</textarea>
+						</textarea> -->
+						<el-input
+						  type="textarea"
+						  :rows="2"
+						  placeholder="请输入内容"
+						  v-model="textarea">
+						</el-input>
 						<!-- 下拉框 -->
-						<select 
+						<!-- <select 
 							:class="{'input-pop': true,'is-error': verrors.has(item.name)}"
 							v-else-if="item.type=='select'" 
 							:placeholder="item.placeholder"
@@ -57,9 +64,17 @@
                             :data-vv-rules="item.rule" 
                             :data-vv-as="item.label">
 								<option :value="option.value" v-for="option in item.options">{{option.label}}</option>
-						</select>
+						</select> -->
+						<el-select v-model="value" placeholder="请选择">
+						    <el-option
+						      v-for="item in options"
+						      :label="item.label"
+						      :value="item.value">
+						    </el-option>
+						</el-select>
+
 						<!-- 日期 -->
-						<input 
+						<!-- <input 
 							:class="{'input-pop': true, 'el-input__inner': true,'is-error': verrors.has(item.name)}"
 							v-else-if="item.type=='date'" 
 							type="date" 
@@ -68,7 +83,16 @@
 							v-model="tableForm[item.name]" 
                             v-validate.initial="tableForm[item.name]" 
                             :data-vv-rules="item.rule" 
-                            :data-vv-as="item.label">
+                            :data-vv-as="item.label"> -->
+                        <div class="block">
+						    <span class="demonstration">默认</span>
+						    <el-date-picker
+						      v-model="value1"
+						      type="date"
+						      placeholder="选择日期"
+						      :picker-options="pickerOptions0">
+						    </el-date-picker>
+						  </div>    
 						<!-- 文件 -->
 						<component 
 							v-bind:is="item.component" 
@@ -85,6 +109,10 @@
 							>
 							<!-- @sub-validate="subValidate" -->
 						</component>
+						<component
+							:is="item.component"
+							:data=
+							></component>
 						<!--  -->
 						<span v-show="verrors.has(item.name)" class="help is-danger el-form-item__error">{{ verrors.first(item.name) }}</span>
 					</li >
@@ -132,10 +160,34 @@ export default {
       form[item.name] = ''
     })
     return {
+      input: '',
+      textarea: '',
+      ptions: [{
+        value: '选项1',
+        label: '黄金糕'
+      }, {
+        value: '选项2',
+        label: '双皮奶'
+      }, {
+        value: '选项3',
+        label: '蚵仔煎'
+      }, {
+        value: '选项4',
+        label: '龙须面'
+      }, {
+        value: '选项5',
+        label: '北京烤鸭'
+      }],
+      value: '',
       // 当前选中的标签页
       activeName: this.newComponent[0].tab,
       form: form,
-      tableForm: {}
+      tableForm: {},
+      ickerOptions0: {
+        disabledDate (time) {
+          return time.getTime() < Date.now() - 8.64e7
+        }
+      }
     }
   },
   mounted () {
