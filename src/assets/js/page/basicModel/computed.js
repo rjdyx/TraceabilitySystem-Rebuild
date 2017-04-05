@@ -18,6 +18,9 @@ export default {
     searchPlaceholder () {
       return this.models[this.modelIndex].searchPlaceholder
     },
+    search () {
+      return this.models[this.modelIndex].search
+    },
     theads () {
       return this.models[this.modelIndex].theads
     },

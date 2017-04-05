@@ -17,7 +17,7 @@
   <!-- 操作模块 -->
       <div id="operate">              
       <div id="inputs">   
-        <operate :listComponent="listComponent"></operate>
+        <operate :listComponent="listComponent" @selectVal="selectFind"></operate>
           <!-- 搜索框 -->
           <div class="searchOp"> 
               <el-input
@@ -25,7 +25,7 @@
                 v-model="inputValue"
                 :on-icon-click="search" class="searchInp" size="small">
               </el-input>
-              <el-button size="small" class="searchBtn">搜索</el-button>
+              <el-button size="small" class="searchBtn" @click="textFind">搜索</el-button>
           </div>
         <!-- 操作按钮 -->
               <component
@@ -102,6 +102,7 @@ export default {
           widths: [50],
           title: '',
           options: [],
+          search: [],
           typeComponent: [],
           listComponent: [],
           newComponent: [{
@@ -123,6 +124,8 @@ export default {
       compute: this,
       // 搜索框内容
       inputValue: '',
+      // 下拉框
+      selectVal: '',
       // tab模块选择标志
       // activeName:'index'+this.$route.params.index,
       // tab对应的模块下标
@@ -131,6 +134,7 @@ export default {
       tableData: [],
       // 被选中的列表项数组
       multipleSelection: [],
+      // search: [],
       // 是否新建
       isShow: false,
       // editShow: false,
@@ -138,7 +142,13 @@ export default {
       // 切换点击更多按钮的状态
       active: true,
       // 点击展开更多按钮
-      clickMoreshow: false
+      clickMoreshow: false,
+      // 组合查询
+      par: {},
+      // 数组拼装
+      arr: {},
+      // 选择不同下拉框key
+      selectKey: ''
     }
   },
   mixins: [computed],
@@ -146,6 +156,7 @@ export default {
     init (index = 0) {
       this.value = ''
       this.inputValue = ''
+      this.selectVal = ''
       this.activeName = 'index'
       this.modelIndex = index
       this.$set(this, 'tableData', [])
@@ -189,31 +200,34 @@ export default {
     showMore () {
       this.active = !this.active
       this.clickMoreshow = !this.clickMoreshow
-      // console.log(43658)
     },
     // 获取数据
-    getAllMsg (params = '') {
-      axios.get(this.$adminUrl(this.url))
-                  .then((responce) => {
-                    this.$set(this, 'tableData', responce.data.data)
-                    let all = []
-                    let allmsg = responce.data.data
-                    console.log(allmsg)
-                    for (let item in allmsg) {
-                      if (allmsg.length !== 0) {
-                        all.push(allmsg[item].type)
-                      }
-                    }
-                    console.log(all)
-                    // for (let it in all) {
-                    //   switch (all[it]) {
-                    //     case 'manure':
-                    //       // this.manure = 'hi符号为覅'
-                    //       console.log(this.manure)
-                    //       console.log(83659)
-                    //   }
-                    // }
-                  })
+    getAllMsg (data = '') {
+      this.par.params = data
+      axios.get(this.$adminUrl(this.url), {params: this.par})
+        .then((responce) => {
+        // 数据转换
+          var ret = this.$conversion(this.url, responce.data.data)
+          this.$set(this, 'tableData', ret)
+        })
+    },
+    // 文本查询
+    textFind () {
+      let data = { 'query_text': this.inputValue }
+      if (this.selectVal !== '') {
+        data[this.search[0]] = this.selectVal
+      }
+      this.getAllMsg(data)
+    },
+    // 下拉框查询
+    selectFind (val) {
+      this.selectVal = val
+      let data = {}
+      if (val !== '') {
+        data['query_text'] = this.inputValue
+        data[this.search[0]] = val
+      }
+      this.getAllMsg(data)
     }
   },
   components: {
@@ -226,6 +240,7 @@ export default {
   },
   mounted () {
     this.msg = this.tableData.length
+    this.selectKey = this.search[0]
     this.getAllMsg()
   },
   watch: {

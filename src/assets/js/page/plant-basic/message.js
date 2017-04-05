@@ -19,10 +19,11 @@ export default {
     key: 'category',
     tab: '分类档案信息',
     url: 'category',
-    searchPlaceholder: '请输入养殖场进行搜索',
+    searchPlaceholder: '请输入分类名称进行搜索',
     theads: ['分类名称', '模块类型', '备注信息'],
     protos: ['name', 'type', 'memo'],
     widths: [50, 50, 50],
+    search: ['type'],
     typeComponent: [{
       component: importBtn
     },
@@ -37,13 +38,42 @@ export default {
         type: 'select',
         component: selectSection,
         options: [{
-          value: '',
-          label: '模块类型'
+          value: '', label: '模块类型'
         },
         {
-          value: '康乐牌',
-          label: '康乐牌'
-        }]
+          value: 'operate', label: '操作人员'
+        },
+        {
+          value: 'expert', label: '专家'
+        },
+        {
+          value: 'product', label: '产品'
+        },
+        {
+          value: 'supplier', label: '供货商'
+        },
+        {
+          value: 'client', label: '客户'
+        },
+        {
+          value: 'fodder', label: '饲料'
+        },
+        {
+          value: 'drug', label: '兽药'
+        },
+        {
+          value: 'beast', label: '畜禽'
+        },
+        {
+          value: 'plant', label: '果蔬'
+        },
+        {
+          value: 'manure', label: '肥料'
+        },
+        {
+          value: 'medicament', label: '农药'
+        }
+        ]
       }]
     }],
     newComponent: [{
@@ -113,6 +143,7 @@ export default {
     tab: '人员档案信息',
     url: 'operate',
     searchPlaceholder: '请输入养殖场进行搜索',
+    search: ['query_text', 'name'],
     theads: ['姓名', '身份', '性别', '年龄', '联系方式', '地址', '图片', '备注信息'],
     protos: ['name', 'identity', 'sex', 'age', 'phone', 'address', 'img', 'meno'],
     widths: [50, 50, 50, 50, 50, 50, 50, 50],
@@ -212,6 +243,7 @@ export default {
     tab: '专家档案信息',
     url: 'org',
     searchPlaceholder: '请输入养殖场进行搜索',
+    search: ['query_text', 'name'],
     theads: ['专家名称', '级别', '研究领域', '单位', '出生年月日', '性别', '联系方式', '图片'],
     protos: ['name', 'org_level', 'address', 'zipcode', 'phone', 'cellphone', 'fax', 'meno'],
     widths: [50, 50, 50, 50, 50, 50, 50, 50, 50],
@@ -301,6 +333,7 @@ export default {
     tab: '客户档案信息',
     url: 'org',
     searchPlaceholder: '请输入养殖场进行搜索',
+    search: ['query_text', 'name'],
     theads: ['管理客户类型', '客户名称', '联系人', '电话', '地址', '传真', '邮箱', '备注'],
     protos: ['name', 'org_level', 'address', 'zipcode', 'phone', 'cellphone', 'fax', 'meno'],
     widths: [50, 50, 50, 50, 50, 50, 50, 50, 50],
@@ -388,6 +421,7 @@ export default {
     tab: '养殖场信息',
     url: 'org',
     searchPlaceholder: '请输入养殖场进行搜索',
+    search: ['query_text', 'name'],
     theads: ['序号', '养殖场名称', '养殖面积', '负责人', '养殖畜禽种类', '养殖规模', '详细地址', '备注信息'],
     protos: ['name', 'org_level', 'address', 'zipcode', 'phone', 'cellphone', 'fax', 'meno'],
     widths: [50, 50, 50, 50, 50, 50, 50, 50],
@@ -477,6 +511,7 @@ export default {
     tab: '供货商档案信息',
     url: 'org',
     searchPlaceholder: '请输入养殖场进行搜索',
+    search: ['query_text', 'name'],
     theads: ['供货商名称', '电话', '联系人', '地址', '备注'],
     protos: ['name', 'org_level', 'address', 'zipcode', 'phone', 'cellphone', 'fax', 'meno'],
     widths: [50, 50, 50, 50, 50, 50],
@@ -559,6 +594,7 @@ export default {
     tab: '产品档案信息',
     url: 'org',
     searchPlaceholder: '请输入养殖场进行搜索',
+    search: ['query_text', 'name'],
     theads: ['名称', '执行标准', '卫生标准', '商品型号', '商品简介', '包装规格', '保质期', '食用方法', '存储方法', '配料信息', '图片', '备注'],
     protos: ['name', 'org_level', 'address', 'zipcode', 'phone', 'cellphone', 'fax', 'meno'],
     widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
@@ -641,6 +677,7 @@ export default {
     tab: '畜禽档案',
     url: 'org',
     searchPlaceholder: '请输入养殖场进行搜索',
+    search: ['query_text', 'name'],
     theads: ['畜禽名称', '描述', '耳标位置', '图片', '备注信息'],
     protos: ['name', 'org_level', 'address', 'zipcode', 'phone', 'cellphone', 'fax', 'meno'],
     widths: [50, 50, 50, 50, 50, 50],
@@ -711,6 +748,7 @@ export default {
     tab: '饲料档案',
     url: 'org',
     searchPlaceholder: '请输入养殖区进行搜索',
+    search: ['query_text', 'name'],
     theads: ['分类', '名称', '用途', '包装规格', '产地', '生产厂家名称', '联系方式', '图片', '备注信息'],
     protos: ['name', 'org_level', 'address', 'zipcode', 'phone', 'cellphone', 'fax', 'meno'],
     widths: [50, 50, 50, 50, 50, 50, 50, 50, 50],
@@ -820,6 +858,7 @@ export default {
     tab: '兽药档案',
     url: 'org',
     searchPlaceholder: '请输入畜禽名称进行搜索',
+    search: ['query_text', 'name'],
     theads: ['分类', '名称', '用途', '包装规格', '产地', '生产厂家名称', '联系方式', '图片', '备注信息'],
     protos: ['name', 'org_level', 'address', 'zipcode', 'phone', 'cellphone', 'fax', 'meno'],
     widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
@@ -917,6 +956,7 @@ export default {
     tab: '饲料档案',
     url: 'org',
     searchPlaceholder: '请输入饲料名称',
+    search: ['query_text', 'name'],
     theads: ['饲料类别', '饲料名称', '用途', '包装规格', '生产厂家名称', '产地', '联系方式', '备注信息'],
     protos: ['name', 'org_level', 'address', 'zipcode', 'phone', 'cellphone', 'fax', 'meno'],
     widths: [50, 50, 50, 50, 50, 50, 50, 50, 50],
@@ -1017,6 +1057,7 @@ export default {
     tab: '兽药档案',
     url: 'org',
     searchPlaceholder: '请输入兽药名称',
+    search: ['query_text', 'name'],
     theads: ['兽药类别', '兽药名称', '用途', '包装规格', '生产厂家名称', '产地', '联系方式', '备注'],
     protos: ['name', 'org_level', 'address', 'zipcode', 'phone', 'cellphone', 'fax', 'meno'],
     widths: [50, 50, 50, 50, 50, 50, 50, 50, 50],
@@ -1114,6 +1155,7 @@ export default {
     tab: '人物档案',
     url: 'org',
     searchPlaceholder: '请输入姓名进行搜索',
+    search: ['query_text', 'name'],
     theads: ['姓名', '身份', '性别', '年龄', '联系方式', '地址', '备注'],
     protos: ['name', 'org_level', 'address', 'zipcode', 'phone', 'cellphone', 'fax', 'meno'],
     widths: [50, 50, 50, 50, 50, 50, 50, 50],
@@ -1203,6 +1245,7 @@ export default {
     tab: '专家档案',
     url: 'org',
     searchPlaceholder: '请输入专家名称',
+    search: ['query_text', 'name'],
     theads: ['专家名称', '操作模块', '研究领域', '级别', '年龄', '性别', '联系方式', '所属单位', '备注'],
     protos: ['name', 'org_level', 'address', 'zipcode', 'phone', 'cellphone', 'fax', 'meno'],
     widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
@@ -1326,6 +1369,7 @@ export default {
     tab: '养殖批次信息',
     url: 'expert',
     searchPlaceholder: '请输入养殖批次号进行搜索',
+    search: ['query_text', 'name'],
     theads: ['批次号', '养殖区', '畜禽', '日期', '数量', '面积', '养殖方式', '养殖人', '备注', '图片状态', '状态'],
     protos: ['name', 'expert_area', 'org_name', 'degree', 'duty', 'title', 'address', 'zipcode', 'company', 'officephone', 'homephone', 'cellphone', 'email', 'meno'],
     widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
@@ -1423,6 +1467,7 @@ export default {
     tab: '饲料使用信息',
     url: 'expert',
     searchPlaceholder: '请输入饲料名称进行搜索',
+    search: ['query_text', 'name'],
     theads: ['使用日期', '饲料', '喂养方式', '专家', '操作人员', '喂养量', '类型状态', '备注'],
     protos: ['name', 'expert_area', 'org_name', 'degree', 'duty', 'title', 'address', 'zipcode', 'company', 'officephone', 'homephone', 'cellphone', 'email', 'meno'],
     widths: [50, 50, 50, 50, 50, 50, 50, 50, 50],
@@ -1570,6 +1615,7 @@ export default {
     tab: '病疫信息',
     url: 'expert',
     searchPlaceholder: '请输入兽药名称',
+    search: ['query_text', 'name'],
     theads: ['用药日期', '病情描述', '兽药', '专家', '操作人员', '用药量', '治疗方式', '备注'],
     protos: ['name', 'expert_area', 'org_name', 'degree', 'duty', 'title', 'address', 'zipcode', 'company', 'officephone', 'homephone', 'cellphone', 'email', 'meno'],
     widths: [50, 50, 50, 50, 50, 50, 50, 50, 50],
