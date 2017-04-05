@@ -18,7 +18,7 @@ export default {
     settitle: '分类档案管理',
     key: 'cultivation',
     tab: '分类档案信息',
-    url: 'org',
+    url: 'farm',
     searchPlaceholder: '请输入养殖场进行搜索',
     theads: ['分类名称', '模块类型', '备注信息'],
     protos: ['date', 'name', 'province', 'city'],

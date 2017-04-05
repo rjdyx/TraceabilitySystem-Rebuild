@@ -1,4 +1,10 @@
-
+/**
+ * 
+ * 基础模块组件
+ * @author 舒丹彤
+ * @date 2017/03/
+ * 
+ */
 <template>
 <div>   
   <!-- 标题 -->
@@ -12,8 +18,8 @@
       <div id="operate">              
       <div id="inputs">   
         <operate :listComponent="listComponent"></operate>
-            <!-- 搜索框 -->
-            <div class="searchOp"> 
+          <!-- 搜索框 -->
+          <div class="searchOp"> 
               <el-input
                 :placeholder="searchPlaceholder"
                 v-model="inputValue"
@@ -22,7 +28,7 @@
               <el-button size="small" class="searchBtn">搜索</el-button>
           </div>
         <!-- 操作按钮 -->
-            <component
+              <component
                   v-for="typeOperate in typeComponent"
                   :is="typeOperate.component"
                   :params="typeOperate.params"
@@ -32,12 +38,16 @@
     <!-- 新建模块 -->
     <new v-if="isShow" :newComponent="newComponent"></new>
   </div>
-  <pop-edit :editComponent="editComponent" v-if="editShow"></pop-edit>
+  <!-- <pop-edit :editComponent="editComponent" v-if="editShow"></pop-edit> -->
   <!-- 列表模块 -->
   <el-table :data="tableData" @selection-change="handleSelectionChange">
     <!-- 序号 -->
-    <el-table-column type="selection" width="55">
+    <el-table-column width="150" label="序号">
+      <template scope="scope">
+        <el-checkbox v-model="checked">{{msg}}</el-checkbox>
+      </template>
       </el-table-column>
+
         <template v-for="(item,index) in theads">
             <template>
               <el-table-column 
@@ -46,14 +56,19 @@
                 :min-width="widths[index]" 
                 show-overflow-tooltip>
               </el-table-column>
-            </template>
+            </template> 
         </template>
       <el-table-column 
-      label="操作" 
-      :width="150">
+      label="操作">
         <template scope="scope" class="operateBtn">
-            <el-button size="small" type="text" @click="handelDel(scope.$index,scope.row)">删除</el-button>  
-            <el-button class="editBtn" @click="changeEditShow" type="text">编辑</el-button> 
+            <clickMore v-if="clickMoreshow" class="clickMoreBtn"></clickMore>
+            <i @click="showMore" :class="{'active':active,'unactive':!active}"></i>
+              <i>
+                <el-button size="small" type="text" @click="handelDel(scope.$index,scope.row)" class="btn">删除</el-button>  
+              </i>
+              <i>
+                <el-button type="text" size="small" class="btn">编辑</el-button>
+              </i>
           </template>
     </el-table-column>
   </el-table>
@@ -67,6 +82,7 @@ import ContainTitle from 'components/public/contain-title.vue'
 import edit from '../../components/public/edit.vue'
 import operate from '../../components/public/operate.vue'
 import popEdit from '../../components/public/popEdit.vue'
+import clickMore from '../../components/public/clickMore.vue'
 
 export default {
   name: 'BasicModel',
@@ -80,7 +96,7 @@ export default {
           url: '',
           urlParams: {},
           // 从后台获取的所有数据
-          theads: [''],
+          theads: [],
           searchPlaceholder: '',
           protos: ['name'],
           widths: [50],
@@ -124,8 +140,12 @@ export default {
       multipleSelection: [],
       // 是否新建
       isShow: false,
-      editShow: false,
-      msg: 1
+      // editShow: false,
+      msg: '',
+      // 切换点击更多按钮的状态
+      active: true,
+      // 点击展开更多按钮
+      clickMoreshow: false
     }
   },
   mixins: [computed],
@@ -133,7 +153,7 @@ export default {
     init (index = 0) {
       this.value = ''
       this.inputValue = ''
-      this.activeName = 'index' + index
+      this.activeName = 'index'
       this.modelIndex = index
       this.$set(this, 'tableData', [])
       this.$set(this, 'multipleSelection', [])
@@ -149,8 +169,6 @@ export default {
     tabClick (tab, event) {
       this.modelIndex = tab.$data.index
       let model = this.$route.params.model
-      // this.settitle=this.model.settitle
-      // this.$router.push('/index/' + this.$route.fullPath.split('/')[2] + '/' + model + '/' + this.modelIndex)
     },
     // 操作更多选项
     filterTag (value, row) {
@@ -173,14 +191,20 @@ export default {
           message: '已取消删除'
         })
       })
-      console.log(8237489)
     },
-    changeIsShow () {
-      this.isShow = !this.isShow
+    // 点击展开更多操作按钮
+    showMore () {
+      this.active = !this.active
+      this.clickMoreshow = !this.clickMoreshow
+      // console.log(43658)
     },
-
-    changeEditShow () {
-      this.editShow = !this.editShow
+    // 获取数据
+    getAllMsg (params = '') {
+      let host = '/query'
+      axios.get(this.$adminUrl('/category'))
+                  .then((responce) => {
+                    this.$set(this, 'tableData', responce.data.data)
+                  })
     }
   },
   components: {
@@ -188,15 +212,19 @@ export default {
     New,
     edit,
     operate,
-    popEdit
+    popEdit,
+    clickMore
+  },
+  mounted () {
+    this.msg = this.tableData.length
+    this.getAllMsg()
   }
 }
 
 </script>
 
 
-<style lang='sass' scoped>
-	 /*@import '../../../sass/function';*/
+<style lang='sass'>
 
 	 .searchInp{
 	 	width:161px;
@@ -208,7 +236,6 @@ export default {
 	 	float:right;
 	 }
 	 .operateBtns {
-
             	display: inline-block;
             	margin-top:10px;
             	margin-right:10px;
@@ -228,5 +255,38 @@ export default {
      }
      .margin{
      	margin-left:15px;
+     }
+     .el-icon-caret-left{
+      padding-right: 15px;
+     }
+     i:hover{
+      cursor: pointer;
+     }
+     .active,.unactive{
+      width: 0;
+      height: 0;
+      display: inline-block;
+      vertical-align: middle;
+      margin: 0 10px 0 10px;
+      border-bottom: 10px solid transparent;
+      border-top: 10px solid transparent;
+     }
+     .active{
+      border-right: 18px solid #000;
+     }
+     .unactive{
+      border-left: 18px solid #000;
+     }
+     .clickMoreBtn{
+      display: inline-block;
+     }
+     .el-table th{
+      text-align:center;
+     }
+     .el-table th:last-child{
+      border-left: 1px solid red;
+     }
+     .btn span{
+      border-left: 1px solid #a7bad6;
      }
 </style>

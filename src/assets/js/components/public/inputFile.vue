@@ -12,12 +12,12 @@
 			>
 			<img v-if='imageUrl' :src='imageUrl' class='avatar'>
 			<i v-else class='el-icon-plus avatar-uploader-icon'></i>
-			<input type='file' accept='image/jpeg' class='fileBtn el-upload__input' >
+			<input type='file'  class='fileBtn el-upload__input' accept='image/jpeg'>
 		</div>
 	</div>
 
-<!-- 	<input class='csfile' type='file' accept='image/jpeg'>
-	<img class='img'> -->
+	<input class='csfile' type='file' accept='image/jpeg'>
+	<img class='img'>
 <!-- 	<div>
 		<el-upload
 			  class='avatar-uploader'
@@ -61,7 +61,7 @@ export default {
   },
   methods: {
     showFile () {
-      var $file = $('.fileBtn')
+      var $file = this.querySelector('.fileBtn')
       var _this = this
       $file.click()
       $file.change(function () {
