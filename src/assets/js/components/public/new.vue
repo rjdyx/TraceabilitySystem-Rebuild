@@ -90,11 +90,11 @@
 							:placeholder="item.placeholder" 
 							:options="item.options" 
 							:rule="item.rule"
-							v-model="form[item.name]" 
+							v-model="form[item.name]"
+							>
 						</component>
 						<!--  -->
 						<span v-show="verrors.has(item.name)" class="help is-danger el-form-item__error">{{ verrors.first(item.name) }}</span>
- 
 					</li >
 		    	</ul>
 		    </el-tab-pane> 

@@ -2,9 +2,6 @@ const path = require('path')
 const webpack = require('webpack')
 const projectRoot = path.resolve(__dirname, '../')
 const clientConfig = require('./webpack.client.config')
-
-
-
 module.exports = function setupDevServer (app, opts) {
   // 修改clientConfig使其能够进行热加载
   clientConfig.entry.app = ['webpack-hot-middleware/client', clientConfig.entry.app]
@@ -35,5 +32,4 @@ module.exports = function setupDevServer (app, opts) {
 
   // hot middleware
   app.use(require('webpack-hot-middleware')(clientCompiler))
-
 }

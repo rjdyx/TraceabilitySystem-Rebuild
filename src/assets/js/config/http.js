@@ -3,7 +3,6 @@
  */
 
 require('./require')
-
 axios.defaults.headers.common = {
   'X-CSRF-TOKEN': Laravel.csrfToken,
   'X-Requested-With': 'XMLHttpRequest'
