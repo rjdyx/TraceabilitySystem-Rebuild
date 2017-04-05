@@ -37,7 +37,7 @@ default {
     Vue.prototype.$adminUrl = (url) => {
       let regx = /^\/{1,}/g
       url = url.replace(regx, '')
-      return host + '/admin/' + url
+      return host + '/api/' + url
     }
 
     /**
