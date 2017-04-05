@@ -51,7 +51,7 @@
         <template v-for="(item,index) in theads">
             <template>
               <el-table-column 
-                :props="protos[index]" 
+                :prop="protos[index]" 
                 :label="item"
                 :min-width="widths[index]" 
                 show-overflow-tooltip>
@@ -128,14 +128,7 @@ export default {
       // tab对应的模块下标
       modelIndex: this.$route.params.index,
       // 列表数据
-      tableData: [{
-        date: '2016-05-03',
-        name: '王小虎',
-        province: '上海',
-        city: '普陀区',
-        address: '上海市普陀区金沙江路 1518 弄',
-        zip: 200333
-      }],
+      tableData: [],
       // 被选中的列表项数组
       multipleSelection: [],
       // 是否新建
@@ -200,10 +193,26 @@ export default {
     },
     // 获取数据
     getAllMsg (params = '') {
-      let host = '/query'
-      axios.get(this.$adminUrl('/category'))
+      axios.get(this.$adminUrl(this.url))
                   .then((responce) => {
                     this.$set(this, 'tableData', responce.data.data)
+                    let all = []
+                    let allmsg = responce.data.data
+                    console.log(allmsg)
+                    for (let item in allmsg) {
+                      if (allmsg.length !== 0) {
+                        all.push(allmsg[item].type)
+                      }
+                    }
+                    console.log(all)
+                    // for (let it in all) {
+                    //   switch (all[it]) {
+                    //     case 'manure':
+                    //       // this.manure = 'hi符号为覅'
+                    //       console.log(this.manure)
+                    //       console.log(83659)
+                    //   }
+                    // }
                   })
     }
   },
@@ -218,6 +227,12 @@ export default {
   mounted () {
     this.msg = this.tableData.length
     this.getAllMsg()
+  },
+  watch: {
+    key () {
+      this.tableData = []
+      this.getAllMsg()
+    }
   }
 }
 
@@ -288,5 +303,8 @@ export default {
      }
      .btn span{
       border-left: 1px solid #a7bad6;
+     }
+     .el-table td, .el-table th.is-leaf{
+        text-align: center;
      }
 </style>

@@ -16,13 +16,13 @@ export default {
   categoryBase:
   [{
     settitle: '分类档案管理',
-    key: 'cultivation',
+    key: 'category',
     tab: '分类档案信息',
-    url: 'farm',
+    url: 'category',
     searchPlaceholder: '请输入养殖场进行搜索',
     theads: ['分类名称', '模块类型', '备注信息'],
-    protos: ['date', 'name', 'province', 'city'],
-    widths: [50, 50, 50, 50],
+    protos: ['name', 'type', 'memo'],
+    widths: [50, 50, 50],
     typeComponent: [{
       component: importBtn
     },
@@ -38,16 +38,12 @@ export default {
         component: selectSection,
         options: [{
           value: '',
-          label: '产品品牌'
+          label: '模块类型'
         },
         {
           value: '康乐牌',
           label: '康乐牌'
         }]
-      },
-      {
-        type: 'date',
-        component: datePick
       }]
     }],
     newComponent: [{
@@ -113,12 +109,12 @@ export default {
   }],
   personFile: [{
     settitle: '人员档案管理',
-    key: 'cultivation',
+    key: 'operate',
     tab: '人员档案信息',
-    url: 'org',
+    url: 'operate',
     searchPlaceholder: '请输入养殖场进行搜索',
     theads: ['姓名', '身份', '性别', '年龄', '联系方式', '地址', '图片', '备注信息'],
-    protos: ['name', 'org_level', 'address', 'zipcode', 'phone', 'cellphone', 'fax', 'meno'],
+    protos: ['name', 'identity', 'sex', 'age', 'phone', 'address', 'img', 'meno'],
     widths: [50, 50, 50, 50, 50, 50, 50, 50],
     typeComponent: [{
       component: importBtn
