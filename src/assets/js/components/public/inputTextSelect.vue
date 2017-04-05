@@ -11,20 +11,12 @@
 	<div style="margin-top: 15px;">
 		<div class="el-input el-input-group el-input-group--append el-input-group--prepend">
 			
-			<input  type="text" placeholder="请输入内容" autocomplete="off" class="el-input__inner inputTS-text"><!---->
+			<input type="text" placeholder="请输入内容" autocomplete="off" class="el-input__inner"><!---->
 			<div class="el-input-group__append">
-				<!-- 下拉框 -->
-				<!-- <select 
-					class="input-pop"
-					placeholder="">
-						<option value="">1</option>
-						<option value="">2</option>
-						<option value="">3</option>
-				</select> -->
-				<!-- <div class="el-select">
-				<div class="el-input">
+				<div class="el-select"><!---->
+				<div class="el-input"><!---->
 					<i class="el-input__icon el-icon-caret-top"></i>
-					<input type="text" placeholder="请选择" readonly="readonly" autocomplete="off" class="el-input__inner inputTS-select">
+					<input type="text" placeholder="请选择" readonly="readonly" autocomplete="off" class="el-input__inner"><!----><!---->
 				</div>
 				<div class="resize-triggers">
 					<div class="expand-trigger">
@@ -32,7 +24,7 @@
 					</div>
 					<div class="contract-trigger"></div>
 					</div>
-				</div> -->
+				</div>
 			</div>
 			<!-- <div class="el-input-group__append">
 				<button type="button" class="el-button el-button--default">
@@ -79,21 +71,16 @@ export default {
 }
 </script>
 <style lang="sass">
-	@import "../../../sass/public/inputSize.scss";
+	// @import "../../../sass/public/inputSize.scss";
 .inputTextSelect{
 	display:inline-block;
-	width:312px;
-	margin-left:10px;
-	.inputTextSelect{
-		width:100%;
-		.inputTS-text,.inputTS-select{
-			height:28px;
-		}
-		.el-input {
+	#inputTextSelect{
+		width:312px;
+		margin-left:10px;
+		.el-select .el-input {
 		    width: 100px;
-		}
+		  }
 	}
-	
 }
 
 </style>

@@ -118,5 +118,22 @@ default {
         return (env.is_server ? env.app_ano_url : '') + '/' + url
       }
     }
+
+  /**
+ *
+ * 数据转换
+ *
+ * @param url
+ * @returns ret
+ */
+    Vue.prototype.$conversion = (url, ret) => {
+      if (url === 'category') {
+        var category = { 'operate': '操作人员', 'expert': '专家', 'product': '产品', 'supplier': '供货商', 'client': '客户', 'fodder': '饲料', 'drug': '兽药', 'beast': '畜禽', 'plant': '果蔬', 'manure': '肥料', 'medicament': '农药' }
+        for (let key in ret) {
+          ret[key].type = category[ret[key].type]
+        }
+      }
+      return ret
+    }
   }
 }

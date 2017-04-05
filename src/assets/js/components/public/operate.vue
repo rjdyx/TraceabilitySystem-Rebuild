@@ -16,7 +16,7 @@
 					<el-button size="small">水果类</el-button>
 				</div>
 				<!-- 下拉框	 -->
-				<el-select class="select inline" size="small" v-model="value" v-else-if="item.type=='select'">
+				<el-select class="select inline" size="small" v-model="value" v-else-if="item.type=='select'" @change="getSelect">
 					<el-option v-for="option in item.options" :label="option.label" :value="option.value">
 					</el-option>
 				</el-select>
@@ -61,6 +61,11 @@ export default {
       value: '',
       value1: '',
       value2: ''
+    }
+  },
+  methods: {
+    getSelect () {
+      this.$emit('selectVal', this.value)
     }
   }
 }
