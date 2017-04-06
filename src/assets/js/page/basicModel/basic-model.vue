@@ -176,7 +176,7 @@ export default {
       checkAll: true,
       checkedCities: ['上海', '北京'],
       cities: cityOptions,
-      isIndeterminate: true
+      isIndeterminate: true,
       // 组合查询
       par: {},
       // 数组拼装
@@ -270,6 +270,17 @@ export default {
         data[this.search[0]] = val
       }
       this.getAllMsg(data)
+    },
+    // 获取下拉框数据
+    getSelectMsg (data = '') {
+      axios.get(this.$adminUrl(this.url), {params: data})
+        .then((responce) => {
+        // 数据转换
+          var ret = this.$conversion(this.url, responce.data.data)
+          console.log(ret)
+          // this.$set(this, 'tableData', ret)
+          // this.total = this.tableData.length
+        })
     }
   },
   components: {
