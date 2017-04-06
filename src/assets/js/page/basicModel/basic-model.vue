@@ -98,9 +98,7 @@
       <el-button>删除</el-button>
       <el-button>导出表格</el-button>
     </div>
-    <!-- <div class="block">
-      
-    </div> -->
+
     <p class="record">共有{{num}}页，{{total}}条记录</p>
   </div>
     <!-- 分页模块 -->
@@ -190,17 +188,10 @@ export default {
       selectall: '',
       allchecked: false,
       checkAll: true,
-      checkedCities: ['上海', '北京'],
-      cities: cityOptions,
-      isIndeterminate: true,
       // 组合查询
       par: {},
       // 数组拼装
-      arr: {},
-      paginator: {
-        total: 0,
-        per_page: 0
-      }
+      arr: {}
     }
   },
   mixins: [computed],
