@@ -228,10 +228,6 @@ export default {
           value: '康乐牌',
           label: '康乐牌'
         }]
-      },
-      {
-        type: 'date',
-        component: datePick
       }]
     }]
   }
@@ -323,7 +319,20 @@ export default {
       }
       ]
     }],
-    listComponent: []
+    listComponent: [{
+      components: [{
+        type: 'select',
+        component: selectSection,
+        options: [{
+          value: '',
+          label: '产品品牌'
+        },
+        {
+          value: '康乐牌',
+          label: '康乐牌'
+        }]
+      }]
+    }]
   }
 
   ],
@@ -739,8 +748,20 @@ export default {
       }
       ]
     }],
-
-    listComponent: []
+    listComponent: [{
+      components: [{
+        type: 'select',
+        component: selectSection,
+        options: [{
+          value: '',
+          label: '产品品牌'
+        },
+        {
+          value: '康乐牌',
+          label: '康乐牌'
+        }]
+      }]
+    }]
   },
   {
     settitle: '养殖基础信息管理',
@@ -850,7 +871,20 @@ export default {
       ]
     }],
 
-    listComponent: []
+    listComponent: [{
+      components: [{
+        type: 'select',
+        component: selectSection,
+        options: [{
+          value: '',
+          label: '产品品牌'
+        },
+        {
+          value: '康乐牌',
+          label: '康乐牌'
+        }]
+      }]
+    }]
   },
   {
     settitle: '养殖基础信息管理',
@@ -1360,7 +1394,20 @@ export default {
       }
       ]
     }],
-    listComponent: []
+    listComponent: [{
+      components: [{
+        type: 'select',
+        component: selectSection,
+        options: [{
+          value: '',
+          label: '产品品牌'
+        },
+        {
+          value: '康乐牌',
+          label: '康乐牌'
+        }]
+      }]
+    }]
   }
   ],
   serialManage: [{
@@ -1458,7 +1505,48 @@ export default {
       }
       ]
     }],
-    listComponent: []
+    listComponent: [{
+      components: [{
+        type: 'select',
+        component: selectSection,
+        options: [{
+          value: '',
+          label: '产品品牌'
+        },
+        {
+          value: '康乐牌',
+          label: '康乐牌'
+        }]
+      },
+      {
+        type: 'select',
+        component: selectSection,
+        options: [{
+          value: '',
+          label: '产品品牌'
+        },
+        {
+          value: '康乐牌',
+          label: '康乐牌'
+        }]
+      },
+      {
+        type: 'select',
+        component: selectSection,
+        options: [{
+          value: '',
+          label: '产品品牌'
+        },
+        {
+          value: '康乐牌',
+          label: '康乐牌'
+        }]
+      },
+      {
+        type: 'date',
+        component: 'datePick'
+      }]
+    }]
   }
   ],
   feedManage: [{

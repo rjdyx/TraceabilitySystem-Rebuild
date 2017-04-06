@@ -75,6 +75,7 @@ export default {
 	.inline {
 		display: inline-block;
 		vertical-align: middle;
+		margin-right: 10px;
 	}
 	
 	.operate {

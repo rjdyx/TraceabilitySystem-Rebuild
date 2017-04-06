@@ -30,9 +30,6 @@ export default {
     widths () {
       return this.models[this.modelIndex].widths
     },
-    search () {
-      return this.models[this.modelIndex].search
-    },
     typeComponent () {
       return this.models[this.modelIndex].typeComponent
     },
