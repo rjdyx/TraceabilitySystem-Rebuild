@@ -142,8 +142,7 @@ export default {
     key: 'operate',
     tab: '人员档案信息',
     url: 'operate',
-    searchPlaceholder: '请输入养殖场进行搜索',
-    search: ['query_text', 'name'],
+    searchPlaceholder: '请输入人物姓名进行搜索',
     theads: ['姓名', '身份', '性别', '年龄', '联系方式', '地址', '图片', '备注信息'],
     protos: ['name', 'identity', 'sex', 'age', 'phone', 'address', 'img', 'meno'],
     widths: [50, 50, 50, 50, 50, 50, 50, 50],
@@ -155,6 +154,12 @@ export default {
     },
     {
       component: newbuildBtn
+    }],
+    listComponent: [{
+      components: [{
+        type: 'selectNot',
+        component: selectSection
+      }]
     }],
     newComponent: [{
       tab: '新建人员档案信息',
@@ -215,20 +220,6 @@ export default {
         rule: ''
       }
       ]
-    }],
-    listComponent: [{
-      components: [{
-        type: 'select',
-        component: selectSection,
-        options: [{
-          value: '',
-          label: '产品品牌'
-        },
-        {
-          value: '康乐牌',
-          label: '康乐牌'
-        }]
-      }]
     }]
   }
 

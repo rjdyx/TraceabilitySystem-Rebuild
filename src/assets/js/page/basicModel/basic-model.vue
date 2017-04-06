@@ -17,8 +17,10 @@
   </el-tabs>  
     <!-- 操作模块 -->
     <div id="operate">              
-      <div id="inputs">   
+      <div id="inputs">
+        <template v-if="listComponent[0].components[0].type == 'select'">
         <operate :listComponent="listComponent" @selectVal="selectFind"></operate>
+        </template>
 
           <!-- 搜索框 -->
           <div class="searchOp"> 
@@ -174,7 +176,6 @@ export default {
       tableData: [],
       // 被选中的列表项数组
       multipleSelection: [],
-      // search: [],
       // 是否新建
       isShow: false,
       // editShow: false,
@@ -191,7 +192,7 @@ export default {
       // 组合查询
       par: {},
       // 数组拼装
-      arr: {}
+      dataArr: {}
     }
   },
   mixins: [computed],
@@ -199,7 +200,7 @@ export default {
     init (index = 0) {
       this.value = ''
       this.inputValue = ''
-      this.selectVal = ''
+      this.selectVal = '22'
       this.activeName = 'index'
       this.modelIndex = index
       this.$set(this, 'tableData', [])
@@ -261,28 +262,41 @@ export default {
         // 数据转换
           var ret = this.$conversion(this.url, responce.data.data)
           this.$set(this, 'tableData', ret)
-          this.total = this.tableData.length
+          this.total = responce.data.total
+          this.num = responce.data.last_page
           this.paginator = responce.data
         })
     },
     // 文本查询
     textFind () {
-      let data = { 'query_text': this.inputValue }
+      this.dataArr['query_text'] = this.inputValue
       if (this.selectVal !== '') {
-        data[this.search[0]] = this.selectVal
+        this.dataArr[this.search[0]] = this.selectVal
       }
-      this.getAllMsg(data)
+      this.pageChange(1)
     },
     // 下拉框查询
     selectFind (val) {
       this.selectVal = val
-      let data = {}
+      this.dataArr = {}
       if (val !== '') {
-        data['query_text'] = this.inputValue
-        data[this.search[0]] = val
+        this.dataArr['query_text'] = this.inputValue
+        this.dataArr[this.search[0]] = val
+      } else {
+        this.dataArr = ''
       }
-      this.getAllMsg(data)
+      this.pageChange(1)
     },
+    // 分页跳转
+    pageChange (val) {
+      if (this.dataArr === '') {
+        this.dataArr = {}
+      }
+      console.log(22)
+      this.dataArr['page'] = val
+      this.getAllMsg(this.dataArr)
+    },
+    // 删除数据
     delSuccess (index) {
       this.tableData.splice(index, 1)
     }
@@ -296,7 +310,6 @@ export default {
     clickMore
   },
   mounted () {
-    this.selectKey = this.search[0]
     this.getAllMsg()
   },
   watch: {

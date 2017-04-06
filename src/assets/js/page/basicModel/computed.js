@@ -12,6 +12,9 @@ export default {
     url () {
       return this.models[this.modelIndex].url
     },
+    search () {
+      return this.models[this.modelIndex].search
+    },
     urlParams () {
       return this.models[this.modelIndex].urlParams
     },
