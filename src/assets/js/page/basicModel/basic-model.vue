@@ -15,10 +15,11 @@
   <el-tabs v-model="activeName" type="card" id="tabs" @tab-click="tabClick">
     <el-tab-pane v-for="(model,index) in models" :label="model.tab" :name="'index'+index"></el-tab-pane>
   </el-tabs>  
-  <!-- 操作模块 -->
-      <div id="operate">              
+    <!-- 操作模块 -->
+    <div id="operate">              
       <div id="inputs">   
         <operate :listComponent="listComponent" @selectVal="selectFind"></operate>
+
           <!-- 搜索框 -->
           <div class="searchOp"> 
               <el-input
@@ -28,39 +29,47 @@
               </el-input>
               <el-button size="small" class="searchBtn" @click="textFind">搜索</el-button>
           </div>
+
         <!-- 操作按钮 -->
-              <component
-                  v-for="typeOperate in typeComponent"
-                  :is="typeOperate.component"
-                  :params="typeOperate.params"
-                  class="fr"
-              ></component>
+        <component
+            v-for="typeOperate in typeComponent"
+            :is="typeOperate.component"
+            :params="typeOperate.params"
+            class="fr"
+        ></component>
       </div>
+    
     <!-- 新建模块 -->
     <new v-if="isShow" :newComponent="newComponent"></new>
+
   </div>
   <!-- 列表模块 -->
   <el-table :data="tableData">
       <!-- checkbox -->
       <el-table-column width="50">
-          <template scope="scope" v-for="city in tableData">
-            <el-checkbox v-model="checked" :label="city"></el-checkbox>
-            <!-- <input type="checkbox" :label="city"> -->
+          <template scope="scope">
+            <a href="#">
+              <el-checkbox v-model="checked"></el-checkbox>
+            </a>
           </template>
       </el-table-column>
       <!-- 序号 -->
-      <el-table-column width="80" label="序号" type="index">
+      <el-table-column width="80" label="序号" type="index" sortable>
       </el-table-column>
-        <template v-for="(item,index) in theads">
-            <template>
-              <el-table-column 
-                :prop="protos[index]" 
-                :label="item"
-                :min-width="widths[index]" 
-                show-overflow-tooltip>
-              </el-table-column>
-            </template> 
-        </template>
+
+      <!-- 中间列表模块 -->
+      <template v-for="(item,index) in theads">
+          <template>
+            <el-table-column 
+              :prop="protos[index]" 
+              :label="item"
+              :min-width="widths[index]" 
+              show-overflow-tooltip>
+            </el-table-column>
+          </template> 
+      </template>
+
+      <!-- 列表操作模块 -->
       <el-table-column 
       label="操作">
         <template scope="scope" class="operateBtn">
@@ -79,10 +88,11 @@
           </template>
     </el-table-column>
   </el-table>
+
   <div class="footer">
     <!-- 全选 -->
     <template>
-      <el-checkbox class="allChecked" @change="selectall"></el-checkbox>
+      <el-checkbox class="allChecked" @change="selectAll" v-model="selectall"></el-checkbox>
     </template>
     <div class="operate-foot">
       <el-button>删除</el-button>
@@ -98,8 +108,17 @@
     <p class="record">共有{{num}}页，{{total}}条记录</p>
     <!-- <Pagination :paginationPager="tablePager"></Pagination> -->
   </div> 
-  
 
+    <!-- 分页模块 -->
+    <el-pagination
+      layout="prev, pager, next, jumper"
+      :total="paginator.total" 
+      :page-size="paginator.per_page"
+      class="pager"
+      @current-change="pageChange" small>
+    </el-pagination>
+  </div>
+    
 </div> 
 </template>
  
@@ -111,6 +130,7 @@ import edit from '../../components/public/edit.vue'
 import operate from '../../components/public/operate.vue'
 import popEdit from '../../components/public/popEdit.vue'
 import clickMore from '../../components/public/clickMore.vue'
+<<<<<<< HEAD
 import Pagination from '../../components/public/pagination.vue'
 const cityOptions = ['上海', '北京', '广州', '深圳']
 export default {
@@ -175,7 +195,8 @@ export default {
       // 点击展开更多按钮
       clickMoreshow: false,
       total: '',
-      checked: false,
+      checked: '',
+      selectall: '',
       allchecked: false,
       checkAll: true,
       checkedCities: ['上海', '北京'],
@@ -184,7 +205,11 @@ export default {
       // 组合查询
       par: {},
       // 数组拼装
-      arr: {}
+      arr: {},
+      paginator: {
+        total: 0,
+        per_page: 0
+      }
     }
   },
   mixins: [computed],
@@ -197,15 +222,6 @@ export default {
       this.modelIndex = index
       this.$set(this, 'tableData', [])
       this.$set(this, 'multipleSelection', [])
-    },
-    handleCheckAllChange (event) {
-      this.checkedCities = event.target.checked ? cityOptions : []
-      this.isIndeterminate = false
-    },
-    handleCheckedCitiesChange (value) {
-      let checkedCount = value.length
-      this.checkAll = checkedCount === this.cities.length
-      this.isIndeterminate = checkedCount > 0 && checkedCount < this.cities.length
     },
     /**
   * 列表选择事件
@@ -243,12 +259,16 @@ export default {
         })
       })
     },
+    // singelSelect (el) {
+    //   this.selectall = !this.selectall
+    //   console.log(el)
+    // },
     // 点击展开更多操作按钮
     showMore () {
       this.active = !this.active
       this.clickMoreshow = !this.clickMoreshow
     },
-    selectall () {
+    selectAll () {
       this.checked = !this.checked
     },
     // 获取数据
@@ -260,6 +280,7 @@ export default {
           var ret = this.$conversion(this.url, responce.data.data)
           this.$set(this, 'tableData', ret)
           this.total = this.tableData.length
+          this.paginator = responce.data
         })
     },
     // 文本查询
@@ -294,7 +315,6 @@ export default {
     Pagination
   },
   mounted () {
-    this.msg = this.tableData.length
     this.selectKey = this.search[0]
     this.getAllMsg()
   },
@@ -386,22 +406,27 @@ export default {
       height: 50px;
       border: 1px solid #dfe6ec;
       border-top: none; 
+        .pager{
+          display: inline-block;
+          float: right;
+          vertical-align: middle;
+          padding-top: 15px;
+          padding-right: 20px;
+        }
+        .operate-foot{
+          padding-left: 15px;
+          display: inline-block;
+         }
+        .allChecked{
+          padding-left: 17px;
+          padding-top: 15px;
+         }
+        .record{
+          float: right;
+          padding: 15px 10px;
+         }
      }
-     .allChecked{
-      padding-left: 17px;
-      padding-top: 15px;
-     }
-     .operate-foot{
-      padding-left: 15px;
-      display: inline-block;
-     }
-     .record{
-      float: right;
-      padding: 15px 10px;
-     }
-     .hu{
-      width: 100%;
-      height: 50px;
-      background: red;
-     }
+     
+     
+     
 </style>
