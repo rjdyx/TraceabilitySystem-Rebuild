@@ -98,20 +98,19 @@
       <el-button>删除</el-button>
       <el-button>导出表格</el-button>
     </div>
-    <!-- <div class="block">
-      
-    </div> -->
+
     <p class="record">共有{{num}}页，{{total}}条记录</p>
-  </div>
+
     <!-- 分页模块 -->
     <el-pagination
       layout="prev, pager, next"
       :total="paginator.total" 
       :page-size="paginator.per_page"
       class="pager"
-      @current-change="pageChange" small>
+      @current-change="pageChange">
     </el-pagination>
   </div>
+    
 </div> 
 </template>
  
@@ -123,7 +122,6 @@ import edit from '../../components/public/edit.vue'
 import operate from '../../components/public/operate.vue'
 import popEdit from '../../components/public/popEdit.vue'
 import clickMore from '../../components/public/clickMore.vue'
-const cityOptions = ['上海', '北京', '广州', '深圳']
 export default {
   name: 'BasicModel',
   props: {
@@ -176,6 +174,7 @@ export default {
       tableData: [],
       // 被选中的列表项数组
       multipleSelection: [],
+      // search: [],
       // 是否新建
       isShow: false,
       // editShow: false,
@@ -189,17 +188,10 @@ export default {
       selectall: '',
       allchecked: false,
       checkAll: true,
-      checkedCities: ['上海', '北京'],
-      cities: cityOptions,
-      isIndeterminate: true,
       // 组合查询
       par: {},
       // 数组拼装
-      arr: {},
-      paginator: {
-        total: 0,
-        per_page: 0
-      }
+      arr: {}
     }
   },
   mixins: [computed],
@@ -399,7 +391,7 @@ export default {
           display: inline-block;
           float: right;
           vertical-align: middle;
-          padding-top: 15px;
+          padding-top: 12px;
           padding-right: 20px;
         }
         .operate-foot{
