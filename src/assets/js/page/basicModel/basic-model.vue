@@ -98,7 +98,7 @@
       <el-button>删除</el-button>
       <el-button>导出表格</el-button>
     </div>
-    
+
     <p class="record">共有{{num}}页，{{total}}条记录</p>
 
     <!-- 分页模块 -->
@@ -131,6 +131,7 @@ export default {
         return [{
           key: '',
           tab: '',
+          tablePager: Object,
           url: '',
           urlParams: {},
           // 从后台获取的所有数据
@@ -190,11 +191,7 @@ export default {
       // 组合查询
       par: {},
       // 数组拼装
-      arr: {},
-      paginator: {
-        total: 0,
-        per_page: 0
-      }
+      arr: {}
     }
   },
   mixins: [computed],
@@ -228,10 +225,15 @@ export default {
         confirmButtonText: '确定',
         type: 'error'
       }).then(() => {
-        this.$message({
-          type: 'success',
-          message: '删除成功'
-        })
+        axios.delete(this.$adminUrl(this.url + '/' + row.id))
+          .then((responce) => {
+            // 删除成功回调方法
+            this.delSuccess(index, row)
+            this.$message({
+              type: 'success',
+              message: '删除成功'
+            })
+          })
       }).catch(() => {
         this.$message({
           type: 'info',
@@ -280,6 +282,9 @@ export default {
         data[this.search[0]] = val
       }
       this.getAllMsg(data)
+    },
+    delSuccess (index) {
+      this.tableData.splice(index, 1)
     }
   },
   components: {
