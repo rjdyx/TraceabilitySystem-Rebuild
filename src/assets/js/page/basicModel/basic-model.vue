@@ -87,16 +87,18 @@
     <div class="operate-foot">
       <el-button>删除</el-button>
       <el-button>导出表格</el-button>
+      <el-pagination
+        layout="prev, pager, next"
+        :total="50">
+      </el-pagination>
     </div>
+    <!-- <div class="block">
+      
+    </div> -->
     <p class="record">共有{{num}}页，{{total}}条记录</p>
-  </div>
-  <template>
-      <el-checkbox :indeterminate="isIndeterminate" v-model="checkAll" @change="handleCheckAllChange">全选</el-checkbox>
-      <!-- <div style="margin: 15px 0;"></div> -->
-      <el-checkbox-group v-model="checkedCities" @change="handleCheckedCitiesChange">
-        <el-checkbox v-for="city in cities" :label="city">{{city}}</el-checkbox>
-      </el-checkbox-group>
-    </template>
+    <!-- <Pagination :paginationPager="tablePager"></Pagination> -->
+  </div> 
+  
 
 </div> 
 </template>
@@ -109,6 +111,7 @@ import edit from '../../components/public/edit.vue'
 import operate from '../../components/public/operate.vue'
 import popEdit from '../../components/public/popEdit.vue'
 import clickMore from '../../components/public/clickMore.vue'
+import Pagination from '../../components/public/pagination.vue'
 const cityOptions = ['上海', '北京', '广州', '深圳']
 export default {
   name: 'BasicModel',
@@ -119,6 +122,7 @@ export default {
         return [{
           key: '',
           tab: '',
+          tablePager: Object,
           url: '',
           urlParams: {},
           // 从后台获取的所有数据
@@ -176,7 +180,7 @@ export default {
       checkAll: true,
       checkedCities: ['上海', '北京'],
       cities: cityOptions,
-      isIndeterminate: true
+      isIndeterminate: true,
       // 组合查询
       par: {},
       // 数组拼装
@@ -223,10 +227,15 @@ export default {
         confirmButtonText: '确定',
         type: 'error'
       }).then(() => {
-        this.$message({
-          type: 'success',
-          message: '删除成功'
-        })
+        axios.delete(this.$adminUrl(this.url + '/' + row.id))
+          .then((responce) => {
+            // 删除成功回调方法
+            this.delSuccess(index, row)
+            this.$message({
+              type: 'success',
+              message: '删除成功'
+            })
+          })
       }).catch(() => {
         this.$message({
           type: 'info',
@@ -270,6 +279,9 @@ export default {
         data[this.search[0]] = val
       }
       this.getAllMsg(data)
+    },
+    delSuccess (index) {
+      this.tableData.splice(index, 1)
     }
   },
   components: {
@@ -278,7 +290,8 @@ export default {
     edit,
     operate,
     popEdit,
-    clickMore
+    clickMore,
+    Pagination
   },
   mounted () {
     this.msg = this.tableData.length
