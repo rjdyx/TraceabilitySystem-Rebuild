@@ -103,11 +103,11 @@
 
     <!-- 分页模块 -->
     <el-pagination
-      layout="prev, pager, next, jumper"
+      layout="prev, pager, next"
       :total="paginator.total" 
       :page-size="paginator.per_page"
       class="pager"
-      @current-change="pageChange" small>
+      @current-change="pageChange">
     </el-pagination>
   </div>
     
@@ -386,7 +386,7 @@ export default {
           display: inline-block;
           float: right;
           vertical-align: middle;
-          padding-top: 15px;
+          padding-top: 12px;
           padding-right: 20px;
         }
         .operate-foot{
