@@ -98,17 +98,19 @@
       <el-button>删除</el-button>
       <el-button>导出表格</el-button>
     </div>
-
+    <!-- <div class="block">
+      
+    </div> -->
     <p class="record">共有{{num}}页，{{total}}条记录</p>
   </div>
     <!-- 分页模块 -->
-    <!-- <el-pagination
+    <el-pagination
       layout="prev, pager, next"
       :total="paginator.total" 
       :page-size="paginator.per_page"
       class="pager"
       @current-change="pageChange" small>
-    </el-pagination> -->
+    </el-pagination>
   </div>
 </div> 
 </template>
@@ -174,7 +176,6 @@ export default {
       tableData: [],
       // 被选中的列表项数组
       multipleSelection: [],
-      // search: [],
       // 是否新建
       isShow: false,
       // editShow: false,
@@ -188,10 +189,17 @@ export default {
       selectall: '',
       allchecked: false,
       checkAll: true,
+      checkedCities: ['上海', '北京'],
+      cities: cityOptions,
+      isIndeterminate: true,
       // 组合查询
       par: {},
       // 数组拼装
-      arr: {}
+      arr: {},
+      paginator: {
+        total: 0,
+        per_page: 0
+      }
     }
   },
   mixins: [computed],
@@ -261,8 +269,8 @@ export default {
         // 数据转换
           var ret = this.$conversion(this.url, responce.data.data)
           this.$set(this, 'tableData', ret)
-          // this.total = this.tableData.length
-          // this.paginator = responce.data
+          this.total = this.tableData.length
+          this.paginator = responce.data
         })
     },
     // 文本查询
