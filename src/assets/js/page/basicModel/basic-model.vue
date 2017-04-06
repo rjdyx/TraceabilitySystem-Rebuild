@@ -97,28 +97,21 @@
     <div class="operate-foot">
       <el-button>删除</el-button>
       <el-button>导出表格</el-button>
-      <el-pagination
-        layout="prev, pager, next"
-        :total="50">
-      </el-pagination>
     </div>
     <!-- <div class="block">
       
     </div> -->
     <p class="record">共有{{num}}页，{{total}}条记录</p>
-    <!-- <Pagination :paginationPager="tablePager"></Pagination> -->
-  </div> 
-
+  </div>
     <!-- 分页模块 -->
-    <el-pagination
-      layout="prev, pager, next, jumper"
+    <!-- <el-pagination
+      layout="prev, pager, next"
       :total="paginator.total" 
       :page-size="paginator.per_page"
       class="pager"
       @current-change="pageChange" small>
-    </el-pagination>
+    </el-pagination> -->
   </div>
-    
 </div> 
 </template>
  
@@ -130,8 +123,6 @@ import edit from '../../components/public/edit.vue'
 import operate from '../../components/public/operate.vue'
 import popEdit from '../../components/public/popEdit.vue'
 import clickMore from '../../components/public/clickMore.vue'
-<<<<<<< HEAD
-import Pagination from '../../components/public/pagination.vue'
 const cityOptions = ['上海', '北京', '广州', '深圳']
 export default {
   name: 'BasicModel',
@@ -279,8 +270,8 @@ export default {
         // 数据转换
           var ret = this.$conversion(this.url, responce.data.data)
           this.$set(this, 'tableData', ret)
-          this.total = this.tableData.length
-          this.paginator = responce.data
+          // this.total = this.tableData.length
+          // this.paginator = responce.data
         })
     },
     // 文本查询
@@ -311,8 +302,7 @@ export default {
     edit,
     operate,
     popEdit,
-    clickMore,
-    Pagination
+    clickMore
   },
   mounted () {
     this.selectKey = this.search[0]
