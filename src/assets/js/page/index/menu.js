@@ -19,7 +19,7 @@ export default[{
     name: '专家档案管理'
   },
   {
-    path: '/index/message/clientFile/0',
+    path: '/index/messages/clientFile/0',
     name: '客户档案管理'
   },
   {

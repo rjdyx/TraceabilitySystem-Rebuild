@@ -46,7 +46,7 @@
 
   </div>
   <!-- 列表模块 -->
-  <el-table :data="tableData">
+  <el-table :data="tableData"  @selection-change="handleSelectionChange">
       <!-- checkbox -->
       <el-table-column width="50" type="selection">
       </el-table-column>
@@ -89,7 +89,7 @@
 
   <div class="footer">
     <div class="operate-foot">
-      <el-button>删除</el-button>
+      <el-button @click="delAll">删除</el-button>
       <el-button>导出表格</el-button>
     </div>
 
@@ -184,7 +184,9 @@ export default {
       // 组合查询
       par: {},
       // 数组拼装
-      dataArr: {}
+      dataArr: {},
+      // 复选框选中返回对象
+      checkObject: {}
     }
   },
   mixins: [computed],
@@ -251,11 +253,9 @@ export default {
       this.par.params = data
       axios.get(this.$adminUrl(this.url), {params: this.par})
         .then((responce) => {
-          console.log(responce.data.data)
         // 数据转换
           var ret = this.$conversion(this.url, responce.data.data)
           this.$set(this, 'tableData', ret)
-          console.log(data)
           this.total = responce.data.total
           this.num = responce.data.last_page
           this.paginator = responce.data
@@ -298,13 +298,22 @@ export default {
       if (this.dataArr === '') {
         this.dataArr = {}
       }
-      console.log(22)
       this.dataArr['page'] = val
       this.getAllMsg(this.dataArr)
+    },
+    // 全选获取数据
+    handleSelectionChange (val) {
+      this.checkObject = val
     },
     // 删除数据
     delSuccess (index) {
       this.tableData.splice(index, 1)
+    },
+    // 批量删除
+    delAll () {
+      console.log(this.checkObject.length)
+      // if (this.checkObject!=== undefined) {
+      // }
     }
   },
   components: {
