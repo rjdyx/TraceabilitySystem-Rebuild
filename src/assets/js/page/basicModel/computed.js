@@ -6,8 +6,8 @@ export default {
     key () {
       return this.models[this.modelIndex].key
     },
-    search () {
-      return this.models[this.modelIndex].search
+    selectSearch () {
+      return this.models[this.modelIndex].selectSearch
     },
     tab () {
       return this.models[this.modelIndex].tab

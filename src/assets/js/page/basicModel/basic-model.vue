@@ -135,7 +135,7 @@ export default {
           widths: [50],
           title: '',
           options: [],
-          search: [],
+          selectSearch: [],
           typeComponent: [],
           listComponent: [],
           newComponent: [{
@@ -254,11 +254,13 @@ export default {
       axios.get(this.$adminUrl(this.url), {params: this.par})
         .then((responce) => {
         // 数据转换
-          var ret = this.$conversion(this.url, responce.data.data)
-          this.$set(this, 'tableData', ret)
-          this.total = responce.data.total
-          this.num = responce.data.last_page
-          this.paginator = responce.data
+          if (responce.data.data.length !== 0) {
+            var ret = this.$conversion(this.url, responce.data.data)
+            this.$set(this, 'tableData', ret)
+            this.total = responce.data.total
+            this.num = responce.data.last_page
+            this.paginator = responce.data
+          }
         })
         .catch(err => {
           console.dir(err)
@@ -268,7 +270,7 @@ export default {
     textFind () {
       this.dataArr['query_text'] = this.inputValue
       if (this.selectVal !== '') {
-        this.dataArr[this.search[0]] = this.selectVal
+        this.dataArr[this.selectSearch[0]] = this.selectVal
       }
       this.pageChange(1)
     },
@@ -278,11 +280,11 @@ export default {
       this.dataArr = {}
       if (val !== '') {
         this.dataArr['query_text'] = this.inputValue
-        this.dataArr[this.search[0]] = val
+        this.dataArr[this.selectSearch[0]] = val
       } else {
         this.dataArr = ''
       }
-      this.getAllMsg(data)
+      this.pageChange(1)
     },
     // 获取下拉框数据
     getSelectMsg (data = '') {
@@ -314,9 +316,25 @@ export default {
     },
     // 批量删除
     delAll () {
-      console.log(this.checkObject.length)
-      // if (this.checkObject!=== undefined) {
-      // }
+      if (this.checkObject.length !== undefined) {
+        var delArr = []
+        for (let key in this.checkObject) {
+          delArr.push(this.checkObject[key].id)
+        }
+        var paramsDel = { 'ids': delArr }
+        axios.post(this.$adminUrl('util/batch-delete/' + this.url), paramsDel)
+        .then((responce) => {
+          if (responce.data === 'true') {
+            this.pageChange(1)
+            this.$message({
+              type: 'success',
+              message: '批量删除成功'
+            })
+          } else {
+            this.$message.error('批量删除失败')
+          }
+        })
+      }
     }
   },
   components: {

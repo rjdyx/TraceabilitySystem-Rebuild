@@ -23,7 +23,7 @@ export default {
     theads: ['分类名称', '模块类型', '备注信息'],
     protos: ['name', 'type', 'memo'],
     widths: [50, 50, 50],
-    search: ['type'],
+    selectSearch: ['type'],
     typeComponent: [{
       component: importBtn
     },
