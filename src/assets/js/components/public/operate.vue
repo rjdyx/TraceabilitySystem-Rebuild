@@ -2,7 +2,7 @@
  * 操作按钮组件
  * @description 
  * @author 舒丹彤
- * @date 2017/3/28
+ * @date 2017/3/28 
  * 
  */
 <template>
@@ -21,7 +21,7 @@
 					</el-option>
 				</el-select>
 				<!-- 日期 -->
-				<div class="inline dateBtn" v-else-if="item.type=='date'">
+				<div class="dateBtn" v-else-if="item.type=='date'">
 					<span>
 			              <label>开始日期：</label>
 			                <el-date-picker 
@@ -30,7 +30,7 @@
 			                  type="date">
 			                </el-date-picker>
 			            </span>
-					<span class="margin">
+					<span class="left">
 			              <label>结束日期：</label>
 			                <el-date-picker 
 			                  size="small"
@@ -76,13 +76,12 @@ export default {
 		display: inline-block;
 		vertical-align: middle;
 		margin-right: 10px;
-	}
-	
+	}	
 	.operate {
 		float: left;
 	}
-	
-	.dateBtn {
-		margin-left: 15px;
+	.left{
+		margin-left: 20px;
+		display: inline-block;
 	}
 </style>
