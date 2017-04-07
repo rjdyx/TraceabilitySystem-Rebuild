@@ -12,14 +12,14 @@ export default {
     url () {
       return this.models[this.modelIndex].url
     },
+    search () {
+      return this.models[this.modelIndex].search
+    },
     urlParams () {
       return this.models[this.modelIndex].urlParams
     },
     searchPlaceholder () {
       return this.models[this.modelIndex].searchPlaceholder
-    },
-    search () {
-      return this.models[this.modelIndex].search
     },
     theads () {
       return this.models[this.modelIndex].theads

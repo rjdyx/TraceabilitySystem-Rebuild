@@ -15,10 +15,13 @@
   <el-tabs v-model="activeName" type="card" id="tabs" @tab-click="tabClick">
     <el-tab-pane v-for="(model,index) in models" :label="model.tab" :name="'index'+index"></el-tab-pane>
   </el-tabs>  
-  <!-- 操作模块 -->
-      <div id="operate">              
-      <div id="inputs">   
+    <!-- 操作模块 -->
+    <div id="operate">              
+      <div id="inputs">
+        <template v-if="listComponent[0].components[0].type == 'select'">
         <operate :listComponent="listComponent" @selectVal="selectFind"></operate>
+        </template>
+
           <!-- 搜索框 -->
           <div class="searchOp"> 
               <el-input
@@ -28,39 +31,47 @@
               </el-input>
               <el-button size="small" class="searchBtn" @click="textFind">搜索</el-button>
           </div>
+
         <!-- 操作按钮 -->
-              <component
-                  v-for="typeOperate in typeComponent"
-                  :is="typeOperate.component"
-                  :params="typeOperate.params"
-                  class="fr"
-              ></component>
+        <component
+            v-for="typeOperate in typeComponent"
+            :is="typeOperate.component"
+            :params="typeOperate.params"
+            class="fr"
+        ></component>
       </div>
+    
     <!-- 新建模块 -->
     <new v-if="isShow" :newComponent="newComponent"></new>
+
   </div>
   <!-- 列表模块 -->
   <el-table :data="tableData">
       <!-- checkbox -->
       <el-table-column width="50">
-          <template scope="scope" v-for="city in tableData">
-            <el-checkbox v-model="checked" :label="city"></el-checkbox>
-            <!-- <input type="checkbox" :label="city"> -->
+          <template scope="scope">
+            <a href="#">
+              <el-checkbox v-model="checked"></el-checkbox>
+            </a>
           </template>
       </el-table-column>
       <!-- 序号 -->
-      <el-table-column width="80" label="序号" type="index">
+      <el-table-column width="80" label="序号" type="index" sortable>
       </el-table-column>
-        <template v-for="(item,index) in theads">
-            <template>
-              <el-table-column 
-                :prop="protos[index]" 
-                :label="item"
-                :min-width="widths[index]" 
-                show-overflow-tooltip>
-              </el-table-column>
-            </template> 
-        </template>
+
+      <!-- 中间列表模块 -->
+      <template v-for="(item,index) in theads">
+          <template>
+            <el-table-column 
+              :prop="protos[index]" 
+              :label="item"
+              :min-width="widths[index]" 
+              show-overflow-tooltip>
+            </el-table-column>
+          </template> 
+      </template>
+
+      <!-- 列表操作模块 -->
       <el-table-column 
       label="操作">
         <template scope="scope" class="operateBtn">
@@ -79,25 +90,29 @@
           </template>
     </el-table-column>
   </el-table>
+
   <div class="footer">
     <!-- 全选 -->
     <template>
-      <el-checkbox class="allChecked" @change="selectall"></el-checkbox>
+      <el-checkbox class="allChecked" @change="selectAll" v-model="selectall"></el-checkbox>
     </template>
     <div class="operate-foot">
       <el-button>删除</el-button>
       <el-button>导出表格</el-button>
     </div>
-    <p class="record">共有{{num}}页，{{total}}条记录</p>
-  </div>
-  <template>
-      <el-checkbox :indeterminate="isIndeterminate" v-model="checkAll" @change="handleCheckAllChange">全选</el-checkbox>
-      <!-- <div style="margin: 15px 0;"></div> -->
-      <el-checkbox-group v-model="checkedCities" @change="handleCheckedCitiesChange">
-        <el-checkbox v-for="city in cities" :label="city">{{city}}</el-checkbox>
-      </el-checkbox-group>
-    </template>
 
+    <p class="record">共有{{num}}页，{{total}}条记录</p>
+
+    <!-- 分页模块 -->
+    <el-pagination
+      layout="prev, pager, next"
+      :total="paginator.total" 
+      :page-size="paginator.per_page"
+      class="pager"
+      @current-change="pageChange">
+    </el-pagination>
+  </div>
+    
 </div> 
 </template>
  
@@ -109,7 +124,6 @@ import edit from '../../components/public/edit.vue'
 import operate from '../../components/public/operate.vue'
 import popEdit from '../../components/public/popEdit.vue'
 import clickMore from '../../components/public/clickMore.vue'
-const cityOptions = ['上海', '北京', '广州', '深圳']
 export default {
   name: 'BasicModel',
   props: {
@@ -119,6 +133,7 @@ export default {
         return [{
           key: '',
           tab: '',
+          tablePager: Object,
           url: '',
           urlParams: {},
           // 从后台获取的所有数据
@@ -161,7 +176,6 @@ export default {
       tableData: [],
       // 被选中的列表项数组
       multipleSelection: [],
-      // search: [],
       // 是否新建
       isShow: false,
       // editShow: false,
@@ -171,7 +185,8 @@ export default {
       // 点击展开更多按钮
       clickMoreshow: false,
       total: '',
-      checked: false,
+      checked: '',
+      selectall: '',
       allchecked: false,
       checkAll: true,
       checkedCities: ['上海', '北京'],
@@ -180,7 +195,7 @@ export default {
       // 组合查询
       par: {},
       // 数组拼装
-      arr: {}
+      dataArr: {}
     }
   },
   mixins: [computed],
@@ -188,20 +203,11 @@ export default {
     init (index = 0) {
       this.value = ''
       this.inputValue = ''
-      this.selectVal = ''
+      this.selectVal = '22'
       this.activeName = 'index'
       this.modelIndex = index
       this.$set(this, 'tableData', [])
       this.$set(this, 'multipleSelection', [])
-    },
-    handleCheckAllChange (event) {
-      this.checkedCities = event.target.checked ? cityOptions : []
-      this.isIndeterminate = false
-    },
-    handleCheckedCitiesChange (value) {
-      let checkedCount = value.length
-      this.checkAll = checkedCount === this.cities.length
-      this.isIndeterminate = checkedCount > 0 && checkedCount < this.cities.length
     },
     /**
   * 列表选择事件
@@ -223,10 +229,15 @@ export default {
         confirmButtonText: '确定',
         type: 'error'
       }).then(() => {
-        this.$message({
-          type: 'success',
-          message: '删除成功'
-        })
+        axios.delete(this.$adminUrl(this.url + '/' + row.id))
+          .then((responce) => {
+            // 删除成功回调方法
+            this.delSuccess(index, row)
+            this.$message({
+              type: 'success',
+              message: '删除成功'
+            })
+          })
       }).catch(() => {
         this.$message({
           type: 'info',
@@ -234,12 +245,16 @@ export default {
         })
       })
     },
+    // singelSelect (el) {
+    //   this.selectall = !this.selectall
+    //   console.log(el)
+    // },
     // 点击展开更多操作按钮
     showMore () {
       this.active = !this.active
       this.clickMoreshow = !this.clickMoreshow
     },
-    selectall () {
+    selectAll () {
       this.checked = !this.checked
     },
     // 获取数据
@@ -250,24 +265,28 @@ export default {
         // 数据转换
           var ret = this.$conversion(this.url, responce.data.data)
           this.$set(this, 'tableData', ret)
-          this.total = this.tableData.length
+          this.total = responce.data.total
+          this.num = responce.data.last_page
+          this.paginator = responce.data
         })
     },
     // 文本查询
     textFind () {
-      let data = { 'query_text': this.inputValue }
+      this.dataArr['query_text'] = this.inputValue
       if (this.selectVal !== '') {
-        data[this.search[0]] = this.selectVal
+        this.dataArr[this.search[0]] = this.selectVal
       }
-      this.getAllMsg(data)
+      this.pageChange(1)
     },
     // 下拉框查询
     selectFind (val) {
       this.selectVal = val
-      let data = {}
+      this.dataArr = {}
       if (val !== '') {
-        data['query_text'] = this.inputValue
-        data[this.search[0]] = val
+        this.dataArr['query_text'] = this.inputValue
+        this.dataArr[this.search[0]] = val
+      } else {
+        this.dataArr = ''
       }
       this.getAllMsg(data)
     },
@@ -281,6 +300,20 @@ export default {
           // this.$set(this, 'tableData', ret)
           // this.total = this.tableData.length
         })
+      this.pageChange(1)
+    },
+    // 分页跳转
+    pageChange (val) {
+      if (this.dataArr === '') {
+        this.dataArr = {}
+      }
+      console.log(22)
+      this.dataArr['page'] = val
+      this.getAllMsg(this.dataArr)
+    },
+    // 删除数据
+    delSuccess (index) {
+      this.tableData.splice(index, 1)
     }
   },
   components: {
@@ -292,8 +325,6 @@ export default {
     clickMore
   },
   mounted () {
-    this.msg = this.tableData.length
-    this.selectKey = this.search[0]
     this.getAllMsg()
   },
   watch: {
@@ -384,22 +415,27 @@ export default {
       height: 50px;
       border: 1px solid #dfe6ec;
       border-top: none; 
+        .pager{
+          display: inline-block;
+          float: right;
+          vertical-align: middle;
+          padding-top: 12px;
+          padding-right: 20px;
+        }
+        .operate-foot{
+          padding-left: 15px;
+          display: inline-block;
+         }
+        .allChecked{
+          padding-left: 17px;
+          padding-top: 15px;
+         }
+        .record{
+          float: right;
+          padding: 15px 10px;
+         }
      }
-     .allChecked{
-      padding-left: 17px;
-      padding-top: 15px;
-     }
-     .operate-foot{
-      padding-left: 15px;
-      display: inline-block;
-     }
-     .record{
-      float: right;
-      padding: 15px 10px;
-     }
-     .hu{
-      width: 100%;
-      height: 50px;
-      background: red;
-     }
+     
+     
+     
 </style>

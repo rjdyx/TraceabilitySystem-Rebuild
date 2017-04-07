@@ -8,11 +8,11 @@ import beastPack from '../beast-pack/pack.js'
 import plantPack from '../plant-pack/pack.js'
 
 export default {
-  clientFile: client.client,//销售员档案
-  supplierFile: supplier.supplier,//经销商档案
-  baseManage: breedBasic.basic,//养殖基础信息
-  plantBase: plantBasic.basic,//种植基础信息
-  logisticBase: logisticBasic.basic,//物流基础信息
-  petProcess: beastPack.pack,//屠宰加工批次
-  vegetableSerial: plantPack.pack//果蔬加工批次
+  clientFile: client.client,
+  supplierFile: supplier.supplier,
+  baseManage: breedBasic.basic,
+  plantBase: plantBasic.basic,
+  logisticBase: logisticBasic.basic,
+  petProcess: beastPack.pack,
+  vegetableSerial: plantPack.pack
 }
