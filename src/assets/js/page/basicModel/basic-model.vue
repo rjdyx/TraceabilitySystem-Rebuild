@@ -18,9 +18,7 @@
     <!-- 操作模块 -->
     <div id="operate">              
       <div id="inputs">
-        <template v-if="listComponent[0].components[0].type == 'select'">
         <operate :listComponent="listComponent" @selectVal="selectFind"></operate>
-        </template>
 
           <!-- 搜索框 -->
           <div class="searchOp"> 
@@ -219,6 +217,8 @@ export default {
     },
     // 点击删除
     handelDel (index, row) {
+      console.log('index:' + index)
+      console.log('row:' + row)
       this.$confirm('你确定要删除该信息吗?', '信息', {
         cancelButtonText: '取消',
         confirmButtonText: '确定',
@@ -263,6 +263,7 @@ export default {
     // 获取数据
     getAllMsg (data = '') {
       this.par.params = data
+      console.log(this.par.params)
       axios.get(this.$adminUrl(this.url), {params: this.par})
         .then((responce) => {
         // 数据转换
@@ -272,6 +273,7 @@ export default {
             this.total = responce.data.total
             this.num = responce.data.last_page
             this.paginator = responce.data
+            console.log(responce.data.data)
           }
         })
         .catch(err => {
@@ -305,8 +307,8 @@ export default {
         // 数据转换
           var ret = this.$conversion(this.url, responce.data.data)
           console.log(ret)
-          // this.$set(this, 'tableData', ret)
-          // this.total = this.tableData.length
+          this.$set(this, 'tableData', ret)
+          this.total = this.tableData.length
         })
       this.pageChange(1)
     },
@@ -317,6 +319,7 @@ export default {
       }
       this.dataArr['page'] = val
       this.getAllMsg(this.dataArr)
+      console.log(this.dataArr)
     },
     // 全选获取数据
     handleSelectionChange (val) {
