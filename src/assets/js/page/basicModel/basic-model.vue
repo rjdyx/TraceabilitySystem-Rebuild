@@ -94,12 +94,12 @@
       <el-button>导出表格</el-button>
     </div>
 
-    <p class="record">共有{{num}}页，{{total}}条记录</p>
+    <p class="record">共有{{num}}页，{{total_num}}条记录</p>
 
     <!-- 分页模块 -->
     <el-pagination
       layout="prev, pager, next"
-      :total="paginator.total" 
+      :total="paginator.total"
       :page-size="paginator.per_page"
       class="pager"
       @current-change="pageChange">
@@ -180,9 +180,10 @@ export default {
       active: true,
       // 点击展开更多按钮
       clickMoreshow: false,
-      total: '',
+      total_num: '',
       checked: '',
       selectall: '',
+      paginator: {},
       checkAll: true,
       isIndeterminate: true,
       // 组合查询
@@ -269,7 +270,7 @@ export default {
           if (responce.data.data.length !== 0) {
             var ret = this.$conversion(this.url, responce.data.data)
             this.$set(this, 'tableData', ret)
-            this.total = responce.data.total
+            this.total_num = responce.data.total
             this.num = responce.data.last_page
             this.paginator = responce.data
           }
@@ -328,7 +329,7 @@ export default {
     },
     // 批量删除
     delAll () {
-      if (this.checkObject.length !== undefined) {
+      if (this.checkObject.length !== undefined && this.checkObject.length !== 0) {
         var delArr = []
         for (let key in this.checkObject) {
           delArr.push(this.checkObject[key].id)
