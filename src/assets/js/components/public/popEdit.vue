@@ -12,9 +12,9 @@
   <form class="newForm">
     <i class="el-icon-circle-close" @click="closeClick" ></i>
       <!-- tab选项卡 -->
-      <!-- <h4>{{newComponent[0].tab}}</h4> -->
+      <!-- <h4>{{editComponent[0].tab}}</h4> -->
       <el-tabs v-model="activeName" @tab-click="handleClick">
-        <el-tab-pane :label="item.tab" :name="item.tab" v-for="(item,i) in newComponent">
+        <el-tab-pane :label="item.tab" :name="item.tab" v-for="(item,i) in editComponent">
           <!-- 表单 -->
         <el-form :model="tableForm" :rules="rules" ref="tableForm" label-width="110px" class="demo-tableForm">
             <table>
@@ -79,9 +79,7 @@
       </el-tabs>
     </form>
 </div>
-  
 </template>
-
 <script>
 export default {
   name: 'validator-example',
@@ -91,7 +89,7 @@ export default {
   },
   props: {
     type: '',
-    newComponent: {
+    editComponent: {
       type: Array,
       default: []
     },
@@ -102,16 +100,16 @@ export default {
   },
   data () {
     let form = {}
-    this.newComponent[0].components.forEach(function (item) {
+    this.editComponent[0].components.forEach(function (item) {
       form[item.name] = ''
     })
     let rules = {}
-    this.newComponent[0].components.forEach(function (item) {
+    this.editComponent[0].components.forEach(function (item) {
       rules[item.name] = item.rule
     })
     return {
       // 当前选中的标签页
-      activeName: this.newComponent[0].tab,
+      activeName: this.editComponent[0].tab,
       tableForm: this.editForm,
       // tableForm: {},
       rules: rules

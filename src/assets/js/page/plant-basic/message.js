@@ -91,12 +91,108 @@ export default {
       },
       {
         name: 'type',
-        type: 'text',
+        type: 'select',
         component: null,
         isNull: false,
         label: '模块类型',
         placeholder: '',
+        rule: {required: true, message: '请输入模块类型', trigger: 'blur'},
+        options: [{
+          value: '操作人员', label: '操作人员'
+        },
+        {
+          value: '专家', label: '专家'
+        },
+        {
+          value: '产品', label: '产品'
+        },
+        {
+          value: '供货商', label: '供货商'
+        },
+        {
+          value: '客户', label: '客户'
+        },
+        {
+          value: '饲料', label: '饲料'
+        },
+        {
+          value: '畜禽', label: '畜禽'
+        },
+        {
+          value: '兽药', label: '兽药'
+        },
+        {
+          value: '果蔬', label: '果蔬'
+        },
+        {
+          value: '肥料', label: '肥料'
+        },
+        {
+          value: '农药', label: '农药'
+        }]
+      },
+      {
+        name: 'memo',
+        type: 'textarea',
+        component: null,
+        isNull: true,
+        label: '备注信息',
+        placeholder: '',
+        rule: null
+      }]
+    }],
+    editComponent: [{
+      tab: '新建分类档案信息',
+      components: [{
+        name: 'name',
+        type: 'text',
+        component: null,
+        isNull: false,
+        label: '分类名称',
+        placeholder: '必填',
         rule: {required: true, message: '请输入分类名称', trigger: 'blur'}
+      },
+      {
+        name: 'type',
+        type: 'select',
+        component: null,
+        isNull: false,
+        label: '模块类型',
+        placeholder: '',
+        rule: {required: true, message: '请输入模块类型', trigger: 'blur'},
+        options: [{
+          value: '操作人员', label: '操作人员'
+        },
+        {
+          value: '专家', label: '专家'
+        },
+        {
+          value: '产品', label: '产品'
+        },
+        {
+          value: '供货商', label: '供货商'
+        },
+        {
+          value: '客户', label: '客户'
+        },
+        {
+          value: '饲料', label: '饲料'
+        },
+        {
+          value: '畜禽', label: '畜禽'
+        },
+        {
+          value: '兽药', label: '兽药'
+        },
+        {
+          value: '果蔬', label: '果蔬'
+        },
+        {
+          value: '肥料', label: '肥料'
+        },
+        {
+          value: '农药', label: '农药'
+        }]
       },
       {
         name: 'memo',
@@ -216,6 +312,90 @@ export default {
         rule: null
       }
       ]
+    }],
+    editComponent: [{
+      tab: '新建人员档案信息',
+      components: [{
+        name: 'name',
+        type: 'text',
+        component: null,
+        isNull: false,
+        label: '姓名',
+        placeholder: '必填',
+        rule: {required: true, message: '请输入姓名', trigger: 'blur'}
+      },
+      {
+        name: 'identity',
+        type: 'text',
+        component: null,
+        isNull: false,
+        label: '身份',
+        placeholder: '',
+        rule: {required: true, message: '请输入身份', trigger: 'blur'}
+      },
+      {
+        name: 'sex',
+        type: 'select',
+        component: inputSelect,
+        isNull: false,
+        label: '性别',
+        placeholder: '',
+        rule: null,
+        options: [{
+          value: '男',
+          label: '男'
+        },
+        {
+          value: '女',
+          label: '女'
+        }]
+      },
+      {
+        name: 'age',
+        type: 'text',
+        component: null,
+        isNull: true,
+        label: '年龄',
+        placeholder: '',
+        rule: null
+      },
+      {
+        name: 'phone',
+        type: 'text',
+        component: null,
+        isNull: true,
+        label: '联系方式',
+        placeholder: '请输入11位的手机号（固话用-隔开）',
+        rule: { validator: validate2.phone, trigger: 'blur' }
+      },
+      {
+        name: 'address',
+        type: 'text',
+        component: null,
+        isNull: true,
+        label: '地址',
+        placeholder: '',
+        rule: null
+      },
+      {
+        name: 'img',
+        type: 'file',
+        component: inputFile,
+        isNull: true,
+        label: '',
+        placeholder: '',
+        rule: null
+      },
+      {
+        name: 'meno',
+        type: 'textarea',
+        component: null,
+        isNull: true,
+        label: '备注信息',
+        placeholder: '',
+        rule: null
+      }
+      ]
     }]
   }
 
@@ -240,6 +420,100 @@ export default {
       component: newbuildBtn
     }],
     newComponent: [{
+      tab: '新建专家档案信息',
+      components: [{
+        name: 'name',
+        type: 'text',
+        component: null,
+        isNull: false,
+        label: '专家名称',
+        placeholder: '必填',
+        rule: {required: true, message: '请输入专家名称', trigger: 'blur'}
+      },
+      {
+        name: 'level',
+        type: 'text',
+        component: null,
+        isNull: false,
+        label: '级别',
+        placeholder: '',
+        rule: {required: true, message: '请输入专家级别', trigger: 'blur'}
+      },
+      {
+        name: 'major',
+        type: 'text',
+        component: null,
+        isNull: false,
+        label: '研究领域',
+        placeholder: '',
+        rule: {required: true, trigger: 'blur'}
+
+      },
+      {
+        name: 'unit',
+        type: 'text',
+        component: false,
+        isNull: true,
+        label: '单位',
+        placeholder: '',
+        rule: null
+      },
+      {
+        name: 'age',
+        type: 'text',
+        component: null,
+        isNull: true,
+        label: '出生年月日',
+        placeholder: '',
+        rule: null
+      },
+      {
+        name: 'sex',
+        type: 'select',
+        component: null,
+        isNull: false,
+        label: '性别',
+        placeholder: '',
+        rule: {required: true, trigger: 'blur'},
+        options: [{
+          value: '男',
+          label: '男'
+        },
+        {
+          value: '女',
+          label: '女'
+        }]
+      },
+      {
+        name: 'phone',
+        type: 'text',
+        component: null,
+        isNull: true,
+        label: '联系方式',
+        placeholder: '请输入11位的手机号（固话用-隔开）',
+        rule: { validator: validate2.phone, trigger: 'blur' }
+      },
+      {
+        name: 'img',
+        type: 'file',
+        component: null,
+        isNull: true,
+        label: '',
+        placeholder: '',
+        rule: null
+      },
+      {
+        name: 'memo',
+        type: 'textarea',
+        component: null,
+        isNull: true,
+        label: '备注信息',
+        placeholder: '',
+        rule: null
+      }
+      ]
+    }],
+    editComponent: [{
       tab: '新建专家档案信息',
       components: [{
         name: 'name',
@@ -456,6 +730,93 @@ export default {
         rule: null
       }]
     }],
+    editComponent: [{
+      tab: '新建客户档案信息',
+      components: [{
+        name: 'name',
+        type: 'text',
+        component: null,
+        isNull: false,
+        label: '客户名称',
+        placeholder: '必填',
+        rule: {required: true, trigger: 'blur'}
+      },
+      {
+        name: 'contact',
+        type: 'text',
+        component: null,
+        isNull: false,
+        label: '联系人',
+        placeholder: '必填',
+        rule: {required: true, trigger: 'blur'}
+      },
+      {
+        name: 'phone',
+        type: 'text',
+        component: null,
+        isNull: false,
+        label: '电话',
+        placeholder: '',
+        rule: { validator: validate2.phone, trigger: 'blur' }
+      },
+      {
+        name: 'fax',
+        type: 'text',
+        component: null,
+        isNull: true,
+        label: '传真',
+        placeholder: '',
+        rule: null
+      },
+      {
+        name: 'address',
+        type: 'text',
+        component: null,
+        isNull: true,
+        label: '地址',
+        placeholder: '',
+        rule: null
+      },
+      {
+        name: 'grade',
+        type: 'select',
+        component: null,
+        isNull: false,
+        label: '等级',
+        placeholder: '',
+        rule: {required: true, trigger: 'blur'},
+        options: [{
+          value: '高',
+          label: '高'
+        },
+        {
+          value: '中',
+          label: '中'
+        },
+        {
+          value: '低',
+          label: '低'
+        }]
+      },
+      {
+        name: 'img',
+        type: 'file',
+        component: null,
+        isNull: true,
+        label: '',
+        placeholder: '',
+        rule: null
+      },
+      {
+        name: 'memo',
+        type: 'textarea',
+        component: null,
+        isNull: true,
+        label: '备注信息',
+        placeholder: '',
+        rule: null
+      }]
+    }],
     listComponent: []
   }],
   supplierFile: [{
@@ -478,6 +839,73 @@ export default {
       component: newbuildBtn
     }],
     newComponent: [{
+      tab: '新建供货商档案信息',
+      components: [{
+        name: 'name',
+        type: 'text',
+        component: null,
+        isNull: false,
+        label: '供货商名称',
+        placeholder: '必填',
+        rule: {required: true, trigger: 'blur'}
+      },
+      {
+        name: 'address',
+        type: 'text',
+        component: null,
+        isNull: true,
+        label: '地址',
+        placeholder: '',
+        rule: null
+      },
+      {
+        name: 'contacts',
+        type: 'text',
+        component: null,
+        isNull: true,
+        label: '联系人',
+        placeholder: '',
+        rule: null
+      },
+      {
+        name: 'phone',
+        type: 'text',
+        component: null,
+        isNull: true,
+        label: '电话',
+        placeholder: '请输入11位的手机号（固话用-隔开）',
+        rule: { validator: validate2.phone, trigger: 'blur' }
+      },
+      {
+        name: 'img',
+        type: 'file',
+        component: null,
+        isNull: true,
+        label: '',
+        placeholder: '',
+        rule: null
+      },
+      {
+        name: '',
+        type: 'text',
+        component: null,
+        isNull: true,
+        label: '地址',
+        placeholder: '',
+        rule: null
+      },
+      {
+        name: 'memo',
+        type: 'textarea',
+        component: null,
+        isNull: true,
+        label: '备注信息',
+        placeholder: '',
+        rule: null
+      }
+      ]
+    }],
+    editComponent: [{
       tab: '新建供货商档案信息',
       components: [{
         name: 'name',

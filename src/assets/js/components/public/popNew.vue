@@ -77,9 +77,7 @@
          </el-form>
         </el-tab-pane>
       </el-tabs>
-    
     </form>
-   手机：<input type="text" >
 </div>
   
 </template>

@@ -44,7 +44,7 @@
     <!-- 新建模块 -->
     <popNew v-if="isNewShow" :newComponent="newComponent"></popNew>
     <!-- 编辑模块 -->
-    <pop-edit v-if="isEditShow" :newComponent="newComponent" :editForm="editForm"></pop-edit>
+    <pop-edit v-if="isEditShow" :editComponent="editComponent" :editForm="editForm"></pop-edit>
   </div>
   <!-- 列表模块 -->
   <el-table :data="tableData"  @selection-change="handleSelectionChange">
