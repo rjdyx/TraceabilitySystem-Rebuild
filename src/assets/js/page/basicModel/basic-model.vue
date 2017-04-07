@@ -78,7 +78,7 @@
             </template>
               <template>
                 <i>
-                  <el-button type="text" size="small" class="btndel">编辑</el-button>
+                  <el-button type="text" size="small" class="btndel" @click="changeEditShow">编辑</el-button>
                </i>
                <i>
                   <el-button size="small" type="text" @click="handelDel(scope.$index,scope.row)" class="btn">删除</el-button>  
