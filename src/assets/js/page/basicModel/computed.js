@@ -6,6 +6,9 @@ export default {
     key () {
       return this.models[this.modelIndex].key
     },
+    search () {
+      return this.models[this.modelIndex].search
+    },
     tab () {
       return this.models[this.modelIndex].tab
     },

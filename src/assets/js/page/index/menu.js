@@ -37,35 +37,35 @@ export default[{
   role: 'plant',
   src: '/public/images/plant.png',
   children: [{
-    path: '/index/reaction/baseManage/0',
+    path: '/index/message/baseManage/0',
     name: '基础信息管理'
   },
   {
-    path: '/index/reaction/serialManage/0',
+    path: '/index/message/serialManage/0',
     name: '养殖批次管理'
   },
   {
-    path: '/index/reaction/feedManage/0',
+    path: '/index/message/feedManage/0',
     name: '饲料使用管理'
   },
   {
-    path: '/index/reaction/plagueManage/0',
+    path: '/index/message/plagueManage/0',
     name: '病疫管理'
   },
   {
-    path: '/index/reaction/quarantineManage/0',
+    path: '/index/message/quarantineManage/0',
     name: '检疫管理'
   },
   {
-    path: '/index/reaction/innocuityManage/0',
+    path: '/index/message/innocuityManage/0',
     name: '无害化管理'
   },
   {
-    path: '/index/reaction/slaughterManage/0',
+    path: '/index/message/slaughterManage/0',
     name: '出栏管理'
   },
   {
-    path: '/index/reaction/planManage/0',
+    path: '/index/message/planManage/0',
     name: '养殖计划管理'
   }
   ]
