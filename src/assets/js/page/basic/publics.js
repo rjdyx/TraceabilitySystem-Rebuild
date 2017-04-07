@@ -13,7 +13,7 @@ var inputDate = require('../../components/public/inputDate.vue')
 var inputFile = require('../../components/public/inputFile.vue')
 var inputTextSelect = require('../../components/public/inputTextSelect.vue')
 
-module.exports = {
+exports.publics = {
   importBtn: importBtn,
   newbuildBtn: newbuildBtn,
   output: output,

@@ -6,14 +6,14 @@ export default {
     key () {
       return this.models[this.modelIndex].key
     },
+    search () {
+      return this.models[this.modelIndex].search
+    },
     tab () {
       return this.models[this.modelIndex].tab
     },
     url () {
       return this.models[this.modelIndex].url
-    },
-    search () {
-      return this.models[this.modelIndex].search
     },
     urlParams () {
       return this.models[this.modelIndex].urlParams

@@ -48,13 +48,9 @@
   <!-- 列表模块 -->
   <el-table :data="tableData">
       <!-- checkbox -->
-      <el-table-column width="50">
-          <template scope="scope">
-            <a href="#">
-              <el-checkbox v-model="checked"></el-checkbox>
-            </a>
-          </template>
+      <el-table-column width="50" type="selection">
       </el-table-column>
+
       <!-- 序号 -->
       <el-table-column width="80" label="序号" type="index" sortable>
       </el-table-column>
@@ -81,21 +77,17 @@
             </template>
               <template>
                 <i>
-                <el-button size="small" type="text" @click="handelDel(scope.$index,scope.row)" class="btndel">删除</el-button>  
-              </i>
-              <i>
-                <el-button type="text" size="small" class="btn">编辑</el-button>
-              </i>
+                  <el-button type="text" size="small" class="btndel">编辑</el-button>
+               </i>
+               <i>
+                  <el-button size="small" type="text" @click="handelDel(scope.$index,scope.row)" class="btn">删除</el-button>  
+               </i>
               </template>
           </template>
     </el-table-column>
   </el-table>
 
   <div class="footer">
-    <!-- 全选 -->
-    <template>
-      <el-checkbox class="allChecked" @change="selectAll" v-model="selectall"></el-checkbox>
-    </template>
     <div class="operate-foot">
       <el-button>删除</el-button>
       <el-button>导出表格</el-button>
@@ -187,7 +179,6 @@ export default {
       total: '',
       checked: '',
       selectall: '',
-      allchecked: false,
       checkAll: true,
       isIndeterminate: true,
       // 组合查询
@@ -260,6 +251,7 @@ export default {
       this.par.params = data
       axios.get(this.$adminUrl(this.url), {params: this.par})
         .then((responce) => {
+          console.log(responce.data.data)
         // 数据转换
           var ret = this.$conversion(this.url, responce.data.data)
           this.$set(this, 'tableData', ret)
@@ -427,10 +419,7 @@ export default {
         .operate-foot{
           padding-left: 15px;
           display: inline-block;
-         }
-        .allChecked{
-          padding-left: 17px;
-          padding-top: 15px;
+          padding-top: 8px;
          }
         .record{
           float: right;

@@ -1,6 +1,6 @@
 <template>
 	<div class="content">
-        <basic-model :models="models[type]"></basic-model>
+        <!-- <basic-model :models="models[type]"></basic-model> -->
     </div> 
 </template>
  
@@ -25,7 +25,7 @@ export default {
 
   },
   components: {
-    BasicModel
+    // BasicModel
   },
   computed: {
     type () {
