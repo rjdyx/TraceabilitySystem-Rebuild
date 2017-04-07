@@ -225,7 +225,7 @@ export default {
     }],
     listComponent: [{
       components: [{
-        type: 'selectNot',
+        type: 'select',
         component: selectSection
       }]
     }],
@@ -669,7 +669,7 @@ export default {
     tab: '产品档案信息',
     url: 'product',
     searchPlaceholder: '请输入养殖场进行搜索',
-    // search: ['query_text', 'name'],
+    search: ['query_text', 'name'],
     theads: ['名称', '执行标准', '卫生标准', '商品型号', '商品简介', '包装规格', '保质期', '食用方法', '存储方法', '配料信息', '图片', '备注'],
     protos: ['name', 'org_level', 'address', 'zipcode', 'phone', 'cellphone', 'phone', 'cellphone', 'phone', 'cellphone', 'fax', 'meno'],
     widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
@@ -1111,9 +1111,9 @@ export default {
     }],
     serialManage: [{
       settitle: '养殖批次管理',
-      key: 'expertManage',
+      key: 'breed',
       tab: '养殖批次信息',
-      url: 'expert',
+      url: 'breed',
       searchPlaceholder: '请输入养殖批次号进行搜索',
       search: ['query_text', 'name'],
       theads: ['批次号', '养殖区', '畜禽', '日期', '数量', '面积', '养殖方式', '养殖人', '备注', '图片状态', '状态'],

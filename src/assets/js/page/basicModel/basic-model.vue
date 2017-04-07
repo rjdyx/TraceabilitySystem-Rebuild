@@ -18,9 +18,8 @@
     <!-- 操作模块 -->
     <div id="operate">              
       <div id="inputs">
-
         <operate :listComponent="listComponent" @selectVal="selectFind"></operate>
-        
+
           <!-- 搜索框 -->
           <div class="searchOp"> 
               <el-input
@@ -52,14 +51,14 @@
       </el-table-column>
 
       <!-- 序号 -->
-      <el-table-column width="80" label="序号" type="index">
+      <el-table-column width="80" label="序号" type="index" sortable>
       </el-table-column>
 
       <!-- 中间列表模块 -->
       <template v-for="(item,index) in theads">
           <template>
             <el-table-column 
-              :prop="protos[index]" sortable
+              :prop="protos[index]" 
               :label="item"
               :min-width="widths[index]" 
               show-overflow-tooltip>
@@ -93,12 +92,12 @@
       <el-button>导出表格</el-button>
     </div>
 
-    <p class="record">共有{{num}}页，{{total_num}}条记录</p>
+    <p class="record">共有{{num}}页，{{total}}条记录</p>
 
     <!-- 分页模块 -->
     <el-pagination
       layout="prev, pager, next"
-      :total="paginator.total"
+      :total="paginator.total" 
       :page-size="paginator.per_page"
       class="pager"
       @current-change="pageChange">
@@ -179,9 +178,11 @@ export default {
       active: true,
       // 点击展开更多按钮
       clickMoreshow: false,
-      total_num: '',
-      paginator: {},
       total: '',
+      checked: '',
+      selectall: '',
+      checkAll: true,
+      isIndeterminate: true,
       // 组合查询
       par: {},
       // 数组拼装
@@ -208,8 +209,7 @@ export default {
     // tab点击事件
     tabClick (tab, event) {
       this.modelIndex = tab.$data.index
-      console.log(tab.$data)
-      // let model = this.$route.params.model
+      let model = this.$route.params.model
     },
     // 操作更多选项
     filterTag (value, row) {
@@ -217,6 +217,8 @@ export default {
     },
     // 点击删除
     handelDel (index, row) {
+      console.log('index:' + index)
+      console.log(row)
       this.$confirm('你确定要删除该信息吗?', '信息', {
         cancelButtonText: '取消',
         confirmButtonText: '确定',
@@ -251,6 +253,9 @@ export default {
       this.active = !this.active
       this.clickMoreshow = !this.clickMoreshow
     },
+    selectAll () {
+      this.checked = !this.checked
+    },
     // 获取数据
     getAllMsg (data = '') {
       this.par.params = data
@@ -260,9 +265,10 @@ export default {
           if (responce.data.data.length !== 0) {
             var ret = this.$conversion(this.url, responce.data.data)
             this.$set(this, 'tableData', ret)
-            this.total_num = responce.data.total
+            this.total = responce.data.total
             this.num = responce.data.last_page
             this.paginator = responce.data
+            console.log(responce.data.data)
           }
         })
         .catch(err => {
@@ -296,8 +302,8 @@ export default {
         // 数据转换
           var ret = this.$conversion(this.url, responce.data.data)
           console.log(ret)
-          // this.$set(this, 'tableData', ret)
-          // this.total = this.tableData.length
+          this.$set(this, 'tableData', ret)
+          this.total = this.tableData.length
         })
       this.pageChange(1)
     },
@@ -319,7 +325,7 @@ export default {
     },
     // 批量删除
     delAll () {
-      if (this.checkObject.length !== undefined && this.checkObject.length !== 0) {
+      if (this.checkObject.length !== undefined) {
         var delArr = []
         for (let key in this.checkObject) {
           delArr.push(this.checkObject[key].id)
@@ -365,35 +371,35 @@ export default {
 
 
 <style lang='sass'>
-	 .searchInp{
-	 	width:161px;
-	 	margin-bottom:10px;
-	 	font-size:12px;
-	 	margin-right:10px;
-	 }
-	 #btns{
-	 	float:right;
-	 }
-	 .operateBtns {
-            	display: inline-block;
-            	margin-top:10px;
-            	margin-right:10px;
+   .searchInp{
+    width:161px;
+    margin-bottom:10px;
+    font-size:12px;
+    margin-right:10px;
+   }
+   #btns{
+    float:right;
+   }
+   .operateBtns {
+              display: inline-block;
+              margin-top:10px;
+              margin-right:10px;
             }
      .fr{
-     	float:right;
+      float:right;
      }
      .fl{
-     	float:left;
+      float:left;
      }
      .searchBtn{
-     	width:62px;
+      width:62px;
      }
      .searchOp{
-     	display:inline;
-     	margin-left: 15px;
+      display:inline;
+      margin-left: 15px;
      }
      .margin{
-     	margin-left:15px;
+      margin-left:15px;
      }
      .el-icon-caret-left{
       padding-right: 15px;
