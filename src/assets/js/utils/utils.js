@@ -134,6 +134,8 @@ default {
       } else if (url === 'operate') {
         arr = {0: '男', 1: '女'}
         change = 'sex'
+      } else {
+        return ret
       }
       for (let key in ret) {
         ret[key][change] = arr[ret[key][change]]

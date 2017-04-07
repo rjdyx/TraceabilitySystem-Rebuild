@@ -11,7 +11,7 @@
 	<div>
 		<template v-for="btn in moreComponent">
 			<i>
-				<el-button type="text" size="small" class="btn">{{btn.value}}</el-button>
+				<el-button type="text" size="small" class="more">{{btn.value}}</el-button>
 			</i>
 		</template>
 	</div>	
@@ -43,4 +43,8 @@ export default {
 	.btn:last-child{
 		border-left:none;
 	}
+	// .more span{
+	// 	border-left:1px solid #a7bad6;
+	// 	padding: 0px 5px 0px 5px;
+	// }
 </style>

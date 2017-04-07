@@ -41,10 +41,6 @@ export default {
   },
   computed: {},
   methods: {
-    ...mapMutations([
-      'setNavbarName',
-      'setSubNavBarName'
-    ])
   }
 }
 </script>

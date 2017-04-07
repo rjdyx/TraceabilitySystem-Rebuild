@@ -18,10 +18,9 @@
     <!-- 操作模块 -->
     <div id="operate">              
       <div id="inputs">
-        <template v-if="listComponent[0].components[0].type == 'select'">
-        <operate :listComponent="listComponent" @selectVal="selectFind"></operate>
-        </template>
 
+        <operate :listComponent="listComponent" @selectVal="selectFind"></operate>
+        
           <!-- 搜索框 -->
           <div class="searchOp"> 
               <el-input
@@ -52,14 +51,14 @@
       </el-table-column>
 
       <!-- 序号 -->
-      <el-table-column width="80" label="序号" type="index" sortable>
+      <el-table-column width="80" label="序号" type="index">
       </el-table-column>
 
       <!-- 中间列表模块 -->
       <template v-for="(item,index) in theads">
           <template>
             <el-table-column 
-              :prop="protos[index]" 
+              :prop="protos[index]" sortable
               :label="item"
               :min-width="widths[index]" 
               show-overflow-tooltip>
@@ -177,9 +176,6 @@ export default {
       // 点击展开更多按钮
       clickMoreshow: false,
       total: '',
-      checked: '',
-      selectall: '',
-      checkAll: true,
       // 组合查询
       par: {},
       // 数组拼装
@@ -204,7 +200,8 @@ export default {
     // tab点击事件
     tabClick (tab, event) {
       this.modelIndex = tab.$data.index
-      let model = this.$route.params.model
+      console.log(tab.$data)
+      // let model = this.$route.params.model
     },
     // 操作更多选项
     filterTag (value, row) {
@@ -233,26 +230,19 @@ export default {
         })
       })
     },
-    // singelSelect (el) {
-    //   this.selectall = !this.selectall
-    //   console.log(el)
-    // },
     // 点击展开更多操作按钮
     showMore () {
       this.active = !this.active
       this.clickMoreshow = !this.clickMoreshow
-    },
-    selectAll () {
-      this.checked = !this.checked
     },
     // 获取数据
     getAllMsg (data = '') {
       this.par.params = data
       axios.get(this.$adminUrl(this.url), {params: this.par})
         .then((responce) => {
-          console.log(responce.data.data)
         // 数据转换
           var ret = this.$conversion(this.url, responce.data.data)
+          console.log(responce.data.data)
           this.$set(this, 'tableData', ret)
           this.total = responce.data.total
           this.num = responce.data.last_page

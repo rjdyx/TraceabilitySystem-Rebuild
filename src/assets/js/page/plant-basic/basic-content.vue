@@ -16,7 +16,6 @@ export default {
     Object.assign(modelObj, message, reaction)
     return {
       checked: [],
-      // ¹´Ñ¡¿òÊý×é
       activeName2: 'first',
       models: modelObj
     }
@@ -31,10 +30,6 @@ export default {
     type () {
       return this.$route.params.model
     }
-  },
-  beforeRouteUpdate (to, from, next) {
-    this.$refs.basicModel.init(to.params.index)
-    next()
   }
 }
 </script>
