@@ -126,7 +126,7 @@ default {
  * @param url
  * @returns ret
  */
-    Vue.prototype.$conversion = (url, ret) => {
+    Vue.prototype.$conversion = (url, ret, state) => {
       var arr, change
       if (url === 'category') {
         arr = { 'operate': '操作人员', 'expert': '专家', 'product': '产品', 'supplier': '供货商', 'client': '客户', 'fodder': '饲料', 'drug': '兽药', 'beast': '畜禽', 'plant': '果蔬', 'manure': '肥料', 'medicament': '农药' }
@@ -134,9 +134,19 @@ default {
       } else if (url === 'operate') {
         arr = {0: '男', 1: '女'}
         change = 'sex'
+      } else {
+        return ret
       }
-      for (let key in ret) {
-        ret[key][change] = arr[ret[key][change]]
+      if (state === 1) {
+        for (let key in ret) {
+          ret[key][change] = arr[ret[key][change]]
+        }
+      } else {
+        for (let key in arr) {
+          if (ret[change] === arr[key]) {
+            ret[change] = key
+          }
+        }
       }
       return ret
     }

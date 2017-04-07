@@ -16,7 +16,7 @@
       <el-tabs v-model="activeName" @tab-click="handleClick">
         <el-tab-pane :label="item.tab" :name="item.tab" v-for="(item,i) in editComponent">
           <!-- 表单 -->
-        <el-form :model="tableForm" :rules="rules" ref="tableForm" label-width="110px" class="demo-tableForm">
+        <el-form :model="editForm" :rules="rules" ref="editForm" label-width="110px" class="demo-editForm">
             <table>
                 <template v-for="subItem in item.components">
                     <!-- 文本框 -->
@@ -25,7 +25,7 @@
                             <el-form-item :label="subItem.label" :prop="subItem.name">
                                 <el-input 
                                     :placeholder="subItem.placeholder" 
-                                    v-model="tableForm[subItem.name]" size="small"></el-input>
+                                    v-model="editForm[subItem.name]" size="small"></el-input>
                             </el-form-item>
                         </td> 
                     </tr>
@@ -34,7 +34,7 @@
                     <tr v-else-if="subItem.type=='select'"> 
                         <td>
                             <el-form-item :label="subItem.label" :prop="subItem.name">
-                              <el-select v-model="tableForm[subItem.name]" :placeholder="subItem.placeholder" size="small">
+                              <el-select v-model="editForm[subItem.name]" :placeholder="subItem.placeholder" size="small">
                                 <el-option 
                                     v-for="option in subItem.options" 
                                     :label="option.label" 
@@ -50,7 +50,7 @@
                             <el-input 
                                 :placeholder="subItem.placeholder" 
                                 type="textarea" 
-                                v-model="tableForm[subItem.name]" size="small"></el-input>
+                                v-model="editForm[subItem.name]" size="small"></el-input>
                         </el-form-item>
                     </tr>
 
@@ -60,7 +60,7 @@
                             <component 
                                 v-bind:is="subItem.component" 
                                 :shuju="subItem"
-                                :editValue="tableForm[subItem.name]"
+                                :editValue="editForm[subItem.name]"
                                 @return-shuju="returnShuju"
                             ></component>
                         </el-form-item>
@@ -69,7 +69,7 @@
           </table>
           <el-form-item>
            <div class="form-footer">
-            <el-button type="primary"  @click="submitForm('tableForm')">确定</el-button>
+            <el-button type="primary"  @click="submitForm('editForm')">确定</el-button>
             <el-button class="activecancel" @click="cancelClick">取消</el-button>
             edit
           </div>
@@ -95,8 +95,11 @@ export default {
     },
     editForm: {
       type: Object,
-      default: {}
-    }
+      default () {
+        return {}
+      }
+    },
+    url: ''
   },
   data () {
     let form = {}
@@ -110,14 +113,14 @@ export default {
     return {
       // 当前选中的标签页
       activeName: this.editComponent[0].tab,
-      tableForm: this.editForm,
-      // tableForm: {},
+      // editForm: this.editForm,
+      // editForm: {},
       rules: rules
     }
   },
   mounted () {
     // console.log('editBol:' + this.editBol)
-    // this.tableForm = this.editBol ? this.editForm : this.form
+    // this.editForm = this.editBol ? this.editForm : this.form
   },
   methods: {
     handleClick (tab, event) {
@@ -125,7 +128,7 @@ export default {
     },
     // 返回InputTextSelect组件的数据
     returnShuju ({name, value}) {
-      this.tableForm[name] = value
+      this.editForm[name] = value
     },
     // 关闭表单事件
     closeClick () {
@@ -139,16 +142,15 @@ export default {
       * 提交表单
       */
     submitForm (formName) {
-      console.log(this.$refs[formName][0])
       this.$refs[formName][0].validate((valid) => {
         if (valid) {
-          // alert('submit!')
-          console.log('提交成功')
-          for (let key of Object.keys(this.tableForm)) {
-            console.log(key + ': ' + this.tableForm[key])
-          }
+          var ret = this.$conversion(this.url, this.editForm, 0)
+          axios.put(this.$adminUrl(this.url + '/' + this.editForm.id), ret).then((response) => {
+            this.$emit('submitEdit', response.data)
+          }, (response) => {
+            this.$emit('submitEdit', 'false')
+          })
         } else {
-          console.log('error submit!!')
           return false
         }
       })

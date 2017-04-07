@@ -98,37 +98,37 @@ export default {
         placeholder: '',
         rule: {required: true, message: '请输入模块类型', trigger: 'blur'},
         options: [{
-          value: '操作人员', label: '操作人员'
+          value: 'operate', label: '操作人员'
         },
         {
-          value: '专家', label: '专家'
+          value: 'expert', label: '专家'
         },
         {
-          value: '产品', label: '产品'
+          value: 'product', label: '产品'
         },
         {
-          value: '供货商', label: '供货商'
+          value: 'supplier', label: '供货商'
         },
         {
-          value: '客户', label: '客户'
+          value: 'client', label: '客户'
         },
         {
-          value: '饲料', label: '饲料'
+          value: 'fodder', label: '饲料'
         },
         {
-          value: '畜禽', label: '畜禽'
+          value: 'beast', label: '畜禽'
         },
         {
-          value: '兽药', label: '兽药'
+          value: 'drug', label: '兽药'
         },
         {
-          value: '果蔬', label: '果蔬'
+          value: 'plant', label: '果蔬'
         },
         {
-          value: '肥料', label: '肥料'
+          value: 'manure', label: '肥料'
         },
         {
-          value: '农药', label: '农药'
+          value: 'medicament', label: '农药'
         }]
       },
       {
@@ -161,37 +161,37 @@ export default {
         placeholder: '',
         rule: {required: true, message: '请输入模块类型', trigger: 'blur'},
         options: [{
-          value: '操作人员', label: '操作人员'
+          value: 'operate', label: '操作人员'
         },
         {
-          value: '专家', label: '专家'
+          value: 'expert', label: '专家'
         },
         {
-          value: '产品', label: '产品'
+          value: 'product', label: '产品'
         },
         {
-          value: '供货商', label: '供货商'
+          value: 'supplier', label: '供货商'
         },
         {
-          value: '客户', label: '客户'
+          value: 'client', label: '客户'
         },
         {
-          value: '饲料', label: '饲料'
+          value: 'fodder', label: '饲料'
         },
         {
-          value: '畜禽', label: '畜禽'
+          value: 'beast', label: '畜禽'
         },
         {
-          value: '兽药', label: '兽药'
+          value: 'drug', label: '兽药'
         },
         {
-          value: '果蔬', label: '果蔬'
+          value: 'plant', label: '果蔬'
         },
         {
-          value: '肥料', label: '肥料'
+          value: 'manure', label: '肥料'
         },
         {
-          value: '农药', label: '农药'
+          value: 'medicament', label: '农药'
         }]
       },
       {
