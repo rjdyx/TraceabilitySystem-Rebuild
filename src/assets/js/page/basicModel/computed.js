@@ -39,9 +39,9 @@ export default {
     listComponent () {
       return this.models[this.modelIndex].listComponent
     },
-    editComponent () {
-      return this.models[this.modelIndex].editComponent
-    },
+    // editComponent () {
+    //   return this.models[this.modelIndex].editComponent
+    // },
     options () {
       return this.models[this.modelIndex].options
     }

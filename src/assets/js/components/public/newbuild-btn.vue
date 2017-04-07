@@ -16,7 +16,7 @@ export default {
   name: 'NewBuild',
   methods: {
     handleAdd () {
-      this.$parent.changeIsShow()
+      this.$parent.changeNewShow()
     }
   }
 }

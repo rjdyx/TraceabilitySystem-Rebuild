@@ -30,9 +30,11 @@
               ></component>
       </div>
     <!-- 新建模块 -->
-    <new v-if="isShow" :newComponent="newComponent" :editForm="editTable"></new>
+    <popNew v-if="isNewShow" :newComponent="newComponent"></popNew>
+    <!-- 编辑模块 -->
+    <pop-edit v-if="isEditShow" :newComponent="newComponent" :editForm="editForm"></pop-edit>
   </div>
-  <!-- <pop-edit :editComponent="editComponent" v-if="editShow"></pop-edit> -->
+
   <!-- 列表模块 -->
   <el-table :data="tableData" @selection-change="handleSelectionChange">
     <!-- 序号 -->
@@ -53,7 +55,7 @@
       :width="150">
         <template scope="scope" class="operateBtn">
             <el-button size="small" type="text" @click="handelDel(scope.$index,scope.row)">删除</el-button>  
-            <el-button class="editBtn" @click="changeIsShow" type="text">编辑</el-button> 
+            <el-button class="editBtn" @click="changeEditShow" type="text">编辑</el-button> 
           </template>
     </el-table-column>
   </el-table>
@@ -62,7 +64,7 @@
  
 <script>
 import computed from './computed.js'
-import New from '../../components/public/new.vue'
+import popNew from '../../components/public/popNew.vue'
 import ContainTitle from 'components/public/contain-title.vue'
 import edit from '../../components/public/edit.vue'
 import operate from '../../components/public/operate.vue'
@@ -123,10 +125,13 @@ export default {
       // 被选中的列表项数组
       multipleSelection: [],
       // 是否新建
-      isShow: false,
-      editShow: false,
+      isNewShow: false,
+      // 是否编辑
+      isEditShow: false,
       msg: 1,
-      editTable: {'animalName': '猪', 'varieties': '10', 'RFID': 'rfidcs', 'remarkInfo': 'remarkInfocs', 'file': 'filecs', 'textS': '10'}
+      editBol: false,
+      editForm: {'animalName': '猪', 'varieties': '10', 'RFID': 'rfidcs', 'remarkInfo': '2017-04-13', 'textS': ['10', '个']}
+      // editTable: {}
     }
   },
   mixins: [computed],
@@ -176,17 +181,17 @@ export default {
       })
       console.log(8237489)
     },
-    changeIsShow () {
-      this.isShow = !this.isShow
+    changeNewShow () {
+      this.isNewShow = !this.isNewShow
     },
 
     changeEditShow () {
-      this.editShow = !this.editShow
+      this.isEditShow = !this.isEditShow
     }
   },
   components: {
     ContainTitle,
-    New,
+    popNew,
     edit,
     operate,
     popEdit

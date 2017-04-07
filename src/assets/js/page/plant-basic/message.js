@@ -12,17 +12,20 @@ import inputDate from '../../components/public/inputDate.vue'
 import inputFile from '../../components/public/inputFile.vue'
 import inputTextSelect from '../../components/public/inputTextSelect.vue'
 
+import validate2 from '../../utils/validate2.js'
+
 export default {
   categoryBase:
   [{
     settitle: '分类档案管理',
-    key: 'cultivation',
+    key: 'category',
     tab: '分类档案信息',
-    url: 'org',
-    searchPlaceholder: '请输入养殖场进行搜索',
+    url: 'category',
+    searchPlaceholder: '请输入分类名称进行搜索',
     theads: ['分类名称', '模块类型', '备注信息'],
-    protos: ['date', 'name', 'province', 'city'],
-    widths: [50, 50, 50, 50],
+    protos: ['name', 'type', 'memo'],
+    widths: [50, 50, 50],
+    search: ['type'],
     typeComponent: [{
       component: importBtn
     },
@@ -37,95 +40,84 @@ export default {
         type: 'select',
         component: selectSection,
         options: [{
-          value: '',
-          label: '产品品牌'
+          value: '', label: '模块类型'
         },
         {
-          value: '康乐牌',
-          label: '康乐牌'
-        }]
-      },
-      {
-        type: 'date',
-        component: datePick
+          value: 'operate', label: '操作人员'
+        },
+        {
+          value: 'expert', label: '专家'
+        },
+        {
+          value: 'product', label: '产品'
+        },
+        {
+          value: 'supplier', label: '供货商'
+        },
+        {
+          value: 'client', label: '客户'
+        },
+        {
+          value: 'fodder', label: '饲料'
+        },
+        {
+          value: 'drug', label: '兽药'
+        },
+        {
+          value: 'beast', label: '畜禽'
+        },
+        {
+          value: 'plant', label: '果蔬'
+        },
+        {
+          value: 'manure', label: '肥料'
+        },
+        {
+          value: 'medicament', label: '农药'
+        }
+        ]
       }]
     }],
     newComponent: [{
-      tab: '养殖场信息',
+      tab: '新建分类档案信息',
       components: [{
-        name: '',
+        name: 'name',
         type: 'text',
-        component: inputText,
+        component: null,
         isNull: false,
-        label: '养殖场名称',
+        label: '分类名称',
         placeholder: '必填',
-        rule: ''
+        rule: {required: true, message: '请输入分类名称', trigger: 'blur'}
       },
       {
-        name: '',
+        name: 'type',
         type: 'text',
-        component: inputText,
+        component: null,
         isNull: false,
-        label: '养殖面积',
-        placeholder: '请填写数字（必填）单位是亩',
-        rule: ''
-      },
-      {
-        name: '',
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '负责人',
+        label: '模块类型',
         placeholder: '',
-        rule: ''
+        rule: {required: true, message: '请输入分类名称', trigger: 'blur'}
       },
       {
-        name: '',
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '养殖畜禽种类',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        name: '',
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '养殖规模',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        name: '',
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '地址',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        name: '',
+        name: 'memo',
         type: 'textarea',
-        component: inputTextArea,
+        component: null,
         isNull: true,
         label: '备注信息',
         placeholder: '',
-        rule: ''
-      }
-      ]
+        rule: null
+      }]
     }]
   }],
   personFile: [{
     settitle: '人员档案管理',
-    key: 'cultivation',
+    key: 'operate',
     tab: '人员档案信息',
-    url: 'org',
+    url: 'operate',
     searchPlaceholder: '请输入养殖场进行搜索',
+    search: ['query_text', 'name'],
     theads: ['姓名', '身份', '性别', '年龄', '联系方式', '地址', '图片', '备注信息'],
-    protos: ['name', 'org_level', 'address', 'zipcode', 'phone', 'cellphone', 'fax', 'meno'],
+    protos: ['name', 'identity', 'sex', 'age', 'phone', 'address', 'img', 'meno'],
     widths: [50, 50, 50, 50, 50, 50, 50, 50],
     typeComponent: [{
       component: importBtn
@@ -139,67 +131,84 @@ export default {
     newComponent: [{
       tab: '新建人员档案信息',
       components: [{
-        name: '',
+        name: 'name',
         type: 'text',
-        component: inputText,
+        component: null,
         isNull: false,
-        label: '养殖场名称',
+        label: '姓名',
         placeholder: '必填',
-        rule: ''
+        rule: {required: true, message: '请输入姓名', trigger: 'blur'}
       },
       {
-        name: '',
+        name: 'identity',
         type: 'text',
-        component: inputText,
+        component: null,
         isNull: false,
-        label: '养殖面积',
-        placeholder: '请填写数字（必填）单位是亩',
-        rule: ''
-      },
-      {
-        name: '',
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '负责人',
+        label: '身份',
         placeholder: '',
-        rule: ''
+        rule: {required: true, message: '请输入身份', trigger: 'blur'}
       },
       {
-        name: '',
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '养殖畜禽种类',
+        name: 'sex',
+        type: 'select',
+        component: inputSelect,
+        isNull: false,
+        label: '性别',
         placeholder: '',
-        rule: ''
+        rule: null,
+        options: [{
+          value: '男',
+          label: '男'
+        },
+        {
+          value: '女',
+          label: '女'
+        }]
       },
       {
-        name: '',
+        name: 'age',
         type: 'text',
-        component: inputText,
+        component: null,
         isNull: true,
-        label: '养殖规模',
+        label: '年龄',
         placeholder: '',
-        rule: ''
+        rule: null
       },
       {
-        name: '',
+        name: 'phone',
         type: 'text',
-        component: inputText,
+        component: null,
+        isNull: true,
+        label: '联系方式',
+        placeholder: '请输入11位的手机号（固话用-隔开）',
+        rule: { validator: validate2.phone, trigger: 'blur' }
+      },
+      {
+        name: 'address',
+        type: 'text',
+        component: null,
         isNull: true,
         label: '地址',
         placeholder: '',
-        rule: ''
+        rule: null
       },
       {
-        name: '',
+        name: 'img',
+        type: 'file',
+        component: inputFile,
+        isNull: true,
+        label: '',
+        placeholder: '',
+        rule: null
+      },
+      {
+        name: 'meno',
         type: 'textarea',
-        component: inputTextArea,
+        component: null,
         isNull: true,
         label: '备注信息',
         placeholder: '',
-        rule: ''
+        rule: null
       }
       ]
     }],
@@ -215,10 +224,6 @@ export default {
           value: '康乐牌',
           label: '康乐牌'
         }]
-      },
-      {
-        type: 'date',
-        component: datePick
       }]
     }]
   }
@@ -226,10 +231,11 @@ export default {
   ],
   expertFile: [{
     settitle: '专家档案管理',
-    key: 'cultivation',
+    key: 'expert',
     tab: '专家档案信息',
-    url: 'org',
+    url: 'expert',
     searchPlaceholder: '请输入养殖场进行搜索',
+    search: ['query_text', 'name'],
     theads: ['专家名称', '级别', '研究领域', '单位', '出生年月日', '性别', '联系方式', '图片'],
     protos: ['name', 'org_level', 'address', 'zipcode', 'phone', 'cellphone', 'fax', 'meno'],
     widths: [50, 50, 50, 50, 50, 50, 50, 50, 50],
@@ -245,80 +251,121 @@ export default {
     newComponent: [{
       tab: '新建专家档案信息',
       components: [{
-        name: 'farmName',
+        name: 'name',
         type: 'text',
-        component: inputText,
+        component: null,
         isNull: false,
-        label: '养殖场名称',
+        label: '专家名称',
         placeholder: '必填',
-        rule: 'required'
+        rule: {required: true, message: '请输入专家名称', trigger: 'blur'}
       },
       {
-        name: 'area',
+        name: 'level',
         type: 'text',
-        component: inputText,
+        component: null,
         isNull: false,
-        label: '养殖面积',
-        placeholder: '请填写数字（必填）单位是亩',
-        rule: 'required|numeric'
-      },
-      {
-        name: 'principal',
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '负责人',
+        label: '级别',
         placeholder: '',
-        rule: ''
+        rule: {required: true, message: '请输入专家级别', trigger: 'blur'}
       },
       {
-        name: 'class',
+        name: 'major',
         type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '养殖畜禽种类',
+        component: null,
+        isNull: false,
+        label: '研究领域',
         placeholder: '',
-        rule: ''
+        rule: {required: true, trigger: 'blur'}
+
       },
       {
-        name: 'scale',
+        name: 'unit',
         type: 'text',
-        component: inputText,
+        component: false,
         isNull: true,
-        label: '养殖规模',
+        label: '单位',
         placeholder: '',
-        rule: ''
+        rule: null
       },
       {
-        name: 'address',
+        name: 'age',
         type: 'text',
-        component: inputText,
+        component: null,
         isNull: true,
-        label: '地址',
+        label: '出生年月日',
         placeholder: '',
-        rule: ''
+        rule: null
       },
       {
-        name: 'remarkInfo',
+        name: 'sex',
+        type: 'select',
+        component: null,
+        isNull: false,
+        label: '性别',
+        placeholder: '',
+        rule: {required: true, trigger: 'blur'},
+        options: [{
+          value: '男',
+          label: '男'
+        },
+        {
+          value: '女',
+          label: '女'
+        }]
+      },
+      {
+        name: 'phone',
+        type: 'text',
+        component: null,
+        isNull: true,
+        label: '联系方式',
+        placeholder: '请输入11位的手机号（固话用-隔开）',
+        rule: { validator: validate2.phone, trigger: 'blur' }
+      },
+      {
+        name: 'img',
+        type: 'file',
+        component: null,
+        isNull: true,
+        label: '',
+        placeholder: '',
+        rule: null
+      },
+      {
+        name: 'memo',
         type: 'textarea',
-        component: inputTextArea,
+        component: null,
         isNull: true,
         label: '备注信息',
         placeholder: '',
-        rule: ''
+        rule: null
       }
       ]
     }],
-    listComponent: []
+    listComponent: [{
+      components: [{
+        type: 'select',
+        component: selectSection,
+        options: [{
+          value: '',
+          label: '产品品牌'
+        },
+        {
+          value: '康乐牌',
+          label: '康乐牌'
+        }]
+      }]
+    }]
   }
 
   ],
   customerFile: [{
     settitle: '客户档案管理',
-    key: 'cultivation',
+    key: 'client',
     tab: '客户档案信息',
-    url: 'org',
+    url: 'client',
     searchPlaceholder: '请输入养殖场进行搜索',
+    search: ['query_text', 'name'],
     theads: ['管理客户类型', '客户名称', '联系人', '电话', '地址', '传真', '邮箱', '备注'],
     protos: ['name', 'org_level', 'address', 'zipcode', 'phone', 'cellphone', 'fax', 'meno'],
     widths: [50, 50, 50, 50, 50, 50, 50, 50, 50],
@@ -334,69 +381,89 @@ export default {
     newComponent: [{
       tab: '新建客户档案信息',
       components: [{
-        name: 'farmName',
+        name: 'name',
         type: 'text',
-        component: inputText,
+        component: null,
         isNull: false,
-        label: '养殖场名称',
+        label: '客户名称',
         placeholder: '必填',
-        rule: 'required'
+        rule: {required: true, trigger: 'blur'}
       },
       {
-        name: 'area',
+        name: 'contact',
         type: 'text',
-        component: inputText,
+        component: null,
         isNull: false,
-        label: '养殖面积',
-        placeholder: '请填写数字（必填）单位是亩',
-        rule: 'required|numeric'
+        label: '联系人',
+        placeholder: '必填',
+        rule: {required: true, trigger: 'blur'}
       },
       {
-        name: 'principal',
+        name: 'phone',
         type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '负责人',
+        component: null,
+        isNull: false,
+        label: '电话',
         placeholder: '',
-        rule: ''
+        rule: { validator: validate2.phone, trigger: 'blur' }
       },
       {
-        name: 'class',
+        name: 'fax',
         type: 'text',
-        component: inputText,
+        component: null,
         isNull: true,
-        label: '养殖畜禽种类',
+        label: '传真',
         placeholder: '',
-        rule: ''
-      },
-      {
-        name: 'scale',
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '养殖规模',
-        placeholder: '',
-        rule: ''
+        rule: null
       },
       {
         name: 'address',
         type: 'text',
-        component: inputText,
+        component: null,
         isNull: true,
         label: '地址',
         placeholder: '',
-        rule: ''
+        rule: null
       },
       {
-        name: 'remarkInfo',
+        name: 'grade',
+        type: 'select',
+        component: null,
+        isNull: false,
+        label: '等级',
+        placeholder: '',
+        rule: {required: true, trigger: 'blur'},
+        options: [{
+          value: '高',
+          label: '高'
+        },
+        {
+          value: '中',
+          label: '中'
+        },
+        {
+          value: '低',
+          label: '低'
+        }]
+      },
+      {
+        name: 'img',
+        type: 'file',
+        component: null,
+        isNull: true,
+        label: '',
+        placeholder: '',
+        rule: null
+      },
+      {
+        name: 'memo',
         type: 'textarea',
-        component: inputTextArea,
+        component: null,
         isNull: true,
         label: '备注信息',
         placeholder: '',
-        rule: ''
-      }
-      ]
+        rule: null
+      }]
     }],
     listComponent: []
   }],
@@ -406,6 +473,7 @@ export default {
     tab: '养殖场信息',
     url: 'org',
     searchPlaceholder: '请输入养殖场进行搜索',
+    search: ['query_text', 'name'],
     theads: ['序号', '养殖场名称', '养殖面积', '负责人', '养殖畜禽种类', '养殖规模', '详细地址', '备注信息'],
     protos: ['name', 'org_level', 'address', 'zipcode', 'phone', 'cellphone', 'fax', 'meno'],
     widths: [50, 50, 50, 50, 50, 50, 50, 50],
@@ -423,65 +491,65 @@ export default {
       components: [{
         name: 'farmName',
         type: 'text',
-        component: inputText,
+        component: null,
         isNull: false,
         label: '养殖场名称',
         placeholder: '必填',
-        rule: 'required'
+        rule: null
       },
       {
         name: 'area',
         type: 'text',
-        component: inputText,
+        component: null,
         isNull: false,
         label: '养殖面积',
         placeholder: '请填写数字（必填）单位是亩',
-        rule: 'required|numeric'
+        rule: null
       },
       {
         name: 'principal',
         type: 'text',
-        component: inputText,
+        component: null,
         isNull: true,
         label: '负责人',
         placeholder: '',
-        rule: ''
+        rule: null
       },
       {
         name: 'class',
         type: 'text',
-        component: inputText,
+        component: null,
         isNull: true,
         label: '养殖畜禽种类',
         placeholder: '',
-        rule: ''
+        rule: null
       },
       {
         name: 'scale',
         type: 'text',
-        component: inputText,
+        component: null,
         isNull: true,
         label: '养殖规模',
         placeholder: '',
-        rule: ''
+        rule: null
       },
       {
         name: 'address',
         type: 'text',
-        component: inputText,
+        component: null,
         isNull: true,
         label: '地址',
         placeholder: '',
-        rule: ''
+        rule: null
       },
       {
         name: 'remarkInfo',
         type: 'textarea',
-        component: inputTextArea,
+        component: null,
         isNull: true,
         label: '备注信息',
         placeholder: '',
-        rule: ''
+        rule: null
       }
       ]
     }],
@@ -491,10 +559,11 @@ export default {
   ],
   supplierFile: [{
     settitle: '供货商档案管理',
-    key: 'cultivation',
+    key: 'supplier',
     tab: '供货商档案信息',
-    url: 'org',
+    url: 'supplier',
     searchPlaceholder: '请输入养殖场进行搜索',
+    search: ['query_text', 'name'],
     theads: ['供货商名称', '电话', '联系人', '地址', '备注'],
     protos: ['name', 'org_level', 'address', 'zipcode', 'phone', 'cellphone', 'fax', 'meno'],
     widths: [50, 50, 50, 50, 50, 50],
@@ -510,67 +579,67 @@ export default {
     newComponent: [{
       tab: '新建供货商档案信息',
       components: [{
-        name: '',
+        name: 'name',
         type: 'text',
-        component: inputText,
+        component: null,
         isNull: false,
-        label: '养殖场名称',
+        label: '供货商名称',
         placeholder: '必填',
-        rule: ''
+        rule: {required: true, trigger: 'blur'}
       },
       {
-        name: '',
+        name: 'address',
         type: 'text',
-        component: inputText,
-        isNull: false,
-        label: '养殖面积',
-        placeholder: '请填写数字（必填）单位是亩',
-        rule: ''
-      },
-      {
-        name: '',
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '负责人',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        name: '',
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '养殖畜禽种类',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        name: '',
-        type: 'text',
-        component: inputText,
-        isNull: true,
-        label: '养殖规模',
-        placeholder: '',
-        rule: ''
-      },
-      {
-        name: '',
-        type: 'text',
-        component: inputText,
+        component: null,
         isNull: true,
         label: '地址',
         placeholder: '',
-        rule: ''
+        rule: null
+      },
+      {
+        name: 'contacts',
+        type: 'text',
+        component: null,
+        isNull: true,
+        label: '联系人',
+        placeholder: '',
+        rule: null
+      },
+      {
+        name: 'phone',
+        type: 'text',
+        component: null,
+        isNull: true,
+        label: '电话',
+        placeholder: '请输入11位的手机号（固话用-隔开）',
+        rule: { validator: validate2.phone, trigger: 'blur' }
+      },
+      {
+        name: 'img',
+        type: 'file',
+        component: null,
+        isNull: true,
+        label: '',
+        placeholder: '',
+        rule: null
       },
       {
         name: '',
+        type: 'text',
+        component: null,
+        isNull: true,
+        label: '地址',
+        placeholder: '',
+        rule: null
+      },
+      {
+        name: 'memo',
         type: 'textarea',
-        component: inputTextArea,
+        component: null,
         isNull: true,
         label: '备注信息',
         placeholder: '',
-        rule: ''
+        rule: null
       }
       ]
     }],
@@ -580,10 +649,11 @@ export default {
   ],
   productFile: [{
     settitle: '产品档案管理',
-    key: 'cultivation',
+    key: 'product',
     tab: '产品档案信息',
-    url: 'org',
+    url: 'product',
     searchPlaceholder: '请输入养殖场进行搜索',
+    search: ['query_text', 'name'],
     theads: ['名称', '执行标准', '卫生标准', '商品型号', '商品简介', '包装规格', '保质期', '食用方法', '存储方法', '配料信息', '图片', '备注'],
     protos: ['name', 'org_level', 'address', 'zipcode', 'phone', 'cellphone', 'fax', 'meno'],
     widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
@@ -599,73 +669,117 @@ export default {
     newComponent: [{
       tab: '新建产品档案信息',
       components: [{
-        name: '',
+        name: 'name',
         type: 'text',
-        component: inputText,
+        component: null,
         isNull: false,
-        label: '养殖场名称',
+        label: '名称',
         placeholder: '必填',
-        rule: ''
+        rule: {required: true, trigger: 'blur'}
       },
       {
-        name: '',
+        name: 'enforce_standard',
         type: 'text',
-        component: inputText,
-        isNull: false,
-        label: '养殖面积',
-        placeholder: '请填写数字（必填）单位是亩',
-        rule: ''
-      },
-      {
-        name: '',
-        type: 'text',
-        component: inputText,
+        component: null,
         isNull: true,
-        label: '负责人',
+        label: '执行标准',
         placeholder: '',
-        rule: ''
+        rule: null
       },
       {
-        name: '',
+        name: 'hygienic_standard',
         type: 'text',
-        component: inputText,
+        component: null,
         isNull: true,
-        label: '养殖畜禽种类',
+        label: '卫生标准',
         placeholder: '',
-        rule: ''
+        rule: null
       },
       {
-        name: '',
+        name: 'marque',
         type: 'text',
-        component: inputText,
+        component: null,
         isNull: true,
-        label: '养殖规模',
+        label: '商品型号',
         placeholder: '',
-        rule: ''
+        rule: null
       },
       {
-        name: '',
+        name: 'description',
         type: 'text',
-        component: inputText,
+        component: null,
         isNull: true,
-        label: '地址',
+        label: '商品简介',
         placeholder: '',
-        rule: ''
+        rule: null
       },
       {
-        name: '',
+        name: 'specification',
+        type: 'text',
+        component: null,
+        isNull: true,
+        label: '包装规格',
+        placeholder: '',
+        rule: null
+      },
+      {
+        name: 'expiration_date',
+        type: 'text',
+        component: null,
+        isNull: true,
+        label: '保质期',
+        placeholder: '',
+        rule: null
+      },
+      {
+        name: 'edible_method',
+        type: 'text',
+        component: null,
+        isNull: true,
+        label: '食用方法',
+        placeholder: '',
+        rule: null
+      },
+      {
+        name: 'storage_means',
+        type: 'text',
+        component: null,
+        isNull: true,
+        label: '存储方法',
+        placeholder: '',
+        rule: null
+      },
+      {
+        name: 'burdening_info',
+        type: 'text',
+        component: null,
+        isNull: true,
+        label: '配料信息',
+        placeholder: '',
+        rule: null
+      },
+      {
+        name: 'img',
+        type: 'file',
+        component: null,
+        isNull: true,
+        label: '',
+        placeholder: '',
+        rule: null
+      },
+      {
+        name: 'memo',
         type: 'textarea',
-        component: inputTextArea,
+        component: null,
         isNull: true,
         label: '备注信息',
         placeholder: '',
-        rule: ''
+        rule: null
       }
       ]
     }],
     listComponent: []
   }
-
   ],
   baseManage: [{
     settitle: '基础信息管理',
@@ -673,6 +787,7 @@ export default {
     tab: '畜禽档案',
     url: 'org',
     searchPlaceholder: '请输入养殖场进行搜索',
+    search: ['query_text', 'name'],
     theads: ['畜禽名称', '描述', '耳标位置', '图片', '备注信息'],
     protos: ['name', 'org_level', 'address', 'zipcode', 'phone', 'cellphone', 'fax', 'meno'],
     widths: [50, 50, 50, 50, 50, 50],
@@ -690,7 +805,7 @@ export default {
       components: [{
         name: 'animalName',
         type: 'text',
-        component: inputText,
+        component: null,
         isNull: false,
         label: '畜禽名称',
         placeholder: '必填',
@@ -699,7 +814,7 @@ export default {
       {
         name: 'varieties',
         type: 'text',
-        component: inputText,
+        component: null,
         isNull: true,
         label: '品种描述',
         placeholder: '请填写数字（必填）单位是亩',
@@ -708,20 +823,20 @@ export default {
       {
         name: 'RFID',
         type: 'text',
-        component: inputText,
+        component: null,
         isNull: true,
         label: 'RFID位置',
         placeholder: '',
-        rule: ''
+        rule: null
       },
       {
         name: 'remarkInfo',
         type: 'textarea',
-        component: inputTextArea,
+        component: null,
         isNull: true,
         label: '备注信息',
         placeholder: '',
-        rule: ''
+        rule: null
       },
       {
         name: 'file',
@@ -730,29 +845,24 @@ export default {
         isNull: true,
         label: '',
         placeholder: '',
-        rule: ''
-      },
-      {
-        name: 'textS',
-        type: 'textselect',
-        component: inputTextSelect,
-        isNull: true,
-        label: '文本和下拉',
-        placeholder: '文本和下拉',
-        rule: 'required|numeric',
-        options: [{
-          value: '',
-          label: '(千克)'
-        },
-        {
-          value: '个',
-          label: '个'
-        }]
+        rule: null
       }
       ]
     }],
-
-    listComponent: []
+    listComponent: [{
+      components: [{
+        type: 'select',
+        component: selectSection,
+        options: [{
+          value: '',
+          label: '产品品牌'
+        },
+        {
+          value: '康乐牌',
+          label: '康乐牌'
+        }]
+      }]
+    }]
   },
   {
     settitle: '养殖基础信息管理',
@@ -760,6 +870,7 @@ export default {
     tab: '饲料档案',
     url: 'org',
     searchPlaceholder: '请输入养殖区进行搜索',
+    search: ['query_text', 'name'],
     theads: ['分类', '名称', '用途', '包装规格', '产地', '生产厂家名称', '联系方式', '图片', '备注信息'],
     protos: ['name', 'org_level', 'address', 'zipcode', 'phone', 'cellphone', 'fax', 'meno'],
     widths: [50, 50, 50, 50, 50, 50, 50, 50, 50],
@@ -777,7 +888,7 @@ export default {
       components: [{
         name: 'fodderClass',
         type: 'select',
-        component: inputSelect,
+        component: null,
         isNull: false,
         label: '饲料类别',
         placeholder: '请选择类别',
@@ -798,7 +909,7 @@ export default {
       {
         name: 'fodderName',
         type: 'text',
-        component: inputText,
+        component: null,
         isNull: false,
         label: '饲料名称',
         placeholder: '必填',
@@ -807,43 +918,43 @@ export default {
       {
         name: 'use',
         type: 'text',
-        component: inputText,
+        component: null,
         isNull: true,
         label: '用途',
         placeholder: '',
-        rule: ''
+        rule: null
       },
       {
         name: 'packingSize',
         type: 'text',
-        component: inputText,
+        component: null,
         isNull: true,
         label: '包装规格',
         placeholder: '',
-        rule: ''
+        rule: null
       },
       {
         name: 'manufacturerName',
         type: 'text',
-        component: inputText,
+        component: null,
         isNull: true,
         label: '生产厂家名称',
         placeholder: '',
-        rule: ''
+        rule: null
       },
       {
         name: 'origin',
         type: 'text',
-        component: inputText,
+        component: null,
         isNull: true,
         label: '产地',
         placeholder: '',
-        rule: ''
+        rule: null
       },
       {
         name: 'contactWay',
         type: 'text',
-        component: inputText,
+        component: null,
         isNull: true,
         label: '联系方式',
         placeholder: '请输入11位的手机号（固话用-隔开）',
@@ -852,16 +963,29 @@ export default {
       {
         name: 'remarkInfo',
         type: 'textarea',
-        component: inputTextArea,
+        component: null,
         isNull: true,
         label: '备注信息',
         placeholder: '',
-        rule: ''
+        rule: null
       }
       ]
     }],
 
-    listComponent: []
+    listComponent: [{
+      components: [{
+        type: 'select',
+        component: selectSection,
+        options: [{
+          value: '',
+          label: '产品品牌'
+        },
+        {
+          value: '康乐牌',
+          label: '康乐牌'
+        }]
+      }]
+    }]
   },
   {
     settitle: '养殖基础信息管理',
@@ -869,6 +993,7 @@ export default {
     tab: '兽药档案',
     url: 'org',
     searchPlaceholder: '请输入畜禽名称进行搜索',
+    search: ['query_text', 'name'],
     theads: ['分类', '名称', '用途', '包装规格', '产地', '生产厂家名称', '联系方式', '图片', '备注信息'],
     protos: ['name', 'org_level', 'address', 'zipcode', 'phone', 'cellphone', 'fax', 'meno'],
     widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
@@ -886,11 +1011,11 @@ export default {
       components: [{
         name: '',
         type: 'select',
-        component: inputSelect,
+        component: null,
         isNull: false,
         label: '畜药类别',
         placeholder: '请选择类别',
-        rule: '',
+        rule: null,
         options: [{
           value: '',
           label: '请选择类别'
@@ -904,65 +1029,65 @@ export default {
       {
         name: '',
         type: 'text',
-        component: inputText,
+        component: null,
         isNull: false,
         label: '兽药名称',
         placeholder: '必填',
-        rule: ''
+        rule: null
       },
       {
         name: '',
         type: 'text',
-        component: inputText,
+        component: null,
         isNull: true,
         label: '用途',
         placeholder: '',
-        rule: ''
+        rule: null
       },
       {
         name: '',
         type: 'text',
-        component: inputText,
+        component: null,
         isNull: true,
         label: '包装规格',
         placeholder: '',
-        rule: ''
+        rule: null
       },
       {
         name: '',
         type: 'text',
-        component: inputText,
+        component: null,
         isNull: true,
         label: '生产厂家名称',
         placeholder: '',
-        rule: ''
+        rule: null
       },
       {
         name: '',
         type: 'text',
-        component: inputText,
+        component: null,
         isNull: true,
         label: '产地',
         placeholder: '',
-        rule: ''
+        rule: null
       },
       {
         name: '',
         type: 'text',
-        component: inputText,
+        component: null,
         isNull: true,
         label: '联系方式',
         placeholder: '请输入11位的手机号（固话用-隔开）',
-        rule: ''
+        rule: null
       },
       {
         name: '',
         type: 'textarea',
-        component: inputTextArea,
+        component: null,
         isNull: true,
         label: '备注信息',
         placeholder: '',
-        rule: ''
+        rule: null
       }
       ]
     }],
@@ -974,6 +1099,7 @@ export default {
     tab: '饲料档案',
     url: 'org',
     searchPlaceholder: '请输入饲料名称',
+    search: ['query_text', 'name'],
     theads: ['饲料类别', '饲料名称', '用途', '包装规格', '生产厂家名称', '产地', '联系方式', '备注信息'],
     protos: ['name', 'org_level', 'address', 'zipcode', 'phone', 'cellphone', 'fax', 'meno'],
     widths: [50, 50, 50, 50, 50, 50, 50, 50, 50],
@@ -989,13 +1115,12 @@ export default {
     newComponent: [{
       tab: '新建饲料档案',
       components: [{
-        name: '',
         type: 'select',
-        component: inputSelect,
+        component: null,
         isNull: false,
         label: '饲料类别',
         placeholder: '请选择类别',
-        rule: '',
+        rule: null,
         options: [{
           value: '',
           label: '请选择类别'
@@ -1012,65 +1137,65 @@ export default {
       {
         name: '',
         type: 'text',
-        component: inputText,
+        component: null,
         isNull: false,
         label: '饲料名称',
         placeholder: '必填',
-        rule: ''
+        rule: null
       },
       {
         name: '',
         type: 'text',
-        component: inputText,
+        component: null,
         isNull: true,
         label: '用途',
         placeholder: '',
-        rule: ''
+        rule: null
       },
       {
         name: '',
         type: 'text',
-        component: inputText,
+        component: null,
         isNull: true,
         label: '包装规格',
         placeholder: '',
-        rule: ''
+        rule: null
       },
       {
         name: '',
         type: 'text',
-        component: inputText,
+        component: null,
         isNull: true,
         label: '生产厂家名称',
         placeholder: '',
-        rule: ''
+        rule: null
       },
       {
         name: '',
         type: 'text',
-        component: inputText,
+        component: null,
         isNull: true,
         label: '产地',
         placeholder: '',
-        rule: ''
+        rule: null
       },
       {
         name: '',
         type: 'text',
-        component: inputText,
+        component: null,
         isNull: true,
         label: '联系方式',
         placeholder: '请输入11位的手机号（固话用-隔开）',
-        rule: ''
+        rule: null
       },
       {
         name: '',
         type: 'textarea',
-        component: inputTextArea,
+        component: null,
         isNull: true,
         label: '备注信息',
         placeholder: '',
-        rule: ''
+        rule: null
       }
       ]
     }],
@@ -1082,6 +1207,7 @@ export default {
     tab: '兽药档案',
     url: 'org',
     searchPlaceholder: '请输入兽药名称',
+    search: ['query_text', 'name'],
     theads: ['兽药类别', '兽药名称', '用途', '包装规格', '生产厂家名称', '产地', '联系方式', '备注'],
     protos: ['name', 'org_level', 'address', 'zipcode', 'phone', 'cellphone', 'fax', 'meno'],
     widths: [50, 50, 50, 50, 50, 50, 50, 50, 50],
@@ -1099,11 +1225,11 @@ export default {
       components: [{
         name: '',
         type: 'select',
-        component: inputSelect,
+        component: null,
         isNull: false,
         label: '畜药类别',
         placeholder: '请选择类别',
-        rule: '',
+        rule: null,
         options: [{
           value: '',
           label: '请选择类别'
@@ -1117,65 +1243,65 @@ export default {
       {
         name: '',
         type: 'text',
-        component: inputText,
+        component: null,
         isNull: false,
         label: '兽药名称',
         placeholder: '必填',
-        rule: ''
+        rule: null
       },
       {
         name: '',
         type: 'text',
-        component: inputText,
+        component: null,
         isNull: true,
         label: '用途',
         placeholder: '',
-        rule: ''
+        rule: null
       },
       {
         name: '',
         type: 'text',
-        component: inputText,
+        component: null,
         isNull: true,
         label: '包装规格',
         placeholder: '',
-        rule: ''
+        rule: null
       },
       {
         name: '',
         type: 'text',
-        component: inputText,
+        component: null,
         isNull: true,
         label: '生产厂家名称',
         placeholder: '',
-        rule: ''
+        rule: null
       },
       {
         name: '',
         type: 'text',
-        component: inputText,
+        component: null,
         isNull: true,
         label: '产地',
         placeholder: '',
-        rule: ''
+        rule: null
       },
       {
         name: '',
         type: 'text',
-        component: inputText,
+        component: null,
         isNull: true,
         label: '联系方式',
         placeholder: '请输入11位的手机号（固话用-隔开）',
-        rule: ''
+        rule: null
       },
       {
         name: '',
         type: 'textarea',
-        component: inputTextArea,
+        component: null,
         isNull: true,
         label: '备注信息',
         placeholder: '',
-        rule: ''
+        rule: null
       }
       ]
     }],
@@ -1187,6 +1313,7 @@ export default {
     tab: '人物档案',
     url: 'org',
     searchPlaceholder: '请输入姓名进行搜索',
+    search: ['query_text', 'name'],
     theads: ['姓名', '身份', '性别', '年龄', '联系方式', '地址', '备注'],
     protos: ['name', 'org_level', 'address', 'zipcode', 'phone', 'cellphone', 'fax', 'meno'],
     widths: [50, 50, 50, 50, 50, 50, 50, 50],
@@ -1204,20 +1331,20 @@ export default {
       components: [{
         name: '',
         type: 'text',
-        component: inputText,
+        component: null,
         isNull: false,
         label: '姓名',
         placeholder: '必填',
-        rule: ''
+        rule: null
       },
       {
         name: '',
         type: 'select',
-        component: inputSelect,
+        component: null,
         isNull: false,
         label: '性别',
         placeholder: '请选择性别',
-        rule: '',
+        rule: null,
         options: [{
           value: '',
           label: '男'
@@ -1231,47 +1358,47 @@ export default {
       {
         name: '',
         type: 'text',
-        component: inputText,
+        component: null,
         isNull: true,
         label: '年龄',
         placeholder: '必填',
-        rule: ''
+        rule: null
       },
       {
         name: '',
         type: 'text',
-        component: inputText,
+        component: null,
         isNull: true,
         label: '身份',
         placeholder: '如后勤主管',
-        rule: ''
+        rule: null
       },
       {
         name: '',
         type: 'text',
-        component: inputText,
+        component: null,
         isNull: false,
         label: '联系方式',
         placeholder: '',
-        rule: ''
+        rule: null
       },
       {
         name: '',
         type: 'text',
-        component: inputText,
+        component: null,
         isNull: true,
         label: '联系地址',
         placeholder: '请输入11位的手机号（固话用-隔开）',
-        rule: ''
+        rule: null
       },
       {
         name: '',
         type: 'text',
-        component: inputText,
+        component: null,
         isNull: true,
         label: '备注信息',
         placeholder: '',
-        rule: ''
+        rule: null
       }
       ]
     }],
@@ -1283,6 +1410,7 @@ export default {
     tab: '专家档案',
     url: 'org',
     searchPlaceholder: '请输入专家名称',
+    search: ['query_text', 'name'],
     theads: ['专家名称', '操作模块', '研究领域', '级别', '年龄', '性别', '联系方式', '所属单位', '备注'],
     protos: ['name', 'org_level', 'address', 'zipcode', 'phone', 'cellphone', 'fax', 'meno'],
     widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
@@ -1300,11 +1428,11 @@ export default {
       components: [{
         name: '',
         type: 'select',
-        component: inputSelect,
+        component: null,
         isNull: false,
         label: '操作模块',
         placeholder: '饲料使用',
-        rule: '',
+        rule: null,
         options: [{
           value: '',
           label: '饲料使用'
@@ -1326,38 +1454,38 @@ export default {
       {
         name: '',
         type: 'text',
-        component: inputText,
+        component: null,
         isNull: false,
         label: '专家名称',
         placeholder: '必填',
-        rule: ''
+        rule: null
       },
       {
         name: '',
         type: 'text',
-        component: inputText,
+        component: null,
         isNull: false,
         label: '研究领域',
         placeholder: '必填',
-        rule: ''
+        rule: null
       },
       {
         name: '',
         type: 'text',
-        component: inputText,
+        component: null,
         isNull: false,
         label: '级别',
         placeholder: '必填',
-        rule: ''
+        rule: null
       },
       {
         name: '',
         type: 'select',
-        component: inputSelect,
+        component: null,
         isNull: false,
         label: '性别',
         placeholder: '请选择性别',
-        rule: '',
+        rule: null,
         options: [{
           value: '',
           label: '男'
@@ -1371,42 +1499,55 @@ export default {
       {
         name: '',
         type: 'text',
-        component: inputText,
+        component: null,
         isNull: false,
         label: '年龄',
         placeholder: '必填',
-        rule: ''
+        rule: null
       },
       {
         name: '',
         type: 'text',
-        component: inputText,
+        component: null,
         isNull: true,
         label: '所属单位',
         placeholder: '',
-        rule: ''
+        rule: null
       },
       {
         name: '',
         type: 'text',
-        component: inputText,
+        component: null,
         isNull: false,
         label: '联系方式',
         placeholder: '请输入11位的手机号（固话用-隔开）',
-        rule: ''
+        rule: null
       },
       {
         name: '',
         type: 'text',
-        component: inputText,
+        component: null,
         isNull: true,
         label: '备注信息',
         placeholder: '',
-        rule: ''
+        rule: null
       }
       ]
     }],
-    listComponent: []
+    listComponent: [{
+      components: [{
+        type: 'select',
+        component: selectSection,
+        options: [{
+          value: '',
+          label: '产品品牌'
+        },
+        {
+          value: '康乐牌',
+          label: '康乐牌'
+        }]
+      }]
+    }]
   }
   ],
   serialManage: [{
@@ -1415,6 +1556,7 @@ export default {
     tab: '养殖批次信息',
     url: 'expert',
     searchPlaceholder: '请输入养殖批次号进行搜索',
+    search: ['query_text', 'name'],
     theads: ['批次号', '养殖区', '畜禽', '日期', '数量', '面积', '养殖方式', '养殖人', '备注', '图片状态', '状态'],
     protos: ['name', 'expert_area', 'org_name', 'degree', 'duty', 'title', 'address', 'zipcode', 'company', 'officephone', 'homephone', 'cellphone', 'email', 'meno'],
     widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
@@ -1429,11 +1571,11 @@ export default {
       components: [{
         name: '',
         type: 'select',
-        component: inputSelect,
+        component: null,
         isNull: false,
         label: '所属养殖区',
         placeholder: '',
-        rule: '',
+        rule: null,
         options: [{
           value: '',
           label: '示范A区'
@@ -1443,11 +1585,11 @@ export default {
       {
         name: '',
         type: 'select',
-        component: inputSelect,
+        component: null,
         isNull: false,
         label: '畜禽名称',
         placeholder: '',
-        rule: '',
+        rule: null,
         options: [{
           value: '',
           label: '黑猪一号'
@@ -1457,38 +1599,37 @@ export default {
       {
         name: '',
         type: 'text',
-        component: inputText,
+        component: null,
         isNull: true,
         label: '密度',
         placeholder: '',
-        rule: ''
+        rule: null
       },
       {
         name: '',
         type: 'text',
-        component: inputText,
+        component: null,
         isNull: true,
         label: '养殖方式',
         placeholder: '',
-        rule: ''
+        rule: null
       },
       {
-        name: '',
         type: 'date',
         component: inputDate,
         isNull: false,
         label: '养殖日期',
         placeholder: '',
-        rule: ''
+        rule: null
       },
       {
         name: '',
         type: 'select',
-        component: inputSelect,
+        component: null,
         isNull: false,
         label: '养殖人',
         placeholder: '请选择操作人',
-        rule: '',
+        rule: null,
         options: [{
           value: '',
           label: '请选择操作人'
@@ -1502,15 +1643,56 @@ export default {
       {
         name: '',
         type: 'textarea',
-        component: inputTextArea,
+        component: null,
         isNull: true,
         label: '备注信息',
         placeholder: '',
-        rule: ''
+        rule: null
       }
       ]
     }],
-    listComponent: []
+    listComponent: [{
+      components: [{
+        type: 'select',
+        component: selectSection,
+        options: [{
+          value: '',
+          label: '产品品牌'
+        },
+        {
+          value: '康乐牌',
+          label: '康乐牌'
+        }]
+      },
+      {
+        type: 'select',
+        component: selectSection,
+        options: [{
+          value: '',
+          label: '产品品牌'
+        },
+        {
+          value: '康乐牌',
+          label: '康乐牌'
+        }]
+      },
+      {
+        type: 'select',
+        component: selectSection,
+        options: [{
+          value: '',
+          label: '产品品牌'
+        },
+        {
+          value: '康乐牌',
+          label: '康乐牌'
+        }]
+      },
+      {
+        type: 'date',
+        component: 'datePick'
+      }]
+    }]
   }
   ],
   feedManage: [{
@@ -1519,6 +1701,7 @@ export default {
     tab: '饲料使用信息',
     url: 'expert',
     searchPlaceholder: '请输入饲料名称进行搜索',
+    search: ['query_text', 'name'],
     theads: ['使用日期', '饲料', '喂养方式', '专家', '操作人员', '喂养量', '类型状态', '备注'],
     protos: ['name', 'expert_area', 'org_name', 'degree', 'duty', 'title', 'address', 'zipcode', 'company', 'officephone', 'homephone', 'cellphone', 'email', 'meno'],
     widths: [50, 50, 50, 50, 50, 50, 50, 50, 50],
@@ -1533,11 +1716,11 @@ export default {
       components: [{
         name: '',
         type: 'select',
-        component: inputSelect,
+        component: null,
         isNull: false,
         label: '饲料名称',
         placeholder: '饲料名称',
-        rule: '',
+        rule: null,
         options: [{
           value: '',
           label: '饲料名称'
@@ -1563,11 +1746,11 @@ export default {
       {
         name: '',
         type: 'text',
-        component: inputText,
+        component: null,
         isNull: true,
         label: '喂养方式',
         placeholder: '请填写数字（必填）单位是亩',
-        rule: ''
+        rule: null
       },
       {
         name: '',
@@ -1576,7 +1759,7 @@ export default {
         isNull: false,
         label: '平均喂养量',
         placeholder: '',
-        rule: '',
+        rule: null,
         options: [{
           value: '',
           label: 'kg/只'
@@ -1594,11 +1777,11 @@ export default {
       {
         name: '',
         type: 'select',
-        component: inputSelect,
+        component: null,
         isNull: true,
         label: '指导专家',
         placeholder: '',
-        rule: '',
+        rule: null,
         options: [{
           value: '',
           label: '无'
@@ -1612,11 +1795,11 @@ export default {
       {
         name: '',
         type: 'select',
-        component: inputSelect,
+        component: null,
         isNull: false,
         label: '饲养员',
         placeholder: '请选择饲养员',
-        rule: '',
+        rule: null,
         options: [{
           value: '',
           label: '请选择饲养员'
@@ -1634,16 +1817,16 @@ export default {
         isNull: true,
         label: '喂养日期',
         placeholder: '',
-        rule: ''
+        rule: null
       },
       {
         name: '',
         type: 'textarea',
-        component: inputTextArea,
+        component: null,
         isNull: true,
         label: '备注信息',
         placeholder: '',
-        rule: ''
+        rule: null
       }
       ]
     },
@@ -1652,11 +1835,11 @@ export default {
       components: [{
         name: '',
         type: 'select',
-        component: inputSelect,
+        component: null,
         isNull: false,
         label: '',
         placeholder: '请选择养殖区',
-        rule: '',
+        rule: null,
         options: [{
           value: '',
           label: '示范A区'
@@ -1674,6 +1857,7 @@ export default {
     tab: '病疫信息',
     url: 'expert',
     searchPlaceholder: '请输入兽药名称',
+    search: ['query_text', 'name'],
     theads: ['用药日期', '病情描述', '兽药', '专家', '操作人员', '用药量', '治疗方式', '备注'],
     protos: ['name', 'expert_area', 'org_name', 'degree', 'duty', 'title', 'address', 'zipcode', 'company', 'officephone', 'homephone', 'cellphone', 'email', 'meno'],
     widths: [50, 50, 50, 50, 50, 50, 50, 50, 50],
@@ -1688,11 +1872,11 @@ export default {
       components: [{
         name: '',
         type: 'select',
-        component: inputSelect,
+        component: null,
         isNull: false,
         label: '兽药分类',
         placeholder: '请选择类别',
-        rule: '',
+        rule: null,
         options: [{
           value: '',
           label: '请选择类别'
@@ -1722,11 +1906,11 @@ export default {
       {
         name: '',
         type: 'select',
-        component: inputSelect,
+        component: null,
         isNull: false,
         label: '兽药名称',
         placeholder: '',
-        rule: '',
+        rule: null,
         options: [{
           value: '',
           label: '无'
@@ -1740,7 +1924,7 @@ export default {
         isNull: false,
         label: '兽药日期',
         placeholder: '',
-        rule: ''
+        rule: null
       },
       {
         name: '',
@@ -1749,7 +1933,7 @@ export default {
         isNull: false,
         label: '平均施药量',
         placeholder: '请输入正确的数字（必填）',
-        rule: '',
+        rule: null,
         options: [{
           value: '',
           label: 'kg/只'
@@ -1767,20 +1951,20 @@ export default {
       {
         name: '',
         type: 'text',
-        component: inputText,
+        component: null,
         isNull: true,
         label: '施药方式',
         placeholder: '',
-        rule: ''
+        rule: null
       },
       {
         name: '',
         type: 'select',
-        component: inputSelect,
+        component: null,
         isNull: false,
         label: '施药人',
         placeholder: '请选择操作人',
-        rule: '',
+        rule: null,
         options: [{
           value: '',
           label: '请选择操作人'
@@ -1794,11 +1978,11 @@ export default {
       {
         name: '',
         type: 'select',
-        component: inputSelect,
+        component: null,
         isNull: true,
         label: '指导专家',
         placeholder: '',
-        rule: '',
+        rule: null,
         options: [{
           value: '',
           label: '无'
@@ -1808,20 +1992,20 @@ export default {
       {
         name: '',
         type: 'text',
-        component: inputText,
+        component: null,
         isNull: true,
         label: '病情描述',
         placeholder: '',
-        rule: ''
+        rule: null
       },
       {
         name: '',
         type: 'textarea',
-        component: inputTextArea,
+        component: null,
         isNull: true,
         label: '备注信息',
         placeholder: '',
-        rule: ''
+        rule: null
       }
       ]
     }
@@ -1849,29 +2033,29 @@ export default {
       components: [{
         name: '',
         type: 'text',
-        component: inputText,
+        component: null,
         isNull: false,
         label: '检测机构',
         placeholder: '',
-        rule: ''
+        rule: null
       },
       {
         name: '',
         type: 'text',
-        component: inputText,
+        component: null,
         isNull: false,
         label: '检测项目名称',
         placeholder: '',
-        rule: ''
+        rule: null
       },
       {
         name: '',
         type: 'text',
-        component: inputText,
+        component: null,
         isNull: true,
         label: '检测内容',
         placeholder: '',
-        rule: ''
+        rule: null
       },
       {
         name: '',
@@ -1880,16 +2064,16 @@ export default {
         isNull: false,
         label: '检测日期',
         placeholder: '',
-        rule: ''
+        rule: null
       },
       {
         name: '',
         type: 'select',
-        component: inputSelect,
+        component: null,
         isNull: true,
         label: '检测结果',
         placeholder: '',
-        rule: '',
+        rule: null,
         options: [{
           value: '',
           label: '合格'
@@ -1903,20 +2087,20 @@ export default {
       {
         name: '',
         type: 'text',
-        component: inputText,
+        component: null,
         isNull: true,
         label: '审批人',
         placeholder: '',
-        rule: ''
+        rule: null
       },
       {
         name: '',
         type: 'select',
-        component: inputSelect,
+        component: null,
         isNull: false,
         label: '经手人',
         placeholder: '请选择经手人',
-        rule: '',
+        rule: null,
         options: [{
           value: '',
           label: '请选择经手人'
@@ -1930,11 +2114,11 @@ export default {
       {
         name: '',
         type: 'select',
-        component: inputSelect,
+        component: null,
         isNull: true,
         label: '指导专家',
         placeholder: '无',
-        rule: '',
+        rule: null,
         options: [{
           value: '',
           label: '无'
@@ -1944,11 +2128,11 @@ export default {
       {
         name: '',
         type: 'textarea',
-        component: inputTextArea,
+        component: null,
         isNull: true,
         label: '备注信息',
         placeholder: '',
-        rule: ''
+        rule: null
       }
       ]
     }
@@ -1973,40 +2157,32 @@ export default {
     newComponent: [{
       tab: '新建养殖场信息',
       components: [{
-        name: '',
-        type: '',
-        component: inputText,
+        component: null,
         isNull: false,
         label: '养殖场名称',
         placeholder: '必填',
-        rule: ''
+        rule: null
       },
       {
-        name: '',
-        type: '',
-        component: inputText,
+        component: null,
         isNull: false,
         label: '养殖面积',
         placeholder: '请填写数字（必填）单位是亩',
-        rule: ''
+        rule: null
       },
       {
-        name: '',
-        type: '',
-        component: inputText,
+        component: null,
         isNull: true,
         label: '负责人',
         placeholder: '',
-        rule: ''
+        rule: null
       },
       {
-        name: '',
-        type: '',
-        component: inputText,
+        component: null,
         isNull: true,
         label: '养殖畜禽种类',
         placeholder: '',
-        rule: ''
+        rule: null
       }
       ]
     }],
@@ -2032,22 +2208,20 @@ export default {
     newComponent: [{
       tab: '新建出栏信息',
       components: [{
-        name: '',
         type: 'date',
         component: inputDate,
         isNull: false,
         label: '出栏日期',
         placeholder: '',
-        rule: ''
+        rule: null
       },
       {
-        name: '',
         type: 'select',
-        component: inputSelect,
+        component: null,
         isNull: false,
         label: '出栏人',
         placeholder: '请选择人物',
-        rule: '',
+        rule: null,
         options: [{
           value: '',
           label: '请选择经手人'
@@ -2061,11 +2235,11 @@ export default {
       {
         name: '',
         type: 'textarea',
-        component: inputTextArea,
+        component: null,
         isNull: true,
         label: '备注信息',
         placeholder: '',
-        rule: ''
+        rule: null
       }
       ]
     }
