@@ -1,11 +1,17 @@
 
-import client from '../basic/client.js'
-import supplier from '../basic/supplier.js'
-import breedBasic from '../breed/basic.js'
-import plantBasic from '../plantation/basic.js'
-import logisticBasic from '../logistic/basic.js'
-import beastPack from '../beast-pack/pack.js'
-import plantPack from '../plant-pack/pack.js'
+var importBtn = require('../../components/public/import-btn.vue')
+var newbuildBtn = require('../../components/public/newbuild-btn.vue')
+var output = require('../../components/public/output.vue')
+var selectSection = require('../../components/public/select-section.vue')
+var datePick = require('../../components/public/datePick.vue')
+
+var categoryBtn = require('../../components/public/categoryBtn.vue')
+var inputText = require('../../components/public/inputText.vue')
+var inputTextArea = require('../../components/public/inputTextArea.vue')
+var inputSelect = require('../../components/public/inputSelect.vue')
+var inputDate = require('../../components/public/inputDate.vue')
+var inputFile = require('../../components/public/inputFile.vue')
+var inputTextSelect = require('../../components/public/inputTextSelect.vue')
 
 export default {
   categoryBase:
@@ -2487,6 +2493,4 @@ export default {
     widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
     listComponent: []
   }]
-
->>>>>>> 0b32c3c9e91d0a2ec9597cd27b61d4696d0f0542
 }
