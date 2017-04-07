@@ -1,64 +1,111 @@
-
+/**
+ * 
+ * 基础模块组件
+ * @author 舒丹彤 
+ * @date 2017/03/14
+ * 
+ */
 <template>
 <div>   
   <!-- 标题 -->
   <contain-title :settitle="settitle">
   </contain-title>
+    
   <!-- tab栏 --> 
   <el-tabs v-model="activeName" type="card" id="tabs" @tab-click="tabClick">
     <el-tab-pane v-for="(model,index) in models" :label="model.tab" :name="'index'+index"></el-tab-pane>
   </el-tabs>  
-  <!-- 操作模块 -->
-      <div id="operate">              
-      <div id="inputs">   
-        <operate :listComponent="listComponent"></operate>
-            <!-- 搜索框 -->
-            <div class="searchOp"> 
+    <!-- 操作模块 -->
+    <div id="operate">              
+      <div id="inputs">
+        <template v-if="listComponent[0].components[0].type == 'select'">
+        <operate :listComponent="listComponent" @selectVal="selectFind"></operate>
+        </template>
+
+          <!-- 搜索框 -->
+          <div class="searchOp"> 
               <el-input
                 :placeholder="searchPlaceholder"
                 v-model="inputValue"
                 :on-icon-click="search" class="searchInp" size="small">
               </el-input>
-              <el-button size="small" class="searchBtn">搜索</el-button>
+              <el-button size="small" class="searchBtn" @click="textFind">搜索</el-button>
           </div>
+
         <!-- 操作按钮 -->
-            <component
-                  v-for="typeOperate in typeComponent"
-                  :is="typeOperate.component"
-                  :params="typeOperate.params"
-                  class="fr"
-              ></component>
+        <component
+            v-for="typeOperate in typeComponent"
+            :is="typeOperate.component"
+            :params="typeOperate.params"
+            class="fr"
+        ></component>
       </div>
+    
     <!-- 新建模块 -->
     <popNew v-if="isNewShow" :newComponent="newComponent"></popNew>
     <!-- 编辑模块 -->
     <pop-edit v-if="isEditShow" :newComponent="newComponent" :editForm="editForm"></pop-edit>
   </div>
-
   <!-- 列表模块 -->
-  <el-table :data="tableData" @selection-change="handleSelectionChange">
-    <!-- 序号 -->
-    <el-table-column type="selection" width="55">
+  <el-table :data="tableData"  @selection-change="handleSelectionChange">
+      <!-- checkbox -->
+      <el-table-column width="50" type="selection">
       </el-table-column>
-        <template v-for="(item,index) in theads">
-            <template>
-              <el-table-column 
-                :props="protos[index]" 
-                :label="item"
-                :min-width="widths[index]" 
-                show-overflow-tooltip>
-              </el-table-column>
-            </template>
-        </template>
+
+      <!-- 序号 -->
+      <el-table-column width="80" label="序号" type="index" sortable>
+      </el-table-column>
+
+      <!-- 中间列表模块 -->
+      <template v-for="(item,index) in theads">
+          <template>
+            <el-table-column 
+              :prop="protos[index]" 
+              :label="item"
+              :min-width="widths[index]" 
+              show-overflow-tooltip>
+            </el-table-column>
+          </template> 
+      </template>
+
+      <!-- 列表操作模块 -->
       <el-table-column 
-      label="操作" 
-      :width="150">
+      label="操作">
         <template scope="scope" class="operateBtn">
-            <el-button size="small" type="text" @click="handelDel(scope.$index,scope.row)">删除</el-button>  
-            <el-button class="editBtn" @click="changeEditShow" type="text">编辑</el-button> 
+            <template v-if="moreComponent!=null">
+              <clickMore v-if="clickMoreshow" class="clickMoreBtn" :moreComponent="moreComponent"></clickMore>
+              <i @click="showMore" :class="{'active':active,'unactive':!active}"></i>
+            </template>
+              <template>
+                <i>
+                  <el-button type="text" size="small" class="btndel">编辑</el-button>
+               </i>
+               <i>
+                  <el-button size="small" type="text" @click="handelDel(scope.$index,scope.row)" class="btn">删除</el-button>  
+               </i>
+              </template>
           </template>
     </el-table-column>
   </el-table>
+
+  <div class="footer">
+    <div class="operate-foot">
+      <el-button @click="delAll">删除</el-button>
+      <el-button>导出表格</el-button>
+    </div>
+
+    <p class="record">共有{{num}}页，{{total}}条记录</p>
+
+    <!-- 分页模块 -->
+    <el-pagination
+      layout="prev, pager, next"
+      :total="paginator.total" 
+      :page-size="paginator.per_page"
+      class="pager"
+      @current-change="pageChange">
+    </el-pagination>
+  </div>
+    
 </div> 
 </template>
  
@@ -69,7 +116,7 @@ import ContainTitle from 'components/public/contain-title.vue'
 import edit from '../../components/public/edit.vue'
 import operate from '../../components/public/operate.vue'
 import popEdit from '../../components/public/popEdit.vue'
-
+import clickMore from '../../components/public/clickMore.vue'
 export default {
   name: 'BasicModel',
   props: {
@@ -79,15 +126,17 @@ export default {
         return [{
           key: '',
           tab: '',
+          tablePager: Object,
           url: '',
           urlParams: {},
           // 从后台获取的所有数据
-          theads: [''],
+          theads: [],
           searchPlaceholder: '',
           protos: ['name'],
           widths: [50],
           title: '',
           options: [],
+          search: [],
           typeComponent: [],
           listComponent: [],
           newComponent: [{
@@ -99,7 +148,8 @@ export default {
               rule: ''
             }
           }],
-          editComponent: []
+          editComponent: [],
+          moreComponent: []
         }]
       }
     }
@@ -109,29 +159,38 @@ export default {
       compute: this,
       // 搜索框内容
       inputValue: '',
+      // 下拉框
+      selectVal: '',
       // tab模块选择标志
       // activeName:'index'+this.$route.params.index,
       // tab对应的模块下标
       modelIndex: this.$route.params.index,
       // 列表数据
-      tableData: [{
-        date: '2016-05-03',
-        name: '王小虎',
-        province: '上海',
-        city: '普陀区',
-        address: '上海市普陀区金沙江路 1518 弄',
-        zip: 200333
-      }],
+      tableData: [],
       // 被选中的列表项数组
       multipleSelection: [],
       // 是否新建
       isNewShow: false,
       // 是否编辑
       isEditShow: false,
-      msg: 1,
+      // msg: 1,
       editBol: false,
-      editForm: {'animalName': '猪', 'varieties': '10', 'RFID': 'rfidcs', 'remarkInfo': '2017-04-13', 'textS': ['10', '个']}
-      // editTable: {}
+      editForm: {'animalName': '猪', 'varieties': '10', 'RFID': 'rfidcs', 'remarkInfo': '2017-04-13', 'textS': ['10', '个']},
+      // 切换点击更多按钮的状态
+      active: true,
+      // 点击展开更多按钮
+      clickMoreshow: false,
+      total: '',
+      checked: '',
+      selectall: '',
+      checkAll: true,
+      isIndeterminate: true,
+      // 组合查询
+      par: {},
+      // 数组拼装
+      dataArr: {},
+      // 复选框选中返回对象
+      checkObject: {}
     }
   },
   mixins: [computed],
@@ -139,7 +198,8 @@ export default {
     init (index = 0) {
       this.value = ''
       this.inputValue = ''
-      this.activeName = 'index' + index
+      this.selectVal = '22'
+      this.activeName = 'index'
       this.modelIndex = index
       this.$set(this, 'tableData', [])
       this.$set(this, 'multipleSelection', [])
@@ -148,15 +208,10 @@ export default {
   * 列表选择事件
      *
      */
-    handleSelectionChange (val) {
-      this.multipleSelection = val
-    },
     // tab点击事件
     tabClick (tab, event) {
       this.modelIndex = tab.$data.index
       let model = this.$route.params.model
-      // this.settitle=this.model.settitle
-      // this.$router.push('/index/' + this.$route.fullPath.split('/')[2] + '/' + model + '/' + this.modelIndex)
     },
     // 操作更多选项
     filterTag (value, row) {
@@ -169,24 +224,111 @@ export default {
         confirmButtonText: '确定',
         type: 'error'
       }).then(() => {
-        this.$message({
-          type: 'success',
-          message: '删除成功'
-        })
+        axios.delete(this.$adminUrl(this.url + '/' + row.id))
+          .then((responce) => {
+            // 删除成功回调方法
+            this.delSuccess(index, row)
+            this.$message({
+              type: 'success',
+              message: '删除成功'
+            })
+          })
       }).catch(() => {
         this.$message({
           type: 'info',
           message: '已取消删除'
         })
       })
-      console.log(8237489)
     },
+    // 显示新建表单
     changeNewShow () {
       this.isNewShow = !this.isNewShow
     },
-
+    // 显示编辑表单
     changeEditShow () {
       this.isEditShow = !this.isEditShow
+    },
+    // singelSelect (el) {
+    //   this.selectall = !this.selectall
+    //   console.log(el)
+    // },
+    // 点击展开更多操作按钮
+    showMore () {
+      this.active = !this.active
+      this.clickMoreshow = !this.clickMoreshow
+    },
+    selectAll () {
+      this.checked = !this.checked
+    },
+    // 获取数据
+    getAllMsg (data = '') {
+      this.par.params = data
+      axios.get(this.$adminUrl(this.url), {params: this.par})
+        .then((responce) => {
+        // 数据转换
+          var ret = this.$conversion(this.url, responce.data.data)
+          this.$set(this, 'tableData', ret)
+          this.total = responce.data.total
+          this.num = responce.data.last_page
+          this.paginator = responce.data
+        })
+        .catch(err => {
+          console.dir(err)
+        })
+    },
+    // 文本查询
+    textFind () {
+      this.dataArr['query_text'] = this.inputValue
+      if (this.selectVal !== '') {
+        this.dataArr[this.search[0]] = this.selectVal
+      }
+      this.pageChange(1)
+    },
+    // 下拉框查询
+    selectFind (val) {
+      this.selectVal = val
+      this.dataArr = {}
+      if (val !== '') {
+        this.dataArr['query_text'] = this.inputValue
+        this.dataArr[this.search[0]] = val
+      } else {
+        this.dataArr = ''
+      }
+      this.getAllMsg(data)
+    },
+    // 获取下拉框数据
+    getSelectMsg (data = '') {
+      axios.get(this.$adminUrl(this.url), {params: data})
+        .then((responce) => {
+        // 数据转换
+          var ret = this.$conversion(this.url, responce.data.data)
+          console.log(ret)
+          // this.$set(this, 'tableData', ret)
+          // this.total = this.tableData.length
+        })
+      this.pageChange(1)
+    },
+    // 分页跳转
+    pageChange (val) {
+      if (this.dataArr === '') {
+        this.dataArr = {}
+      }
+      this.dataArr['page'] = val
+      this.getAllMsg(this.dataArr)
+    },
+    // 全选获取数据
+    handleSelectionChange (val) {
+      this.checkObject = val
+    },
+    // 删除数据
+    delSuccess (index) {
+      this.tableData.splice(index, 1)
+    },
+    // 批量删除
+    delAll () {
+      console.log(this.checkObject.length)
+      // if (this.checkObject!=== undefined) {
+      // }
     }
   },
   components: {
@@ -194,16 +336,26 @@ export default {
     popNew,
     edit,
     operate,
-    popEdit
+    popEdit,
+    clickMore
+  },
+  mounted () {
+    this.getAllMsg()
+  },
+  watch: {
+    key () {
+      this.tableData = []
+      this.getAllMsg()
+    }
+  },
+  computed: {
   }
 }
 
 </script>
 
 
-<style lang='sass' scoped>
-	 /*@import '../../../sass/function';*/
-
+<style lang='sass'>
 	 .searchInp{
 	 	width:161px;
 	 	margin-bottom:10px;
@@ -214,7 +366,6 @@ export default {
 	 	float:right;
 	 }
 	 .operateBtns {
-
             	display: inline-block;
             	margin-top:10px;
             	margin-right:10px;
@@ -235,4 +386,68 @@ export default {
      .margin{
      	margin-left:15px;
      }
+     .el-icon-caret-left{
+      padding-right: 15px;
+     }
+     i:hover{
+      cursor: pointer;
+     }
+     .active,.unactive{
+      width: 0;
+      height: 0;
+      display: inline-block;
+      vertical-align: middle;
+      margin: 0 10px 0 10px;
+      border-bottom: 10px solid transparent;
+      border-top: 10px solid transparent;
+     }
+     .active{
+      border-right: 18px solid #000;
+     }
+     .unactive{
+      border-left: 18px solid #000;
+     }
+     .clickMoreBtn{
+      display: inline-block;
+     }
+     .el-table th{
+      text-align:center;
+     }
+     .el-table th:last-child{
+      border-left: 1px solid red;
+     }
+     .btn span{
+      border-left: 1px solid #a7bad6;
+     }
+     .btndel span{
+      padding: 0px 5px 0px 5px;
+     }
+     .el-table td, .el-table th.is-leaf{
+        text-align: center;
+     }
+     .footer{
+      width: 100%;
+      height: 50px;
+      border: 1px solid #dfe6ec;
+      border-top: none; 
+        .pager{
+          display: inline-block;
+          float: right;
+          vertical-align: middle;
+          padding-top: 12px;
+          padding-right: 20px;
+        }
+        .operate-foot{
+          padding-left: 15px;
+          display: inline-block;
+          padding-top: 8px;
+         }
+        .record{
+          float: right;
+          padding: 15px 10px;
+         }
+     }
+     
+     
+     
 </style>

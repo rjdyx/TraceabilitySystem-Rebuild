@@ -19,7 +19,7 @@ export default[{
     name: '专家档案管理'
   },
   {
-    path: '/index/message/customerFile/0',
+    path: '/index/message/clientFile/0',
     name: '客户档案管理'
   },
   {
@@ -137,7 +137,7 @@ export default[{
   isEvent: false,
   src: '/public/images/express.png',
   children: [{
-    path: '/index/message/Logisticbase/0',
+    path: '/index/message/logisticBase/0',
     name: '基础信息管理'
   },
   {

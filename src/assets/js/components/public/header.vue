@@ -1,4 +1,9 @@
-/** * 顶部栏组件 * @description 顶部栏 * @author 舒丹彤 * @date 2017/3/14 * */
+/* 顶部栏组件
+* @description 顶部栏 
+* @author 舒丹彤 
+* @date 2017/3/14
+* 
+*/
 <template>
 	<header class="header">
 		<div class="head_logo">
@@ -12,7 +17,7 @@
 			<ul>
 				<li>
 					<img src="/public/images/time.png" />
-					<span>{{time}}</span>
+					<span class="time">{{noon}}{{time}}</span>
 				</li>
 				<template v-for="navbar in navbars">
 					<li class="navbar">
@@ -31,7 +36,8 @@ export default {
   data: function () {
     return {
       logo: '农产品质量安全溯源系统',
-      time: ''
+      time: '',
+      noon: ''
     }
   },
   props: {
@@ -57,9 +63,12 @@ export default {
           date = new Date()
         }
         let h = date.getHours()
+        if (h > 12) {
+          h = h - 12
+        }
         let m = this.checkTime(date.getMinutes())
         let s = this.checkTime(date.getSeconds())
-        var str = h + ': ' + m + ': ' + s
+        var str = h + ':' + m + ':' + s
         this.time = str
       },
       1000)
@@ -113,6 +122,7 @@ export default {
 				text-align: center;
 				border-left: 1px solid #0087b5;
 				color: #fff;
+				font-size: 12px;
 				img {
 					display: block;
 					padding-left: 30px;

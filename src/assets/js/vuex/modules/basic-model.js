@@ -3,10 +3,12 @@ const state = {
   subNavBarName: ''
 }
 // getters
-const getters = {}
+const getters = {
+}
 
 // actions
-const actions = {}
+const actions = {
+}
 
 // mutations
 const mutations = {

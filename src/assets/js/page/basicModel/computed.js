@@ -6,6 +6,9 @@ export default {
     key () {
       return this.models[this.modelIndex].key
     },
+    search () {
+      return this.models[this.modelIndex].search
+    },
     tab () {
       return this.models[this.modelIndex].tab
     },
@@ -39,9 +42,16 @@ export default {
     listComponent () {
       return this.models[this.modelIndex].listComponent
     },
+
     // editComponent () {
     //   return this.models[this.modelIndex].editComponent
     // },
+    moreComponent () {
+      return this.models[this.modelIndex].moreComponent
+    },
+    editComponent () {
+      return this.models[this.modelIndex].editComponent
+    },
     options () {
       return this.models[this.modelIndex].options
     }

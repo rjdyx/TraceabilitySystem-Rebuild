@@ -1,11 +1,12 @@
-const path = require('path')
-const webpack = require('webpack')
-const merge = require('webpack-merge')
-const base = require('./webpack.base.config')
-const vueConfig = require('./vue-loader.config')
-const HTMLPlugin = require('html-webpack-plugin')
-const projectRoot = path.resolve(__dirname, '../')
-// 生成 前端文件的webpack 配置
+const path = require('path');
+const webpack = require('webpack');
+const merge = require('webpack-merge');
+const base = require('./webpack.base.config');
+const vueConfig = require('./vue-loader.config');
+const HTMLPlugin = require('html-webpack-plugin');
+const projectRoot = path.resolve(__dirname, '../');
+
+//生成 前端文件的webpack 配置
 const config = merge(base, {
   plugins: (base.plugins || []).concat([
     // strip comments in Vue code
@@ -13,7 +14,7 @@ const config = merge(base, {
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
     }),
 
-      // 将类库文件进行分开打包,便于缓存
+      //将类库文件进行分开打包,便于缓存
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
       filename: 'client-vendor-bundle.[hash].js'
@@ -29,13 +30,16 @@ const config = merge(base, {
 })
 
 if (process.env.NODE_ENV === 'production') {
+  
   const ExtractTextPlugin = require('extract-text-webpack-plugin')
+
+  
   vueConfig.loaders = {
     // 用 babel-loader 加载所有没有 "lang" 属性的 <script>
     js: 'babel-loader',
     // 将vue里面的css和sass抽离出来组成一个独立的css文件
     css: ExtractTextPlugin.extract({fallbackLoader: 'vue-style-loader', loader: 'css-loader'}),
-    sass: ExtractTextPlugin.extract({fallbackLoader: 'vue-style-loader', loader: 'css-loader!sass-loader'})
+    sass: ExtractTextPlugin.extract({fallbackLoader:'vue-style-loader', loader: 'css-loader!sass-loader'})
   }
 
   config.plugins.push(
