@@ -18,9 +18,9 @@
     <!-- 操作模块 -->
     <div id="operate">              
       <div id="inputs">
-        <template v-if="listComponent[0].components[0].type == 'select'">
+        <!-- <template v-if="listComponent[0].components[0].type == 'select'">
         <operate :listComponent="listComponent" @selectVal="selectFind"></operate>
-        </template>
+        </template> -->
 
           <!-- 搜索框 -->
           <div class="searchOp"> 
@@ -104,13 +104,13 @@
     <p class="record">共有{{num}}页，{{total}}条记录</p>
 
     <!-- 分页模块 -->
-    <el-pagination
+    <!-- <el-pagination
       layout="prev, pager, next"
       :total="paginator.total" 
       :page-size="paginator.per_page"
       class="pager"
       @current-change="pageChange">
-    </el-pagination>
+    </el-pagination> -->
   </div>
     
 </div> 
@@ -189,8 +189,6 @@ export default {
       selectall: '',
       allchecked: false,
       checkAll: true,
-      checkedCities: ['上海', '北京'],
-      cities: cityOptions,
       isIndeterminate: true,
       // 组合查询
       par: {},
@@ -265,9 +263,13 @@ export default {
         // 数据转换
           var ret = this.$conversion(this.url, responce.data.data)
           this.$set(this, 'tableData', ret)
-          this.total = responce.data.total
-          this.num = responce.data.last_page
-          this.paginator = responce.data
+          console.log(data)
+          // this.total = responce.data.total
+          // this.num = responce.data.last_page
+          // this.paginator = responce.data
+        })
+        .catch(err => {
+          console.dir(err)
         })
     },
     // 文本查询
