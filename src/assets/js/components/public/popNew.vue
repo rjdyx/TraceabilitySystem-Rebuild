@@ -97,7 +97,8 @@ export default {
     },
     tab: {
       type: String
-    }
+    },
+    url: ''
     // editForm: {
     //   type: Object,
     //   default: {}
@@ -154,16 +155,14 @@ export default {
       * 提交表单
       */
     submitForm (formName) {
-      console.log(this.$refs[formName][0])
       this.$refs[formName][0].validate((valid) => {
         if (valid) {
-          // alert('submit!')
-          console.log('提交成功')
-          for (let key of Object.keys(this.tableForm)) {
-            console.log(key + ': ' + this.tableForm[key])
-          }
+          axios.post(this.$adminUrl(this.url), this.tableForm).then((response) => {
+            this.$emit('submitNew', response.data)
+          }, (response) => {
+            this.$emit('submitNew', 'false')
+          })
         } else {
-          console.log('error submit!!')
           return false
         }
       })

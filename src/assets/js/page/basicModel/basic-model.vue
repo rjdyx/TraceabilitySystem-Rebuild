@@ -40,9 +40,9 @@
       </div>
     
     <!-- 新建模块 -->
-    <popNew v-if="isNewShow" :newComponent="newComponent"></popNew>
+    <popNew v-if="isNewShow" :newComponent="newComponent" :url="url" @submitNew="changeNew"></popNew>
     <!-- 编辑模块 -->
-    <pop-edit v-if="isEditShow" :editComponent="editComponent" :editForm="editForm"></pop-edit>
+    <pop-edit v-if="isEditShow" :editComponent="editComponent" :url="url" :editForm="editForm" @submitEdit="changeEdit"></pop-edit>
   </div>
   <!-- 列表模块 -->
   <el-table :data="tableData"  @selection-change="handleSelectionChange">
@@ -76,7 +76,7 @@
             </template>
               <template>
                 <i>
-                  <el-button type="text" size="small" class="btndel" @click="changeEditShow">编辑</el-button>
+                  <el-button type="text" size="small" class="btndel" @click="changeEditShow(scope.$index,scope.row)">编辑</el-button>
                </i>
                <i>
                   <el-button size="small" type="text" @click="handelDel(scope.$index,scope.row)" class="btn">删除</el-button>  
@@ -173,7 +173,7 @@ export default {
       isEditShow: false,
       // msg: 1,
       editBol: false,
-      editForm: {'animalName': '猪', 'varieties': '10', 'RFID': 'rfidcs', 'remarkInfo': '2017-04-13', 'textS': ['10', '个']},
+      editForm: {},
       // 切换点击更多按钮的状态
       active: true,
       // 点击展开更多按钮
@@ -245,8 +245,9 @@ export default {
       this.isNewShow = !this.isNewShow
     },
     // 显示编辑表单
-    changeEditShow () {
+    changeEditShow (index, row) {
       this.isEditShow = !this.isEditShow
+      this.editForm = row
     },
     // 点击展开更多操作按钮
     showMore () {
@@ -263,7 +264,7 @@ export default {
         .then((responce) => {
         // 数据转换
           if (responce.data.data.length !== 0) {
-            var ret = this.$conversion(this.url, responce.data.data)
+            var ret = this.$conversion(this.url, responce.data.data, 1)
             this.$set(this, 'tableData', ret)
             this.total = responce.data.total
             this.num = responce.data.last_page
@@ -286,25 +287,13 @@ export default {
     // 下拉框查询
     selectFind (val) {
       this.selectVal = val
-      this.dataArr = {}
+      // this.dataArr = {}
       if (val !== '') {
         this.dataArr['query_text'] = this.inputValue
         this.dataArr[this.selectSearch[0]] = val
       } else {
         this.dataArr = ''
       }
-      this.pageChange(1)
-    },
-    // 获取下拉框数据
-    getSelectMsg (data = '') {
-      axios.get(this.$adminUrl(this.url), {params: data})
-        .then((responce) => {
-        // 数据转换
-          var ret = this.$conversion(this.url, responce.data.data)
-          console.log(ret)
-          this.$set(this, 'tableData', ret)
-          this.total = this.tableData.length
-        })
       this.pageChange(1)
     },
     // 分页跳转
@@ -343,6 +332,32 @@ export default {
             this.$message.error('批量删除失败')
           }
         })
+      }
+    },
+    // 新建数据
+    changeNew (val) {
+      if (val !== 'false') {
+        this.isNewShow = false
+        this.pageChange(1)
+        this.$message({
+          type: 'success',
+          message: '新增数据成功'
+        })
+      } else {
+        this.$message.error('新增数据失败')
+      }
+    },
+    // 编辑修改数据
+    changeEdit (val) {
+      if (val !== 'false') {
+        this.isEditShow = false
+        this.pageChange(1)
+        this.$message({
+          type: 'success',
+          message: '编辑数据成功'
+        })
+      } else {
+        this.$message.error('编辑数据失败')
       }
     }
   },
