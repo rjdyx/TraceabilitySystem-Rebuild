@@ -226,7 +226,15 @@ export default {
     listComponent: [{
       components: [{
         type: 'select',
-        component: selectSection
+        component: selectSection,
+        options: [{
+          value: '',
+          label: '产品品牌'
+        },
+        {
+          value: '康乐牌',
+          label: '康乐牌'
+        }]
       }]
     }],
     newComponent: [{
