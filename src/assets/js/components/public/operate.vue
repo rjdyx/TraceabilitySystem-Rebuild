@@ -47,28 +47,28 @@
 </template>
 
 <script>
-export default {
-  props:
-  {
-    listComponent:
-    {
-      type: Array,
-      default: []
+    export default {
+        props: {
+            listComponent: {
+                type: Array,
+                default () {
+                    return []
+                }
+            }
+        },
+        data () {
+            return {
+                value: '',
+                value1: '',
+                value2: ''
+            }
+        },
+        methods: {
+            getSelect () {
+                this.$emit('selectVal', this.value)
+            }
+        }
     }
-  },
-  data () {
-    return {
-      value: '',
-      value1: '',
-      value2: ''
-    }
-  },
-  methods: {
-    getSelect () {
-      this.$emit('selectVal', this.value)
-    }
-  }
-}
 </script>
 
 <style lang="sass">

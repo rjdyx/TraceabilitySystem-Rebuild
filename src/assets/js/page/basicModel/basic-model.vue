@@ -4,377 +4,381 @@
  * @author 舒丹彤 
  * @date 2017/03/14
  * 
+ * 修改
+ * @author 苏锐佳 
+ * @date 2017/04/10
+ * 
  */
 <template>
-<div>   
-  <!-- 标题 -->
-  <contain-title :settitle="settitle">
-  </contain-title>
-    
-  <!-- tab栏 --> 
-  <el-tabs v-model="activeName" type="card" id="tabs" @tab-click="tabClick">
-    <el-tab-pane v-for="(model,index) in models" :label="model.tab" :name="'index'+index"></el-tab-pane>
-  </el-tabs>  
-    <!-- 操作模块 -->
-    <div id="operate">              
-      <div id="inputs">
+<div>
+    <!-- 标题 -->
+    <contain-title :settitle="settitle">
+    </contain-title>
 
-        <operate :listComponent="listComponent" @selectVal="selectFind"></operate>
-        
-          <!-- 搜索框 -->
-          <div class="searchOp"> 
-              <el-input
+    <!-- tab栏 --> 
+    <el-tabs v-model="activeName" type="card" id="tabs" @tab-click="tabClick">
+        <el-tab-pane v-for="(model,index) in models" :label="model.tab" :name="'index'+index"></el-tab-pane>
+    </el-tabs>
+
+    <!-- 操作模块 -->
+    <div id="operate">
+        <div id="inputs">
+
+            <operate :listComponent="listComponent" @selectVal="selectFind"></operate>
+
+            <!-- 搜索框 -->
+            <div class="searchOp"> 
+                <el-input
                 :placeholder="searchPlaceholder"
                 v-model="inputValue"
                 :on-icon-click="search" class="searchInp" size="small">
-              </el-input>
-              <el-button size="small" class="searchBtn" @click="textFind">搜索</el-button>
-          </div>
+                </el-input>
+                <el-button size="small" class="searchBtn" @click="textFind">搜索</el-button>
+            </div>
 
-        <!-- 操作按钮 -->
-        <component
+            <!-- 操作按钮 -->
+            <component
             v-for="typeOperate in typeComponent"
             :is="typeOperate.component"
             :params="typeOperate.params"
             class="fr"
-        ></component>
-      </div>
-    
-    <!-- 新建模块 -->
-    <popNew v-if="isNewShow" :newComponent="newComponent" :url="url" @submitNew="changeNew"></popNew>
-    <!-- 编辑模块 -->
-    <pop-edit v-if="isEditShow" :editComponent="editComponent" :url="url" :editForm="editForm" @submitEdit="changeEdit"></pop-edit>
-  </div>
-  <!-- 列表模块 -->
-  <el-table :data="tableData"  @selection-change="handleSelectionChange">
-      <!-- checkbox -->
-      <el-table-column width="50" type="selection">
-      </el-table-column>
+            ></component>
+        </div>
 
-      <!-- 序号 -->
-      <el-table-column width="80" label="序号" type="index">
-      </el-table-column>
-
-      <!-- 中间列表模块 -->
-      <template v-for="(item,index) in theads">
-          <template>
-            <el-table-column 
-              :prop="protos[index]" sortable
-              :label="item"
-              :min-width="widths[index]" 
-              show-overflow-tooltip>
-            </el-table-column>
-          </template> 
-      </template>
-
-      <!-- 列表操作模块 -->
-      <el-table-column 
-      label="操作">
-        <template scope="scope" class="operateBtn">
-            <template v-if="moreComponent!=null">
-              <clickMore v-if="clickMoreshow" class="clickMoreBtn" :moreComponent="moreComponent"></clickMore>
-              <i @click="showMore" :class="{'active':active,'unactive':!active}"></i>
-            </template>
-              <template>
-                <i>
-                  <el-button type="text" size="small" class="btndel" @click="changeEditShow(scope.$index,scope.row)">编辑</el-button>
-               </i>
-               <i>
-                  <el-button size="small" type="text" @click="handelDel(scope.$index,scope.row)" class="btn">删除</el-button>  
-               </i>
-              </template>
-          </template>
-    </el-table-column>
-  </el-table>
-
-  <div class="footer">
-    <div class="operate-foot">
-      <el-button @click="delAll">删除</el-button>
-      <el-button>导出表格</el-button>
+        <!-- 新建模块 -->
+        <popNew v-if="isNewShow" :newComponent="newComponent" :url="url" @submitNew="changeNew"></popNew>
+        <!-- 编辑模块 -->
+        <pop-edit v-if="isEditShow" :editComponent="editComponent" :url="url" :editForm="editForm" @submitEdit="changeEdit"></pop-edit>
     </div>
 
-    <p class="record">共有{{num}}页，{{total_num}}条记录</p>
+    <!-- 列表模块 -->
+    <el-table :data="tableData"  @selection-change="handleSelectionChange">
+        <!-- checkbox -->
+        <el-table-column width="50" type="selection">
+        </el-table-column>
 
-    <!-- 分页模块 -->
-    <el-pagination
-      layout="prev, pager, next"
-      :total="paginator.total"
-      :page-size="paginator.per_page"
-      class="pager"
-      @current-change="pageChange">
-    </el-pagination>
-  </div>
-    
+        <!-- 序号 -->
+        <el-table-column width="80" label="序号" type="index">
+        </el-table-column>
+
+        <!-- 中间列表模块 -->
+        <template v-for="(item,index) in theads">
+            <template>
+                <el-table-column 
+                :prop="protos[index]" sortable
+                :label="item"
+                :min-width="widths[index]" 
+                show-overflow-tooltip>
+                </el-table-column>
+            </template> 
+        </template>
+
+        <!-- 列表操作模块 -->
+        <el-table-column 
+        label="操作">
+            <template scope="scope" class="operateBtn">
+                <template v-if="moreComponent!=null">
+                    <clickMore v-if="clickMoreshow" class="clickMoreBtn" :moreComponent="moreComponent"></clickMore>
+                    <i @click="showMore" :class="{'active':active,'unactive':!active}"></i>
+                </template>
+                <template>
+                    <i>
+                        <el-button type="text" size="small" class="btndel" @click="changeEditShow(scope.$index,scope.row)">编辑</el-button>
+                    </i>
+                    <i>
+                        <el-button size="small" type="text" @click="handelDel(scope.$index,scope.row)" class="btn">删除</el-button>  
+                    </i>
+                </template>
+            </template>
+        </el-table-column>
+    </el-table>
+
+    <div class="footer">
+        <div class="operate-foot">
+            <el-button @click="delAll">删除</el-button>
+            <el-button>导出表格</el-button>
+        </div>
+
+        <p class="record">共有{{num}}页，{{total_num}}条记录</p>
+
+        <!-- 分页模块 -->
+        <el-pagination
+            layout="prev, pager, next"
+            :total="paginator.total"
+            :page-size="paginator.per_page"
+            class="pager"
+            @current-change="pageChange">
+        </el-pagination>
+    </div>
+
 </div> 
 </template>
  
 <script>
-import computed from './computed.js'
-import popNew from '../../components/public/popNew.vue'
-import ContainTitle from 'components/public/contain-title.vue'
-import edit from '../../components/public/edit.vue'
-import operate from '../../components/public/operate.vue'
-import popEdit from '../../components/public/popEdit.vue'
-import clickMore from '../../components/public/clickMore.vue'
-export default {
-  name: 'BasicModel',
-  props: {
-    models: {
-      type: Array,
-      default () {
-        return [{
-          key: '',
-          tab: '',
-          tablePager: Object,
-          url: '',
-          urlParams: {},
-          // 从后台获取的所有数据
-          theads: [],
-          searchPlaceholder: '',
-          protos: ['name'],
-          widths: [50],
-          title: '',
-          options: [],
-          selectSearch: [],
-          typeComponent: [],
-          listComponent: [],
-          newComponent: [{
-            tab: {
-              component: null,
-              isNull: true,
-              label: '',
-              placeholder: '',
-              rule: ''
+    import computed from './computed.js'
+    import popNew from '../../components/public/popNew.vue'
+    import ContainTitle from 'components/public/contain-title.vue'
+    import edit from '../../components/public/edit.vue'
+    import operate from '../../components/public/operate.vue'
+    import popEdit from '../../components/public/popEdit.vue'
+    import clickMore from '../../components/public/clickMore.vue'
+    export default {
+        name: 'BasicModel',
+        props: {
+            models: {
+                type: Array,
+                default () {
+                    return [{
+                        key: '',
+                        tab: '',
+                        tablePager: Object,
+                        url: '',
+                        urlParams: {},
+                        // 从后台获取的所有数据
+                        theads: [],
+                        searchPlaceholder: '',
+                        protos: ['name'],
+                        widths: [50],
+                        title: '',
+                        options: [],
+                        selectSearch: [],
+                        typeComponent: [],
+                        listComponent: [],
+                        newComponent: [{
+                            tab: {
+                                component: null,
+                                isNull: true,
+                                label: '',
+                                placeholder: '',
+                                rule: ''
+                            }
+                        }],
+                        editComponent: [],
+                        moreComponent: []
+                    }]
+                }
             }
-          }],
-          editComponent: [],
-          moreComponent: []
-        }]
-      }
-    }
-  },
-  data () {
-    return {
-      compute: this,
-      // 搜索框内容
-      inputValue: '',
-      // 下拉框
-      selectVal: '',
-      // tab模块选择标志
-      // activeName:'index'+this.$route.params.index,
-      // tab对应的模块下标
-      modelIndex: this.$route.params.index,
-      // 列表数据
-      tableData: [],
-      // 被选中的列表项数组
-      multipleSelection: [],
-      // 是否新建
-      isNewShow: false,
-      // 是否编辑
-      isEditShow: false,
-      // msg: 1,
-      editBol: false,
-      editForm: {},
-      // 切换点击更多按钮的状态
-      active: true,
-      // 点击展开更多按钮
-      clickMoreshow: false,
-      total_num: '',
-      paginator: {},
-      total: '',
-      // 组合查询
-      par: {},
-      // 数组拼装
-      dataArr: {},
-      // 复选框选中返回对象
-      checkObject: {}
-    }
-  },
-  mixins: [computed],
-  methods: {
-    init (index = 0) {
-      this.value = ''
-      this.inputValue = ''
-      this.selectVal = '22'
-      this.activeName = 'index'
-      this.modelIndex = index
-      this.$set(this, 'tableData', [])
-      this.$set(this, 'multipleSelection', [])
-    },
-    /**
-  * 列表选择事件
-     *
-     */
-    // tab点击事件
-    tabClick (tab, event) {
-      this.modelIndex = tab.$data.index
-      console.log(tab.$data)
-      // let model = this.$route.params.model
-    },
-    // 操作更多选项
-    filterTag (value, row) {
-      return row.tag === value
-    },
-    // 点击删除
-    handelDel (index, row) {
-      this.$confirm('你确定要删除该信息吗?', '信息', {
-        cancelButtonText: '取消',
-        confirmButtonText: '确定',
-        type: 'error'
-      }).then(() => {
-        axios.delete(this.$adminUrl(this.url + '/' + row.id))
-          .then((responce) => {
-            // 删除成功回调方法
-            this.delSuccess(index, row)
-            this.$message({
-              type: 'success',
-              message: '删除成功'
-            })
-          })
-      }).catch(() => {
-        this.$message({
-          type: 'info',
-          message: '已取消删除'
-        })
-      })
-    },
-    // 显示新建表单
-    changeNewShow () {
-      this.isNewShow = !this.isNewShow
-    },
-    // 显示编辑表单
-    changeEditShow (index, row) {
-      this.isEditShow = !this.isEditShow
-      this.editForm = row
-    },
-    // 点击展开更多操作按钮
-    showMore () {
-      this.active = !this.active
-      this.clickMoreshow = !this.clickMoreshow
-    },
-    // 获取数据
-    getAllMsg (data = '') {
-      this.par.params = data
-      axios.get(this.$adminUrl(this.url), {params: this.par})
-        .then((responce) => {
-        // 数据转换
-          if (responce.data.data.length !== 0) {
-            var ret = this.$conversion(this.url, responce.data.data, 1)
-            this.$set(this, 'tableData', ret)
-            this.total_num = responce.data.total
-            this.num = responce.data.last_page
-            this.paginator = responce.data
-          }
-        })
-        .catch(err => {
-          console.dir(err)
-        })
-    },
-    // 文本查询
-    textFind () {
-      this.dataArr['query_text'] = this.inputValue
-      if (this.selectVal !== '') {
-        this.dataArr[this.selectSearch[0]] = this.selectVal
-      }
-      this.pageChange(1)
-    },
-    // 下拉框查询
-    selectFind (val) {
-      this.selectVal = val
-      // this.dataArr = {}
-      if (val !== '') {
-        this.dataArr['query_text'] = this.inputValue
-        this.dataArr[this.selectSearch[0]] = val
-      } else {
-        this.dataArr = ''
-      }
-      this.pageChange(1)
-    },
-    // 分页跳转
-    pageChange (val) {
-      if (this.dataArr === '') {
-        this.dataArr = {}
-      }
-      this.dataArr['page'] = val
-      this.getAllMsg(this.dataArr)
-    },
-    // 全选获取数据
-    handleSelectionChange (val) {
-      this.checkObject = val
-    },
-    // 删除数据
-    delSuccess (index) {
-      this.tableData.splice(index, 1)
-    },
-    // 批量删除
-    delAll () {
-      if (this.checkObject.length !== undefined && this.checkObject.length !== 0) {
-        var delArr = []
-        for (let key in this.checkObject) {
-          delArr.push(this.checkObject[key].id)
+        },
+        data () {
+            return {
+                compute: this,
+                // 搜索框内容
+                inputValue: '',
+                // 下拉框
+                selectVal: '',
+                // tab模块选择标志
+                // activeName:'index'+this.$route.params.index,
+                // tab对应的模块下标
+                modelIndex: this.$route.params.index,
+                // 列表数据
+                tableData: [],
+                // 被选中的列表项数组
+                multipleSelection: [],
+                // 是否新建
+                isNewShow: false,
+                // 是否编辑
+                isEditShow: false,
+                // msg: 1,
+                editBol: false,
+                editForm: {},
+                // 切换点击更多按钮的状态
+                active: true,
+                // 点击展开更多按钮
+                clickMoreshow: false,
+                total_num: '',
+                paginator: {},
+                total: '',
+                // 组合查询
+                par: {},
+                // 数组拼装
+                dataArr: {},
+                // 复选框选中返回对象
+                checkObject: {}
+            }
+        },
+        mixins: [computed],
+        methods: {
+            init (index = 0) {
+                this.value = ''
+                this.inputValue = ''
+                this.selectVal = '22'
+                this.activeName = 'index'
+                this.modelIndex = index
+                this.$set(this, 'tableData', [])
+                this.$set(this, 'multipleSelection', [])
+            },
+            /**
+            * 列表选择事件
+            *
+            */
+            // tab点击事件
+            tabClick (tab, event) {
+                this.modelIndex = tab.$data.index
+                console.log(tab.$data)
+            // let model = this.$route.params.model
+            },
+            // 操作更多选项
+            filterTag (value, row) {
+                return row.tag === value
+            },
+            // 点击删除
+            handelDel (index, row) {
+                this.$confirm('你确定要删除该信息吗?', '信息', {
+                    cancelButtonText: '取消',
+                    confirmButtonText: '确定',
+                    type: 'error'
+                }).then(() => {
+                axios.delete(this.$adminUrl(this.url + '/' + row.id))
+                .then((responce) => {
+                    // 删除成功回调方法
+                    this.delSuccess(index, row)
+                    this.$message({
+                        type: 'success',
+                        message: '删除成功'
+                    })
+                })
+                }).catch(() => {
+                    this.$message({
+                        type: 'info',
+                        message: '已取消删除'
+                    })
+                })
+            },
+            // 显示新建表单
+            changeNewShow () {
+                this.isNewShow = !this.isNewShow
+            },
+            // 显示编辑表单
+            changeEditShow (index, row) {
+                this.isEditShow = !this.isEditShow
+                this.editForm = row
+            },
+            // 点击展开更多操作按钮
+            showMore () {
+                this.active = !this.active
+                this.clickMoreshow = !this.clickMoreshow
+            },
+            // 获取数据
+            getAllMsg (data = '') {
+                this.par.params = data
+                axios.get(this.$adminUrl(this.url), {params: this.par})
+                .then((responce) => {
+                    // 数据转换
+                    if (responce.data.data.length !== 0) {
+                        var ret = this.$conversion(this.url, responce.data.data, 1)
+                        this.$set(this, 'tableData', ret)
+                        this.total_num = responce.data.total
+                        this.num = responce.data.last_page
+                        this.paginator = responce.data
+                    }
+                })
+                .catch(err => {
+                    console.dir(err)
+                })
+            },
+            // 文本查询
+            textFind () {
+                this.dataArr['query_text'] = this.inputValue
+                if (this.selectVal !== '') {
+                    this.dataArr[this.selectSearch[0]] = this.selectVal
+                }
+                this.pageChange(1)
+            },
+            // 下拉框查询
+            selectFind (val) {
+                this.selectVal = val
+                // this.dataArr = {}
+                if (val !== '') {
+                    this.dataArr['query_text'] = this.inputValue
+                    this.dataArr[this.selectSearch[0]] = val
+                } else {
+                    this.dataArr = ''
+                }
+                this.pageChange(1)
+            },
+            // 分页跳转
+            pageChange (val) {
+                if (this.dataArr === '') {
+                    this.dataArr = {}
+                }
+                this.dataArr['page'] = val
+                this.getAllMsg(this.dataArr)
+            },
+            // 全选获取数据
+            handleSelectionChange (val) {
+                this.checkObject = val
+            },
+            // 删除数据
+            delSuccess (index) {
+                this.tableData.splice(index, 1)
+            },
+            // 批量删除
+            delAll () {
+                if (this.checkObject.length !== undefined && this.checkObject.length !== 0) {
+                    var delArr = []
+                for (let key in this.checkObject) {
+                    delArr.push(this.checkObject[key].id)
+                }
+                var paramsDel = { 'ids': delArr }
+                axios.post(this.$adminUrl('util/batch-delete/' + this.url), paramsDel)
+                .then((responce) => {
+                    if (responce.data === 'true') {
+                        this.pageChange(1)
+                        this.$message({
+                            type: 'success',
+                            message: '批量删除成功'
+                        })
+                    } else {
+                        this.$message.error('批量删除失败')
+                    }
+                })
+                }
+            },
+            // 新建数据
+            changeNew (val) {
+                if (val !== 'false') {
+                    this.isNewShow = false
+                    this.pageChange(1)
+                    this.$message({
+                        type: 'success',
+                        message: '新增数据成功'
+                    })
+                } else {
+                    this.$message.error('新增数据失败')
+                }
+            },
+            // 编辑修改数据
+            changeEdit (val) {
+                if (val !== 'false') {
+                    this.isEditShow = false
+                    this.pageChange(1)
+                    this.$message({
+                        type: 'success',
+                        message: '编辑数据成功'
+                    })
+                } else {
+                    this.$message.error('编辑数据失败')
+                }
+            }
+        },
+        components: {
+            ContainTitle,
+            popNew,
+            edit,
+            operate,
+            popEdit,
+            clickMore
+        },
+        mounted () {
+            this.getAllMsg()
+        },
+        watch: {
+            key () {
+                this.tableData = []
+                this.getAllMsg()
+            }
         }
-        var paramsDel = { 'ids': delArr }
-        axios.post(this.$adminUrl('util/batch-delete/' + this.url), paramsDel)
-        .then((responce) => {
-          if (responce.data === 'true') {
-            this.pageChange(1)
-            this.$message({
-              type: 'success',
-              message: '批量删除成功'
-            })
-          } else {
-            this.$message.error('批量删除失败')
-          }
-        })
-      }
-    },
-    // 新建数据
-    changeNew (val) {
-      if (val !== 'false') {
-        this.isNewShow = false
-        this.pageChange(1)
-        this.$message({
-          type: 'success',
-          message: '新增数据成功'
-        })
-      } else {
-        this.$message.error('新增数据失败')
-      }
-    },
-    // 编辑修改数据
-    changeEdit (val) {
-      if (val !== 'false') {
-        this.isEditShow = false
-        this.pageChange(1)
-        this.$message({
-          type: 'success',
-          message: '编辑数据成功'
-        })
-      } else {
-        this.$message.error('编辑数据失败')
-      }
     }
-  },
-  components: {
-    ContainTitle,
-    popNew,
-    edit,
-    operate,
-    popEdit,
-    clickMore
-  },
-  mounted () {
-    this.getAllMsg()
-  },
-  watch: {
-    key () {
-      this.tableData = []
-      this.getAllMsg()
-    }
-  },
-  computed: {
-  }
-}
 
 </script>
 

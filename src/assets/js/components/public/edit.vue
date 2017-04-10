@@ -5,10 +5,7 @@
 </template>
 
 <script>
-export default {
-  name: 'edit',
-  data () {
-    return {}
-  }
-}
+    export default {
+        name: 'edit'
+    }
 </script>

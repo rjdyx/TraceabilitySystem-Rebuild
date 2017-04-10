@@ -1,6 +1,6 @@
 /**
- * js库初始化
- */
+* js库初始化
+*/
 
 require('babel-polyfill') // 解决手机端uc浏览器、qq浏览器和微信浏览器无法使用部分ES6语法
 require('animate.css') // 动画css插件
@@ -19,17 +19,17 @@ import VeeValidate from 'vee-validate'
 import messagesZhCN from 'lang/validate/zh_CN.js'
 import messagesEn from 'lang/validate/en.js'
 Vue.use(VeeValidate, {
-  fieldsBagName: 'vfields',
-  errorBagName: 'verrors',
-  locale: require('projectRoot/env.js').app_lang,
-  dictionary: {
-    'zh-CN': {
-      messages: messagesZhCN
-    },
-    'en': {
-      messages: messagesEn
+    fieldsBagName: 'vfields',
+    errorBagName: 'verrors',
+    locale: require('projectRoot/env.js').app_lang,
+    dictionary: {
+        'zh-CN': {
+            messages: messagesZhCN
+        },
+        'en': {
+            messages: messagesEn
+        }
     }
-  }
 })
 
 // const validator=new Vali
@@ -52,10 +52,10 @@ import 'element-ui/lib/theme-default/index.css'
 // }
 import * as elementComponent from './element-ui.js'
 /**
- * 饿了么组件按需引用组件有两种方式，其中Vue.use可能会导致属性冲突，故不推荐使用
- */
+* 饿了么组件按需引用组件有两种方式，其中Vue.use可能会导致属性冲突，故不推荐使用
+*/
 Object.keys(elementComponent).forEach(function (component) {
-  Vue.component(elementComponent[component].name, elementComponent[component])
+    Vue.component(elementComponent[component].name, elementComponent[component])
 })
 
 // vue-i18n初始化
@@ -76,6 +76,6 @@ Object.keys(elementComponent).forEach(function (component) {
 // //   Vue.locale(lang, locales[lang])
 // // })
 /**
- * css库
- */
+* css库
+*/
 require('sass/index.scss')

@@ -5,22 +5,22 @@
  * @date 2017/3/15 
  * 
  */ 
- <template>
-	<div class="title">
-    <h2>{{settitle}}</h2>   
-  </div>
+<template>
+    <div class="title">
+        <h2>{{settitle}}</h2>   
+    </div>
 </template> 
 
 <script>
-export default {
-  name: 'ContainTitle',
-  props: {
-    settitle: {
-      type: String,
-      default: ''
+    export default {
+        name: 'ContainTitle',
+        props: {
+            settitle: {
+                type: String,
+                default: ''
+            }
+        }
     }
-  }
-}
 </script>
 
 <style lang="sass" scoped>

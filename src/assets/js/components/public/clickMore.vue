@@ -19,19 +19,15 @@
 </template>
 
 <script>
-export default {
-  name: 'clickMore',
-  props: {
-    moreComponent: {
-      type: Array,
-      default: []
+    export default {
+        name: 'clickMore',
+        props: {
+            moreComponent: {
+                type: Array,
+                default: []
+            }
+        }
     }
-  },
-  data () {
-    return {
-    }
-  }
-}
 </script>
 
 
