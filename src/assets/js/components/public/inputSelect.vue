@@ -6,51 +6,50 @@
 
  */
 <template>
-<div class="inputSelect">
-	<em class="input-imp" v-if="isNull===false">*</em>
-	<label class="input-label" for="inputText">{{label}}&nbsp&nbsp:</label>
-	 <el-select id="inputSelect" class="input-pop" v-model="value"  size="small">
-	    <el-option
-	      v-for="item in options"
-	      :label="item.label"
-	      :value="item.value">
-	    </el-option>
-	  </el-select>
-</div>
+    <div class="inputSelect">
+    	<em class="input-imp" v-if="isNull===false">*</em>
+    	<label class="input-label" for="inputText">{{label}}&nbsp&nbsp:</label>
+        <el-select id="inputSelect" class="input-pop" v-model="value"  size="small">
+            <el-option
+                v-for="item in options"
+                :label="item.label"
+                :value="item.value">
+            </el-option>
+        </el-select>
+    </div>
 
 </template>
 <script>
-export default {
-  props:
-  {
-    isNull:
-    {
-      type: Boolean,
-      default: true
-    },
-    label: {
-      type: String,
-      default: ''
-    },
-    placeholder: {
-      type: String,
-      default: '必填'
-    },
-    rule: {
-      type: String
-    },
-    options: {
-      type: Array,
-      default: []
+    export default {
+        props: {
+            isNull: {
+                type: Boolean,
+                default: true
+            },
+            label: {
+                type: String,
+                default: ''
+            },
+            placeholder: {
+                type: String,
+                default: '必填'
+            },
+            rule: {
+                type: String
+            },
+            options: {
+                type: Array,
+                default () {
+                    return []
+                }
+            }
+        },
+        data () {
+            return {
+                value: ''
+            }
+        }
     }
-
-  },
-  data () {
-    return {
-      value: ''
-    }
-  }
-}
 </script>
 <style lang="sass">
 	@import "../../../sass/public/inputSize.scss";

@@ -30,18 +30,18 @@
 <script>
 import {mapMutations} from 'vuex'
 export default {
-  name: 'SiderBar',
-  props: {
-    menus: {
-      type: Array,
-      default () {
-        return []
-      }
+    name: 'SiderBar',
+    props: {
+        menus: {
+            type: Array,
+            default () {
+                return []
+            }
+        }
+    },
+    computed: {},
+    methods: {
     }
-  },
-  computed: {},
-  methods: {
-  }
 }
 </script>
 

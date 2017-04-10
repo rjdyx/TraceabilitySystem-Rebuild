@@ -15,10 +15,10 @@
 <script>
 import BasicContent from '../plant-basic/basic-content.vue'
 export default {
-  name: 'Basic',
-  components: {
-    BasicContent
-  }
+    name: 'Basic',
+    components: {
+        BasicContent
+    }
 }
 </script>
 

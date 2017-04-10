@@ -6,31 +6,29 @@
 
  */
 <template>
-		<el-date-picker size="small" class="inputData"  v-model="value" type="date" placeholder="选择日期">
-		</el-date-picker>
+	<el-date-picker size="small" class="inputData"  v-model="value" type="date" placeholder="选择日期">
+	</el-date-picker>
 </template>
 <script>
-export default {
-  props:
-  {
-    shuju: {
-      type: Object,
-      default: {}
-    },
-    editValue: {}
-  },
-  data () {
-    return {
-      value: this.editValue
+    export default {
+        props: {
+            shuju: {
+                type: Object,
+                default () {
+                    return {}
+                }
+            },
+            editValue: {}
+        },
+        data () {
+            return {
+                value: this.editValue
+            }
+        },
+        watch: {
+            value () {
+                this.$emit('return-shuju', {name: this.shuju.name, value: this.value})
+            }
+        }
     }
-  },
-  mounted () {
-    // console.log('data:' + this.editValue)
-  },
-  watch: {
-    value () {
-      this.$emit('return-shuju', {name: this.shuju.name, value: this.value})
-    }
-  }
-}
 </script>

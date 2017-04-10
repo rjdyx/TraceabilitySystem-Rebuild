@@ -10,27 +10,26 @@ import message from './message.js'
 import reaction from './reaction.js'
 
 export default {
-  name: 'BasicContent',
-  data () {
-    let modelObj = {}
-    Object.assign(modelObj, message, reaction)
-    return {
-      checked: [],
-      activeName2: 'first',
-      models: modelObj
+    name: 'BasicContent',
+    data () {
+        let modelObj = {}
+        Object.assign(modelObj, message, reaction)
+        return {
+            checked: [],
+            activeName2: 'first',
+            models: modelObj
+        }
+    },
+    methods: {
+    },
+    components: {
+        BasicModel
+    },
+    computed: {
+        type () {
+            return this.$route.params.model
+        }
     }
-  },
-  methods: {
-
-  },
-  components: {
-    BasicModel
-  },
-  computed: {
-    type () {
-      return this.$route.params.model
-    }
-  }
 }
 </script>
 

@@ -82,83 +82,83 @@
 </template>
 <script>
 export default {
-  name: 'validator-example',
-  // validator: null,
-  components: {
-    // ActiveBox,
-  },
-  props: {
-    type: '',
-    editComponent: {
-      type: Array,
-      default: []
+    name: 'validator-example',
+    // validator: null,
+    components: {
+      // ActiveBox,
     },
-    editForm: {
-      type: Object,
-      default () {
-        return {}
-      }
+    props: {
+        type: '',
+        editComponent: {
+            type: Array,
+            default: []
+        },
+        editForm: {
+            type: Object,
+            default () {
+                return {}
+            }
+        },
+        url: ''
     },
-    url: ''
-  },
-  data () {
-    let form = {}
-    this.editComponent[0].components.forEach(function (item) {
-      form[item.name] = ''
-    })
-    let rules = {}
-    this.editComponent[0].components.forEach(function (item) {
-      rules[item.name] = item.rule
-    })
-    return {
-      // 当前选中的标签页
-      activeName: this.editComponent[0].tab,
-      // editForm: this.editForm,
-      // editForm: {},
-      rules: rules
-    }
-  },
-  mounted () {
-    // console.log('editBol:' + this.editBol)
-    // this.editForm = this.editBol ? this.editForm : this.form
-  },
-  methods: {
-    handleClick (tab, event) {
-      console.log(tab, event)
-    },
-    // 返回InputTextSelect组件的数据
-    returnShuju ({name, value}) {
-      this.editForm[name] = value
-    },
-    // 关闭表单事件
-    closeClick () {
-      this.$parent.changeEditShow()
-    },
-    // 取消事件
-    cancelClick () {
-      this.$parent.changeEditShow()
-    },
-    /**
-      * 提交表单
-      */
-    submitForm (formName) {
-      this.$refs[formName][0].validate((valid) => {
-        if (valid) {
-          var ret = this.$conversion(this.url, this.editForm, 0)
-          axios.put(this.$adminUrl(this.url + '/' + this.editForm.id), ret).then((response) => {
-            this.$emit('submitEdit', response.data)
-          }, (response) => {
-            this.$emit('submitEdit', 'false')
-          })
-        } else {
-          return false
+    data () {
+        let form = {}
+        this.editComponent[0].components.forEach(function (item) {
+            form[item.name] = ''
+        })
+        let rules = {}
+        this.editComponent[0].components.forEach(function (item) {
+            rules[item.name] = item.rule
+        })
+        return {
+            // 当前选中的标签页
+            activeName: this.editComponent[0].tab,
+            // editForm: this.editForm,
+            // editForm: {},
+            rules: rules
         }
-      })
     },
-    resetForm (formName) {
-      this.$refs[formName].resetFields()
+    mounted () {
+      // console.log('editBol:' + this.editBol)
+      // this.editForm = this.editBol ? this.editForm : this.form
+    },
+    methods: {
+        handleClick (tab, event) {
+            console.log(tab, event)
+        },
+        // 返回InputTextSelect组件的数据
+        returnShuju ({name, value}) {
+            this.editForm[name] = value
+        },
+        // 关闭表单事件
+        closeClick () {
+            this.$parent.changeEditShow()
+        },
+        // 取消事件
+        cancelClick () {
+            this.$parent.changeEditShow()
+        },
+        /**
+          * 提交表单
+          */
+        submitForm (formName) {
+            this.$refs[formName][0].validate((valid) => {
+                if (valid) {
+                    var ret = this.$conversion(this.url, this.editForm, 0)
+                    axios.put(this.$adminUrl(this.url + '/' + this.editForm.id), ret).then((response) => {
+                        this.$emit('submitEdit', response.data)
+                    }, (response) => {
+                        this.$emit('submitEdit', 'false')
+                    })
+                } else {
+                    return false
+                }
+            })
+        },
+        resetForm (formName) {
+            this.$refs[formName].resetFields()
+        }
     }
-  }
 }
 </script>
 <style lang="sass">

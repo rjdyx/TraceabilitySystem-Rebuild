@@ -7,14 +7,12 @@ import router from './route/routers.js'
 require('./config/init')
 
 router.beforeEach((to, from, next) => {
-  next()
+    next()
 })
 
-router.afterEach(route => {
-})
+router.afterEach(route => {})
 
 const app = new Vue({
-  router,
-  // store,
-  render: h => h(App)
+    router,
+    render: h => h(App)
 }).$mount('#app')

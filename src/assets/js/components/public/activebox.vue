@@ -6,24 +6,24 @@
  * 
  */
 <template>
-		<div class="actionBox">
-			<el-button type="primary" @click="confirmClick">确定</el-button>
-			<el-button class="activecancel" @click="cancelClick">取消</el-button>
-		</div>
+	<div class="actionBox">
+		<el-button type="primary" @click="confirmClick">确定</el-button>
+		<el-button class="activecancel" @click="cancelClick">取消</el-button>
+	</div>
 </template>
 
 <script>
-export default {
-  methods: {
-    confirmClick () {
-      this.$parent.handleClick()
-    },
-// 取消事件
-    cancelClick () {
-      this.$parent.closeClick()
+    export default {
+        methods: {
+            confirmClick () {
+                this.$parent.handleClick()
+            },
+            // 取消事件
+            cancelClick () {
+                this.$parent.closeClick()
+            }
+        }
     }
-  }
-}
 </script>
 
 <style lang="sass" scoped>

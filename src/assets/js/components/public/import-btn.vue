@@ -12,9 +12,9 @@
 </template>
 
 <script>
-export default {
-  name: 'ImportBtn'
-}
+    export default {
+        name: 'ImportBtn'
+    }
 </script>
 
 <style lang="sass" scoped>

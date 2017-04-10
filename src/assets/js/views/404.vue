@@ -26,7 +26,7 @@
 	}
 </style>
 <script>
-    export default{
-      name: 'fourOFour'
+    export default {
+        name: 'fourOFour'
     }
 </script>

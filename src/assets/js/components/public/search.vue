@@ -39,37 +39,34 @@
 
 <script>
 export default {
-  name: 'search',
-  props: {
-    placeholder: {
-      type: String,
-      default: '请输入种植场进行搜索'
+    name: 'search',
+    props: {
+        placeholder: {
+            type: String,
+            default: '请输入种植场进行搜索'
+        },
+        searchUrl: {
+            type: String,
+            default: '/'
+        },
+        params: {
+            type: Object,
+            default () {
+                return {}
+            }
+        }
     },
-    searchUrl: {
-      type: String,
-      default: '/'
+    data () {
+        return {
+            searchInput: ''
+        }
     },
-    params: {
-      type: Object,
-      default () {
-        return {}
-      }
+    methods: {
+      /**
+     * 查询
+     */
+        search () {}
     }
-  },
-  data () {
-    return {
-      searchInput: ''
-    }
-  },
-  methods: {
-
-    /**
-   * 查询
-   */
-    search () {}
-
-  }
-
 }
 </script>
 
