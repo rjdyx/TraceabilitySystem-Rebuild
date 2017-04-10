@@ -19,7 +19,7 @@
     <div id="operate">              
       <div id="inputs">
         <operate :listComponent="listComponent" @selectVal="selectFind"></operate>
-
+        
           <!-- 搜索框 -->
           <div class="searchOp"> 
               <el-input
@@ -40,9 +40,9 @@
       </div>
     
     <!-- 新建模块 -->
-    <popNew v-if="isNewShow" :newComponent="newComponent"></popNew>
+    <popNew v-if="isNewShow" :newComponent="newComponent" :url="url" @submitNew="changeNew"></popNew>
     <!-- 编辑模块 -->
-    <pop-edit v-if="isEditShow" :editComponent="editComponent" :editForm="editForm"></pop-edit>
+    <pop-edit v-if="isEditShow" :editComponent="editComponent" :url="url" :editForm="editForm" @submitEdit="changeEdit"></pop-edit>
   </div>
   <!-- 列表模块 -->
   <el-table :data="tableData"  @selection-change="handleSelectionChange">
@@ -51,14 +51,14 @@
       </el-table-column>
 
       <!-- 序号 -->
-      <el-table-column width="80" label="序号" type="index" sortable>
+      <el-table-column width="80" label="序号" type="index">
       </el-table-column>
 
       <!-- 中间列表模块 -->
       <template v-for="(item,index) in theads">
           <template>
             <el-table-column 
-              :prop="protos[index]" 
+              :prop="protos[index]"
               :label="item"
               :min-width="widths[index]" 
               show-overflow-tooltip>
@@ -76,7 +76,7 @@
             </template>
               <template>
                 <i>
-                  <el-button type="text" size="small" class="btndel" @click="changeEditShow">编辑</el-button>
+                  <el-button type="text" size="small" class="btndel" @click="changeEditShow(scope.$index,scope.row)">编辑</el-button>
                </i>
                <i>
                   <el-button size="small" type="text" @click="handelDel(scope.$index,scope.row)" class="btn">删除</el-button>  
@@ -92,12 +92,12 @@
       <el-button>导出表格</el-button>
     </div>
 
-    <p class="record">共有{{num}}页，{{total}}条记录</p>
+    <p class="record">共有{{num}}页，{{total_num}}条记录</p>
 
     <!-- 分页模块 -->
     <el-pagination
       layout="prev, pager, next"
-      :total="paginator.total" 
+      :total="paginator.total"
       :page-size="paginator.per_page"
       class="pager"
       @current-change="pageChange">
@@ -173,16 +173,14 @@ export default {
       isEditShow: false,
       // msg: 1,
       editBol: false,
-      editForm: {'animalName': '猪', 'varieties': '10', 'RFID': 'rfidcs', 'remarkInfo': '2017-04-13', 'textS': ['10', '个']},
+      editForm: {},
       // 切换点击更多按钮的状态
       active: true,
       // 点击展开更多按钮
       clickMoreshow: false,
+      total_num: '',
+      paginator: {},
       total: '',
-      checked: '',
-      selectall: '',
-      checkAll: true,
-      isIndeterminate: true,
       // 组合查询
       par: {},
       // 数组拼装
@@ -209,7 +207,8 @@ export default {
     // tab点击事件
     tabClick (tab, event) {
       this.modelIndex = tab.$data.index
-      let model = this.$route.params.model
+      console.log(tab.$data)
+      // let model = this.$route.params.model
     },
     // 操作更多选项
     filterTag (value, row) {
@@ -245,20 +244,14 @@ export default {
       this.isNewShow = !this.isNewShow
     },
     // 显示编辑表单
-    changeEditShow () {
+    changeEditShow (index, row) {
       this.isEditShow = !this.isEditShow
+      this.editForm = row
     },
-    // singelSelect (el) {
-    //   this.selectall = !this.selectall
-    //   console.log(el)
-    // },
     // 点击展开更多操作按钮
     showMore () {
       this.active = !this.active
       this.clickMoreshow = !this.clickMoreshow
-    },
-    selectAll () {
-      this.checked = !this.checked
     },
     // 获取数据
     getAllMsg (data = '') {
@@ -268,9 +261,9 @@ export default {
         .then((responce) => {
         // 数据转换
           if (responce.data.data.length !== 0) {
-            var ret = this.$conversion(this.url, responce.data.data)
+            var ret = this.$conversion(this.url, responce.data.data, 1)
             this.$set(this, 'tableData', ret)
-            this.total = responce.data.total
+            this.total_num = responce.data.total
             this.num = responce.data.last_page
             this.paginator = responce.data
             console.log(responce.data.data)
@@ -291,25 +284,13 @@ export default {
     // 下拉框查询
     selectFind (val) {
       this.selectVal = val
-      this.dataArr = {}
+      // this.dataArr = {}
       if (val !== '') {
         this.dataArr['query_text'] = this.inputValue
         this.dataArr[this.selectSearch[0]] = val
       } else {
         this.dataArr = ''
       }
-      this.pageChange(1)
-    },
-    // 获取下拉框数据
-    getSelectMsg (data = '') {
-      axios.get(this.$adminUrl(this.url), {params: data})
-        .then((responce) => {
-        // 数据转换
-          var ret = this.$conversion(this.url, responce.data.data)
-          console.log(ret)
-          this.$set(this, 'tableData', ret)
-          this.total = this.tableData.length
-        })
       this.pageChange(1)
     },
     // 分页跳转
@@ -331,7 +312,7 @@ export default {
     },
     // 批量删除
     delAll () {
-      if (this.checkObject.length !== undefined) {
+      if (this.checkObject.length !== undefined && this.checkObject.length !== 0) {
         var delArr = []
         for (let key in this.checkObject) {
           delArr.push(this.checkObject[key].id)
@@ -349,6 +330,32 @@ export default {
             this.$message.error('批量删除失败')
           }
         })
+      }
+    },
+    // 新建数据
+    changeNew (val) {
+      if (val !== 'false') {
+        this.isNewShow = false
+        this.pageChange(1)
+        this.$message({
+          type: 'success',
+          message: '新增数据成功'
+        })
+      } else {
+        this.$message.error('新增数据失败')
+      }
+    },
+    // 编辑修改数据
+    changeEdit (val) {
+      if (val !== 'false') {
+        this.isEditShow = false
+        this.pageChange(1)
+        this.$message({
+          type: 'success',
+          message: '编辑数据成功'
+        })
+      } else {
+        this.$message.error('编辑数据失败')
       }
     }
   },

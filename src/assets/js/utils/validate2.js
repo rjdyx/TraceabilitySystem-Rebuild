@@ -11,6 +11,9 @@
 //   }
 // }
 
+// element ui的自定义表单验证
+
+// 手机和固话验证
 exports.phone = (rule, value, callback) => {
   var bol = (value.length === 11 && /^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1}))+\d{8})$/.test(value)) || (value.length === 12 && /^(([0+]\d{2,3}-)?(0\d{2,3})-)?(\d{7,8})(-(\d{3,}))?$/.test(value))
   if (!bol) {

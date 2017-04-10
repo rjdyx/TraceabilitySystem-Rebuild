@@ -9,7 +9,7 @@
 
 <template>
 <div class="newWrap">
-  <form class="newForm">
+  <form class="newForm" @mousedown="formDown($event)" @mousemove="formMove($event)">
     <i class="el-icon-circle-close" @click="closeClick" ></i>
       <!-- tab选项卡 -->
       <!-- <h4>{{newComponent[0].tab}}</h4> -->
@@ -97,7 +97,8 @@ export default {
     },
     tab: {
       type: String
-    }
+    },
+    url: ''
     // editForm: {
     //   type: Object,
     //   default: {}
@@ -125,14 +126,26 @@ export default {
     return {
       // 当前选中的标签页
       activeName: this.newComponent[0].tab,
-      tableForm: form,
       // tableForm: {},
-      rules: rules
+      tableForm: form,
+      rules: rules,
+      // 判断鼠标是否点击
+      isMouseClick: false,
+      dmL: 0,
+      dmT: 0
     }
   },
   mounted () {
     // console.log('editBol:' + this.editBol)
     // this.tableForm = this.editBol ? this.editForm : this.form
+    // 鼠标移动form
+    window.onmouseup = () => {
+      if (this.isMouseClick) {
+        this.isMouseClick = false
+        // _this.formDown = null
+        // _this.formMove = null
+      }
+    }
   },
   methods: {
     handleClick (tab, event) {
@@ -154,19 +167,52 @@ export default {
       * 提交表单
       */
     submitForm (formName) {
-      console.log(this.$refs[formName][0])
       this.$refs[formName][0].validate((valid) => {
         if (valid) {
-          // alert('submit!')
-          console.log('提交成功')
-          for (let key of Object.keys(this.tableForm)) {
-            console.log(key + ': ' + this.tableForm[key])
-          }
+          axios.post(this.$adminUrl(this.url), this.tableForm).then((response) => {
+            this.$emit('submitNew', response.data)
+          }, (response) => {
+            this.$emit('submitNew', 'false')
+          })
         } else {
-          console.log('error submit!!')
           return false
         }
       })
+    },
+    // 鼠标点击表单
+    formDown (event) {
+      console.log(event)
+      console.log('formDown')
+      this.isMouseClick = true
+      // 鼠标与newForm块的距离
+      this.dmL = event.clientX - $('.newForm')[0].offsetLeft
+      this.dmT = event.clientY - $('.newForm')[0].offsetTop
+    },
+    formMove (event) {
+      if (this.isMouseClick) {
+        console.log('formMove')
+        // newForm块移动的最大距离
+        var maxL = document.documentElement.clientWidth - $('.newForm')[0].offsetWidth
+        var maxT = document.documentElement.clientHeight - $('.newForm')[0].offsetHeight
+        // newForm移动的距离
+        var x = event.clientX - this.dmL
+        var y = event.clientY - this.dmT
+        // 给个判断条件:让newForm不能移出浏览器
+        // 如果newForm移动的距离>newForm移动的最大距离时
+        if (x > maxL) {
+          x = maxL
+        } else if (x < 0) {
+          x = 0
+        }
+        if (y > maxT) {
+          y = maxT
+        } else if (y < 0) {
+          y = 0
+        }
+        $('.newForm').css('left', x + 'px')
+        $('.newForm').css('top', y + 'px')
+        // $('.newForm').css('transform', 'translateX(0%) translateY(0%)')
+      }
     }
   }
 }
@@ -188,7 +234,7 @@ export default {
     background:white;
     left:50%;
     top:50%;
-    transform:translateX(-50%) translateY(-50%);
+    // transform:translateX(-50%) translateY(-50%);
     box-shadow:1px 1px 50px rgba(0,0,0,.3);
     border-radius:2px;  
     .el-tabs{
