@@ -50,6 +50,9 @@ export default {
         },
         options () {
             return this.models[this.modelIndex].options
+        },
+        selectValueId () {
+            return this.models[this.modelIndex].selectValueId
         }
     }
 }
