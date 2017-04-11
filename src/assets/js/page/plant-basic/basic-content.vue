@@ -1,3 +1,10 @@
+* @description 中间列表模块内容
+ * @author 舒丹彤
+ * @date 2017/3/15 
+ *   
+ */ 
+
+
 <template>
 	<div class="content">
         <basic-model :models="models[type]"></basic-model>

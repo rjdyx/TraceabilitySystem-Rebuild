@@ -49,14 +49,14 @@
   <el-table :data="tableData"  @selection-change="handleSelectionChange">
       <!-- checkbox -->
       <el-table-column width="50" type="selection">
-      </el-table-column>
+      </el-table-column> 
 
       <!-- 序号 -->
       <el-table-column width="80" label="序号" type="index">
       </el-table-column>
 
       <!-- 中间列表模块 -->
-      <template v-for="(item,index) in theads">
+      <template v-for="(item,index) in theads"> 
           <template>
             <el-table-column 
               :prop="protos[index]" sortable
@@ -64,7 +64,7 @@
               :min-width="widths[index]" 
               show-overflow-tooltip>
             </el-table-column>
-          </template> 
+          </template>
       </template>
 
       <!-- 列表操作模块 -->
@@ -72,13 +72,15 @@
       label="操作">
         <template scope="scope" class="operateBtn">
             <template v-if="moreComponent!=null">
-              <clickMore v-if="clickMoreshow" class="clickMoreBtn" :moreComponent="moreComponent"></clickMore>
-              <i @click="showMore" :class="{'active':active,'unactive':!active}"></i>
+              <clickMore class="clickMoreBtn" :moreComponent="moreComponent"></clickMore>
             </template>
               <template>
-                <i>
+                <i v-if="">
                   <el-button type="text" size="small" class="btndel" @click="changeEditShow(scope.$index,scope.row)">编辑</el-button>
                </i>
+               <template>
+                 
+               </template>
                <i>
                   <el-button size="small" type="text" @click="handelDel(scope.$index,scope.row)" class="btn">删除</el-button>  
                </i>
@@ -90,6 +92,9 @@
   <div class="footer">
     <div class="operate-foot">
       <el-button @click="delAll">删除</el-button>
+      <template>
+         <lotOpearte :lotComponent="lotComponent"></lotOpearte>
+      </template>
       <el-button>导出表格</el-button>
     </div>
 
@@ -111,11 +116,12 @@
 <script>
 import computed from './computed.js'
 import popNew from '../../components/public/popNew.vue'
-import ContainTitle from 'components/public/contain-title.vue'
+import ContainTitle from 'components/layout/contain-title.vue'
 import edit from '../../components/public/edit.vue'
 import operate from '../../components/public/operate.vue'
 import popEdit from '../../components/public/popEdit.vue'
 import clickMore from '../../components/public/clickMore.vue'
+import lotOpearte from '../../components/public/lotOpearte.vue'
 export default {
     name: 'BasicModel',
     props: {
@@ -134,6 +140,7 @@ export default {
                     protos: ['name'],
                     widths: [50],
                     title: '',
+                    settitle: '',
                     options: [],
                     selectSearch: [],
                     typeComponent: [],
@@ -148,7 +155,8 @@ export default {
                         }
                     }],
                     editComponent: [],
-                    moreComponent: []
+                    moreComponent: [],
+                    lotComponent: []
                 }]
             }
         }
@@ -179,9 +187,8 @@ export default {
             active: true,
             // 点击展开更多按钮
             clickMoreshow: false,
-            total_num: '',
-            paginator: {},
             total: '',
+            isIndeterminate: true,
             // 组合查询
             par: {},
             // 数组拼装
@@ -273,7 +280,7 @@ export default {
                     console.dir(err)
                 })
         },
-      // 文本查询
+        // 文本查询
         textFind () {
             this.dataArr['query_text'] = this.inputValue
             if (this.selectVal !== '') {
@@ -381,14 +388,6 @@ export default {
                 })
         }
     },
-    components: {
-        ContainTitle,
-        popNew,
-        edit,
-        operate,
-        popEdit,
-        clickMore
-    },
     mounted () {
         // 获取下拉框
         this.getSelect()
@@ -401,10 +400,16 @@ export default {
             this.getAllMsg()
         }
     },
-    computed: {
+    components: {
+        ContainTitle,
+        popNew,
+        edit,
+        operate,
+        popEdit,
+        clickMore,
+        lotOpearte
     }
 }
-
 </script>
 
 

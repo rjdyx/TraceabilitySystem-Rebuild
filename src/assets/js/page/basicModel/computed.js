@@ -50,6 +50,9 @@ export default {
         },
         options () {
             return this.models[this.modelIndex].options
+        },
+        lotComponent () {
+            return this.models[this.modelIndex].lotComponent
         }
     }
 }

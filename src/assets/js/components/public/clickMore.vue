@@ -9,11 +9,16 @@
 
 <template>
 	<div>
-		<template v-for="btn in moreComponent">
-			<i>
-				<el-button type="text" size="small" class="more">{{btn.value}}</el-button>
-			</i>
-		</template>
+		<el-dropdown>
+		  <span>
+		    更多<i class="el-icon-caret-bottom el-icon--right"></i>
+		  </span>
+		  <el-dropdown-menu slot="dropdown">
+		    <template v-for="btn in moreComponent">
+		    	<el-dropdown-item>{{btn.value}}</el-dropdown-item>
+		    </template>
+		  </el-dropdown-menu>
+		</el-dropdown>
 	</div>	
 
 </template>
@@ -39,8 +44,8 @@
 	.btn:last-child{
 		border-left:none;
 	}
-	// .more span{
-	// 	border-left:1px solid #a7bad6;
-	// 	padding: 0px 5px 0px 5px;
-	// }
+	.more span{
+		border-left:1px solid #a7bad6;
+		padding: 0px 5px 0px 5px;
+	}
 </style>
