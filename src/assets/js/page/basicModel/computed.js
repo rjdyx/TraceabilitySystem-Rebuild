@@ -53,6 +53,9 @@ export default {
         },
         lotComponent () {
             return this.models[this.modelIndex].lotComponent
+        },
+        selectValueId () {
+            return this.models[this.modelIndex].selectValueId
         }
     }
 }

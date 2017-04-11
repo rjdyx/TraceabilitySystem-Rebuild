@@ -377,10 +377,10 @@ export default {
         },
         // 获取下拉框数据
         getSelect () {
-            axios.get(this.$adminUrl(this.url))
+            axios.get(this.$adminUrl(this.url + '/getSelect'))
                 .then((responce) => {
-                    if (responce.data.data.length !== 0) {
-                        this.listComponent[0].components[0].options = this.$selectData(this.url, responce.data.data, this.selectValueId)
+                    if (responce.data.length !== 0) {
+                        this.listComponent[0].components[0].options = this.$selectData(this.url, responce.data, this.selectValueId)
                     }
                 })
                 .catch(err => {
@@ -390,7 +390,9 @@ export default {
     },
     mounted () {
         // 获取下拉框
-        this.getSelect()
+        if (this.selectValueId) {
+            this.getSelect()
+        }
         // 获取列表信息
         this.getAllMsg()
     },

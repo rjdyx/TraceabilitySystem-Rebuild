@@ -118,7 +118,6 @@ default {
                 return (env.is_server ? env.app_ano_url : '') + '/' + url
             }
         }
-
         /**
         *
         * 数据转换
@@ -149,6 +148,30 @@ default {
                 }
             }
             return ret
+        }
+        /**
+         *
+         * 从列表获取下拉框数据
+         *
+         * @param url
+         * @returns ret
+         */
+        Vue.prototype.$selectData = (url, ret, arr) => {
+            var options = {}
+            var optionArr = {}
+            var arrId = []
+            if (arr[2]) {
+                for (let key in ret) {
+                    options['label'] = ret[key][arr[1]]
+                    options['value'] = ret[key][arr[0]]
+                    if (arrId.indexOf(ret[key][arr[0]]) === -1) {
+                        arrId[key] = ret[key][arr[0]]
+                        optionArr[key] = options
+                    }
+                    options = {}
+                }
+                return optionArr
+            }
         }
     }
 }
