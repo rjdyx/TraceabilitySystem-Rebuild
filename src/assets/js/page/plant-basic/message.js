@@ -26,6 +26,7 @@ export default {
         protos: ['name', 'type', 'memo'],
         widths: [50, 50, 50],
         selectSearch: ['type'],
+        changeDataArr: [{type: { 'operate': '操作人员', 'expert': '专家', 'product': '产品', 'supplier': '供货商', 'client': '客户', 'fodder': '饲料', 'drug': '兽药', 'beast': '畜禽', 'plant': '果蔬', 'manure': '肥料', 'medicament': '农药' }}],
         typeComponent: [{
             component: importBtn
         },
@@ -210,9 +211,12 @@ export default {
         tab: '人员档案信息',
         url: 'operate',
         searchPlaceholder: '请输入人物姓名进行搜索',
-        theads: ['姓名', '身份', '性别', '年龄', '联系方式', '地址', '图片', '备注信息'],
-        protos: ['name', 'identity', 'sex', 'age', 'phone', 'address', 'img', 'meno'],
-        widths: [50, 50, 50, 50, 50, 50, 50, 50],
+        selectSearch: ['operates.category_id'],
+        selectValueId: ['category_id', 'category_name', true],
+        changeDataArr: [{sex: {0: '男', 1: '女'}}],
+        theads: ['分类名称', '姓名', '身份', '性别', '年龄', '联系方式', '地址', '图片', '备注信息'],
+        protos: ['category_name', 'name', 'identity', 'sex', 'age', 'phone', 'address', 'img', 'meno'],
+        widths: [50, 50, 50, 50, 50, 50, 50, 50, 50],
         typeComponent: [{
             component: importBtn
         },
@@ -224,12 +228,14 @@ export default {
         }],
         listComponent: [{
             components: [{
-                type: 'selectNot',
-                component: selectSection
+                type: 'select',
+                component: selectSection,
+                options: []
             }]
         }],
         newComponent: [{
             tab: '新建人员档案信息',
+            selectUrl: ['category', 'operate', 'category_id', 'category_name', true],
             components: [{
                 name: 'category_id',
                 type: 'select',
@@ -237,11 +243,8 @@ export default {
                 isNull: false,
                 label: '分类',
                 placeholder: '必填',
-                rule: {required: true, trigger: 'blur'},
-                options: [{
-                    value: '',
-                    label: ''
-                }]
+                rule: {required: true, trigger: 'blur', type: 'number'},
+                options: []
             },
             {
                 name: 'name',
@@ -270,11 +273,11 @@ export default {
                 placeholder: '',
                 rule: null,
                 options: [{
-                    value: '男',
+                    value: 0,
                     label: '男'
                 },
                 {
-                    value: '女',
+                    value: 1,
                     label: '女'
                 }]
             },

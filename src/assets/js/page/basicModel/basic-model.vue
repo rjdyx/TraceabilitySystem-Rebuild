@@ -9,8 +9,7 @@
 <div>   
   <!-- 标题 -->
   <contain-title :settitle="settitle">
-  </contain-title>
-    
+  </contain-title> 
   <!-- tab栏 --> 
   <el-tabs v-model="activeName" type="card" id="tabs" @tab-click="tabClick">
     <el-tab-pane v-for="(model,index) in models" :label="model.tab" :name="'index'+index"></el-tab-pane>
@@ -43,7 +42,9 @@
     <!-- 新建模块 -->
     <popNew v-if="isNewShow" :newComponent="newComponent" :url="url" @submitNew="changeNew"></popNew>
     <!-- 编辑模块 -->
-    <pop-edit v-if="isEditShow" :editComponent="editComponent" :url="url" :editForm="editForm" @submitEdit="changeEdit"></pop-edit>
+    <pop-edit v-if="isEditShow" :editComponent="editComponent" 
+        :url="url" :editForm="editForm" :changeDataArr="changeDataArr"
+        @submitEdit="hangeEdit"></pop-edit>
   </div>
   <!-- 列表模块 -->
   <el-table :data="tableData"  @selection-change="handleSelectionChange">
@@ -241,6 +242,23 @@ export default {
         // 显示新建表单
         changeNewShow () {
             this.isNewShow = !this.isNewShow
+            if (this.newComponent[0].selectUrl) {
+                var selectArr = []
+                let selectUrl = this.newComponent[0].selectUrl[0]
+                let selectData = this.newComponent[0].selectUrl[1]
+                selectArr.push(this.newComponent[0].selectUrl[2])
+                selectArr.push(this.newComponent[0].selectUrl[3])
+                selectArr.push(this.newComponent[0].selectUrl[4])
+                axios.get(this.$adminUrl(selectUrl + '/changeSelect'), {params: {'selectData': selectData}})
+                .then((responce) => {
+                    if (responce.data.length !== 0) {
+                        this.newComponent[0].components[0].options = this.$selectData(this.url, responce.data, selectArr)
+                    }
+                })
+                .catch(err => {
+                    console.dir(err)
+                })
+            }
         },
         // 显示编辑表单
         changeEditShow (index, row) {
@@ -259,10 +277,8 @@ export default {
                 .then((responce) => {
                 // 数据转换
                     if (responce.data.data.length !== 0) {
-                        var ret = this.$conversion(this.url, responce.data.data, 1)
-                        // // 下拉框获取数据
-                        // this.listComponent[0].components[0].options = this.$selectData(        this.url,     responce.data.data, this.selectValueId)
-                        // console.log(this.listComponent[0].components[0].options)
+                        var ret = this.$conversion(this.changeDataArr, responce.data.data, 1)
+                        ret = this.$image(this.url, ret)
                         this.$set(this, 'tableData', ret)
                         this.total_num = responce.data.total
                         this.num = responce.data.last_page

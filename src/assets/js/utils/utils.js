@@ -22,7 +22,6 @@ default {
             if (type === 'c' || type === 'C') {
                 return host + '/home/c/' + url
             }
-
             if (type === 'p' || type === 'P') {
                 return host + '/home/p/' + url
             }
@@ -125,25 +124,23 @@ default {
         * @param url
         * @returns ret
         */
-        Vue.prototype.$conversion = (url, ret, state) => {
-            var arr, change
-            if (url === 'category') {
-                arr = { 'operate': '操作人员', 'expert': '专家', 'product': '产品', 'supplier': '供货商', 'client': '客户', 'fodder': '饲料', 'drug': '兽药', 'beast': '畜禽', 'plant': '果蔬', 'manure': '肥料', 'medicament': '农药' }
-                change = 'type'
-            } else if (url === 'operate') {
-                arr = {0: '男', 1: '女'}
-                change = 'sex'
-            } else {
-                return ret
-            }
+        Vue.prototype.$conversion = (arr, ret, state) => {
             if (state === 1) {
-                for (let key in ret) {
-                    ret[key][change] = arr[ret[key][change]]
+                for (let item in arr) {
+                    for (let index in arr[item]) {
+                        for (let key in ret) {
+                            ret[key][index] = arr[item][index][ret[key][index]]
+                        }
+                    }
                 }
             } else {
-                for (let key in arr) {
-                    if (ret[change] === arr[key]) {
-                        ret[change] = key
+                for (let item in arr) {
+                    for (let index in arr[item]) {
+                        for (let key in arr[item][index]) {
+                            if (ret[index] === arr[item][index][key]) {
+                                ret[index] = key
+                            }
+                        }
                     }
                 }
             }
@@ -172,6 +169,49 @@ default {
                 }
                 return optionArr
             }
+        }
+        /**
+         *
+         * 组合图片路径
+         *
+         * @param url
+         * @returns {*}
+         */
+        Vue.prototype.$img = (url, flag = true) => {
+            if (url === undefined) {
+                return
+            }
+            if (url.indexOf('base64') > 0) {
+                return url
+            }
+            let regx = /^\/{1,}/g
+            url = url.replace(regx, '')
+            if (flag) {
+                return (env.is_server ? env.app_ano_url : '') + '/public/' + url
+            } else {
+                return (env.is_server ? env.app_ano_url : '') + '/' + url
+            }
+        }
+        /**
+         *
+         * 判断图片
+         *
+         * @param url
+         * @returns {*}
+         */
+        Vue.prototype.$image = (url, ret) => {
+            for (let key in ret) {
+                for (let index in ret[key]) {
+                    if (index === 'img') {
+                        if (ret[key][index] !== null && ret[key][index] !== '') {
+                            ret[key][index] = '有'
+                        } else {
+                            ret[key][index] = '无'
+                        }
+                    }
+                }
+            }
+            return ret
         }
     }
 }

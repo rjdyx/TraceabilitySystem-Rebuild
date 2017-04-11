@@ -53,6 +53,9 @@ export default {
         },
         selectValueId () {
             return this.models[this.modelIndex].selectValueId
+        },
+        changeDataArr () {
+            return this.models[this.modelIndex].changeDataArr
         }
     }
 }

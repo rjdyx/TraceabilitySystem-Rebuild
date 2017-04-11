@@ -144,7 +144,7 @@ export default {
         submitForm (formName) {
             this.$refs[formName][0].validate((valid) => {
                 if (valid) {
-                    var ret = this.$conversion(this.url, this.editForm, 0)
+                    var ret = this.$conversion(this.changeDataArr, this.editForm, 0)
                     axios.put(this.$adminUrl(this.url + '/' + this.editForm.id), ret).then((response) => {
                         this.$emit('submitEdit', response.data)
                     }, (response) => {
