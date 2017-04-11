@@ -154,6 +154,7 @@ export default {
         // 返回InputTextSelect组件的数据
         returnShuju ({name, value}) {
             this.tableForm[name] = value
+            console.log(this.tableForm.img)
         },
         // 关闭表单事件
         closeClick () {
@@ -169,7 +170,12 @@ export default {
         submitForm (formName) {
             this.$refs[formName][0].validate((valid) => {
                 if (valid) {
-                    axios.post(this.$adminUrl(this.url), this.tableForm).then((response) => {
+                    let form = new FormData()
+                    for (let key of Object.keys(this.tableForm)) {
+                        form.append(key, this.tableForm[key])
+                    }
+                    let headers = {headers: {'Content-Type': 'multipart/form-data'}}
+                    axios.post(this.$adminUrl(this.url), form, headers).then((response) => {
                         this.$emit('submitNew', response.data)
                     }, (response) => {
                         this.$emit('submitNew', 'false')
