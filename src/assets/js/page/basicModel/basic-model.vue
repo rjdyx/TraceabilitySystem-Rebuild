@@ -260,6 +260,7 @@ export default {
         // 数据转换
           if (responce.data.data.length !== 0) {
             var ret = this.$conversion(this.url, responce.data.data, 1)
+            // 下拉框获取数据
             this.$set(this, 'tableData', ret)
             this.total_num = responce.data.total
             this.num = responce.data.last_page
@@ -308,25 +309,36 @@ export default {
     },
     // 批量删除
     delAll () {
-      if (this.checkObject.length !== undefined && this.checkObject.length !== 0) {
-        var delArr = []
-        for (let key in this.checkObject) {
-          delArr.push(this.checkObject[key].id)
-        }
-        var paramsDel = { 'ids': delArr }
-        axios.post(this.$adminUrl('util/batch-delete/' + this.url), paramsDel)
-        .then((responce) => {
-          if (responce.data === 'true') {
-            this.pageChange(1)
-            this.$message({
-              type: 'success',
-              message: '批量删除成功'
-            })
-          } else {
-            this.$message.error('批量删除失败')
+      this.$confirm('你确定要删除选中信息?', '信息', {
+        cancelButtonText: '取消',
+        confirmButtonText: '确定',
+        type: 'error'
+      }).then(() => {
+        if (this.checkObject.length !== undefined && this.checkObject.length !== 0) {
+          var delArr = []
+          for (let key in this.checkObject) {
+            delArr.push(this.checkObject[key].id)
           }
+          var paramsDel = { 'ids': delArr }
+          axios.post(this.$adminUrl('util/batch-delete/' + this.url), paramsDel)
+          .then((responce) => {
+            if (responce.data === 'true') {
+              this.pageChange(1)
+              this.$message({
+                type: 'success',
+                message: '批量删除成功'
+              })
+            } else {
+              this.$message.error('批量删除失败')
+            }
+          })
+        }
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消删除'
         })
-      }
+      })
     },
     // 新建数据
     changeNew (val) {
@@ -353,6 +365,18 @@ export default {
       } else {
         this.$message.error('编辑数据失败')
       }
+    },
+    // 获取下拉框数据
+    getSelect () {
+      axios.get(this.$adminUrl(this.url + '/getSelect'))
+        .then((responce) => {
+          if (responce.data.length !== 0) {
+            this.listComponent[0].components[0].options = this.$selectData(this.url, responce.data, this.selectValueId)
+          }
+        })
+        .catch(err => {
+          console.dir(err)
+        })
     }
   },
   components: {
@@ -364,6 +388,11 @@ export default {
     clickMore
   },
   mounted () {
+    // 获取下拉框
+    if (this.selectValueId) {
+      this.getSelect()
+    }
+    // 获取列表信息
     this.getAllMsg()
   },
   watch: {

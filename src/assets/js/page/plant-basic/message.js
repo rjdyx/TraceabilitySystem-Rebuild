@@ -83,11 +83,12 @@ export default {
       components: [{
         name: 'name',
         type: 'text',
+        field: 'sss',
         component: null,
         isNull: false,
         label: '分类名称',
         placeholder: '必填',
-        rule: {required: true, message: '请输入分类名称', trigger: 'blur'}
+        rule: [{required: true, message: '请输入分类名称', trigger: 'blur', fullField: '555'}, {validator: validate2.reCheck}]
       },
       {
         name: 'type',
@@ -211,9 +212,11 @@ export default {
     tab: '人员档案信息',
     url: 'operate',
     searchPlaceholder: '请输入人物姓名进行搜索',
-    theads: ['姓名', '身份', '性别', '年龄', '联系方式', '地址', '图片', '备注信息'],
-    protos: ['name', 'identity', 'sex', 'age', 'phone', 'address', 'img', 'meno'],
-    widths: [50, 50, 50, 50, 50, 50, 50, 50],
+    selectSearch: ['operates.category_id'],
+    selectValueId: ['category_id', 'category_name', true],
+    theads: ['分类名称', '姓名', '身份', '性别', '年龄', '联系方式', '地址', '图片', '备注信息'],
+    protos: ['category_name', 'name', 'identity', 'sex', 'age', 'phone', 'address', 'img', 'meno'],
+    widths: [50, 50, 50, 50, 50, 50, 50, 50, 50],
     typeComponent: [{
       component: importBtn
     },
@@ -225,8 +228,9 @@ export default {
     }],
     listComponent: [{
       components: [{
-        type: 'selectNot',
-        component: selectSection
+        type: 'select',
+        component: selectSection,
+        options: []
       }]
     }],
     newComponent: [{
