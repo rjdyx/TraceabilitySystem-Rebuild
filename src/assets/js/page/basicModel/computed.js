@@ -48,6 +48,9 @@ export default {
     moreComponent () {
       return this.models[this.modelIndex].moreComponent
     },
+    lotComponent () {
+      return this.models[this.modelIndex].lotComponent
+    },
     options () {
       return this.models[this.modelIndex].options
     }
