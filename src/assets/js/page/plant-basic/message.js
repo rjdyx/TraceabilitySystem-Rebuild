@@ -2799,7 +2799,7 @@ export default {
                     type: 'text',
                     component: null,
                     isNull: false,
-                    label: '种植场名称',
+                    label: '种植场完整名称',
                     placeholder: '必填',
                     rule: {required: true, message: '请输入种植场名称', trigger: 'blur'}
                 },
@@ -2822,7 +2822,8 @@ export default {
                         value: '公顷',
                         label: '公顷'
                     }
-                    ]
+                    ],
+                    rule: {required: true, message: '请输入种植场名称', trigger: 'blur'}
                 },
                 {
                     name: 'name',
@@ -2830,7 +2831,8 @@ export default {
                     component: null,
                     isNull: false,
                     label: '联系电话',
-                    placeholder: '请输入11位的手机号（固话用-隔开）'
+                    placeholder: '请输入11位的手机号（固话用-隔开）',
+                    rule: { validator: validate2.phone, trigger: 'blur' }
                 },
                 {
                     name: 'name',
@@ -2838,7 +2840,8 @@ export default {
                     component: null,
                     isNull: false,
                     label: '联系地址',
-                    placeholder: ''
+                    placeholder: '',
+                    rule: null
                 },
                 {
                     name: 'name',
@@ -2846,7 +2849,8 @@ export default {
                     component: null,
                     isNull: false,
                     label: '负责人',
-                    placeholder: ''
+                    placeholder: '',
+                    rule: null
                 },
                 {
                     name: 'name',
@@ -2854,49 +2858,8 @@ export default {
                     component: null,
                     isNull: false,
                     label: '视频检测设备号',
-                    placeholder: ''
-                },
-                {
-                    name: 'type',
-                    type: 'select',
-                    component: null,
-                    isNull: false,
-                    label: '模块类型',
                     placeholder: '',
-                    rule: {required: true, message: '请输入模块类型', trigger: 'blur'},
-                    options: [{
-                        value: 'operate', label: '操作人员'
-                    },
-                    {
-                        value: 'expert', label: '专家'
-                    },
-                    {
-                        value: 'product', label: '产品'
-                    },
-                    {
-                        value: 'supplier', label: '供货商'
-                    },
-                    {
-                        value: 'client', label: '客户'
-                    },
-                    {
-                        value: 'fodder', label: '饲料'
-                    },
-                    {
-                        value: 'beast', label: '畜禽'
-                    },
-                    {
-                        value: 'drug', label: '兽药'
-                    },
-                    {
-                        value: 'plant', label: '果蔬'
-                    },
-                    {
-                        value: 'manure', label: '肥料'
-                    },
-                    {
-                        value: 'medicament', label: '农药'
-                    }]
+                    rule: null
                 },
                 {
                     name: 'memo',
@@ -2915,12 +2878,12 @@ export default {
                     type: 'text',
                     component: null,
                     isNull: false,
-                    label: '种植场名称',
+                    label: '种植场完整名称',
                     placeholder: '必填',
                     rule: {required: true, message: '请输入种植场名称', trigger: 'blur'}
                 },
                 {
-                    name: '',
+                    name: 'area',
                     type: 'textSelect',
                     component: inputTextSelect,
                     isNull: false,
@@ -2938,31 +2901,35 @@ export default {
                         value: '公顷',
                         label: '公顷'
                     }
-                    ]
+                    ],
+                    rule: {required: true, message: '请输入种植场名称', trigger: 'blur'}
                 },
                 {
-                    name: 'name',
+                    name: 'phone',
                     type: 'text',
                     component: null,
                     isNull: false,
                     label: '联系电话',
-                    placeholder: '请输入11位的手机号（固话用-隔开）'
+                    placeholder: '请输入11位的手机号（固话用-隔开）',
+                    rule: { validator: validate2.phone, trigger: 'blur' }
                 },
                 {
-                    name: 'name',
+                    name: 'address',
                     type: 'text',
                     component: null,
                     isNull: false,
                     label: '联系地址',
-                    placeholder: ''
+                    placeholder: '',
+                    rule: null
                 },
                 {
-                    name: 'name',
+                    name: 'director',
                     type: 'text',
                     component: null,
                     isNull: false,
                     label: '负责人',
-                    placeholder: ''
+                    placeholder: '',
+                    rule: null
                 },
                 {
                     name: 'name',
@@ -2970,23 +2937,8 @@ export default {
                     component: null,
                     isNull: false,
                     label: '视频检测设备号',
-                    placeholder: ''
-                },
-                {
-                    name: 'type',
-                    type: 'select',
-                    component: null,
-                    isNull: false,
-                    label: '模块类型',
                     placeholder: '',
-                    rule: {required: true, message: '请输入模块类型', trigger: 'blur'},
-                    options: [{
-                        value: 'operate', label: '操作人员'
-                    },
-                    {
-                        value: 'expert', label: '专家'
-                    }
-                    ]
+                    rule: null
                 },
                 {
                     name: 'memo',
