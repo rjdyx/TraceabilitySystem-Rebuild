@@ -71,7 +71,6 @@ export default[{
 {
     name: '屠宰加工管理',
     role: 'pet',
-    isEvent: false,
     src: '/public/images/pet.png',
     children: [{
         path: '/index/message/petProcess/0',
@@ -90,7 +89,6 @@ export default[{
 {
     name: '种植管理',
     role: 'plantation',
-    isEvent: false,
     src: '/public/images/plantation.png',
     children: [{
         path: '/index/message/plantBase/0',
@@ -117,7 +115,6 @@ export default[{
 {
     name: '果蔬加工管理',
     role: 'product',
-    isEvent: false,
     src: '/public/images/product.png',
     children: [{
         path: '/index/message/vegetableSerial/0',
@@ -132,10 +129,9 @@ export default[{
 {
     name: '物流管理',
     role: 'express',
-    isEvent: false,
     src: '/public/images/express.png',
     children: [{
-        path: '/index/message/logisticBase/0',
+        path: '/index/message/Logisticbase/0',
         name: '基础信息管理'
     },
     {
@@ -147,7 +143,6 @@ export default[{
 {
     name: '销售管理',
     role: 'sale',
-    isEvent: false,
     src: '/public/images/sale.png',
     children: [{
         path: '/index/message/saleProduct/0',
@@ -166,7 +161,6 @@ export default[{
 {
     name: '系统管理',
     role: 'system',
-    isEvent: false,
     src: '/public/images/system.png',
     children: [{
         path: '/index/message/systemCompany/0',
@@ -183,6 +177,28 @@ export default[{
     {
         path: '/index/message/systemReport/0',
         name: '报表统计'
+    }
+    ]
+},
+{
+    name: '运营管理',
+    role: 'operate',
+    src: '/public/images/system.png',
+    children: [{
+        path: '/index/message/rightsOperate/0',
+        name: '权限管理'
+    },
+    {
+        path: '/index/message/settleOperate/0',
+        name: '入驻单位管理'
+    },
+    {
+        path: '/index/message/usersOperate/0',
+        name: '用户反馈管理'
+    },
+    {
+        path: '/index/message/logOperate/0',
+        name: '日志管理'
     }
     ]
 }

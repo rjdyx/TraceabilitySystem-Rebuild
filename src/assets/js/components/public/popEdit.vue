@@ -3,7 +3,7 @@
  * @description 
  * @author 吴燕萍
  * @date 2017/3/21
- * 
+ *  
  */
 
 
@@ -204,8 +204,6 @@ export default {
         }
       }
     }
-      
-      
         .el-icon-circle-close{
             font-size:24px;
             color:#8492a6;
