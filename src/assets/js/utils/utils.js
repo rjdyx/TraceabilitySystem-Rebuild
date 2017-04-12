@@ -133,6 +133,9 @@ default {
             } else if (url === 'operate') {
                 arr = {0: '男', 1: '女'}
                 change = 'sex'
+            } else if (url === 'delivery') {
+                arr = { 'self': '自运', 'consign': '托运', 'selve': '自提' }
+                change = 'transportable_type'
             } else {
                 return ret
             }

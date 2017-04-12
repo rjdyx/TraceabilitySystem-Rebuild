@@ -8,107 +8,104 @@
 <template>
 <div>   
   <!-- 标题 -->
-  <contain-title :settitle="settitle">
-  </contain-title>
+    <contain-title :settitle="settitle">
+    </contain-title>
     
   <!-- tab栏 --> 
-  <el-tabs v-model="activeName" type="card" id="tabs" @tab-click="tabClick">
-    <el-tab-pane v-for="(model,index) in models" :label="model.tab" :name="'index'+index"></el-tab-pane>
-  </el-tabs>  
+    <el-tabs v-model="activeName" type="card" id="tabs" @tab-click="tabClick">
+        <el-tab-pane v-for="(model,index) in models" :label="model.tab" :name="'index'+index"></el-tab-pane>
+    </el-tabs>  
     <!-- 操作模块 -->
     <div id="operate">              
-      <div id="inputs">
+        <div id="inputs">
+            <operate :listComponent="listComponent" @selectVal="selectFind"></operate>
+            
+            <!-- 搜索框 -->
+            <div class="searchOp"> 
+                <el-input
+                    :placeholder="searchPlaceholder"
+                    v-model="inputValue"
+                    :on-icon-click="search" class="searchInp" size="small">
+                </el-input>
+                <el-button size="small" class="searchBtn" @click="textFind">搜索</el-button>
+            </div>
 
-        <operate :listComponent="listComponent" @selectVal="selectFind"></operate>
-        
-          <!-- 搜索框 -->
-          <div class="searchOp"> 
-              <el-input
-                :placeholder="searchPlaceholder"
-                v-model="inputValue"
-                :on-icon-click="search" class="searchInp" size="small">
-              </el-input>
-              <el-button size="small" class="searchBtn" @click="textFind">搜索</el-button>
-          </div>
-
-        <!-- 操作按钮 -->
-        <component
-            v-for="typeOperate in typeComponent"
-            :is="typeOperate.component"
-            :params="typeOperate.params"
-            class="fr"
-        ></component>
-      </div>
+            <!-- 操作按钮 -->
+            <component
+                v-for="typeOperate in typeComponent"
+                :is="typeOperate.component"
+                :params="typeOperate.params"
+                class="fr"
+            ></component> 
+        </div>
     
-    <!-- 新建模块 -->
-    <popNew v-if="isNewShow" :newComponent="newComponent" :url="url" @submitNew="changeNew"></popNew>
-    <!-- 编辑模块 -->
-    <pop-edit v-if="isEditShow" :editComponent="editComponent" :url="url" :editForm="editForm" @submitEdit="changeEdit"></pop-edit>
-  </div>
-  <!-- 列表模块 -->
-  <el-table :data="tableData"  @selection-change="handleSelectionChange">
-      <!-- checkbox -->
-      <el-table-column width="50" type="selection">
-      </el-table-column> 
+        <!-- 新建模块 -->
+        <popNew v-if="isNewShow" :newComponent="newComponent" :url="url" @submitNew="changeNew"></popNew>
+        <!-- 编辑模块 -->
+        <pop-edit v-if="isEditShow" :editComponent="editComponent" :url="url" :editForm="editForm" @submitEdit="changeEdit"></pop-edit>
+    </div>
+    <!-- 列表模块 -->
+    <el-table :data="tableData"  @selection-change="handleSelectionChange">
 
-      <!-- 序号 -->
-      <el-table-column width="80" label="序号" type="index">
-      </el-table-column>
+        <!-- checkbox -->
+        <el-table-column width="50" type="selection">
+        </el-table-column> 
 
-      <!-- 中间列表模块 -->
-      <template v-for="(item,index) in theads"> 
+        <!-- 序号 -->
+        <el-table-column width="80" label="序号" type="index">
+        </el-table-column>
+
+        <!-- 中间列表模块 -->
+        <template v-for="(item,index) in theads"> 
           <template>
             <el-table-column 
-              :prop="protos[index]" sortable
+              :prop="protos[index]"
               :label="item"
               :min-width="widths[index]" 
               show-overflow-tooltip>
             </el-table-column>
           </template>
-      </template>
+        </template>
 
-      <!-- 列表操作模块 -->
-      <el-table-column 
-      label="操作">
-        <template scope="scope" class="operateBtn">
-            <template v-if="moreComponent!=null">
-              <clickMore class="clickMoreBtn" :moreComponent="moreComponent"></clickMore>
+        <!-- 列表操作模块 -->
+        <el-table-column 
+        label="操作">
+            <template scope="scope" class="operateBtn">
+                <template v-if="moreComponent!=null">
+                    <clickMore :moreComponent="moreComponent" class="clickMoreBtn"></clickMore>
+                </template>
+                <template>
+                    <i>
+                        <el-button type="text" size="small" class="btndel" @click="changeEditShow(scope.$index,scope.row)">编辑</el-button>
+                    </i>
+                    <i>
+                        <el-button size="small" type="text" @click="handelDel(scope.$index,scope.row)" class="btn">删除</el-button>  
+                    </i>
+                </template>
             </template>
-              <template>
-                <i v-if="">
-                  <el-button type="text" size="small" class="btndel" @click="changeEditShow(scope.$index,scope.row)">编辑</el-button>
-               </i>
-               <template>
-                 
-               </template>
-               <i>
-                  <el-button size="small" type="text" @click="handelDel(scope.$index,scope.row)" class="btn">删除</el-button>  
-               </i>
-              </template>
-          </template>
-    </el-table-column>
-  </el-table>
+        </el-table-column>
+    </el-table>
 
-  <div class="footer">
-    <div class="operate-foot">
-      <el-button @click="delAll">删除</el-button>
-      <template>
-         <lotOpearte :lotComponent="lotComponent"></lotOpearte>
-      </template>
-      <el-button>导出表格</el-button>
+    <div class="footer">
+        <div class="operate-foot">
+            <el-button @click="delAll">删除</el-button>
+            <template v-if="lotComponent!=null">
+                <lotOpearte :lotComponent="lotComponent"></lotOpearte>
+            </template>
+            <el-button>导出表格</el-button>
+        </div>
+
+        <p class="record">共有{{num}}页，{{total_num}}条记录</p>
+
+        <!-- 分页模块 -->
+        <el-pagination
+          layout="prev, pager, next"
+          :total="paginator.total"
+          :page-size="paginator.per_page"
+          class="pager"
+          @current-change="pageChange">
+        </el-pagination>
     </div>
-
-    <p class="record">共有{{num}}页，{{total_num}}条记录</p>
-
-    <!-- 分页模块 -->
-    <el-pagination
-      layout="prev, pager, next"
-      :total="paginator.total"
-      :page-size="paginator.per_page"
-      class="pager"
-      @current-change="pageChange">
-    </el-pagination>
-  </div>
     
 </div> 
 </template>
@@ -183,10 +180,9 @@ export default {
             // msg: 1,
             editBol: false,
             editForm: {},
+            paginator: {},
             // 切换点击更多按钮的状态
             active: true,
-            // 点击展开更多按钮
-            clickMoreshow: false,
             total: '',
             isIndeterminate: true,
             // 组合查询
@@ -253,11 +249,6 @@ export default {
         changeEditShow (index, row) {
             this.isEditShow = !this.isEditShow
             this.editForm = row
-        },
-        // 点击展开更多操作按钮
-        showMore () {
-            this.active = !this.active
-            this.clickMoreshow = !this.clickMoreshow
         },
         // 获取数据
         getAllMsg (data = '') {

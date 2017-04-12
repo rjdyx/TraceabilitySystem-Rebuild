@@ -678,28 +678,17 @@ export default {
             }]
         }]
     }],
-    customerFile: [{
+    clientFile: [{
         settitle: '客户档案管理',
         key: 'client',
         tab: '客户档案信息',
         url: 'client',
-        searchPlaceholder: '请输入养殖场进行搜索',
-        // search: ['query_text', 'name'],
-        theads: ['管理客户类型', '客户名称', '联系人', '电话', '地址', '传真', '邮箱', '备注'],
-        protos: ['category_name', 'name', 'address', 'zipcode', 'address', 'fax', 'fax', 'meno'],
-        widths: [50, 50, 50, 50, 50, 50, 50, 50],
-        listComponent: []
-    }],
-    supplierFile: [{
-        settitle: '供货商档案管理',
-        key: 'supplier',
-        tab: '供货商档案信息',
-        url: 'supplier',
-        searchPlaceholder: '请输入养殖场进行搜索',
+        searchPlaceholder: '请输入客户名称进行搜索',
         search: ['query_text', 'name'],
-        theads: ['供货商名称', '电话', '联系人', '地址', '备注'],
-        protos: ['name', 'org_level', 'address', 'zipcode', 'meno'],
-        widths: [50, 50, 50, 50, 50],
+        theads: ['管理客户类型', '客户名称', '联系人', '电话', '地址', '传真', '邮箱', '备注'],
+        protos: ['category_name', 'name', 'contact', 'phone', 'address', 'fax', 'email', 'meno'],
+        widths: [50, 50, 50, 50, 50, 50, 50, 50],
+        listComponent: [],
         typeComponent: [{
             component: importBtn
         },
@@ -712,13 +701,26 @@ export default {
         newComponent: [{
             tab: '新建客户档案信息',
             components: [{
+                name: 'category_id',
+                type: 'select',
+                component: null,
+                isNull: false,
+                label: '分类',
+                placeholder: '必填',
+                rule: {required: true, trigger: 'blur'},
+                options: [{
+                    value: '',
+                    label: ''
+                }]
+            },
+            {
                 name: 'name',
                 type: 'text',
                 component: null,
                 isNull: false,
                 label: '客户名称',
                 placeholder: '必填',
-                rule: {required: true, trigger: 'blur'}
+                rule: {required: true, message: '请输入专家名称', trigger: 'blur'}
             },
             {
                 name: 'contact',
@@ -726,6 +728,173 @@ export default {
                 component: null,
                 isNull: false,
                 label: '联系人',
+                placeholder: '',
+                rule: ''
+            },
+            {
+                name: 'phone',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '电话',
+                placeholder: '',
+                rule: { validator: validate2.phone, trigger: 'blur' }
+            },
+            {
+                name: 'address',
+                type: 'text',
+                component: false,
+                isNull: true,
+                label: '地址',
+                placeholder: '',
+                rule: null
+            },
+            {
+                name: 'fax',
+                type: 'text',
+                component: null,
+                isNull: true,
+                label: '传真',
+                placeholder: '',
+                rule: null
+            },
+            {
+                name: 'email',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '邮箱',
+                placeholder: '',
+                rule: null
+            },
+            {
+                name: 'memo',
+                type: 'textarea',
+                component: null,
+                isNull: true,
+                label: '备注信息',
+                placeholder: '',
+                rule: null
+            }
+            ]
+        }],
+        editComponent: [{
+            tab: '编辑专家档案信息',
+            components: [{
+                name: 'category_id',
+                type: 'select',
+                component: null,
+                isNull: false,
+                label: '分类',
+                placeholder: '必填',
+                rule: {required: true, trigger: 'blur'},
+                options: [{
+                    value: '',
+                    label: ''
+                }]
+            },
+            {
+                name: 'name',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '客户名称',
+                placeholder: '必填',
+                rule: {required: true, message: '请输入专家名称', trigger: 'blur'}
+            },
+            {
+                name: 'contact',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '联系人',
+                placeholder: '',
+                rule: ''
+            },
+            {
+                name: 'phone',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '电话',
+                placeholder: '',
+                rule: { validator: validate2.phone, trigger: 'blur' }
+            },
+            {
+                name: 'address',
+                type: 'text',
+                component: false,
+                isNull: true,
+                label: '地址',
+                placeholder: '',
+                rule: null
+            },
+            {
+                name: 'fax',
+                type: 'text',
+                component: null,
+                isNull: true,
+                label: '传真',
+                placeholder: '',
+                rule: null
+            },
+            {
+                name: 'email',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '邮箱',
+                placeholder: '',
+                rule: null
+            },
+            {
+                name: 'memo',
+                type: 'textarea',
+                component: null,
+                isNull: true,
+                label: '备注信息',
+                placeholder: '',
+                rule: null
+            }
+            ]
+        }]
+    }],
+    supplierFile: [{
+        settitle: '供货商档案管理',
+        key: 'supplier',
+        tab: '供货商档案信息',
+        url: 'supplier',
+        searchPlaceholder: '请输入供货商名称搜索',
+        search: ['query_text', 'name'],
+        theads: ['分类', '供货商名称', '电话', '联系人', '地址', '备注'],
+        protos: ['category_name', 'name', 'phone', 'contacts', 'address', 'meno'],
+        widths: [50, 50, 50, 50, 50, 50],
+        typeComponent: [{
+            component: importBtn
+        },
+        {
+            component: output
+        },
+        {
+            component: newbuildBtn
+        }],
+        newComponent: [{
+            tab: '新建供货商档案信息',
+            components: [{
+                name: 'category_name',
+                type: 'select',
+                component: null,
+                isNull: false,
+                label: '分类',
+                placeholder: '必填',
+                rule: {required: true, trigger: 'blur'}
+            },
+            {
+                name: 'name',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '供货商名称',
                 placeholder: '必填',
                 rule: {required: true, trigger: 'blur'}
             },
@@ -739,11 +908,11 @@ export default {
                 rule: { validator: validate2.phone, trigger: 'blur' }
             },
             {
-                name: 'fax',
+                name: 'contacts',
                 type: 'text',
                 component: null,
                 isNull: true,
-                label: '传真',
+                label: '联系人',
                 placeholder: '',
                 rule: null
             },
@@ -757,32 +926,60 @@ export default {
                 rule: null
             },
             {
-                name: 'grade',
+                name: 'memo',
+                type: 'textarea',
+                component: null,
+                isNull: true,
+                label: '备注信息',
+                placeholder: '',
+                rule: ''
+            }
+            ]
+        }],
+        editComponent: [{
+            tab: '编辑供货商档案信息',
+            components: [{
+                name: 'category_name',
                 type: 'select',
                 component: null,
                 isNull: false,
-                label: '等级',
-                placeholder: '',
-                rule: {required: true, trigger: 'blur'},
-                options: [{
-                    value: '高',
-                    label: '高'
-                },
-                {
-                    value: '中',
-                    label: '中'
-                },
-                {
-                    value: '低',
-                    label: '低'
-                }]
+                label: '分类',
+                placeholder: '必填',
+                rule: {required: true, trigger: 'blur'}
             },
             {
-                name: 'img',
-                type: 'file',
+                name: 'name',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '供货商名称',
+                placeholder: '必填',
+                rule: {required: true, trigger: 'blur'}
+            },
+            {
+                name: 'phone',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '电话',
+                placeholder: '',
+                rule: { validator: validate2.phone, trigger: 'blur' }
+            },
+            {
+                name: 'contacts',
+                type: 'text',
                 component: null,
                 isNull: true,
-                label: '',
+                label: '联系人',
+                placeholder: '',
+                rule: null
+            },
+            {
+                name: 'address',
+                type: 'text',
+                component: null,
+                isNull: true,
+                label: '地址',
                 placeholder: '',
                 rule: null
             },
@@ -804,11 +1001,12 @@ export default {
         key: 'product',
         tab: '产品档案信息',
         url: 'product',
-        searchPlaceholder: '请输入养殖场进行搜索',
-        // search: ['query_text', 'name'],
-        theads: ['名称', '执行标准', '卫生标准', '商品型号', '商品简介', '包装规格', '保质期', '食用方法', '存储方法', '配料信息', '图片', '备注'],
-        protos: ['name', 'org_level', 'address', 'zipcode', 'phone', 'cellphone', 'phone', 'cellphone', 'phone', 'cellphone', 'fax', 'meno'],
-        widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
+        selectSearch: ['category_name'],
+        searchPlaceholder: '请输入产品名称进行搜索',
+        search: ['query_text', 'category_name'],
+        theads: ['分类', '名称', '执行标准', '卫生标准', '商品型号', '商品简介', '包装规格', '保质期', '食用方法', '存储方法', '配料信息', '图片', '备注'],
+        protos: ['category_name', 'name', 'enforce_standard', 'hygienic_standard', 'marque', 'description', 'specification', 'expiration_date', 'edible_method', 'storage_means', 'burdening_info', 'img', 'meno'],
+        widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
         typeComponent: [{
             component: importBtn
         },
@@ -818,8 +1016,66 @@ export default {
         {
             component: newbuildBtn
         }],
+        newComponent: [{
+            tab: '新建产品档案信息',
+            components: [{
+                name: 'category_name',
+                type: 'select',
+                component: null,
+                isNull: false,
+                label: '分类',
+                placeholder: '必填',
+                rule: {required: true, trigger: 'blur'}
+            },
+            {
+                name: 'name',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '供货商名称',
+                placeholder: '必填',
+                rule: {required: true, trigger: 'blur'}
+            },
+            {
+                name: 'phone',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '电话',
+                placeholder: '',
+                rule: { validator: validate2.phone, trigger: 'blur' }
+            },
+            {
+                name: 'contacts',
+                type: 'text',
+                component: null,
+                isNull: true,
+                label: '联系人',
+                placeholder: '',
+                rule: null
+            },
+            {
+                name: 'address',
+                type: 'text',
+                component: null,
+                isNull: true,
+                label: '地址',
+                placeholder: '',
+                rule: null
+            },
+            {
+                name: 'memo',
+                type: 'textarea',
+                component: null,
+                isNull: true,
+                label: '备注信息',
+                placeholder: '',
+                rule: ''
+            }
+            ]
+        }],
         editComponent: [{
-            tab: '新建客户档案信息',
+            tab: '编辑客户档案信息',
             components: [{
                 name: 'name',
                 type: 'text',
@@ -905,7 +1161,24 @@ export default {
                 rule: null
             }]
         }],
-        listComponent: []
+        listComponent: [{
+            components: [{
+                type: 'select',
+                component: selectSection,
+                options: [{
+                    value: '',
+                    label: '分类'
+                },
+                {
+                    value: '水果',
+                    label: '水果'
+                },
+                {
+                    value: '蔬菜',
+                    label: '蔬菜'
+                }]
+            }]
+        }]
     }
     ],
     baseManage: [
@@ -2409,8 +2682,8 @@ export default {
             tab: '种植场',
             url: 'plantation',
             searchPlaceholder: '请输入种植场进行搜索',
-            theads: ['种植场名称', '种植面积单位', '种植面积单位', '负责人', '联系电话', '详细地址', '备注信息'],
-            protos: ['name', 'org_level', 'address', 'zipcode', 'phone', 'cellphone', 'meno'],
+            theads: ['种植场名称', '种植面积', '种植面积单位', '负责人', '联系电话', '详细地址', '备注信息'],
+            protos: ['name', 'area', 'unit', 'director', 'phone', 'address', 'meno'],
             widths: [50, 50, 50, 50, 50, 50, 50],
             typeComponent: [{
                 component: importBtn
@@ -2632,12 +2905,12 @@ export default {
         },
         {
             settitle: '种植基础资料',
-            key: 'plantArea',
+            key: 'planta',
             tab: '种植区',
-            url: 'org',
+            url: 'planta',
             searchPlaceholder: '请输入种植区进行搜索',
-            theads: ['种植场名称', '种植面积', '种植面积单位', '负责人', '联系电话', '详细地址', '备注信息'],
-            protos: ['name', 'org_level', 'address', 'zipcode', 'phone', 'cellphone', 'meno'],
+            theads: ['种植场名称', '种植区名称', '种植面积', '种植面积单位', '负责人', '联系电话', '地址', '图片', '备注'],
+            protos: ['name', 'area', 'area_unit', 'director', 'phone', 'address', 'meno'],
             widths: [50, 50, 50, 50, 50, 50, 50],
             typeComponent: [{
                 component: importBtn
@@ -2665,12 +2938,12 @@ export default {
         },
         {
             settitle: '种植基础资料',
-            key: 'vegetableArchive',
+            key: 'plant',
             tab: '果蔬档案',
-            url: 'org',
+            url: 'plant',
             searchPlaceholder: '请输入果蔬名称进行搜索',
-            theads: ['果蔬名称', '分类', '生长周期（天）', '基本特征描述', '果蔬图片', '备注信息'],
-            protos: ['name', 'org_level', 'address', 'zipcode', 'fax', 'meno'],
+            theads: ['名称', '分类', '生长周期（天）', '基本特征描述', '果蔬图片', '备注信息'],
+            protos: ['name', 'category_name', 'growth_cycle', 'description', 'img', 'meno'],
             widths: [50, 50, 50, 50, 50, 50],
             typeComponent: [{
                 component: importBtn
@@ -2837,12 +3110,12 @@ export default {
         },
         {
             settitle: '种植基础资料',
-            key: 'fertilizeArchive',
+            key: 'manure',
             tab: '肥料档案',
-            url: 'org',
+            url: 'manure',
             searchPlaceholder: '请输入肥料名称',
             theads: ['分类', '用途', '包装规格', '日期', '产地', '经销商名称', '联系方式', '备注'],
-            protos: ['name', 'org_level', 'address', 'zipcode', 'phone', 'cellphone', 'fax', 'meno'],
+            protos: ['name', 'usage', 'specification', 'date', 'origin', 'specification', 'phone', 'meno'],
             widths: [50, 50, 50, 50, 50, 50, 50, 50],
             typeComponent: [{
                 component: importBtn
@@ -2997,12 +3270,12 @@ export default {
         },
         {
             settitle: '种植基础资料',
-            key: 'pesticideArchive',
+            key: 'medicament',
             tab: '农药档案',
-            url: 'expert',
+            url: 'medicament',
             searchPlaceholder: '请输入农药名称',
-            theads: ['农药类别', '农药名称', '用途', '防治对象', '毒性等级', '包装规格', '经销商名称', '产地', '联系方式', '备注'],
-            protos: ['name', 'expert_area', 'org_name', 'degree', 'duty', 'title', 'address', 'zipcode', 'zipcode', 'meno'],
+            theads: ['名称', '分类', '用途', '防治对象', '药物毒性等级', '包装规格', '生产厂家名称', '产地', '联系方式', '备注'],
+            protos: ['name', 'category_name', 'usage', 'control_objects', 'toxicity_grade', 'specification', 'manufacturer', 'origin', 'phone', 'meno'],
             widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
             typeComponent: [{
                 component: importBtn
@@ -3270,6 +3543,7 @@ export default {
             {
                 component: newbuildBtn
             }],
+        lotComponent: [{value: '批量农事'}, {value: '批量施肥'}, {value: '批量施药'}, {value: '批量检测'}],
         moreComponent: [{value: '状态'}, {value: '农事'}, {value: '施肥'}, {value: '施药'}, {value: '检测'}, {value: '采收'}, {value: '图片'}]
     }],
     plantFarm: [
@@ -3463,9 +3737,9 @@ export default {
     }],
     plantHarvest: [{
         settitle: '采收管理',
-        key: 'planManage',
+        key: 'harvest',
         tab: '采收批次信息',
-        url: 'plan',
+        url: 'harvest',
         searchPlaceholder: '请输入采收批次号进行搜索',
         theads: ['种植', '批次号', '种植日期', '采收数量', '入库部门', '存放仓库位置', '操作人', '录入人', '备注'],
         protos: ['plan_type_name', 'name', 'content', 'name', 'content', 'name', 'content', 'name', 'content'],
@@ -3588,7 +3862,7 @@ export default {
             url: 'logistic',
             searchPlaceholder: '请输入物流公司进行搜索',
             theads: ['物流公司名称', '联系人', '联系电话', '地址', '备注信息'],
-            protos: ['plan_type_name', 'name', 'content', 'address', 'memo'],
+            protos: ['name', 'contacts', 'phone', 'address', 'memo'],
             widths: [50, 50, 50, 50, 50],
             listComponent: [],
             typeComponent: [
@@ -3601,7 +3875,103 @@ export default {
                 {
                     component: newbuildBtn
                 }
-            ]
+            ],
+            newComponent: [{
+                tab: '新建物流公司信息',
+                components: [{
+                    name: 'name',
+                    type: 'text',
+                    component: null,
+                    isNull: false,
+                    label: '物流公司名称',
+                    placeholder: '必填',
+                    rule: {required: true, message: '请输入物流公司名称', trigger: 'blur'}
+                },
+                {
+                    name: 'contacts',
+                    type: 'text',
+                    component: null,
+                    isNull: false,
+                    label: '联系人',
+                    placeholder: '必填',
+                    rule: {required: true, message: '请输入联系人', trigger: 'blur'}
+                },
+                {
+                    name: 'phone',
+                    type: 'text',
+                    component: null,
+                    isNull: true,
+                    label: '联系电话',
+                    placeholder: '请输入11位的手机号（固话用-隔开）',
+                    rule: { required: true, validator: validate2.phone, trigger: 'blur' }
+                },
+                {
+                    name: 'address',
+                    type: 'text',
+                    component: null,
+                    isNull: true,
+                    label: '地址',
+                    placeholder: '',
+                    rule: null
+                },
+                {
+                    name: 'memo',
+                    type: 'textarea',
+                    component: null,
+                    isNull: true,
+                    label: '备注信息',
+                    placeholder: '',
+                    rule: null
+                }]
+            }],
+            editComponent: [{
+                tab: '编辑物流公司',
+                components: [{
+                    name: 'name',
+                    type: 'text',
+                    component: null,
+                    isNull: false,
+                    label: '物流公司名称',
+                    placeholder: '必填',
+                    rule: {required: true, message: '请输入物流公司名称', trigger: 'blur'}
+                },
+                {
+                    name: 'contacts',
+                    type: 'text',
+                    component: null,
+                    isNull: false,
+                    label: '联系人',
+                    placeholder: '必填',
+                    rule: {required: true, message: '请输入联系人', trigger: 'blur'}
+                },
+                {
+                    name: 'phone',
+                    type: 'text',
+                    component: null,
+                    isNull: true,
+                    label: '联系电话',
+                    placeholder: '请输入11位的手机号（固话用-隔开）',
+                    rule: { required: true, validator: validate2.phone, trigger: 'blur' }
+                },
+                {
+                    name: 'address',
+                    type: 'text',
+                    component: null,
+                    isNull: true,
+                    label: '地址',
+                    placeholder: '',
+                    rule: null
+                },
+                {
+                    name: 'memo',
+                    type: 'textarea',
+                    component: null,
+                    isNull: true,
+                    label: '备注信息',
+                    placeholder: '',
+                    rule: null
+                }]
+            }]
         },
         {
             settitle: '基础信息管理',
@@ -3610,7 +3980,7 @@ export default {
             url: 'vehicle',
             searchPlaceholder: '请输入车牌号进行搜索',
             theads: ['车辆品牌', '车辆号码', '核载吨位', '备注信息'],
-            protos: ['plan_type_name', 'name', 'content', 'memo'],
+            protos: ['brand', 'number', 'tonnage', 'memo'],
             widths: [50, 50, 50, 50],
             typeComponent: [
                 {
@@ -3629,12 +3999,90 @@ export default {
                     component: selectSection,
                     options: [{
                         value: '',
-                        label: '产品品牌'
+                        label: '车辆品牌'
                     },
                     {
-                        value: '康乐牌',
-                        label: '康乐牌'
+                        value: '东风',
+                        label: '东风'
                     }]
+                }]
+            }],
+            newComponent: [{
+                tab: '新建车辆信息',
+                components: [{
+                    name: 'brand',
+                    type: 'text',
+                    component: null,
+                    isNull: false,
+                    label: '车辆品牌',
+                    placeholder: '必填',
+                    rule: {required: true, message: '请输入车辆品牌', trigger: 'blur'}
+                },
+                {
+                    name: 'number',
+                    type: 'text',
+                    component: null,
+                    isNull: false,
+                    label: '车辆号码',
+                    placeholder: '必填',
+                    rule: {required: true, message: '请输入车辆号码', trigger: 'blur'}
+                },
+                {
+                    name: 'tonnage',
+                    type: 'text',
+                    component: null,
+                    isNull: true,
+                    label: '核载吨位',
+                    placeholder: '',
+                    rule: null
+                },
+                {
+                    name: 'memo',
+                    type: 'textarea',
+                    component: null,
+                    isNull: true,
+                    label: '备注信息',
+                    placeholder: '',
+                    rule: null
+                }]
+            }],
+            editComponent: [{
+                tab: '编辑车辆信息',
+                components: [{
+                    name: 'brand',
+                    type: 'text',
+                    component: null,
+                    isNull: false,
+                    label: '车辆品牌',
+                    placeholder: '必填',
+                    rule: {required: true, message: '请输入车辆品牌', trigger: 'blur'}
+                },
+                {
+                    name: 'number',
+                    type: 'text',
+                    component: null,
+                    isNull: false,
+                    label: '车辆号码',
+                    placeholder: '必填',
+                    rule: {required: true, message: '请输入车辆号码', trigger: 'blur'}
+                },
+                {
+                    name: 'tonnage',
+                    type: 'text',
+                    component: null,
+                    isNull: true,
+                    label: '核载吨位',
+                    placeholder: '',
+                    rule: null
+                },
+                {
+                    name: 'memo',
+                    type: 'textarea',
+                    component: null,
+                    isNull: true,
+                    label: '备注信息',
+                    placeholder: '',
+                    rule: null
                 }]
             }]
         },
@@ -3645,7 +4093,7 @@ export default {
             url: 'driver',
             searchPlaceholder: '请输入司机姓名进行搜索',
             theads: ['驾驶员姓名', '性别', '联系电话', '取得驾照日期', '出生日期', '驾照类型(A1、C2...)', '备注信息'],
-            protos: ['name', 'sex', 'content', 'phone', 'phone', 'phone', 'phone'],
+            protos: ['name', 'sex', 'phone', 'driver', 'birth', 'type', 'memo'],
             widths: [50, 50, 50, 50, 50, 50, 50],
             listComponent: [],
             typeComponent: [
@@ -3657,7 +4105,153 @@ export default {
                 },
                 {
                     component: newbuildBtn
+                }],
+            newComponent: [{
+                tab: '新建司机信息',
+                components: [{
+                    name: 'name',
+                    type: 'text',
+                    component: null,
+                    isNull: false,
+                    label: '驾驶员姓名',
+                    placeholder: '必填',
+                    rule: {required: true, message: '请输入驾驶员姓名', trigger: 'blur'}
+                },
+                {
+                    name: 'sex',
+                    type: 'select',
+                    component: null,
+                    isNull: false,
+                    label: '性别',
+                    placeholder: '必填',
+                    rule: {required: true, trigger: 'blur'},
+                    options: [{
+                        value: '', label: '男'
+                    },
+                    {
+                        value: '女', label: '女'
+                    }
+                    ]
+                },
+                {
+                    name: 'phone',
+                    type: 'text',
+                    component: null,
+                    isNull: true,
+                    label: '联系电话',
+                    placeholder: '请输入11位的手机号（固话用-隔开）',
+                    rule: { required: true, validator: validate2.phone, trigger: 'blur' }
+                },
+                {
+                    name: 'driver',
+                    type: 'text',
+                    component: null,
+                    isNull: true,
+                    label: '驾照类型',
+                    placeholder: '',
+                    rule: null
+                },
+                {
+                    name: 'date',
+                    type: 'date',
+                    component: inputDate,
+                    isNull: true,
+                    label: '出生日期',
+                    placeholder: '',
+                    rule: ''
+                },
+                {
+                    name: 'date',
+                    type: 'date',
+                    component: inputDate,
+                    isNull: true,
+                    label: '取得驾照时间',
+                    placeholder: '',
+                    rule: ''
+                },
+                {
+                    name: 'memo',
+                    type: 'textarea',
+                    component: null,
+                    isNull: true,
+                    label: '备注信息',
+                    placeholder: '',
+                    rule: null
                 }]
+            }],
+            editComponent: [{
+                tab: '编辑司机信息',
+                components: [{
+                    name: 'name',
+                    type: 'text',
+                    component: null,
+                    isNull: false,
+                    label: '驾驶员姓名',
+                    placeholder: '必填',
+                    rule: {required: true, message: '请输入驾驶员姓名', trigger: 'blur'}
+                },
+                {
+                    name: 'sex',
+                    type: 'select',
+                    component: null,
+                    isNull: false,
+                    label: '性别',
+                    placeholder: '必填',
+                    rule: {required: true, trigger: 'blur'},
+                    options: [{
+                        value: '', label: '男'
+                    },
+                    {
+                        value: '女', label: '女'
+                    }
+                    ]
+                },
+                {
+                    name: 'phone',
+                    type: 'text',
+                    component: null,
+                    isNull: true,
+                    label: '联系电话',
+                    placeholder: '请输入11位的手机号（固话用-隔开）',
+                    rule: { required: true, validator: validate2.phone, trigger: 'blur' }
+                },
+                {
+                    name: 'driver',
+                    type: 'text',
+                    component: null,
+                    isNull: true,
+                    label: '驾照类型',
+                    placeholder: '',
+                    rule: null
+                },
+                {
+                    name: 'date',
+                    type: 'date',
+                    component: inputDate,
+                    isNull: true,
+                    label: '出生日期',
+                    placeholder: '',
+                    rule: ''
+                },
+                {
+                    name: 'date',
+                    type: 'date',
+                    component: inputDate,
+                    isNull: true,
+                    label: '取得驾照时间',
+                    placeholder: '',
+                    rule: ''
+                },
+                {
+                    name: 'memo',
+                    type: 'textarea',
+                    component: null,
+                    isNull: true,
+                    label: '备注信息',
+                    placeholder: '',
+                    rule: null
+                }]
+            }]
         }
     ],
     logisticSerial: [{
@@ -3667,7 +4261,7 @@ export default {
         url: 'delivery',
         searchPlaceholder: '请输入物流批次号',
         theads: ['物流批次号', '物流日期', '货物名称', '数量', '运输方式(自运、托运、自提)', '操作人员', '物流状态', '备注'],
-        protos: ['plan_type_name', 'name', 'content', 'plan_type_name', 'name', 'content', 'plan_type_name', 'memo'],
+        protos: ['serial', 'date', 'name', 'plan_type_name', 'transportable_type', 'operate_name', 'plan_type_name', 'memo'],
         widths: [50, 50, 50, 50, 50, 50, 50, 50],
         typeComponent: [
             {
@@ -3679,25 +4273,103 @@ export default {
                 component: selectSection,
                 options: [{
                     value: '',
-                    label: '产品品牌'
+                    label: '运输方式'
                 },
                 {
-                    value: '康乐牌',
-                    label: '康乐牌'
+                    value: '自运',
+                    label: '自运'
+                },
+                {
+                    value: '托运',
+                    label: '托运'
+                },
+                {
+                    value: '自提',
+                    label: '自提'
                 }]
             },
             {
                 type: 'date',
                 components: 'datePick'
             }]
+        }],
+        moreComponent: [{value: '更改状态'}],
+        editComponent: [{
+            tab: '编辑物流批次信息',
+            components: [{
+                name: 'name',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '物流批次号',
+                placeholder: '必填',
+                rule: {required: true}
+            },
+            {
+                name: 'date',
+                type: 'date',
+                component: inputDate,
+                isNull: true,
+                label: '物流日期',
+                rule: {required: true}
+            },
+            {
+                name: 'name',
+                type: 'text',
+                component: null,
+                isNull: true,
+                label: '货物名称',
+                rule: {required: true}
+            },
+            {
+                name: 'number',
+                type: 'text',
+                component: null,
+                isNull: true,
+                label: '数量',
+                rule: null
+            },
+            {
+                name: 'transportable_type',
+                type: 'text',
+                component: null,
+                isNull: true,
+                label: '运输方式',
+                rule: null
+            },
+            {
+                name: 'operate_name',
+                type: 'text',
+                component: null,
+                isNull: true,
+                label: '操作人员',
+                rule: null
+            },
+            {
+                name: 'number',
+                type: 'text',
+                component: null,
+                isNull: true,
+                label: '物流状态',
+                rule: null
+            },
+            {
+                name: 'memo',
+                type: 'textarea',
+                component: null,
+                isNull: true,
+                label: '备注信息',
+                placeholder: '',
+                rule: null
+            }]
         }]
     }],
     saleProduct: [
         {
             settitle: '销售商品库管理',
-            key: 'storage',
+            key: 'goods',
             tab: '商品入库信息',
-            url: 'storage',
+            url: 'goods',
             searchPlaceholder: '请输入商品名称进行搜索',
             theads: ['商品名称', '入库数量', '销售数量', '入库库存', '备注'],
             protos: ['plan_type_name', 'name', 'content', 'name', 'memo'],
@@ -3760,6 +4432,31 @@ export default {
             ]
         }]
     }],
+    saleOrder: [{
+        settitle: '销售订单管理',
+        key: 'sell',
+        tab: '销售订单信息',
+        url: 'sell',
+        searchPlaceholder: '请输入销售订单号',
+        theads: ['订单号', '商品来源', '销售日期', '客户名称', '商品名称', '数量', '销售员', '备注'],
+        protos: ['plan_type_name', 'name', 'content', 'name', 'content', 'name', 'content', 'name', 'memo'],
+        widths: [50, 50, 50, 50, 50, 50, 50, 50],
+        typeComponent: [
+            {
+                component: output
+            },
+            {
+                component: newbuildBtn
+            }],
+        listComponent: [{
+            components: [
+                {
+                    type: 'date',
+                    components: 'datePick'
+                }
+            ]
+        }]
+    }],
     systemCompany: [{
         settitle: '公司信息管理',
         key: 'planManage',
@@ -3789,16 +4486,35 @@ export default {
     }],
     systemLog: [{
         settitle: '系统日志',
-        key: 'planManage',
-        tab: '销售订单信息',
-        url: 'plan',
+        key: 'log',
+        tab: '日志信息',
+        url: 'log',
+        searchPlaceholder: '请输入内容进行搜索',
         theads: ['模块名称', '操作', '内容', '日期时间', '客户端', '公司', '用户'],
-        protos: ['plan_type_name', 'name', 'content'],
-        widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
-        listComponent: []
+        protos: ['plan_type_name', 'name', 'content', 'name', 'content', 'name', 'content'],
+        widths: [50, 50, 50, 50, 50, 50, 50],
+        listComponent: [{
+            components: [{
+                type: 'select',
+                component: selectSection,
+                options: [{
+                    value: '',
+                    label: '操作日志'
+                },
+                {
+                    value: '登录日志',
+                    label: '登录日志'
+                }]
+            },
+            {
+                type: 'date',
+                components: 'datePick'
+            }
+            ]
+        }]
     }],
     systemReport: [{
-        settitle: '系统日志',
+        settitle: '报表预览',
         key: 'planManage',
         tab: '销售订单信息',
         url: 'plan',
@@ -3807,5 +4523,46 @@ export default {
         widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
         listComponent: [],
         moreComponent: [{value: '打印'}]
+    }],
+    // 运营管理
+    rightsOperate: [{
+        settitle: '权限管理',
+        key: 'planManage',
+        tab: '权限管理',
+        url: 'plan',
+        theads: ['分类', '名称', '展示名称', '备注'],
+        protos: ['plan_type_name', 'name', 'content', 'memo'],
+        widths: [50, 50, 50, 50],
+        listComponent: []
+    },
+    {
+        settitle: '权限管理',
+        key: 'planManage',
+        tab: '权限管理',
+        url: 'plan',
+        theads: ['所属分类', '名称', '展示名称', '资源', '备注'],
+        protos: ['plan_type_name', 'name', 'content', 'content', 'memo'],
+        widths: [50, 50, 50, 50, 50],
+        listComponent: []
+    }],
+    settleOperate: [{
+        settitle: '入驻单位管理',
+        key: 'planManage',
+        tab: '入驻单位信息',
+        url: 'plan',
+        theads: ['公司编码', '公司logo', '展示名称', '备注'],
+        protos: ['plan_type_name', 'name', 'content', 'memo'],
+        widths: [50, 50, 50, 50],
+        listComponent: []
+    }],
+    usersOperate: [{
+        settitle: '用户反馈管理',
+        key: 'planManage',
+        tab: '用户反馈信息',
+        url: 'plan',
+        theads: ['所属公司', '用户名', '姓名', '联系方式', '提交日期', '评价星级', '不足', '问题描述'],
+        protos: ['plan_type_name', 'name', 'content', 'memo', 'plan_type_name', 'name', 'content', 'memo'],
+        widths: [50, 50, 50, 50, 50, 50, 50, 50],
+        listComponent: []
     }]
 }
