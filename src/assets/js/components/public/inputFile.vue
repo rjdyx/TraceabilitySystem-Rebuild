@@ -13,7 +13,7 @@
         </div>
         <input type="file" hidden="hidden" @change="previewPic(item, $event)">
         <div class="delete-pic-btn">
-            <button type="button">删除</button>
+            <button type="button" @click="deleteImgFn">删除</button>
         </div>
     </div>
 </div>
@@ -28,11 +28,11 @@ export default {
             default () {
                 return {}
             }
+        },
+        editValue: {
+            type: String,
+            default: ''
         }
-        // editValue: {
-        //     type: String,
-        //     default: ''
-        // }
     },
     data () {
         return {
@@ -47,18 +47,6 @@ export default {
         }
     },
     methods: {
-        showFile () {
-            var $file = $('.fileBtn')
-            var _this = this
-            $file.click()
-            $file.change(function () {
-                console.log($file)
-                _this.imageUrl = $file[0].value
-            })
-        },
-        // 上传图片
-        uploadImgFn () {
-        },
         // 删除图片
         deleteImgFn () {
             this.imageUrl = ''
@@ -98,9 +86,11 @@ export default {
             obj.click()
         }
     },
+    mounted () {
+        this.imageUrl = this.editValue
+    },
     watch: {
-        value () {
-            this.$emit('return-shuju', {name: this.shuju.name, value: this.imageUrl})
+        imageUrl (curVal, oldVal) {
         }
     }
 }

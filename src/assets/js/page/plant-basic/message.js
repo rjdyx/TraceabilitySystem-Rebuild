@@ -216,7 +216,7 @@ export default {
         selectValueId: ['category_id', 'category_name', true],
         changeDataArr: [{sex: {0: '男', 1: '女'}}],
         theads: ['分类名称', '姓名', '身份', '性别', '年龄', '联系方式', '地址', '图片', '备注信息'],
-        protos: ['category_name', 'name', 'identity', 'sex', 'age', 'phone', 'address', 'img', 'meno'],
+        protos: ['category_name', 'name', 'identity', 'sex', 'age', 'phone', 'address', 'img', 'memo'],
         widths: [50, 50, 50, 50, 50, 50, 50, 50, 50],
         typeComponent: [{
             component: importBtn
@@ -319,7 +319,7 @@ export default {
                 rule: null
             },
             {
-                name: 'meno',
+                name: 'memo',
                 type: 'textarea',
                 component: null,
                 isNull: true,
@@ -330,7 +330,8 @@ export default {
             ]
         }],
         editComponent: [{
-            tab: '新建人员档案信息',
+            tab: '编辑人员档案信息',
+            selectUrl: ['category', 'operate', 'category_id', 'category_name', true],
             components: [{
                 name: 'category_id',
                 type: 'select',
@@ -338,11 +339,8 @@ export default {
                 isNull: false,
                 label: '分类',
                 placeholder: '必填',
-                rule: {required: true, trigger: 'blur'},
-                options: [{
-                    value: '',
-                    label: ''
-                }]
+                rule: {required: true, trigger: 'blur', type: 'number'},
+                options: []
             },
             {
                 name: 'name',
@@ -416,7 +414,7 @@ export default {
                 rule: null
             },
             {
-                name: 'meno',
+                name: 'memo',
                 type: 'textarea',
                 component: null,
                 isNull: true,
@@ -807,10 +805,12 @@ export default {
         key: 'product',
         tab: '产品档案信息',
         url: 'product',
-        searchPlaceholder: '请输入养殖场进行搜索',
-        // search: ['query_text', 'name'],
-        theads: ['名称', '执行标准', '卫生标准', '商品型号', '商品简介', '包装规格', '保质期', '食用方法', '存储方法', '配料信息', '图片', '备注'],
-        protos: ['name', 'org_level', 'address', 'zipcode', 'phone', 'cellphone', 'phone', 'cellphone', 'phone', 'cellphone', 'fax', 'meno'],
+        searchPlaceholder: '请输入产品名称进行搜索',
+        selectSearch: ['products.category_id'],
+        selectValueId: ['category_id', 'category_name', true],
+        changeDataArr: [{sex: {0: '男', 1: '女'}}],
+        theads: ['分类名称', '名称', '执行标准', '商品型号', '商品简介', '包装规格', '保质期', '食用方法', '存储方法', '配料信息', '图片', '备注'],
+        protos: ['category_name', 'name', 'org_level', 'address', 'zipcode', 'phone', 'cellphone', 'phone', 'cellphone', 'phone', 'cellphone', 'fax', 'meno'],
         widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
         typeComponent: [{
             component: importBtn
@@ -821,9 +821,118 @@ export default {
         {
             component: newbuildBtn
         }],
-        editComponent: [{
-            tab: '新建客户档案信息',
+        newComponent: [{
+            tab: '新建产品信息',
+            selectUrl: ['category', 'product', 'category_id', 'category_name', true],
             components: [{
+                name: 'category_id',
+                type: 'select',
+                component: null,
+                isNull: false,
+                label: '分类',
+                placeholder: '必填',
+                rule: {required: true, trigger: 'blur', type: 'number'},
+                options: []
+            },
+            {
+                name: 'name',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '产品名称',
+                placeholder: '必填',
+                rule: {required: true, trigger: 'blur'}
+            },
+            {
+                name: 'contact',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '联系人',
+                placeholder: '必填',
+                rule: {required: true, trigger: 'blur'}
+            },
+            {
+                name: 'phone',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '电话',
+                placeholder: '',
+                rule: { validator: validate2.phone, trigger: 'blur' }
+            },
+            {
+                name: 'fax',
+                type: 'text',
+                component: null,
+                isNull: true,
+                label: '传真',
+                placeholder: '',
+                rule: null
+            },
+            {
+                name: 'address',
+                type: 'text',
+                component: null,
+                isNull: true,
+                label: '地址',
+                placeholder: '',
+                rule: null
+            },
+            {
+                name: 'grade',
+                type: 'select',
+                component: null,
+                isNull: false,
+                label: '等级',
+                placeholder: '',
+                rule: {required: true, trigger: 'blur'},
+                options: [{
+                    value: '高',
+                    label: '高'
+                },
+                {
+                    value: '中',
+                    label: '中'
+                },
+                {
+                    value: '低',
+                    label: '低'
+                }]
+            },
+            {
+                name: 'img',
+                type: 'file',
+                component: null,
+                isNull: true,
+                label: '',
+                placeholder: '',
+                rule: null
+            },
+            {
+                name: 'memo',
+                type: 'textarea',
+                component: null,
+                isNull: true,
+                label: '备注信息',
+                placeholder: '',
+                rule: null
+            }]
+        }],
+        editComponent: [{
+            tab: '编辑产品信息',
+            selectUrl: ['category', 'product', 'category_id', 'category_name', true],
+            components: [{
+                name: 'category_id',
+                type: 'select',
+                component: null,
+                isNull: false,
+                label: '分类',
+                placeholder: '必填',
+                rule: {required: true, trigger: 'blur', type: 'number'},
+                options: []
+            },
+            {
                 name: 'name',
                 type: 'text',
                 component: null,
