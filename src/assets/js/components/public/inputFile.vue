@@ -3,76 +3,110 @@
  * @description 
  * @author 吴燕萍
  * @date 2017/3/22
-
  */
 <template>
 <div class='inputFile'>
-	<div size='small' class='avatar-uploader'>
-		<div class='el-upload el-upload--text' @click.stop='showFile'
-			>
-			<img v-if='imageUrl' :src='imageUrl' class='avatar'>
-			<i v-else class='el-icon-plus avatar-uploader-icon'></i>
-			<input type='file'  class='fileBtn el-upload__input' accept='image/jpeg'>
-		</div>
-	</div>
-
-	<input class='csfile' type='file' accept='image/jpeg'>
-	<img class='img'>
-<!-- 	<div>
-		<el-upload
-			  class='avatar-uploader'
-			  size='small'
-			  action='//jsonplaceholder.typicode.com/posts/'
-			  :show-file-list='false'
-			  :on-success='handleAvatarScucess'
-			  :before-upload='beforeAvatarUpload'>
-			  <img v-if='imageUrl' :src='imageUrl' class='avatar'>
-			  <i v-else class='el-icon-plus avatar-uploader-icon'></i>
-		</el-upload>
-	</div> -->
-	<el-button type='primary' size='small' @click='csclick'>上传图片</el-button>
-	<el-button type='danger' size='small'>删除图片</el-button>
+    <div size='small' class='avatar-uploader'>
+        <div class='el-upload el-upload--text' @click="selectPic">
+            <img v-if='imageUrl' :src='imageUrl' class='avatar'>
+            <i v-else class='el-icon-plus avatar-uploader-icon'></i>
+        </div>
+        <input type="file" hidden="hidden" @change="previewPic(item, $event)">
+        <div class="delete-pic-btn">
+            <button type="button">删除</button>
+        </div>
+    </div>
 </div>
 
 </template>
 <script>
 export default {
-  props:
-  {
-    isNull:
+    props:
     {
-      type: Boolean,
-      default: true
+        shuju: {
+            type: Object,
+            default () {
+                return {}
+            }
+        }
+        // editValue: {
+        //     type: String,
+        //     default: ''
+        // }
     },
-    label: {
-      type: String,
-      default: ''
+    data () {
+        return {
+            imageUrl: '',
+            file: {},
+            pattern: {
+                type: Array,
+                default () {
+                    return ['jpeg', 'png']
+                }
+            }
+        }
     },
-    placeholder: {
-      type: String,
-      default: '必填'
+    methods: {
+        showFile () {
+            var $file = $('.fileBtn')
+            var _this = this
+            $file.click()
+            $file.change(function () {
+                console.log($file)
+                _this.imageUrl = $file[0].value
+            })
+        },
+        // 上传图片
+        uploadImgFn () {
+        },
+        // 删除图片
+        deleteImgFn () {
+            this.imageUrl = ''
+        },
+        previewPic (srcPic, event) {
+            let file = event.target.files[0]
+            let regexParams = ''
+            for (let index = 0; index < this.pattern.length; index++) {
+                regexParams += this.pattern[index] + (index === this.pattern.length - 1 ? '' : '|')
+            }
+            let regex = new RegExp('(?:' + regexParams + ')', 'i')
+            if (!regex.test(file.type)) {
+                alert('请选择格式为 ' + this.pattern + ' 的图片')
+                return
+            }
+            let reader = new FileReader()
+            reader.readAsDataURL(file)
+            reader.onload = e => {
+                this.imageUrl = e.target.result
+                this.$emit('return-shuju', {name: this.shuju.name, value: file})
+            }
+        },
+        /**
+         * 触发input[type="file"]的click事件来选择图片
+         * @param  {object} event
+         */
+        selectPic (event) {
+            // 取出空格
+            let obj = event.target.parentNode.nextSibling
+            if (obj.tagName !== 'INPUT') {
+                obj = obj.nextSibling
+            }
+            if (obj.tagName !== 'INPUT') {
+                obj = event.target.nextSibling.nextSibling
+            }
+            // 触发input的click事件
+            obj.click()
+        }
+    },
+    watch: {
+        value () {
+            this.$emit('return-shuju', {name: this.shuju.name, value: this.imageUrl})
+        }
     }
-  },
-  data () {
-    return {
-      imageUrl: '',
-      file: {}
-    }
-  },
-  methods: {
-    showFile () {
-      var $file = this.querySelector('.fileBtn')
-      var _this = this
-      $file.click()
-      $file.change(function () {
-        _this.imageUrl = $file[0].value
-      })
-    }
-  }
 }
 </script>
 <style lang='sass'>
-	@import '../../../sass/public/inputSize.scss';
+    @import '../../../sass/public/inputSize.scss';
   .avatar-uploader .el-upload {
     border: 1px dashed #d9d9d9;
     border-radius: 6px;

@@ -45,13 +45,13 @@
 
 <script>
 export default {
-  name: 'SelectSection',
-  props: {
-    options: {
-      type: Array,
-      default: []
+    name: 'SelectSection',
+    props: {
+        options: {
+            type: Array,
+            default: []
+        }
     }
-  }
 }
 </script>
 

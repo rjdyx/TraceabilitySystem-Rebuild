@@ -1,3 +1,10 @@
+* @description 中间列表模块内容
+ * @author 舒丹彤
+ * @date 2017/3/15 
+ *   
+ */ 
+
+
 <template>
 	<div class="content">
         <basic-model :models="models[type]"></basic-model>
@@ -10,32 +17,26 @@ import message from './message.js'
 import reaction from './reaction.js'
 
 export default {
-  name: 'BasicContent',
-  data () {
-    let modelObj = {}
-    Object.assign(modelObj, message, reaction)
-    return {
-      checked: [],
-      // ¹´Ñ¡¿òÊý×é
-      activeName2: 'first',
-      models: modelObj
+    name: 'BasicContent',
+    data () {
+        let modelObj = {}
+        Object.assign(modelObj, message, reaction)
+        return {
+            checked: [],
+            activeName2: 'first',
+            models: modelObj
+        }
+    },
+    methods: {
+    },
+    components: {
+        BasicModel
+    },
+    computed: {
+        type () {
+            return this.$route.params.model
+        }
     }
-  },
-  methods: {
-
-  },
-  components: {
-    BasicModel
-  },
-  computed: {
-    type () {
-      return this.$route.params.model
-    }
-  },
-  beforeRouteUpdate (to, from, next) {
-    this.$refs.basicModel.init(to.params.index)
-    next()
-  }
 }
 </script>
 

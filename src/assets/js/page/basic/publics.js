@@ -14,16 +14,16 @@ var inputFile = require('../../components/public/inputFile.vue')
 var inputTextSelect = require('../../components/public/inputTextSelect.vue')
 
 exports.publics = {
-  importBtn: importBtn,
-  newbuildBtn: newbuildBtn,
-  output: output,
-  selectSection: selectSection,
-  datePick: datePick,
-  categoryBtn: categoryBtn,
-  inputText: inputText,
-  inputTextArea: inputTextArea,
-  inputSelect: inputSelect,
-  inputDate: inputDate,
-  inputFile: inputFile,
-  inputTextSelect: inputTextSelect
+    importBtn: importBtn,
+    newbuildBtn: newbuildBtn,
+    output: output,
+    selectSection: selectSection,
+    datePick: datePick,
+    categoryBtn: categoryBtn,
+    inputText: inputText,
+    inputTextArea: inputTextArea,
+    inputSelect: inputSelect,
+    inputDate: inputDate,
+    inputFile: inputFile,
+    inputTextSelect: inputTextSelect
 }

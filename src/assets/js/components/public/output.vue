@@ -5,11 +5,9 @@
 </template>
 
 <script>
-export default {
-  name: 'output',
-  methods: {
-  }
-}
+    export default {
+        name: 'output'
+    }
 </script>
 
 <style>

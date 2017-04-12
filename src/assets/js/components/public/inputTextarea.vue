@@ -21,30 +21,28 @@
 </template>
 <script>
 export default {
-  props:
-  {
-    isNull:
-    {
-      type: Boolean,
-      default: true
+    props: {
+        isNull: {
+            type: Boolean,
+            default: true
+        },
+        label: {
+            type: String,
+            default: ''
+        },
+        placeholder: {
+            type: String,
+            default: '必填'
+        },
+        rule: {
+            type: String
+        }
     },
-    label: {
-      type: String,
-      default: ''
-    },
-    placeholder: {
-      type: String,
-      default: '必填'
-    },
-    rule: {
-      type: String
+    data () {
+        return {
+            textarea: ''
+        }
     }
-  },
-  data () {
-    return {
-      textarea: ''
-    }
-  }
 }
 </script>
 <style lang="sass">

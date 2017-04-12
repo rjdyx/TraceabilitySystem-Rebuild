@@ -12,12 +12,12 @@
 </template>
 
 <script>
-export default {
-  name: 'NewBuild',
-  methods: {
-    handleAdd () {
-      this.$parent.changeIsShow()
+    export default {
+        name: 'NewBuild',
+        methods: {
+            handleAdd () {
+                this.$parent.changeNewShow()
+            }
+        }
     }
-  }
-}
 </script>
