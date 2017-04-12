@@ -184,6 +184,7 @@ export default {
             // 切换点击更多按钮的状态
             active: true,
             total: '',
+            paginator: {},
             isIndeterminate: true,
             // 组合查询
             par: {},
@@ -265,6 +266,23 @@ export default {
         // 显示编辑表单
         changeEditShow (index, row) {
             this.isEditShow = !this.isEditShow
+            if (this.editComponent[0].selectUrl) {
+                var selectArr = []
+                let selectUrl = this.editComponent[0].selectUrl[0]
+                let selectData = this.editComponent[0].selectUrl[1]
+                selectArr.push(this.editComponent[0].selectUrl[2])
+                selectArr.push(this.editComponent[0].selectUrl[3])
+                selectArr.push(this.editComponent[0].selectUrl[4])
+                axios.get(this.$adminUrl(selectUrl + '/changeSelect'), {params: {'selectData': selectData}})
+                .then((responce) => {
+                    if (responce.data.length !== 0) {
+                        this.editComponent[0].components[0].options = this.$selectData(this.url, responce.data, selectArr)
+                    }
+                })
+                .catch(err => {
+                    console.dir(err)
+                })
+            }
             this.editForm = row
         },
         // 获取数据
@@ -275,7 +293,7 @@ export default {
                 // 数据转换
                     if (responce.data.data.length !== 0) {
                         var ret = this.$conversion(this.changeDataArr, responce.data.data, 1)
-                        ret = this.$image(this.url, ret)
+                        // ret = this.$image(this.url, ret)
                         this.$set(this, 'tableData', ret)
                         this.total_num = responce.data.total
                         this.num = responce.data.last_page

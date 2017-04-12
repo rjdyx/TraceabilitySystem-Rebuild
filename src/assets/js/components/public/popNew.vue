@@ -60,7 +60,6 @@
                             <component 
                                 v-bind:is="subItem.component" 
                                 :shuju="subItem"
-                                :editValue="tableForm[subItem.name]"
                                 @return-shuju="returnShuju"
                             ></component>
                         </el-form-item>
@@ -154,7 +153,6 @@ export default {
         // 返回InputTextSelect组件的数据
         returnShuju ({name, value}) {
             this.tableForm[name] = value
-            console.log(this.tableForm.img)
         },
         // 关闭表单事件
         closeClick () {
