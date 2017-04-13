@@ -40,7 +40,7 @@ const routes = [
         meta: { requiresAuth: true }
     },
     {
-        path: '/',
+        path: '/index',
         component: index,
         children: [{
             path: 'message/:model/:index',
@@ -58,7 +58,7 @@ const routes = [
         component: notFound
     },
     {
-        path: '/login',
+        path: '/',
         name: 'login',
         component: login
     }
