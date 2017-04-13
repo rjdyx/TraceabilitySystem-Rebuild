@@ -3,7 +3,7 @@
  * @description 
  * @author 吴燕萍
  * @date 2017/3/21
- * 
+ *  
  */
 
 
@@ -99,7 +99,8 @@ export default {
                 return {}
             }
         },
-        url: ''
+        url: '',
+        changeDataArr: {}
     },
     data () {
         let form = {}
@@ -144,7 +145,13 @@ export default {
         submitForm (formName) {
             this.$refs[formName][0].validate((valid) => {
                 if (valid) {
-                    var ret = this.$conversion(this.url, this.editForm, 0)
+                    var ret = this.$conversion(this.changeDataArr, this.editForm, 0)
+                    // let form = new FormData()
+                    // for (let key of Object.keys(ret)) {
+                    //     form.append(key, ret[key])
+                    //     console.log(form)
+                    // }
+                    // let headers = {headers: {'Content-Type': 'multipart/form-data'}}
                     axios.put(this.$adminUrl(this.url + '/' + this.editForm.id), ret).then((response) => {
                         this.$emit('submitEdit', response.data)
                     }, (response) => {
@@ -204,8 +211,6 @@ export default {
         }
       }
     }
-      
-      
         .el-icon-circle-close{
             font-size:24px;
             color:#8492a6;

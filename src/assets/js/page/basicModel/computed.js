@@ -50,6 +50,15 @@ export default {
         },
         options () {
             return this.models[this.modelIndex].options
+        },
+        lotComponent () {
+            return this.models[this.modelIndex].lotComponent
+        },
+        selectValueId () {
+            return this.models[this.modelIndex].selectValueId
+        },
+        changeDataArr () {
+            return this.models[this.modelIndex].changeDataArr
         }
     }
 }

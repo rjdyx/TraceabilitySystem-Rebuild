@@ -60,8 +60,7 @@
                             <component 
                                 v-bind:is="subItem.component" 
                                 :shuju="subItem"
-                                :editValue="tableForm[subItem.name]"
-                                @return-shuju="returnShuju"
+                                @return-shuju="returnShuju" 
                             ></component>
                         </el-form-item>
                     </tr>
@@ -169,7 +168,12 @@ export default {
         submitForm (formName) {
             this.$refs[formName][0].validate((valid) => {
                 if (valid) {
-                    axios.post(this.$adminUrl(this.url), this.tableForm).then((response) => {
+                    let form = new FormData()
+                    for (let key of Object.keys(this.tableForm)) {
+                        form.append(key, this.tableForm[key])
+                    }
+                    let headers = {headers: {'Content-Type': 'multipart/form-data'}}
+                    axios.post(this.$adminUrl(this.url), form, headers).then((response) => {
                         this.$emit('submitNew', response.data)
                     }, (response) => {
                         this.$emit('submitNew', 'false')

@@ -22,7 +22,6 @@ default {
             if (type === 'c' || type === 'C') {
                 return host + '/home/c/' + url
             }
-
             if (type === 'p' || type === 'P') {
                 return host + '/home/p/' + url
             }
@@ -94,14 +93,66 @@ default {
             }
             return object
         }
-
         /**
         *
-        * 组合图片路径
+        * 数据转换
         *
         * @param url
-        * @returns {*}
+        * @returns ret
         */
+        Vue.prototype.$conversion = (arr, ret, state) => {
+            if (state === 1) {
+                for (let item in arr) {
+                    for (let index in arr[item]) {
+                        for (let key in ret) {
+                            ret[key][index] = arr[item][index][ret[key][index]]
+                        }
+                    }
+                }
+            } else {
+                for (let item in arr) {
+                    for (let index in arr[item]) {
+                        for (let key in arr[item][index]) {
+                            if (ret[index] === arr[item][index][key]) {
+                                ret[index] = key
+                            }
+                        }
+                    }
+                }
+            }
+            return ret
+        }
+        /**
+         *
+         * 从列表获取下拉框数据
+         *
+         * @param url
+         * @returns ret
+         */
+        Vue.prototype.$selectData = (url, ret, arr) => {
+            var options = {}
+            var optionArr = {}
+            var arrId = []
+            if (arr[2]) {
+                for (let key in ret) {
+                    options['label'] = ret[key][arr[1]]
+                    options['value'] = ret[key][arr[0]]
+                    if (arrId.indexOf(ret[key][arr[0]]) === -1) {
+                        arrId[key] = ret[key][arr[0]]
+                        optionArr[key] = options
+                    }
+                    options = {}
+                }
+                return optionArr
+            }
+        }
+        /**
+         *
+         * 组合图片路径
+         *
+         * @param url
+         * @returns {*}
+         */
         Vue.prototype.$img = (url, flag = true) => {
             if (url === undefined) {
                 return
@@ -111,40 +162,28 @@ default {
             }
             let regx = /^\/{1,}/g
             url = url.replace(regx, '')
-
             if (flag) {
                 return (env.is_server ? env.app_ano_url : '') + '/public/' + url
             } else {
                 return (env.is_server ? env.app_ano_url : '') + '/' + url
             }
         }
-
         /**
-        *
-        * 数据转换
-        *
-        * @param url
-        * @returns ret
-        */
-        Vue.prototype.$conversion = (url, ret, state) => {
-            var arr, change
-            if (url === 'category') {
-                arr = { 'operate': '操作人员', 'expert': '专家', 'product': '产品', 'supplier': '供货商', 'client': '客户', 'fodder': '饲料', 'drug': '兽药', 'beast': '畜禽', 'plant': '果蔬', 'manure': '肥料', 'medicament': '农药' }
-                change = 'type'
-            } else if (url === 'operate') {
-                arr = {0: '男', 1: '女'}
-                change = 'sex'
-            } else {
-                return ret
-            }
-            if (state === 1) {
-                for (let key in ret) {
-                    ret[key][change] = arr[ret[key][change]]
-                }
-            } else {
-                for (let key in arr) {
-                    if (ret[change] === arr[key]) {
-                        ret[change] = key
+         *
+         * 判断图片
+         *
+         * @param url
+         * @returns {*}
+         */
+        Vue.prototype.$image = (url, ret) => {
+            for (let key in ret) {
+                for (let index in ret[key]) {
+                    if (index === 'img') {
+                        if (ret[key][index] !== null && ret[key][index] !== '') {
+                            ret[key][index] = '有'
+                        } else {
+                            ret[key][index] = '无'
+                        }
                     }
                 }
             }
