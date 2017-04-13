@@ -42,7 +42,8 @@
         <!-- 新建模块 -->
         <popNew v-if="isNewShow" :newComponent="newComponent" :url="url" @submitNew="changeNew"></popNew>
         <!-- 编辑模块 -->
-        <pop-edit v-if="isEditShow" :editComponent="editComponent" :url="url" :editForm="editForm" @submitEdit="changeEdit"></pop-edit>
+        <pop-edit v-if="isEditShow" :editComponent="editComponent" :url="url" :editForm="editForm"
+             @submitEdit="hangeEdit" :changeDataArr="changeDataArr"></pop-edit>
     </div>
     <!-- 列表模块 -->
     <el-table :data="tableData"  @selection-change="handleSelectionChange">
@@ -52,7 +53,7 @@
         </el-table-column> 
 
         <!-- 序号 -->
-        <el-table-column width="80" label="序号" type="index">
+        <el-table-column width="80" label="序号" type="index" id="test_id">
         </el-table-column>
 
         <!-- 中间列表模块 -->
@@ -184,7 +185,6 @@ export default {
             // 切换点击更多按钮的状态
             active: true,
             total: '',
-            paginator: {},
             isIndeterminate: true,
             // 组合查询
             par: {},
@@ -401,7 +401,7 @@ export default {
         },
         // 获取下拉框数据
         getSelect () {
-            axios.get(this.$adminUrl(this.url + '/getSelect'))
+            axios.get(this.$adminUrl(this.url), {params: {'getSelect': '444'}})
                 .then((responce) => {
                     if (responce.data.length !== 0) {
                         this.listComponent[0].components[0].options = this.$selectData(this.url, responce.data, this.selectValueId)

@@ -93,30 +93,6 @@ default {
             }
             return object
         }
-
-        /**
-        *
-        * 组合图片路径
-        *
-        * @param url
-        * @returns {*}
-        */
-        Vue.prototype.$img = (url, flag = true) => {
-            if (url === undefined) {
-                return
-            }
-            if (url.indexOf('base64') > 0) {
-                return url
-            }
-            let regx = /^\/{1,}/g
-            url = url.replace(regx, '')
-
-            if (flag) {
-                return (env.is_server ? env.app_ano_url : '') + '/public/' + url
-            } else {
-                return (env.is_server ? env.app_ano_url : '') + '/' + url
-            }
-        }
         /**
         *
         * 数据转换
@@ -124,20 +100,7 @@ default {
         * @param url
         * @returns ret
         */
-        Vue.prototype.$conversion = (url, ret, state) => {
-            var arr, change
-            if (url === 'category') {
-                arr = { 'operate': '操作人员', 'expert': '专家', 'product': '产品', 'supplier': '供货商', 'client': '客户', 'fodder': '饲料', 'drug': '兽药', 'beast': '畜禽', 'plant': '果蔬', 'manure': '肥料', 'medicament': '农药' }
-                change = 'type'
-            } else if (url === 'operate') {
-                arr = {0: '男', 1: '女'}
-                change = 'sex'
-            } else if (url === 'delivery') {
-                arr = { 'self': '自运', 'consign': '托运', 'selve': '自提' }
-                change = 'transportable_type'
-            } else {
-                return ret
-            }
+        Vue.prototype.$conversion = (arr, ret, state) => {
             if (state === 1) {
                 for (let item in arr) {
                     for (let index in arr[item]) {
