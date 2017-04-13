@@ -25,7 +25,9 @@
                             <el-form-item :label="subItem.label" :prop="subItem.name">
                                 <el-input 
                                     :placeholder="subItem.placeholder" 
-                                    v-model="editForm[subItem.name]" size="small"></el-input>
+                                    v-model="editForm[subItem.name]" 
+                                    size="small"
+                                    :disabled="subItem.disabled"></el-input>
                             </el-form-item>
                         </td> 
                     </tr>
@@ -38,7 +40,9 @@
                                 <el-option 
                                     v-for="option in subItem.options" 
                                     :label="option.label" 
-                                    :value="option.value" size="small"></el-option>
+                                    :value="option.value" 
+                                    size="small"
+                                    :disabled="subItem.disabled"></el-option>
                               </el-select>
                             </el-form-item>
                         </td>
@@ -50,7 +54,9 @@
                             <el-input 
                                 :placeholder="subItem.placeholder" 
                                 type="textarea" 
-                                v-model="editForm[subItem.name]" size="small"></el-input>
+                                v-model="editForm[subItem.name]" 
+                                size="small"
+                                :disabled="subItem.disabled"></el-input>
                         </el-form-item>
                     </tr>
 
@@ -58,24 +64,30 @@
                     <tr v-else-if="subItem.component">
                         <el-form-item :label="subItem.label" :prop="subItem.name">
                             <component 
+                                v-if="subItem.type=='textselect'"
                                 v-bind:is="subItem.component" 
                                 :shuju="subItem"
-                                :editValue="editForm[subItem.name]"
+                                :inputEditValue="editForm[subItem.name]"
+                                :selectEditValue="editForm['unit']"
+                                @return-shuju="returnShuju"
+                            ></component>
+                            <component 
+                                v-else
+                                v-bind:is="subItem.component" 
+                                :shuju="subItem"
                                 @return-shuju="returnShuju"
                             ></component>
                         </el-form-item>
                     </tr>
                 </template>
           </table>
-          <el-form-item>
-           <div class="form-footer">
+         </el-form>
+        </el-tab-pane>
+        <div class="form-footer">
             <el-button type="primary"  @click="submitForm('editForm')">确定</el-button>
             <el-button class="activecancel" @click="cancelClick">取消</el-button>
             edit
           </div>
-          </el-form-item>
-         </el-form>
-        </el-tab-pane>
       </el-tabs>
     </form>
 </div>
@@ -99,13 +111,10 @@ export default {
                 return {}
             }
         },
-        url: ''
+        url: '',
+        changeDataArr: {}
     },
     data () {
-        let form = {}
-        this.editComponent[0].components.forEach(function (item) {
-            form[item.name] = ''
-        })
         let rules = {}
         this.editComponent[0].components.forEach(function (item) {
             rules[item.name] = item.rule
@@ -113,14 +122,10 @@ export default {
         return {
             // 当前选中的标签页
             activeName: this.editComponent[0].tab,
-            // editForm: this.editForm,
-            // editForm: {},
             rules: rules
         }
     },
     mounted () {
-      // console.log('editBol:' + this.editBol)
-      // this.editForm = this.editBol ? this.editForm : this.form
     },
     methods: {
         handleClick (tab, event) {
@@ -145,6 +150,12 @@ export default {
             this.$refs[formName][0].validate((valid) => {
                 if (valid) {
                     var ret = this.$conversion(this.changeDataArr, this.editForm, 0)
+                    // let form = new FormData()
+                    // for (let key of Object.keys(ret)) {
+                    //     form.append(key, ret[key])
+                    //     console.log(form)
+                    // }
+                    // let headers = {headers: {'Content-Type': 'multipart/form-data'}}
                     axios.put(this.$adminUrl(this.url + '/' + this.editForm.id), ret).then((response) => {
                         this.$emit('submitEdit', response.data)
                     }, (response) => {
@@ -154,79 +165,7 @@ export default {
                     return false
                 }
             })
-        },
-        resetForm (formName) {
-            this.$refs[formName].resetFields()
         }
     }
 }
 </script>
-<style lang="sass">
-.newWrap{
-  position: fixed;
-  width:100%;
-  height: 100%;
-  background:rgba(0,0,0,0.3);
-  top:0;
-  left:0;
-  z-index:2;
-  text-align:center;
-  overflow:hidden;
-  .newForm{
-    width:618px;
-    position: absolute;
-    background:white;
-    left:50%;
-    top:50%;
-    transform:translateX(-50%) translateY(-50%);
-    box-shadow:1px 1px 50px rgba(0,0,0,.3);
-    border-radius:2px;  
-    .el-tabs{
-       width:100%;
-       height:auto;
-       max-height:618px;
-       overflow:auto;
-      .el-tabs__content{
-        padding:20px 70px;
-        box-sizing:border-box;
-        table{
-            width:100%;
-            text-align: left;
-            .el-select{
-                display:block;
-            }
-            .el-textarea__inner{
-                resize:none;
-            }
-            .el-form-item__label::before{
-                float: left;
-            }
-        }
-      }
-    }
-        .el-icon-circle-close{
-            font-size:24px;
-            color:#8492a6;
-            position: absolute;
-            right:-12px;
-            top:-10px;
-            border:3px solid white;
-            border-radius:50%;
-            background:white;
-            z-index:3;
-        }
-        .el-icon-circle-close:hover{
-            color:#0087b5;
-        } 
-
-        .form-footer{
-          text-align:-webkit-right;
-          padding:20px 10px 50px 0;
-            .activecancel{
-              background-color:#cccccc;
-              color:white;
-            }
-        }
-    }
-}
-</style>

@@ -8,7 +8,7 @@
 
 <template>
 	<div>
-		<el-dropdown>
+		<el-dropdown class="more">
 			<span class="el-dropdown-link">
 				更多
 				<i class="el-icon-caret-bottom el-icon--right"></i>
@@ -44,8 +44,7 @@
 	.btn:last-child{
 		border-left:none;
 	}
-	.more span{
-		border-left:1px solid #a7bad6;
-		padding: 0px 5px 0px 5px;
+	.more{
+		cursor: pointer;
 	}
 </style>

@@ -23,26 +23,34 @@
                     return {}
                 }
             },
-            editValue: {
-                type: Array,
+            inputEditValue: {
+                type: String,
                 default () {
-                    return []
+                    return ''
+                }
+            },
+            selectEditValue: {
+                type: String,
+                default () {
+                    return ''
                 }
             }
         },
         data () {
             return {
-                inputValue: this.editValue[0],
-                selectValue: this.editValue[1],
+                inputValue: this.inputEditValue,
+                selectValue: this.selectEditValue,
                 tableForm: {}
             }
         },
         watch: {
             inputValue () {
-                this.$emit('return-shuju', {name: this.shuju.name, value: [this.inputValue, this.selectValue]})
+                this.$emit('return-shuju', {name: this.shuju.name, value: this.inputValue})
+                this.$emit('return-shuju', {name: 'unit', value: this.selectValue})
             },
             selectValue () {
-                this.$emit('return-shuju', {name: this.shuju.name, value: [this.inputValue, this.selectValue]})
+                this.$emit('return-shuju', {name: this.shuju.name, value: this.inputValue})
+                this.$emit('return-shuju', {name: 'unit', value: this.selectValue})
             }
         }
     }

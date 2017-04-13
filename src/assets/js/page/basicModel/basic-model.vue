@@ -36,13 +36,14 @@
                 :is="typeOperate.component"
                 :params="typeOperate.params"
                 class="fr"
-            ></component> 
+            ></component>
         </div>
     
         <!-- 新建模块 -->
         <popNew v-if="isNewShow" :newComponent="newComponent" :url="url" @submitNew="changeNew"></popNew>
         <!-- 编辑模块 -->
-        <pop-edit v-if="isEditShow" :editComponent="editComponent" :url="url" :editForm="editForm" @submitEdit="changeEdit"></pop-edit>
+        <pop-edit v-if="isEditShow" :editComponent="editComponent" :url="url" :editForm="editForm"
+             @submitEdit="hangeEdit" :changeDataArr="changeDataArr"></pop-edit>
     </div>
     <!-- 列表模块 -->
     <el-table :data="tableData"  @selection-change="handleSelectionChange">
@@ -52,7 +53,7 @@
         </el-table-column> 
 
         <!-- 序号 -->
-        <el-table-column width="80" label="序号" type="index">
+        <el-table-column width="80" label="序号" type="index" id="test_id">
         </el-table-column>
 
         <!-- 中间列表模块 -->
@@ -181,10 +182,7 @@ export default {
             editBol: false,
             editForm: {},
             paginator: {},
-            // 切换点击更多按钮的状态
-            active: true,
             total: '',
-            isIndeterminate: true,
             // 组合查询
             par: {},
             // 数组拼装
@@ -211,7 +209,6 @@ export default {
         // tab点击事件
         tabClick (tab, event) {
             this.modelIndex = tab.$data.index
-            console.log(tab.$data)
             // let model = this.$route.params.model
         },
         // 操作更多选项
@@ -249,6 +246,7 @@ export default {
         // 显示新建表单
         changeNewShow () {
             this.isNewShow = !this.isNewShow
+            this.newComponent[0].components[this.newComponent[0].checkNumber].rule[1].url = this.url
             if (this.newComponent[0].selectUrl) {
                 var selectArr = []
                 let selectUrl = this.newComponent[0].selectUrl[0]
@@ -270,7 +268,28 @@ export default {
         // 显示编辑表单
         changeEditShow (index, row) {
             this.isEditShow = !this.isEditShow
-            this.editForm = row
+            if (row !== undefined) {
+                this.editComponent[0].components[this.editComponent[0].checkNumber].rule[1]['id'] = row.id
+                this.editComponent[0].components[this.editComponent[0].checkNumber].rule[1]['url'] = this.url
+                if (this.editComponent[0].selectUrl) {
+                    var selectArr = []
+                    let selectUrl = this.editComponent[0].selectUrl[0]
+                    let selectData = this.editComponent[0].selectUrl[1]
+                    selectArr.push(this.editComponent[0].selectUrl[2])
+                    selectArr.push(this.editComponent[0].selectUrl[3])
+                    selectArr.push(this.editComponent[0].selectUrl[4])
+                    axios.get(this.$adminUrl(selectUrl + '/changeSelect'), {params: {'selectData': selectData}})
+                    .then((responce) => {
+                        if (responce.data.length !== 0) {
+                            this.editComponent[0].components[0].options = this.$selectData(this.url, responce.data, selectArr)
+                        }
+                    })
+                    .catch(err => {
+                        console.dir(err)
+                    })
+                }
+                this.editForm = row
+            }
         },
         // 获取数据
         getAllMsg (data = '') {
@@ -280,7 +299,7 @@ export default {
                 // 数据转换
                     if (responce.data.data.length !== 0) {
                         var ret = this.$conversion(this.changeDataArr, responce.data.data, 1)
-                        ret = this.$image(this.url, ret)
+                        // ret = this.$image(this.url, ret)
                         this.$set(this, 'tableData', ret)
                         this.total_num = responce.data.total
                         this.num = responce.data.last_page
@@ -388,7 +407,7 @@ export default {
         },
         // 获取下拉框数据
         getSelect () {
-            axios.get(this.$adminUrl(this.url + '/getSelect'))
+            axios.get(this.$adminUrl(this.url), {params: {'getSelect': '444'}})
                 .then((responce) => {
                     if (responce.data.length !== 0) {
                         this.listComponent[0].components[0].options = this.$selectData(this.url, responce.data, this.selectValueId)
@@ -410,6 +429,9 @@ export default {
     watch: {
         key () {
             this.tableData = []
+            if (this.selectValueId) {
+                this.getSelect()
+            }
             this.getAllMsg()
         }
     },
@@ -482,7 +504,7 @@ export default {
       display: inline-block;
      }
      .el-table th{
-      text-align:center;
+        text-align:center;
      }
      .el-table th:last-child{
       border-left: 1px solid red;
@@ -496,6 +518,7 @@ export default {
      .el-table td, .el-table th.is-leaf{
         text-align: center;
      }
+     
      .footer{
       width: 100%;
       height: 50px;

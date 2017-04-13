@@ -56,6 +56,7 @@ export default {
 	// @import "../../sass/_percent.scss";
 	.wrap {
 		width: 100%;
+        height: 100%;
 		overflow: hidden;
 		min-width: 1280px;
 	}
