@@ -36,7 +36,7 @@
                 :is="typeOperate.component"
                 :params="typeOperate.params"
                 class="fr"
-            ></component>
+            ></component> 
         </div>
     
         <!-- 新建模块 --> 
@@ -182,7 +182,10 @@ export default {
             editBol: false,
             editForm: {},
             paginator: {},
+            // 切换点击更多按钮的状态
+            active: true,
             total: '',
+            isIndeterminate: true,
             // 组合查询
             par: {},
             // 数组拼装
@@ -503,7 +506,7 @@ export default {
       display: inline-block;
      }
      .el-table th{
-        text-align:center;
+      text-align:center;
      }
      .el-table th:last-child{
       border-left: 1px solid red;
@@ -515,7 +518,6 @@ export default {
      .el-table td, .el-table th.is-leaf{
         text-align: center;
      }
-     
      .footer{
       width: 100%;
       height: 50px;

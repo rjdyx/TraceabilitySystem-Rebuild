@@ -247,7 +247,7 @@ export default {
                 isNull: false,
                 label: '分类',
                 placeholder: '必填',
-                rule: {required: true, trigger: 'blur', type: 'number'},
+                rule: {required: true, trigger: 'blur', type: 'number', message: '请选择分类名称'},
                 options: []
             },
             {
@@ -461,7 +461,7 @@ export default {
                 isNull: false,
                 label: '分类',
                 placeholder: '必填',
-                rule: {required: true, trigger: 'blur', type: 'number'},
+                rule: {required: true, trigger: 'blur', type: 'number', message: '请选择分类名称'},
                 options: []
             },
             {
@@ -706,7 +706,7 @@ export default {
                 isNull: false,
                 label: '分类',
                 placeholder: '必填',
-                rule: {required: true, trigger: 'blur', type: 'number'},
+                rule: {required: true, trigger: 'blur', type: 'number', message: '请选择分类名称'},
                 options: []
             },
             {
@@ -870,7 +870,7 @@ export default {
                 isNull: false,
                 label: '分类',
                 placeholder: '必填',
-                rule: {required: true, trigger: 'blur', type: 'number'},
+                rule: {required: true, trigger: 'blur', type: 'number', message: '请选择分类名称'},
                 options: []
             },
             {
@@ -1019,7 +1019,7 @@ export default {
                 isNull: false,
                 label: '分类',
                 placeholder: '必填',
-                rule: {required: true, trigger: 'blur', type: 'number'},
+                rule: {required: true, trigger: 'blur', type: 'number', message: '请选择分类名称'},
                 options: []
             },
             {
