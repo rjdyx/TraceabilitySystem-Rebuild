@@ -39,7 +39,7 @@
             ></component>
         </div>
     
-        <!-- 新建模块 -->
+        <!-- 新建模块 --> 
         <popNew v-if="isNewShow" :newComponent="newComponent" :url="url" @submitNew="changeNew"></popNew>
         <!-- 编辑模块 -->
         <pop-edit v-if="isEditShow" :editComponent="editComponent" :url="url" :editForm="editForm"
@@ -52,7 +52,7 @@
         <el-table-column width="50" type="selection">
         </el-table-column> 
 
-        <!-- 序号 -->
+        <!-- 序号 --> 
         <el-table-column width="80" label="序号" type="index" id="test_id">
         </el-table-column>
 
@@ -62,7 +62,7 @@
             <el-table-column 
               :prop="protos[index]"
               :label="item"
-              :min-width="widths[index]" 
+              :min-width="widths[index]"
               show-overflow-tooltip>
             </el-table-column>
           </template>
@@ -76,12 +76,11 @@
                     <clickMore :moreComponent="moreComponent" class="clickMoreBtn"></clickMore>
                 </template>
                 <template>
-                    <i>
-                        <el-button type="text" size="small" class="btndel" @click="changeEditShow(scope.$index,scope.row)">编辑</el-button>
-                    </i>
-                    <i>
+                        <el-button type="text" size="small" @click="changeEditShow(scope.$index,scope.row)" v-if="!hiddeEdit">编辑</el-button>
+                        
+                        <el-button type="text" size="small" v-if="hiddeEdit">查看</el-button>
+                        
                         <el-button size="small" type="text" @click="handelDel(scope.$index,scope.row)" class="btn">删除</el-button>  
-                    </i>
                 </template>
             </template>
         </el-table-column>
@@ -154,7 +153,8 @@ export default {
                     }],
                     editComponent: [],
                     moreComponent: [],
-                    lotComponent: []
+                    lotComponent: [],
+                    hiddeEdit: false
                 }]
             }
         }
@@ -209,7 +209,6 @@ export default {
         // tab点击事件
         tabClick (tab, event) {
             this.modelIndex = tab.$data.index
-            // let model = this.$route.params.model
         },
         // 操作更多选项
         filterTag (value, row) {
@@ -510,11 +509,9 @@ export default {
       border-left: 1px solid red;
      }
      .btn span{
-      border-left: 1px solid #a7bad6;
-     }
-     .btndel span{
-      padding: 0px 5px 0px 5px;
-     }
+        border-left: 1px solid #a7bad6;
+        padding: 0px 5px 0px 8px;
+    }
      .el-table td, .el-table th.is-leaf{
         text-align: center;
      }
