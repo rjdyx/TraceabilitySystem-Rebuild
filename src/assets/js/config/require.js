@@ -7,32 +7,13 @@ require('animate.css') // 动画css插件
 require('./echarts.js')
 
 // 滚动条
-// import VuePerfectScrollbar from 'vue-perfect-scrollbar'
-// Vue.component('vue-perfect-scrollbar', VuePerfectScrollbar)
+import ScrollBar from 'vue2-scrollbar'
+Vue.component('vue-scrollbar', ScrollBar)
+require('vue2-scrollbar/dist/style/vue2-scrollbar.css')
 
 // 路由插件
 import VueRouter from 'vue-router'
 Vue.use(VueRouter)
-
-// 表单验证插件
-import VeeValidate from 'vee-validate'
-import messagesZhCN from 'lang/validate/zh_CN.js'
-import messagesEn from 'lang/validate/en.js'
-Vue.use(VeeValidate, {
-    fieldsBagName: 'vfields',
-    errorBagName: 'verrors',
-    locale: require('projectRoot/env.js').app_lang,
-    dictionary: {
-        'zh-CN': {
-            messages: messagesZhCN
-        },
-        'en': {
-            messages: messagesEn
-        }
-    }
-})
-
-// const validator=new Vali
 
 // 注册element-ui全局组件
 // import enLocale from 'element-ui/lib/locale/lang/en'

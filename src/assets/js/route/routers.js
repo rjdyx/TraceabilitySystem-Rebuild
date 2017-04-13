@@ -18,6 +18,13 @@ const notFound = resolve => {
         resolve(require('../views/404.vue'))
     }, 'fourOFour')
 }
+// ---------------------------登录注册组件----------------------------------
+const login = resolve => {
+    require.ensure(['../views/login.vue'], () => {
+        resolve(require('../views/login.vue'))
+    }, 'login')
+}
+
 // ---------------------------基础信息管理----------------------------------
 const basic = resolve => {
     require.ensure(['../page/plant-basic/basic.vue'], () => {
@@ -27,7 +34,7 @@ const basic = resolve => {
 
 const routes = [
     {
-        path: '/',
+        path: '/index',
         name: 'index',
         component: index,
         meta: { requiresAuth: true }
@@ -48,6 +55,11 @@ const routes = [
         path: '/404',
         name: 'notFound',
         component: notFound
+    },
+    {
+        path: '/',
+        name: 'login',
+        component: login
     }
 ]
 

@@ -107,7 +107,6 @@
                 </template> -->  
             <!-- </div> -->
         </el-tab-pane>
-
         <div class="form-footer">
                 <!-- <div class="batchNumDiv" v-show="newComponent.length>1">已选择: <el-input v-model="batchNum" class="batchNum" size="small"></el-input>个{{newComponent[1].batch}}批次</div> -->
                 <el-button type="primary"  @click="submitForm('tableForm')">确定</el-button>
@@ -217,7 +216,12 @@ export default {
         submitForm (formName) {
             this.$refs[formName][0].validate((valid) => {
                 if (valid) {
-                    axios.post(this.$adminUrl(this.url), this.tableForm).then((response) => {
+                    let form = new FormData()
+                    for (let key of Object.keys(this.tableForm)) {
+                        form.append(key, this.tableForm[key])
+                    }
+                    let headers = {headers: {'Content-Type': 'multipart/form-data'}}
+                    axios.post(this.$adminUrl(this.url), form, headers).then((response) => {
                         this.$emit('submitNew', response.data)
                     }, (response) => {
                         this.$emit('submitNew', 'false')
