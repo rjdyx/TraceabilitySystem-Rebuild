@@ -2774,7 +2774,7 @@ export default {
                     rule: {required: true, message: '请输入种植场名称', trigger: 'blur'}
                 },
                 {
-                    name: 'name',
+                    name: 'area',
                     type: 'textSelect',
                     component: inputTextSelect,
                     isNull: false,
@@ -2796,7 +2796,7 @@ export default {
                     rule: {required: true, message: '请输入种植场名称', trigger: 'blur'}
                 },
                 {
-                    name: 'name',
+                    name: 'director',
                     type: 'text',
                     component: null,
                     isNull: false,
