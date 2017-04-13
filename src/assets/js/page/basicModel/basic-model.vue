@@ -209,7 +209,6 @@ export default {
         // tab点击事件
         tabClick (tab, event) {
             this.modelIndex = tab.$data.index
-            console.log(tab.$data)
             // let model = this.$route.params.model
         },
         // 操作更多选项
@@ -242,6 +241,7 @@ export default {
         // 显示新建表单
         changeNewShow () {
             this.isNewShow = !this.isNewShow
+            this.newComponent[0].components[this.newComponent[0].checkNumber].rule[1].url = this.url
             if (this.newComponent[0].selectUrl) {
                 var selectArr = []
                 let selectUrl = this.newComponent[0].selectUrl[0]
@@ -263,24 +263,28 @@ export default {
         // 显示编辑表单
         changeEditShow (index, row) {
             this.isEditShow = !this.isEditShow
-            if (this.editComponent[0].selectUrl) {
-                var selectArr = []
-                let selectUrl = this.editComponent[0].selectUrl[0]
-                let selectData = this.editComponent[0].selectUrl[1]
-                selectArr.push(this.editComponent[0].selectUrl[2])
-                selectArr.push(this.editComponent[0].selectUrl[3])
-                selectArr.push(this.editComponent[0].selectUrl[4])
-                axios.get(this.$adminUrl(selectUrl + '/changeSelect'), {params: {'selectData': selectData}})
-                .then((responce) => {
-                    if (responce.data.length !== 0) {
-                        this.editComponent[0].components[0].options = this.$selectData(this.url, responce.data, selectArr)
-                    }
-                })
-                .catch(err => {
-                    console.dir(err)
-                })
+            if (row !== undefined) {
+                this.editComponent[0].components[this.editComponent[0].checkNumber].rule[1]['id'] = row.id
+                this.editComponent[0].components[this.editComponent[0].checkNumber].rule[1]['url'] = this.url
+                if (this.editComponent[0].selectUrl) {
+                    var selectArr = []
+                    let selectUrl = this.editComponent[0].selectUrl[0]
+                    let selectData = this.editComponent[0].selectUrl[1]
+                    selectArr.push(this.editComponent[0].selectUrl[2])
+                    selectArr.push(this.editComponent[0].selectUrl[3])
+                    selectArr.push(this.editComponent[0].selectUrl[4])
+                    axios.get(this.$adminUrl(selectUrl + '/changeSelect'), {params: {'selectData': selectData}})
+                    .then((responce) => {
+                        if (responce.data.length !== 0) {
+                            this.editComponent[0].components[0].options = this.$selectData(this.url, responce.data, selectArr)
+                        }
+                    })
+                    .catch(err => {
+                        console.dir(err)
+                    })
+                }
+                this.editForm = row
             }
-            this.editForm = row
         },
         // 获取数据
         getAllMsg (data = '') {
@@ -420,6 +424,9 @@ export default {
     watch: {
         key () {
             this.tableData = []
+            if (this.selectValueId) {
+                this.getSelect()
+            }
             this.getAllMsg()
         }
     },
