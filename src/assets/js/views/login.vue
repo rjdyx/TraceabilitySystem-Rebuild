@@ -37,6 +37,7 @@
 								placeholder="请输入验证码" 
 								class="code">
 							</el-input>
+							<img :src="kit_url" alt="" class="kit" @click="Kit">
 						</el-form-item>
 						<el-form-item class="receive">
 							<el-checkbox v-model="checked" class="acept">接受</el-checkbox>
@@ -76,19 +77,34 @@ export default {
         var validateName = (rule, value, callback) => {
             if (value === '') {
                 callback(new Error('请输入用户名'))
+            } else {
+                callback()
             }
         }
         var validatePassword = (rule, value, callback) => {
             if (value === '') {
                 callback(new Error('请输入密码'))
+            } else {
+                callback()
             }
         }
         var checkCode = (rule, value, callback) => {
             if (value === '') {
-                return callback(new Error('验证码不能为空'))
+                callback(new Error('验证码不能为空'))
+            } else {
+                // callback(new Error('验证码错误'))
+                axios.get('/kit-check', { params: { kit: this.ruleForm2.code } })
+                    .then((responce) => {
+                        if (responce.data === 422) {
+                            callback(new Error('验证码错误'))
+                        } else {
+                            callback()
+                        }
+                    })
             }
         }
         return {
+            kit_url: '',
             ruleForm2: {
                 name: '',
                 password: '',
@@ -112,19 +128,38 @@ export default {
         submitForm (formName) {
             this.$refs[formName].validate((valid) => {
                 if (valid) {
-                    alert('submit!')
+                    axios.post('/login', this.ruleForm2)
+                        .then((responce) => {
+                            if (responce.data !== 200) {
+                                callback(new Error('登录失败'))
+                            }
+                        })
                 } else {
                     console.log('error submit!!')
                     return false
                 }
             })
+        },
+        Kit () {
+            axios.get('/kit')
+                .then((responce) => {
+                    this.kit_url = responce.data
+                })
         }
+    },
+    mounted () {
+        this.Kit()
     }
 }
 </script>
 
 
 <style lang='sass'>
+	.kit{
+		width:50%;
+		height:36px;
+		margin-left: 1%;
+	}
 	.login{
 		width: 100%;
 		height: 100%;
