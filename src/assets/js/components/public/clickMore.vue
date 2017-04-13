@@ -37,14 +37,9 @@
 
 
 <style lang="sass">
-	.btn span{
-		border-left: 1px solid #a7bad6;
-		padding: 0px 5px 0px 5px;
-	}
-	.btn:last-child{
-		border-left:none;
-	}
+	
 	.more{
 		cursor: pointer;
+		margin-right: 10px;
 	}
 </style>

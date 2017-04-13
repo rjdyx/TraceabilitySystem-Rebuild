@@ -8,6 +8,16 @@ require('./config/init')
 
 router.beforeEach((to, from, next) => {
     next()
+    // if (store.state.token) {
+    //     next()
+    // } else {
+    //     next({
+    //         path: '/login',
+    //         query: {redirect: to.fullPath}
+    //     })
+    // } else {
+    //     next()
+    // }
 })
 
 router.afterEach(route => {})

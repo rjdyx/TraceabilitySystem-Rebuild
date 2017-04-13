@@ -150,13 +150,16 @@ export default {
             this.$refs[formName][0].validate((valid) => {
                 if (valid) {
                     var ret = this.$conversion(this.changeDataArr, this.editForm, 0)
-                    // let form = new FormData()
-                    // for (let key of Object.keys(ret)) {
-                    //     form.append(key, ret[key])
-                    //     console.log(form)
-                    // }
-                    // let headers = {headers: {'Content-Type': 'multipart/form-data'}}
-                    axios.put(this.$adminUrl(this.url + '/' + this.editForm.id), ret).then((response) => {
+                    let form = new FormData()
+                    for (let key of Object.keys(ret)) {
+                        if (ret[key] === '' || ret[key] === null) {
+                            ret[key] = ''
+                        }
+                        form.append(key, ret[key])
+                    }
+                    form.append('_method', 'PUT')
+                    let headers = {headers: {'Content-Type': 'multipart/form-data'}}
+                    axios.post(this.$adminUrl(this.url + '/' + this.editForm.id), form, headers).then((response) => {
                         this.$emit('submitEdit', response.data)
                     }, (response) => {
                         this.$emit('submitEdit', 'false')

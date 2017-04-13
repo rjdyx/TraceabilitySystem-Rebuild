@@ -46,6 +46,7 @@ const routes = [
             path: 'message/:model/:index',
             // alias: 'reaction/:model/:index',
             component: basic,
+            // 需要登录才能进人此路由
             meta: {
                 requiresAuth: true
             }
