@@ -1247,16 +1247,18 @@ export default {
         }]
     }
     ],
+    // 3.2.1基础信息管理(*)
     baseManage: [
         {
             settitle: '养殖基础信息管理',
-            key: 'cultivation',
+            key: 'farm',
             tab: '养殖场信息',
-            url: 'org',
+            url: 'farm',
             searchPlaceholder: '请输入养殖场进行搜索',
             search: ['query_text', 'name'],
-            theads: ['序号', '养殖场名称', '养殖面积', '负责人', '养殖畜禽种类', '养殖规模', '详细地址', '图片', '备注信息'],
-            protos: ['name', 'org_level', 'address', 'zipcode', 'phone', 'cellphone', 'fax', 'meno'],
+            theads: ['养殖场名称', '养殖面积', '负责人', '养殖畜禽种类', '养殖规模', '详细地址', '图片', '备注信息'],
+            protos: ['name', 'area', 'principal', 'kind', 'scale', 'address', 'img', 'meno'],
+            selectSearch: ['farm.name'],
             widths: [50, 50, 50, 50, 50, 50, 50, 50],
             typeComponent: [{
                 component: importBtn
@@ -1272,7 +1274,7 @@ export default {
                 components: [{
                     name: 'name',
                     type: 'text',
-                    component: inputText,
+                    component: null,
                     isNull: false,
                     label: '养殖场名称',
                     placeholder: '必填',
@@ -1299,63 +1301,63 @@ export default {
                     ]
                 },
                 {
-                    name: 'kind',
-                    type: 'text',
-                    component: inputText,
-                    isNull: false,
-                    label: '养殖畜禽种类',
-                    placeholder: '',
-                    rule: {required: true, trigger: 'blur'}
-                },
-                {
-                    name: 'address',
-                    type: 'text',
-                    component: inputText,
-                    isNull: true,
-                    label: '地址',
-                    placeholder: '',
-                    rule: null
-                },
-                {
-                    name: 'scale',
-                    type: 'text',
-                    component: inputText,
-                    isNull: true,
-                    label: '养殖规模',
-                    placeholder: '',
-                    rule: null
-                },
-                {
                     name: 'principal',
                     type: 'text',
-                    component: inputText,
+                    component: null,
                     isNull: true,
                     label: '负责人',
                     placeholder: '',
                     rule: null
                 },
                 {
-                    name: 'img',
-                    type: 'file',
-                    component: inputFile,
-                    isNull: true,
-                    label: '',
-                    placeholder: '',
-                    rule: null
-                },
-                {
                     name: 'phone',
                     type: 'text',
-                    component: inputText,
+                    component: null,
                     isNull: true,
                     label: '联系电话',
                     placeholder: '请输入11位的手机号（固话用-隔开）',
                     rule: { validator: validate2.phone, trigger: 'blur' }
                 },
                 {
+                    name: 'kind',
+                    type: 'text',
+                    component: null,
+                    isNull: false,
+                    label: '养殖畜禽种类',
+                    placeholder: '',
+                    rule: {required: true, trigger: 'blur'}
+                },
+                {
+                    name: 'scale',
+                    type: 'text',
+                    component: null,
+                    isNull: true,
+                    label: '养殖规模',
+                    placeholder: '',
+                    rule: null
+                },
+                {
+                    name: 'address',
+                    type: 'text',
+                    component: null,
+                    isNull: true,
+                    label: '地址',
+                    placeholder: '',
+                    rule: null
+                },
+                {
+                    name: 'img',
+                    type: 'file',
+                    component: null,
+                    isNull: true,
+                    label: '',
+                    placeholder: '',
+                    rule: null
+                },
+                {
                     name: 'memo',
                     type: 'textarea',
-                    component: inputTextArea,
+                    component: null,
                     isNull: true,
                     label: '备注信息',
                     placeholder: '',
@@ -1363,42 +1365,22 @@ export default {
                 }
                 ]
             }],
-            listComponent: []
-        },
-        {
-            settitle: '养殖基础信息管理',
-            key: 'cultivation',
-            tab: '养殖区信息',
-            url: 'org',
-            searchPlaceholder: '请输入养殖场进行搜索',
-            search: ['query_text', 'name'],
-            theads: ['序号', '所属养殖场', '养殖区名称', '养殖面积', '负责人', '养殖畜禽种类', '养殖规模', '详细地址', '图片', '备注信息'],
-            protos: ['name', 'org_level', 'address', 'zipcode', 'phone', 'cellphone', 'fax', 'meno'],
-            widths: [50, 50, 50, 50, 50, 50, 50, 50],
-            typeComponent: [{
-                component: importBtn
-            },
-            {
-                component: output
-            },
-            {
-                component: newbuildBtn
-            }],
-            newComponent: [{
+            editComponent: [{
                 tab: '养殖场信息',
                 components: [{
                     name: 'name',
                     type: 'text',
-                    component: inputText,
+                    component: null,
                     isNull: false,
                     label: '养殖场名称',
                     placeholder: '必填',
                     rule: {required: true, trigger: 'blur'}
+                    // disabled: true
                 },
                 {
                     name: 'area',
-                    type: 'textarea',
-                    component: inputTextArea,
+                    type: 'textselect',
+                    component: inputTextSelect,
                     isNull: false,
                     label: '养殖面积',
                     placeholder: '请填写数字（必填）',
@@ -1416,9 +1398,9 @@ export default {
                     ]
                 },
                 {
-                    name: 'director',
+                    name: 'principal',
                     type: 'text',
-                    component: inputText,
+                    component: null,
                     isNull: true,
                     label: '负责人',
                     placeholder: '',
@@ -1427,16 +1409,174 @@ export default {
                 {
                     name: 'phone',
                     type: 'text',
-                    component: inputText,
+                    component: null,
                     isNull: true,
                     label: '联系电话',
                     placeholder: '请输入11位的手机号（固话用-隔开）',
                     rule: { validator: validate2.phone, trigger: 'blur' }
                 },
                 {
+                    name: 'kind',
+                    type: 'text',
+                    component: null,
+                    isNull: false,
+                    label: '养殖畜禽种类',
+                    placeholder: '',
+                    rule: {required: true, trigger: 'blur'}
+                },
+                {
+                    name: 'scale',
+                    type: 'text',
+                    component: null,
+                    isNull: true,
+                    label: '养殖规模',
+                    placeholder: '',
+                    rule: null
+                },
+                {
                     name: 'address',
                     type: 'text',
-                    component: inputText,
+                    component: null,
+                    isNull: true,
+                    label: '地址',
+                    placeholder: '',
+                    rule: null
+                },
+                {
+                    name: 'img',
+                    type: 'file',
+                    component: null,
+                    isNull: true,
+                    label: '',
+                    placeholder: '',
+                    rule: null
+                },
+                {
+                    name: 'memo',
+                    type: 'textarea',
+                    component: null,
+                    isNull: true,
+                    label: '备注信息',
+                    placeholder: '',
+                    rule: null
+                }
+                ]
+            }],
+            listComponent: []
+        },
+        {
+            settitle: '养殖基础信息管理',
+            key: 'farm',
+            tab: '养殖区信息',
+            url: 'farm',
+            searchPlaceholder: '请输入养殖区进行搜索',
+            // search: ['query_text', 'name'],
+            theads: ['所属养殖场', '养殖区名称', '养殖面积', '负责人', '养殖畜禽种类', '养殖规模', '详细地址', '图片', '备注信息'],
+            protos: ['pid', 'name', 'address', 'area', 'principal', 'kind', 'scale', 'address', 'img', 'meno'],
+            // selectSearch: ['farm.pid'],
+            widths: [50, 50, 50, 50, 50, 50, 50, 50],
+            typeComponent: [{
+                component: importBtn
+            },
+            {
+                component: output
+            },
+            {
+                component: newbuildBtn
+            }],
+            newComponent: [{
+                tab: '养殖区信息',
+                components: [{
+                    // 场名
+                    name: 'pid',
+                    type: 'select',
+                    component: null,
+                    isNull: false,
+                    label: '养殖场名称',
+                    placeholder: '必填',
+                    rule: {required: true, trigger: 'blur'},
+                    options: [
+                        {
+                            value: '', label: '请选择养殖场'
+                        },
+                        {
+                            value: '从化养殖基地', label: '从化养殖基地'
+                        },
+                        {
+                            value: '华农养殖场', label: '华农养殖场'
+                        }
+                    ]
+                },
+                {
+                    // 区名
+                    name: 'name',
+                    type: 'text',
+                    component: null,
+                    isNull: false,
+                    label: '养殖区名称',
+                    placeholder: '必填',
+                    rule: {required: true, trigger: 'blur'}
+                },
+                {
+                    name: 'area',
+                    type: 'text',
+                    component: null,
+                    isNull: false,
+                    label: '养殖面积',
+                    placeholder: '请填写数字（必填）',
+                    rule: {type: 'number', required: true, trigger: 'blur'},
+                    options: [
+                        {
+                            value: '', label: '亩'
+                        },
+                        {
+                            value: '平方米', label: '平方米'
+                        },
+                        {
+                            value: '公顷', label: '公顷'
+                        }
+                    ]
+                },
+                {
+                    name: 'principal',
+                    type: 'text',
+                    component: null,
+                    isNull: true,
+                    label: '负责人',
+                    placeholder: '',
+                    rule: null
+                },
+                {
+                    name: 'phone',
+                    type: 'text',
+                    component: null,
+                    isNull: true,
+                    label: '联系电话',
+                    placeholder: '请输入11位的手机号（固话用-隔开）',
+                    rule: { validator: validate2.phone, trigger: 'blur' }
+                },
+                {
+                    name: 'kind',
+                    type: 'text',
+                    component: null,
+                    isNull: false,
+                    label: '养殖畜禽种类',
+                    placeholder: '',
+                    rule: {required: true, trigger: 'blur'}
+                },
+                {
+                    name: 'scale',
+                    type: 'text',
+                    component: null,
+                    isNull: true,
+                    label: '养殖规模',
+                    placeholder: '',
+                    rule: null
+                },
+                {
+                    name: 'address',
+                    type: 'text',
+                    component: null,
                     isNull: true,
                     label: '地址',
                     placeholder: '',
@@ -1452,115 +1592,158 @@ export default {
                     rule: null
                 },
                 {
-                    name: 'class',
-                    type: 'text',
-                    component: inputText,
+                    name: 'memo',
+                    type: 'textarea',
+                    component: null,
                     isNull: true,
-                    label: '养殖畜禽种类',
+                    label: '备注信息',
                     placeholder: '',
                     rule: ''
+                }
+                ]
+            }],
+            editComponent: [{
+                tab: '养殖区信息',
+                components: [{
+                    // 场名
+                    name: 'pid',
+                    type: 'select',
+                    component: null,
+                    isNull: false,
+                    label: '养殖场名称',
+                    placeholder: '必填',
+                    rule: {required: true, trigger: 'blur'},
+                    options: [
+                        {
+                            value: '', label: '请选择养殖场'
+                        },
+                        {
+                            value: '从化养殖基地', label: '从化养殖基地'
+                        },
+                        {
+                            value: '华农养殖场', label: '华农养殖场'
+                        }
+                    ]
+                },
+                {
+                    // 区名
+                    name: 'name',
+                    type: 'text',
+                    component: null,
+                    isNull: false,
+                    label: '养殖区名称',
+                    placeholder: '必填',
+                    rule: {required: true, trigger: 'blur'},
+                    disabled: true
+                },
+                {
+                    name: 'area',
+                    type: 'text',
+                    component: null,
+                    isNull: false,
+                    label: '养殖面积',
+                    placeholder: '请填写数字（必填）',
+                    rule: {type: 'number', required: true, trigger: 'blur'},
+                    options: [
+                        {
+                            value: '', label: '亩'
+                        },
+                        {
+                            value: '平方米', label: '平方米'
+                        },
+                        {
+                            value: '公顷', label: '公顷'
+                        }
+                    ]
+                },
+                {
+                    name: 'principal',
+                    type: 'text',
+                    component: null,
+                    isNull: true,
+                    label: '负责人',
+                    placeholder: '',
+                    rule: null
+                },
+                {
+                    name: 'phone',
+                    type: 'text',
+                    component: null,
+                    isNull: true,
+                    label: '联系电话',
+                    placeholder: '请输入11位的手机号（固话用-隔开）',
+                    rule: { validator: validate2.phone, trigger: 'blur' }
+                },
+                {
+                    name: 'kind',
+                    type: 'text',
+                    component: null,
+                    isNull: false,
+                    label: '养殖畜禽种类',
+                    placeholder: '',
+                    rule: {required: true, trigger: 'blur'}
                 },
                 {
                     name: 'scale',
                     type: 'text',
-                    component: inputText,
+                    component: null,
                     isNull: true,
                     label: '养殖规模',
                     placeholder: '',
-                    rule: ''
+                    rule: null
+                },
+                {
+                    name: 'address',
+                    type: 'text',
+                    component: null,
+                    isNull: true,
+                    label: '地址',
+                    placeholder: '',
+                    rule: null
                 },
                 {
                     name: 'memo',
                     type: 'textarea',
-                    component: inputTextArea,
-                    isNull: true,
-                    label: '备注信息',
-                    placeholder: '',
-                    rule: ''
-                }
-                ]
-            }],
-            listComponent: []
-        },
-        {
-            settitle: '基础信息管理',
-            key: 'cultivation',
-            tab: '圈舍档案',
-            url: 'org',
-            searchPlaceholder: '请输入圈舍进行搜索',
-            search: ['query_text', 'name'],
-            theads: ['圈舍名称', '面积', '图片', '备注信息'],
-            protos: ['name', 'org_level', 'address', 'meno'],
-            widths: [50, 50, 50, 50, 50, 50],
-            typeComponent: [{
-                component: importBtn
-            },
-            {
-                component: output
-            },
-            {
-                component: newbuildBtn
-            }],
-            newComponent: [{
-                tab: '新建畜禽档案',
-                components: [{
-                    name: 'animalName',
-                    type: 'text',
-                    component: inputText,
-                    isNull: false,
-                    label: '畜禽名称',
-                    placeholder: '必填',
-                    rule: 'required'
-                },
-                {
-                    name: 'varieties',
-                    type: 'text',
-                    component: inputText,
-                    isNull: true,
-                    label: '品种描述',
-                    placeholder: '请填写数字（必填）单位是亩',
-                    rule: 'numeric'
-                },
-                {
-                    name: 'RFID',
-                    type: 'text',
-                    component: inputText,
-                    isNull: true,
-                    label: 'RFID位置',
-                    placeholder: '',
-                    rule: ''
-                },
-                {
-                    name: 'remarkInfo',
-                    type: 'textarea',
-                    component: inputTextArea,
+                    component: null,
                     isNull: true,
                     label: '备注信息',
                     placeholder: '',
                     rule: ''
                 },
                 {
-                    name: 'file',
+                    name: 'img',
                     type: 'file',
                     component: inputFile,
                     isNull: true,
                     label: '',
                     placeholder: '',
-                    rule: ''
+                    rule: null
                 }
                 ]
             }],
-            listComponent: []
+            listComponent: [{
+                components: [{
+                    type: 'select',
+                    component: selectSection,
+                    options: [{
+                        value: '', label: '养殖场选择'
+                    },
+                    {
+                        value: '从化养殖基地', label: '从化养殖基地'
+                    }]
+                }]
+            }]
         },
         {
             settitle: '基础信息管理',
-            key: 'cultivation',
+            key: 'beast',
             tab: '畜禽档案',
-            url: 'org',
-            searchPlaceholder: '请输入养殖场进行搜索',
+            url: 'beast',
+            searchPlaceholder: '请输入畜禽名称进行搜索',
             search: ['query_text', 'name'],
-            theads: ['畜禽名称', '描述', '耳标位置', '图片', '备注信息'],
-            protos: ['name', 'org_level', 'address', 'zipcode', 'phone', 'cellphone', 'fax', 'meno'],
+            theads: ['畜禽种类', '畜禽名称', '描述', 'RFID位置', '图片', '备注信息'],
+            protos: ['category_id', 'name', 'desctiption', 'ear', 'img', 'meno'],
+            selectSearch: ['beast.img'],
             widths: [50, 50, 50, 50, 50, 50],
             typeComponent: [{
                 component: importBtn
@@ -1574,43 +1757,43 @@ export default {
             newComponent: [{
                 tab: '新建畜禽档案',
                 components: [{
-                    name: 'animalName',
+                    name: 'name',
                     type: 'text',
-                    component: inputText,
+                    component: null,
                     isNull: false,
                     label: '畜禽名称',
                     placeholder: '必填',
-                    rule: 'required'
+                    rule: {required: true, trigger: 'blur'}
                 },
                 {
-                    name: 'varieties',
+                    name: 'desctiption',
                     type: 'text',
-                    component: inputText,
+                    component: null,
                     isNull: true,
                     label: '品种描述',
-                    placeholder: '请填写数字（必填）单位是亩',
-                    rule: 'numeric'
+                    placeholder: '',
+                    rule: null
                 },
                 {
-                    name: 'RFID',
+                    name: 'ear',
                     type: 'text',
-                    component: inputText,
+                    component: null,
                     isNull: true,
                     label: 'RFID位置',
                     placeholder: '',
-                    rule: ''
+                    rule: null
                 },
                 {
-                    name: 'remarkInfo',
+                    name: 'memo',
                     type: 'textarea',
-                    component: inputTextArea,
+                    component: null,
                     isNull: true,
                     label: '备注信息',
                     placeholder: '',
                     rule: ''
                 },
                 {
-                    name: 'file',
+                    name: 'img',
                     type: 'file',
                     component: inputFile,
                     isNull: true,
@@ -1620,17 +1803,303 @@ export default {
                 }
                 ]
             }],
-            listComponent: []
+            editComponent: [{
+                tab: '新建畜禽档案',
+                components: [{
+                    name: 'name',
+                    type: 'text',
+                    component: null,
+                    isNull: false,
+                    label: '畜禽名称',
+                    placeholder: '必填',
+                    rule: {required: true, trigger: 'blur'}
+                },
+                {
+                    name: 'desctiption',
+                    type: 'text',
+                    component: null,
+                    isNull: true,
+                    label: '品种描述',
+                    placeholder: '',
+                    rule: null
+                },
+                {
+                    name: 'ear',
+                    type: 'text',
+                    component: null,
+                    isNull: true,
+                    label: 'RFID位置',
+                    placeholder: '',
+                    rule: null
+                },
+                {
+                    name: 'memo',
+                    type: 'textarea',
+                    component: null,
+                    isNull: true,
+                    label: '备注信息',
+                    placeholder: '',
+                    rule: ''
+                },
+                {
+                    name: 'img',
+                    type: 'file',
+                    component: inputFile,
+                    isNull: true,
+                    label: '',
+                    placeholder: '',
+                    rule: ''
+                }
+                ]
+            }],
+            listComponent: [{
+                components: [{
+                    type: 'select',
+                    component: selectSection,
+                    options: [{
+                        value: '', label: '请选择'
+                    },
+                    {
+                        value: '未上传', label: '未上传'
+                    },
+                    {
+                        value: '已上传', label: '已上传'
+                    }]
+                }]
+            }]
+        },
+        {
+            settitle: '基础信息管理',
+            key: 'fodder',
+            tab: '饲料档案',
+            url: 'fodder',
+            searchPlaceholder: '请输入饲料名称',
+            search: ['query_text', 'name'],
+            theads: ['饲料类别', '饲料名称', '用途', '包装规格', '产地', '生产厂家名称', '联系方式', '图片', '备注信息'],
+            protos: ['category_name', 'name', 'use', 'specification', 'address', 'vender_name', 'phone', 'img', 'memo'],
+            selectSearch: ['fodder.img'],
+            widths: [50, 50, 50, 50, 50, 50],
+            typeComponent: [{
+                component: importBtn
+            },
+            {
+                component: output
+            },
+            {
+                component: newbuildBtn
+            }],
+            newComponent: [{
+                tab: '新建畜禽档案',
+                components: [{
+                    name: 'category_name',
+                    type: 'text',
+                    component: null,
+                    isNull: false,
+                    label: '饲料类别',
+                    placeholder: '',
+                    rule: {required: true, trigger: 'blur'},
+                    options: [
+                        {
+                            value: '', label: '请选择分类'
+                        },
+                        {
+                            value: '粗粮类', label: '粗粮类'
+                        }
+                    ]
+                },
+                {
+                    name: 'name',
+                    type: 'text',
+                    component: null,
+                    isNull: false,
+                    label: '名称',
+                    placeholder: '必填',
+                    rule: {required: true, trigger: 'blur'}
+                },
+                {
+                    name: 'use',
+                    type: 'text',
+                    component: null,
+                    isNull: true,
+                    label: '用途',
+                    placeholder: '',
+                    rule: null
+                },
+                {
+                    name: '包装规格',
+                    type: 'text',
+                    component: null,
+                    isNull: true,
+                    label: '包装规格',
+                    placeholder: '',
+                    rule: null
+                },
+                {
+                    name: 'address',
+                    type: 'text',
+                    component: null,
+                    isNull: true,
+                    label: '产地',
+                    placeholder: '',
+                    rule: null
+                },
+                {
+                    name: 'vender_name',
+                    type: 'text',
+                    component: null,
+                    isNull: true,
+                    label: '生产厂家名称',
+                    placeholder: '',
+                    rule: null
+                },
+                {
+                    name: 'phone',
+                    type: 'text',
+                    component: null,
+                    isNull: true,
+                    label: '联系方式',
+                    placeholder: '',
+                    rule: null
+                },
+                {
+                    name: 'img',
+                    type: 'file',
+                    component: null,
+                    isNull: true,
+                    label: '图片',
+                    placeholder: '',
+                    rule: null
+                },
+                {
+                    name: 'vender_name',
+                    type: 'textarea',
+                    component: null,
+                    isNull: true,
+                    label: '备注信息',
+                    placeholder: '',
+                    rule: null
+                }
+                ]
+            }],
+            editComponent: [{
+                tab: '新建畜禽档案',
+                components: [{
+                    name: 'category_name',
+                    type: 'text',
+                    component: null,
+                    isNull: false,
+                    label: '饲料类别',
+                    placeholder: '',
+                    rule: {required: true, trigger: 'blur'},
+                    options: [
+                        {
+                            value: '', label: '请选择分类'
+                        },
+                        {
+                            value: '粗粮类', label: '粗粮类'
+                        }
+                    ]
+                },
+                {
+                    name: 'name',
+                    type: 'text',
+                    component: null,
+                    isNull: false,
+                    label: '名称',
+                    placeholder: '必填',
+                    rule: {required: true, trigger: 'blur'}
+                },
+                {
+                    name: 'use',
+                    type: 'text',
+                    component: null,
+                    isNull: true,
+                    label: '用途',
+                    placeholder: '',
+                    rule: null
+                },
+                {
+                    name: '包装规格',
+                    type: 'text',
+                    component: null,
+                    isNull: true,
+                    label: '包装规格',
+                    placeholder: '',
+                    rule: null
+                },
+                {
+                    name: 'address',
+                    type: 'text',
+                    component: null,
+                    isNull: true,
+                    label: '产地',
+                    placeholder: '',
+                    rule: null
+                },
+                {
+                    name: 'vender_name',
+                    type: 'text',
+                    component: null,
+                    isNull: true,
+                    label: '生产厂家名称',
+                    placeholder: '',
+                    rule: null
+                },
+                {
+                    name: 'phone',
+                    type: 'text',
+                    component: null,
+                    isNull: true,
+                    label: '联系方式',
+                    placeholder: '',
+                    rule: null
+                },
+                {
+                    name: 'img',
+                    type: 'file',
+                    component: null,
+                    isNull: true,
+                    label: '图片',
+                    placeholder: '',
+                    rule: null
+                },
+                {
+                    name: 'vender_name',
+                    type: 'textarea',
+                    component: null,
+                    isNull: true,
+                    label: '备注信息',
+                    placeholder: '',
+                    rule: null
+                }
+                ]
+            }],
+            listComponent: [{
+                components: [{
+                    type: 'select',
+                    component: selectSection,
+                    options: [{
+                        value: '', label: '请选择分类'
+                    },
+                    {
+                        value: '粗粮类', label: '粗粮类'
+                    },
+                    {
+                        value: '维生素类', label: '维生素类'
+                    }]
+                }]
+            }]
         },
         {
             settitle: '养殖基础信息管理',
-            key: 'livestock',
+            key: 'drug',
             tab: '兽药档案',
-            url: 'org',
-            searchPlaceholder: '请输入畜禽名称进行搜索',
+            url: 'drug',
+            searchPlaceholder: '请输入兽药名称',
             search: ['query_text', 'name'],
-            theads: ['分类', '名称', '用途', '包装规格', '产地', '生产厂家名称', '联系方式', '图片', '备注信息'],
-            protos: ['name', 'org_level', 'address', 'zipcode', 'phone', 'cellphone', 'fax', 'meno'],
+            theads: ['兽药分类', '兽药名称', '用途', '包装规格', '产地', '生产厂家名称', '联系方式', '图片', '备注信息'],
+            protos: ['category_id', 'name', 'use', 'specification', 'address', 'vender_name', 'phone', 'img', 'memo'],
+            selectSearch: ['drug.img'],
             widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
             typeComponent: [{
                 component: importBtn
@@ -1644,12 +2113,13 @@ export default {
             newComponent: [{
                 tab: '新建农药档案',
                 components: [{
+                    name: 'category_id',
                     type: 'select',
-                    component: inputSelect,
+                    component: null,
                     isNull: false,
                     label: '畜药类别',
                     placeholder: '请选择类别',
-                    rule: '',
+                    rule: {required: true, trigger: 'blur'},
                     options: [{
                         value: '',
                         label: '请选择类别'
@@ -1661,93 +2131,89 @@ export default {
                     ]
                 },
                 {
+                    name: 'name',
                     type: 'text',
-                    component: inputText,
+                    component: null,
                     isNull: false,
                     label: '兽药名称',
                     placeholder: '必填',
-                    rule: ''
+                    rule: {required: true, trigger: 'blur'}
                 },
                 {
+                    name: 'use',
                     type: 'text',
-                    component: inputText,
+                    component: null,
                     isNull: true,
                     label: '用途',
                     placeholder: '',
-                    rule: ''
+                    rule: null
                 },
                 {
+                    name: 'specification',
                     type: 'text',
-                    component: inputText,
+                    component: null,
                     isNull: true,
                     label: '包装规格',
                     placeholder: '',
-                    rule: ''
+                    rule: null
                 },
                 {
+                    name: 'vender_name',
                     type: 'text',
-                    component: inputText,
+                    component: null,
                     isNull: true,
                     label: '生产厂家名称',
                     placeholder: '',
-                    rule: ''
+                    rule: null
                 },
                 {
+                    name: 'address',
                     type: 'text',
-                    component: inputText,
+                    component: null,
                     isNull: true,
                     label: '产地',
                     placeholder: '',
-                    rule: ''
+                    rule: null
                 },
                 {
+                    name: 'phone',
                     type: 'text',
-                    component: inputText,
+                    component: null,
                     isNull: true,
                     label: '联系方式',
                     placeholder: '请输入11位的手机号（固话用-隔开）',
-                    rule: ''
+                    rule: { validator: validate2.phone, trigger: 'blur' }
                 },
                 {
-                    type: 'textarea',
-                    component: inputTextArea,
+                    name: 'img',
+                    type: 'file',
+                    component: inputFile,
+                    isNull: true,
+                    label: '',
+                    placeholder: '',
+                    rule: null
+                },
+                {
+                    name: 'memo',
+                    type: 'memo',
+                    component: null,
                     isNull: true,
                     label: '备注信息',
                     placeholder: '',
-                    rule: ''
+                    rule: null
                 }
                 ]
             }],
-            listComponent: []
-        },
-        {
-            settitle: '养殖基础信息管理',
-            key: 'animalDrugs',
-            tab: '兽药档案',
-            url: 'org',
-            searchPlaceholder: '请输入兽药名称',
-            search: ['query_text', 'name'],
-            theads: ['兽药类别', '兽药名称', '用途', '包装规格', '生产厂家名称', '产地', '联系方式', '备注'],
-            protos: ['name', 'org_level', 'address', 'zipcode', 'phone', 'cellphone', 'fax', 'meno'],
-            widths: [50, 50, 50, 50, 50, 50, 50, 50, 50],
-            typeComponent: [{
-                component: importBtn
-            },
-            {
-                component: output
-            },
-            {
-                component: newbuildBtn
-            }],
-            newComponent: [{
+            editComponent: [{
                 tab: '新建农药档案',
                 components: [{
+                    name: 'category_id',
                     type: 'select',
-                    component: inputSelect,
+                    component: null,
                     isNull: false,
                     label: '畜药类别',
                     placeholder: '请选择类别',
-                    rule: '',
+                    rule: {required: true, trigger: 'blur'},
                     options: [{
                         value: '',
                         label: '请选择类别'
@@ -1759,140 +2225,256 @@ export default {
                     ]
                 },
                 {
+                    name: 'name',
                     type: 'text',
-                    component: inputText,
+                    component: null,
                     isNull: false,
                     label: '兽药名称',
                     placeholder: '必填',
-                    rule: ''
+                    rule: {required: true, trigger: 'blur'}
                 },
                 {
+                    name: 'use',
                     type: 'text',
-                    component: inputText,
+                    component: null,
                     isNull: true,
                     label: '用途',
                     placeholder: '',
-                    rule: ''
+                    rule: null
                 },
                 {
+                    name: 'specification',
                     type: 'text',
-                    component: inputText,
+                    component: null,
                     isNull: true,
                     label: '包装规格',
                     placeholder: '',
-                    rule: ''
+                    rule: null
                 },
                 {
+                    name: 'vender_name',
                     type: 'text',
-                    component: inputText,
+                    component: null,
                     isNull: true,
                     label: '生产厂家名称',
                     placeholder: '',
-                    rule: ''
+                    rule: null
                 },
                 {
+                    name: 'address',
                     type: 'text',
-                    component: inputText,
+                    component: null,
                     isNull: true,
                     label: '产地',
                     placeholder: '',
-                    rule: ''
+                    rule: null
                 },
                 {
+                    name: 'phone',
                     type: 'text',
-                    component: inputText,
+                    component: null,
                     isNull: true,
                     label: '联系方式',
                     placeholder: '请输入11位的手机号（固话用-隔开）',
-                    rule: ''
+                    rule: { validator: validate2.phone, trigger: 'blur' }
                 },
                 {
-                    type: 'textarea',
-                    component: inputTextArea,
+                    name: 'img',
+                    type: 'file',
+                    component: inputFile,
+                    isNull: true,
+                    label: '',
+                    placeholder: '',
+                    rule: null
+                },
+                {
+                    name: 'memo',
+                    type: 'memo',
+                    component: null,
                     isNull: true,
                     label: '备注信息',
                     placeholder: '',
-                    rule: ''
+                    rule: null
                 }
                 ]
             }],
-            listComponent: []
+            listComponent: [{
+                components: [{
+                    type: 'select',
+                    component: selectSection,
+                    options: [{
+                        value: '', label: '请选择分类'
+                    },
+                    {
+                        value: '疾病防治药', label: '疾病防治药'
+                    },
+                    {
+                        value: '传染病防治药', label: '传染病防治药'
+                    }]
+                }]
+            }]
         }
     ],
+    //  3.2.2养殖批次管理（*）
     serialManage: [{
-        settitle: '养殖基础信息管理',
-        key: 'cultivate',
-        tab: '饲料档案',
-        url: 'org',
-        searchPlaceholder: '请输入养殖区进行搜索',
-        search: ['query_text', 'name'],
-        theads: ['分类', '名称', '用途', '包装规格', '产地', '生产厂家名称', '联系方式', '图片', '备注信息'],
-        protos: ['name', 'org_level', 'address', 'zipcode', 'phone', 'cellphone', 'fax', 'fax', 'meno'],
+        settitle: '养殖批次管理',
+        key: 'breed',
+        tab: '养殖批次信息',
+        url: 'breed',
+        searchPlaceholder: '请输入养殖批次号进行搜索',
+        search: ['query_text', 'beast_name'],
+        theads: ['批次号', '养殖区', '畜禽', '日期', '数量', '养殖方式', '养殖人', '图片状态', '备注'],
+        protos: ['serial', 'area_name', 'beast_name', 'start_date', 'amount', 'why', 'operate_name', 'imgState', 'meno'],
+        selectSearch: ['breed.serial'],
         widths: [50, 50, 50, 50, 50, 50, 50, 50, 50],
         typeComponent: [{
-            component: importBtn
-        },
-        {
             component: output
         },
         {
             component: newbuildBtn
         }],
         newComponent: [{
-            tab: '新建饲料档案',
+            tab: '新建养殖批次',
             components: [{
                 name: 'name',
+                type: 'select',
+                component: null,
+                isNull: false,
+                label: '所属养殖区',
+                placeholder: '必填',
+                rule: {required: true, trigger: 'blur'},
+                options: [
+                    {
+                        value: '', label: '示范A区'
+                    }
+                ]
+            },
+            {
+                name: 'beast_id',
+                type: 'select',
+                component: null,
+                isNull: false,
+                label: '畜禽名称',
+                placeholder: '必填',
+                rule: {required: true, trigger: 'blur'},
+                options: [
+                    {
+                        value: '', label: '黑猪一号'
+                    }
+                ]
+            },
+            {
+                name: 'amount',
                 type: 'text',
                 component: null,
                 isNull: false,
-                label: '供货商名称',
-                placeholder: '必填',
+                label: '数量',
+                placeholder: '',
                 rule: {required: true, trigger: 'blur'}
             },
             {
-                name: 'address',
+                name: 'way',
                 type: 'text',
                 component: null,
                 isNull: true,
-                label: '地址',
+                label: '养殖方式',
                 placeholder: '',
                 rule: null
             },
             {
-                name: 'contacts',
+                name: 'operate_id',
                 type: 'text',
                 component: null,
                 isNull: true,
-                label: '联系人',
+                label: '养殖人',
+                placeholder: '',
+                rule: {required: true, trigger: 'blur'}
+            },
+            {
+                name: 'user_id',
+                type: 'text',
+                component: null,
+                isNull: true,
+                label: '录入人',
+                placeholder: '',
+                rule: {required: true, trigger: 'blur'}
+            },
+            {
+                name: 'memo',
+                type: 'textarea',
+                component: null,
+                isNull: true,
+                label: '备注信息',
+                placeholder: '',
+                rule: null
+            }
+            ]
+        }],
+        editComponent: [{
+            tab: '新建养殖批次',
+            components: [{
+                name: 'name',
+                type: 'select',
+                component: null,
+                isNull: false,
+                label: '所属养殖区',
+                placeholder: '必填',
+                rule: {required: true, trigger: 'blur'},
+                options: [
+                    {
+                        value: '', label: '示范A区'
+                    }
+                ]
+            },
+            {
+                name: 'beast_id',
+                type: 'select',
+                component: null,
+                isNull: false,
+                label: '畜禽名称',
+                placeholder: '必填',
+                rule: {required: true, trigger: 'blur'},
+                options: [
+                    {
+                        value: '', label: '黑猪一号'
+                    }
+                ]
+            },
+            {
+                name: 'amount',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '数量',
+                placeholder: '',
+                rule: {required: true, trigger: 'blur'}
+            },
+            {
+                name: 'way',
+                type: 'text',
+                component: null,
+                isNull: true,
+                label: '养殖方式',
                 placeholder: '',
                 rule: null
             },
             {
-                name: 'phone',
+                name: 'operate_id',
                 type: 'text',
                 component: null,
                 isNull: true,
-                label: '电话',
-                placeholder: '请输入11位的手机号（固话用-隔开）',
-                rule: { validator: validate2.phone, trigger: 'blur' }
-            },
-            {
-                name: 'img',
-                type: 'file',
-                component: null,
-                isNull: true,
-                label: '',
+                label: '养殖人',
                 placeholder: '',
-                rule: null
+                rule: {required: true, trigger: 'blur'}
             },
             {
-                name: '',
+                name: 'user_id',
                 type: 'text',
                 component: null,
                 isNull: true,
-                label: '地址',
+                label: '录入人',
                 placeholder: '',
-                rule: null
+                rule: {required: true, trigger: 'blur'}
             },
             {
                 name: 'memo',
@@ -1910,16 +2492,42 @@ export default {
                 type: 'select',
                 component: selectSection,
                 options: [{
-                    value: '',
-                    label: '产品品牌'
+                    value: '', label: '养殖区选择'
                 },
                 {
-                    value: '康乐牌',
-                    label: '康乐牌'
+                    value: '示范A区', label: '示范A区'
                 }]
+            },
+            {
+                type: 'select',
+                component: selectSection,
+                options: [{
+                    value: '', label: '畜禽名称'
+                },
+                {
+                    value: '畜禽Berta Aufderhar', label: '畜禽Berta Aufderhar'
+                }]
+            },
+            {
+                type: 'select',
+                component: selectSection,
+                options: [{
+                    value: '', label: '图片上传'
+                },
+                {
+                    value: '已上传', label: '已上传'
+                },
+                {
+                    value: '未上传', label: '未上传'
+                }]
+            },
+            {
+                type: 'date',
+                component: 'datePick'
             }]
         }]
     }],
+    //  3.2.3饲料使用管理(*)
     feedManage: [{
         settitle: '饲料使用管理',
         key: 'fodderuse',
@@ -1927,9 +2535,9 @@ export default {
         url: 'fodderuse',
         searchPlaceholder: '请输入饲料名称进行搜索',
         search: ['query_text', 'name'],
-        theads: ['使用日期', '饲料', '喂养方式', '专家', '操作人员', '喂养量', '类型状态', '备注'],
-        protos: ['name', 'expert_area', 'org_name', 'degree', 'duty', 'title', 'address', 'meno'],
-        widths: [50, 50, 50, 50, 50, 50, 50, 50],
+        theads: ['所属养殖区', '饲料批次号', '饲料日期', '饲料名称', '喂养方式', '专家', '操作人员', '喂养量', '类型状态', '备注信息'],
+        protos: ['name', 'serial', 'fodderuse_date', 'fodder_id', 'way', 'expert_id', 'operate_id', 'meno'],
+        widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
         typeComponent: [{
             component: output
         },
@@ -1939,49 +2547,65 @@ export default {
         newComponent: [{
             tab: '饲料使用管理',
             components: [{
+                name: 'serial',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '批次号',
+                placeholder: '',
+                rule: {required: true, trigger: 'blur'}
+            },
+            {
+                name: 'fodder_id',
                 type: 'select',
-                component: inputSelect,
+                component: null,
                 isNull: false,
                 label: '饲料名称',
-                placeholder: '饲料名称',
-                rule: '',
+                placeholder: '',
+                rule: {required: true, trigger: 'blur'},
                 options: [{
-                    value: '',
-                    label: '饲料名称'
+                    value: '', label: '饲料名称'
                 },
                 {
-                    value: '红苕汤羹',
-                    label: '红苕汤羹'
+                    value: '红苕汤羹', label: '红苕汤羹'
                 },
                 {
-                    value: '麦麸子',
-                    label: '麦麸子'
+                    value: '麦麸子', label: '麦麸子'
                 },
                 {
-                    value: '瓜果蔬菜',
-                    label: '瓜果蔬菜'
+                    value: '瓜果蔬菜', label: '瓜果蔬菜'
                 },
                 {
-                    value: '玉米面',
-                    label: '玉米面'
+                    value: '玉米面', label: '玉米面'
                 }
                 ]
             },
             {
-                type: 'text',
-                component: inputText,
-                isNull: true,
-                label: '喂养方式',
-                placeholder: '请填写数字（必填）单位是亩',
-                rule: ''
+                name: 'fodderuse_date',
+                type: 'date',
+                component: null,
+                isNull: false,
+                label: '使用日期',
+                placeholder: '',
+                rule: {required: true, trigger: 'blur'}
             },
             {
+                name: 'way',
+                type: 'text',
+                component: null,
+                isNull: true,
+                label: '喂养方式',
+                placeholder: '',
+                rule: null
+            },
+            {
+                name: 'amount',
                 type: 'textselect',
                 component: inputTextSelect,
-                isNull: false,
+                isNull: true,
                 label: '平均喂养量',
                 placeholder: '',
-                rule: '',
+                rule: null,
                 options: [{
                     value: '',
                     label: 'kg/只'
@@ -1997,12 +2621,13 @@ export default {
                 ]
             },
             {
+                name: 'expert_id',
                 type: 'select',
-                component: inputSelect,
+                component: null,
                 isNull: true,
                 label: '指导专家',
                 placeholder: '',
-                rule: '',
+                rule: null,
                 options: [{
                     value: '',
                     label: '无'
@@ -2014,12 +2639,12 @@ export default {
                 ]
             },
             {
-                type: 'select',
-                component: inputSelect,
+                type: 'operate_id',
+                component: null,
                 isNull: false,
                 label: '饲养员',
                 placeholder: '请选择饲养员',
-                rule: '',
+                rule: {required: true, trigger: 'blur'},
                 options: [{
                     value: '',
                     label: '请选择饲养员'
@@ -2031,132 +2656,76 @@ export default {
                 ]
             },
             {
-                type: 'date',
-                component: inputDate,
-                isNull: true,
-                label: '喂养日期',
-                placeholder: '',
-                rule: ''
-            },
-            {
                 type: 'textarea',
-                component: inputTextArea,
+                component: null,
                 isNull: true,
                 label: '备注信息',
                 placeholder: '',
-                rule: ''
+                rule: null
             }]
         }],
-        listComponent: [{
+        editComponent: [{
+            tab: '饲料使用管理',
             components: [{
-                type: 'select',
-                component: selectSection,
-                options: [{
-                    value: '',
-                    label: '产品品牌'
-                },
-                {
-                    value: '康乐牌',
-                    label: '康乐牌'
-                }]
-            },
-            {
-                type: 'select',
-                component: selectSection,
-                options: [{
-                    value: '',
-                    label: '产品品牌'
-                },
-                {
-                    value: '康乐牌',
-                    label: '康乐牌'
-                }]
-            },
-            {
-                type: 'date',
-                component: 'datePick'
-            }]
-        }]
-    }],
-    plagueManage: [{
-        settitle: '病疫管理',
-        key: 'expertManage',
-        tab: '病疫信息',
-        url: 'expert',
-        searchPlaceholder: '请输入兽药名称',
-        search: ['query_text', 'name'],
-        theads: ['用药日期', '病情描述', '兽药', '专家', '操作人员', '用药量', '治疗方式', '备注'],
-        protos: ['name', 'expert_area', 'org_name', 'degree', 'duty', 'title', 'address', 'meno'],
-        widths: [50, 50, 50, 50, 50, 50, 50, 50],
-        typeComponent: [{
-            component: output
-        },
-        {
-            component: newbuildBtn
-        }],
-        newComponent: [{
-            tab: '新建病疫情信息',
-            components: [{
-                type: 'select',
-                component: inputSelect,
+                name: 'serial',
+                type: 'text',
+                component: null,
                 isNull: false,
-                label: '兽药分类',
-                placeholder: '请选择类别',
-                rule: '',
+                label: '批次号',
+                placeholder: '',
+                rule: {required: true, trigger: 'blur'}
+            },
+            {
+                name: 'fodder_id',
+                type: 'select',
+                component: null,
+                isNull: false,
+                label: '饲料名称',
+                placeholder: '',
+                rule: {required: true, trigger: 'blur'},
                 options: [{
-                    value: '',
-                    label: '请选择类别'
+                    value: '', label: '饲料名称'
                 },
                 {
-                    value: '疾病防治药',
-                    label: '疾病防治药'
+                    value: '红苕汤羹', label: '红苕汤羹'
                 },
                 {
-                    value: '传染病防治药',
-                    label: '传染病防治药'
+                    value: '麦麸子', label: '麦麸子'
                 },
                 {
-                    value: '寄生虫病防治药',
-                    label: '寄生虫病防治药'
+                    value: '瓜果蔬菜', label: '瓜果蔬菜'
                 },
                 {
-                    value: '促生长药',
-                    label: '促生长药'
-                },
-                {
-                    value: '其他类',
-                    label: '其他类'
+                    value: '玉米面', label: '玉米面'
                 }
                 ]
             },
             {
-                type: 'select',
-                component: inputSelect,
-                isNull: false,
-                label: '兽药名称',
-                placeholder: '',
-                rule: '',
-                options: [{
-                    value: '',
-                    label: '无'
-                }
-                ]
-            },
-            {
+                name: 'fodderuse_date',
                 type: 'date',
-                component: inputDate,
+                component: null,
                 isNull: false,
-                label: '兽药日期',
+                label: '使用日期',
                 placeholder: '',
-                rule: ''
+                rule: {required: true, trigger: 'blur'}
             },
             {
+                name: 'way',
+                type: 'text',
+                component: null,
+                isNull: true,
+                label: '喂养方式',
+                placeholder: '',
+                rule: null
+            },
+            {
+                name: 'amount',
                 type: 'textselect',
                 component: inputTextSelect,
-                isNull: false,
-                label: '平均施药量',
-                placeholder: '请输入正确的数字（必填）',
-                rule: '',
+                isNull: true,
+                label: '平均喂养量',
+                placeholder: '',
+                rule: null,
                 options: [{
                     value: '',
                     label: 'kg/只'
@@ -2172,23 +2741,33 @@ export default {
                 ]
             },
             {
-                type: 'text',
-                component: inputText,
-                isNull: true,
-                label: '施药方式',
-                placeholder: '',
-                rule: ''
-            },
-            {
+                name: 'expert_id',
                 type: 'select',
-                component: inputSelect,
-                isNull: false,
-                label: '施药人',
-                placeholder: '请选择操作人',
-                rule: '',
+                component: null,
+                isNull: true,
+                label: '指导专家',
+                placeholder: '',
+                rule: null,
                 options: [{
                     value: '',
-                    label: '请选择操作人'
+                    label: '无'
+                },
+                {
+                    value: '洪其里',
+                    label: '洪其里'
+                }
+                ]
+            },
+            {
+                type: 'operate_id',
+                component: null,
+                isNull: false,
+                label: '饲养员',
+                placeholder: '请选择饲养员',
+                rule: {required: true, trigger: 'blur'},
+                options: [{
+                    value: '',
+                    label: '请选择饲养员'
                 },
                 {
                     value: '郑刚',
@@ -2197,48 +2776,25 @@ export default {
                 ]
             },
             {
-                type: 'select',
-                component: inputSelect,
-                isNull: true,
-                label: '指导专家',
-                placeholder: '',
-                rule: '',
-                options: [{
-                    value: '',
-                    label: '无'
-                }
-                ]
-            },
-            {
-                type: 'text',
-                component: inputText,
-                isNull: true,
-                label: '病情描述',
-                placeholder: '',
-                rule: ''
-            },
-            {
                 type: 'textarea',
-                component: inputTextArea,
+                component: null,
                 isNull: true,
                 label: '备注信息',
                 placeholder: '',
-                rule: ''
-            }
-            ]
-        }
-        ],
+                rule: null
+            }]
+        }],
         listComponent: [{
             components: [{
                 type: 'select',
                 component: selectSection,
                 options: [{
                     value: '',
-                    label: '产品品牌'
+                    label: '养殖区名称'
                 },
                 {
-                    value: '康乐牌',
-                    label: '康乐牌'
+                    value: '示范A区',
+                    label: '示范A区'
                 }]
             },
             {
@@ -2246,11 +2802,11 @@ export default {
                 component: selectSection,
                 options: [{
                     value: '',
-                    label: '产品品牌'
+                    label: '畜禽名称'
                 },
                 {
-                    value: '康乐牌',
-                    label: '康乐牌'
+                    value: '黑猪一号',
+                    label: '黑猪一号'
                 }]
             },
             {
@@ -2258,15 +2814,412 @@ export default {
                 component: 'datePick'
             }]
         }]
-    }],
+    }
+    ],
+    //  3.2.4畜禽病疫管理（*）
+    plagueManage: [{
+        settitle: '病疫管理',
+        key: 'disease',
+        tab: '病疫信息',
+        url: 'disease',
+        searchPlaceholder: '请输入兽药名称',
+        search: ['query_text', 'disease'],
+        theads: ['病疫批次号', '兽药名称', '用药日期', '病情描述', '专家', '平均用药量', '治疗方式', '备注'],
+        protos: ['serial', 'drug_name', 'date', 'description', 'expert_name', 'amount', 'way', 'meno'],
+        selectSearch: ['disease.drug_name'],
+        widths: [50, 50, 50, 50, 50, 50, 50, 50],
+        typeComponent: [{
+            component: output
+        },
+        {
+            component: newbuildBtn
+        }],
+        newComponent: [
+            {
+                tab: '新建病疫情信息',
+                components: [
+                    {
+                        name: 'date',
+                        type: 'date',
+                        component: null,
+                        isNull: false,
+                        label: '用药日期',
+                        placeholder: '',
+                        rule: {required: true, trigger: 'blur'},
+                        options: [{
+                            value: '',
+                            label: '无'
+                        }
+                        ]
+                    },
+                    {
+                        name: 'description',
+                        type: 'text',
+                        component: null,
+                        isNull: true,
+                        label: '病情描述',
+                        placeholder: '',
+                        rule: null
+                    },
+                    {
+                        name: 'drug_name',
+                        type: 'select',
+                        component: null,
+                        isNull: false,
+                        label: '兽药名称',
+                        placeholder: '',
+                        rule: {required: true, trigger: 'blur'},
+                        options: [{
+                            value: '',
+                            label: '请选择类别'
+                        },
+                        {
+                            value: '疾病防治药',
+                            label: '疾病防治药'
+                        },
+                        {
+                            value: '传染病防治药',
+                            label: '传染病防治药'
+                        },
+                        {
+                            value: '寄生虫病防治药',
+                            label: '寄生虫病防治药'
+                        },
+                        {
+                            value: '促生长药',
+                            label: '促生长药'
+                        },
+                        {
+                            value: '其他类',
+                            label: '其他类'
+                        }
+                        ]
+                    },
+                    {
+                        name: 'expert_name',
+                        type: 'select',
+                        component: null,
+                        isNull: true,
+                        label: '专家',
+                        placeholder: '',
+                        rule: null,
+                        options: [{
+                            value: '',
+                            label: '无'
+                        }
+                        ]
+                    },
+                    {
+                        name: 'operate_name',
+                        type: 'select',
+                        component: null,
+                        isNull: false,
+                        label: '操作人员',
+                        placeholder: '请选择操作人',
+                        rule: {required: true, trigger: 'blur'},
+                        options: [{
+                            value: '',
+                            label: '请选择操作人'
+                        },
+                        {
+                            value: '郑刚',
+                            label: '郑刚'
+                        }
+                        ]
+                    },
+                    {
+                        name: 'user_name',
+                        type: 'text',
+                        component: null,
+                        isNull: false,
+                        label: '录入人',
+                        placeholder: '请选择操作人',
+                        rule: {required: true, trigger: 'blur'},
+                        options: [{
+                            value: '',
+                            label: '请选择操作人'
+                        },
+                        {
+                            value: '郑刚',
+                            label: '郑刚'
+                        }
+                        ]
+                    },
+                    {
+                        name: 'amount',
+                        type: 'textselect',
+                        component: inputTextSelect,
+                        isNull: false,
+                        label: '平均施药量',
+                        placeholder: '请输入正确的数字（必填）',
+                        rule: {type: 'number'},
+                        options: [{
+                            value: '',
+                            label: 'kg/只'
+                        },
+                        {
+                            value: 'kg/头',
+                            label: 'kg/头'
+                        },
+                        {
+                            value: 'kg/条',
+                            label: 'kg/条'
+                        }]
+                    },
+                    {
+                        name: 'way',
+                        type: 'text',
+                        component: null,
+                        isNull: true,
+                        label: '治疗方式',
+                        placeholder: '',
+                        rule: null
+                    },
+                    {
+                        name: 'img',
+                        type: 'file',
+                        component: inputFile,
+                        isNull: true,
+                        label: '',
+                        placeholder: '',
+                        rule: null
+                    },
+                    {
+                        name: 'memo',
+                        type: 'textarea',
+                        component: null,
+                        isNull: true,
+                        label: '备注信息',
+                        placeholder: '',
+                        rule: null
+                    }
+                ]
+            }
+            // {
+            //     tab: '选择养殖批次',
+            //     components: {
+            //         type: 'select',
+            //         component: inputSelect,
+            //         isNull: false,
+            //         label: '兽药分类',
+            //         placeholder: '请选择养殖区',
+            //         rule: '',
+            //         options: [{
+            //             value: '',
+            //             label: '请选择养殖区'
+            //         },
+            //         {
+            //             value: '示范A区',
+            //             label: '示范A区'
+            //         }]
+            //     },
+            //     tableHearList: ['养殖批次号', '所属养殖区', '畜禽名称', '养殖数量', '养殖日期', '备注'],
+            //     batchName: '养殖'
+            // }
+        ],
+        editComponent: [
+            {
+                tab: '新建病疫情信息',
+                components: [
+                    {
+                        name: 'date',
+                        type: 'date',
+                        component: null,
+                        isNull: false,
+                        label: '用药日期',
+                        placeholder: '',
+                        rule: {required: true, trigger: 'blur'},
+                        options: [{
+                            value: '',
+                            label: '无'
+                        }
+                        ]
+                    },
+                    {
+                        name: 'description',
+                        type: 'text',
+                        component: null,
+                        isNull: true,
+                        label: '病情描述',
+                        placeholder: '',
+                        rule: null
+                    },
+                    {
+                        name: 'drug_name',
+                        type: 'select',
+                        component: null,
+                        isNull: false,
+                        label: '兽药名称',
+                        placeholder: '',
+                        rule: {required: true, trigger: 'blur'},
+                        options: [{
+                            value: '',
+                            label: '请选择类别'
+                        },
+                        {
+                            value: '疾病防治药',
+                            label: '疾病防治药'
+                        },
+                        {
+                            value: '传染病防治药',
+                            label: '传染病防治药'
+                        },
+                        {
+                            value: '寄生虫病防治药',
+                            label: '寄生虫病防治药'
+                        },
+                        {
+                            value: '促生长药',
+                            label: '促生长药'
+                        },
+                        {
+                            value: '其他类',
+                            label: '其他类'
+                        }
+                        ]
+                    },
+                    {
+                        name: 'expert_name',
+                        type: 'select',
+                        component: null,
+                        isNull: true,
+                        label: '专家',
+                        placeholder: '',
+                        rule: null,
+                        options: [{
+                            value: '',
+                            label: '无'
+                        }
+                        ]
+                    },
+                    {
+                        name: 'operate_name',
+                        type: 'select',
+                        component: null,
+                        isNull: false,
+                        label: '操作人员',
+                        placeholder: '请选择操作人',
+                        rule: {required: true, trigger: 'blur'},
+                        options: [{
+                            value: '',
+                            label: '请选择操作人'
+                        },
+                        {
+                            value: '郑刚',
+                            label: '郑刚'
+                        }
+                        ]
+                    },
+                    {
+                        name: 'user_id',
+                        type: 'text',
+                        component: null,
+                        isNull: false,
+                        label: '录入人',
+                        placeholder: '请选择操作人',
+                        rule: {required: true, trigger: 'blur'},
+                        options: [{
+                            value: '',
+                            label: '请选择操作人'
+                        },
+                        {
+                            value: '郑刚',
+                            label: '郑刚'
+                        }
+                        ]
+                    },
+                    {
+                        name: 'amount',
+                        type: 'textselect',
+                        component: inputTextSelect,
+                        isNull: false,
+                        label: '平均施药量',
+                        placeholder: '请输入正确的数字（必填）',
+                        rule: {type: 'number'},
+                        options: [{
+                            value: '',
+                            label: 'kg/只'
+                        },
+                        {
+                            value: 'kg/头',
+                            label: 'kg/头'
+                        },
+                        {
+                            value: 'kg/条',
+                            label: 'kg/条'
+                        }]
+                    },
+                    {
+                        name: 'way',
+                        type: 'text',
+                        component: null,
+                        isNull: true,
+                        label: '治疗方式',
+                        placeholder: '',
+                        rule: null
+                    },
+                    {
+                        name: 'img',
+                        type: 'file',
+                        component: inputFile,
+                        isNull: true,
+                        label: '',
+                        placeholder: '',
+                        rule: null
+                    },
+                    {
+                        name: 'memo',
+                        type: 'textarea',
+                        component: null,
+                        isNull: true,
+                        label: '备注信息',
+                        placeholder: '',
+                        rule: null
+                    }
+                ]
+            }
+        ],
+        listComponent: [{
+            components: [{
+                type: 'select',
+                component: selectSection,
+                options: [{
+                    value: '',
+                    label: '养殖区名称'
+                },
+                {
+                    value: '示范A区',
+                    label: '示范A区'
+                }]
+            },
+            {
+                type: 'select',
+                component: selectSection,
+                options: [{
+                    value: '',
+                    label: '畜禽名称'
+                },
+                {
+                    value: '黑猪一号',
+                    label: '黑猪一号'
+                }]
+            },
+            {
+                type: 'date',
+                component: 'datePick'
+            }]
+        }]
+    }
+    ],
+    //  3.2.5畜禽检疫管理(*)
     quarantineManage: [{
         settitle: '检疫管理',
-        key: 'waningConditionManage',
+        key: 'detection',
         tab: '检疫信息',
-        url: 'waningcondition',
+        url: 'detection',
         searchPlaceholder: '请输入检测项目名称进行',
-        theads: ['检测日期', '检测项目名称', '专家', '操作人员', '检测内容', '检测结果', '审批人', '检测报告图片', '备注'],
-        protos: ['type', 'code', 'description'],
+        theads: ['检验批次号', '检测日期', '检测项目名称', '专家', '操作人员', '检测内容', '检测结果', '审批人', '检测报告图片', '备注'],
+        protos: ['serial', 'date', 'name', 'expert_name', 'operate_name', 'content', 'result', 'check', 'img', 'memo'],
         widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
         typeComponent: [{
             component: output
@@ -2277,40 +3230,82 @@ export default {
         newComponent: [{
             tab: '新建检疫信息',
             components: [{
+                name: 'date',
                 type: 'text',
-                component: inputText,
+                component: null,
+                isNull: false,
+                label: '检测日期',
+                placeholder: '',
+                rule: {required: true, trigger: 'blur'}
+            },
+            {
+                name: 'organization',
+                type: 'text',
+                component: null,
                 isNull: false,
                 label: '检测机构',
                 placeholder: '',
-                rule: ''
+                rule: {required: true, trigger: 'blur'}
             },
             {
+                name: 'name',
                 type: 'text',
-                component: inputText,
+                component: null,
                 isNull: false,
                 label: '检测项目名称',
                 placeholder: '',
-                rule: ''
+                rule: {required: true, trigger: 'blur'}
             },
             {
+                name: 'expert_name',
+                type: 'select',
+                component: null,
+                isNull: true,
+                label: '指导专家',
+                placeholder: '无',
+                rule: null,
+                options: [{
+                    value: '',
+                    label: '无'
+                }
+                ]
+            },
+            {
+                name: 'operate_name',
+                type: 'select',
+                component: null,
+                isNull: true,
+                label: '操作人员',
+                placeholder: '无',
+                rule: {required: true, trigger: 'blur'},
+                options: [{
+                    value: '',
+                    label: '无'
+                }
+                ]
+            },
+            {
+                name: 'user_name',
                 type: 'text',
-                component: inputText,
+                component: null,
+                isNull: true,
+                label: '录入人',
+                placeholder: '无',
+                rule: {required: true, trigger: 'blur'}
+            },
+            {
+                name: 'content',
+                type: 'text',
+                component: null,
                 isNull: true,
                 label: '检测内容',
                 placeholder: '',
                 rule: ''
             },
             {
-                type: 'date',
-                component: inputDate,
-                isNull: false,
-                label: '检测日期',
-                placeholder: '',
-                rule: ''
-            },
-            {
+                name: 'result',
                 type: 'select',
-                component: inputSelect,
+                component: null,
                 isNull: true,
                 label: '检测结果',
                 placeholder: '',
@@ -2326,37 +3321,71 @@ export default {
                 ]
             },
             {
+                name: 'check',
                 type: 'text',
-                component: inputText,
+                component: null,
                 isNull: true,
                 label: '审批人',
                 placeholder: '',
-                rule: ''
+                rule: null
             },
             {
-                type: 'select',
-                component: inputSelect,
+                name: 'memo',
+                type: 'textarea',
+                component: null,
+                isNull: true,
+                label: '备注信息',
+                placeholder: '',
+                rule: null
+            },
+            {
+                name: 'img',
+                type: 'file',
+                component: inputFile,
+                isNull: true,
+                label: '检测报告图片',
+                placeholder: '',
+                rule: null
+            }
+            ]
+        }],
+        editComponent: [{
+            tab: '新建检疫信息',
+            components: [{
+                name: 'date',
+                type: 'text',
+                component: null,
                 isNull: false,
-                label: '经手人',
-                placeholder: '请选择经手人',
-                rule: '',
-                options: [{
-                    value: '',
-                    label: '请选择经手人'
-                },
-                {
-                    value: '郑刚',
-                    label: '郑刚'
-                }
-                ]
+                label: '检测日期',
+                placeholder: '',
+                rule: {required: true, trigger: 'blur'}
             },
             {
+                name: 'organization',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '检测机构',
+                placeholder: '',
+                rule: {required: true, trigger: 'blur'}
+            },
+            {
+                name: 'name',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '检测项目名称',
+                placeholder: '',
+                rule: {required: true, trigger: 'blur'}
+            },
+            {
+                name: 'expert_name',
                 type: 'select',
-                component: inputSelect,
+                component: null,
                 isNull: true,
                 label: '指导专家',
                 placeholder: '无',
-                rule: '',
+                rule: null,
                 options: [{
                     value: '',
                     label: '无'
@@ -2364,16 +3393,84 @@ export default {
                 ]
             },
             {
+                name: 'operate_name',
+                type: 'select',
+                component: null,
+                isNull: true,
+                label: '操作人员',
+                placeholder: '无',
+                rule: {required: true, trigger: 'blur'},
+                options: [{
+                    value: '',
+                    label: '无'
+                }
+                ]
+            },
+            {
+                name: 'user_name',
+                type: 'text',
+                component: null,
+                isNull: true,
+                label: '录入人',
+                placeholder: '无',
+                rule: {required: true, trigger: 'blur'}
+            },
+            {
+                name: 'content',
+                type: 'text',
+                component: null,
+                isNull: true,
+                label: '检测内容',
+                placeholder: '',
+                rule: ''
+            },
+            {
+                name: 'result',
+                type: 'select',
+                component: null,
+                isNull: true,
+                label: '检测结果',
+                placeholder: '',
+                rule: '',
+                options: [{
+                    value: '',
+                    label: '合格'
+                },
+                {
+                    value: '不合格',
+                    label: '不合格'
+                }
+                ]
+            },
+            {
+                name: 'check',
+                type: 'text',
+                component: null,
+                isNull: true,
+                label: '审批人',
+                placeholder: '',
+                rule: null
+            },
+            {
+                name: 'memo',
                 type: 'textarea',
-                component: inputTextArea,
+                component: null,
                 isNull: true,
                 label: '备注信息',
                 placeholder: '',
-                rule: ''
+                rule: null
+            },
+            {
+                name: 'img',
+                type: 'file',
+                component: inputFile,
+                isNull: true,
+                label: '检测报告图片',
+                placeholder: '',
+                rule: null
             }
             ]
-        }
-        ],
+        }],
         listComponent: [{
             components: [
                 {
@@ -2381,11 +3478,11 @@ export default {
                     component: selectSection,
                     options: [{
                         value: '',
-                        label: '产品品牌'
+                        label: '检测机构'
                     },
                     {
-                        value: '康乐牌',
-                        label: '康乐牌'
+                        value: '广州市畜牧局',
+                        label: '广州市畜牧局'
                     }]
                 },
                 {
@@ -2395,14 +3492,247 @@ export default {
             ]
         }]
     }],
+    //  3.2.6畜禽圈舍管理(*)
+    areaManage: [{
+        settitle: '圈舍管理',
+        key: 'area',
+        tab: '圈舍信息',
+        url: 'area',
+        searchPlaceholder: '请输入圈舍名称进行',
+        search: ['query_text', 'name'],
+        theads: ['所属养殖区', '圈舍名称', '面积', '养殖面积单位', '图片', '备注信息'],
+        protos: ['farm_id', 'name', 'area', 'area_unit', 'img', 'memo'],
+        selectSearch: ['farm.farm_id'],
+        widths: [50, 50, 50, 50, 50, 50],
+        typeComponent: [{
+            component: output
+        },
+        {
+            component: newbuildBtn
+        }],
+        newComponent: [{
+            tab: '新建圈舍信息',
+            components: [{
+                name: 'farm_id',
+                type: 'select',
+                component: null,
+                isNull: false,
+                label: '所属养殖区',
+                placeholder: '必填',
+                rule: {required: true, trigger: 'blur'},
+                options: [{
+                    value: '',
+                    label: '请选择养殖区'
+                }]
+            },
+            {
+                name: 'name',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '圈舍名称',
+                placeholder: '',
+                rule: {required: true, trigger: 'blur'}
+            },
+            {
+                name: 'expert_id',
+                type: 'select',
+                component: null,
+                isNull: true,
+                label: '专家',
+                placeholder: '',
+                rule: null,
+                options: [
+                    {
+                        value: '', label: '无'
+                    }
+                ]
+            },
+            {
+                name: 'operate_id',
+                type: 'select',
+                component: null,
+                isNull: false,
+                label: '操作人',
+                placeholder: '',
+                rule: {required: true, trigger: 'blur'},
+                options: [
+                    {
+                        value: '', label: '无'
+                    }
+                ]
+            },
+            {
+                name: 'content',
+                type: 'date',
+                component: null,
+                isNull: false,
+                label: '操作内容',
+                placeholder: '',
+                rule: {required: true, trigger: 'blur'}
+            },
+            {
+                name: 'date',
+                type: 'date',
+                component: null,
+                isNull: false,
+                label: '操作日期',
+                placeholder: '',
+                rule: {required: true, trigger: 'blur'}
+            },
+            {
+                name: 'memo',
+                type: 'textarea',
+                component: null,
+                isNull: true,
+                label: '备注信息',
+                placeholder: '',
+                rule: null
+            },
+            {
+                name: 'img',
+                type: 'file',
+                component: null,
+                isNull: true,
+                label: '',
+                placeholder: '',
+                rule: null
+            }
+            ]
+        }],
+        editComponent: [{
+            tab: '新建圈舍信息',
+            components: [{
+                name: 'farm_id',
+                type: 'select',
+                component: null,
+                isNull: false,
+                label: '所属养殖区',
+                placeholder: '必填',
+                rule: {required: true, trigger: 'blur'},
+                options: [{
+                    value: '',
+                    label: '请选择养殖区'
+                }]
+            },
+            {
+                name: 'name',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '圈舍名称',
+                placeholder: '',
+                rule: {required: true, trigger: 'blur'}
+            },
+            {
+                name: 'expert_id',
+                type: 'select',
+                component: null,
+                isNull: true,
+                label: '专家',
+                placeholder: '',
+                rule: null,
+                options: [
+                    {
+                        value: '', label: '无'
+                    }
+                ]
+            },
+            {
+                name: 'operate_id',
+                type: 'select',
+                component: null,
+                isNull: false,
+                label: '操作人',
+                placeholder: '',
+                rule: {required: true, trigger: 'blur'},
+                options: [
+                    {
+                        value: '', label: '无'
+                    }
+                ]
+            },
+            {
+                name: 'content',
+                type: 'date',
+                component: null,
+                isNull: false,
+                label: '操作内容',
+                placeholder: '',
+                rule: {required: true, trigger: 'blur'}
+            },
+            {
+                name: 'date',
+                type: 'date',
+                component: null,
+                isNull: false,
+                label: '操作日期',
+                placeholder: '',
+                rule: {required: true, trigger: 'blur'}
+            },
+            {
+                name: 'memo',
+                type: 'textarea',
+                component: null,
+                isNull: true,
+                label: '备注信息',
+                placeholder: '',
+                rule: null
+            },
+            {
+                name: 'img',
+                type: 'file',
+                component: null,
+                isNull: true,
+                label: '',
+                placeholder: '',
+                rule: null
+            }
+            ]
+        }],
+        listComponent: [{
+            components: [{
+                type: 'select',
+                component: selectSection,
+                options: [{
+                    value: '',
+                    label: '养殖区名称'
+                },
+                {
+                    value: '示范A区',
+                    label: '示范A区'
+                }]
+            },
+            {
+                type: 'select',
+                component: selectSection,
+                options: [{
+                    value: '',
+                    label: '畜禽名称'
+                },
+                {
+                    value: '黑猪一号',
+                    label: '黑猪一号'
+                }]
+            },
+            {
+                type: 'date',
+                component: 'datePick'
+            }
+            ]
+        }]
+    }],
+    //  3.2.7无害化(新增)（*）
     innocuityManage: [{
         settitle: '无害化管理',
-        key: 'waningConditionManage',
+        key: 'dispose',
         tab: '无害化信息',
-        url: 'waningcondition',
-        searchPlaceholder: '请输入检测项目名称进行',
+        url: 'dispose',
+        searchPlaceholder: '请输入操作内容进行',
+        search: ['query_text', 'why'],
         theads: ['无害化批次号', '操作日期', '操作内容', '实行原因', '指导专家', '备注信息'],
-        protos: ['type', 'code', 'description', 'type', 'code', 'memo'],
+        protos: ['serial', 'date', 'content', 'why', 'expert_name', 'memo'],
+        selectSearch: ['dispose.expert_name'],
         widths: [50, 50, 50, 50, 50, 50],
         typeComponent: [{
             component: output
@@ -2413,32 +3743,176 @@ export default {
         newComponent: [{
             tab: '新建养殖场信息',
             components: [{
-                component: inputText,
+                name: 'date',
+                type: 'date',
+                component: inputDate,
                 isNull: false,
-                label: '养殖场名称',
-                placeholder: '必填',
-                rule: ''
+                label: '操作日期',
+                placeholder: '',
+                rule: {required: true, trigger: 'blur'}
             },
             {
-                component: inputText,
+                name: 'expert_name',
+                type: 'select',
+                component: null,
+                isNull: true,
+                label: '指导专家',
+                placeholder: '',
+                rule: null,
+                options: [{
+                    value: '',
+                    label: '无'
+                }]
+            },
+            {
+                name: 'operate_name',
+                type: 'select',
+                component: null,
                 isNull: false,
-                label: '养殖面积',
-                placeholder: '请填写数字（必填）单位是亩',
-                rule: ''
+                label: '操作人员',
+                placeholder: '',
+                rule: {required: true, trigger: 'blur'},
+                options: [{
+                    value: '',
+                    label: '无'
+                }]
             },
             {
-                component: inputText,
-                isNull: true,
-                label: '负责人',
+                name: 'user_name',
+                type: 'select',
+                component: null,
+                isNull: false,
+                label: '录入人',
                 placeholder: '',
-                rule: ''
+                rule: {required: true, trigger: 'blur'},
+                options: [{
+                    value: '',
+                    label: '无'
+                }]
             },
             {
-                component: inputText,
-                isNull: true,
-                label: '养殖畜禽种类',
+                name: 'content',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '操作内容',
                 placeholder: '',
-                rule: ''
+                rule: {required: true, trigger: 'blur'}
+            },
+            {
+                name: 'why',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '实行原因',
+                placeholder: '',
+                rule: {required: true, trigger: 'blur'}
+            },
+            {
+                name: 'memo',
+                type: 'textarea',
+                component: null,
+                isNull: true,
+                label: '备注信息',
+                placeholder: '',
+                rule: null
+            },
+            {
+                name: 'img',
+                type: 'file',
+                component: null,
+                isNull: true,
+                label: '',
+                placeholder: '',
+                rule: null
+            }
+            ]
+        }],
+        editComponent: [{
+            tab: '新建养殖场信息',
+            components: [{
+                name: 'date',
+                type: 'date',
+                component: inputDate,
+                isNull: false,
+                label: '操作日期',
+                placeholder: '',
+                rule: {required: true, trigger: 'blur'}
+            },
+            {
+                name: 'expert_name',
+                type: 'select',
+                component: null,
+                isNull: true,
+                label: '指导专家',
+                placeholder: '',
+                rule: null,
+                options: [{
+                    value: '',
+                    label: '无'
+                }]
+            },
+            {
+                name: 'operate_name',
+                type: 'select',
+                component: null,
+                isNull: false,
+                label: '操作人员',
+                placeholder: '',
+                rule: {required: true, trigger: 'blur'},
+                options: [{
+                    value: '',
+                    label: '无'
+                }]
+            },
+            {
+                name: 'user_name',
+                type: 'select',
+                component: null,
+                isNull: false,
+                label: '录入人',
+                placeholder: '',
+                rule: {required: true, trigger: 'blur'},
+                options: [{
+                    value: '',
+                    label: '无'
+                }]
+            },
+            {
+                name: 'content',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '操作内容',
+                placeholder: '',
+                rule: {required: true, trigger: 'blur'}
+            },
+            {
+                name: 'why',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '实行原因',
+                placeholder: '',
+                rule: {required: true, trigger: 'blur'}
+            },
+            {
+                name: 'memo',
+                type: 'textarea',
+                component: null,
+                isNull: true,
+                label: '备注信息',
+                placeholder: '',
+                rule: null
+            },
+            {
+                name: 'img',
+                type: 'file',
+                component: null,
+                isNull: true,
+                label: '',
+                placeholder: '',
+                rule: null
             }
             ]
         }],
@@ -2447,17 +3921,31 @@ export default {
                 {
                     type: 'date',
                     component: 'datePick'
+                },
+                {
+                    type: 'select',
+                    component: selectSection,
+                    options: [{
+                        value: '',
+                        label: '请输入指导专家'
+                    },
+                    {
+                        value: '无',
+                        label: '无'
+                    }]
                 }
+
             ]
         }]
     }],
+    //  3.2.8畜禽出栏管理(*)
     slaughterManage: [{
         settitle: '出栏管理',
-        key: 'waningConditionManage',
+        key: 'come',
         tab: '出栏信息',
-        url: 'waningcondition',
+        url: 'come',
         searchPlaceholder: '请输入检测项目名称进行',
-        theads: ['出栏日期', '批次号', '出栏数量', '操作人员', '状态', '备注'],
+        theads: ['批次号', '出栏日期', '出栏数量', '操作人员', '状态', '备注'],
         protos: ['type', 'code', 'description', 'code', 'description', 'memo'],
         widths: [50, 50, 50, 50, 50, 50],
         typeComponent: [{
@@ -2469,20 +3957,31 @@ export default {
         newComponent: [{
             tab: '新建出栏信息',
             components: [{
+                name: 'date',
                 type: 'date',
                 component: inputDate,
                 isNull: false,
                 label: '出栏日期',
                 placeholder: '',
-                rule: ''
+                rule: {required: true, trigger: 'blur'}
             },
             {
+                name: 'amount',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '出栏数量',
+                placeholder: '',
+                rule: {required: true, trigger: 'blur'}
+            },
+            {
+                name: 'operate_id',
                 type: 'select',
                 component: inputSelect,
                 isNull: false,
                 label: '出栏人',
                 placeholder: '请选择人物',
-                rule: '',
+                rule: {required: true, trigger: 'blur'},
                 options: [{
                     value: '',
                     label: '请选择经手人'
@@ -2494,8 +3993,75 @@ export default {
                 ]
             },
             {
+                name: 'state',
                 type: 'textarea',
-                component: inputTextArea,
+                component: null,
+                isNull: true,
+                label: '状态',
+                placeholder: '',
+                rule: {required: true, trigger: 'blur'}
+            },
+            {
+                name: 'memo',
+                type: 'textarea',
+                component: null,
+                isNull: true,
+                label: '备注信息',
+                placeholder: '',
+                rule: ''
+            }]
+        }],
+        editComponent: [{
+            tab: '新建出栏信息',
+            components: [{
+                name: 'date',
+                type: 'date',
+                component: inputDate,
+                isNull: false,
+                label: '出栏日期',
+                placeholder: '',
+                rule: {required: true, trigger: 'blur'}
+            },
+            {
+                name: 'amount',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '出栏数量',
+                placeholder: '',
+                rule: {required: true, trigger: 'blur'}
+            },
+            {
+                name: 'operate_id',
+                type: 'select',
+                component: inputSelect,
+                isNull: false,
+                label: '出栏人',
+                placeholder: '请选择人物',
+                rule: {required: true, trigger: 'blur'},
+                options: [{
+                    value: '',
+                    label: '请选择经手人'
+                },
+                {
+                    value: '郑刚',
+                    label: '郑刚'
+                }
+                ]
+            },
+            {
+                name: 'state',
+                type: 'textarea',
+                component: null,
+                isNull: true,
+                label: '状态',
+                placeholder: '',
+                rule: {required: true, trigger: 'blur'}
+            },
+            {
+                name: 'memo',
+                type: 'textarea',
+                component: null,
                 isNull: true,
                 label: '备注信息',
                 placeholder: '',
@@ -2508,11 +4074,11 @@ export default {
                 component: selectSection,
                 options: [{
                     value: '',
-                    label: '产品品牌'
+                    label: '养殖区名称'
                 },
                 {
-                    value: '康乐牌',
-                    label: '康乐牌'
+                    value: '示范A区',
+                    label: '示范A区'
                 }]
             },
             {
@@ -2520,33 +4086,101 @@ export default {
                 component: selectSection,
                 options: [{
                     value: '',
-                    label: '产品品牌'
+                    label: '畜禽名称'
                 },
                 {
-                    value: '康乐牌',
-                    label: '康乐牌'
+                    value: '黑猪一号',
+                    label: '黑猪一号'
                 }]
             },
             {
                 type: 'date',
                 component: 'datePick'
-            }]
+            }
+            ]
         }]
     }],
+    //  3.2.9养殖计划管理(新增)
     planManage: [{
         settitle: '养殖计划管理',
-        key: 'waningConditionManage',
+        key: 'plan',
         tab: '养殖计划信息',
-        url: 'waningcondition',
+        url: 'plan',
         searchPlaceholder: '请输入检测项目名称进行',
         theads: ['批次号', '计划日期', '操作类型', '安排人员', '计划内容', '操作用户', '备注'],
-        protos: ['type', 'code', 'description', 'code', 'description', 'description', 'memo'],
+        protos: ['serial', 'date', 'type', 'operate_name', 'content', 'user_id', 'memo'],
         widths: [50, 50, 50, 50, 50, 50, 50],
         typeComponent: [{
             component: output
         },
         {
             component: newbuildBtn
+        }],
+        newComponent: [{
+            tab: '新建养殖计划信息',
+            components: [{
+                name: 'date',
+                type: 'date',
+                component: inputDate,
+                isNull: false,
+                label: '出栏日期',
+                placeholder: '',
+                rule: {required: true, trigger: 'blur'}
+            },
+            {
+                name: 'type',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '操作类型',
+                placeholder: '',
+                rule: {required: true, trigger: 'blur'}
+            },
+            {
+                name: 'operate_id',
+                type: 'select',
+                component: null,
+                isNull: false,
+                label: '操作人',
+                placeholder: '请选择人物',
+                rule: {required: true, trigger: 'blur'},
+                options: [{
+                    value: '',
+                    label: '请选择操作人'
+                },
+                {
+                    value: '郑刚',
+                    label: '郑刚'
+                }
+                ]
+            },
+            {
+                name: 'content',
+                type: 'text',
+                component: null,
+                isNull: true,
+                label: '计划内容',
+                placeholder: '',
+                rule: null
+            },
+            {
+                name: 'user_id',
+                type: 'text',
+                component: null,
+                isNull: true,
+                label: '操作用户',
+                placeholder: '',
+                rule: {required: true, trigger: 'blur'}
+            },
+            {
+                name: 'memo',
+                type: 'textarea',
+                component: null,
+                isNull: true,
+                label: '备注信息',
+                placeholder: '',
+                rule: null
+            }]
         }],
         listComponent: []
     }],

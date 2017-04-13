@@ -6,29 +6,33 @@
  * 
  */ 
  <template>
-     <el-menu
-        :router="true" 
-        class="left-menu" theme="dark">
-      <el-submenu 
-        v-for="(menu, index) in menus"
-        :index="menu.name">
-            <template slot="title">
-            <img :src="menu.src" class="menu-img">
-            {{menu.name}}
-            </template>
-            <el-menu-item 
-                v-for="(subMenu, subIndex) in menu.children" 
-                :index="subMenu.path" exact> 
-                {{subMenu.name}}
-            </el-menu-item>
-      </el-submenu>
-    </el-menu>
- 
-
+    <div id="menu-content">
+        <vue-scrollbar id="menu">
+            <el-menu
+                :router="true" 
+                :unique-opened="true"
+                class="list" theme="dark">
+                <el-submenu 
+                    v-for="(menu, index) in menus"
+                    :index="menu.name">
+                    <template slot="title">
+                    <img :src="menu.src" class="menu-img">
+                        {{menu.name}}
+                    </template>
+                    <el-menu-item 
+                        v-for="(subMenu, subIndex) in menu.children" 
+                        :index="subMenu.path" exact> 
+                        {{subMenu.name}}
+                    </el-menu-item>
+                </el-submenu>
+            </el-menu>
+        </vue-scrollbar> 
+    </div>
+    
 </template>
 
 <script>
-import {mapMutations} from 'vuex'
+
 export default {
     name: 'SiderBar',
     props: {
@@ -47,13 +51,26 @@ export default {
 
 <style lang="sass" scoped>
     // @import "../../../sass/function";
-    .left-menu{
-        width:180px;
-        float:left;
+    
+    #menu-content {
+        float: left;
+        width: 200px;
+        height: 100%;
+        background-color: #324157;
     }
+
+    #menu {
+        max-height: 100%;
+    }
+
+    .list {
+        padding-bottom: 80px;
+    }
+    
     .menu-img{
     	display: inline-block;
     	vertical-align: middle;
     	padding-right: 5px;
     }
+
 </style>

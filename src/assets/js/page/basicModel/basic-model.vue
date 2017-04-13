@@ -499,7 +499,7 @@ export default {
       display: inline-block;
      }
      .el-table th{
-      text-align:center;
+        text-align:center;
      }
      .el-table th:last-child{
       border-left: 1px solid red;
@@ -513,6 +513,7 @@ export default {
      .el-table td, .el-table th.is-leaf{
         text-align: center;
      }
+     
      .footer{
       width: 100%;
       height: 50px;
