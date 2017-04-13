@@ -17,7 +17,6 @@ module.exports = {
             'jquery',
             'lodash',
             'velocity-animate',
-            'vee-validate',
             'vue',
             'vue-router', 
             'vuex'
