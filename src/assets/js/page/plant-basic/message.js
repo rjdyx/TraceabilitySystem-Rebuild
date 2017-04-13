@@ -1002,14 +1002,6 @@ export default {
         key: 'product',
         tab: '产品档案信息',
         url: 'product',
-<<<<<<< HEAD
-        selectSearch: ['category_name'],
-        searchPlaceholder: '请输入产品名称进行搜索',
-        search: ['query_text', 'category_name'],
-        theads: ['分类', '名称', '执行标准', '卫生标准', '商品型号', '商品简介', '包装规格', '保质期', '食用方法', '存储方法', '配料信息', '图片', '备注'],
-        protos: ['category_name', 'name', 'enforce_standard', 'hygienic_standard', 'marque', 'description', 'specification', 'expiration_date', 'edible_method', 'storage_means', 'burdening_info', 'img', 'meno'],
-        widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
-=======
         searchPlaceholder: '请输入产品名称进行搜索',
         selectSearch: ['products.category_id'],
         selectValueId: ['category_id', 'category_name', true],
@@ -1017,7 +1009,6 @@ export default {
         theads: ['分类名称', '名称', '执行标准', '商品型号', '商品简介', '包装规格', '保质期', '食用方法', '存储方法', '配料信息', '图片', '备注'],
         protos: ['category_name', 'name', 'org_level', 'address', 'zipcode', 'phone', 'cellphone', 'phone', 'cellphone', 'phone', 'cellphone', 'fax', 'meno'],
         widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
->>>>>>> limingcun
         typeComponent: [{
             component: importBtn
         },
@@ -1028,36 +1019,23 @@ export default {
             component: newbuildBtn
         }],
         newComponent: [{
-<<<<<<< HEAD
-            tab: '新建产品档案信息',
-            components: [{
-                name: 'category_name',
-=======
             tab: '新建产品信息',
             selectUrl: ['category', 'product', 'category_id', 'category_name', true],
             components: [{
                 name: 'category_id',
->>>>>>> limingcun
                 type: 'select',
                 component: null,
                 isNull: false,
                 label: '分类',
                 placeholder: '必填',
-<<<<<<< HEAD
-                rule: {required: true, trigger: 'blur'}
-=======
                 rule: {required: true, trigger: 'blur', type: 'number'},
                 options: []
->>>>>>> limingcun
             },
             {
                 name: 'name',
                 type: 'text',
                 component: null,
                 isNull: false,
-<<<<<<< HEAD
-                label: '供货商名称',
-=======
                 label: '产品名称',
                 placeholder: '必填',
                 rule: {required: true, trigger: 'blur'}
@@ -1068,7 +1046,6 @@ export default {
                 component: null,
                 isNull: false,
                 label: '联系人',
->>>>>>> limingcun
                 placeholder: '必填',
                 rule: {required: true, trigger: 'blur'}
             },
@@ -1082,19 +1059,11 @@ export default {
                 rule: { validator: validate2.phone, trigger: 'blur' }
             },
             {
-<<<<<<< HEAD
-                name: 'contacts',
-                type: 'text',
-                component: null,
-                isNull: true,
-                label: '联系人',
-=======
                 name: 'fax',
                 type: 'text',
                 component: null,
                 isNull: true,
                 label: '传真',
->>>>>>> limingcun
                 placeholder: '',
                 rule: null
             },
@@ -1108,8 +1077,6 @@ export default {
                 rule: null
             },
             {
-<<<<<<< HEAD
-=======
                 name: 'grade',
                 type: 'select',
                 component: null,
@@ -1140,28 +1107,19 @@ export default {
                 rule: null
             },
             {
->>>>>>> limingcun
                 name: 'memo',
                 type: 'textarea',
                 component: null,
                 isNull: true,
                 label: '备注信息',
                 placeholder: '',
-<<<<<<< HEAD
                 rule: ''
             }
             ]
         }],
         editComponent: [{
-            tab: '编辑客户档案信息',
-=======
-                rule: null
-            }]
-        }],
-        editComponent: [{
             tab: '编辑产品信息',
             selectUrl: ['category', 'product', 'category_id', 'category_name', true],
->>>>>>> limingcun
             components: [{
                 name: 'category_id',
                 type: 'select',
@@ -2883,7 +2841,7 @@ export default {
                     rule: {required: true, message: '请输入种植场名称', trigger: 'blur'}
                 },
                 {
-                    name: 'area',
+                    name: 'name',
                     type: 'textSelect',
                     component: inputTextSelect,
                     isNull: false,
@@ -2932,7 +2890,7 @@ export default {
                     rule: null
                 },
                 {
-                    name: 'name',
+                    name: 'video',
                     type: 'text',
                     component: null,
                     isNull: false,
@@ -2956,10 +2914,12 @@ export default {
             key: 'planta',
             tab: '种植区',
             url: 'planta',
+            selectSearch: ['operates.category_id'],
+            selectValueId: ['plantation_id', 'plantation_name', true],
             searchPlaceholder: '请输入种植区进行搜索',
             theads: ['种植场名称', '种植区名称', '种植面积', '种植面积单位', '负责人', '联系电话', '地址', '图片', '备注'],
-            protos: ['name', 'area', 'area_unit', 'director', 'phone', 'address', 'meno'],
-            widths: [50, 50, 50, 50, 50, 50, 50],
+            protos: ['plantation_name', 'name', 'area', 'unit', 'director', 'phone', 'address', 'img', 'meno'],
+            widths: [50, 50, 50, 50, 50, 50, 50, 50, 50],
             typeComponent: [{
                 component: importBtn
             },
@@ -2982,6 +2942,190 @@ export default {
                         label: '康乐牌'
                     }]
                 }]
+            }],
+            newComponent: [{
+                tab: '新建种植区信息',
+                selectUrl: ['plantation', 'planta', 'plantation_id', 'plantation_name', true],
+                components: [{
+                    name: 'category_id',
+                    type: 'select',
+                    component: null,
+                    isNull: false,
+                    label: '种植场名称',
+                    placeholder: '必填',
+                    rule: {required: true, trigger: 'blur', type: 'number'},
+                    options: []
+                },
+                {
+                    name: 'name',
+                    type: 'text',
+                    component: null,
+                    isNull: false,
+                    label: '姓名',
+                    placeholder: '必填',
+                    rule: {required: true, message: '请输入姓名', trigger: 'blur'}
+                },
+                {
+                    name: 'identity',
+                    type: 'text',
+                    component: null,
+                    isNull: false,
+                    label: '种植区名称',
+                    placeholder: '',
+                    rule: {required: true, message: '请输入身份', trigger: 'blur'}
+                },
+                {
+                    name: '',
+                    type: 'textSelect',
+                    component: inputTextSelect,
+                    isNull: false,
+                    label: '种植面积',
+                    placeholder: '请填写数字（必填）',
+                    options: [{
+                        value: '',
+                        label: '亩'
+                    }
+                    ],
+                    rule: {required: true, message: '请输入种植场名称', trigger: 'blur'}
+                },
+                {
+                    name: 'director',
+                    type: 'text',
+                    component: null,
+                    isNull: true,
+                    label: '负责人',
+                    placeholder: '',
+                    rule: null
+                },
+                {
+                    name: 'phone',
+                    type: 'text',
+                    component: null,
+                    isNull: true,
+                    label: '详细电话',
+                    placeholder: '请输入11位的手机号（固话用-隔开）',
+                    rule: { validator: validate2.phone, trigger: 'blur' }
+                },
+                {
+                    name: 'address',
+                    type: 'text',
+                    component: null,
+                    isNull: true,
+                    label: '地址',
+                    placeholder: '',
+                    rule: null
+                },
+                {
+                    name: 'img',
+                    type: 'file',
+                    component: inputFile,
+                    isNull: true,
+                    label: '',
+                    placeholder: '',
+                    rule: null
+                },
+                {
+                    name: 'memo',
+                    type: 'textarea',
+                    component: null,
+                    isNull: true,
+                    label: '备注信息',
+                    placeholder: '',
+                    rule: null
+                }
+                ]
+            }],
+            editComponent: [{
+                tab: '编辑人员档案信息',
+                selectUrl: ['plantation', 'planta', 'plantation_id', 'plantation_name', true],
+                components: [{
+                    name: 'category_id',
+                    type: 'select',
+                    component: null,
+                    isNull: false,
+                    label: '种植场名称',
+                    placeholder: '必填',
+                    rule: {required: true, trigger: 'blur', type: 'number'},
+                    options: []
+                },
+                {
+                    name: 'name',
+                    type: 'text',
+                    component: null,
+                    isNull: false,
+                    label: '姓名',
+                    placeholder: '必填',
+                    rule: {required: true, message: '请输入姓名', trigger: 'blur'}
+                },
+                {
+                    name: 'identity',
+                    type: 'text',
+                    component: null,
+                    isNull: false,
+                    label: '种植区名称',
+                    placeholder: '',
+                    rule: {required: true, message: '请输入身份', trigger: 'blur'}
+                },
+                {
+                    name: '',
+                    type: 'textSelect',
+                    component: inputTextSelect,
+                    isNull: false,
+                    label: '种植面积',
+                    placeholder: '请填写数字（必填）',
+                    options: [{
+                        value: '',
+                        label: '亩'
+                    }
+                    ],
+                    rule: {required: true, message: '请输入种植场名称', trigger: 'blur'}
+                },
+                {
+                    name: 'director',
+                    type: 'text',
+                    component: null,
+                    isNull: true,
+                    label: '负责人',
+                    placeholder: '',
+                    rule: null
+                },
+                {
+                    name: 'phone',
+                    type: 'text',
+                    component: null,
+                    isNull: true,
+                    label: '详细电话',
+                    placeholder: '请输入11位的手机号（固话用-隔开）',
+                    rule: { validator: validate2.phone, trigger: 'blur' }
+                },
+                {
+                    name: 'address',
+                    type: 'text',
+                    component: null,
+                    isNull: true,
+                    label: '地址',
+                    placeholder: '',
+                    rule: null
+                },
+                {
+                    name: 'img',
+                    type: 'file',
+                    component: inputFile,
+                    isNull: true,
+                    label: '',
+                    placeholder: '',
+                    rule: null
+                },
+                {
+                    name: 'memo',
+                    type: 'textarea',
+                    component: null,
+                    isNull: true,
+                    label: '备注信息',
+                    placeholder: '',
+                    rule: null
+                }
+                ]
             }]
         },
         {
@@ -3063,21 +3207,6 @@ export default {
                     placeholder: ''
                 },
                 {
-                    name: 'category_name',
-                    type: 'select',
-                    component: null,
-                    isNull: false,
-                    label: '模块类型',
-                    placeholder: '',
-                    rule: {required: true, message: '请输入模块类型', trigger: 'blur'},
-                    options: [{
-                        value: 'operate', label: '操作人员'
-                    },
-                    {
-                        value: 'expert', label: '专家'
-                    }]
-                },
-                {
                     name: 'memo',
                     type: 'textarea',
                     component: null,
@@ -3128,22 +3257,6 @@ export default {
                     component: inputFile,
                     isNull: false,
                     placeholder: ''
-                },
-                {
-                    name: 'category_name',
-                    type: 'select',
-                    component: null,
-                    isNull: false,
-                    label: '模块类型',
-                    placeholder: '',
-                    rule: {required: true, message: '请输入模块类型', trigger: 'blur'},
-                    options: [{
-                        value: 'operate', label: '操作人员'
-                    },
-                    {
-                        value: 'expert', label: '专家'
-                    }
-                    ]
                 },
                 {
                     name: 'memo',
@@ -3597,12 +3710,12 @@ export default {
     plantFarm: [
         {
             settitle: '农事管理',
-            key: 'planManage',
+            key: 'fertilize',
             tab: '施肥信息',
-            url: 'plan',
+            url: 'fertilize',
             searchPlaceholder: 'q请输入肥料名称进行搜索',
             theads: ['批次号', '施肥日期', '天气', '肥料', '施用量(Kg)', '施肥人', '施肥方法', '录入人', '备注'],
-            protos: ['plan_type_name', 'name', 'content', 'name', 'content', 'name', 'content', 'name', 'content'],
+            protos: ['serial', 'date', 'weather', 'manure_name', 'unit', 'operate_name', 'way', 'user_name', 'memo'],
             widths: [50, 50, 50, 50, 50, 50, 50, 50, 50],
             typeComponent: [
                 {
@@ -3745,13 +3858,13 @@ export default {
     ],
     plantProduct: [{
         settitle: '生产计划管理',
-        key: 'planManage',
+        key: 'plan',
         tab: '生产计划信息',
         url: 'plan',
         searchPlaceholder: '请输入计划内容进行搜索',
-        theads: ['计划日期', '操作模块', '安排人员', '计划内容', '操作用户', '备注'],
-        protos: ['plan_type_name', 'name', 'content', 'name', 'content', 'name'],
-        widths: [50, 50, 50, 50, 50, 50],
+        theads: ['批次号', '计划日期', '操作类型', '安排人员', '计划内容', '操作用户', '备注'],
+        protos: ['serial', 'date', 'type', 'operate_name', 'content', 'user_name', 'memo'],
+        widths: [50, 50, 50, 50, 50, 50, 50],
         typeComponent: [
             {
                 component: output
@@ -3825,12 +3938,12 @@ export default {
     }],
     vegetableSerial: [{
         settitle: '加工批次管理',
-        key: 'pack-detail',
+        key: 'pack',
         tab: '加工批次信息',
-        url: 'pack-detail',
+        url: 'pack',
         searchPlaceholder: '请输入加工批次号',
         theads: ['加工批次号', '产品', '包装日期', '数量（重量）', '单位', '操作人', '录入人', '备注'],
-        protos: ['plan_type_name', 'name', 'content', 'name', 'content', 'name', 'content', 'name'],
+        protos: ['serial', 'name', 'date', 'amount', 'unit', 'operate_name', 'user_name', 'memo'],
         widths: [50, 50, 50, 50, 50, 50, 50, 50],
         moreComponent: [{value: '状态'}],
         typeComponent: [
@@ -3860,6 +3973,136 @@ export default {
                     component: datePick
                 }
             ]
+        }],
+        newComponent: [{
+            tab: '新建加工批次信息',
+            components: [{
+                name: 'serial',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '加工批次号',
+                placeholder: '必填',
+                rule: {required: true, message: '请输入加工批次号', trigger: 'blur'}
+            },
+            {
+                name: 'name',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '产品',
+                placeholder: '必填',
+                rule: {required: true, message: '请输入产品名称', trigger: 'blur'}
+            },
+            {
+                type: 'date',
+                component: inputDate,
+                isNull: true,
+                label: '包装日期',
+                placeholder: '',
+                rule: ''
+            },
+            {
+                name: 'amount',
+                type: 'text',
+                component: null,
+                isNull: true,
+                label: '数量（重量）',
+                placeholder: '',
+                rule: null
+            },
+            {
+                name: 'operate_name',
+                type: 'text',
+                component: null,
+                isNull: true,
+                label: '操作人',
+                placeholder: '',
+                rule: null
+            },
+            {
+                name: 'user_name',
+                type: 'text',
+                component: null,
+                isNull: true,
+                label: '录入人',
+                placeholder: '',
+                rule: null
+            },
+            {
+                name: 'memo',
+                type: 'textarea',
+                component: null,
+                isNull: true,
+                label: '备注信息',
+                placeholder: '',
+                rule: null
+            }]
+        }],
+        editComponent: [{
+            tab: '编辑加工批次信息',
+            components: [{
+                name: 'serial',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '加工批次号',
+                placeholder: '必填',
+                rule: {required: true, message: '请输入加工批次号', trigger: 'blur'}
+            },
+            {
+                name: 'name',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '产品',
+                placeholder: '必填',
+                rule: {required: true, message: '请输入产品名称', trigger: 'blur'}
+            },
+            {
+                type: 'date',
+                component: inputDate,
+                isNull: true,
+                label: '包装日期',
+                placeholder: '',
+                rule: ''
+            },
+            {
+                name: 'amount',
+                type: 'text',
+                component: null,
+                isNull: true,
+                label: '数量（重量）',
+                placeholder: '',
+                rule: null
+            },
+            {
+                name: 'operate_name',
+                type: 'text',
+                component: null,
+                isNull: true,
+                label: '操作人',
+                placeholder: '',
+                rule: null
+            },
+            {
+                name: 'user_name',
+                type: 'text',
+                component: null,
+                isNull: true,
+                label: '录入人',
+                placeholder: '',
+                rule: null
+            },
+            {
+                name: 'memo',
+                type: 'textarea',
+                component: null,
+                isNull: true,
+                label: '备注信息',
+                placeholder: '',
+                rule: null
+            }]
         }]
     }],
     vegetableTrace: [{
@@ -3869,7 +4112,7 @@ export default {
         url: 'code',
         searchPlaceholder: '请输入溯源码搜索',
         theads: ['追溯编码', '加工批次', '追溯次数', '加工日期', '备注'],
-        protos: ['plan_type_name', 'name', 'content', 'content', 'content'],
+        protos: ['code', 'harvest_serial', 'pack-product_id', 'date', 'memo'],
         widths: [50, 50, 50, 50, 50],
         moreComponent: [{value: '打印'}],
         typeComponent: [
@@ -3900,6 +4143,100 @@ export default {
                     component: datePick
                 }
             ]
+        }],
+        newComponent: [{
+            tab: '新建产品溯源信息',
+            components: [{
+                name: 'code',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '追溯编码',
+                placeholder: '必填',
+                rule: {required: true, message: '请输入溯源编码', trigger: 'blur'}
+            },
+            {
+                name: 'harvest_serial',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '加工批次',
+                placeholder: '必填',
+                rule: {required: true, message: '请输入加工批次', trigger: 'blur'}
+            },
+            {
+                name: 'product_id',
+                type: 'text',
+                component: null,
+                isNull: true,
+                label: '追溯次数',
+                placeholder: '',
+                rule: null
+            },
+            {
+                type: 'date',
+                component: inputDate,
+                isNull: true,
+                label: '加工日期',
+                placeholder: '',
+                rule: ''
+            },
+            {
+                name: 'memo',
+                type: 'textarea',
+                component: null,
+                isNull: true,
+                label: '备注信息',
+                placeholder: '',
+                rule: null
+            }]
+        }],
+        editComponent: [{
+            tab: '编辑产品溯源信息',
+            components: [{
+                name: 'code',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '追溯编码',
+                placeholder: '必填',
+                rule: {required: true, message: '请输入溯源编码', trigger: 'blur'}
+            },
+            {
+                name: 'harvest_serial',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '加工批次',
+                placeholder: '必填',
+                rule: {required: true, message: '请输入加工批次', trigger: 'blur'}
+            },
+            {
+                name: 'product_id',
+                type: 'text',
+                component: null,
+                isNull: true,
+                label: '追溯次数',
+                placeholder: '',
+                rule: null
+            },
+            {
+                type: 'date',
+                component: inputDate,
+                isNull: true,
+                label: '加工日期',
+                placeholder: '',
+                rule: ''
+            },
+            {
+                name: 'memo',
+                type: 'textarea',
+                component: null,
+                isNull: true,
+                label: '备注信息',
+                placeholder: '',
+                rule: null
+            }]
         }]
     }],
     Logisticbase: [
@@ -4307,6 +4644,7 @@ export default {
         key: 'delivery',
         tab: '物流批次信息',
         url: 'delivery',
+        changeDataArr: [{transportable_type: { 'self': '自运', 'consign': '托运', 'selve': '自提' }}],
         searchPlaceholder: '请输入物流批次号',
         theads: ['物流批次号', '物流日期', '货物名称', '数量', '运输方式(自运、托运、自提)', '操作人员', '物流状态', '备注'],
         protos: ['serial', 'date', 'name', 'plan_type_name', 'transportable_type', 'operate_name', 'plan_type_name', 'memo'],

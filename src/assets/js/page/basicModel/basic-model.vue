@@ -36,7 +36,7 @@
                 :is="typeOperate.component"
                 :params="typeOperate.params"
                 class="fr"
-            ></component> 
+            ></component>
         </div>
     
         <!-- 新建模块 -->
@@ -181,11 +181,7 @@ export default {
             editBol: false,
             editForm: {},
             paginator: {},
-            // 切换点击更多按钮的状态
-            active: true,
             total: '',
-            paginator: {},
-            isIndeterminate: true,
             // 组合查询
             par: {},
             // 数组拼装

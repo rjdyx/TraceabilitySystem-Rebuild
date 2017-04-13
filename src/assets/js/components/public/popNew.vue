@@ -60,7 +60,7 @@
                             <component 
                                 v-bind:is="subItem.component" 
                                 :shuju="subItem"
-                                @return-shuju="returnShuju"
+                                @return-shuju="returnShuju" 
                             ></component>
                         </el-form-item>
                     </tr>
