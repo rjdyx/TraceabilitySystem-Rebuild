@@ -81,6 +81,7 @@ export default {
         }],
         newComponent: [{
             tab: '新建分类档案信息',
+            checkNumber: 0,
             components: [{
                 name: 'name',
                 type: 'text',
@@ -88,7 +89,7 @@ export default {
                 isNull: false,
                 label: '分类名称',
                 placeholder: '必填',
-                rule: [{required: true, message: '请输入分类名称', trigger: 'blur'}, {validator: validate2.reCheck, url: 'category'}]
+                rule: [{required: true, message: '请输入分类名称', trigger: 'blur'}, {validator: validate2.reCheck}]
             },
             {
                 name: 'type',
@@ -144,6 +145,7 @@ export default {
         }],
         editComponent: [{
             tab: '编辑分类档案信息',
+            checkNumber: 0,
             components: [{
                 name: 'name',
                 type: 'text',
@@ -151,7 +153,7 @@ export default {
                 isNull: false,
                 label: '分类名称',
                 placeholder: '必填',
-                rule: {required: true, message: '请输入分类名称', trigger: 'blur'}
+                rule: [{required: true, message: '请输入分类名称', trigger: 'blur'}, {validator: validate2.reCheck}]
             },
             {
                 name: 'type',
@@ -237,6 +239,7 @@ export default {
         newComponent: [{
             tab: '新建人员档案信息',
             selectUrl: ['category', 'operate', 'category_id', 'category_name', true],
+            checkNumber: 1,
             components: [{
                 name: 'category_id',
                 type: 'select',
@@ -254,7 +257,7 @@ export default {
                 isNull: false,
                 label: '姓名',
                 placeholder: '必填',
-                rule: {required: true, message: '请输入姓名', trigger: 'blur'}
+                rule: [{required: true, message: '请输入姓名', trigger: 'blur'}, {validator: validate2.reCheck}]
             },
             {
                 name: 'identity',
@@ -298,7 +301,7 @@ export default {
                 isNull: true,
                 label: '联系方式',
                 placeholder: '请输入11位的手机号（固话用-隔开）',
-                rule: { validator: validate2.phone, trigger: 'blur' }
+                rule: { validator: validate2.phone }
             },
             {
                 name: 'address',
@@ -332,6 +335,7 @@ export default {
         editComponent: [{
             tab: '编辑人员档案信息',
             selectUrl: ['category', 'operate', 'category_id', 'category_name', true],
+            checkNumber: 1,
             components: [{
                 name: 'category_id',
                 type: 'select',
@@ -349,7 +353,7 @@ export default {
                 isNull: false,
                 label: '姓名',
                 placeholder: '必填',
-                rule: {required: true, message: '请输入姓名', trigger: 'blur'}
+                rule: [{required: true, message: '请输入姓名', trigger: 'blur'}, {validator: validate2.reCheck}]
             },
             {
                 name: 'identity',
@@ -430,12 +434,13 @@ export default {
         key: 'expert',
         tab: '专家档案信息',
         url: 'expert',
+        selectSearch: ['experts.category_id'],
+        selectValueId: ['category_id', 'category_name', true],
+        changeDataArr: [{sex: {0: '男', 1: '女'}}],
         searchPlaceholder: '请输入专家名称进行搜索',
-        search: ['query_text', 'name'],
-        theads: ['专家名称', '级别', '研究领域', '单位', '出生年月日', '性别', '联系方式', '图片', '备注'],
-        protos: ['name', 'level', 'major', 'unit', 'age', 'sex', 'phone', 'img', 'memo'],
-        selectSearch: ['experts.major'],
-        widths: [50, 50, 50, 50, 50, 50, 50, 50, 50],
+        theads: ['分类名称', '专家名称', '级别', '研究领域', '单位', '出生年月日', '性别', '联系方式', '图片', '备注'],
+        protos: ['category_name', 'name', 'level', 'major', 'unit', 'age', 'sex', 'phone', 'img', 'memo'],
+        widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
         typeComponent: [{
             component: importBtn
         },
@@ -447,6 +452,8 @@ export default {
         }],
         newComponent: [{
             tab: '新建专家档案信息',
+            selectUrl: ['category', 'expert', 'category_id', 'category_name', true],
+            checkNumber: 1,
             components: [{
                 name: 'category_id',
                 type: 'select',
@@ -454,11 +461,8 @@ export default {
                 isNull: false,
                 label: '分类',
                 placeholder: '必填',
-                rule: {required: true, trigger: 'blur'},
-                options: [{
-                    value: '',
-                    label: ''
-                }]
+                rule: {required: true, trigger: 'blur', type: 'number'},
+                options: []
             },
             {
                 name: 'name',
@@ -467,7 +471,7 @@ export default {
                 isNull: false,
                 label: '专家名称',
                 placeholder: '必填',
-                rule: {required: true, message: '请输入专家名称', trigger: 'blur'}
+                rule: [{required: true, message: '请输入专家名称', trigger: 'blur'}, {validator: validate2.reCheck}]
             },
             {
                 name: 'level',
@@ -512,13 +516,13 @@ export default {
                 isNull: false,
                 label: '性别',
                 placeholder: '',
-                rule: {required: true, trigger: 'blur'},
+                rule: {required: true, trigger: 'blur', type: 'number'},
                 options: [{
-                    value: '男',
+                    value: 0,
                     label: '男'
                 },
                 {
-                    value: '女',
+                    value: 1,
                     label: '女'
                 }]
             },
@@ -552,7 +556,9 @@ export default {
             ]
         }],
         editComponent: [{
-            tab: '新建专家档案信息',
+            tab: '编辑专家档案信息',
+            selectUrl: ['category', 'expert', 'category_id', 'category_name', true],
+            checkNumber: 1,
             components: [{
                 name: 'category_id',
                 type: 'select',
@@ -560,11 +566,8 @@ export default {
                 isNull: false,
                 label: '分类',
                 placeholder: '必填',
-                rule: {required: true, trigger: 'blur'},
-                options: [{
-                    value: '',
-                    label: ''
-                }]
+                rule: {required: true, trigger: 'blur', type: 'number'},
+                options: []
             },
             {
                 name: 'name',
@@ -573,7 +576,7 @@ export default {
                 isNull: false,
                 label: '专家名称',
                 placeholder: '必填',
-                rule: {required: true, message: '请输入专家名称', trigger: 'blur'}
+                rule: [{required: true, message: '请输入专家名称', trigger: 'blur'}, {validator: validate2.reCheck}]
             },
             {
                 name: 'level',
@@ -661,21 +664,7 @@ export default {
             components: [{
                 type: 'select',
                 component: selectSection,
-                options: [{
-                    value: '', label: '模块类型'
-                },
-                {
-                    value: '农作物生长', label: '农作物生长'
-                },
-                {
-                    value: '地质研究', label: '地质研究'
-                },
-                {
-                    value: '大气研究', label: '大气研究'
-                },
-                {
-                    value: '畜禽病疫', label: '畜禽病疫'
-                }]
+                options: []
             }]
         }]
     }],
@@ -684,12 +673,19 @@ export default {
         key: 'client',
         tab: '客户档案信息',
         url: 'client',
+        selectSearch: ['clients.category_id'],
+        selectValueId: ['category_id', 'category_name', true],
         searchPlaceholder: '请输入客户名称进行搜索',
-        search: ['query_text', 'name'],
-        theads: ['管理客户类型', '客户名称', '联系人', '电话', '地址', '传真', '邮箱', '备注'],
-        protos: ['category_name', 'name', 'contact', 'phone', 'address', 'fax', 'email', 'meno'],
-        widths: [50, 50, 50, 50, 50, 50, 50, 50],
-        listComponent: [],
+        theads: ['客户分类', '客户名称', '电话', '地址', '传真', '备注'],
+        protos: ['category_name', 'name', 'phone', 'address', 'fax', 'memo'],
+        widths: [50, 50, 50, 50, 50, 50, 50],
+        listComponent: [{
+            components: [{
+                type: 'select',
+                component: selectSection,
+                options: []
+            }]
+        }],
         typeComponent: [{
             component: importBtn
         },
@@ -701,6 +697,8 @@ export default {
         }],
         newComponent: [{
             tab: '新建客户档案信息',
+            selectUrl: ['category', 'client', 'category_id', 'category_name', true],
+            checkNumber: 1,
             components: [{
                 name: 'category_id',
                 type: 'select',
@@ -708,11 +706,8 @@ export default {
                 isNull: false,
                 label: '分类',
                 placeholder: '必填',
-                rule: {required: true, trigger: 'blur'},
-                options: [{
-                    value: '',
-                    label: ''
-                }]
+                rule: {required: true, trigger: 'blur', type: 'number'},
+                options: []
             },
             {
                 name: 'name',
@@ -721,16 +716,7 @@ export default {
                 isNull: false,
                 label: '客户名称',
                 placeholder: '必填',
-                rule: {required: true, message: '请输入专家名称', trigger: 'blur'}
-            },
-            {
-                name: 'contact',
-                type: 'text',
-                component: null,
-                isNull: false,
-                label: '联系人',
-                placeholder: '',
-                rule: ''
+                rule: [{required: true, message: '请输入客户名称', trigger: 'blur'}, {validator: validate2.reCheck}]
             },
             {
                 name: 'phone',
@@ -751,20 +737,32 @@ export default {
                 rule: null
             },
             {
+                name: 'grade',
+                type: 'select',
+                component: null,
+                isNull: false,
+                label: '等级',
+                placeholder: '',
+                rule: {required: true, trigger: 'blur'},
+                options: [{
+                    value: '高',
+                    label: '高'
+                },
+                {
+                    value: '中',
+                    label: '中'
+                },
+                {
+                    value: '低',
+                    label: '低'
+                }]
+            },
+            {
                 name: 'fax',
                 type: 'text',
                 component: null,
                 isNull: true,
                 label: '传真',
-                placeholder: '',
-                rule: null
-            },
-            {
-                name: 'email',
-                type: 'text',
-                component: null,
-                isNull: false,
-                label: '邮箱',
                 placeholder: '',
                 rule: null
             },
@@ -781,6 +779,8 @@ export default {
         }],
         editComponent: [{
             tab: '编辑专家档案信息',
+            selectUrl: ['category', 'client', 'category_id', 'category_name', true],
+            checkNumber: 1,
             components: [{
                 name: 'category_id',
                 type: 'select',
@@ -788,11 +788,8 @@ export default {
                 isNull: false,
                 label: '分类',
                 placeholder: '必填',
-                rule: {required: true, trigger: 'blur'},
-                options: [{
-                    value: '',
-                    label: ''
-                }]
+                rule: {required: true, trigger: 'blur', type: 'number'},
+                options: []
             },
             {
                 name: 'name',
@@ -801,16 +798,7 @@ export default {
                 isNull: false,
                 label: '客户名称',
                 placeholder: '必填',
-                rule: {required: true, message: '请输入专家名称', trigger: 'blur'}
-            },
-            {
-                name: 'contact',
-                type: 'text',
-                component: null,
-                isNull: false,
-                label: '联系人',
-                placeholder: '',
-                rule: ''
+                rule: [{required: true, message: '请输入专家名称', trigger: 'blur'}, {validator: validate2.reCheck}]
             },
             {
                 name: 'phone',
@@ -836,15 +824,6 @@ export default {
                 component: null,
                 isNull: true,
                 label: '传真',
-                placeholder: '',
-                rule: null
-            },
-            {
-                name: 'email',
-                type: 'text',
-                component: null,
-                isNull: false,
-                label: '邮箱',
                 placeholder: '',
                 rule: null
             },
@@ -865,10 +844,11 @@ export default {
         key: 'supplier',
         tab: '供货商档案信息',
         url: 'supplier',
+        selectSearch: ['suppliers.category_id'],
+        selectValueId: ['category_id', 'category_name', true],
         searchPlaceholder: '请输入供货商名称搜索',
-        search: ['query_text', 'name'],
         theads: ['分类', '供货商名称', '电话', '联系人', '地址', '备注'],
-        protos: ['category_name', 'name', 'phone', 'contacts', 'address', 'meno'],
+        protos: ['category_name', 'name', 'phone', 'contacts', 'address', 'memo'],
         widths: [50, 50, 50, 50, 50, 50],
         typeComponent: [{
             component: importBtn
@@ -881,14 +861,17 @@ export default {
         }],
         newComponent: [{
             tab: '新建供货商档案信息',
+            selectUrl: ['category', 'supplier', 'category_id', 'category_name', true],
+            checkNumber: 1,
             components: [{
-                name: 'category_name',
+                name: 'category_id',
                 type: 'select',
                 component: null,
                 isNull: false,
                 label: '分类',
                 placeholder: '必填',
-                rule: {required: true, trigger: 'blur'}
+                rule: {required: true, trigger: 'blur', type: 'number'},
+                options: []
             },
             {
                 name: 'name',
@@ -897,7 +880,7 @@ export default {
                 isNull: false,
                 label: '供货商名称',
                 placeholder: '必填',
-                rule: {required: true, trigger: 'blur'}
+                rule: [{required: true, trigger: 'blur'}, {validator: validate2.reCheck}]
             },
             {
                 name: 'phone',
@@ -939,6 +922,8 @@ export default {
         }],
         editComponent: [{
             tab: '编辑供货商档案信息',
+            selectUrl: ['category', 'supplier', 'category_id', 'category_name', true],
+            checkNumber: 1,
             components: [{
                 name: 'category_name',
                 type: 'select',
@@ -955,7 +940,7 @@ export default {
                 isNull: false,
                 label: '供货商名称',
                 placeholder: '必填',
-                rule: {required: true, trigger: 'blur'}
+                rule: [{required: true, trigger: 'blur'}, {validator: validate2.reCheck}]
             },
             {
                 name: 'phone',
@@ -995,7 +980,13 @@ export default {
             }
             ]
         }],
-        listComponent: []
+        listComponent: [{
+            components: [{
+                type: 'select',
+                component: selectSection,
+                options: []
+            }]
+        }]
     }],
     productFile: [{
         settitle: '产品档案管理',
@@ -1020,6 +1011,7 @@ export default {
         newComponent: [{
             tab: '新建产品信息',
             selectUrl: ['category', 'product', 'category_id', 'category_name', true],
+            checkNumber: 1,
             components: [{
                 name: 'category_id',
                 type: 'select',
@@ -1037,7 +1029,7 @@ export default {
                 isNull: false,
                 label: '产品名称',
                 placeholder: '必填',
-                rule: {required: true, trigger: 'blur'}
+                rule: [{required: true, trigger: 'blur'}, {validator: validate2.reCheck, url: 'product'}]
             },
             {
                 name: 'enforce_standard',
@@ -1134,6 +1126,7 @@ export default {
         editComponent: [{
             tab: '编辑产品信息',
             selectUrl: ['category', 'product', 'category_id', 'category_name', true],
+            checkNumber: 1,
             components: [{
                 name: 'category_id',
                 type: 'select',
@@ -1151,7 +1144,7 @@ export default {
                 isNull: false,
                 label: '产品名称',
                 placeholder: '必填',
-                rule: {required: true, trigger: 'blur'}
+                rule: [{required: true, trigger: 'blur'}, {validator: validate2.reCheck, url: 'product'}]
             },
             {
                 name: 'enforce_standard',
