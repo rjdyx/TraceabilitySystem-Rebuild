@@ -93,30 +93,6 @@ default {
             }
             return object
         }
-
-        /**
-        *
-        * 组合图片路径
-        *
-        * @param url
-        * @returns {*}
-        */
-        Vue.prototype.$img = (url, flag = true) => {
-            if (url === undefined) {
-                return
-            }
-            if (url.indexOf('base64') > 0) {
-                return url
-            }
-            let regx = /^\/{1,}/g
-            url = url.replace(regx, '')
-
-            if (flag) {
-                return (env.is_server ? env.app_ano_url : '') + '/public/' + url
-            } else {
-                return (env.is_server ? env.app_ano_url : '') + '/' + url
-            }
-        }
         /**
         *
         * 数据转换

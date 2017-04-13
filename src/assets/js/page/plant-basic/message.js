@@ -88,7 +88,7 @@ export default {
                 isNull: false,
                 label: '分类名称',
                 placeholder: '必填',
-                rule: {required: true, message: '请输入分类名称', trigger: 'blur'}
+                rule: [{required: true, message: '请输入分类名称', trigger: 'blur'}, {validator: validate2.reCheck, url: 'category'}]
             },
             {
                 name: 'type',
@@ -143,7 +143,7 @@ export default {
             }]
         }],
         editComponent: [{
-            tab: '新建分类档案信息',
+            tab: '编辑分类档案信息',
             components: [{
                 name: 'name',
                 type: 'text',
@@ -1002,12 +1002,11 @@ export default {
         key: 'product',
         tab: '产品档案信息',
         url: 'product',
+        selectValueId: ['category_id', 'category_name', true],
         searchPlaceholder: '请输入产品名称进行搜索',
         selectSearch: ['products.category_id'],
-        selectValueId: ['category_id', 'category_name', true],
-        changeDataArr: [{sex: {0: '男', 1: '女'}}],
         theads: ['分类名称', '名称', '执行标准', '商品型号', '商品简介', '包装规格', '保质期', '食用方法', '存储方法', '配料信息', '图片', '备注'],
-        protos: ['category_name', 'name', 'org_level', 'address', 'zipcode', 'phone', 'cellphone', 'phone', 'cellphone', 'phone', 'cellphone', 'fax', 'meno'],
+        protos: ['category_name', 'name', 'enforce_standard', 'marque', 'description', 'specification', 'expiration_date', 'edible_method', 'storage_means', 'burdening_info', 'img', 'memo'],
         widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
         typeComponent: [{
             component: importBtn
@@ -1041,61 +1040,76 @@ export default {
                 rule: {required: true, trigger: 'blur'}
             },
             {
-                name: 'contact',
+                name: 'enforce_standard',
                 type: 'text',
                 component: null,
                 isNull: false,
-                label: '联系人',
-                placeholder: '必填',
-                rule: {required: true, trigger: 'blur'}
-            },
-            {
-                name: 'phone',
-                type: 'text',
-                component: null,
-                isNull: false,
-                label: '电话',
-                placeholder: '',
-                rule: { validator: validate2.phone, trigger: 'blur' }
-            },
-            {
-                name: 'fax',
-                type: 'text',
-                component: null,
-                isNull: true,
-                label: '传真',
+                label: '执行标准',
                 placeholder: '',
                 rule: null
             },
             {
-                name: 'address',
+                name: 'marque',
                 type: 'text',
                 component: null,
                 isNull: true,
-                label: '地址',
+                label: '商品型号',
                 placeholder: '',
                 rule: null
             },
             {
-                name: 'grade',
-                type: 'select',
+                name: 'description',
+                type: 'text',
                 component: null,
-                isNull: false,
-                label: '等级',
+                isNull: true,
+                label: '商品简介',
                 placeholder: '',
-                rule: {required: true, trigger: 'blur'},
-                options: [{
-                    value: '高',
-                    label: '高'
-                },
-                {
-                    value: '中',
-                    label: '中'
-                },
-                {
-                    value: '低',
-                    label: '低'
-                }]
+                rule: null
+            },
+            {
+                name: 'specification',
+                type: 'text',
+                component: null,
+                isNull: true,
+                label: '包装规格',
+                placeholder: '',
+                rule: null
+            },
+            {
+                name: 'expiration_date',
+                type: 'text',
+                component: null,
+                isNull: true,
+                label: '保质期',
+                placeholder: '',
+                rule: null
+            },
+            {
+                name: 'edible_method',
+                type: 'text',
+                component: null,
+                isNull: true,
+                label: '食用方法',
+                placeholder: '',
+                rule: null
+            },
+            {
+                name: 'storage_means',
+                type: 'text',
+                component: null,
+                isNull: true,
+                label: '存储方法',
+                placeholder: '',
+                rule: null
+            },
+            {
+                name: 'burdening_info',
+                type: 'text',
+                component: null,
+                isNull: true,
+                label: '配料信息',
+                placeholder: '',
+                rule: null
             },
             {
                 name: 'img',
@@ -1135,66 +1149,81 @@ export default {
                 type: 'text',
                 component: null,
                 isNull: false,
-                label: '客户名称',
+                label: '产品名称',
                 placeholder: '必填',
                 rule: {required: true, trigger: 'blur'}
             },
             {
-                name: 'contact',
+                name: 'enforce_standard',
                 type: 'text',
                 component: null,
                 isNull: false,
-                label: '联系人',
-                placeholder: '必填',
-                rule: {required: true, trigger: 'blur'}
-            },
-            {
-                name: 'phone',
-                type: 'text',
-                component: null,
-                isNull: false,
-                label: '电话',
-                placeholder: '',
-                rule: { validator: validate2.phone, trigger: 'blur' }
-            },
-            {
-                name: 'fax',
-                type: 'text',
-                component: null,
-                isNull: true,
-                label: '传真',
+                label: '执行标准',
                 placeholder: '',
                 rule: null
             },
             {
-                name: 'address',
+                name: 'marque',
                 type: 'text',
                 component: null,
                 isNull: true,
-                label: '地址',
+                label: '商品型号',
                 placeholder: '',
                 rule: null
             },
             {
-                name: 'grade',
-                type: 'select',
+                name: 'description',
+                type: 'text',
                 component: null,
-                isNull: false,
-                label: '等级',
+                isNull: true,
+                label: '商品简介',
                 placeholder: '',
-                rule: {required: true, trigger: 'blur'},
-                options: [{
-                    value: '高',
-                    label: '高'
-                },
-                {
-                    value: '中',
-                    label: '中'
-                },
-                {
-                    value: '低',
-                    label: '低'
-                }]
+                rule: null
+            },
+            {
+                name: 'specification',
+                type: 'text',
+                component: null,
+                isNull: true,
+                label: '包装规格',
+                placeholder: '',
+                rule: null
+            },
+            {
+                name: 'expiration_date',
+                type: 'text',
+                component: null,
+                isNull: true,
+                label: '保质期',
+                placeholder: '',
+                rule: null
+            },
+            {
+                name: 'edible_method',
+                type: 'text',
+                component: null,
+                isNull: true,
+                label: '食用方法',
+                placeholder: '',
+                rule: null
+            },
+            {
+                name: 'storage_means',
+                type: 'text',
+                component: null,
+                isNull: true,
+                label: '存储方法',
+                placeholder: '',
+                rule: null
+            },
+            {
+                name: 'burdening_info',
+                type: 'text',
+                component: null,
+                isNull: true,
+                label: '配料信息',
+                placeholder: '',
+                rule: null
             },
             {
                 name: 'img',
@@ -1212,25 +1241,15 @@ export default {
                 isNull: true,
                 label: '备注信息',
                 placeholder: '',
-                rule: null
-            }]
+                rule: ''
+            }
+            ]
         }],
         listComponent: [{
             components: [{
                 type: 'select',
                 component: selectSection,
-                options: [{
-                    value: '',
-                    label: '分类'
-                },
-                {
-                    value: '水果',
-                    label: '水果'
-                },
-                {
-                    value: '蔬菜',
-                    label: '蔬菜'
-                }]
+                options: []
             }]
         }]
     }
