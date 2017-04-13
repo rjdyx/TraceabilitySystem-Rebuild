@@ -2781,7 +2781,7 @@ export default {
                     rule: {required: true, message: '请输入种植场名称', trigger: 'blur'}
                 },
                 {
-                    name: 'name',
+                    name: 'area',
                     type: 'textSelect',
                     component: inputTextSelect,
                     isNull: false,
@@ -2803,7 +2803,7 @@ export default {
                     rule: {required: true, message: '请输入种植场名称', trigger: 'blur'}
                 },
                 {
-                    name: 'name',
+                    name: 'phone',
                     type: 'text',
                     component: null,
                     isNull: false,
@@ -2812,7 +2812,7 @@ export default {
                     rule: { validator: validate2.phone, trigger: 'blur' }
                 },
                 {
-                    name: 'name',
+                    name: 'address',
                     type: 'text',
                     component: null,
                     isNull: false,
@@ -2821,7 +2821,7 @@ export default {
                     rule: null
                 },
                 {
-                    name: 'name',
+                    name: 'director',
                     type: 'text',
                     component: null,
                     isNull: false,
@@ -2830,7 +2830,7 @@ export default {
                     rule: null
                 },
                 {
-                    name: 'name',
+                    name: 'video',
                     type: 'text',
                     component: null,
                     isNull: false,
@@ -3877,9 +3877,11 @@ export default {
     ],
     plantProduct: [{
         settitle: '生产计划管理',
-        key: 'plan',
+        key: 'farming',
         tab: '生产计划信息',
-        url: 'plan',
+        url: 'farming',
+        hiddeEdit: true,
+        selectSearch: ['type'],
         searchPlaceholder: '请输入计划内容进行搜索',
         theads: ['批次号', '计划日期', '操作类型', '安排人员', '计划内容', '操作用户', '备注'],
         protos: ['serial', 'date', 'type', 'operate_name', 'content', 'user_name', 'memo'],
@@ -3900,11 +3902,11 @@ export default {
                     options: [
                         {
                             value: '',
-                            label: '产品品牌'
+                            label: '操作类型'
                         },
                         {
-                            value: '康乐牌',
-                            label: '康乐牌'
+                            value: '施肥',
+                            label: '施肥'
                         }
                     ]
                 },
@@ -3913,6 +3915,54 @@ export default {
                     component: datePick
                 }
             ]
+        }],
+        newComponent: [{
+            tab: '新建生产计划信息',
+            components: [{
+                name: 'date',
+                type: 'date',
+                component: inputDate,
+                isNull: true,
+                label: '种植日期',
+                placeholder: '',
+                rule: {required: true, message: '请输入模块类型', trigger: 'blur'}
+            },
+            {
+                name: 'type',
+                type: 'select',
+                component: null,
+                isNull: false,
+                label: '操作类型',
+                placeholder: '必填',
+                rule: {required: true, message: '请输入模块类型', trigger: 'blur'}
+            },
+            {
+                name: 'content',
+                type: 'text',
+                component: null,
+                isNull: true,
+                label: '计划内容',
+                placeholder: '',
+                rule: null
+            },
+            {
+                name: 'operate_name',
+                type: 'text',
+                component: null,
+                isNull: true,
+                label: '安排人员',
+                placeholder: '',
+                rule: null
+            },
+            {
+                name: 'memo',
+                type: 'textarea',
+                component: null,
+                isNull: true,
+                label: '备注',
+                placeholder: '',
+                rule: null
+            }]
         }]
     }],
     plantHarvest: [{
@@ -3922,7 +3972,7 @@ export default {
         url: 'harvest',
         searchPlaceholder: '请输入采收批次号进行搜索',
         theads: ['种植', '批次号', '种植日期', '采收数量', '入库部门', '存放仓库位置', '操作人', '录入人', '备注'],
-        protos: ['plan_type_name', 'name', 'content', 'name', 'content', 'name', 'content', 'name', 'content'],
+        protos: ['plantation_name', 'serial', 'date', 'amount', 'department', 'position', 'operate_name', 'user_name', 'memo'],
         widths: [50, 50, 50, 50, 50, 50, 50, 50, 50],
         typeComponent: [
             {
@@ -3940,7 +3990,7 @@ export default {
                     options: [
                         {
                             value: '',
-                            label: '产品品牌'
+                            label: '种植区选择'
                         },
                         {
                             value: '康乐牌',
@@ -3953,6 +4003,172 @@ export default {
                     component: datePick
                 }
             ]
+        }],
+        newComponent: [{
+            tab: '新建采收批次',
+            components: [{
+                name: 'plantation_name',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '种植',
+                placeholder: '必填',
+                rule: {required: true, message: '请输入种植区', trigger: 'blur'}
+            },
+            {
+                name: 'serial',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '批次号',
+                placeholder: '必填',
+                rule: {required: true, message: '请输入批次号', trigger: 'blur'}
+            },
+            {
+                type: 'date',
+                component: inputDate,
+                isNull: true,
+                label: '种植日期',
+                placeholder: '',
+                rule: ''
+            },
+            {
+                name: 'amount',
+                type: 'text',
+                component: null,
+                isNull: true,
+                label: '采收数量',
+                placeholder: '',
+                rule: null
+            },
+            {
+                name: 'department',
+                type: 'text',
+                component: null,
+                isNull: true,
+                label: '入库部门',
+                placeholder: '',
+                rule: null
+            },
+            {
+                name: 'position',
+                type: 'text',
+                component: null,
+                isNull: true,
+                label: '存放仓库位置',
+                placeholder: '',
+                rule: null
+            },
+            {
+                name: 'operate_name',
+                type: 'text',
+                component: null,
+                isNull: true,
+                label: '操作人',
+                placeholder: '',
+                rule: null
+            },
+            {
+                name: 'user_name',
+                type: 'text',
+                component: null,
+                isNull: true,
+                label: '录入人',
+                placeholder: '',
+                rule: null
+            },
+            {
+                name: 'memo',
+                type: 'textarea',
+                component: null,
+                isNull: true,
+                label: '备注',
+                placeholder: '',
+                rule: null
+            }]
+        }],
+        editComponent: [{
+            tab: '编辑采收批次',
+            components: [{
+                name: 'plantation_name',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '种植',
+                placeholder: '必填',
+                rule: {required: true, message: '请输入种植区', trigger: 'blur'}
+            },
+            {
+                name: 'serial',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '批次号',
+                placeholder: '必填',
+                rule: {required: true, message: '请输入批次号', trigger: 'blur'}
+            },
+            {
+                type: 'date',
+                component: inputDate,
+                isNull: true,
+                label: '种植日期',
+                placeholder: '',
+                rule: ''
+            },
+            {
+                name: 'amount',
+                type: 'text',
+                component: null,
+                isNull: true,
+                label: '采收数量',
+                placeholder: '',
+                rule: null
+            },
+            {
+                name: 'department',
+                type: 'text',
+                component: null,
+                isNull: true,
+                label: '入库部门',
+                placeholder: '',
+                rule: null
+            },
+            {
+                name: 'position',
+                type: 'text',
+                component: null,
+                isNull: true,
+                label: '存放仓库位置',
+                placeholder: '',
+                rule: null
+            },
+            {
+                name: 'operate_name',
+                type: 'text',
+                component: null,
+                isNull: true,
+                label: '操作人',
+                placeholder: '',
+                rule: null
+            },
+            {
+                name: 'user_name',
+                type: 'text',
+                component: null,
+                isNull: true,
+                label: '录入人',
+                placeholder: '',
+                rule: null
+            },
+            {
+                name: 'memo',
+                type: 'textarea',
+                component: null,
+                isNull: true,
+                label: '备注',
+                placeholder: '',
+                rule: null
+            }]
         }]
     }],
     vegetableSerial: [{

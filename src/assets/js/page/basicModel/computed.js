@@ -59,6 +59,9 @@ export default {
         },
         changeDataArr () {
             return this.models[this.modelIndex].changeDataArr
+        },
+        hiddeEdit () {
+            return this.models[this.modelIndex].hiddeEdit
         }
     }
 }

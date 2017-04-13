@@ -40,12 +40,13 @@ const routes = [
         meta: { requiresAuth: true }
     },
     {
-        path: '/index',
+        path: '/',
         component: index,
         children: [{
             path: 'message/:model/:index',
             // alias: 'reaction/:model/:index',
             component: basic,
+            // 需要登录才能进人此路由
             meta: {
                 requiresAuth: true
             }
@@ -57,7 +58,7 @@ const routes = [
         component: notFound
     },
     {
-        path: '/',
+        path: '/login',
         name: 'login',
         component: login
     }
