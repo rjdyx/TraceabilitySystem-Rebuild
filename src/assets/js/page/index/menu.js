@@ -56,6 +56,10 @@ export default[{
         name: '检疫管理'
     },
     {
+        path: '/index/message/areaManage/0',
+        name: '圈舍管理'
+    },
+    {
         path: '/index/message/innocuityManage/0',
         name: '无害化管理'
     },

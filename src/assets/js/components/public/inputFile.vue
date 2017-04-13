@@ -1,4 +1,4 @@
-/**
+<!-- /**
  * inputData组件
  * @description 
  * @author 吴燕萍
@@ -43,6 +43,8 @@
         methods: {
             handleAvatarScucess (res, file) {
                 this.imageUrl = URL.createObjectURL(file.raw)
+                console.log(11111)
+                console.log(file)
             },
             beforeAvatarUpload (file) {
                 const isJPG = file.type === 'image/jpeg'
@@ -91,4 +93,112 @@
         }
     }
 
+</style>
+ -->
+/**
+ * inputData组件
+ * @description 
+ * @author 吴燕萍
+ * @date 2017/3/22
+
+ */
+<template>
+<div class='inputFile'>
+    <div size='small' class='avatar-uploader'>
+        <div class='el-upload el-upload--text' @click.stop='showFile'
+            >
+            <img v-if='imageUrl' :src='imageUrl' class='avatar'>
+            <i v-else class='el-icon-plus avatar-uploader-icon'></i>
+            <input type='file' accept='image/jpeg' class='fileBtn el-upload__input' >
+        </div>
+    </div>
+    <el-button type='primary' size='small' @click='uploadImgFn'>上传图片</el-button>
+    <el-button type='danger' size='small' @click='deleteImgFn'>删除图片</el-button>
+</div>
+
+</template>
+<script>
+export default {
+    props:
+    {
+    //     isNull:
+    //     {
+    //         type: Boolean,
+    //         default: true
+    //     },
+    //     label: {
+    //         type: String,
+    //         default: ''
+    //     },
+    //     placeholder: {
+    //         type: String,
+    //         default: '必填'
+    //     }
+        shuju: {
+            type: Object,
+            default () {
+                return {}
+            }
+        },
+        editValue: {
+            type: String,
+            default: ''
+        }
+    },
+    data () {
+        return {
+            imageUrl: '',
+            file: {}
+        }
+    },
+    methods: {
+        showFile () {
+            var $file = $('.fileBtn')
+            var _this = this
+            $file.click()
+            $file.change(function () {
+                console.log($file)
+                _this.imageUrl = $file[0].value
+            })
+        },
+        // 上传图片
+        uploadImgFn () {
+        },
+        // 删除图片
+        deleteImgFn () {
+            this.imageUrl = ''
+        }
+    },
+    watch: {
+        value () {
+            this.$emit('return-shuju', {name: this.shuju.name, value: this.imageUrl})
+        }
+    }
+}
+</script>
+<style lang='sass'>
+    @import '../../../sass/public/inputSize.scss';
+  .avatar-uploader .el-upload {
+    border: 1px dashed #d9d9d9;
+    border-radius: 6px;
+    position: relative;
+    cursor: pointer;
+    overflow: hidden;
+  }
+  .avatar-uploader .el-upload:hover {
+    border-color: #20a0ff;
+  }
+  .avatar-uploader-icon {
+    font-size: 28px;
+    color: #8c939d;
+    width: 178px;
+    height: 178px;
+    line-height: 178px;
+    text-align: center;
+  }
+  .avatar {
+    width: 178px;
+    height: 178px;
+    display: block;
+  }
 </style>
