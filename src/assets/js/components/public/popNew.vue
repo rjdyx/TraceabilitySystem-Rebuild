@@ -53,17 +53,28 @@
                                 v-model="tableForm[subItem.name]" size="small"></el-input>
                         </el-form-item>
                     </tr>
-
-                    <!-- 传组件 -->
+                     <!-- 传组件 -->
                     <tr v-else-if="subItem.component">
                         <el-form-item :label="subItem.label" :prop="subItem.name">
+                            <!-- 控件类型是textelect -->
                             <component 
+                                v-if="subItem.type=='textSelect'"
+                                v-bind:is="subItem.component" 
+                                :shuju="subItem"
+                                :inputEditValue="tableForm[subItem.name]"
+                                :selectEditValue="tableForm['unit']"
+                                @return-shuju="returnShuju"
+                            ></component>
+                            <!-- 其他类型 -->
+                            <component 
+                                v-else
                                 v-bind:is="subItem.component" 
                                 :shuju="subItem"
                                 @return-shuju="returnShuju"
                             ></component>
                         </el-form-item>
                     </tr>
+
                 </template>
           </table>
           <el-form-item>
@@ -114,13 +125,15 @@ export default {
                 form[item.name] = ''
             } else if (item.type === 'select') {
                 if (item.options[0] instanceof Object) {
-                    form[item.name] = item.options[0].label
+                    form[item.name] = item.options[0].value
+                } else {
+                    form[item.name] = ''
                 }
             } else if (item.type === 'date') {
                 form[item.name] = {}
-            } else if (item.type === 'textselect') {
+            } else if (item.type === 'textSelect') {
                 form[item.name] = ''
-                form['unit'] = item.options[0].label
+                form['unit'] = item.options[0].value
             }
         })
         let rules = {}
@@ -132,7 +145,6 @@ export default {
             activeName: this.newComponent[0].tab,
             tableForm: form,
             rules: rules,
-            aa: this.newComponent[0].components[0].options,
             // 判断鼠标是否点击
             isMouseClick: false,
             dmL: 0,
@@ -148,11 +160,6 @@ export default {
                 // _this.formDown = null
                 // _this.formMove = null
             }
-        }
-    },
-    watch: {
-        aa () {
-            console.log(33)
         }
     },
     methods: {

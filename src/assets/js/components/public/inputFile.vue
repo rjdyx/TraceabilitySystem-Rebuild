@@ -30,8 +30,8 @@ export default {
             }
         },
         editValue: {
-            type: String,
-            default: ''
+            // type: String,
+            // default: ''
         }
     },
     data () {
@@ -120,5 +120,4 @@ export default {
     height: 178px;
     display: block;
   }
-
 </style>

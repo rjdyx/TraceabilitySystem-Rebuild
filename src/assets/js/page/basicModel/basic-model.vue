@@ -248,7 +248,9 @@ export default {
         // 显示新建表单
         changeNewShow () {
             this.isNewShow = !this.isNewShow
-            this.newComponent[0].components[this.newComponent[0].checkNumber].rule[1].url = this.url
+            if (this.newComponent[0].checkNumber !== undefined) {
+                this.newComponent[0].components[this.newComponent[0].checkNumber].rule[1].url = this.url
+            }
             if (this.newComponent[0].selectUrl) {
                 var selectArr = []
                 let selectUrl = this.newComponent[0].selectUrl[0]
@@ -271,8 +273,10 @@ export default {
         changeEditShow (index, row) {
             this.isEditShow = !this.isEditShow
             if (row !== undefined) {
-                this.editComponent[0].components[this.editComponent[0].checkNumber].rule[1]['id'] = row.id
-                this.editComponent[0].components[this.editComponent[0].checkNumber].rule[1]['url'] = this.url
+                if (this.editComponent[0].checkNumber !== undefined) {
+                    this.editComponent[0].components[this.editComponent[0].checkNumber].rule[1]['id'] = row.id
+                    this.editComponent[0].components[this.editComponent[0].checkNumber].rule[1]['url'] = this.url
+                }
                 if (this.editComponent[0].selectUrl) {
                     var selectArr = []
                     let selectUrl = this.editComponent[0].selectUrl[0]
@@ -290,6 +294,9 @@ export default {
                         console.dir(err)
                     })
                 }
+                if (row.area !== undefined) {
+                    row.area = String(parseInt(row.area))
+                }
                 this.editForm = row
             }
         },
@@ -301,11 +308,13 @@ export default {
                 // 数据转换
                     if (responce.data.data.length !== 0) {
                         var ret = this.$conversion(this.changeDataArr, responce.data.data, 1)
-                        // ret = this.$image(this.url, ret)
+                        ret = this.$eltable(ret)
                         this.$set(this, 'tableData', ret)
                         this.total_num = responce.data.total
                         this.num = responce.data.last_page
                         this.paginator = responce.data
+                    } else {
+                        this.$set(this, 'tableData', responce.data.data)
                     }
                 })
                 .catch(err => {

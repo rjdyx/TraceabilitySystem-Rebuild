@@ -51,7 +51,7 @@ exports.basic =
     {
         component: newbuildBtn
     }],
-    listComponent: []
+    listComponent: [555]
 },
 {
     key: 'vegetableArchive',

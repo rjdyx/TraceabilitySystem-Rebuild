@@ -64,7 +64,7 @@
                     <tr v-else-if="subItem.component">
                         <el-form-item :label="subItem.label" :prop="subItem.name">
                             <component 
-                                v-if="subItem.type=='textselect'"
+                                v-if="subItem.type=='textSelect'"
                                 v-bind:is="subItem.component" 
                                 :shuju="subItem"
                                 :inputEditValue="editForm[subItem.name]"
@@ -75,6 +75,7 @@
                                 v-else
                                 v-bind:is="subItem.component" 
                                 :shuju="subItem"
+                                :editValue="editForm[subItem.name]"
                                 @return-shuju="returnShuju"
                             ></component>
                         </el-form-item>

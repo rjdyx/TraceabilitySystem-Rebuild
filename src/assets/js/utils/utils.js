@@ -189,5 +189,22 @@ default {
             }
             return ret
         }
+        /**
+         *
+         * 表格样式存储
+         *
+         * @param url
+         * @returns {*}
+         */
+        Vue.prototype.$eltable = (ret) => {
+            for (let key in ret) {
+                for (let index in ret[key]) {
+                    if (index === 'area') {
+                        ret[key][index] = ret[key][index] + ret[key].unit
+                    }
+                }
+            }
+            return ret
+        }
     }
 }
