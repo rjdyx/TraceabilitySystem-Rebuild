@@ -233,7 +233,9 @@ export default {
             components: [{
                 type: 'select',
                 component: selectSection,
-                options: []
+                options: [{
+                    value: '', label: '选择操作人类型'
+                }]
             }]
         }],
         newComponent: [{
@@ -664,7 +666,9 @@ export default {
             components: [{
                 type: 'select',
                 component: selectSection,
-                options: []
+                options: [{
+                    value: '', label: '选择专家类型'
+                }]
             }]
         }]
     }],
@@ -683,7 +687,9 @@ export default {
             components: [{
                 type: 'select',
                 component: selectSection,
-                options: []
+                options: [{
+                    value: '', label: '选择客户类型'
+                }]
             }]
         }],
         typeComponent: [{
@@ -984,7 +990,9 @@ export default {
             components: [{
                 type: 'select',
                 component: selectSection,
-                options: []
+                options: [{
+                    value: '', label: '选择供货商类型'
+                }]
             }]
         }]
     }],
@@ -1242,7 +1250,9 @@ export default {
             components: [{
                 type: 'select',
                 component: selectSection,
-                options: []
+                options: [{
+                    value: '', label: '选择产品类型'
+                }]
             }]
         }]
     }
@@ -4581,7 +4591,9 @@ export default {
                 components: [{
                     type: 'select',
                     component: selectSection,
-                    options: []
+                    options: [{
+                        value: '', label: '种植场选择'
+                    }]
                 }]
             }],
             newComponent: [{
@@ -4793,7 +4805,9 @@ export default {
                 components: [{
                     type: 'select',
                     component: selectSection,
-                    options: []
+                    options: [{
+                        value: '', label: '果蔬类别'
+                    }]
                 }]
             }],
             newComponent: [{
@@ -4936,7 +4950,9 @@ export default {
                 components: [{
                     type: 'select',
                     component: selectSection,
-                    options: []
+                    options: [{
+                        value: '', label: '肥料类别'
+                    }]
                 }]
             }],
             newComponent: [{
@@ -5097,7 +5113,9 @@ export default {
                 components: [{
                     type: 'select',
                     component: selectSection,
-                    options: []
+                    options: [{
+                        value: '', label: '农药类别'
+                    }]
                 }]
             }],
             newComponent: [{
@@ -5319,9 +5337,9 @@ export default {
         key: 'cultivate',
         tab: '种植批次信息',
         url: 'cultivate',
-        theads: ['种植批次号', '果蔬id', '种植日期', '种植面积', '面积单位', '种植数量', '种植人', '录入人', '备注'],
-        protos: ['plan_type_name', 'name', 'content', 'name', 'content', 'name', 'content', 'name', 'content'],
-        widths: [50, 50, 50, 50, 50, 50, 50, 50, 50],
+        theads: ['所属种植区', '种植批次号', '果蔬名称', '种植日期', '种植面积', '种植人', '录入人', '备注'],
+        protos: ['plantation_name', 'serial', 'plant_name', 'date', 'area', 'operate_name', 'user_name', 'memo'],
+        widths: [50, 50, 50, 50, 50, 50, 50, 50],
         listComponent: [{
             components: [{
                 type: 'select',

@@ -198,8 +198,6 @@ export default {
     methods: {
         init (index = 0) {
             this.value = ''
-            this.inputValue = ''
-            this.selectVal = '22'
             this.activeName = 'index'
             this.modelIndex = index
             this.$set(this, 'tableData', [])
@@ -421,7 +419,10 @@ export default {
             axios.get(this.$adminUrl(this.url), {params: {'getSelect': '444'}})
                 .then((responce) => {
                     if (responce.data.length !== 0) {
-                        this.listComponent[0].components[0].options = this.$selectData(this.url, responce.data, this.selectValueId)
+                        let opt = this.$selectData(this.url, responce.data, this.selectValueId)
+                        for (let key of Object.keys(opt)) {
+                            this.listComponent[0].components[0].options.push(opt[key])
+                        }
                     }
                 })
                 .catch(err => {
@@ -440,7 +441,7 @@ export default {
     watch: {
         key () {
             this.tableData = []
-            if (this.selectValueId) {
+            if (this.selectValueId !== undefined) {
                 this.getSelect()
             }
             this.getAllMsg()
