@@ -65,6 +65,9 @@ export default {
         },
         hiddeEdit () {
             return this.models[this.modelIndex].hiddeEdit
+        },
+        selectDefault () {
+            return this.models[this.modelIndex].selectDefault
         }
     }
 }

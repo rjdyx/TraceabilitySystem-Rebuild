@@ -216,6 +216,7 @@ export default {
         searchPlaceholder: '请输入人物姓名进行搜索',
         selectSearch: ['operates.category_id'],
         selectValueId: ['category_id', 'category_name', true],
+        selectDefault: {value: '', label: '选择操作人类型'},
         changeDataArr: [{sex: {0: '男', 1: '女'}}],
         theads: ['分类名称', '姓名', '身份', '性别', '年龄', '联系方式', '地址', '图片', '备注信息'],
         protos: ['category_name', 'name', 'identity', 'sex', 'age', 'phone', 'address', 'img', 'memo'],
@@ -233,15 +234,14 @@ export default {
             components: [{
                 type: 'select',
                 component: selectSection,
-                options: [{
-                    value: '', label: '选择操作人类型'
-                }]
+                options: []
             }]
         }],
         newComponent: [{
             tab: '新建人员档案信息',
             selectUrl: ['category', 'operate', 'category_id', 'category_name', true],
             checkNumber: 1,
+            popNumber: 0,
             components: [{
                 name: 'category_id',
                 type: 'select',
@@ -440,6 +440,7 @@ export default {
         selectValueId: ['category_id', 'category_name', true],
         changeDataArr: [{sex: {0: '男', 1: '女'}}],
         searchPlaceholder: '请输入专家名称进行搜索',
+        selectDefault: {value: '', label: '选择专家类型'},
         theads: ['分类名称', '专家名称', '级别', '研究领域', '单位', '出生年月日', '性别', '联系方式', '图片', '备注'],
         protos: ['category_name', 'name', 'level', 'major', 'unit', 'age', 'sex', 'phone', 'img', 'memo'],
         widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
@@ -456,6 +457,7 @@ export default {
             tab: '新建专家档案信息',
             selectUrl: ['category', 'expert', 'category_id', 'category_name', true],
             checkNumber: 1,
+            popNumber: 0,
             components: [{
                 name: 'category_id',
                 type: 'select',
@@ -666,9 +668,7 @@ export default {
             components: [{
                 type: 'select',
                 component: selectSection,
-                options: [{
-                    value: '', label: '选择专家类型'
-                }]
+                options: []
             }]
         }]
     }],
@@ -680,6 +680,7 @@ export default {
         selectSearch: ['clients.category_id'],
         selectValueId: ['category_id', 'category_name', true],
         searchPlaceholder: '请输入客户名称进行搜索',
+        selectDefault: {value: '', label: '选择客户类型'},
         theads: ['客户分类', '客户名称', '电话', '地址', '传真', '备注'],
         protos: ['category_name', 'name', 'phone', 'address', 'fax', 'memo'],
         widths: [50, 50, 50, 50, 50, 50, 50],
@@ -687,9 +688,7 @@ export default {
             components: [{
                 type: 'select',
                 component: selectSection,
-                options: [{
-                    value: '', label: '选择客户类型'
-                }]
+                options: []
             }]
         }],
         typeComponent: [{
@@ -705,6 +704,7 @@ export default {
             tab: '新建客户档案信息',
             selectUrl: ['category', 'client', 'category_id', 'category_name', true],
             checkNumber: 1,
+            popNumber: 0,
             components: [{
                 name: 'category_id',
                 type: 'select',
@@ -853,6 +853,7 @@ export default {
         selectSearch: ['suppliers.category_id'],
         selectValueId: ['category_id', 'category_name', true],
         searchPlaceholder: '请输入供货商名称搜索',
+        selectDefault: {value: '', label: '选择供货商类型'},
         theads: ['分类', '供货商名称', '电话', '联系人', '地址', '备注'],
         protos: ['category_name', 'name', 'phone', 'contacts', 'address', 'memo'],
         widths: [50, 50, 50, 50, 50, 50],
@@ -869,6 +870,7 @@ export default {
             tab: '新建供货商档案信息',
             selectUrl: ['category', 'supplier', 'category_id', 'category_name', true],
             checkNumber: 1,
+            popNumber: 0,
             components: [{
                 name: 'category_id',
                 type: 'select',
@@ -990,9 +992,7 @@ export default {
             components: [{
                 type: 'select',
                 component: selectSection,
-                options: [{
-                    value: '', label: '选择供货商类型'
-                }]
+                options: []
             }]
         }]
     }],
@@ -1020,6 +1020,7 @@ export default {
             tab: '新建产品信息',
             selectUrl: ['category', 'product', 'category_id', 'category_name', true],
             checkNumber: 1,
+            popNumber: 0,
             components: [{
                 name: 'category_id',
                 type: 'select',
@@ -4634,6 +4635,7 @@ export default {
             selectSearch: ['plantations.pid'],
             selectValueId: ['pid', 'plantation_name', true],
             searchPlaceholder: '请输入种植区进行搜索',
+            selectDefault: {value: '', label: '种植场选择'},
             theads: ['种植场名称', '种植区名称', '种植面积', '负责人', '联系电话', '地址', '图片', '备注'],
             protos: ['plantation_name', 'name', 'area', 'director', 'phone', 'address', 'img', 'memo'],
             widths: [50, 50, 50, 50, 50, 50, 50, 50],
@@ -4650,15 +4652,14 @@ export default {
                 components: [{
                     type: 'select',
                     component: selectSection,
-                    options: [{
-                        value: '', label: '种植场选择'
-                    }]
+                    options: []
                 }]
             }],
             newComponent: [{
                 tab: '新建种植区信息',
                 selectUrl: ['plantation', 'planta', 'pid', 'plantation_name', true],
                 checkNumber: 1,
+                popNumber: 0,
                 components: [{
                     name: 'pid',
                     type: 'select',
@@ -4848,6 +4849,7 @@ export default {
             selectSearch: ['plants.category_id'],
             selectValueId: ['category_id', 'category_name', true],
             searchPlaceholder: '请输入果蔬名称进行搜索',
+            selectDefault: {value: '', label: '果蔬类别'},
             theads: ['分类名称', '果蔬名称', '生长周期（天）', '基本特征描述', '果蔬图片', '备注信息'],
             protos: ['category_name', 'name', 'growth_cycle', 'description', 'img', 'memo'],
             widths: [50, 50, 50, 50, 50, 50],
@@ -4864,15 +4866,14 @@ export default {
                 components: [{
                     type: 'select',
                     component: selectSection,
-                    options: [{
-                        value: '', label: '果蔬类别'
-                    }]
+                    options: []
                 }]
             }],
             newComponent: [{
                 tab: '新建果蔬档案',
                 selectUrl: ['category', 'plant', 'category_id', 'category_name', true],
                 checkNumber: 1,
+                popNumber: 0,
                 components: [{
                     name: 'category_id',
                     type: 'select',
@@ -4990,6 +4991,7 @@ export default {
             selectSearch: ['manures.category_id'],
             selectValueId: ['category_id', 'category_name', true],
             searchPlaceholder: '请输入肥料名称',
+            selectDefault: {value: '', label: '肥料类别'},
             theads: ['肥料分类', '肥料名称', '用途', '包装规格', '日期', '产地', '经销商名称', '联系方式', '备注'],
             protos: ['category_name', 'name', 'usage', 'specification', 'date', 'origin', 'specification', 'phone', 'memo'],
             widths: [50, 50, 50, 50, 50, 50, 50, 50, 50],
@@ -5009,15 +5011,14 @@ export default {
                 components: [{
                     type: 'select',
                     component: selectSection,
-                    options: [{
-                        value: '', label: '肥料类别'
-                    }]
+                    options: []
                 }]
             }],
             newComponent: [{
                 tab: '新建肥料档案',
                 selectUrl: ['category', 'manure', 'category_id', 'category_name', true],
                 checkNumber: 1,
+                popNumber: 0,
                 components: [{
                     name: 'category_id',
                     type: 'select',
@@ -5153,6 +5154,7 @@ export default {
             selectSearch: ['medicaments.category_id'],
             selectValueId: ['category_id', 'category_name', true],
             searchPlaceholder: '请输入农药名称',
+            selectDefault: {value: '', label: '农药类别'},
             theads: ['农药分类', '农药名称', '分类', '用途', '防治对象', '药物毒性', '包装规格', '厂家名称', '产地', '联系方式', '备注'],
             protos: ['category_name', 'name', 'usage', 'control_objects', 'toxicity_grade', 'specification', 'manufacturer', 'origin', 'phone', 'memo'],
             widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
@@ -5172,15 +5174,14 @@ export default {
                 components: [{
                     type: 'select',
                     component: selectSection,
-                    options: [{
-                        value: '', label: '农药类别'
-                    }]
+                    options: []
                 }]
             }],
             newComponent: [{
                 tab: '新建农药档案',
                 selectUrl: ['category', 'medicament', 'category_id', 'category_name', true],
                 checkNumber: 1,
+                popNumber: 0,
                 components: [{
                     name: 'category_id',
                     type: 'select',
