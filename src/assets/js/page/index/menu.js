@@ -125,6 +125,10 @@ export default[{
         name: '加工批次管理'
     },
     {
+        path: '/index/message/vegetableDetect/0',
+        name: '检验检测管理'
+    },
+    {
         path: '/index/message/vegetableTrace/0',
         name: '产品溯源管理'
     }
