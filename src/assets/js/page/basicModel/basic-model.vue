@@ -16,7 +16,7 @@
         <el-tab-pane v-for="(model,index) in models" :label="model.tab" :name="'index'+index"></el-tab-pane>
     </el-tabs>  
     <!-- 操作模块 -->
-    <div id="operate">              
+    <div id="operate">
         <div id="inputs">
             <operate :listComponent="listComponent" @selectVal="selectFind"></operate>
             
@@ -38,7 +38,7 @@
                 class="fr"
             ></component> 
         </div>
-    
+
         <!-- 新建模块 --> 
         <popNew v-if="isNewShow" :newComponent="newComponent" :url="url" @submitNew="changeNew"></popNew>
         <!-- 编辑模块 -->
@@ -57,11 +57,11 @@
         </el-table-column>
 
         <!-- 中间列表模块 -->
-        <template v-for="(item,index) in theads"> 
+        <template v-for="(item,index) in theads">
           <template>
             <el-table-column 
               :prop="protos[index]"
-              :label="item"
+              :label="item" 
               :min-width="widths[index]"
               show-overflow-tooltip>
 <!--               <template scope="scope" v-if="serial">
@@ -79,11 +79,11 @@
                     <clickMore :moreComponent="moreComponent" class="clickMoreBtn"></clickMore>
                 </template>
                 <template>
-                        <el-button type="text" size="small" @click="changeEditShow(scope.$index,scope.row)" v-if="!hiddeEdit">编辑</el-button>
+                    <el-button type="text" size="small" @click="changeEditShow(scope.$index,scope.row)" v-if="!hiddeEdit">编辑</el-button>
                         
-                        <el-button type="text" size="small" v-if="hiddeEdit">查看</el-button>
+                    <el-button type="text" size="small" v-if="hiddeEdit">查看</el-button>
                         
-                        <el-button size="small" type="text" @click="handelDel(scope.$index,scope.row)" class="btn">删除</el-button>  
+                    <el-button size="small" type="text" @click="handelDel(scope.$index,scope.row)" class="btn">删除</el-button>  
                 </template>
             </template>
         </el-table-column>
@@ -371,6 +371,9 @@ export default {
                 this.dataArr[this.selectSearch[0]] = this.selectVal
             }
             this.pageChange(1)
+        },
+        more () {
+            console.log(12)
         },
         // 下拉框查询
         selectFind (val) {

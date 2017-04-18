@@ -15,7 +15,7 @@
 			</span>
 			<el-dropdown-menu slot="dropdown">
 				<template v-for="btn in moreComponent">
-					<el-dropdown-item>{{btn.value}}</el-dropdown-item>
+					<el-dropdown-item @click="more">{{btn.value}}</el-dropdown-item>
 				</template>
 			</el-dropdown-menu>
 		</el-dropdown>
@@ -30,6 +30,11 @@
             moreComponent: {
                 type: Array,
                 default: []
+            }
+        },
+        methods: {
+            more () {
+                console.log(94758)
             }
         }
     }

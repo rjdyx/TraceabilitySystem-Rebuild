@@ -3,9 +3,9 @@
 // }
 
 export const navbarName = state => {
-  return state.basicModel.navbarName
+    return state.basicModel.navbarName
 }
 
 export const subNavBarName = state => {
-  return state.basicModel.subNavBarName
+    return state.basicModel.subNavBarName
 }
