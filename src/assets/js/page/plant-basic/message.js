@@ -4196,12 +4196,13 @@ export default {
     }],
     petProcess: [{
         settitle: '加工批次管理',
-        key: 'planManage',
+        key: 'pack',
         tab: '加工批次信息',
-        url: 'plan',
-        searchPlaceholder: '请输入产品名称进行搜索',
-        theads: ['加工批次号', '产品', '包装日期', '数量(重量)', '单位', '操作人', '录入人', '备注信息'],
-        protos: ['plan_type_name', 'name', 'content', 'name', 'content', 'name', 'content', 'memo'],
+        url: 'pack',
+        paramsIndex: 'beast',
+        searchPlaceholder: '请输入批次号进行搜索',
+        theads: ['加工批次号', '加工日期', '数量(重量)', '操作人', '录入人', '备注信息'],
+        protos: ['serial', 'date', 'amount', 'operate_name', 'user_name', 'memo'],
         widths: [50, 50, 50, 50, 50, 50, 50, 50],
         typeComponent: [{
             component: output
@@ -4209,20 +4210,78 @@ export default {
         {
             component: newbuildBtn
         }],
-        listComponent: [{
+        newComponent: [{
+            tab: '新建养殖计划信息',
+            hiddenValue: {type: 'beast'},
+            selectUrl2: ['operates', 'id', 'name', true],
+            popNumber2: 1,
             components: [{
-                type: 'select',
-                component: selectSection,
-                options: [{
-                    value: '',
-                    label: '产品品牌'
-                },
-                {
-                    value: '康乐牌',
-                    label: '康乐牌'
-                }]
+                name: 'date',
+                type: 'date',
+                component: inputDate,
+                isNull: false,
+                label: '加工日期',
+                placeholder: '',
+                disabled: true,
+                rule: {required: true, trigger: 'blur', type: 'date'}
             },
             {
+                name: 'operate_id',
+                type: 'select',
+                component: null,
+                isNull: false,
+                label: '操作人员',
+                placeholder: '请选择人物',
+                rule: {required: true, trigger: 'blur', type: 'number'},
+                options: []
+            },
+            {
+                name: 'memo',
+                type: 'textarea',
+                component: null,
+                isNull: true,
+                label: '备注信息',
+                placeholder: '',
+                rule: null
+            }]
+        }],
+        editComponent: [{
+            tab: '编辑养殖计划信息',
+            hiddenValue: {type: 'beast'},
+            selectUrl2: ['operates', 'id', 'name', true],
+            popNumber2: 1,
+            components: [{
+                name: 'date',
+                type: 'date',
+                component: inputDate,
+                isNull: false,
+                label: '加工日期',
+                placeholder: '',
+                disabled: true,
+                rule: {required: true, trigger: 'blur', type: 'date'}
+            },
+            {
+                name: 'operate_id',
+                type: 'select',
+                component: null,
+                isNull: false,
+                label: '操作人员',
+                placeholder: '请选择人物',
+                rule: {required: true, trigger: 'blur', type: 'number'},
+                options: []
+            },
+            {
+                name: 'memo',
+                type: 'textarea',
+                component: null,
+                isNull: true,
+                label: '备注信息',
+                placeholder: '',
+                rule: null
+            }]
+        }],
+        listComponent: [{
+            components: [{
                 type: 'date',
                 component: 'datePick'
             }]

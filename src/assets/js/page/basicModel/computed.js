@@ -51,6 +51,9 @@ export default {
         options () {
             return this.models[this.modelIndex].options
         },
+        paramsIndex () {
+            return this.models[this.modelIndex].paramsIndex
+        },
         lotComponent () {
             return this.models[this.modelIndex].lotComponent
         },

@@ -64,6 +64,9 @@
               :label="item"
               :min-width="widths[index]"
               show-overflow-tooltip>
+<!--               <template scope="scope" v-if="serial">
+                <a :href="'/' + scope.row.id">scope.row.name</a>
+              </template> -->
             </el-table-column>
           </template>
         </template>
@@ -139,6 +142,7 @@ export default {
                     title: '',
                     settitle: '',
                     options: [],
+                    paramsIndex: {},
                     selectSearch: [],
                     typeComponent: [],
                     listComponent: [],
@@ -250,7 +254,7 @@ export default {
                 this.newComponent[0].components[this.newComponent[0].checkNumber].rule[1].url = this.url
             }
             if (this.newComponent[0].selectUrl) {
-                var selectArr = []
+                let selectArr = []
                 let selectUrl = this.newComponent[0].selectUrl[0]
                 let selectData = this.newComponent[0].selectUrl[1]
                 selectArr.push(this.newComponent[0].selectUrl[2])
@@ -259,7 +263,24 @@ export default {
                 axios.get(this.$adminUrl(selectUrl + '/changeSelect'), {params: {'selectData': selectData}})
                 .then((responce) => {
                     if (responce.data.length !== 0) {
-                        this.newComponent[0].components[0].options = this.$selectData(this.url, responce.data, selectArr)
+                        this.newComponent[0].components[this.newComponent[0].popNumber].options = this.$selectData(this.url, responce.data, selectArr)
+                    }
+                })
+                .catch(err => {
+                    console.dir(err)
+                })
+            }
+            // 无分类的下拉框模块查询
+            if (this.newComponent[0].selectUrl2) {
+                let selectArr = []
+                let selectData = this.newComponent[0].selectUrl2[0]
+                selectArr.push(this.newComponent[0].selectUrl2[1])
+                selectArr.push(this.newComponent[0].selectUrl2[2])
+                selectArr.push(this.newComponent[0].selectUrl2[3])
+                axios.get(this.$adminUrl('/util/selects'), {params: {table: selectData}})
+                .then((responce) => {
+                    if (responce.data.length !== 0) {
+                        this.newComponent[0].components[this.newComponent[0].popNumber2].options = this.$selectData(this.url, responce.data, selectArr)
                     }
                 })
                 .catch(err => {
@@ -292,6 +313,23 @@ export default {
                         console.dir(err)
                     })
                 }
+                // 无分类的下拉框模块查询
+                if (this.editComponent[0].selectUrl2) {
+                    let selectArr = []
+                    let selectData = this.editComponent[0].selectUrl2[0]
+                    selectArr.push(this.editComponent[0].selectUrl2[1])
+                    selectArr.push(this.editComponent[0].selectUrl2[2])
+                    selectArr.push(this.editComponent[0].selectUrl2[3])
+                    axios.get(this.$adminUrl('/util/selects'), {params: {table: selectData}})
+                    .then((responce) => {
+                        if (responce.data.length !== 0) {
+                            this.editComponent[0].components[this.editComponent[0].popNumber2].options = this.$selectData(this.url, responce.data, selectArr)
+                        }
+                    })
+                    .catch(err => {
+                        console.dir(err)
+                    })
+                }
                 if (row.area !== undefined) {
                     row.area = String(parseInt(row.area))
                 }
@@ -300,8 +338,10 @@ export default {
         },
         // 获取数据
         getAllMsg (data = '') {
-            this.par.params = data
-            axios.get(this.$adminUrl(this.url), {params: this.par})
+            if (this.paramsIndex !== undefined) {
+                var type = this.paramsIndex
+            }
+            axios.get(this.$adminUrl(this.url), {params: {params: data, type: type}})
                 .then((responce) => {
                 // 数据转换
                     if (responce.data.data.length !== 0) {

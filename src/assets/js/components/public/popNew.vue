@@ -188,6 +188,11 @@ export default {
                     for (let key of Object.keys(this.tableForm)) {
                         form.append(key, this.tableForm[key])
                     }
+                    if (this.newComponent[0].hiddenValue !== undefined) {
+                        for (let key1 of Object.keys(this.newComponent[0].hiddenValue)) {
+                            form.append(key1, this.newComponent[0].hiddenValue[key1])
+                        }
+                    }
                     let headers = {headers: {'Content-Type': 'multipart/form-data'}}
                     axios.post(this.$adminUrl(this.url), form, headers).then((response) => {
                         this.$emit('submitNew', response.data)
