@@ -4195,6 +4195,7 @@ export default {
         }],
         listComponent: []
     }],
+    // 屠宰加工（郭森林）
     petProcess: [{
         settitle: '加工批次管理',
         key: 'pack',
@@ -4288,14 +4289,17 @@ export default {
             }]
         }]
     }],
+    // 加工检测 （郭森林）
     petDectect: [{
         settitle: '检验检测管理',
-        key: 'planManage',
+        key: 'detect_pk',
         tab: '检验检测信息',
-        url: 'plan',
-        searchPlaceholder: '请输入入库批次号',
+        url: 'detect_pk',
+        searchPlaceholder: '请输入检测项目名称进行',
+        paramsIndex: 'beast',
+        changeDataArr: [{result: {0: '不合格', 1: '合格'}}],
         theads: ['检测名称', '检测内容', '检测日期', '检测结果', '检测机构', '负责人', '处理方法', '图片报告', '备注'],
-        protos: ['plan_type_name', 'name', 'content', 'name', 'content', 'name', 'content', 'name', 'memo'],
+        protos: ['name', 'content', 'date', 'result', 'organization', 'operate_name', 'mwthod', 'thumb', 'memo'],
         widths: [50, 50, 50, 50, 50, 50, 50, 50, 50],
         typeComponent: [{
             component: output
@@ -4303,52 +4307,277 @@ export default {
         {
             component: newbuildBtn
         }],
-        listComponent: [{
+        newComponent: [{
+            tab: '新建检验检测信息',
+            hiddenValue: {type: 'beast'},
+            selectUrl2: ['operates', 'id', 'name', true],
+            popNumber2: 1,
             components: [{
+                name: 'date',
+                type: 'date',
+                component: inputDate,
+                isNull: false,
+                label: '检测日期',
+                placeholder: '',
+                disabled: true,
+                rule: {required: true, trigger: 'blur', type: 'date'}
+            },
+            {
+                name: 'operate_id',
                 type: 'select',
-                component: selectSection,
+                component: null,
+                isNull: false,
+                label: '负责人',
+                placeholder: '请选择人物',
+                rule: {required: true, trigger: 'blur', type: 'number'},
+                options: []
+            },
+            {
+                name: 'name',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '检测名称',
+                placeholder: '请填写检测项目名称',
+                rule: {required: true, trigger: 'blur', type: 'text'},
+                options: []
+            },
+            {
+                name: 'result',
+                type: 'select',
+                component: null,
+                isNull: false,
+                label: '检测结果',
+                placeholder: '请选择检测结果',
+                rule: {required: true, trigger: 'blur', type: 'select'},
                 options: [{
-                    value: '',
-                    label: '产品品牌'
+                    value: 1,
+                    label: '合格'
                 },
                 {
-                    value: '康乐牌',
-                    label: '康乐牌'
+                    value: 0,
+                    label: '不合格'
                 }]
             },
             {
+                name: 'content',
+                type: 'textarea',
+                component: null,
+                isNull: false,
+                label: '检测内容',
+                placeholder: '请填写检测内容',
+                rule: null
+            },
+            {
+                name: 'organization',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '检测机构',
+                placeholder: '请填写检测机构名称',
+                rule: null
+            },
+            {
+                name: 'method',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '处理方法',
+                placeholder: '请填写检测处理方法',
+                rule: null
+            },
+            {
+                name: 'img',
+                type: 'file',
+                component: inputFile,
+                isNull: true,
+                label: '',
+                placeholder: '',
+                rule: null
+            },
+            {
+                name: 'memo',
+                type: 'textarea',
+                component: null,
+                isNull: true,
+                label: '备注信息',
+                placeholder: '',
+                rule: null
+            }]
+        }],
+        editComponent: [{
+            tab: '编辑检验检测信息',
+            selectUrl2: ['operates', 'id', 'name', true],
+            popNumber2: 1,
+            components: [{
+                name: 'date',
+                type: 'date',
+                component: inputDate,
+                isNull: false,
+                label: '检测日期',
+                placeholder: '',
+                disabled: true,
+                rule: {required: true, trigger: 'blur', type: 'date'}
+            },
+            {
+                name: 'operate_id',
+                type: 'select',
+                component: null,
+                isNull: false,
+                label: '负责人',
+                placeholder: '请选择人物',
+                rule: {required: true, trigger: 'blur', type: 'number'},
+                options: []
+            },
+            {
+                name: 'name',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '检测名称',
+                placeholder: '请填写检测项目名称',
+                rule: {required: true, trigger: 'blur', type: 'text'},
+                options: []
+            },
+            {
+                name: 'result',
+                type: 'select',
+                component: null,
+                isNull: false,
+                label: '检测结果',
+                placeholder: '请选择检测结果',
+                rule: {required: true, trigger: 'blur', type: 'select'},
+                options: [{
+                    value: 1,
+                    label: '合格'
+                },
+                {
+                    value: 0,
+                    label: '不合格'
+                }]
+            },
+            {
+                name: 'content',
+                type: 'textarea',
+                component: null,
+                isNull: false,
+                label: '检测内容',
+                placeholder: '请填写检测内容',
+                rule: null
+            },
+            {
+                name: 'organization',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '检测机构',
+                placeholder: '请填写检测机构名称',
+                rule: null
+            },
+            {
+                name: 'method',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '处理方法',
+                placeholder: '请填写检测处理方法',
+                rule: null
+            },
+            {
+                name: 'img',
+                type: 'file',
+                component: inputFile,
+                isNull: true,
+                label: '',
+                placeholder: '',
+                rule: null
+            },
+            {
+                name: 'memo',
+                type: 'textarea',
+                component: null,
+                isNull: true,
+                label: '备注信息',
+                placeholder: '',
+                rule: null
+            }]
+        }],
+        listComponent: [{
+            components: [{
                 type: 'date',
                 component: 'datePick'
             }]
         }]
     }],
+    // 畜禽产品溯源码 （郭森林）
     petTrace: [{
         settitle: '产品溯源管理',
         key: 'code',
         tab: '产品溯源码信息',
         url: 'code',
+        paramsIndex: 'beast',
+        selectSearch: ['products.id'],
+        selectValueId: ['product_id', 'product_name', true],
+        selectDefault: {value: '', label: '请选择产品'},
         searchPlaceholder: '请输入溯源码搜索',
-        theads: ['加工批次号', '产品溯源码', '产品名称', '生产日期', 'RFID', '肢体部位', '产地', '溯源次数', '备注信息'],
-        protos: ['plan_type_name', 'name', 'content', 'name', 'name', 'name', 'name', 'memo'],
-        widths: [50, 50, 50, 50, 50, 50, 50, 50, 50],
+        theads: ['加工批次号', '产品溯源码', '产品名称', '生产日期', 'RFID', '溯源次数', '备注信息'],
+        protos: ['serial', 'code', 'product_name', 'date', 'rfid', 'time', 'memo'],
+        widths: [50, 50, 50, 50, 50, 50, 50],
         typeComponent: [{
             component: output
         },
         {
             component: newbuildBtn
         }],
+        newComponent: [{
+            tab: '新建溯源码信息',
+            hiddenValue: {type: 'beast'},
+            selectUrl2: ['products', 'id', 'name', true],
+            popNumber2: 1,
+            components: [{
+                name: 'date',
+                type: 'date',
+                component: inputDate,
+                isNull: false,
+                label: '加工日期',
+                placeholder: '',
+                disabled: true,
+                rule: {required: true, trigger: 'blur', type: 'date'}
+            },
+            {
+                name: 'operate_id',
+                type: 'select',
+                component: null,
+                isNull: false,
+                label: '产品',
+                placeholder: '请选择产品',
+                rule: {required: true, trigger: 'blur', type: 'number'},
+                options: []
+            },
+            {
+                name: 'number',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '生成数量',
+                placeholder: '请填写数量',
+                rule: {required: true, trigger: 'blur', type: 'number'}
+            },
+            {
+                name: 'memo',
+                type: 'textarea',
+                component: null,
+                isNull: true,
+                label: '备注信息',
+                placeholder: '',
+                rule: null
+            }]
+        }],
         listComponent: [{
             components: [{
                 type: 'select',
                 component: selectSection,
-                options: [{
-                    value: '',
-                    label: '产品品牌'
-                },
-                {
-                    value: '康乐牌',
-                    label: '康乐牌'
-                }]
+                options: []
             },
             {
                 type: 'date',
@@ -6438,9 +6667,9 @@ export default {
             tab: '驾驶员信息',
             url: 'driver',
             searchPlaceholder: '请输入司机姓名进行搜索',
-            theads: ['驾驶员姓名', '性别', '联系电话', '取得驾照日期', '出生日期', '驾照类型(A1、C2...)', '备注信息'],
-            protos: ['name', 'sex', 'phone', 'driver', 'birth', 'type', 'memo'],
-            widths: [50, 50, 50, 50, 50, 50, 50],
+            theads: ['驾驶员姓名', '联系电话', '取得驾照日期', '出生日期', '驾照类型(A1、C2...)', '备注信息'],
+            protos: ['name', 'phone', 'driver', 'birth', 'type', 'memo'],
+            widths: [50, 50, 50, 50, 50, 50],
             listComponent: [],
             typeComponent: [
                 {
@@ -6462,22 +6691,6 @@ export default {
                     label: '驾驶员姓名',
                     placeholder: '必填',
                     rule: {required: true, message: '请输入驾驶员姓名', trigger: 'blur'}
-                },
-                {
-                    name: 'sex',
-                    type: 'select',
-                    component: null,
-                    isNull: false,
-                    label: '性别',
-                    placeholder: '必填',
-                    rule: {required: true, trigger: 'blur'},
-                    options: [{
-                        value: '', label: '男'
-                    },
-                    {
-                        value: '女', label: '女'
-                    }
-                    ]
                 },
                 {
                     name: 'phone',
@@ -6537,22 +6750,6 @@ export default {
                     rule: {required: true, message: '请输入驾驶员姓名', trigger: 'blur'}
                 },
                 {
-                    name: 'sex',
-                    type: 'select',
-                    component: null,
-                    isNull: false,
-                    label: '性别',
-                    placeholder: '必填',
-                    rule: {required: true, trigger: 'blur'},
-                    options: [{
-                        value: '', label: '男'
-                    },
-                    {
-                        value: '女', label: '女'
-                    }
-                    ]
-                },
-                {
                     name: 'phone',
                     type: 'text',
                     component: null,
@@ -6605,39 +6802,103 @@ export default {
         key: 'delivery',
         tab: '物流批次信息',
         url: 'delivery',
+        selectSearch: ['deliveries.transportable_type'],
         changeDataArr: [{transportable_type: { 'self': '自运', 'consign': '托运', 'selve': '自提' }}],
-        searchPlaceholder: '请输入物流批次号',
-        theads: ['物流批次号', '物流日期', '货物名称', '数量', '运输方式(自运、托运、自提)', '操作人员', '物流状态', '备注'],
-        protos: ['serial', 'date', 'name', 'plan_type_name', 'transportable_type', 'operate_name', 'plan_type_name', 'memo'],
-        widths: [50, 50, 50, 50, 50, 50, 50, 50],
-        typeComponent: [
-            {
-                component: output
-            }],
+        searchPlaceholder: '请输入货物名称进行搜索',
+        theads: ['物流批次号', '物流日期', '货物名称', '运输方式', '操作人员', '备注'],
+        protos: ['serial', 'datetime', 'name', 'transportable_type', 'operate_name', 'memo'],
+        widths: [50, 50, 50, 50, 50, 50],
+        typeComponent: [{
+            component: output
+        },
+        {
+            component: newbuildBtn
+        }],
         listComponent: [{
             components: [{
                 type: 'select',
                 component: selectSection,
                 options: [{
-                    value: '',
-                    label: '运输方式'
+                    value: '', label: '运输方式'
                 },
                 {
-                    value: '自运',
-                    label: '自运'
+                    value: 'self', label: '自运'
                 },
                 {
-                    value: '托运',
-                    label: '托运'
+                    value: 'consign', label: '托运'
                 },
                 {
-                    value: '自提',
-                    label: '自提'
+                    value: 'selve', label: '自提'
                 }]
             },
             {
                 type: 'date',
                 components: 'datePick'
+            }]
+        }],
+        newComponent: [{
+            tab: '新建物流批次信息',
+            selectUrl2: ['operates', 'id', 'name', true],
+            popNumber2: 2,
+            components: [{
+                name: 'datetime',
+                type: 'date',
+                component: inputDate,
+                isNull: true,
+                label: '物流日期',
+                rule: {required: true}
+            },
+            {
+                name: 'name',
+                type: 'text',
+                component: null,
+                isNull: true,
+                label: '货物名称',
+                placeholder: '',
+                rule: {required: true}
+            },
+            {
+                name: 'operate',
+                type: 'select',
+                component: null,
+                isNull: true,
+                label: '操作人员',
+                rule: {required: true},
+                options: []
+            },
+            {
+                name: 'transportable_type',
+                type: 'select',
+                component: null,
+                isNull: false,
+                label: '运输方式',
+                placeholder: '必填',
+                rule: {required: true},
+                options: [{
+                    value: '',
+                    label: '运输方式'
+                },
+                {
+                    value: 'self',
+                    label: '自运'
+                },
+                {
+                    value: 'consign',
+                    label: '托运'
+                },
+                {
+                    value: 'selve',
+                    label: '自提'
+                }]
+            },
+            {
+                name: 'memo',
+                type: 'textarea',
+                component: null,
+                isNull: true,
+                label: '备注信息',
+                placeholder: '',
+                rule: null
             }]
         }],
         moreComponent: [{value: '更改状态'}],
@@ -6754,14 +7015,341 @@ export default {
                 }]
         }
     ],
-    saleInput: [{
-        settitle: '销售入库管理',
-        key: 'storage',
-        tab: '销售入库信息',
-        url: 'storage',
-        searchPlaceholder: '请输入商品名称进行搜索',
-        theads: ['入库批次号', '商品来源', '入库日期', '仓库名称', '商品名称', '商品总数量', '库存数量', '入库人', '备注信息'],
-        protos: ['plan_type_name', 'name', 'content', 'name', 'content', 'name', 'content', 'name', 'memo'],
+    saleInput: [
+        {
+            settitle: '销售入库管理',
+            key: 'storage0',
+            tab: '销售入库信息(平台)',
+            url: 'storage',
+            selectSearch: ['products.id'],
+            selectValueId: ['product_id', 'product_name', true],
+            selectDefault: {value: '', label: '请选择商品'},
+            paramsIndex: 0,
+            changeDataArr: [{type: { 0: '平台', 1: '非平台' }}],
+            searchPlaceholder: '请输入批次号进行搜索',
+            theads: ['入库批次号', '入库日期', '供货商', '商品名称', '数量', '入库人', '录入人', '备注信息'],
+            protos: ['serial', 'datetime', 'supplier_name', 'product_name', 'amount', 'operate_name', 'user_name', 'memo'],
+            widths: [50, 50, 50, 50, 50, 50, 50, 50],
+            typeComponent: [
+                {
+                    component: output
+                },
+                {
+                    component: newbuildBtn
+                }],
+            newComponent: [{
+                tab: '新建入库信息',
+                hiddenValue: {type: 0},
+                selectUrl2: ['products', 'id', 'name', true],
+                popNumber2: 1,
+                components: [{
+                    name: 'datetime',
+                    type: 'date',
+                    component: inputDate,
+                    isNull: false,
+                    label: '入库日期时间',
+                    placeholder: '',
+                    disabled: true,
+                    rule: {required: true, trigger: 'blur', type: 'date'}
+                },
+                {
+                    name: 'product_id',
+                    type: 'select',
+                    component: null,
+                    isNull: false,
+                    label: '商品',
+                    placeholder: '请选择商品',
+                    rule: {required: true, trigger: 'blur', type: 'number'},
+                    options: []
+                },
+                {
+                    name: 'supplier_id',
+                    type: 'select',
+                    component: null,
+                    isNull: false,
+                    label: '供货商',
+                    placeholder: '请选择供货商',
+                    rule: {required: true, trigger: 'blur', type: 'number'},
+                    options: []
+                },
+                {
+                    name: 'operate_id',
+                    type: 'select',
+                    component: null,
+                    isNull: false,
+                    label: '操作人员',
+                    placeholder: '请选择人物',
+                    rule: {required: true, trigger: 'blur', type: 'number'},
+                    options: []
+                },
+                {
+                    name: 'sell_serial',
+                    type: 'text',
+                    component: null,
+                    isNull: false,
+                    label: '订单号',
+                    placeholder: '请输入订单号',
+                    rule: {required: true, trigger: 'blur'}
+                },
+                {
+                    name: 'memo',
+                    type: 'textarea',
+                    component: null,
+                    isNull: true,
+                    label: '备注信息',
+                    placeholder: '',
+                    rule: null
+                }]
+            }],
+            editComponent: [{
+                tab: '编辑入库信息',
+                hiddenValue: {type: 0},
+                selectUrl2: ['products', 'id', 'name', true],
+                popNumber2: 1,
+                components: [{
+                    name: 'datetime',
+                    type: 'date',
+                    component: inputDate,
+                    isNull: false,
+                    label: '入库日期时间',
+                    placeholder: '',
+                    disabled: true,
+                    rule: {required: true, trigger: 'blur', type: 'date'}
+                },
+                {
+                    name: 'product_id',
+                    type: 'select',
+                    component: null,
+                    isNull: false,
+                    label: '商品',
+                    placeholder: '请选择商品',
+                    rule: {required: true, trigger: 'blur', type: 'number'},
+                    options: []
+                },
+                {
+                    name: 'supplier_id',
+                    type: 'select',
+                    component: null,
+                    isNull: false,
+                    label: '供货商',
+                    placeholder: '请选择供货商',
+                    rule: {required: true, trigger: 'blur', type: 'number'},
+                    options: []
+                },
+                {
+                    name: 'operate_id',
+                    type: 'select',
+                    component: null,
+                    isNull: false,
+                    label: '操作人员',
+                    placeholder: '请选择人物',
+                    rule: {required: true, trigger: 'blur', type: 'number'},
+                    options: []
+                },
+                {
+                    name: 'sell_serial',
+                    type: 'text',
+                    component: null,
+                    isNull: false,
+                    label: '订单号',
+                    placeholder: '请输入订单号',
+                    rule: {required: true, trigger: 'blur'}
+                },
+                {
+                    name: 'memo',
+                    type: 'textarea',
+                    component: null,
+                    isNull: true,
+                    label: '备注信息',
+                    placeholder: '',
+                    rule: null
+                }]
+            }],
+            listComponent: [{
+                components: [
+                    {
+                        type: 'select',
+                        component: selectSection,
+                        options: []
+                    },
+                    {
+                        type: 'date',
+                        component: datePick
+                    }
+                ]
+            }]
+        },
+        {
+            settitle: '销售入库管理',
+            key: 'storage1',
+            tab: '销售入库信息(非平台)',
+            url: 'storage',
+            selectSearch: ['products.id'],
+            selectValueId: ['product_id', 'product_name', true],
+            selectDefault: {value: '', label: '请选择商品'},
+            paramsIndex: 1,
+            searchPlaceholder: '请输入批次号进行搜索',
+            theads: ['入库批次号', '入库日期', '供货商', '商品名称', '数量', '入库人', '录入人', '备注信息'],
+            protos: ['serial', 'datetime', 'supplier_name', 'product_name', 'amount', 'operate_name', 'user_name', 'memo'],
+            widths: [50, 50, 50, 50, 50, 50, 50, 50],
+            typeComponent: [
+                {
+                    component: output
+                },
+                {
+                    component: newbuildBtn
+                }],
+            newComponent: [{
+                tab: '新建入库信息',
+                hiddenValue: {type: 1},
+                selectUrl2: ['products', 'id', 'name', true],
+                popNumber2: 1,
+                components: [{
+                    name: 'datetime',
+                    type: 'date',
+                    component: inputDate,
+                    isNull: false,
+                    label: '入库日期时间',
+                    placeholder: '',
+                    disabled: true,
+                    rule: {required: true, trigger: 'blur', type: 'date'}
+                },
+                {
+                    name: 'product_id',
+                    type: 'select',
+                    component: null,
+                    isNull: false,
+                    label: '商品',
+                    placeholder: '请选择商品',
+                    rule: {required: true, trigger: 'blur', type: 'number'},
+                    options: []
+                },
+                {
+                    name: 'supplier_id',
+                    type: 'select',
+                    component: null,
+                    isNull: false,
+                    label: '供货商',
+                    placeholder: '请选择供货商',
+                    rule: {required: true, trigger: 'blur', type: 'number'},
+                    options: []
+                },
+                {
+                    name: 'operate_id',
+                    type: 'select',
+                    component: null,
+                    isNull: false,
+                    label: '操作人员',
+                    placeholder: '请选择人物',
+                    rule: {required: true, trigger: 'blur', type: 'number'},
+                    options: []
+                },
+                {
+                    name: 'sell_serial',
+                    type: 'text',
+                    component: null,
+                    isNull: false,
+                    label: '订单号',
+                    placeholder: '请输入订单号',
+                    rule: {required: true, trigger: 'blur'}
+                },
+                {
+                    name: 'memo',
+                    type: 'textarea',
+                    component: null,
+                    isNull: true,
+                    label: '备注信息',
+                    placeholder: '',
+                    rule: null
+                }]
+            }],
+            editComponent: [{
+                tab: '编辑入库信息',
+                hiddenValue: {type: 1},
+                selectUrl2: ['products', 'id', 'name', true],
+                popNumber2: 1,
+                components: [{
+                    name: 'datetime',
+                    type: 'date',
+                    component: inputDate,
+                    isNull: false,
+                    label: '入库日期时间',
+                    placeholder: '',
+                    disabled: true,
+                    rule: {required: true, trigger: 'blur', type: 'date'}
+                },
+                {
+                    name: 'product_id',
+                    type: 'select',
+                    component: null,
+                    isNull: false,
+                    label: '商品',
+                    placeholder: '请选择商品',
+                    rule: {required: true, trigger: 'blur', type: 'number'},
+                    options: []
+                },
+                {
+                    name: 'supplier_id',
+                    type: 'select',
+                    component: null,
+                    isNull: false,
+                    label: '供货商',
+                    placeholder: '请选择供货商',
+                    rule: {required: true, trigger: 'blur', type: 'number'},
+                    options: []
+                },
+                {
+                    name: 'operate_id',
+                    type: 'select',
+                    component: null,
+                    isNull: false,
+                    label: '操作人员',
+                    placeholder: '请选择人物',
+                    rule: {required: true, trigger: 'blur', type: 'number'},
+                    options: []
+                },
+                {
+                    name: 'sell_serial',
+                    type: 'text',
+                    component: null,
+                    isNull: false,
+                    label: '订单号',
+                    placeholder: '请输入订单号',
+                    rule: {required: true, trigger: 'blur'}
+                },
+                {
+                    name: 'memo',
+                    type: 'textarea',
+                    component: null,
+                    isNull: true,
+                    label: '备注信息',
+                    placeholder: '',
+                    rule: null
+                }]
+            }],
+            listComponent: [{
+                components: [
+                    {
+                        type: 'select',
+                        component: selectSection,
+                        options: []
+                    },
+                    {
+                        type: 'date',
+                        component: datePick
+                    }
+                ]
+            }]
+        }
+    ],
+    saleOrder: [{
+        settitle: '销售订单管理',
+        key: 'sell',
+        tab: '销售订单信息',
+        url: 'sell',
+        searchPlaceholder: '请输入销售订单号',
+        theads: ['订单号', '订单日期', '物流批次号', '客户名称', '金额', '数量', '销售员', '录入人', '备注'],
+        protos: ['serial', 'datetime', 'delivery_serial', 'client_name', 'money', 'amount', 'operate_name', 'user_name', 'memo'],
         widths: [50, 50, 50, 50, 50, 50, 50, 50, 50],
         typeComponent: [
             {
@@ -6770,31 +7358,70 @@ export default {
             {
                 component: newbuildBtn
             }],
-        listComponent: [{
-            components: [
-                {
-                    type: 'date',
-                    components: 'datePick'
-                }
-            ]
-        }]
-    }],
-    saleOrder: [{
-        settitle: '销售订单管理',
-        key: 'sell',
-        tab: '销售订单信息',
-        url: 'sell',
-        searchPlaceholder: '请输入销售订单号',
-        theads: ['订单号', '商品来源', '销售日期', '客户名称', '商品名称', '数量', '销售员', '备注'],
-        protos: ['plan_type_name', 'name', 'content', 'name', 'content', 'name', 'content', 'name', 'memo'],
-        widths: [50, 50, 50, 50, 50, 50, 50, 50],
-        typeComponent: [
-            {
-                component: output
+        newComponent: [{
+            tab: '新建订单信息',
+            hiddenValue: {type: 1},
+            selectUrl2: ['clients', 'id', 'name', true],
+            popNumber2: 2,
+            components: [{
+                name: 'datetime',
+                type: 'date',
+                component: inputDate,
+                isNull: false,
+                label: '订单日期时间',
+                placeholder: '',
+                disabled: true,
+                rule: {required: true, trigger: 'blur', type: 'date'}
             },
             {
-                component: newbuildBtn
-            }],
+                name: 'delivery_id',
+                type: 'select',
+                component: null,
+                isNull: false,
+                label: '物流订单',
+                placeholder: '请选择物流订单',
+                rule: {required: true, trigger: 'blur', type: 'number'},
+                options: []
+            },
+            {
+                name: 'client_id',
+                type: 'select',
+                component: null,
+                isNull: false,
+                label: '客户',
+                placeholder: '请选择客户',
+                rule: {required: true, trigger: 'blur', type: 'number'},
+                options: []
+            },
+            {
+                name: 'operate_id',
+                type: 'select',
+                component: null,
+                isNull: false,
+                label: '销售员',
+                placeholder: '请选择人物',
+                rule: {required: true, trigger: 'blur', type: 'number'},
+                options: []
+            },
+            {
+                name: 'money',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '销售金额',
+                placeholder: '请输入金额',
+                rule: {required: true, trigger: 'blur', type: 'bumber'}
+            },
+            {
+                name: 'memo',
+                type: 'textarea',
+                component: null,
+                isNull: true,
+                label: '备注信息',
+                placeholder: '',
+                rule: null
+            }]
+        }],
         listComponent: [{
             components: [
                 {

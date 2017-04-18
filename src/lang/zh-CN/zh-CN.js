@@ -21,14 +21,14 @@ export default {
     },
     pagination: {
         'previous': '&laquo; 上一页',
-        'next'    : '下一页 &raquo;'
+        'next': '下一页 &raquo;'
     },
     passwords: {
         'password': '密码至少是六位字符并且匹配。',
-        'user'    : '找不到该邮箱对应的用户。',
-        'token'   : '密码重置令牌无效。',
-        'sent'    : '密码重置邮件已发送！',
-        'reset'   : '密码重置成功！'
+        'user': '找不到该邮箱对应的用户。',
+        'token': '密码重置令牌无效。',
+        'sent': '密码重置邮件已发送！',
+        'reset': '密码重置成功！'
     },
     szy: {
         'copyright': 'Copyright©2016广州生之园信息技术有限责任公司 版权所有 '

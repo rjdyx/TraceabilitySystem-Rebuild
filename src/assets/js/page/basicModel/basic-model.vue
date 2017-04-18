@@ -254,6 +254,7 @@ export default {
         changeNewShow () {
             this.isNewShow = !this.isNewShow
             if (this.newComponent[0].checkNumber !== undefined) {
+                console.log(this.newComponent[0].checkNumber)
                 this.newComponent[0].components[this.newComponent[0].checkNumber].rule[1].url = this.url
             }
             if (this.newComponent[0].selectUrl) {
@@ -275,6 +276,7 @@ export default {
             }
             // 无分类的下拉框模块查询
             if (this.newComponent[0].selectUrl2) {
+                console.log(43)
                 let selectArr = []
                 let selectData = this.newComponent[0].selectUrl2[0]
                 selectArr.push(this.newComponent[0].selectUrl2[1])
@@ -410,6 +412,7 @@ export default {
                     for (let key in this.checkObject) {
                         delArr.push(this.checkObject[key].id)
                     }
+                    console.log(delArr)
                     var paramsDel = { 'ids': delArr }
                     axios.post(this.$adminUrl('util/batch-delete/' + this.url), paramsDel)
                     .then((responce) => {
@@ -459,7 +462,11 @@ export default {
         },
         // 获取下拉框数据
         getSelect () {
-            axios.get(this.$adminUrl(this.url), {params: {'getSelect': '444'}})
+            if (this.paramsIndex !== undefined) {
+                var type = this.paramsIndex
+            }
+            var getSelect = {'getSelect': '444'}
+            axios.get(this.$adminUrl(this.url), {params: {getSelect: getSelect, type: type}})
                 .then((responce) => {
                     if (responce.data.length !== 0) {
                         let opt = this.$selectData(this.url, responce.data, this.selectValueId)
