@@ -154,7 +154,8 @@ export default {
                     editComponent: [],
                     moreComponent: [],
                     lotComponent: [],
-                    hiddeEdit: false
+                    hiddeEdit: false,
+                    selectDefault: {}
                 }]
             }
         }
@@ -191,7 +192,9 @@ export default {
             // 数组拼装
             dataArr: {},
             // 复选框选中返回对象
-            checkObject: {}
+            checkObject: {},
+            // 获取下拉框数据
+            selectArrSet: []
         }
     },
     mixins: [computed],
@@ -420,9 +423,11 @@ export default {
                 .then((responce) => {
                     if (responce.data.length !== 0) {
                         let opt = this.$selectData(this.url, responce.data, this.selectValueId)
+                        this.selectArrSet.push(this.selectDefault)
                         for (let key of Object.keys(opt)) {
-                            this.listComponent[0].components[0].options.push(opt[key])
+                            this.selectArrSet.push(opt[key])
                         }
+                        this.listComponent[0].components[0].options = this.selectArrSet
                     }
                 })
                 .catch(err => {
@@ -445,6 +450,7 @@ export default {
                 this.getSelect()
             }
             this.getAllMsg()
+            this.selectArrSet = []
         }
     },
     components: {
