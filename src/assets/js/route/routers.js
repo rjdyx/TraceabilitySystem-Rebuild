@@ -58,9 +58,12 @@ const routes = [
         component: notFound
     },
     {
-        path: '/',
+        path: '/login',
         name: 'login',
-        component: login
+        component: login,
+        meta: {
+            requiresAuth: true
+        }
     }
 ]
 

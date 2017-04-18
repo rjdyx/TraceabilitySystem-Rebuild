@@ -40,7 +40,7 @@
 							<img :src="kit_url" alt="" class="kit" @click="Kit">
 						</el-form-item>
 						<el-form-item class="receive">
-							<el-checkbox v-model="checked" class="acept">接受</el-checkbox>
+							<el-checkbox v-model="checked">接受</el-checkbox>
 							<router-link to="">
 								《服务协议》
 							</router-link>
@@ -52,7 +52,8 @@
 						<el-form-item>
 							<el-button type="primary" 
 								@click="submitForm('ruleForm2')" 
-								:disabled="this.checked!==true">登录</el-button>
+								:disabled="this.checked!==true"
+								>登录</el-button>
 							<a href="http://www.gzlgit.com/about" target="_blank" class="apply">
 								<el-button type="primary">申请入驻</el-button>
 							</a>
@@ -72,27 +73,29 @@
 </template>
 
 <script>
+// import {mapActions} from 'vuex'
+
 export default {
     data () {
-        var validateName = (rule, value, callback) => {
+        let validateName = (rule, value, callback) => {
             if (value === '') {
                 callback(new Error('请输入用户名'))
             } else {
                 callback()
             }
         }
-        var validatePassword = (rule, value, callback) => {
+        let validatePassword = (rule, value, callback) => {
             if (value === '') {
                 callback(new Error('请输入密码'))
             } else {
                 callback()
             }
         }
-        var checkCode = (rule, value, callback) => {
+        let checkCode = (rule, value, callback) => {
             if (value === '') {
                 callback(new Error('验证码不能为空'))
             } else {
-                // callback(new Error('验证码错误'))
+                callback(new Error('验证码错误'))
                 axios.get('/kit-check', { params: { kit: this.ruleForm2.code } })
                     .then((responce) => {
                         if (responce.data === 422) {
@@ -132,9 +135,11 @@ export default {
                         .then((responce) => {
                             if (responce.data !== 200) {
                                 callback(new Error('登录失败'))
+                            } else {
                             }
                         })
                 } else {
+                    this.$router.push('/index')
                     console.log('error submit!!')
                     return false
                 }
@@ -159,6 +164,8 @@ export default {
 		width:50%;
 		height:36px;
 		margin-left: 1%;
+		display: inline-block;
+		vertical-align: middle;
 	}
 	.login{
 		width: 100%;
@@ -198,21 +205,22 @@ export default {
 			height: 26%;
 		}
 		.login-logo{
+			width: 50%;
 			float: left;
 		}
 		.login-logo img{
-			display: inline-block;
-			padding: 13px 5px 0 64px;
+			width: 54%;
+			margin: 12% auto;
+			display: block;
 		}
 		.form{
-			display: inline-block;
-			float: right;
-			width: 45%;
-			padding-right: 65px;
+			float: left;
+			width: 50%;
 		}
 		.el-form-item{
-			margin-top: 10px;
-			margin-bottom: 19px;
+			margin-top: 5px;
+			margin-bottom: 17px;
+			width:85%;
 		}
 		.receive{
 			margin-bottom: 0px;
@@ -242,5 +250,7 @@ export default {
 		.apply{
 			margin-left: 30px;
 		}
-	
+		.acept{
+			font-size: 24px;
+		}
 </style>

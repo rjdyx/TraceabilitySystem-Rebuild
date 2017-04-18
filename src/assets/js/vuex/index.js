@@ -5,12 +5,12 @@ import * as getters from './getters'
 import basicModel from './modules/basic-model'
 
 export default new Vuex.Store({
-  actions,
-  getters,
-  modules: {
-    basicModel
-  },
-  mutations: {
-  }
+    actions,
+    getters,
+    modules: {
+        basicModel
+    },
+    mutations: {
+    }
 
 })
