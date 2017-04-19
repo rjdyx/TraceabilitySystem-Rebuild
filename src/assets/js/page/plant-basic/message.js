@@ -7556,11 +7556,241 @@ export default {
     systemUser: [{
         settitle: '用户管理',
         key: 'planManage',
-        tab: '销售订单信息',
-        url: 'plan',
-        theads: ['用户名', '姓名', '工号', '邮箱', '电话号码', '所属公司', '出生日期', '所属部门', '用户类型', '入职日期', '备注'],
-        protos: ['plan_type_name', 'name', 'content', 'name', 'content', 'name', 'content', 'name', 'content', 'name', 'memo'],
+        tab: '公司用户信息',
+        url: 'user',
+        searchPlaceholder: '请输入用户名进行搜索',
+        changeDataArr: [{gender: {0: '男', 1: '女'}}],
+        theads: ['用户名', '姓名', '工号', '邮箱', '性别', '电话号码', '出生日期', '所属部门', '入职日期', '头像', '备注'],
+        protos: ['name', 'realname', 'number', 'email', 'gender', 'phone', 'birth_date', 'department', 'hiredate', 'thumb', 'memo'],
         widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
+        typeComponent: [{
+            component: output
+        },
+        {
+            component: newbuildBtn
+        }],
+        newComponent: [{
+            tab: '新建用户信息',
+            hiddenValue: {type: 0},
+            checkNumber: 0,
+            components: [{
+                name: 'name',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '用户名',
+                placeholder: '请输入用户名',
+                rule: [{required: true, trigger: 'blur'}, {validator: validate2.reCheck}]
+            },
+            {
+                name: 'email',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '邮箱',
+                placeholder: '请输入邮箱',
+                rule: [{required: true, trigger: 'blur'}, {validator: validate2.reCheck}]
+            },
+            {
+                name: 'gender',
+                type: 'select',
+                component: null,
+                isNull: false,
+                label: '性别',
+                placeholder: '请选择性别',
+                rule: {required: true, trigger: 'blur', type: 'number'},
+                options: [{
+                    value: 0,
+                    label: '男'
+                }, {
+                    value: 1,
+                    label: '女'
+                }]
+            },
+            {
+                name: 'realname',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '姓名',
+                placeholder: '请输入姓名',
+                rule: {required: false, trigger: 'blur'}
+            },
+            {
+                name: 'birth_date',
+                type: 'date',
+                component: inputDate,
+                isNull: false,
+                label: '出生日期',
+                placeholder: '请选择日期',
+                rule: {required: false, trigger: 'blur', type: 'date'}
+            },
+            {
+                name: 'phone',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '手机号码',
+                placeholder: '请输入手机号码',
+                rule: {required: false, trigger: 'blur', type: 'number'}
+            },
+            {
+                name: 'department',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '所属部门',
+                placeholder: '请输入所属部门',
+                rule: null
+            },
+            {
+                name: 'hiredate',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '入职日期',
+                placeholder: '请输入日期',
+                rule: null
+            },
+            {
+                name: 'number',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '工号',
+                placeholder: '请输入工号',
+                rule: {required: false, trigger: 'blur', type: 'number'}
+            },
+            {
+                name: 'img',
+                type: 'file',
+                component: inputFile,
+                isNull: true,
+                label: '头像',
+                placeholder: '',
+                rule: null
+            },
+            {
+                name: 'memo',
+                type: 'textarea',
+                component: null,
+                isNull: true,
+                label: '备注信息',
+                placeholder: '',
+                rule: null
+            }]
+        }],
+        editComponent: [{
+            tab: '新建用户信息',
+            hiddenValue: {type: 0},
+            checkNumber: 0,
+            components: [{
+                name: 'name',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '用户名',
+                placeholder: '请输入用户名',
+                rule: [{required: true, trigger: 'blur'}, {validator: validate2.reCheck}]
+            },
+            {
+                name: 'email',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '邮箱',
+                placeholder: '请输入邮箱',
+                rule: [{required: true, trigger: 'blur'}, {validator: validate2.reCheck}]
+            },
+            {
+                name: 'gender',
+                type: 'select',
+                component: null,
+                isNull: false,
+                label: '性别',
+                placeholder: '请选择性别',
+                rule: {required: true, trigger: 'blur', type: 'number'},
+                options: [{
+                    value: 0,
+                    label: '男'
+                }, {
+                    value: 1,
+                    label: '女'
+                }]
+            },
+            {
+                name: 'realname',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '姓名',
+                placeholder: '请输入姓名',
+                rule: {required: false, trigger: 'blur'}
+            },
+            {
+                name: 'birth_date',
+                type: 'date',
+                component: inputDate,
+                isNull: false,
+                label: '出生日期',
+                placeholder: '请选择日期',
+                rule: {required: false, trigger: 'blur', type: 'date'}
+            },
+            {
+                name: 'phone',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '手机号码',
+                placeholder: '请输入手机号码',
+                rule: {required: false, trigger: 'blur', type: 'number'}
+            },
+            {
+                name: 'department',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '所属部门',
+                placeholder: '请输入所属部门',
+                rule: null
+            },
+            {
+                name: 'hiredate',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '入职日期',
+                placeholder: '请输入日期',
+                rule: null
+            },
+            {
+                name: 'number',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '工号',
+                placeholder: '请输入工号',
+                rule: {required: false, trigger: 'blur', type: 'number'}
+            },
+            {
+                name: 'img',
+                type: 'file',
+                component: inputFile,
+                isNull: true,
+                label: '头像',
+                placeholder: '',
+                rule: null
+            },
+            {
+                name: 'memo',
+                type: 'textarea',
+                component: null,
+                isNull: true,
+                label: '备注信息',
+                placeholder: '',
+                rule: null
+            }]
+        }],
         listComponent: [{
             components: [
                 {
