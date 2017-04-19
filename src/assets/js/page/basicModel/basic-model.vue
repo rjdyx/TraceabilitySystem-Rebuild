@@ -213,6 +213,7 @@ export default {
          **/
         tabClick (tab, event) {
             this.modelIndex = tab.$data.index
+            // console.log(this.activeName)
         },
         // 操作更多选项
         filterTag (value, row) {
@@ -458,6 +459,7 @@ export default {
     watch: {
         settitle () {
             this.modelIndex = 0
+            this.activeName = 'index0'
         },
         key (news, old) {
             this.tableData = []
