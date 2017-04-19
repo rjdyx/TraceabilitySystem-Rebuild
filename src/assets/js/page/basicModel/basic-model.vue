@@ -99,6 +99,7 @@
 
         <!-- 分页模块 -->
         <el-pagination
+          v-if="paginator!=0"
           layout="prev, pager, next"
           :total="paginator.total"
           :page-size="paginator.per_page"
@@ -262,8 +263,9 @@ export default {
             }
             // 无分类的下拉框模块查询
             if (this.newComponent[0].selectUrl2) {
-                let newArr = this.$addAndEditSelectMethod(this.newComponent[0].selectUrl)
-                this.$dataGet(this, '/util/selects', {table: newArr.selectData})
+                let newArr = this.$addAndEditSelectMethod(this.newComponent[0].selectUrl2)
+                console.log(newArr)
+                this.$dataGet(this, '/util/selects', {table: newArr.selectUrl})
                     .then((responce) => {
                         if (responce.data.length !== 0) {
                             this.newComponent[0].components[this.newComponent[0].popNumber2].options = this.$selectData(this.url, responce.data, newArr.selectArr)
@@ -290,8 +292,8 @@ export default {
                 }
                 // 无分类的下拉框模块查询
                 if (this.editComponent[0].selectUrl2) {
-                    let editArr = this.$addAndEditSelectMethod(this.editComponent[0].selectUrl)
-                    this.$dataGet(this, '/util/selects', {table: editArr.selectData})
+                    let editArr = this.$addAndEditSelectMethod(this.editComponent[0].selectUrl2)
+                    this.$dataGet(this, '/util/selects', {table: editArr.selectUrl})
                         .then((responce) => {
                             if (responce.data.length !== 0) {
                                 this.editComponent[0].components[this.editComponent[0].popNumber2].options = this.$selectData(this.url, responce.data, editArr.selectArr)
@@ -321,6 +323,9 @@ export default {
                         this.paginator = responce.data
                     } else {
                         this.$set(this, 'tableData', responce.data.data)
+                        this.total_num = 0
+                        this.num = 0
+                        this.paginator = 0
                     }
                 })
         },
@@ -453,7 +458,6 @@ export default {
     watch: {
         settitle () {
             this.modelIndex = 0
-            // this.listComponent[0].components[0].options = {}
         },
         key (news, old) {
             this.tableData = []
@@ -462,7 +466,6 @@ export default {
             }
             this.getAllMsg()
             this.selectArrSet = []
-            // this.listComponent[0].components[0].options = {}
         }
     },
     components: {
