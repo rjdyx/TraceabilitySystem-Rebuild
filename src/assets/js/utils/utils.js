@@ -207,5 +207,35 @@ default {
             }
             return ret
         }
+        /**
+         *
+         * 新增编辑下拉框数据存储公共方法
+         * @param url
+         * @returns {*}
+         */
+        Vue.prototype.$addAndEditSelectMethod = (arr) => {
+            var selectArr = []
+            var selectUrl
+            var selectData
+            for (let key in arr) {
+                if (arr.length === 5) {
+                    if (key === '0') {
+                        selectUrl = arr[key]
+                    } else if (key === '1') {
+                        selectData = arr[key]
+                    } else {
+                        selectArr.push(arr[key])
+                    }
+                }
+                if (arr.length === 4) {
+                    if (key === 0) {
+                        selectUrl = arr[key]
+                    } else {
+                        selectArr.push(arr[key])
+                    }
+                }
+            }
+            return {'selectArr': selectArr, 'selectUrl': selectUrl, 'selectData': selectData}
+        }
     }
 }

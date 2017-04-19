@@ -248,43 +248,26 @@ export default {
         changeNewShow () {
             this.isNewShow = !this.isNewShow
             if (this.newComponent[0].checkNumber !== undefined) {
-                console.log(this.newComponent[0].checkNumber)
                 this.newComponent[0].components[this.newComponent[0].checkNumber].rule[1].url = this.url
             }
             if (this.newComponent[0].selectUrl) {
-                let selectArr = []
-                let selectUrl = this.newComponent[0].selectUrl[0]
-                let selectData = this.newComponent[0].selectUrl[1]
-                selectArr.push(this.newComponent[0].selectUrl[2])
-                selectArr.push(this.newComponent[0].selectUrl[3])
-                selectArr.push(this.newComponent[0].selectUrl[4])
-                axios.get(this.$adminUrl(selectUrl + '/changeSelect'), {params: {'selectData': selectData}})
-                .then((responce) => {
-                    if (responce.data.length !== 0) {
-                        this.newComponent[0].components[this.newComponent[0].popNumber].options = this.$selectData(this.url, responce.data, selectArr)
-                    }
-                })
-                .catch(err => {
-                    console.dir(err)
-                })
+                let newArr = this.$addAndEditSelectMethod(this.newComponent[0].selectUrl)
+                this.$dataGet(this, newArr.selectUrl + '/changeSelect', {'selectData': newArr.selectData})
+                    .then((responce) => {
+                        if (responce.data.length !== 0) {
+                            this.newComponent[0].components[this.newComponent[0].popNumber].options = this.$selectData(this.url, responce.data, newArr.selectArr)
+                        }
+                    })
             }
             // 无分类的下拉框模块查询
             if (this.newComponent[0].selectUrl2) {
-                console.log(43)
-                let selectArr = []
-                let selectData = this.newComponent[0].selectUrl2[0]
-                selectArr.push(this.newComponent[0].selectUrl2[1])
-                selectArr.push(this.newComponent[0].selectUrl2[2])
-                selectArr.push(this.newComponent[0].selectUrl2[3])
-                axios.get(this.$adminUrl('/util/selects'), {params: {table: selectData}})
-                .then((responce) => {
-                    if (responce.data.length !== 0) {
-                        this.newComponent[0].components[this.newComponent[0].popNumber2].options = this.$selectData(this.url, responce.data, selectArr)
-                    }
-                })
-                .catch(err => {
-                    console.dir(err)
-                })
+                let newArr = this.$addAndEditSelectMethod(this.newComponent[0].selectUrl)
+                this.$dataGet(this, '/util/selects', {table: newArr.selectData})
+                    .then((responce) => {
+                        if (responce.data.length !== 0) {
+                            this.newComponent[0].components[this.newComponent[0].popNumber2].options = this.$selectData(this.url, responce.data, newArr.selectArr)
+                        }
+                    })
             }
         },
         // 显示编辑表单
@@ -296,38 +279,23 @@ export default {
                     this.editComponent[0].components[this.editComponent[0].checkNumber].rule[1]['url'] = this.url
                 }
                 if (this.editComponent[0].selectUrl) {
-                    var selectArr = []
-                    let selectUrl = this.editComponent[0].selectUrl[0]
-                    let selectData = this.editComponent[0].selectUrl[1]
-                    selectArr.push(this.editComponent[0].selectUrl[2])
-                    selectArr.push(this.editComponent[0].selectUrl[3])
-                    selectArr.push(this.editComponent[0].selectUrl[4])
-                    axios.get(this.$adminUrl(selectUrl + '/changeSelect'), {params: {'selectData': selectData}})
-                    .then((responce) => {
-                        if (responce.data.length !== 0) {
-                            this.editComponent[0].components[0].options = this.$selectData(this.url, responce.data, selectArr)
-                        }
-                    })
-                    .catch(err => {
-                        console.dir(err)
-                    })
+                    let editArr = this.$addAndEditSelectMethod(this.editComponent[0].selectUrl)
+                    this.$dataGet(this, editArr.selectUrl + '/changeSelect', {'selectData': editArr.selectData})
+                        .then((responce) => {
+                            if (responce.data.length !== 0) {
+                                this.editComponent[0].components[0].options = this.$selectData(this.url, responce.data, editArr.selectArr)
+                            }
+                        })
                 }
                 // 无分类的下拉框模块查询
                 if (this.editComponent[0].selectUrl2) {
-                    let selectArr = []
-                    let selectData = this.editComponent[0].selectUrl2[0]
-                    selectArr.push(this.editComponent[0].selectUrl2[1])
-                    selectArr.push(this.editComponent[0].selectUrl2[2])
-                    selectArr.push(this.editComponent[0].selectUrl2[3])
-                    axios.get(this.$adminUrl('/util/selects'), {params: {table: selectData}})
-                    .then((responce) => {
-                        if (responce.data.length !== 0) {
-                            this.editComponent[0].components[this.editComponent[0].popNumber2].options = this.$selectData(this.url, responce.data, selectArr)
-                        }
-                    })
-                    .catch(err => {
-                        console.dir(err)
-                    })
+                    let editArr = this.$addAndEditSelectMethod(this.editComponent[0].selectUrl)
+                    this.$dataGet(this, '/util/selects', {table: editArr.selectData})
+                        .then((responce) => {
+                            if (responce.data.length !== 0) {
+                                this.editComponent[0].components[this.editComponent[0].popNumber2].options = this.$selectData(this.url, responce.data, editArr.selectArr)
+                            }
+                        })
                 }
                 if (row.area !== undefined) {
                     row.area = String(parseInt(row.area))
@@ -340,9 +308,9 @@ export default {
             if (this.paramsIndex !== undefined) {
                 var type = this.paramsIndex
             }
-            axios.get(this.$adminUrl(this.url), {params: {params: data, type: type}})
+            this.$dataGet(this, this.url, {params: data, type: type})
                 .then((responce) => {
-                // 数据转换
+                    // 数据转换
                     if (responce.data.data.length !== 0) {
                         var ret = this.$conversion(this.changeDataArr, responce.data.data, 1)
                         ret = this.$eltable(ret)
@@ -353,9 +321,6 @@ export default {
                     } else {
                         this.$set(this, 'tableData', responce.data.data)
                     }
-                })
-                .catch(err => {
-                    console.dir(err)
                 })
         },
         // 文本查询
@@ -409,7 +374,6 @@ export default {
                     for (let key in this.checkObject) {
                         delArr.push(this.checkObject[key].id)
                     }
-                    console.log(delArr)
                     var paramsDel = { 'ids': delArr }
                     axios.post(this.$adminUrl('util/batch-delete/' + this.url), paramsDel)
                     .then((responce) => {
@@ -463,8 +427,9 @@ export default {
                 var type = this.paramsIndex
             }
             var getSelect = {'getSelect': '444'}
-            axios.get(this.$adminUrl(this.url), {params: {getSelect: getSelect, type: type}})
+            this.$dataGet(this, this.url, {getSelect: getSelect, type: type})
                 .then((responce) => {
+                    // 数据转换
                     if (responce.data.length !== 0) {
                         let opt = this.$selectData(this.url, responce.data, this.selectValueId)
                         this.selectArrSet.push(this.selectDefault)
@@ -474,15 +439,11 @@ export default {
                         this.listComponent[0].components[0].options = this.selectArrSet
                     }
                 })
-                .catch(err => {
-                    console.dir(err)
-                })
         }
     },
     mounted () {
         // 获取下拉框
         // this.$route.params
-        console.log(this.$route.params)
         if (this.selectValueId) {
             this.getSelect()
         }
@@ -491,14 +452,6 @@ export default {
     },
     watch: {
         key (news, old) {
-            // if (this.modelIndex !== 0) {
-            //     console.log(33)
-            //     this.modelIndex = 0
-            //     // console.log(this.$route.params.index)
-            //     // this.modelIndex = 0
-            // } else {
-            //     console.log(44)
-            // }
             this.tableData = []
             if (this.selectValueId !== undefined) {
                 this.getSelect()
