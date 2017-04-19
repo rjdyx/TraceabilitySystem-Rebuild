@@ -95,7 +95,6 @@ export default {
             if (value === '') {
                 callback(new Error('验证码不能为空'))
             } else {
-                callback(new Error('验证码错误'))
                 axios.get('/kit-check', { params: { kit: this.ruleForm2.code } })
                     .then((responce) => {
                         if (responce.data === 422) {
@@ -136,10 +135,10 @@ export default {
                             if (responce.data !== 200) {
                                 callback(new Error('登录失败'))
                             } else {
+                                this.$router.push('/index')
                             }
                         })
                 } else {
-                    this.$router.push('/index')
                     console.log('error submit!!')
                     return false
                 }

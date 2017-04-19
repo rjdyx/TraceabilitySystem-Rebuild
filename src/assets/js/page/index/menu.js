@@ -6,11 +6,7 @@ export default[{
     role: 'plant',
     src: '/public/images/plant.png',
     children: [{
-        path: '/index/message/categoryBase/0',
-        name: '分类档案管理'
-    },
-    {
-        path: '/index/message/categoryBase/0',
+        path: '/index/message/categoryBase',
         name: '分类档案管理'
     },
     {
@@ -18,19 +14,19 @@ export default[{
         name: '人员档案管理'
     },
     {
-        path: '/index/message/expertFile/0',
+        path: '/index/message/expertFile',
         name: '专家档案管理'
     },
     {
-        path: '/index/message/clientFile/0',
+        path: '/index/message/clientFile',
         name: '客户档案管理'
     },
     {
-        path: '/index/message/supplierFile/0',
+        path: '/index/message/supplierFile',
         name: '供货商档案管理'
     },
     {
-        path: '/index/message/productFile/0',
+        path: '/index/message/productFile',
         name: '产品档案管理'
     }
     ]},
@@ -39,39 +35,39 @@ export default[{
     role: 'plant',
     src: '/public/images/plant.png',
     children: [{
-        path: '/index/message/baseManage/0',
+        path: '/index/message/baseManage',
         name: '基础信息管理'
     },
     {
-        path: '/index/message/serialManage/0',
+        path: '/index/message/serialManage',
         name: '养殖批次管理'
     },
     {
-        path: '/index/message/feedManage/0',
+        path: '/index/message/feedManage',
         name: '饲料使用管理'
     },
     {
-        path: '/index/message/plagueManage/0',
+        path: '/index/message/plagueManage',
         name: '病疫管理'
     },
     {
-        path: '/index/message/quarantineManage/0',
+        path: '/index/message/quarantineManage',
         name: '检疫管理'
     },
     {
-        path: '/index/message/areaManage/0',
+        path: '/index/message/areaManage',
         name: '圈舍管理'
     },
     {
-        path: '/index/message/innocuityManage/0',
+        path: '/index/message/innocuityManage',
         name: '无害化管理'
     },
     {
-        path: '/index/message/slaughterManage/0',
+        path: '/index/message/slaughterManage',
         name: '出栏管理'
     },
     {
-        path: '/index/message/planManage/0',
+        path: '/index/message/planManage',
         name: '养殖计划管理'
     }]
 },
@@ -80,15 +76,15 @@ export default[{
     role: 'pet',
     src: '/public/images/pet.png',
     children: [{
-        path: '/index/message/petProcess/0',
+        path: '/index/message/petProcess',
         name: '加工批次管理'
     },
     {
-        path: '/index/message/petDectect/0',
+        path: '/index/message/petDectect',
         name: '检验检测管理'
     },
     {
-        path: '/index/message/petTrace/0',
+        path: '/index/message/petTrace',
         name: '产品溯源管理'
     }
     ]
@@ -98,23 +94,23 @@ export default[{
     role: 'plantation',
     src: '/public/images/plantation.png',
     children: [{
-        path: '/index/message/plantBase/0',
+        path: '/index/message/plantBase',
         name: '基础信息管理'
     },
     {
-        path: '/index/message/plantSerial/0',
+        path: '/index/message/plantSerial',
         name: '种植批次管理'
     },
     {
-        path: '/index/message/plantFarm/0',
+        path: '/index/message/plantFarm',
         name: '农事管理'
     },
     {
-        path: '/index/message/plantProduct/0',
+        path: '/index/message/plantProduct',
         name: '生产计划管理'
     },
     {
-        path: '/index/message/plantHarvest/0',
+        path: '/index/message/plantHarvest',
         name: '采收管理'
     }
     ]
@@ -124,15 +120,15 @@ export default[{
     role: 'product',
     src: '/public/images/product.png',
     children: [{
-        path: '/index/message/vegetableSerial/0',
+        path: '/index/message/vegetableSerial',
         name: '加工批次管理'
     },
     {
-        path: '/index/message/vegetableDetect/0',
+        path: '/index/message/vegetableDetect',
         name: '检验检测管理'
     },
     {
-        path: '/index/message/vegetableTrace/0',
+        path: '/index/message/vegetableTrace',
         name: '产品溯源管理'
     }
     ]
@@ -142,11 +138,11 @@ export default[{
     role: 'express',
     src: '/public/images/express.png',
     children: [{
-        path: '/index/message/Logisticbase/0',
+        path: '/index/message/Logisticbase',
         name: '基础信息管理'
     },
     {
-        path: '/index/message/logisticSerial/0',
+        path: '/index/message/logisticSerial',
         name: '物流批次管理'
     }
     ]
@@ -156,15 +152,15 @@ export default[{
     role: 'sale',
     src: '/public/images/sale.png',
     children: [{
-        path: '/index/message/saleProduct/0',
+        path: '/index/message/saleProduct',
         name: '销售商品库管理'
     },
     {
-        path: '/index/message/saleInput/0',
+        path: '/index/message/saleInput',
         name: '销售入库管理'
     },
     {
-        path: '/index/message/saleOrder/0',
+        path: '/index/message/saleOrder',
         name: '销售订单管理'
     }
     ]
@@ -174,19 +170,19 @@ export default[{
     role: 'system',
     src: '/public/images/system.png',
     children: [{
-        path: '/index/message/systemCompany/0',
+        path: '/index/message/systemCompany',
         name: '公司信息管理'
     },
     {
-        path: '/index/message/systemUser/0',
+        path: '/index/message/systemUser',
         name: '用户管理'
     },
     {
-        path: '/index/message/systemLog/0',
+        path: '/index/message/systemLog',
         name: '系统日志'
     },
     {
-        path: '/index/message/systemReport/0',
+        path: '/index/message/systemReport',
         name: '报表统计'
     }
     ]
@@ -196,19 +192,19 @@ export default[{
     role: 'operate',
     src: '/public/images/system.png',
     children: [{
-        path: '/index/message/rightsOperate/0',
+        path: '/index/message/rightsOperate',
         name: '权限管理'
     },
     {
-        path: '/index/message/settleOperate/0',
+        path: '/index/message/settleOperate',
         name: '入驻单位管理'
     },
     {
-        path: '/index/message/usersOperate/0',
+        path: '/index/message/usersOperate',
         name: '用户反馈管理'
     },
     {
-        path: '/index/message/logOperate/0',
+        path: '/index/message/logOperate',
         name: '日志管理'
     }
     ]

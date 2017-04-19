@@ -21,7 +21,7 @@ export default {
     },
     pagination: {
         'previous': '&laquo; Previous',
-        'next'    : 'Next &raquo;'
+        'next': 'Next &raquo;'
     },
     passwords: {
         'password': 'Passwords must be at least six characters and match the confirmation.',
