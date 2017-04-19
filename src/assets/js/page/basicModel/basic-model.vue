@@ -444,7 +444,6 @@ export default {
     },
     mounted () {
         // 获取下拉框
-        // this.$route.params
         if (this.selectValueId) {
             this.getSelect()
         }
@@ -454,6 +453,7 @@ export default {
     watch: {
         settitle () {
             this.modelIndex = 0
+            // this.listComponent[0].components[0].options = {}
         },
         key (news, old) {
             this.tableData = []
@@ -462,6 +462,7 @@ export default {
             }
             this.getAllMsg()
             this.selectArrSet = []
+            // this.listComponent[0].components[0].options = {}
         }
     },
     components: {

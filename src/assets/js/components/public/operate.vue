@@ -67,6 +67,11 @@
             getSelect () {
                 this.$emit('selectVal', this.value)
             }
+        },
+        watch: {
+            listComponent () {
+                this.value = ''
+            }
         }
     }
 </script>

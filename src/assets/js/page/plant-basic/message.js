@@ -4778,7 +4778,7 @@ export default {
             key: 'planta',
             tab: '种植区',
             url: 'planta',
-            selectSearch: ['plantations.pid'],
+            selectSearch: ['planta.pid'],
             selectValueId: ['pid', 'plantation_name', true],
             searchPlaceholder: '请输入种植区进行搜索',
             selectDefault: {value: '', label: '种植场选择'},
