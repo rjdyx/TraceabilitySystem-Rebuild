@@ -43,8 +43,7 @@ const routes = [
         path: '/index',
         component: index,
         children: [{
-            path: 'message/:model/:index',
-            // alias: 'reaction/:model/:index',
+            path: 'message/:model',
             component: basic,
             // 需要登录才能进人此路由
             meta: {
