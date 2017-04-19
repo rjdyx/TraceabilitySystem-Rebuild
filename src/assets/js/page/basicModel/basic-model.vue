@@ -64,9 +64,6 @@
               :label="item" 
               :min-width="widths[index]"
               show-overflow-tooltip>
-<!--               <template scope="scope" v-if="serial">
-                <a :href="'/' + scope.row.id">scope.row.name</a>
-              </template> -->
             </el-table-column>
           </template>
         </template>
@@ -172,9 +169,8 @@ export default {
             // 下拉框
             selectVal: '',
             // tab模块选择标志
-            // activeName:'index'+this.$route.params.index,
-            // tab对应的模块下标
-            modelIndex: this.$route.params.index,
+            // activeName: 'index' + this.$route.params.index,
+            modelIndex: 0,
             // 列表数据
             tableData: [],
             // 被选中的列表项数组
@@ -206,15 +202,13 @@ export default {
         init (index = 0) {
             this.value = ''
             this.activeName = 'index'
-            this.modelIndex = index
             this.$set(this, 'tableData', [])
             this.$set(this, 'multipleSelection', [])
         },
         /**
-        * 列表选择事件
-         *
-         */
-        // tab点击事件
+         * 列表选择事件
+         * tab点击事件
+         **/
         tabClick (tab, event) {
             this.modelIndex = tab.$data.index
         },
@@ -487,6 +481,8 @@ export default {
     },
     mounted () {
         // 获取下拉框
+        // this.$route.params
+        console.log(this.$route.params)
         if (this.selectValueId) {
             this.getSelect()
         }
@@ -494,7 +490,15 @@ export default {
         this.getAllMsg()
     },
     watch: {
-        key () {
+        key (news, old) {
+            // if (this.modelIndex !== 0) {
+            //     console.log(33)
+            //     this.modelIndex = 0
+            //     // console.log(this.$route.params.index)
+            //     // this.modelIndex = 0
+            // } else {
+            //     console.log(44)
+            // }
             this.tableData = []
             if (this.selectValueId !== undefined) {
                 this.getSelect()
