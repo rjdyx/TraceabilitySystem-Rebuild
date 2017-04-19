@@ -1,12 +1,15 @@
 /**
- * 左菜单栏数据
+ *  左菜单栏数据
  */
 export default[{
-    name:
-    '基础信息管理',
+    name: '基础信息管理',
     role: 'plant',
     src: '/public/images/plant.png',
     children: [{
+        path: '/index/message/categoryBase/0',
+        name: '分类档案管理'
+    },
+    {
         path: '/index/message/categoryBase/0',
         name: '分类档案管理'
     },
