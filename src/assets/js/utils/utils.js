@@ -228,7 +228,7 @@ default {
                     }
                 }
                 if (arr.length === 4) {
-                    if (key === 0) {
+                    if (key === '0') {
                         selectUrl = arr[key]
                     } else {
                         selectArr.push(arr[key])
