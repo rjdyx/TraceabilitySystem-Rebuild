@@ -9,6 +9,7 @@
 <template>
 <div>
 	<div>
+        <!-- 更多选项 -->
 		<el-dropdown class="more" @command="handleCommand">
 			<span class="el-dropdown-link">
 				更多
@@ -21,7 +22,15 @@
 			</el-dropdown-menu>  
 		</el-dropdown>
 	</div>
-	<popNew v-if="isNewShow" :url="url" :newComponent="newComponent"></popNew>
+    <!-- 弹出框 -->
+	<popNew v-if="isNewShow" :newComponent="newComponent"></popNew>
+    <!-- 视频弹出框 -->
+    <div class="videoWrap" v-if="isShow">
+        <div class="video">
+            <video>不会就不服惹桃花=</video>
+            <i class="closeIcon" @click="closeClick"></i>
+        </div>
+    </div>
 </div>
 </template>
 
@@ -33,6 +42,7 @@
         data () {
             return {
                 isNewShow: false,
+                isShow: false,
                 newComponent: []
             }
         },
@@ -62,8 +72,12 @@
                     })
                 } else if (command === '图片') {
                     this.isNewShow = true
-                    // this.newComponent =
+                } else if (command === '视频') {
+                    this.isShow = true
                 }
+            },
+            closeClick () {
+                this.isShow = !this.isShow
             }
         },
         components: {
@@ -76,4 +90,37 @@
 		cursor: pointer;
 		margin-right: 10px;
 	}
+    .videoWrap{
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.3);
+        top: 0;
+        left: 0;
+        z-index: 2;
+        text-align: center;
+        overflow: hidden;
+    }
+    .video{
+        width: 700px;
+        height: 393px;
+        position: absolute;
+        background: #000;
+        left: 50%;
+        top: 50%;
+        transform:translateX(-50%) translateY(-50%);
+    }
+    .closeIcon{
+        background: url(/public/images/close.png) no-repeat;
+        background-position: -149px -31px;
+        width: 30px;
+        height: 30px;
+        display: inline-block;
+        position: absolute;
+        right: -14px;
+        top: -12px;
+    }
+    .closeIcon:hover{
+        background-position: -180px -31px;
+    }
 </style>
