@@ -2,7 +2,7 @@ import 'es6-promise/auto'
 import Vue from 'vue'
 import App from './App.vue'
 import VueRouter from 'vue-router'
-import store from './store/index.js'
+// import store from './store/index.js'
 import router from './route/routers.js'
 
 // 将axios挂载到prototype上，在组件就可以直接使用this.axios访问
