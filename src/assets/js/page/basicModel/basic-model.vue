@@ -13,7 +13,7 @@
     
   <!-- tab栏 --> 
     <el-tabs v-model="activeName" id="tabs" @tab-click="tabClick">
-        <el-tab-pane v-for="(model,index) in models" :label="model.tab" :name="model.tab"></el-tab-pane>
+        <el-tab-pane v-for="(model,index) in models" :label="model.tab" :name="'index'+index"></el-tab-pane>
     </el-tabs>  
     <!-- 操作模块 -->
     <div id="operate">
@@ -99,6 +99,7 @@
 
         <!-- 分页模块 -->
         <el-pagination
+          v-if="paginator!=0"
           layout="prev, pager, next"
           :total="paginator.total"
           :page-size="paginator.per_page"
@@ -211,6 +212,7 @@ export default {
          **/
         tabClick (tab, event) {
             this.modelIndex = tab.$data.index
+            // console.log(this.activeName)
         },
         // 操作更多选项
         filterTag (value, row) {
@@ -261,8 +263,9 @@ export default {
             }
             // 无分类的下拉框模块查询
             if (this.newComponent[0].selectUrl2) {
-                let newArr = this.$addAndEditSelectMethod(this.newComponent[0].selectUrl)
-                this.$dataGet(this, '/util/selects', {table: newArr.selectData})
+                let newArr = this.$addAndEditSelectMethod(this.newComponent[0].selectUrl2)
+                console.log(newArr)
+                this.$dataGet(this, '/util/selects', {table: newArr.selectUrl})
                     .then((responce) => {
                         if (responce.data.length !== 0) {
                             this.newComponent[0].components[this.newComponent[0].popNumber2].options = this.$selectData(this.url, responce.data, newArr.selectArr)
@@ -289,8 +292,8 @@ export default {
                 }
                 // 无分类的下拉框模块查询
                 if (this.editComponent[0].selectUrl2) {
-                    let editArr = this.$addAndEditSelectMethod(this.editComponent[0].selectUrl)
-                    this.$dataGet(this, '/util/selects', {table: editArr.selectData})
+                    let editArr = this.$addAndEditSelectMethod(this.editComponent[0].selectUrl2)
+                    this.$dataGet(this, '/util/selects', {table: editArr.selectUrl})
                         .then((responce) => {
                             if (responce.data.length !== 0) {
                                 this.editComponent[0].components[this.editComponent[0].popNumber2].options = this.$selectData(this.url, responce.data, editArr.selectArr)
@@ -320,6 +323,9 @@ export default {
                         this.paginator = responce.data
                     } else {
                         this.$set(this, 'tableData', responce.data.data)
+                        this.total_num = 0
+                        this.num = 0
+                        this.paginator = 0
                     }
                 })
         },
@@ -440,7 +446,6 @@ export default {
     },
     mounted () {
         // 获取下拉框
-        // this.$route.params
         if (this.selectValueId) {
             this.getSelect()
         }
@@ -450,7 +455,7 @@ export default {
     watch: {
         models () {
             this.modelIndex = 0
-            this.activeName = 0
+            this.activeName = 'index0'
         },
         key (news, old) {
             this.tableData = []

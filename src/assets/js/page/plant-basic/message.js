@@ -4778,7 +4778,7 @@ export default {
             key: 'planta',
             tab: '种植区',
             url: 'planta',
-            selectSearch: ['plantations.pid'],
+            selectSearch: ['planta.pid'],
             selectValueId: ['pid', 'plantation_name', true],
             searchPlaceholder: '请输入种植区进行搜索',
             selectDefault: {value: '', label: '种植场选择'},
@@ -6101,10 +6101,11 @@ export default {
         key: 'pack',
         tab: '加工批次信息',
         url: 'pack',
+        paramsIndex: 'plant',
         searchPlaceholder: '请输入加工批次号',
-        theads: ['加工批次号', '产品', '包装日期', '数量（重量）', '单位', '操作人', '录入人', '备注'],
-        protos: ['serial', 'name', 'date', 'amount', 'unit', 'operate_name', 'user_name', 'memo'],
-        widths: [50, 50, 50, 50, 50, 50, 50, 50],
+        theads: ['加工批次号', '加工日期', '数量（重量）', '操作人', '录入人', '备注'],
+        protos: ['serial', 'date', 'amount', 'operate_name', 'user_name', 'memo'],
+        widths: [50, 50, 50, 50, 50, 50],
         moreComponent: [{value: '状态'}],
         typeComponent: [
             {
@@ -6117,18 +6118,6 @@ export default {
         listComponent: [{
             components: [
                 {
-                    type: 'select',
-                    component: selectSection,
-                    options: [{
-                        value: '',
-                        label: '产品品牌'
-                    },
-                    {
-                        value: '康乐牌',
-                        label: '康乐牌'
-                    }]
-                },
-                {
                     type: 'date',
                     component: datePick
                 }
@@ -6136,29 +6125,14 @@ export default {
         }],
         newComponent: [{
             tab: '新建加工批次信息',
+            hiddenValue: {type: 'plant'},
+            selectUrl2: ['operates', 'id', 'name', true],
+            popNumber2: 2,
             components: [{
-                name: 'serial',
-                type: 'text',
-                component: null,
-                isNull: false,
-                label: '加工批次号',
-                placeholder: '必填',
-                rule: {required: true, message: '请输入加工批次号', trigger: 'blur'}
-            },
-            {
-                name: 'name',
-                type: 'text',
-                component: null,
-                isNull: false,
-                label: '产品',
-                placeholder: '必填',
-                rule: {required: true, message: '请输入产品名称', trigger: 'blur'}
-            },
-            {
                 type: 'date',
                 component: inputDate,
                 isNull: true,
-                label: '包装日期',
+                label: '加工日期',
                 placeholder: '',
                 rule: ''
             },
@@ -6172,22 +6146,14 @@ export default {
                 rule: null
             },
             {
-                name: 'operate_name',
-                type: 'text',
+                name: 'operate_id',
+                type: 'select',
                 component: null,
-                isNull: true,
-                label: '操作人',
-                placeholder: '',
-                rule: null
-            },
-            {
-                name: 'user_name',
-                type: 'text',
-                component: null,
-                isNull: true,
-                label: '录入人',
-                placeholder: '',
-                rule: null
+                isNull: false,
+                label: '操作人员',
+                placeholder: '请选择人物',
+                rule: {required: true, trigger: 'blur', type: 'number'},
+                options: []
             },
             {
                 name: 'memo',
@@ -6201,29 +6167,22 @@ export default {
         }],
         editComponent: [{
             tab: '编辑加工批次信息',
+            hiddenValue: {type: 'plant'},
+            selectUrl2: ['operates', 'id', 'name', true],
+            popNumber2: 3,
             components: [{
                 name: 'serial',
                 type: 'text',
                 component: null,
                 isNull: false,
                 label: '加工批次号',
-                placeholder: '必填',
-                rule: {required: true, message: '请输入加工批次号', trigger: 'blur'}
-            },
-            {
-                name: 'name',
-                type: 'text',
-                component: null,
-                isNull: false,
-                label: '产品',
-                placeholder: '必填',
-                rule: {required: true, message: '请输入产品名称', trigger: 'blur'}
+                placeholder: '必填'
             },
             {
                 type: 'date',
                 component: inputDate,
                 isNull: true,
-                label: '包装日期',
+                label: '加工日期',
                 placeholder: '',
                 rule: ''
             },
@@ -6237,22 +6196,14 @@ export default {
                 rule: null
             },
             {
-                name: 'operate_name',
-                type: 'text',
+                name: 'operate_id',
+                type: 'select',
                 component: null,
-                isNull: true,
-                label: '操作人',
-                placeholder: '',
-                rule: null
-            },
-            {
-                name: 'user_name',
-                type: 'text',
-                component: null,
-                isNull: true,
-                label: '录入人',
-                placeholder: '',
-                rule: null
+                isNull: false,
+                label: '操作人员',
+                placeholder: '请选择人物',
+                rule: {required: true, trigger: 'blur', type: 'number'},
+                options: []
             },
             {
                 name: 'memo',
@@ -6268,13 +6219,15 @@ export default {
     // 果蔬-检验检测
     vegetableDetect: [{
         settitle: '检验检测管理',
-        key: 'code',
+        key: 'detect_pk',
         tab: '检验检测信息',
-        url: 'code',
+        url: 'detect_pk',
+        paramsIndex: 'plant',
+        changeDataArr: [{result: {0: '不合格', 1: '合格'}}],
         searchPlaceholder: '请输入溯源码搜索',
         theads: ['检测名称', '检测内容', '检测日期', '检测结果', '检测机构', '负责人', '处理方法', '图片报告', '备注'],
-        protos: ['code', 'harvest_serial', 'pack-product_id', 'date', 'memo'],
-        widths: [50, 50, 50, 50, 50],
+        protos: ['name', 'content', 'date', 'result', 'organization', 'operate_name', 'method', 'thumb', 'memo'],
+        widths: [50, 50, 50, 50, 50, 50, 50, 50, 50],
         moreComponent: [{value: '打印'}],
         typeComponent: [
             {
@@ -6286,61 +6239,98 @@ export default {
         listComponent: [{
             components: [
                 {
-                    type: 'select',
-                    component: selectSection,
-                    options: [
-                        {
-                            value: '',
-                            label: '产品品牌'
-                        },
-                        {
-                            value: '康乐牌',
-                            label: '康乐牌'
-                        }
-                    ]
-                },
-                {
                     type: 'date',
                     component: datePick
                 }
             ]
         }],
         newComponent: [{
-            tab: '新建产品溯源信息',
+            tab: '新建检验检测信息',
+            hiddenValue: {type: 'plant'},
+            selectUrl2: ['operates', 'id', 'name', true],
+            popNumber2: 1,
             components: [{
-                name: 'code',
-                type: 'text',
-                component: null,
+                name: 'date',
+                type: 'date',
+                component: inputDate,
                 isNull: false,
-                label: '追溯编码',
-                placeholder: '必填',
-                rule: {required: true, message: '请输入溯源编码', trigger: 'blur'}
-            },
-            {
-                name: 'harvest_serial',
-                type: 'text',
-                component: null,
-                isNull: false,
-                label: '加工批次',
-                placeholder: '必填',
-                rule: {required: true, message: '请输入加工批次', trigger: 'blur'}
-            },
-            {
-                name: 'product_id',
-                type: 'text',
-                component: null,
-                isNull: true,
-                label: '追溯次数',
+                label: '检测日期',
                 placeholder: '',
+                disabled: true,
+                rule: {required: true, trigger: 'blur', type: 'date'}
+            },
+            {
+                name: 'operate_id',
+                type: 'select',
+                component: null,
+                isNull: false,
+                label: '负责人',
+                placeholder: '请选择人物',
+                rule: {required: true, trigger: 'blur', type: 'number'},
+                options: []
+            },
+            {
+                name: 'name',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '检测名称',
+                placeholder: '请填写检测项目名称',
+                rule: {required: true, trigger: 'blur', type: 'text'},
+                options: []
+            },
+            {
+                name: 'result',
+                type: 'select',
+                component: null,
+                isNull: false,
+                label: '检测结果',
+                placeholder: '请选择检测结果',
+                rule: {required: true, trigger: 'blur', type: 'select'},
+                options: [{
+                    value: 1,
+                    label: '合格'
+                },
+                {
+                    value: 0,
+                    label: '不合格'
+                }]
+            },
+            {
+                name: 'content',
+                type: 'textarea',
+                component: null,
+                isNull: false,
+                label: '检测内容',
+                placeholder: '请填写检测内容',
                 rule: null
             },
             {
-                type: 'date',
-                component: inputDate,
+                name: 'organization',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '检测机构',
+                placeholder: '请填写检测机构名称',
+                rule: null
+            },
+            {
+                name: 'method',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '处理方法',
+                placeholder: '请填写检测处理方法',
+                rule: null
+            },
+            {
+                name: 'img',
+                type: 'file',
+                component: inputFile,
                 isNull: true,
-                label: '加工日期',
+                label: '',
                 placeholder: '',
-                rule: ''
+                rule: null
             },
             {
                 name: 'memo',
@@ -6353,41 +6343,91 @@ export default {
             }]
         }],
         editComponent: [{
-            tab: '编辑产品溯源信息',
+            tab: '编辑检验检测信息',
+            selectUrl2: ['operates', 'id', 'name', true],
+            popNumber2: 1,
             components: [{
-                name: 'code',
-                type: 'text',
-                component: null,
+                name: 'date',
+                type: 'date',
+                component: inputDate,
                 isNull: false,
-                label: '追溯编码',
-                placeholder: '必填',
-                rule: {required: true, message: '请输入溯源编码', trigger: 'blur'}
-            },
-            {
-                name: 'harvest_serial',
-                type: 'text',
-                component: null,
-                isNull: false,
-                label: '加工批次',
-                placeholder: '必填',
-                rule: {required: true, message: '请输入加工批次', trigger: 'blur'}
-            },
-            {
-                name: 'product_id',
-                type: 'text',
-                component: null,
-                isNull: true,
-                label: '追溯次数',
+                label: '检测日期',
                 placeholder: '',
+                disabled: true,
+                rule: {required: true, trigger: 'blur', type: 'date'}
+            },
+            {
+                name: 'operate_id',
+                type: 'select',
+                component: null,
+                isNull: false,
+                label: '负责人',
+                placeholder: '请选择人物',
+                rule: {required: true, trigger: 'blur', type: 'number'},
+                options: []
+            },
+            {
+                name: 'name',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '检测名称',
+                placeholder: '请填写检测项目名称',
+                rule: {required: true, trigger: 'blur', type: 'text'},
+                options: []
+            },
+            {
+                name: 'result',
+                type: 'select',
+                component: null,
+                isNull: false,
+                label: '检测结果',
+                placeholder: '请选择检测结果',
+                rule: {required: true, trigger: 'blur', type: 'select'},
+                options: [{
+                    value: 1,
+                    label: '合格'
+                },
+                {
+                    value: 0,
+                    label: '不合格'
+                }]
+            },
+            {
+                name: 'content',
+                type: 'textarea',
+                component: null,
+                isNull: false,
+                label: '检测内容',
+                placeholder: '请填写检测内容',
                 rule: null
             },
             {
-                type: 'date',
-                component: inputDate,
+                name: 'organization',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '检测机构',
+                placeholder: '请填写检测机构名称',
+                rule: null
+            },
+            {
+                name: 'method',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '处理方法',
+                placeholder: '请填写检测处理方法',
+                rule: null
+            },
+            {
+                name: 'img',
+                type: 'file',
+                component: inputFile,
                 isNull: true,
-                label: '加工日期',
+                label: '',
                 placeholder: '',
-                rule: ''
+                rule: null
             },
             {
                 name: 'memo',
@@ -6406,9 +6446,13 @@ export default {
         key: 'code',
         tab: '产品溯源信息',
         url: 'code',
+        paramsIndex: 'plant',
+        selectSearch: ['products.id'],
+        selectValueId: ['product_id', 'product_name', true],
+        selectDefault: {value: '', label: '请选择产品'},
         searchPlaceholder: '请输入溯源码搜索',
-        theads: ['追溯编码', '加工批次', '追溯次数', '加工日期', '备注'],
-        protos: ['code', 'harvest_serial', 'pack-product_id', 'date', 'memo'],
+        theads: ['加工批次号', '产品溯源码', '产品名称', '生产日期', '溯源次数', '备注信息'],
+        protos: ['serial', 'code', 'product_name', 'date', 'time', 'memo'],
         widths: [50, 50, 50, 50, 50],
         moreComponent: [{value: '打印'}],
         typeComponent: [
@@ -6424,14 +6468,6 @@ export default {
                     type: 'select',
                     component: selectSection,
                     options: [
-                        {
-                            value: '',
-                            label: '产品品牌'
-                        },
-                        {
-                            value: '康乐牌',
-                            label: '康乐牌'
-                        }
                     ]
                 },
                 {
@@ -6441,41 +6477,38 @@ export default {
             ]
         }],
         newComponent: [{
-            tab: '新建产品溯源信息',
+            tab: '新建溯源码信息',
+            hiddenValue: {type: 'plant'},
+            selectUrl2: ['products', 'id', 'name', true],
+            popNumber2: 1,
             components: [{
-                name: 'code',
-                type: 'text',
-                component: null,
-                isNull: false,
-                label: '追溯编码',
-                placeholder: '必填',
-                rule: {required: true, message: '请输入溯源编码', trigger: 'blur'}
-            },
-            {
-                name: 'harvest_serial',
-                type: 'text',
-                component: null,
-                isNull: false,
-                label: '加工批次',
-                placeholder: '必填',
-                rule: {required: true, message: '请输入加工批次', trigger: 'blur'}
-            },
-            {
-                name: 'product_id',
-                type: 'text',
-                component: null,
-                isNull: true,
-                label: '追溯次数',
-                placeholder: '',
-                rule: null
-            },
-            {
+                name: 'date',
                 type: 'date',
                 component: inputDate,
-                isNull: true,
+                isNull: false,
                 label: '加工日期',
                 placeholder: '',
-                rule: ''
+                disabled: true,
+                rule: {required: true, trigger: 'blur', type: 'date'}
+            },
+            {
+                name: 'operate_id',
+                type: 'select',
+                component: null,
+                isNull: false,
+                label: '产品',
+                placeholder: '请选择产品',
+                rule: {required: true, trigger: 'blur', type: 'number'},
+                options: []
+            },
+            {
+                name: 'number',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '生成数量',
+                placeholder: '请填写数量',
+                rule: {required: true, trigger: 'blur', type: 'number'}
             },
             {
                 name: 'memo',
