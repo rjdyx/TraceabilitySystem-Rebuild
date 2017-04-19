@@ -17,6 +17,7 @@ import inputTextSelect from '../../components/public/inputTextSelect.vue'
 import validate2 from '../../utils/validate2.js'
 
 export default {
+    // 基础-分类
     categoryBase: [{
         settitle: '分类档案管理',
         key: 'category',
@@ -208,6 +209,7 @@ export default {
             }]
         }]
     }],
+    // 基础-人员
     personFile: [{
         settitle: '人员档案管理',
         key: 'operate',
@@ -431,6 +433,7 @@ export default {
             ]
         }]
     }],
+    // 基础-专家
     expertFile: [{
         settitle: '专家档案管理',
         key: 'expert',
@@ -672,6 +675,7 @@ export default {
             }]
         }]
     }],
+    // 基础-客户
     clientFile: [{
         settitle: '客户档案管理',
         key: 'client',
@@ -845,6 +849,7 @@ export default {
             ]
         }]
     }],
+    // 基础-供货商
     supplierFile: [{
         settitle: '供货商档案管理',
         key: 'supplier',
@@ -996,6 +1001,7 @@ export default {
             }]
         }]
     }],
+    // 基础-产品
     productFile: [{
         settitle: '产品档案管理',
         key: 'product',
@@ -1256,8 +1262,7 @@ export default {
                 }]
             }]
         }]
-    }
-    ],
+    }],
     // 3.2.1基础信息管理(*)
     baseManage: [
         {
@@ -2825,8 +2830,7 @@ export default {
                 component: 'datePick'
             }]
         }]
-    }
-    ],
+    }],
     //  3.2.4畜禽病疫管理（*）
     plagueManage: [{
         settitle: '病疫管理',
@@ -3220,8 +3224,7 @@ export default {
                 component: 'datePick'
             }]
         }]
-    }
-    ],
+    }],
     //  3.2.5畜禽检疫管理(*)
     quarantineManage: [{
         settitle: '检疫管理',
@@ -4195,7 +4198,7 @@ export default {
         }],
         listComponent: []
     }],
-    // 屠宰加工（郭森林）
+    // 畜禽-屠宰加工
     petProcess: [{
         settitle: '加工批次管理',
         key: 'pack',
@@ -4289,7 +4292,7 @@ export default {
             }]
         }]
     }],
-    // 加工检测 （郭森林）
+    // 畜禽-加工检测
     petDectect: [{
         settitle: '检验检测管理',
         key: 'detect_pk',
@@ -4509,7 +4512,7 @@ export default {
             }]
         }]
     }],
-    // 畜禽产品溯源码 （郭森林）
+    // 畜禽-产品溯源码
     petTrace: [{
         settitle: '产品溯源管理',
         key: 'code',
@@ -4586,94 +4589,7 @@ export default {
         }],
         moreComponent: [{value: '打印'}]
     }],
-    petSerial: [{
-        settitle: '加工批次管理',
-        key: 'planManage',
-        tab: '加工批次信息',
-        url: 'plan',
-        searchPlaceholder: '请输入加工批次号',
-        theads: ['加工批次号', '加工日期', '加工人', '原始数量', '成品数量', '耗损率', '是否生成', '备注信息'],
-        protos: ['plan_type_name', 'name', 'content', 'name', 'content', 'name', 'content', 'memo'],
-        widths: [50, 50, 50, 50, 50, 50, 50, 50],
-        typeComponent: [{
-            component: output
-        },
-        {
-            component: newbuildBtn
-        }],
-        listComponent: [{
-            components: [{
-                type: 'select',
-                component: selectSection,
-                options: [{
-                    value: '',
-                    label: '产品品牌'
-                },
-                {
-                    value: '康乐牌',
-                    label: '康乐牌'
-                }]
-            },
-            {
-                type: 'date',
-                component: datePick
-            }]
-        }],
-        moreComponent: [{value: '状态'}]
-    }],
-    petBack: [{
-        settitle: '产品溯源管理',
-        key: 'code',
-        tab: '产品溯源码信息',
-        url: 'code',
-        searchPlaceholder: '请输入溯源码搜索',
-        theads: ['加工批次号', '产品溯源码', '产品名称', '生产日期', 'RFID', '肢体部位', '产地', '溯源次数', '备注信息'],
-        protos: ['plan_type_name', 'name', 'content', 'name', 'content', 'name', 'content', 'name', 'memo'],
-        widths: [50, 50, 50, 50, 50, 50, 50, 50, 50],
-        typeComponent: [{
-            component: output
-        },
-        {
-            component: newbuildBtn
-        }],
-        listComponent: [{
-            components: [{
-                type: 'select',
-                component: selectSection,
-                options: [{
-                    value: '',
-                    label: '产品品牌'
-                },
-                {
-                    value: '康乐牌',
-                    label: '康乐牌'
-                }]
-            },
-            {
-                type: 'date',
-                component: datePick
-            }]
-        }],
-        moreComponent: [{value: '打印'}]
-    }],
-    petOutput: [{
-        settitle: '产品出库管理',
-        key: 'planManage',
-        tab: '出库订单信息',
-        url: 'plan',
-        searchPlaceholder: '请输入出库订单号进行搜索',
-        theads: ['出库叮当号', '订单日期', '收货单位', '数量', '出库人', '收货地点', '收货人', '收货电话', '备注信息'],
-        protos: ['plan_type_name', 'name', 'content', 'name', 'content', 'name', 'content', 'name', 'memo'],
-        widths: [50, 50, 50, 50, 50, 50, 50, 50, 50],
-        typeComponent: [{
-            component: output
-        },
-        {
-            component: newbuildBtn
-        }],
-        listComponent: []
-    }
-    ],
+    // 种植基础资料
     plantBase: [
         {
             settitle: '种植基础资料',
@@ -5621,6 +5537,7 @@ export default {
             }]
         }
     ],
+    // 种植批次
     plantSerial: [{
         settitle: '种植批次管理',
         key: 'cultivate',
@@ -5681,6 +5598,7 @@ export default {
         lotComponent: [{value: '批量农事'}, {value: '批量施肥'}, {value: '批量施药'}, {value: '批量检测'}],
         moreComponent: [{value: '状态'}, {value: '农事'}, {value: '施肥'}, {value: '施药'}, {value: '检测'}, {value: '采收'}, {value: '图片'}]
     }],
+    // 农事管理
     plantFarm: [
         {
             settitle: '农事管理',
@@ -5878,6 +5796,7 @@ export default {
             }]
         }
     ],
+    // 生产计划
     plantProduct: [{
         settitle: '生产计划管理',
         key: 'farming',
@@ -5968,6 +5887,7 @@ export default {
             }]
         }]
     }],
+    // 采收管理
     plantHarvest: [{
         settitle: '采收管理',
         key: 'harvest',
@@ -6174,6 +6094,7 @@ export default {
             }]
         }]
     }],
+    // 果蔬-加工
     vegetableSerial: [{
         settitle: '加工批次管理',
         key: 'pack',
@@ -6343,6 +6264,7 @@ export default {
             }]
         }]
     }],
+    // 果蔬-检验检测
     vegetableDetect: [{
         settitle: '检验检测管理',
         key: 'code',
@@ -6477,6 +6399,7 @@ export default {
             }]
         }]
     }],
+    // 果蔬-产品溯源码
     vegetableTrace: [{
         settitle: '产品溯源管理',
         key: 'code',
@@ -6611,6 +6534,7 @@ export default {
             }]
         }]
     }],
+    // 物流基础信息
     Logisticbase: [
         {
             settitle: '基础信息管理',
@@ -6979,6 +6903,7 @@ export default {
             }]
         }
     ],
+    // 物流批次管理
     logisticSerial: [{
         settitle: '物流批次管理',
         key: 'delivery',
@@ -7154,6 +7079,7 @@ export default {
             }]
         }]
     }],
+    // 销售产品库
     saleProduct: [
         {
             settitle: '销售商品库管理',
@@ -7197,6 +7123,7 @@ export default {
                 }]
         }
     ],
+    // 销售-入库
     saleInput: [
         {
             settitle: '销售入库管理',
@@ -7524,6 +7451,7 @@ export default {
             }]
         }
     ],
+    // 销售-订单
     saleOrder: [{
         settitle: '销售订单管理',
         key: 'sell',
@@ -7613,6 +7541,7 @@ export default {
             ]
         }]
     }],
+    // 公司
     systemCompany: [{
         settitle: '公司信息管理',
         key: 'planManage',
@@ -7623,6 +7552,7 @@ export default {
         widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
         listComponent: []
     }],
+    // 用户管理
     systemUser: [{
         settitle: '用户管理',
         key: 'planManage',
@@ -7640,6 +7570,7 @@ export default {
             ]
         }]
     }],
+    // 系统日志
     systemLog: [{
         settitle: '系统日志',
         key: 'log',
@@ -7669,6 +7600,7 @@ export default {
             ]
         }]
     }],
+    // 报表
     systemReport: [{
         settitle: '报表预览',
         key: 'planManage',
@@ -7680,7 +7612,7 @@ export default {
         listComponent: [],
         moreComponent: [{value: '打印'}]
     }],
-    // 运营管理
+    // 运营-权限
     rightsOperate: [{
         settitle: '权限管理',
         key: 'planManage',
@@ -7701,6 +7633,7 @@ export default {
         widths: [50, 50, 50, 50, 50],
         listComponent: []
     }],
+    // 运营-入驻单位
     settleOperate: [{
         settitle: '入驻单位管理',
         key: 'planManage',
@@ -7711,6 +7644,7 @@ export default {
         widths: [50, 50, 50, 50],
         listComponent: []
     }],
+    // 运营-用户反馈
     usersOperate: [{
         settitle: '用户反馈管理',
         key: 'planManage',
