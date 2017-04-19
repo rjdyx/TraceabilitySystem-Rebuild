@@ -184,20 +184,8 @@ export default {
         submitForm (formName) {
             this.$refs[formName][0].validate((valid) => {
                 if (valid) {
-                    let form = new FormData()
-                    for (let key of Object.keys(this.tableForm)) {
-                        form.append(key, this.tableForm[key])
-                    }
-                    if (this.newComponent[0].hiddenValue !== undefined) {
-                        for (let key1 of Object.keys(this.newComponent[0].hiddenValue)) {
-                            form.append(key1, this.newComponent[0].hiddenValue[key1])
-                        }
-                    }
-                    let headers = {headers: {'Content-Type': 'multipart/form-data'}}
-                    axios.post(this.$adminUrl(this.url), form, headers).then((response) => {
+                    this.$dataPost(this, this.url, this.tableForm, this.newComponent[0].hasImg, this.newComponent[0].hiddenValue, false).then((response) => {
                         this.$emit('submitNew', response.data)
-                    }, (response) => {
-                        this.$emit('submitNew', 'false')
                     })
                 } else {
                     return false

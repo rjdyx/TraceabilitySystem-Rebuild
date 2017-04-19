@@ -241,6 +241,7 @@ export default {
             tab: '新建人员档案信息',
             selectUrl: ['category', 'operate', 'category_id', 'category_name', true],
             checkNumber: 1,
+            hasImg: true,
             popNumber: 0,
             components: [{
                 name: 'category_id',
@@ -338,6 +339,7 @@ export default {
             tab: '编辑人员档案信息',
             selectUrl: ['category', 'operate', 'category_id', 'category_name', true],
             checkNumber: 1,
+            hasImg: true,
             components: [{
                 name: 'category_id',
                 type: 'select',
