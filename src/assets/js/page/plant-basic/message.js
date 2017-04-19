@@ -1011,6 +1011,7 @@ export default {
         url: 'product',
         selectValueId: ['category_id', 'category_name', true],
         searchPlaceholder: '请输入产品名称进行搜索',
+        selectDefault: {value: '', label: '选择产品类型'},
         selectSearch: ['products.category_id'],
         theads: ['分类名称', '名称', '执行标准', '商品型号', '商品简介', '包装规格', '保质期', '食用方法', '存储方法', '配料信息', '图片', '备注'],
         protos: ['category_name', 'name', 'enforce_standard', 'marque', 'description', 'specification', 'expiration_date', 'edible_method', 'storage_means', 'burdening_info', 'img', 'memo'],
@@ -1259,9 +1260,7 @@ export default {
             components: [{
                 type: 'select',
                 component: selectSection,
-                options: [{
-                    value: '', label: '选择产品类型'
-                }]
+                options: []
             }]
         }]
     }],

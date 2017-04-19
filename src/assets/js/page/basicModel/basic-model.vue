@@ -171,6 +171,7 @@ export default {
             // tab模块选择标志
             // activeName: 'index' + this.$route.params.index,
             modelIndex: 0,
+            modelName: this.$route.params,
             // 列表数据
             tableData: [],
             // 被选中的列表项数组
@@ -451,6 +452,9 @@ export default {
         this.getAllMsg()
     },
     watch: {
+        settitle () {
+            this.modelIndex = 0
+        },
         key (news, old) {
             this.tableData = []
             if (this.selectValueId !== undefined) {
