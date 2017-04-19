@@ -1752,7 +1752,7 @@ export default {
             }]
         },
         {
-            settitle: '基础信息管理',
+            settitle: '养殖基础信息管理',
             key: 'beast',
             tab: '畜禽档案',
             url: 'beast',
@@ -1886,7 +1886,7 @@ export default {
             }]
         },
         {
-            settitle: '基础信息管理',
+            settitle: '养殖基础信息管理 ',
             key: 'fodder',
             tab: '饲料档案',
             url: 'fodder',

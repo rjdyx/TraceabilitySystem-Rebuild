@@ -45,7 +45,7 @@ const routes = [
         children: [{
             path: 'message/:model',
             component: basic,
-            // 需要登录才能进人此路由
+            // 需要登录才能进入此路由
             meta: {
                 requiresAuth: true
             }

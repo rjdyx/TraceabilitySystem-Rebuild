@@ -10,7 +10,7 @@ export default[{
         name: '分类档案管理'
     },
     {
-        path: '/index/message/personFile/0',
+        path: '/index/message/personFile',
         name: '人员档案管理'
     },
     {

@@ -12,8 +12,8 @@
     </contain-title>
     
   <!-- tab栏 --> 
-    <el-tabs v-model="activeName" type="card" id="tabs" @tab-click="tabClick">
-        <el-tab-pane v-for="(model,index) in models" :label="model.tab" :name="'index'+index"></el-tab-pane>
+    <el-tabs v-model="activeName" id="tabs" @tab-click="tabClick">
+        <el-tab-pane v-for="(model,index) in models" :label="model.tab" :name="model.tab"></el-tab-pane>
     </el-tabs>  
     <!-- 操作模块 -->
     <div id="operate">
@@ -169,7 +169,6 @@ export default {
             // 下拉框
             selectVal: '',
             // tab模块选择标志
-            // activeName: 'index' + this.$route.params.index,
             modelIndex: 0,
             modelName: this.$route.params,
             // 列表数据
@@ -202,7 +201,7 @@ export default {
     methods: {
         init (index = 0) {
             this.value = ''
-            this.activeName = 'index'
+            this.activeName = 0
             this.$set(this, 'tableData', [])
             this.$set(this, 'multipleSelection', [])
         },
@@ -332,9 +331,6 @@ export default {
             }
             this.pageChange(1)
         },
-        more () {
-            console.log(12)
-        },
         // 下拉框查询
         selectFind (val) {
             this.selectVal = val
@@ -452,8 +448,9 @@ export default {
         this.getAllMsg()
     },
     watch: {
-        settitle () {
+        models () {
             this.modelIndex = 0
+            this.activeName = 0
         },
         key (news, old) {
             this.tableData = []

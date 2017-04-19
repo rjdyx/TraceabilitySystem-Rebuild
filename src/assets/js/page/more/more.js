@@ -1,5 +1,4 @@
 import validate2 from '../../utils/validate2.js'
-
 export default [{
     newComponent: [{
         tab: '新建分类档案信息',
