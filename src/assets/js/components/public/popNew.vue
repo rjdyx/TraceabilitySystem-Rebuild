@@ -76,18 +76,15 @@
                             ></component>
                         </el-form-item>
                     </tr>
-
                 </template>
           </table>
-          <el-form-item>
-           <div class="form-footer">
+         </el-form>
+        </el-tab-pane>
+        <div class="form-footer">
             <el-button type="primary"  @click="submitForm('tableForm')">确定</el-button>
             <el-button class="activecancel" @click="cancelClick">取消</el-button>
             new
-          </div>
-          </el-form-item>
-         </el-form>
-        </el-tab-pane>
+        </div>
       </el-tabs>
     </form>
 </div>
@@ -154,18 +151,19 @@ export default {
         }
     },
     mounted () {
-        // this.tableForm = this.editBol ? this.editForm : this.form
         // $(window).on('resize', () => {
         // })
+        /**
+        * 点击表单拖拽事件
+        */
         var _this = this
         $('.el-tabs__header').on('mousedown', (e) => {
-            console.log('mousedown')
+            // console.log('mousedown')
             // 鼠标与newForm块的距离
             this.dmL = e.clientX - $('.newForm').position().left
             this.dmT = e.clientY - $('.newForm').position().top
-            console.log('dmL:' + this.dmL + 'dmT:' + this.dmT)
             $(document).on('mousemove', (e) => {
-                console.log('mousemove')
+                // console.log('mousemove')
                 var L = e.clientX - _this.dmL
                 var T = e.clientY - _this.dmT
                 var maxL = $(document).outerWidth() - $('.newForm').innerWidth()
@@ -180,15 +178,13 @@ export default {
                 } else if (T < 0) {
                     T = 0
                 }
-                // $('.newForm').css('left', L + 'px')
-                // $('.newForm').css('top', T + 'px')
                 $('.newForm').css({left: L + 'px', top: T + 'px'})
             })
         })
         $(document).on('mouseup', () => {
             $(document).off('mousemove')
             // $(document).off('mouseup')
-            console.log('mouseup')
+            // console.log('mouseup')
         })
     },
     methods: {
@@ -236,9 +232,9 @@ export default {
   background:rgba(0,0,0,0.3);
   top:0;
   left:0;
-  z-index:2;
-  text-align:center;
-  // overflow:hidden;
+  z-index:3;
+  // text-align:center;
+  overflow:hidden;
   .newForm{
     width:618px;
     position: absolute;
@@ -250,50 +246,79 @@ export default {
     border-radius:2px;  
     .el-tabs{
        max-height:618px;
-       // overflow:scroll;
-      .el-tabs__content{
-        padding:20px 70px;
-        box-sizing:border-box;
-        table{
-            width:100%;
-            text-align: left;
-            .el-select{
-                display:block;
-            }
-            .el-textarea__inner{
-                resize:none;
-            }
-            .el-form-item__label::before{
-                float: left;
+       overflow:scroll;
+        .el-tab-pane:first-child{
+            padding:20px 70px;
+            box-sizing:border-box;
+            table{
+                width:100%;
+                text-align: left;
+                .el-select{
+                    display:block;
+                }
+                .el-textarea__inner{
+                    resize:none;
+                }
+                .el-form-item__label::before{
+                    float: left;
+                }
             }
         }
-      }
-    }
-      
-	    
-        .el-icon-circle-close{
-            font-size:24px;
-            color:#8492a6;
-            position: absolute;
-            right:-12px;
-            top:-10px;
-            border:3px solid white;
-            border-radius:50%;
-            background:white;
-            z-index:3;
+        .el-tab-pane:nth-child(2){
+            padding:0px 5px 20px;
+            box-sizing:border-box;
+            .batchSelect{
+                margin-bottom: 10px;
+            }      
         }
-        .el-icon-circle-close:hover{
-            color:#0087b5;
-        } 
-
         .form-footer{
+          border-top: 1px solid #d1dbe5;
           text-align:-webkit-right;
           padding:20px 10px 50px 0;
             .activecancel{
               background-color:#cccccc;
               color:white;
             }
+            .batchNumDiv{
+                text-align:-webkit-left;
+                padding-left:10px;
+                // padding-top:20px;
+                .batchNum{
+                    display:inline-block;
+                    width:40px;
+                    input{
+                        text-align:center;
+                        color:red;
+                    }
+                }
+            }
         }
+    }   
+    .el-icon-circle-close{
+        font-size:24px;
+        color:#8492a6;
+        position: absolute;
+        right:-12px;
+        top:-10px;
+        border:3px solid white;
+        border-radius:50%;
+        background:white;
+        z-index:3;
+    }
+    .el-icon-circle-close:hover{
+        color:#0087b5;
+    } 
+    .el-tabs__header{
+        cursor: move;
+    }
+    // .formHeaderMask{
+    //     width:100%;
+    //     height:41px;
+    //     position:absolute;
+    //     left:0;
+    //     top:0;
+    //     background:red;
+    // }
     }
 }
 </style>

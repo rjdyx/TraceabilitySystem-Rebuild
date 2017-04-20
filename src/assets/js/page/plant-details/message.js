@@ -11,7 +11,9 @@ export default {
         tab: '养殖批次管理',
         theads: ['养殖批次号', '所属养殖场', '养殖人', '养殖日期', '所属养殖区', '养殖地址', '养殖畜禽名称', '养殖面积', '养殖备注'],
         protos: [],
+        // url: 'breed/4'
         tabList: [{
+            // url:'4/rfid'
             tab: '畜禽RFID',
             searchPlaceholder: '请输入rfid进行搜索',
             leftOperateList: [],
@@ -25,6 +27,7 @@ export default {
         },
         {
             tab: '生长过程信息',
+            // url:
             searchPlaceholder: '请输入标题进行搜索',
             leftOperateList: [],
             rightOperateComponent: [{component: newbuildBtn}],
