@@ -132,6 +132,7 @@ export default {
                 if (valid) {
                     axios.post('/login', this.ruleForm2)
                         .then((responce) => {
+                            console.log(responce.data)
                             if (responce.data !== 200) {
                                 callback(new Error('登录失败'))
                             } else {

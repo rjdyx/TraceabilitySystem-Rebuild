@@ -14,13 +14,12 @@
 <script>
 import BasicModel from '../basicModel/basic-model.vue'
 import message from './message.js'
-import reaction from './reaction.js'
 
 export default {
     name: 'BasicContent',
     data () {
         let modelObj = {}
-        Object.assign(modelObj, message, reaction)
+        Object.assign(modelObj, message)
         return {
             checked: [],
             activeName2: 'first',
