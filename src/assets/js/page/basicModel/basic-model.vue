@@ -524,6 +524,7 @@ export default {
     .pcActive{
         color: blue;
         text-decoration: underline;
+        cursor:pointer;
     }
 	 .searchInp{
 	 	width:161px;
