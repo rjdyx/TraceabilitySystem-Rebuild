@@ -113,7 +113,8 @@ export default {
             }
         },
         url: '',
-        changeDataArr: {}
+        changeDataArr: {},
+        editDefault: {}
     },
     data () {
         let rules = {}
@@ -138,11 +139,17 @@ export default {
         },
         // 关闭表单事件
         closeClick () {
-            this.$parent.changeEditShow()
+            this.$parent.closeEditShow()
+            for (let key of Object.keys(this.editDefault)) {
+                this.editForm[key] = this.editDefault[key]
+            }
         },
         // 取消事件
         cancelClick () {
-            this.$parent.changeEditShow()
+            this.$parent.closeEditShow()
+            for (let key of Object.keys(this.editDefault)) {
+                this.editForm[key] = this.editDefault[key]
+            }
         },
         /**
           * 提交表单

@@ -43,7 +43,7 @@
         <popNew v-if="isNewShow" :newComponent="newComponent" :url="url" @submitNew="changeNew"></popNew>
         <!-- 编辑模块 -->
         <pop-edit v-if="isEditShow" :editComponent="editComponent" :url="url" :editForm="editForm"
-             @submitEdit="hangeEdit" :changeDataArr="changeDataArr"></pop-edit>
+             @submitEdit="hangeEdit" :changeDataArr="changeDataArr" :editDefault="editDefault"></pop-edit>
     </div>
     <!-- 列表模块 -->
     <el-table :data="tableData"  @selection-change="handleSelectionChange">
@@ -183,6 +183,7 @@ export default {
             // msg: 1,
             editBol: false,
             editForm: {},
+            editDefault: {},
             paginator: {},
             // 切换点击更多按钮的状态
             active: true,
@@ -212,7 +213,6 @@ export default {
          **/
         tabClick (tab, event) {
             this.modelIndex = tab.$data.index
-            // console.log(this.activeName)
         },
         // 操作更多选项
         filterTag (value, row) {
@@ -275,7 +275,7 @@ export default {
         },
         // 显示编辑表单
         changeEditShow (index, row) {
-            this.isEditShow = !this.isEditShow
+            this.isEditShow = true
             if (row !== undefined) {
                 if (this.editComponent[0].checkNumber !== undefined) {
                     this.editComponent[0].components[this.editComponent[0].checkNumber].rule[1]['id'] = row.id
@@ -304,7 +304,15 @@ export default {
                     row.area = String(parseInt(row.area))
                 }
                 this.editForm = row
+                // 重新赋值获取初始值
+                for (let key of Object.keys(row)) {
+                    this.editDefault[key] = row[key]
+                }
             }
+        },
+        // 关闭编辑弹窗
+        closeEditShow (val) {
+            this.isEditShow = false
         },
         // 获取数据
         getAllMsg (data = '') {
