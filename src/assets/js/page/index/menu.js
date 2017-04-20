@@ -98,7 +98,7 @@ export default[{
         name: '基础信息管理'
     },
     {
-        path: '/index/reaction/plantSerial',
+        path: '/index/message/plantSerial',
         name: '种植批次管理'
     },
     {

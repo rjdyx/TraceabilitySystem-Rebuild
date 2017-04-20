@@ -36,7 +36,6 @@
 
 <script>
     import more from '../../page/more/more.js'
-    import moreNew from '../public/moreNew.vue'
     export default {
         name: 'clickMore',
         data () {
@@ -82,7 +81,6 @@
             }
         },
         components: {
-            moreNew
         },
         mounted () {
             console.log(this.tab)
