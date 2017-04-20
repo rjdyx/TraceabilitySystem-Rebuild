@@ -35,5 +35,39 @@ export default {
             tableOperateList: [{operateName: '编辑'}, {operateName: '删除'}],
             bottomOperateList: [{operateName: '删除'}]
         }]
+    },
+// 采收批次号
+    cultivateBatch: {
+        key: 'cultivateBatch',
+        tab: '采收批次管理',
+        theads: ['采收批次号', '种植批次号', '种植区名称', '采收日期', '采收数量', '种植日期', '果蔬名称', '采收人', '种植面积', '养殖备注'],
+        protos: [],
+        tabList: [{
+            tab: '采收批次信息',
+            searchPlaceholder: '请输入rfid进行搜索',
+            leftOperateList: [{
+                components: [
+                    {
+                        type: 'select',
+                        components: selectSection,
+                        options: [
+                            {
+                            }
+                        ]
+                    },
+                    {
+                        type: 'date',
+                        component: datePick
+                    }
+                ]
+            }],
+            rightOperateComponent: [{component: output}, {component: newbuildBtn}],
+            headList: ['检测方式', '检测日期', '检测机构', '检测项目名称', '检测人', '检测结果', '证书编号', '有效期', '备注信息'],
+            protos: ['ear', 'name', 'date', 'memo'],
+            widths: [50, 50, 50],
+            newComponent: [{label: '', type: '', component: '', rule: ''}],
+            tableOperateList: [{operateName: '编辑'}, {operateName: '删除'}],
+            bottomOperateList: [{operateName: '删除'}, {operateName: '导出表格'}]
+        }]
     }
 }

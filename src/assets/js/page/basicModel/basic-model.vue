@@ -36,7 +36,7 @@
                 :is="typeOperate.component"
                 :params="typeOperate.params"
                 class="fr"
-            ></component> 
+            ></component>
             
         </div>
 
@@ -69,7 +69,7 @@
                             <div v-if="item.includes('批次号')" slot="reference" class="name-wrapper pcActive" >
                                 {{ scope.row[protos[index]] }}
                             </div>
-                            <div v-else-if="protos[index]=='img'" slot="reference" class="name-wrapper" >
+                            <div v-else-if="protos[index]=='img'" slot="reference" class="name-wrapper">
                                 <img v-if="tableData[scope.$index][protos[index]]!=null && tableData[scope.$index][protos[index]]!=''" 
                                     :src="$img('images/ok.png')">
                             </div>
@@ -498,6 +498,7 @@ export default {
             }
             this.getAllMsg()
             this.selectArrSet = []
+            this.inputValue = ''
         }
     },
     components: {

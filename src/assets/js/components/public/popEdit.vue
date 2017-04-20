@@ -129,6 +129,11 @@ export default {
     },
     mounted () {
     },
+    watch: {
+        editComponent () {
+            this.editForm[subItem.name] = ''
+        }
+    },
     methods: {
         handleClick (tab, event) {
             console.log(tab, event)
