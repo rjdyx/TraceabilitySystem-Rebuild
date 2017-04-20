@@ -62,6 +62,9 @@ export default {
         },
         hiddeEdit () {
             return this.models[this.modelIndex].hiddeEdit
+        },
+        batch () {
+            return this.models[this.modelIndex].batch
         }
     }
 }

@@ -7,8 +7,10 @@
  */
 <template>
 <div class="newWrap">
-  <form class="newForm">
+<!-- @mousedown='formDown' @mousemove='formMove' -->
+  <form class="newForm" >
     <i class="el-icon-circle-close" @click="closeClick"></i>
+    <div class="formHeaderMask"></div>
       <!-- tab选项卡 -->
       <!-- <h4>{{newComponent[0].tab}}</h4> -->
       <el-tabs v-model="activeName" @tab-click="handleClick">
@@ -151,12 +153,18 @@ export default {
             if (item.type === 'text' || item.type === 'textarea' || item.type === 'file') {
                 form[item.name] = ''
             } else if (item.type === 'select') {
-                form[item.name] = item.options[0].label
+                // console.log('options')
+                // console.log(item.options)
+                if (item.options[0] instanceof Object) {
+                    form[item.name] = item.options[0].value
+                } else {
+                    form[item.name] = ''
+                }
             } else if (item.type === 'date') {
                 form[item.name] = {}
             } else if (item.type === 'textselect') {
                 form[item.name] = ''
-                form['unit'] = item.options[0].label
+                form['unit'] = item.options[0].value
             }
         })
         let rules = {}
@@ -185,14 +193,41 @@ export default {
         console.log('newComponent:')
         console.log(this.newComponent)
         // this.tableForm = this.editBol ? this.editForm : this.form
-        // 鼠标移动form
-        window.onmouseup = () => {
-            if (this.isMouseClick) {
-                this.isMouseClick = false
-                // _this.formDown = null
-                // _this.formMove = null
-            }
-        }
+        // $(window).on('resize', () => {
+        // })
+        var _this = this
+        $('.el-tabs__header').on('mousedown', (e) => {
+            console.log('mousedown')
+            // 鼠标与newForm块的距离
+            this.dmL = e.clientX - $('.newForm').position().left
+            this.dmT = e.clientY - $('.newForm').position().top
+            console.log('dmL:' + this.dmL + 'dmT:' + this.dmT)
+            $(document).on('mousemove', (e) => {
+                console.log('mousemove')
+                var L = e.clientX - _this.dmL
+                var T = e.clientY - _this.dmT
+                var maxL = $(document).outerWidth() - $('.newForm').innerWidth()
+                var maxT = $(document).outerHeight() - $('.newForm').innerHeight()
+                if (L > maxL) {
+                    L = maxL
+                } else if (L < 0) {
+                    L = 0
+                }
+                if (T > maxT) {
+                    T = maxT
+                } else if (T < 0) {
+                    T = 0
+                }
+                // $('.newForm').css('left', L + 'px')
+                // $('.newForm').css('top', T + 'px')
+                $('.newForm').css({left: L + 'px', top: T + 'px'})
+            })
+        })
+        $(document).on('mouseup', () => {
+            $(document).off('mousemove')
+            // $(document).off('mouseup')
+            console.log('mouseup')
+        })
     },
     methods: {
         handleClick (tab, event) {
@@ -234,42 +269,6 @@ export default {
         // 选择框
         handleSelectionChange (val) {
             this.multipleSelection = val
-        },
-      // 鼠标点击表单
-        formDown (event) {
-            console.log(event)
-            console.log('formDown')
-            this.isMouseClick = true
-            // 鼠标与newForm块的距离
-            this.dmL = event.clientX - $('.newForm')[0].offsetLeft
-            this.dmT = event.clientY - $('.newForm')[0].offsetTop
-        },
-        // 鼠标点击以后移动
-        formMove (event) {
-            if (this.isMouseClick) {
-                console.log('formMove')
-                // newForm块移动的最大距离
-                var maxL = document.documentElement.clientWidth - $('.newForm')[0].offsetWidth
-                var maxT = document.documentElement.clientHeight - $('.newForm')[0].offsetHeight
-                // newForm移动的距离
-                var x = event.clientX - this.dmL
-                var y = event.clientY - this.dmT
-                // 给个判断条件:让newForm不能移出浏览器
-                // 如果newForm移动的距离>newForm移动的最大距离时
-                if (x > maxL) {
-                    x = maxL
-                } else if (x < 0) {
-                    x = 0
-                }
-                if (y > maxT) {
-                    y = maxT
-                } else if (y < 0) {
-                    y = 0
-                }
-                $('.newForm').css('left', x + 'px')
-                $('.newForm').css('top', y + 'px')
-                // $('.newForm').css('transform', 'translateX(0%) translateY(0%)')
-            }
         }
     }
 }
@@ -291,7 +290,7 @@ export default {
     background:white;
     left:50%;
     top:50%;
-    transform:translateX(-50%) translateY(-50%);
+    // transform:translateX(-50%) translateY(-50%);
     box-shadow:1px 1px 50px rgba(0,0,0,.3);
     border-radius:2px;  
     .el-tabs{
@@ -358,7 +357,17 @@ export default {
     .el-icon-circle-close:hover{
         color:#0087b5;
     } 
-    
+    .el-tabs__header{
+        cursor: move;
+    }
+    // .formHeaderMask{
+    //     width:100%;
+    //     height:41px;
+    //     position:absolute;
+    //     left:0;
+    //     top:0;
+    //     background:red;
+    // }
     }
 }
 </style>

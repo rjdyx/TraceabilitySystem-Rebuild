@@ -22,6 +22,7 @@ export default {
         key: 'category',
         tab: '分类档案信息',
         url: 'category',
+        batch: 'breedBatch',
         searchPlaceholder: '请输入分类名称进行搜索',
         theads: ['分类名称', '模块类型', '备注信息'],
         protos: ['name', 'type', 'memo'],
@@ -1249,6 +1250,7 @@ export default {
     ],
     // 3.2.1基础信息管理(*)
     baseManage: [
+        // header* select*
         {
             settitle: '养殖基础信息管理',
             key: 'farm',
@@ -1279,6 +1281,15 @@ export default {
                     label: '养殖场名称',
                     placeholder: '必填',
                     rule: {required: true, trigger: 'blur'}
+                },
+                {
+                    name: 'video',
+                    type: 'text',
+                    component: null,
+                    isNull: true,
+                    label: '视频设备号',
+                    placeholder: '必填',
+                    rule: null
                 },
                 {
                     name: 'area',
@@ -1464,6 +1475,7 @@ export default {
             }],
             listComponent: []
         },
+        // header* select* selectSearch+ 养殖场和养殖区字段相同
         {
             settitle: '养殖基础信息管理',
             key: 'farm',
@@ -1472,7 +1484,7 @@ export default {
             searchPlaceholder: '请输入养殖区进行搜索',
             // search: ['query_text', 'name'],
             theads: ['所属养殖场', '养殖区名称', '养殖面积', '负责人', '养殖畜禽种类', '养殖规模', '详细地址', '图片', '备注信息'],
-            protos: ['pid', 'name', 'address', 'area', 'principal', 'kind', 'scale', 'address', 'img', 'meno'],
+            protos: ['name', 'name', 'area', 'principal', 'kind', 'scale', 'address', 'img', 'meno'],
             // selectSearch: ['farm.pid'],
             widths: [50, 50, 50, 50, 50, 50, 50, 50],
             typeComponent: [{
@@ -1735,6 +1747,184 @@ export default {
             }]
         },
         {
+            settitle: '养殖基础信息管理',
+            key: 'area',
+            tab: '圈舍档案',
+            url: 'area',
+            searchPlaceholder: '请输入圈舍名称进行搜索',
+            search: ['query_text', 'name'],
+            theads: ['所属养殖区', '圈舍名称', '圈舍面积', '图片', '备注信息'],
+            protos: ['farm_id', 'name', 'area', 'img', 'memo'],
+            selectSearch: ['farm_id'],
+            widths: [50, 50, 50, 50, 50],
+            typeComponent: [{
+                component: importBtn
+            },
+            {
+                component: output
+            },
+            {
+                component: newbuildBtn
+            }],
+            newComponent: [{
+                tab: '养殖区信息',
+                components: [{
+                    // 场名
+                    name: 'farm_id',
+                    type: 'select',
+                    component: null,
+                    isNull: false,
+                    label: '所属养殖区',
+                    placeholder: '必填',
+                    rule: {required: true, trigger: 'blur'},
+                    options: [
+                        {
+                            value: '', label: '请选择养殖区'
+                        },
+                        {
+                            value: '区A', label: '区A'
+                        },
+                        {
+                            value: '区B', label: '区B'
+                        }
+                    ]
+                },
+                {
+                    name: 'name',
+                    type: 'text',
+                    component: null,
+                    isNull: false,
+                    label: '圈舍名称',
+                    placeholder: '必填',
+                    rule: {required: true, trigger: 'blur'}
+                },
+                {
+                    name: 'area',
+                    type: 'text',
+                    component: null,
+                    isNull: false,
+                    label: '养殖面积',
+                    placeholder: '请填写数字（必填）',
+                    rule: {type: 'number', required: true, trigger: 'blur'},
+                    options: [
+                        {
+                            value: '', label: '亩'
+                        },
+                        {
+                            value: '平方米', label: '平方米'
+                        },
+                        {
+                            value: '公顷', label: '公顷'
+                        }
+                    ]
+                },
+                {
+                    name: 'img',
+                    type: 'file',
+                    component: inputFile,
+                    isNull: true,
+                    label: '',
+                    placeholder: '',
+                    rule: null
+                },
+                {
+                    name: 'memo',
+                    type: 'textarea',
+                    component: null,
+                    isNull: true,
+                    label: '备注信息',
+                    placeholder: '',
+                    rule: null
+                }
+                ]
+            }],
+            editComponent: [{
+                tab: '养殖区信息',
+                components: [{
+                    // 场名
+                    name: 'farm_id',
+                    type: 'select',
+                    component: null,
+                    isNull: false,
+                    label: '所属养殖区',
+                    placeholder: '必填',
+                    rule: {required: true, trigger: 'blur'},
+                    options: [
+                        {
+                            value: '', label: '请选择养殖区'
+                        },
+                        {
+                            value: '区A', label: '区A'
+                        },
+                        {
+                            value: '区B', label: '区B'
+                        }
+                    ]
+                },
+                {
+                    name: 'name',
+                    type: 'text',
+                    component: null,
+                    isNull: false,
+                    label: '圈舍名称',
+                    placeholder: '必填',
+                    rule: {required: true, trigger: 'blur'}
+                },
+                {
+                    name: 'area',
+                    type: 'text',
+                    component: null,
+                    isNull: false,
+                    label: '养殖面积',
+                    placeholder: '请填写数字（必填）',
+                    rule: {type: 'number', required: true, trigger: 'blur'},
+                    options: [
+                        {
+                            value: '', label: '亩'
+                        },
+                        {
+                            value: '平方米', label: '平方米'
+                        },
+                        {
+                            value: '公顷', label: '公顷'
+                        }
+                    ]
+                },
+                {
+                    name: 'img',
+                    type: 'file',
+                    component: inputFile,
+                    isNull: true,
+                    label: '',
+                    placeholder: '',
+                    rule: null
+                },
+                {
+                    name: 'memo',
+                    type: 'textarea',
+                    component: null,
+                    isNull: true,
+                    label: '备注信息',
+                    placeholder: '',
+                    rule: null
+                }
+                ]
+            }],
+            listComponent: [{
+                components: [{
+                    type: 'select',
+                    component: selectSection,
+                    options: [{
+                        value: '', label: '养殖场选择'
+                    },
+                    {
+                        value: '从化养殖基地', label: '从化养殖基地'
+                    }]
+                }]
+            }]
+        },
+        // header* select* selectSearch+
+        {
             settitle: '基础信息管理',
             key: 'beast',
             tab: '畜禽档案',
@@ -1742,7 +1932,7 @@ export default {
             searchPlaceholder: '请输入畜禽名称进行搜索',
             search: ['query_text', 'name'],
             theads: ['畜禽种类', '畜禽名称', '描述', 'RFID位置', '图片', '备注信息'],
-            protos: ['category_id', 'name', 'desctiption', 'ear', 'img', 'meno'],
+            protos: ['category_name', 'name', 'desctiption', 'ear', 'img', 'meno'],
             selectSearch: ['beast.img'],
             widths: [50, 50, 50, 50, 50, 50],
             typeComponent: [{
@@ -1868,6 +2058,7 @@ export default {
                 }]
             }]
         },
+        // header* select* selectSearch+
         {
             settitle: '基础信息管理',
             key: 'fodder',
@@ -1877,7 +2068,7 @@ export default {
             search: ['query_text', 'name'],
             theads: ['饲料类别', '饲料名称', '用途', '包装规格', '产地', '生产厂家名称', '联系方式', '图片', '备注信息'],
             protos: ['category_name', 'name', 'use', 'specification', 'address', 'vender_name', 'phone', 'img', 'memo'],
-            selectSearch: ['fodder.img'],
+            selectSearch: ['fodder.category_name'],
             widths: [50, 50, 50, 50, 50, 50],
             typeComponent: [{
                 component: importBtn
@@ -2082,14 +2273,15 @@ export default {
                         value: '', label: '请选择分类'
                     },
                     {
-                        value: '粗粮类', label: '粗粮类'
+                        value: '大包装', label: '大包装'
                     },
                     {
-                        value: '维生素类', label: '维生素类'
+                        value: '小包装', label: '小包装'
                     }]
                 }]
             }]
         },
+        // header* select* selectSearch+
         {
             settitle: '养殖基础信息管理',
             key: 'drug',
@@ -2098,7 +2290,7 @@ export default {
             searchPlaceholder: '请输入兽药名称',
             search: ['query_text', 'name'],
             theads: ['兽药分类', '兽药名称', '用途', '包装规格', '产地', '生产厂家名称', '联系方式', '图片', '备注信息'],
-            protos: ['category_id', 'name', 'use', 'specification', 'address', 'vender_name', 'phone', 'img', 'memo'],
+            protos: ['category_name', 'name', 'use', 'specification', 'address', 'vender_name', 'phone', 'img', 'memo'],
             selectSearch: ['drug.img'],
             widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
             typeComponent: [{
@@ -2316,15 +2508,18 @@ export default {
         }
     ],
     //  3.2.2养殖批次管理（*）
+    // header*(图片状态字段没有) select* selectSearch+ date+
     serialManage: [{
         settitle: '养殖批次管理',
         key: 'breed',
         tab: '养殖批次信息',
         url: 'breed',
+        // 批次信息模块数据
+        batch: 'breedBatch',
         searchPlaceholder: '请输入养殖批次号进行搜索',
         search: ['query_text', 'beast_name'],
-        theads: ['批次号', '养殖区', '畜禽', '日期', '数量', '养殖方式', '养殖人', '图片状态', '备注'],
-        protos: ['serial', 'area_name', 'beast_name', 'start_date', 'amount', 'why', 'operate_name', 'imgState', 'meno'],
+        theads: ['批次号', '养殖区', '畜禽', '日期', '数量', '面积', '养殖方式', '养殖人', '图片状态', '备注'],
+        protos: ['serial', 'area_name', 'beast_name', 'start_date', 'amount', 'way', 'operate_name', 'imgState', 'meno'],
         selectSearch: ['breed.serial'],
         widths: [50, 50, 50, 50, 50, 50, 50, 50, 50],
         typeComponent: [{
@@ -2527,16 +2722,18 @@ export default {
             }]
         }]
     }],
-    //  3.2.3饲料使用管理(*)
+    //  3.2.3饲料使用管理(*)(数据库没有，删除类型状态)
+    //  header*(图片状态字段没有) select+ selectSearch+ date+
     feedManage: [{
         settitle: '饲料使用管理',
         key: 'fodderuse',
         tab: '饲料使用信息',
         url: 'fodderuse',
         searchPlaceholder: '请输入饲料名称进行搜索',
-        search: ['query_text', 'name'],
-        theads: ['所属养殖区', '饲料批次号', '饲料日期', '饲料名称', '喂养方式', '专家', '操作人员', '喂养量', '类型状态', '备注信息'],
-        protos: ['name', 'serial', 'fodderuse_date', 'fodder_id', 'way', 'expert_id', 'operate_id', 'meno'],
+        search: ['query_text', 'fodder_name'],
+        selectSearch: ['fodderuse.fodder_name'],
+        theads: ['饲料批次号', '饲料日期', '饲料名称', '喂养方式', '专家', '操作人员', '喂养量', '备注信息'],
+        protos: ['serial', 'fodderuse_date', 'fodder_name', 'way', 'expert_name', 'operate_name', 'amount', 'meno'],
         widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
         typeComponent: [{
             component: output
@@ -2817,16 +3014,17 @@ export default {
     }
     ],
     //  3.2.4畜禽病疫管理（*）
+    // header* (用药日期字段没有) select+ selectSearch+ date+
     plagueManage: [{
         settitle: '病疫管理',
         key: 'disease',
         tab: '病疫信息',
         url: 'disease',
         searchPlaceholder: '请输入兽药名称',
-        search: ['query_text', 'disease'],
+        search: ['query_text', 'drug_name'],
+        selectSearch: ['disease.drug_name'],
         theads: ['病疫批次号', '兽药名称', '用药日期', '病情描述', '专家', '平均用药量', '治疗方式', '备注'],
         protos: ['serial', 'drug_name', 'date', 'description', 'expert_name', 'amount', 'way', 'meno'],
-        selectSearch: ['disease.drug_name'],
         widths: [50, 50, 50, 50, 50, 50, 50, 50],
         typeComponent: [{
             component: output
@@ -3212,12 +3410,15 @@ export default {
     }
     ],
     //  3.2.5畜禽检疫管理(*)
+     // header* select* selectSearch+ date+
     quarantineManage: [{
         settitle: '检疫管理',
         key: 'detection',
         tab: '检疫信息',
         url: 'detection',
         searchPlaceholder: '请输入检测项目名称进行',
+        search: ['query_text', 'name'],
+        selectSearch: ['detection.organization'],
         theads: ['检验批次号', '检测日期', '检测项目名称', '专家', '操作人员', '检测内容', '检测结果', '审批人', '检测报告图片', '备注'],
         protos: ['serial', 'date', 'name', 'expert_name', 'operate_name', 'content', 'result', 'check', 'img', 'memo'],
         widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
@@ -3493,16 +3694,17 @@ export default {
         }]
     }],
     //  3.2.6畜禽圈舍管理(*)
+    //  header*(少了操作类型,操作方式) select* selectSearch+ date+
     areaManage: [{
         settitle: '圈舍管理',
-        key: 'area',
+        key: 'clean',
         tab: '圈舍信息',
-        url: 'area',
+        url: 'clean',
         searchPlaceholder: '请输入圈舍名称进行',
         search: ['query_text', 'name'],
-        theads: ['所属养殖区', '圈舍名称', '面积', '养殖面积单位', '图片', '备注信息'],
-        protos: ['farm_id', 'name', 'area', 'area_unit', 'img', 'memo'],
-        selectSearch: ['farm.farm_id'],
+        theads: ['圈舍批次号', '操作类型', '操作方式', '操作内容', '专家', '操作人', '操作日期', '备注信息'],
+        protos: ['serial', 'name', 'way', 'content', 'expert_name', 'operate_name', 'date', 'memo'],
+        selectSearch: ['clean.expert_name'],
         widths: [50, 50, 50, 50, 50, 50],
         typeComponent: [{
             component: output
@@ -3554,6 +3756,20 @@ export default {
                 component: null,
                 isNull: false,
                 label: '操作人',
+                placeholder: '',
+                rule: {required: true, trigger: 'blur'},
+                options: [
+                    {
+                        value: '', label: '无'
+                    }
+                ]
+            },
+            {
+                name: 'user_id',
+                type: 'select',
+                component: null,
+                isNull: false,
+                label: '录入人',
                 placeholder: '',
                 rule: {required: true, trigger: 'blur'},
                 options: [
@@ -3653,6 +3869,20 @@ export default {
                 ]
             },
             {
+                name: 'user_id',
+                type: 'select',
+                component: null,
+                isNull: false,
+                label: '录入人',
+                placeholder: '',
+                rule: {required: true, trigger: 'blur'},
+                options: [
+                    {
+                        value: '', label: '无'
+                    }
+                ]
+            },
+            {
                 name: 'content',
                 type: 'date',
                 component: null,
@@ -3723,13 +3953,14 @@ export default {
         }]
     }],
     //  3.2.7无害化(新增)（*）
+    // header* select* selectSearch+ date+
     innocuityManage: [{
         settitle: '无害化管理',
         key: 'dispose',
         tab: '无害化信息',
         url: 'dispose',
         searchPlaceholder: '请输入操作内容进行',
-        search: ['query_text', 'why'],
+        search: ['query_text', 'content'],
         theads: ['无害化批次号', '操作日期', '操作内容', '实行原因', '指导专家', '备注信息'],
         protos: ['serial', 'date', 'content', 'why', 'expert_name', 'memo'],
         selectSearch: ['dispose.expert_name'],
@@ -3939,14 +4170,17 @@ export default {
         }]
     }],
     //  3.2.8畜禽出栏管理(*)
+    // header* select* selectSearch+ date+
     slaughterManage: [{
         settitle: '出栏管理',
         key: 'come',
         tab: '出栏信息',
         url: 'come',
-        searchPlaceholder: '请输入检测项目名称进行',
-        theads: ['批次号', '出栏日期', '出栏数量', '操作人员', '状态', '备注'],
-        protos: ['type', 'code', 'description', 'code', 'description', 'memo'],
+        searchPlaceholder: '请输入出栏批次进行搜索',
+        search: ['query_text', 'serial'],
+        // selectSearch: ['come.expert_name'],
+        theads: ['出栏批次号', '出栏日期', '出栏数量', '操作人员', '状态', '备注'],
+        protos: ['serial', 'date', 'amount', 'operate_name', 'state', 'memo'],
         widths: [50, 50, 50, 50, 50, 50],
         typeComponent: [{
             component: output
@@ -4101,6 +4335,7 @@ export default {
         }]
     }],
     //  3.2.9养殖计划管理(新增)
+    // 后台数据报错
     planManage: [{
         settitle: '养殖计划管理',
         key: 'plan',
