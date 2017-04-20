@@ -46,7 +46,7 @@
              @submitEdit="hangeEdit" :changeDataArr="changeDataArr" :editDefault="editDefault"></pop-edit>
     </div>
     <!-- 列表模块 -->
-    <el-table :data="tableData"  @selection-change="handleSelectionChange">
+    <el-table :data="tableData"  @selection-change="handleSelectionChange" @cell-click="jumpDetails">
 
         <!-- checkbox -->
         <el-table-column width="50" type="selection">
@@ -57,25 +57,36 @@
         </el-table-column>
 
         <!-- 中间列表模块 -->
-        <template v-for="(item,index) in theads">
-          <template v-if="protos[index]=='img'">
+        <template v-for="(item,index) in theads"> 
+        <!-- <template v-if="protos[index]=='img'">
             <el-table-column :label="item" :min-width="widths[index]" :prop="protos[index]">
                 <template scope="scope">
                     <img v-if="tableData[scope.$index][protos[index]]!=null && tableData[scope.$index][protos[index]]!=''" 
                         :src="$img('images/ok.png')">
                 </template>
             </el-table-column>
-          </template>
-          <template v-else>
-            <el-table-column 
-              :prop="protos[index]"
-              :label="item" 
-              :min-width="widths[index]"
-              show-overflow-tooltip>
-            </el-table-column>
-          </template>
+          </template> -->
+            <template>
+                <el-table-column
+                    :label="item"
+                    :prop="protos[index]"
+                    :min-width="widths[index]"
+                    show-overflow-tooltip>
+                    <template  scope="scope">
+                            <div v-if="item.includes('批次号')" slot="reference" class="name-wrapper pcActive" >
+                                {{ scope.row[protos[index]] }}
+                            </div>
+                            <div v-else-if="protos[index]=='img'" slot="reference" class="name-wrapper" >
+                                <img v-if="tableData[scope.$index][protos[index]]!=null && tableData[scope.$index][protos[index]]!=''" 
+                                    :src="$img('images/ok.png')">
+                            </div>
+                            <div v-else slot="reference" class="name-wrapper" >
+                                {{ scope.row[protos[index]] }}
+                            </div>
+                    </template>
+                </el-table-column>
+            </template>
         </template>
-
         <!-- 列表操作模块 -->
         <el-table-column 
         label="操作">
@@ -145,6 +156,7 @@ export default {
                     searchPlaceholder: '',
                     protos: ['name'],
                     widths: [50],
+                    batch: '',
                     title: '',
                     settitle: '',
                     options: [],
@@ -204,7 +216,9 @@ export default {
             // 复选框选中返回对象
             checkObject: {},
             // 获取下拉框数据
-            selectArrSet: []
+            selectArrSet: [],
+            // 批次号
+            isPcActive: true
         }
     },
     mixins: [computed],
@@ -214,6 +228,17 @@ export default {
             this.activeName = 0
             this.$set(this, 'tableData', [])
             this.$set(this, 'multipleSelection', [])
+        },
+        jumpDetails (row, column, cell, event) {
+            // console.log(row)
+            // console.log(column)
+            // console.log(cell)
+            // console.log(event)
+            if (column.label.indexOf('批次号') !== -1) {
+                console.log(111)
+                console.log(this.batch)
+                this.$router.push('/index/details/' + this.batch)
+            }
         },
         /**
          * 列表选择事件
@@ -496,6 +521,10 @@ export default {
 
 
 <style lang='sass'>
+    .pcActive{
+        color: blue;
+        text-decoration: underline;
+    }
 	 .searchInp{
 	 	width:161px;
 	 	margin-bottom:10px;
@@ -586,6 +615,8 @@ export default {
          }
      }
      
-     
+     .detaActive{
+        background: red;
+     }
      
 </style>

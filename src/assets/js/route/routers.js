@@ -32,6 +32,13 @@ const basic = resolve => {
     }, 'basic')
 }
 
+// ---------------------------批次详情页----------------------------------
+const details = resolve => {
+    require.ensure(['../page/plant-details/details.vue'], () => {
+        resolve(require('../page/plant-details/details.vue'))
+    }, 'details')
+}
+
 const routes = [
     {
         path: '/index',
@@ -46,6 +53,13 @@ const routes = [
             path: 'message/:model',
             component: basic,
             // 需要登录才能进入此路由
+            meta: {
+                requiresAuth: true
+            }
+        },
+        {
+            path: 'details/:model',
+            component: details,
             meta: {
                 requiresAuth: true
             }

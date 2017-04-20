@@ -68,6 +68,9 @@ export default {
         },
         selectDefault () {
             return this.models[this.modelIndex].selectDefault
+        },
+        batch () {
+            return this.models[this.modelIndex].batch
         }
     }
 }
