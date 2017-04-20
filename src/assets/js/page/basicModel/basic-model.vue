@@ -58,14 +58,6 @@
 
         <!-- 中间列表模块 -->
         <template v-for="(item,index) in theads"> 
-        <!-- <template v-if="protos[index]=='img'">
-            <el-table-column :label="item" :min-width="widths[index]" :prop="protos[index]">
-                <template scope="scope">
-                    <img v-if="tableData[scope.$index][protos[index]]!=null && tableData[scope.$index][protos[index]]!=''" 
-                        :src="$img('images/ok.png')">
-                </template>
-            </el-table-column>
-          </template> -->
             <template>
                 <el-table-column
                     :label="item"
