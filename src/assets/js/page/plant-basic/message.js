@@ -1942,7 +1942,7 @@ export default {
         },
         // header* select* selectSearch+
         {
-            settitle: '基础信息管理',
+            settitle: '养殖基础信息管理',
             key: 'beast',
             tab: '畜禽档案',
             url: 'beast',
@@ -5940,7 +5940,7 @@ export default {
             key: 'fertilize',
             tab: '施肥信息',
             url: 'fertilize',
-            searchPlaceholder: 'q请输入肥料名称进行搜索',
+            searchPlaceholder: '请输入肥料名称进行搜索',
             theads: ['批次号', '施肥日期', '天气', '肥料', '施用量(Kg)', '施肥人', '施肥方法', '录入人', '备注'],
             protos: ['serial', 'date', 'weather', 'manure_name', 'unit', 'operate_name', 'way', 'user_name', 'memo'],
             widths: [50, 50, 50, 50, 50, 50, 50, 50, 50],
@@ -6228,6 +6228,7 @@ export default {
         key: 'harvest',
         tab: '采收批次信息',
         url: 'harvest',
+        batch: 'cultivateBatch',
         searchPlaceholder: '请输入采收批次号进行搜索',
         theads: ['种植', '批次号', '种植日期', '采收数量', '入库部门', '存放仓库位置', '操作人', '录入人', '备注'],
         protos: ['plantation_name', 'serial', 'date', 'amount', 'department', 'position', 'operate_name', 'user_name', 'memo'],
@@ -7451,9 +7452,9 @@ export default {
     saleProduct: [
         {
             settitle: '销售商品库管理',
-            key: 'goods',
+            key: 'storage',
             tab: '商品入库信息',
-            url: 'goods',
+            url: 'storage',
             searchPlaceholder: '请输入商品名称进行搜索',
             theads: ['商品名称', '入库数量', '销售数量', '入库库存', '备注'],
             protos: ['plan_type_name', 'name', 'content', 'name', 'memo'],
