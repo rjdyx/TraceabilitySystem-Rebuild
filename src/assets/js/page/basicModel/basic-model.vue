@@ -181,7 +181,9 @@ export default {
             // 搜索框内容
             inputValue: '',
             // 下拉框
-            selectVal: '',
+            selectVal: [],
+            // 分页
+            pageVal: 1,
             // tab模块选择标志
             modelIndex: 0,
             modelName: this.$route.params,
@@ -223,10 +225,6 @@ export default {
             this.$set(this, 'multipleSelection', [])
         },
         jumpDetails (row, column, cell, event) {
-            // console.log(row)
-            // console.log(column)
-            // console.log(cell)
-            // console.log(event)
             if (column.label.indexOf('批次号') !== -1) {
                 console.log(111)
                 console.log(this.batch)
@@ -365,29 +363,38 @@ export default {
         },
         // 文本查询
         textFind () {
+            this.dataArr = {}
             this.dataArr['query_text'] = this.inputValue
-            if (this.selectVal !== '') {
-                this.dataArr[this.selectSearch[0]] = this.selectVal
+            for (let index in this.selectSearch) {
+                this.dataArr[this.selectSearch[index]] = this.selectVal[index]
             }
-            this.pageChange(1)
+            this.dataArr['page'] = this.pageVal
+            this.boxArr(this.dataArr)
         },
         // 下拉框查询
         selectFind (val) {
-            this.selectVal = val
-            // this.dataArr = {}
-            if (val !== '') {
-                this.dataArr['query_text'] = this.inputValue
-                this.dataArr[this.selectSearch[0]] = val
-            } else {
-                this.dataArr = ''
+            for (let index in this.selectSearch) {
+                if (val[0] === this.selectSearch[index]) {
+                    this.selectVal[index] = val[1]
+                }
             }
-            this.pageChange(1)
+            this.dataArr[val[0]] = val[1]
+            this.dataArr['query_text'] = this.inputValue
+            this.dataArr['page'] = this.pageVal
+            this.boxArr(this.dataArr)
+        },
+        // 组合查询
+        boxArr (dataArr) {
+            this.getAllMsg(dataArr)
         },
         // 分页跳转
         pageChange (val) {
-            if (this.dataArr === '') {
-                this.dataArr = {}
+            this.dataArr = {}
+            this.dataArr['query_text'] = this.inputValue
+            for (let index in this.selectSearch) {
+                this.dataArr[this.selectSearch[index]] = this.selectVal[index]
             }
+            this.pageVal = val
             this.dataArr['page'] = val
             this.getAllMsg(this.dataArr)
         },
@@ -397,6 +404,7 @@ export default {
         },
         // 删除数据
         delSuccess (index) {
+            this.getSelect()
             this.tableData.splice(index, 1)
         },
         // 批量删除
@@ -415,6 +423,7 @@ export default {
                     axios.post(this.$adminUrl('util/batch-delete/' + this.url), paramsDel)
                     .then((responce) => {
                         if (responce.data === 'true') {
+                            this.getSelect()
                             this.pageChange(1)
                             this.$message({
                                 type: 'success',
@@ -437,6 +446,7 @@ export default {
             if (val !== 'false') {
                 this.isNewShow = false
                 this.pageChange(1)
+                this.getSelect()
                 this.$message({
                     type: 'success',
                     message: '新增数据成功'
@@ -449,6 +459,7 @@ export default {
         hangeEdit (val) {
             if (val !== 'false') {
                 this.isEditShow = false
+                this.getSelect()
                 this.pageChange(1)
                 this.$message({
                     type: 'success',
@@ -463,17 +474,27 @@ export default {
             if (this.paramsIndex !== undefined) {
                 var type = this.paramsIndex
             }
+            this.selectArrSet = []
             var getSelect = {'getSelect': '444'}
             this.$dataGet(this, this.url, {getSelect: getSelect, type: type})
                 .then((responce) => {
                     // 数据转换
                     if (responce.data.length !== 0) {
-                        let opt = this.$selectData(this.url, responce.data, this.selectValueId)
-                        this.selectArrSet.push(this.selectDefault)
-                        for (let key of Object.keys(opt)) {
-                            this.selectArrSet.push(opt[key])
+                        for (let index in this.selectValueId) {
+                            this.selectArrSet[index] = []
+                            let opt = this.$selectData(this.url, responce.data, this.selectValueId[index])
+                            this.selectArrSet[index].push(this.selectDefault[index])
+                            for (let key of Object.keys(opt)) {
+                                this.selectArrSet[index].push(opt[key])
+                            }
+                            this.listComponent[0].components[index].options = this.selectArrSet[index]
                         }
-                        this.listComponent[0].components[0].options = this.selectArrSet
+                    } else {
+                        for (let index in this.selectValueId) {
+                            this.selectArrSet[index] = []
+                            this.selectArrSet[index].push(this.selectDefault[index])
+                            this.listComponent[0].components[index].options = this.selectArrSet[index]
+                        }
                     }
                 })
         }
@@ -491,14 +512,12 @@ export default {
             this.modelIndex = 0
             this.activeName = 'index0'
         },
-        key (news, old) {
+        key () {
             this.tableData = []
             if (this.selectValueId !== undefined) {
                 this.getSelect()
             }
             this.getAllMsg()
-            this.selectArrSet = []
-            this.inputValue = ''
         }
     },
     components: {
