@@ -128,6 +128,39 @@ export default {
         }
     },
     mounted () {
+         /**
+        * 点击表单拖拽事件
+        */
+        var _this = this
+        $('.el-tabs__header').on('mousedown', (e) => {
+            // console.log('mousedown')
+            // 鼠标与newForm块的距离
+            this.dmL = e.clientX - $('.newForm').position().left
+            this.dmT = e.clientY - $('.newForm').position().top
+            $(document).on('mousemove', (e) => {
+                // console.log('mousemove')
+                var L = e.clientX - _this.dmL
+                var T = e.clientY - _this.dmT
+                var maxL = $(document).outerWidth() - $('.newForm').innerWidth()
+                var maxT = $(document).outerHeight() - $('.newForm').innerHeight()
+                if (L > maxL) {
+                    L = maxL
+                } else if (L < 0) {
+                    L = 0
+                }
+                if (T > maxT) {
+                    T = maxT
+                } else if (T < 0) {
+                    T = 0
+                }
+                $('.newForm').css({left: L + 'px', top: T + 'px'})
+            })
+        })
+        $(document).on('mouseup', () => {
+            $(document).off('mousemove')
+            // $(document).off('mouseup')
+            // console.log('mouseup')
+        })
     },
     methods: {
         handleClick (tab, event) {
