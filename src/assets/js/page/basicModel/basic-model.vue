@@ -12,7 +12,7 @@
     </contain-title>
     
   <!-- tab栏 --> 
-    <el-tabs v-model="activeName" id="tabs" @tab-click="tabClick">
+    <el-tabs v-model="activeName" id="tabs" @tab-click="tabClick" type="card">
         <el-tab-pane v-for="(model,index) in models" :label="model.tab" :name="'index'+index"></el-tab-pane>
     </el-tabs>  
     <!-- 操作模块 -->
@@ -37,6 +37,7 @@
                 :params="typeOperate.params"
                 class="fr"
             ></component> 
+            
         </div>
 
         <!-- 新建模块 --> 
@@ -120,7 +121,7 @@
     </div>
     
 </div> 
-</template>
+</template> 
  
 <script>
 import computed from './computed.js'

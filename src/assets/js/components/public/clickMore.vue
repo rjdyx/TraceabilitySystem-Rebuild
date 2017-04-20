@@ -9,7 +9,7 @@
 <template>
 <div>
 	<div>
-        <!-- 更多选项 -->
+        <!-- 更多选项 --> 
 		<el-dropdown class="more" @command="handleCommand">
 			<span class="el-dropdown-link">
 				更多
@@ -23,11 +23,11 @@
 		</el-dropdown>
 	</div>
     <!-- 弹出框 -->
-	<popNew v-if="isNewShow" :newComponent="newComponent"></popNew>
+	<moreNew v-if="isNewShow" :more="more"></moreNew>
     <!-- 视频弹出框 -->
     <div class="videoWrap" v-if="isShow">
         <div class="video">
-            <video>不会就不服惹桃花=</video>
+            <video></video>
             <i class="closeIcon" @click="closeClick"></i>
         </div>
     </div>
@@ -36,14 +36,15 @@
 
 <script>
     import more from '../../page/more/more.js'
-    import popNew from '../public/popNew.vue'
+    import moreNew from '../public/moreNew.vue'
     export default {
         name: 'clickMore',
         data () {
             return {
                 isNewShow: false,
                 isShow: false,
-                newComponent: []
+                // newComponent: [],
+                more: more
             }
         },
         props: {
@@ -71,9 +72,9 @@
                         })
                     })
                 } else if (command === '图片') {
-                    this.isNewShow = true
+                    this.isNewShow = !this.isNewShow
                 } else if (command === '视频') {
-                    this.isShow = true
+                    this.isShow = !this.isShow
                 }
             },
             closeClick () {
@@ -81,7 +82,10 @@
             }
         },
         components: {
-            popNew
+            moreNew
+        },
+        mounted () {
+            console.log(this.tab)
         }
     }
 </script>

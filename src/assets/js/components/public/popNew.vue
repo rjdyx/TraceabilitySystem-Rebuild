@@ -238,7 +238,7 @@ export default {
   left:0;
   z-index:2;
   text-align:center;
-  overflow:hidden;
+  // overflow:hidden;
   .newForm{
     width:618px;
     position: absolute;
@@ -250,7 +250,7 @@ export default {
     border-radius:2px;  
     .el-tabs{
        max-height:618px;
-       overflow:scroll;
+       // overflow:scroll;
       .el-tabs__content{
         padding:20px 70px;
         box-sizing:border-box;

@@ -1,66 +1,79 @@
 import validate2 from '../../utils/validate2.js'
+
+import importBtn from '../../components/public/import-btn.vue'
+import newbuildBtn from '../../components/public/newbuild-btn.vue'
+import output from '../../components/public/output.vue'
+import selectSection from '../../components/public/select-section.vue'
+import datePick from '../../components/public/datePick.vue'
+
+import categoryBtn from '../../components/public/categoryBtn.vue'
+import inputText from '../../components/public/inputText.vue'
+import inputTextArea from '../../components/public/inputTextArea.vue'
+import inputSelect from '../../components/public/inputSelect.vue'
+import inputDate from '../../components/public/inputDate.vue'
+import inputFile from '../../components/public/inputFile.vue'
+import inputTextSelect from '../../components/public/inputTextSelect.vue'
+
 export default [{
-    newComponent: [{
-        tab: '新建分类档案信息',
-        components: [{
-            name: 'name',
-            type: 'text',
-            component: null,
-            isNull: false,
-            label: '分类名称',
-            placeholder: '必填',
-            rule: [{required: true, message: '请输入分类名称', trigger: 'blur'}, {validator: validate2.reCheck}]
-        },
-        {
-            name: 'type',
-            type: 'select',
-            component: null,
-            isNull: false,
-            label: '模块类型',
-            placeholder: '',
-            rule: {required: true, message: '请输入模块类型', trigger: 'blur'},
-            options: [{
-                value: 'operate', label: '操作人员'
+    // 种植批次
+    plantSerial: [{
+        settitle: '种植批次管理',
+        key: 'cultivate',
+        tab: '种植批次信息',
+        url: 'cultivate',
+        theads: ['所属种植区', '种植批次号', '果蔬名称', '种植日期', '种植面积', '种植人', '录入人', '备注'],
+        protos: ['plantation_name', 'serial', 'plant_name', 'date', 'area', 'operate_name', 'user_name', 'memo'],
+        widths: [50, 50, 50, 50, 50, 50, 50, 50],
+        listComponent: [{
+            components: [{
+                type: 'select',
+                component: selectSection,
+                options: [{
+                    value: '',
+                    label: '产品品牌'
+                },
+                {
+                    value: '康乐牌',
+                    label: '康乐牌'
+                }]
             },
             {
-                value: 'expert', label: '专家'
+                type: 'select',
+                component: selectSection,
+                options: [{
+                    value: '',
+                    label: '产品品牌'
+                },
+                {
+                    value: '康乐牌',
+                    label: '康乐牌'
+                }]
             },
             {
-                value: 'product', label: '产品'
+                type: 'select',
+                component: selectSection,
+                options: [{
+                    value: '',
+                    label: '产品品牌'
+                },
+                {
+                    value: '康乐牌',
+                    label: '康乐牌'
+                }]
             },
             {
-                value: 'supplier', label: '供货商'
-            },
-            {
-                value: 'client', label: '客户'
-            },
-            {
-                value: 'fodder', label: '饲料'
-            },
-            {
-                value: 'beast', label: '畜禽'
-            },
-            {
-                value: 'drug', label: '兽药'
-            },
-            {
-                value: 'plant', label: '果蔬'
-            },
-            {
-                value: 'manure', label: '肥料'
-            },
-            {
-                value: 'medicament', label: '农药'
+                type: 'date',
+                component: datePick
             }]
-        },
-        {
-            name: 'memo',
-            type: 'textarea',
-            component: null,
-            isNull: true,
-            label: '备注信息',
-            placeholder: '',
-            rule: null
-        }]
+        }],
+        typeComponent: [
+            {
+                component: output
+            },
+            {
+                component: newbuildBtn
+            }],
+        lotComponent: [{value: '批量农事'}, {value: '批量施肥'}, {value: '批量施药'}, {value: '批量检测'}],
+        moreComponent: [{value: '状态'}, {value: '农事'}, {value: '施肥'}, {value: '施药'}, {value: '检测'}, {value: '采收'}, {value: '图片'}]
     }]
 }]
