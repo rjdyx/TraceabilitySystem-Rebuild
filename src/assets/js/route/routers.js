@@ -59,7 +59,7 @@ const routes = [
             }
         },
         {
-            path: 'details/:model',
+            path: 'details/:model/:id',
             component: details,
             meta: {
                 requiresAuth: true
