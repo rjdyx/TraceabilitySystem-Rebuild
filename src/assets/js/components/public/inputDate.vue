@@ -6,7 +6,8 @@
 
  */
 <template>
-	<el-date-picker size="small" class="inputData" v-model="value" type="date" placeholder="选择日期">
+	<el-date-picker size="small" class="inputData" v-model="value" @change="getDate" type="date"
+     :editable="false" format="yyyy-MM-dd" placeholder="选择日期" >
 	</el-date-picker>
 </template>
 <script>
@@ -23,6 +24,12 @@
         data () {
             return {
                 value: this.editValue
+            }
+        },
+        methods: {
+            getDate (val) {
+                this.value = val
+                // this.$emit('return-shuju', {name: this.shuju.name, value: val})
             }
         },
         watch: {

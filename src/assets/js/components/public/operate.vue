@@ -16,7 +16,7 @@
 					<el-button size="small">水果类</el-button>
 				</div>
 				<!-- 下拉框	 -->
-				<el-select class="select inline" size="small" v-model="value" v-else-if="item.type=='select'" @change="getSelect">
+				<el-select class="select inline" size="small" v-model="item.value" v-else-if="item.type=='select'" @change="getSelect(item.name,item.value)">
 					<el-option v-for="option in item.options" :label="option.label" :value="option.value">
 					</el-option>
 				</el-select>
@@ -27,7 +27,10 @@
 			                <el-date-picker 
 			                  size="small"
 			                  v-model="value1"
-			                  type="date">
+			                  type="date"
+			                  :editable="false"
+			                  @change="getBeforeDate"
+			                  format="yyyy-MM-dd">
 			                </el-date-picker>
 			            </span>
 					<span class="left">
@@ -35,7 +38,10 @@
 			                <el-date-picker 
 			                  size="small"
 			                  v-model="value2"
-			                  type="date">
+			                  type="date"
+			                  :editable="false"
+			                  @change="getAfterDate"
+			                  format="yyyy-MM-dd">
 			                </el-date-picker>
 			            </span>
 				</div>
@@ -64,8 +70,14 @@
             }
         },
         methods: {
-            getSelect () {
-                this.$emit('selectVal', this.value)
+            getSelect (name, val) {
+                this.$emit('selectVal', [name, val])
+            },
+            getBeforeDate (val) {
+                this.$parent.dateFind('beforeDate', val)
+            },
+            getAfterDate (val) {
+                this.$parent.dateFind('afterDate', val)
             }
         },
         watch: {

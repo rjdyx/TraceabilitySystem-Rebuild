@@ -162,6 +162,11 @@ export default {
             // console.log('mouseup')
         })
     },
+    watch: {
+        editComponent () {
+            this.editForm[subItem.name] = ''
+        }
+    },
     methods: {
         handleClick (tab, event) {
             console.log(tab, event)

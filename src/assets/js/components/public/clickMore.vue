@@ -83,7 +83,6 @@
         components: {
         },
         mounted () {
-            console.log(this.tab)
         }
     }
 </script>
