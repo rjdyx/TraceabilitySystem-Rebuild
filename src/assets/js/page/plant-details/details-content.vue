@@ -1,4 +1,4 @@
-* @description 中间列表模块内容
+* @description 详情页中间列表模块内容
  * @author 吴燕萍
  * @date 2017/4/19
  *   
