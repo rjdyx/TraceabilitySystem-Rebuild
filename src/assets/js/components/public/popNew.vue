@@ -192,8 +192,8 @@ export default {
             console.log(tab, event)
         },
         // 返回InputTextSelect组件的数据
-        returnShuju ({name, value}) {
-            this.tableForm[name] = value
+        returnShuju (data) {
+            this.tableForm[data.name] = data.value
         },
         // 关闭表单事件
         closeClick () {

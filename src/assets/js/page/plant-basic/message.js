@@ -39,6 +39,7 @@ export default {
         listComponent: [{
             components: [{
                 value: '',
+                name: 'type',
                 type: 'select',
                 component: selectSection,
                 options: [{
@@ -233,6 +234,7 @@ export default {
         }],
         listComponent: [{
             components: [{
+                name: 'operates.category_id',
                 value: '',
                 type: 'select',
                 component: selectSection,
@@ -241,10 +243,10 @@ export default {
         }],
         newComponent: [{
             tab: '新建人员档案信息',
-            selectUrl: ['category', 'operate', 'category_id', 'category_name', true],
+            selectUrl: [['category', 'operate', 'category_id', 'category_name', true]],
             checkNumber: 1,
             hasImg: true,
-            popNumber: 0,
+            popNumber: [0],
             components: [{
                 name: 'category_id',
                 type: 'select',
@@ -339,8 +341,9 @@ export default {
         }],
         editComponent: [{
             tab: '编辑人员档案信息',
-            selectUrl: ['category', 'operate', 'category_id', 'category_name', true],
+            selectUrl: [['category', 'operate', 'category_id', 'category_name', true]],
             checkNumber: 1,
+            popNumber: [0],
             hasImg: true,
             components: [{
                 name: 'category_id',
@@ -460,9 +463,9 @@ export default {
         }],
         newComponent: [{
             tab: '新建专家档案信息',
-            selectUrl: ['category', 'expert', 'category_id', 'category_name', true],
+            selectUrl: [['category', 'expert', 'category_id', 'category_name', true]],
             checkNumber: 1,
-            popNumber: 0,
+            popNumber: [0],
             components: [{
                 name: 'category_id',
                 type: 'select',
@@ -566,8 +569,9 @@ export default {
         }],
         editComponent: [{
             tab: '编辑专家档案信息',
-            selectUrl: ['category', 'expert', 'category_id', 'category_name', true],
+            selectUrl: [['category', 'expert', 'category_id', 'category_name', true]],
             checkNumber: 1,
+            popNumber: [0],
             components: [{
                 name: 'category_id',
                 type: 'select',
@@ -671,6 +675,7 @@ export default {
         }],
         listComponent: [{
             components: [{
+                name: 'experts.category_id',
                 value: '',
                 type: 'select',
                 component: selectSection,
@@ -710,9 +715,9 @@ export default {
         }],
         newComponent: [{
             tab: '新建客户档案信息',
-            selectUrl: ['category', 'client', 'category_id', 'category_name', true],
+            selectUrl: [['category', 'client', 'category_id', 'category_name', true]],
             checkNumber: 1,
-            popNumber: 0,
+            popNumber: [0],
             components: [{
                 name: 'category_id',
                 type: 'select',
@@ -793,8 +798,9 @@ export default {
         }],
         editComponent: [{
             tab: '编辑专家档案信息',
-            selectUrl: ['category', 'client', 'category_id', 'category_name', true],
+            selectUrl: [['category', 'client', 'category_id', 'category_name', true]],
             checkNumber: 1,
+            popNumber: [0],
             components: [{
                 name: 'category_id',
                 type: 'select',
@@ -877,9 +883,9 @@ export default {
         }],
         newComponent: [{
             tab: '新建供货商档案信息',
-            selectUrl: ['category', 'supplier', 'category_id', 'category_name', true],
+            selectUrl: [['category', 'supplier', 'category_id', 'category_name', true]],
             checkNumber: 1,
-            popNumber: 0,
+            popNumber: [0],
             components: [{
                 name: 'category_id',
                 type: 'select',
@@ -939,8 +945,9 @@ export default {
         }],
         editComponent: [{
             tab: '编辑供货商档案信息',
-            selectUrl: ['category', 'supplier', 'category_id', 'category_name', true],
+            selectUrl: [['category', 'supplier', 'category_id', 'category_name', true]],
             checkNumber: 1,
+            popNumber: [0],
             components: [{
                 name: 'category_name',
                 type: 'select',
@@ -999,6 +1006,7 @@ export default {
         }],
         listComponent: [{
             components: [{
+                name: 'clients.category_id',
                 value: '',
                 type: 'select',
                 component: selectSection,
@@ -1030,9 +1038,9 @@ export default {
         }],
         newComponent: [{
             tab: '新建产品信息',
-            selectUrl: ['category', 'product', 'category_id', 'category_name', true],
+            selectUrl: [['category', 'product', 'category_id', 'category_name', true]],
             checkNumber: 1,
-            popNumber: 0,
+            popNumber: [0],
             components: [{
                 name: 'category_id',
                 type: 'select',
@@ -1146,8 +1154,9 @@ export default {
         }],
         editComponent: [{
             tab: '编辑产品信息',
-            selectUrl: ['category', 'product', 'category_id', 'category_name', true],
+            selectUrl: [['category', 'product', 'category_id', 'category_name', true]],
             checkNumber: 1,
+            popNumber: [0],
             components: [{
                 name: 'category_id',
                 type: 'select',
@@ -1261,6 +1270,7 @@ export default {
         }],
         listComponent: [{
             components: [{
+                name: 'products.category_id',
                 value: '',
                 type: 'select',
                 component: selectSection,
@@ -5120,6 +5130,7 @@ export default {
             }],
             listComponent: [{
                 components: [{
+                    name: 'planta.pid',
                     value: '',
                     type: 'select',
                     component: selectSection,
@@ -5128,9 +5139,9 @@ export default {
             }],
             newComponent: [{
                 tab: '新建种植区信息',
-                selectUrl: ['plantation', 'planta', 'pid', 'plantation_name', true],
+                selectUrl: [['plantation', 'planta', 'pid', 'plantation_name', true]],
                 checkNumber: 1,
-                popNumber: 0,
+                popNumber: [0],
                 components: [{
                     name: 'pid',
                     type: 'select',
@@ -5221,8 +5232,9 @@ export default {
             }],
             editComponent: [{
                 tab: '编辑种植区信息',
-                selectUrl: ['plantation', 'planta', 'pid', 'plantation_name', true],
+                selectUrl: [['plantation', 'planta', 'pid', 'plantation_name', true]],
                 checkNumber: 1,
+                popNumber: [0],
                 components: [{
                     name: 'pid',
                     type: 'select',
@@ -5335,6 +5347,7 @@ export default {
             }],
             listComponent: [{
                 components: [{
+                    name: 'plants.category_id',
                     value: '',
                     type: 'select',
                     component: selectSection,
@@ -5343,9 +5356,9 @@ export default {
             }],
             newComponent: [{
                 tab: '新建果蔬档案',
-                selectUrl: ['category', 'plant', 'category_id', 'category_name', true],
+                selectUrl: [['category', 'plant', 'category_id', 'category_name', true]],
                 checkNumber: 1,
-                popNumber: 0,
+                popNumber: [0],
                 components: [{
                     name: 'category_id',
                     type: 'select',
@@ -5400,8 +5413,9 @@ export default {
             }],
             editComponent: [{
                 tab: '编辑果蔬档案',
-                selectUrl: ['category', 'plant', 'category_id', 'category_name', true],
+                selectUrl: [['category', 'plant', 'category_id', 'category_name', true]],
                 checkNumber: 1,
+                popNumber: [0],
                 components: [{
                     name: 'category_id',
                     type: 'select',
@@ -5478,6 +5492,7 @@ export default {
             }],
             listComponent: [{
                 components: [{
+                    name: 'manures.category_id',
                     value: '',
                     type: 'select',
                     component: selectSection,
@@ -5486,9 +5501,9 @@ export default {
             }],
             newComponent: [{
                 tab: '新建肥料档案',
-                selectUrl: ['category', 'manure', 'category_id', 'category_name', true],
+                selectUrl: [['category', 'manure', 'category_id', 'category_name', true]],
                 checkNumber: 1,
-                popNumber: 0,
+                popNumber: [0],
                 components: [{
                     name: 'category_id',
                     type: 'select',
@@ -5552,8 +5567,9 @@ export default {
             }],
             editComponent: [{
                 tab: '编辑肥料信息',
-                selectUrl: ['category', 'manure', 'category_id', 'category_name', true],
+                selectUrl: [['category', 'manure', 'category_id', 'category_name', true]],
                 checkNumber: 1,
+                popNumber: [0],
                 components: [{
                     name: 'category_id',
                     type: 'select',
@@ -5625,7 +5641,7 @@ export default {
             selectValueId: [['category_id', 'category_name', true]],
             searchPlaceholder: '请输入农药名称',
             selectDefault: [{value: '', label: '农药类别'}],
-            theads: ['农药分类', '农药名称', '分类', '用途', '防治对象', '药物毒性', '包装规格', '厂家名称', '产地', '联系方式', '备注'],
+            theads: ['农药分类', '农药名称', '用途', '防治对象', '药物毒性', '包装规格', '厂家名称', '产地', '联系方式', '备注'],
             protos: ['category_name', 'name', 'usage', 'control_objects', 'toxicity_grade', 'specification', 'manufacturer', 'origin', 'phone', 'memo'],
             widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
             typeComponent: [{
@@ -5639,6 +5655,7 @@ export default {
             }],
             listComponent: [{
                 components: [{
+                    name: 'medicaments.category_id',
                     value: '',
                     type: 'select',
                     component: selectSection,
@@ -5647,9 +5664,9 @@ export default {
             }],
             newComponent: [{
                 tab: '新建农药档案',
-                selectUrl: ['category', 'medicament', 'category_id', 'category_name', true],
+                selectUrl: [['category', 'medicament', 'category_id', 'category_name', true]],
                 checkNumber: 1,
-                popNumber: 0,
+                popNumber: [0],
                 components: [{
                     name: 'category_id',
                     type: 'select',
@@ -5754,8 +5771,9 @@ export default {
             }],
             editComponent: [{
                 tab: '编辑农药档案',
-                selectUrl: ['category', 'medicament', 'category_id', 'category_name', true],
+                selectUrl: [['category', 'medicament', 'category_id', 'category_name', true]],
                 checkNumber: 1,
+                popNumber: [0],
                 components: [{
                     name: 'category_id',
                     type: 'select',
@@ -5867,6 +5885,7 @@ export default {
         tab: '种植批次信息',
         url: 'cultivate',
         selectSearch: ['plantations.id', 'plants.id'],
+        dateSearch: ['cultivates.date'],
         selectValueId: [['plantation_id', 'plantation_name', true], ['plant_id', 'plant_name', true]],
         selectDefault: [{value: '', label: '种植区选择'}, {value: '', label: '果蔬选择'}],
         searchPlaceholder: '请输入种植批次号进行搜索',
@@ -5886,19 +5905,178 @@ export default {
                 value: '',
                 type: 'select',
                 component: selectSection,
-                options: [{
-                    label: 'aaa',
-                    value: 1
-                },
-                {
-                    label: 'bbb',
-                    value: 2
-                }]
+                options: []
             },
             {
                 type: 'date',
                 component: datePick
             }]
+        }],
+        newComponent: [{
+            tab: '新建种植批次',
+            selectUrl: [['planta', 'cultivate', 'plantation_id', 'plantation_name', true]],
+            selectUrl2: [['plants', 'id', 'name', true], ['operates', 'id', 'name', true]],
+            popNumber: [0],
+            popNumber2: [1, 4],
+            components: [{
+                name: 'plantation_id',
+                type: 'select',
+                component: null,
+                isNull: false,
+                label: '所属种植区',
+                placeholder: '必填',
+                rule: {required: true, trigger: 'blur', message: '请选择种植区', type: 'number'},
+                options: []
+            },
+            {
+                name: 'plant_id',
+                type: 'select',
+                component: null,
+                isNull: false,
+                label: '果蔬名称',
+                placeholder: '必填',
+                rule: {required: true, trigger: 'blur', message: '请选择果蔬', type: 'number'},
+                options: []
+            },
+            {
+                name: 'date',
+                type: 'date',
+                component: inputDate,
+                isNull: false,
+                label: '种植日期',
+                placeholder: '',
+                rule: {required: true, trigger: 'blur', message: '请输入种植日期'}
+            },
+            {
+                name: 'area',
+                type: 'textSelect',
+                component: inputTextSelect,
+                isNull: false,
+                label: '种植面积',
+                placeholder: '请填写数字（必填）',
+                options: [{
+                    value: '亩',
+                    label: '亩'
+                },
+                {
+                    value: '平方米',
+                    label: '平方米'
+                },
+                {
+                    value: '公顷',
+                    label: '公顷'
+                }
+                ],
+                rule: {required: true, message: '请输入种植面积', trigger: 'blur'}
+            },
+            {
+                name: 'operate_id',
+                type: 'select',
+                component: null,
+                isNull: true,
+                label: '种植人',
+                placeholder: '',
+                rule: {required: true, trigger: 'blur', type: 'number', message: '请输入种植人'},
+                options: []
+            },
+            {
+                name: 'memo',
+                type: 'textarea',
+                component: null,
+                isNull: true,
+                label: '备注信息',
+                placeholder: '',
+                rule: null
+            }
+            ]
+        }],
+        editComponent: [{
+            tab: '编辑种植批次',
+            selectUrl: [['planta', 'cultivate', 'plantation_id', 'plantation_name', true]],
+            selectUrl2: [['plants', 'id', 'name', true], ['operates', 'id', 'name', true]],
+            popNumber: [1],
+            popNumber2: [2, 5],
+            components: [{
+                name: 'serial',
+                type: 'text',
+                component: null,
+                isNull: false,
+                disabled: true,
+                label: '种植批次号',
+                placeholder: '必填',
+                rule: {required: true, trigger: 'blur'}
+            },
+            {
+                name: 'plantation_id',
+                type: 'select',
+                component: null,
+                isNull: false,
+                label: '所属种植区',
+                placeholder: '必填',
+                rule: {required: true, trigger: 'blur', message: '请选择种植区', type: 'number'},
+                options: []
+            },
+            {
+                name: 'plant_id',
+                type: 'select',
+                component: null,
+                isNull: false,
+                label: '果蔬名称',
+                placeholder: '必填',
+                rule: {required: true, trigger: 'blur', message: '请选择果蔬', type: 'number'},
+                options: []
+            },
+            {
+                name: 'date',
+                type: 'date',
+                component: inputDate,
+                isNull: false,
+                label: '种植日期',
+                placeholder: '',
+                rule: {required: true, trigger: 'blur', message: '请输入种植日期'}
+            },
+            {
+                name: 'area',
+                type: 'textSelect',
+                component: inputTextSelect,
+                isNull: false,
+                label: '种植面积',
+                placeholder: '请填写数字（必填）',
+                options: [{
+                    value: '亩',
+                    label: '亩'
+                },
+                {
+                    value: '平方米',
+                    label: '平方米'
+                },
+                {
+                    value: '公顷',
+                    label: '公顷'
+                }
+                ],
+                rule: {required: true, message: '请输入种植面积', trigger: 'blur'}
+            },
+            {
+                name: 'operate_id',
+                type: 'select',
+                component: null,
+                isNull: true,
+                label: '种植人',
+                placeholder: '',
+                rule: {required: true, trigger: 'blur', type: 'number', message: '请输入种植人'},
+                options: []
+            },
+            {
+                name: 'memo',
+                type: 'textarea',
+                component: null,
+                isNull: true,
+                label: '备注信息',
+                placeholder: '',
+                rule: null
+            }
+            ]
         }],
         typeComponent: [
             {

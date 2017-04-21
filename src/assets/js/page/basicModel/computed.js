@@ -9,6 +9,9 @@ export default {
         selectSearch () {
             return this.models[this.modelIndex].selectSearch
         },
+        dateSearch () {
+            return this.models[this.modelIndex].dateSearch
+        },
         tab () {
             return this.models[this.modelIndex].tab
         },

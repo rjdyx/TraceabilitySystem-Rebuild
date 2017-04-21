@@ -27,7 +27,7 @@
                     v-model="inputValue"
                     :on-icon-click="search" class="searchInp" size="small">
                 </el-input>
-                <el-button size="small" class="searchBtn" @click="textFind">搜索</el-button>
+                <el-button size="small" class="searchBtn" @click="textAndDateFind">搜索</el-button>
             </div>
 
             <!-- 操作按钮 -->
@@ -251,8 +251,8 @@ export default {
             }).then(() => {
                 axios.delete(this.$adminUrl(this.url + '/' + row.id))
                     .then((responce) => {
-                        // 删除成功回调方法
-                        this.delSuccess(index, row)
+                        this.getSelect()
+                        this.boxArr(this.dataArr)
                         this.$message({
                             type: 'success',
                             message: '删除成功'
@@ -277,24 +277,27 @@ export default {
                 this.newComponent[0].components[this.newComponent[0].checkNumber].rule[1].url = this.url
             }
             if (this.newComponent[0].selectUrl) {
-                let newArr = this.$addAndEditSelectMethod(this.newComponent[0].selectUrl)
-                this.$dataGet(this, newArr.selectUrl + '/changeSelect', {'selectData': newArr.selectData})
-                    .then((responce) => {
-                        if (responce.data.length !== 0) {
-                            this.newComponent[0].components[this.newComponent[0].popNumber].options = this.$selectData(this.url, responce.data, newArr.selectArr)
-                        }
-                    })
+                for (let key in this.newComponent[0].selectUrl) {
+                    let newArr = this.$addAndEditSelectMethod(this.newComponent[0].selectUrl[key])
+                    this.$dataGet(this, newArr.selectUrl + '/changeSelect', {'selectData': newArr.selectData})
+                        .then((responce) => {
+                            if (responce.data.length !== 0) {
+                                this.newComponent[0].components[this.newComponent[0].popNumber[key]].options = this.$selectData(this.url, responce.data, newArr.selectArr)
+                            }
+                        })
+                }
             }
             // 无分类的下拉框模块查询
             if (this.newComponent[0].selectUrl2) {
-                let newArr = this.$addAndEditSelectMethod(this.newComponent[0].selectUrl2)
-                console.log(newArr)
-                this.$dataGet(this, '/util/selects', {table: newArr.selectUrl})
-                    .then((responce) => {
-                        if (responce.data.length !== 0) {
-                            this.newComponent[0].components[this.newComponent[0].popNumber2].options = this.$selectData(this.url, responce.data, newArr.selectArr)
-                        }
-                    })
+                for (let key in this.newComponent[0].selectUrl2) {
+                    let newArr = this.$addAndEditSelectMethod(this.newComponent[0].selectUrl2[key])
+                    this.$dataGet(this, '/util/selects', {table: newArr.selectUrl})
+                        .then((responce) => {
+                            if (responce.data.length !== 0) {
+                                this.newComponent[0].components[this.newComponent[0].popNumber2[key]].options = this.$selectData(this.url, responce.data, newArr.selectArr)
+                            }
+                        })
+                }
             }
         },
         // 显示编辑表单
@@ -306,23 +309,27 @@ export default {
                     this.editComponent[0].components[this.editComponent[0].checkNumber].rule[1]['url'] = this.url
                 }
                 if (this.editComponent[0].selectUrl) {
-                    let editArr = this.$addAndEditSelectMethod(this.editComponent[0].selectUrl)
-                    this.$dataGet(this, editArr.selectUrl + '/changeSelect', {'selectData': editArr.selectData})
-                        .then((responce) => {
-                            if (responce.data.length !== 0) {
-                                this.editComponent[0].components[0].options = this.$selectData(this.url, responce.data, editArr.selectArr)
-                            }
-                        })
+                    for (let key in this.editComponent[0].selectUrl) {
+                        let editArr = this.$addAndEditSelectMethod(this.editComponent[0].selectUrl[key])
+                        this.$dataGet(this, editArr.selectUrl + '/changeSelect', {'selectData': editArr.selectData})
+                            .then((responce) => {
+                                if (responce.data.length !== 0) {
+                                    this.editComponent[0].components[this.editComponent[0].popNumber[key]].options = this.$selectData(this.url, responce.data, editArr.selectArr)
+                                }
+                            })
+                    }
                 }
                 // 无分类的下拉框模块查询
                 if (this.editComponent[0].selectUrl2) {
-                    let editArr = this.$addAndEditSelectMethod(this.editComponent[0].selectUrl2)
-                    this.$dataGet(this, '/util/selects', {table: editArr.selectUrl})
-                        .then((responce) => {
-                            if (responce.data.length !== 0) {
-                                this.editComponent[0].components[this.editComponent[0].popNumber2].options = this.$selectData(this.url, responce.data, editArr.selectArr)
-                            }
-                        })
+                    for (let key in this.editComponent[0].selectUrl2) {
+                        let editArr = this.$addAndEditSelectMethod(this.editComponent[0].selectUrl2[key])
+                        this.$dataGet(this, '/util/selects', {table: editArr.selectUrl})
+                            .then((responce) => {
+                                if (responce.data.length !== 0) {
+                                    this.editComponent[0].components[this.editComponent[0].popNumber2[key]].options = this.$selectData(this.url, responce.data, editArr.selectArr)
+                                }
+                            })
+                    }
                 }
                 if (row.area !== undefined) {
                     row.area = String(parseInt(row.area))
@@ -361,14 +368,9 @@ export default {
                     }
                 })
         },
-        // 文本查询
-        textFind () {
-            this.dataArr = {}
+        // 文本与时间按钮查询
+        textAndDateFind () {
             this.dataArr['query_text'] = this.inputValue
-            for (let index in this.selectSearch) {
-                this.dataArr[this.selectSearch[index]] = this.selectVal[index]
-            }
-            this.dataArr['page'] = this.pageVal
             this.boxArr(this.dataArr)
         },
         // 下拉框查询
@@ -379,9 +381,11 @@ export default {
                 }
             }
             this.dataArr[val[0]] = val[1]
-            this.dataArr['query_text'] = this.inputValue
-            this.dataArr['page'] = this.pageVal
             this.boxArr(this.dataArr)
+        },
+        // 日期存储
+        dateFind (key, val) {
+            this.dataArr[key] = val
         },
         // 组合查询
         boxArr (dataArr) {
@@ -389,23 +393,12 @@ export default {
         },
         // 分页跳转
         pageChange (val) {
-            this.dataArr = {}
-            this.dataArr['query_text'] = this.inputValue
-            for (let index in this.selectSearch) {
-                this.dataArr[this.selectSearch[index]] = this.selectVal[index]
-            }
-            this.pageVal = val
             this.dataArr['page'] = val
-            this.getAllMsg(this.dataArr)
+            this.boxArr(this.dataArr)
         },
         // 全选获取数据
         handleSelectionChange (val) {
             this.checkObject = val
-        },
-        // 删除数据
-        delSuccess (index) {
-            this.getSelect()
-            this.tableData.splice(index, 1)
         },
         // 批量删除
         delAll () {
@@ -424,7 +417,7 @@ export default {
                     .then((responce) => {
                         if (responce.data === 'true') {
                             this.getSelect()
-                            this.pageChange(1)
+                            this.boxArr(this.dataArr)
                             this.$message({
                                 type: 'success',
                                 message: '批量删除成功'
@@ -445,7 +438,7 @@ export default {
         changeNew (val) {
             if (val !== 'false') {
                 this.isNewShow = false
-                this.pageChange(1)
+                this.boxArr(this.dataArr)
                 this.getSelect()
                 this.$message({
                     type: 'success',
@@ -460,7 +453,7 @@ export default {
             if (val !== 'false') {
                 this.isEditShow = false
                 this.getSelect()
-                this.pageChange(1)
+                this.boxArr(this.dataArr)
                 this.$message({
                     type: 'success',
                     message: '编辑数据成功'

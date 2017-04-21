@@ -27,7 +27,10 @@
 			                <el-date-picker 
 			                  size="small"
 			                  v-model="value1"
-			                  type="date">
+			                  type="date"
+			                  :editable="false"
+			                  @change="getBeforeDate"
+			                  format="yyyy-MM-dd">
 			                </el-date-picker>
 			            </span>
 					<span class="left">
@@ -35,7 +38,10 @@
 			                <el-date-picker 
 			                  size="small"
 			                  v-model="value2"
-			                  type="date">
+			                  type="date"
+			                  :editable="false"
+			                  @change="getAfterDate"
+			                  format="yyyy-MM-dd">
 			                </el-date-picker>
 			            </span>
 				</div>
@@ -66,6 +72,12 @@
         methods: {
             getSelect (name, val) {
                 this.$emit('selectVal', [name, val])
+            },
+            getBeforeDate (val) {
+                this.$parent.dateFind('beforeDate', val)
+            },
+            getAfterDate (val) {
+                this.$parent.dateFind('afterDate', val)
             }
         },
         watch: {
