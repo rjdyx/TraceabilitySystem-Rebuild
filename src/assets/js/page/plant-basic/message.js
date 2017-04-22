@@ -7474,7 +7474,7 @@ export default {
             tab: '田间信息',
             url: 'farming',
             searchPlaceholder: '请输入农事批次号进行搜索',
-            theads: ['农事批次号', '操作日期', '天气', '操作内容', '操作方法', '操作人', '录入人', '备注'],
+            theads: ['田间批次号', '操作日期', '天气', '操作内容', '操作方法', '操作人', '录入人', '备注'],
             protos: ['serial', 'date', 'weather', 'content', 'method', 'operate_name', 'user_name', 'memo'],
             widths: [50, 50, 50, 50, 50, 50, 50, 50],
             typeComponent: [
@@ -7493,7 +7493,7 @@ export default {
             newComponent: [{
                 tab: '新建田间信息',
                 selectUrl2: [['operates', 'id', 'name', true], ['experts', 'id', 'name', true]],
-                popNumber2: [6, 7],
+                popNumber2: [4, 5],
                 components: [{
                     name: 'date',
                     type: 'date',
@@ -7582,57 +7582,27 @@ export default {
                 ]
             }],
             editComponent: [{
-                tab: '编辑种植检测信息',
+                tab: '编辑田间信息',
                 selectUrl2: [['operates', 'id', 'name', true], ['experts', 'id', 'name', true]],
-                popNumber2: [7, 8],
-                hiddenValue: {type: 'plant'},
+                popNumber2: [5, 6],
                 components: [{
                     name: 'serial',
                     type: 'text',
                     component: null,
-                    isNull: true,
-                    disabled: true,
-                    label: '检测批次号',
-                    placeholder: '必填',
-                    rule: {required: true, trigger: 'blur'}
-                },
-                {
-                    name: 'name',
-                    type: 'select',
-                    component: inputSelect,
                     isNull: false,
-                    label: '检测类型',
+                    label: '田间批次号',
+                    disabled: true,
                     placeholder: '',
-                    rule: null,
-                    options: [{
-                        value: '土壤检测',
-                        label: '土壤检测'
-                    },
-                    {
-                        value: '水质检测',
-                        label: '水质检测'
-                    },
-                    {
-                        value: '大气污染检测',
-                        label: '大气污染检测'
-                    },
-                    {
-                        value: '农药残留检测',
-                        label: '农药残留检测'
-                    },
-                    {
-                        value: '其他检测',
-                        label: '其他检测'
-                    }]
+                    rule: {required: true, trigger: 'blur'}
                 },
                 {
                     name: 'date',
                     type: 'date',
                     component: inputDate,
                     isNull: false,
-                    label: '检测日期',
+                    label: '操作日期',
                     placeholder: '',
-                    rule: {required: true, trigger: 'blur', message: '请输入检测日期'}
+                    rule: {required: true, trigger: 'blur', message: '请输入操作日期'}
                 },
                 {
                     name: 'weather',
@@ -7664,48 +7634,31 @@ export default {
                     }]
                 },
                 {
-                    name: 'department',
-                    type: 'text',
-                    component: inputTextSelect,
-                    isNull: false,
-                    label: '检测部门',
-                    placeholder: '',
-                    rule: null
-                },
-                {
                     name: 'content',
                     type: 'text',
                     component: null,
-                    isNull: true,
-                    label: '检测内容',
+                    isNull: false,
+                    label: '操作内容',
                     placeholder: '',
                     rule: null
                 },
                 {
-                    name: 'result',
-                    type: 'select',
+                    name: 'method',
+                    type: 'text',
                     component: null,
                     isNull: true,
-                    label: '检测结果',
+                    label: '操作方法',
                     placeholder: '',
-                    rule: null,
-                    options: [{
-                        value: '合格',
-                        label: '合格'
-                    },
-                    {
-                        value: '不合格',
-                        label: '不合格'
-                    }]
+                    rule: null
                 },
                 {
                     name: 'operate_id',
                     type: 'select',
                     component: null,
                     isNull: true,
-                    label: '检测人',
+                    label: '操作人',
                     placeholder: '',
-                    rule: {required: true, trigger: 'blur', type: 'number', message: '请输入检测人'},
+                    rule: {required: true, trigger: 'blur', type: 'number', message: '请输入操作人'},
                     options: []
                 },
                 {
