@@ -51,8 +51,12 @@ export default[{
         name: '病疫管理'
     },
     {
-        path: '/index/message/quarantineManage',
+        path: '/index/message/detectionManage',
         name: '检疫管理'
+    },
+    {
+        path: '/index/message/beastDetectManage',
+        name: '检测管理'
     },
     {
         path: '/index/message/areaManage',
