@@ -6137,7 +6137,7 @@ export default {
             newComponent: [{
                 tab: '新建施肥信息',
                 selectUrl2: [['manures', 'id', 'name', true], ['operates', 'id', 'name', true]],
-                popNumber2: [0, 3],
+                popNumber2: [0, 4],
                 components: [{
                     name: 'manure_id',
                     type: 'select',
@@ -6156,6 +6156,35 @@ export default {
                     label: '施肥日期',
                     placeholder: '',
                     rule: {required: true, trigger: 'blur', message: '请输入施肥日期'}
+                },
+                {
+                    name: 'weather',
+                    type: 'select',
+                    component: inputSelect,
+                    isNull: false,
+                    label: '天气',
+                    placeholder: '',
+                    rule: null,
+                    options: [{
+                        value: '晴',
+                        label: '晴'
+                    },
+                    {
+                        value: '雨',
+                        label: '雨'
+                    },
+                    {
+                        value: '雪',
+                        label: '雪'
+                    },
+                    {
+                        value: '阴',
+                        label: '阴'
+                    },
+                    {
+                        value: '其他',
+                        label: '其他'
+                    }]
                 },
                 {
                     name: 'amount',

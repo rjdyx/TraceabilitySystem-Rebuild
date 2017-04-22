@@ -349,10 +349,6 @@ export default {
             if (this.paramsIndex !== undefined) {
                 var type = this.paramsIndex
             }
-            console.log('---------------------------------------')
-            console.log('url:' + this.url)
-            console.log('data:' + data)
-            console.log('type:' + type)
             this.$dataGet(this, this.url, {params: data, type: type})
                 .then((responce) => {
                     // 数据转换
@@ -374,6 +370,7 @@ export default {
         // 文本与时间按钮查询
         textAndDateFind () {
             this.dataArr['query_text'] = this.inputValue
+            this.dataArr['page'] = 1
             this.boxArr(this.dataArr)
         },
         // 下拉框查询
@@ -383,6 +380,7 @@ export default {
                     this.selectVal[index] = val[1]
                 }
             }
+            this.dataArr['page'] = 1
             this.dataArr[val[0]] = val[1]
             this.boxArr(this.dataArr)
         },
@@ -441,6 +439,9 @@ export default {
         changeNew (val) {
             if (val !== 'false') {
                 this.isNewShow = false
+                if (JSON.stringify(this.dataArr) === '{}') {
+                    this.dataArr = ''
+                }
                 this.boxArr(this.dataArr)
                 this.getSelect()
                 this.$message({
@@ -455,8 +456,11 @@ export default {
         hangeEdit (val) {
             if (val !== 'false') {
                 this.isEditShow = false
-                this.getSelect()
+                if (JSON.stringify(this.dataArr) === '{}') {
+                    this.dataArr = ''
+                }
                 this.boxArr(this.dataArr)
+                this.getSelect()
                 this.$message({
                     type: 'success',
                     message: '编辑数据成功'
