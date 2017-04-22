@@ -2544,7 +2544,7 @@ export default {
         key: 'breed',
         tab: '养殖批次信息',
         url: 'breed',
-        // 批次信息模块数据
+        // 链接批次信息模块数据的桥（养殖批次详情）
         batch: 'breedBatch',
         searchPlaceholder: '请输入养殖批次号进行搜索',
         search: ['query_text', 'beast_name'],
@@ -2746,6 +2746,8 @@ export default {
         key: 'fodderuse',
         tab: '饲料使用信息',
         url: 'fodderuse',
+        // 链接批次信息模块数据的桥（养殖批次详情）
+        batch: 'feedBatch',
         searchPlaceholder: '请输入饲料名称进行搜索',
         search: ['query_text', 'fodder_name'],
         selectSearch: ['fodderuse.fodder_name'],
@@ -3036,6 +3038,8 @@ export default {
         key: 'disease',
         tab: '病疫信息',
         url: 'disease',
+        // 链接批次信息模块数据的桥（养殖批次详情）
+        batch: 'plagueBatch',
         searchPlaceholder: '请输入兽药名称',
         search: ['query_text', 'drug_name'],
         selectSearch: ['disease.drug_name'],
@@ -3431,6 +3435,8 @@ export default {
         key: 'detection',
         tab: '检疫信息',
         url: 'detection',
+        // 链接批次信息模块数据的桥（养殖批次详情）
+        batch: 'quarantineBatch',
         searchPlaceholder: '请输入检测项目名称进行',
         search: ['query_text', 'name'],
         selectSearch: ['detection.organization'],
@@ -3715,6 +3721,8 @@ export default {
         key: 'clean',
         tab: '圈舍信息',
         url: 'clean',
+        // 链接批次信息模块数据的桥（养殖批次详情）
+        batch: 'areaBatch',
         searchPlaceholder: '请输入圈舍名称进行',
         search: ['query_text', 'name'],
         theads: ['圈舍批次号', '操作类型', '操作方式', '操作内容', '专家', '操作人', '操作日期', '备注信息'],
@@ -3974,6 +3982,8 @@ export default {
         key: 'dispose',
         tab: '无害化信息',
         url: 'dispose',
+        // 链接批次信息模块数据的桥（养殖批次详情）
+        batch: 'innocuityBatch',
         searchPlaceholder: '请输入操作内容进行',
         search: ['query_text', 'content'],
         theads: ['无害化批次号', '操作日期', '操作内容', '实行原因', '指导专家', '备注信息'],
@@ -4191,6 +4201,8 @@ export default {
         key: 'come',
         tab: '出栏信息',
         url: 'come',
+        // 链接批次信息模块数据的桥（养殖批次详情）
+        batch: 'slaughterBatch',
         searchPlaceholder: '请输入出栏批次进行搜索',
         search: ['query_text', 'serial'],
         // selectSearch: ['come.expert_name'],
@@ -4356,6 +4368,8 @@ export default {
         key: 'plan',
         tab: '养殖计划信息',
         url: 'plan',
+         // 链接批次信息模块数据的桥（养殖批次详情）
+        batch: 'planBatch',
         searchPlaceholder: '请输入检测项目名称进行',
         theads: ['批次号', '计划日期', '操作类型', '安排人员', '计划内容', '操作用户', '备注'],
         protos: ['serial', 'date', 'type', 'operate_name', 'content', 'user_id', 'memo'],
@@ -4883,7 +4897,7 @@ export default {
                 rule: {required: true, trigger: 'blur', type: 'date'}
             },
             {
-                name: 'operate_id',
+                name: 'operate_name',
                 type: 'select',
                 component: null,
                 isNull: false,
@@ -6466,7 +6480,8 @@ export default {
                 isNull: false,
                 label: '操作类型',
                 placeholder: '请选择操作类型',
-                rule: {required: true, trigger: 'blur'}
+                rule: {required: true, trigger: 'blur'},
+                options: []
             },
             {
                 name: 'content',

@@ -100,7 +100,6 @@
     
 </div> 
 </template>
- 
 <script>
 import computed from './computed.js'
 import popNew from '../../components/public/popNew.vue'
@@ -118,6 +117,7 @@ export default {
                 return {
                     key: '',
                     tab: '',
+                    url: '',
                     theads: [],
                     protos: [],
                     tabList: []
@@ -127,7 +127,9 @@ export default {
     },
     data () {
         return {
-            activeName: ''
+            activeName: '',
+            // 列表数据
+            tableData: []
         }
     },
     mixins: [computed],
@@ -137,7 +139,6 @@ export default {
         },
         // 搜索按钮
         textFind () {
-
         },
         // tab点击事件
         tabClick (tab, event) {
@@ -151,12 +152,24 @@ export default {
         changeEditShow (index, row) {
             // this.isEditShow = !this.isEditShow
         },
+        // 列表全选
         handleSelectionChange () {
+        },
+        // 获取数据
+        // 获取数据
+        getAllMsg (data = '') {
+            var urlArr = []
+            urlArr[this.url] = this.url + '/' + this.$route.params.id
+            for (var i in this.tabList) {
+                urlArr[this.tabList[i].url] = this.$route.params.id + '/' + this.tabList[i].url
+            }
+            console.log(urlArr)
         }
     },
     mounted () {
         this.activeName = this.tabList[0].tab
-        console.log(this.tabList[0].bottomOperateList)
+        // 获取数据
+        this.getAllMsg()
     },
     watch: {
     },

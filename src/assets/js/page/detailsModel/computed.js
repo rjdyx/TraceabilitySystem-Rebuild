@@ -6,6 +6,9 @@ export default {
         tab () {
             return this.models.tab
         },
+        url () {
+            return this.models.url
+        },
         theads () {
             return this.models.theads
         },
