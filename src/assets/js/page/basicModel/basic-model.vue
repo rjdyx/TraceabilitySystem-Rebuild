@@ -250,8 +250,11 @@ export default {
             }).then(() => {
                 axios.delete(this.$adminUrl(this.url + '/' + row.id))
                     .then((responce) => {
-                        this.getSelect()
+                        if (JSON.stringify(this.dataArr) === '{}') {
+                            this.dataArr = ''
+                        }
                         this.boxArr(this.dataArr)
+                        this.getSelect()
                         this.$message({
                             type: 'success',
                             message: '删除成功'
@@ -302,6 +305,7 @@ export default {
         // 显示编辑表单
         changeEditShow (index, row) {
             this.isEditShow = true
+            console.log(row)
             if (row !== undefined) {
                 if (this.editComponent[0].checkNumber !== undefined) {
                     this.editComponent[0].components[this.editComponent[0].checkNumber].rule[1]['id'] = row.id
@@ -330,9 +334,6 @@ export default {
                             })
                     }
                 }
-                if (row.area !== undefined) {
-                    row.area = String(parseInt(row.area))
-                }
                 this.editForm = row
                 // 重新赋值获取初始值
                 for (let key of Object.keys(row)) {
@@ -349,10 +350,6 @@ export default {
             if (this.paramsIndex !== undefined) {
                 var type = this.paramsIndex
             }
-            console.log('---------------------------------------')
-            console.log('url:' + this.url)
-            console.log('data:' + data)
-            console.log('type:' + type)
             this.$dataGet(this, this.url, {params: data, type: type})
                 .then((responce) => {
                     // 数据转换
@@ -374,6 +371,7 @@ export default {
         // 文本与时间按钮查询
         textAndDateFind () {
             this.dataArr['query_text'] = this.inputValue
+            this.dataArr['page'] = 1
             this.boxArr(this.dataArr)
         },
         // 下拉框查询
@@ -383,6 +381,7 @@ export default {
                     this.selectVal[index] = val[1]
                 }
             }
+            this.dataArr['page'] = 1
             this.dataArr[val[0]] = val[1]
             this.boxArr(this.dataArr)
         },
@@ -419,8 +418,11 @@ export default {
                     axios.post(this.$adminUrl('util/batch-delete/' + this.url), paramsDel)
                     .then((responce) => {
                         if (responce.data === 'true') {
-                            this.getSelect()
+                            if (JSON.stringify(this.dataArr) === '{}') {
+                                this.dataArr = ''
+                            }
                             this.boxArr(this.dataArr)
+                            this.getSelect()
                             this.$message({
                                 type: 'success',
                                 message: '批量删除成功'
@@ -441,6 +443,9 @@ export default {
         changeNew (val) {
             if (val !== 'false') {
                 this.isNewShow = false
+                if (JSON.stringify(this.dataArr) === '{}') {
+                    this.dataArr = ''
+                }
                 this.boxArr(this.dataArr)
                 this.getSelect()
                 this.$message({
@@ -455,8 +460,11 @@ export default {
         hangeEdit (val) {
             if (val !== 'false') {
                 this.isEditShow = false
-                this.getSelect()
+                if (JSON.stringify(this.dataArr) === '{}') {
+                    this.dataArr = ''
+                }
                 this.boxArr(this.dataArr)
+                this.getSelect()
                 this.$message({
                     type: 'success',
                     message: '编辑数据成功'
