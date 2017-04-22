@@ -1508,14 +1508,15 @@ export default {
         // header* select* selectSearch+ 养殖场和养殖区字段相同
         {
             settitle: '养殖基础信息管理',
-            key: 'farm',
+            key: 'farmcd',
             tab: '养殖区信息',
-            url: 'farm',
+            url: 'farmcd',
             searchPlaceholder: '请输入养殖区进行搜索',
-            // search: ['query_text', 'name'],
+            selectValueId: [['pid', 'parent_name', true]],
+            selectDefault: [{value: '', label: '选择养殖场'}],
             theads: ['所属养殖场', '养殖区名称', '养殖面积', '负责人', '养殖畜禽种类', '养殖规模', '详细地址', '图片', '备注信息'],
-            protos: ['name', 'name', 'area', 'principal', 'kind', 'scale', 'address', 'img', 'meno'],
-            // selectSearch: ['farm.pid'],
+            protos: ['parent_name', 'name', 'area', 'principal', 'kind', 'scale', 'address', 'img', 'meno'],
+            selectSearch: ['farmcds.pid'],
             widths: [50, 50, 50, 50, 50, 50, 50, 50],
             typeComponent: [{
                 component: importBtn
@@ -1527,27 +1528,19 @@ export default {
                 component: newbuildBtn
             }],
             newComponent: [{
-                tab: '养殖区信息',
+                tab: '新建养殖区信息',
+                selectUrl2: [['farms', 'id', 'name', true]],
+                popNumber2: [0],
                 components: [{
                     // 场名
                     name: 'pid',
                     type: 'select',
                     component: null,
                     isNull: false,
-                    label: '养殖场名称',
-                    placeholder: '必填',
-                    rule: {required: true, trigger: 'blur'},
-                    options: [
-                        {
-                            value: '', label: '请选择养殖场'
-                        },
-                        {
-                            value: '从化养殖基地', label: '从化养殖基地'
-                        },
-                        {
-                            value: '华农养殖场', label: '华农养殖场'
-                        }
-                    ]
+                    label: '养殖场',
+                    placeholder: '请选择养殖场',
+                    rule: {required: true, trigger: 'blur', type: 'number'},
+                    options: []
                 },
                 {
                     // 区名
@@ -1556,7 +1549,7 @@ export default {
                     component: null,
                     isNull: false,
                     label: '养殖区名称',
-                    placeholder: '必填',
+                    placeholder: '请输入养殖区名称',
                     rule: {required: true, trigger: 'blur'}
                 },
                 {
@@ -1630,7 +1623,7 @@ export default {
                     component: inputFile,
                     isNull: true,
                     label: '',
-                    placeholder: '',
+                    placeholder: '图片',
                     rule: null
                 },
                 {
@@ -1645,27 +1638,19 @@ export default {
                 ]
             }],
             editComponent: [{
-                tab: '养殖区信息',
+                tab: '编辑养殖区信息',
+                selectUrl2: [['farms', 'id', 'name', true]],
+                popNumber2: [0],
                 components: [{
                     // 场名
                     name: 'pid',
                     type: 'select',
                     component: null,
                     isNull: false,
-                    label: '养殖场名称',
-                    placeholder: '必填',
-                    rule: {required: true, trigger: 'blur'},
-                    options: [
-                        {
-                            value: '', label: '请选择养殖场'
-                        },
-                        {
-                            value: '从化养殖基地', label: '从化养殖基地'
-                        },
-                        {
-                            value: '华农养殖场', label: '华农养殖场'
-                        }
-                    ]
+                    label: '养殖场',
+                    placeholder: '请选择养殖场',
+                    rule: {required: true, trigger: 'blur', type: 'number'},
+                    options: []
                 },
                 {
                     // 区名
@@ -1674,9 +1659,8 @@ export default {
                     component: null,
                     isNull: false,
                     label: '养殖区名称',
-                    placeholder: '必填',
-                    rule: {required: true, trigger: 'blur'},
-                    disabled: true
+                    placeholder: '请输入养殖区名称',
+                    rule: {required: true, trigger: 'blur'}
                 },
                 {
                     name: 'area',
@@ -1744,6 +1728,15 @@ export default {
                     rule: null
                 },
                 {
+                    name: 'img',
+                    type: 'file',
+                    component: inputFile,
+                    isNull: true,
+                    label: '',
+                    placeholder: '图片',
+                    rule: null
+                },
+                {
                     name: 'memo',
                     type: 'textarea',
                     component: null,
@@ -1751,15 +1744,6 @@ export default {
                     label: '备注信息',
                     placeholder: '',
                     rule: ''
-                },
-                {
-                    name: 'img',
-                    type: 'file',
-                    component: inputFile,
-                    isNull: true,
-                    label: '',
-                    placeholder: '',
-                    rule: null
                 }
                 ]
             }],
@@ -1767,12 +1751,9 @@ export default {
                 components: [{
                     type: 'select',
                     component: selectSection,
-                    options: [{
-                        value: '', label: '养殖场选择'
-                    },
-                    {
-                        value: '从化养殖基地', label: '从化养殖基地'
-                    }]
+                    name: 'farms.id',
+                    value: '',
+                    options: []
                 }]
             }]
         },
@@ -1784,8 +1765,8 @@ export default {
             searchPlaceholder: '请输入圈舍名称进行搜索',
             search: ['query_text', 'name'],
             theads: ['所属养殖区', '圈舍名称', '圈舍面积', '图片', '备注信息'],
-            protos: ['farm_id', 'name', 'area', 'img', 'memo'],
-            selectSearch: ['farm_id'],
+            protos: ['farm_name', 'name', 'area', 'img', 'memo'],
+            selectSearch: ['farms.id'],
             widths: [50, 50, 50, 50, 50],
             typeComponent: [{
                 component: importBtn
@@ -1807,17 +1788,7 @@ export default {
                     label: '所属养殖区',
                     placeholder: '必填',
                     rule: {required: true, trigger: 'blur'},
-                    options: [
-                        {
-                            value: '', label: '请选择养殖区'
-                        },
-                        {
-                            value: '区A', label: '区A'
-                        },
-                        {
-                            value: '区B', label: '区B'
-                        }
-                    ]
+                    options: []
                 },
                 {
                     name: 'name',
@@ -2793,10 +2764,12 @@ export default {
         batch: 'breedBatch',
         searchPlaceholder: '请输入养殖批次号进行搜索',
         search: ['query_text', 'beast_name'],
-        theads: ['批次号', '养殖区', '畜禽', '日期', '数量', '面积', '养殖方式', '养殖人', '图片状态', '备注'],
-        protos: ['serial', 'area_name', 'beast_name', 'start_date', 'amount', 'way', 'operate_name', 'imgState', 'meno'],
-        selectSearch: ['breed.serial'],
-        widths: [50, 50, 50, 50, 50, 50, 50, 50, 50],
+        selectValueId: [['beast_id', 'beast_name', true]],
+        selectDefault: [{value: '', label: '请选择畜禽'}],
+        theads: ['批次号', '养殖区', '圈舍', '畜禽', '开始日期', '数量', '养殖方式', '养殖人', '操作人', '录入人', '备注'],
+        protos: ['serial', 'farm_name', 'area_name', 'beast_name', 'start_date', 'amount', 'way', 'operate', 'operate_name', 'user_name', 'meno'],
+        selectSearch: ['breeds.beast_id'],
+        widths: [30, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
         typeComponent: [{
             component: output
         },
@@ -2805,19 +2778,17 @@ export default {
         }],
         newComponent: [{
             tab: '新建养殖批次',
+            selectUrl2: [['areas', 'id', 'name', true], ['beasts', 'id', 'name', true], ['operates', 'id', 'name', true]],
+            popNumber2: [0, 1, 2],
             components: [{
-                name: 'name',
+                name: 'area_id',
                 type: 'select',
                 component: null,
                 isNull: false,
-                label: '所属养殖区',
-                placeholder: '必填',
-                rule: {required: true, trigger: 'blur'},
-                options: [
-                    {
-                        value: '', label: '示范A区'
-                    }
-                ]
+                label: '圈舍',
+                placeholder: '请选择圈舍',
+                rule: {required: true, trigger: 'blur', type: 'number'},
+                options: []
             },
             {
                 name: 'beast_id',
@@ -2825,22 +2796,19 @@ export default {
                 component: null,
                 isNull: false,
                 label: '畜禽名称',
-                placeholder: '必填',
-                rule: {required: true, trigger: 'blur'},
-                options: [
-                    {
-                        value: '', label: '黑猪一号'
-                    }
-                ]
+                placeholder: '请选择畜禽',
+                rule: {required: true, trigger: 'blur', type: 'number'},
+                options: []
             },
             {
-                name: 'amount',
-                type: 'text',
+                name: 'operate_id',
+                type: 'select',
                 component: null,
-                isNull: false,
-                label: '数量',
-                placeholder: '',
-                rule: {required: true, trigger: 'blur'}
+                isNull: true,
+                label: '操作人',
+                placeholder: '请选择操作人',
+                rule: {required: true, trigger: 'blur', type: 'number'},
+                options: []
             },
             {
                 name: 'way',
@@ -2848,26 +2816,17 @@ export default {
                 component: null,
                 isNull: true,
                 label: '养殖方式',
-                placeholder: '',
+                placeholder: '请填写养殖方式',
                 rule: null
             },
             {
-                name: 'operate_id',
+                name: 'operate',
                 type: 'text',
                 component: null,
                 isNull: true,
                 label: '养殖人',
-                placeholder: '',
-                rule: {required: true, trigger: 'blur'}
-            },
-            {
-                name: 'user_id',
-                type: 'text',
-                component: null,
-                isNull: true,
-                label: '录入人',
-                placeholder: '',
-                rule: {required: true, trigger: 'blur'}
+                placeholder: '请填写养殖人',
+                rule: null
             },
             {
                 name: 'memo',
@@ -2881,20 +2840,28 @@ export default {
             ]
         }],
         editComponent: [{
-            tab: '新建养殖批次',
+            tab: '编辑养殖批次',
+            selectUrl2: [['areas', 'id', 'name', true], ['beasts', 'id', 'name', true], ['operates', 'id', 'name', true]],
+            popNumber2: [1, 2, 3],
             components: [{
-                name: 'name',
+                name: 'serial',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '批次号',
+                placeholder: '',
+                disabled: true,
+                rule: {required: false, trigger: 'blur'}
+            },
+            {
+                name: 'area_id',
                 type: 'select',
                 component: null,
                 isNull: false,
-                label: '所属养殖区',
-                placeholder: '必填',
-                rule: {required: true, trigger: 'blur'},
-                options: [
-                    {
-                        value: '', label: '示范A区'
-                    }
-                ]
+                label: '圈舍',
+                placeholder: '请选择圈舍',
+                rule: {required: true, trigger: 'blur', type: 'number'},
+                options: []
             },
             {
                 name: 'beast_id',
@@ -2902,22 +2869,19 @@ export default {
                 component: null,
                 isNull: false,
                 label: '畜禽名称',
-                placeholder: '必填',
-                rule: {required: true, trigger: 'blur'},
-                options: [
-                    {
-                        value: '', label: '黑猪一号'
-                    }
-                ]
+                placeholder: '请选择畜禽',
+                rule: {required: true, trigger: 'blur', type: 'number'},
+                options: []
             },
             {
-                name: 'amount',
-                type: 'text',
+                name: 'operate_id',
+                type: 'select',
                 component: null,
-                isNull: false,
-                label: '数量',
-                placeholder: '',
-                rule: {required: true, trigger: 'blur'}
+                isNull: true,
+                label: '操作人',
+                placeholder: '请选择操作人',
+                rule: {required: true, trigger: 'blur', type: 'number'},
+                options: []
             },
             {
                 name: 'way',
@@ -2925,26 +2889,17 @@ export default {
                 component: null,
                 isNull: true,
                 label: '养殖方式',
-                placeholder: '',
+                placeholder: '请填写养殖方式',
                 rule: null
             },
             {
-                name: 'operate_id',
+                name: 'operate',
                 type: 'text',
                 component: null,
                 isNull: true,
                 label: '养殖人',
-                placeholder: '',
-                rule: {required: true, trigger: 'blur'}
-            },
-            {
-                name: 'user_id',
-                type: 'text',
-                component: null,
-                isNull: true,
-                label: '录入人',
-                placeholder: '',
-                rule: {required: true, trigger: 'blur'}
+                placeholder: '请填写养殖人',
+                rule: null
             },
             {
                 name: 'memo',
@@ -2961,22 +2916,9 @@ export default {
             components: [{
                 type: 'select',
                 component: selectSection,
-                options: [{
-                    value: '', label: '养殖区选择'
-                },
-                {
-                    value: '示范A区', label: '示范A区'
-                }]
-            },
-            {
-                type: 'select',
-                component: selectSection,
-                options: [{
-                    value: '', label: '畜禽名称'
-                },
-                {
-                    value: '畜禽Berta Aufderhar', label: '畜禽Berta Aufderhar'
-                }]
+                name: 'beasts.id',
+                value: '',
+                options: []
             },
             {
                 type: 'date',
@@ -4163,18 +4105,20 @@ export default {
     //  3.2.6畜禽圈舍管理(*)
     //  header*(少了操作类型,操作方式) select* selectSearch+ date+
     areaManage: [{
-        settitle: '圈舍管理',
+        settitle: '圈舍维护管理',
         key: 'clean',
-        tab: '圈舍信息',
+        tab: '圈舍维护信息',
         url: 'clean',
         // 链接批次信息模块数据的桥（养殖批次详情）
         batch: 'areaBatch',
-        searchPlaceholder: '请输入圈舍名称进行',
+        searchPlaceholder: '请输入标题进行搜索',
+        selectValueId: [['operate_id', 'operate_name', true]],
+        selectDefault: [{value: '', label: '选择操作人员'}],
         search: ['query_text', 'name'],
-        theads: ['圈舍批次号', '操作类型', '操作方式', '操作内容', '专家', '操作人', '操作日期', '备注信息'],
-        protos: ['serial', 'name', 'way', 'content', 'expert_name', 'operate_name', 'date', 'memo'],
-        selectSearch: ['clean.expert_name'],
-        widths: [50, 50, 50, 50, 50, 50],
+        theads: ['圈舍批次号', '标题', '操作内容', '专家', '操作人', '操作日期', '备注信息'],
+        protos: ['serial', 'name', 'content', 'expert_name', 'operate_name', 'date', 'memo'],
+        selectSearch: ['cleans.name'],
+        widths: [50, 50, 50, 50, 50, 50, 50],
         typeComponent: [{
             component: output
         },
@@ -4182,42 +4126,17 @@ export default {
             component: newbuildBtn
         }],
         newComponent: [{
-            tab: '新建圈舍信息',
+            tab: '新建圈舍维护信息',
+            selectUrl2: [['experts', 'id', 'name', true], ['operates', 'id', 'name', true]],
+            popNumber2: [2, 1],
             components: [{
-                name: 'farm_id',
-                type: 'select',
-                component: null,
+                name: 'date',
+                type: 'date',
+                component: inputDate,
                 isNull: false,
-                label: '所属养殖区',
-                placeholder: '必填',
-                rule: {required: true, trigger: 'blur'},
-                options: [{
-                    value: '',
-                    label: '请选择养殖区'
-                }]
-            },
-            {
-                name: 'name',
-                type: 'text',
-                component: null,
-                isNull: false,
-                label: '圈舍名称',
+                label: '操作日期',
                 placeholder: '',
                 rule: {required: true, trigger: 'blur'}
-            },
-            {
-                name: 'expert_id',
-                type: 'select',
-                component: null,
-                isNull: true,
-                label: '专家',
-                placeholder: '',
-                rule: null,
-                options: [
-                    {
-                        value: '', label: '无'
-                    }
-                ]
             },
             {
                 name: 'operate_id',
@@ -4227,29 +4146,30 @@ export default {
                 label: '操作人',
                 placeholder: '',
                 rule: {required: true, trigger: 'blur'},
-                options: [
-                    {
-                        value: '', label: '无'
-                    }
-                ]
+                options: []
             },
             {
-                name: 'user_id',
+                name: 'expert_id',
                 type: 'select',
                 component: null,
-                isNull: false,
-                label: '录入人',
+                isNull: true,
+                label: '专家',
                 placeholder: '',
-                rule: {required: true, trigger: 'blur'},
-                options: [
-                    {
-                        value: '', label: '无'
-                    }
-                ]
+                rule: null,
+                options: []
+            },
+            {
+                name: 'name',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '标题',
+                placeholder: '',
+                rule: {required: true, trigger: 'blur'}
             },
             {
                 name: 'content',
-                type: 'date',
+                type: 'textarea',
                 component: null,
                 isNull: false,
                 label: '操作内容',
@@ -4257,13 +4177,13 @@ export default {
                 rule: {required: true, trigger: 'blur'}
             },
             {
-                name: 'date',
-                type: 'date',
-                component: null,
-                isNull: false,
-                label: '操作日期',
+                name: 'img',
+                type: 'file',
+                component: inputFile,
+                isNull: true,
+                label: '图片',
                 placeholder: '',
-                rule: {required: true, trigger: 'blur'}
+                rule: null
             },
             {
                 name: 'memo',
@@ -4271,57 +4191,33 @@ export default {
                 component: null,
                 isNull: true,
                 label: '备注信息',
-                placeholder: '',
-                rule: null
-            },
-            {
-                name: 'img',
-                type: 'file',
-                component: null,
-                isNull: true,
-                label: '',
                 placeholder: '',
                 rule: null
             }
             ]
         }],
         editComponent: [{
-            tab: '新建圈舍信息',
+            tab: '编辑圈舍维护信息',
+            selectUrl2: [['experts', 'id', 'name', true], ['operates', 'id', 'name', true]],
+            popNumber2: [3, 2],
             components: [{
-                name: 'farm_id',
-                type: 'select',
-                component: null,
-                isNull: false,
-                label: '所属养殖区',
-                placeholder: '必填',
-                rule: {required: true, trigger: 'blur'},
-                options: [{
-                    value: '',
-                    label: '请选择养殖区'
-                }]
-            },
-            {
-                name: 'name',
+                name: 'serial',
                 type: 'text',
                 component: null,
                 isNull: false,
-                label: '圈舍名称',
+                label: '操作日期',
                 placeholder: '',
-                rule: {required: true, trigger: 'blur'}
+                disabled: true,
+                rule: {required: false, trigger: 'blur'}
             },
             {
-                name: 'expert_id',
-                type: 'select',
-                component: null,
-                isNull: true,
-                label: '专家',
+                name: 'date',
+                type: 'date',
+                component: inputDate,
+                isNull: false,
+                label: '操作日期',
                 placeholder: '',
-                rule: null,
-                options: [
-                    {
-                        value: '', label: '无'
-                    }
-                ]
+                rule: {required: true, trigger: 'blur'}
             },
             {
                 name: 'operate_id',
@@ -4331,29 +4227,30 @@ export default {
                 label: '操作人',
                 placeholder: '',
                 rule: {required: true, trigger: 'blur'},
-                options: [
-                    {
-                        value: '', label: '无'
-                    }
-                ]
+                options: []
             },
             {
-                name: 'user_id',
+                name: 'expert_id',
                 type: 'select',
                 component: null,
-                isNull: false,
-                label: '录入人',
+                isNull: true,
+                label: '专家',
                 placeholder: '',
-                rule: {required: true, trigger: 'blur'},
-                options: [
-                    {
-                        value: '', label: '无'
-                    }
-                ]
+                rule: null,
+                options: []
+            },
+            {
+                name: 'name',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '标题',
+                placeholder: '',
+                rule: {required: true, trigger: 'blur'}
             },
             {
                 name: 'content',
-                type: 'date',
+                type: 'textarea',
                 component: null,
                 isNull: false,
                 label: '操作内容',
@@ -4361,13 +4258,13 @@ export default {
                 rule: {required: true, trigger: 'blur'}
             },
             {
-                name: 'date',
-                type: 'date',
-                component: null,
-                isNull: false,
-                label: '操作日期',
+                name: 'img',
+                type: 'file',
+                component: inputFile,
+                isNull: true,
+                label: '图片',
                 placeholder: '',
-                rule: {required: true, trigger: 'blur'}
+                rule: null
             },
             {
                 name: 'memo',
@@ -4375,15 +4272,6 @@ export default {
                 component: null,
                 isNull: true,
                 label: '备注信息',
-                placeholder: '',
-                rule: null
-            },
-            {
-                name: 'img',
-                type: 'file',
-                component: null,
-                isNull: true,
-                label: '',
                 placeholder: '',
                 rule: null
             }
@@ -4393,26 +4281,9 @@ export default {
             components: [{
                 type: 'select',
                 component: selectSection,
-                options: [{
-                    value: '',
-                    label: '养殖区名称'
-                },
-                {
-                    value: '示范A区',
-                    label: '示范A区'
-                }]
-            },
-            {
-                type: 'select',
-                component: selectSection,
-                options: [{
-                    value: '',
-                    label: '畜禽名称'
-                },
-                {
-                    value: '黑猪一号',
-                    label: '黑猪一号'
-                }]
+                name: 'operates.id',
+                value: '',
+                options: []
             },
             {
                 type: 'date',
