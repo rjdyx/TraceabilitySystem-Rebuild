@@ -180,7 +180,7 @@ default {
             for (let key in ret) {
                 for (let index in ret[key]) {
                     if (index === 'area' || index === 'amount') {
-                        ret[key][index] = ret[key][index] + ret[key].unit
+                        ret[key][index + '_unit'] = ret[key][index] + ret[key].unit
                     }
                 }
             }

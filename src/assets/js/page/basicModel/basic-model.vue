@@ -250,8 +250,11 @@ export default {
             }).then(() => {
                 axios.delete(this.$adminUrl(this.url + '/' + row.id))
                     .then((responce) => {
-                        this.getSelect()
+                        if (JSON.stringify(this.dataArr) === '{}') {
+                            this.dataArr = ''
+                        }
                         this.boxArr(this.dataArr)
+                        this.getSelect()
                         this.$message({
                             type: 'success',
                             message: '删除成功'
@@ -302,6 +305,7 @@ export default {
         // 显示编辑表单
         changeEditShow (index, row) {
             this.isEditShow = true
+            console.log(row)
             if (row !== undefined) {
                 if (this.editComponent[0].checkNumber !== undefined) {
                     this.editComponent[0].components[this.editComponent[0].checkNumber].rule[1]['id'] = row.id
@@ -329,9 +333,6 @@ export default {
                                 }
                             })
                     }
-                }
-                if (row.area !== undefined) {
-                    row.area = String(parseInt(row.area))
                 }
                 this.editForm = row
                 // 重新赋值获取初始值
@@ -417,8 +418,11 @@ export default {
                     axios.post(this.$adminUrl('util/batch-delete/' + this.url), paramsDel)
                     .then((responce) => {
                         if (responce.data === 'true') {
-                            this.getSelect()
+                            if (JSON.stringify(this.dataArr) === '{}') {
+                                this.dataArr = ''
+                            }
                             this.boxArr(this.dataArr)
+                            this.getSelect()
                             this.$message({
                                 type: 'success',
                                 message: '批量删除成功'
