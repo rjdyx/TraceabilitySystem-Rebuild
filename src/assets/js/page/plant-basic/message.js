@@ -5885,7 +5885,6 @@ export default {
         tab: '种植批次信息',
         url: 'cultivate',
         selectSearch: ['plantations.id', 'plants.id'],
-        dateSearch: ['cultivates.date'],
         selectValueId: [['plantation_id', 'plantation_name', true], ['plant_id', 'plant_name', true]],
         selectDefault: [{value: '', label: '种植区选择'}, {value: '', label: '果蔬选择'}],
         searchPlaceholder: '请输入种植批次号进行搜索',
@@ -6095,48 +6094,194 @@ export default {
             key: 'fertilize',
             tab: '施肥信息',
             url: 'fertilize',
-            searchPlaceholder: '请输入肥料名称进行搜索',
+            selectSearch: ['manures.id'],
+            selectValueId: [['manure_id', 'manure_name', true]],
+            selectDefault: [{value: '', label: '肥料选择'}],
+            searchPlaceholder: '请输入施肥批次号进行搜索',
             theads: ['批次号', '施肥日期', '天气', '肥料', '施用量(Kg)', '施肥人', '施肥方法', '录入人', '备注'],
-            protos: ['serial', 'date', 'weather', 'manure_name', 'unit', 'operate_name', 'way', 'user_name', 'memo'],
+            protos: ['serial', 'date', 'weather', 'manure_name', 'amount', 'operate_name', 'way', 'user_name', 'memo'],
             widths: [50, 50, 50, 50, 50, 50, 50, 50, 50],
-            typeComponent: [
-                {
-                    component: output
+            typeComponent: [{
+                component: output
+            },
+            {
+                component: newbuildBtn
+            }],
+            listComponent: [{
+                components: [{
+                    name: 'manures.id',
+                    value: '',
+                    type: 'select',
+                    component: selectSection,
+                    options: []
                 },
                 {
-                    component: newbuildBtn
+                    type: 'date',
+                    component: datePick
+                }]
+            }],
+            newComponent: [{
+                tab: '新建施肥信息',
+                selectUrl2: [['manures', 'id', 'name', true], ['operates', 'id', 'name', true]],
+                popNumber2: [0, 3],
+                components: [{
+                    name: 'manure_id',
+                    type: 'select',
+                    component: null,
+                    isNull: false,
+                    label: '肥料名称',
+                    placeholder: '必填',
+                    rule: {required: true, trigger: 'blur', message: '请选择肥料名称', type: 'number'},
+                    options: []
+                },
+                {
+                    name: 'date',
+                    type: 'date',
+                    component: inputDate,
+                    isNull: false,
+                    label: '施肥日期',
+                    placeholder: '',
+                    rule: {required: true, trigger: 'blur', message: '请输入施肥日期'}
+                },
+                {
+                    name: 'amount',
+                    type: 'textSelect',
+                    component: inputTextSelect,
+                    isNull: false,
+                    label: '种植面积',
+                    placeholder: '请填写数字（必填）',
+                    options: [{
+                        value: 'kg/亩',
+                        label: 'kg/亩'
+                    },
+                    {
+                        value: 'kg/平方米',
+                        label: 'kg/平方米'
+                    },
+                    {
+                        value: 'kg/公顷',
+                        label: 'kg/公顷'
+                    }
+                    ],
+                    rule: {required: true, message: '请输入平均施肥用量', trigger: 'blur'}
+                },
+                {
+                    name: 'operate_id',
+                    type: 'select',
+                    component: null,
+                    isNull: true,
+                    label: '施肥人',
+                    placeholder: '',
+                    rule: {required: true, trigger: 'blur', type: 'number', message: '请输入施肥人'},
+                    options: []
+                },
+                {
+                    name: 'way',
+                    type: 'text',
+                    component: null,
+                    isNull: true,
+                    label: '施肥方法',
+                    placeholder: '',
+                    rule: null
+                },
+                {
+                    name: 'memo',
+                    type: 'textarea',
+                    component: null,
+                    isNull: true,
+                    label: '备注信息',
+                    placeholder: '',
+                    rule: null
                 }
-            ],
-            listComponent: [{
-                components: [
-                    {
-                        type: 'select',
-                        component: selectSection,
-                        options: [{
-                            value: '',
-                            label: '产品品牌'
-                        },
-                        {
-                            value: '康乐牌',
-                            label: '康乐牌'
-                        }]
+                ]
+            }],
+            editComponent: [{
+                tab: '编辑种植批次',
+                selectUrl: [['planta', 'cultivate', 'plantation_id', 'plantation_name', true]],
+                selectUrl2: [['plants', 'id', 'name', true], ['operates', 'id', 'name', true]],
+                popNumber: [1],
+                popNumber2: [2, 5],
+                components: [{
+                    name: 'serial',
+                    type: 'text',
+                    component: null,
+                    isNull: false,
+                    disabled: true,
+                    label: '种植批次号',
+                    placeholder: '必填',
+                    rule: {required: true, trigger: 'blur'}
+                },
+                {
+                    name: 'plantation_id',
+                    type: 'select',
+                    component: null,
+                    isNull: false,
+                    label: '所属种植区',
+                    placeholder: '必填',
+                    rule: {required: true, trigger: 'blur', message: '请选择种植区', type: 'number'},
+                    options: []
+                },
+                {
+                    name: 'plant_id',
+                    type: 'select',
+                    component: null,
+                    isNull: false,
+                    label: '果蔬名称',
+                    placeholder: '必填',
+                    rule: {required: true, trigger: 'blur', message: '请选择果蔬', type: 'number'},
+                    options: []
+                },
+                {
+                    name: 'date',
+                    type: 'date',
+                    component: inputDate,
+                    isNull: false,
+                    label: '种植日期',
+                    placeholder: '',
+                    rule: {required: true, trigger: 'blur', message: '请输入种植日期'}
+                },
+                {
+                    name: 'area',
+                    type: 'textSelect',
+                    component: inputTextSelect,
+                    isNull: false,
+                    label: '种植面积',
+                    placeholder: '请填写数字（必填）',
+                    options: [{
+                        value: '亩',
+                        label: '亩'
                     },
                     {
-                        type: 'select',
-                        component: selectSection,
-                        options: [{
-                            value: '',
-                            label: '产品品牌'
-                        },
-                        {
-                            value: '康乐牌',
-                            label: '康乐牌'
-                        }]
+                        value: '平方米',
+                        label: '平方米'
                     },
                     {
-                        type: 'date',
-                        component: datePick
-                    }]
+                        value: '公顷',
+                        label: '公顷'
+                    }
+                    ],
+                    rule: {required: true, message: '请输入种植面积', trigger: 'blur'}
+                },
+                {
+                    name: 'operate_id',
+                    type: 'select',
+                    component: null,
+                    isNull: true,
+                    label: '种植人',
+                    placeholder: '',
+                    rule: {required: true, trigger: 'blur', type: 'number', message: '请输入种植人'},
+                    options: []
+                },
+                {
+                    name: 'memo',
+                    type: 'textarea',
+                    component: null,
+                    isNull: true,
+                    label: '备注信息',
+                    placeholder: '',
+                    rule: null
+                }
+                ]
             }]
         },
         {
@@ -6157,35 +6302,10 @@ export default {
                 }
             ],
             listComponent: [{
-                components: [
-                    {
-                        type: 'select',
-                        component: selectSection,
-                        options: [{
-                            value: '',
-                            label: '产品品牌'
-                        },
-                        {
-                            value: '康乐牌',
-                            label: '康乐牌'
-                        }]
-                    },
-                    {
-                        type: 'select',
-                        component: selectSection,
-                        options: [{
-                            value: '',
-                            label: '产品品牌'
-                        },
-                        {
-                            value: '康乐牌',
-                            label: '康乐牌'
-                        }]
-                    },
-                    {
-                        type: 'date',
-                        component: datePick
-                    }
+                components: [{
+                    type: 'date',
+                    component: datePick
+                }
                 ]
             }]
         },
