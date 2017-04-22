@@ -3,7 +3,7 @@
  * 详情页模块组件
  * @author 吴燕萍
  * @date 2017/04/18
- * 
+ *  
  */
 <template>
 <div>   

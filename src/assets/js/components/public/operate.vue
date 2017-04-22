@@ -71,6 +71,8 @@
         watch: {
             listComponent () {
                 this.value = ''
+                this.value1 = ''
+                this.value2 = ''
             }
         }
     }

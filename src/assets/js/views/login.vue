@@ -73,8 +73,8 @@
 </template>
 
 <script>
-// import {mapActions} from 'vuex'
-
+import {mapActions} from 'vuex'
+import {USER_SIGNIN} from '../store/user'
 export default {
     data () {
         let validateName = (rule, value, callback) => {
@@ -127,7 +127,11 @@ export default {
         }
     },
     methods: {
+        // ...mapActions([USER_SIGNIN]),
         submitForm (formName) {
+            // if (!this.ruleForm2.name || !this.ruleForm2.password) return
+            // this.USER_SIGNIN(this.ruleForm2)
+            // this.$router.push('/index')
             this.$refs[formName].validate((valid) => {
                 if (valid) {
                     axios.post('/login', this.ruleForm2)
@@ -136,6 +140,7 @@ export default {
                             if (responce.data !== 200) {
                                 callback(new Error('登录失败'))
                             } else {
+                                // this.USER_SIGNIN(this.ruleForm2)
                                 this.$router.push('/index')
                             }
                         })
