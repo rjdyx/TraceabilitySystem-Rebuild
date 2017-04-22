@@ -518,6 +518,7 @@ export default {
         },
         key () {
             this.tableData = []
+            this.dataArr = {}
             if (this.selectValueId !== undefined) {
                 this.getSelect()
             }
