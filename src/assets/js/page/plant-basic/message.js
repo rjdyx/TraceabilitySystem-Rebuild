@@ -7191,37 +7191,57 @@ export default {
                 ]
             }],
             editComponent: [{
-                tab: '编辑病虫害信息',
-                selectUrl2: [['medicaments', 'id', 'name', true], ['operates', 'id', 'name', true], ['experts', 'id', 'name', true]],
-                popNumber2: [1, 7, 8],
+                tab: '编辑种植检测信息',
+                selectUrl2: [['operates', 'id', 'name', true], ['experts', 'id', 'name', true]],
+                popNumber2: [7, 8],
+                hiddenValue: {type: 'plant'},
                 components: [{
                     name: 'serial',
                     type: 'text',
                     component: null,
+                    isNull: true,
                     disabled: true,
-                    isNull: false,
-                    label: '施药批次号',
+                    label: '检测批次号',
                     placeholder: '必填',
                     rule: {required: true, trigger: 'blur'}
                 },
                 {
-                    name: 'medicament_id',
+                    name: 'name',
                     type: 'select',
-                    component: null,
+                    component: inputSelect,
                     isNull: false,
-                    label: '农药名称',
-                    placeholder: '必填',
-                    rule: {required: true, trigger: 'blur', message: '请选择农药名称', type: 'number'},
-                    options: []
+                    label: '检测类型',
+                    placeholder: '',
+                    rule: null,
+                    options: [{
+                        value: '土壤检测',
+                        label: '土壤检测'
+                    },
+                    {
+                        value: '水质检测',
+                        label: '水质检测'
+                    },
+                    {
+                        value: '大气污染检测',
+                        label: '大气污染检测'
+                    },
+                    {
+                        value: '农药残留检测',
+                        label: '农药残留检测'
+                    },
+                    {
+                        value: '其他检测',
+                        label: '其他检测'
+                    }]
                 },
                 {
                     name: 'date',
                     type: 'date',
                     component: inputDate,
                     isNull: false,
-                    label: '喷洒日期',
+                    label: '检测日期',
                     placeholder: '',
-                    rule: {required: true, trigger: 'blur', message: '请输入喷洒日期'}
+                    rule: {required: true, trigger: 'blur', message: '请输入检测日期'}
                 },
                 {
                     name: 'weather',
@@ -7253,53 +7273,48 @@ export default {
                     }]
                 },
                 {
-                    name: 'amount',
-                    type: 'textSelect',
+                    name: 'department',
+                    type: 'text',
                     component: inputTextSelect,
                     isNull: false,
-                    label: '施用量',
-                    placeholder: '请填写数字（必填）',
+                    label: '检测部门',
+                    placeholder: '',
+                    rule: null
+                },
+                {
+                    name: 'content',
+                    type: 'text',
+                    component: null,
+                    isNull: true,
+                    label: '检测内容',
+                    placeholder: '',
+                    rule: null
+                },
+                {
+                    name: 'result',
+                    type: 'select',
+                    component: null,
+                    isNull: true,
+                    label: '检测结果',
+                    placeholder: '',
+                    rule: null,
                     options: [{
-                        value: 'ml/亩',
-                        label: 'ml/亩'
+                        value: '合格',
+                        label: '合格'
                     },
                     {
-                        value: 'ml/平方米',
-                        label: 'ml/平方米'
-                    },
-                    {
-                        value: 'ml/公顷',
-                        label: 'ml/公顷'
-                    }
-                    ],
-                    rule: {required: true, message: '请输入平均施药用量', trigger: 'blur'}
-                },
-                {
-                    name: 'concentration',
-                    type: 'text',
-                    component: null,
-                    isNull: true,
-                    label: '施药浓度',
-                    placeholder: '',
-                    rule: {message: '请输入数字', trigger: 'blur'}
-                },
-                {
-                    name: 'safety',
-                    type: 'text',
-                    component: null,
-                    isNull: true,
-                    label: '安全隔离期（天）',
-                    placeholder: '',
-                    rule: {message: '请输入数字', trigger: 'blur'}
+                        value: '不合格',
+                        label: '不合格'
+                    }]
                 },
                 {
                     name: 'operate_id',
                     type: 'select',
                     component: null,
                     isNull: true,
-                    label: '施药人',
+                    label: '检测人',
                     placeholder: '',
-                    rule: {required: true, trigger: 'blur', type: 'number', message: '请输入施药人'},
+                    rule: {required: true, trigger: 'blur', type: 'number', message: '请输入检测人'},
                     options: []
                 },
                 {
@@ -7311,15 +7326,6 @@ export default {
                     placeholder: '',
                     rule: null,
                     options: []
-                },
-                {
-                    name: 'way',
-                    type: 'text',
-                    component: null,
-                    isNull: true,
-                    label: '施药方法',
-                    placeholder: '',
-                    rule: null
                 },
                 {
                     name: 'memo',
@@ -7335,13 +7341,13 @@ export default {
         },
         {
             settitle: '农事管理',
-            key: 'planManage',
+            key: 'farming',
             tab: '田间信息',
-            url: 'plan',
-            searchPlaceholder: '请输入批次号进行搜索',
-            theads: ['批次号', '检验类型', '检验日期', '天气', '检测部门', '检查结果', '检验审批信息', '负责人', '录入人', '备注'],
-            protos: ['plan_type_name', 'name', 'content', 'name', 'content', 'name', 'content', 'name', 'content'],
-            widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
+            url: 'farming',
+            searchPlaceholder: '请输入农事批次号进行搜索',
+            theads: ['田间批次号', '操作日期', '天气', '操作内容', '操作方法', '操作人', '录入人', '备注'],
+            protos: ['serial', 'date', 'weather', 'content', 'method', 'operate_name', 'user_name', 'memo'],
+            widths: [50, 50, 50, 50, 50, 50, 50, 50],
             typeComponent: [
                 {
                     component: output
@@ -7350,35 +7356,202 @@ export default {
                     component: newbuildBtn
                 }],
             listComponent: [{
-                components: [
-                    {
-                        type: 'select',
-                        component: selectSection,
-                        options: [{
-                            value: '',
-                            label: '产品品牌'
-                        },
-                        {
-                            value: '康乐牌',
-                            label: '康乐牌'
-                        }]
+                components: [{
+                    type: 'date',
+                    component: datePick
+                }]
+            }],
+            newComponent: [{
+                tab: '新建田间信息',
+                selectUrl2: [['operates', 'id', 'name', true], ['experts', 'id', 'name', true]],
+                popNumber2: [4, 5],
+                components: [{
+                    name: 'date',
+                    type: 'date',
+                    component: inputDate,
+                    isNull: false,
+                    label: '操作日期',
+                    placeholder: '',
+                    rule: {required: true, trigger: 'blur', message: '请输入操作日期'}
+                },
+                {
+                    name: 'weather',
+                    type: 'select',
+                    component: inputSelect,
+                    isNull: false,
+                    label: '天气',
+                    placeholder: '',
+                    rule: null,
+                    options: [{
+                        value: '晴',
+                        label: '晴'
                     },
                     {
-                        type: 'select',
-                        component: selectSection,
-                        options: [{
-                            value: '',
-                            label: '产品品牌'
-                        },
-                        {
-                            value: '康乐牌',
-                            label: '康乐牌'
-                        }]
+                        value: '雨',
+                        label: '雨'
                     },
                     {
-                        type: 'date',
-                        component: datePick
+                        value: '雪',
+                        label: '雪'
+                    },
+                    {
+                        value: '阴',
+                        label: '阴'
+                    },
+                    {
+                        value: '其他',
+                        label: '其他'
                     }]
+                },
+                {
+                    name: 'content',
+                    type: 'text',
+                    component: null,
+                    isNull: false,
+                    label: '操作内容',
+                    placeholder: '',
+                    rule: null
+                },
+                {
+                    name: 'method',
+                    type: 'text',
+                    component: null,
+                    isNull: true,
+                    label: '操作方法',
+                    placeholder: '',
+                    rule: null
+                },
+                {
+                    name: 'operate_id',
+                    type: 'select',
+                    component: null,
+                    isNull: true,
+                    label: '操作人',
+                    placeholder: '',
+                    rule: {required: true, trigger: 'blur', type: 'number', message: '请输入操作人'},
+                    options: []
+                },
+                {
+                    name: 'expert_id',
+                    type: 'select',
+                    component: null,
+                    isNull: true,
+                    label: '专家',
+                    placeholder: '',
+                    rule: null,
+                    options: []
+                },
+                {
+                    name: 'memo',
+                    type: 'textarea',
+                    component: null,
+                    isNull: true,
+                    label: '备注信息',
+                    placeholder: '',
+                    rule: null
+                }
+                ]
+            }],
+            editComponent: [{
+                tab: '编辑田间信息',
+                selectUrl2: [['operates', 'id', 'name', true], ['experts', 'id', 'name', true]],
+                popNumber2: [5, 6],
+                components: [{
+                    name: 'serial',
+                    type: 'text',
+                    component: null,
+                    isNull: false,
+                    label: '田间批次号',
+                    disabled: true,
+                    placeholder: '',
+                    rule: {required: true, trigger: 'blur'}
+                },
+                {
+                    name: 'date',
+                    type: 'date',
+                    component: inputDate,
+                    isNull: false,
+                    label: '操作日期',
+                    placeholder: '',
+                    rule: {required: true, trigger: 'blur', message: '请输入操作日期'}
+                },
+                {
+                    name: 'weather',
+                    type: 'select',
+                    component: inputSelect,
+                    isNull: false,
+                    label: '天气',
+                    placeholder: '',
+                    rule: null,
+                    options: [{
+                        value: '晴',
+                        label: '晴'
+                    },
+                    {
+                        value: '雨',
+                        label: '雨'
+                    },
+                    {
+                        value: '雪',
+                        label: '雪'
+                    },
+                    {
+                        value: '阴',
+                        label: '阴'
+                    },
+                    {
+                        value: '其他',
+                        label: '其他'
+                    }]
+                },
+                {
+                    name: 'content',
+                    type: 'text',
+                    component: null,
+                    isNull: false,
+                    label: '操作内容',
+                    placeholder: '',
+                    rule: null
+                },
+                {
+                    name: 'method',
+                    type: 'text',
+                    component: null,
+                    isNull: true,
+                    label: '操作方法',
+                    placeholder: '',
+                    rule: null
+                },
+                {
+                    name: 'operate_id',
+                    type: 'select',
+                    component: null,
+                    isNull: true,
+                    label: '操作人',
+                    placeholder: '',
+                    rule: {required: true, trigger: 'blur', type: 'number', message: '请输入操作人'},
+                    options: []
+                },
+                {
+                    name: 'expert_id',
+                    type: 'select',
+                    component: null,
+                    isNull: true,
+                    label: '专家',
+                    placeholder: '',
+                    rule: null,
+                    options: []
+                },
+                {
+                    name: 'memo',
+                    type: 'textarea',
+                    component: null,
+                    isNull: true,
+                    label: '备注信息',
+                    placeholder: '',
+                    rule: null
+                }
+                ]
             }]
         }
     ],
