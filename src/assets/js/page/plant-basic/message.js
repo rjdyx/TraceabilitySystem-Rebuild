@@ -6174,24 +6174,25 @@ export default {
             ]
         }],
         newComponent: [{
-            tab: '新建采收批次',
+            tab: '新建生产计划信息',
             components: [{
                 name: 'date',
                 type: 'date',
                 component: inputDate,
                 isNull: true,
-                label: '种植日期',
+                label: '计划日期',
                 placeholder: '',
-                rule: null
+                rule: {required: true, message: '请输入批次号', trigger: 'blur'}
             },
             {
-                name: 'type',
+                name: 'category_id',
                 type: 'select',
                 component: null,
                 isNull: false,
                 label: '操作类型',
-                placeholder: '请选择操作类型',
-                rule: {required: true, trigger: 'blur'}
+                placeholder: '必填',
+                rule: {required: true, trigger: 'blur', type: 'number', message: '请选择分类名称'},
+                options: []
             },
             {
                 name: 'content',
@@ -6228,7 +6229,10 @@ export default {
         key: 'harvest',
         tab: '采收批次信息',
         url: 'harvest',
+        selectValueId: ['operate_id', 'operate_name', true],
+        selectDefault: {value: '', label: '种植区选择'},
         batch: 'cultivateBatch',
+        paramsIndex: 0,
         searchPlaceholder: '请输入采收批次号进行搜索',
         theads: ['种植', '批次号', '种植日期', '采收数量', '入库部门', '存放仓库位置', '操作人', '录入人', '备注'],
         protos: ['plantation_name', 'serial', 'date', 'amount', 'department', 'position', 'operate_name', 'user_name', 'memo'],
@@ -6246,16 +6250,7 @@ export default {
                 {
                     type: 'select',
                     component: selectSection,
-                    options: [
-                        {
-                            value: '',
-                            label: '种植区选择'
-                        },
-                        {
-                            value: '康乐牌',
-                            label: '康乐牌'
-                        }
-                    ]
+                    options: []
                 },
                 {
                     type: 'date',
@@ -6367,6 +6362,7 @@ export default {
                 rule: {required: true, message: '请输入批次号', trigger: 'blur'}
             },
             {
+                name: 'cultivate_date',
                 type: 'date',
                 component: inputDate,
                 isNull: true,
@@ -7028,6 +7024,10 @@ export default {
             key: 'vehicle',
             tab: '车辆信息',
             url: 'vehicle',
+            selectSearch: ['vehicles.id'],
+            selectValueId: ['id', 'brand', true],
+            selectDefault: {value: '', label: '车辆品牌'},
+            paramsIndex: 0,
             searchPlaceholder: '请输入车牌号进行搜索',
             theads: ['车辆品牌', '车辆号码', '核载吨位', '备注信息'],
             protos: ['brand', 'number', 'tonnage', 'memo'],
@@ -7047,14 +7047,7 @@ export default {
                 components: [{
                     type: 'select',
                     component: selectSection,
-                    options: [{
-                        value: '',
-                        label: '车辆品牌'
-                    },
-                    {
-                        value: '东风',
-                        label: '东风'
-                    }]
+                    options: []
                 }]
             }],
             newComponent: [{

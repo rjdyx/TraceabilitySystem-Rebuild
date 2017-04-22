@@ -2,7 +2,7 @@
 * @description 顶部栏 
 * @author 舒丹彤 
 * @date 2017/3/14
-* 
+*  
 */
 <template>
 	<header class="header">
@@ -21,8 +21,10 @@
 				</li>
 				<template v-for="navbar in navbars">
 					<li class="navbar">
-						<img :src="navbar.src" />
-						<span>{{navbar.name}}</span>
+						<router-link :to="navbar.path">
+							<img :src="navbar.src" />
+							<span>{{navbar.name}}</span>
+						</router-link>
 					</li>
 				</template>
 			</ul>
@@ -123,6 +125,9 @@
 				border-left: 1px solid #0087b5;
 				color: #fff;
 				font-size: 12px;
+				span {
+					color: #fff;
+				}
 				img {
 					display: block;
 					padding-left: 30px;

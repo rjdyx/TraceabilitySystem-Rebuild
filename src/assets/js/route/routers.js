@@ -44,7 +44,7 @@ const routes = [
         path: '/index',
         name: 'index',
         component: index,
-        meta: { requiresAuth: true }
+        meta: { auth: true }
     },
     {
         path: '/index',
@@ -54,15 +54,12 @@ const routes = [
             component: basic,
             // 需要登录才能进入此路由
             meta: {
-                requiresAuth: true
+                auth: true
             }
         },
         {
             path: 'details/:model',
-            component: details,
-            meta: {
-                requiresAuth: true
-            }
+            component: details
         }]
     },
     {
@@ -71,12 +68,9 @@ const routes = [
         component: notFound
     },
     {
-        path: '/login',
+        path: '/',
         name: 'login',
-        component: login,
-        meta: {
-            requiresAuth: true
-        }
+        component: login
     }
 ]
 

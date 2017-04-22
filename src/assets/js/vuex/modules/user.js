@@ -1,26 +1,19 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 // Vue.use(Vuex)
+export const USER_SIGNIN = 'USER_SIGNIN'// 登录成功
 
-const userStore = new Vuex.Store({
-    state: {
-        userInfo: {}
-    },
-    getters: {
-        getUserInfo (state) {
-            return state.userInfo
-        }
-    },
+export default {
+    state: JSON.parse(sessionStorage.getItem('user')) || {},
     mutations: {
-        setUserInfo (state, userInfo) {
-            state.userInfo = userInfo
+        [USER_SIGNIN] (state, user) {
+            sessionStorage.setItem('user', JSON.stringify(user))
+            Object.assign(state, user)
         }
     },
     actions: {
-        setUserInfo ({ commit }, user) {
-            commit('setUserInfo', user)
+        [USER_SIGNIN] ({commit}, user) {
+            commit(USER_SIGNIN, user)
         }
     }
-})
-
-export default userStore
+}
