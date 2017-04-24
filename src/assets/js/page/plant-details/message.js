@@ -202,6 +202,27 @@ export default {
             bottomOperateList: [{operateName: '删除'}]
         }]
     },
+    // 种植批次
+    plantBatch: {
+        key: 'plantBatch',
+        tab: '种植批次管理',
+        theads: ['种植批次号', '所属种植区', '种植人', '种植日期', '种植地址', '种植果蔬名称', '当前批次面积', '备注'],
+        protos: ['serial', 'plantation_name', 'operate_name', 'date', 'address', 'plant_name', 'area_unit', 'memo'],
+        url: 'cultivate',
+        tabList: [{
+            url: 'grow',
+            tab: '生长过程信息',
+            searchPlaceholder: '请输入标题进行搜索',
+            leftOperateList: [],
+            rightOperateComponent: [{component: newbuildBtn}],
+            headList: ['图片', '图片标题', '图片描述', '上传日期', '备注信息'],
+            protos: ['thumb', 'name', 'desc', 'date', 'memo'],
+            widths: [50, 50, 50, 50, 50],
+            newComponent: [{label: '', type: '', component: '', rule: ''}],
+            tableOperateList: [{operateName: '编辑'}, {operateName: '删除'}],
+            bottomOperateList: [{operateName: '删除'}]
+        }]
+    },
 // 采收批次号
     cultivateBatch: {
         key: 'cultivateBatch',

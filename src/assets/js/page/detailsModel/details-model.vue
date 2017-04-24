@@ -13,7 +13,7 @@
 
   <!-- 信息列表 -->
     <el-row :gutter="20">
-         <el-col :span="5" v-for="(item,i) in theads" class="text-small">{{item}}:{{headData[protos[i]]}}</el-col>
+         <el-col :span="5" v-for="(item,i) in theads" class="text-small">{{item}}: {{headData[protos[i]]}}</el-col>
     </el-row>
   	
   <!-- tab栏 --> 
@@ -169,8 +169,9 @@ export default {
         getDetailSerial () {
             this.$dataGet(this, this.apiUrlArr[this.url], {})
                 .then((responce) => {
-                    console.log(responce.data)
-                    this.$set(this, 'headData', responce.data)
+                    var ret = this.$conversion(this.changeDataArr, responce.data, 1)
+                    ret = this.$eltable(ret)
+                    this.$set(this, 'headData', ret)
                 })
         }
     },

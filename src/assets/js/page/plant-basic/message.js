@@ -6215,6 +6215,7 @@ export default {
         key: 'cultivate',
         tab: '种植批次信息',
         url: 'cultivate',
+        batch: 'plantBatch',
         selectSearch: ['plantations.id', 'plants.id'],
         selectValueId: [['plantation_id', 'plantation_name', true], ['plant_id', 'plant_name', true]],
         selectDefault: [{value: '', label: '种植区选择'}, {value: '', label: '果蔬选择'}],
