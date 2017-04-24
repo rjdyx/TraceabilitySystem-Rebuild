@@ -25,9 +25,19 @@
                     <tr v-if="subItem.type=='text'">
                         <td>
                             <el-form-item :label="subItem.label" :prop="subItem.name">
-                                <el-input 
-                                    :placeholder="subItem.placeholder" 
-                                    v-model="tableForm[subItem.name]" size="small"></el-input>
+                                <!-- <div v-if="subItem.rule!=null">
+                                    <el-input v-if="subItem.rule.type=='number'"
+                                        :placeholder="subItem.placeholder" 
+                                        v-model.number="tableForm[subItem.name]" size="small" ></el-input>
+                                    <el-input v-else=""
+                                        :placeholder="subItem.placeholder" 
+                                        v-model="tableForm[subItem.name]" size="small" ></el-input>
+                                </div>
+                                <div v-else> -->
+                                    <el-input
+                                        :placeholder="subItem.placeholder" 
+                                        v-model="tableForm[subItem.name]" size="small" ></el-input>
+                                <!-- </div> -->
                             </el-form-item>
                         </td> 
                     </tr>
@@ -105,7 +115,7 @@ export default {
             default: []
         },
         tab: {
-            type: String
+            type: ''
         },
         url: ''
         // editForm: {
