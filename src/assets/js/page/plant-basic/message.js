@@ -6275,7 +6275,7 @@ export default {
                 isNull: false,
                 label: '种植日期',
                 placeholder: '',
-                rule: {required: true, trigger: 'blur', message: '请输入种植日期'}
+                rule: [{required: true}, {validator: validate2.reDate, message: '请输入种植日期'}]
             },
             {
                 name: 'area',
@@ -6297,7 +6297,7 @@ export default {
                     label: '公顷'
                 }
                 ],
-                rule: {required: true, message: '请输入种植面积', trigger: 'blur'}
+                rule: [{required: true, message: '请输入种植面积', trigger: 'blur'}, {validator: validate2.reNumber}]
             },
             {
                 name: 'operate_id',
@@ -6363,7 +6363,7 @@ export default {
                 isNull: false,
                 label: '种植日期',
                 placeholder: '',
-                rule: {required: true, trigger: 'blur', message: '请输入种植日期'}
+                rule: [{required: true}, {validator: validate2.reDate, message: '请输入种植日期'}]
             },
             {
                 name: 'area',
@@ -6385,7 +6385,7 @@ export default {
                     label: '公顷'
                 }
                 ],
-                rule: {required: true, message: '请输入种植面积', trigger: 'blur'}
+                rule: [{required: true, message: '请输入种植面积', trigger: 'blur'}, {validator: validate2.reNumber}]
             },
             {
                 name: 'operate_id',
@@ -6472,7 +6472,7 @@ export default {
                     isNull: false,
                     label: '施肥日期',
                     placeholder: '',
-                    rule: {required: true, trigger: 'blur', message: '请输入施肥日期'}
+                    rule: [{required: true}, {validator: validate2.reDate, message: '请输入施肥日期'}]
                 },
                 {
                     name: 'weather',
@@ -6523,7 +6523,7 @@ export default {
                         label: 'kg/公顷'
                     }
                     ],
-                    rule: {required: true, message: '请输入平均施肥用量', trigger: 'blur'}
+                    rule: [{required: true, message: '请输入平均施肥用量', trigger: 'blur'}, {validator: validate2.reNumber}]
                 },
                 {
                     name: 'operate_id',
@@ -6596,7 +6596,7 @@ export default {
                     isNull: false,
                     label: '施肥日期',
                     placeholder: '',
-                    rule: {required: true, trigger: 'blur', message: '请输入施肥日期'}
+                    rule: [{required: true}, {validator: validate2.reDate, message: '请输入施肥日期'}]
                 },
                 {
                     name: 'weather',
@@ -6647,7 +6647,7 @@ export default {
                         label: 'kg/公顷'
                     }
                     ],
-                    rule: {required: true, message: '请输入平均施肥用量', trigger: 'blur'}
+                    rule: [{required: true, message: '请输入平均施肥用量', trigger: 'blur'}, {validator: validate2.reNumber}]
                 },
                 {
                     name: 'operate_id',
@@ -6744,7 +6744,7 @@ export default {
                     isNull: false,
                     label: '喷洒日期',
                     placeholder: '',
-                    rule: {required: true, trigger: 'blur', message: '请输入喷洒日期'}
+                    rule: [{required: true}, {validator: validate2.reDate, message: '请输入喷洒日期'}]
                 },
                 {
                     name: 'weather',
@@ -6795,7 +6795,7 @@ export default {
                         label: 'ml/公顷'
                     }
                     ],
-                    rule: {required: true, message: '请输入平均施药用量', trigger: 'blur'}
+                    rule: [{required: true, message: '请输入平均施药用量', trigger: 'blur'}, {validator: validate2.reNumber}]
                 },
                 {
                     name: 'concentration',
@@ -6804,7 +6804,7 @@ export default {
                     isNull: true,
                     label: '施药浓度',
                     placeholder: '',
-                    rule: {message: '请输入数字', trigger: 'blur'}
+                    rule: [{message: '请输入数字', trigger: 'blur'}, {validator: validate2.reNumber}]
                 },
                 {
                     name: 'safety',
@@ -6813,7 +6813,7 @@ export default {
                     isNull: true,
                     label: '安全隔离期（天）',
                     placeholder: '',
-                    rule: {message: '请输入数字', trigger: 'blur'}
+                    rule: [{message: '请输入数字', trigger: 'blur'}, {validator: validate2.reNumber}]
                 },
                 {
                     name: 'operate_id',
@@ -6886,7 +6886,7 @@ export default {
                     isNull: false,
                     label: '喷洒日期',
                     placeholder: '',
-                    rule: {required: true, trigger: 'blur', message: '请输入喷洒日期'}
+                    rule: [{required: true}, {validator: validate2.reDate, message: '请输入喷洒日期'}]
                 },
                 {
                     name: 'weather',
@@ -6937,7 +6937,7 @@ export default {
                         label: 'ml/公顷'
                     }
                     ],
-                    rule: {required: true, message: '请输入平均施药用量', trigger: 'blur'}
+                    rule: [{required: true, message: '请输入平均施药用量', trigger: 'blur'}, {validator: validate2.reNumber}]
                 },
                 {
                     name: 'concentration',
@@ -6946,7 +6946,7 @@ export default {
                     isNull: true,
                     label: '施药浓度',
                     placeholder: '',
-                    rule: {message: '请输入数字', trigger: 'blur'}
+                    rule: [{message: '请输入数字', trigger: 'blur'}, {validator: validate2.reNumber}]
                 },
                 {
                     name: 'safety',
@@ -6955,7 +6955,7 @@ export default {
                     isNull: true,
                     label: '安全隔离期（天）',
                     placeholder: '',
-                    rule: {message: '请输入数字', trigger: 'blur'}
+                    rule: [{message: '请输入数字', trigger: 'blur'}, {validator: validate2.reNumber}]
                 },
                 {
                     name: 'operate_id',
@@ -7093,7 +7093,7 @@ export default {
                     isNull: false,
                     label: '检测日期',
                     placeholder: '',
-                    rule: {required: true, trigger: 'blur', message: '请输入检测日期'}
+                    rule: [{required: true}, {validator: validate2.reDate, message: '请输入检测日期'}]
                 },
                 {
                     name: 'weather',
@@ -7241,7 +7241,7 @@ export default {
                     isNull: false,
                     label: '检测日期',
                     placeholder: '',
-                    rule: {required: true, trigger: 'blur', message: '请输入检测日期'}
+                    rule: [{required: true}, {validator: validate2.reDate, message: '请输入检测日期'}]
                 },
                 {
                     name: 'weather',
@@ -7372,7 +7372,7 @@ export default {
                     isNull: false,
                     label: '操作日期',
                     placeholder: '',
-                    rule: {required: true, trigger: 'blur', message: '请输入操作日期'}
+                    rule: [{required: true}, {validator: validate2.reDate, message: '请输入操作日期'}]
                 },
                 {
                     name: 'weather',
@@ -7473,7 +7473,7 @@ export default {
                     isNull: false,
                     label: '操作日期',
                     placeholder: '',
-                    rule: {required: true, trigger: 'blur', message: '请输入操作日期'}
+                    rule: [{required: true}, {validator: validate2.reDate, message: '请输入操作日期'}]
                 },
                 {
                     name: 'weather',
@@ -7558,9 +7558,9 @@ export default {
     // 生产计划
     plantProduct: [{
         settitle: '生产计划管理',
-        key: 'farming',
+        key: 'plan',
         tab: '生产计划信息',
-        url: 'farming',
+        url: 'plan',
         hiddeEdit: true,
         selectSearch: ['type'],
         searchPlaceholder: '请输入计划内容进行搜索',
@@ -7653,11 +7653,14 @@ export default {
         key: 'harvest',
         tab: '采收批次信息',
         url: 'harvest',
+        selectSearch: ['plantations.id'],
+        selectValueId: [['plantation_id', 'plantation_name', true]],
+        selectDefault: [{value: '', label: '种植区选择'}],
         batch: 'cultivateBatch',
         searchPlaceholder: '请输入采收批次号进行搜索',
-        theads: ['种植', '批次号', '种植日期', '采收数量', '入库部门', '存放仓库位置', '操作人', '录入人', '备注'],
-        protos: ['plantation_name', 'serial', 'date', 'amount', 'department', 'position', 'operate_name', 'user_name', 'memo'],
-        widths: [50, 50, 50, 50, 50, 50, 50, 50, 50],
+        theads: ['采收批次号', '采收日期', '所属种植区', '种植批次号', '采收数量(kg)', '入库部门', '存放仓库位置', '操作人', '录入人', '备注'],
+        protos: ['serial', 'date', 'plantation_name', 'cultivate_serial', 'amount', 'department', 'position', 'operate_name', 'user_name', 'memo'],
+        widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
         typeComponent: [
             {
                 component: output
@@ -7669,18 +7672,11 @@ export default {
         listComponent: [{
             components: [
                 {
+                    value: '',
+                    name: 'plantations.id',
                     type: 'select',
                     component: selectSection,
-                    options: [
-                        {
-                            value: '',
-                            label: '种植区选择'
-                        },
-                        {
-                            value: '康乐牌',
-                            label: '康乐牌'
-                        }
-                    ]
+                    options: []
                 },
                 {
                     type: 'date',
@@ -7690,31 +7686,26 @@ export default {
         }],
         newComponent: [{
             tab: '新建采收批次',
+            selectUrl2: [['cultivates', 'id', 'serial', true], ['operates', 'id', 'name', true]],
+            popNumber2: [1, 5],
             components: [{
-                name: 'plantation_name',
-                type: 'text',
-                component: null,
-                isNull: false,
-                label: '种植',
-                placeholder: '必填',
-                rule: {required: true, message: '请输入种植区', trigger: 'blur'}
-            },
-            {
-                name: 'serial',
-                type: 'text',
-                component: null,
-                isNull: false,
-                label: '批次号',
-                placeholder: '必填',
-                rule: {required: true, message: '请输入批次号', trigger: 'blur'}
-            },
-            {
+                name: 'date',
                 type: 'date',
                 component: inputDate,
                 isNull: true,
-                label: '种植日期',
-                placeholder: '',
-                rule: ''
+                label: '采收日期',
+                placeholder: '必填',
+                rule: [{required: true}, {validator: validate2.reDate, message: '请输入采收日期'}]
+            },
+            {
+                name: 'cultivate_id',
+                type: 'select',
+                component: null,
+                isNull: true,
+                label: '种植批次号',
+                placeholder: '必填',
+                rule: {required: true, trigger: 'blur', message: '请选择种植批次号', type: 'number'},
+                options: []
             },
             {
                 name: 'amount',
@@ -7723,7 +7714,7 @@ export default {
                 isNull: true,
                 label: '采收数量',
                 placeholder: '',
-                rule: null
+                rule: [{required: true, 'message': '请输入采收数量'}, {validator: validate2.reNumber}]
             },
             {
                 name: 'department',
@@ -7744,22 +7735,14 @@ export default {
                 rule: null
             },
             {
-                name: 'operate_name',
-                type: 'text',
+                name: 'operate_id',
+                type: 'select',
                 component: null,
                 isNull: true,
-                label: '操作人',
-                placeholder: '',
-                rule: null
-            },
-            {
-                name: 'user_name',
-                type: 'text',
-                component: null,
-                isNull: true,
-                label: '录入人',
-                placeholder: '',
-                rule: null
+                label: '采收人',
+                placeholder: '必填',
+                rule: {required: true, trigger: 'blur', message: '请选择采收人', type: 'number'},
+                options: []
             },
             {
                 name: 'memo',
@@ -7773,31 +7756,36 @@ export default {
         }],
         editComponent: [{
             tab: '编辑采收批次',
+            selectUrl2: [['cultivates', 'id', 'serial', true], ['operates', 'id', 'name', true]],
+            popNumber2: [2, 6],
             components: [{
-                name: 'plantation_name',
-                type: 'text',
-                component: null,
-                isNull: false,
-                label: '种植',
-                placeholder: '必填',
-                rule: {required: true, message: '请输入种植区', trigger: 'blur'}
-            },
-            {
                 name: 'serial',
                 type: 'text',
                 component: null,
-                isNull: false,
-                label: '批次号',
+                isNull: true,
+                label: '采收批次号',
+                disabled: true,
                 placeholder: '必填',
-                rule: {required: true, message: '请输入批次号', trigger: 'blur'}
+                rule: {required: true, trigger: 'blur'}
             },
             {
+                name: 'date',
                 type: 'date',
                 component: inputDate,
                 isNull: true,
-                label: '种植日期',
-                placeholder: '',
-                rule: ''
+                label: '采收日期',
+                placeholder: '必填',
+                rule: [{required: true}, {validator: validate2.reDate, message: '请输入采收日期'}]
+            },
+            {
+                name: 'cultivate_id',
+                type: 'select',
+                component: null,
+                isNull: true,
+                label: '种植批次号',
+                placeholder: '必填',
+                rule: {required: true, trigger: 'blur', message: '请选择种植批次号', type: 'number'},
+                options: []
             },
             {
                 name: 'amount',
@@ -7806,7 +7794,7 @@ export default {
                 isNull: true,
                 label: '采收数量',
                 placeholder: '',
-                rule: null
+                rule: [{required: true, 'message': '请输入采收数量'}, {validator: validate2.reNumber}]
             },
             {
                 name: 'department',
@@ -7827,22 +7815,14 @@ export default {
                 rule: null
             },
             {
-                name: 'operate_name',
-                type: 'text',
+                name: 'operate_id',
+                type: 'select',
                 component: null,
                 isNull: true,
-                label: '操作人',
-                placeholder: '',
-                rule: null
-            },
-            {
-                name: 'user_name',
-                type: 'text',
-                component: null,
-                isNull: true,
-                label: '录入人',
-                placeholder: '',
-                rule: null
+                label: '采收人',
+                placeholder: '必填',
+                rule: {required: true, trigger: 'blur', message: '请选择采收人', type: 'number'},
+                options: []
             },
             {
                 name: 'memo',
