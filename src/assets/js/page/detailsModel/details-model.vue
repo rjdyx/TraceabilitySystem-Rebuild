@@ -13,7 +13,7 @@
 
   <!-- 信息列表 -->
     <el-row :gutter="20">
-         <el-col :span="5" v-for="item in theads" class="text-small">{{item}}:</el-col>
+         <el-col :span="6" v-for="(item,i) in theads" class="text-small">{{item}}:{{headData[protos[i]]}}</el-col>
     </el-row>
   	
   <!-- tab栏 --> 
@@ -128,7 +128,10 @@ export default {
     data () {
         return {
             activeName: '',
-            // 列表数据
+            // 获取借口的数据
+            apiUrlArr: [],
+            // 头部列表数据
+            headData: {},
             tableData: []
         }
     },
@@ -143,6 +146,9 @@ export default {
         // tab点击事件
         tabClick (tab, event) {
             // this.modelIndex = tab.$data.index
+            console.log(tab)
+            // this.tableData = []
+            // this.getTabDate(this.apiUrlArr[this.tabList[0].url])
         },
         // 显示新建表单
         changeNewShow () {
@@ -155,21 +161,42 @@ export default {
         // 列表全选
         handleSelectionChange () {
         },
-        // 获取数据
-        // 获取数据
-        getAllMsg (data = '') {
-            var urlArr = []
-            urlArr[this.url] = this.url + '/' + this.$route.params.id
+        // 获取Api接口数据
+        getApiUrl (data = '') {
+            this.apiUrlArr[this.url] = this.url + '/' + this.$route.params.id
             for (var i in this.tabList) {
-                urlArr[this.tabList[i].url] = this.$route.params.id + '/' + this.tabList[i].url
+                this.apiUrlArr[this.tabList[i].url] = this.$route.params.id + '/' + this.tabList[i].url
             }
-            console.log(urlArr)
+        },
+        // 获取头部详细信息
+        getDetailSerial () {
+            // 头部列表信息
+            this.$dataGet(this, this.apiUrlArr[this.url], {})
+                .then((responce) => {
+                    this.$set(this, 'headData', responce.data)
+                    var ret = this.$conversion(this.changeDataArr, responce.data, 1)
+                    ret = this.$eltable(ret)
+                    this.$set(this, 'headData', ret)
+                })
+            this.getTabDate(this.apiUrlArr[this.tabList[0].url])
+        },
+        // 获取tab页数据
+        getTabDate (url) {
+            // tab第一页信息
+            this.$dataGet(this, url, {})
+                .then((responce) => {
+                    console.log(responce)
+                    /// 数据转换
+                    if (responce.data.data.length !== 0) {
+                        this.$set(this, 'tableData', responce.data.data)
+                    }
+                })
         }
     },
     mounted () {
         this.activeName = this.tabList[0].tab
-        // 获取数据
-        this.getAllMsg()
+        this.getApiUrl()
+        this.getDetailSerial()
     },
     watch: {
     },

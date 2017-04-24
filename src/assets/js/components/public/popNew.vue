@@ -27,7 +27,7 @@
                             <el-form-item :label="subItem.label" :prop="subItem.name">
                                 <el-input 
                                     :placeholder="subItem.placeholder" 
-                                    v-model="tableForm[subItem.name]" size="small"></el-input>
+                                    v-model.number="tableForm[subItem.name]" size="small"></el-input>
                             </el-form-item>
                         </td> 
                     </tr>
@@ -105,7 +105,7 @@ export default {
             default: []
         },
         tab: {
-            type: String
+            type: ''
         },
         url: ''
         // editForm: {
@@ -157,17 +157,23 @@ export default {
         * 点击表单拖拽事件
         */
         var _this = this
+        var divL = ($(document).outerWidth() - $('.newForm').innerWidth()) / 2
+        var divT = ($(document).outerHeight() - $('.newForm').innerHeight()) / 2
+        $('.newForm').css({left: divL, top: divT})
         $('.el-tabs__header').on('mousedown', (e) => {
             // console.log('mousedown')
             // 鼠标与newForm块的距离
             this.dmL = e.clientX - $('.newForm').position().left
             this.dmT = e.clientY - $('.newForm').position().top
+            e.preventDefault()
             $(document).on('mousemove', (e) => {
                 // console.log('mousemove')
                 var L = e.clientX - _this.dmL
                 var T = e.clientY - _this.dmT
                 var maxL = $(document).outerWidth() - $('.newForm').innerWidth()
                 var maxT = $(document).outerHeight() - $('.newForm').innerHeight()
+                var w = $('.newForm').innerWidth() / 2
+                var h = $('.newForm').innerHeight() / 2
                 if (L > maxL) {
                     L = maxL
                 } else if (L < 0) {
@@ -220,6 +226,7 @@ export default {
         // 选择框
         handleSelectionChange (val) {
             this.multipleSelection = val
+            // document.queryS
         }
     }
 }
@@ -237,16 +244,15 @@ export default {
   overflow:hidden;
   .newForm{
     width:618px;
-    position: absolute;
-    background:white;
     left:50%;
     top:50%;
-    // transform:translateX(-50%) translateY(-50%);
+    position: absolute;
+    background:white;
     box-shadow:1px 1px 50px rgba(0,0,0,.3);
     border-radius:2px;  
     .el-tabs{
-       max-height:618px;
-       overflow:scroll;
+       height:618px;
+       overflow:auto;
         .el-tab-pane:first-child{
             padding:20px 70px;
             box-sizing:border-box;
