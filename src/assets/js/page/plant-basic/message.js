@@ -141,7 +141,7 @@ export default {
                 isNull: true,
                 label: '备注信息',
                 placeholder: '',
-                rule: {required: true, message: '请输入备注', trigger: 'blur'}
+                rule: null
             }]
         }],
         editComponent: [{

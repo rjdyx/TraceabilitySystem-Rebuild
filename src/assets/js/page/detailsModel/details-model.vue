@@ -24,22 +24,21 @@
 		    <div id="operate">              
 		        <div id="inputs">
 		        <!-- 左边的操作按钮 -->
-		            <operate :listComponent="tabItem.leftOperateList"></operate>
-		            
+		            <operate :listComponent="tabItem.listComponent" @selectVal="selectFind" @dateVal="dateFind"></operate>
 		            <!-- 搜索框 -->
-		            <div class="searchOp"> 
+		            <div class="searchOp">
 		                <el-input
 		                    :placeholder="tabItem.searchPlaceholder"
 		                    v-model="inputValue"
 		                    :on-icon-click="search" class="searchInp" size="small">
 		                </el-input>
-		                <el-button size="small" class="searchBtn" @click="textFind">搜索</el-button>
+		                <el-button size="small" class="searchBtn" @click="textAndDateFind">搜索</el-button>
 		            </div>
 
 		            <!-- 右边的操作按钮 -->
 		            <!-- 操作按钮 -->
 		            <component
-		                v-for="operateItem in tabItem.rightOperateComponent"
+		                v-for="operateItem in tabItem.typeComponent"
 		                :is="operateItem.component"
 		                class="fr"
 		            ></component>
@@ -67,17 +66,35 @@
 		              :label="item"
 		              :min-width="tabItem.widths[index]"
 		              show-overflow-tooltip>
+                      <template  scope="scope">
+                            <div v-if="tabItem.protos[index]=='thumb'" slot="reference">
+                                <img v-if="tableData[scope.$index][tabItem.protos[index]]!=null && 
+                                    tableData[scope.$index][tabItem.protos[index]]!=''" 
+                                    :src="tableData[scope.$index][tabItem.protos[index]]" 
+                                    width="30" height="20" @mouseenter="enterPic" @mouseleave="">
+                            </div>
+                            <div v-else slot="reference" >
+                                {{ tableData[scope.$index][tabItem.protos[index]] }}
+                            </div>
+                      </template>
 		            </el-table-column>
 		          </template>
 		        </template>
 
 		        <!-- 列表操作模块 -->
-		        <el-table-column 
-		        label="操作"> 
-	                <template>
-                        <el-button type="text" size="small" v-for="operateItem in tabItem.bottomOperateList">{{operateItem.operateName}}</el-button> 
-	                </template>
-		        </el-table-column>
+                <el-table-column 
+                label="操作" v-if="checkOperate==null">
+                    <template scope="scope" class="operateBtn">
+                        <template v-if="moreComponent!=null">
+                            <clickMore :moreComponent="moreComponent" class="clickMoreBtn"></clickMore>
+                        </template>
+                        <template>
+                            <el-button type="text" size="small" @click="changeEditShow(scope.$index,scope.row)" v-if="!hiddeEdit">编辑</el-button>
+                            <el-button type="text" size="small" v-if="hiddeEdit">查看</el-button>
+                            <el-button size="small" type="text" @click="handelDel(scope.$index,scope.row)" class="btn">删除</el-button>  
+                        </template>
+                    </template>
+                </el-table-column>
 		    </el-table>
 
 		    <div class="footer">
@@ -88,20 +105,14 @@
 		        <p class="record">共有{{num}}页，{{total_num}}条记录</p>
             
             <!-- 分页模块 -->
-            <!-- <el-pagination
-              v-if="paginator!=0"
-              layout="prev, pager, next"
-              :total="paginator.total"
-              :page-size="paginator.per_page"
-              class="pager"
-              @current-change="pageChange">
-            </el-pagination> -->
-		        <!-- 分页模块 -->
-		        <el-pagination
-    			    layout="prev, pager, next"
-    			    :total="1000"
-    			    class="pager">
-    			  </el-pagination>
+                <el-pagination
+                  v-if="paginator!=0"
+                  layout="prev, pager, next"
+                  :total="paginator.total"
+                  :page-size="paginator.per_page"
+                  class="pager"
+                  @current-change="pageChange">
+                </el-pagination>
 		    </div>
         </el-tab-pane>
     </el-tabs> 
@@ -141,17 +152,15 @@ export default {
             apiUrlArr: [],
             // 头部列表数据
             headData: {},
-            tableData: []
+            // 列表数据
+            tableData: [],
+            paginator: {},
+            inputValue: '',
+            dataArr: {}
         }
     },
     mixins: [computed],
     methods: {
-        // inputText搜索事件
-        search () {
-        },
-        // 搜索按钮
-        textFind () {
-        },
         // tab点击事件
         tabClick (tab, event) {
             // this.modelIndex = tab.$data.index
@@ -161,11 +170,75 @@ export default {
         },
         // 显示新建表单
         changeNewShow () {
-            // this.isNewShow = !this.isNewShow
+            this.isNewShow = !this.isNewShow
+            if (this.newComponent[0].checkNumber !== undefined) {
+                for (let index in this.newComponent[0].checkNumber) {
+                    this.newComponent[0].components[this.newComponent[0].checkNumber[index]].rule[1].url = this.url
+                }
+            }
+            if (this.newComponent[0].selectUrl) {
+                for (let key in this.newComponent[0].selectUrl) {
+                    let newArr = this.$addAndEditSelectMethod(this.newComponent[0].selectUrl[key])
+                    this.$dataGet(this, newArr.selectUrl + '/changeSelect', {'selectData': newArr.selectData})
+                        .then((responce) => {
+                            if (responce.data.length !== 0) {
+                                this.newComponent[0].components[this.newComponent[0].popNumber[key]].options = this.$selectData(this.url, responce.data, newArr.selectArr)
+                            }
+                        })
+                }
+            }
+            // 无分类的下拉框模块查询
+            if (this.newComponent[0].selectUrl2) {
+                for (let key in this.newComponent[0].selectUrl2) {
+                    let newArr = this.$addAndEditSelectMethod(this.newComponent[0].selectUrl2[key])
+                    this.$dataGet(this, '/util/selects', {table: newArr.selectUrl})
+                        .then((responce) => {
+                            if (responce.data.length !== 0) {
+                                this.newComponent[0].components[this.newComponent[0].popNumber2[key]].options = this.$selectData(this.url, responce.data, newArr.selectArr)
+                            }
+                        })
+                }
+            }
         },
         // 显示编辑表单
         changeEditShow (index, row) {
-            // this.isEditShow = !this.isEditShow
+            this.isEditShow = true
+            if (row !== undefined) {
+                if (this.editComponent[0].checkNumber !== undefined) {
+                    for (let index in this.newComponent[0].checkNumber) {
+                        this.editComponent[0].components[this.editComponent[0].checkNumber[index]].rule[1]['id'] = row.id
+                        this.editComponent[0].components[this.editComponent[0].checkNumber[index]].rule[1]['url'] = this.url
+                    }
+                }
+                if (this.editComponent[0].selectUrl) {
+                    for (let key in this.editComponent[0].selectUrl) {
+                        let editArr = this.$addAndEditSelectMethod(this.editComponent[0].selectUrl[key])
+                        this.$dataGet(this, editArr.selectUrl + '/changeSelect', {'selectData': editArr.selectData})
+                            .then((responce) => {
+                                if (responce.data.length !== 0) {
+                                    this.editComponent[0].components[this.editComponent[0].popNumber[key]].options = this.$selectData(this.url, responce.data, editArr.selectArr)
+                                }
+                            })
+                    }
+                }
+                // 无分类的下拉框模块查询
+                if (this.editComponent[0].selectUrl2) {
+                    for (let key in this.editComponent[0].selectUrl2) {
+                        let editArr = this.$addAndEditSelectMethod(this.editComponent[0].selectUrl2[key])
+                        this.$dataGet(this, '/util/selects', {table: editArr.selectUrl})
+                            .then((responce) => {
+                                if (responce.data.length !== 0) {
+                                    this.editComponent[0].components[this.editComponent[0].popNumber2[key]].options = this.$selectData(this.url, responce.data, editArr.selectArr)
+                                }
+                            })
+                    }
+                }
+                this.editForm = row
+                // 重新赋值获取初始值
+                for (let key of Object.keys(row)) {
+                    this.editDefault[key] = row[key]
+                }
+            }
         },
         // 列表全选
         handleSelectionChange () {
@@ -176,7 +249,6 @@ export default {
             for (var i in this.tabList) {
                 this.apiUrlArr[this.tabList[i].url] = this.$route.params.id + '/' + this.tabList[i].url
             }
-            console.log(this.apiUrlArr[this.tabList[0].url])
         },
         // 获取头部详细信息
         getDetailSerial () {
@@ -190,13 +262,76 @@ export default {
                 })
         },
         // 获取列表信息
-        getAllMsg () {
+        getAllMsg (data = '') {
+            // 字符分割
+            let strs = this.apiUrlArr[this.tabList[0].url].split('/')
+            let id = {'id': strs[0]}
+            this.$dataGet(this, strs[1], {params: data, id: id})
+                .then((responce) => {
+                    if (responce.data.data.length !== 0) {
+                        var ret = this.$conversion(this.changeDataArr, responce.data.data, 1)
+                        ret = this.$eltable(ret)
+                        this.$set(this, 'tableData', ret)
+                        this.total_num = responce.data.total
+                        this.num = responce.data.last_page
+                        this.paginator = responce.data
+                    } else {
+                        this.$set(this, 'tableData', responce.data.data)
+                        this.total_num = 0
+                        this.num = 0
+                        this.paginator = 0
+                        if (this.dataArr === '') {
+                            this.dataArr = {}
+                        }
+                    }
+                })
+        },
+        // 文本与时间按钮查询
+        textAndDateFind () {
+            this.dataArr['query_text'] = this.inputValue
+            this.boxArr(this.dataArr)
+        },
+        // 下拉框查询
+        selectFind (val) {
+            for (let index in this.selectSearch) {
+                if (val[0] === this.selectSearch[index]) {
+                    this.selectVal[index] = val[1]
+                }
+            }
+            this.dataArr[val[0]] = val[1]
+            this.boxArr(this.dataArr)
+        },
+        // 日期存储
+        dateFind (val) {
+            this.dataArr[val[0]] = val[1]
+        },
+        // 分页跳转
+        pageChange (val) {
+            this.dataArr['page'] = val
+            this.boxArr(this.dataArr)
+        },
+        // 组合查询
+        boxArr (dataArr) {
+            this.getAllMsg(dataArr)
+        },
+        enterPic () {
+            // this.$alert('<img src>')
+            // this.$alert('这是一段内容', '标题名称', {
+            //     confirmButtonText: '确定',
+            //     callback: action => {
+            //         this.$message({
+            //             type: 'info',
+            //             message: 'action: ${ action }'
+            //         })
+            //     }
+            // }
         }
     },
     mounted () {
         this.activeName = this.tabList[0].tab
         this.getApiUrl()
         this.getDetailSerial()
+        this.getAllMsg()
     },
     watch: {
     },
