@@ -4925,9 +4925,9 @@ export default {
         searchPlaceholder: '请输入检测项目名称进行',
         paramsIndex: 'beast',
         changeDataArr: [{result: {0: '不合格', 1: '合格'}}],
-        theads: ['检测名称', '检测内容', '检测日期', '检测结果', '检测机构', '负责人', '处理方法', '图片报告', '备注'],
-        protos: ['name', 'content', 'date', 'result', 'organization', 'operate_name', 'mwthod', 'thumb', 'memo'],
-        widths: [50, 50, 50, 50, 50, 50, 50, 50, 50],
+        theads: ['检测批次号', '检测名称', '检测内容', '检测日期', '检测结果', '检测机构', '负责人', '处理方法', '图片报告', '备注'],
+        protos: ['serial', 'name', 'content', 'date', 'result', 'organization', 'operate_name', 'mwthod', 'thumb', 'memo'],
+        widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
         typeComponent: [{
             component: output
         },
@@ -7979,15 +7979,15 @@ export default {
     // 果蔬-检验检测
     vegetableDetect: [{
         settitle: '检验检测管理',
-        key: 'detect_pk',
+        key: 'detect_pk_plant',
         tab: '检验检测信息',
         url: 'detect_pk',
         paramsIndex: 'plant',
         changeDataArr: [{result: {0: '不合格', 1: '合格'}}],
         searchPlaceholder: '请输入溯源码搜索',
-        theads: ['检测名称', '检测内容', '检测日期', '检测结果', '检测机构', '负责人', '处理方法', '图片报告', '备注'],
-        protos: ['name', 'content', 'date', 'result', 'organization', 'operate_name', 'method', 'thumb', 'memo'],
-        widths: [50, 50, 50, 50, 50, 50, 50, 50, 50],
+        theads: ['检测批次号', '检测名称', '检测内容', '检测日期', '检测结果', '检测机构', '负责人', '处理方法', '图片报告', '备注'],
+        protos: ['serial', 'name', 'content', 'date', 'result', 'organization', 'operate_name', 'method', 'thumb', 'memo'],
+        widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
         moreComponent: [{value: '打印'}],
         typeComponent: [
             {
@@ -8877,44 +8877,21 @@ export default {
     saleProduct: [
         {
             settitle: '销售商品库管理',
-            key: 'storage',
-            tab: '商品入库信息',
-            url: 'storage',
+            key: 'product-count',
+            checkOperate: 'true',
+            tab: '商品统计信息',
+            url: 'product-count',
             searchPlaceholder: '请输入商品名称进行搜索',
-            theads: ['商品名称', '入库数量', '销售数量', '入库库存', '备注'],
-            protos: ['plan_type_name', 'name', 'content', 'name', 'memo'],
+            theads: ['商品名称', '入库总数量', '销售总数量', '加工总数量', '销售总额'],
+            protos: ['product_name', 'storage_amount', 'sell_amount', 'pack_amount', 'money'],
             widths: [50, 50, 50, 50, 50],
             typeComponent: [
                 {
                     component: output
-                },
-                {
-                    component: newbuildBtn
                 }],
             listComponent: [{
-                components: [{
-                    type: 'date',
-                    components: 'datePick'
-                }]
+                components: []
             }]
-        },
-        {
-            settitle: '销售商品库管理',
-            key: 'vehicle',
-            tab: '商品加工信息',
-            url: 'vehicle',
-            searchPlaceholder: '请输入车牌号进行搜索',
-            theads: ['商品名称', '加工数量', '销售数量', '加工库存', '备注'],
-            protos: ['plan_type_name', 'name', 'content', 'content', 'name'],
-            widths: [50, 50, 50, 50, 50],
-            listComponent: [],
-            typeComponent: [
-                {
-                    component: output
-                },
-                {
-                    component: newbuildBtn
-                }]
         }
     ],
     // 销售-入库
@@ -9349,7 +9326,7 @@ export default {
     // 用户管理
     systemUser: [{
         settitle: '用户管理',
-        key: 'planManage',
+        key: 'myuser',
         tab: '公司用户信息',
         url: 'user',
         searchPlaceholder: '请输入用户名进行搜索',
@@ -9382,8 +9359,8 @@ export default {
                 component: null,
                 isNull: false,
                 label: '邮箱',
-                placeholder: '请输入邮箱',
-                rule: [{required: true, trigger: 'blur'}, {validator: validate2.reCheck}]
+                placeholder: '请输入邮箱'
+                // rule: [{required: true, trigger: 'blur'}, {validator: validate2.reCheck}]
             },
             {
                 name: 'gender',
@@ -9417,7 +9394,7 @@ export default {
                 isNull: false,
                 label: '出生日期',
                 placeholder: '请选择日期',
-                rule: {required: false, trigger: 'blur', type: 'date'}
+                rule: {required: false, trigger: 'blur'}
             },
             {
                 name: 'phone',
@@ -9597,24 +9574,35 @@ export default {
     // 系统日志
     systemLog: [{
         settitle: '系统日志',
-        key: 'log',
+        key: 'mylog',
         tab: '日志信息',
         url: 'log',
+        selectSearch: ['operate'],
         searchPlaceholder: '请输入内容进行搜索',
-        theads: ['模块名称', '操作', '内容', '日期时间', '客户端', '公司', '用户'],
-        protos: ['plan_type_name', 'name', 'content', 'name', 'content', 'name', 'content'],
+        theads: ['模块名称', '操作', '内容', '日期时间', '客户端ip', '用户', '备注'],
+        protos: ['module', 'operate', 'content', 'datetime', 'ip', 'user_name', 'memo'],
         widths: [50, 50, 50, 50, 50, 50, 50],
         listComponent: [{
             components: [{
+                value: '',
                 type: 'select',
+                name: 'operate',
                 component: selectSection,
                 options: [{
                     value: '',
-                    label: '操作日志'
+                    label: '请选择操作'
                 },
                 {
-                    value: '登录日志',
-                    label: '登录日志'
+                    value: '新建',
+                    label: '新建'
+                },
+                {
+                    value: '编辑',
+                    label: '编辑'
+                },
+                {
+                    value: '删除',
+                    label: '删除'
                 }]
             },
             {
@@ -9622,6 +9610,18 @@ export default {
                 components: 'datePick'
             }
             ]
+        }],
+        editComponent: [{
+            tab: '编辑备注信息',
+            components: [{
+                name: 'memo',
+                type: 'textarea',
+                component: null,
+                isNull: true,
+                label: '备注信息',
+                placeholder: '',
+                rule: null
+            }]
         }]
     }],
     // 报表

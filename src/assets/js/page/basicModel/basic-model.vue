@@ -82,7 +82,7 @@
         </template>
         <!-- 列表操作模块 -->
         <el-table-column 
-        label="操作">
+        label="操作" v-if="checkOperate==null">
             <template scope="scope" class="operateBtn">
                 <template v-if="moreComponent!=null">
                     <clickMore :moreComponent="moreComponent" class="clickMoreBtn"></clickMore>
@@ -100,7 +100,7 @@
 
     <div class="footer">
         <div class="operate-foot">
-            <el-button @click="delAll">删除</el-button>
+            <el-button @click="delAll" v-if="checkOperate==null">删除</el-button>
             <template v-if="lotComponent!=null">
                 <lotOpearte :lotComponent="lotComponent"></lotOpearte>
             </template>
@@ -170,6 +170,7 @@ export default {
                     moreComponent: [],
                     lotComponent: [],
                     hiddeEdit: false,
+                    checkOperate: null,
                     selectDefault: {}
                 }]
             }
