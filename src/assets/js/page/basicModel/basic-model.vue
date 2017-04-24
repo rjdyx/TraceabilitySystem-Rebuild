@@ -250,6 +250,9 @@ export default {
                 axios.delete(this.$adminUrl(this.url + '/' + row.id))
                     .then((responce) => {
                         this.getSelect()
+                        if (JSON.stringify(this.dataArr) === '{}') {
+                            this.dataArr = ''
+                        }
                         this.boxArr(this.dataArr)
                         this.$message({
                             type: 'success',
@@ -419,6 +422,9 @@ export default {
                     .then((responce) => {
                         if (responce.data === 'true') {
                             this.getSelect()
+                            if (JSON.stringify(this.dataArr) === '{}') {
+                                this.dataArr = ''
+                            }
                             this.boxArr(this.dataArr)
                             this.$message({
                                 type: 'success',
@@ -440,6 +446,9 @@ export default {
         changeNew (val) {
             if (val !== 'false') {
                 this.isNewShow = false
+                if (JSON.stringify(this.dataArr) === '{}') {
+                    this.dataArr = ''
+                }
                 this.boxArr(this.dataArr)
                 this.getSelect()
                 this.$message({
@@ -455,6 +464,9 @@ export default {
             if (val !== 'false') {
                 this.isEditShow = false
                 this.getSelect()
+                if (JSON.stringify(this.dataArr) === '{}') {
+                    this.dataArr = ''
+                }
                 this.boxArr(this.dataArr)
                 this.$message({
                     type: 'success',
