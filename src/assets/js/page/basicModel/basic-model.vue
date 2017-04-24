@@ -349,10 +349,6 @@ export default {
             if (this.paramsIndex !== undefined) {
                 var type = this.paramsIndex
             }
-            console.log('---------------------------------------')
-            console.log('url:' + this.url)
-            console.log('data:' + data)
-            console.log('type:' + type)
             this.$dataGet(this, this.url, {params: data, type: type})
                 .then((responce) => {
                     // 数据转换

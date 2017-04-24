@@ -59,3 +59,6 @@ Object.keys(elementComponent).forEach(function (component) {
 * css库
 */
 require('sass/index.scss')
+
+// 引入animate.css 库
+import 'animate.css'
