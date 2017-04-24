@@ -25,7 +25,7 @@ require('./config/init')
 //                         })
 
 router.beforeEach((to, from, next) => {
-    // next()
+    next()
 //     // console.log(USER_STATE)
     if (USER_STATE === 'false') {
         axios.get('/login/state', this.ruleForm2)
@@ -37,7 +37,7 @@ router.beforeEach((to, from, next) => {
                                 } else {
                                     next()
                                 }
-                                // console.log(USER_STATE)
+                                console.log(USER_STATE)
                             } else {
                                 if (to.path !== '/') {
                                     next({ path: '/' })

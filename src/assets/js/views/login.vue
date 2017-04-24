@@ -140,12 +140,12 @@ export default {
                             if (responce.data !== 200) {
                                 callback(new Error('登录失败'))
                             } else {
-                                // this.USER_SIGNIN(this.ruleForm2)
                                 this.$router.push('/index')
                             }
                         })
                 } else {
                     console.log('error submit!!')
+                    this.$message.error('登录失败,请重新登录')
                     return false
                 }
             })

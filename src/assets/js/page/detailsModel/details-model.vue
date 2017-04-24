@@ -156,7 +156,6 @@ export default {
         handleSelectionChange () {
         },
         // 获取数据
-        // 获取数据
         getAllMsg (data = '') {
             var urlArr = []
             urlArr[this.url] = this.url + '/' + this.$route.params.id

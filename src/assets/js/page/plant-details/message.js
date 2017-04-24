@@ -132,9 +132,9 @@ export default {
         tab: '无害化批次管理',
         theads: ['无害化批次号', '操作日期', '操作内容', '实行原因', '指导专家', '备注信息'],
         protos: ['serial', 'date', 'content', 'why', 'expert_name', 'memo'],
-        url: 'breed/4',
+        url: 'breed',
         tabList: [{
-            url: '4/rfid',
+            url: 'rfid',
             tab: '养殖批次信息',
             searchPlaceholder: '请输入批次号进行搜索',
             leftOperateList: [],
@@ -210,6 +210,142 @@ export default {
         protos: [],
         tabList: [{
             tab: '采收批次信息',
+            searchPlaceholder: '请输入rfid进行搜索',
+            leftOperateList: [{
+                components: [
+                    {
+                        type: 'select',
+                        components: selectSection,
+                        options: [
+                            {
+                            }
+                        ]
+                    },
+                    {
+                        type: 'date',
+                        component: datePick
+                    }
+                ]
+            }],
+            rightOperateComponent: [{component: output}, {component: newbuildBtn}],
+            headList: ['检测方式', '检测日期', '检测机构', '检测项目名称', '检测人', '检测结果', '证书编号', '有效期', '备注信息'],
+            protos: ['ear', 'name', 'date', 'memo'],
+            widths: [50, 50, 50],
+            newComponent: [{label: '', type: '', component: '', rule: ''}],
+            tableOperateList: [{operateName: '编辑'}, {operateName: '删除'}],
+            bottomOperateList: [{operateName: '删除'}, {operateName: '导出表格'}]
+        }]
+    },
+// 生产计划批次信息
+    plantProduct: {
+        key: 'plantProduct',
+        tab: '生产批次管理',
+        theads: ['批次号', '计划日期', '操作类型', '安排人员', '计划内容', '操作日期', '备注'],
+        protos: [],
+        tabList: [{
+            tab: '采收批次信息',
+            searchPlaceholder: '请输入rfid进行搜索',
+            leftOperateList: [{
+                components: [
+                    {
+                        type: 'select',
+                        components: selectSection,
+                        options: [
+                            {
+                            }
+                        ]
+                    },
+                    {
+                        type: 'date',
+                        component: datePick
+                    }
+                ]
+            }],
+            rightOperateComponent: [{component: output}, {component: newbuildBtn}],
+            headList: ['检测方式', '检测日期', '检测机构', '检测项目名称', '检测人', '检测结果', '证书编号', '有效期', '备注信息'],
+            protos: ['ear', 'name', 'date', 'memo'],
+            widths: [50, 50, 50],
+            newComponent: [{label: '', type: '', component: '', rule: ''}],
+            tableOperateList: [{operateName: '编辑'}, {operateName: '删除'}],
+            bottomOperateList: [{operateName: '删除'}, {operateName: '导出表格'}]
+        }]
+    },
+// 销售入库详情
+    saleInput: {
+        key: 'plantProduct',
+        tab: '销售入库批次管理',
+        theads: ['入库批次号', '入库日期', '供货商', '商品名称', '数量', '入库人', '录入人', '备注信息'],
+        protos: [],
+        tabList: [{
+            tab: '采收批次信息',
+            searchPlaceholder: '请输入rfid进行搜索',
+            leftOperateList: [{
+                components: [
+                    {
+                        type: 'select',
+                        components: selectSection,
+                        options: [
+                            {
+                            }
+                        ]
+                    },
+                    {
+                        type: 'date',
+                        component: datePick
+                    }
+                ]
+            }],
+            rightOperateComponent: [{component: output}, {component: newbuildBtn}],
+            headList: ['检测方式', '检测日期', '检测机构', '检测项目名称', '检测人', '检测结果', '证书编号', '有效期', '备注信息'],
+            protos: ['ear', 'name', 'date', 'memo'],
+            widths: [50, 50, 50],
+            newComponent: [{label: '', type: '', component: '', rule: ''}],
+            tableOperateList: [{operateName: '编辑'}, {operateName: '删除'}],
+            bottomOperateList: [{operateName: '删除'}, {operateName: '导出表格'}]
+        }]
+    },
+// 销售订单详情
+    saleOrder: {
+        key: 'plantProduct',
+        tab: '销售订单详情管理',
+        theads: ['订单号', '订单日期', '物流批次号', '客户名称', '金额', '数量', '销售员', '录入人', '备注'],
+        protos: [],
+        tabList: [{
+            tab: '采收批次信息',
+            searchPlaceholder: '请输入rfid进行搜索',
+            leftOperateList: [{
+                components: [
+                    {
+                        type: 'select',
+                        components: selectSection,
+                        options: [
+                            {
+                            }
+                        ]
+                    },
+                    {
+                        type: 'date',
+                        component: datePick
+                    }
+                ]
+            }],
+            rightOperateComponent: [{component: output}, {component: newbuildBtn}],
+            headList: ['检测方式', '检测日期', '检测机构', '检测项目名称', '检测人', '检测结果', '证书编号', '有效期', '备注信息'],
+            protos: ['ear', 'name', 'date', 'memo'],
+            widths: [50, 50, 50],
+            newComponent: [{label: '', type: '', component: '', rule: ''}],
+            tableOperateList: [{operateName: '编辑'}, {operateName: '删除'}],
+            bottomOperateList: [{operateName: '删除'}, {operateName: '导出表格'}]
+        }]
+    },
+// 种植批次详情
+    plantSerial: {
+        key: 'plantProduct',
+        tab: '种植批次管理',
+        theads: ['所属种植区', '种植批次号', '果蔬名称', '种植日期', '种植面积', '种植人', '录入人', '备注'],
+        protos: [],
+        tabList: [{
+            tab: '种植批次信息',
             searchPlaceholder: '请输入rfid进行搜索',
             leftOperateList: [{
                 components: [

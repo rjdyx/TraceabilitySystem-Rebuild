@@ -5898,6 +5898,7 @@ export default {
         key: 'cultivate',
         tab: '种植批次信息',
         url: 'cultivate',
+        batch: 'plantSerial',
         selectSearch: ['plantations.id', 'plants.id'],
         selectValueId: [['plantation_id', 'plantation_name', true], ['plant_id', 'plant_name', true]],
         selectDefault: [{value: '', label: '种植区选择'}, {value: '', label: '果蔬选择'}],
@@ -6455,7 +6456,7 @@ export default {
         key: 'farming',
         tab: '生产计划信息',
         url: 'farming',
-        hiddeEdit: true,
+        batch: 'plantProduct',
         selectSearch: ['type'],
         searchPlaceholder: '请输入计划内容进行搜索',
         theads: ['批次号', '计划日期', '操作类型', '安排人员', '计划内容', '操作用户', '备注'],
@@ -6508,13 +6509,57 @@ export default {
                 component: null,
                 isNull: false,
                 label: '操作类型',
-<<<<<<< HEAD
                 placeholder: '必填',
                 rule: {required: true, trigger: 'blur', type: 'number', message: '请选择分类名称'},
-=======
-                placeholder: '请选择操作类型',
-                rule: {required: true, trigger: 'blur'},
->>>>>>> dev
+                options: []
+            },
+            {
+                name: 'content',
+                type: 'text',
+                component: null,
+                isNull: true,
+                label: '计划内容',
+                placeholder: '',
+                rule: null
+            },
+            {
+                name: 'operate_name',
+                type: 'text',
+                component: null,
+                isNull: true,
+                label: '安排人员',
+                placeholder: '',
+                rule: null
+            },
+            {
+                name: 'memo',
+                type: 'textarea',
+                component: null,
+                isNull: true,
+                label: '备注',
+                placeholder: '',
+                rule: null
+            }]
+        }],
+        editComponent: [{
+            tab: '编辑生产计划信息',
+            components: [{
+                name: 'date',
+                type: 'date',
+                component: inputDate,
+                isNull: true,
+                label: '计划日期',
+                placeholder: '',
+                rule: {required: true, message: '请输入批次号', trigger: 'blur'}
+            },
+            {
+                name: 'category_id',
+                type: 'select',
+                component: null,
+                isNull: false,
+                label: '操作类型',
+                placeholder: '必填',
+                rule: {required: true, trigger: 'blur', type: 'number', message: '请选择分类名称'},
                 options: []
             },
             {
@@ -7815,6 +7860,7 @@ export default {
             key: 'storage0',
             tab: '销售入库信息(平台)',
             url: 'storage',
+            batch: 'saleInput',
             selectSearch: ['products.id'],
             selectValueId: ['product_id', 'product_name', true],
             selectDefault: {value: '', label: '请选择商品'},
@@ -8142,6 +8188,7 @@ export default {
         key: 'sell',
         tab: '销售订单信息',
         url: 'sell',
+        batch: 'saleOrder',
         searchPlaceholder: '请输入销售订单号',
         theads: ['订单号', '订单日期', '物流批次号', '客户名称', '金额', '数量', '销售员', '录入人', '备注'],
         protos: ['serial', 'datetime', 'delivery_serial', 'client_name', 'money', 'amount', 'operate_name', 'user_name', 'memo'],
@@ -8155,6 +8202,70 @@ export default {
             }],
         newComponent: [{
             tab: '新建订单信息',
+            hiddenValue: {type: 1},
+            selectUrl2: ['clients', 'id', 'name', true],
+            popNumber2: 2,
+            components: [{
+                name: 'datetime',
+                type: 'date',
+                component: inputDate,
+                isNull: false,
+                label: '订单日期时间',
+                placeholder: '',
+                disabled: true,
+                rule: {required: true, trigger: 'blur', type: 'date'}
+            },
+            {
+                name: 'delivery_id',
+                type: 'select',
+                component: null,
+                isNull: false,
+                label: '物流订单',
+                placeholder: '请选择物流订单',
+                rule: {required: true, trigger: 'blur', type: 'number'},
+                options: []
+            },
+            {
+                name: 'client_id',
+                type: 'select',
+                component: null,
+                isNull: false,
+                label: '客户',
+                placeholder: '请选择客户',
+                rule: {required: true, trigger: 'blur', type: 'number'},
+                options: []
+            },
+            {
+                name: 'operate_id',
+                type: 'select',
+                component: null,
+                isNull: false,
+                label: '销售员',
+                placeholder: '请选择人物',
+                rule: {required: true, trigger: 'blur', type: 'number'},
+                options: []
+            },
+            {
+                name: 'money',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '销售金额',
+                placeholder: '请输入金额',
+                rule: {required: true, trigger: 'blur', type: 'bumber'}
+            },
+            {
+                name: 'memo',
+                type: 'textarea',
+                component: null,
+                isNull: true,
+                label: '备注信息',
+                placeholder: '',
+                rule: null
+            }]
+        }],
+        editComponent: [{
+            tab: '编辑订单信息',
             hiddenValue: {type: 1},
             selectUrl2: ['clients', 'id', 'name', true],
             popNumber2: 2,
@@ -8488,9 +8599,9 @@ export default {
     // 系统日志
     systemLog: [{
         settitle: '系统日志',
-        key: 'log',
+        key: 'system',
         tab: '日志信息',
-        url: 'log',
+        url: 'system',
         searchPlaceholder: '请输入内容进行搜索',
         theads: ['模块名称', '操作', '内容', '日期时间', '客户端', '公司', '用户'],
         protos: ['plan_type_name', 'name', 'content', 'name', 'content', 'name', 'content'],
