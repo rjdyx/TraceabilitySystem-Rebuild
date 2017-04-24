@@ -86,13 +86,22 @@
 		        </div>
 
 		        <p class="record">共有{{num}}页，{{total_num}}条记录</p>
-
+            
+            <!-- 分页模块 -->
+            <!-- <el-pagination
+              v-if="paginator!=0"
+              layout="prev, pager, next"
+              :total="paginator.total"
+              :page-size="paginator.per_page"
+              class="pager"
+              @current-change="pageChange">
+            </el-pagination> -->
 		        <!-- 分页模块 -->
 		        <el-pagination
-			    layout="prev, pager, next"
-			    :total="1000"
-			    class="pager">
-			  </el-pagination>
+    			    layout="prev, pager, next"
+    			    :total="1000"
+    			    class="pager">
+    			  </el-pagination>
 		    </div>
         </el-tab-pane>
     </el-tabs> 
@@ -164,6 +173,8 @@ export default {
             for (var i in this.tabList) {
                 this.apiUrlArr[this.tabList[i].url] = this.$route.params.id + '/' + this.tabList[i].url
             }
+            // console.log(this.tabList[0].url)
+            console.log(this.apiUrlArr[this.tabList[0].url])
         },
         // 获取头部详细信息
         getDetailSerial () {
@@ -173,6 +184,9 @@ export default {
                     ret = this.$eltable(ret)
                     this.$set(this, 'headData', ret)
                 })
+        },
+        // 获取列表信息
+        getAllMsg () {
         }
     },
     mounted () {
