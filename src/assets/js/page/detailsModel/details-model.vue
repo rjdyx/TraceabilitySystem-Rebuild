@@ -20,84 +20,94 @@
     <el-tabs v-model="activeName" type="card" id="tabs" @tab-click="tabClick">
         <el-tab-pane :label='tabItem.tab' :name='tabItem.tab' v-for="
         tabItem in tabList">
-            <!-- 操作模块 -->
-		    <div id="operate">              
-		        <div id="inputs">
-		        <!-- 左边的操作按钮 -->
-		            <operate :listComponent="tabItem.leftOperateList"></operate>
-		            
-		            <!-- 搜索框 -->
-		            <div class="searchOp"> 
-		                <el-input
-		                    :placeholder="tabItem.searchPlaceholder"
-		                    v-model="inputValue"
-		                    :on-icon-click="search" class="searchInp" size="small">
-		                </el-input>
-		                <el-button size="small" class="searchBtn" @click="textFind">搜索</el-button>
-		            </div>
-
-		            <!-- 右边的操作按钮 -->
-		            <!-- 操作按钮 -->
-		            <component
-		                v-for="operateItem in tabItem.rightOperateComponent"
-		                :is="operateItem.component"
-		                class="fr"
-		            ></component>
-		        </div>
-		    
-		        <!-- 新建模块 --> 
-		        <!-- <popNew v-if="isNewShow" :newComponent="newComponent" :url="url" @submitNew="changeNew"></popNew> -->
-		    </div>
-		    <!-- 列表模块 -->
-		    <el-table :data="tableData"  @selection-change="handleSelectionChange">
-
-		        <!-- checkbox -->
-		        <el-table-column width="50" type="selection">
-		        </el-table-column> 
-
-		        <!-- 序号 --> 
-		        <el-table-column width="80" label="序号" type="index" id="test_id">
-		        </el-table-column>
-
-		        <!-- 中间列表模块 -->
-		        <template v-for="(item,index) in tabItem.headList"> 
-		          <template>
-		            <el-table-column 
-		              :prop="tabItem.protos[index]"
-		              :label="item"
-		              :min-width="tabItem.widths[index]"
-		              show-overflow-tooltip>
-		            </el-table-column>
-		          </template>
-		        </template>
-
-		        <!-- 列表操作模块 -->
-		        <el-table-column 
-		        label="操作"> 
-	                <template>
-                        <el-button type="text" size="small" v-for="operateItem in tabItem.bottomOperateList">{{operateItem.operateName}}</el-button> 
-	                </template>
-		        </el-table-column>
-		    </el-table>
-
-		    <div class="footer">
-		        <div class="operate-foot">
-		            <el-button v-for="bottomOperateItem in tabItem.bottomOperateList">{{bottomOperateItem.operateName}}</el-button>
-		        </div>
-
-		        <p class="record">共有{{num}}页，{{total_num}}条记录</p>
-
-		        <!-- 分页模块 -->
-		        <el-pagination
-			    layout="prev, pager, next"
-			    :total="1000"
-			    class="pager">
-			  </el-pagination>
-		    </div>
         </el-tab-pane>
     </el-tabs> 
-		
+
+	 <!-- 操作模块 -->
+    <div id="operate">              
+        <div id="inputs">
+        <!-- 左边的操作按钮 -->
+            <operate :listComponent="tabItem.leftOperateList"></operate>
+            
+            <!-- 搜索框 -->
+            <div class="searchOp"> 
+                <el-input
+                    :placeholder="tabItem.searchPlaceholder"
+                    v-model="inputValue"
+                    :on-icon-click="search" class="searchInp" size="small">
+                </el-input>
+                <el-button size="small" class="searchBtn" @click="textFind">搜索</el-button>
+            </div>
+
+            <!-- 右边的操作按钮 -->
+            <!-- 操作按钮 -->
+            <component
+                v-for="operateItem in tabItem.rightOperateComponent"
+                :is="operateItem.component"
+                class="fr"
+            ></component>
+        </div>
     
+        <!-- 新建模块 --> 
+        <popNew v-if="isNewShow" :newComponent="tabItem.newComponent" :url="tabList.url"></popNew>
+    </div>
+    <!-- 列表模块 -->
+    <el-table :data="tableData"  @selection-change="handleSelectionChange">
+
+        <!-- checkbox -->
+        <el-table-column width="50" type="selection">
+        </el-table-column> 
+
+        <!-- 序号 --> 
+        <el-table-column width="80" label="序号" type="index" id="test_id">
+        </el-table-column>
+
+        <!-- 中间列表模块 -->
+        <template v-for="(item,index) in tabItem.headList"> 
+          <template>
+            <el-table-column 
+              :prop="tabItem.protos[index]"
+              :label="item"
+              :min-width="tabItem.widths[index]"
+              show-overflow-tooltip>
+            </el-table-column>
+          </template>
+        </template>
+
+        <!-- 列表操作模块 -->
+        <el-table-column 
+        label="操作"> 
+            <template scope="scope" class="operateBtn">
+                <template>
+                <el-button class="btn" type="text" size="small" v-for="operateItem in tabItem.tableOperateList">{{operateItem.operateName}}</el-button> 
+                </template>
+            </template>
+        </el-table-column>
+    </el-table>
+
+    <div class="footer">
+        <div class="operate-foot">
+            <el-button v-for="bottomOperateItem in tabItem.bottomOperateList">{{bottomOperateItem.operateName}}</el-button>
+        </div>
+
+        <p class="record">共有{{num}}页，{{total_num}}条记录</p>
+
+        <!-- 分页模块 -->
+        <!-- 分页模块 -->
+            <!-- <el-pagination
+              v-if="paginator!=0"
+              layout="prev, pager, next"
+              :total="paginator.total"
+              :page-size="paginator.per_page"
+              class="pager"
+              @current-change="pageChange">
+            </el-pagination> -->
+        <el-pagination
+        layout="prev, pager, next"
+        :total="1000"
+        class="pager">
+      </el-pagination>
+    </div>
 </div> 
 </template>
 <script>
@@ -108,6 +118,7 @@ import edit from '../../components/public/edit.vue'
 import operate from '../../components/public/operate.vue'
 import clickMore from '../../components/public/clickMore.vue'
 import lotOpearte from '../../components/public/lotOpearte.vue'
+import newMessage from '../plant-details/newMessage.js'
 export default {
     name: 'BasicModel',
     props: {
@@ -132,7 +143,10 @@ export default {
             apiUrlArr: [],
             // 头部列表数据
             headData: {},
-            tableData: []
+            tableData: [],
+            isNewShow: false,
+            isEditShow: false,
+            tabItem: {}
         }
     },
     mixins: [computed],
@@ -145,18 +159,21 @@ export default {
         },
         // tab点击事件
         tabClick (tab, event) {
-            // this.modelIndex = tab.$data.index
-            console.log(tab)
+            console.log(tab.$data.index)
+            var index = tab.$data.index
+            this.tabItem = this.tabList[index]
             // this.tableData = []
             // this.getTabDate(this.apiUrlArr[this.tabList[0].url])
         },
         // 显示新建表单
         changeNewShow () {
-            // this.isNewShow = !this.isNewShow
+            this.isNewShow = !this.isNewShow
+            console.log(2222)
+            console.log(this.tabList.newComponent)
         },
         // 显示编辑表单
         changeEditShow (index, row) {
-            // this.isEditShow = !this.isEditShow
+            this.isEditShow = !this.isEditShow
         },
         // 列表全选
         handleSelectionChange () {
@@ -167,6 +184,7 @@ export default {
             for (var i in this.tabList) {
                 this.apiUrlArr[this.tabList[i].url] = this.$route.params.id + '/' + this.tabList[i].url
             }
+            console.log(this.apiUrlArr[this.tabList[0].url])
         },
         // 获取头部详细信息
         getDetailSerial () {
@@ -178,23 +196,15 @@ export default {
                     ret = this.$eltable(ret)
                     this.$set(this, 'headData', ret)
                 })
-            this.getTabDate(this.apiUrlArr[this.tabList[0].url])
         },
-        // 获取tab页数据
-        getTabDate (url) {
-            // tab第一页信息
-            this.$dataGet(this, url, {})
-                .then((responce) => {
-                    console.log(responce)
-                    /// 数据转换
-                    if (responce.data.data.length !== 0) {
-                        this.$set(this, 'tableData', responce.data.data)
-                    }
-                })
+        // 获取列表信息
+        getAllMsg () {
         }
     },
     mounted () {
+        this.tabItem = this.tabList[0]
         this.activeName = this.tabList[0].tab
+        console.log(this.tabItem.tableOperateList)
         this.getApiUrl()
         this.getDetailSerial()
     },
@@ -224,12 +234,24 @@ export default {
   .el-tabs{
   	padding-top: 15px;
   }
+   .operateBtns {
+                display: inline-block;
+                margin-top:10px;
+                margin-right:10px;
+            }
    .fr{
      	float:right;
      }
       .fl{
      	float:left;
      }
+     .btn span{
+        border-left: 1px solid #a7bad6;
+        padding: 0px 5px 0px 8px;
+    }
+    .btn:nth-child(1) span{
+        border-left: 0px solid #a7bad6;
+    }
 .text-small{
 	font-size:13px;
 }

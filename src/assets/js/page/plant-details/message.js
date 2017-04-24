@@ -5,6 +5,7 @@ import selectSection from '../../components/public/select-section.vue'
 import datePick from '../../components/public/datePick.vue'
 import categoryBtn from '../../components/public/categoryBtn.vue'
 import addRfidBtn from '../../components/public/addRfidBtn.vue'
+import newMessage from './newMessage.js'
 export default {
     // 养殖批次管理  详情页信息
     breedBatch: {
@@ -22,11 +23,11 @@ export default {
             leftOperateList: [],
             rightOperateComponent: [{component: importBtn}, {component: output}, {component: newbuildBtn}],
             headList: ['RFID', '畜禽名称', '养殖日期', '备注信息'],
-            protos: ['rfid', 'beast_name', 'start_date', 'memo'],
+            protos: ['rfid', 'beast_name', 'strt_date', 'memo'],
             widths: [50, 50, 50],
-            newComponent: [{label: '', type: '', component: '', rule: ''}],
             tableOperateList: [{operateName: '编辑'}, {operateName: '删除'}],
-            bottomOperateList: [{operateName: '删除'}, {operateName: '导出表格'}]
+            bottomOperateList: [{operateName: '删除'}, {operateName: '导出表格'}],
+            newComponent: newMessage['rfid']
         },
         {
             // url: '4/course',
@@ -38,9 +39,9 @@ export default {
             headList: ['生长图片', '标题', '图片描述', '上传日期', '备注信息'],
             protos: ['img', 'name', 'miaoshu', 'date', 'memo'],
             widths: [50, 50, 50, 50, 50],
-            newComponent: [{label: '', type: '', component: '', rule: ''}],
             tableOperateList: [{operateName: '编辑'}, {operateName: '删除'}],
-            bottomOperateList: [{operateName: '删除'}]
+            bottomOperateList: [{operateName: '删除'}],
+            newComponent: newMessage['rfid']
         }]
     },
     // 饲料批次
@@ -197,27 +198,6 @@ export default {
             rightOperateComponent: [{component: newbuildBtn}],
             headList: ['生长图片', '标题', '图片描述', '上传日期', '备注信息'],
             protos: ['img', 'name', 'miaoshu', 'date', 'memo'],
-            widths: [50, 50, 50, 50, 50],
-            newComponent: [{label: '', type: '', component: '', rule: ''}],
-            tableOperateList: [{operateName: '编辑'}, {operateName: '删除'}],
-            bottomOperateList: [{operateName: '删除'}]
-        }]
-    },
-    // 种植批次
-    plantBatch: {
-        key: 'plantBatch',
-        tab: '种植批次管理',
-        theads: ['种植批次号', '所属种植区', '种植人', '种植日期', '种植地址', '种植果蔬名称', '当前批次面积', '备注'],
-        protos: ['serial', 'plantation_name', 'operate_name', 'date', 'address', 'plant_name', 'area_unit', 'memo'],
-        url: 'cultivate',
-        tabList: [{
-            url: 'grow',
-            tab: '生长过程信息',
-            searchPlaceholder: '请输入标题进行搜索',
-            leftOperateList: [],
-            rightOperateComponent: [{component: newbuildBtn}],
-            headList: ['图片', '图片标题', '图片描述', '上传日期', '备注信息'],
-            protos: ['thumb', 'name', 'desc', 'date', 'memo'],
             widths: [50, 50, 50, 50, 50],
             newComponent: [{label: '', type: '', component: '', rule: ''}],
             tableOperateList: [{operateName: '编辑'}, {operateName: '删除'}],

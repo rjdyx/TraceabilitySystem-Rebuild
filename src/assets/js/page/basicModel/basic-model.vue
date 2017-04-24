@@ -10,10 +10,11 @@
   <!-- 标题 -->
     <contain-title :settitle="settitle">
     </contain-title>
-    
   <!-- tab栏 --> 
     <el-tabs v-model="activeName" id="tabs" @tab-click="tabClick" type="card">
-        <el-tab-pane v-for="(model,index) in models" :label="model.tab" :name="'index'+index"></el-tab-pane>
+        <el-tab-pane v-for="(model,index) in models" :label="model.tab" :name="'index'+index">
+
+        </el-tab-pane>
     </el-tabs>  
     <!-- 操作模块 -->
     <div id="operate">
@@ -258,6 +259,9 @@ export default {
                 axios.delete(this.$adminUrl(this.url + '/' + row.id))
                     .then((responce) => {
                         this.getSelect()
+                        if (JSON.stringify(this.dataArr) === '{}') {
+                            this.dataArr = ''
+                        }
                         this.boxArr(this.dataArr)
                         this.$message({
                             type: 'success',
@@ -370,11 +374,17 @@ export default {
                         this.total_num = responce.data.total
                         this.num = responce.data.last_page
                         this.paginator = responce.data
+                        if (this.dataArr === '') {
+                            this.dataArr = {}
+                        }
                     } else {
                         this.$set(this, 'tableData', responce.data.data)
                         this.total_num = 0
                         this.num = 0
                         this.paginator = 0
+                        if (this.dataArr === '') {
+                            this.dataArr = {}
+                        }
                     }
                 })
         },
@@ -427,6 +437,9 @@ export default {
                     .then((responce) => {
                         if (responce.data === 'true') {
                             this.getSelect()
+                            if (JSON.stringify(this.dataArr) === '{}') {
+                                this.dataArr = ''
+                            }
                             this.boxArr(this.dataArr)
                             this.$message({
                                 type: 'success',
@@ -463,6 +476,9 @@ export default {
             if (val !== 'false') {
                 this.isEditShow = false
                 this.getSelect()
+                if (JSON.stringify(this.dataArr) === '{}') {
+                    this.dataArr = ''
+                }
                 this.boxArr(this.dataArr)
                 this.$message({
                     type: 'success',
@@ -571,7 +587,6 @@ export default {
      }
      .searchOp{
      	display:inline;
-     	margin-left: 15px;
      }
      .margin{
      	margin-left:15px;
