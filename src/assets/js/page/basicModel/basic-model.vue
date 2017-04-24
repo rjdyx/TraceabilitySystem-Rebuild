@@ -365,11 +365,17 @@ export default {
                         this.total_num = responce.data.total
                         this.num = responce.data.last_page
                         this.paginator = responce.data
+                        if (this.dataArr === '') {
+                            this.dataArr = {}
+                        }
                     } else {
                         this.$set(this, 'tableData', responce.data.data)
                         this.total_num = 0
                         this.num = 0
                         this.paginator = 0
+                        if (this.dataArr === '') {
+                            this.dataArr = {}
+                        }
                     }
                 })
         },
