@@ -446,9 +446,6 @@ export default {
         changeNew (val) {
             if (val !== 'false') {
                 this.isNewShow = false
-                if (JSON.stringify(this.dataArr) === '{}') {
-                    this.dataArr = ''
-                }
                 this.boxArr(this.dataArr)
                 this.getSelect()
                 this.$message({
