@@ -10,8 +10,8 @@ export default {
     breedBatch: {
         key: 'breedBatch',
         tab: '养殖批次管理',
-        theads: ['养殖批次号', '所属养殖场', '养殖人', '养殖日期', '所属养殖区', '养殖地址', '养殖畜禽名称', '养殖面积', '养殖备注'],
-        protos: [],
+        theads: ['养殖批次号', '养殖人', '养殖日期', '所属养殖区', '养殖数量', '养殖畜禽名称', '养殖备注'],
+        protos: ['serial', 'operate', 'date', 'farm_name', 'amount', 'beast_name', 'memo'],
         // url: 'breed/4',
         url: 'breed',
         tabList: [{

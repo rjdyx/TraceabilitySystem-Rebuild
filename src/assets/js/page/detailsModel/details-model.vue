@@ -13,7 +13,7 @@
 
   <!-- 信息列表 -->
     <el-row :gutter="20">
-         <el-col :span="5" v-for="item in theads" class="text-small">{{item}}:</el-col>
+         <el-col :span="5" v-for="(item,i) in theads" class="text-small">{{item}}:{{headData[protos[i]]}}</el-col>
     </el-row>
   	
   <!-- tab栏 --> 
@@ -128,8 +128,11 @@ export default {
     data () {
         return {
             activeName: '',
+            // 获取借口的数据
+            apiUrlArr: [],
             // 列表数据
-            tableData: []
+            tableData: [],
+            headData: {}
         }
     },
     mixins: [computed],
@@ -156,19 +159,27 @@ export default {
         handleSelectionChange () {
         },
         // 获取数据
-        getAllMsg (data = '') {
-            var urlArr = []
-            urlArr[this.url] = this.url + '/' + this.$route.params.id
+        getApiUrl (data = '') {
+            this.apiUrlArr[this.url] = this.url + '/' + this.$route.params.id
             for (var i in this.tabList) {
-                urlArr[this.tabList[i].url] = this.$route.params.id + '/' + this.tabList[i].url
+                this.apiUrlArr[this.tabList[i].url] = this.$route.params.id + '/' + this.tabList[i].url
             }
-            console.log(urlArr)
+        },
+        // 获取头部详细信息
+        getDetailSerial () {
+            this.$dataGet(this, this.apiUrlArr[this.url], {})
+                .then((responce) => {
+                    console.log(responce.data)
+                    this.$set(this, 'headData', responce.data)
+                })
         }
     },
     mounted () {
         this.activeName = this.tabList[0].tab
+        // 获取接口
+        this.getApiUrl()
         // 获取数据
-        this.getAllMsg()
+        this.getDetailSerial()
     },
     watch: {
     },
