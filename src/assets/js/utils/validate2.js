@@ -27,6 +27,7 @@ exports.phone = (rule, value, callback, source, options) => {
 }
 // 重名验证
 exports.reCheck = (rule, value, callback, source, options) => {
+    console.log(rule.url)
     if (value !== '') {
         var par
         if (rule.id !== undefined) {
@@ -42,5 +43,23 @@ exports.reCheck = (rule, value, callback, source, options) => {
                 callback()
             }
         })
+    }
+}
+// 验证数字
+exports.reNumber = (rule, value, callback, source, options) => {
+    if (value !== '') {
+        if (/^\d+$/.test(value)) {
+            callback()
+        } else {
+            callback(new Error('请输入数字'))
+        }
+    }
+}
+// 验证时间
+exports.reDate = (rule, value, callback, source, options) => {
+    if (JSON.stringify(value) === '{}') {
+        callback(new Error(rule.message))
+    } else {
+        callback()
     }
 }

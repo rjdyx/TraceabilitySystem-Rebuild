@@ -174,6 +174,9 @@ export default {
             this.$dataGet(this, this.apiUrlArr[this.url], {})
                 .then((responce) => {
                     this.$set(this, 'headData', responce.data)
+                    var ret = this.$conversion(this.changeDataArr, responce.data, 1)
+                    ret = this.$eltable(ret)
+                    this.$set(this, 'headData', ret)
                 })
             this.getTabDate(this.apiUrlArr[this.tabList[0].url])
         },
