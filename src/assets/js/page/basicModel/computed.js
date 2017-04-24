@@ -74,6 +74,9 @@ export default {
         },
         batch () {
             return this.models[this.modelIndex].batch
+        },
+        checkOperate () {
+            return this.models[this.modelIndex].checkOperate
         }
     }
 }

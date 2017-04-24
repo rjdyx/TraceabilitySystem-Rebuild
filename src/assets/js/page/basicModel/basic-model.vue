@@ -83,7 +83,7 @@
         </template>
         <!-- 列表操作模块 -->
         <el-table-column 
-        label="操作">
+        label="操作" v-if="checkOperate==null">
             <template scope="scope" class="operateBtn">
                 <template v-if="moreComponent!=null">
                     <clickMore :moreComponent="moreComponent" class="clickMoreBtn"></clickMore>
@@ -101,7 +101,7 @@
 
     <div class="footer">
         <div class="operate-foot">
-            <el-button @click="delAll">删除</el-button>
+            <el-button @click="delAll" v-if="checkOperate==null">删除</el-button>
             <template v-if="lotComponent!=null">
                 <lotOpearte :lotComponent="lotComponent"></lotOpearte>
             </template>
@@ -171,6 +171,7 @@ export default {
                     moreComponent: [],
                     lotComponent: [],
                     hiddeEdit: false,
+                    checkOperate: null,
                     selectDefault: {}
                 }]
             }
@@ -250,6 +251,9 @@ export default {
                 axios.delete(this.$adminUrl(this.url + '/' + row.id))
                     .then((responce) => {
                         this.getSelect()
+                        if (JSON.stringify(this.dataArr) === '{}') {
+                            this.dataArr = ''
+                        }
                         this.boxArr(this.dataArr)
                         this.$message({
                             type: 'success',
@@ -362,11 +366,17 @@ export default {
                         this.total_num = responce.data.total
                         this.num = responce.data.last_page
                         this.paginator = responce.data
+                        if (this.dataArr === '') {
+                            this.dataArr = {}
+                        }
                     } else {
                         this.$set(this, 'tableData', responce.data.data)
                         this.total_num = 0
                         this.num = 0
                         this.paginator = 0
+                        if (this.dataArr === '') {
+                            this.dataArr = {}
+                        }
                     }
                 })
         },
@@ -419,6 +429,9 @@ export default {
                     .then((responce) => {
                         if (responce.data === 'true') {
                             this.getSelect()
+                            if (JSON.stringify(this.dataArr) === '{}') {
+                                this.dataArr = ''
+                            }
                             this.boxArr(this.dataArr)
                             this.$message({
                                 type: 'success',
@@ -455,6 +468,9 @@ export default {
             if (val !== 'false') {
                 this.isEditShow = false
                 this.getSelect()
+                if (JSON.stringify(this.dataArr) === '{}') {
+                    this.dataArr = ''
+                }
                 this.boxArr(this.dataArr)
                 this.$message({
                     type: 'success',
