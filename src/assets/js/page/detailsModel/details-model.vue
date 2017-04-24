@@ -176,7 +176,6 @@ export default {
             for (var i in this.tabList) {
                 this.apiUrlArr[this.tabList[i].url] = this.$route.params.id + '/' + this.tabList[i].url
             }
-            // console.log(this.tabList[0].url)
             console.log(this.apiUrlArr[this.tabList[0].url])
         },
         // 获取头部详细信息
@@ -189,7 +188,6 @@ export default {
                     ret = this.$eltable(ret)
                     this.$set(this, 'headData', ret)
                 })
-            this.getTabDate(this.apiUrlArr[this.tabList[0].url])
         },
         // 获取列表信息
         getAllMsg () {
