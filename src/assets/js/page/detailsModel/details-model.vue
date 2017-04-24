@@ -13,7 +13,7 @@
 
   <!-- 信息列表 -->
     <el-row :gutter="20">
-         <el-col :span="5" v-for="(item,i) in theads" class="text-small">{{item}}: {{headData[protos[i]]}}</el-col>
+         <el-col :span="6" v-for="(item,i) in theads" class="text-small">{{item}}:{{headData[protos[i]]}}</el-col>
     </el-row>
   	
   <!-- tab栏 --> 
@@ -139,9 +139,9 @@ export default {
             activeName: '',
             // 获取借口的数据
             apiUrlArr: [],
-            // 列表数据
-            tableData: [],
-            headData: {}
+            // 头部列表数据
+            headData: {},
+            tableData: []
         }
     },
     mixins: [computed],
@@ -155,6 +155,9 @@ export default {
         // tab点击事件
         tabClick (tab, event) {
             // this.modelIndex = tab.$data.index
+            console.log(tab)
+            // this.tableData = []
+            // this.getTabDate(this.apiUrlArr[this.tabList[0].url])
         },
         // 显示新建表单
         changeNewShow () {
@@ -167,7 +170,7 @@ export default {
         // 列表全选
         handleSelectionChange () {
         },
-        // 获取数据
+        // 获取Api接口数据
         getApiUrl (data = '') {
             this.apiUrlArr[this.url] = this.url + '/' + this.$route.params.id
             for (var i in this.tabList) {
@@ -178,12 +181,15 @@ export default {
         },
         // 获取头部详细信息
         getDetailSerial () {
+            // 头部列表信息
             this.$dataGet(this, this.apiUrlArr[this.url], {})
                 .then((responce) => {
+                    this.$set(this, 'headData', responce.data)
                     var ret = this.$conversion(this.changeDataArr, responce.data, 1)
                     ret = this.$eltable(ret)
                     this.$set(this, 'headData', ret)
                 })
+            this.getTabDate(this.apiUrlArr[this.tabList[0].url])
         },
         // 获取列表信息
         getAllMsg () {
@@ -191,9 +197,7 @@ export default {
     },
     mounted () {
         this.activeName = this.tabList[0].tab
-        // 获取接口
         this.getApiUrl()
-        // 获取数据
         this.getDetailSerial()
     },
     watch: {

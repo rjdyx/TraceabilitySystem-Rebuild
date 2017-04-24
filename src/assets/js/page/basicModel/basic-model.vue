@@ -47,7 +47,7 @@
              @submitEdit="hangeEdit" :changeDataArr="changeDataArr" :editDefault="editDefault"></pop-edit>
     </div>
     <!-- 列表模块 -->
-    <el-table :data="tableData"  @selection-change="handleSelectionChange" @cell-click="jumpDetails">
+    <el-table :data="tableData"  @selection-change="handleSelectionChange">
 
         <!-- checkbox -->
         <el-table-column width="50" type="selection">
@@ -66,7 +66,7 @@
                     :min-width="widths[index]"
                     show-overflow-tooltip>
                     <template  scope="scope">
-                            <div v-if="item.includes('批次号')" slot="reference" class="name-wrapper pcActive" >
+                            <div v-if="item.includes('批次号')" slot="reference" class="name-wrapper pcActive" @click="jumpDetails(scope.row)">
                                 {{ scope.row[protos[index]] }}
                             </div>
                             <div v-else-if="protos[index]=='img'" slot="reference" class="name-wrapper">
@@ -82,7 +82,7 @@
         </template>
         <!-- 列表操作模块 -->
         <el-table-column 
-        label="操作">
+        label="操作" v-if="checkOperate==null">
             <template scope="scope" class="operateBtn">
                 <template v-if="moreComponent!=null">
                     <clickMore :moreComponent="moreComponent" class="clickMoreBtn"></clickMore>
@@ -100,7 +100,7 @@
 
     <div class="footer">
         <div class="operate-foot">
-            <el-button @click="delAll">删除</el-button>
+            <el-button @click="delAll" v-if="checkOperate==null">删除</el-button>
             <template v-if="lotComponent!=null">
                 <lotOpearte :lotComponent="lotComponent"></lotOpearte>
             </template>
@@ -170,6 +170,7 @@ export default {
                     moreComponent: [],
                     lotComponent: [],
                     hiddeEdit: false,
+                    checkOperate: null,
                     selectDefault: {}
                 }]
             }
@@ -224,11 +225,9 @@ export default {
             this.$set(this, 'tableData', [])
             this.$set(this, 'multipleSelection', [])
         },
-        jumpDetails (row, column, cell, event) {
-            if (column.label.indexOf('批次号') !== -1) {
-                var id = row.id
-                this.$router.push('/index/details/' + this.batch + '/' + id)
-            }
+        jumpDetails (row) {
+            var id = row.id
+            this.$router.push('/index/details/' + this.batch + '/' + id)
         },
         /**
          * 列表选择事件
@@ -250,11 +249,8 @@ export default {
             }).then(() => {
                 axios.delete(this.$adminUrl(this.url + '/' + row.id))
                     .then((responce) => {
-                        if (JSON.stringify(this.dataArr) === '{}') {
-                            this.dataArr = ''
-                        }
-                        this.boxArr(this.dataArr)
                         this.getSelect()
+                        this.boxArr(this.dataArr)
                         this.$message({
                             type: 'success',
                             message: '删除成功'
@@ -337,6 +333,9 @@ export default {
                             })
                     }
                 }
+                if (row.area !== undefined) {
+                    row.area = String(parseInt(row.area))
+                }
                 this.editForm = row
                 // 重新赋值获取初始值
                 for (let key of Object.keys(row)) {
@@ -363,24 +362,17 @@ export default {
                         this.total_num = responce.data.total
                         this.num = responce.data.last_page
                         this.paginator = responce.data
-                        if (this.dataArr === '') {
-                            this.dataArr = {}
-                        }
                     } else {
                         this.$set(this, 'tableData', responce.data.data)
                         this.total_num = 0
                         this.num = 0
                         this.paginator = 0
-                        if (this.dataArr === '') {
-                            this.dataArr = {}
-                        }
                     }
                 })
         },
         // 文本与时间按钮查询
         textAndDateFind () {
             this.dataArr['query_text'] = this.inputValue
-            this.dataArr['page'] = 1
             this.boxArr(this.dataArr)
         },
         // 下拉框查询
@@ -390,7 +382,6 @@ export default {
                     this.selectVal[index] = val[1]
                 }
             }
-            this.dataArr['page'] = 1
             this.dataArr[val[0]] = val[1]
             this.boxArr(this.dataArr)
         },
@@ -427,11 +418,8 @@ export default {
                     axios.post(this.$adminUrl('util/batch-delete/' + this.url), paramsDel)
                     .then((responce) => {
                         if (responce.data === 'true') {
-                            if (JSON.stringify(this.dataArr) === '{}') {
-                                this.dataArr = ''
-                            }
-                            this.boxArr(this.dataArr)
                             this.getSelect()
+                            this.boxArr(this.dataArr)
                             this.$message({
                                 type: 'success',
                                 message: '批量删除成功'
@@ -452,9 +440,6 @@ export default {
         changeNew (val) {
             if (val !== 'false') {
                 this.isNewShow = false
-                if (JSON.stringify(this.dataArr) === '{}') {
-                    this.dataArr = ''
-                }
                 this.boxArr(this.dataArr)
                 this.getSelect()
                 this.$message({
@@ -469,11 +454,8 @@ export default {
         hangeEdit (val) {
             if (val !== 'false') {
                 this.isEditShow = false
-                if (JSON.stringify(this.dataArr) === '{}') {
-                    this.dataArr = ''
-                }
-                this.boxArr(this.dataArr)
                 this.getSelect()
+                this.boxArr(this.dataArr)
                 this.$message({
                     type: 'success',
                     message: '编辑数据成功'
@@ -527,7 +509,6 @@ export default {
         },
         key () {
             this.tableData = []
-            this.dataArr = {}
             if (this.selectValueId !== undefined) {
                 this.getSelect()
             }
