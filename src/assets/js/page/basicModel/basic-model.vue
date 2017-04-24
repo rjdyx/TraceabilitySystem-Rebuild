@@ -276,7 +276,9 @@ export default {
         changeNewShow () {
             this.isNewShow = !this.isNewShow
             if (this.newComponent[0].checkNumber !== undefined) {
-                this.newComponent[0].components[this.newComponent[0].checkNumber].rule[1].url = this.url
+                for (let index in this.newComponent[0].checkNumber) {
+                    this.newComponent[0].components[this.newComponent[0].checkNumber[index]].rule[1].url = this.url
+                }
             }
             if (this.newComponent[0].selectUrl) {
                 for (let key in this.newComponent[0].selectUrl) {
@@ -305,11 +307,12 @@ export default {
         // 显示编辑表单
         changeEditShow (index, row) {
             this.isEditShow = true
-            console.log(row)
             if (row !== undefined) {
                 if (this.editComponent[0].checkNumber !== undefined) {
-                    this.editComponent[0].components[this.editComponent[0].checkNumber].rule[1]['id'] = row.id
-                    this.editComponent[0].components[this.editComponent[0].checkNumber].rule[1]['url'] = this.url
+                    for (let index in this.newComponent[0].checkNumber) {
+                        this.editComponent[0].components[this.editComponent[0].checkNumber[index]].rule[1]['id'] = row.id
+                        this.editComponent[0].components[this.editComponent[0].checkNumber[index]].rule[1]['url'] = this.url
+                    }
                 }
                 if (this.editComponent[0].selectUrl) {
                     for (let key in this.editComponent[0].selectUrl) {

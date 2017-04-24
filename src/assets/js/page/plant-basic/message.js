@@ -82,7 +82,7 @@ export default {
         }],
         newComponent: [{
             tab: '新建分类档案信息',
-            checkNumber: 0,
+            checkNumber: [0],
             components: [{
                 name: 'name',
                 type: 'text',
@@ -141,12 +141,12 @@ export default {
                 isNull: true,
                 label: '备注信息',
                 placeholder: '',
-                rule: null
+                rule: {required: true, message: '请输入备注', trigger: 'blur'}
             }]
         }],
         editComponent: [{
             tab: '编辑分类档案信息',
-            checkNumber: 0,
+            checkNumber: [0],
             components: [{
                 name: 'name',
                 type: 'text',
@@ -244,7 +244,7 @@ export default {
         newComponent: [{
             tab: '新建人员档案信息',
             selectUrl: [['category', 'operate', 'category_id', 'category_name', true]],
-            checkNumber: 1,
+            checkNumber: [1],
             hasImg: true,
             popNumber: [0],
             components: [{
@@ -342,7 +342,7 @@ export default {
         editComponent: [{
             tab: '编辑人员档案信息',
             selectUrl: [['category', 'operate', 'category_id', 'category_name', true]],
-            checkNumber: 1,
+            checkNumber: [1],
             popNumber: [0],
             hasImg: true,
             components: [{
@@ -464,7 +464,7 @@ export default {
         newComponent: [{
             tab: '新建专家档案信息',
             selectUrl: [['category', 'expert', 'category_id', 'category_name', true]],
-            checkNumber: 1,
+            checkNumber: [1],
             popNumber: [0],
             components: [{
                 name: 'category_id',
@@ -570,7 +570,7 @@ export default {
         editComponent: [{
             tab: '编辑专家档案信息',
             selectUrl: [['category', 'expert', 'category_id', 'category_name', true]],
-            checkNumber: 1,
+            checkNumber: [1],
             popNumber: [0],
             components: [{
                 name: 'category_id',
@@ -716,7 +716,7 @@ export default {
         newComponent: [{
             tab: '新建客户档案信息',
             selectUrl: [['category', 'client', 'category_id', 'category_name', true]],
-            checkNumber: 1,
+            checkNumber: [1],
             popNumber: [0],
             components: [{
                 name: 'category_id',
@@ -799,7 +799,7 @@ export default {
         editComponent: [{
             tab: '编辑专家档案信息',
             selectUrl: [['category', 'client', 'category_id', 'category_name', true]],
-            checkNumber: 1,
+            checkNumber: [1],
             popNumber: [0],
             components: [{
                 name: 'category_id',
@@ -884,7 +884,7 @@ export default {
         newComponent: [{
             tab: '新建供货商档案信息',
             selectUrl: [['category', 'supplier', 'category_id', 'category_name', true]],
-            checkNumber: 1,
+            checkNumber: [1],
             popNumber: [0],
             components: [{
                 name: 'category_id',
@@ -946,7 +946,7 @@ export default {
         editComponent: [{
             tab: '编辑供货商档案信息',
             selectUrl: [['category', 'supplier', 'category_id', 'category_name', true]],
-            checkNumber: 1,
+            checkNumber: [1],
             popNumber: [0],
             components: [{
                 name: 'category_name',
@@ -1039,7 +1039,7 @@ export default {
         newComponent: [{
             tab: '新建产品信息',
             selectUrl: [['category', 'product', 'category_id', 'category_name', true]],
-            checkNumber: 1,
+            checkNumber: [1],
             popNumber: [0],
             components: [{
                 name: 'category_id',
@@ -1155,7 +1155,7 @@ export default {
         editComponent: [{
             tab: '编辑产品信息',
             selectUrl: [['category', 'product', 'category_id', 'category_name', true]],
-            checkNumber: 1,
+            checkNumber: [1],
             popNumber: [0],
             components: [{
                 name: 'category_id',
@@ -5279,7 +5279,7 @@ export default {
             moreComponent: [{value: '视频'}],
             newComponent: [{
                 tab: '新建种植场信息',
-                checkNumber: 0,
+                checkNumber: [0],
                 components: [{
                     name: 'name',
                     type: 'text',
@@ -5359,7 +5359,7 @@ export default {
             }],
             editComponent: [{
                 tab: '编辑种植场信息',
-                checkNumber: 0,
+                checkNumber: [0],
                 components: [{
                     name: 'name',
                     type: 'text',
@@ -5471,7 +5471,7 @@ export default {
             newComponent: [{
                 tab: '新建种植区信息',
                 selectUrl: [['plantation', 'planta', 'pid', 'plantation_name', true]],
-                checkNumber: 1,
+                checkNumber: [1],
                 popNumber: [0],
                 components: [{
                     name: 'pid',
@@ -5564,7 +5564,7 @@ export default {
             editComponent: [{
                 tab: '编辑种植区信息',
                 selectUrl: [['plantation', 'planta', 'pid', 'plantation_name', true]],
-                checkNumber: 1,
+                checkNumber: [1],
                 popNumber: [0],
                 components: [{
                     name: 'pid',
@@ -5688,7 +5688,7 @@ export default {
             newComponent: [{
                 tab: '新建果蔬档案',
                 selectUrl: [['category', 'plant', 'category_id', 'category_name', true]],
-                checkNumber: 1,
+                checkNumber: [1],
                 popNumber: [0],
                 components: [{
                     name: 'category_id',
@@ -5745,7 +5745,7 @@ export default {
             editComponent: [{
                 tab: '编辑果蔬档案',
                 selectUrl: [['category', 'plant', 'category_id', 'category_name', true]],
-                checkNumber: 1,
+                checkNumber: [1],
                 popNumber: [0],
                 components: [{
                     name: 'category_id',
@@ -5833,7 +5833,7 @@ export default {
             newComponent: [{
                 tab: '新建肥料档案',
                 selectUrl: [['category', 'manure', 'category_id', 'category_name', true]],
-                checkNumber: 1,
+                checkNumber: [1],
                 popNumber: [0],
                 components: [{
                     name: 'category_id',
@@ -5899,7 +5899,7 @@ export default {
             editComponent: [{
                 tab: '编辑肥料信息',
                 selectUrl: [['category', 'manure', 'category_id', 'category_name', true]],
-                checkNumber: 1,
+                checkNumber: [1],
                 popNumber: [0],
                 components: [{
                     name: 'category_id',
@@ -5996,7 +5996,7 @@ export default {
             newComponent: [{
                 tab: '新建农药档案',
                 selectUrl: [['category', 'medicament', 'category_id', 'category_name', true]],
-                checkNumber: 1,
+                checkNumber: [1],
                 popNumber: [0],
                 components: [{
                     name: 'category_id',
@@ -6103,7 +6103,7 @@ export default {
             editComponent: [{
                 tab: '编辑农药档案',
                 selectUrl: [['category', 'medicament', 'category_id', 'category_name', true]],
-                checkNumber: 1,
+                checkNumber: [1],
                 popNumber: [0],
                 components: [{
                     name: 'category_id',
@@ -9347,7 +9347,7 @@ export default {
         newComponent: [{
             tab: '新建用户信息',
             hiddenValue: {type: 0},
-            checkNumber: 0,
+            checkNumber: [0],
             components: [{
                 name: 'name',
                 type: 'text',
@@ -9458,7 +9458,7 @@ export default {
         editComponent: [{
             tab: '新建用户信息',
             hiddenValue: {type: 0},
-            checkNumber: 0,
+            checkNumber: [0],
             components: [{
                 name: 'name',
                 type: 'text',
