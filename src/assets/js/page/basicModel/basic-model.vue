@@ -88,11 +88,17 @@
                     <clickMore :moreComponent="moreComponent" class="clickMoreBtn"></clickMore>
                 </template>
                 <template>
+
                     <el-button type="text" size="small" @click="changeEditShow(scope.$index,scope.row)" v-if="!hiddeEdit">编辑</el-button>
                         
                     <el-button type="text" size="small" v-if="hiddeEdit">查看</el-button>
                         
                     <el-button size="small" type="text" @click="handelDel(scope.$index,scope.row)" class="btn">删除</el-button>  
+
+                    <el-button size="small" type="text" @click="userRole(scope.$index,scope.row)" class="btn" v-if="hiddeRole">权限</el-button> 
+
+                    <el-button size="small" type="text" @click="" class="btn" v-if="hiddeUser">用户</el-button>  
+
                 </template>
             </template>
         </el-table-column>
@@ -171,6 +177,8 @@ export default {
                     lotComponent: [],
                     hiddeEdit: false,
                     checkOperate: null,
+                    hiddeRole: false,
+                    hiddeUser: false,
                     selectDefault: {}
                 }]
             }
@@ -492,6 +500,10 @@ export default {
                         }
                     }
                 })
+        },
+        // 点击删除
+        userRole (row, index) {
+            console.log(row)
         }
     },
     mounted () {
