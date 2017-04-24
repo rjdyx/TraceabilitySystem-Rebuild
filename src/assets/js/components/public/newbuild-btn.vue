@@ -12,12 +12,25 @@
 </template>
 
 <script>
-    export default {
-        name: 'NewBuild',
-        methods: {
-            handleAdd () {
-                this.$parent.changeNewShow()
-            }
+import vuexStore from '../../vuex/modules/isNew.js'
+export default {
+    name: 'NewBuild',
+    store: vuexStore,
+    data () {
+        return {
+            count: 0
+        }
+    },
+    methods: {
+        handleAdd () {
+            this.$parent.changeNewShow()
+            // this.$parent.changeNewShow()
+            // // this.count++
+            // this.$store.commit('handleAdd')
+            // this.count = this.$store.state.count
+            // console.log('this.count：' + this.count)
+            // console.log('this.$store.state.count：' + this.$store.state.count)
         }
     }
+}
 </script>

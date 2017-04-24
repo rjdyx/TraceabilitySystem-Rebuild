@@ -151,15 +151,11 @@ export default {
         }
     },
     mounted () {
-        // $(window).on('resize', () => {
-        // })
         /**
         * 点击表单拖拽事件
         */
         var _this = this
-        var divL = ($(document).outerWidth() - $('.newForm').innerWidth()) / 2
-        var divT = ($(document).outerHeight() - $('.newForm').innerHeight()) / 2
-        $('.newForm').css({left: divL, top: divT})
+        this.resizeFn()
         $('.el-tabs__header').on('mousedown', (e) => {
             // console.log('mousedown')
             // 鼠标与newForm块的距离
@@ -192,8 +188,16 @@ export default {
             // $(document).off('mouseup')
             // console.log('mouseup')
         })
+        $(window).on('resize', function () {
+            _this.resizeFn()
+        })
     },
     methods: {
+        resizeFn () {
+            var divL = ($(document).outerWidth() - $('.newForm').innerWidth()) / 2
+            var divT = ($(document).outerHeight() - $('.newForm').innerHeight()) / 2
+            $('.newForm').css({left: divL, top: divT})
+        },
         handleClick (tab, event) {
             console.log(tab, event)
         },
@@ -241,9 +245,10 @@ export default {
   left:0;
   z-index:3;
   // text-align:center;
-  overflow:hidden;
+  // overflow:hidden;
   .newForm{
     width:618px;
+    max-width:618px;
     left:50%;
     top:50%;
     position: absolute;

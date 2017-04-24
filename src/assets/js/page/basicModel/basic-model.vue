@@ -10,10 +10,11 @@
   <!-- 标题 -->
     <contain-title :settitle="settitle">
     </contain-title>
-    
   <!-- tab栏 --> 
     <el-tabs v-model="activeName" id="tabs" @tab-click="tabClick" type="card">
-        <el-tab-pane v-for="(model,index) in models" :label="model.tab" :name="'index'+index"></el-tab-pane>
+        <el-tab-pane v-for="(model,index) in models" :label="model.tab" :name="'index'+index">
+
+        </el-tab-pane>
     </el-tabs>  
     <!-- 操作模块 -->
     <div id="operate">
@@ -558,7 +559,6 @@ export default {
      }
      .searchOp{
      	display:inline;
-     	margin-left: 15px;
      }
      .margin{
      	margin-left:15px;
