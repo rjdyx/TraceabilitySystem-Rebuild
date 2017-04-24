@@ -171,27 +171,6 @@ default {
         }
         /**
          *
-         * 判断图片
-         *
-         * @param url
-         * @returns {*}
-         */
-        Vue.prototype.$image = (url, ret) => {
-            for (let key in ret) {
-                for (let index in ret[key]) {
-                    if (index === 'img') {
-                        if (ret[key][index] !== null && ret[key][index] !== '') {
-                            ret[key][index] = '有'
-                        } else {
-                            ret[key][index] = '无'
-                        }
-                    }
-                }
-            }
-            return ret
-        }
-        /**
-         *
          * 表格样式存储
          *
          * @param url
@@ -199,9 +178,11 @@ default {
          */
         Vue.prototype.$eltable = (ret) => {
             for (let key in ret) {
-                for (let index in ret[key]) {
-                    if (index === 'area') {
-                        ret[key][index] = ret[key][index] + ret[key].unit
+                if (ret[key].unit !== undefined) {
+                    for (let index in ret[key]) {
+                        if (index === 'area' || index === 'amount') {
+                            ret[key][index + '_unit'] = ret[key][index] + ret[key].unit
+                        }
                     }
                 }
             }
