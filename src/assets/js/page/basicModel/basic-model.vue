@@ -19,7 +19,7 @@
     <!-- 操作模块 -->
     <div id="operate">
         <div id="inputs">
-            <operate :listComponent="listComponent" @selectVal="selectFind"></operate>
+            <operate :listComponent="listComponent" @selectVal="selectFind" @dateVal="dateFind"></operate>
             
             <!-- 搜索框 -->
             <div class="searchOp"> 
@@ -337,9 +337,6 @@ export default {
                             })
                     }
                 }
-                if (row.area !== undefined) {
-                    row.area = String(parseInt(row.area))
-                }
                 this.editForm = row
                 // 重新赋值获取初始值
                 for (let key of Object.keys(row)) {
@@ -396,8 +393,8 @@ export default {
             this.boxArr(this.dataArr)
         },
         // 日期存储
-        dateFind (key, val) {
-            this.dataArr[key] = val
+        dateFind (val) {
+            this.dataArr[val[0]] = val[1]
         },
         // 组合查询
         boxArr (dataArr) {
