@@ -6426,6 +6426,7 @@ export default {
             key: 'fertilize',
             tab: '施肥信息',
             url: 'fertilize',
+            batch: 'fertilizeBatch',
             selectSearch: ['manures.id'],
             selectValueId: [['manure_id', 'manure_name', true]],
             selectDefault: [{value: '', label: '肥料选择'}],

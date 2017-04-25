@@ -318,7 +318,7 @@ export default {
             this.isEditShow = true
             if (row !== undefined) {
                 if (this.editComponent[0].checkNumber !== undefined) {
-                    for (let index in this.newComponent[0].checkNumber) {
+                    for (let index in this.editComponent[0].checkNumber) {
                         this.editComponent[0].components[this.editComponent[0].checkNumber[index]].rule[1]['id'] = row.id
                         this.editComponent[0].components[this.editComponent[0].checkNumber[index]].rule[1]['url'] = this.url
                     }
@@ -420,12 +420,12 @@ export default {
         },
         // 批量删除
         delAll () {
-            this.$confirm('你确定要删除选中信息?', '信息', {
-                cancelButtonText: '取消',
-                confirmButtonText: '确定',
-                type: 'error'
-            }).then(() => {
-                if (this.checkObject.length !== undefined && this.checkObject.length !== 0) {
+            if (this.checkObject.length !== undefined && this.checkObject.length !== 0) {
+                this.$confirm('你确定要删除选中信息?', '信息', {
+                    cancelButtonText: '取消',
+                    confirmButtonText: '确定',
+                    type: 'error'
+                }).then(() => {
                     var delArr = []
                     for (let key in this.checkObject) {
                         delArr.push(this.checkObject[key].id)
@@ -447,18 +447,21 @@ export default {
                             this.$message.error('批量删除失败')
                         }
                     })
-                }
-            }).catch(() => {
-                this.$message({
-                    type: 'info',
-                    message: '已取消删除'
+                }).catch(() => {
+                    this.$message({
+                        type: 'info',
+                        message: '已取消删除'
+                    })
                 })
-            })
+            }
         },
         // 新建数据
         changeNew (val) {
             if (val !== 'false') {
                 this.isNewShow = false
+                if (JSON.stringify(this.dataArr) === '{}') {
+                    this.dataArr = ''
+                }
                 this.boxArr(this.dataArr)
                 this.getSelect()
                 this.$message({

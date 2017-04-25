@@ -6,6 +6,7 @@ import datePick from '../../components/public/datePick.vue'
 import categoryBtn from '../../components/public/categoryBtn.vue'
 import addRfidBtn from '../../components/public/addRfidBtn.vue'
 import newMessage from './newMessage.js'
+import inputFile from '../../components/public/inputFile.vue'
 import inputDate from '../../components/public/inputDate.vue'
 import validate2 from '../../utils/validate2.js'
 export default {
@@ -201,6 +202,7 @@ export default {
             searchPlaceholder: '请输入标题进行搜索',
             headList: ['图片', '图片标题', '图片描述', '上传日期', '备注信息'],
             protos: ['thumb', 'name', 'desc', 'date', 'memo'],
+            hiddeEdit: true,
             widths: [50, 50, 50, 50, 50],
             typeComponent: [{
                 component: newbuildBtn
@@ -213,6 +215,7 @@ export default {
             }],
             newComponent: [{
                 tab: '新建生长过程信息',
+                hasImg: true,
                 checkNumber: [0],
                 components: [{
                     name: 'name',
@@ -239,7 +242,16 @@ export default {
                     isNull: false,
                     label: '上传日期',
                     placeholder: '',
-                    rule: [{required: true}, {validator: validate2.reDate, message: '请输入上传日期'}]
+                    rule: [{required: true, message: '请输入上传日期'}, {validator: validate2.reDate, message: '请输入上传日期'}]
+                },
+                {
+                    name: 'img',
+                    type: 'file',
+                    component: inputFile,
+                    isNull: true,
+                    label: '上传图片',
+                    placeholder: '',
+                    rule: {required: true, message: '请上传图片'}
                 },
                 {
                     name: 'memo',
@@ -254,6 +266,7 @@ export default {
             editComponent: [{
                 tab: '编辑生长过程信息',
                 checkNumber: [0],
+                hasImg: true,
                 components: [{
                     name: 'name',
                     type: 'text',
@@ -279,7 +292,16 @@ export default {
                     isNull: false,
                     label: '上传日期',
                     placeholder: '',
-                    rule: [{required: true}, {validator: validate2.reDate, message: '请输入上传日期'}]
+                    rule: [{required: true, message: '请输入上传日期'}, {validator: validate2.reDate, message: '请输入上传日期'}]
+                },
+                {
+                    name: 'img',
+                    type: 'file',
+                    component: inputFile,
+                    isNull: true,
+                    label: '上传图片',
+                    placeholder: '',
+                    rule: {required: true, message: '请上传图片'}
                 },
                 {
                     name: 'memo',
@@ -289,6 +311,45 @@ export default {
                     label: '备注信息',
                     placeholder: '',
                     rule: null
+                }]
+            }]
+        }]
+    },
+    // 施肥批次详情
+    fertilizeBatch: {
+        key: 'fertilizeBatch',
+        tab: '施肥批次管理',
+        theads: ['施肥批次号', '肥料', '施肥人', '施肥日期', '施肥量（Kg）', '专家', '施肥方法', '备注'],
+        protos: ['serial', 'manure_name', 'operate_name', 'date', 'amount_unit', 'expert_name', 'way', 'memo'],
+        url: 'fertilize',
+        tabList: [{
+            url: 'cultivate-fertilize',
+            tab: '种植批次施肥信息',
+            searchPlaceholder: '请输入种植批次进行搜索',
+            headList: ['种植批次号', '种植区', '种植果蔬', '种植日期', '种植人', '备注信息'],
+            protos: ['serial', 'plantation_name', 'plant_name', 'date', 'operate_name', 'memo'],
+            widths: [50, 50, 50, 50, 50, 50],
+            hiddeEdit: false,
+            typeComponent: [{
+                component: newbuildBtn
+            }],
+            listComponent: [{
+                components: [{
+                    type: 'date',
+                    component: datePick
+                }]
+            }],
+            newComponent: [{
+                tab: '新建批次施肥信息',
+                type: 'table',
+                components: [{
+                    name: 'name',
+                    type: 'table',
+                    theads: ['种植批次号', '种植果蔬', '种植日期'],
+                    protos: ['serial', 'plant_name', 'date'],
+                    valueId: 'cultivate_ids',
+                    errormsg: '请选择种植批次号',
+                    tableVal: []
                 }]
             }]
         }]
