@@ -163,39 +163,36 @@ export default {
     methods: {
         // tab点击事件
         tabClick (tab, event) {
-            console.log(tab.$data.index)
             var index = tab.$data.index
             this.tabItem = this.tabList[index]
-            // this.tableData = []
-            // this.getTabDate(this.apiUrlArr[this.tabList[0].url])
         },
         // 显示新建表单
         changeNewShow () {
             this.isNewShow = !this.isNewShow
-            if (this.newComponent[0].checkNumber !== undefined) {
-                for (let index in this.newComponent[0].checkNumber) {
-                    this.newComponent[0].components[this.newComponent[0].checkNumber[index]].rule[1].url = this.url
+            if (this.tabItem.newComponent[0].checkNumber !== undefined) {
+                for (let index in this.tabItem.newComponent[0].checkNumber) {
+                    this.tabItem.newComponent[0].components[this.tabItem.newComponent[0].checkNumber[index]].rule[1].url = this.tabItem.url
                 }
             }
-            if (this.newComponent[0].selectUrl) {
-                for (let key in this.newComponent[0].selectUrl) {
-                    let newArr = this.$addAndEditSelectMethod(this.newComponent[0].selectUrl[key])
+            if (this.tabItem.newComponent[0].selectUrl) {
+                for (let key in this.tabItem.newComponent[0].selectUrl) {
+                    let newArr = this.$addAndEditSelectMethod(this.tabItem.newComponent[0].selectUrl[key])
                     this.$dataGet(this, newArr.selectUrl + '/changeSelect', {'selectData': newArr.selectData})
                         .then((responce) => {
                             if (responce.data.length !== 0) {
-                                this.newComponent[0].components[this.newComponent[0].popNumber[key]].options = this.$selectData(this.url, responce.data, newArr.selectArr)
+                                this.tabItem.newComponent[0].components[this.tabItem.newComponent[0].popNumber[key]].options = this.$selectData(this.tabItem.url, responce.data, newArr.selectArr)
                             }
                         })
                 }
             }
             // 无分类的下拉框模块查询
-            if (this.newComponent[0].selectUrl2) {
-                for (let key in this.newComponent[0].selectUrl2) {
-                    let newArr = this.$addAndEditSelectMethod(this.newComponent[0].selectUrl2[key])
+            if (this.tabItem.newComponent[0].selectUrl2) {
+                for (let key in this.tabItem.newComponent[0].selectUrl2) {
+                    let newArr = this.$addAndEditSelectMethod(this.tabItem.newComponent[0].selectUrl2[key])
                     this.$dataGet(this, '/util/selects', {table: newArr.selectUrl})
                         .then((responce) => {
                             if (responce.data.length !== 0) {
-                                this.newComponent[0].components[this.newComponent[0].popNumber2[key]].options = this.$selectData(this.url, responce.data, newArr.selectArr)
+                                this.tabItem.newComponent[0].components[this.tabItem.newComponent[0].popNumber2[key]].options = this.$selectData(this.tabItem.url, responce.data, newArr.selectArr)
                             }
                         })
                 }
@@ -265,9 +262,7 @@ export default {
         // 获取列表信息
         getAllMsg (data = '') {
             // 字符分割
-            let strs = this.apiUrlArr[this.tabList[0].url].split('/')
-            let id = {'id': strs[0]}
-            this.$dataGet(this, strs[1], {params: data, id: id})
+            this.$dataGet(this, this.apiUrlArr[this.tabList[0].url], {})
                 .then((responce) => {
                     if (responce.data.data.length !== 0) {
                         var ret = this.$conversion(this.changeDataArr, responce.data.data, 1)
@@ -331,7 +326,6 @@ export default {
     mounted () {
         this.tabItem = this.tabList[0]
         this.activeName = this.tabList[0].tab
-        console.log(this.tabItem.tableOperateList)
         this.getApiUrl()
         this.getDetailSerial()
         this.getAllMsg()
