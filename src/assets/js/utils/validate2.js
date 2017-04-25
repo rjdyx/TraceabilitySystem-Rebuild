@@ -27,7 +27,6 @@ exports.phone = (rule, value, callback, source, options) => {
 }
 // 重名验证
 exports.reCheck = (rule, value, callback, source, options) => {
-    console.log(rule.url)
     if (value !== '') {
         var par
         if (rule.id !== undefined) {
