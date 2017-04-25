@@ -29,6 +29,7 @@
                     :on-icon-click="search" class="searchInp" size="small">
                 </el-input>
                 <el-button size="small" class="searchBtn" @click="textAndDateFind">搜索</el-button>
+                <qrcode :background="background" :size="size" :cls="qrCls" :value="qrText"></qrcode>
             </div>
 
             <!-- 操作按钮 -->

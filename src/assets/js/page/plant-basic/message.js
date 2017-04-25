@@ -11,6 +11,7 @@ import inputSelect from '../../components/public/inputSelect.vue'
 import inputDate from '../../components/public/inputDate.vue'
 import inputFile from '../../components/public/inputFile.vue'
 import inputTextSelect from '../../components/public/inputTextSelect.vue'
+import Qrcode from '../../components/public/Qrcode.vue'
 
 import validate2 from '../../utils/validate2.js'
 
