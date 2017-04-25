@@ -147,7 +147,7 @@ export default {
                 isNull: true,
                 label: '备注信息',
                 placeholder: '',
-                rule: {required: true, message: '请输入备注', trigger: 'blur'}
+                rule: null
             }]
         }],
         editComponent: [{
@@ -6194,7 +6194,7 @@ export default {
         key: 'cultivate',
         tab: '种植批次信息',
         url: 'cultivate',
-        batch: 'plantBatch',
+        batch: 'plantSerial',
         selectSearch: ['plantations.id', 'plants.id'],
         selectValueId: [['plantation_id', 'plantation_name', true], ['plant_id', 'plant_name', true]],
         selectDefault: [{value: '', label: '种植区选择'}, {value: '', label: '果蔬选择'}],
@@ -6405,6 +6405,7 @@ export default {
             key: 'fertilize',
             tab: '施肥信息',
             url: 'fertilize',
+            batch: 'fertilizeBatch',
             selectSearch: ['manures.id'],
             selectValueId: [['manure_id', 'manure_name', true]],
             selectDefault: [{value: '', label: '肥料选择'}],
@@ -7540,8 +7541,8 @@ export default {
         settitle: '生产计划管理',
         key: 'plan',
         tab: '生产计划信息',
-        url: 'plan',
-        hiddeEdit: true,
+        url: 'farming',
+        batch: 'plantProduct',
         selectSearch: ['type'],
         searchPlaceholder: '请输入计划内容进行搜索',
         theads: ['批次号', '计划日期', '操作类型', '安排人员', '计划内容', '操作用户', '备注'],
@@ -7578,24 +7579,73 @@ export default {
             ]
         }],
         newComponent: [{
-            tab: '新建采收批次',
+            tab: '新建生产计划信息',
             components: [{
                 name: 'date',
                 type: 'date',
                 component: inputDate,
                 isNull: true,
-                label: '种植日期',
+                label: '计划日期',
                 placeholder: '',
-                rule: null
+                rule: {required: true, message: '请输入批次号', trigger: 'blur'}
             },
             {
-                name: 'type',
+                name: 'category_id',
                 type: 'select',
                 component: null,
                 isNull: false,
                 label: '操作类型',
-                placeholder: '请选择操作类型',
-                rule: {required: true, trigger: 'blur'},
+                placeholder: '必填',
+                rule: {required: true, trigger: 'blur', type: 'number', message: '请选择分类名称'},
+                options: []
+            },
+            {
+                name: 'content',
+                type: 'text',
+                component: null,
+                isNull: true,
+                label: '计划内容',
+                placeholder: '',
+                rule: null
+            },
+            {
+                name: 'operate_name',
+                type: 'text',
+                component: null,
+                isNull: true,
+                label: '安排人员',
+                placeholder: '',
+                rule: null
+            },
+            {
+                name: 'memo',
+                type: 'textarea',
+                component: null,
+                isNull: true,
+                label: '备注',
+                placeholder: '',
+                rule: null
+            }]
+        }],
+        editComponent: [{
+            tab: '编辑生产计划信息',
+            components: [{
+                name: 'date',
+                type: 'date',
+                component: inputDate,
+                isNull: true,
+                label: '计划日期',
+                placeholder: '',
+                rule: {required: true, message: '请输入批次号', trigger: 'blur'}
+            },
+            {
+                name: 'category_id',
+                type: 'select',
+                component: null,
+                isNull: false,
+                label: '操作类型',
+                placeholder: '必填',
+                rule: {required: true, trigger: 'blur', type: 'number', message: '请选择分类名称'},
                 options: []
             },
             {
@@ -7637,6 +7687,7 @@ export default {
         selectValueId: [['plantation_id', 'plantation_name', true]],
         selectDefault: [{value: '', label: '种植区选择'}],
         batch: 'cultivateBatch',
+        paramsIndex: 0,
         searchPlaceholder: '请输入采收批次号进行搜索',
         theads: ['采收批次号', '采收日期', '所属种植区', '种植批次号', '采收数量(kg)', '入库部门', '存放仓库位置', '操作人', '录入人', '备注'],
         protos: ['serial', 'date', 'plantation_name', 'cultivate_serial', 'amount', 'department', 'position', 'operate_name', 'user_name', 'memo'],
@@ -8416,6 +8467,10 @@ export default {
             key: 'vehicle',
             tab: '车辆信息',
             url: 'vehicle',
+            selectSearch: ['vehicles.id'],
+            selectValueId: ['id', 'brand', true],
+            selectDefault: {value: '', label: '车辆品牌'},
+            paramsIndex: 0,
             searchPlaceholder: '请输入车牌号进行搜索',
             theads: ['车辆品牌', '车辆号码', '核载吨位', '备注信息'],
             protos: ['brand', 'number', 'tonnage', 'memo'],
@@ -8435,14 +8490,7 @@ export default {
                 components: [{
                     type: 'select',
                     component: selectSection,
-                    options: [{
-                        value: '',
-                        label: '车辆品牌'
-                    },
-                    {
-                        value: '东风',
-                        label: '东风'
-                    }]
+                    options: []
                 }]
             }],
             newComponent: [{
@@ -8864,6 +8912,7 @@ export default {
             key: 'storage0',
             tab: '销售入库信息(平台)',
             url: 'storage',
+            batch: 'saleInput',
             selectSearch: ['products.id'],
             selectValueId: ['product_id', 'product_name', true],
             selectDefault: {value: '', label: '请选择商品'},
@@ -9191,6 +9240,7 @@ export default {
         key: 'sell',
         tab: '销售订单信息',
         url: 'sell',
+        batch: 'saleOrder',
         searchPlaceholder: '请输入销售订单号',
         theads: ['订单号', '订单日期', '物流批次号', '客户名称', '金额', '数量', '销售员', '录入人', '备注'],
         protos: ['serial', 'datetime', 'delivery_serial', 'client_name', 'money', 'amount', 'operate_name', 'user_name', 'memo'],
@@ -9204,6 +9254,70 @@ export default {
             }],
         newComponent: [{
             tab: '新建订单信息',
+            hiddenValue: {type: 1},
+            selectUrl2: ['clients', 'id', 'name', true],
+            popNumber2: 2,
+            components: [{
+                name: 'datetime',
+                type: 'date',
+                component: inputDate,
+                isNull: false,
+                label: '订单日期时间',
+                placeholder: '',
+                disabled: true,
+                rule: {required: true, trigger: 'blur', type: 'date'}
+            },
+            {
+                name: 'delivery_id',
+                type: 'select',
+                component: null,
+                isNull: false,
+                label: '物流订单',
+                placeholder: '请选择物流订单',
+                rule: {required: true, trigger: 'blur', type: 'number'},
+                options: []
+            },
+            {
+                name: 'client_id',
+                type: 'select',
+                component: null,
+                isNull: false,
+                label: '客户',
+                placeholder: '请选择客户',
+                rule: {required: true, trigger: 'blur', type: 'number'},
+                options: []
+            },
+            {
+                name: 'operate_id',
+                type: 'select',
+                component: null,
+                isNull: false,
+                label: '销售员',
+                placeholder: '请选择人物',
+                rule: {required: true, trigger: 'blur', type: 'number'},
+                options: []
+            },
+            {
+                name: 'money',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '销售金额',
+                placeholder: '请输入金额',
+                rule: {required: true, trigger: 'blur', type: 'bumber'}
+            },
+            {
+                name: 'memo',
+                type: 'textarea',
+                component: null,
+                isNull: true,
+                label: '备注信息',
+                placeholder: '',
+                rule: null
+            }]
+        }],
+        editComponent: [{
+            tab: '编辑订单信息',
             hiddenValue: {type: 1},
             selectUrl2: ['clients', 'id', 'name', true],
             popNumber2: 2,

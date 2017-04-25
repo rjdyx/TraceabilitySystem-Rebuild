@@ -1,26 +1,17 @@
 import Vue from 'vue'
-import Vuex from 'vuex'
-// Vue.use(Vuex)
+export const USER_SIGNOUT = 'USER_SIGNOUT' // 退出登录
 
-const userStore = new Vuex.Store({
-    state: {
-        userInfo: {}
-    },
-    getters: {
-        getUserInfo (state) {
-            return state.userInfo
-        }
-    },
+export default {
+    state: JSON.parse(sessionStorage.getItem('user')) || {},
     mutations: {
-        setUserInfo (state, userInfo) {
-            state.userInfo = userInfo
+        [USER_SIGNOUT] (state) {
+            sessionStorage.removeItem('user')
+            Object.keys(state).forEach(k => Vue.delete(state, k))
         }
     },
     actions: {
-        setUserInfo ({ commit }, user) {
-            commit('setUserInfo', user)
+        [USER_SIGNOUT] ({commit}) {
+            commit(USER_SIGNOUT)
         }
     }
-})
-
-export default userStore
+}
