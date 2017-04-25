@@ -49,7 +49,10 @@
 		</div>
     
         <!-- 新建模块 --> 
-        <popNew v-if="isNewShow" :newComponent="tabItem.newComponent" :url="tabList.url"></popNew>
+        <popNew v-if="isNewShow" :newComponent="tabItem.newComponent" :url="apiUrlArr[tabList[0].url]" @submitNew="changeNew"></popNew>
+        <!-- 编辑模块 -->
+        <popEdit v-if="isEditShow" :editComponent="tabItem.editComponent" :url="apiUrlArr[tabList[0].url]" :editForm="editForm"
+                 @submitEdit="hangeEdit" :changeDataArr="changeDataArr" :editDefault="editDefault"></popEdit>
     <!-- 列表模块 -->
     <el-table :data="tableData"  @selection-change="handleSelectionChange">
         <!-- checkbox -->
@@ -90,8 +93,8 @@
                             <clickMore :moreComponent="moreComponent" class="clickMoreBtn"></clickMore>
                         </template>
                         <template>
-                            <el-button type="text" size="small" @click="changeEditShow(scope.$index,scope.row)" v-if="!hiddeEdit">编辑</el-button>
-                            <el-button type="text" size="small" v-if="hiddeEdit">查看</el-button>
+                            <el-button type="text" size="small" @click="changeEditShow(scope.$index,scope.row)" v-if="tabList[0].hiddeEdit">编辑</el-button>
+                            <el-button type="text" size="small" v-if="hiddeWatch">查看</el-button>
                             <el-button size="small" type="text" @click="handelDel(scope.$index,scope.row)" class="btn">删除</el-button>  
                         </template>
                     </template>
@@ -99,7 +102,13 @@
 		    </el-table>
     <div class="footer">
         <div class="operate-foot">
-            <el-button v-for="bottomOperateItem in tabItem.bottomOperateList">{{bottomOperateItem.operateName}}</el-button>
+            <div class="operate-foot">
+                <el-button @click="delAll" v-if="checkOperate==null">删除</el-button>
+                <template v-if="lotComponent!=null">
+                    <lotOpearte :lotComponent="lotComponent"></lotOpearte>
+                </template>
+                <el-button>导出表格</el-button>
+            </div>
         </div>
 
         <p class="record">共有{{num}}页，{{total_num}}条记录</p>
@@ -120,7 +129,7 @@
 import computed from './computed.js'
 import popNew from '../../components/public/popNew.vue'
 import ContainTitle from 'components/layout/contain-title.vue'
-import edit from '../../components/public/edit.vue'
+import popEdit from '../../components/public/popEdit.vue'
 import operate from '../../components/public/operate.vue'
 import clickMore from '../../components/public/clickMore.vue'
 import lotOpearte from '../../components/public/lotOpearte.vue'
@@ -156,7 +165,11 @@ export default {
             tableData: [],
             paginator: {},
             inputValue: '',
-            dataArr: {}
+            dataArr: {},
+            editForm: {},
+            editDefault: {},
+            // 复选框选中返回对象
+            checkObject: {}
         }
     },
     mixins: [computed],
@@ -173,6 +186,13 @@ export default {
                 for (let index in this.tabItem.newComponent[0].checkNumber) {
                     this.tabItem.newComponent[0].components[this.tabItem.newComponent[0].checkNumber[index]].rule[1].url = this.tabItem.url
                 }
+            }
+            // 获取新建表格数据
+            if (this.tabItem.newComponent[0].type === 'table') {
+                this.$dataGet(this, 'cultivate', {})
+                    .then((responce) => {
+                        this.$set(this.tabItem.newComponent[0].components[0], 'tableVal', responce.data.data)
+                    })
             }
             if (this.tabItem.newComponent[0].selectUrl) {
                 for (let key in this.tabItem.newComponent[0].selectUrl) {
@@ -202,31 +222,31 @@ export default {
         changeEditShow (index, row) {
             this.isEditShow = true
             if (row !== undefined) {
-                if (this.editComponent[0].checkNumber !== undefined) {
-                    for (let index in this.newComponent[0].checkNumber) {
-                        this.editComponent[0].components[this.editComponent[0].checkNumber[index]].rule[1]['id'] = row.id
-                        this.editComponent[0].components[this.editComponent[0].checkNumber[index]].rule[1]['url'] = this.url
+                if (this.tabItem.editComponent[0].checkNumber !== undefined) {
+                    for (let index in this.tabItem.editComponent[0].checkNumber) {
+                        this.tabItem.editComponent[0].components[this.tabItem.editComponent[0].checkNumber[index]].rule[1]['id'] = row.id
+                        this.tabItem.editComponent[0].components[this.tabItem.editComponent[0].checkNumber[index]].rule[1]['url'] = this.tabItem.url
                     }
                 }
-                if (this.editComponent[0].selectUrl) {
-                    for (let key in this.editComponent[0].selectUrl) {
-                        let editArr = this.$addAndEditSelectMethod(this.editComponent[0].selectUrl[key])
+                if (this.tabItem.editComponent[0].selectUrl) {
+                    for (let key in this.tabItem.editComponent[0].selectUrl) {
+                        let editArr = this.$addAndEditSelectMethod(this.tabItem.editComponent[0].selectUrl[key])
                         this.$dataGet(this, editArr.selectUrl + '/changeSelect', {'selectData': editArr.selectData})
                             .then((responce) => {
                                 if (responce.data.length !== 0) {
-                                    this.editComponent[0].components[this.editComponent[0].popNumber[key]].options = this.$selectData(this.url, responce.data, editArr.selectArr)
+                                    this.tabItem.editComponent[0].components[this.tabItem.editComponent[0].popNumber[key]].options = this.$selectData(this.tabItem.url, responce.data, editArr.selectArr)
                                 }
                             })
                     }
                 }
                 // 无分类的下拉框模块查询
-                if (this.editComponent[0].selectUrl2) {
-                    for (let key in this.editComponent[0].selectUrl2) {
-                        let editArr = this.$addAndEditSelectMethod(this.editComponent[0].selectUrl2[key])
+                if (this.tabItem.editComponent[0].selectUrl2) {
+                    for (let key in this.tabItem.editComponent[0].selectUrl2) {
+                        let editArr = this.$addAndEditSelectMethod(this.tabItem.editComponent[0].selectUrl2[key])
                         this.$dataGet(this, '/util/selects', {table: editArr.selectUrl})
                             .then((responce) => {
                                 if (responce.data.length !== 0) {
-                                    this.editComponent[0].components[this.editComponent[0].popNumber2[key]].options = this.$selectData(this.url, responce.data, editArr.selectArr)
+                                    this.tabItem.editComponent[0].components[this.tabItem.editComponent[0].popNumber2[key]].options = this.$selectData(this.tabItem.url, responce.data, editArr.selectArr)
                                 }
                             })
                     }
@@ -238,8 +258,13 @@ export default {
                 }
             }
         },
+        // 关闭编辑弹窗
+        closeEditShow (val) {
+            this.isEditShow = false
+        },
         // 列表全选
-        handleSelectionChange () {
+        handleSelectionChange (val) {
+            this.checkObject = val
         },
         // 获取Api接口数据
         getApiUrl (data = '') {
@@ -261,8 +286,7 @@ export default {
         },
         // 获取列表信息
         getAllMsg (data = '') {
-            // 字符分割
-            this.$dataGet(this, this.apiUrlArr[this.tabList[0].url], {})
+            this.$dataGet(this, this.apiUrlArr[this.tabList[0].url], {params: data})
                 .then((responce) => {
                     if (responce.data.data.length !== 0) {
                         var ret = this.$conversion(this.changeDataArr, responce.data.data, 1)
@@ -321,6 +345,132 @@ export default {
             //         })
             //     }
             // }
+        },
+        // 获取下拉框数据
+        getSelect () {
+            if (this.paramsIndex !== undefined) {
+                var type = this.paramsIndex
+            }
+            this.selectArrSet = []
+            var getSelect = {'getSelect': '444'}
+            this.$dataGet(this, this.url, {getSelect: getSelect, type: type})
+                .then((responce) => {
+                    // 数据转换
+                    if (responce.data.length !== 0) {
+                        for (let index in this.selectValueId) {
+                            this.selectArrSet[index] = []
+                            let opt = this.$selectData(this.url, responce.data, this.selectValueId[index])
+                            this.selectArrSet[index].push(this.selectDefault[index])
+                            for (let key of Object.keys(opt)) {
+                                this.selectArrSet[index].push(opt[key])
+                            }
+                            this.listComponent[0].components[index].options = this.selectArrSet[index]
+                        }
+                    } else {
+                        for (let index in this.selectValueId) {
+                            this.selectArrSet[index] = []
+                            this.selectArrSet[index].push(this.selectDefault[index])
+                            this.listComponent[0].components[index].options = this.selectArrSet[index]
+                        }
+                    }
+                })
+        },
+        // 新建数据
+        changeNew (val) {
+            if (val !== 'false') {
+                this.isNewShow = false
+                if (JSON.stringify(this.dataArr) === '{}') {
+                    this.dataArr = ''
+                }
+                this.boxArr(this.dataArr)
+                // this.getSelect()
+                this.$message({
+                    type: 'success',
+                    message: '新增数据成功'
+                })
+            } else {
+                this.$message.error('新增数据失败')
+            }
+        },
+        // 点击删除
+        handelDel (index, row) {
+            this.$confirm('你确定要删除该信息吗?', '信息', {
+                cancelButtonText: '取消',
+                confirmButtonText: '确定',
+                type: 'error'
+            }).then(() => {
+                axios.delete(this.$adminUrl(this.apiUrlArr[this.tabList[0].url] + '/' + row.id))
+                    .then((responce) => {
+                        // this.getSelect()
+                        if (JSON.stringify(this.dataArr) === '{}') {
+                            this.dataArr = ''
+                        }
+                        this.boxArr(this.dataArr)
+                        this.$message({
+                            type: 'success',
+                            message: '删除成功'
+                        })
+                    })
+            }).catch(() => {
+                this.$message({
+                    type: 'info',
+                    message: '已取消删除'
+                })
+            })
+        },
+        // 编辑修改数据
+        hangeEdit (val) {
+            if (val !== 'false') {
+                this.isEditShow = false
+                // this.getSelect()
+                if (JSON.stringify(this.dataArr) === '{}') {
+                    this.dataArr = ''
+                }
+                this.boxArr(this.dataArr)
+                this.$message({
+                    type: 'success',
+                    message: '编辑数据成功'
+                })
+            } else {
+                this.$message.error('编辑数据失败')
+            }
+        },
+        // 批量删除
+        delAll () {
+            if (this.checkObject.length !== undefined && this.checkObject.length !== 0) {
+                this.$confirm('你确定要删除选中信息?', '信息', {
+                    cancelButtonText: '取消',
+                    confirmButtonText: '确定',
+                    type: 'error'
+                }).then(() => {
+                    var delArr = []
+                    for (let key in this.checkObject) {
+                        delArr.push(this.checkObject[key].id)
+                    }
+                    var paramsDel = { 'ids': delArr }
+                    axios.post(this.$adminUrl('util/batch-delete/' + this.tabItem.url), paramsDel)
+                    .then((responce) => {
+                        if (responce.data === 'true') {
+                            // this.getSelect()
+                            if (JSON.stringify(this.dataArr) === '{}') {
+                                this.dataArr = ''
+                            }
+                            this.boxArr(this.dataArr)
+                            this.$message({
+                                type: 'success',
+                                message: '批量删除成功'
+                            })
+                        } else {
+                            this.$message.error('批量删除失败')
+                        }
+                    })
+                }).catch(() => {
+                    this.$message({
+                        type: 'info',
+                        message: '已取消删除'
+                    })
+                })
+            }
         }
     },
     mounted () {
@@ -335,7 +485,7 @@ export default {
     components: {
         ContainTitle,
         popNew,
-        edit,
+        popEdit,
         operate,
         clickMore,
         lotOpearte
