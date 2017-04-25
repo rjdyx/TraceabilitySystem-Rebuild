@@ -22,12 +22,11 @@ export default {
             url: 'rfid',
             tab: '畜禽RFID',
             searchPlaceholder: '请输入rfid进行搜索',
-            leftOperateList: [],
-            rightOperateComponent: [{component: importBtn}, {component: output}, {component: newbuildBtn}],
+            listComponent: [],
+            typeComponent: [{component: importBtn}, {component: output}, {component: newbuildBtn}],
             headList: ['RFID', '畜禽名称', '养殖日期', '备注信息'],
             protos: ['rfid', 'beast_name', 'strt_date', 'memo'],
             widths: [50, 50, 50],
-            tableOperateList: [{operateName: '编辑'}, {operateName: '删除'}],
             bottomOperateList: [{operateName: '删除'}, {operateName: '导出表格'}],
             newComponent: newMessage['rfid']
         },
@@ -36,12 +35,11 @@ export default {
             url: 'course',
             tab: '生长过程信息',
             searchPlaceholder: '请输入标题进行搜索',
-            leftOperateList: [],
-            rightOperateComponent: [{component: newbuildBtn}],
+            listComponent: [],
+            typeComponent: [{component: newbuildBtn}],
             headList: ['生长图片', '标题', '图片描述', '上传日期', '备注信息'],
             protos: ['img', 'name', 'miaoshu', 'date', 'memo'],
             widths: [50, 50, 50, 50, 50],
-            tableOperateList: [{operateName: '编辑'}, {operateName: '删除'}],
             bottomOperateList: [{operateName: '删除'}],
             newComponent: newMessage['course']
         }]
@@ -57,13 +55,11 @@ export default {
             url: 'breed-fodderuse',
             tab: '养殖批次信息',
             searchPlaceholder: '请输入批次号进行搜索',
-            leftOperateList: [],
-            rightOperateComponent: [{component: output}, {component: newbuildBtn}],
+            listComponent: [],
+            typeComponent: [{component: output}, {component: newbuildBtn}],
             headList: ['所属养殖区', '养殖批次号', '畜禽名称', '养殖日期'],
             protos: ['area', 'serial', 'name', 'date'],
             widths: [50, 50, 50],
-            newComponent: [{label: '', type: '', component: '', rule: ''}],
-            tableOperateList: [{operateName: '编辑'}, {operateName: '删除'}],
             bottomOperateList: [{operateName: '删除'}, {operateName: '导出表格'}]
         }]
     },
@@ -78,13 +74,11 @@ export default {
             url: 'disease-rfid',
             tab: '养殖批次信息',
             searchPlaceholder: '请输入批次号进行搜索',
-            leftOperateList: [],
-            rightOperateComponent: [{component: output}, {component: newbuildBtn}],
+            listComponent: [],
+            typeComponent: [{component: output}, {component: newbuildBtn}],
             headList: ['所属养殖区', '养殖批次号', '畜禽名称', '养殖日期'],
             protos: ['area', 'serial', 'name', 'date'],
             widths: [50, 50, 50],
-            newComponent: [{label: '', type: '', component: '', rule: ''}],
-            tableOperateList: [{operateName: '编辑'}, {operateName: '删除'}],
             bottomOperateList: [{operateName: '删除'}, {operateName: '导出表格'}]
         }]
     },
@@ -99,13 +93,11 @@ export default {
             url: 'detection-rfid',
             tab: '养殖批次信息',
             searchPlaceholder: '请输入批次号进行搜索',
-            leftOperateList: [],
-            rightOperateComponent: [{component: output}, {component: newbuildBtn}],
+            listComponent: [],
+            typeComponent: [{component: output}, {component: newbuildBtn}],
             headList: ['所属养殖区', '养殖批次号', '畜禽名称', '养殖日期'],
             protos: ['area', 'serial', 'name', 'date'],
             widths: [50, 50, 50],
-            newComponent: [{label: '', type: '', component: '', rule: ''}],
-            tableOperateList: [{operateName: '编辑'}, {operateName: '删除'}],
             bottomOperateList: [{operateName: '删除'}, {operateName: '导出表格'}]
         }]
     },
@@ -120,13 +112,11 @@ export default {
             url: 'clean-area',
             tab: '养殖批次信息',
             searchPlaceholder: '请输入批次号进行搜索',
-            leftOperateList: [],
-            rightOperateComponent: [{component: output}, {component: newbuildBtn}],
+            listComponent: [],
+            typeComponent: [{component: output}, {component: newbuildBtn}],
             headList: ['所属养殖区', '养殖批次号', '畜禽名称', '养殖日期'],
             protos: ['area', 'serial', 'name', 'date'],
             widths: [50, 50, 50],
-            newComponent: [{label: '', type: '', component: '', rule: ''}],
-            tableOperateList: [{operateName: '编辑'}, {operateName: '删除'}],
             bottomOperateList: [{operateName: '删除'}, {operateName: '导出表格'}]
         }]
     },
@@ -141,13 +131,11 @@ export default {
             url: 'dispose-rfid',
             tab: '养殖批次信息',
             searchPlaceholder: '请输入批次号进行搜索',
-            leftOperateList: [],
-            rightOperateComponent: [{component: output}, {component: newbuildBtn}],
+            listComponent: [],
+            typeComponent: [{component: output}, {component: newbuildBtn}],
             headList: ['所属养殖区', '养殖批次号', '畜禽名称', '养殖日期'],
             protos: ['area', 'serial', 'name', 'date'],
             widths: [50, 50, 50],
-            newComponent: [{label: '', type: '', component: '', rule: ''}],
-            tableOperateList: [{operateName: '编辑'}, {operateName: '删除'}],
             bottomOperateList: [{operateName: '删除'}, {operateName: '导出表格'}]
         }]
     },
@@ -162,13 +150,11 @@ export default {
             url: 'come-rfid',
             tab: '畜禽RFID',
             searchPlaceholder: '请输入rfid进行搜索',
-            leftOperateList: [],
-            rightOperateComponent: [{component: output}, {component: addRfidBtn}],
+            listComponent: [],
+            typeComponent: [{component: output}, {component: addRfidBtn}],
             headList: ['RFID', '畜禽名称', '养殖日期', '备注信息'],
             protos: ['ear', 'name', 'date', 'memo'],
             widths: [50, 50, 50],
-            newComponent: [{label: '', type: '', component: '', rule: ''}],
-            tableOperateList: [{operateName: '编辑'}, {operateName: '删除'}],
             bottomOperateList: [{operateName: '批量取消出栏'}, {operateName: '导出表格'}]
         }]
     },
@@ -183,26 +169,22 @@ export default {
             url: '4/rfid',
             tab: '畜禽RFID',
             searchPlaceholder: '请输入rfid进行搜索',
-            leftOperateList: [],
-            rightOperateComponent: [{component: importBtn}, {component: output}, {component: newbuildBtn}],
+            listComponent: [],
+            typeComponent: [{component: importBtn}, {component: output}, {component: newbuildBtn}],
             headList: ['RFID', '畜禽名称', '养殖日期', '备注信息'],
             protos: ['ear', 'name', 'date', 'memo'],
             widths: [50, 50, 50],
-            newComponent: [{label: '', type: '', component: '', rule: ''}],
-            tableOperateList: [{operateName: '编辑'}, {operateName: '删除'}],
             bottomOperateList: [{operateName: '删除'}, {operateName: '导出表格'}]
         },
         {
             url: '',
             tab: '生长过程信息',
             searchPlaceholder: '请输入标题进行搜索',
-            leftOperateList: [],
-            rightOperateComponent: [{component: newbuildBtn}],
+            listComponent: [],
+            typeComponent: [{component: newbuildBtn}],
             headList: ['生长图片', '标题', '图片描述', '上传日期', '备注信息'],
             protos: ['img', 'name', 'miaoshu', 'date', 'memo'],
             widths: [50, 50, 50, 50, 50],
-            newComponent: [{label: '', type: '', component: '', rule: ''}],
-            tableOperateList: [{operateName: '编辑'}, {operateName: '删除'}],
             bottomOperateList: [{operateName: '删除'}]
         }]
     },
@@ -320,7 +302,7 @@ export default {
         tabList: [{
             tab: '采收批次信息',
             searchPlaceholder: '请输入rfid进行搜索',
-            leftOperateList: [{
+            listComponent: [{
                 components: [
                     {
                         type: 'select',
@@ -336,12 +318,10 @@ export default {
                     }
                 ]
             }],
-            rightOperateComponent: [{component: output}, {component: newbuildBtn}],
+            typeComponent: [{component: output}, {component: newbuildBtn}],
             headList: ['检测方式', '检测日期', '检测机构', '检测项目名称', '检测人', '检测结果', '证书编号', '有效期', '备注信息'],
             protos: ['ear', 'name', 'date', 'memo'],
             widths: [50, 50, 50],
-            newComponent: [{label: '', type: '', component: '', rule: ''}],
-            tableOperateList: [{operateName: '编辑'}, {operateName: '删除'}],
             bottomOperateList: [{operateName: '删除'}, {operateName: '导出表格'}]
         }]
     }
