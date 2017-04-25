@@ -77,6 +77,12 @@ export default {
         },
         checkOperate () {
             return this.models[this.modelIndex].checkOperate
+        },
+        hiddeRole () {
+            return this.models[this.modelIndex].hiddeRole
+        },
+        hiddeUser () {
+            return this.models[this.modelIndex].hiddeUser
         }
     }
 }

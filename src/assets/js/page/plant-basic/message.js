@@ -141,7 +141,7 @@ export default {
                 isNull: true,
                 label: '备注信息',
                 placeholder: '',
-                rule: {required: true, message: '请输入备注', trigger: 'blur'}
+                rule: null
             }]
         }],
         editComponent: [{
@@ -9311,6 +9311,7 @@ export default {
         tab: '公司用户信息',
         url: 'user',
         searchPlaceholder: '请输入用户名进行搜索',
+        hiddeRole: true,
         changeDataArr: [{gender: {0: '男', 1: '女'}}],
         theads: ['用户名', '姓名', '工号', '邮箱', '性别', '电话号码', '出生日期', '所属部门', '入职日期', '头像', '备注'],
         protos: ['name', 'realname', 'number', 'email', 'gender', 'phone', 'birth_date', 'department', 'hiredate', 'thumb', 'memo'],
@@ -9433,7 +9434,7 @@ export default {
             }]
         }],
         editComponent: [{
-            tab: '新建用户信息',
+            tab: '编辑用户信息',
             hiddenValue: {type: 0},
             checkNumber: [0],
             components: [{
@@ -9551,6 +9552,77 @@ export default {
                 }
             ]
         }]
+    },
+    {
+        settitle: '用户管理',
+        key: 'myrole',
+        tab: '用户角色信息',
+        url: 'role',
+        hiddenValue: {'fixation': 1},
+        searchPlaceholder: '请输入角色名称进行搜索',
+        theads: ['角色名称', '角色描述', '创建时间'],
+        protos: ['display_name', 'description', 'created_at'],
+        widths: [50, 50, 50],
+        typeComponent: [{
+            component: output
+        },
+        {
+            component: newbuildBtn
+        }],
+        newComponent: [{
+            tab: '新建角色信息',
+            hiddenValue: {type: 0},
+            checkNumber: [0],
+            components: [{
+                name: 'display_name',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '角色名称',
+                placeholder: '请输入角色名称',
+                rule: [{required: true, trigger: 'blur'}, {validator: validate2.reCheck}]
+            },
+            {
+                name: 'description',
+                type: 'textarea',
+                component: null,
+                isNull: true,
+                label: '角色描述',
+                placeholder: '',
+                rule: null
+            }]
+        }],
+        editComponent: [{
+            tab: '编辑角色信息',
+            hiddenValue: {type: 0},
+            checkNumber: [0],
+            components: [{
+                name: 'display_name',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '角色名称',
+                placeholder: '请输入角色名称',
+                rule: [{required: true, trigger: 'blur'}, {validator: validate2.reCheck}]
+            },
+            {
+                name: 'description',
+                type: 'textarea',
+                component: null,
+                isNull: true,
+                label: '角色描述',
+                placeholder: '',
+                rule: null
+            }]
+        }],
+        listComponent: [{
+            components: [
+                {
+                    type: 'date',
+                    components: 'datePick'
+                }
+            ]
+        }]
     }],
     // 系统日志
     systemLog: [{
@@ -9609,7 +9681,7 @@ export default {
     systemReport: [{
         settitle: '报表预览',
         key: 'planManage',
-        tab: '销售订单信息',
+        tab: '报表信息',
         url: 'plan',
         theads: ['模块名称', '操作', '内容', '日期时间', '客户端', '公司', '用户'],
         protos: ['plan_type_name', 'name', 'content'],
@@ -9620,44 +9692,580 @@ export default {
     // 运营-权限
     rightsOperate: [{
         settitle: '权限管理',
-        key: 'planManage',
-        tab: '权限管理',
-        url: 'plan',
-        theads: ['分类', '名称', '展示名称', '备注'],
-        protos: ['plan_type_name', 'name', 'content', 'memo'],
+        key: 'permission-category',
+        tab: '权限分类信息',
+        url: 'permission-category',
+        searchPlaceholder: '请输入展示名称进行搜索',
+        theads: ['所属分类', '名称', '展示名称', '描述', '备注'],
+        protos: ['parent_name', 'name', 'display_name', 'description', 'memo'],
         widths: [50, 50, 50, 50],
-        listComponent: []
+        typeComponent: [{
+            component: output
+        },
+        {
+            component: newbuildBtn
+        }],
+        listComponent: [],
+        newComponent: [{
+            tab: '新建权限分类信息',
+            selectUrl2: ['permission_categories', 'id', 'name', true],
+            popNumber2: 0,
+            components: [{
+                name: 'pid',
+                type: 'select',
+                component: null,
+                isNull: false,
+                label: '父级',
+                placeholder: '请选择父级',
+                rule: {required: false, trigger: 'blur', type: 'number'},
+                options: []
+            },
+            {
+                name: 'name',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '名称',
+                placeholder: '请输入名称',
+                rule: {required: true, trigger: 'blur'}
+            },
+            {
+                name: 'display_name',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '展示名称',
+                placeholder: '请输入展示名称',
+                rule: {required: true, trigger: 'blur'}
+            },
+            {
+                name: 'description',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '描述',
+                placeholder: '请输入描述',
+                rule: null
+            },
+            {
+                name: 'memo',
+                type: 'textarea',
+                component: null,
+                isNull: true,
+                label: '备注信息',
+                placeholder: '',
+                rule: null
+            }]
+        }],
+        editComponent: [{
+            tab: '编辑权限分类信息',
+            selectUrl2: ['permission_categories', 'id', 'name', true],
+            popNumber2: 0,
+            components: [{
+                name: 'pid',
+                type: 'select',
+                component: null,
+                isNull: false,
+                label: '父级',
+                placeholder: '请选择父级',
+                rule: {required: false, trigger: 'blur', type: 'number'},
+                options: []
+            },
+            {
+                name: 'name',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '名称',
+                placeholder: '请输入名称',
+                rule: {required: true, trigger: 'blur'}
+            },
+            {
+                name: 'display_name',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '展示名称',
+                placeholder: '请输入展示名称',
+                rule: {required: true, trigger: 'blur'}
+            },
+            {
+                name: 'description',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '描述',
+                placeholder: '请输入描述',
+                rule: null
+            },
+            {
+                name: 'memo',
+                type: 'textarea',
+                component: null,
+                isNull: true,
+                label: '备注信息',
+                placeholder: '',
+                rule: null
+            }]
+        }]
     },
     {
         settitle: '权限管理',
-        key: 'planManage',
-        tab: '权限管理',
-        url: 'plan',
-        theads: ['所属分类', '名称', '展示名称', '资源', '备注'],
-        protos: ['plan_type_name', 'name', 'content', 'content', 'memo'],
-        widths: [50, 50, 50, 50, 50],
-        listComponent: []
+        key: 'permission',
+        tab: '权限信息',
+        url: 'permission',
+        theads: ['所属权限分类', '名称', '展示名称', '描述', '资源', '备注'],
+        protos: ['category_name', 'name', 'display_name', 'description', 'resource', 'memo'],
+        widths: [50, 50, 50, 50, 50, 50],
+        typeComponent: [{
+            component: output
+        },
+        {
+            component: newbuildBtn
+        }],
+        listComponent: [],
+        newComponent: [{
+            tab: '新建权限信息',
+            selectUrl2: ['permission_categories', 'id', 'name', true],
+            popNumber2: 0,
+            components: [{
+                name: 'pid',
+                type: 'select',
+                component: null,
+                isNull: false,
+                label: '权限分类',
+                placeholder: '请选择权限分类',
+                rule: {required: false, trigger: 'blur', type: 'number'},
+                options: []
+            },
+            {
+                name: 'name',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '名称',
+                placeholder: '请输入名称',
+                rule: {required: true, trigger: 'blur'}
+            },
+            {
+                name: 'display_name',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '展示名称',
+                placeholder: '请输入展示名称',
+                rule: {required: true, trigger: 'blur'}
+            },
+            {
+                name: 'resource',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '资源',
+                placeholder: '请输入资源',
+                rule: {required: true, trigger: 'blur'}
+            },
+            {
+                name: 'description',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '描述',
+                placeholder: '请输入描述',
+                rule: null
+            },
+            {
+                name: 'memo',
+                type: 'textarea',
+                component: null,
+                isNull: true,
+                label: '备注信息',
+                placeholder: '',
+                rule: null
+            }]
+        }],
+        editComponent: [{
+            tab: '编辑权限信息',
+            selectUrl2: ['permission_categories', 'id', 'name', true],
+            popNumber2: 0,
+            components: [{
+                name: 'pid',
+                type: 'select',
+                component: null,
+                isNull: false,
+                label: '权限分类',
+                placeholder: '请选择权限分类',
+                rule: {required: false, trigger: 'blur', type: 'number'},
+                options: []
+            },
+            {
+                name: 'name',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '名称',
+                placeholder: '请输入名称',
+                rule: {required: true, trigger: 'blur'}
+            },
+            {
+                name: 'display_name',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '展示名称',
+                placeholder: '请输入展示名称',
+                rule: {required: true, trigger: 'blur'}
+            },
+            {
+                name: 'resource',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '资源',
+                placeholder: '请输入资源',
+                rule: {required: true, trigger: 'blur'}
+            },
+            {
+                name: 'description',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '描述',
+                placeholder: '请输入描述',
+                rule: null
+            },
+            {
+                name: 'memo',
+                type: 'textarea',
+                component: null,
+                isNull: true,
+                label: '备注信息',
+                placeholder: '',
+                rule: null
+            }]
+        }]
     }],
     // 运营-入驻单位
     settleOperate: [{
         settitle: '入驻单位管理',
-        key: 'planManage',
+        key: 'allCompany',
         tab: '入驻单位信息',
-        url: 'plan',
-        theads: ['公司编码', '公司logo', '展示名称', '备注'],
-        protos: ['plan_type_name', 'name', 'content', 'memo'],
-        widths: [50, 50, 50, 50],
-        listComponent: []
+        url: 'company',
+        hiddeUser: true,
+        searchPlaceholder: '请输入公司名称进行搜索',
+        theads: ['公司网站名称', '公司简称', '统一社会信用代码', '经营范围', '负责人/法人', '公司编码', '详细地址', '电话', '传真', '员工总数', '公司网站', '公司logo', '备注'],
+        protos: ['name', 'short_name', 'USCC', 'business_scope', 'legal_person', 'coding', 'address', 'phone', 'fax', 'total_staff', 'website', 'logo', 'memo'],
+        widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
+        typeComponent: [{
+            component: output
+        },
+        {
+            component: newbuildBtn
+        }],
+        listComponent: [],
+        newComponent: [{
+            tab: '新建入驻公司信息',
+            components: [{
+                name: 'name',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '公司名称',
+                placeholder: '请输入公司名称',
+                rule: {required: true, trigger: 'blur'}
+            },
+            {
+                name: 'short_name',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '公司简称',
+                placeholder: '请输入公司简称',
+                rule: {required: false, trigger: 'blur'}
+            },
+            {
+                name: 'USCC',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '统一社会信用代码',
+                placeholder: '请输入统一社会信用代码',
+                rule: {required: false, trigger: 'blur'}
+            },
+            {
+                name: 'business_scope',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '经营范围',
+                placeholder: '请输入经营范围',
+                rule: {required: false, trigger: 'blur'}
+            },
+            {
+                name: 'legal_person',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '负责人/法人',
+                placeholder: '请输入负责人/法人',
+                rule: {required: false, trigger: 'blur'}
+            },
+            {
+                name: 'coding',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '公司编码',
+                placeholder: '请输入公司编码',
+                rule: {required: true, trigger: 'blur', type: 'number'}
+            },
+            {
+                name: 'address',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '详细地址',
+                placeholder: '请输入详细地址',
+                rule: {required: false, trigger: 'blur'}
+            },
+            {
+                name: 'phone',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '电话',
+                placeholder: '请输入电话',
+                rule: {required: false, trigger: 'blur', type: 'number'}
+            },
+            {
+                name: 'fax',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '传真',
+                placeholder: '请输入传真',
+                rule: {required: false, trigger: 'blur'}
+            },
+            {
+                name: 'total_staff',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '员工总数',
+                placeholder: '请输入员工总数',
+                rule: {required: false, trigger: 'blur'}
+            },
+            {
+                name: 'website',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '公司网站',
+                placeholder: '请输入公司网站',
+                rule: {required: false, trigger: 'blur'}
+            },
+            {
+                name: 'logo',
+                type: 'file',
+                component: inputFile,
+                isNull: false,
+                label: '公司Logo',
+                placeholder: '',
+                rule: null
+            },
+            {
+                name: 'memo',
+                type: 'textarea',
+                component: null,
+                isNull: true,
+                label: '备注信息',
+                placeholder: '',
+                rule: null
+            }]
+        }],
+        editComponent: [{
+            tab: '编辑入驻公司信息',
+            components: [{
+                name: 'name',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '公司名称',
+                placeholder: '请输入公司名称',
+                rule: {required: true, trigger: 'blur'}
+            },
+            {
+                name: 'short_name',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '公司简称',
+                placeholder: '请输入公司简称',
+                rule: {required: false, trigger: 'blur'}
+            },
+            {
+                name: 'USCC',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '统一社会信用代码',
+                placeholder: '请输入统一社会信用代码',
+                rule: {required: false, trigger: 'blur'}
+            },
+            {
+                name: 'business_scope',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '经营范围',
+                placeholder: '请输入经营范围',
+                rule: {required: false, trigger: 'blur'}
+            },
+            {
+                name: 'legal_person',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '负责人/法人',
+                placeholder: '请输入负责人/法人',
+                rule: {required: false, trigger: 'blur'}
+            },
+            {
+                name: 'coding',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '公司编码',
+                placeholder: '请输入公司编码',
+                rule: {required: true, trigger: 'blur', type: 'number'}
+            },
+            {
+                name: 'address',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '详细地址',
+                placeholder: '请输入详细地址',
+                rule: {required: false, trigger: 'blur'}
+            },
+            {
+                name: 'phone',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '电话',
+                placeholder: '请输入电话',
+                rule: {required: false, trigger: 'blur', type: 'number'}
+            },
+            {
+                name: 'fax',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '传真',
+                placeholder: '请输入传真',
+                rule: {required: false, trigger: 'blur'}
+            },
+            {
+                name: 'total_staff',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '员工总数',
+                placeholder: '请输入员工总数',
+                rule: {required: false, trigger: 'blur'}
+            },
+            {
+                name: 'website',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '公司网站',
+                placeholder: '请输入公司网站',
+                rule: {required: false, trigger: 'blur'}
+            },
+            {
+                name: 'logo',
+                type: 'file',
+                component: inputFile,
+                isNull: false,
+                label: '公司Logo',
+                placeholder: '',
+                rule: null
+            },
+            {
+                name: 'memo',
+                type: 'textarea',
+                component: null,
+                isNull: true,
+                label: '备注信息',
+                placeholder: '',
+                rule: null
+            }]
+        }]
     }],
     // 运营-用户反馈
     usersOperate: [{
         settitle: '用户反馈管理',
-        key: 'planManage',
+        key: 'feedback',
         tab: '用户反馈信息',
-        url: 'plan',
-        theads: ['所属公司', '用户名', '姓名', '联系方式', '提交日期', '评价星级', '不足', '问题描述'],
-        protos: ['plan_type_name', 'name', 'content', 'memo', 'plan_type_name', 'name', 'content', 'memo'],
+        url: 'feedback',
+        theads: ['所属公司', '用户名', '不足', '详细内容', '评价星级', '反馈图片', '联系方式', '提交日期'],
+        protos: ['company_name', 'user_name', 'lack', 'content', 'grade', 'img', 'contact', 'created_at'],
         widths: [50, 50, 50, 50, 50, 50, 50, 50],
         listComponent: []
+    }],
+    // 系统日志
+    logOperate: [{
+        settitle: '系统日志',
+        key: 'log',
+        tab: '日志信息',
+        url: 'log',
+        selectSearch: ['operate'],
+        searchPlaceholder: '请输入内容进行搜索',
+        theads: ['模块名称', '操作', '内容', '日期时间', '客户端ip', '用户', '备注'],
+        protos: ['module', 'operate', 'content', 'datetime', 'ip', 'user_name', 'memo'],
+        widths: [50, 50, 50, 50, 50, 50, 50],
+        listComponent: [{
+            components: [{
+                value: '',
+                type: 'select',
+                name: 'operate',
+                component: selectSection,
+                options: [{
+                    value: '',
+                    label: '请选择操作'
+                },
+                {
+                    value: '新建',
+                    label: '新建'
+                },
+                {
+                    value: '编辑',
+                    label: '编辑'
+                },
+                {
+                    value: '删除',
+                    label: '删除'
+                }]
+            },
+            {
+                type: 'date',
+                components: 'datePick'
+            }
+            ]
+        }],
+        editComponent: [{
+            tab: '编辑备注信息',
+            components: [{
+                name: 'memo',
+                type: 'textarea',
+                component: null,
+                isNull: true,
+                label: '备注信息',
+                placeholder: '',
+                rule: null
+            }]
+        }]
     }]
 }

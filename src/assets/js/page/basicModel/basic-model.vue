@@ -19,7 +19,7 @@
     <!-- 操作模块 -->
     <div id="operate">
         <div id="inputs">
-            <operate :listComponent="listComponent" @selectVal="selectFind"></operate>
+            <operate :listComponent="listComponent" @selectVal="selectFind" @dateVal="dateFind"></operate>
             
             <!-- 搜索框 -->
             <div class="searchOp"> 
@@ -89,11 +89,17 @@
                     <clickMore :moreComponent="moreComponent" class="clickMoreBtn"></clickMore>
                 </template>
                 <template>
+
                     <el-button type="text" size="small" @click="changeEditShow(scope.$index,scope.row)" v-if="!hiddeEdit">编辑</el-button>
                         
                     <el-button type="text" size="small" v-if="hiddeEdit">查看</el-button>
                         
                     <el-button size="small" type="text" @click="handelDel(scope.$index,scope.row)" class="btn">删除</el-button>  
+
+                    <el-button size="small" type="text" @click="userRole(scope.$index,scope.row)" class="btn" v-if="hiddeRole">权限</el-button> 
+
+                    <el-button size="small" type="text" @click="" class="btn" v-if="hiddeUser">用户</el-button>  
+
                 </template>
             </template>
         </el-table-column>
@@ -172,6 +178,8 @@ export default {
                     lotComponent: [],
                     hiddeEdit: false,
                     checkOperate: null,
+                    hiddeRole: false,
+                    hiddeUser: false,
                     selectDefault: {}
                 }]
             }
@@ -337,9 +345,6 @@ export default {
                             })
                     }
                 }
-                if (row.area !== undefined) {
-                    row.area = String(parseInt(row.area))
-                }
                 this.editForm = row
                 // 重新赋值获取初始值
                 for (let key of Object.keys(row)) {
@@ -396,8 +401,8 @@ export default {
             this.boxArr(this.dataArr)
         },
         // 日期存储
-        dateFind (key, val) {
-            this.dataArr[key] = val
+        dateFind (val) {
+            this.dataArr[val[0]] = val[1]
         },
         // 组合查询
         boxArr (dataArr) {
@@ -508,6 +513,10 @@ export default {
                         }
                     }
                 })
+        },
+        // 点击删除
+        userRole (row, index) {
+            console.log(row)
         }
     },
     mounted () {
