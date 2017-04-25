@@ -26,7 +26,7 @@ export default {
         protos: ['name', 'type', 'memo'],
         widths: [50, 50, 50],
         selectSearch: ['type'],
-        changeDataArr: [{type: { 'operate': '操作人员', 'expert': '专家', 'product': '产品', 'supplier': '供货商', 'client': '客户', 'fodder': '饲料', 'drug': '兽药', 'beast': '畜禽', 'plant': '果蔬', 'manure': '肥料', 'medicament': '农药' }}],
+        changeDataArr: [{type: { 'operate': '操作人员', 'expert': '专家', 'product': '产品', 'supplier': '供货商', 'client': '客户', 'fodder': '饲料', 'addition': '饲料添加剂', 'drug': '兽药', 'beast': '畜禽', 'plant': '果蔬', 'manure': '肥料', 'medicament': '农药' }}],
         typeComponent: [{
             component: importBtn
         },
@@ -62,6 +62,9 @@ export default {
                 },
                 {
                     value: 'fodder', label: '饲料'
+                },
+                {
+                    value: 'addition', label: '饲料添加剂'
                 },
                 {
                     value: 'drug', label: '兽药'
@@ -117,6 +120,9 @@ export default {
                 },
                 {
                     value: 'fodder', label: '饲料'
+                },
+                {
+                    value: 'addition', label: '饲料添加剂'
                 },
                 {
                     value: 'beast', label: '畜禽'
@@ -181,6 +187,9 @@ export default {
                 },
                 {
                     value: 'fodder', label: '饲料'
+                },
+                {
+                    value: 'addition', label: '饲料添加剂'
                 },
                 {
                     value: 'beast', label: '畜禽'
@@ -3526,8 +3535,8 @@ export default {
         search: ['query_text', 'name'],
         changeDataArr: [{result: {0: '不合格', 1: '合格'}}],
         selectSearch: ['detection.organization'],
-        theads: ['检疫批次号', '检疫日期', '检疫项目名称', '专家', '操作人员', '检疫内容', '检疫结果', '审批人', '检疫报告图片', '备注'],
-        protos: ['serial', 'date', 'name', 'expert_name', 'operate_name', 'content', 'result', 'check', 'img', 'memo'],
+        theads: ['检疫批次号', '检疫日期', '检疫项目名称', '检疫内容', '检疫结果', '专家', '操作人员', '审批人', '检疫报告图片', '备注'],
+        protos: ['serial', 'date', 'name', 'content', 'result', 'expert_name', 'operate_name', 'check', 'img', 'memo'],
         widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
         typeComponent: [{
             component: output
@@ -4773,8 +4782,8 @@ export default {
         url: 'pack',
         paramsIndex: 'beast',
         searchPlaceholder: '请输入批次号进行搜索',
-        theads: ['加工批次号', '加工日期', '数量(重量)', '单位', '操作人', '备注信息'],
-        protos: ['serial', 'date', 'amount', 'unit', 'operate_name', 'memo'],
+        theads: ['加工批次号', '加工日期', '数量', '产地', '操作人', '备注信息'],
+        protos: ['serial', 'date', 'amount', 'origin', 'operate_name', 'memo'],
         widths: [50, 50, 50, 50, 50, 50],
         typeComponent: [{
             component: output
@@ -4785,8 +4794,8 @@ export default {
         newComponent: [{
             tab: '新建加工批次信息',
             hiddenValue: {type: 'beast'},
-            selectUrl2: ['operates', 'id', 'name', true],
-            popNumber2: 1,
+            selectUrl2: [['operates', 'id', 'name', true]],
+            popNumber2: [2],
             components: [{
                 name: 'date',
                 type: 'date',
@@ -4798,24 +4807,13 @@ export default {
                 rule: {required: true, trigger: 'blur', type: 'date'}
             },
             {
-                name: 'amount',
-                type: 'text',
-                component: null,
-                isNull: false,
-                label: '数量/重量',
-                placeholder: '',
-                rule: {required: true, trigger: 'blur', type: 'number'},
-                options: []
-            },
-            {
-                name: 'unit',
+                name: 'origin',
                 type: 'select',
                 component: null,
                 isNull: false,
-                label: '单位',
+                label: '产地',
                 placeholder: '',
-                rule: {type: 'number'},
-                options: [{value: '', label: '亩'}, {value: '平方米', label: '平方米'}, {value: '公顷', label: '公顷'}]
+                rule: {required: true, trigger: 'blur'}
             },
             {
                 name: 'operate_id',
@@ -4826,15 +4824,6 @@ export default {
                 placeholder: '请选择人物',
                 rule: {required: true, trigger: 'blur', type: 'number'},
                 options: []
-            },
-            {
-                name: 'state',
-                type: 'text',
-                component: null,
-                isNull: true,
-                label: '状态',
-                placeholder: '',
-                rule: null
             },
             {
                 name: 'memo',
@@ -4847,38 +4836,37 @@ export default {
             }]
         }],
         editComponent: [{
-            tab: '新建加工批次信息',
-            selectUrl2: ['operates', 'id', 'name', true],
-            popNumber2: 1,
+            tab: '编辑加工批次信息',
+            hiddenValue: {type: 'beast'},
+            selectUrl2: [['operates', 'id', 'name', true]],
+            popNumber2: [3],
             components: [{
+                name: 'serial',
+                type: 'text',
+                component: inputDate,
+                isNull: false,
+                label: '批次号',
+                placeholder: '',
+                disabled: true,
+                rule: {required: false, trigger: 'blur'}
+            },
+            {
                 name: 'date',
                 type: 'date',
                 component: inputDate,
                 isNull: false,
                 label: '加工日期',
                 placeholder: '',
-                disabled: true,
                 rule: {required: true, trigger: 'blur', type: 'date'}
             },
             {
-                name: 'amount',
-                type: 'text',
-                component: null,
-                isNull: false,
-                label: '数量/重量',
-                placeholder: '',
-                rule: {required: true, trigger: 'blur', type: 'number'},
-                options: []
-            },
-            {
-                name: 'unit',
+                name: 'origin',
                 type: 'select',
                 component: null,
                 isNull: false,
-                label: '单位',
+                label: '产地',
                 placeholder: '',
-                rule: {type: 'number'},
-                options: [{value: '', label: '亩'}, {value: '平方米', label: '平方米'}, {value: '公顷', label: '公顷'}]
+                rule: {required: true, trigger: 'blur'}
             },
             {
                 name: 'operate_id',
@@ -4889,15 +4877,6 @@ export default {
                 placeholder: '请选择人物',
                 rule: {required: true, trigger: 'blur', type: 'number'},
                 options: []
-            },
-            {
-                name: 'state',
-                type: 'text',
-                component: null,
-                isNull: true,
-                label: '状态',
-                placeholder: '',
-                rule: null
             },
             {
                 name: 'memo',
@@ -4926,7 +4905,7 @@ export default {
         paramsIndex: 'beast',
         changeDataArr: [{result: {0: '不合格', 1: '合格'}}],
         theads: ['检测批次号', '检测名称', '检测内容', '检测日期', '检测结果', '检测机构', '负责人', '处理方法', '图片报告', '备注'],
-        protos: ['serial', 'name', 'content', 'date', 'result', 'organization', 'operate_name', 'mwthod', 'thumb', 'memo'],
+        protos: ['serial', 'name', 'content', 'date', 'result', 'organization', 'operate_name', 'method', 'thumb', 'memo'],
         widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
         typeComponent: [{
             component: output
@@ -5146,7 +5125,7 @@ export default {
         selectDefault: {value: '', label: '请选择产品'},
         searchPlaceholder: '请输入溯源码搜索',
         theads: ['加工批次号', '产品溯源码', '产品名称', '生产日期', 'RFID', '产地', '溯源次数', '备注信息'],
-        protos: ['serial', 'code', 'product_name', 'date', 'rfid', '', 'time', 'memo'],
+        protos: ['serial', 'code', 'product_name', 'date', 'rfid', 'origin', 'time', 'memo'],
         widths: [50, 50, 50, 50, 50, 50, 50, 50],
         typeComponent: [{
             component: output
@@ -5809,8 +5788,8 @@ export default {
             selectValueId: [['category_id', 'category_name', true]],
             searchPlaceholder: '请输入肥料名称',
             selectDefault: [{value: '', label: '肥料类别'}],
-            theads: ['肥料分类', '肥料名称', '用途', '包装规格', '日期', '产地', '经销商名称', '联系方式', '备注'],
-            protos: ['category_name', 'name', 'usage', 'specification', 'date', 'origin', 'specification', 'phone', 'memo'],
+            theads: ['肥料分类', '肥料名称', '用途', '包装规格', '产地', '经销商名称', '联系方式', '备注'],
+            protos: ['category_name', 'name', 'usage', 'specification', 'origin', 'specification', 'phone', 'memo'],
             widths: [50, 50, 50, 50, 50, 50, 50, 50, 50],
             typeComponent: [{
                 component: importBtn
@@ -6221,7 +6200,7 @@ export default {
         selectDefault: [{value: '', label: '种植区选择'}, {value: '', label: '果蔬选择'}],
         searchPlaceholder: '请输入种植批次号进行搜索',
         theads: ['所属种植区', '种植批次号', '果蔬名称', '种植日期', '种植面积', '种植人', '录入人', '备注'],
-        protos: ['plantation_name', 'serial', 'plant_name', 'date', 'area_unit', 'operate_name', 'user_name', 'memo'],
+        protos: ['plantation_name', 'serial', 'plant_name', 'date', 'area', 'operate_name', 'user_name', 'memo'],
         widths: [50, 50, 50, 50, 50, 50, 50, 50],
         listComponent: [{
             components: [{
@@ -6430,8 +6409,8 @@ export default {
             selectValueId: [['manure_id', 'manure_name', true]],
             selectDefault: [{value: '', label: '肥料选择'}],
             searchPlaceholder: '请输入施肥批次号进行搜索',
-            theads: ['批次号', '施肥日期', '天气', '肥料', '施用量(Kg)', '施肥人', '专家', '施肥方法', '录入人', '备注'],
-            protos: ['serial', 'date', 'weather', 'manure_name', 'amount_unit', 'operate_name', 'expert_name', 'way', 'user_name', 'memo'],
+            theads: ['批次号', '施肥日期', '天气', '肥料', '施用量(Kg)', '施肥方法', '施肥人', '专家', '录入人', '备注'],
+            protos: ['serial', 'date', 'weather', 'manure_name', 'amount_unit', 'way', 'operate_name', 'expert_name', 'user_name', 'memo'],
             widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
             typeComponent: [{
                 component: output
@@ -6699,8 +6678,8 @@ export default {
             selectValueId: [['medicament_id', 'medicament_name', true]],
             selectDefault: [{value: '', label: '农药选择'}],
             searchPlaceholder: '请输入施药批次号进行搜索',
-            theads: ['农药批次号', '农药', '喷洒日期', '天气', '使用量(L)', '施药浓度', '安全隔离期(天)', '施药人', '专家', '施用方法', '录入人', '备注'],
-            protos: ['serial', 'medicament_name', 'date', 'weather', 'amount_unit', 'concentration', 'safety', 'operate_name', 'expert_name', 'way', 'user_name', 'memo'],
+            theads: ['农药批次号', '农药', '喷洒日期', '天气', '使用量(L)', '施药浓度', '安全隔离期(天)', '施用方法', '施药人', '专家', '录入人', '备注'],
+            protos: ['serial', 'medicament_name', 'date', 'weather', 'amount_unit', 'concentration', 'safety', 'way', 'operate_name', 'expert_name', 'user_name', 'memo'],
             widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
             typeComponent: [
                 {
@@ -7844,9 +7823,9 @@ export default {
         url: 'pack',
         paramsIndex: 'plant',
         searchPlaceholder: '请输入加工批次号',
-        theads: ['加工批次号', '加工日期', '数量（重量）', '操作人', '录入人', '备注'],
-        protos: ['serial', 'date', 'amount', 'operate_name', 'user_name', 'memo'],
-        widths: [50, 50, 50, 50, 50, 50],
+        theads: ['加工批次号', '加工日期', '数量', '产地', '操作人', '录入人', '备注'],
+        protos: ['serial', 'date', 'amount', 'origin', 'operate_name', 'user_name', 'memo'],
+        widths: [50, 50, 50, 50, 50, 50, 50],
         moreComponent: [{value: '状态'}],
         typeComponent: [
             {
@@ -7867,24 +7846,25 @@ export default {
         newComponent: [{
             tab: '新建加工批次信息',
             hiddenValue: {type: 'plant'},
-            selectUrl2: ['operates', 'id', 'name', true],
-            popNumber2: 2,
+            selectUrl2: [['operates', 'id', 'name', true]],
+            popNumber2: [2],
             components: [{
+                name: 'date',
                 type: 'date',
                 component: inputDate,
                 isNull: true,
                 label: '加工日期',
                 placeholder: '',
-                rule: ''
+                rule: {required: true, trigger: 'blur'}
             },
             {
-                name: 'amount',
+                name: 'origin',
                 type: 'text',
                 component: null,
                 isNull: true,
-                label: '数量（重量）',
-                placeholder: '',
-                rule: null
+                label: '产地',
+                placeholder: '请输入产品产地',
+                rule: {required: true, trigger: 'blur'}
             },
             {
                 name: 'operate_id',
@@ -7909,32 +7889,34 @@ export default {
         editComponent: [{
             tab: '编辑加工批次信息',
             hiddenValue: {type: 'plant'},
-            selectUrl2: ['operates', 'id', 'name', true],
-            popNumber2: 3,
+            selectUrl2: [['operates', 'id', 'name', true]],
+            popNumber2: [3],
             components: [{
                 name: 'serial',
                 type: 'text',
                 component: null,
-                isNull: false,
-                label: '加工批次号',
-                placeholder: '必填'
+                isNull: true,
+                label: '批次号',
+                placeholder: '',
+                rule: {required: false}
             },
             {
+                name: 'date',
                 type: 'date',
                 component: inputDate,
                 isNull: true,
                 label: '加工日期',
                 placeholder: '',
-                rule: ''
+                rule: {required: true, trigger: 'blur'}
             },
             {
-                name: 'amount',
+                name: 'origin',
                 type: 'text',
                 component: null,
                 isNull: true,
-                label: '数量（重量）',
-                placeholder: '',
-                rule: null
+                label: '产地',
+                placeholder: '请输入产品产地',
+                rule: {required: true, trigger: 'blur'}
             },
             {
                 name: 'operate_id',
@@ -8192,9 +8174,9 @@ export default {
         selectValueId: ['product_id', 'product_name', true],
         selectDefault: {value: '', label: '请选择产品'},
         searchPlaceholder: '请输入溯源码搜索',
-        theads: ['加工批次号', '产品溯源码', '产品名称', '生产日期', '溯源次数', '备注信息'],
-        protos: ['serial', 'code', 'product_name', 'date', 'time', 'memo'],
-        widths: [50, 50, 50, 50, 50],
+        theads: ['加工批次号', '产品溯源码', '产品名称', '生产日期', '产地', '溯源次数', '备注信息'],
+        protos: ['serial', 'code', 'product_name', 'date', 'origin', 'time', 'memo'],
+        widths: [50, 50, 50, 50, 50, 50, 50],
         moreComponent: [{value: '打印'}],
         typeComponent: [
             {

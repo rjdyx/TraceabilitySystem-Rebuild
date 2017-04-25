@@ -37,6 +37,9 @@
                 :is="typeOperate.component"
                 :params="typeOperate.params"
                 class="fr"
+                :url="url"
+                :checkObject="checkObject"
+                :type="paramsIndex"
             ></component>
             
         </div>
@@ -90,7 +93,7 @@
                 </template>
                 <template>
 
-                    <el-button type="text" size="small" @click="changeEditShow(scope.$index,scope.row)" v-if="!hiddeEdit">编辑</el-button>
+                    <el-button type="text" size="small" @click="changeEditShows(cope.$index,scope.row)" v-if="!hiddeEdit">编辑</el-button>
                         
                     <el-button type="text" size="small" v-if="hiddeEdit">查看</el-button>
                         
@@ -111,7 +114,7 @@
             <template v-if="lotComponent!=null">
                 <lotOpearte :lotComponent="lotComponent"></lotOpearte>
             </template>
-            <el-button>导出表格</el-button>
+            <el-button @click="excel">导出表格</el-button>
         </div>
 
         <p class="record">共有{{num}}页，{{total_num}}条记录</p>
@@ -456,6 +459,21 @@ export default {
                     message: '已取消删除'
                 })
             })
+        },
+        // 批量导出excel
+        excel () {
+            if (this.checkObject.length !== undefined && this.checkObject.length !== 0) {
+                var excelArr = []
+                var str = ''
+                for (let key in this.checkObject) {
+                    excelArr.push(this.checkObject[key].id)
+                }
+                str = str + '?excel=' + excelArr
+                if (this.paramsIndex !== undefined) {
+                    str = str + '&type=' + this.paramsIndex
+                }
+                window.location.href = this.$adminUrl(this.url) + str
+            }
         },
         // 新建数据
         changeNew (val) {

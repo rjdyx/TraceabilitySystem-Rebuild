@@ -1,12 +1,29 @@
 <template>
 
-	<el-button type="primary" size="small" class="output">导出表格</el-button>
+	<el-button type="primary" size="small" class="output" @click="comeExcel">导出表格</el-button>
 
 </template>
 
 <script>
     export default {
-        name: 'output'
+        name: 'output',
+        props: {
+            url: '',
+            checkObject: {},
+            type: ''
+        },
+        data () {
+            return {}
+        },
+        methods: {
+            comeExcel () {
+                var str = '?excel=all'
+                if (this.type !== undefined) {
+                    str += '&type=' + this.type
+                }
+                window.location.href = this.$adminUrl(this.url) + str
+            }
+        }
     }
 </script>
 
