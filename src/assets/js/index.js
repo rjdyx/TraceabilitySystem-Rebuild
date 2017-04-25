@@ -18,72 +18,31 @@ require('./config/init')
 //     store.dispatch('setUserInfo', JSON.parse(sessionStorage.user))
 // }
 
-// axios.get('/login/state', this.ruleForm2)
-//                         .then((responce) => {
-//                             let USER_STATE = responce.data
-//                             console.log(USER_STATE)
-//                         })
-
 router.beforeEach((to, from, next) => {
     next()
-//     // console.log(USER_STATE)
     if (USER_STATE === 'false') {
-        axios.get('/login/state', this.ruleForm2)
-                        .then(responce => {
-                            let USER_STATE = responce.data.name
-                            if (USER_STATE !== null) {
-                                if (to.path === '/') {
-                                    next({ path: '/index' })
-                                } else {
-                                    next()
-                                }
-                                console.log(USER_STATE)
-                            } else {
-                                if (to.path !== '/') {
-                                    next({ path: '/' })
-                                } else {
-                                    next()
-                                }
-                            }
-                        })
+        axios.get('/login/state', this.ruleForm2).then(responce => {
+            let USER_STATE = responce.data.name
+            if (USER_STATE !== null) {
+                if (to.path === '/') {
+                    next({ path: '/index' })
+                } else {
+                    next()
+                }
+                console.log(USER_STATE)
+            } else {
+                if (to.path !== '/') {
+                    next({ path: '/' })
+                } else {
+                    next()
+                }
+            }
+        })
     } else {
         next()
     }
-    // if (USER_STATE !== 'false') {
-    //     if (to.path === '/') {
-    //         next({ path: '/index' })
-    //     } else {
-    //         next()
-    //     }
-    // } else {
-    //     if (to.path !== '/') {
-    //         next({ path: '/' })
-    //     } else {
-    //         next()
-    //     }
-    // }
-//     // if (to.path === '/login') {
-//     //     sessionStorage.removeItem('user')
-//     // }
-//     // let user = JSON.parse(sessionStorage.getItem('user'))
-//     // if (!user && to.path !== '/login') {
-//     //     next({ path: '/login' })
-//     // } else {
-//     //     next()
-//     // }
-//     // if (to.matched.some(record => record.meta.requiresAuth)) {
-//     //     if (store.state.userInfo.userId) {
-//     //         next()
-//     //     } else {
-//     //         next({
-//     //             path: '/login',
-//     //             query: { redirect: to.fullPath }
-//     //         })
-//     //     }
-//     // } else {
-//     //     next()
-//     // }
 })
+
 router.afterEach(route => {})
 
 const app = new Vue({

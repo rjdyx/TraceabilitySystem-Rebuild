@@ -4,7 +4,7 @@
 		<sider-bar :menus='menus' :show="show"></sider-bar>
 		<router-view></router-view>
 	</div>
-</template>
+</template> 
 
 <script>
 import MyHeader from '../components/public/header.vue'
@@ -23,7 +23,7 @@ export default {
                 {
                     name: 'test',
                     src: '/public/images/test.png',
-                    path: '/test'
+                    path: 'test'
                 },
                 {
                     name: '帮助',
@@ -39,11 +39,6 @@ export default {
                     name: '问题反馈',
                     src: '/public/images/question.png',
                     path: 'question'
-                },
-                {
-                    name: '退出',
-                    src: '/public/images/back.png',
-                    path: '/'
                 }
             ],
             menus: menu,

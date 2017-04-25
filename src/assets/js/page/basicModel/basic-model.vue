@@ -88,12 +88,14 @@
                     <clickMore :moreComponent="moreComponent" class="clickMoreBtn"></clickMore>
                 </template>
                 <template>
-                    <el-button type="text" size="small" @click="changeEditShow(scope.$index,scope.row)">编辑</el-button>
+                    <el-button type="text" size="small" @click="changeEditShow(scope.$index,scope.row)" v-if="!hiddeEdit">编辑</el-button>
+
+                    <el-button type="text" size="small" v-if="hiddeEdit">查看</el-button>
                         
                     <el-button size="small" type="text" @click="handelDel(scope.$index,scope.row)" class="btn">删除</el-button>  
                 </template>
             </template>
-        </el-table-column                              >
+        </el-table-column>
     </el-table>
 
     <div class="footer">
@@ -210,7 +212,8 @@ export default {
             // 获取下拉框数据
             selectArrSet: [],
             // 批次号
-            isPcActive: true
+            isPcActive: true,
+            hiddeEdit: false
         }
     },
     mixins: [computed],

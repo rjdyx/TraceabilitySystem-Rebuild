@@ -126,10 +126,7 @@ const routes = [
     {
         path: '/',
         name: 'login',
-        component: login,
-        meta: {
-            requiresAuth: true
-        }
+        component: login
     },
     {
         path: '/plan',
@@ -162,7 +159,6 @@ const routes = [
             path: 'pCommodity',
             component: pCommodity
         }]
->>>>>>> dev
     }
 ]
 

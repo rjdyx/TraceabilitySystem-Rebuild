@@ -241,7 +241,8 @@ export default {
         key: 'plantProduct',
         tab: '生产批次管理',
         theads: ['批次号', '计划日期', '操作类型', '安排人员', '计划内容', '操作日期', '备注'],
-        protos: [],
+        protos: ['serial', 'date', 'type', 'operate_name', 'content', 'date', 'memo'],
+        url: 'farming',
         tabList: [{
             tab: '采收批次信息',
             searchPlaceholder: '请输入rfid进行搜索',
@@ -262,9 +263,9 @@ export default {
                 ]
             }],
             rightOperateComponent: [{component: output}, {component: newbuildBtn}],
-            headList: ['检测方式', '检测日期', '检测机构', '检测项目名称', '检测人', '检测结果', '证书编号', '有效期', '备注信息'],
-            protos: ['ear', 'name', 'date', 'memo'],
-            widths: [50, 50, 50],
+            headList: ['计划日期', '操作类型', '计划内容', '安排人员', '操作用户', '状态', '备注信息'],
+            protos: ['ear', 'name', 'date', 'memo', 'date', 'memo', 'date'],
+            widths: [50, 50, 50, 50, 50, 50, 50],
             newComponent: [{label: '', type: '', component: '', rule: ''}],
             tableOperateList: [{operateName: '编辑'}, {operateName: '删除'}],
             bottomOperateList: [{operateName: '删除'}, {operateName: '导出表格'}]
@@ -275,7 +276,7 @@ export default {
         key: 'plantProduct',
         tab: '销售入库批次管理',
         theads: ['入库批次号', '入库日期', '供货商', '商品名称', '数量', '入库人', '录入人', '备注信息'],
-        protos: [],
+        protos: ['ear', 'name', 'date', 'memo', 'date', 'amount', 'date', 'memo'],
         tabList: [{
             tab: '采收批次信息',
             searchPlaceholder: '请输入rfid进行搜索',
