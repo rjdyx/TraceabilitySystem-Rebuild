@@ -26,7 +26,7 @@
 	 <!-- 操作模块 -->
     <div id="operate">              
         <div id="inputs">
-        <!-- 左边的操作按钮 -->
+             <!-- 左边的操作按钮 -->
             <operate :listComponent="tabItem.leftOperateList"></operate>
             
             <!-- 搜索框 -->
@@ -159,7 +159,6 @@ export default {
         },
         // tab点击事件
         tabClick (tab, event) {
-            console.log(tab.$data.index)
             var index = tab.$data.index
             this.tabItem = this.tabList[index]
             // this.tableData = []
@@ -168,8 +167,6 @@ export default {
         // 显示新建表单
         changeNewShow () {
             this.isNewShow = !this.isNewShow
-            console.log(2222)
-            console.log(this.tabList.newComponent)
         },
         // 显示编辑表单
         changeEditShow (index, row) {
@@ -191,10 +188,11 @@ export default {
             // 头部列表信息
             this.$dataGet(this, this.apiUrlArr[this.url], {})
                 .then((responce) => {
-                    this.$set(this, 'headData', responce.data)
+                    // this.$set(this, 'headData', responce.data)
                     var ret = this.$conversion(this.changeDataArr, responce.data, 1)
                     ret = this.$eltable(ret)
                     this.$set(this, 'headData', ret)
+                    console.log(this.headData)
                 })
         },
         // 获取列表信息
@@ -204,7 +202,7 @@ export default {
     mounted () {
         this.tabItem = this.tabList[0]
         this.activeName = this.tabList[0].tab
-        console.log(this.tabItem.tableOperateList)
+        console.log(this.tabList)
         this.getApiUrl()
         this.getDetailSerial()
     },

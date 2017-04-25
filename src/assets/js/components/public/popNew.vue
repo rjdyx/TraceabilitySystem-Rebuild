@@ -156,7 +156,7 @@ export default {
         */
         var _this = this
         this.resizeFn()
-        $('.el-tabs__header').on('mousedown', (e) => {
+        $('.newWrap').find($('.el-tabs__header')).on('mousedown', (e) => {
             // console.log('mousedown')
             // 鼠标与newForm块的距离
             this.dmL = e.clientX - $('.newForm').position().left

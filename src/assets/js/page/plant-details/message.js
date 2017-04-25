@@ -41,7 +41,7 @@ export default {
             widths: [50, 50, 50, 50, 50],
             tableOperateList: [{operateName: '编辑'}, {operateName: '删除'}],
             bottomOperateList: [{operateName: '删除'}],
-            newComponent: newMessage['rfid']
+            newComponent: newMessage['course']
         }]
     },
     // 饲料批次
