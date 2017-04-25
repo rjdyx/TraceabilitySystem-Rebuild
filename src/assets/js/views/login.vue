@@ -73,8 +73,6 @@
 </template>
 
 <script>
-// import {mapActions} from 'vuex'
-
 export default {
     data () {
         let validateName = (rule, value, callback) => {
@@ -130,26 +128,25 @@ export default {
         submitForm (formName) {
             this.$refs[formName].validate((valid) => {
                 if (valid) {
-                    axios.post('/login', this.ruleForm2)
-                        .then((responce) => {
-                            console.log(responce.data)
-                            if (responce.data !== 200) {
-                                callback(new Error('登录失败'))
-                            } else {
-                                this.$router.push('/index')
-                            }
-                        })
+                    axios.post('/login', this.ruleForm2).then((responce) => {
+                        console.log(responce.data)
+                        if (responce.data !== 200) {
+                            callback(new Error('登录失败'))
+                        } else {
+                            this.$router.push('/index')
+                        }
+                    })
                 } else {
                     console.log('error submit!!')
+                    this.$message.error('请输入信息，再登录')
                     return false
                 }
             })
         },
         Kit () {
-            axios.get('/kit')
-                .then((responce) => {
-                    this.kit_url = responce.data
-                })
+            axios.get('/kit').then((responce) => {
+                this.kit_url = responce.data
+            })
         }
     },
     mounted () {

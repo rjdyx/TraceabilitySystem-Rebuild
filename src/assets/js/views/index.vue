@@ -4,7 +4,7 @@
 		<sider-bar :menus='menus' :show="show"></sider-bar>
 		<router-view></router-view>
 	</div>
-</template>
+</template> 
 
 <script>
 import MyHeader from '../components/public/header.vue'
@@ -17,27 +17,28 @@ export default {
             navbars: [
                 {
                     name: '首页',
-                    src: '/public/images/home.png'
+                    src: '/public/images/home.png',
+                    path: 'home'
                 },
                 {
                     name: 'test',
-                    src: '/public/images/test.png'
+                    src: '/public/images/test.png',
+                    path: 'test'
                 },
                 {
                     name: '帮助',
-                    src: '/public/images/help.png'
+                    src: '/public/images/help.png',
+                    path: 'help'
                 },
                 {
                     name: '设置',
-                    src: '/public/images/set.png'
+                    src: '/public/images/set.png',
+                    path: 'set'
                 },
                 {
                     name: '问题反馈',
-                    src: '/public/images/question.png'
-                },
-                {
-                    name: '退出',
-                    src: '/public/images/back.png'
+                    src: '/public/images/question.png',
+                    path: 'question'
                 }
             ],
             menus: menu,
