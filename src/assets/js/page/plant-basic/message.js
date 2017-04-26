@@ -3832,7 +3832,7 @@ export default {
         settitle: '检测管理',
         key: 'breed-detect',
         tab: '检测信息',
-        url: 'breed-detect',
+        url: 'detect',
         paramsIndex: 'beast',
         // 链接批次信息模块数据的桥（养殖批次详情）
         batch: 'beastDetectBatch',
@@ -6676,6 +6676,7 @@ export default {
             key: 'spray',
             tab: '病虫害信息',
             url: 'spray',
+            batch: 'sprayBatch',
             selectSearch: ['medicaments.id'],
             selectValueId: [['medicament_id', 'medicament_name', true]],
             selectDefault: [{value: '', label: '农药选择'}],
@@ -6984,10 +6985,11 @@ export default {
             settitle: '农事管理',
             key: 'plant-detect',
             tab: '种植检测信息',
-            url: 'plant-detect',
+            url: 'detect',
+            batch: 'plantDetectBatch',
             paramsIndex: 'plant',
             selectSearch: ['detects.name'],
-            changeDataArr: [{result: {0: '合格', 1: '不合格'}}],
+            changeDataArr: [{result: {'0': '合格', '1': '不合格'}}],
             searchPlaceholder: '请输入检测批次号进行搜索',
             theads: ['检测批次号', '检验类型', '检验日期', '天气', '检测部门', '检测内容', '检查结果', '检测人', '专家', '录入人', '备注'],
             protos: ['serial', 'name', 'date', 'weather', 'department', 'content', 'result', 'operate_name', 'expert_name', 'user_name', 'memo'],
@@ -7899,7 +7901,11 @@ export default {
             tab: '新建加工批次信息',
             hiddenValue: {type: 'plant'},
             selectUrl2: [['operates', 'id', 'name', true]],
+<<<<<<< HEAD
             popNumber2: [2],
+=======
+            popNumber2: [1],
+>>>>>>> limingcun
             components: [{
                 name: 'date',
                 type: 'date',
@@ -7907,6 +7913,7 @@ export default {
                 isNull: true,
                 label: '加工日期',
                 placeholder: '',
+<<<<<<< HEAD
                 rule: {required: true, trigger: 'blur'}
             },
             {
@@ -7917,6 +7924,9 @@ export default {
                 label: '产地',
                 placeholder: '请输入产品产地',
                 rule: {required: true, trigger: 'blur'}
+=======
+                rule: [{required: true}, {validator: validate2.reDate, message: '请输入加工日期'}]
+>>>>>>> limingcun
             },
             {
                 name: 'operate_id',
@@ -7924,7 +7934,7 @@ export default {
                 component: null,
                 isNull: false,
                 label: '操作人员',
-                placeholder: '请选择人物',
+                placeholder: '请选择加工人员',
                 rule: {required: true, trigger: 'blur', type: 'number'},
                 options: []
             },
@@ -7942,15 +7952,26 @@ export default {
             tab: '编辑加工批次信息',
             hiddenValue: {type: 'plant'},
             selectUrl2: [['operates', 'id', 'name', true]],
+<<<<<<< HEAD
             popNumber2: [3],
+=======
+            popNumber2: [2],
+>>>>>>> limingcun
             components: [{
                 name: 'serial',
                 type: 'text',
                 component: null,
+<<<<<<< HEAD
                 isNull: true,
                 label: '批次号',
                 placeholder: '',
                 rule: {required: false}
+=======
+                isNull: false,
+                label: '加工批次号',
+                disabled: true,
+                placeholder: '必填'
+>>>>>>> limingcun
             },
             {
                 name: 'date',
@@ -7959,6 +7980,7 @@ export default {
                 isNull: true,
                 label: '加工日期',
                 placeholder: '',
+<<<<<<< HEAD
                 rule: {required: true, trigger: 'blur'}
             },
             {
@@ -7969,6 +7991,9 @@ export default {
                 label: '产地',
                 placeholder: '请输入产品产地',
                 rule: {required: true, trigger: 'blur'}
+=======
+                rule: [{required: true}, {validator: validate2.reDate, message: '请输入加工日期'}]
+>>>>>>> limingcun
             },
             {
                 name: 'operate_id',
@@ -7976,7 +8001,7 @@ export default {
                 component: null,
                 isNull: false,
                 label: '操作人员',
-                placeholder: '请选择人物',
+                placeholder: '请选择加工人员',
                 rule: {required: true, trigger: 'blur', type: 'number'},
                 options: []
             },
@@ -8003,7 +8028,6 @@ export default {
         theads: ['检测批次号', '检测名称', '检测内容', '检测日期', '检测结果', '检测机构', '负责人', '处理方法', '图片报告', '备注'],
         protos: ['serial', 'name', 'content', 'date', 'result', 'organization', 'operate_name', 'method', 'thumb', 'memo'],
         widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
-        moreComponent: [{value: '打印'}],
         typeComponent: [
             {
                 component: output
@@ -8022,8 +8046,8 @@ export default {
         newComponent: [{
             tab: '新建检验检测信息',
             hiddenValue: {type: 'plant'},
-            selectUrl2: ['operates', 'id', 'name', true],
-            popNumber2: 1,
+            selectUrl2: [['operates', 'id', 'name', true]],
+            popNumber2: [1],
             components: [{
                 name: 'date',
                 type: 'date',
@@ -8032,7 +8056,7 @@ export default {
                 label: '检测日期',
                 placeholder: '',
                 disabled: true,
-                rule: {required: true, trigger: 'blur', type: 'date'}
+                rule: [{required: true}, {validator: validate2.reDate, message: '请输入检测日期'}]
             },
             {
                 name: 'operate_id',
@@ -8051,8 +8075,7 @@ export default {
                 isNull: false,
                 label: '检测名称',
                 placeholder: '请填写检测项目名称',
-                rule: {required: true, trigger: 'blur', type: 'text'},
-                options: []
+                rule: {required: true, trigger: 'blur', message: '请输入检测项目名称'}
             },
             {
                 name: 'result',
@@ -8061,13 +8084,13 @@ export default {
                 isNull: false,
                 label: '检测结果',
                 placeholder: '请选择检测结果',
-                rule: {required: true, trigger: 'blur', type: 'select'},
+                rule: {required: true, trigger: 'blur'},
                 options: [{
-                    value: 1,
+                    value: '1',
                     label: '合格'
                 },
                 {
-                    value: 0,
+                    value: '0',
                     label: '不合格'
                 }]
             },
@@ -8119,9 +8142,19 @@ export default {
         }],
         editComponent: [{
             tab: '编辑检验检测信息',
-            selectUrl2: ['operates', 'id', 'name', true],
-            popNumber2: 1,
+            selectUrl2: [['operates', 'id', 'name', true]],
+            popNumber2: [2],
             components: [{
+                name: 'serial',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '加工检测批次号',
+                placeholder: '',
+                disabled: true,
+                rule: {required: true}
+            },
+            {
                 name: 'date',
                 type: 'date',
                 component: inputDate,
@@ -8129,7 +8162,7 @@ export default {
                 label: '检测日期',
                 placeholder: '',
                 disabled: true,
-                rule: {required: true, trigger: 'blur', type: 'date'}
+                rule: [{required: true}, {validator: validate2.reDate, message: '请输入检测日期'}]
             },
             {
                 name: 'operate_id',
@@ -8148,8 +8181,7 @@ export default {
                 isNull: false,
                 label: '检测名称',
                 placeholder: '请填写检测项目名称',
-                rule: {required: true, trigger: 'blur', type: 'text'},
-                options: []
+                rule: {required: true, trigger: 'blur', message: '请输入检测项目名称'}
             },
             {
                 name: 'result',
@@ -8158,13 +8190,13 @@ export default {
                 isNull: false,
                 label: '检测结果',
                 placeholder: '请选择检测结果',
-                rule: {required: true, trigger: 'blur', type: 'select'},
+                rule: {required: true, trigger: 'blur'},
                 options: [{
-                    value: 1,
+                    value: '1',
                     label: '合格'
                 },
                 {
-                    value: 0,
+                    value: '0',
                     label: '不合格'
                 }]
             },

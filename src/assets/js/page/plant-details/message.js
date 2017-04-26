@@ -190,9 +190,9 @@ export default {
         }]
     },
     // 种植批次
-    plantBatch: {
-        key: 'plantBatch',
-        tab: '种植批次管理',
+    plantSerial: {
+        key: 'plantSerial',
+        tab: '种植批次管理1',
         theads: ['种植批次号', '所属种植区', '种植人', '种植日期', '种植地址', '种植果蔬名称', '当前批次面积', '备注'],
         protos: ['serial', 'plantation_name', 'operate_name', 'date', 'address', 'plant_name', 'area_unit', 'memo'],
         url: 'cultivate',
@@ -354,6 +354,85 @@ export default {
             }]
         }]
     },
+    // 施药批次详情
+    sprayBatch: {
+        key: 'sprayBatch',
+        tab: '施药批次管理',
+        theads: ['施药批次号', '农药', '施药人', '施药日期', '施药量（Kg）', '专家', '施药方法', '备注'],
+        protos: ['serial', 'medicament_name', 'operate_name', 'date', 'amount_unit', 'expert_name', 'way', 'memo'],
+        url: 'spray',
+        tabList: [{
+            url: 'cultivate-spray',
+            tab: '种植批次施肥信息',
+            searchPlaceholder: '请输入种植批次进行搜索',
+            headList: ['种植批次号', '种植区', '种植果蔬', '种植日期', '种植人', '备注信息'],
+            protos: ['serial', 'plantation_name', 'plant_name', 'date', 'operate_name', 'memo'],
+            widths: [50, 50, 50, 50, 50, 50],
+            hiddeEdit: false,
+            typeComponent: [{
+                component: newbuildBtn
+            }],
+            listComponent: [{
+                components: [{
+                    type: 'date',
+                    component: datePick
+                }]
+            }],
+            newComponent: [{
+                tab: '新建批次施药信息',
+                type: 'table',
+                components: [{
+                    name: 'name',
+                    type: 'table',
+                    theads: ['种植批次号', '种植果蔬', '种植日期'],
+                    protos: ['serial', 'plant_name', 'date'],
+                    valueId: 'cultivate_ids',
+                    errormsg: '请选择种植批次号',
+                    tableVal: []
+                }]
+            }]
+        }]
+    },
+    // 种植检验检测
+    plantDetectBatch: {
+        key: 'plantDetectBatch',
+        tab: '种植检测批次管理',
+        theads: ['检测批次号', '检测类型', '检测人', '检测日期', '检测部门', '检测内容', '检测结果', '专家'],
+        protos: ['serial', 'name', 'operate_name', 'date', 'department', 'content', 'result', 'expert_name'],
+        url: 'detect',
+        changeDataArr: [{result: {'合格': 0, '不合格': 1}}],
+        tabList: [{
+            url: 'cultivate-spray',
+            tab: '种植批次施肥信息',
+            searchPlaceholder: '请输入种植批次进行搜索',
+            headList: ['种植批次号', '种植区', '种植果蔬', '种植日期', '种植人', '备注信息'],
+            protos: ['serial', 'plantation_name', 'plant_name', 'date', 'operate_name', 'memo'],
+            widths: [50, 50, 50, 50, 50, 50],
+            hiddeEdit: false,
+            typeComponent: [{
+                component: newbuildBtn
+            }],
+            listComponent: [{
+                components: [{
+                    type: 'date',
+                    component: datePick
+                }]
+            }],
+            newComponent: [{
+                tab: '新建批次施药信息',
+                type: 'table',
+                components: [{
+                    name: 'name',
+                    type: 'table',
+                    theads: ['种植批次号', '种植果蔬', '种植日期'],
+                    protos: ['serial', 'plant_name', 'date'],
+                    valueId: 'cultivate_ids',
+                    errormsg: '请选择种植批次号',
+                    tableVal: []
+                }]
+            }]
+        }]
+    },
 // 采收批次号
     cultivateBatch: {
         key: 'cultivateBatch',
@@ -387,8 +466,8 @@ export default {
         }]
     },
 // 生产计划批次信息
-    plantProduct: {
-        key: 'plantProduct',
+    planProduct: {
+        key: 'planProduct',
         tab: '生产批次管理',
         theads: ['批次号', '计划日期', '操作类型', '安排人员', '计划内容', '操作日期', '备注'],
         protos: ['serial', 'date', 'type', 'operate_name', 'content', 'date', 'memo'],
@@ -463,40 +542,6 @@ export default {
         protos: [],
         tabList: [{
             tab: '采收批次信息',
-            searchPlaceholder: '请输入rfid进行搜索',
-            leftOperateList: [{
-                components: [
-                    {
-                        type: 'select',
-                        components: selectSection,
-                        options: [
-                            {
-                            }
-                        ]
-                    },
-                    {
-                        type: 'date',
-                        component: datePick
-                    }
-                ]
-            }],
-            rightOperateComponent: [{component: output}, {component: newbuildBtn}],
-            headList: ['检测方式', '检测日期', '检测机构', '检测项目名称', '检测人', '检测结果', '证书编号', '有效期', '备注信息'],
-            protos: ['ear', 'name', 'date', 'memo'],
-            widths: [50, 50, 50],
-            newComponent: [{label: '', type: '', component: '', rule: ''}],
-            tableOperateList: [{operateName: '编辑'}, {operateName: '删除'}],
-            bottomOperateList: [{operateName: '删除'}, {operateName: '导出表格'}]
-        }]
-    },
-// 种植批次详情
-    plantSerial: {
-        key: 'plantProduct',
-        tab: '种植批次管理',
-        theads: ['所属种植区', '种植批次号', '果蔬名称', '种植日期', '种植面积', '种植人', '录入人', '备注'],
-        protos: [],
-        tabList: [{
-            tab: '种植批次信息',
             searchPlaceholder: '请输入rfid进行搜索',
             leftOperateList: [{
                 components: [
