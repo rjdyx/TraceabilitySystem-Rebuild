@@ -12,35 +12,32 @@
 <script>
     import Qrcode from 'v-qrcode/src/index'
     export default {
+        name: 'QrcodeModel',
         props: {
-            isNull: {
-                type: Boolean,
-                default: true
-            },
-            label: {
-                type: String,
-                default: ''
-            },
-            placeholder: {
-                type: String,
-                default: ''
-            },
-            rule: {
-                type: String
-            }
+            editValue: {}
         },
         data () {
             return {
                 qrCls: 'qrcode',
-                qrText: 'www.baidu.com',
+                qrText: '',
                 size: 150,
-                background: 'code'
+                background: 'white'
             }
         },
         methods: {
         },
         components: {
             Qrcode
+        },
+        mounted () {
+            var per = this.editValue.substring(0, 1)
+            var url = 'http://www.find360.cn/run/'
+            if (per === 'P') {
+                url += 'plant/'
+            } else {
+                url += 'beast/'
+            }
+            this.qrText = url + 'index?code=' + this.editValue
         }
     }
 </script>

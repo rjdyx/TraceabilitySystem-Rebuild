@@ -1288,9 +1288,8 @@ export default {
             }]
         }]
     }],
-    // 3.2.1基础信息管理(*)
+    // 基础信息管理
     baseManage: [
-        // header* select*
         {
             settitle: '养殖基础信息管理',
             key: 'farm',
@@ -1299,7 +1298,7 @@ export default {
             searchPlaceholder: '请输入养殖场进行搜索',
             search: ['query_text', 'name'],
             theads: ['养殖场名称', '养殖面积', '负责人', '养殖畜禽种类', '养殖规模', '详细地址', '图片', '备注信息'],
-            protos: ['name', 'area', 'principal', 'kind', 'scale', 'address', 'img', 'meno'],
+            protos: ['name', 'area_unit', 'principal', 'kind', 'scale', 'address', 'img', 'memo'],
             selectSearch: ['farm.name'],
             widths: [50, 50, 50, 50, 50, 50, 50, 50],
             typeComponent: [{
@@ -1333,15 +1332,15 @@ export default {
                 },
                 {
                     name: 'area',
-                    type: 'textselect',
+                    type: 'textSelect',
                     component: inputTextSelect,
                     isNull: false,
                     label: '养殖面积',
                     placeholder: '请填写数字（必填）',
-                    rule: {type: 'number', required: true, trigger: 'blur'},
+                    rule: [{required: true, message: '请输入正确的面积', trigger: 'blur'}, {validator: validate2.reNumber}],
                     options: [
                         {
-                            value: '', label: '亩'
+                            value: '亩', label: '亩'
                         },
                         {
                             value: '平方米', label: '平方米'
@@ -1367,7 +1366,7 @@ export default {
                     isNull: true,
                     label: '联系电话',
                     placeholder: '请输入11位的手机号（固话用-隔开）',
-                    rule: { validator: validate2.phone, trigger: 'blur' }
+                    rule: { validator: validate2.phone }
                 },
                 {
                     name: 'kind',
@@ -1426,19 +1425,18 @@ export default {
                     label: '养殖场名称',
                     placeholder: '必填',
                     rule: {required: true, trigger: 'blur'}
-                    // disabled: true
                 },
                 {
                     name: 'area',
-                    type: 'textselect',
+                    type: 'textSelect',
                     component: inputTextSelect,
                     isNull: false,
                     label: '养殖面积',
                     placeholder: '请填写数字（必填）',
-                    rule: {type: 'number', required: true, trigger: 'blur'},
+                    rule: [{required: true, message: '请输入正确的面积', trigger: 'blur'}, {validator: validate2.reNumber}],
                     options: [
                         {
-                            value: '', label: '亩'
+                            value: '亩', label: '亩'
                         },
                         {
                             value: '平方米', label: '平方米'
@@ -1464,7 +1462,7 @@ export default {
                     isNull: true,
                     label: '联系电话',
                     placeholder: '请输入11位的手机号（固话用-隔开）',
-                    rule: { validator: validate2.phone, trigger: 'blur' }
+                    rule: { validator: validate2.phone }
                 },
                 {
                     name: 'kind',
@@ -1515,7 +1513,7 @@ export default {
             }],
             listComponent: []
         },
-        // header* select* selectSearch+ 养殖场和养殖区字段相同
+        // 养殖场和养殖区字段相同
         {
             settitle: '养殖基础信息管理',
             key: 'farmcd',
@@ -1525,7 +1523,7 @@ export default {
             selectValueId: [['pid', 'parent_name', true]],
             selectDefault: [{value: '', label: '选择养殖场'}],
             theads: ['所属养殖场', '养殖区名称', '养殖面积', '负责人', '养殖畜禽种类', '养殖规模', '详细地址', '图片', '备注信息'],
-            protos: ['parent_name', 'name', 'area', 'principal', 'kind', 'scale', 'address', 'img', 'meno'],
+            protos: ['parent_name', 'name', 'area_unit', 'principal', 'kind', 'scale', 'address', 'img', 'meno'],
             selectSearch: ['farmcds.pid'],
             widths: [50, 50, 50, 50, 50, 50, 50, 50],
             typeComponent: [{
@@ -1539,8 +1537,10 @@ export default {
             }],
             newComponent: [{
                 tab: '新建养殖区信息',
-                selectUrl2: [['farms', 'id', 'name', true]],
-                popNumber2: [0],
+                selectUrl: [['farm', 'farmcd', 'pid', 'farm_name', true]],
+                checkNumber: [1],
+                popNumber: [0],
+                hasImg: true,
                 components: [{
                     // 场名
                     name: 'pid',
@@ -1553,26 +1553,25 @@ export default {
                     options: []
                 },
                 {
-                    // 区名
                     name: 'name',
                     type: 'text',
                     component: null,
                     isNull: false,
                     label: '养殖区名称',
                     placeholder: '请输入养殖区名称',
-                    rule: {required: true, trigger: 'blur'}
+                    rule: [{required: true, message: '请输入养殖区名称', trigger: 'blur'}, {validator: validate2.reCheck}]
                 },
                 {
                     name: 'area',
-                    type: 'text',
-                    component: null,
+                    type: 'textSelect',
+                    component: inputTextSelect,
                     isNull: false,
-                    label: '养殖面积',
+                    label: '养殖区面积',
                     placeholder: '请填写数字（必填）',
-                    rule: {type: 'number', required: true, trigger: 'blur'},
+                    rule: [{required: true, message: '请输入正确的面积', trigger: 'blur'}, {validator: validate2.reNumber}],
                     options: [
                         {
-                            value: '', label: '亩'
+                            value: '亩', label: '亩'
                         },
                         {
                             value: '平方米', label: '平方米'
@@ -1649,8 +1648,10 @@ export default {
             }],
             editComponent: [{
                 tab: '编辑养殖区信息',
-                selectUrl2: [['farms', 'id', 'name', true]],
-                popNumber2: [0],
+                selectUrl: [['farm', 'farmcd', 'pid', 'farm_name', true]],
+                checkNumber: [1],
+                popNumber: [0],
+                hasImg: true,
                 components: [{
                     // 场名
                     name: 'pid',
@@ -1663,26 +1664,25 @@ export default {
                     options: []
                 },
                 {
-                    // 区名
                     name: 'name',
                     type: 'text',
                     component: null,
                     isNull: false,
                     label: '养殖区名称',
                     placeholder: '请输入养殖区名称',
-                    rule: {required: true, trigger: 'blur'}
+                    rule: [{required: true, message: '请输入养殖区名称', trigger: 'blur'}, {validator: validate2.reCheck}]
                 },
                 {
                     name: 'area',
-                    type: 'text',
-                    component: null,
+                    type: 'textSelect',
+                    component: inputTextSelect,
                     isNull: false,
-                    label: '养殖面积',
+                    label: '养殖区面积',
                     placeholder: '请填写数字（必填）',
-                    rule: {type: 'number', required: true, trigger: 'blur'},
+                    rule: [{required: true, message: '请输入正确的面积', trigger: 'blur'}, {validator: validate2.reNumber}],
                     options: [
                         {
-                            value: '', label: '亩'
+                            value: '亩', label: '亩'
                         },
                         {
                             value: '平方米', label: '平方米'
@@ -2763,8 +2763,7 @@ export default {
             }]
         }
     ],
-    //  3.2.2养殖批次管理（*）
-    // header*(图片状态字段没有) select* selectSearch+ date+
+    // 养殖批次管理
     serialManage: [{
         settitle: '养殖批次管理',
         key: 'breed',
@@ -2936,8 +2935,7 @@ export default {
             }]
         }]
     }],
-    //  3.2.3饲料使用管理(*)(数据库没有，删除类型状态)
-    //  header*(图片状态字段没有) select+ selectSearch+ date+
+    //  饲料使用管理
     feedManage: [{
         settitle: '饲料使用管理',
         key: 'fodderuse',
@@ -3126,8 +3124,7 @@ export default {
             }]
         }]
     }],
-    //  3.2.4畜禽病疫管理（*）
-    // header* (用药日期字段没有) select+ selectSearch+ date+
+    // 畜禽病疫管理
     plagueManage: [{
         settitle: '病疫管理',
         key: 'disease',
@@ -3523,8 +3520,7 @@ export default {
             }]
         }]
     }],
-    //  3.2.5畜禽检疫管理(*)
-    // header* select* selectSearch+ date+
+    // 畜禽检疫管理
     detectionManage: [{
         settitle: '检疫管理',
         key: 'detection',
@@ -3826,8 +3822,7 @@ export default {
             ]
         }]
     }],
-    //  3.2.5畜禽检测管理(*)
-    // header* select* selectSearch+ date+
+    // 畜禽检测管理
     beastDetectManage: [{
         settitle: '检测管理',
         key: 'breed-detect',
@@ -4112,8 +4107,7 @@ export default {
             ]
         }]
     }],
-    //  3.2.6畜禽圈舍管理(*)
-    //  header*(少了操作类型,操作方式) select* selectSearch+ date+
+    // 畜禽圈舍管理(
     areaManage: [{
         settitle: '圈舍维护管理',
         key: 'clean',
@@ -4302,8 +4296,7 @@ export default {
             ]
         }]
     }],
-    //  3.2.7无害化(新增)（*）
-    // header* select* selectSearch+ date+
+    // 无害化
     innocuityManage: [{
         settitle: '无害化管理',
         key: 'dispose',
@@ -4521,8 +4514,7 @@ export default {
             ]
         }]
     }],
-    //  3.2.8畜禽出栏管理(*)
-    // header* select* selectSearch+ date+
+    // 畜禽出栏管理
     slaughterManage: [{
         settitle: '出栏管理',
         key: 'come',
@@ -4688,8 +4680,7 @@ export default {
             ]
         }]
     }],
-    //  3.2.9养殖计划管理(新增)
-    // 后台数据报错
+    // 养殖计划管理
     planManage: [{
         settitle: '养殖计划管理',
         key: 'plan',
@@ -5182,8 +5173,16 @@ export default {
             tab: '新建溯源码信息',
             hiddenValue: {type: 'beast'},
             selectUrl2: ['products', 'id', 'name', true],
-            popNumber2: 1,
+            popNumber2: 2,
             components: [{
+                name: 'code',
+                component: Qrcode,
+                isNull: false,
+                label: '二维码',
+                placeholder: '',
+                rule: null
+            },
+            {
                 name: 'date',
                 type: 'date',
                 component: inputDate,
