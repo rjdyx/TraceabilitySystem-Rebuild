@@ -191,9 +191,12 @@ export default {
             }
             // 获取新建表格数据
             if (this.tabItem.newComponent[0].type === 'table') {
-                this.$dataGet(this, this.tabItem.newComponent[0].url, {})
+                var getSelect = {'getSelect': '444'}
+                var curl = {'curl': this.tabItem.url}
+                var routeId = {'routeId': this.tabItem.newComponent[0].labUrl}
+                this.$dataGet(this, this.tabItem.newComponent[0].labUrl, {getSelect, curl, routeId})
                     .then((responce) => {
-                        this.$set(this.tabItem.newComponent[0].components[0], 'tableVal', responce.data.data)
+                        this.$set(this.tabItem.newComponent[0].components[0], 'tableVal', responce.data)
                     })
             }
             if (this.tabItem.newComponent[0].selectUrl) {
