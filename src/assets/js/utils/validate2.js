@@ -47,7 +47,7 @@ exports.reCheck = (rule, value, callback, source, options) => {
 // 验证数字
 exports.reNumber = (rule, value, callback, source, options) => {
     if (value !== '') {
-        if (/^\d+$/.test(value)) {
+        if (/^(-?\d+)(\.\d+)?$/.test(value)) {
             callback()
         } else {
             callback(new Error('请输入数字'))

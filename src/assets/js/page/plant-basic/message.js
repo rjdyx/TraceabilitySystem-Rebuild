@@ -318,7 +318,7 @@ export default {
                 isNull: true,
                 label: '联系方式',
                 placeholder: '请输入11位的手机号（固话用-隔开）',
-                rule: { validator: validate2.phone }
+                rule: { validator: validate2.phone, trigger: 'blur' }
             },
             {
                 name: 'address',
@@ -5244,7 +5244,7 @@ export default {
             url: 'plantation',
             searchPlaceholder: '请输入种植场进行搜索',
             theads: ['种植场名称', '种植面积', '负责人', '联系电话', '详细地址', '备注信息'],
-            protos: ['name', 'area', 'director', 'phone', 'address', 'memo'],
+            protos: ['name', 'area_unit', 'director', 'phone', 'address', 'memo'],
             widths: [50, 50, 50, 50, 50, 50],
             typeComponent: [{
                 component: importBtn
@@ -5289,7 +5289,7 @@ export default {
                         label: '公顷'
                     }
                     ],
-                    rule: {required: true, message: '请输入种植面积', trigger: 'blur'}
+                    rule: [{required: true, message: '请输入种植面积', trigger: 'blur'}, {validator: validate2.reNumber}]
                 },
                 {
                     name: 'phone',
@@ -5369,7 +5369,7 @@ export default {
                         label: '公顷'
                     }
                     ],
-                    rule: {required: true, message: '请输入种植场面积', trigger: 'blur'}
+                    rule: [{required: true, message: '请输入种植面积', trigger: 'blur'}, {validator: validate2.reNumber}]
                 },
                 {
                     name: 'phone',
@@ -5428,7 +5428,7 @@ export default {
             searchPlaceholder: '请输入种植区进行搜索',
             selectDefault: [{value: '', label: '种植场选择'}],
             theads: ['种植场名称', '种植区名称', '种植面积', '负责人', '联系电话', '地址', '图片', '备注'],
-            protos: ['plantation_name', 'name', 'area', 'director', 'phone', 'address', 'img', 'memo'],
+            protos: ['plantation_name', 'name', 'area_unit', 'director', 'phone', 'address', 'img', 'memo'],
             widths: [50, 50, 50, 50, 50, 50, 50, 50],
             typeComponent: [{
                 component: importBtn
@@ -5492,7 +5492,7 @@ export default {
                         label: '公顷'
                     }
                     ],
-                    rule: {required: true, message: '请输入面积', trigger: 'blur'}
+                    rule: [{required: true, message: '请输入种植面积', trigger: 'blur'}, {validator: validate2.reNumber}]
                 },
                 {
                     name: 'director',
@@ -5585,7 +5585,7 @@ export default {
                         label: '公顷'
                     }
                     ],
-                    rule: {required: true, message: '请输入种植场名称', trigger: 'blur'}
+                    rule: [{required: true, message: '请输入种植面积', trigger: 'blur'}, {validator: validate2.reNumber}]
                 },
                 {
                     name: 'director',
@@ -5695,7 +5695,8 @@ export default {
                     component: null,
                     isNull: false,
                     label: '基本特征描述',
-                    placeholder: ''
+                    placeholder: '',
+                    rule: null
                 },
                 {
                     name: 'date',
@@ -5703,13 +5704,15 @@ export default {
                     component: null,
                     isNull: false,
                     label: '生长周期（天）',
-                    placeholder: ''
+                    placeholder: '',
+                    rule: {validator: validate2.reNumber}
                 },
                 {
                     name: 'img',
                     type: 'file',
                     component: inputFile,
                     isNull: false,
+                    label: '果蔬图片',
                     placeholder: ''
                 },
                 {
@@ -5760,13 +5763,15 @@ export default {
                     component: null,
                     isNull: false,
                     label: '生长周期（天）',
-                    placeholder: ''
+                    placeholder: '',
+                    rule: {validator: validate2.reNumber}
                 },
                 {
                     name: 'img',
                     type: 'file',
                     component: inputFile,
                     isNull: false,
+                    label: '果蔬图片',
                     placeholder: ''
                 },
                 {
@@ -5864,7 +5869,8 @@ export default {
                     component: null,
                     isNull: false,
                     placeholder: '请输入11位的手机号（固话用-隔开）',
-                    label: '联系方式'
+                    label: '联系方式',
+                    rule: { validator: validate2.phone, trigger: 'blur' }
                 },
                 {
                     name: 'memo',
@@ -5930,7 +5936,8 @@ export default {
                     component: null,
                     isNull: false,
                     placeholder: '请输入11位的手机号（固话用-隔开）',
-                    label: '联系方式'
+                    label: '联系方式',
+                    rule: { validator: validate2.phone, trigger: 'blur' }
                 },
                 {
                     name: 'memo',
@@ -6201,7 +6208,7 @@ export default {
         selectDefault: [{value: '', label: '种植区选择'}, {value: '', label: '果蔬选择'}],
         searchPlaceholder: '请输入种植批次号进行搜索',
         theads: ['所属种植区', '种植批次号', '果蔬名称', '种植日期', '种植面积', '种植人', '录入人', '备注'],
-        protos: ['plantation_name', 'serial', 'plant_name', 'date', 'area', 'operate_name', 'user_name', 'memo'],
+        protos: ['plantation_name', 'serial', 'plant_name', 'date', 'area_unit', 'operate_name', 'user_name', 'memo'],
         widths: [50, 50, 50, 50, 50, 50, 50, 50],
         listComponent: [{
             components: [{
@@ -7328,9 +7335,10 @@ export default {
             key: 'farming',
             tab: '田间信息',
             url: 'farming',
-            searchPlaceholder: '请输入农事批次号进行搜索',
-            theads: ['田间批次号', '操作日期', '天气', '操作内容', '操作方法', '操作人', '录入人', '备注'],
-            protos: ['serial', 'date', 'weather', 'content', 'method', 'operate_name', 'user_name', 'memo'],
+            batch: 'farmingBatch',
+            searchPlaceholder: '请输入田间批次号进行搜索',
+            theads: ['田间批次号', '操作日期', '天气', '操作内容', '操作方法', '操作人', '专家', '录入人', '备注'],
+            protos: ['serial', 'date', 'weather', 'content', 'method', 'operate_name', 'expert_name', 'user_name', 'memo'],
             widths: [50, 50, 50, 50, 50, 50, 50, 50],
             typeComponent: [
                 {

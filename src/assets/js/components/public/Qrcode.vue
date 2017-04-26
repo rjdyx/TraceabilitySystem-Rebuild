@@ -12,6 +12,7 @@
 <script>
     import Qrcode from 'v-qrcode/src/index'
     export default {
+        name: 'QrcodeModel',
         props: {
             isNull: {
                 type: Boolean,

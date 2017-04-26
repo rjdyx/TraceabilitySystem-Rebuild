@@ -27,7 +27,7 @@
                             <el-form-item :label="subItem.label" :prop="subItem.name">
                                 <el-input 
                                     :placeholder="subItem.placeholder" 
-                                    v-model.number="tableForm[subItem.name]" size="small"></el-input>
+                                    v-model="tableForm[subItem.name]" size="small"></el-input>
                             </el-form-item>
                         </td> 
                     </tr>

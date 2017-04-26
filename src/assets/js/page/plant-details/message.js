@@ -192,7 +192,7 @@ export default {
     // 种植批次
     plantSerial: {
         key: 'plantSerial',
-        tab: '种植批次管理1',
+        tab: '种植批次管理',
         theads: ['种植批次号', '所属种植区', '种植人', '种植日期', '种植地址', '种植果蔬名称', '当前批次面积', '备注'],
         protos: ['serial', 'plantation_name', 'operate_name', 'date', 'address', 'plant_name', 'area_unit', 'memo'],
         url: 'cultivate',
@@ -402,8 +402,8 @@ export default {
         url: 'detect',
         changeDataArr: [{result: {'合格': 0, '不合格': 1}}],
         tabList: [{
-            url: 'cultivate-spray',
-            tab: '种植批次施肥信息',
+            url: 'cultivate-detect',
+            tab: '种植批次检测信息',
             searchPlaceholder: '请输入种植批次进行搜索',
             headList: ['种植批次号', '种植区', '种植果蔬', '种植日期', '种植人', '备注信息'],
             protos: ['serial', 'plantation_name', 'plant_name', 'date', 'operate_name', 'memo'],
@@ -420,6 +420,45 @@ export default {
             }],
             newComponent: [{
                 tab: '新建批次施药信息',
+                type: 'table',
+                components: [{
+                    name: 'name',
+                    type: 'table',
+                    theads: ['种植批次号', '种植果蔬', '种植日期'],
+                    protos: ['serial', 'plant_name', 'date'],
+                    valueId: 'cultivate_ids',
+                    errormsg: '请选择种植批次号',
+                    tableVal: []
+                }]
+            }]
+        }]
+    },
+    // 种植田间信息
+    farmingBatch: {
+        key: 'farmingBatch',
+        tab: '种植田间批次管理',
+        theads: ['田间批次号', '操作内容', '操作方法', '操作日期', '操作人', '专家', '天气'],
+        protos: ['serial', 'content', 'method', 'date', 'operate_name', 'expert_name', 'weather'],
+        url: 'farming',
+        tabList: [{
+            url: 'cultivate-farming',
+            tab: '种植批次农事信息',
+            searchPlaceholder: '请输入种植批次进行搜索',
+            headList: ['种植批次号', '种植区', '种植果蔬', '种植日期', '种植人', '备注信息'],
+            protos: ['serial', 'plantation_name', 'plant_name', 'date', 'operate_name', 'memo'],
+            widths: [50, 50, 50, 50, 50, 50],
+            hiddeEdit: false,
+            typeComponent: [{
+                component: newbuildBtn
+            }],
+            listComponent: [{
+                components: [{
+                    type: 'date',
+                    component: datePick
+                }]
+            }],
+            newComponent: [{
+                tab: '新建批次农事信息',
                 type: 'table',
                 components: [{
                     name: 'name',

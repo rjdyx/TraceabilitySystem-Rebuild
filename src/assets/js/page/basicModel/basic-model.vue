@@ -29,7 +29,6 @@
                     :on-icon-click="search" class="searchInp" size="small">
                 </el-input>
                 <el-button size="small" class="searchBtn" @click="textAndDateFind">搜索</el-button>
-                <qrcode :background="background" :size="size" :cls="qrCls" :value="qrText"></qrcode>
             </div>
 
             <!-- 操作按钮 -->
@@ -94,7 +93,7 @@
                 </template>
                 <template>
 
-                    <el-button type="text" size="small" @click="changeEditShows(cope.$index,scope.row)" v-if="!hiddeEdit">编辑</el-button>
+                    <el-button type="text" size="small" @click="changeEditShow(scope.$index,scope.row)" v-if="!hiddeEdit">编辑</el-button>
 
                     <el-button type="text" size="small" v-if="hiddeEdit">查看</el-button>
                         
