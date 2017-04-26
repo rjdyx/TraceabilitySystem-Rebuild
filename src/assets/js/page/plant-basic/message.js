@@ -7882,6 +7882,7 @@ export default {
         key: 'pack',
         tab: '加工批次信息',
         url: 'pack',
+        batch: 'plantPackBatch',
         paramsIndex: 'plant',
         searchPlaceholder: '请输入加工批次号',
         theads: ['加工批次号', '加工日期', '数量', '产地', '操作人', '录入人', '备注'],
@@ -7919,6 +7920,15 @@ export default {
                 rule: [{required: true}, {validator: validate2.reDate, message: '请输入加工日期'}]
             },
             {
+                name: 'origin',
+                type: 'text',
+                component: null,
+                isNull: true,
+                label: '产地',
+                placeholder: '',
+                rule: null
+            },
+            {
                 name: 'operate_id',
                 type: 'select',
                 component: null,
@@ -7951,6 +7961,15 @@ export default {
                 label: '加工批次号',
                 disabled: true,
                 placeholder: '必填'
+            },
+            {
+                name: 'origin',
+                type: 'text',
+                component: null,
+                isNull: true,
+                label: '产地',
+                placeholder: '',
+                rule: null
             },
             {
                 name: 'date',
