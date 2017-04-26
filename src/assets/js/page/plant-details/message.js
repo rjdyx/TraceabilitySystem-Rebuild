@@ -630,7 +630,7 @@ export default {
             newComponent: [{
                 tab: '新建批次施肥信息',
                 type: 'table',
-                url: 'cultivate',
+                labUrl: 'cultivate',
                 components: [{
                     name: 'name',
                     type: 'table',
@@ -670,6 +670,7 @@ export default {
             newComponent: [{
                 tab: '新建批次施药信息',
                 type: 'table',
+                labUrl: 'cultivate',
                 components: [{
                     name: 'name',
                     type: 'table',
@@ -710,7 +711,7 @@ export default {
             newComponent: [{
                 tab: '新建批次施药信息',
                 type: 'table',
-                url: 'cultivate',
+                labUrl: 'cultivate',
                 components: [{
                     name: 'name',
                     type: 'table',
@@ -750,7 +751,7 @@ export default {
             newComponent: [{
                 tab: '新建批次农事信息',
                 type: 'table',
-                url: 'cultivate',
+                labUrl: 'cultivate',
                 components: [{
                     name: 'name',
                     type: 'table',
@@ -852,7 +853,7 @@ export default {
             newComponent: [{
                 tab: '新建加工产品信息',
                 type: 'table',
-                url: 'product',
+                labUrl: 'product',
                 components: [{
                     name: 'name',
                     type: 'table',
