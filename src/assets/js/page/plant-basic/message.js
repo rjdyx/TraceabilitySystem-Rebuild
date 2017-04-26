@@ -1773,7 +1773,8 @@ export default {
             tab: '圈舍档案',
             url: 'area',
             searchPlaceholder: '请输入圈舍名称进行搜索',
-            search: ['query_text', 'name'],
+            selectValueId: [['farm_id', 'farm_name', true]],
+            selectDefault: [{value: '', label: '选择养殖区'}],
             theads: ['所属养殖区', '圈舍名称', '圈舍面积', '图片', '备注信息'],
             protos: ['farm_name', 'name', 'area', 'img', 'memo'],
             selectSearch: ['farms.id'],
@@ -1788,7 +1789,11 @@ export default {
                 component: newbuildBtn
             }],
             newComponent: [{
-                tab: '养殖区信息',
+                tab: '新建圈舍信息',
+                selectUrl: [['farmcd', 'farms', 'id', 'name', true]],
+                checkNumber: [1],
+                popNumber: [0],
+                hasImg: true,
                 components: [{
                     // 场名
                     name: 'farm_id',
@@ -1797,7 +1802,7 @@ export default {
                     isNull: false,
                     label: '所属养殖区',
                     placeholder: '必填',
-                    rule: {required: true, trigger: 'blur'},
+                    rule: {required: true, trigger: 'blur', type: 'number'},
                     options: []
                 },
                 {
@@ -1807,19 +1812,19 @@ export default {
                     isNull: false,
                     label: '圈舍名称',
                     placeholder: '必填',
-                    rule: {required: true, trigger: 'blur'}
+                    rule: [{required: true, message: '请输入圈舍名称', trigger: 'blur'}, {validator: validate2.reCheck}]
                 },
                 {
                     name: 'area',
-                    type: 'text',
-                    component: null,
+                    type: 'textSelect',
+                    component: inputTextSelect,
                     isNull: false,
-                    label: '养殖面积',
+                    label: '圈舍面积',
                     placeholder: '请填写数字（必填）',
-                    rule: {type: 'number', required: true, trigger: 'blur'},
+                    rule: {validator: validate2.number},
                     options: [
                         {
-                            value: '', label: '亩'
+                            value: '亩', label: '亩'
                         },
                         {
                             value: '平方米', label: '平方米'
@@ -1834,7 +1839,7 @@ export default {
                     type: 'file',
                     component: inputFile,
                     isNull: true,
-                    label: '',
+                    label: '图片',
                     placeholder: '',
                     rule: null
                 },
@@ -1850,7 +1855,11 @@ export default {
                 ]
             }],
             editComponent: [{
-                tab: '养殖区信息',
+                tab: '编辑圈舍信息',
+                selectUrl: [['farmcd', 'farms', 'id', 'name', true]],
+                checkNumber: [1],
+                popNumber: [0],
+                hasImg: true,
                 components: [{
                     // 场名
                     name: 'farm_id',
@@ -1859,18 +1868,8 @@ export default {
                     isNull: false,
                     label: '所属养殖区',
                     placeholder: '必填',
-                    rule: {required: true, trigger: 'blur'},
-                    options: [
-                        {
-                            value: '', label: '请选择养殖区'
-                        },
-                        {
-                            value: '区A', label: '区A'
-                        },
-                        {
-                            value: '区B', label: '区B'
-                        }
-                    ]
+                    rule: {required: true, trigger: 'blur', type: 'number'},
+                    options: []
                 },
                 {
                     name: 'name',
@@ -1879,19 +1878,19 @@ export default {
                     isNull: false,
                     label: '圈舍名称',
                     placeholder: '必填',
-                    rule: {required: true, trigger: 'blur'}
+                    rule: [{required: true, message: '请输入圈舍名称', trigger: 'blur'}, {validator: validate2.reCheck}]
                 },
                 {
                     name: 'area',
-                    type: 'text',
-                    component: null,
+                    type: 'textSelect',
+                    component: inputTextSelect,
                     isNull: false,
-                    label: '养殖面积',
+                    label: '圈舍面积',
                     placeholder: '请填写数字（必填）',
-                    rule: {type: 'number', required: true, trigger: 'blur'},
+                    rule: {validator: validate2.number},
                     options: [
                         {
-                            value: '', label: '亩'
+                            value: '亩', label: '亩'
                         },
                         {
                             value: '平方米', label: '平方米'
@@ -1906,7 +1905,7 @@ export default {
                     type: 'file',
                     component: inputFile,
                     isNull: true,
-                    label: '',
+                    label: '图片',
                     placeholder: '',
                     rule: null
                 },
@@ -1925,25 +1924,22 @@ export default {
                 components: [{
                     type: 'select',
                     component: selectSection,
-                    options: [{
-                        value: '', label: '养殖场选择'
-                    },
-                    {
-                        value: '从化养殖基地', label: '从化养殖基地'
-                    }]
+                    name: 'farms.id',
+                    value: '',
+                    options: []
                 }]
             }]
         },
-        // header* select* selectSearch+
         {
             settitle: '养殖基础信息管理',
             key: 'beast',
             tab: '畜禽档案',
             url: 'beast',
             searchPlaceholder: '请输入畜禽名称进行搜索',
-            search: ['query_text', 'name'],
-            theads: ['畜禽种类', '畜禽名称', '描述', 'RFID位置', '图片', '备注信息'],
-            protos: ['category_name', 'name', 'desctiption', 'ear', 'img', 'meno'],
+            selectValueId: [['category_id', 'category_name', true]],
+            selectDefault: [{value: '', label: '选择畜禽分类'}],
+            theads: ['畜禽分类', '畜禽名称', '描述', 'RFID位置', '图片', '备注信息'],
+            protos: ['category_name', 'name', 'description', 'ear', 'img', 'meno'],
             selectSearch: ['beast.img'],
             widths: [50, 50, 50, 50, 50, 50],
             typeComponent: [{
@@ -1957,22 +1953,36 @@ export default {
             }],
             newComponent: [{
                 tab: '新建畜禽档案',
+                checkNumber: [1],
+                hasImg: true,
+                selectUrl: [['category', 'operate', 'category_id', 'category_name', true]],
+                popNumber: [0],
                 components: [{
+                    name: 'category_id',
+                    type: 'select',
+                    component: null,
+                    isNull: false,
+                    label: '畜禽分类',
+                    placeholder: '必填',
+                    rule: {required: true, trigger: 'blur', type: 'number'},
+                    options: []
+                },
+                {
                     name: 'name',
                     type: 'text',
                     component: null,
                     isNull: false,
                     label: '畜禽名称',
                     placeholder: '必填',
-                    rule: {required: true, trigger: 'blur'}
+                    rule: [{required: true, message: '请输入畜禽名称', trigger: 'blur'}, {validator: validate2.reCheck}]
                 },
                 {
-                    name: 'desctiption',
+                    name: 'description',
                     type: 'text',
                     component: null,
                     isNull: true,
                     label: '品种描述',
-                    placeholder: '',
+                    placeholder: '请对品种进行描述',
                     rule: null
                 },
                 {
@@ -1981,17 +1991,8 @@ export default {
                     component: null,
                     isNull: true,
                     label: 'RFID位置',
-                    placeholder: '',
+                    placeholder: '如 耳朵',
                     rule: null
-                },
-                {
-                    name: 'memo',
-                    type: 'textarea',
-                    component: null,
-                    isNull: true,
-                    label: '备注信息',
-                    placeholder: '',
-                    rule: ''
                 },
                 {
                     name: 'img',
@@ -1999,29 +2000,52 @@ export default {
                     component: inputFile,
                     isNull: true,
                     label: '',
+                    placeholder: '',
+                    rule: ''
+                },
+                {
+                    name: 'memo',
+                    type: 'textarea',
+                    component: null,
+                    isNull: true,
+                    label: '备注信息',
                     placeholder: '',
                     rule: ''
                 }
                 ]
             }],
             editComponent: [{
-                tab: '新建畜禽档案',
+                tab: '编辑畜禽档案',
+                checkNumber: [1],
+                hasImg: true,
+                selectUrl: [['category', 'operate', 'category_id', 'category_name', true]],
+                popNumber: [0],
                 components: [{
+                    name: 'category_id',
+                    type: 'select',
+                    component: null,
+                    isNull: false,
+                    label: '畜禽分类',
+                    placeholder: '必填',
+                    rule: {required: true, trigger: 'blur', type: 'number'},
+                    options: []
+                },
+                {
                     name: 'name',
                     type: 'text',
                     component: null,
                     isNull: false,
                     label: '畜禽名称',
                     placeholder: '必填',
-                    rule: {required: true, trigger: 'blur'}
+                    rule: [{required: true, message: '请输入畜禽名称', trigger: 'blur'}, {validator: validate2.reCheck}]
                 },
                 {
-                    name: 'desctiption',
+                    name: 'description',
                     type: 'text',
                     component: null,
                     isNull: true,
                     label: '品种描述',
-                    placeholder: '',
+                    placeholder: '请对品种进行描述',
                     rule: null
                 },
                 {
@@ -2030,17 +2054,8 @@ export default {
                     component: null,
                     isNull: true,
                     label: 'RFID位置',
-                    placeholder: '',
+                    placeholder: '如 耳朵',
                     rule: null
-                },
-                {
-                    name: 'memo',
-                    type: 'textarea',
-                    component: null,
-                    isNull: true,
-                    label: '备注信息',
-                    placeholder: '',
-                    rule: ''
                 },
                 {
                     name: 'img',
@@ -2048,6 +2063,15 @@ export default {
                     component: inputFile,
                     isNull: true,
                     label: '',
+                    placeholder: '',
+                    rule: ''
+                },
+                {
+                    name: 'memo',
+                    type: 'textarea',
+                    component: null,
+                    isNull: true,
+                    label: '备注信息',
                     placeholder: '',
                     rule: ''
                 }
@@ -2056,26 +2080,21 @@ export default {
             listComponent: [{
                 components: [{
                     type: 'select',
+                    name: 'categories.id',
+                    value: '',
                     component: selectSection,
-                    options: [{
-                        value: '', label: '请选择'
-                    },
-                    {
-                        value: '未上传', label: '未上传'
-                    },
-                    {
-                        value: '已上传', label: '已上传'
-                    }]
+                    options: []
                 }]
             }]
         },
-        // header* select* selectSearch+
         {
             settitle: '养殖基础信息管理 ',
             key: 'fodder',
             tab: '饲料档案',
             url: 'fodder',
             searchPlaceholder: '请输入饲料名称',
+            selectValueId: [['category_id', 'category_name', true]],
+            selectDefault: [{value: '', label: '选择饲料分类'}],
             search: ['query_text', 'name'],
             theads: ['饲料类别', '饲料名称', '用途', '包装规格', '产地', '生产厂家名称', '联系方式', '图片', '备注信息'],
             protos: ['category_name', 'name', 'use', 'specification', 'address', 'vender_name', 'phone', 'img', 'memo'],
@@ -2091,23 +2110,18 @@ export default {
                 component: newbuildBtn
             }],
             newComponent: [{
-                tab: '新建畜禽档案',
+                tab: '新建饲料档案',
+                checkNumber: [1],
+                hasImg: true,
                 components: [{
                     name: 'category_name',
-                    type: 'text',
+                    type: 'select',
                     component: null,
                     isNull: false,
                     label: '饲料类别',
                     placeholder: '',
-                    rule: {required: true, trigger: 'blur'},
-                    options: [
-                        {
-                            value: '', label: '请选择分类'
-                        },
-                        {
-                            value: '粗粮类', label: '粗粮类'
-                        }
-                    ]
+                    rule: {required: true, trigger: 'blur', type: 'number'},
+                    options: []
                 },
                 {
                     name: 'name',
@@ -2116,7 +2130,7 @@ export default {
                     isNull: false,
                     label: '名称',
                     placeholder: '必填',
-                    rule: {required: true, trigger: 'blur'}
+                    rule: [{required: true, message: '请输入饲料名称', trigger: 'blur'}, {validator: validate2.reCheck}]
                 },
                 {
                     name: 'use',
@@ -2184,23 +2198,18 @@ export default {
                 ]
             }],
             editComponent: [{
-                tab: '新建畜禽档案',
+                tab: '编辑饲料档案',
+                checkNumber: [1],
+                hasImg: true,
                 components: [{
                     name: 'category_name',
-                    type: 'text',
+                    type: 'select',
                     component: null,
                     isNull: false,
                     label: '饲料类别',
                     placeholder: '',
-                    rule: {required: true, trigger: 'blur'},
-                    options: [
-                        {
-                            value: '', label: '请选择分类'
-                        },
-                        {
-                            value: '粗粮类', label: '粗粮类'
-                        }
-                    ]
+                    rule: {required: true, trigger: 'blur', type: 'number'},
+                    options: []
                 },
                 {
                     name: 'name',
@@ -2209,7 +2218,7 @@ export default {
                     isNull: false,
                     label: '名称',
                     placeholder: '必填',
-                    rule: {required: true, trigger: 'blur'}
+                    rule: [{required: true, message: '请输入饲料名称', trigger: 'blur'}, {validator: validate2.reCheck}]
                 },
                 {
                     name: 'use',
@@ -2279,16 +2288,10 @@ export default {
             listComponent: [{
                 components: [{
                     type: 'select',
+                    name: 'categories.id',
+                    value: '',
                     component: selectSection,
-                    options: [{
-                        value: '', label: '请选择分类'
-                    },
-                    {
-                        value: '大包装', label: '大包装'
-                    },
-                    {
-                        value: '小包装', label: '小包装'
-                    }]
+                    options: []
                 }]
             }]
         },
@@ -2319,6 +2322,8 @@ export default {
                 tab: '新建饲料添加剂档案',
                 selectUrl: [['category', 'addition', 'category_id', 'category_name', true]],
                 popNumber: [0],
+                checkNumber: [1],
+                hasImg: true,
                 components: [{
                     name: 'category_id',
                     type: 'select',
@@ -2336,7 +2341,7 @@ export default {
                     isNull: false,
                     label: '添加剂名称',
                     placeholder: '必填',
-                    rule: {required: true, trigger: 'blur'}
+                    rule: [{required: true, message: '请输入添加剂名称', trigger: 'blur'}, {validator: validate2.reCheck}]
                 },
                 {
                     name: 'date',
@@ -2425,6 +2430,7 @@ export default {
                 tab: '编辑饲料添加剂档案',
                 selectUrl: [['category', 'addition', 'category_id', 'category_name', true]],
                 popNumber: [0],
+                checkNumber: [1],
                 components: [{
                     name: 'category_id',
                     type: 'select',
@@ -2442,7 +2448,7 @@ export default {
                     isNull: false,
                     label: '添加剂名称',
                     placeholder: '必填',
-                    rule: {required: true, trigger: 'blur'}
+                    rule: [{required: true, message: '请输入添加剂名称', trigger: 'blur'}, {validator: validate2.reCheck}]
                 },
                 {
                     name: 'date',
@@ -2537,14 +2543,14 @@ export default {
                 }]
             }]
         },
-        // header* select* selectSearch+
         {
             settitle: '养殖基础信息管理',
             key: 'drug',
             tab: '兽药档案',
             url: 'drug',
             searchPlaceholder: '请输入兽药名称',
-            search: ['query_text', 'name'],
+            selectValueId: [['category_id', 'category_name', true]],
+            selectDefault: [{value: '', label: '选择兽药类型'}],
             theads: ['兽药分类', '兽药名称', '用途', '包装规格', '产地', '生产厂家名称', '联系方式', '图片', '备注信息'],
             protos: ['category_name', 'name', 'use', 'specification', 'address', 'vender_name', 'phone', 'img', 'memo'],
             selectSearch: ['drug.img'],
@@ -2559,24 +2565,20 @@ export default {
                 component: newbuildBtn
             }],
             newComponent: [{
-                tab: '新建农药档案',
+                tab: '新建兽药档案',
+                selectUrl: [['category', 'addition', 'category_id', 'category_name', true]],
+                popNumber: [0],
+                hasImg: true,
+                checkNumber: [1],
                 components: [{
                     name: 'category_id',
                     type: 'select',
                     component: null,
                     isNull: false,
                     label: '畜药类别',
-                    placeholder: '请选择类别',
-                    rule: {required: true, trigger: 'blur'},
-                    options: [{
-                        value: '',
-                        label: '请选择类别'
-                    },
-                    {
-                        value: '疾病防治药',
-                        label: '疾病防治药'
-                    }
-                    ]
+                    placeholder: '请选择兽药类别',
+                    rule: {required: true, trigger: 'blur', type: 'number'},
+                    options: []
                 },
                 {
                     name: 'name',
@@ -2585,7 +2587,7 @@ export default {
                     isNull: false,
                     label: '兽药名称',
                     placeholder: '必填',
-                    rule: {required: true, trigger: 'blur'}
+                    rule: [{required: true, message: '请输入兽药名称', trigger: 'blur'}, {validator: validate2.reCheck}]
                 },
                 {
                     name: 'use',
@@ -2630,7 +2632,7 @@ export default {
                     isNull: true,
                     label: '联系方式',
                     placeholder: '请输入11位的手机号（固话用-隔开）',
-                    rule: { validator: validate2.phone, trigger: 'blur' }
+                    rule: { validator: validate2.phone }
                 },
                 {
                     name: 'img',
@@ -2653,24 +2655,20 @@ export default {
                 ]
             }],
             editComponent: [{
-                tab: '新建农药档案',
+                tab: '编辑兽药档案',
+                selectUrl: [['category', 'addition', 'category_id', 'category_name', true]],
+                popNumber: [0],
+                hasImg: true,
+                checkNumber: [1],
                 components: [{
                     name: 'category_id',
                     type: 'select',
                     component: null,
                     isNull: false,
                     label: '畜药类别',
-                    placeholder: '请选择类别',
-                    rule: {required: true, trigger: 'blur'},
-                    options: [{
-                        value: '',
-                        label: '请选择类别'
-                    },
-                    {
-                        value: '疾病防治药',
-                        label: '疾病防治药'
-                    }
-                    ]
+                    placeholder: '请选择兽药类别',
+                    rule: {required: true, trigger: 'blur', type: 'number'},
+                    options: []
                 },
                 {
                     name: 'name',
@@ -2679,7 +2677,7 @@ export default {
                     isNull: false,
                     label: '兽药名称',
                     placeholder: '必填',
-                    rule: {required: true, trigger: 'blur'}
+                    rule: [{required: true, message: '请输入兽药名称', trigger: 'blur'}, {validator: validate2.reCheck}]
                 },
                 {
                     name: 'use',
@@ -2724,7 +2722,7 @@ export default {
                     isNull: true,
                     label: '联系方式',
                     placeholder: '请输入11位的手机号（固话用-隔开）',
-                    rule: { validator: validate2.phone, trigger: 'blur' }
+                    rule: { validator: validate2.phone }
                 },
                 {
                     name: 'img',
@@ -2749,16 +2747,10 @@ export default {
             listComponent: [{
                 components: [{
                     type: 'select',
+                    name: 'category_id',
+                    value: '',
                     component: selectSection,
-                    options: [{
-                        value: '', label: '请选择分类'
-                    },
-                    {
-                        value: '疾病防治药', label: '疾病防治药'
-                    },
-                    {
-                        value: '传染病防治药', label: '传染病防治药'
-                    }]
+                    options: []
                 }]
             }]
         }
@@ -2772,7 +2764,6 @@ export default {
         // 链接批次信息模块数据的桥（养殖批次详情）
         batch: 'breedBatch',
         searchPlaceholder: '请输入养殖批次号进行搜索',
-        search: ['query_text', 'beast_name'],
         selectValueId: [['beast_id', 'beast_name', true]],
         selectDefault: [{value: '', label: '请选择畜禽'}],
         theads: ['批次号', '养殖区', '圈舍', '畜禽', '开始日期', '数量', '养殖方式', '养殖人', '操作人', '录入人', '备注'],
@@ -2818,6 +2809,15 @@ export default {
                 placeholder: '请选择操作人',
                 rule: {required: true, trigger: 'blur', type: 'number'},
                 options: []
+            },
+            {
+                name: 'start_date',
+                type: 'date',
+                component: inputDate,
+                isNull: false,
+                label: '开始日期',
+                placeholder: '',
+                rule: [{required: true}, {validator: validate2.reDate, message: '请输入种植日期'}]
             },
             {
                 name: 'way',
@@ -2893,6 +2893,15 @@ export default {
                 options: []
             },
             {
+                name: 'start_date',
+                type: 'date',
+                component: inputDate,
+                isNull: false,
+                label: '开始日期',
+                placeholder: '',
+                rule: [{required: true}, {validator: validate2.reDate, message: '请输入种植日期'}]
+            },
+            {
                 name: 'way',
                 type: 'text',
                 component: null,
@@ -2925,7 +2934,7 @@ export default {
             components: [{
                 type: 'select',
                 component: selectSection,
-                name: 'beasts.id',
+                name: 'beast_id',
                 value: '',
                 options: []
             },
@@ -2944,7 +2953,6 @@ export default {
         // 链接批次信息模块数据的桥（养殖批次详情）
         batch: 'feedBatch',
         searchPlaceholder: '请输入喂养方式进行搜索',
-        search: ['query_text', 'fodder_name'],
         selectValueId: [['fodder_id', 'fodder_name', true]],
         selectDefault: [{value: '', label: '饲料选择'}],
         selectSearch: ['fodderuse.fodder_id'],
@@ -3527,9 +3535,8 @@ export default {
         tab: '检疫信息',
         url: 'detection',
         // 链接批次信息模块数据的桥（养殖批次详情）
-        batch: 'quarantineBatch',
+        batch: 'detectionBatch',
         searchPlaceholder: '请输入检疫项目名称进行',
-        search: ['query_text', 'name'],
         changeDataArr: [{result: {0: '不合格', 1: '合格'}}],
         selectSearch: ['detection.organization'],
         theads: ['检疫批次号', '检疫日期', '检疫项目名称', '检疫内容', '检疫结果', '专家', '操作人员', '审批人', '检疫报告图片', '备注'],

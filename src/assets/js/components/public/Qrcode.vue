@@ -33,11 +33,11 @@
             var per = this.editValue.substring(0, 1)
             var url = 'http://www.find360.cn/run/'
             if (per === 'P') {
-                url += 'plant/'
+                url += 'plant'
             } else {
-                url += 'beast/'
+                url += 'beast'
             }
-            this.qrText = url + 'index?code=' + this.editValue
+            this.qrText = url + '/index/' + this.editValue
         }
     }
 </script>
