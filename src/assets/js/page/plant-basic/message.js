@@ -7901,11 +7901,8 @@ export default {
             tab: '新建加工批次信息',
             hiddenValue: {type: 'plant'},
             selectUrl2: [['operates', 'id', 'name', true]],
-<<<<<<< HEAD
             popNumber2: [2],
-=======
             popNumber2: [1],
->>>>>>> limingcun
             components: [{
                 name: 'date',
                 type: 'date',
@@ -7913,20 +7910,7 @@ export default {
                 isNull: true,
                 label: '加工日期',
                 placeholder: '',
-<<<<<<< HEAD
-                rule: {required: true, trigger: 'blur'}
-            },
-            {
-                name: 'origin',
-                type: 'text',
-                component: null,
-                isNull: true,
-                label: '产地',
-                placeholder: '请输入产品产地',
-                rule: {required: true, trigger: 'blur'}
-=======
-                rule: [{required: true}, {validator: validate2.reDate, message: '请输入加工日期'}]
->>>>>>> limingcun
+                 rule: [{required: true}, {validator: validate2.reDate, message: '请输入加工日期'}]
             },
             {
                 name: 'operate_id',
@@ -7952,26 +7936,15 @@ export default {
             tab: '编辑加工批次信息',
             hiddenValue: {type: 'plant'},
             selectUrl2: [['operates', 'id', 'name', true]],
-<<<<<<< HEAD
-            popNumber2: [3],
-=======
             popNumber2: [2],
->>>>>>> limingcun
             components: [{
                 name: 'serial',
                 type: 'text',
                 component: null,
-<<<<<<< HEAD
-                isNull: true,
-                label: '批次号',
-                placeholder: '',
-                rule: {required: false}
-=======
                 isNull: false,
                 label: '加工批次号',
                 disabled: true,
                 placeholder: '必填'
->>>>>>> limingcun
             },
             {
                 name: 'date',
@@ -7980,20 +7953,7 @@ export default {
                 isNull: true,
                 label: '加工日期',
                 placeholder: '',
-<<<<<<< HEAD
-                rule: {required: true, trigger: 'blur'}
-            },
-            {
-                name: 'origin',
-                type: 'text',
-                component: null,
-                isNull: true,
-                label: '产地',
-                placeholder: '请输入产品产地',
-                rule: {required: true, trigger: 'blur'}
-=======
-                rule: [{required: true}, {validator: validate2.reDate, message: '请输入加工日期'}]
->>>>>>> limingcun
+				rule: [{required: true}, {validator: validate2.reDate, message: '请输入加工日期'}]
             },
             {
                 name: 'operate_id',
