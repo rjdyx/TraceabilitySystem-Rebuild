@@ -170,15 +170,16 @@ export default {
             editForm: {},
             editDefault: {},
             // 复选框选中返回对象
-            checkObject: {}
+            checkObject: {},
+            index: 0
         }
     },
     mixins: [computed],
     methods: {
         // tab点击事件
         tabClick (tab, event) {
-            var index = tab.$data.index
-            this.tabItem = this.tabList[index]
+            this.index = tab.$data.index
+            this.tabItem = this.tabList[this.index]
         },
         // 显示新建表单
         changeNewShow () {
@@ -190,7 +191,7 @@ export default {
             }
             // 获取新建表格数据
             if (this.tabItem.newComponent[0].type === 'table') {
-                this.$dataGet(this, 'cultivate', {})
+                this.$dataGet(this, this.tabItem.newComponent[0].url, {})
                     .then((responce) => {
                         this.$set(this.tabItem.newComponent[0].components[0], 'tableVal', responce.data.data)
                     })
@@ -279,7 +280,6 @@ export default {
             // 头部列表信息
             this.$dataGet(this, this.apiUrlArr[this.url], {})
                 .then((responce) => {
-                    console.log(33)
                     var ret = this.$conversion(this.changeDataArr, responce.data, 0)
                     ret = this.$eltable(ret)
                     this.$set(this, 'headData', ret)
@@ -287,7 +287,7 @@ export default {
         },
         // 获取列表信息
         getAllMsg (data = '') {
-            this.$dataGet(this, this.apiUrlArr[this.tabList[0].url], {params: data})
+            this.$dataGet(this, this.apiUrlArr[this.tabList[this.index].url], {params: data})
                 .then((responce) => {
                     if (responce.data.data.length !== 0) {
                         var ret = this.$conversion(this.changeDataArr, responce.data.data, 1)
@@ -296,6 +296,9 @@ export default {
                         this.total_num = responce.data.total
                         this.num = responce.data.last_page
                         this.paginator = responce.data
+                        if (this.dataArr === '') {
+                            this.dataArr = {}
+                        }
                     } else {
                         this.$set(this, 'tableData', responce.data.data)
                         this.total_num = 0
@@ -384,6 +387,7 @@ export default {
                     this.dataArr = ''
                 }
                 this.boxArr(this.dataArr)
+                this.getDetailSerial()
                 // this.getSelect()
                 this.$message({
                     type: 'success',
@@ -406,6 +410,7 @@ export default {
                         if (JSON.stringify(this.dataArr) === '{}') {
                             this.dataArr = ''
                         }
+                        this.getDetailSerial()
                         this.boxArr(this.dataArr)
                         this.$message({
                             type: 'success',
@@ -427,6 +432,7 @@ export default {
                 if (JSON.stringify(this.dataArr) === '{}') {
                     this.dataArr = ''
                 }
+                this.getDetailSerial()
                 this.boxArr(this.dataArr)
                 this.$message({
                     type: 'success',
@@ -456,6 +462,7 @@ export default {
                             if (JSON.stringify(this.dataArr) === '{}') {
                                 this.dataArr = ''
                             }
+                            this.getDetailSerial()
                             this.boxArr(this.dataArr)
                             this.$message({
                                 type: 'success',
@@ -482,6 +489,14 @@ export default {
         this.getAllMsg()
     },
     watch: {
+        tabItem () {
+            this.tableData = []
+            if (this.selectValueId !== undefined) {
+                this.getSelect()
+            }
+            this.getAllMsg()
+            this.inputValue = ''
+        }
     },
     components: {
         ContainTitle,

@@ -484,6 +484,7 @@ export default {
         protos: ['serial', 'plantation_name', 'operate_name', 'date', 'address', 'plant_name', 'area_unit', 'memo'],
         url: 'cultivate',
         tabList: [{
+            key: 'grow',
             url: 'grow',
             tab: '生长过程信息',
             searchPlaceholder: '请输入标题进行搜索',
@@ -629,6 +630,7 @@ export default {
             newComponent: [{
                 tab: '新建批次施肥信息',
                 type: 'table',
+                url: 'cultivate',
                 components: [{
                     name: 'name',
                     type: 'table',
@@ -708,6 +710,7 @@ export default {
             newComponent: [{
                 tab: '新建批次施药信息',
                 type: 'table',
+                url: 'cultivate',
                 components: [{
                     name: 'name',
                     type: 'table',
@@ -747,6 +750,7 @@ export default {
             newComponent: [{
                 tab: '新建批次农事信息',
                 type: 'table',
+                url: 'cultivate',
                 components: [{
                     name: 'name',
                     type: 'table',
@@ -759,7 +763,7 @@ export default {
             }]
         }]
     },
-// 采收批次号
+    // 采收批次号
     cultivateBatch: {
         key: 'cultivateBatch',
         tab: '采收批次管理',
@@ -791,7 +795,7 @@ export default {
             bottomOperateList: [{operateName: '删除'}, {operateName: '导出表格'}]
         }]
     },
-// 生产计划批次信息
+    // 生产计划批次信息
     planProduct: {
         key: 'planProduct',
         tab: '生产批次管理',
@@ -826,7 +830,42 @@ export default {
             bottomOperateList: [{operateName: '删除'}, {operateName: '导出表格'}]
         }]
     },
-// 销售入库详情
+    // 生产加工批次信息
+    plantPackBatch: {
+        key: 'plantPackBatch',
+        tab: '种植田间批次管理',
+        theads: ['加工批次号', '加工日期', '数量', '产地', '加工人', '备注'],
+        protos: ['serial', 'date', 'amount', 'origin', 'operate_name', 'memo'],
+        url: 'pack',
+        tabList: [{
+            url: 'pack-product',
+            tab: '加工批次产品信息',
+            searchPlaceholder: '请输入产品名称进行搜索',
+            headList: ['产品名称', '执行标准', '商品型号', '包装规格', '保质期', '存储方法'],
+            protos: ['name', 'enforce_standard', 'marque', 'specification', 'expiration_date', 'storage_means'],
+            widths: [50, 50, 50, 50, 50, 50],
+            hiddeEdit: false,
+            typeComponent: [{
+                component: newbuildBtn
+            }],
+            listComponent: [],
+            newComponent: [{
+                tab: '新建加工产品信息',
+                type: 'table',
+                url: 'product',
+                components: [{
+                    name: 'name',
+                    type: 'table',
+                    theads: ['产品名称', '商品型号', '包装规格'],
+                    protos: ['name', 'marque', 'specification'],
+                    valueId: 'product_ids',
+                    errormsg: '请选择产品',
+                    tableVal: []
+                }]
+            }]
+        }]
+    },
+    // 销售入库详情
     saleInput: {
         key: 'plantProduct',
         tab: '销售入库批次管理',
