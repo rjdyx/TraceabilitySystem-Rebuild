@@ -261,10 +261,12 @@ export default {
         },
         // 选择框
         handleSelectionChange (val) {
+            let ids = []
             for (let key in val) {
-                this.ids.push(val[key].id)
+                ids.push(val[key].id)
             }
-            this.tableForm[this.newComponent[0].components[0].valueId] = this.ids
+            this.tableForm[this.newComponent[0].components[0].valueId] = ids
+            this.ids = ids
         }
     }
 }

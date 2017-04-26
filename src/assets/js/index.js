@@ -3,7 +3,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import VueRouter from 'vue-router'
 // import store from './vuex/modules/user.js'
-import store from './store/'
+// import store from './store/'
 import router from './route/routers.js'
 export const USER_STATE = 'false'
 // 将axios挂载到prototype上，在组件就可以直接使用this.axios访问
@@ -29,7 +29,6 @@ router.beforeEach((to, from, next) => {
                 } else {
                     next()
                 }
-                console.log(USER_STATE)
             } else {
                 if (to.path !== '/') {
                     next({ path: '/' })
@@ -46,7 +45,7 @@ router.beforeEach((to, from, next) => {
 router.afterEach(route => {})
 
 const app = new Vue({
-    store,
+    // store,
     router,
     render: h => h(App)
 }).$mount('#app')
