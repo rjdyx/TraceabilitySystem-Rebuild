@@ -7902,7 +7902,6 @@ export default {
             hiddenValue: {type: 'plant'},
             selectUrl2: [['operates', 'id', 'name', true]],
             popNumber2: [2],
-            popNumber2: [1],
             components: [{
                 name: 'date',
                 type: 'date',
@@ -7910,7 +7909,7 @@ export default {
                 isNull: true,
                 label: '加工日期',
                 placeholder: '',
-                 rule: [{required: true}, {validator: validate2.reDate, message: '请输入加工日期'}]
+                rule: [{required: true}, {validator: validate2.reDate, message: '请输入加工日期'}]
             },
             {
                 name: 'operate_id',
@@ -7953,7 +7952,7 @@ export default {
                 isNull: true,
                 label: '加工日期',
                 placeholder: '',
-				rule: [{required: true}, {validator: validate2.reDate, message: '请输入加工日期'}]
+                rule: [{required: true}, {validator: validate2.reDate, message: '请输入加工日期'}]
             },
             {
                 name: 'operate_id',
