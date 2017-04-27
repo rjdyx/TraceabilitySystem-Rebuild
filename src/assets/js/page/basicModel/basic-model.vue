@@ -225,6 +225,8 @@ export default {
             checkObject: {},
             // 获取下拉框数据
             selectArrSet: [],
+            // 新增编辑下拉框数据
+            selectNewEdit: [],
             // 批次号
             isPcActive: true,
             hiddeEdit: false
@@ -299,6 +301,13 @@ export default {
                         .then((responce) => {
                             if (responce.data.length !== 0) {
                                 this.newComponent[0].components[this.newComponent[0].popNumber[key]].options = this.$selectData(this.url, responce.data, newArr.selectArr)
+                                // this.selectNewEdit[key] = []
+                                // this.selectNewEdit[key].push(this.newComponent[0].selectInit[key])
+                                // let newOpt = this.$selectData(this.url, responce.data, newArr.selectArr)
+                                // for (let item of Object.keys(newOpt)) {
+                                //     this.selectNewEdit[key].push(newOpt[item])
+                                // }
+                                // this.newComponent[0].components[this.newComponent[0].popNumber[key]].options = this.selectNewEdit[key]
                             }
                         })
                 }
@@ -311,6 +320,12 @@ export default {
                         .then((responce) => {
                             if (responce.data.length !== 0) {
                                 this.newComponent[0].components[this.newComponent[0].popNumber2[key]].options = this.$selectData(this.url, responce.data, newArr.selectArr)
+                                // this.selectNewEdit[key] = []
+                                // this.selectNewEdit[key].push(this.newComponent[0].selectInit[key])
+                                // let newOpt = this.$selectData(this.url, responce.data, newArr.selectArr)
+                                // for (let item of Object.keys(newOpt)) {
+                                //     this.selectNewEdit[key].push(newOpt[item])
+                                // }
                             }
                         })
                 }
