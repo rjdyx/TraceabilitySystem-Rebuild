@@ -124,7 +124,7 @@ const routes = [
         component: notFound
     },
     {
-        path: '/',
+        path: '/login',
         name: 'login',
         component: login
     },
