@@ -13,9 +13,10 @@
             <div class="pBasic_content_planInfo">
                  <h3>{{models.tableName}}</h3>
                  <table border="1" bordercolor="#fbfbfb">
-                     <tr v-for="theadsItem in models.tableTheads">
-                         <td>{{theadsItem}}</td>
-                         <td>广东果香农业公司李家村种植场</td>
+                     <tr v-for="(v,k) in models.tableProtos">
+                         <td>{{models.tableTheads[k] }}</td>
+                         <td v-if="v=='area'">{{data[v]}}{{data.unit}}</td>
+                         <td v-else>{{data[v]}}</td>
                      </tr>
                  </table>
             </div>
@@ -39,8 +40,9 @@ export default {
         let modelObj = {}
         Object.assign(modelObj, plantMessage)
         return {
-            productName: '新疆苹果',
-            models: modelObj[this.$route.meta.key]
+            // productName: '新疆苹果',
+            models: modelObj[this.$route.meta.key],
+            data: {}
         }
     },
     props: {
@@ -50,6 +52,17 @@ export default {
         }
     },
     mounted () {
+        var params = {plantation_id: this.$route.params.id}
+        axios.post('run/plant/plantation', params)
+            .then((responce) => {
+                if (responce.data !== 'false') {
+                    this.data = responce.data
+                    console.log(this.data)
+                } else {
+                    alert('溯源码无效！')
+                    this.$router.push('/')
+                }
+            })
     },
     components: {
         Header1,

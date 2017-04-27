@@ -13,12 +13,10 @@
             <div class="pCom_content_introduce">
                 <div>
                     <ul>
-                        <li>方离开过对方离开过对方离开过对方离开过对方离开过对方离开过对方离开过对方离开过对方离开过对方离开过对方离开过对方离开过对方离开过对方离开过对方离开过对方离开过对方离开过对方离苹果</li>
-                        <li><em>溯源次数：</em>105</li>
+                        <li>{{product.name}}</li>
+                        <li><em>溯源次数：</em>{{product.time}}</li>
                     </ul>
-                    <p>
-                    对方离开过对方离开过对方离开过对方离开过对方离开过对方离开过对方离开过对方离开过对方离开过对方离开过对方离开过对方离开过对方离开过对方离开过对方离开过对方离开过对方离开过对方离开过对方离开过对方离开过对方离开过对方离开过对方离开过对方离开过对方离开
-                    </p>
+                    <p>{{product.description}}</p>
                 </div>
             </div>
             <ul class="pCom_content_list">
@@ -92,10 +90,22 @@ export default {
         let modelObj = {}
         Object.assign(modelObj, plantMessage)
         return {
-            models: modelObj[this.$route.meta.key]
+            models: modelObj[this.$route.meta.key],
+            product: {}
         }
     },
     mounted () {
+        var params = {code_id: this.$route.params.id}
+        axios.post('run/product', params)
+            .then((responce) => {
+                if (responce.data !== 'false') {
+                    this.product = responce.data
+                    console.log(this.product)
+                } else {
+                    alert('溯源码无效！')
+                    this.$router.push('/')
+                }
+            })
     },
     components: {
         Header1,

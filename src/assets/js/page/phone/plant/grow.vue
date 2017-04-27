@@ -10,15 +10,15 @@
         <header1 title="生长图片"></header1>
         <div class="hg_content">
             <ul>
-                <li class="hg_content_li" v-for="i in 5">
+                <li class="hg_content_li" v-for="grow in grows" >
                     <!-- 时间 -->
                     <div class="hg_content_li_top">
-                        <img src="./images/grow_icon.png" height="30" width="31" alt=""><span>2017-04-11</span><span>种植松土</span>
+                        <img src="./images/grow_icon.png" height="30" width="31" alt=""><span>{{grow.date}}</span><span>{{grow.name}}</span>
                     </div>
                     <!-- 图片 -->
                     <div class="hg_content_li_bottom">
-                        <img src="./images/img.png" height="322" width="670" alt="">
-                        <h4>种植基地的土地基地的土地基地的土地基地的土地基地的土地基地的土地基地的土地基地的土地基地的土地基地的土地基地的土地基地的土地铲平</h4>
+                        <img src="grow.thumb" height="322" width="670" alt="">
+                        <h4>{{grow.desc}}</h4>
                     </div>
                 </li>
             </ul>
@@ -91,7 +91,23 @@
 import Header1 from './component/header.vue'
 export default {
     name: 'pGrow',
+    data () {
+        return {
+            grows: {}
+        }
+    },
     mounted () {
+        var params = {cultivate_id: this.$route.params.id}
+        axios.post('run/plant/grow', params)
+            .then((responce) => {
+                if (responce.data !== 'false') {
+                    this.grows = responce.data
+                    console.log(responce.data)
+                } else {
+                    alert('溯源码无效！')
+                    this.$router.push('/')
+                }
+            })
     },
     components: {
         Header1

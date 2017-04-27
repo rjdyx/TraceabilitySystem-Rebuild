@@ -10,11 +10,11 @@
         <header1 :title="models.title"></header1>
         <div class="pBM2_content">
             <div>
-                <twoColList :tableList="models.details.tableList"></twoColList>
+                <twoColList :tableList="models.details.tableList" :values="values"></twoColList>
                 <div class="pBM2_content_imgList">
                     <h3>{{models.details.tableName2}}</h3>
                     <ul>
-                        <li v-for="i in 3"><img  src="./images/img.png" alt=""></li>
+                        <li><img  :src="values.thumb" alt=""></li>
                     </ul>
                 </div> 
             </div>
@@ -62,10 +62,26 @@ export default {
         let modelObj = {}
         Object.assign(modelObj, plantMessage)
         return {
-            models: modelObj[this.$route.meta.key]
+            models: modelObj[this.$route.meta.key],
+            values: {}
+        }
+    },
+    methods: {
+        imgValue (val) {
+            this.img = val
         }
     },
     mounted () {
+        var params = {id: this.$route.params.id}
+        axios.post('run/plant/' + this.$route.meta.key + '/details', params)
+            .then((responce) => {
+                if (responce.data !== 'false') {
+                    this.values = responce.data
+                } else {
+                    alert('溯源码无效！')
+                    this.$router.push('/')
+                }
+            })
     },
     components: {
         Header1,

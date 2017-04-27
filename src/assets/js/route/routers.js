@@ -131,7 +131,6 @@ const routes = [
     // ---------------- 手机端路由 -----------------
     {
         path: '/plantIndex/:code',
-        // name: '/run/plant/index/:code',
         meta: {key: 'plantIndex'},
         component: plantIndex,
         alias: '/run/plant/index/:code'
@@ -162,51 +161,51 @@ const routes = [
     },
     {
         path: '/pesticideInfor/:id',
-        meta: {key: 'pesticideInfor'},
+        meta: {key: 'spray'},
         component: bM1,
-        alias: '/run/plant/pesticideInfor/:id'
+        alias: '/run/plant/spray/:id'
     },
     {
         path: '/datails/:id',
         component: bM2,
-        meta: {key: 'pesticideInfor'},
-        alias: '/run/plant/pesticideInfor/datails/:id'
+        meta: {key: 'spray'},
+        alias: '/run/plant/spray/datails/:id'
     },
     {
         path: '/farmWorkInfor/:id',
-        meta: {key: 'farmWorkInfor'},
+        meta: {key: 'farming'},
         component: bM1,
-        alias: '/run/plant/farmWorkInfor/:id'
+        alias: '/run/plant/farming/:id'
     },
     {
         path: 'farmWorkInfor/datails/:id',
-        meta: {key: 'farmWorkInfor'},
+        meta: {key: 'farming'},
         component: bM2,
-        alias: '/run/plant/farmWorkInfor/datails/:id'
+        alias: '/run/plant/farming/datails/:id'
     },
     {
         path: '/fertilizerInfor/:id',
-        meta: {key: 'fertilizerInfor'},
+        meta: {key: 'fertilize'},
         component: bM1,
-        alias: '/run/plant/fertilizerInfor/:id'
+        alias: '/run/plant/fertilize/:id'
     },
     {
         path: '/fertilizerInfor/datails/:id',
-        meta: {key: 'fertilizerInfor'},
+        meta: {key: 'fertilize'},
         component: bM2,
-        alias: '/run/plant/fertilizerInfor/datails/:id'
+        alias: '/run/plant/fertilize/datails/:id'
     },
     {
         path: '/detectionInfor/:id',
-        meta: {key: 'detectionInfor'},
+        meta: {key: 'detect'},
         component: bM1,
-        alias: '/run/plant/detectionInfor/:id'
+        alias: '/run/plant/detect/:id'
     },
     {
         path: '/detectionInfor/datails/:id',
-        meta: {key: 'detectionInfor'},
+        meta: {key: 'detect'},
         component: bM2,
-        alias: '/run/plant/detectionInfor/datails/:id'
+        alias: '/run/plant/detect/datails/:id'
     },
     {
         path: '/commodityInfor/:id',

@@ -2,9 +2,10 @@
 <div class="twoColList">
     <h3>{{tableList.tableName}}</h3> 
     <table>
-        <tr v-for="theadsItem in tableList.tableTheads">
-            <td>{{theadsItem}}</td>
-            <td>松土壤</td>
+        <tr v-for="(v,k) in tableList.tableProtos ">
+            <td>{{tableList.tableTheads[k]}}</td>
+            <td v-if="v=='amount'">{{values[v]}}{{values.unit}}</td>
+            <td v-else>{{values[v]}}</td>
         </tr>
     </table>
 </div>	
@@ -49,11 +50,14 @@ export default {
             default () {
                 return {}
             }
-        }
+        },
+        values: {}
     },
     data () {
         return {
         }
+    },
+    mounted () {
     }
 }
 </script>
