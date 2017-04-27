@@ -89,9 +89,6 @@
                 <el-table-column 
                 label="操作" v-if="checkOperate==null">
                     <template scope="scope" class="operateBtn">
-                        <template v-if="moreComponent!=null">
-                            <clickMore :moreComponent="moreComponent" class="clickMoreBtn"></clickMore>
-                        </template>
                         <template>
                             <el-button type="text" size="small" @click="changeEditShow(scope.$index,scope.row)" v-if="tabList[0].hiddeEdit">编辑</el-button>
                             <el-button type="text" size="small" v-if="hiddeWatch">查看</el-button>
@@ -485,6 +482,8 @@ export default {
         }
     },
     mounted () {
+        console.log('------')
+        console.log(this.models)
         this.tabItem = this.tabList[0]
         this.activeName = this.tabList[0].tab
         this.getApiUrl()
