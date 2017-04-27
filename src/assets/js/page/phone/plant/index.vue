@@ -37,7 +37,6 @@
 				</dl>
 			</div>
 			<div class="plant_product"><img src="./images/apple.jpg" alt=""></div>
-<div @click="getName">点我</div>
 			<ul class="plantBottomList">
 			    <!-- 生长图片 -->
 				<li><router-link :to="'/run/plant/growImg/'+id"></router-link></li>
@@ -71,9 +70,6 @@ export default{
         // console.log(this.models['basicInfor'])
     },
     methods: {
-        getName () {
-            console.log(this.$route)
-        }
     }
 }
 </script>

@@ -27,7 +27,7 @@
                             <el-form-item :label="subItem.label" :prop="subItem.name">
                                 <el-input 
                                     :placeholder="subItem.placeholder" 
-                                    v-model.number="tableForm[subItem.name]" size="small"></el-input>
+                                    v-model="tableForm[subItem.name]" size="small"></el-input>
                             </el-form-item>
                         </td> 
                     </tr>
@@ -54,6 +54,25 @@
                                 type="textarea" 
                                 v-model="tableForm[subItem.name]" size="small"></el-input>
                         </el-form-item>
+                    </tr>
+                    <!-- 表格  -->
+                    <tr v-else-if="subItem.type=='table'">
+                        <el-table :data="subItem.tableVal" class="table2"  @selection-change="handleSelectionChange">
+                            <!-- checkbox -->
+                            <el-table-column width="50" type="selection">
+                            </el-table-column> 
+                            <el-table-column width="60" label="序号" type="index" id="test_id">
+                            </el-table-column>
+                            <template v-for="(item,index) in subItem.theads"> 
+                                <template>
+                                    <el-table-column 
+                                        :label="item" 
+                                        :prop="subItem.protos[index]"
+                                        show-overflow-tooltip>
+                                    </el-table-column>
+                                </template>
+                            </template>
+                        </el-table>
                     </tr>
                      <!-- 传组件 -->
                     <tr v-else-if="subItem.component">
@@ -144,6 +163,7 @@ export default {
             activeName: this.newComponent[0].tab,
             tableForm: form,
             rules: rules,
+            ids: [],
             // 判断鼠标是否点击
             isMouseClick: false,
             dmL: 0,
@@ -151,6 +171,7 @@ export default {
         }
     },
     mounted () {
+        $('.newWrap .newForm .el-tabs .el-tab-pane').has('.table2').css('width', '96%')
         /**
         * 点击表单拖拽事件
         */
@@ -217,20 +238,35 @@ export default {
         * 提交表单
         */
         submitForm (formName) {
-            this.$refs[formName][0].validate((valid) => {
-                if (valid) {
-                    this.$dataPost(this, this.url, this.tableForm, this.newComponent[0].hasImg, this.newComponent[0].hiddenValue, false).then((response) => {
-                        this.$emit('submitNew', response.data)
-                    })
+            if (this.newComponent[0].type === 'table') {
+                if (this.ids.length !== 0) {
+                    this.$dataPost(this, this.url, this.tableForm, false, false, false)
+                        .then((response) => {
+                            this.$emit('submitNew', response.data)
+                        })
                 } else {
-                    return false
+                    this.$message(this.newComponent[0].components[0].errormsg)
                 }
-            })
+            } else {
+                this.$refs[formName][0].validate((valid) => {
+                    if (valid) {
+                        this.$dataPost(this, this.url, this.tableForm, this.newComponent[0].hasImg, this.newComponent[0].hiddenValue, false).then((response) => {
+                            this.$emit('submitNew', response.data)
+                        })
+                    } else {
+                        return false
+                    }
+                })
+            }
         },
         // 选择框
         handleSelectionChange (val) {
-            this.multipleSelection = val
-            // document.queryS
+            let ids = []
+            for (let key in val) {
+                ids.push(val[key].id)
+            }
+            this.tableForm[this.newComponent[0].components[0].valueId] = ids
+            this.ids = ids
         }
     }
 }

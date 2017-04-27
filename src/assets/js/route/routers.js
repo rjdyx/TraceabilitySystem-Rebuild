@@ -100,7 +100,7 @@ const routes = [
         path: '/index',
         name: 'index',
         component: index,
-        meta: { requiresAuth: true }
+        meta: { auth: true }
     },
     {
         path: '/index',
@@ -110,15 +110,12 @@ const routes = [
             component: basic,
             // 需要登录才能进入此路由
             meta: {
-                requiresAuth: true
+                auth: true
             }
         },
         {
             path: 'details/:model/:id',
-            component: details,
-            meta: {
-                requiresAuth: true
-            }
+            component: details
         }]
     },
     {
@@ -127,13 +124,9 @@ const routes = [
         component: notFound
     },
     {
-        path: '/login',
+        path: '/',
         name: 'login',
-        component: login,
-        alias: '/run/login',
-        meta: {
-            requiresAuth: true
-        }
+        component: login
     },
     // ---------------- 手机端路由 -----------------
     {

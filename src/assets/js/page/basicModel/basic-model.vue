@@ -37,6 +37,9 @@
                 :is="typeOperate.component"
                 :params="typeOperate.params"
                 class="fr"
+                :url="url"
+                :checkObject="checkObject"
+                :type="paramsIndex"
             ></component>
             
         </div>
@@ -91,7 +94,7 @@
                 <template>
 
                     <el-button type="text" size="small" @click="changeEditShow(scope.$index,scope.row)" v-if="!hiddeEdit">编辑</el-button>
-                        
+
                     <el-button type="text" size="small" v-if="hiddeEdit">查看</el-button>
                         
                     <el-button size="small" type="text" @click="handelDel(scope.$index,scope.row)" class="btn">删除</el-button>  
@@ -111,7 +114,7 @@
             <template v-if="lotComponent!=null">
                 <lotOpearte :lotComponent="lotComponent"></lotOpearte>
             </template>
-            <el-button>导出表格</el-button>
+            <el-button @click="excel">导出表格</el-button>
         </div>
 
         <p class="record">共有{{num}}页，{{total_num}}条记录</p>
@@ -223,7 +226,8 @@ export default {
             // 获取下拉框数据
             selectArrSet: [],
             // 批次号
-            isPcActive: true
+            isPcActive: true,
+            hiddeEdit: false
         }
     },
     mixins: [computed],
@@ -317,7 +321,7 @@ export default {
             this.isEditShow = true
             if (row !== undefined) {
                 if (this.editComponent[0].checkNumber !== undefined) {
-                    for (let index in this.newComponent[0].checkNumber) {
+                    for (let index in this.editComponent[0].checkNumber) {
                         this.editComponent[0].components[this.editComponent[0].checkNumber[index]].rule[1]['id'] = row.id
                         this.editComponent[0].components[this.editComponent[0].checkNumber[index]].rule[1]['url'] = this.url
                     }
@@ -419,12 +423,12 @@ export default {
         },
         // 批量删除
         delAll () {
-            this.$confirm('你确定要删除选中信息?', '信息', {
-                cancelButtonText: '取消',
-                confirmButtonText: '确定',
-                type: 'error'
-            }).then(() => {
-                if (this.checkObject.length !== undefined && this.checkObject.length !== 0) {
+            if (this.checkObject.length !== undefined && this.checkObject.length !== 0) {
+                this.$confirm('你确定要删除选中信息?', '信息', {
+                    cancelButtonText: '取消',
+                    confirmButtonText: '确定',
+                    type: 'error'
+                }).then(() => {
                     var delArr = []
                     for (let key in this.checkObject) {
                         delArr.push(this.checkObject[key].id)
@@ -446,18 +450,36 @@ export default {
                             this.$message.error('批量删除失败')
                         }
                     })
-                }
-            }).catch(() => {
-                this.$message({
-                    type: 'info',
-                    message: '已取消删除'
+                }).catch(() => {
+                    this.$message({
+                        type: 'info',
+                        message: '已取消删除'
+                    })
                 })
-            })
+            }
+        },
+        // 批量导出excel
+        excel () {
+            if (this.checkObject.length !== undefined && this.checkObject.length !== 0) {
+                var excelArr = []
+                var str = ''
+                for (let key in this.checkObject) {
+                    excelArr.push(this.checkObject[key].id)
+                }
+                str = str + '?excel=' + excelArr
+                if (this.paramsIndex !== undefined) {
+                    str = str + '&type=' + this.paramsIndex
+                }
+                window.location.href = this.$adminUrl(this.url) + str
+            }
         },
         // 新建数据
         changeNew (val) {
             if (val !== 'false') {
                 this.isNewShow = false
+                if (JSON.stringify(this.dataArr) === '{}') {
+                    this.dataArr = ''
+                }
                 this.boxArr(this.dataArr)
                 this.getSelect()
                 this.$message({
@@ -538,6 +560,7 @@ export default {
                 this.getSelect()
             }
             this.getAllMsg()
+            this.inputValue = ''
         }
     },
     components: {

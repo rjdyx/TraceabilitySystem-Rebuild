@@ -15,7 +15,7 @@
     <el-row :gutter="20">
          <el-col :span="6" v-for="(item,i) in theads" class="text-small">{{item}}:{{headData[protos[i]]}}</el-col>
     </el-row>
-  	
+    
   <!-- tab栏 --> 
     <el-tabs v-model="activeName" type="card" id="tabs" @tab-click="tabClick">
         <el-tab-pane :label='tabItem.tab' :name='tabItem.tab' v-for="
@@ -24,32 +24,35 @@
     </el-tabs> 
 
             <!-- 操作模块 -->
-		<div id="operate">              
-	        <div id="inputs">
-	        <!-- 左边的操作按钮 -->
-	            <operate :listComponent="tabItem.listComponent" @selectVal="selectFind" @dateVal="dateFind"></operate>
-	            <!-- 搜索框 -->
-	            <div class="searchOp">
-	                <el-input
-	                    :placeholder="tabItem.searchPlaceholder"
-	                    v-model="inputValue"
-	                    :on-icon-click="search" class="searchInp" size="small">
-	                </el-input>
-	                <el-button size="small" class="searchBtn" @click="textAndDateFind">搜索</el-button>
-	            </div>
+        <div id="operate">              
+            <div id="inputs">
+            <!-- 左边的操作按钮 -->
+                <operate :listComponent="tabItem.listComponent" @selectVal="selectFind" @dateVal="dateFind"></operate>
+                <!-- 搜索框 -->
+                <div class="searchOp">
+                    <el-input
+                        :placeholder="tabItem.searchPlaceholder"
+                        v-model="inputValue"
+                        :on-icon-click="search" class="searchInp" size="small">
+                    </el-input>
+                    <el-button size="small" class="searchBtn" @click="textAndDateFind">搜索</el-button>
+                </div>
 
-	            <!-- 右边的操作按钮 -->
-	            <!-- 操作按钮 -->
-	            <component
-	                v-for="operateItem in tabItem.typeComponent"
-	                :is="operateItem.component"
-	                class="fr"
-	            ></component>
-	        </div>
-		</div>
+                <!-- 右边的操作按钮 -->
+                <!-- 操作按钮 -->
+                <component
+                    v-for="operateItem in tabItem.typeComponent"
+                    :is="operateItem.component"
+                    class="fr"
+                ></component>
+            </div>
+        </div>
     
         <!-- 新建模块 --> 
-        <popNew v-if="isNewShow" :newComponent="tabItem.newComponent" :url="tabList.url"></popNew>
+        <popNew v-if="isNewShow" :newComponent="tabItem.newComponent" :url="apiUrlArr[tabList[0].url]" @submitNew="changeNew"></popNew>
+        <!-- 编辑模块 -->
+        <popEdit v-if="isEditShow" :editComponent="tabItem.editComponent" :url="apiUrlArr[tabList[0].url]" :editForm="editForm"
+                 @submitEdit="hangeEdit" :changeDataArr="changeDataArr" :editDefault="editDefault"></popEdit>
     <!-- 列表模块 -->
     <el-table :data="tableData"  @selection-change="handleSelectionChange">
         <!-- checkbox -->
@@ -59,14 +62,14 @@
         <el-table-column width="80" label="序号" type="index" id="test_id">
         </el-table-column>
 
-		        <!-- 中间列表模块 -->
-		        <template v-for="(item,index) in tabItem.headList"> 
-		          <template>
-		            <el-table-column 
-		              :prop="tabItem.protos[index]"
-		              :label="item"
-		              :min-width="tabItem.widths[index]"
-		              show-overflow-tooltip>
+                <!-- 中间列表模块 -->
+                <template v-for="(item,index) in tabItem.headList"> 
+                  <template>
+                    <el-table-column 
+                      :prop="tabItem.protos[index]"
+                      :label="item"
+                      :min-width="tabItem.widths[index]"
+                      show-overflow-tooltip>
                       <template  scope="scope">
                             <div v-if="tabItem.protos[index]=='thumb'" slot="reference">
                                 <img v-if="tableData[scope.$index][tabItem.protos[index]]!=null && 
@@ -78,25 +81,31 @@
                                 {{ tableData[scope.$index][tabItem.protos[index]] }}
                             </div>
                       </template>
-		            </el-table-column>
-		          </template>
-		        </template>
+                    </el-table-column>
+                  </template>
+                </template>
 
-		        <!-- 列表操作模块 -->
+                <!-- 列表操作模块 -->
                 <el-table-column 
                 label="操作" v-if="checkOperate==null">
                     <template scope="scope" class="operateBtn">
                         <template>
-                            <el-button type="text" size="small" @click="changeEditShow(scope.$index,scope.row)" v-if="!hiddeEdit">编辑</el-button>
-                            <el-button type="text" size="small" v-if="hiddeEdit">查看</el-button>
+                            <el-button type="text" size="small" @click="changeEditShow(scope.$index,scope.row)" v-if="tabList[0].hiddeEdit">编辑</el-button>
+                            <el-button type="text" size="small" v-if="hiddeWatch">查看</el-button>
                             <el-button size="small" type="text" @click="handelDel(scope.$index,scope.row)" class="btn">删除</el-button>  
                         </template>
                     </template>
                 </el-table-column>
-		    </el-table>
+            </el-table>
     <div class="footer">
         <div class="operate-foot">
-            <el-button v-for="bottomOperateItem in tabItem.bottomOperateList">{{bottomOperateItem.operateName}}</el-button>
+            <div class="operate-foot">
+                <el-button @click="delAll" v-if="checkOperate==null">删除</el-button>
+                <template v-if="lotComponent!=null">
+                    <lotOpearte :lotComponent="lotComponent"></lotOpearte>
+                </template>
+                <el-button>导出表格</el-button>
+            </div>
         </div>
 
         <p class="record">共有{{num}}页，{{total_num}}条记录</p>
@@ -117,7 +126,7 @@
 import computed from './computed.js'
 import popNew from '../../components/public/popNew.vue'
 import ContainTitle from 'components/layout/contain-title.vue'
-import edit from '../../components/public/edit.vue'
+import popEdit from '../../components/public/popEdit.vue'
 import operate from '../../components/public/operate.vue'
 import clickMore from '../../components/public/clickMore.vue'
 import lotOpearte from '../../components/public/lotOpearte.vue'
@@ -133,6 +142,7 @@ export default {
                     tab: '',
                     url: '',
                     theads: [],
+                    changeDataArr: [],
                     protos: [],
                     tabList: []
                 }
@@ -153,15 +163,20 @@ export default {
             tableData: [],
             paginator: {},
             inputValue: '',
-            dataArr: {}
+            dataArr: {},
+            editForm: {},
+            editDefault: {},
+            // 复选框选中返回对象
+            checkObject: {},
+            index: 0
         }
     },
     mixins: [computed],
     methods: {
         // tab点击事件
         tabClick (tab, event) {
-            var index = tab.$data.index
-            this.tabItem = this.tabList[index]
+            this.index = tab.$data.index
+            this.tabItem = this.tabList[this.index]
         },
         // 显示新建表单
         changeNewShow () {
@@ -170,6 +185,16 @@ export default {
                 for (let index in this.tabItem.newComponent[0].checkNumber) {
                     this.tabItem.newComponent[0].components[this.tabItem.newComponent[0].checkNumber[index]].rule[1].url = this.tabItem.url
                 }
+            }
+            // 获取新建表格数据
+            if (this.tabItem.newComponent[0].type === 'table') {
+                var getSelect = {'getSelect': '444'}
+                var curl = {'curl': this.tabItem.url}
+                var routeId = {'routeId': this.tabItem.newComponent[0].labUrl}
+                this.$dataGet(this, this.tabItem.newComponent[0].labUrl, {getSelect, curl, routeId})
+                    .then((responce) => {
+                        this.$set(this.tabItem.newComponent[0].components[0], 'tableVal', responce.data)
+                    })
             }
             if (this.tabItem.newComponent[0].selectUrl) {
                 for (let key in this.tabItem.newComponent[0].selectUrl) {
@@ -199,31 +224,31 @@ export default {
         changeEditShow (index, row) {
             this.isEditShow = true
             if (row !== undefined) {
-                if (this.editComponent[0].checkNumber !== undefined) {
-                    for (let index in this.newComponent[0].checkNumber) {
-                        this.editComponent[0].components[this.editComponent[0].checkNumber[index]].rule[1]['id'] = row.id
-                        this.editComponent[0].components[this.editComponent[0].checkNumber[index]].rule[1]['url'] = this.url
+                if (this.tabItem.editComponent[0].checkNumber !== undefined) {
+                    for (let index in this.tabItem.editComponent[0].checkNumber) {
+                        this.tabItem.editComponent[0].components[this.tabItem.editComponent[0].checkNumber[index]].rule[1]['id'] = row.id
+                        this.tabItem.editComponent[0].components[this.tabItem.editComponent[0].checkNumber[index]].rule[1]['url'] = this.tabItem.url
                     }
                 }
-                if (this.editComponent[0].selectUrl) {
-                    for (let key in this.editComponent[0].selectUrl) {
-                        let editArr = this.$addAndEditSelectMethod(this.editComponent[0].selectUrl[key])
+                if (this.tabItem.editComponent[0].selectUrl) {
+                    for (let key in this.tabItem.editComponent[0].selectUrl) {
+                        let editArr = this.$addAndEditSelectMethod(this.tabItem.editComponent[0].selectUrl[key])
                         this.$dataGet(this, editArr.selectUrl + '/changeSelect', {'selectData': editArr.selectData})
                             .then((responce) => {
                                 if (responce.data.length !== 0) {
-                                    this.editComponent[0].components[this.editComponent[0].popNumber[key]].options = this.$selectData(this.url, responce.data, editArr.selectArr)
+                                    this.tabItem.editComponent[0].components[this.tabItem.editComponent[0].popNumber[key]].options = this.$selectData(this.tabItem.url, responce.data, editArr.selectArr)
                                 }
                             })
                     }
                 }
                 // 无分类的下拉框模块查询
-                if (this.editComponent[0].selectUrl2) {
-                    for (let key in this.editComponent[0].selectUrl2) {
-                        let editArr = this.$addAndEditSelectMethod(this.editComponent[0].selectUrl2[key])
+                if (this.tabItem.editComponent[0].selectUrl2) {
+                    for (let key in this.tabItem.editComponent[0].selectUrl2) {
+                        let editArr = this.$addAndEditSelectMethod(this.tabItem.editComponent[0].selectUrl2[key])
                         this.$dataGet(this, '/util/selects', {table: editArr.selectUrl})
                             .then((responce) => {
                                 if (responce.data.length !== 0) {
-                                    this.editComponent[0].components[this.editComponent[0].popNumber2[key]].options = this.$selectData(this.url, responce.data, editArr.selectArr)
+                                    this.tabItem.editComponent[0].components[this.tabItem.editComponent[0].popNumber2[key]].options = this.$selectData(this.tabItem.url, responce.data, editArr.selectArr)
                                 }
                             })
                     }
@@ -235,11 +260,16 @@ export default {
                 }
             }
         },
+        // 关闭编辑弹窗
+        closeEditShow (val) {
+            this.isEditShow = false
+        },
         // 列表全选
-        handleSelectionChange () {
+        handleSelectionChange (val) {
+            this.checkObject = val
         },
         // 获取Api接口数据
-        getApiUrl (data = '') {
+        getApiUrl () {
             this.apiUrlArr[this.url] = this.url + '/' + this.$route.params.id
             for (var i in this.tabList) {
                 this.apiUrlArr[this.tabList[i].url] = this.$route.params.id + '/' + this.tabList[i].url
@@ -250,17 +280,14 @@ export default {
             // 头部列表信息
             this.$dataGet(this, this.apiUrlArr[this.url], {})
                 .then((responce) => {
-                    // this.$set(this, 'headData', responce.data)
-                    var ret = this.$conversion(this.changeDataArr, responce.data, 1)
+                    var ret = this.$conversion(this.changeDataArr, responce.data, 0)
                     ret = this.$eltable(ret)
                     this.$set(this, 'headData', ret)
-                    console.log(this.headData)
                 })
         },
         // 获取列表信息
         getAllMsg (data = '') {
-            // 字符分割
-            this.$dataGet(this, this.apiUrlArr[this.tabList[0].url], {})
+            this.$dataGet(this, this.apiUrlArr[this.tabList[this.index].url], {params: data})
                 .then((responce) => {
                     if (responce.data.data.length !== 0) {
                         var ret = this.$conversion(this.changeDataArr, responce.data.data, 1)
@@ -269,6 +296,9 @@ export default {
                         this.total_num = responce.data.total
                         this.num = responce.data.last_page
                         this.paginator = responce.data
+                        if (this.dataArr === '') {
+                            this.dataArr = {}
+                        }
                     } else {
                         this.$set(this, 'tableData', responce.data.data)
                         this.total_num = 0
@@ -319,6 +349,136 @@ export default {
             //         })
             //     }
             // }
+        },
+        // 获取下拉框数据
+        getSelect () {
+            if (this.paramsIndex !== undefined) {
+                var type = this.paramsIndex
+            }
+            this.selectArrSet = []
+            var getSelect = {'getSelect': '444'}
+            this.$dataGet(this, this.url, {getSelect: getSelect, type: type})
+                .then((responce) => {
+                    // 数据转换
+                    if (responce.data.length !== 0) {
+                        for (let index in this.selectValueId) {
+                            this.selectArrSet[index] = []
+                            let opt = this.$selectData(this.url, responce.data, this.selectValueId[index])
+                            this.selectArrSet[index].push(this.selectDefault[index])
+                            for (let key of Object.keys(opt)) {
+                                this.selectArrSet[index].push(opt[key])
+                            }
+                            this.listComponent[0].components[index].options = this.selectArrSet[index]
+                        }
+                    } else {
+                        for (let index in this.selectValueId) {
+                            this.selectArrSet[index] = []
+                            this.selectArrSet[index].push(this.selectDefault[index])
+                            this.listComponent[0].components[index].options = this.selectArrSet[index]
+                        }
+                    }
+                })
+        },
+        // 新建数据
+        changeNew (val) {
+            if (val !== 'false') {
+                this.isNewShow = false
+                if (JSON.stringify(this.dataArr) === '{}') {
+                    this.dataArr = ''
+                }
+                this.boxArr(this.dataArr)
+                this.getDetailSerial()
+                // this.getSelect()
+                this.$message({
+                    type: 'success',
+                    message: '新增数据成功'
+                })
+            } else {
+                this.$message.error('新增数据失败')
+            }
+        },
+        // 点击删除
+        handelDel (index, row) {
+            this.$confirm('你确定要删除该信息吗?', '信息', {
+                cancelButtonText: '取消',
+                confirmButtonText: '确定',
+                type: 'error'
+            }).then(() => {
+                axios.delete(this.$adminUrl(this.apiUrlArr[this.tabList[0].url] + '/' + row.id))
+                    .then((responce) => {
+                        // this.getSelect()
+                        if (JSON.stringify(this.dataArr) === '{}') {
+                            this.dataArr = ''
+                        }
+                        this.getDetailSerial()
+                        this.boxArr(this.dataArr)
+                        this.$message({
+                            type: 'success',
+                            message: '删除成功'
+                        })
+                    })
+            }).catch(() => {
+                this.$message({
+                    type: 'info',
+                    message: '已取消删除'
+                })
+            })
+        },
+        // 编辑修改数据
+        hangeEdit (val) {
+            if (val !== 'false') {
+                this.isEditShow = false
+                // this.getSelect()
+                if (JSON.stringify(this.dataArr) === '{}') {
+                    this.dataArr = ''
+                }
+                this.getDetailSerial()
+                this.boxArr(this.dataArr)
+                this.$message({
+                    type: 'success',
+                    message: '编辑数据成功'
+                })
+            } else {
+                this.$message.error('编辑数据失败')
+            }
+        },
+        // 批量删除
+        delAll () {
+            if (this.checkObject.length !== undefined && this.checkObject.length !== 0) {
+                this.$confirm('你确定要删除选中信息?', '信息', {
+                    cancelButtonText: '取消',
+                    confirmButtonText: '确定',
+                    type: 'error'
+                }).then(() => {
+                    var delArr = []
+                    for (let key in this.checkObject) {
+                        delArr.push(this.checkObject[key].id)
+                    }
+                    var paramsDel = { 'ids': delArr }
+                    axios.post(this.$adminUrl('util/batch-delete/' + this.tabItem.url), paramsDel)
+                    .then((responce) => {
+                        if (responce.data === 'true') {
+                            // this.getSelect()
+                            if (JSON.stringify(this.dataArr) === '{}') {
+                                this.dataArr = ''
+                            }
+                            this.getDetailSerial()
+                            this.boxArr(this.dataArr)
+                            this.$message({
+                                type: 'success',
+                                message: '批量删除成功'
+                            })
+                        } else {
+                            this.$message.error('批量删除失败')
+                        }
+                    })
+                }).catch(() => {
+                    this.$message({
+                        type: 'info',
+                        message: '已取消删除'
+                    })
+                })
+            }
         }
     },
     mounted () {
@@ -331,11 +491,19 @@ export default {
         this.getAllMsg()
     },
     watch: {
+        tabItem () {
+            this.tableData = []
+            if (this.selectValueId !== undefined) {
+                this.getSelect()
+            }
+            this.getAllMsg()
+            this.inputValue = ''
+        }
     },
     components: {
         ContainTitle,
         popNew,
-        edit,
+        popEdit,
         operate,
         clickMore,
         lotOpearte
@@ -351,10 +519,10 @@ export default {
     }
   }
   .el-col {
-  	padding: 10px 0px 0px 0px;
+    padding: 10px 0px 0px 0px;
   }
   .el-tabs{
-  	padding-top: 15px;
+    padding-top: 15px;
   }
    .operateBtns {
                 display: inline-block;
@@ -362,10 +530,10 @@ export default {
                 margin-right:10px;
             }
    .fr{
-     	float:right;
+        float:right;
      }
       .fl{
-     	float:left;
+        float:left;
      }
      .btn span{
         border-left: 1px solid #a7bad6;
@@ -375,19 +543,19 @@ export default {
         border-left: 0px solid #a7bad6;
     }
 .text-small{
-	font-size:13px;
+    font-size:13px;
 }
 .searchInp{
-	 	width:161px;
-	 	margin-bottom:10px;
-	 	font-size:12px;
-	 	margin-right:10px;
-	 }
+        width:161px;
+        margin-bottom:10px;
+        font-size:12px;
+        margin-right:10px;
+     }
 .searchBtn{
-     	width:62px;
+        width:62px;
      }
 .searchOp{
-     	display:inline;
+        display:inline;
      }
  .footer{
       width: 100%;
