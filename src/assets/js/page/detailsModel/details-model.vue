@@ -71,7 +71,10 @@
                       :min-width="tabItem.widths[index]"
                       show-overflow-tooltip>
                       <template  scope="scope">
-                            <div v-if="tabItem.protos[index]=='thumb'" slot="reference">
+                            <div v-if="item.includes('产品名称')" slot="reference" class="name-wrapper pcActive" @click="jumpDetails(scope.row)">
+                                {{ tableData[scope.$index][tabItem.protos[index]] }}
+                            </div>
+                            <div v-else-if="tabItem.protos[index]=='thumb'" slot="reference">
                                 <img v-if="tableData[scope.$index][tabItem.protos[index]]!=null && 
                                     tableData[scope.$index][tabItem.protos[index]]!=''" 
                                     :src="tableData[scope.$index][tabItem.protos[index]]" 
@@ -80,7 +83,7 @@
                             <div v-else slot="reference" >
                                 {{ tableData[scope.$index][tabItem.protos[index]] }}
                             </div>
-                      </template>
+                    </template>
                     </el-table-column>
                   </template>
                 </template>
@@ -181,6 +184,10 @@ export default {
             this.index = tab.$data.index
             this.tabItem = this.tabList[this.index]
         },
+        jumpDetails (row, cid) {
+            var id = row.id
+            this.$router.push('/index/details/' + this.batch + '/' + id)
+        },
         // 显示新建表单
         changeNewShow () {
             this.isNewShow = !this.isNewShow
@@ -194,7 +201,8 @@ export default {
                 var getSelect = {'getSelect': '444'}
                 var curl = {'curl': this.tabItem.url}
                 var routeId = {'routeId': this.tabItem.newComponent[0].labUrl}
-                this.$dataGet(this, this.tabItem.newComponent[0].labUrl, {getSelect, curl, routeId})
+                var opqcurl = {'opqcurl': this.apiUrlArr[this.url]}
+                this.$dataGet(this, this.tabItem.newComponent[0].labUrl, {getSelect, curl, routeId, opqcurl})
                     .then((responce) => {
                         this.$set(this.tabItem.newComponent[0].components[0], 'tableVal', responce.data)
                     })
@@ -281,7 +289,8 @@ export default {
         // 获取头部详细信息
         getDetailSerial () {
             // 头部列表信息
-            this.$dataGet(this, this.apiUrlArr[this.url], {})
+            var url = this.apiUrlArr[this.url]
+            this.$dataGet(this, url, {})
                 .then((responce) => {
                     var ret = this.$conversion(this.changeDataArr, responce.data, 0)
                     ret = this.$eltable(ret)
@@ -431,7 +440,6 @@ export default {
         hangeEdit (val) {
             if (val !== 'false') {
                 this.isEditShow = false
-                // this.getSelect()
                 if (JSON.stringify(this.dataArr) === '{}') {
                     this.dataArr = ''
                 }
@@ -457,7 +465,7 @@ export default {
                     for (let key in this.checkObject) {
                         delArr.push(this.checkObject[key].id)
                     }
-                    var paramsDel = { 'ids': delArr }
+                    var paramsDel = {'ids': delArr, 'other': this.apiUrlArr[this.url]}
                     axios.post(this.$adminUrl('util/batch-delete/' + this.tabItem.url), paramsDel)
                     .then((responce) => {
                         if (responce.data === 'true') {
@@ -499,6 +507,13 @@ export default {
             }
             this.getAllMsg()
             this.inputValue = ''
+        },
+        tab () {
+            this.tabItem = this.tabList[0]
+            this.activeName = this.tabList[0].tab
+            this.getApiUrl()
+            this.getDetailSerial()
+            this.getAllMsg()
         }
     },
     components: {
@@ -512,6 +527,11 @@ export default {
 }
 </script>
 <style lang='sass'> 
+  .pcActive{
+        color: blue;
+        text-decoration: underline;
+        cursor:pointer;
+    }
   .el-row {
     padding:0px 0px 20px 10px;
     border-bottom: 2px solid #e5e5e5;
