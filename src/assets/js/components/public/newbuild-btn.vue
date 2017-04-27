@@ -24,7 +24,6 @@ export default {
     methods: {
         handleAdd () {
             this.$parent.changeNewShow()
-            // this.$parent.changeNewShow()
             // // this.count++
             // this.$store.commit('handleAdd')
             // this.count = this.$store.state.count

@@ -1,0 +1,94 @@
+<template>
+<div>
+	<div class="list">
+        <h3>用药记录</h3>
+        <table>
+            <tr>
+                <th v-for="item in thList">{{item}}</th>
+            </tr>
+            <tr v-for="item in trList" @click="goListDetails">
+                <td>{{item.type}}</td>
+                <td>{{item.operator}}</td>
+                <td>{{item.date}}</td>
+                <td>
+                    <!-- <img :src="item.img" alt=""> -->
+                    <img class="tdImg" src="../images/img.png" alt="">
+                </td>
+            </tr>
+        </table>
+    </div>
+    <router-view></router-view>
+</div>
+</template>
+<style lang="sass">
+.list{
+    background: #fbfbfb;
+    >h3{
+        font-weight:normal;
+        color:#3ccfb5;
+        font-size: 1.4rem;
+        padding: 2% 0% 0% 7%;
+        // font-weight:none;
+    }
+    >table{
+        width:92%;
+        margin: 0 auto;
+        tr{
+            width:100%;
+            font-size: 1.3rem;
+            border-bottom: 1px solid #e6e6e6;
+            text-align: center;
+            th{
+                font-weight:normal;
+                color:#333;
+                width: 25%;
+                box-sizing: border-box;
+                padding: 3% 0%;
+            }
+            td{
+                color:#989898;
+                padding: 1% 0%;
+                width: 25%;
+                box-sizing: border-box;
+                >img{
+                    width: 80%;
+                    height: auto;
+                }
+            }
+        }
+    }
+}
+</style>
+<script>
+export default {
+    name: 'list',
+    props: {
+        productName: {
+            type: String,
+            default: ''
+        }
+    },
+    data () {
+        return {
+            thList: ['操作类型', '操作人', '日期', '图片'],
+            trList: [
+                {type: '送土壤', operator: '李光耀', date: '2017-04-06', img: './images/img.png'},
+                {type: '送土壤', operator: '李光耀', date: '2017-04-06', img: './images/img.png'},
+                {type: '送土壤', operator: '李光耀', date: '2017-04-06', img: './images/img.png'},
+                {type: '送土壤', operator: '李光耀', date: '2017-04-06', img: './images/img.png'},
+                {type: '送土壤', operator: '李光耀', date: '2017-04-06', img: './images/img.png'},
+                {type: '送土壤', operator: '李光耀', date: '2017-04-06', img: './images/img.png'},
+                {type: '送土壤', operator: '李光耀', date: '2017-04-06', img: './images/img.png'},
+                {type: '送土壤', operator: '李光耀', date: '2017-04-06', img: './images/img.png'},
+                {type: '送土壤', operator: '李光耀', date: '2017-04-06', img: './images/img.png'},
+                {type: '送土壤', operator: '李光耀', date: '2017-04-06', img: './images/img.png'}
+            ]
+        }
+    },
+    methods: {
+        goListDetails () {
+            this.$router.push('/plan/pBasicModel1/pBasicModel2')
+        }
+    }
+}
+</script>
