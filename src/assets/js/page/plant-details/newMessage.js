@@ -11,7 +11,7 @@ export default {
             type: 'text',
             component: null,
             isNull: false,
-            label: '分类名称',
+            label: 'Rfid',
             placeholder: '必填',
             rule: [{required: true, trigger: 'blur'}]
         },

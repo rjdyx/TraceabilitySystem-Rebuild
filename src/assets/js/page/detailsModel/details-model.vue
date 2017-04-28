@@ -1,106 +1,119 @@
 /**
  * 
- * ËØ¶ÊÉÖÈ°µÊ®°ÂùóÁªÑ‰ª∂
- * @author Âê¥ÁáïËêç
+ * œÍ«È“≥ƒ£øÈ◊Èº˛
+ * @author Œ‚—‡∆º
  * @date 2017/04/18
  * 
  */
 <template>
 <div>   
-  <!-- Ê†áÈ¢ò -->
+  <!-- ±ÍÃ‚ -->
     <contain-title :settitle="tab">
     </contain-title>
 
-  <!-- ‰ø°ÊÅØÂàóË°® -->
+  <!-- –≈œ¢¡–±Ì -->
     <el-row :gutter="20">
          <el-col :span="6" v-for="(item,i) in theads" class="text-small">{{item}}:{{headData[protos[i]]}}</el-col>
     </el-row>
-  	
-  <!-- tabÊ†è --> 
+    
+  <!-- tab¿∏ --> 
     <el-tabs v-model="activeName" type="card" id="tabs" @tab-click="tabClick">
         <el-tab-pane :label='tabItem.tab' :name='tabItem.tab' v-for="
         tabItem in tabList">
         </el-tab-pane>
     </el-tabs> 
- 
-            <!-- Êìç‰ΩúÊ®°Âùó -->
-		<div id="operate">              
-	        <div id="inputs">
-	        <!-- Â∑¶ËæπÁöÑÊìç‰ΩúÊåâÈíÆ -->
-	            <operate :listComponent="tabItem.listComponent" @selectVal="selectFind" @dateVal="dateFind"></operate>
-	            <!-- ÊêúÁ¥¢Ê°Ü -->
-	            <div class="searchOp">
-	                <el-input
-	                    :placeholder="tabItem.searchPlaceholder"
-	                    v-model="inputValue"
-	                    :on-icon-click="search" class="searchInp" size="small">
-	                </el-input>
-	                <el-button size="small" class="searchBtn" @click="textAndDateFind">ÊêúÁ¥¢</el-button>
-	            </div>
-	            <!-- Âè≥ËæπÁöÑÊìç‰ΩúÊåâÈíÆ -->
-	            <!-- Êìç‰ΩúÊåâÈíÆ -->
-	            <component
-	                v-for="operateItem in tabItem.typeComponent"
-	                :is="operateItem.component"
-	                class="fr"
-	            ></component>
-	        </div>
-		</div>
+
+            <!-- ≤Ÿ◊˜ƒ£øÈ -->
+        <div id="operate">              
+            <div id="inputs">
+            <!-- ◊Û±ﬂµƒ≤Ÿ◊˜∞¥≈• -->
+                <operate :listComponent="tabItem.listComponent" @selectVal="selectFind" @dateVal="dateFind"></operate>
+                <!-- À—À˜øÚ -->
+                <div class="searchOp">
+                    <el-input
+                        :placeholder="tabItem.searchPlaceholder"
+                        v-model="inputValue"
+                        :on-icon-click="search" class="searchInp" size="small">
+                    </el-input>
+                    <el-button size="small" class="searchBtn" @click="textAndDateFind">À—À˜</el-button>
+                </div>
+
+                <!-- ”“±ﬂµƒ≤Ÿ◊˜∞¥≈• -->
+                <!-- ≤Ÿ◊˜∞¥≈• -->
+                <component
+                    v-for="operateItem in tabItem.typeComponent"
+                    :is="operateItem.component"
+                    class="fr"
+                ></component>
+            </div>
+        </div>
     
-        <!-- Êñ∞Âª∫Ê®°Âùó --> 
-        <popNew v-if="isNewShow" :newComponent="tabItem.newComponent" :url="tabList.url"></popNew>
-    <!-- ÂàóË°®Ê®°Âùó -->
+        <!-- –¬Ω®ƒ£øÈ --> 
+        <popNew v-if="isNewShow" :newComponent="tabItem.newComponent" :url="apiUrlArr[tabList[0].url]" @submitNew="changeNew"></popNew>
+        <!-- ±‡º≠ƒ£øÈ -->
+        <popEdit v-if="isEditShow" :editComponent="tabItem.editComponent" :url="apiUrlArr[tabList[0].url]" :editForm="editForm"
+                 @submitEdit="hangeEdit" :changeDataArr="changeDataArr" :editDefault="editDefault"></popEdit>
+    <!-- ¡–±Ìƒ£øÈ -->
     <el-table :data="tableData"  @selection-change="handleSelectionChange">
         <!-- checkbox -->
         <el-table-column width="50" type="selection">
         </el-table-column> 
-        <!-- Â∫èÂè∑ --> 
-        <el-table-column width="80" label="Â∫èÂè∑" type="index" id="test_id">
+        <!-- –Ú∫≈ --> 
+        <el-table-column width="80" label="–Ú∫≈" type="index" id="test_id">
         </el-table-column>
 
-		        <!-- ‰∏≠Èó¥ÂàóË°®Ê®°Âùó -->
-		        <template v-for="(item,index) in tabItem.headList"> 
-		          <template>
-		            <el-table-column 
-		              :prop="tabItem.protos[index]"
-		              :label="item"
-		              :min-width="tabItem.widths[index]"
-		              show-overflow-tooltip>
+                <!-- ÷–º‰¡–±Ìƒ£øÈ -->
+                <template v-for="(item,index) in tabItem.headList"> 
+                  <template>
+                    <el-table-column 
+                      :prop="tabItem.protos[index]"
+                      :label="item"
+                      :min-width="tabItem.widths[index]"
+                      show-overflow-tooltip>
                       <template  scope="scope">
-                            <div v-if="tabItem.protos[index]=='thumb'" slot="reference">
+                            <div v-if="item.includes('≤˙∆∑√˚≥∆')" slot="reference" class="name-wrapper pcActive" @click="jumpDetails(scope.row)">
+                                {{ tableData[scope.$index][tabItem.protos[index]] }}
+                            </div>
+                            <div v-else-if="tabItem.protos[index]=='thumb'" slot="reference">
                                 <img v-if="tableData[scope.$index][tabItem.protos[index]]!=null && 
                                     tableData[scope.$index][tabItem.protos[index]]!=''" 
                                     :src="tableData[scope.$index][tabItem.protos[index]]" 
                                     width="30" height="20" @mouseenter="enterPic" @mouseleave="">
                             </div>
-                            <div v-else slot="reference">
+                            <div v-else slot="reference" >
                                 {{ tableData[scope.$index][tabItem.protos[index]] }}
                             </div>
-                      </template>
-		            </el-table-column>
-		          </template>
-		        </template>
+                    </template>
+                    </el-table-column>
+                  </template>
+                </template>
 
-		        <!-- ÂàóË°®Êìç‰ΩúÊ®°Âùó -->
+                <!-- ¡–±Ì≤Ÿ◊˜ƒ£øÈ -->
                 <el-table-column 
-                label="Êìç‰Ωú" v-if="checkOperate==null">
+                label="≤Ÿ◊˜" v-if="checkOperate==null">
                     <template scope="scope" class="operateBtn">
                         <template>
-                            <el-button type="text" size="small" @click="changeEditShow(scope.$index,scope.row)" v-if="!hiddeEdit">ÁºñËæë</el-button>
-                            <el-button type="text" size="small" v-if="hiddeEdit">Êü•Áúã</el-button>
-                            <el-button size="small" type="text" @click="handelDel(scope.$index,scope.row)" class="btn">Âà†Èô§</el-button>  
+                            <el-button type="text" size="small" @click="changeEditShow(scope.$index,scope.row)" v-if="tabList[0].hiddeEdit">±‡º≠</el-button>
+                            <el-button type="text" size="small" v-if="hiddeWatch">≤Èø¥</el-button>
+                            <el-button size="small" type="text" @click="handelDel(scope.$index,scope.row)" class="btn">…æ≥˝</el-button>  
                         </template>
                     </template>
                 </el-table-column>
-		    </el-table>
+            </el-table>
     <div class="footer">
         <div class="operate-foot">
-            <el-button v-for="bottomOperateItem in tabItem.bottomOperateList">{{bottomOperateItem.operateName}}</el-button>
+            <div class="operate-foot">
+                <el-button @click="delAll" v-if="checkOperate==null">…æ≥˝</el-button>
+                <template v-if="lotComponent!=null">
+                    <lotOpearte :lotComponent="lotComponent"></lotOpearte>
+                </template>
+                <el-button>µº≥ˆ±Ì∏Ò</el-button>
+            </div>
         </div>
 
-        <p class="record">ÂÖ±Êúâ{{num}}È°µÔºå{{total_num}}Êù°ËÆ∞ÂΩï</p>
+        <p class="record">π≤”–{{num}}“≥£¨{{total_num}}Ãıº«¬º</p>
 
-        <!-- ÂàÜÈ°µÊ®°Âùó -->
+        <!-- ∑÷“≥ƒ£øÈ -->
             <el-pagination
               v-if="paginator!=0"
               layout="prev, pager, next"
@@ -116,7 +129,7 @@
 import computed from './computed.js'
 import popNew from '../../components/public/popNew.vue'
 import ContainTitle from 'components/layout/contain-title.vue'
-import edit from '../../components/public/edit.vue'
+import popEdit from '../../components/public/popEdit.vue'
 import operate from '../../components/public/operate.vue'
 import clickMore from '../../components/public/clickMore.vue'
 import lotOpearte from '../../components/public/lotOpearte.vue'
@@ -132,6 +145,7 @@ export default {
                     tab: '',
                     url: '',
                     theads: [],
+                    changeDataArr: [],
                     protos: [],
                     tabList: []
                 }
@@ -141,34 +155,54 @@ export default {
     data () {
         return {
             activeName: '',
-            // Ëé∑ÂèñÂÄüÂè£ÁöÑÊï∞ÊçÆ
+            // ªÒ»°ΩËø⁄µƒ ˝æ›
             apiUrlArr: [],
-            // Â§¥ÈÉ®ÂàóË°®Êï∞ÊçÆ
+            // Õ∑≤ø¡–±Ì ˝æ›
             headData: {},
             isNewShow: false,
             isEditShow: false,
             tabItem: {},
-            // ÂàóË°®Êï∞ÊçÆ
+            // ¡–±Ì ˝æ›
             tableData: [],
             paginator: {},
             inputValue: '',
-            dataArr: {}
+            dataArr: {},
+            editForm: {},
+            editDefault: {},
+            // ∏¥—°øÚ—°÷–∑µªÿ∂‘œÛ
+            checkObject: {},
+            index: 0
         }
     },
     mixins: [computed],
     methods: {
-        // tabÁÇπÂáª‰∫ã‰ª∂
+        // tabµ„ª˜ ¬º˛
         tabClick (tab, event) {
-            var index = tab.$data.index
-            this.tabItem = this.tabList[index]
+            this.index = tab.$data.index
+            this.tabItem = this.tabList[this.index]
         },
-        // ÊòæÁ§∫Êñ∞Âª∫Ë°®Âçï
+        jumpDetails (row, cid) {
+            var id = row.id
+            this.$router.push('/index/details/' + this.batch + '/' + id)
+        },
+        // œ‘ æ–¬Ω®±Ìµ•
         changeNewShow () {
             this.isNewShow = !this.isNewShow
             if (this.tabItem.newComponent[0].checkNumber !== undefined) {
                 for (let index in this.tabItem.newComponent[0].checkNumber) {
                     this.tabItem.newComponent[0].components[this.tabItem.newComponent[0].checkNumber[index]].rule[1].url = this.tabItem.url
                 }
+            }
+            // ªÒ»°–¬Ω®±Ì∏Ò ˝æ›
+            if (this.tabItem.newComponent[0].type === 'table') {
+                var getSelect = {'getSelect': '444'}
+                var curl = {'curl': this.tabItem.url}
+                var routeId = {'routeId': this.tabItem.newComponent[0].labUrl}
+                var opqcurl = {'opqcurl': this.apiUrlArr[this.url]}
+                this.$dataGet(this, this.tabItem.newComponent[0].labUrl, {getSelect, curl, routeId, opqcurl})
+                    .then((responce) => {
+                        this.$set(this.tabItem.newComponent[0].components[0], 'tableVal', responce.data)
+                    })
             }
             if (this.tabItem.newComponent[0].selectUrl) {
                 for (let key in this.tabItem.newComponent[0].selectUrl) {
@@ -181,7 +215,7 @@ export default {
                         })
                 }
             }
-            // Êó†ÂàÜÁ±ªÁöÑ‰∏ãÊãâÊ°ÜÊ®°ÂùóÊü•ËØ¢
+            // Œﬁ∑÷¿‡µƒœ¬¿≠øÚƒ£øÈ≤È—Ø
             if (this.tabItem.newComponent[0].selectUrl2) {
                 for (let key in this.tabItem.newComponent[0].selectUrl2) {
                     let newArr = this.$addAndEditSelectMethod(this.tabItem.newComponent[0].selectUrl2[key])
@@ -194,72 +228,75 @@ export default {
                 }
             }
         },
-        // ÊòæÁ§∫ÁºñËæëË°®Âçï
+        // œ‘ æ±‡º≠±Ìµ•
         changeEditShow (index, row) {
             this.isEditShow = true
             if (row !== undefined) {
-                if (this.editComponent[0].checkNumber !== undefined) {
-                    for (let index in this.newComponent[0].checkNumber) {
-                        this.editComponent[0].components[this.editComponent[0].checkNumber[index]].rule[1]['id'] = row.id
-                        this.editComponent[0].components[this.editComponent[0].checkNumber[index]].rule[1]['url'] = this.url
+                if (this.tabItem.editComponent[0].checkNumber !== undefined) {
+                    for (let index in this.tabItem.editComponent[0].checkNumber) {
+                        this.tabItem.editComponent[0].components[this.tabItem.editComponent[0].checkNumber[index]].rule[1]['id'] = row.id
+                        this.tabItem.editComponent[0].components[this.tabItem.editComponent[0].checkNumber[index]].rule[1]['url'] = this.tabItem.url
                     }
                 }
-                if (this.editComponent[0].selectUrl) {
-                    for (let key in this.editComponent[0].selectUrl) {
-                        let editArr = this.$addAndEditSelectMethod(this.editComponent[0].selectUrl[key])
+                if (this.tabItem.editComponent[0].selectUrl) {
+                    for (let key in this.tabItem.editComponent[0].selectUrl) {
+                        let editArr = this.$addAndEditSelectMethod(this.tabItem.editComponent[0].selectUrl[key])
                         this.$dataGet(this, editArr.selectUrl + '/changeSelect', {'selectData': editArr.selectData})
                             .then((responce) => {
                                 if (responce.data.length !== 0) {
-                                    this.editComponent[0].components[this.editComponent[0].popNumber[key]].options = this.$selectData(this.url, responce.data, editArr.selectArr)
+                                    this.tabItem.editComponent[0].components[this.tabItem.editComponent[0].popNumber[key]].options = this.$selectData(this.tabItem.url, responce.data, editArr.selectArr)
                                 }
                             })
                     }
                 }
-                // Êó†ÂàÜÁ±ªÁöÑ‰∏ãÊãâÊ°ÜÊ®°ÂùóÊü•ËØ¢
-                if (this.editComponent[0].selectUrl2) {
-                    for (let key in this.editComponent[0].selectUrl2) {
-                        let editArr = this.$addAndEditSelectMethod(this.editComponent[0].selectUrl2[key])
+                // Œﬁ∑÷¿‡µƒœ¬¿≠øÚƒ£øÈ≤È—Ø
+                if (this.tabItem.editComponent[0].selectUrl2) {
+                    for (let key in this.tabItem.editComponent[0].selectUrl2) {
+                        let editArr = this.$addAndEditSelectMethod(this.tabItem.editComponent[0].selectUrl2[key])
                         this.$dataGet(this, '/util/selects', {table: editArr.selectUrl})
                             .then((responce) => {
                                 if (responce.data.length !== 0) {
-                                    this.editComponent[0].components[this.editComponent[0].popNumber2[key]].options = this.$selectData(this.url, responce.data, editArr.selectArr)
+                                    this.tabItem.editComponent[0].components[this.tabItem.editComponent[0].popNumber2[key]].options = this.$selectData(this.tabItem.url, responce.data, editArr.selectArr)
                                 }
                             })
                     }
                 }
                 this.editForm = row
-                // ÈáçÊñ∞ËµãÂÄºËé∑ÂèñÂàùÂßãÂÄº
+                // ÷ÿ–¬∏≥÷µªÒ»°≥ı º÷µ
                 for (let key of Object.keys(row)) {
                     this.editDefault[key] = row[key]
                 }
             }
         },
-        // ÂàóË°®ÂÖ®ÈÄâ
-        handleSelectionChange () {
+        // πÿ±’±‡º≠µØ¥∞
+        closeEditShow (val) {
+            this.isEditShow = false
         },
-        // Ëé∑ÂèñApiÊé•Âè£Êï∞ÊçÆ
-        getApiUrl (data = '') {
+        // ¡–±Ì»´—°
+        handleSelectionChange (val) {
+            this.checkObject = val
+        },
+        // ªÒ»°ApiΩ”ø⁄ ˝æ›
+        getApiUrl () {
             this.apiUrlArr[this.url] = this.url + '/' + this.$route.params.id
             for (var i in this.tabList) {
                 this.apiUrlArr[this.tabList[i].url] = this.$route.params.id + '/' + this.tabList[i].url
             }
         },
-        // Ëé∑ÂèñÂ§¥ÈÉ®ËØ¶ÁªÜ‰ø°ÊÅØ
+        // ªÒ»°Õ∑≤øœÍœ∏–≈œ¢
         getDetailSerial () {
-            // Â§¥ÈÉ®ÂàóË°®‰ø°ÊÅØ
-            this.$dataGet(this, this.apiUrlArr[this.url], {})
+            // Õ∑≤ø¡–±Ì–≈œ¢
+            var url = this.apiUrlArr[this.url]
+            this.$dataGet(this, url, {})
                 .then((responce) => {
-                    // this.$set(this, 'headData', responce.data)
-                    var ret = this.$conversion(this.changeDataArr, responce.data, 1)
+                    var ret = this.$conversion(this.changeDataArr, responce.data, 0)
                     ret = this.$eltable(ret)
                     this.$set(this, 'headData', ret)
-                    console.log(this.headData)
                 })
         },
-        // Ëé∑ÂèñÂàóË°®‰ø°ÊÅØ
+        // ªÒ»°¡–±Ì–≈œ¢
         getAllMsg (data = '') {
-            // Â≠óÁ¨¶ÂàÜÂâ≤
-            this.$dataGet(this, this.apiUrlArr[this.tabList[0].url], {})
+            this.$dataGet(this, this.apiUrlArr[this.tabList[this.index].url], {params: data})
                 .then((responce) => {
                     if (responce.data.data.length !== 0) {
                         var ret = this.$conversion(this.changeDataArr, responce.data.data, 1)
@@ -268,6 +305,9 @@ export default {
                         this.total_num = responce.data.total
                         this.num = responce.data.last_page
                         this.paginator = responce.data
+                        if (this.dataArr === '') {
+                            this.dataArr = {}
+                        }
                     } else {
                         this.$set(this, 'tableData', responce.data.data)
                         this.total_num = 0
@@ -279,12 +319,12 @@ export default {
                     }
                 })
         },
-        // ÊñáÊú¨‰∏éÊó∂Èó¥ÊåâÈíÆÊü•ËØ¢
+        // Œƒ±æ”Î ±º‰∞¥≈•≤È—Ø
         textAndDateFind () {
             this.dataArr['query_text'] = this.inputValue
             this.boxArr(this.dataArr)
         },
-        // ‰∏ãÊãâÊ°ÜÊü•ËØ¢
+        // œ¬¿≠øÚ≤È—Ø
         selectFind (val) {
             for (let index in this.selectSearch) {
                 if (val[0] === this.selectSearch[index]) {
@@ -294,23 +334,23 @@ export default {
             this.dataArr[val[0]] = val[1]
             this.boxArr(this.dataArr)
         },
-        // Êó•ÊúüÂ≠òÂÇ®
+        // »’∆⁄¥Ê¥¢
         dateFind (val) {
             this.dataArr[val[0]] = val[1]
         },
-        // ÂàÜÈ°µË∑≥ËΩ¨
+        // ∑÷“≥Ã¯◊™
         pageChange (val) {
             this.dataArr['page'] = val
             this.boxArr(this.dataArr)
         },
-        // ÁªÑÂêàÊü•ËØ¢
+        // ◊È∫œ≤È—Ø
         boxArr (dataArr) {
             this.getAllMsg(dataArr)
         },
         enterPic () {
             // this.$alert('<img src>')
-            // this.$alert('ËøôÊòØ‰∏ÄÊÆµÂÜÖÂÆπ', 'Ê†áÈ¢òÂêçÁß∞', {
-            //     confirmButtonText: 'Á°ÆÂÆö',
+            // this.$alert('’‚ «“ª∂Œƒ⁄»›', '±ÍÃ‚√˚≥∆', {
+            //     confirmButtonText: '»∑∂®',
             //     callback: action => {
             //         this.$message({
             //             type: 'info',
@@ -318,10 +358,139 @@ export default {
             //         })
             //     }
             // }
+        },
+        // ªÒ»°œ¬¿≠øÚ ˝æ›
+        getSelect () {
+            if (this.paramsIndex !== undefined) {
+                var type = this.paramsIndex
+            }
+            this.selectArrSet = []
+            var getSelect = {'getSelect': '444'}
+            this.$dataGet(this, this.url, {getSelect: getSelect, type: type})
+                .then((responce) => {
+                    //  ˝æ›◊™ªª
+                    if (responce.data.length !== 0) {
+                        for (let index in this.selectValueId) {
+                            this.selectArrSet[index] = []
+                            let opt = this.$selectData(this.url, responce.data, this.selectValueId[index])
+                            this.selectArrSet[index].push(this.selectDefault[index])
+                            for (let key of Object.keys(opt)) {
+                                this.selectArrSet[index].push(opt[key])
+                            }
+                            this.listComponent[0].components[index].options = this.selectArrSet[index]
+                        }
+                    } else {
+                        for (let index in this.selectValueId) {
+                            this.selectArrSet[index] = []
+                            this.selectArrSet[index].push(this.selectDefault[index])
+                            this.listComponent[0].components[index].options = this.selectArrSet[index]
+                        }
+                    }
+                })
+        },
+        // –¬Ω® ˝æ›
+        changeNew (val) {
+            if (val !== 'false') {
+                this.isNewShow = false
+                if (JSON.stringify(this.dataArr) === '{}') {
+                    this.dataArr = ''
+                }
+                this.boxArr(this.dataArr)
+                this.getDetailSerial()
+                // this.getSelect()
+                this.$message({
+                    type: 'success',
+                    message: '–¬‘ˆ ˝æ›≥…π¶'
+                })
+            } else {
+                this.$message.error('–¬‘ˆ ˝æ› ß∞‹')
+            }
+        },
+        // µ„ª˜…æ≥˝
+        handelDel (index, row) {
+            this.$confirm('ƒ„»∑∂®“™…æ≥˝∏√–≈œ¢¬?', '–≈œ¢', {
+                cancelButtonText: '»°œ˚',
+                confirmButtonText: '»∑∂®',
+                type: 'error'
+            }).then(() => {
+                axios.delete(this.$adminUrl(this.apiUrlArr[this.tabList[0].url] + '/' + row.id))
+                    .then((responce) => {
+                        // this.getSelect()
+                        if (JSON.stringify(this.dataArr) === '{}') {
+                            this.dataArr = ''
+                        }
+                        this.getDetailSerial()
+                        this.boxArr(this.dataArr)
+                        this.$message({
+                            type: 'success',
+                            message: '…æ≥˝≥…π¶'
+                        })
+                    })
+            }).catch(() => {
+                this.$message({
+                    type: 'info',
+                    message: '“—»°œ˚…æ≥˝'
+                })
+            })
+        },
+        // ±‡º≠–ﬁ∏ƒ ˝æ›
+        hangeEdit (val) {
+            if (val !== 'false') {
+                this.isEditShow = false
+                if (JSON.stringify(this.dataArr) === '{}') {
+                    this.dataArr = ''
+                }
+                this.getDetailSerial()
+                this.boxArr(this.dataArr)
+                this.$message({
+                    type: 'success',
+                    message: '±‡º≠ ˝æ›≥…π¶'
+                })
+            } else {
+                this.$message.error('±‡º≠ ˝æ› ß∞‹')
+            }
+        },
+        // ≈˙¡ø…æ≥˝
+        delAll () {
+            if (this.checkObject.length !== undefined && this.checkObject.length !== 0) {
+                this.$confirm('ƒ„»∑∂®“™…æ≥˝—°÷––≈œ¢?', '–≈œ¢', {
+                    cancelButtonText: '»°œ˚',
+                    confirmButtonText: '»∑∂®',
+                    type: 'error'
+                }).then(() => {
+                    var delArr = []
+                    for (let key in this.checkObject) {
+                        delArr.push(this.checkObject[key].id)
+                    }
+                    var paramsDel = {'ids': delArr, 'other': this.apiUrlArr[this.url]}
+                    axios.post(this.$adminUrl('util/batch-delete/' + this.tabItem.url), paramsDel)
+                    .then((responce) => {
+                        if (responce.data === 'true') {
+                            // this.getSelect()
+                            if (JSON.stringify(this.dataArr) === '{}') {
+                                this.dataArr = ''
+                            }
+                            this.getDetailSerial()
+                            this.boxArr(this.dataArr)
+                            this.$message({
+                                type: 'success',
+                                message: '≈˙¡ø…æ≥˝≥…π¶'
+                            })
+                        } else {
+                            this.$message.error('≈˙¡ø…æ≥˝ ß∞‹')
+                        }
+                    })
+                }).catch(() => {
+                    this.$message({
+                        type: 'info',
+                        message: '“—»°œ˚…æ≥˝'
+                    })
+                })
+            }
         }
     },
     mounted () {
-        console.log('------------')
+        console.log('------')
         console.log(this.models)
         this.tabItem = this.tabList[0]
         this.activeName = this.tabList[0].tab
@@ -330,11 +499,26 @@ export default {
         this.getAllMsg()
     },
     watch: {
+        tabItem () {
+            this.tableData = []
+            if (this.selectValueId !== undefined) {
+                this.getSelect()
+            }
+            this.getAllMsg()
+            this.inputValue = ''
+        },
+        tab () {
+            this.tabItem = this.tabList[0]
+            this.activeName = this.tabList[0].tab
+            this.getApiUrl()
+            this.getDetailSerial()
+            this.getAllMsg()
+        }
     },
     components: {
         ContainTitle,
         popNew,
-        edit,
+        popEdit,
         operate,
         clickMore,
         lotOpearte
@@ -342,6 +526,11 @@ export default {
 }
 </script>
 <style lang='sass'> 
+  .pcActive{
+        color: blue;
+        text-decoration: underline;
+        cursor:pointer;
+    }
   .el-row {
     padding:0px 0px 20px 10px;
     border-bottom: 2px solid #e5e5e5;
@@ -350,10 +539,10 @@ export default {
     }
   }
   .el-col {
-  	padding: 10px 0px 0px 0px;
+    padding: 10px 0px 0px 0px;
   }
   .el-tabs{
-  	padding-top: 15px;
+    padding-top: 15px;
   }
    .operateBtns {
                 display: inline-block;
@@ -361,10 +550,10 @@ export default {
                 margin-right:10px;
             }
    .fr{
-     	float:right;
+        float:right;
      }
       .fl{
-     	float:left;
+        float:left;
      }
      .btn span{
         border-left: 1px solid #a7bad6;
@@ -374,19 +563,19 @@ export default {
         border-left: 0px solid #a7bad6;
     }
 .text-small{
-	font-size:13px;
+    font-size:13px;
 }
 .searchInp{
-	 	width:161px;
-	 	margin-bottom:10px;
-	 	font-size:12px;
-	 	margin-right:10px;
-	 }
+        width:161px;
+        margin-bottom:10px;
+        font-size:12px;
+        margin-right:10px;
+     }
 .searchBtn{
-     	width:62px;
+        width:62px;
      }
 .searchOp{
-     	display:inline;
+        display:inline;
      }
  .footer{
       width: 100%;
