@@ -4693,6 +4693,7 @@ export default {
         key: 'plan',
         tab: '养殖计划信息',
         url: 'plan',
+        paramsIndex: 'beast',
          // 链接批次信息模块数据的桥（养殖批次详情）
         batch: 'planBatch',
         searchPlaceholder: '请输入检测项目名称进行',
@@ -4779,6 +4780,7 @@ export default {
         key: 'pack',
         tab: '加工批次信息',
         url: 'pack',
+        batch: 'beastPackBatch',
         paramsIndex: 'beast',
         searchPlaceholder: '请输入批次号进行搜索',
         theads: ['加工批次号', '加工日期', '数量', '产地', '操作人', '备注信息'],
@@ -4900,6 +4902,7 @@ export default {
         key: 'detect_pk',
         tab: '检验检测信息',
         url: 'detect_pk',
+        batch: 'beastDetectPkBatch',
         searchPlaceholder: '请输入检测项目名称进行',
         paramsIndex: 'beast',
         changeDataArr: [{result: {0: '不合格', 1: '合格'}}],
@@ -7886,7 +7889,7 @@ export default {
     // 果蔬-加工
     vegetableSerial: [{
         settitle: '加工批次管理',
-        key: 'pack',
+        key: 'plant-pack',
         tab: '加工批次信息',
         url: 'pack',
         batch: 'plantPackBatch',

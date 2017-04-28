@@ -16,9 +16,9 @@
 					<!-- <li><router-link :to="{name:'video',query:{id:123}}"></router-link></li> -->
 					<!-- <li><router-link :to="{path:'/run/plant/video', name:'video'}"></router-link></li> -->
 					<!-- 基础信息 -->
-					<li><router-link :to="'/run/plant/basicInfor/'+id"></router-link></li>
+					<li><router-link :to="'/run/plant/basicInfor/'+plantation_id"></router-link></li>
 					<!-- 购物链接 -->
-					<li><router-link :to="'/run/plant/shop/'+id"></router-link></li>
+					<li><router-link :to="'/run/plant/shop/'+video"></router-link></li>
 				</ul>
 			</div>
 
@@ -26,30 +26,30 @@
 
 			<div class="plant_text">
 				<dl>
-					<dt>苹果撒的嘎嘎嘎嘎的骨灰盒个地方</dt>
+					<dt>{{product_name}}</dt>
 					<dd style="
   overflow : hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
   -webkit-line-clamp: 7;
   -webkit-box-orient: vertical;
-">这个是基本的，这里包括两个class名，第一个是基本的，必须添加的样式名，任何这基本的，这里包括两个class名，第一个是基本的，必须添加的样式名，基本的，这里包括两个class名，第一个是基本的，必须添加的样式名，里包括两个class名，第一个是基本的，必须添加的样式名，任何必须添加的样式名，任何括两个class名，第一个是基本的，必须添加的样式名，任何这基本的，这里包括两个class名，第一个是基本的，必须添加的样式名，基本的，这里包括两个class名，第一个是基本的，必须添加的样式名，</dd>
+">{{product_desc}}</dd>
 				</dl>
 			</div>
-			<div class="plant_product"><img src="./images/apple.jpg" alt=""></div>
+			<div class="plant_product"><img src="img" alt=""></div>
 			<ul class="plantBottomList">
 			    <!-- 生长图片 -->
-				<li><router-link :to="'/run/plant/growImg/'+id"></router-link></li>
+				<li><router-link :to="'/run/plant/growImg/'+cultivate_id"></router-link></li>
 				<!-- 农药信息 -->
-				<li><router-link :to="'/run/plant/pesticideInfor/'+id"></router-link></li>
+				<li><router-link :to="'/run/plant/spray/'+cultivate_id"></router-link></li>
 				<!-- 农事信息 -->
-				<li><router-link :to="'/run/plant/farmWorkInfor/'+id"></router-link></li>
+				<li><router-link :to="'/run/plant/farming/'+cultivate_id"></router-link></li>
 				<!-- 肥料信息 -->
-				<li><router-link :to="'/run/plant/fertilizerInfor/'+id"></router-link></li>
+				<li><router-link :to="'/run/plant/fertilize/'+cultivate_id"></router-link></li>
 				<!-- 检测信息 -->
-				<li><router-link :to="'/run/plant/detectionInfor/'+id"></router-link></li>
+				<li><router-link :to="'/run/plant/detect/'+cultivate_id"></router-link></li>
 				<!-- 商品信息 -->
-				<li><router-link :to="'/run/plant/commodityInfor/'+id"></router-link></li>
+				<li><router-link :to="'/run/plant/commodityInfor/'+code_id"></router-link></li>
 			</ul>
 		</div>
 	</div>
@@ -63,11 +63,37 @@ export default{
         Object.assign(modelObj, plantMessage)
         return {
             models: modelObj[this.$route.meta.key],
-            id: 555
+            cultivate_id: '',
+            plantation_id: '',
+            code_id: '',
+            product_name: '',
+            product_id: '',
+            product_desc: '',
+            img: '',
+            video: ''
         }
     },
     mounted () {
-        // console.log(this.models['basicInfor'])
+        // 获取溯源码
+        var code = this.$route.params.code
+        // 查询首页产品数据
+        var params = {code: code}
+        axios.get('run/plant/index', {params: params})
+            .then((responce) => {
+                if (responce.data !== 'false') {
+                    this.code_id = responce.data.id
+                    this.cultivate_id = responce.data.cultivate_id
+                    this.plantation_id = responce.data.plantation_id
+                    this.product_name = responce.data.name
+                    this.product_id = responce.data.product_id
+                    this.product_desc = responce.data.description
+                    this.img = responce.data.thumb
+                    this.video = responce.data.video
+                } else {
+                    alert('溯源码无效！')
+                    this.$router.push('/')
+                }
+            })
     },
     methods: {
     }

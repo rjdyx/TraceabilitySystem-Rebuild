@@ -75,7 +75,7 @@ export default {
         },
         {
             path: '/video/:id',
-            meta: {key: 'video'},
+            meta: {key: 'video', runName: 'plant'},
             component: video,
             alias: '/run/plant/video/:id'
         },
@@ -99,51 +99,51 @@ export default {
         },
         {
             path: '/pesticideInfor/:id',
-            meta: {key: 'pesticideInfor', runName: 'plant'},
+            meta: {key: 'spray', runName: 'plant'},
             component: bM1,
-            alias: '/run/plant/pesticideInfor/:id'
+            alias: '/run/plant/spray/:id'
         },
         {
             path: '/pesticideDetails/:id',
             component: bM2,
-            meta: {key: 'pesticideInfor', runName: 'plant'},
-            alias: '/run/plant/pesticideInfor/datails/:id'
+            meta: {key: 'spray', runName: 'plant'},
+            alias: '/run/plant/spray/datails/:id'
         },
         {
             path: '/farmWorkInfor/:id',
-            meta: {key: 'farmWorkInfor', runName: 'plant'},
+            meta: {key: 'farming', runName: 'plant'},
             component: bM1,
-            alias: '/run/plant/farmWorkInfor/:id'
+            alias: '/run/plant/farming/:id'
         },
         {
             path: '/farmWorkDetails/:id',
-            meta: {key: 'farmWorkInfor', runName: 'plant'},
+            meta: {key: 'farming', runName: 'plant'},
             component: bM2,
-            alias: '/run/plant/farmWorkInfor/datails/:id'
+            alias: '/run/plant/farming/datails/:id'
         },
         {
             path: '/fertilizerInfor/:id',
-            meta: {key: 'fertilizerInfor', runName: 'plant'},
+            meta: {key: 'fertilize', runName: 'plant'},
             component: bM1,
-            alias: '/run/plant/fertilizerInfor/:id'
+            alias: '/run/plant/fertilize/:id'
         },
         {
             path: '/fertilizerDetails/:id',
-            meta: {key: 'fertilizerInfor', runName: 'plant'},
+            meta: {key: 'fertilize', runName: 'plant'},
             component: bM2,
-            alias: '/run/plant/fertilizerInfor/datails/:id'
+            alias: '/run/plant/fertilize/datails/:id'
         },
         {
             path: '/detectionInfor/:id',
-            meta: {key: 'detectionInfor', runName: 'plant'},
+            meta: {key: 'detect', runName: 'plant'},
             component: bM1,
-            alias: '/run/plant/detectionInfor/:id'
+            alias: '/run/plant/detect/:id'
         },
         {
             path: '/detectionDetails/:id',
-            meta: {key: 'detectionInfor', runName: 'plant'},
+            meta: {key: 'detect', runName: 'plant'},
             component: bM2,
-            alias: '/run/plant/detectionInfor/datails/:id'
+            alias: '/run/plant/detect/datails/:id'
         },
         {
             path: '/commodityInfor/:id',
@@ -238,9 +238,9 @@ export default {
         },
         {
             path: '/detectDatails/:id',
-            meta: {key: 'detect', runName: 'breed'},
+            meta: {key: 'bDetect', runName: 'breed'},
             component: bM2,
-            alias: '/run/breed/detect/datails/:id'
+            alias: '/run/breed/bDetect/datails/:id'
         }
     ]
 }

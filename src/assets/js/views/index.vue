@@ -23,7 +23,7 @@ export default {
                 {
                     name: 'test',
                     src: '/public/images/test.png',
-                    path: 'test'
+                    path: '/index/test'
                 },
                 {
                     name: '帮助',
@@ -33,12 +33,12 @@ export default {
                 {
                     name: '设置',
                     src: '/public/images/set.png',
-                    path: 'set'
+                    path: '/index/set'
                 },
                 {
                     name: '问题反馈',
                     src: '/public/images/question.png',
-                    path: 'question'
+                    path: '/index/question'
                 }
             ],
             menus: menu,
@@ -52,8 +52,8 @@ export default {
 }
 </script>
 
-<style lang="sass" scoped>
-	// @import "../../sass/function";
+<style lang="sass">
+	@import "../../sass/theme/theme.scss";
 	// @import "../../sass/_percent.scss";
 	.wrap {
 		width: 100%;

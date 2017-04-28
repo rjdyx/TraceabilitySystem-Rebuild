@@ -18,6 +18,9 @@ export default {
         tabList () {
             return this.models.tabList
         },
+        batch () {
+            return this.models.batch
+        },
         changeDataArr () {
             return this.models.changeDataArr
         }

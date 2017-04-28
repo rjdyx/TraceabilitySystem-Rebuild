@@ -10,17 +10,17 @@
         <header1 title="生长图片" :isbreed="isbreed"></header1>
         <div class="hg_content">
             <ul :class="{breedBorder:isbreed}">
-                <li class="hg_content_li" v-for="i in 5">
+                <li class="hg_content_li" v-for="grow in grows">
                     <!-- 时间 -->
                     <div :class="[{ breedFontCol: isbreed }, {hg_content_li_top: true}]">
                         <img v-if="isbreed" src="./images/b_grow_icon.png" height="30" width="31" alt="">
                         <img v-else src="./images/grow_icon.png" height="30" width="31" alt="">
-                        <span>2017-04-11</span><span>种植松土</span>
+                        <span>{{grow.date}}</span><span>{{grow.name}}</span>
                     </div>
                     <!-- 图片 -->
                     <div class="hg_content_li_bottom">
-                        <img src="./images/img.png" height="322" width="670" alt="">
-                        <p :class="{breedCol:isbreed}">种植基地的土地基地的土地基地的土地基地的土地基地的土地基地的土地基地的土地基地的土地基地的土地基地的土地基地的土地基地的土地铲平</p>
+                        <img :src="grow.thumb" height="322" width="670" alt="">
+                        <h4 :class="{breedCol:isbreed}">{{grow.desc}}</h4>
                     </div>
                 </li>
             </ul>
@@ -107,13 +107,25 @@ export default {
     name: 'pGrow',
     data () {
         return {
-            isbreed: false
+            isbreed: false,
+            grows: {}
         }
     },
     mounted () {
         if (this.$route.meta.runName === 'breed') {
             this.isbreed = true
         }
+        var params = {cultivate_id: this.$route.params.id}
+        axios.post('run/plant/grow', params)
+            .then((responce) => {
+                if (responce.data !== 'false') {
+                    this.grows = responce.data
+                    console.log(responce.data)
+                } else {
+                    alert('溯源码无效！')
+                    this.$router.push('/')
+                }
+            })
     },
     components: {
         Header1

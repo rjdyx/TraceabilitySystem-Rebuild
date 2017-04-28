@@ -1,16 +1,26 @@
 <template>
-    <div id="app">
+    <div id="app" :class="[getTheme, getFont]">
         <router-view></router-view>
     </div>
 </template>
 
 <script>
 export default {
-    name: 'App'
+    name: 'App',
+    computed: {
+        getTheme () {
+            return this.$store.getters.getTheme
+        },
+        getFont () {
+            return this.$store.getters.getFont
+        }
+    }
 }
-</script>
+</script> 
 
-<style scoped>
+<style lang="sass">
+
+@import "../sass/theme/theme.scss";
 	#app {
 		height: 100%;
 	}

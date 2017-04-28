@@ -16,13 +16,13 @@
                     <tr>
                         <th v-for="item in models.tableTheads">{{item}}</th>
                     </tr>
-                    <tr v-for="item in models.tableTheads" @click="goListDetails">
-                        <td>送土壤</td>
-                        <td>李光耀</td>
-                        <td>2017-04-06</td>
+                    <tr v-for="list in lists" @click="goListDetails(list.id)">
+                        <td>{{list.serial}}</td>
+                        <td>{{list.operate_name}}</td>
+                        <td>{{list.date}}</td>
                         <td>
                             <!-- <img :src="item.img" alt=""> -->
-                            <img class="tdImg" src="./images/img.png" alt="">
+                            <img class="tdImg" src="list.thumb" alt="">
                         </td>
                     </tr>
                 </table>
@@ -93,23 +93,35 @@ export default {
         Object.assign(modelObj, plantMessage)
         return {
             models: modelObj[this.$route.meta.key],
-            title: '农事信息',
-            productName: '新疆苹果',
+            // title: '农事信息',
+            // productName: '新疆苹果',
             // 要传给pBM2的数据
             imgListName: '农事记录详情',
             id: 555,
-            isbreed: false
+            isbreed: false,
+            // imgListName: '农事记录详情',
+            lists: ''
         }
     },
     methods: {
-        goListDetails () {
-            this.$router.push('/run/' + this.$route.meta.runName + '/' + this.$route.meta.key + '/datails/' + this.id)
+        goListDetails (id) {
+            this.$router.push('/run/' + this.$route.meta.runName + '/' + this.$route.meta.key + '/datails/' + id)
         }
     },
     mounted () {
         if (this.$route.meta.runName === 'breed') {
             this.isbreed = true
         }
+        var params = {cultivate_id: this.$route.params.id}
+        axios.post('run/plant/' + this.$route.meta.key, params)
+            .then((responce) => {
+                if (responce.data !== 'false') {
+                    this.lists = responce.data
+                } else {
+                    alert('溯源码无效！')
+                    this.$router.push('/')
+                }
+            })
     },
     components: {
         Header1,

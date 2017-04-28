@@ -43,5 +43,7 @@ export default {
     @import "../../../sass/function";
 .content{
     	margin-top: 15px;
+        overflow:scroll;
+        height: 100%;
     }
 </style>

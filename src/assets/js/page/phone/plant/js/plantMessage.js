@@ -8,7 +8,7 @@ export default{
         title: '基础信息',
         tableName: '种植信息',
         tableTheads: ['种植场', '负责人', '地址', '面积', '联系方式', '种植区', '种植人', '种植日期', '采收日期', '采收人'],
-        tableProtos: [],
+        tableProtos: ['parent_name', 'director', 'address', 'area', 'phone', 'name', 'operate_name', 'date', 'harvest_date', 'harvest_operate'],
         tableName2: '实时监控'
     },
     // 购物链接
@@ -20,61 +20,61 @@ export default{
         title: '生长图片'
     },
     // 农药信息
-    pesticideInfor: {
+    spray: {
         title: '农药信息',
         tableName: '用药记录',
-        tableTheads: ['农药名称', '用量', '日期', '图片'],
+        tableTheads: ['批次号', '操作人', '日期', '图片'],
         tableProtos: [],
         details: {
             tableList: {
                 tableName: '用药记录详情',
-                tableTheads: ['农药名称', '施药日期', '平均施药', '施药方式', '天气', '施药人', '指导专家'],
-                tableProtos: []
+                tableTheads: ['批次号', '农药名称', '施药日期', '平均施药', '施药方式', '天气', '施药人', '指导专家'],
+                tableProtos: ['serial', 'medicament_name', 'date', 'amount', 'way', 'weather', 'operate_name', 'expert_name']
             },
             tableName2: '施药图片'
         }
     },
     // 农事信息
-    farmWorkInfor: {
+    farming: {
         title: '农事信息',
         tableName: '农事记录',
-        tableTheads: ['操作类型', '操作人', '日期', '图片'],
+        tableTheads: ['批次号', '操作人', '日期', '图片'],
         tableProtos: [],
         details: {
             tableList: {
                 tableName: '农事记录详情',
-                tableTheads: ['操作类型', '操作内容', '操作人', '操作日期', '天机', '指导单位', '指导专家'],
-                tableProtos: []
+                tableTheads: ['批次号', '操作日期', '操作内容', '操作方式', '天气', '操作人', '指导专家'],
+                tableProtos: ['serial', 'date', 'content', 'method', 'weather', 'operate_name', 'expert_name']
             },
             tableName2: '农事图片'
         }
     },
     // 肥料信息
-    fertilizerInfor: {
+    fertilize: {
         title: '肥料信息',
         tableName: '肥料记录',
-        tableTheads: ['肥料名称', '平均施肥', '日期', '图片'],
+        tableTheads: ['批次号', '操作人', '日期', '图片'],
         tableProtos: [],
         details: {
             tableList: {
                 tableName: '肥料记录详情',
-                tableTheads: ['肥料名称', '肥料日期', '平均施肥', '施肥方式', '天气', '指导单位', '指导专家'],
-                tableProtos: []
+                tableTheads: ['批次号', '肥料名称', '施肥日期', '平均施肥', '施肥方式', '天气', '施肥人', '指导专家'],
+                tableProtos: ['serial', 'manure_name', 'date', 'amount', 'way', 'weather', 'operate_name', 'expert_name']
             },
             tableName2: '施肥图片'
         }
     },
     // 检测信息
-    detectionInfor: {
+    detect: {
         title: '检测信息',
         tableName: '检测记录',
-        tableTheads: ['检测名称', '检测机构', '日期', '图片'],
+        tableTheads: ['批次号', '操作人', '日期', '图片'],
         tableProtos: [],
         details: {
             tableList: {
                 tableName: '检测记录详情',
-                tableTheads: ['检测名称', '检测机构', '检测类型', '检测人', '检测日期', '天气', '指导单位', '指导专家'],
-                tableProtos: []
+                tableTheads: ['批次号', '检测名称', '检测内容', '检测机构', '检测类型', '检测结果', '检测人', '检测日期', '天气', '指导专家'],
+                tableProtos: ['serial', 'name', 'content', 'department', 'genre', 'result', 'operate_name', 'date', 'weather', 'expert_name']
             },
             tableName2: '检测图片'
         }},
@@ -189,7 +189,7 @@ export default{
         }
     },
     // 检测
-    detect: {
+    bDetect: {
         title: '检测信息',
         tableName: '检测记录',
         tableTheads: ['检测名称', '检测机构', '日期', '图片'],
