@@ -44,13 +44,23 @@ exports.reCheck = (rule, value, callback, source, options) => {
         })
     }
 }
-// 验证数字
+// 验证数字（包含小数）
 exports.reNumber = (rule, value, callback, source, options) => {
+    if (value !== '') {
+        if (/^(-?\d+)(\.\d+)?$/.test(value)) {
+            callback()
+        } else {
+            callback(new Error('请输入数字'))
+        }
+    }
+}
+// 验证整数
+exports.reInteger = (rule, value, callback, source, options) => {
     if (value !== '') {
         if (/^\d+$/.test(value)) {
             callback()
         } else {
-            callback(new Error('请输入数字'))
+            callback(new Error('请输入整数'))
         }
     }
 }
