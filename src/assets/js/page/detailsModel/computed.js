@@ -17,6 +17,9 @@ export default {
         },
         tabList () {
             return this.models.tabList
+        },
+        changeDataArr () {
+            return this.models.changeDataArr
         }
     }
 }

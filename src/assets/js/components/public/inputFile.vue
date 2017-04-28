@@ -50,6 +50,7 @@ export default {
         // 删除图片
         deleteImgFn () {
             this.imageUrl = ''
+            this.$emit('return-shuju', {name: this.shuju.name, value: ''})
         },
         previewPic (srcPic, event) {
             let file = event.target.files[0]
