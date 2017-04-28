@@ -177,11 +177,21 @@ default {
          * @returns {*}
          */
         Vue.prototype.$eltable = (ret) => {
-            for (let key in ret) {
-                if (ret[key].unit !== undefined) {
-                    for (let index in ret[key]) {
-                        if (index === 'area' || index === 'amount') {
-                            ret[key][index + '_unit'] = ret[key][index] + ret[key].unit
+            if (ret.length !== undefined) {
+                for (let key in ret) {
+                    if (ret[key].unit !== undefined) {
+                        for (let index in ret[key]) {
+                            if (index === 'area' || index === 'amount') {
+                                ret[key][index + '_unit'] = ret[key][index] + ret[key].unit
+                            }
+                        }
+                    }
+                }
+            } else {
+                if (ret.unit !== undefined) {
+                    for (let key in ret) {
+                        if (key === 'area' || key === 'amount') {
+                            ret[key + '_unit'] = ret[key] + ret.unit
                         }
                     }
                 }

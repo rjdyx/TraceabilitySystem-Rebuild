@@ -28,10 +28,9 @@
     .title {
       padding: 20px 8px 14px 0;
       border-bottom: 2px solid #e5e5e5;
-      font-size: 18px;
+      // font-size: 18px;
       margin-bottom: 10px;
       h2 {
-        border-left: 4px solid #0099cc;
         border-radius: 4px;
         padding-left: 14px;
         display: inline-block;

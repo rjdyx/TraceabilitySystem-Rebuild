@@ -74,6 +74,15 @@ export default {
         },
         batch () {
             return this.models[this.modelIndex].batch
+        },
+        checkOperate () {
+            return this.models[this.modelIndex].checkOperate
+        },
+        hiddeRole () {
+            return this.models[this.modelIndex].hiddeRole
+        },
+        hiddeUser () {
+            return this.models[this.modelIndex].hiddeUser
         }
     }
 }

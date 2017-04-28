@@ -44,3 +44,21 @@ exports.reCheck = (rule, value, callback, source, options) => {
         })
     }
 }
+// 验证数字
+exports.reNumber = (rule, value, callback, source, options) => {
+    if (value !== '') {
+        if (/^\d+$/.test(value)) {
+            callback()
+        } else {
+            callback(new Error('请输入数字'))
+        }
+    }
+}
+// 验证时间
+exports.reDate = (rule, value, callback, source, options) => {
+    if (JSON.stringify(value) === '{}') {
+        callback(new Error(rule.message))
+    } else {
+        callback()
+    }
+}

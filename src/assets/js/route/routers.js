@@ -95,6 +95,27 @@ const pCommodity = resolve => {
     }, 'pCommodity')
 }
 
+// =============================头部导航条按钮跳转====================================
+// -------------------------------问题反馈------------------------------
+const question = resolve => {
+    require.ensure(['../components/top/question.vue'], () => {
+        resolve(require('../components/top/question.vue'))
+    }, 'question')
+}
+
+// -------------------------------设置------------------------------
+const set = resolve => {
+    require.ensure(['../components/top/set.vue'], () => {
+        resolve(require('../components/top/set.vue'))
+    }, 'set')
+}
+// -------------------------------test用户------------------------------
+const test = resolve => {
+    require.ensure(['../components/top/user.vue'], () => {
+        resolve(require('../components/top/user.vue'))
+    }, 'test')
+}
+
 const routes = [
     {
         path: '/index',
@@ -112,6 +133,18 @@ const routes = [
             meta: {
                 auth: true
             }
+        },
+        {
+            path: 'question',
+            component: question
+        },
+        {
+            path: 'set',
+            component: set
+        },
+        {
+            path: 'test',
+            component: test
         },
         {
             path: 'details/:model/:id',

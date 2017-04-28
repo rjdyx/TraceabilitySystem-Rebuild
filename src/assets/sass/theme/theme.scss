@@ -1,0 +1,107 @@
+// 主题颜色
+$blue_color: #009acb;
+
+$green_color : #55BBA6;
+
+$purple_color : #895E9B;
+
+$yellow_color :  #DEB355;
+
+// 边框
+$blue_border: #0087b5;
+
+$green_border: #3f9e83;
+
+$purple_border: #6F4F84;
+
+$yellow_border: #c69b4e;
+
+
+// 图片
+$blue_img: url('/public/images/blue.png');
+
+$green_img: url('/public/images/green.png');
+
+$purple_img: url('/public/images/purple.png');
+
+$yellow_img: url('/public/images/yellow.png');
+
+// 字体大小
+$big: 18px;
+
+$middle: 16px;
+
+$small: 14px;
+
+// 字体大小
+@mixin font($size) {
+	.el-radio__label{
+		font-size: $size;
+	}
+	.explain{
+		font-size: $size;
+	}
+	.title{
+		font-size: $size;
+	}
+}
+
+// 主题
+@mixin theme($bg, $img, $border) {
+ .header{
+     background: $bg;
+ }
+ .head_right{
+ 	ul{
+ 		li{
+		border-left: 1px solid $border;
+ 	}
+}
+ 	
+ }
+ .titleQu,.enterTo .tab{
+ 	color: $bg;
+ }
+ .title{
+ 	h2{
+ 		border-left: 4px solid $bg;
+ 	}
+ }
+ .edit{
+     background: $bg;
+     border: $bg;
+ }
+ .changeImg{
+ 	background: $img;
+ }
+}
+
+//大号字体
+.big{
+	@include font(#{$big})
+}
+// 中号字体
+.middle{
+	@include font(#{$middle})
+}
+// 小号字体
+.small{
+	@include font(#{$small})
+}
+
+// 蓝色主题
+.blue{
+    @include theme(#{$blue_color}, #{$blue_img}, #{$blue_border})
+}
+// 绿色主题
+.green{
+    @include theme(#{$green_color}, #{$green_img}, #{$green_border})
+}
+// 紫色主题
+.purple{
+    @include theme(#{$purple_color}, #{$purple_img}, #{$purple_border})
+}
+// 黄色主题
+.yellow{
+    @include theme(#{$yellow_color}, #{$yellow_img}, #{$yellow_border})
+}

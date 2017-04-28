@@ -74,17 +74,15 @@
                 this.$emit('selectVal', [name, val])
             },
             getBeforeDate (val) {
-                this.$parent.dateFind('beforeDate', val)
+                this.$emit('dateVal', ['beforeDate', val])
             },
             getAfterDate (val) {
-                this.$parent.dateFind('afterDate', val)
+                this.$emit('dateVal', ['afterDate', val])
             }
         },
         watch: {
             listComponent () {
                 this.value = ''
-                this.value1 = ''
-                this.value2 = ''
             }
         }
     }

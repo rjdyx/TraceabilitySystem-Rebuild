@@ -10,15 +10,16 @@
   <!-- 标题 -->
     <contain-title :settitle="settitle">
     </contain-title>
-    
   <!-- tab栏 --> 
     <el-tabs v-model="activeName" id="tabs" @tab-click="tabClick" type="card">
-        <el-tab-pane v-for="(model,index) in models" :label="model.tab" :name="'index'+index"></el-tab-pane>
+        <el-tab-pane v-for="(model,index) in models" :label="model.tab" :name="'index'+index">
+
+        </el-tab-pane>
     </el-tabs>  
     <!-- 操作模块 -->
     <div id="operate">
         <div id="inputs">
-            <operate :listComponent="listComponent" @selectVal="selectFind"></operate>
+            <operate :listComponent="listComponent" @selectVal="selectFind" @dateVal="dateFind"></operate>
             
             <!-- 搜索框 -->
             <div class="searchOp"> 
@@ -47,7 +48,7 @@
              @submitEdit="hangeEdit" :changeDataArr="changeDataArr" :editDefault="editDefault"></pop-edit>
     </div>
     <!-- 列表模块 -->
-    <el-table :data="tableData"  @selection-change="handleSelectionChange" @cell-click="jumpDetails">
+    <el-table :data="tableData"  @selection-change="handleSelectionChange">
 
         <!-- checkbox -->
         <el-table-column width="50" type="selection">
@@ -66,7 +67,7 @@
                     :min-width="widths[index]"
                     show-overflow-tooltip>
                     <template  scope="scope">
-                            <div v-if="item.includes('批次号')" slot="reference" class="name-wrapper pcActive" >
+                            <div v-if="item.includes('批次号')" slot="reference" class="name-wrapper pcActive" @click="jumpDetails(scope.row)">
                                 {{ scope.row[protos[index]] }}
                             </div>
                             <div v-else-if="protos[index]=='img'" slot="reference" class="name-wrapper">
@@ -82,17 +83,23 @@
         </template>
         <!-- 列表操作模块 -->
         <el-table-column 
-        label="操作">
+        label="操作" v-if="checkOperate==null">
             <template scope="scope" class="operateBtn">
                 <template v-if="moreComponent!=null">
                     <clickMore :moreComponent="moreComponent" class="clickMoreBtn"></clickMore>
                 </template>
                 <template>
+
                     <el-button type="text" size="small" @click="changeEditShow(scope.$index,scope.row)" v-if="!hiddeEdit">编辑</el-button>
 
                     <el-button type="text" size="small" v-if="hiddeEdit">查看</el-button>
                         
                     <el-button size="small" type="text" @click="handelDel(scope.$index,scope.row)" class="btn">删除</el-button>  
+
+                    <el-button size="small" type="text" @click="userRole(scope.$index,scope.row)" class="btn" v-if="hiddeRole">权限</el-button> 
+
+                    <el-button size="small" type="text" @click="" class="btn" v-if="hiddeUser">用户</el-button>  
+
                 </template>
             </template>
         </el-table-column>
@@ -100,7 +107,7 @@
 
     <div class="footer">
         <div class="operate-foot">
-            <el-button @click="delAll">删除</el-button>
+            <el-button @click="delAll" v-if="checkOperate==null">删除</el-button>
             <template v-if="lotComponent!=null">
                 <lotOpearte :lotComponent="lotComponent"></lotOpearte>
             </template>
@@ -169,6 +176,10 @@ export default {
                     editComponent: [],
                     moreComponent: [],
                     lotComponent: [],
+                    hiddeEdit: false,
+                    checkOperate: null,
+                    hiddeRole: false,
+                    hiddeUser: false,
                     selectDefault: {}
                 }]
             }
@@ -224,11 +235,9 @@ export default {
             this.$set(this, 'tableData', [])
             this.$set(this, 'multipleSelection', [])
         },
-        jumpDetails (row, column, cell, event) {
-            if (column.label.indexOf('批次号') !== -1) {
-                var id = row.id
-                this.$router.push('/index/details/' + this.batch + '/' + id)
-            }
+        jumpDetails (row) {
+            var id = row.id
+            this.$router.push('/index/details/' + this.batch + '/' + id)
         },
         /**
          * 列表选择事件
@@ -250,11 +259,11 @@ export default {
             }).then(() => {
                 axios.delete(this.$adminUrl(this.url + '/' + row.id))
                     .then((responce) => {
+                        this.getSelect()
                         if (JSON.stringify(this.dataArr) === '{}') {
                             this.dataArr = ''
                         }
                         this.boxArr(this.dataArr)
-                        this.getSelect()
                         this.$message({
                             type: 'success',
                             message: '删除成功'
@@ -276,7 +285,9 @@ export default {
         changeNewShow () {
             this.isNewShow = !this.isNewShow
             if (this.newComponent[0].checkNumber !== undefined) {
-                this.newComponent[0].components[this.newComponent[0].checkNumber].rule[1].url = this.url
+                for (let index in this.newComponent[0].checkNumber) {
+                    this.newComponent[0].components[this.newComponent[0].checkNumber[index]].rule[1].url = this.url
+                }
             }
             if (this.newComponent[0].selectUrl) {
                 for (let key in this.newComponent[0].selectUrl) {
@@ -305,11 +316,12 @@ export default {
         // 显示编辑表单
         changeEditShow (index, row) {
             this.isEditShow = true
-            console.log(row)
             if (row !== undefined) {
                 if (this.editComponent[0].checkNumber !== undefined) {
-                    this.editComponent[0].components[this.editComponent[0].checkNumber].rule[1]['id'] = row.id
-                    this.editComponent[0].components[this.editComponent[0].checkNumber].rule[1]['url'] = this.url
+                    for (let index in this.newComponent[0].checkNumber) {
+                        this.editComponent[0].components[this.editComponent[0].checkNumber[index]].rule[1]['id'] = row.id
+                        this.editComponent[0].components[this.editComponent[0].checkNumber[index]].rule[1]['url'] = this.url
+                    }
                 }
                 if (this.editComponent[0].selectUrl) {
                     for (let key in this.editComponent[0].selectUrl) {
@@ -377,7 +389,6 @@ export default {
         // 文本与时间按钮查询
         textAndDateFind () {
             this.dataArr['query_text'] = this.inputValue
-            this.dataArr['page'] = 1
             this.boxArr(this.dataArr)
         },
         // 下拉框查询
@@ -387,13 +398,12 @@ export default {
                     this.selectVal[index] = val[1]
                 }
             }
-            this.dataArr['page'] = 1
             this.dataArr[val[0]] = val[1]
             this.boxArr(this.dataArr)
         },
         // 日期存储
-        dateFind (key, val) {
-            this.dataArr[key] = val
+        dateFind (val) {
+            this.dataArr[val[0]] = val[1]
         },
         // 组合查询
         boxArr (dataArr) {
@@ -424,11 +434,11 @@ export default {
                     axios.post(this.$adminUrl('util/batch-delete/' + this.url), paramsDel)
                     .then((responce) => {
                         if (responce.data === 'true') {
+                            this.getSelect()
                             if (JSON.stringify(this.dataArr) === '{}') {
                                 this.dataArr = ''
                             }
                             this.boxArr(this.dataArr)
-                            this.getSelect()
                             this.$message({
                                 type: 'success',
                                 message: '批量删除成功'
@@ -449,9 +459,6 @@ export default {
         changeNew (val) {
             if (val !== 'false') {
                 this.isNewShow = false
-                if (JSON.stringify(this.dataArr) === '{}') {
-                    this.dataArr = ''
-                }
                 this.boxArr(this.dataArr)
                 this.getSelect()
                 this.$message({
@@ -466,11 +473,11 @@ export default {
         hangeEdit (val) {
             if (val !== 'false') {
                 this.isEditShow = false
+                this.getSelect()
                 if (JSON.stringify(this.dataArr) === '{}') {
                     this.dataArr = ''
                 }
                 this.boxArr(this.dataArr)
-                this.getSelect()
                 this.$message({
                     type: 'success',
                     message: '编辑数据成功'
@@ -507,6 +514,10 @@ export default {
                         }
                     }
                 })
+        },
+        // 点击删除
+        userRole (row, index) {
+            console.log(row)
         }
     },
     mounted () {
@@ -524,7 +535,6 @@ export default {
         },
         key () {
             this.tableData = []
-            this.dataArr = {}
             if (this.selectValueId !== undefined) {
                 this.getSelect()
             }
@@ -576,7 +586,6 @@ export default {
      }
      .searchOp{
      	display:inline;
-     	margin-left: 15px;
      }
      .margin{
      	margin-left:15px;

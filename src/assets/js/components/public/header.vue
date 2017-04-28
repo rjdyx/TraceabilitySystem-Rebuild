@@ -94,10 +94,9 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-	// @import "../../../sass/function";
+
 	.header {
 		height: 66px;
-		background: #0099cc;
 		overflow: hidden;
 		position: relative;
 	}
@@ -132,7 +131,6 @@ export default {
 				height: 55px;
 				margin-bottom: 5px;
 				text-align: center;
-				border-left: 1px solid #0087b5;
 				color: #fff;
 				font-size: 12px;
 				span {
