@@ -1,24 +1,21 @@
 /**
- * 种植首页组件
+ * 养殖首页组件
  * @description 
  * @author 吴燕萍
- * @date 2017/4/24
+ * @date 2017/4/27
  * 
  */
 <template>
-	<div id="plant">
+	<div id="breed">
 		<div class="plant">
 			<div class="plantHead">
 				<ul class="plantHeaderList">
 					<!-- 实时视频 -->
-					<li><router-link :to="'/run/plant/video/'+id"></router-link></li>
-					<!-- <li><router-link :to="{name: 'video', path: '/plant/video', params: {id:123}}"></router-link></li> -->
-					<!-- <li><router-link :to="{name:'video',query:{id:123}}"></router-link></li> -->
-					<!-- <li><router-link :to="{path:'/run/plant/video', name:'video'}"></router-link></li> -->
+					<li><router-link :to="'/run/breed/video/'+id"></router-link></li>
 					<!-- 基础信息 -->
-					<li><router-link :to="'/run/plant/basicInfor/'+id"></router-link></li>
+					<li><router-link :to="'/run/breed/basicInfor/'+id"></router-link></li>
 					<!-- 购物链接 -->
-					<li><router-link :to="'/run/plant/shop/'+id"></router-link></li>
+					<li><router-link :to="'/run/breed/shop/'+id"></router-link></li>
 				</ul>
 			</div>
 
@@ -38,18 +35,20 @@
 			</div>
 			<div class="plant_product"><img src="./images/apple.jpg" alt=""></div>
 			<ul class="plantBottomList">
-			    <!-- 生长图片 -->
-				<li><router-link :to="'/run/plant/growImg/'+id"></router-link></li>
-				<!-- 农药信息 -->
-				<li><router-link :to="'/run/plant/pesticideInfor/'+id"></router-link></li>
-				<!-- 农事信息 -->
-				<li><router-link :to="'/run/plant/farmWorkInfor/'+id"></router-link></li>
-				<!-- 肥料信息 -->
-				<li><router-link :to="'/run/plant/fertilizerInfor/'+id"></router-link></li>
-				<!-- 检测信息 -->
-				<li><router-link :to="'/run/plant/detectionInfor/'+id"></router-link></li>
-				<!-- 商品信息 -->
-				<li><router-link :to="'/run/plant/commodityInfor/'+id"></router-link></li>
+			    <!-- 圈舍 -->
+				<li><router-link :to="'/run/breed/area/'+id"></router-link></li>
+				<!-- 生长过程 -->
+				<li><router-link :to="'/run/breed/growProcess/'+id"></router-link></li>
+				<!-- 商品 -->
+				<li><router-link :to="'/run/breed/commodity/'+id"></router-link></li>
+				<!-- 喂养 -->
+				<li><router-link :to="'/run/breed/feed/'+id"></router-link></li>
+				<!-- 病疫 -->
+				<li><router-link :to="'/run/breed/disease/'+id"></router-link></li>
+				<!-- 检疫 -->
+				<li><router-link :to="'/run/breed/detection/'+id"></router-link></li>
+				<!-- 检测 -->
+				<li><router-link :to="'/run/breed/detect/'+id"></router-link></li>
 			</ul>
 		</div>
 	</div>
@@ -57,7 +56,7 @@
 <script>
 import plantMessage from './js/plantMessage.js'
 export default{
-    name: 'plan',
+    name: 'breedIndex',
     data () {
         let modelObj = {}
         Object.assign(modelObj, plantMessage)
@@ -74,13 +73,14 @@ export default{
 }
 </script>
 <style lang='sass'>
-#plant{
+/*@import url("./css/puplic.css");*/
+#breed{
 	width:100%;
 	height:100%;
 	.plant{
 		width:100%;
 		height:100%;
-		background: url("./images/plan_bg.png") no-repeat;
+		background: url("./images/breed_bg.png") no-repeat;
 		background-size: 100% 100%;
 		position: relative;
 		.plantHead{
@@ -166,15 +166,15 @@ export default{
 			}
 		}
 		.plantBottomList{
-			width:84%;
-			height:6.3%;
+			width:78%;
+			height:11.3%;
 			position:absolute;
-			bottom:8%;
-			left:9%;
+			bottom:2%;
+			left:3%;
 			/*background:rgba(100,150,140,0.7);*/
 			li{
-				width: 13.5%;
-				height:100%;
+				width: 12%;
+				height:35%;
 				/*background: rgba(0,0,0,0.5);*/
 				color: white;
 				text-align: center;
@@ -186,34 +186,33 @@ export default{
 				}
 			}
 			li:nth-child(1){
-				left:0;
-				top: 0;
-				transform: rotate(2deg);
+				left:16.5%;
+				top: 6%;
 			}
 			li:nth-child(2){
-				left:15.4%;
-				top: 7%;
-				transform: rotate(3deg);
+				left:40%;
+				top: 6%;
+				width:22%;
 			}
 			li:nth-child(3){
-				left:30.8%;
-				top: 17%;
-				transform: rotate(3deg);
+				right: 14%;
+				top: 6%;
 			}
 			li:nth-child(4){
-				right:30.8%;
-				top: 17%;
-				transform: rotate(-3deg);
+				left:4.5%;
+				bottom: 6%;
 			}
 			li:nth-child(5){
-				right:15.4%;
-				top: 7%;
-				transform: rotate(-3deg);
+				left:32%;
+				bottom: 6%;
 			}
 			li:nth-child(6){
-				right:0;
-				top: 0%;
-				transform: rotate(-2deg);
+				right:29%;
+				bottom: 6%;
+			}
+			li:nth-child(7){
+				right:3.5%;
+				bottom: 6%;
 			}
 		}	
 	}

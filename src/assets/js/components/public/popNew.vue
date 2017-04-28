@@ -22,7 +22,7 @@
             <table>
                 <template v-for="subItem in item.components">
                     <!-- 文本框 -->
-                    <tr v-if="subItem.type=='text'">
+                    <tr class="tr1" v-if="subItem.type=='text'">
                         <td>
                             <el-form-item :label="subItem.label" :prop="subItem.name">
                                 <el-input 
@@ -33,7 +33,7 @@
                     </tr>
 
                     <!-- 下拉框 -->
-                    <tr v-else-if="subItem.type=='select'"> 
+                    <tr class="tr1" v-else-if="subItem.type=='select'"> 
                         <td>
                             <el-form-item :label="subItem.label" :prop="subItem.name">
                               <el-select v-model="tableForm[subItem.name]" :placeholder="subItem.placeholder" size="small">
@@ -47,53 +47,59 @@
                     </tr>
 
                     <!-- 多行文本框  -->
-                    <tr v-else-if="subItem.type=='textarea'">
-                        <el-form-item :label="subItem.label" :prop="subItem.name">
-                            <el-input 
-                                :placeholder="subItem.placeholder" 
-                                type="textarea" 
-                                v-model="tableForm[subItem.name]" size="small"></el-input>
-                        </el-form-item>
+                    <tr class="tr1" v-else-if="subItem.type=='textarea'">
+                        <td>
+                            <el-form-item :label="subItem.label" :prop="subItem.name">
+                                <el-input 
+                                    :placeholder="subItem.placeholder" 
+                                    type="textarea" 
+                                    v-model="tableForm[subItem.name]" size="small"></el-input>
+                            </el-form-item>
+                        </td>
                     </tr>
                     <!-- 表格  -->
-                    <tr v-else-if="subItem.type=='table'">
-                        <el-table :data="subItem.tableVal" class="table2"  @selection-change="handleSelectionChange">
-                            <!-- checkbox -->
-                            <el-table-column width="50" type="selection">
-                            </el-table-column> 
-                            <el-table-column width="60" label="序号" type="index" id="test_id">
-                            </el-table-column>
-                            <template v-for="(item,index) in subItem.theads"> 
-                                <template>
-                                    <el-table-column 
-                                        :label="item" 
-                                        :prop="subItem.protos[index]"
-                                        show-overflow-tooltip>
-                                    </el-table-column>
+                    <tr class="tr2" v-else-if="subItem.type=='table'">
+                        <td>
+                            <el-table :data="subItem.tableVal" class="table2"  @selection-change="handleSelectionChange">
+                                <!-- checkbox -->
+                                <el-table-column width="50" type="selection">
+                                </el-table-column> 
+                                <el-table-column width="60" label="序号" type="index" id="test_id">
+                                </el-table-column>
+                                <template v-for="(item,index) in subItem.theads"> 
+                                    <template>
+                                        <el-table-column 
+                                            :label="item" 
+                                            :prop="subItem.protos[index]"
+                                            show-overflow-tooltip>
+                                        </el-table-column>
+                                    </template>
                                 </template>
-                            </template>
-                        </el-table>
+                            </el-table>
+                        </td>
                     </tr>
                      <!-- 传组件 -->
-                    <tr v-else-if="subItem.component">
-                        <el-form-item :label="subItem.label" :prop="subItem.name">
-                            <!-- 控件类型是textelect -->
-                            <component 
-                                v-if="subItem.type=='textSelect'"
-                                v-bind:is="subItem.component" 
-                                :shuju="subItem"
-                                :inputEditValue="tableForm[subItem.name]"
-                                :selectEditValue="tableForm['unit']"
-                                @return-shuju="returnShuju"
-                            ></component>
-                            <!-- 其他类型 -->
-                            <component 
-                                v-else
-                                v-bind:is="subItem.component" 
-                                :shuju="subItem"
-                                @return-shuju="returnShuju"
-                            ></component>
-                        </el-form-item>
+                    <tr class="tr1" v-else-if="subItem.component">
+                        <td>
+                            <el-form-item :label="subItem.label" :prop="subItem.name">
+                                <!-- 控件类型是textelect -->
+                                <component 
+                                    v-if="subItem.type=='textSelect'"
+                                    v-bind:is="subItem.component" 
+                                    :shuju="subItem"
+                                    :inputEditValue="tableForm[subItem.name]"
+                                    :selectEditValue="tableForm['unit']"
+                                    @return-shuju="returnShuju"
+                                ></component>
+                                <!-- 其他类型 -->
+                                <component 
+                                    v-else
+                                    v-bind:is="subItem.component" 
+                                    :shuju="subItem"
+                                    @return-shuju="returnShuju"
+                                ></component>
+                            </el-form-item>
+                        </td>
                     </tr>
                 </template>
           </table>
@@ -294,29 +300,46 @@ export default {
     .el-tabs{
        height:618px;
        overflow:auto;
-        .el-tab-pane:first-child{
-            padding:20px 70px;
-            box-sizing:border-box;
+        .el-tab-pane{
+            // padding:20px 70px;
+            // box-sizing:border-box;
+            width:100%!important;
             table{
                 width:100%;
                 text-align: left;
-                .el-select{
+                .tr1{
                     display:block;
+                    width:70%;
+                    // padding:20px 70px;
+                    // box-sizing:border-box;
+                    margin:0 auto;
+                    >td{
+                        display:block;
+                        width:100%;
+                        .el-select{
+                            display:block;
+                        }
+                        .el-textarea__inner{
+                            resize:none;
+                        }
+                        .el-form-item__label::before{
+                            float: left;
+                        }
+                    }
+                        
                 }
-                .el-textarea__inner{
-                    resize:none;
+                .tr2{
+                    display:block;
+                    width:98%;
+                    margin:0 auto;
+                    padding-bottom:20px;
+                    >td{
+                        display:block;
+                        width:100%;
+                    }
                 }
-                .el-form-item__label::before{
-                    float: left;
-                }
+                
             }
-        }
-        .el-tab-pane:nth-child(2){
-            padding:0px 5px 20px;
-            box-sizing:border-box;
-            .batchSelect{
-                margin-bottom: 10px;
-            }      
         }
         .form-footer{
           border-top: 1px solid #d1dbe5;

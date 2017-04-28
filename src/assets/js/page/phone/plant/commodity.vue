@@ -7,14 +7,14 @@
  */
 <template>
     <div class="pCommodity">
-        <header1 :title="models.title"></header1>
+        <header1 :title="models.title" :isbreed="isbreed"></header1>
         <headerImg></headerImg>
         <div class="pCom_content">
             <div class="pCom_content_introduce">
                 <div>
-                    <ul>
+                    <ul :class="{breedFontCol:isbreed}">
                         <li>方离开过对方离开过对方离开过对方离开过对方离开过对方离开过对方离开过对方离开过对方离开过对方离开过对方离开过对方离开过对方离开过对方离开过对方离开过对方离开过对方离开过对方离苹果</li>
-                        <li><em>溯源次数：</em>105</li>
+                        <li ><em>溯源次数：</em>105</li>
                     </ul>
                     <p>
                     对方离开过对方离开过对方离开过对方离开过对方离开过对方离开过对方离开过对方离开过对方离开过对方离开过对方离开过对方离开过对方离开过对方离开过对方离开过对方离开过对方离开过对方离开过对方离开过对方离开过对方离开过对方离开过对方离开过对方离开过对方离开
@@ -22,12 +22,15 @@
                 </div>
             </div>
             <ul class="pCom_content_list">
-                <li v-for="item in models.tableList"><twoColList :tableList="item"></twoColList></li>
+                <li v-for="item in models.tableList"><twoColList :tableList="item" :isbreed="isbreed"></twoColList></li>
             </ul>
         </div>   
     </div>
 </template>
 <style type="text/css" lang="sass">
+.breedFontCol{
+    color:#93bf46!important;
+}
 .pCommodity{
     width: 100%;
     .pCom_content{
@@ -36,7 +39,7 @@
         .pCom_content_introduce{
             width: 100%;
             padding-bottom:4%;
-            border-bottom: 1.4rem solid #f2f2f2;
+            border-bottom: .4rem solid #f2f2f2;
             >div{ 
                 width: 92%;
                 margin: 0 auto;
@@ -49,13 +52,13 @@
                     border-bottom: 1px solid #e6e6e6; 
                     li:first-child{
                         width:60%;
-                        font-size: 1.5rem;
+                        font-size: .42rem;
                         white-space: nowrap;
                         overflow: hidden;
                         text-overflow:ellipsis;
                     }
                     li:last-child{
-                        font-size:1.2rem;
+                        font-size:.32rem;
                         width:35%;
                         text-align:right;
                         em{
@@ -64,15 +67,16 @@
                     }
                 }
                 >p{
-                    font-size:1.4rem;
+                    font-size:.4rem;
                     color:#666;
                 }
             } 
         }
         .pCom_content_list{
+            padding-bottom:1rem;
             >div{
                 padding-bottom:4%;
-                border-bottom: 1.4rem solid #f2f2f2;
+                border-bottom: .4rem solid #f2f2f2;
             }
             >div:last-child{
                  border-bottom: 0rem solid #f2f2f2;
@@ -92,10 +96,14 @@ export default {
         let modelObj = {}
         Object.assign(modelObj, plantMessage)
         return {
-            models: modelObj[this.$route.meta.key]
+            models: modelObj[this.$route.meta.key],
+            isbreed: false
         }
     },
     mounted () {
+        if (this.$route.meta.runName === 'breed') {
+            this.isbreed = true
+        }
     },
     components: {
         Header1,

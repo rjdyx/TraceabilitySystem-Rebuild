@@ -7,11 +7,11 @@
  */
 <template>
     <div id="pBasic">
-        <header1 :title="models.title"></header1>
+        <header1 :title="models.title" :isbreed="isbreed"></header1>
         <headerImg :productName='productName'></headerImg>
         <div class="pBasic_content">
             <div class="pBasic_content_planInfo">
-                 <h3>{{models.tableName}}</h3>
+                 <h3 :class="{breedFontCol:isbreed}">{{models.tableName}}</h3>
                  <table border="1" bordercolor="#fbfbfb">
                      <tr v-for="theadsItem in models.tableTheads">
                          <td>{{theadsItem}}</td>
@@ -20,7 +20,7 @@
                  </table>
             </div>
             <div class="pBasic_content_control">
-                <h4>{{models.tableName2}}</h4>
+                <h4 :class="{breedFontCol:isbreed}">{{models.tableName2}}</h4>
                 <div v-for="i in 2">
                      <p>2017-04-11</p>
                     <img src="./images/img.png" height="322" width="670" alt="">
@@ -40,16 +40,14 @@ export default {
         Object.assign(modelObj, plantMessage)
         return {
             productName: '新疆苹果',
-            models: modelObj[this.$route.meta.key]
-        }
-    },
-    props: {
-        haha: {
-            type: String,
-            default: ''
+            models: modelObj[this.$route.meta.key],
+            isbreed: false
         }
     },
     mounted () {
+        if (this.$route.meta.runName === 'breed') {
+            this.isbreed = true
+        }
     },
     components: {
         Header1,
@@ -58,10 +56,12 @@ export default {
 }
 </script>
 <style lang="sass">
-@import url("./css/puplic.css");
+.breedFontCol{
+    color:#93bf46!important;
+}
 #pBasic{
     width:100%;
-    padding-bottom: 2.5rem;
+    padding-bottom: .5rem;
     // height:100%;
     // overflow: hidden;
     .pBasic_content{
@@ -70,15 +70,16 @@ export default {
         .pBasic_content_planInfo{
             width: 100%;
             padding-bottom: 5%;
+            color:#3ccfb5;
             >h3{
                 font-weight:normal;
-                font-size: 1.4rem;
+                font-size: .42rem;
                 padding: 4% 0% 4% 4%;
             }
             >table{
                 width: 92%;
                 margin:0 auto;
-                font-size:1.3rem;
+                font-size:.4rem;
                 border-collapse: collapse;
                 border-color:#e6e6e6;
                 tr{
@@ -104,9 +105,9 @@ export default {
             }
         }
         .pBasic_content_control{
-            border-top: 1.4rem solid #f2f2f2;
-            font-size: 1.2rem;
-            padding-bottom: 5%;
+            border-top: .4rem solid #f2f2f2;
+            font-size: .3rem;
+            padding-bottom: 2%;
             h4{
                 font-weight:normal;
                 padding: 4% 0% 0% 4%;
@@ -118,7 +119,7 @@ export default {
                 padding-bottom: 20px;
                 p{
                     color: #a8a9a9;
-                    font-size:1rem;
+                    font-size:.3rem;
                     padding:0% 0% 1% 0%;
                 }
                 img{

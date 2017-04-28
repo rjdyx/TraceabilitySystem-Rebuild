@@ -1,6 +1,7 @@
 <template>
 	<div id="header_img">
-        <img class="header_img_bg" src="../images/header_bg.png">
+        <img v-if="runName === 'plant'" class="header_img_bg" src="../images/p_header_bg.png">
+        <img v-else="runName==='breed'" class="header_img_bg" src="../images/b_header_bg.png">
         <p>{{productName}}</p>
         <!-- 产品图片 -->
         <img class="pBasic_img_icon" src="../images/apple.jpg" alt="">
@@ -23,13 +24,19 @@ export default {
     },
     data () {
         return {
+            runName: ''
         }
+    },
+    mounted () {
+        this.runName = this.$route.meta.runName
+        console.log(this.runName)
     }
 }
 </script>
 <style type="text/css" lang="sass">
+
 	#header_img{
-        margin-top: 3.4rem;
+        margin-top: 1rem;
         width:100%;
         height: 35%;
         position:relative;
@@ -44,7 +51,7 @@ export default {
             bottom:8%;
             left:0%;
             text-align:center;
-            font-size:1.6rem;
+            font-size:.45rem;
             color:white;
         }
         .pBasic_img_icon{
