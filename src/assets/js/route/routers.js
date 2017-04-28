@@ -75,8 +75,6 @@ var routes = [
     }
 ]
 routes = routes.concat(phoneRouters.router)
-console.log(routes)
-
 export default new Router({
     routes
 })
