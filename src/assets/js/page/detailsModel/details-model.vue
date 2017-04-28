@@ -199,7 +199,10 @@ export default {
                 var curl = {'curl': this.tabItem.url}
                 var routeId = {'routeId': this.tabItem.newComponent[0].labUrl}
                 var opqcurl = {'opqcurl': this.apiUrlArr[this.url]}
-                this.$dataGet(this, this.tabItem.newComponent[0].labUrl, {getSelect, curl, routeId, opqcurl})
+                if (this.tabItem.newComponent[0].paramsIndex !== undefined) {
+                    var type = this.tabItem.newComponent[0].paramsIndex
+                }
+                this.$dataGet(this, this.tabItem.newComponent[0].labUrl, {getSelect, curl, routeId, opqcurl, type})
                     .then((responce) => {
                         this.$set(this.tabItem.newComponent[0].components[0], 'tableVal', responce.data)
                     })
@@ -490,8 +493,6 @@ export default {
         }
     },
     mounted () {
-        console.log('------')
-        console.log(this.models)
         this.tabItem = this.tabList[0]
         this.activeName = this.tabList[0].tab
         this.getApiUrl()

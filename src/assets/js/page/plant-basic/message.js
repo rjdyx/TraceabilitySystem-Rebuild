@@ -7703,13 +7703,13 @@ export default {
         key: 'harvest',
         tab: '采收批次信息',
         url: 'harvest',
+        batch: 'plantSerial',
         selectSearch: ['plantations.id'],
         selectValueId: [['plantation_id', 'plantation_name', true]],
         selectDefault: [{value: '', label: '种植区选择'}],
-        batch: 'cultivateBatch',
         paramsIndex: 0,
         searchPlaceholder: '请输入采收批次号进行搜索',
-        theads: ['采收批次号', '采收日期', '所属种植区', '种植批次号', '采收数量(kg)', '入库部门', '存放仓库位置', '操作人', '录入人', '备注'],
+        theads: ['采收批次', '采收日期', '所属种植区', '种植批次号', '采收数量(kg)', '入库部门', '存放仓库位置', '操作人', '录入人', '备注'],
         protos: ['serial', 'date', 'plantation_name', 'cultivate_serial', 'amount', 'department', 'position', 'operate_name', 'user_name', 'memo'],
         widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
         typeComponent: [
@@ -8017,11 +8017,12 @@ export default {
         key: 'detect_pk_plant',
         tab: '检验检测信息',
         url: 'detect_pk',
+        batch: 'detectPackBatch',
         paramsIndex: 'plant',
         changeDataArr: [{result: {0: '不合格', 1: '合格'}}],
-        searchPlaceholder: '请输入溯源码搜索',
+        searchPlaceholder: '请输入检测批次号搜索',
         theads: ['检测批次号', '检测名称', '检测内容', '检测日期', '检测结果', '检测机构', '负责人', '处理方法', '图片报告', '备注'],
-        protos: ['serial', 'name', 'content', 'date', 'result', 'organization', 'operate_name', 'method', 'thumb', 'memo'],
+        protos: ['serial', 'name', 'content', 'date', 'result', 'organization', 'operate_name', 'method', 'img', 'memo'],
         widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
         typeComponent: [
             {
@@ -8043,6 +8044,7 @@ export default {
             hiddenValue: {type: 'plant'},
             selectUrl2: [['operates', 'id', 'name', true]],
             popNumber2: [1],
+            hasImg: true,
             components: [{
                 name: 'date',
                 type: 'date',
@@ -8121,7 +8123,7 @@ export default {
                 type: 'file',
                 component: inputFile,
                 isNull: true,
-                label: '',
+                label: '检测图片报告',
                 placeholder: '',
                 rule: null
             },
@@ -8139,6 +8141,7 @@ export default {
             tab: '编辑检验检测信息',
             selectUrl2: [['operates', 'id', 'name', true]],
             popNumber2: [2],
+            hasImg: true,
             components: [{
                 name: 'serial',
                 type: 'text',
@@ -8227,7 +8230,7 @@ export default {
                 type: 'file',
                 component: inputFile,
                 isNull: true,
-                label: '',
+                label: '检测图片报告',
                 placeholder: '',
                 rule: null
             },
@@ -8248,10 +8251,11 @@ export default {
         key: 'code',
         tab: '产品溯源信息',
         url: 'code',
+        batch: 'plantPackBatch',
         paramsIndex: 'plant',
         selectSearch: ['products.id'],
-        selectValueId: ['product_id', 'product_name', true],
-        selectDefault: {value: '', label: '请选择产品'},
+        selectValueId: [['product_id', 'product_name', true]],
+        selectDefault: [{value: '', label: '请选择产品'}],
         searchPlaceholder: '请输入溯源码搜索',
         theads: ['加工批次号', '产品溯源码', '产品名称', '生产日期', '产地', '溯源次数', '备注信息'],
         protos: ['serial', 'code', 'product_name', 'date', 'origin', 'time', 'memo'],
@@ -8267,10 +8271,11 @@ export default {
         listComponent: [{
             components: [
                 {
+                    name: 'products.id',
+                    value: '',
                     type: 'select',
                     component: selectSection,
-                    options: [
-                    ]
+                    options: []
                 },
                 {
                     type: 'date',
@@ -8281,9 +8286,43 @@ export default {
         newComponent: [{
             tab: '新建溯源码信息',
             hiddenValue: {type: 'plant'},
-            selectUrl2: ['products', 'id', 'name', true],
-            popNumber2: 1,
+            selectUrl2: [['packs', 'id', 'serial', true], ['harvests', 'id', 'serial', true]],
+            popNumber2: [0, 2],
             components: [{
+                name: 'pack_id',
+                type: 'select',
+                assoc: ['pack-product', 'product_id', 'product_name', 1],
+                component: null,
+                isNull: false,
+                label: '加工批次号',
+                placeholder: '',
+                disabled: true,
+                rule: {required: true, trigger: 'blur', type: 'number'},
+                options: []
+            },
+            {
+                name: 'product_id',
+                type: 'select',
+                component: null,
+                isNull: false,
+                label: '加工产品',
+                placeholder: '',
+                disabled: true,
+                rule: {required: true, trigger: 'blur', type: 'number'},
+                options: []
+            },
+            {
+                name: 'harvest_id',
+                type: 'select',
+                component: null,
+                isNull: false,
+                label: '采收批次号',
+                placeholder: '',
+                disabled: true,
+                rule: {required: true, trigger: 'blur', type: 'number'},
+                options: []
+            },
+            {
                 name: 'date',
                 type: 'date',
                 component: inputDate,
@@ -8294,17 +8333,7 @@ export default {
                 rule: {required: true, trigger: 'blur', type: 'date'}
             },
             {
-                name: 'operate_id',
-                type: 'select',
-                component: null,
-                isNull: false,
-                label: '产品',
-                placeholder: '请选择产品',
-                rule: {required: true, trigger: 'blur', type: 'number'},
-                options: []
-            },
-            {
-                name: 'number',
+                name: 'amount',
                 type: 'text',
                 component: null,
                 isNull: false,
