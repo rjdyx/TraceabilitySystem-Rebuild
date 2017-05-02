@@ -1,6 +1,6 @@
 <template>
 <div class="twoColList">
-    <h3>{{tableList.tableName}}</h3> 
+    <h3 :class="{breedFontCol:isbreed}">{{tableList.tableName}}</h3> 
     <table>
         <tr v-for="(v,k) in tableList.tableProtos ">
             <td>{{tableList.tableTheads[k]}}</td>
@@ -11,12 +11,15 @@
 </div>	
 </template>
 <style lang='sass'>
+.breedFontCol{
+    color:#93bf46!important;
+}
 .twoColList{
     width: 92%;
     margin: 0 auto;
     >h3{
         color:#3ccfb5;
-        font-size: 1.4rem;
+        font-size: .42rem;
         padding: 4% 0% 3% 0%;
         border-bottom: 1px solid #e6e6e6; 
         font-weight:normal;
@@ -24,7 +27,7 @@
     >table{
         width: 100%;
         tr{
-            font-size: 1.4rem;
+            font-size: .4rem;
             td:first-child{
                 color:#333;
                 width: 30%;
@@ -50,6 +53,10 @@ export default {
             default () {
                 return {}
             }
+        },
+        isbreed: {
+            type: Boolean,
+            default: false
         },
         values: {}
     },

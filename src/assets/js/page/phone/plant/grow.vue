@@ -7,18 +7,20 @@
  */
 <template>
     <div id="home_grow">
-        <header1 title="生长图片"></header1>
+        <header1 title="生长图片" :isbreed="isbreed"></header1>
         <div class="hg_content">
-            <ul>
-                <li class="hg_content_li" v-for="grow in grows" >
+            <ul :class="{breedBorder:isbreed}">
+                <li class="hg_content_li" v-for="grow in grows">
                     <!-- 时间 -->
-                    <div class="hg_content_li_top">
-                        <img src="./images/grow_icon.png" height="30" width="31" alt=""><span>{{grow.date}}</span><span>{{grow.name}}</span>
+                    <div :class="[{ breedFontCol: isbreed }, {hg_content_li_top: true}]">
+                        <img v-if="isbreed" src="./images/b_grow_icon.png" height="30" width="31" alt="">
+                        <img v-else src="./images/grow_icon.png" height="30" width="31" alt="">
+                        <span>{{grow.date}}</span><span>{{grow.name}}</span>
                     </div>
                     <!-- 图片 -->
                     <div class="hg_content_li_bottom">
-                        <img src="grow.thumb" height="322" width="670" alt="">
-                        <h4>{{grow.desc}}</h4>
+                        <img :src="grow.thumb" height="322" width="670" alt="">
+                        <h4 :class="{breedCol:isbreed}">{{grow.desc}}</h4>
                     </div>
                 </li>
             </ul>
@@ -26,21 +28,30 @@
     </div>
 </template>
 <style type="text/css" lang="sass">
+.breedBorder{
+    // border-left:2px solid #93bf46!important;
+    border-color:#93bf46!important;
+}
+.breedCol{
+    background:#93bf46!important;
+}
+.breedFontCol{
+    color:#93bf46!important;
+}
 #home_grow{
     width: 100%;
-    padding-bottom: 2.5rem;
+    padding-bottom: .5rem;
     .hg_content{
         width: 100%;
-        padding-top: 3.5rem;
+        padding-top: 1rem;
         background: #fbfbfb;
         >ul{
             width: 94%;
             margin:0 auto;
             border-left:2px solid #42bea4;
-
             >li{
                 padding-bottom: 5%;
-                font-size: 1.1rem;
+                font-size: .3rem;
                 .hg_content_li_top{
                     color:#76cfbd;
                     position: relative;
@@ -61,13 +72,15 @@
                     width: 100%;
                     padding-left: 3%;
                     box-sizing:border-box;
+                    overflow:hidden;
                     img{
                         width: 100%;
-                        height: auto;
+                        height: auto; 
+                        float:left;
                     }
-                    h4{
+                    p{
                         width:100%;
-                        font-size:1rem;
+                        font-size:.3rem;
                         font-weight:normal;
                         background: #42bea4;
                         color: white;
@@ -75,7 +88,8 @@
                         white-space: nowrap;
                         overflow: hidden;
                         text-overflow:ellipsis;
-                        padding:2%;
+                        padding:.2rem;
+                        float:left;
                     }      
                 }
 
@@ -93,10 +107,14 @@ export default {
     name: 'pGrow',
     data () {
         return {
+            isbreed: false,
             grows: {}
         }
     },
     mounted () {
+        if (this.$route.meta.runName === 'breed') {
+            this.isbreed = true
+        }
         var params = {cultivate_id: this.$route.params.id}
         axios.post('run/plant/grow', params)
             .then((responce) => {

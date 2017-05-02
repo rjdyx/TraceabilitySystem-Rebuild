@@ -45,7 +45,7 @@
         </div>
 
         <!-- 新建模块 --> 
-        <popNew v-if="isNewShow" :newComponent="newComponent" :url="url" @submitNew="changeNew"></popNew>
+        <popNew v-if="isNewShow" :newComponent="newComponent" :url="url" @submitNew="changeNew" @setAssoc="getAssoc"></popNew>
         <!-- 编辑模块 -->
         <pop-edit v-if="isEditShow" :editComponent="editComponent" :url="url" :editForm="editForm"
              @submitEdit="hangeEdit" :changeDataArr="changeDataArr" :editDefault="editDefault"></pop-edit>
@@ -241,7 +241,13 @@ export default {
             this.$set(this, 'multipleSelection', [])
         },
         jumpDetails (row) {
+            console.log(row)
             var id = row.id
+            if (row.code !== undefined) {
+                id = row.pack_id
+            } else if (row.harvest_change !== undefined) {
+                id = row.cultivate_id
+            }
             this.$router.push('/index/details/' + this.batch + '/' + id)
         },
         /**
@@ -551,6 +557,21 @@ export default {
         // 点击删除
         userRole (row, index) {
             console.log(row)
+        },
+        // 获取下拉框关联
+        getAssoc (val) {
+            var url = val[2] + '/' + val[0][0]
+            var getSelect = {'getSelect': '444'}
+            this.$dataGet(this, url, {getSelect})
+                .then((responce) => {
+                    if (responce.data.length !== 0) {
+                        let opt = this.$selectData(url, responce.data.data, [val[0][1], val[0][2], true])
+                        this.newComponent[0].components[val[0][3]].options = opt
+                    } else {
+                        let opt = this.$selectData(url, responce.data.data, [val[0][1], val[0][2], true])
+                        this.newComponent[0].components[val[0][3]].options = opt
+                    }
+                })
         }
     },
     mounted () {

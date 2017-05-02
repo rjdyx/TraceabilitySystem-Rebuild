@@ -1,25 +1,29 @@
 <template>
-	<div id="header1">
+	<div id="header1" :class="{breedCol:isbreed}">
+	<!-- <div id="header1" class="plantCol"> -->
 		<img class="goBack" @click="goBack" src="../images/goback.png"  alt="返回">
 		{{title}}
 	</div>
 </template>
 <style lang="sass">
-@import url("../css/puplic.css");
+@import "../css/plant.scss";
+.breedCol{
+	background:#93bf46!important;
+}
 #header1{
 	width:100%;
-	height:3.5rem;
+	height:1rem;
 	background:#3ccfb5;
 	text-align:center;
 	position:fixed;
 	top:0%;
 	left:0%;
 	color:white;
-	line-height: 3.5rem;
-	font-size:1.5rem;
+	line-height: 1rem;
+	font-size:.45rem;
 	z-index: 100;
 	.goBack{
-		width:3%;
+		width:.3rem;
 		position:absolute;
 		left:2%;
 		top:50%;
@@ -34,6 +38,10 @@ export default {
         title: {
             type: String,
             default: ''
+        },
+        isbreed: {
+            type: Boolean,
+            default: false
         }
     },
     data () {
