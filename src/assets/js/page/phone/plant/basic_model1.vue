@@ -109,11 +109,13 @@ export default {
         }
     },
     mounted () {
-        if (this.$route.meta.runName === 'breed') {
-            this.isbreed = true
-        }
         var params = {cultivate_id: this.$route.params.id}
-        axios.post('run/plant/' + this.$route.meta.key, params)
+        var url = 'run/plant/'
+        if (this.$route.meta.runName === 'breed') {
+            params = {id: this.$route.params.id}
+            url = 'run/beast/'
+        }
+        axios.post(url + this.$route.meta.key, params)
             .then((responce) => {
                 if (responce.data !== 'false') {
                     this.lists = responce.data

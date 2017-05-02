@@ -107,16 +107,17 @@ export default {
     name: 'pGrow',
     data () {
         return {
-            isbreed: false,
             grows: {}
         }
     },
     mounted () {
-        if (this.$route.meta.runName === 'breed') {
-            this.isbreed = true
-        }
         var params = {cultivate_id: this.$route.params.id}
-        axios.post('run/plant/grow', params)
+        var url = 'run/plant/grow'
+        if (this.$route.meta.runName === 'breed') {
+            params = {breed_id: this.$route.params.id}
+            url = 'run/beast/course'
+        }
+        axios.post(url, params)
             .then((responce) => {
                 if (responce.data !== 'false') {
                     this.grows = responce.data
