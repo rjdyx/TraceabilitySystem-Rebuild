@@ -36,7 +36,8 @@
                     <tr class="tr1" v-else-if="subItem.type=='select'"> 
                         <td>
                             <el-form-item :label="subItem.label" :prop="subItem.name">
-                              <el-select v-model="tableForm[subItem.name]" :placeholder="subItem.placeholder" size="small">
+                              <el-select v-model="tableForm[subItem.name]" :placeholder="subItem.placeholder" size="small"
+                                    @change="getSelectId(subItem.assoc,subItem.name,tableForm[subItem.name])">
                                 <el-option 
                                     v-for="option in subItem.options" 
                                     :label="option.label" 
@@ -273,6 +274,11 @@ export default {
             }
             this.tableForm[this.newComponent[0].components[0].valueId] = ids
             this.ids = ids
+        },
+        getSelectId (assoc, name, val) {
+            if (assoc !== undefined) {
+                this.$emit('setAssoc', [assoc, name, val])
+            }
         }
     }
 }
