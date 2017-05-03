@@ -142,9 +142,7 @@ var routes = [
             path: 'message/:model',
             component: basic,
             // 需要登录才能进入此路由
-            meta: {
-                auth: true
-            }
+            meta: { auth: true }
         },
         {
             path: 'question',
