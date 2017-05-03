@@ -18,7 +18,7 @@ export default {
                 {
                     name: '首页',
                     src: '/public/images/home.png',
-                    path: 'home'
+                    path: '/index/home'
                 },
                 {
                     name: 'test',
@@ -28,7 +28,7 @@ export default {
                 {
                     name: '帮助',
                     src: '/public/images/help.png',
-                    path: 'help'
+                    path: '/index/set'
                 },
                 {
                     name: '设置',

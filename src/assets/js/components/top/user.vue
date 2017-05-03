@@ -10,14 +10,14 @@
 			<contain-title :settitle="settitle">
 			</contain-title>
 			<div class="titleUser">
-				<span class="picture">
+				<span :class="{'picture': isClass}">
 					<img />
 				</span>
 				<el-row :gutter="20" class="text">
-					<el-col :span='8' v-for="(item,index) in list">
+					<el-col :span='8' v-for="(item,index) in list" class="coltext">
 						{{item}}
 					</el-col>
-				</el-row>
+			 	</el-row>
 				<el-button class="edit" @click="showEdit">编辑</el-button>
 			</div>
 			<div class="mainPic">
@@ -31,16 +31,17 @@
 
 
 <script>
-import footerTop from '../top/footer.vue'
+import footerTop from './topComponent/footer.vue'
 import ContainTitle from '../layout/contain-title.vue'
-import userEdit from '../top/userEdit.vue'
+import userEdit from './topComponent/userEdit.vue'
 export default {
     name: 'user',
     data () {
         return {
             settitle: '用户信息管理',
             list: ['用户名:', '姓名:', '所属公司:', '工号:', '性别:', '所属部门:', '用户类型:', '邮箱:', '皮肤:', '电话:', '出生日期:', '字体:'],
-            isShow: false
+            isShow: false,
+            isClass: true
         }
     },
     methods: {
@@ -66,7 +67,7 @@ export default {
     	overflow:scroll;
     	height: 100%;
     }
-}
+
 .titleUser{
 	border-bottom: 1px solid #dcdcdc;
 	padding-bottom: 10px;
@@ -77,11 +78,13 @@ export default {
 	width: 140px;
 	height: 124px;
 	border: 1px solid #ccc;
-	margin:0 10px 0 30px;	
+	margin:0 10px 0 30px;
+	overflow: hidden;
 }
 .text{
 	display: inline-block;
 	vertical-align: top;
+	margin-bottom: 10px;
 }
 .mainPic{
 	text-align: center;
@@ -97,5 +100,10 @@ export default {
 }
 .edit:focus{
 	color: #fff;
+}
+.coltext{
+	font-size:14px;
+	color: #898989;
+}
 }
 </style>

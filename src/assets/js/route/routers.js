@@ -95,14 +95,19 @@ const commodity = resolve => {
     }, 'commodity')
 }
 
-// =============================头部导航条按钮跳转====================================
+// =============================头部导航条按钮跳转=======================
 // -------------------------------问题反馈------------------------------
 const question = resolve => {
     require.ensure(['../components/top/question.vue'], () => {
         resolve(require('../components/top/question.vue'))
     }, 'question')
 }
-
+// -------------------------------首页------------------------------
+const home = resolve => {
+    require.ensure(['../components/top/home.vue'], () => {
+        resolve(require('../components/top/home.vue'))
+    }, 'home')
+}
 // -------------------------------设置------------------------------
 const set = resolve => {
     require.ensure(['../components/top/set.vue'], () => {
@@ -145,6 +150,10 @@ const routes = [
         {
             path: 'test',
             component: test
+        },
+        {
+            path: 'home',
+            component: home
         },
         {
             path: 'details/:model/:id',

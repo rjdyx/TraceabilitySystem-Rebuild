@@ -6,11 +6,11 @@
 
 
 <template>
-	<div class="content">
+	<div>
         <basic-model :models="models[type]"></basic-model>
     </div> 
 </template>
- 
+  
 <script>
 import BasicModel from '../basicModel/basic-model.vue'
 import message from './message.js'
@@ -41,9 +41,5 @@ export default {
 
 <style lang="sass" scoped>
     @import "../../../sass/function";
-.content{
-    	margin-top: 15px;
-        overflow:scroll;
-        height: 100%;
-    }
+
 </style>
