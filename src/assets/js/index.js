@@ -21,6 +21,7 @@ require('./config/init')
 
 router.beforeEach((to, from, next) => {
     next()
+    console.log(to)
     // if (USER_STATE === 'false') {
     //     axios.get('/login/state', this.ruleForm2).then(responce => {
     //         let USER_STATE = responce.data.name

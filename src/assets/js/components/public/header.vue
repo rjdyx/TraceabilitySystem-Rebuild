@@ -132,7 +132,6 @@ export default {
 				margin-bottom: 5px;
 				text-align: center;
 				color: #fff;
-				font-size: 12px;
 				span {
 					color: #fff;
 				}

@@ -6,7 +6,7 @@
  * 
  */
 <template>
-<div>   
+<div class="detailsModel">   
   <!-- 标题 -->
     <contain-title :settitle="tab">
     </contain-title>
@@ -527,6 +527,8 @@ export default {
 }
 </script>
 <style lang='sass'> 
+.detailsModel{
+
   .pcActive{
         color: blue;
         text-decoration: underline;
@@ -604,4 +606,5 @@ export default {
      .detaActive{
         background: red;
      }
+}
 </style>

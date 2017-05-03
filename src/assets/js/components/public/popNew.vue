@@ -107,7 +107,7 @@
          </el-form>
         </el-tab-pane>
         <div class="form-footer">
-            <el-button type="primary"  @click="submitForm('tableForm')">确定</el-button>
+            <el-button class="btn_change" @click="submitForm('tableForm')">确定</el-button>
             <el-button class="activecancel" @click="cancelClick">取消</el-button>
         </div>
       </el-tabs>
@@ -385,6 +385,9 @@ export default {
     } 
     .el-tabs__header{
         cursor: move;
+    }
+    .btn_change{
+        color: #fff;
     }
     // .formHeaderMask{
     //     width:100%;

@@ -2,16 +2,16 @@
     <section class="chart-container">
         <el-row :gutter="20">
             <el-col :span="12">
-                <div id="chartColumn" style="width:450px; height:350px;"></div>
+                <div id="chartColumn" style="height:350px;"></div>
             </el-col>
             <el-col :span="12">
-                <div id="chartBar" style="width:450px; height:350px;"></div>
+                <div id="chartBar" style="height:350px;"></div>
             </el-col>
             <el-col :span="12">
-                <div id="chartLine" style="width:450px; height:350px;"></div>
+                <div id="chartLine" style="height:350px;"></div>
             </el-col>
             <el-col :span="12">
-                <div id="chartPie" style="width:450px; height:350px;"></div>
+                <div id="chartPie" style="height:350px;"></div>
             </el-col>
         </el-row>
     </section>
@@ -49,6 +49,7 @@
                     data: [5, 20, 36, 10, 10, 20]
                 }]
             })
+            window.onresize = this.chartColumn.resize
             this.chartBar.setOption({
                 title: { text: '销售订单', x: 'center' },
                 tooltip: {
@@ -101,6 +102,8 @@
                     }
                 ]
             })
+            window.onresize = this.chartBar.resize
+
             this.chartLine.setOption({
                 title: {text: '采收报表', x: 'center'},
                 tooltip: {},
@@ -114,6 +117,8 @@
                     data: [5, 20, 36, 10, 10, 20]
                 }]
             })
+            window.onresize = this.chartLine.resize
+
             this.chartPie.setOption({
                 title: {text: '物流统计', x: 'center'},
                 tooltip: {
@@ -139,21 +144,23 @@
                     ]
                 }]
             })
-            setTimeout(function () {
-                window.onresize = function () {
-                    this.chartLine.resize()
-                    this.chartColumn.resize()
-                    this.chartBar.resize()
-                    this.chartPie.resize()
-                }
-            }, 1000)
+            window.onresize = this.chartPie.resize
+
+            // setTimeout(function () {
+            //     window.onresize = function () {
+            //         this.chartLine.resize()
+            //         this.chartColumn.resize()
+            //         this.chartBar.resize()
+            //         this.chartPie.resize()
+            //     }
+            // }, 1000)
             // window.onresize = this.chartColumn.resize
             // window.onresize = this.chartBar.resize
             // window.onresize = this.chartPie.resize
             // window.onresize = this.chartLine.resize
             // window.addEventListener('resize', function () {
             //     this.chartBar.resize()
-            // }    )
+            // }.bind(this))
             // window.addEventListener('resize', function () {
             //     this.chartPie.resize()
             // }.bind(this))
@@ -164,12 +171,11 @@
             //     this.chartColumn.resize()
             // }.bind(this))
         }
-
     }
 
 </script>
 
-<style scoped>
+<style lang="sass">
 .chart-container{
 	.el-col div{
         padding-left: 70px;
