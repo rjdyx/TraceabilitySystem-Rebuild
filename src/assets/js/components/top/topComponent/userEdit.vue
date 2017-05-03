@@ -89,7 +89,7 @@ export default {
                     {required: true, message: '请输入邮箱', trigger: 'blur'}
                 ],
                 phone: [
-                    {required: true, message: '请输入邮箱', trigger: 'blur'}
+                    {required: true, message: '请输入手机号码', trigger: 'blur'}
                 ]
             }
         }
@@ -155,7 +155,6 @@ export default {
   z-index: 2;
   text-align: center;
   overflow: hidden;
-}
 
 .formUser {
   width: 622px;
@@ -201,5 +200,6 @@ export default {
 .userOperate {
   margin-top: 15px;
   float: right;
+}
 }
 </style>

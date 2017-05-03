@@ -15,7 +15,7 @@
 					<img src="/public/images/home.jpg" class="homeImg" />
 				</span>
 				<el-row :gutter="20" class="text homeInfo">
-					<el-col :span='24' v-for="(item,index) in list" class="coltext">
+					<el-col :span='12' v-for="(item,index) in list" class="coltext">
 						{{item}}
 					</el-col>
 				</el-row>
@@ -27,7 +27,7 @@
 						<div :class="{'A': area.isA, 'B': area.isB, 'C': area.isC, 'D': area.isD}">
 							<h1>{{area.title}}</h1>
 							<el-row :gutter="20">
-								<el-col :span="8" class="coltext"></el-col>
+								<el-col :span="8"></el-col>
 							</el-row>
 						</div>
 					</template>	
@@ -129,10 +129,11 @@ export default{
 	display: inline-block;
 	vertical-align: top;
 	margin-bottom: 10px;
+	width: 80%;
 }
 .homeImg{
-	width: 150px;
-	height: 150px;
+	width: 200px;
+	height: 175px;
 }
 .homeInfo{
 	margin-top: 25px;
@@ -146,9 +147,9 @@ export default{
 .leftMain{
 	width: 68%;
 	// min-width: 1200px;
-	background-image: url(/public/images/home-bg.png);
-	background-position: -198px -510px;
-	height: 721px;
+	background: url(../../../../../public/images/9.png) no-repeat;
+	background-size: 100% 100%;
+	height: 718px;
 	float: left;
 	display: inline-block;
 	position: relative;
@@ -160,6 +161,9 @@ export default{
 .leftMain h1,.rightMain h1{
 	font-size: 34px;
 	text-align: center;
+}
+.rightMain h1{
+	padding-bottom: 15px;
 }
 .rightMain{
 	width: 26%;
@@ -187,6 +191,7 @@ export default{
 	display: inline-block;
 	text-align: center;
 	width: 120px;
+	font-size: 16px;
 }
 .chart{
 	width: 60%;
@@ -196,40 +201,44 @@ export default{
 	width: 100%;
 	margin-top: 80px;
 	overflow: hidden;
+	padding-bottom: 50px;
 }
 .record{
 	width: 26%;
 	float:right;
+	padding-top: 80px;
 	p{
 		margin:70px 0;
+		font-size: 20px;
 	}
 }
 .coltext{
 	font-size:14px;
 	color: #898989;
+	padding: 21px;
 }
 .A{
 	position: absolute;
-	bottom: 103px;
-	left: 30px;
-	// border: 1px solid red;
+	bottom: 16%;
+	left: 2%;
+	/*border: 1px solid red;*/
 }
 .B{
 	position: absolute;
-	top: 166px;
-	left: 140px;
-	// border: 1px solid blue;
+	top: 25%;
+	left: 14%;
+	/*border: 1px solid blue;*/
 }
 .C{
 	position: absolute;
-	bottom:300px;
-	left: 450px;
+	bottom:38%;
+	left: 43%;
 	// border: 1px solid green;
 }
 .D{
 	position: absolute;
-	bottom: 196px;
-	right: 241px;
+	bottom: 32%;
+	left: 67%;
 	// border: 1px solid orange;
 }
 }

@@ -23,7 +23,7 @@
             
             <!-- 搜索框 -->
             <div class="searchOp"> 
-                <el-input
+                <el-input   
                     :placeholder="searchPlaceholder"
                     v-model="inputValue"
                     :on-icon-click="search" class="searchInp" size="small">
