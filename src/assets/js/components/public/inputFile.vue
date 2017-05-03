@@ -13,7 +13,7 @@
         </div>
         <input type="file" hidden="hidden" @change="previewPic(item, $event)">
         <div class="delete-pic-btn">
-            <button type="button" @click="deleteImgFn">删除</button>
+            <el-button type="primary" size="small" @click="deleteImgFn">删除</el-button>
         </div>
     </div>
 </div>

@@ -45,10 +45,14 @@
         </div>
 
         <!-- 新建模块 --> 
-        <popNew v-if="isNewShow" :newComponent="newComponent" :url="url" @submitNew="changeNew" @setAssoc="getAssoc"></popNew>
+        <transition name="fade">
+            <popNew v-if="isNewShow" :newComponent="newComponent" :url="url" @submitNew="changeNew" @setAssoc="getAssoc"></popNew>
+        </transition>
         <!-- 编辑模块 -->
+        <transition name="fade">
         <pop-edit v-if="isEditShow" :editComponent="editComponent" :url="url" :editForm="editForm"
              @submitEdit="hangeEdit" :changeDataArr="changeDataArr" :editDefault="editDefault"></pop-edit>
+        </transition>
     </div>
     <!-- 列表模块 -->
     <el-table :data="tableData"  @selection-change="handleSelectionChange">
@@ -610,6 +614,12 @@ export default {
 
 
 <style lang='sass'>
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s
+}
+.fade-enter, .fade-leave-active {
+  opacity: 0
+}
     .pcActive{
         color: blue;
         text-decoration: underline;
