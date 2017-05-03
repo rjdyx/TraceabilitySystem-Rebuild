@@ -7,11 +7,11 @@
  */
 <template>
     <div class="pBasicModel1">
-        <header1 :title="models.title"></header1>
+        <header1 :title="models.title" :isbreed="isbreed"></header1>
         <headerImg :productName='productName'></headerImg>
         <div class="pBM1_list">
             <div>
-                <h3>{{models.tableName}}</h3>
+                <h3 :class="{breedFontCol:isbreed}">{{models.tableName}}</h3>
                 <table>
                     <tr>
                         <th v-for="item in models.tableTheads">{{item}}</th>
@@ -32,16 +32,22 @@
     </div>
 </template>
 <style type="text/css" lang="sass">
+.breedCol{
+    background:#93bf46!important;
+}
+.breedFontCol{
+    color:#93bf46!important;
+}
 .pBasicModel1{
     width: 100%;
-    padding-bottom: 2.5rem;
+    padding-bottom: 1rem;
     .pBM1_list{
         background: #fbfbfb;
         >div{
             >h3{
                 font-weight:normal;
                 color:#3ccfb5;
-                font-size: 1.4rem;
+                font-size: .42rem;
                 padding: 2% 0% 0% 7%;
                 // font-weight:none;
             }
@@ -50,7 +56,7 @@
                 margin: 0 auto;
                 tr{
                     width:100%;
-                    font-size: 1.3rem;
+                    font-size: .37rem;
                     border-bottom: 1px solid #e6e6e6;
                     text-align: center;
                     th{
@@ -90,18 +96,26 @@ export default {
             // title: '农事信息',
             // productName: '新疆苹果',
             // 要传给pBM2的数据
+            imgListName: '农事记录详情',
+            id: 555,
+            isbreed: false,
             // imgListName: '农事记录详情',
             lists: ''
         }
     },
     methods: {
         goListDetails (id) {
-            this.$router.push('/run/plant/' + this.$route.meta.key + '/datails/' + id)
+            this.$router.push('/run/' + this.$route.meta.runName + '/' + this.$route.meta.key + '/datails/' + id)
         }
     },
     mounted () {
         var params = {cultivate_id: this.$route.params.id}
-        axios.post('run/plant/' + this.$route.meta.key, params)
+        var url = 'run/plant/'
+        if (this.$route.meta.runName === 'breed') {
+            params = {id: this.$route.params.id}
+            url = 'run/beast/'
+        }
+        axios.post(url + this.$route.meta.key, params)
             .then((responce) => {
                 if (responce.data !== 'false') {
                     this.lists = responce.data

@@ -12,6 +12,9 @@ import ScrollBar from 'vue2-scrollbar'
 Vue.component('vue-scrollbar', ScrollBar)
 require('vue2-scrollbar/dist/style/vue2-scrollbar.css')
 
+// html字体大小设置
+require('../page/phone/plant/js/fontSize.js')
+
 // 路由插件
 import VueRouter from 'vue-router'
 Vue.use(VueRouter)
@@ -60,6 +63,3 @@ Object.keys(elementComponent).forEach(function (component) {
 * css库
 */
 require('sass/index.scss')
-
-// 引入animate.css 库
-import 'animate.css'
