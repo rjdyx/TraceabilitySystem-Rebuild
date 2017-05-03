@@ -903,8 +903,8 @@ export default {
             url: 'pack-product',
             tab: '加工批次产品信息',
             searchPlaceholder: '请输入产品名称进行搜索',
-            headList: ['产品名称', '采收批次号', '执行标准', '商品型号', '包装规格', '保质期', '存储方法'],
-            protos: ['name', 'serial', 'enforce_standard', 'marque', 'specification', 'expiration_date', 'storage_means'],
+            headList: ['产品名称', '执行标准', '商品型号', '包装规格', '保质期', '存储方法'],
+            protos: ['name', 'enforce_standard', 'marque', 'specification', 'expiration_date', 'storage_means'],
             widths: [50, 50, 50, 50, 50, 50],
             hiddeEdit: false,
             typeComponent: [{
@@ -912,28 +912,17 @@ export default {
             }],
             listComponent: [],
             newComponent: [{
-                tab: '新建溯源码信息',
-                selectUrl2: [['products', 'id', 'name', true], ['harvests', 'id', 'serial', true]],
-                popNumber2: [0, 1],
+                tab: '新建加工产品信息',
+                type: 'table',
+                labUrl: 'product',
                 components: [{
-                    name: 'product_id',
-                    type: 'select',
-                    component: null,
-                    isNull: false,
-                    label: '产品名称',
-                    placeholder: '必填',
-                    rule: {required: true, trigger: 'blur', message: '请选择加工产品', type: 'number'},
-                    options: []
-                },
-                {
-                    name: 'harvest_id',
-                    type: 'select',
-                    component: null,
-                    isNull: false,
-                    label: '采收批次号',
-                    placeholder: '必填',
-                    rule: {required: true, trigger: 'blur', message: '请选择采收批次号', type: 'number'},
-                    options: []
+                    name: 'name',
+                    type: 'table',
+                    theads: ['产品名称', '商品型号', '包装规格'],
+                    protos: ['name', 'marque', 'specification'],
+                    valueId: 'product_ids',
+                    errormsg: '请选择产品',
+                    tableVal: []
                 }]
             }]
         }]
@@ -942,8 +931,8 @@ export default {
     plantPackProduct: {
         key: 'plantPackProduct',
         tab: '生产加工产品管理',
-        theads: ['产品名称', '采收批次号', '执行标准', '商品型号', '包装规格', '保质期', '存储方法'],
-        protos: ['name', 'serial', 'enforce_standard', 'marque', 'specification', 'expiration_date', 'storage_means'],
+        theads: ['产品名称', '执行标准', '商品型号', '包装规格', '保质期', '存储方法'],
+        protos: ['name', 'enforce_standard', 'marque', 'specification', 'expiration_date', 'storage_means'],
         url: '{x}/pack-product',
         tabList: [{
             url: 'pack-product-code',
@@ -964,6 +953,9 @@ export default {
             }],
             newComponent: [{
                 tab: '新建溯源码信息',
+                selectUrl2: [['harvests', 'id', 'serial', true]],
+                popNumber2: [1],
+                hiddenValue: {type: 'plant'},
                 components: [{
                     name: 'date',
                     type: 'date',
@@ -974,7 +966,17 @@ export default {
                     rule: [{required: true, message: '请输入生产日期'}, {validator: validate2.reDate, message: '请输入生产日期'}]
                 },
                 {
-                    name: 'num',
+                    name: 'harvest_id',
+                    type: 'select',
+                    component: null,
+                    isNull: false,
+                    label: '采收批次',
+                    placeholder: '',
+                    rule: {required: true, trigger: 'blur', message: '请选择采收批次', type: 'number'},
+                    options: []
+                },
+                {
+                    name: 'amount',
                     type: 'text',
                     component: null,
                     isNull: false,
@@ -993,44 +995,25 @@ export default {
                 }]
             }],
             editComponent: [{
-                tab: '编辑生长过程信息',
-                checkNumber: [0],
-                hasImg: true,
+                tab: '编辑溯源码信息',
                 components: [{
-                    name: 'name',
+                    name: 'code',
                     type: 'text',
                     component: null,
                     isNull: false,
-                    label: '图片标题',
-                    placeholder: '必填',
-                    rule: [{required: true, message: '请输入图片标题', trigger: 'blur'}, {validator: validate2.reCheck}]
-                },
-                {
-                    name: 'desc',
-                    type: 'text',
-                    component: null,
-                    isNull: true,
-                    label: '特征描述',
+                    label: '溯源码',
                     placeholder: '',
-                    rule: {required: true, message: '请输入特征描述'}
+                    disabled: true,
+                    rule: {required: true}
                 },
                 {
                     name: 'date',
                     type: 'date',
                     component: inputDate,
                     isNull: false,
-                    label: '上传日期',
+                    label: '生产日期',
                     placeholder: '',
-                    rule: [{required: true, message: '请输入上传日期'}, {validator: validate2.reDate, message: '请输入上传日期'}]
-                },
-                {
-                    name: 'img',
-                    type: 'file',
-                    component: inputFile,
-                    isNull: true,
-                    label: '上传图片',
-                    placeholder: '',
-                    rule: {required: true, message: '请上传图片'}
+                    rule: [{required: true, message: '请输入生产日期'}, {validator: validate2.reDate, message: '请输入生产日期'}]
                 },
                 {
                     name: 'memo',
@@ -1040,6 +1023,49 @@ export default {
                     label: '备注信息',
                     placeholder: '',
                     rule: null
+                }]
+            }]
+        }]
+    },
+    // 加工检测详情信息
+    detectPackBatch: {
+        key: 'detectPackBatch',
+        tab: '加工检测管理',
+        theads: ['检测批次号', '检测名称', '检测内容', '检测日期', '检测结果', '检测机构', '负责人', '处理方法'],
+        protos: ['serial', 'name', 'content', 'date', 'result', 'organization', 'operate_name', 'method'],
+        batch: 'plantPackProduct',
+        url: 'detect_pk',
+        changeDataArr: [{result: {'不合格': 0, '合格': 1}}],
+        tabList: [{
+            url: 'pack-detect-pk',
+            tab: '加工批次产品信息',
+            searchPlaceholder: '请输入加工批次号进行搜索',
+            headList: ['加工批次号', '加工日期', '数量', '产地', '操作人', '备注'],
+            protos: ['serial', 'date', 'amount', 'origin', 'operate_name', 'memo'],
+            widths: [50, 50, 50, 50, 50, 50],
+            hiddeEdit: false,
+            typeComponent: [{
+                component: newbuildBtn
+            }],
+            listComponent: [{
+                components: [{
+                    type: 'date',
+                    component: datePick
+                }]
+            }],
+            newComponent: [{
+                tab: '新建加工批次检测信息',
+                type: 'table',
+                labUrl: 'pack',
+                paramsIndex: 'plant',
+                components: [{
+                    name: 'name',
+                    type: 'table',
+                    theads: ['加工批次号', '加工日期', '产地'],
+                    protos: ['serial', 'date', 'origin'],
+                    valueId: 'pack_ids',
+                    errormsg: '请选择加工批次号',
+                    tableVal: []
                 }]
             }]
         }]

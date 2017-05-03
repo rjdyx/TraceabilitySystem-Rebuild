@@ -100,7 +100,6 @@ export default{
 }
 </script>
 <style lang='sass'>
-@import url("./css/puplic.css");
 #plant{
 	width:100%;
 	height:100%;
@@ -151,14 +150,15 @@ export default{
 		}
 		.plant_text{
 			position:absolute;
-			width:40%;
+			width:38%;
 			max-height: 23%;
-			left:7%;
+			left:9%;
 			top:46%;
 			transform:translateY(-50%);
 			color:#67a3bf;
-			font-size:1.2rem;
+			font-size: .37rem;
 			zoom:1;
+			line-height: .45rem;
 			dl{
 				dt{
 					width: 100%;
@@ -181,14 +181,14 @@ export default{
 			position:absolute;
 			width:41%;
 			height:16%;
-			background:rgba(0,0,0,0.5);
+			/*background:rgba(0,0,0,0.5);*/
 			right:7.3%;
 			top:38.5%;
 			transform: rotate(-2.5deg);
 			img{
 				width:100%;
 				height:100%;
-				border-radius:20px;
+				border-radius:10px;
 			}
 		}
 		.plantBottomList{

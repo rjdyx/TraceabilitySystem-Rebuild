@@ -109,7 +109,6 @@
         <div class="form-footer">
             <el-button type="primary"  @click="submitForm('tableForm')">确定</el-button>
             <el-button class="activecancel" @click="cancelClick">取消</el-button>
-            new
         </div>
       </el-tabs>
     </form>
