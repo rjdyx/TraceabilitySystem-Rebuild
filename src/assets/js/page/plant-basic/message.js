@@ -1301,10 +1301,10 @@ export default {
             url: 'farm',
             searchPlaceholder: '请输入养殖场进行搜索',
             search: ['query_text', 'name'],
-            theads: ['养殖场名称', '养殖面积', '负责人', '养殖畜禽种类', '养殖规模', '详细地址', '图片', '备注信息'],
-            protos: ['name', 'area_unit', 'principal', 'kind', 'scale', 'address', 'img', 'memo'],
+            theads: ['养殖场名称', '养殖面积', '负责人', '养殖畜禽种类', '养殖规模', '详细地址', '备注信息'],
+            protos: ['name', 'area_unit', 'principal', 'kind', 'scale', 'address', 'memo'],
             selectSearch: ['farm.name'],
-            widths: [50, 50, 50, 50, 50, 50, 50, 50],
+            widths: [50, 50, 50, 50, 50, 50, 50],
             typeComponent: [{
                 component: importBtn
             },
@@ -1355,15 +1355,6 @@ export default {
                     rule: null
                 },
                 {
-                    name: 'phone',
-                    type: 'text',
-                    component: null,
-                    isNull: true,
-                    label: '联系电话',
-                    placeholder: '请输入11位的手机号（固话用-隔开）',
-                    rule: { validator: validate2.phone }
-                },
-                {
                     name: 'kind',
                     type: 'text',
                     component: null,
@@ -1387,24 +1378,6 @@ export default {
                     component: null,
                     isNull: true,
                     label: '地址',
-                    placeholder: '',
-                    rule: null
-                },
-                {
-                    name: 'img',
-                    type: 'file',
-                    component: null,
-                    isNull: true,
-                    label: '养殖场图片',
-                    placeholder: '',
-                    rule: null
-                },
-                {
-                    name: 'video',
-                    type: 'text',
-                    component: null,
-                    isNull: true,
-                    label: '视频设备号',
                     placeholder: '',
                     rule: null
                 },
@@ -1460,15 +1433,6 @@ export default {
                     rule: null
                 },
                 {
-                    name: 'phone',
-                    type: 'text',
-                    component: null,
-                    isNull: true,
-                    label: '联系电话',
-                    placeholder: '请输入11位的手机号（固话用-隔开）',
-                    rule: { validator: validate2.phone }
-                },
-                {
                     name: 'kind',
                     type: 'text',
                     component: null,
@@ -1496,24 +1460,6 @@ export default {
                     rule: null
                 },
                 {
-                    name: 'img',
-                    type: 'file',
-                    component: null,
-                    isNull: true,
-                    label: '',
-                    placeholder: '',
-                    rule: null
-                },
-                {
-                    name: 'video',
-                    type: 'text',
-                    component: null,
-                    isNull: true,
-                    label: '视频设备号',
-                    placeholder: '',
-                    rule: null
-                },
-                {
                     name: 'memo',
                     type: 'textarea',
                     component: null,
@@ -1534,8 +1480,8 @@ export default {
             searchPlaceholder: '请输入养殖区进行搜索',
             selectValueId: [['pid', 'parent_name', true]],
             selectDefault: [{value: '', label: '选择养殖场'}],
-            theads: ['所属养殖场', '养殖区名称', '养殖面积', '负责人', '养殖畜禽种类', '养殖规模', '详细地址', '图片', '备注信息'],
-            protos: ['parent_name', 'name', 'area_unit', 'principal', 'kind', 'scale', 'address', 'img', 'meno'],
+            theads: ['所属养殖场', '养殖区名称', '养殖面积', '负责人', '养殖畜禽种类', '养殖规模', '详细地址', '备注信息'],
+            protos: ['parent_name', 'name', 'area_unit', 'principal', 'kind', 'scale', 'address', 'memo'],
             selectSearch: ['farmcds.pid'],
             widths: [50, 50, 50, 50, 50, 50, 50, 50],
             typeComponent: [{
@@ -1604,15 +1550,6 @@ export default {
                     rule: null
                 },
                 {
-                    name: 'phone',
-                    type: 'text',
-                    component: null,
-                    isNull: true,
-                    label: '联系电话',
-                    placeholder: '请输入11位的手机号（固话用-隔开）',
-                    rule: { validator: validate2.phone, trigger: 'blur' }
-                },
-                {
                     name: 'kind',
                     type: 'text',
                     component: null,
@@ -1636,24 +1573,6 @@ export default {
                     component: null,
                     isNull: true,
                     label: '地址',
-                    placeholder: '',
-                    rule: null
-                },
-                {
-                    name: 'img',
-                    type: 'file',
-                    component: inputFile,
-                    isNull: true,
-                    label: '',
-                    placeholder: '图片',
-                    rule: null
-                },
-                {
-                    name: 'video',
-                    type: 'text',
-                    component: null,
-                    isNull: true,
-                    label: '视频设备号',
                     placeholder: '',
                     rule: null
                 },
@@ -1724,15 +1643,6 @@ export default {
                     rule: null
                 },
                 {
-                    name: 'phone',
-                    type: 'text',
-                    component: null,
-                    isNull: true,
-                    label: '联系电话',
-                    placeholder: '请输入11位的手机号（固话用-隔开）',
-                    rule: { validator: validate2.phone, trigger: 'blur' }
-                },
-                {
                     name: 'kind',
                     type: 'text',
                     component: null,
@@ -1756,24 +1666,6 @@ export default {
                     component: null,
                     isNull: true,
                     label: '地址',
-                    placeholder: '',
-                    rule: null
-                },
-                {
-                    name: 'img',
-                    type: 'file',
-                    component: inputFile,
-                    isNull: true,
-                    label: '',
-                    placeholder: '图片',
-                    rule: null
-                },
-                {
-                    name: 'video',
-                    type: 'text',
-                    component: null,
-                    isNull: true,
-                    label: '视频设备号',
                     placeholder: '',
                     rule: null
                 },
@@ -1807,7 +1699,7 @@ export default {
             selectValueId: [['farm_id', 'farm_name', true]],
             selectDefault: [{value: '', label: '选择养殖区'}],
             theads: ['所属养殖区', '圈舍名称', '圈舍面积', '图片', '备注信息'],
-            protos: ['farm_id', 'name', 'area', 'img', 'memo'],
+            protos: ['farm_name', 'name', 'area_unit', 'img', 'memo'],
             selectSearch: ['farms.id'],
             widths: [50, 50, 50, 50, 50],
             typeComponent: [{
@@ -1822,6 +1714,7 @@ export default {
             newComponent: [{
                 tab: '新建圈舍信息',
                 selectUrl: [['farmcd', 'farms', 'id', 'name', true]],
+                selectInit: [{value: '', label: '选择养殖区'}],
                 checkNumber: [1],
                 popNumber: [0],
                 hasImg: true,
@@ -1970,7 +1863,7 @@ export default {
             selectValueId: [['category_id', 'category_name', true]],
             selectDefault: [{value: '', label: '选择畜禽分类'}],
             theads: ['畜禽分类', '畜禽名称', '描述', 'RFID位置', '图片', '备注信息'],
-            protos: ['category_name', 'name', 'description', 'ear', 'img', 'meno'],
+            protos: ['category_name', 'name', 'description', 'ear', 'img', 'memo'],
             selectSearch: ['beast.img'],
             widths: [50, 50, 50, 50, 50, 50],
             typeComponent: [{
@@ -1987,6 +1880,7 @@ export default {
                 checkNumber: [1],
                 hasImg: true,
                 selectUrl: [['category', 'operate', 'category_id', 'category_name', true]],
+                selectInit: [{value: '', label: '选择畜禽分类'}],
                 popNumber: [0],
                 components: [{
                     name: 'category_id',
@@ -2143,9 +2037,12 @@ export default {
             newComponent: [{
                 tab: '新建饲料档案',
                 checkNumber: [1],
+                selectUrl: [['category', 'fodder', 'category_id', 'category_name', true]],
+                selectInit: [{value: '', label: '选择饲料分类'}],
+                popNumber: [0],
                 hasImg: true,
                 components: [{
-                    name: 'category_name',
+                    name: 'category_id',
                     type: 'select',
                     component: null,
                     isNull: false,
@@ -2173,7 +2070,7 @@ export default {
                     rule: null
                 },
                 {
-                    name: '包装规格',
+                    name: 'specification',
                     type: 'text',
                     component: null,
                     isNull: true,
@@ -2206,19 +2103,19 @@ export default {
                     isNull: true,
                     label: '联系方式',
                     placeholder: '',
-                    rule: null
+                    rule: { validator: validate2.phone }
                 },
                 {
                     name: 'img',
                     type: 'file',
-                    component: null,
+                    component: inputFile,
                     isNull: true,
                     label: '图片',
                     placeholder: '',
                     rule: null
                 },
                 {
-                    name: 'vender_name',
+                    name: 'memo',
                     type: 'textarea',
                     component: null,
                     isNull: true,
@@ -2231,9 +2128,11 @@ export default {
             editComponent: [{
                 tab: '编辑饲料档案',
                 checkNumber: [1],
+                selectUrl: [['category', 'fodder', 'category_id', 'category_name', true]],
+                popNumber: [0],
                 hasImg: true,
                 components: [{
-                    name: 'category_name',
+                    name: 'category_id',
                     type: 'select',
                     component: null,
                     isNull: false,
@@ -2261,7 +2160,7 @@ export default {
                     rule: null
                 },
                 {
-                    name: '包装规格',
+                    name: 'specification',
                     type: 'text',
                     component: null,
                     isNull: true,
@@ -2294,19 +2193,19 @@ export default {
                     isNull: true,
                     label: '联系方式',
                     placeholder: '',
-                    rule: null
+                    rule: { validator: validate2.phone }
                 },
                 {
                     name: 'img',
                     type: 'file',
-                    component: null,
+                    component: inputFile,
                     isNull: true,
                     label: '图片',
                     placeholder: '',
                     rule: null
                 },
                 {
-                    name: 'vender_name',
+                    name: 'memo',
                     type: 'textarea',
                     component: null,
                     isNull: true,
@@ -2353,6 +2252,7 @@ export default {
                 tab: '新建饲料添加剂档案',
                 selectUrl: [['category', 'addition', 'category_id', 'category_name', true]],
                 popNumber: [0],
+                selectInit: [{value: '', label: '选择饲料添加剂分类'}],
                 checkNumber: [1],
                 hasImg: true,
                 components: [{
@@ -2440,7 +2340,7 @@ export default {
                 {
                     name: 'img',
                     type: 'file',
-                    component: null,
+                    component: inputFile,
                     isNull: true,
                     label: '图片',
                     placeholder: '',
@@ -2547,7 +2447,7 @@ export default {
                 {
                     name: 'img',
                     type: 'file',
-                    component: null,
+                    component: inputFile,
                     isNull: true,
                     label: '图片',
                     placeholder: '',
@@ -2598,6 +2498,7 @@ export default {
             newComponent: [{
                 tab: '新建兽药档案',
                 selectUrl: [['category', 'addition', 'category_id', 'category_name', true]],
+                selectInit: [{value: '', label: '选择兽药分类'}],
                 popNumber: [0],
                 hasImg: true,
                 checkNumber: [1],
@@ -2798,9 +2699,9 @@ export default {
         selectValueId: [['beast_id', 'beast_name', true]],
         selectDefault: [{value: '', label: '请选择畜禽'}],
         theads: ['批次号', '养殖区', '圈舍', '畜禽', '开始日期', '数量', '养殖方式', '养殖人', '操作人', '录入人', '备注'],
-        protos: ['serial', 'farm_name', 'area_name', 'beast_name', 'start_date', 'amount', 'way', 'operate', 'operate_name', 'user_name', 'meno'],
+        protos: ['serial', 'farm_name', 'area_name', 'beast_name', 'start_date', 'amount', 'way', 'operate', 'operate_name', 'user_name', 'memo'],
         selectSearch: ['breeds.beast_id'],
-        widths: [30, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
+        widths: [60, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
         typeComponent: [{
             component: output
         },
@@ -2810,6 +2711,7 @@ export default {
         newComponent: [{
             tab: '新建养殖批次',
             selectUrl2: [['areas', 'id', 'name', true], ['beasts', 'id', 'name', true], ['operates', 'id', 'name', true]],
+            selectInit2: [{value: '', label: '选择圈舍'}, {value: '', label: '选择畜禽'}, {value: '', label: '选择养殖人'}],
             popNumber2: [0, 1, 2],
             components: [{
                 name: 'area_id',
@@ -5560,6 +5462,7 @@ export default {
                 selectUrl: [['plantation', 'planta', 'pid', 'plantation_name', true]],
                 selectInit: [{value: '', label: '选择种植场'}],
                 checkNumber: [1],
+                hasImg: true,
                 popNumber: [0],
                 components: [{
                     name: 'pid',
@@ -5654,6 +5557,7 @@ export default {
                 selectUrl: [['plantation', 'planta', 'pid', 'plantation_name', true]],
                 checkNumber: [1],
                 popNumber: [0],
+                hasImg: true,
                 components: [{
                     name: 'pid',
                     type: 'select',
@@ -5779,6 +5683,7 @@ export default {
                 selectInit: [{value: '', label: '选择果蔬分类'}],
                 checkNumber: [1],
                 popNumber: [0],
+                hasImg: true,
                 components: [{
                     name: 'category_id',
                     type: 'select',
@@ -5814,7 +5719,7 @@ export default {
                     isNull: false,
                     label: '生长周期（天）',
                     placeholder: '',
-                    rule: {validator: validate2.reNumber}
+                    rule: {validator: validate2.reInteger}
                 },
                 {
                     name: 'img',
@@ -5839,6 +5744,7 @@ export default {
                 selectUrl: [['category', 'plant', 'category_id', 'category_name', true]],
                 checkNumber: [1],
                 popNumber: [0],
+                hasImg: true,
                 components: [{
                     name: 'category_id',
                     type: 'select',
@@ -5873,7 +5779,7 @@ export default {
                     isNull: false,
                     label: '生长周期（天）',
                     placeholder: '',
-                    rule: {validator: validate2.reNumber}
+                    rule: {validator: validate2.reInteger}
                 },
                 {
                     name: 'img',

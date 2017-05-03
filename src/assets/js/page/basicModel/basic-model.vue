@@ -600,6 +600,7 @@ export default {
         }
     },
     mounted () {
+        console.log(this.GLOBAL)
         // 获取下拉框
         if (this.selectValueId) {
             this.getSelect()
