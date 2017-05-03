@@ -63,6 +63,12 @@ const test = resolve => {
 
 var routes = [
     {
+        path: '/',
+        name: 'index',
+        component: index,
+        meta: { auth: true }
+    },
+    {
         path: '/index',
         name: 'index',
         component: index,
