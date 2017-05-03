@@ -45,12 +45,18 @@
         </div>
 
         <!-- 新建模块 --> 
-        <popNew v-if="isNewShow" :newComponent="newComponent" :url="url" @submitNew="changeNew" @setAssoc="getAssoc"></popNew>
+        <transition name="fade">
+            <popNew v-if="isNewShow" :newComponent="newComponent" :url="url" @submitNew="changeNew" @setAssoc="getAssoc"></popNew>
+        </transition>
         <!-- 编辑模块 -->
-        <pop-edit v-if="isEditShow" :editComponent="editComponent" :url="url" :editForm="editForm"
+        <transition name="fade">
+            <pop-edit v-if="isEditShow" :editComponent="editComponent" :url="url" :editForm="editForm"
              @submitEdit="hangeEdit" :changeDataArr="changeDataArr" :editDefault="editDefault"></pop-edit>
+        </transition>
         <!-- 打印模块 -->
-        <printf v-if="isPrintShow" :printComponent="printComponent" :url="url" :printForm="printForm"></printf>
+        <transition name="fade">
+            <printf v-if="isPrintShow" :printComponent="printComponent" :url="url" :printForm="printForm"></printf>
+        </transition>
     </div>
     <!-- 列表模块 -->
     <el-table :data="tableData"  @selection-change="handleSelectionChange">
@@ -594,6 +600,7 @@ export default {
         }
     },
     mounted () {
+        console.log(this.GLOBAL)
         // 获取下拉框
         if (this.selectValueId) {
             this.getSelect()
@@ -631,6 +638,12 @@ export default {
 
 
 <style lang='sass'>
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s
+}
+.fade-enter, .fade-leave-active {
+  opacity: 0
+}
     .pcActive{
         color: blue;
         text-decoration: underline;

@@ -106,11 +106,12 @@
           </table>
          </el-form>
         </el-tab-pane>
-        <div class="form-footer">
+        
+      </el-tabs>
+      <div class="form-footer">
             <el-button type="primary"  @click="submitForm('tableForm')">确定</el-button>
             <el-button class="activecancel" @click="cancelClick">取消</el-button>
         </div>
-      </el-tabs>
     </form>
 </div>
   
@@ -177,7 +178,6 @@ export default {
         }
     },
     mounted () {
-        $('.newWrap .newForm .el-tabs .el-tab-pane').has('.table2').css('width', '96%')
         /**
         * 点击表单拖拽事件
         */
@@ -302,51 +302,58 @@ export default {
     background:white;
     box-shadow:1px 1px 50px rgba(0,0,0,.3);
     border-radius:2px;  
+    height:618px;
     .el-tabs{
-       height:618px;
-       overflow:auto;
-        .el-tab-pane{
-            // padding:20px 70px;
-            // box-sizing:border-box;
-            width:100%!important;
-            table{
-                width:100%;
-                text-align: left;
-                .tr1{
-                    display:block;
-                    width:70%;
-                    // padding:20px 70px;
-                    // box-sizing:border-box;
-                    margin:0 auto;
-                    >td{
+        height:80%;
+        .el-tabs__content{
+            height:88%;
+            overflow:auto;
+            .el-tab-pane{
+                // padding:20px 70px;
+                // box-sizing:border-box;
+                width:100%!important;
+                table{
+                    width:100%;
+                    text-align: left;
+                    .tr1{
                         display:block;
-                        width:100%;
-                        .el-select{
+                        width:70%;
+                        // padding:20px 70px;
+                        // box-sizing:border-box;
+                        margin:0 auto;
+                        >td{
                             display:block;
+                            width:100%;
+                            .el-select{
+                                display:block;
+                            }
+                            .el-textarea__inner{
+                                resize:none;
+                            }
+                            .el-form-item__label::before{
+                                float: left;
+                            }
                         }
-                        .el-textarea__inner{
-                            resize:none;
-                        }
-                        .el-form-item__label::before{
-                            float: left;
-                        }
+                            
                     }
-                        
-                }
-                .tr2{
-                    display:block;
-                    width:98%;
-                    margin:0 auto;
-                    padding-bottom:20px;
-                    >td{
+                    .tr2{
                         display:block;
-                        width:100%;
+                        width:98%;
+                        margin:0 auto;
+                        padding-bottom:20px;
+                        >td{
+                            display:block;
+                            width:100%;
+                        }
                     }
+                    
                 }
-                
             }
         }
-        .form-footer{
+            
+       
+    }
+     .form-footer{
           border-top: 1px solid #d1dbe5;
           text-align:-webkit-right;
           padding:20px 10px 50px 0;
@@ -367,8 +374,7 @@ export default {
                     }
                 }
             }
-        }
-    }   
+        }   
     .el-icon-circle-close{
         font-size:24px;
         color:#8492a6;

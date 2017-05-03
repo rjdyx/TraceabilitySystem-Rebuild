@@ -1,5 +1,4 @@
 import Vue from 'vue'
-
 /**
 * 全局注册通用方法
 */
