@@ -144,12 +144,12 @@ export default {
         submitForm (formName) {
             var ret = this.editForm
             axios.put('api/system/1', ret).then((response) => {
-            	if (response.data === 'old_error') {
+                if (response.data === 'old_error') {
                     alert('原始密码错误')
-            	} else
-            	if (response.data === 'pas_error') {
+                } else
+                if (response.data === 'pas_error') {
                     alert('新密码长度有误')
-            	} else
+                } else
                 if (response.data === false) {
                     alert('修改失败')
                 } else {
