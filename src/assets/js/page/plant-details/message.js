@@ -77,9 +77,8 @@ export default {
             url: 'course',
             tab: '生长过程信息',
             searchPlaceholder: '请输入标题进行搜索',
-            // typeComponent: [{component: importBtn}, {component: output}, {component: newbuildBtn}],
             headList: ['标题', '描述', '上传日期', '图片', '备注信息'],
-            protos: ['name', 'desc', 'date', 'img', 'memo'],
+            protos: ['name', 'desc', 'date', 'thumb', 'memo'],
             widths: [50, 50, 50, 50, 50],
             hiddeEdit: true,
             typeComponent: [{
@@ -102,7 +101,7 @@ export default {
                     isNull: false,
                     label: '标题',
                     placeholder: '必填',
-                    rule: [{required: true, message: '请输入标题', trigger: 'blur'}, {validator: validate2.reCheck}]
+                    rule: [{required: true, message: '请输入标题'}, {validator: validate2.reCheck}]
                 },
                 {
                     name: 'desc',
@@ -111,25 +110,25 @@ export default {
                     isNull: false,
                     label: '描述',
                     placeholder: '',
-                    rule: [{required: true, trigger: 'blur'}]
+                    rule: {required: true, trigger: 'blur', message: '请输入描述信息'}
                 },
                 {
                     name: 'date',
                     type: 'date',
                     component: inputDate,
                     isNull: false,
-                    label: '日期',
+                    label: '上传日期',
                     placeholder: '',
-                    rule: [{required: true, trigger: 'blur', type: 'date'}]
+                    rule: [{required: true, trigger: 'blur', message: '请输入上传日期'}, {validator: validate2.reDate, message: '请输入上传日期'}]
                 },
                 {
                     name: 'img',
                     type: 'file',
                     component: inputFile,
-                    isNull: false,
-                    label: '图片',
+                    isNull: true,
+                    label: '上传图片',
                     placeholder: '',
-                    rule: [{required: true, trigger: 'blur'}]
+                    rule: {required: true, message: '请上传图片'}
                 },
                 {
                     name: 'memo',
@@ -161,16 +160,16 @@ export default {
                     isNull: false,
                     label: '描述',
                     placeholder: '',
-                    rule: [{required: true, trigger: 'blur'}]
+                    rule: {required: true, trigger: 'blur', message: '请输入描述信息'}
                 },
                 {
                     name: 'date',
                     type: 'date',
                     component: inputDate,
                     isNull: false,
-                    label: '日期',
+                    label: '上传日期',
                     placeholder: '',
-                    rule: [{required: true, trigger: 'blur', type: 'date'}]
+                    rule: [{required: true, trigger: 'blur', message: '请输入上传日期'}, {validator: validate2.reDate, message: '请输入上传日期'}]
                 },
                 {
                     name: 'img',
@@ -179,7 +178,7 @@ export default {
                     isNull: false,
                     label: '图片',
                     placeholder: '',
-                    rule: [{required: true, trigger: 'blur'}]
+                    rule: {required: true, trigger: 'blur'}
                 },
                 {
                     name: 'memo',
@@ -191,14 +190,15 @@ export default {
                     rule: null
                 }]
             }]
-        }]
+        }
+        ]
     },
     // 饲料批次详情
     feedBatch: {
         key: 'feedBatch',
         tab: '饲料批次管理',
-        theads: ['饲料批次号', '饲料日期', '饲料名称', '喂养方式', '专家', '操作人员', '喂养量', '备注信息'],
-        protos: ['serial', 'fodderuse_date', 'fodder_name', 'way', 'expert_name', 'operate_name', 'amount', 'meno'],
+        theads: ['饲料批次号', '饲料日期', '饲料名称', '喂养方式', '操作人员', '喂养量', '备注信息'],
+        protos: ['serial', 'date', 'fodder_name', 'way', 'operate_name', 'amount_unit', 'meno'],
         url: 'fodderuse',
         tabList: [{
             url: 'breed-fodderuse',
@@ -219,7 +219,7 @@ export default {
                     name: 'name',
                     type: 'table',
                     theads: ['养殖批次号', '养殖畜禽', '养殖日期'],
-                    protos: ['serial', 'beast_name', 'date'],
+                    protos: ['serial', 'beast_name', 'start_date'],
                     valueId: 'breed_ids',
                     errormsg: '请选择养殖批次号',
                     tableVal: []
@@ -266,13 +266,12 @@ export default {
         key: 'plagueBatch',
         tab: '病疫批次管理',
         theads: ['病疫批次号', '兽药名称', '用药日期', '病情描述', '专家', '平均用药量', '治疗方式', '备注'],
-        protos: ['serial', 'drug_name', 'date', 'description', 'expert_name', 'amount', 'way', 'meno'],
+        protos: ['serial', 'drug_name', 'date', 'description', 'expert_name', 'amount_unit', 'way', 'meno'],
         url: 'disease',
         tabList: [{
             url: 'disease-rfid',
             tab: '养殖批次信息',
             searchPlaceholder: '请输入批次号进行搜索',
-            // typeComponent: [{component: output}, {component: newbuildBtn}],
             typeComponent: [{component: newbuildBtn}],
             headList: ['养殖批次号', 'Rfid', '畜禽名称', '养殖日期'],
             protos: ['serial', 'rfid', 'beast_name', 'date'],
@@ -281,14 +280,28 @@ export default {
             listComponent: [],
             newComponent: [{
                 tab: '新建批次病疫信息',
-                type: 'table',
+                selectUrl2: [['breeds', 'id', 'serial', true]],
+                selectInit2: [{value: '', label: '养殖批次号选择'}],
+                popNumber2: [0],
                 labUrl: 'rfid',
+                type: 'assoc',
+                assocNum: 1,
                 components: [{
+                    name: 'breed_id',
+                    type: 'select',
+                    component: null,
+                    isNull: false,
+                    label: '养殖批次号',
+                    placeholder: '',
+                    rule: {required: true, trigger: 'blur', type: 'number', message: '请选择养殖批次号'},
+                    options: []
+                },
+                {
                     name: 'name',
                     type: 'table',
                     theads: ['养殖批次', 'Rfid', '养殖畜禽', '养殖日期'],
                     protos: ['serial', 'rfid', 'beast_name', 'date'],
-                    valueId: 'breed_ids',
+                    valueId: 'rfid_ids',
                     errormsg: '请选择rfid',
                     tableVal: []
                 }]
