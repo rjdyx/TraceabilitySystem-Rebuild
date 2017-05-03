@@ -82,6 +82,9 @@
         },
         watch: {
             listComponent () {
+                if (this.listComponent[0] !== undefined) {
+                    this.listComponent[0].components[0].value = ''
+                }
                 this.value = ''
                 this.value1 = ''
                 this.value2 = ''

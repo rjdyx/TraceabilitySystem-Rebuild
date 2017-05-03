@@ -6,10 +6,10 @@
 <template>
 	<div class="login">
 		<img src="/public/images/rfid-bg.png" class="bg">
-		<h1 class="title">农产品RFID溯源安全预警系统</h1>
+		<h1 class="logintitle">农产品RFID溯源安全预警系统</h1>
 		<img src="/public/images/rfid-main.png" class="main-bg">
 
-		<div class="content">
+		<div class="logincontent">
 				<div class="login-logo">
 					<img src="/public/images/new-logo.png">
 				</div>
@@ -178,7 +178,7 @@ export default {
 			position: absolute;
 			bottom: 30%;
 		}
-		.title{
+		.logintitle{
 			font-size: 48px;
 			position: relative;
 			top: 18%;
@@ -193,7 +193,7 @@ export default {
 			left: 31.5%;
 			top: 37%;
 		}
-		.content{
+		.logincontent{
 			display: inline-block;
 			position: absolute;
 			top: 39.5%;

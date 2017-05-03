@@ -40,14 +40,75 @@ const details = resolve => {
     }, 'details')
 }
 
-// =============================头部导航条按钮跳转====================================
+// ---------------------------手机版首页----------------------------------
+const plantIndex = resolve => {
+    require.ensure(['../page/phone/plant/index.vue'], () => {
+        resolve(require('../page/phone/plant/index.vue'))
+    }, 'plantIndex')
+}
+
+// ---------------------------手机版首页__实时视频----------------------------------
+const video = resolve => {
+    require.ensure(['../page/phone/plant/video.vue'], () => {
+        resolve(require('../page/phone/plant/video.vue'))
+    }, 'video')
+}
+
+// ---------------------------手机版首页__基础信息----------------------------------
+const pBasic = resolve => {
+    require.ensure(['../page/phone/plant/basic.vue'], () => {
+        resolve(require('../page/phone/plant/basic.vue'))
+    }, 'basic')
+}
+
+// ---------------------------手机版首页__购物链接----------------------------------
+const shop = resolve => {
+    require.ensure(['../page/phone/plant/shop.vue'], () => {
+        resolve(require('../page/phone/plant/shop.vue'))
+    }, 'shop')
+}
+
+// ---------------------------手机版首页__生长图片----------------------------------
+const grow = resolve => {
+    require.ensure(['../page/phone/plant/grow.vue'], () => {
+        resolve(require('../page/phone/plant/grow.vue'))
+    }, 'grow')
+}
+
+// ---------------------------手机版首页__农事信息、肥料信息__记录页----------------------------------
+const bM1 = resolve => {
+    require.ensure(['../page/phone/plant/basic_model1.vue'], () => {
+        resolve(require('../page/phone/plant/basic_model1.vue'))
+    }, 'bM1')
+}
+
+// ---------------------------手机版首页__农事信息、肥料信息__记录详情页----------------------------------
+const bM2 = resolve => {
+    require.ensure(['../page/phone/plant/basic_model2.vue'], () => {
+        resolve(require('../page/phone/plant/basic_model2.vue'))
+    }, 'bM2')
+}
+
+// ---------------------------手机版首页__商品信息----------------------------------
+const commodity = resolve => {
+    require.ensure(['../page/phone/plant/commodity.vue'], () => {
+        resolve(require('../page/phone/plant/commodity.vue'))
+    }, 'commodity')
+}
+
+// =============================头部导航条按钮跳转=======================
 // -------------------------------问题反馈------------------------------
 const question = resolve => {
     require.ensure(['../components/top/question.vue'], () => {
         resolve(require('../components/top/question.vue'))
     }, 'question')
 }
-
+// -------------------------------首页------------------------------
+const home = resolve => {
+    require.ensure(['../components/top/home.vue'], () => {
+        resolve(require('../components/top/home.vue'))
+    }, 'home')
+}
 // -------------------------------设置------------------------------
 const set = resolve => {
     require.ensure(['../components/top/set.vue'], () => {
@@ -96,6 +157,10 @@ var routes = [
         {
             path: 'test',
             component: test
+        },
+        {
+            path: 'home',
+            component: home
         },
         {
             path: 'details/:model/:id',

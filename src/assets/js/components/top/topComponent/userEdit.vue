@@ -61,8 +61,8 @@
 
 
 <script>
-import validate2 from '../../utils/validate2.js'
-import file from '../public/inputFile.vue'
+import validate2 from '../../../utils/validate2.js'
+import file from '../../public/inputFile.vue'
 export default {
     name: 'userEdit',
     data () {

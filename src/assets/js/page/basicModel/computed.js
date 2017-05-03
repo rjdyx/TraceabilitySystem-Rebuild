@@ -48,6 +48,9 @@ export default {
         editComponent () {
             return this.models[this.modelIndex].editComponent
         },
+        printComponent () {
+            return this.models[this.modelIndex].printComponent
+        },
         moreComponent () {
             return this.models[this.modelIndex].moreComponent
         },

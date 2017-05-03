@@ -1,5 +1,5 @@
 /**
- * @description:导航栏的设置模块模块
+ * @description:导航栏的设置模块
  * @author 舒丹彤
  * @date 2017/4/25  
  *  
@@ -84,7 +84,7 @@
 
 <script>
 import ContainTitle from '../layout/contain-title.vue'
-import footerTop from '../top/footer.vue'
+import footerTop from './topComponent/footer.vue'
 import file from '../public/inputFile.vue'
 export default {
     name: 'set',

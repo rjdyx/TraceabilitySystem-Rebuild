@@ -13,7 +13,7 @@
 				<div class="thank">
 					<span class="changeImg"></span>
 					<section class="section">
-						<h2 class="titleQu">您已经进入寻真溯源反馈系统，感谢您提出宝贵的意见！</h2>
+						<h2 class="qu_title">您已经进入寻真溯源反馈系统，感谢您提出宝贵的意见！</h2>
 						<article>
 							<p>感谢您一直以来对寻真溯源的支持，我们非常需要您对我们的想法或者建议。希望您能告诉我们您对寻真溯源的使用感受，我们将会继续完善优化，改进不足。将寻真溯源做得越来越好！在此感谢！</p>
 						</article>
@@ -31,11 +31,13 @@
 							<span>评分</span>
 							<el-rate v-model="form.grade" ></el-rate>
 						</el-form-item>
+
 						<h2 class="titleQu">我们还有哪些方面的不足</h2>
 						<el-form-item  prop="content">
 						    <el-input type="textarea" v-model="form.content"></el-input>
 						</el-form-item>
 						<el-form-item prop="contact" class="contact">
+
 							<span class="email">请您留下QQ或邮箱，便于寻真溯源与您联系</span>
 						    <el-input v-model="form.contact" class="phone" size="small"></el-input>
 						    <span class="enter">是否进入论坛讨论？</span>
@@ -58,7 +60,7 @@
 
 <script>
 import ContainTitle from '../layout/contain-title.vue'
-import footerTop from '../top/footer.vue'
+import footerTop from './topComponent/footer.vue'
 
 export default {
     name: 'question',
@@ -120,6 +122,11 @@ export default {
 </script>
 
 <style lang="sass">
+.question {
+  height: 100%;
+  overflow: hidden;
+  padding-left: 10px;
+
 .contain {
   width: 650px;
   margin: 68px auto;
@@ -133,7 +140,7 @@ export default {
   }
 }
 
-.titleQu {
+.title {
   font-size: 18px;
   // color: 变量
 }
@@ -161,13 +168,6 @@ export default {
   display: inline-block;
   margin-left: 10px;
 }
-
-.question {
-  height: 100%;
-  overflow: hidden;
-  padding-left: 10px;
-}
-
 .question_content {
   margin-top: 15px;
   overflow: scroll;
@@ -175,9 +175,9 @@ export default {
 }
 
 .phone {
-  width: 28%;
-  margin: 0 40px 0 10px;
-}
+   width: 20%;   
+   margin: 0px 10px 0 10px;
+ }
 
 .enter {
   font-size: 12px;
@@ -200,11 +200,20 @@ export default {
 }
 .email{
 	font-size: 12px;
-	margin-left:-84px;
 }
 .changeImg{
-	display: inline-block;
-	width: 70px;
-	height: 70px;
+  display: inline-block;
+  width: 71px;
+  height: 70px;
+}
+.el-form-item__content{
+  margin-left: 0px !important;
+}
+.singelCheck{
+  margin-left: 30px;
+}
+.qu_title{
+  margin-bottom: 10px;
+}
 }
 </style>

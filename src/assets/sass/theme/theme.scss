@@ -41,7 +41,7 @@ $small: 14px;
 	.explain{
 		font-size: $size;
 	}
-	.title{
+	.qu_title,.title{
 		font-size: $size;
 	}
 }
@@ -73,6 +73,9 @@ $small: 14px;
  }
  .changeImg{
  	background: $img;
+ }
+ .qu_title{
+ 	color: $bg;
  }
 }
 
