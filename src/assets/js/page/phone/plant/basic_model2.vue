@@ -80,11 +80,12 @@ export default {
         }
     },
     mounted () {
-        if (this.$route.meta.runName === 'breed') {
-            this.isbreed = true
-        }
         var params = {id: this.$route.params.id}
-        axios.post('run/plant/' + this.$route.meta.key + '/details', params)
+        var url = 'run/plant/'
+        if (this.$route.meta.runName === 'breed') {
+            url = 'run/beast/'
+        }
+        axios.post(url + this.$route.meta.key + '/details', params)
             .then((responce) => {
                 if (responce.data !== 'false') {
                     this.values = responce.data

@@ -13,7 +13,7 @@
 				<div class="thank">
 					<span class="changeImg"></span>
 					<section class="section">
-						<h2 class="titleQu">您已经进入寻真溯源反馈系统，感谢您提出宝贵的意见！</h2>
+						<h2 class="qu_title">您已经进入寻真溯源反馈系统，感谢您提出宝贵的意见！</h2>
 						<article>
 							<p>感谢您一直以来对寻真溯源的支持，我们非常需要您对我们的想法或者建议。希望您能告诉我们您对寻真溯源的使用感受，我们将会继续完善优化，改进不足。将寻真溯源做得越来越好！在此感谢！</p>
 						</article>
@@ -22,22 +22,24 @@
 				<div class="form">
 					<el-form ref="form" :model="form" label-width="80px" :rules="rules">
 						<h2 class="titleQu">您对溯源系统感觉不足的地方？</h2>
-						<el-form-item prop="rate">
+						<el-form-item>
 							<div class="check">
-								<el-checkbox-group v-model="form.type" v-for="item in check">
-							  		<el-checkbox :label="item.label" name="type"></el-checkbox>
+								<el-checkbox-group v-model="form.lack" v-for="item in check" prop="lack" @change="checkedChange">
+							  		<el-checkbox :label="item"></el-checkbox>
 								</el-checkbox-group>
 							</div>
 							<span>评分</span>
-							<el-rate v-model="form.rate"></el-rate>
+							<el-rate v-model="form.grade" ></el-rate>
 						</el-form-item>
+
 						<h2 class="titleQu">我们还有哪些方面的不足</h2>
-						<el-form-item>
-						    <el-input type="textarea"></el-input>
+						<el-form-item  prop="content">
+						    <el-input type="textarea" v-model="form.content"></el-input>
 						</el-form-item>
-						<el-form-item prop="phone" class="contact">
+						<el-form-item prop="contact" class="contact">
+
 							<span class="email">请您留下QQ或邮箱，便于寻真溯源与您联系</span>
-						    <el-input v-model="form.phone" class="phone" size="small"></el-input>
+						    <el-input v-model="form.contact" class="phone" size="small"></el-input>
 						    <span class="enter">是否进入论坛讨论？</span>
 						    <span class="enterTo">立即进入论坛</span>
 						</el-form-item>
@@ -58,7 +60,7 @@
 
 <script>
 import ContainTitle from '../layout/contain-title.vue'
-import footerTop from '../top/footer.vue'
+import footerTop from './topComponent/footer.vue'
 
 export default {
     name: 'question',
@@ -66,44 +68,49 @@ export default {
         return {
             settitle: '问题反馈',
             form: {
-                type: [],
-                phone: '',
-                rate: ''
+                lack: [],
+                contact: '',
+                grade: 0,
+                content: ''
             },
-            check: [
-                {label: '我更喜欢其他溯源系统'},
-                {label: '信息不够准确'},
-                {label: '没有提供想要的功能'},
-                {label: '浏览器不兼容'},
-                {label: '操作复杂'},
-                {label: '响应速度慢'},
-                {label: '使用途中经常卡顿'},
-                {label: '其他'}
+            check: ['我更喜欢其他溯源系统', '信息不够准确', '没有提供想要的功能', '浏览器不兼容', '操作复杂', '响应速度慢', '使用途中经常卡顿', '其他'
             ],
             rules: {
-                phone: [
-                    {message: '请输入联系方式', trigger: 'blur', type: 'number'}
+                grade: [
+                    {message: '请输入评分星级', trigger: 'blur', type: 'number'}
                 ],
-                rate: [
-                    {message: '请输入评分星级', trigger: 'blur'}
+                contact: [
+                    {message: '请输入联系方式', trigger: 'blur'}
                 ]
             }
         }
     },
     methods: {
         submitForm (formName) {
-            console.log(111)
             this.$refs[formName].validate((valid) => {
                 if (valid) {
-                    alert('submit!')
+                    axios.post('api/feedback', this.form).then((response) => {
+                        this.form.lack = []
+                        this.form.contact = ''
+                        this.form.grade = 0
+                        this.form.content = ''
+                        if (response.data !== false) {
+                            alert('反馈成功')
+                        } else {
+                            alert('反馈失败')
+                        }
+                    })
                 } else {
-                    console.log('error submit!!')
+                    console.log('验证不通过')
                     return false
                 }
             })
         },
         resetForm (formName) {
             this.$refs[formName].resetFields()
+        },
+        checkedChange (value) {
+            // console.log(value)
         }
     },
     components: {
@@ -115,6 +122,11 @@ export default {
 </script>
 
 <style lang="sass">
+.question {
+  height: 100%;
+  overflow: hidden;
+  padding-left: 10px;
+
 .contain {
   width: 650px;
   margin: 68px auto;
@@ -128,7 +140,7 @@ export default {
   }
 }
 
-.titleQu {
+.title {
   font-size: 18px;
   // color: 变量
 }
@@ -156,13 +168,6 @@ export default {
   display: inline-block;
   margin-left: 10px;
 }
-
-.question {
-  height: 100%;
-  overflow: hidden;
-  padding-left: 10px;
-}
-
 .question_content {
   margin-top: 15px;
   overflow: scroll;
@@ -170,9 +175,9 @@ export default {
 }
 
 .phone {
-  width: 28%;
-  margin: 0 40px 0 10px;
-}
+   width: 20%;   
+   margin: 0px 10px 0 10px;
+ }
 
 .enter {
   font-size: 12px;
@@ -195,11 +200,20 @@ export default {
 }
 .email{
 	font-size: 12px;
-	margin-left:-84px;
 }
 .changeImg{
-	display: inline-block;
-	width: 70px;
-	height: 70px;
+  display: inline-block;
+  width: 71px;
+  height: 70px;
+}
+.el-form-item__content{
+  margin-left: 0px !important;
+}
+.singelCheck{
+  margin-left: 30px;
+}
+.qu_title{
+  margin-bottom: 10px;
+}
 }
 </style>

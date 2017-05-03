@@ -100,9 +100,9 @@ export default {
         }
     },
     mounted () {
-        if (this.$route.meta.runName === 'breed') {
-            this.isbreed = true
-        }
+        // if (this.$route.meta.runName === 'breed') {
+        //     this.isbreed = true
+        // }
         var params = {code_id: this.$route.params.id}
         axios.post('run/product', params)
             .then((responce) => {

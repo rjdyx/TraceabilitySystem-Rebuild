@@ -20,28 +20,21 @@ require('./config/init')
 // }
 
 router.beforeEach((to, from, next) => {
-    next()
-    // if (USER_STATE === 'false') {
-    //     axios.get('/login/state', this.ruleForm2).then(responce => {
-    //         let USER_STATE = responce.data.name
-    //         if (USER_STATE !== null) {
-    //             if (to.path === '/') {
-    //                 next({ path: '/index' })
-    //             } else {
-    //                 next()
-    //             }
-    //             console.log(USER_STATE)
-    //         } else {
-    //             if (to.path !== '/') {
-    //                 next({ path: '/' })
-    //             } else {
-    //                 next()
-    //             }
-    //         }
-    //     })
-    // } else {
-    //     next()
-    // }
+    axios.get('/login/state', this.ruleForm2).then(responce => {
+        if (responce.data === false) {
+            if (to.path !== '/login') {
+                next(false)
+            } else {
+                next()
+            }
+        } else {
+            if (to.path === '/login') {
+                next(false)
+            } else {
+                next()
+            }
+        }
+    })
 })
 
 router.afterEach(route => {})

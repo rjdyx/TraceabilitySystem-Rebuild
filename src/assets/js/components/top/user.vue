@@ -10,14 +10,14 @@
 			<contain-title :settitle="settitle">
 			</contain-title>
 			<div class="titleUser">
-				<span class="picture">
+				<span class="{'picture': isClass}">
 					<img src="img"/>
 				</span>
 				<el-row :gutter="20" class="text">
-					<el-col :span='8' v-for="(v,k) in listN" >
+					<el-col :span='8' v-for="(v,k) in listN"  class="coltext">
 						 {{v}} {{listV[k]}}
 					</el-col>
-				</el-row>
+			 	</el-row>
 				<el-button class="edit" @click="showEdit">编辑</el-button>
 			</div>
 			<div class="mainPic">
@@ -31,9 +31,9 @@
 
 
 <script>
-import footerTop from '../top/footer.vue'
+import footerTop from './topComponent/footer.vue'
 import ContainTitle from '../layout/contain-title.vue'
-import userEdit from '../top/userEdit.vue'
+import userEdit from './topComponent/userEdit.vue'
 export default {
     name: 'user',
     data () {
@@ -87,7 +87,7 @@ export default {
     	overflow:scroll;
     	height: 100%;
     }
-}
+
 .titleUser{
 	border-bottom: 1px solid #dcdcdc;
 	padding-bottom: 10px;
@@ -98,11 +98,13 @@ export default {
 	width: 140px;
 	height: 124px;
 	border: 1px solid #ccc;
-	margin:0 10px 0 30px;	
+	margin:0 10px 0 30px;
+	overflow: hidden;
 }
 .text{
 	display: inline-block;
 	vertical-align: top;
+	margin-bottom: 10px;
 }
 .mainPic{
 	text-align: center;
@@ -118,5 +120,10 @@ export default {
 }
 .edit:focus{
 	color: #fff;
+}
+.coltext{
+	font-size:14px;
+	color: #898989;
+}
 }
 </style>

@@ -1,5 +1,5 @@
 /**
- * @description:导航栏的设置模块模块
+ * @description:导航栏的设置模块
  * @author 舒丹彤
  * @date 2017/4/25  
  *  
@@ -84,7 +84,7 @@
 
 <script>
 import ContainTitle from '../layout/contain-title.vue'
-import footerTop from '../top/footer.vue'
+import footerTop from './topComponent/footer.vue'
 import file from '../public/inputFile.vue'
 export default {
     name: 'set',
@@ -146,14 +146,18 @@ export default {
             axios.put('api/system/1', ret).then((response) => {
                 if (response.data === 'old_error') {
                     alert('原始密码错误')
-                } else
-                if (response.data === 'pas_error') {
+                    this.editForm.old_password = null
+                } else if (response.data === 'pas_error') {
                     alert('新密码长度有误')
-                } else
-                if (response.data === false) {
+                    this.editForm.password = null
+                } else if (response.data === false) {
                     alert('修改失败')
+                    this.editForm.password = null
+                    this.editForm.old_password = null
                 } else {
                     alert('修改成功')
+                    this.editForm.password = null
+                    this.editForm.old_password = null
                 }
             })
         }

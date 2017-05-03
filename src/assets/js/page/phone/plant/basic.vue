@@ -8,7 +8,7 @@
 <template>
     <div id="pBasic">
         <header1 :title="models.title" :isbreed="isbreed"></header1>
-        <headerImg :productName='productName'></headerImg>
+        <headerImg :productName='data.product_name'></headerImg>
         <div class="pBasic_content">
             <div class="pBasic_content_planInfo">
                  <h3 :class="{breedFontCol:isbreed}">{{models.tableName}}</h3>
@@ -40,10 +40,8 @@ export default {
         let modelObj = {}
         Object.assign(modelObj, plantMessage)
         return {
-            productName: '新疆苹果',
             models: modelObj[this.$route.meta.key],
             isbreed: false,
-            // productName: '新疆苹果',
             data: {}
         }
     },
@@ -51,14 +49,16 @@ export default {
         haha: {
             type: String,
             default: ''
-        }
+        },
+        product_name: ''
     },
     mounted () {
+        var params = {code_id: this.$route.params.id}
+        var url = 'run/plant/plantation'
         if (this.$route.meta.runName === 'breed') {
-            this.isbreed = true
+            url = 'run/beast/farm'
         }
-        var params = {plantation_id: this.$route.params.id}
-        axios.post('run/plant/plantation', params)
+        axios.post(url, params)
             .then((responce) => {
                 if (responce.data !== 'false') {
                     this.data = responce.data

@@ -11,11 +11,11 @@
 			<div class="plantHead">
 				<ul class="plantHeaderList">
 					<!-- 实时视频 -->
-					<li><router-link :to="'/run/breed/video/'+id"></router-link></li>
+					<li><router-link :to="'/run/breed/video/'+data.video"></router-link></li>
 					<!-- 基础信息 -->
-					<li><router-link :to="'/run/breed/basicInfor/'+id"></router-link></li>
+					<li><router-link :to="'/run/breed/basicInfor/'+data.id+'/'+data.id" ></router-link></li>
 					<!-- 购物链接 -->
-					<li><router-link :to="'/run/breed/shop/'+id"></router-link></li>
+					<li><router-link :to="'/run/breed/shop/'+data.product_id"></router-link></li>
 				</ul>
 			</div>
 
@@ -23,32 +23,26 @@
 
 			<div class="plant_text">
 				<dl>
-					<dt>苹果撒的嘎嘎嘎嘎的骨灰盒个地方</dt>
-					<dd style="
-  overflow : hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 7;
-  -webkit-box-orient: vertical;
-">这个是基本的，这里包括两个class名，第一个是基本的，必须添加的样式名，任何这基本的，这里包括两个class名，第一个是基本的，必须添加的样式名，基本的，这里包括两个class名，第一个是基本的，必须添加的样式名，里包括两个class名，第一个是基本的，必须添加的样式名，任何必须添加的样式名，任何括两个class名，第一个是基本的，必须添加的样式名，任何这基本的，这里包括两个class名，第一个是基本的，必须添加的样式名，基本的，这里包括两个class名，第一个是基本的，必须添加的样式名，</dd>
+					<dt>{{data.name}}</dt>
+					<dd style="overflow : hidden;text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp: 7;-webkit-box-orient: vertical;">{{data.description}}</dd>
 				</dl>
 			</div>
-			<div class="plant_product"><img src="./images/apple.jpg" alt=""></div>
+			<div class="plant_product"><img src="data.thumb" alt=""></div>
 			<ul class="plantBottomList">
-			    <!-- 圈舍 -->
-				<li><router-link :to="'/run/breed/area/'+id"></router-link></li>
+			    <!-- 圈舍维护 -->
+				<li><router-link :to="'/run/breed/area/'+data.breed_id"></router-link></li>
 				<!-- 生长过程 -->
-				<li><router-link :to="'/run/breed/growProcess/'+id"></router-link></li>
+				<li><router-link :to="'/run/breed/growProcess/'+data.breed_id"></router-link></li>
 				<!-- 商品 -->
-				<li><router-link :to="'/run/breed/commodity/'+id"></router-link></li>
+				<li><router-link :to="'/run/breed/commodity/'+data.id"></router-link></li>
 				<!-- 喂养 -->
-				<li><router-link :to="'/run/breed/feed/'+id"></router-link></li>
+				<li><router-link :to="'/run/breed/fodderuse/'+data.id+'/'+data.breed_id"></router-link></li>
 				<!-- 病疫 -->
-				<li><router-link :to="'/run/breed/disease/'+id"></router-link></li>
+				<li><router-link :to="'/run/breed/disease/'+data.id+'/'+data.rfid_id"></router-link></li>
 				<!-- 检疫 -->
-				<li><router-link :to="'/run/breed/detection/'+id"></router-link></li>
+				<li><router-link :to="'/run/breed/detection/'+data.id+'/'+data.breed_id"></router-link></li>
 				<!-- 检测 -->
-				<li><router-link :to="'/run/breed/detect/'+id"></router-link></li>
+				<li><router-link :to="'/run/breed/detect/'+data.id+'/'+data.rfid_id"></router-link></li>
 			</ul>
 		</div>
 	</div>
@@ -62,11 +56,27 @@ export default{
         Object.assign(modelObj, plantMessage)
         return {
             models: modelObj[this.$route.meta.key],
-            id: 555
+            data: {},
+            thumb: '',
+            product_name: ''
         }
     },
     mounted () {
-        // console.log(this.models['basicInfor'])
+        // 获取溯源码
+        var code = this.$route.params.code
+        // 查询首页产品数据
+        var params = {code: code}
+        axios.get('run/beast/index', {params: params})
+            .then((responce) => {
+                if (responce.data !== 'false') {
+                    this.data = responce.data
+                    this.thumb = responce.data.thumb
+                    this.product_name = responce.data.name
+                } else {
+                    alert('溯源码无效！')
+                    this.$router.push('/')
+                }
+            })
     },
     methods: {
     }

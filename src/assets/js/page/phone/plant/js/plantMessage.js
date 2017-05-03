@@ -7,8 +7,8 @@ export default{
     basicInfor: {
         title: '基础信息',
         tableName: '种植信息',
-        tableTheads: ['种植场', '负责人', '地址', '面积', '联系方式', '种植区', '种植人', '种植日期', '采收日期', '采收人'],
-        tableProtos: ['parent_name', 'director', 'address', 'area', 'phone', 'name', 'operate_name', 'date', 'harvest_date', 'harvest_operate'],
+        tableTheads: ['种植场', '负责人', '地址', '面积', '联系方式', '种植区', '种植人', '种植日期', '采收日期'],
+        tableProtos: ['parent_name', 'director', 'address', 'area', 'phone', 'name', 'operate_name', 'cultivate_date', 'harvest_date'],
         tableName2: '实时监控'
     },
     // 购物链接
@@ -106,8 +106,8 @@ export default{
     b_basicInfor: {
         title: '基础信息',
         tableName: '养殖信息',
-        tableTheads: ['种植场', '负责人', '地址', '面积', '联系方式', '种植区', '种植人', '种植日期', '采收日期', '采收人'],
-        tableProtos: [],
+        tableTheads: ['养殖场', '养殖区', '负责人', '地址', '面积', '联系方式', '养殖人', '养殖日期', '出栏日期'],
+        tableProtos: ['parent_name', 'name', 'director', 'address', 'area', 'phone', 'operate_name', 'breed_date', 'come_date'],
         tableName2: '实时监控'
     },
     // 购物链接
@@ -116,7 +116,7 @@ export default{
     },
     // 圈舍
     area: {
-        title: '圈舍信息'
+        title: '圈舍维护信息'
     },
     // 生长过程
     growProcess: {
@@ -144,7 +144,7 @@ export default{
         ]
     },
     // 喂养
-    feed: {
+    fodderuse: {
         title: '饲料信息',
         tableName: '喂养记录',
         tableTheads: ['饲料名称', '平均喂养量', '日期', '图片'],
@@ -152,8 +152,8 @@ export default{
         details: {
             tableList: {
                 tableName: '饲料记录详情',
-                tableTheads: ['饲料名称', '饲料添加剂', '喂养方式', '操作人员', '喂养量', '备注信息'],
-                tableProtos: []
+                tableTheads: ['批次号', '饲料名称', '饲料添加剂', '喂养方式', '操作人员', '喂养量'],
+                tableProtos: ['serial', 'fodder_name', 'addition_name', 'way', 'operate_name', 'amount']
             },
             tableName2: '饲料图片'
         }
@@ -167,8 +167,8 @@ export default{
         details: {
             tableList: {
                 tableName: '病疫记录详情',
-                tableTheads: ['检测名称', '兽药名称', '用药日期', '病情描述', '专家', '平均用药量', '治疗方式', '备注'],
-                tableProtos: []
+                tableTheads: ['批次号', '兽药名称', '用药日期', '病情描述', '专家', '平均用药量', '治疗方式'],
+                tableProtos: ['serial', 'drug_name', 'date', 'description', 'expert_name', 'amount', 'way']
             },
             tableName2: '病疫图片'
         }
@@ -182,25 +182,10 @@ export default{
         details: {
             tableList: {
                 tableName: '检疫记录详情',
-                tableTheads: ['检测名称', '检疫内容', '检疫结果', '专家', '操作人员', '审批人', '检疫报告图片', '备注'],
-                tableProtos: []
+                tableTheads: ['批次号', '检测名称', '检疫机构', '检疫内容', '检疫结果', '专家', '操作人员', '审批人'],
+                tableProtos: ['serial', 'name', 'organization', 'content', 'result', 'expert_name', 'operate_name', 'check']
             },
             tableName2: '检疫图片'
-        }
-    },
-    // 检测
-    bDetect: {
-        title: '检测信息',
-        tableName: '检测记录',
-        tableTheads: ['检测名称', '检测机构', '日期', '图片'],
-        tableProtos: [],
-        details: {
-            tableList: {
-                tableName: '检测记录详情',
-                tableTheads: ['检测名称', '检测机构', '检测类型', '检测人', '检测日期', '天气', '指导单位', '指导专家'],
-                tableProtos: []
-            },
-            tableName2: '检测图片'
         }
     }
 }

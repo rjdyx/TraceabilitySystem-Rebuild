@@ -4,7 +4,7 @@
         <img v-else="runName==='breed'" class="header_img_bg" src="../images/b_header_bg.png">
         <p>{{productName}}</p>
         <!-- 产品图片 -->
-        <img class="pBasic_img_icon" src="../images/apple.jpg" alt="">
+        <img class="pBasic_img_icon" src="imgUrl.default" alt="">
     </div>
 </template>
 <script>
@@ -29,12 +29,22 @@ export default {
     },
     mounted () {
         this.runName = this.$route.meta.runName
-        console.log(this.runName)
+        axios.post('run/product', {code_id: this.$route.params.cid})
+            .then((responce) => {
+                if (responce.data !== 'false') {
+                    this.data = responce.data
+                    console.log(this.data)
+                } else {
+
+                }
+            })
     }
 }
 </script>
 <style type="text/css" lang="sass">
-
+    img{
+        border:none;
+    }
 	#header_img{
         margin-top: 1rem;
         width:100%;

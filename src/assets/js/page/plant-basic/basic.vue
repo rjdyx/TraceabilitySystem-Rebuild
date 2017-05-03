@@ -4,11 +4,11 @@
  * @description 中间内容
  * @author 舒丹彤
  * @date 2017/3/15 
- *   
+ * 
  */ 
  <template> 
 	<div class='basic'>
-        <basic-content></basic-content>
+        <basic-content class="content"></basic-content>
     </div>
 </template>
 
@@ -28,5 +28,11 @@ export default {
     	height: 100%;
         overflow:hidden;
         padding-left:10px;
+    
+    .content{
+        margin-top: 15px;
+        overflow:scroll;
+        height: 100%;
     }
+}
 </style>

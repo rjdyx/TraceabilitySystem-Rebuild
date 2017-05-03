@@ -254,6 +254,7 @@ export default {
         newComponent: [{
             tab: '新建人员档案信息',
             selectUrl: [['category', 'operate', 'category_id', 'category_name', true]],
+            selectInit: [{value: '', label: '选择操作人分类'}],
             checkNumber: [1],
             hasImg: true,
             popNumber: [0],
@@ -474,6 +475,7 @@ export default {
         newComponent: [{
             tab: '新建专家档案信息',
             selectUrl: [['category', 'expert', 'category_id', 'category_name', true]],
+            selectInit: [{value: '', label: '选择专家分类'}],
             checkNumber: [1],
             popNumber: [0],
             components: [{
@@ -725,6 +727,7 @@ export default {
         newComponent: [{
             tab: '新建客户档案信息',
             selectUrl: [['category', 'client', 'category_id', 'category_name', true]],
+            selectInit: [{value: '', label: '选择客户分类'}],
             checkNumber: [1],
             popNumber: [0],
             components: [{
@@ -893,6 +896,7 @@ export default {
         newComponent: [{
             tab: '新建供货商档案信息',
             selectUrl: [['category', 'supplier', 'category_id', 'category_name', true]],
+            selectInit: [{value: '', label: '选择供货商分类'}],
             checkNumber: [1],
             popNumber: [0],
             components: [{
@@ -1048,6 +1052,7 @@ export default {
         newComponent: [{
             tab: '新建产品信息',
             selectUrl: [['category', 'product', 'category_id', 'category_name', true]],
+            selectInit: [{value: '', label: '选择产品分类'}],
             checkNumber: [1],
             popNumber: [0],
             components: [{
@@ -1545,6 +1550,7 @@ export default {
             newComponent: [{
                 tab: '新建养殖区信息',
                 selectUrl: [['farm', 'farmcd', 'pid', 'farm_name', true]],
+                selectInit: [{value: '', label: '选择养殖场'}],
                 checkNumber: [1],
                 popNumber: [0],
                 hasImg: true,
@@ -5552,6 +5558,7 @@ export default {
             newComponent: [{
                 tab: '新建种植区信息',
                 selectUrl: [['plantation', 'planta', 'pid', 'plantation_name', true]],
+                selectInit: [{value: '', label: '选择种植场'}],
                 checkNumber: [1],
                 popNumber: [0],
                 components: [{
@@ -5769,6 +5776,7 @@ export default {
             newComponent: [{
                 tab: '新建果蔬档案',
                 selectUrl: [['category', 'plant', 'category_id', 'category_name', true]],
+                selectInit: [{value: '', label: '选择果蔬分类'}],
                 checkNumber: [1],
                 popNumber: [0],
                 components: [{
@@ -5919,6 +5927,7 @@ export default {
             newComponent: [{
                 tab: '新建肥料档案',
                 selectUrl: [['category', 'manure', 'category_id', 'category_name', true]],
+                selectInit: [{value: '', label: '选择肥料分类'}],
                 checkNumber: [1],
                 popNumber: [0],
                 components: [{
@@ -6084,6 +6093,7 @@ export default {
             newComponent: [{
                 tab: '新建农药档案',
                 selectUrl: [['category', 'medicament', 'category_id', 'category_name', true]],
+                selectInit: [{value: '', label: '选择农药分类'}],
                 checkNumber: [1],
                 popNumber: [0],
                 components: [{
@@ -6337,6 +6347,8 @@ export default {
             selectUrl2: [['plants', 'id', 'name', true], ['operates', 'id', 'name', true]],
             popNumber: [0],
             popNumber2: [1, 4],
+            selectInit: [{value: '', label: '种植区选择'}],
+            selectInit2: [{value: '', label: '果蔬选择'}, {value: '', label: '种植人选择'}],
             components: [{
                 name: 'plantation_id',
                 type: 'select',
@@ -6544,6 +6556,7 @@ export default {
             newComponent: [{
                 tab: '新建施肥信息',
                 selectUrl2: [['manures', 'id', 'name', true], ['operates', 'id', 'name', true], ['experts', 'id', 'name', true]],
+                selectInit2: [{value: '', label: '肥料选择'}, {value: '', label: '施肥人选择'}, {value: '', label: '专家选择'}],
                 popNumber2: [0, 4, 5],
                 components: [{
                     name: 'manure_id',
@@ -6817,6 +6830,7 @@ export default {
             newComponent: [{
                 tab: '新建病虫害信息',
                 selectUrl2: [['medicaments', 'id', 'name', true], ['operates', 'id', 'name', true], ['experts', 'id', 'name', true]],
+                selectInit2: [{value: '', label: '农药选择'}, {value: '', label: '施药人选择'}, {value: '', label: '专家选择'}],
                 popNumber2: [0, 6, 7],
                 components: [{
                     name: 'medicament_id',
@@ -7147,6 +7161,7 @@ export default {
             newComponent: [{
                 tab: '新建种植检测信息',
                 selectUrl2: [['operates', 'id', 'name', true], ['experts', 'id', 'name', true]],
+                selectInit2: [{value: '', label: '检测人选择'}, {value: '', label: '专家选择'}],
                 popNumber2: [6, 7],
                 hiddenValue: {type: 'plant'},
                 components: [{
@@ -7457,6 +7472,7 @@ export default {
             newComponent: [{
                 tab: '新建田间信息',
                 selectUrl2: [['operates', 'id', 'name', true], ['experts', 'id', 'name', true]],
+                selectInit2: [{value: '', label: '操作人选择'}, {value: '', label: '专家选择'}],
                 popNumber2: [4, 5],
                 components: [{
                     name: 'date',
@@ -7830,6 +7846,7 @@ export default {
         newComponent: [{
             tab: '新建采收批次',
             selectUrl2: [['cultivates', 'id', 'serial', true], ['operates', 'id', 'name', true]],
+            selectInit2: [{value: '', label: '选择种植批次号'}, {value: '', label: '选择操作人'}],
             popNumber2: [1, 5],
             components: [{
                 name: 'date',
@@ -8011,6 +8028,7 @@ export default {
             tab: '新建加工批次信息',
             hiddenValue: {type: 'plant'},
             selectUrl2: [['operates', 'id', 'name', true]],
+            selectInit2: [{value: '', label: '加工人选择'}],
             popNumber2: [2],
             components: [{
                 name: 'date',
@@ -8054,7 +8072,7 @@ export default {
             tab: '编辑加工批次信息',
             hiddenValue: {type: 'plant'},
             selectUrl2: [['operates', 'id', 'name', true]],
-            popNumber2: [2],
+            popNumber2: [3],
             components: [{
                 name: 'serial',
                 type: 'text',
@@ -8135,6 +8153,7 @@ export default {
             tab: '新建检验检测信息',
             hiddenValue: {type: 'plant'},
             selectUrl2: [['operates', 'id', 'name', true]],
+            selectInit2: [{value: '', label: '检测人选择'}],
             popNumber2: [1],
             hasImg: true,
             components: [{
@@ -8352,7 +8371,9 @@ export default {
         theads: ['加工批次号', '产品溯源码', '产品名称', '生产日期', '产地', '溯源次数', '备注信息'],
         protos: ['serial', 'code', 'product_name', 'date', 'origin', 'time', 'memo'],
         widths: [50, 50, 50, 50, 50, 50, 50],
-        moreComponent: [{value: '打印'}],
+        moreComponent: [{
+            value: '打印'
+        }],
         typeComponent: [
             {
                 component: output
@@ -8379,28 +8400,29 @@ export default {
             tab: '新建溯源码信息',
             hiddenValue: {type: 'plant'},
             selectUrl2: [['packs', 'id', 'serial', true], ['harvests', 'id', 'serial', true]],
+            selectInit2: [{value: '', label: '加工批次号选择'}, {value: '', label: '采收批次号选择'}],
             popNumber2: [0, 2],
             components: [{
                 name: 'pack_id',
                 type: 'select',
-                assoc: ['pack-product', 'product_id', 'product_name', 1],
+                assoc: ['pack-product', 'id', 'product_name', 1, {value: '', label: '产品选择'}],
                 component: null,
                 isNull: false,
                 label: '加工批次号',
                 placeholder: '',
                 disabled: true,
-                rule: {required: true, trigger: 'blur', type: 'number'},
+                rule: {required: true, trigger: 'blur', type: 'number', message: '请选择加工批次号'},
                 options: []
             },
             {
-                name: 'product_id',
+                name: 'pack_product_id',
                 type: 'select',
                 component: null,
                 isNull: false,
                 label: '加工产品',
                 placeholder: '',
                 disabled: true,
-                rule: {required: true, trigger: 'blur', type: 'number'},
+                rule: {required: true, trigger: 'blur', type: 'number', message: '请选择加工产品'},
                 options: []
             },
             {
@@ -8411,7 +8433,7 @@ export default {
                 label: '采收批次号',
                 placeholder: '',
                 disabled: true,
-                rule: {required: true, trigger: 'blur', type: 'number'},
+                rule: {required: true, trigger: 'blur', type: 'number', message: '请选择采收批次号'},
                 options: []
             },
             {
@@ -8419,10 +8441,9 @@ export default {
                 type: 'date',
                 component: inputDate,
                 isNull: false,
-                label: '加工日期',
+                label: '生产日期',
                 placeholder: '',
-                disabled: true,
-                rule: {required: true, trigger: 'blur', type: 'date'}
+                rule: [{required: true, trigger: 'blur', message: '请输入生产日期'}, {validator: validate2.reDate, message: '请输入生产日期'}]
             },
             {
                 name: 'amount',
@@ -8431,7 +8452,7 @@ export default {
                 isNull: false,
                 label: '生成数量',
                 placeholder: '请填写数量',
-                rule: {required: true, trigger: 'blur', type: 'number'}
+                rule: [{required: true, trigger: 'blur', message: '请输入生成溯源码数量'}, {validator: validate2.reInteger}]
             },
             {
                 name: 'memo',
@@ -8444,41 +8465,35 @@ export default {
             }]
         }],
         editComponent: [{
-            tab: '编辑产品溯源信息',
+            tab: '编辑溯源码信息',
             components: [{
+                name: 'serial',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '加工批次号',
+                placeholder: '',
+                disabled: true,
+                rule: {required: true}
+            },
+            {
                 name: 'code',
                 type: 'text',
                 component: null,
                 isNull: false,
-                label: '追溯编码',
-                placeholder: '必填',
-                rule: {required: true, message: '请输入溯源编码', trigger: 'blur'}
-            },
-            {
-                name: 'harvest_serial',
-                type: 'text',
-                component: null,
-                isNull: false,
-                label: '加工批次',
-                placeholder: '必填',
-                rule: {required: true, message: '请输入加工批次', trigger: 'blur'}
-            },
-            {
-                name: 'product_id',
-                type: 'text',
-                component: null,
-                isNull: true,
-                label: '追溯次数',
+                label: '产品溯源码',
                 placeholder: '',
-                rule: null
+                disabled: true,
+                rule: {required: true}
             },
             {
+                name: 'date',
                 type: 'date',
                 component: inputDate,
-                isNull: true,
-                label: '加工日期',
+                isNull: false,
+                label: '生产日期',
                 placeholder: '',
-                rule: ''
+                rule: [{required: true, trigger: 'blur', message: '请输入生产日期'}, {validator: validate2.reDate, message: '请输入生产日期'}]
             },
             {
                 name: 'memo',
@@ -8486,6 +8501,57 @@ export default {
                 component: null,
                 isNull: true,
                 label: '备注信息',
+                placeholder: '',
+                rule: null
+            }]
+        }],
+        printComponent: [{
+            tab: '打印溯源码信息',
+            components: [{
+                name: 'product_name',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '产品名称',
+                placeholder: '',
+                disabled: true,
+                rule: {required: true}
+            },
+            {
+                name: 'specification',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '产品规格',
+                placeholder: '',
+                disabled: true,
+                rule: {required: true}
+            },
+            {
+                name: 'date',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '生产日期',
+                placeholder: '',
+                disabled: true,
+                rule: {required: true}
+            },
+            {
+                name: 'origin',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '产地',
+                placeholder: '',
+                disabled: true,
+                rule: {required: true}
+            },
+            {
+                name: 'code',
+                component: Qrcode,
+                isNull: false,
+                label: '产品二维码',
                 placeholder: '',
                 rule: null
             }]
@@ -8616,12 +8682,11 @@ export default {
             key: 'vehicle',
             tab: '车辆信息',
             url: 'vehicle',
-            selectSearch: ['vehicles.id'],
-            selectValueId: ['id', 'brand', true],
-            selectDefault: {value: '', label: '车辆品牌'},
-            paramsIndex: 0,
+            selectSearch: ['brand'],
+            selectValueId: [['brand', 'brand', true]],
+            selectDefault: [{value: '', label: '车辆品牌'}],
             searchPlaceholder: '请输入车牌号进行搜索',
-            theads: ['车辆品牌', '车辆号码', '核载吨位', '备注信息'],
+            theads: ['车辆品牌', '车辆号码', '核载吨位（吨）', '备注信息'],
             protos: ['brand', 'number', 'tonnage', 'memo'],
             widths: [50, 50, 50, 50],
             typeComponent: [
@@ -8637,6 +8702,8 @@ export default {
             ],
             listComponent: [{
                 components: [{
+                    name: 'brand',
+                    value: '',
                     type: 'select',
                     component: selectSection,
                     options: []
@@ -8668,8 +8735,8 @@ export default {
                     component: null,
                     isNull: true,
                     label: '核载吨位',
-                    placeholder: '',
-                    rule: null
+                    placeholder: '单位为吨',
+                    rule: {validator: validate2.reNumber}
                 },
                 {
                     name: 'memo',
@@ -8707,8 +8774,8 @@ export default {
                     component: null,
                     isNull: true,
                     label: '核载吨位',
-                    placeholder: '',
-                    rule: null
+                    placeholder: '单位为吨',
+                    rule: {validator: validate2.reNumber}
                 },
                 {
                     name: 'memo',
@@ -8772,13 +8839,13 @@ export default {
                     rule: ''
                 },
                 {
-                    name: 'date',
-                    type: 'date',
-                    component: inputDate,
+                    name: 'birth',
+                    type: 'text',
+                    component: null,
                     isNull: true,
-                    label: '出生日期',
+                    label: '出生年月',
                     placeholder: '',
-                    rule: ''
+                    rule: {validator: validate2.reNumber}
                 },
                 {
                     name: 'driver',
@@ -8787,7 +8854,7 @@ export default {
                     isNull: true,
                     label: '驾照类型',
                     placeholder: '',
-                    rule: null
+                    rule: {validator: validate2.reNumber}
                 },
                 {
                     name: 'memo',

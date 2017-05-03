@@ -61,8 +61,8 @@
 
 
 <script>
-import validate2 from '../../utils/validate2.js'
-import file from '../public/inputFile.vue'
+import validate2 from '../../../utils/validate2.js'
+import file from '../../public/inputFile.vue'
 export default {
     name: 'userEdit',
     data () {
@@ -101,10 +101,15 @@ export default {
         resetForm () {
             this.$parent.showEdit()
         },
+        // 取消事件
+        cancelClick () {
+            this.$parent.closeEditShow()
+        },
         submitForm (formName) {
             this.$refs[formName].validate((valid) => {
                 if (valid) {
                     axios.put('api/user/' + this.user_id, this.ruleForm).then((response) => {
+                        this.$parent.showEdit()
                         if (response.data !== false) {
                             alert('修改成功')
                         } else {
