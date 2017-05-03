@@ -3,6 +3,7 @@
 */
 import Router from 'vue-router'
 import Vue from 'vue'
+import phoneRouters from './phoneRouters.js'
 Vue.use(Router)
 
 // =============================顶层组件====================================
@@ -39,6 +40,7 @@ const details = resolve => {
     }, 'details')
 }
 
+<<<<<<< HEAD
 // ---------------------------手机版首页----------------------------------
 const plantIndex = resolve => {
     require.ensure(['../page/phone/plant/index.vue'], () => {
@@ -96,6 +98,9 @@ const commodity = resolve => {
 }
 
 // =============================头部导航条按钮跳转=======================
+=======
+// =============================头部导航条按钮跳转====================================
+>>>>>>> dev
 // -------------------------------问题反馈------------------------------
 const question = resolve => {
     require.ensure(['../components/top/question.vue'], () => {
@@ -121,7 +126,7 @@ const test = resolve => {
     }, 'test')
 }
 
-const routes = [
+var routes = [
     {
         path: '/index',
         name: 'index',
@@ -169,94 +174,95 @@ const routes = [
         path: '/login',
         name: 'login',
         component: login
-    },
-    // ---------------- 手机端路由 -----------------
-    {
-        path: '/plantIndex/:code',
-        meta: {key: 'plantIndex'},
-        component: plantIndex,
-        alias: '/run/plant/index/:code'
-    },
-    {
-        path: '/video/:id',
-        meta: {key: 'video'},
-        component: video,
-        alias: '/run/plant/video/:id'
-    },
-    {
-        path: '/basicInfor/:id',
-        meta: {key: 'basicInfor'},
-        component: pBasic,
-        alias: '/run/plant/basicInfor/:id'
-    },
-    {
-        path: '/shop/:id',
-        meta: {key: 'shop'},
-        component: shop,
-        alias: '/run/plant/shop/:id'
-    },
-    {
-        path: '/growImg/:id',
-        meta: {key: 'growImg'},
-        component: grow,
-        alias: '/run/plant/growImg/:id'
-    },
-    {
-        path: '/pesticideInfor/:id',
-        meta: {key: 'spray'},
-        component: bM1,
-        alias: '/run/plant/spray/:id'
-    },
-    {
-        path: '/datails/:id',
-        component: bM2,
-        meta: {key: 'spray'},
-        alias: '/run/plant/spray/datails/:id'
-    },
-    {
-        path: '/farmWorkInfor/:id',
-        meta: {key: 'farming'},
-        component: bM1,
-        alias: '/run/plant/farming/:id'
-    },
-    {
-        path: 'farmWorkInfor/datails/:id',
-        meta: {key: 'farming'},
-        component: bM2,
-        alias: '/run/plant/farming/datails/:id'
-    },
-    {
-        path: '/fertilizerInfor/:id',
-        meta: {key: 'fertilize'},
-        component: bM1,
-        alias: '/run/plant/fertilize/:id'
-    },
-    {
-        path: '/fertilizerInfor/datails/:id',
-        meta: {key: 'fertilize'},
-        component: bM2,
-        alias: '/run/plant/fertilize/datails/:id'
-    },
-    {
-        path: '/detectionInfor/:id',
-        meta: {key: 'detect'},
-        component: bM1,
-        alias: '/run/plant/detect/:id'
-    },
-    {
-        path: '/detectionInfor/datails/:id',
-        meta: {key: 'detect'},
-        component: bM2,
-        alias: '/run/plant/detect/datails/:id'
-    },
-    {
-        path: '/commodityInfor/:id',
-        meta: {key: 'commodityInfor'},
-        component: commodity,
-        alias: '/run/plant/commodityInfor/:id'
     }
+    // ---------------- 手机端路由 -----------------
+    // {
+    //     path: '/plantIndex/:code',
+    //     meta: {key: 'plantIndex'},
+    //     component: plantIndex,
+    //     alias: '/run/plant/index/:code'
+    // },
+    // {
+    //     path: '/video/:id',
+    //     meta: {key: 'video'},
+    //     component: video,
+    //     alias: '/run/plant/video/:id'
+    // },
+    // {
+    //     path: '/basicInfor/:id',
+    //     meta: {key: 'basicInfor'},
+    //     component: pBasic,
+    //     alias: '/run/plant/basicInfor/:id'
+    // },
+    // {
+    //     path: '/shop/:id',
+    //     meta: {key: 'shop'},
+    //     component: shop,
+    //     alias: '/run/plant/shop/:id'
+    // },
+    // {
+    //     path: '/growImg/:id',
+    //     meta: {key: 'growImg'},
+    //     component: grow,
+    //     alias: '/run/plant/growImg/:id'
+    // },
+    // {
+    //     path: '/pesticideInfor/:id',
+    //     meta: {key: 'spray'},
+    //     component: bM1,
+    //     alias: '/run/plant/spray/:id'
+    // },
+    // {
+    //     path: '/datails/:id',
+    //     component: bM2,
+    //     meta: {key: 'spray'},
+    //     alias: '/run/plant/spray/datails/:id'
+    // },
+    // {
+    //     path: '/farmWorkInfor/:id',
+    //     meta: {key: 'farming'},
+    //     component: bM1,
+    //     alias: '/run/plant/farming/:id'
+    // },
+    // {
+    //     path: 'farmWorkInfor/datails/:id',
+    //     meta: {key: 'farming'},
+    //     component: bM2,
+    //     alias: '/run/plant/farming/datails/:id'
+    // },
+    // {
+    //     path: '/fertilizerInfor/:id',
+    //     meta: {key: 'fertilize'},
+    //     component: bM1,
+    //     alias: '/run/plant/fertilize/:id'
+    // },
+    // {
+    //     path: '/fertilizerInfor/datails/:id',
+    //     meta: {key: 'fertilize'},
+    //     component: bM2,
+    //     alias: '/run/plant/fertilize/datails/:id'
+    // },
+    // {
+    //     path: '/detectionInfor/:id',
+    //     meta: {key: 'detect'},
+    //     component: bM1,
+    //     alias: '/run/plant/detect/:id'
+    // },
+    // {
+    //     path: '/detectionInfor/datails/:id',
+    //     meta: {key: 'detect'},
+    //     component: bM2,
+    //     alias: '/run/plant/detect/datails/:id'
+    // },
+    // {
+    //     path: '/commodityInfor/:id',
+    //     meta: {key: 'commodityInfor'},
+    //     component: commodity,
+    //     alias: '/run/plant/commodityInfor/:id'
+    // }
 ]
 
+routes = routes.concat(phoneRouters.router)
 export default new Router({
     routes
 })

@@ -74,6 +74,8 @@
                     this.isNewShow = !this.isNewShow
                 } else if (command === '视频') {
                     this.isShow = !this.isShow
+                } else if (command === '打印') {
+                    this.$emit('showMore', '')
                 }
             },
             closeClick () {

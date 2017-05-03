@@ -45,10 +45,12 @@
         </div>
 
         <!-- 新建模块 --> 
-        <popNew v-if="isNewShow" :newComponent="newComponent" :url="url" @submitNew="changeNew"></popNew>
+        <popNew v-if="isNewShow" :newComponent="newComponent" :url="url" @submitNew="changeNew" @setAssoc="getAssoc"></popNew>
         <!-- 编辑模块 -->
         <pop-edit v-if="isEditShow" :editComponent="editComponent" :url="url" :editForm="editForm"
              @submitEdit="hangeEdit" :changeDataArr="changeDataArr" :editDefault="editDefault"></pop-edit>
+        <!-- 打印模块 -->
+        <printf v-if="isPrintShow" :printComponent="printComponent" :url="url" :printForm="printForm"></printf>
     </div>
     <!-- 列表模块 -->
     <el-table :data="tableData"  @selection-change="handleSelectionChange">
@@ -89,7 +91,7 @@
         label="操作" v-if="checkOperate==null">
             <template scope="scope" class="operateBtn">
                 <template v-if="moreComponent!=null">
-                    <clickMore :moreComponent="moreComponent" class="clickMoreBtn"></clickMore>
+                    <clickMore :moreComponent="moreComponent" @showMore="moreShow(scope.$index,scope.row)" class="clickMoreBtn"></clickMore>
                 </template>
                 <template>
 
@@ -142,6 +144,7 @@ import operate from '../../components/public/operate.vue'
 import popEdit from '../../components/public/popEdit.vue'
 import clickMore from '../../components/public/clickMore.vue'
 import lotOpearte from '../../components/public/lotOpearte.vue'
+import printf from '../../components/public/printf.vue'
 export default {
     name: 'BasicModel',
     props: {
@@ -178,6 +181,7 @@ export default {
                     }],
                     editComponent: [],
                     moreComponent: [],
+                    printComponent: [],
                     lotComponent: [],
                     hiddeEdit: false,
                     checkOperate: null,
@@ -208,9 +212,12 @@ export default {
             isNewShow: false,
             // 是否编辑
             isEditShow: false,
+            // 是否打印
+            isPrintShow: false,
             // msg: 1,
             editBol: false,
             editForm: {},
+            printForm: {},
             editDefault: {},
             paginator: {},
             // 切换点击更多按钮的状态
@@ -241,7 +248,13 @@ export default {
             this.$set(this, 'multipleSelection', [])
         },
         jumpDetails (row) {
+            console.log(row)
             var id = row.id
+            if (row.code !== undefined) {
+                id = row.pack_id
+            } else if (row.harvest_change !== undefined) {
+                id = row.cultivate_id
+            }
             this.$router.push('/index/details/' + this.batch + '/' + id)
         },
         /**
@@ -300,14 +313,13 @@ export default {
                     this.$dataGet(this, newArr.selectUrl + '/changeSelect', {'selectData': newArr.selectData})
                         .then((responce) => {
                             if (responce.data.length !== 0) {
-                                this.newComponent[0].components[this.newComponent[0].popNumber[key]].options = this.$selectData(this.url, responce.data, newArr.selectArr)
-                                // this.selectNewEdit[key] = []
-                                // this.selectNewEdit[key].push(this.newComponent[0].selectInit[key])
-                                // let newOpt = this.$selectData(this.url, responce.data, newArr.selectArr)
-                                // for (let item of Object.keys(newOpt)) {
-                                //     this.selectNewEdit[key].push(newOpt[item])
-                                // }
-                                // this.newComponent[0].components[this.newComponent[0].popNumber[key]].options = this.selectNewEdit[key]
+                                this.selectNewEdit[key] = []
+                                this.selectNewEdit[key].push(this.newComponent[0].selectInit[key])
+                                let newOpt = this.$selectData(this.url, responce.data, newArr.selectArr)
+                                for (let item of Object.keys(newOpt)) {
+                                    this.selectNewEdit[key].push(newOpt[item])
+                                }
+                                this.newComponent[0].components[this.newComponent[0].popNumber[key]].options = this.selectNewEdit[key]
                             }
                         })
                 }
@@ -319,13 +331,13 @@ export default {
                     this.$dataGet(this, '/util/selects', {table: newArr.selectUrl})
                         .then((responce) => {
                             if (responce.data.length !== 0) {
-                                this.newComponent[0].components[this.newComponent[0].popNumber2[key]].options = this.$selectData(this.url, responce.data, newArr.selectArr)
-                                // this.selectNewEdit[key] = []
-                                // this.selectNewEdit[key].push(this.newComponent[0].selectInit[key])
-                                // let newOpt = this.$selectData(this.url, responce.data, newArr.selectArr)
-                                // for (let item of Object.keys(newOpt)) {
-                                //     this.selectNewEdit[key].push(newOpt[item])
-                                // }
+                                this.selectNewEdit[key] = []
+                                this.selectNewEdit[key].push(this.newComponent[0].selectInit2[key])
+                                let newOpt = this.$selectData(this.url, responce.data, newArr.selectArr)
+                                for (let item of Object.keys(newOpt)) {
+                                    this.selectNewEdit[key].push(newOpt[item])
+                                }
+                                this.newComponent[0].components[this.newComponent[0].popNumber2[key]].options = this.selectNewEdit[key]
                             }
                         })
                 }
@@ -492,6 +504,9 @@ export default {
         changeNew (val) {
             if (val !== 'false') {
                 this.isNewShow = false
+                if (JSON.stringify(this.dataArr) === '{}') {
+                    this.dataArr = ''
+                }
                 this.boxArr(this.dataArr)
                 this.getSelect()
                 this.$message({
@@ -551,6 +566,31 @@ export default {
         // 点击删除
         userRole (row, index) {
             console.log(row)
+        },
+        // 获取关联下拉框
+        getAssoc (val) {
+            if (val[2] !== '') {
+                var url = val[2] + '/' + val[0][0]
+                var getSelect = {'getSelect': '444'}
+                this.$dataGet(this, url, {getSelect})
+                    .then((responce) => {
+                        if (responce.data.length !== 0) {
+                            let asr = []
+                            asr.push(val[0][4])
+                            let newOpt = this.$selectData(url, responce.data.data, [val[0][1], val[0][2], true])
+                            for (let item of Object.keys(newOpt)) {
+                                asr.push(newOpt[item])
+                            }
+                            this.newComponent[0].components[val[0][3]].options = asr
+                        }
+                    })
+            } else {
+                this.newComponent[0].components[val[0][3]].options = []
+            }
+        },
+        moreShow (index, row) {
+            this.isPrintShow = !this.isPrintShow
+            this.printForm = row
         }
     },
     mounted () {
@@ -568,6 +608,7 @@ export default {
         },
         key () {
             this.tableData = []
+            this.dataArr = {}
             if (this.selectValueId !== undefined) {
                 this.getSelect()
             }
@@ -582,7 +623,8 @@ export default {
         operate,
         popEdit,
         clickMore,
-        lotOpearte
+        lotOpearte,
+        printf
     }
 }
 </script>

@@ -10,12 +10,21 @@
 			<contain-title :settitle="settitle">
 			</contain-title>
 			<div class="titleUser">
+<<<<<<< HEAD
 				<span :class="{'picture': isClass}">
 					<img />
 				</span>
 				<el-row :gutter="20" class="text">
 					<el-col :span='8' v-for="(item,index) in list" class="coltext">
 						{{item}}
+=======
+				<span class="picture">
+					<img src="img"/>
+				</span>
+				<el-row :gutter="20" class="text">
+					<el-col :span='8' v-for="(v,k) in listN" >
+						 {{v}} {{listV[k]}}
+>>>>>>> dev
 					</el-col>
 			 	</el-row>
 				<el-button class="edit" @click="showEdit">编辑</el-button>
@@ -39,9 +48,10 @@ export default {
     data () {
         return {
             settitle: '用户信息管理',
-            list: ['用户名:', '姓名:', '所属公司:', '工号:', '性别:', '所属部门:', '用户类型:', '邮箱:', '皮肤:', '电话:', '出生日期:', '字体:'],
-            isShow: false,
-            isClass: true
+            listN: {'name': '用户名 :', 'realname': '姓名 :', 'number': '工号 :', 'gender': '性别 :', 'department': '所属部门 :', 'type': '用户类型 :', 'email': '邮箱 :', 'phone': '电话 :', 'birth_date': '出生日期 :'},
+            listV: {},
+            img: '',
+            isShow: false
         }
     },
     methods: {
@@ -53,6 +63,25 @@ export default {
         ContainTitle,
         footerTop,
         userEdit
+    },
+    mounted () {
+        // 查询编辑数据
+        axios.get('api/system/1/edit')
+            .then((responce) => {
+                var ret = responce.data.user
+                this.listV = ret
+                this.img = ret.logo
+                if (ret.gender) {
+                    this.listV.gender = '女'
+                } else {
+                    this.listV.gender = '男'
+                }
+                if (ret.type) {
+                    this.listV.type = '管理员'
+                } else {
+                    this.listV.type = '高级管理员'
+                }
+            })
     }
 }
 </script>

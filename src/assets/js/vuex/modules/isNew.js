@@ -2,21 +2,17 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 // Vue.use(Vuex)
 
-const userStore = new Vuex.Store({
+const store = new Vuex.Store({
     state: {
         // isNewShow: false
-        count: 0
+        name: ''
     },
     getters: {
     },
     mutations: {
-        handleAdd (state) {
-            state.count++
-        }
     },
     actions: {
-
     }
 })
 
-export default userStore
+export default store

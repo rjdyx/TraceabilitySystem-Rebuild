@@ -1,45 +1,50 @@
 /**
  * 
- * ÏêÇéÒ³Ä£¿é×é¼ş
- * @author ÎâÑàÆ¼
+ * è¯¦æƒ…é¡µæ¨¡å—ç»„ä»¶
+ * @author å´ç‡•è
  * @date 2017/04/18
  * 
  */
 <template>
+<<<<<<< HEAD
 <div class="detailsModel">   
   <!-- ±êÌâ -->
+=======
+<div>   
+  <!-- æ ‡é¢˜ -->
+>>>>>>> dev
     <contain-title :settitle="tab">
     </contain-title>
 
-  <!-- ĞÅÏ¢ÁĞ±í -->
+  <!-- ä¿¡æ¯åˆ—è¡¨ -->
     <el-row :gutter="20">
          <el-col :span="6" v-for="(item,i) in theads" class="text-small">{{item}}:{{headData[protos[i]]}}</el-col>
     </el-row>
     
-  <!-- tabÀ¸ --> 
+  <!-- tabæ  --> 
     <el-tabs v-model="activeName" type="card" id="tabs" @tab-click="tabClick">
         <el-tab-pane :label='tabItem.tab' :name='tabItem.tab' v-for="
         tabItem in tabList">
         </el-tab-pane>
     </el-tabs> 
 
-            <!-- ²Ù×÷Ä£¿é -->
+            <!-- æ“ä½œæ¨¡å— -->
         <div id="operate">              
             <div id="inputs">
-            <!-- ×ó±ßµÄ²Ù×÷°´Å¥ -->
+            <!-- å·¦è¾¹çš„æ“ä½œæŒ‰é’® -->
                 <operate :listComponent="tabItem.listComponent" @selectVal="selectFind" @dateVal="dateFind"></operate>
-                <!-- ËÑË÷¿ò -->
+                <!-- æœç´¢æ¡† -->
                 <div class="searchOp">
                     <el-input
                         :placeholder="tabItem.searchPlaceholder"
                         v-model="inputValue"
                         :on-icon-click="search" class="searchInp" size="small">
                     </el-input>
-                    <el-button size="small" class="searchBtn" @click="textAndDateFind">ËÑË÷</el-button>
+                    <el-button size="small" class="searchBtn" @click="textAndDateFind">æœç´¢</el-button>
                 </div>
 
-                <!-- ÓÒ±ßµÄ²Ù×÷°´Å¥ -->
-                <!-- ²Ù×÷°´Å¥ -->
+                <!-- å³è¾¹çš„æ“ä½œæŒ‰é’® -->
+                <!-- æ“ä½œæŒ‰é’® -->
                 <component
                     v-for="operateItem in tabItem.typeComponent"
                     :is="operateItem.component"
@@ -48,21 +53,21 @@
             </div>
         </div>
     
-        <!-- ĞÂ½¨Ä£¿é --> 
+        <!-- æ–°å»ºæ¨¡å— --> 
         <popNew v-if="isNewShow" :newComponent="tabItem.newComponent" :url="apiUrlArr[tabList[0].url]" @submitNew="changeNew"></popNew>
-        <!-- ±à¼­Ä£¿é -->
+        <!-- ç¼–è¾‘æ¨¡å— -->
         <popEdit v-if="isEditShow" :editComponent="tabItem.editComponent" :url="apiUrlArr[tabList[0].url]" :editForm="editForm"
                  @submitEdit="hangeEdit" :changeDataArr="changeDataArr" :editDefault="editDefault"></popEdit>
-    <!-- ÁĞ±íÄ£¿é -->
+    <!-- åˆ—è¡¨æ¨¡å— -->
     <el-table :data="tableData"  @selection-change="handleSelectionChange">
         <!-- checkbox -->
         <el-table-column width="50" type="selection">
         </el-table-column> 
-        <!-- ĞòºÅ --> 
-        <el-table-column width="80" label="ĞòºÅ" type="index" id="test_id">
+        <!-- åºå· --> 
+        <el-table-column width="80" label="åºå·" type="index" id="test_id">
         </el-table-column>
 
-                <!-- ÖĞ¼äÁĞ±íÄ£¿é -->
+                <!-- ä¸­é—´åˆ—è¡¨æ¨¡å— -->
                 <template v-for="(item,index) in tabItem.headList"> 
                   <template>
                     <el-table-column 
@@ -71,7 +76,7 @@
                       :min-width="tabItem.widths[index]"
                       show-overflow-tooltip>
                       <template  scope="scope">
-                            <div v-if="item.includes('²úÆ·Ãû³Æ')" slot="reference" class="name-wrapper pcActive" @click="jumpDetails(scope.row)">
+                            <div v-if="item.includes('äº§å“åç§°')" slot="reference" class="name-wrapper pcActive" @click="jumpDetails(scope.row)">
                                 {{ tableData[scope.$index][tabItem.protos[index]] }}
                             </div>
                             <div v-else-if="tabItem.protos[index]=='thumb'" slot="reference">
@@ -88,14 +93,14 @@
                   </template>
                 </template>
 
-                <!-- ÁĞ±í²Ù×÷Ä£¿é -->
+                <!-- åˆ—è¡¨æ“ä½œæ¨¡å— -->
                 <el-table-column 
-                label="²Ù×÷" v-if="checkOperate==null">
+                label="æ“ä½œ" v-if="checkOperate==null">
                     <template scope="scope" class="operateBtn">
                         <template>
-                            <el-button type="text" size="small" @click="changeEditShow(scope.$index,scope.row)" v-if="tabList[0].hiddeEdit">±à¼­</el-button>
-                            <el-button type="text" size="small" v-if="hiddeWatch">²é¿´</el-button>
-                            <el-button size="small" type="text" @click="handelDel(scope.$index,scope.row)" class="btn">É¾³ı</el-button>  
+                            <el-button type="text" size="small" @click="changeEditShow(scope.$index,scope.row)" v-if="tabList[0].hiddeEdit">ç¼–è¾‘</el-button>
+                            <el-button type="text" size="small" v-if="hiddeWatch">æŸ¥çœ‹</el-button>
+                            <el-button size="small" type="text" @click="handelDel(scope.$index,scope.row)" class="btn">åˆ é™¤</el-button>  
                         </template>
                     </template>
                 </el-table-column>
@@ -103,17 +108,17 @@
     <div class="footer">
         <div class="operate-foot">
             <div class="operate-foot">
-                <el-button @click="delAll" v-if="checkOperate==null">É¾³ı</el-button>
+                <el-button @click="delAll" v-if="checkOperate==null">åˆ é™¤</el-button>
                 <template v-if="lotComponent!=null">
                     <lotOpearte :lotComponent="lotComponent"></lotOpearte>
                 </template>
-                <el-button>µ¼³ö±í¸ñ</el-button>
+                <el-button>å¯¼å‡ºè¡¨æ ¼</el-button>
             </div>
         </div>
 
-        <p class="record">¹²ÓĞ{{num}}Ò³£¬{{total_num}}Ìõ¼ÇÂ¼</p>
+        <p class="record">å…±æœ‰{{num}}é¡µï¼Œ{{total_num}}æ¡è®°å½•</p>
 
-        <!-- ·ÖÒ³Ä£¿é -->
+        <!-- åˆ†é¡µæ¨¡å— -->
             <el-pagination
               v-if="paginator!=0"
               layout="prev, pager, next"
@@ -155,28 +160,28 @@ export default {
     data () {
         return {
             activeName: '',
-            // »ñÈ¡½è¿ÚµÄÊı¾İ
+            // è·å–å€Ÿå£çš„æ•°æ®
             apiUrlArr: [],
-            // Í·²¿ÁĞ±íÊı¾İ
+            // å¤´éƒ¨åˆ—è¡¨æ•°æ®
             headData: {},
             isNewShow: false,
             isEditShow: false,
             tabItem: {},
-            // ÁĞ±íÊı¾İ
+            // åˆ—è¡¨æ•°æ®
             tableData: [],
             paginator: {},
             inputValue: '',
             dataArr: {},
             editForm: {},
             editDefault: {},
-            // ¸´Ñ¡¿òÑ¡ÖĞ·µ»Ø¶ÔÏó
+            // å¤é€‰æ¡†é€‰ä¸­è¿”å›å¯¹è±¡
             checkObject: {},
             index: 0
         }
     },
     mixins: [computed],
     methods: {
-        // tabµã»÷ÊÂ¼ş
+        // tabç‚¹å‡»äº‹ä»¶
         tabClick (tab, event) {
             this.index = tab.$data.index
             this.tabItem = this.tabList[this.index]
@@ -185,7 +190,7 @@ export default {
             var id = row.id
             this.$router.push('/index/details/' + this.batch + '/' + id)
         },
-        // ÏÔÊ¾ĞÂ½¨±íµ¥
+        // æ˜¾ç¤ºæ–°å»ºè¡¨å•
         changeNewShow () {
             this.isNewShow = !this.isNewShow
             if (this.tabItem.newComponent[0].checkNumber !== undefined) {
@@ -193,13 +198,16 @@ export default {
                     this.tabItem.newComponent[0].components[this.tabItem.newComponent[0].checkNumber[index]].rule[1].url = this.tabItem.url
                 }
             }
-            // »ñÈ¡ĞÂ½¨±í¸ñÊı¾İ
+            // è·å–æ–°å»ºè¡¨æ ¼æ•°æ®
             if (this.tabItem.newComponent[0].type === 'table') {
                 var getSelect = {'getSelect': '444'}
                 var curl = {'curl': this.tabItem.url}
                 var routeId = {'routeId': this.tabItem.newComponent[0].labUrl}
                 var opqcurl = {'opqcurl': this.apiUrlArr[this.url]}
-                this.$dataGet(this, this.tabItem.newComponent[0].labUrl, {getSelect, curl, routeId, opqcurl})
+                if (this.tabItem.newComponent[0].paramsIndex !== undefined) {
+                    var type = this.tabItem.newComponent[0].paramsIndex
+                }
+                this.$dataGet(this, this.tabItem.newComponent[0].labUrl, {getSelect, curl, routeId, opqcurl, type})
                     .then((responce) => {
                         this.$set(this.tabItem.newComponent[0].components[0], 'tableVal', responce.data)
                     })
@@ -215,7 +223,7 @@ export default {
                         })
                 }
             }
-            // ÎŞ·ÖÀàµÄÏÂÀ­¿òÄ£¿é²éÑ¯
+            // æ— åˆ†ç±»çš„ä¸‹æ‹‰æ¡†æ¨¡å—æŸ¥è¯¢
             if (this.tabItem.newComponent[0].selectUrl2) {
                 for (let key in this.tabItem.newComponent[0].selectUrl2) {
                     let newArr = this.$addAndEditSelectMethod(this.tabItem.newComponent[0].selectUrl2[key])
@@ -228,7 +236,7 @@ export default {
                 }
             }
         },
-        // ÏÔÊ¾±à¼­±íµ¥
+        // æ˜¾ç¤ºç¼–è¾‘è¡¨å•
         changeEditShow (index, row) {
             this.isEditShow = true
             if (row !== undefined) {
@@ -249,7 +257,7 @@ export default {
                             })
                     }
                 }
-                // ÎŞ·ÖÀàµÄÏÂÀ­¿òÄ£¿é²éÑ¯
+                // æ— åˆ†ç±»çš„ä¸‹æ‹‰æ¡†æ¨¡å—æŸ¥è¯¢
                 if (this.tabItem.editComponent[0].selectUrl2) {
                     for (let key in this.tabItem.editComponent[0].selectUrl2) {
                         let editArr = this.$addAndEditSelectMethod(this.tabItem.editComponent[0].selectUrl2[key])
@@ -262,30 +270,30 @@ export default {
                     }
                 }
                 this.editForm = row
-                // ÖØĞÂ¸³Öµ»ñÈ¡³õÊ¼Öµ
+                // é‡æ–°èµ‹å€¼è·å–åˆå§‹å€¼
                 for (let key of Object.keys(row)) {
                     this.editDefault[key] = row[key]
                 }
             }
         },
-        // ¹Ø±Õ±à¼­µ¯´°
+        // å…³é—­ç¼–è¾‘å¼¹çª—
         closeEditShow (val) {
             this.isEditShow = false
         },
-        // ÁĞ±íÈ«Ñ¡
+        // åˆ—è¡¨å…¨é€‰
         handleSelectionChange (val) {
             this.checkObject = val
         },
-        // »ñÈ¡Api½Ó¿ÚÊı¾İ
+        // è·å–Apiæ¥å£æ•°æ®
         getApiUrl () {
             this.apiUrlArr[this.url] = this.url + '/' + this.$route.params.id
             for (var i in this.tabList) {
                 this.apiUrlArr[this.tabList[i].url] = this.$route.params.id + '/' + this.tabList[i].url
             }
         },
-        // »ñÈ¡Í·²¿ÏêÏ¸ĞÅÏ¢
+        // è·å–å¤´éƒ¨è¯¦ç»†ä¿¡æ¯
         getDetailSerial () {
-            // Í·²¿ÁĞ±íĞÅÏ¢
+            // å¤´éƒ¨åˆ—è¡¨ä¿¡æ¯
             var url = this.apiUrlArr[this.url]
             this.$dataGet(this, url, {})
                 .then((responce) => {
@@ -294,7 +302,7 @@ export default {
                     this.$set(this, 'headData', ret)
                 })
         },
-        // »ñÈ¡ÁĞ±íĞÅÏ¢
+        // è·å–åˆ—è¡¨ä¿¡æ¯
         getAllMsg (data = '') {
             this.$dataGet(this, this.apiUrlArr[this.tabList[this.index].url], {params: data})
                 .then((responce) => {
@@ -319,12 +327,12 @@ export default {
                     }
                 })
         },
-        // ÎÄ±¾ÓëÊ±¼ä°´Å¥²éÑ¯
+        // æ–‡æœ¬ä¸æ—¶é—´æŒ‰é’®æŸ¥è¯¢
         textAndDateFind () {
             this.dataArr['query_text'] = this.inputValue
             this.boxArr(this.dataArr)
         },
-        // ÏÂÀ­¿ò²éÑ¯
+        // ä¸‹æ‹‰æ¡†æŸ¥è¯¢
         selectFind (val) {
             for (let index in this.selectSearch) {
                 if (val[0] === this.selectSearch[index]) {
@@ -334,23 +342,23 @@ export default {
             this.dataArr[val[0]] = val[1]
             this.boxArr(this.dataArr)
         },
-        // ÈÕÆÚ´æ´¢
+        // æ—¥æœŸå­˜å‚¨
         dateFind (val) {
             this.dataArr[val[0]] = val[1]
         },
-        // ·ÖÒ³Ìø×ª
+        // åˆ†é¡µè·³è½¬
         pageChange (val) {
             this.dataArr['page'] = val
             this.boxArr(this.dataArr)
         },
-        // ×éºÏ²éÑ¯
+        // ç»„åˆæŸ¥è¯¢
         boxArr (dataArr) {
             this.getAllMsg(dataArr)
         },
         enterPic () {
             // this.$alert('<img src>')
-            // this.$alert('ÕâÊÇÒ»¶ÎÄÚÈİ', '±êÌâÃû³Æ', {
-            //     confirmButtonText: 'È·¶¨',
+            // this.$alert('è¿™æ˜¯ä¸€æ®µå†…å®¹', 'æ ‡é¢˜åç§°', {
+            //     confirmButtonText: 'ç¡®å®š',
             //     callback: action => {
             //         this.$message({
             //             type: 'info',
@@ -359,7 +367,7 @@ export default {
             //     }
             // }
         },
-        // »ñÈ¡ÏÂÀ­¿òÊı¾İ
+        // è·å–ä¸‹æ‹‰æ¡†æ•°æ®
         getSelect () {
             if (this.paramsIndex !== undefined) {
                 var type = this.paramsIndex
@@ -368,7 +376,7 @@ export default {
             var getSelect = {'getSelect': '444'}
             this.$dataGet(this, this.url, {getSelect: getSelect, type: type})
                 .then((responce) => {
-                    // Êı¾İ×ª»»
+                    // æ•°æ®è½¬æ¢
                     if (responce.data.length !== 0) {
                         for (let index in this.selectValueId) {
                             this.selectArrSet[index] = []
@@ -388,7 +396,7 @@ export default {
                     }
                 })
         },
-        // ĞÂ½¨Êı¾İ
+        // æ–°å»ºæ•°æ®
         changeNew (val) {
             if (val !== 'false') {
                 this.isNewShow = false
@@ -400,17 +408,17 @@ export default {
                 // this.getSelect()
                 this.$message({
                     type: 'success',
-                    message: 'ĞÂÔöÊı¾İ³É¹¦'
+                    message: 'æ–°å¢æ•°æ®æˆåŠŸ'
                 })
             } else {
-                this.$message.error('ĞÂÔöÊı¾İÊ§°Ü')
+                this.$message.error('æ–°å¢æ•°æ®å¤±è´¥')
             }
         },
-        // µã»÷É¾³ı
+        // ç‚¹å‡»åˆ é™¤
         handelDel (index, row) {
-            this.$confirm('ÄãÈ·¶¨ÒªÉ¾³ı¸ÃĞÅÏ¢Âğ?', 'ĞÅÏ¢', {
-                cancelButtonText: 'È¡Ïû',
-                confirmButtonText: 'È·¶¨',
+            this.$confirm('ä½ ç¡®å®šè¦åˆ é™¤è¯¥ä¿¡æ¯å—?', 'ä¿¡æ¯', {
+                cancelButtonText: 'å–æ¶ˆ',
+                confirmButtonText: 'ç¡®å®š',
                 type: 'error'
             }).then(() => {
                 axios.delete(this.$adminUrl(this.apiUrlArr[this.tabList[0].url] + '/' + row.id))
@@ -423,17 +431,17 @@ export default {
                         this.boxArr(this.dataArr)
                         this.$message({
                             type: 'success',
-                            message: 'É¾³ı³É¹¦'
+                            message: 'åˆ é™¤æˆåŠŸ'
                         })
                     })
             }).catch(() => {
                 this.$message({
                     type: 'info',
-                    message: 'ÒÑÈ¡ÏûÉ¾³ı'
+                    message: 'å·²å–æ¶ˆåˆ é™¤'
                 })
             })
         },
-        // ±à¼­ĞŞ¸ÄÊı¾İ
+        // ç¼–è¾‘ä¿®æ”¹æ•°æ®
         hangeEdit (val) {
             if (val !== 'false') {
                 this.isEditShow = false
@@ -444,18 +452,18 @@ export default {
                 this.boxArr(this.dataArr)
                 this.$message({
                     type: 'success',
-                    message: '±à¼­Êı¾İ³É¹¦'
+                    message: 'ç¼–è¾‘æ•°æ®æˆåŠŸ'
                 })
             } else {
-                this.$message.error('±à¼­Êı¾İÊ§°Ü')
+                this.$message.error('ç¼–è¾‘æ•°æ®å¤±è´¥')
             }
         },
-        // ÅúÁ¿É¾³ı
+        // æ‰¹é‡åˆ é™¤
         delAll () {
             if (this.checkObject.length !== undefined && this.checkObject.length !== 0) {
-                this.$confirm('ÄãÈ·¶¨ÒªÉ¾³ıÑ¡ÖĞĞÅÏ¢?', 'ĞÅÏ¢', {
-                    cancelButtonText: 'È¡Ïû',
-                    confirmButtonText: 'È·¶¨',
+                this.$confirm('ä½ ç¡®å®šè¦åˆ é™¤é€‰ä¸­ä¿¡æ¯?', 'ä¿¡æ¯', {
+                    cancelButtonText: 'å–æ¶ˆ',
+                    confirmButtonText: 'ç¡®å®š',
                     type: 'error'
                 }).then(() => {
                     var delArr = []
@@ -474,24 +482,22 @@ export default {
                             this.boxArr(this.dataArr)
                             this.$message({
                                 type: 'success',
-                                message: 'ÅúÁ¿É¾³ı³É¹¦'
+                                message: 'æ‰¹é‡åˆ é™¤æˆåŠŸ'
                             })
                         } else {
-                            this.$message.error('ÅúÁ¿É¾³ıÊ§°Ü')
+                            this.$message.error('æ‰¹é‡åˆ é™¤å¤±è´¥')
                         }
                     })
                 }).catch(() => {
                     this.$message({
                         type: 'info',
-                        message: 'ÒÑÈ¡ÏûÉ¾³ı'
+                        message: 'å·²å–æ¶ˆåˆ é™¤'
                     })
                 })
             }
         }
     },
     mounted () {
-        console.log('------')
-        console.log(this.models)
         this.tabItem = this.tabList[0]
         this.activeName = this.tabList[0].tab
         this.getApiUrl()

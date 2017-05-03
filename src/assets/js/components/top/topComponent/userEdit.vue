@@ -11,40 +11,43 @@
 				<h2 class="tab">编辑用户信息</h2>
 					<div class="margin">
 						<el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px">
+
 							<el-form-item label="用户名" prop="name">
-								<el-input placeholder="必填"></el-input>
+								<el-input placeholder="必填" v-model="ruleForm.name"></el-input>
 							</el-form-item>
+
 							<el-form-item label="工号" prop="number">
-								<el-input placeholder="必填"></el-input>
+								<el-input placeholder="必填" v-model="ruleForm.number"></el-input>
 							</el-form-item>
+
 							<el-form-item label="邮箱" prop="email">
-								<el-input placeholder="必填"></el-input>
+								<el-input placeholder="必填" v-model="ruleForm.email"></el-input>
 							</el-form-item>
-							<el-form-item label="姓名">
-								<el-input></el-input>
+
+              <el-form-item label="电话" prop="phone">
+                <el-input placeholder="请输入11位手机号(固话用-隔开)" v-model="ruleForm.phone"></el-input>
+              </el-form-item>
+
+							<el-form-item label="姓名" prop="realname">
+								<el-input placeholder="请输入真实姓名" v-model="ruleForm.realname"></el-input>
 							</el-form-item>
-							<el-form-item label="性别">
-								<el-select placeholder="">
-									<el-option label="女" value=""></el-option>
-									<el-option label="女" value=""></el-option>
+
+							<el-form-item label="性别" prop="gender">
+								<el-select  v-model="ruleForm.gender" placeholder="请选择性别">
+									<el-option label="男" value="0"></el-option>
+									<el-option label="女" value="1"></el-option>
 								</el-select>
 							</el-form-item>
-							<el-form-item label="用户类型">
-								<el-select placeholder="">
-									<el-option label="女" value=""></el-option>
-									<el-option label="女" value=""></el-option>
-								</el-select>
-							</el-form-item>
-							<el-form-item label="出生日期">
-								<el-date-picker type="date">
+
+							<el-form-item label="出生日期" prop="birth_date">
+								<el-date-picker type="date" v-model="ruleForm.birth_date" placeholder="请选择出生日期">
 								</el-date-picker>
+
 							</el-form-item>
-							<el-form-item label="所属部门">
-								<el-input></el-input>
+							<el-form-item label="所属部门" prop="department">
+								<el-input v-model="ruleForm.department" placeholder="请输入所属部门"></el-input>
 							</el-form-item>
-							<el-form-item label="电话">
-								<el-input placeholder="请输入11位手机号(固话用-隔开)"></el-input>
-							</el-form-item>
+
 							<file></file>
 							<el-form-item class="userOperate">
 							    <el-button type="primary" @click="submitForm('ruleForm')">保存</el-button>
@@ -64,13 +67,13 @@ export default {
     name: 'userEdit',
     data () {
         return {
+            user_id: '',
             ruleForm: {
                 name: '',
                 number: '',
                 email: '',
                 realname: '',
                 sex: '',
-                user_type: '',
                 date: '',
                 department: '',
                 phone: ''
@@ -98,12 +101,23 @@ export default {
         resetForm () {
             this.$parent.showEdit()
         },
+        // 取消事件
+        cancelClick () {
+            this.$parent.closeEditShow()
+        },
         submitForm (formName) {
             this.$refs[formName].validate((valid) => {
                 if (valid) {
-                    alert('submit')
+                    axios.put('api/user/' + this.user_id, this.ruleForm).then((response) => {
+                        this.$parent.showEdit()
+                        if (response.data !== false) {
+                            alert('修改成功')
+                        } else {
+                            alert('修改失败')
+                        }
+                    })
                 } else {
-                    console.log('error')
+                    console.log('验证不通过')
                     return false
                 }
             })
@@ -111,6 +125,21 @@ export default {
     },
     components: {
         file
+    },
+    mounted () {
+        // 查询编辑数据
+        axios.get('api/system/1/edit')
+            .then((responce) => {
+                this.user_id = responce.data.user.id
+                this.ruleForm.name = responce.data.user.name
+                this.ruleForm.realname = responce.data.user.realname
+                this.ruleForm.email = responce.data.user.email
+                this.ruleForm.phone = responce.data.user.phone
+                this.ruleForm.department = responce.data.user.department
+                this.ruleForm.birth_date = responce.data.user.birth_date
+                this.ruleForm.number = responce.data.user.number
+                this.ruleForm.gender = responce.data.user.gender
+            })
     }
 }
 </script>
