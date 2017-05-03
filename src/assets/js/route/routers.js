@@ -40,7 +40,6 @@ const details = resolve => {
     }, 'details')
 }
 
-<<<<<<< HEAD
 // ---------------------------手机版首页----------------------------------
 const plantIndex = resolve => {
     require.ensure(['../page/phone/plant/index.vue'], () => {
@@ -98,9 +97,6 @@ const commodity = resolve => {
 }
 
 // =============================头部导航条按钮跳转=======================
-=======
-// =============================头部导航条按钮跳转====================================
->>>>>>> dev
 // -------------------------------问题反馈------------------------------
 const question = resolve => {
     require.ensure(['../components/top/question.vue'], () => {

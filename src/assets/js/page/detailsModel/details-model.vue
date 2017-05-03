@@ -6,13 +6,8 @@
  * 
  */
 <template>
-<<<<<<< HEAD
-<div class="detailsModel">   
-  <!-- ±êÌâ -->
-=======
 <div>   
   <!-- æ ‡é¢˜ -->
->>>>>>> dev
     <contain-title :settitle="tab">
     </contain-title>
 
@@ -531,10 +526,8 @@ export default {
     }
 }
 </script>
-<style lang='sass'>
-
-  .detailsModel{
-    .pcActive{
+<style lang='sass'> 
+  .pcActive{
         color: blue;
         text-decoration: underline;
         cursor:pointer;
@@ -611,5 +604,4 @@ export default {
      .detaActive{
         background: red;
      }
-  }
 </style>

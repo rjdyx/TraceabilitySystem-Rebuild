@@ -10,21 +10,12 @@
 			<contain-title :settitle="settitle">
 			</contain-title>
 			<div class="titleUser">
-<<<<<<< HEAD
-				<span :class="{'picture': isClass}">
-					<img />
-				</span>
-				<el-row :gutter="20" class="text">
-					<el-col :span='8' v-for="(item,index) in list" class="coltext">
-						{{item}}
-=======
-				<span class="picture">
+				<span class="{'picture': isClass}">
 					<img src="img"/>
 				</span>
 				<el-row :gutter="20" class="text">
-					<el-col :span='8' v-for="(v,k) in listN" >
+					<el-col :span='8' v-for="(v,k) in listN"  class="coltext">
 						 {{v}} {{listV[k]}}
->>>>>>> dev
 					</el-col>
 			 	</el-row>
 				<el-button class="edit" @click="showEdit">编辑</el-button>
