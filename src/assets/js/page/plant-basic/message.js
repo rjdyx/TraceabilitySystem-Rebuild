@@ -2281,7 +2281,7 @@ export default {
                     isNull: true,
                     label: '生产日期',
                     placeholder: '选择生产日期',
-                    rule: {required: true, trigger: 'blur'}
+                    rule: [{required: true, trigger: 'blur', message: '请输入生产日期'}, {validator: validate2.reDate, message: '请输入生产日期'}]
                 },
                 {
                     name: 'expiration_date',
@@ -2748,9 +2748,9 @@ export default {
                 type: 'date',
                 component: inputDate,
                 isNull: false,
-                label: '开始日期',
+                label: '养殖日期',
                 placeholder: '',
-                rule: [{required: true}, {validator: validate2.reDate, message: '请输入种植日期'}]
+                rule: [{required: true, message: '请输入养殖日期'}, {validator: validate2.reDate, message: '请输入养殖日期'}]
             },
             {
                 name: 'way',
@@ -2889,8 +2889,8 @@ export default {
         selectValueId: [['fodder_id', 'fodder_name', true]],
         selectDefault: [{value: '', label: '饲料选择'}],
         selectSearch: ['fodderuse.fodder_id'],
-        theads: ['饲料批次号', '饲料使用日期', '饲料名称', '饲料添加剂', '喂养方式', '操作人员', '喂养量', '备注信息'],
-        protos: ['serial', 'date', 'fodder_name', 'addition_name', 'way', 'operate_name', 'amount', 'memo'],
+        theads: ['饲料批次号', '饲料使用日期', '饲料名称', '饲料添加剂', '喂养方式', '操作人员', '平均喂养量', '备注信息'],
+        protos: ['serial', 'date', 'fodder_name', 'addition_name', 'way', 'operate_name', 'amount_unit', 'memo'],
         widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
         typeComponent: [{
             component: output
@@ -2901,6 +2901,7 @@ export default {
         newComponent: [{
             tab: '新建饲料使用信息',
             selectUrl2: [['fodders', 'id', 'name', true], ['additions', 'id', 'name', true], ['operates', 'id', 'name', true]],
+            selectInit2: [{value: '', label: '饲料选择'}, {value: '', label: '饲料添加剂选择'}, {value: '', label: '饲养人员选择'}],
             popNumber2: [0, 1, 2],
             components: [{
                 name: 'fodder_id',
@@ -2937,9 +2938,9 @@ export default {
                 type: 'date',
                 component: inputDate,
                 isNull: false,
-                label: '使用日期',
+                label: '饲养日期',
                 placeholder: '',
-                rule: {required: true, trigger: 'blur'}
+                rule: [{required: true, trigger: 'blur', message: '请输入饲养日期'}, {validator: validate2.reDate, message: '请输入饲养日期'}]
             },
             {
                 name: 'amount',
@@ -2948,7 +2949,19 @@ export default {
                 isNull: true,
                 label: '平均喂养量',
                 placeholder: '',
-                rule: {required: true, trigger: 'blur', type: 'number'}
+                rule: [{required: true, trigger: 'blur', message: '请输入饲养量'}, {validator: validate2.reInteger}],
+                options: [{
+                    value: 'kg/只',
+                    label: 'kg/只'
+                },
+                {
+                    value: 'kg/头',
+                    label: 'kg/头'
+                },
+                {
+                    value: 'kg/条',
+                    label: 'kg/条'
+                }]
             },
             {
                 name: 'way',
@@ -3021,7 +3034,7 @@ export default {
                 isNull: false,
                 label: '使用日期',
                 placeholder: '',
-                rule: {required: true, trigger: 'blur'}
+                rule: [{required: true, trigger: 'blur', message: '请输入饲养日期'}, {validator: validate2.reDate, message: '请输入饲养日期'}]
             },
             {
                 name: 'amount',
@@ -3030,7 +3043,7 @@ export default {
                 isNull: true,
                 label: '平均喂养量',
                 placeholder: '',
-                rule: {required: true, trigger: 'blur', type: 'number'}
+                rule: [{required: true, message: '请输入饲养量'}, {validator: validate2.reInteger}]
             },
             {
                 name: 'way',
@@ -3073,11 +3086,12 @@ export default {
         url: 'disease',
         // 链接批次信息模块数据的桥（养殖批次详情）
         batch: 'plagueBatch',
-        searchPlaceholder: '请输入兽药名称',
-        search: ['query_text', 'drug_name'],
-        selectSearch: ['disease.drug_name'],
+        searchPlaceholder: '请输入病疫批次号进行搜索',
+        selectValueId: [['drug_id', 'drug_name', true]],
+        selectDefault: [{value: '', label: '兽药选择'}],
+        selectSearch: ['disease.drug_id'],
         theads: ['病疫批次号', '兽药名称', '用药日期', '病情描述', '专家', '平均用药量', '治疗方式', '备注'],
-        protos: ['serial', 'drug_name', 'date', 'description', 'expert_name', 'amount', 'way', 'meno'],
+        protos: ['serial', 'drug_name', 'date', 'description', 'expert_name', 'amount_unit', 'way', 'memo'],
         widths: [50, 50, 50, 50, 50, 50, 50, 50],
         typeComponent: [{
             component: output
@@ -3088,372 +3102,230 @@ export default {
         newComponent: [
             {
                 tab: '新建病疫情信息',
-                components: [
-                    {
-                        name: 'date',
-                        type: 'date',
-                        component: null,
-                        isNull: false,
-                        label: '用药日期',
-                        placeholder: '',
-                        rule: {required: true, trigger: 'blur'},
-                        options: [{
-                            value: '',
-                            label: '无'
-                        }
-                        ]
+                selectUrl2: [['drugs', 'id', 'name', true], ['operates', 'id', 'name', true], ['experts', 'id', 'name', true]],
+                selectInit2: [{value: '', label: '兽药选择'}, {value: '', label: '施药人员选择'}, {value: '', label: '专家选择'}],
+                popNumber2: [0, 3, 4],
+                components: [{
+                    name: 'drug_id',
+                    type: 'select',
+                    component: null,
+                    isNull: false,
+                    label: '兽药名称',
+                    placeholder: '',
+                    rule: {required: true, trigger: 'blur', type: 'number', message: '请选择兽药'},
+                    options: []
+                },
+                {
+                    name: 'date',
+                    type: 'date',
+                    component: inputDate,
+                    isNull: false,
+                    label: '用药日期',
+                    placeholder: '',
+                    rule: [{required: true, message: '请输入用药日期'}, {validator: validate2.reDate, message: '请输入用药日期'}]
+                },
+                {
+                    name: 'description',
+                    type: 'text',
+                    component: null,
+                    isNull: true,
+                    label: '病情描述',
+                    placeholder: '',
+                    rule: null
+                },
+                {
+                    name: 'operate_id',
+                    type: 'select',
+                    component: null,
+                    isNull: false,
+                    label: '施药人员',
+                    placeholder: '',
+                    rule: {required: true, trigger: 'blur', type: 'number', message: '请选择施药人员'},
+                    options: []
+                },
+                {
+                    name: 'expert_id',
+                    type: 'select',
+                    component: null,
+                    isNull: true,
+                    label: '专家',
+                    placeholder: '',
+                    rule: null,
+                    options: []
+                },
+                {
+                    name: 'amount',
+                    type: 'textSelect',
+                    component: inputTextSelect,
+                    isNull: false,
+                    label: '平均施药量',
+                    placeholder: '请输入正确的数字（必填）',
+                    rule: [{required: true, message: '请输入平均施药量'}, {validator: validate2.reInteger}],
+                    options: [{
+                        value: 'kg/只',
+                        label: 'kg/只'
                     },
                     {
-                        name: 'description',
-                        type: 'text',
-                        component: null,
-                        isNull: true,
-                        label: '病情描述',
-                        placeholder: '',
-                        rule: null
+                        value: 'kg/头',
+                        label: 'kg/头'
                     },
                     {
-                        name: 'drug_name',
-                        type: 'select',
-                        component: null,
-                        isNull: false,
-                        label: '兽药名称',
-                        placeholder: '',
-                        rule: {required: true, trigger: 'blur'},
-                        options: [{
-                            value: '',
-                            label: '请选择类别'
-                        },
-                        {
-                            value: '疾病防治药',
-                            label: '疾病防治药'
-                        },
-                        {
-                            value: '传染病防治药',
-                            label: '传染病防治药'
-                        },
-                        {
-                            value: '寄生虫病防治药',
-                            label: '寄生虫病防治药'
-                        },
-                        {
-                            value: '促生长药',
-                            label: '促生长药'
-                        },
-                        {
-                            value: '其他类',
-                            label: '其他类'
-                        }
-                        ]
-                    },
-                    {
-                        name: 'expert_name',
-                        type: 'select',
-                        component: null,
-                        isNull: true,
-                        label: '专家',
-                        placeholder: '',
-                        rule: null,
-                        options: [{
-                            value: '',
-                            label: '无'
-                        }
-                        ]
-                    },
-                    {
-                        name: 'operate_name',
-                        type: 'select',
-                        component: null,
-                        isNull: false,
-                        label: '操作人员',
-                        placeholder: '请选择操作人',
-                        rule: {required: true, trigger: 'blur'},
-                        options: [{
-                            value: '',
-                            label: '请选择操作人'
-                        },
-                        {
-                            value: '郑刚',
-                            label: '郑刚'
-                        }
-                        ]
-                    },
-                    {
-                        name: 'user_name',
-                        type: 'text',
-                        component: null,
-                        isNull: false,
-                        label: '录入人',
-                        placeholder: '请选择操作人',
-                        rule: {required: true, trigger: 'blur'},
-                        options: [{
-                            value: '',
-                            label: '请选择操作人'
-                        },
-                        {
-                            value: '郑刚',
-                            label: '郑刚'
-                        }
-                        ]
-                    },
-                    {
-                        name: 'amount',
-                        type: 'textselect',
-                        component: inputTextSelect,
-                        isNull: false,
-                        label: '平均施药量',
-                        placeholder: '请输入正确的数字（必填）',
-                        rule: {type: 'number'},
-                        options: [{
-                            value: '',
-                            label: 'kg/只'
-                        },
-                        {
-                            value: 'kg/头',
-                            label: 'kg/头'
-                        },
-                        {
-                            value: 'kg/条',
-                            label: 'kg/条'
-                        }]
-                    },
-                    {
-                        name: 'way',
-                        type: 'text',
-                        component: null,
-                        isNull: true,
-                        label: '治疗方式',
-                        placeholder: '',
-                        rule: null
-                    },
-                    {
-                        name: 'img',
-                        type: 'file',
-                        component: inputFile,
-                        isNull: true,
-                        label: '',
-                        placeholder: '',
-                        rule: null
-                    },
-                    {
-                        name: 'memo',
-                        type: 'textarea',
-                        component: null,
-                        isNull: true,
-                        label: '备注信息',
-                        placeholder: '',
-                        rule: null
-                    }
+                        value: 'kg/条',
+                        label: 'kg/条'
+                    }]
+                },
+                {
+                    name: 'way',
+                    type: 'text',
+                    component: null,
+                    isNull: true,
+                    label: '治疗方式',
+                    placeholder: '',
+                    rule: null
+                },
+                {
+                    name: 'img',
+                    type: 'file',
+                    component: inputFile,
+                    isNull: true,
+                    label: '',
+                    placeholder: '',
+                    rule: null
+                },
+                {
+                    name: 'memo',
+                    type: 'textarea',
+                    component: null,
+                    isNull: true,
+                    label: '备注信息',
+                    placeholder: '',
+                    rule: null
+                }
                 ]
             }
-            // {
-            //     tab: '选择养殖批次',
-            //     components: {
-            //         type: 'select',
-            //         component: inputSelect,
-            //         isNull: false,
-            //         label: '兽药分类',
-            //         placeholder: '请选择养殖区',
-            //         rule: '',
-            //         options: [{
-            //             value: '',
-            //             label: '请选择养殖区'
-            //         },
-            //         {
-            //             value: '示范A区',
-            //             label: '示范A区'
-            //         }]
-            //     },
-            //     tableHearList: ['养殖批次号', '所属养殖区', '畜禽名称', '养殖数量', '养殖日期', '备注'],
-            //     batchName: '养殖'
-            // }
         ],
         editComponent: [
             {
                 tab: '新建病疫情信息',
-                components: [
-                    {
-                        name: 'date',
-                        type: 'date',
-                        component: null,
-                        isNull: false,
-                        label: '用药日期',
-                        placeholder: '',
-                        rule: {required: true, trigger: 'blur'},
-                        options: [{
-                            value: '',
-                            label: '无'
-                        }
-                        ]
+                selectUrl2: [['drugs', 'id', 'name', true], ['operates', 'id', 'name', true], ['experts', 'id', 'name', true]],
+                selectInit2: [{value: '', label: '兽药选择'}, {value: '', label: '施药人员选择'}, {value: '', label: '专家选择'}],
+                popNumber2: [1, 4, 5],
+                components: [{
+                    name: 'serial',
+                    type: 'text',
+                    component: null,
+                    isNull: true,
+                    label: '病疫批次号',
+                    placeholder: '',
+                    disabled: true,
+                    rule: null
+                },
+                {
+                    name: 'drug_id',
+                    type: 'select',
+                    component: null,
+                    isNull: false,
+                    label: '兽药名称',
+                    placeholder: '',
+                    rule: {required: true, trigger: 'blur', type: 'number', message: '请选择兽药'},
+                    options: []
+                },
+                {
+                    name: 'date',
+                    type: 'date',
+                    component: inputDate,
+                    isNull: false,
+                    label: '用药日期',
+                    placeholder: '',
+                    rule: [{required: true, message: '请输入用药日期'}, {validator: validate2.reDate, message: '请输入用药日期'}]
+                },
+                {
+                    name: 'description',
+                    type: 'text',
+                    component: null,
+                    isNull: true,
+                    label: '病情描述',
+                    placeholder: '',
+                    rule: null
+                },
+                {
+                    name: 'operate_id',
+                    type: 'select',
+                    component: null,
+                    isNull: false,
+                    label: '施药人员',
+                    placeholder: '',
+                    rule: {required: true, trigger: 'blur', type: 'number', message: '请选择施药人员'},
+                    options: []
+                },
+                {
+                    name: 'expert_id',
+                    type: 'select',
+                    component: null,
+                    isNull: true,
+                    label: '专家',
+                    placeholder: '',
+                    rule: null,
+                    options: []
+                },
+                {
+                    name: 'amount',
+                    type: 'textSelect',
+                    component: inputTextSelect,
+                    isNull: false,
+                    label: '平均施药量',
+                    placeholder: '请输入正确的数字（必填）',
+                    rule: [{required: true, message: '请输入平均施药量'}, {validator: validate2.reInteger}],
+                    options: [{
+                        value: 'kg/只',
+                        label: 'kg/只'
                     },
                     {
-                        name: 'description',
-                        type: 'text',
-                        component: null,
-                        isNull: true,
-                        label: '病情描述',
-                        placeholder: '',
-                        rule: null
+                        value: 'kg/头',
+                        label: 'kg/头'
                     },
                     {
-                        name: 'drug_name',
-                        type: 'select',
-                        component: null,
-                        isNull: false,
-                        label: '兽药名称',
-                        placeholder: '',
-                        rule: {required: true, trigger: 'blur'},
-                        options: [{
-                            value: '',
-                            label: '请选择类别'
-                        },
-                        {
-                            value: '疾病防治药',
-                            label: '疾病防治药'
-                        },
-                        {
-                            value: '传染病防治药',
-                            label: '传染病防治药'
-                        },
-                        {
-                            value: '寄生虫病防治药',
-                            label: '寄生虫病防治药'
-                        },
-                        {
-                            value: '促生长药',
-                            label: '促生长药'
-                        },
-                        {
-                            value: '其他类',
-                            label: '其他类'
-                        }
-                        ]
-                    },
-                    {
-                        name: 'expert_name',
-                        type: 'select',
-                        component: null,
-                        isNull: true,
-                        label: '专家',
-                        placeholder: '',
-                        rule: null,
-                        options: [{
-                            value: '',
-                            label: '无'
-                        }
-                        ]
-                    },
-                    {
-                        name: 'operate_name',
-                        type: 'select',
-                        component: null,
-                        isNull: false,
-                        label: '操作人员',
-                        placeholder: '请选择操作人',
-                        rule: {required: true, trigger: 'blur'},
-                        options: [{
-                            value: '',
-                            label: '请选择操作人'
-                        },
-                        {
-                            value: '郑刚',
-                            label: '郑刚'
-                        }
-                        ]
-                    },
-                    {
-                        name: 'user_id',
-                        type: 'text',
-                        component: null,
-                        isNull: false,
-                        label: '录入人',
-                        placeholder: '请选择操作人',
-                        rule: {required: true, trigger: 'blur'},
-                        options: [{
-                            value: '',
-                            label: '请选择操作人'
-                        },
-                        {
-                            value: '郑刚',
-                            label: '郑刚'
-                        }
-                        ]
-                    },
-                    {
-                        name: 'amount',
-                        type: 'textselect',
-                        component: inputTextSelect,
-                        isNull: false,
-                        label: '平均施药量',
-                        placeholder: '请输入正确的数字（必填）',
-                        rule: {type: 'number'},
-                        options: [{
-                            value: '',
-                            label: 'kg/只'
-                        },
-                        {
-                            value: 'kg/头',
-                            label: 'kg/头'
-                        },
-                        {
-                            value: 'kg/条',
-                            label: 'kg/条'
-                        }]
-                    },
-                    {
-                        name: 'way',
-                        type: 'text',
-                        component: null,
-                        isNull: true,
-                        label: '治疗方式',
-                        placeholder: '',
-                        rule: null
-                    },
-                    {
-                        name: 'img',
-                        type: 'file',
-                        component: inputFile,
-                        isNull: true,
-                        label: '',
-                        placeholder: '',
-                        rule: null
-                    },
-                    {
-                        name: 'memo',
-                        type: 'textarea',
-                        component: null,
-                        isNull: true,
-                        label: '备注信息',
-                        placeholder: '',
-                        rule: null
-                    }
+                        value: 'kg/条',
+                        label: 'kg/条'
+                    }]
+                },
+                {
+                    name: 'way',
+                    type: 'text',
+                    component: null,
+                    isNull: true,
+                    label: '治疗方式',
+                    placeholder: '',
+                    rule: null
+                },
+                {
+                    name: 'img',
+                    type: 'file',
+                    component: inputFile,
+                    isNull: true,
+                    label: '',
+                    placeholder: '',
+                    rule: null
+                },
+                {
+                    name: 'memo',
+                    type: 'textarea',
+                    component: null,
+                    isNull: true,
+                    label: '备注信息',
+                    placeholder: '',
+                    rule: null
+                }
                 ]
             }
         ],
         listComponent: [{
             components: [{
+                name: 'disease.drug_id',
+                value: '',
                 type: 'select',
                 component: selectSection,
-                options: [{
-                    value: '',
-                    label: '养殖区名称'
-                },
-                {
-                    value: '示范A区',
-                    label: '示范A区'
-                }]
-            },
-            {
-                type: 'select',
-                component: selectSection,
-                options: [{
-                    value: '',
-                    label: '畜禽名称'
-                },
-                {
-                    value: '黑猪一号',
-                    label: '黑猪一号'
-                }]
+                options: []
             },
             {
                 type: 'date',
