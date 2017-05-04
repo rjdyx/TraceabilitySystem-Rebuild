@@ -57,6 +57,10 @@
         <transition name="fade">
             <printf v-if="isPrintShow" :printComponent="printComponent" :url="url" :printForm="printForm"></printf>
         </transition>
+        <!-- 权限模块 -->
+        <transition name="fade">
+            <permissionCheckbox v-if="isPermissionShow" :permissions="permissions"></permissionCheckbox>
+        </transition>
     </div>
     <!-- 列表模块 -->
     <el-table :data="tableData"  @selection-change="handleSelectionChange">
@@ -103,9 +107,9 @@
 
                     <el-button type="text" size="small" @click="changeEditShow(scope.$index,scope.row)" v-if="!hiddeEdit">编辑</el-button>
 
-                    <el-button type="text" size="small" v-if="hiddeEdit">查看</el-button>
+                    <el-button type="text" size="small" v-if="hiddeShow">查看</el-button>
                         
-                    <el-button size="small" type="text" @click="handelDel(scope.$index,scope.row)" class="btn">删除</el-button>  
+                    <el-button size="small" type="text" @click="handelDel(scope.$index,scope.row)" v-bind:class="{'btn':!hiddeEdit}">删除</el-button>  
 
                     <el-button size="small" type="text" @click="userRole(scope.$index,scope.row)" class="btn" v-if="hiddeRole">权限</el-button> 
 
@@ -151,6 +155,7 @@ import popEdit from '../../components/public/popEdit.vue'
 import clickMore from '../../components/public/clickMore.vue'
 import lotOpearte from '../../components/public/lotOpearte.vue'
 import printf from '../../components/public/printf.vue'
+import permissionCheckbox from '../../components/public/permissionCheckbox.vue'
 export default {
     name: 'BasicModel',
     props: {
@@ -190,6 +195,7 @@ export default {
                     printComponent: [],
                     lotComponent: [],
                     hiddeEdit: false,
+                    hiddeShow: false,
                     checkOperate: null,
                     hiddeRole: false,
                     hiddeUser: false,
@@ -221,6 +227,7 @@ export default {
             isEditShow: false,
             // 是否打印
             isPrintShow: false,
+            isPermissionShow: false,
             // msg: 1,
             editBol: false,
             editForm: {},
@@ -242,8 +249,7 @@ export default {
             // 新增编辑下拉框数据
             selectNewEdit: [],
             // 批次号
-            isPcActive: true,
-            hiddeEdit: false
+            isPcActive: true
         }
     },
     mixins: [computed],
@@ -389,8 +395,12 @@ export default {
                 }
             }
         },
+        // 关闭新增弹窗
+        closeNewShow () {
+            this.isNewShow = false
+        },
         // 关闭编辑弹窗
-        closeEditShow (val) {
+        closeEditShow () {
             this.isEditShow = false
         },
         // 获取数据
@@ -630,13 +640,75 @@ export default {
         popEdit,
         clickMore,
         lotOpearte,
-        printf
+        printf,
+        permissionCheckbox
     }
 }
 </script>
 
 
 <style lang='sass'>
+    .pcActive{
+        /*color: blue;*/
+        text-decoration: underline;
+        cursor:pointer;
+    }
+	 .searchInp{
+	 	width:161px;
+	 	margin-bottom:10px;
+	 	font-size:12px;
+	 	margin-right:10px;
+	 }
+	 #btns{
+	 	float:right;
+	 }
+	 .operateBtns {
+            	display: inline-block;
+            	margin-top:10px;
+            	margin-right:10px;
+            }
+     .fr{
+     	float:right;
+     }
+     .fl{
+     	float:left;
+     }
+     .searchBtn{
+     	width:62px;
+     }
+     .searchOp{
+     	display:inline;
+     }
+     .margin{
+     	margin-left:15px;
+     }
+     .el-icon-caret-left{
+      padding-right: 15px;
+     }
+     i:hover{
+      cursor: pointer;
+     }
+     .active,.unactive{
+      width: 0;
+      height: 0;
+      display: inline-block;
+      vertical-align: middle;
+      margin: 0 10px 0 10px;
+      border-bottom: 10px solid transparent;
+      border-top: 10px solid transparent;
+     }
+     .active{
+      border-right: 18px solid #000;
+     }
+     .unactive{
+      border-left: 18px solid #000;
+     }
+     .clickMoreBtn{
+      display: inline-block;
+     }
+     .el-table th{
+      text-align:center;
+     }
 .fade-enter-active, .fade-leave-active {
   transition: opacity .5s;
 }

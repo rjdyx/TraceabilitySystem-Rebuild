@@ -28,7 +28,6 @@ router.beforeEach((to, from, next) => {
                 next()
             }
         } else {
-            console.log(to)
             Vue.Roles = responce.data.permissions
             if (to.path === '/login') {
                 next(false)
