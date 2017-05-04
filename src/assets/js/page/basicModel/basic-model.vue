@@ -57,6 +57,10 @@
         <transition name="fade">
             <printf v-if="isPrintShow" :printComponent="printComponent" :url="url" :printForm="printForm"></printf>
         </transition>
+        <!-- 权限模块 -->
+        <transition name="fade">
+            <permissionCheckbox v-if="isPermissionShow" :permissions="permissions"></permissionCheckbox>
+        </transition>
     </div>
     <!-- 列表模块 -->
     <el-table :data="tableData"  @selection-change="handleSelectionChange">
@@ -103,9 +107,10 @@
 
                     <el-button type="text" size="small" @click="changeEditShow(scope.$index,scope.row)" v-if="!hiddeEdit">编辑</el-button>
 
-                    <el-button type="text" size="small" v-if="hiddeEdit">查看</el-button>
+                    <el-button type="text" size="small" v-if="hiddeShow">查看</el-button>
                         
-                    <el-button size="small" type="text" @click="handelDel(scope.$index,scope.row)" class="btn">删除</el-button>  
+                    <el-button size="small" type="text" @click="handelDel(scope.$index,scope.row)" v-if="hiddeEdit===true">删除</el-button>   
+                    <el-button size="small" type="text" @click="handelDel(scope.$index,scope.row)" v-if="hiddeEdit===false" class="btn">删除</el-button>   
 
                     <el-button size="small" type="text" @click="userRole(scope.$index,scope.row)" class="btn" v-if="hiddeRole">权限</el-button> 
 
@@ -151,6 +156,7 @@ import popEdit from '../../components/public/popEdit.vue'
 import clickMore from '../../components/public/clickMore.vue'
 import lotOpearte from '../../components/public/lotOpearte.vue'
 import printf from '../../components/public/printf.vue'
+import permissionCheckbox from '../../components/public/permissionCheckbox.vue'
 export default {
     name: 'BasicModel',
     props: {
@@ -190,6 +196,7 @@ export default {
                     printComponent: [],
                     lotComponent: [],
                     hiddeEdit: false,
+                    hiddeShow: false,
                     checkOperate: null,
                     hiddeRole: false,
                     hiddeUser: false,
@@ -220,6 +227,7 @@ export default {
             isEditShow: false,
             // 是否打印
             isPrintShow: false,
+            isPermissionShow: false,
             // msg: 1,
             editBol: false,
             editForm: {},
@@ -241,8 +249,7 @@ export default {
             // 新增编辑下拉框数据
             selectNewEdit: [],
             // 批次号
-            isPcActive: true,
-            hiddeEdit: false
+            isPcActive: true
         }
     },
     mixins: [computed],
@@ -629,7 +636,8 @@ export default {
         popEdit,
         clickMore,
         lotOpearte,
-        printf
+        printf,
+        permissionCheckbox
     }
 }
 </script>
