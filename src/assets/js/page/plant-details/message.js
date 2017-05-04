@@ -234,9 +234,9 @@ export default {
         tab: '检测批次管理',
         theads: ['检测批次号', '检测日期', '检测项目名称', '专家', '操作人员', '检测内容', '检测结果', '审批人', '检测报告图片', '备注'],
         protos: ['serial', 'date', 'name', 'expert_name', 'operate_name', 'content', 'result', 'check', 'img', 'memo'],
-        url: 'detection',
+        url: 'detect',
         tabList: [{
-            url: 'detection-rfid',
+            url: 'detect-detail',
             tab: '养殖批次信息',
             searchPlaceholder: '请输入批次号进行搜索',
             // typeComponent: [{component: output}, {component: newbuildBtn}],
@@ -249,12 +249,12 @@ export default {
             newComponent: [{
                 tab: '新建批次检测信息',
                 type: 'table',
-                url: 'breed',
+                labUrl: 'breed',
                 components: [{
                     name: 'name',
                     type: 'table',
-                    headList: ['养殖批次号', '圈舍', '畜禽名称', '养殖日期'],
-                    protos: ['serial', 'area_name', 'beast_name', 'date'],
+                    theads: ['养殖批次号', '圈舍', '养殖畜禽', '养殖日期'],
+                    protos: ['serial', 'area_name', 'beast_name', 'start_date'],
                     valueId: 'breed_ids',
                     errormsg: '请选择养殖批次号',
                     tableVal: []
