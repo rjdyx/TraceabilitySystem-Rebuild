@@ -11,8 +11,9 @@ if (process.env.NODE_ENV === 'production') {
 // Vue.component('passport-clients', require('components/passport/Clients.vue'))
 
 // 注册自定义指令
-import directive from '../directive/directive.js'
-Object.keys(directive).forEach(k => Vue.directive(k, directive[k]()))
+// import directive from '../directive/directive.js'
+// Object.keys(directive).forEach(k => Vue.directive(k, directive[k]()))
+
 // 注册全局方法
 import utils from '../utils/utils'
 import easyAjax from '../utils/easyAjax'

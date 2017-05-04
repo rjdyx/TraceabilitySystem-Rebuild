@@ -13,7 +13,7 @@
         </div>
         <input type="file" hidden="hidden" @change="previewPic(item, $event)">
         <div class="delete-pic-btn">
-            <el-button type="primary" size="small" @click="deleteImgFn">删除</el-button>
+            <el-button size="small" @click="deleteImgFn" class="btn_change">删除</el-button>
         </div>
     </div>
 </div>
@@ -97,7 +97,6 @@ export default {
 }
 </script>
 <style lang='sass'>
-    @import '../../../sass/public/inputSize.scss';
   .avatar-uploader .el-upload {
     border: 1px dashed #d9d9d9;
     border-radius: 6px;

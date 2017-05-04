@@ -21,6 +21,7 @@
         <el-form :model="tableForm" :rules="rules" ref="tableForm" label-width="110px" class="demo-tableForm">
             <table>
                 <template v-for="subItem in item.components">
+
                     <!-- 文本框 -->
                     <tr class="tr1" v-if="subItem.type=='text'">
                         <td>
@@ -290,7 +291,7 @@ export default {
   position: fixed;
   width:100%;
   height: 100%;
-  background:rgba(0,0,0,0.3);
+  background:rgba(0,0,0,.5);
   top:0;
   left:0;
   z-index:3;
@@ -308,6 +309,7 @@ export default {
     height:618px;
     .el-tabs{
         height:80%;
+        padding-top: 15px;
         .el-tabs__content{
             height:88%;
             overflow:auto;

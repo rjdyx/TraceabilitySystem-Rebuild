@@ -18,7 +18,7 @@
 						 {{v}} {{listV[k]}}
 					</el-col>
 			 	</el-row>
-				<el-button class="edit" @click="showEdit">编辑</el-button>
+				<el-button class="btn_change" @click="showEdit">编辑</el-button>
 			</div>
 			<div class="mainPic">
 				<img src="/public/images/rfid.png">
@@ -79,6 +79,8 @@ export default {
 </script>
 
 <style lang="sass">
+$line: 1px solid;
+$display: inline-block;
 .user{
 	height: 100%;
     overflow:hidden;
@@ -87,41 +89,39 @@ export default {
     	margin-top: 15px;
     	overflow:scroll;
     	height: 100%;
+    	.titleUser{
+			border-bottom: $line #dcdcdc;
+			padding-bottom: 10px;
+			position: relative;
+			.picture{
+				display: $display;
+				width: 10%;
+				height: 124px;
+				border: $line #ccc;
+				margin:0 10px 0 30px;
+				overflow: hidden;
+			}
+			.text{
+				display: $display;
+				vertical-align: top;
+				margin-bottom: 10px;
+				width: 80%;
+			}
+			.btn_change{
+				position: absolute;
+				right: 2%;
+				bottom: 10%;
+				color: #fff;
+			}
+			.coltext{
+				font-size:14px;
+				color: #898989;
+				padding: 10px;
+			}
+		}
+		.mainPic{
+			text-align: center;
+		}
     }
-
-.titleUser{
-	border-bottom: 1px solid #dcdcdc;
-	padding-bottom: 10px;
-	position: relative;
-}
-.picture{
-	display: inline-block;
-	width: 140px;
-	height: 124px;
-	border: 1px solid #ccc;
-	margin:0 10px 0 30px;
-	overflow: hidden;
-}
-.text{
-	display: inline-block;
-	vertical-align: top;
-	margin-bottom: 10px;
-}
-.mainPic{
-	text-align: center;
-}
-.edit{
-	position: absolute;
-	right: 2%;
-	bottom: 10%;
-	color: #fff;
-}
-.copyright{
-    margin-top: 50px;
-}
-.coltext{
-	font-size:14px;
-	color: #898989;
-}
 }
 </style>
