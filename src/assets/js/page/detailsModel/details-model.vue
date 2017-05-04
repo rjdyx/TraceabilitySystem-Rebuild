@@ -13,7 +13,8 @@
 
   <!-- 信息列表 -->
     <el-row :gutter="20">
-         <el-col :span="6" v-for="(item,i) in theads" class="text-small">{{item}}:{{headData[protos[i]]}}</el-col>
+         <el-col :span="6" v-for="(item,i) in theads" class="text-small">{{item}}:<em class="margin-left_10">{{headData[protos[i]]}}</em>
+         </el-col>
     </el-row>
     
   <!-- tab栏 --> 
@@ -49,10 +50,14 @@
         </div>
     
         <!-- 新建模块 --> 
-        <popNew v-if="isNewShow" :newComponent="tabItem.newComponent" :url="apiUrlArr[tabList[0].url]" @submitNew="changeNew"></popNew>
+        <transition name="fade">
+            <popNew v-if="isNewShow" :newComponent="tabItem.newComponent" :url="apiUrlArr[tabList[0].url]" @submitNew="changeNew"></popNew>
+        </transition>
         <!-- 编辑模块 -->
-        <popEdit v-if="isEditShow" :editComponent="tabItem.editComponent" :url="apiUrlArr[tabList[0].url]" :editForm="editForm"
+        <transition name="fade">
+            <popEdit v-if="isEditShow" :editComponent="tabItem.editComponent" :url="apiUrlArr[tabList[0].url]" :editForm="editForm"
                  @submitEdit="hangeEdit" :changeDataArr="changeDataArr" :editDefault="editDefault"></popEdit>
+        </transition>
     <!-- 列表模块 -->
     <el-table :data="tableData"  @selection-change="handleSelectionChange">
         <!-- checkbox -->
@@ -527,6 +532,9 @@ export default {
 }
 </script>
 <style lang='sass'> 
+.margin-left_10{
+    margin-left: 10px;
+}
   .pcActive{
         color: blue;
         text-decoration: underline;

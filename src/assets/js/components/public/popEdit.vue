@@ -136,7 +136,7 @@ export default {
         */
         var _this = this
         this.resizeFn()
-        $('.el-tabs__header').on('mousedown', (e) => {
+        $('.newWrap').find($('.el-tabs__header')).on('mousedown', (e) => {
             // console.log('mousedown')
             // 鼠标与newForm块的距离
             this.dmL = e.clientX - $('.newForm').position().left
@@ -224,7 +224,7 @@ export default {
   position: fixed;
   width:100%;
   height: 100%;
-  background:rgba(0,0,0,0.3);
+  background:rgba(0,0,0,.5);
   top:0;
   left:0;
   z-index:3;
@@ -242,6 +242,7 @@ export default {
     height:618px;
     .el-tabs{
         height:80%;
+        padding-top: 15px;
         .el-tabs__content{
             height:88%;
             overflow:auto;
