@@ -102,7 +102,7 @@ export default {
                     isNull: false,
                     label: '图片标题',
                     placeholder: '必填',
-                    rule: [{required: true, message: '请输入标题', trigger: 'blur'}, {validator: validate2.reCheck}]
+                    rule: [{required: true, message: '请输入标题'}, {validator: validate2.reCheck}]
                 },
                 {
                     name: 'desc',
@@ -111,7 +111,7 @@ export default {
                     isNull: false,
                     label: '特征描述',
                     placeholder: '',
-                    rule: [{required: true, trigger: 'blur'}]
+                    rule: {required: true, trigger: 'blur', message: '请输入描述信息'}
                 },
                 {
                     name: 'date',
@@ -120,7 +120,7 @@ export default {
                     isNull: false,
                     label: '上传日期',
                     placeholder: '',
-                    rule: [{required: true, trigger: 'blur', type: 'date'}]
+                    rule: [{required: true, trigger: 'blur', message: '请输入上传日期'}, {validator: validate2.reDate, message: '请输入上传日期'}]
                 },
                 {
                     name: 'img',
@@ -129,7 +129,7 @@ export default {
                     isNull: false,
                     label: '',
                     placeholder: '',
-                    rule: [{required: true, trigger: 'blur'}]
+                    rule: {required: true, message: '请上传图片'}
                 },
                 {
                     name: 'memo',
@@ -161,7 +161,7 @@ export default {
                     isNull: false,
                     label: '特征描述',
                     placeholder: '',
-                    rule: [{required: true, trigger: 'blur'}]
+                    rule: {required: true, trigger: 'blur', message: '请输入描述信息'}
                 },
                 {
                     name: 'date',
@@ -170,7 +170,7 @@ export default {
                     isNull: false,
                     label: '上传日期',
                     placeholder: '',
-                    rule: [{required: true, trigger: 'blur', type: 'date'}]
+                    rule: [{required: true, trigger: 'blur', message: '请输入上传日期'}, {validator: validate2.reDate, message: '请输入上传日期'}]
                 },
                 {
                     name: 'img',
@@ -179,7 +179,7 @@ export default {
                     isNull: false,
                     label: '',
                     placeholder: '',
-                    rule: [{required: true, trigger: 'blur'}]
+                    rule: {required: true, trigger: 'blur'}
                 },
                 {
                     name: 'memo',
@@ -191,14 +191,15 @@ export default {
                     rule: null
                 }]
             }]
-        }]
+        }
+        ]
     },
     // 饲料批次详情
     feedBatch: {
         key: 'feedBatch',
         tab: '饲料批次管理',
-        theads: ['饲料批次号', '饲料日期', '饲料名称', '喂养方式', '专家', '操作人员', '喂养量', '备注信息'],
-        protos: ['serial', 'fodderuse_date', 'fodder_name', 'way', 'expert_name', 'operate_name', 'amount', 'meno'],
+        theads: ['饲料批次号', '饲料日期', '饲料名称', '喂养方式', '操作人员', '喂养量', '备注信息'],
+        protos: ['serial', 'date', 'fodder_name', 'way', 'operate_name', 'amount_unit', 'meno'],
         url: 'fodderuse',
         tabList: [{
             url: 'breed-fodderuse',
@@ -219,7 +220,7 @@ export default {
                     name: 'name',
                     type: 'table',
                     theads: ['养殖批次号', '圈舍', '养殖畜禽', '养殖日期'],
-                    protos: ['serial', 'area_name', 'beast_name', 'date'],
+                    protos: ['serial', 'area_name', 'beast_name', 'start_date'],
                     valueId: 'breed_ids',
                     errormsg: '请选择养殖批次号',
                     tableVal: []
@@ -266,13 +267,12 @@ export default {
         key: 'plagueBatch',
         tab: '病疫批次管理',
         theads: ['病疫批次号', '兽药名称', '用药日期', '病情描述', '专家', '平均用药量', '治疗方式', '备注'],
-        protos: ['serial', 'drug_name', 'date', 'description', 'expert_name', 'amount', 'way', 'meno'],
+        protos: ['serial', 'drug_name', 'date', 'description', 'expert_name', 'amount_unit', 'way', 'meno'],
         url: 'disease',
         tabList: [{
             url: 'disease-rfid',
             tab: '养殖批次信息',
             searchPlaceholder: '请输入批次号进行搜索',
-            // typeComponent: [{component: output}, {component: newbuildBtn}],
             typeComponent: [{component: newbuildBtn}],
             headList: ['养殖批次号', '病疫Rfid', '用药时间', '备注信息'],
             protos: ['serial', 'rfid', 'date', 'memo'],
@@ -281,14 +281,28 @@ export default {
             listComponent: [],
             newComponent: [{
                 tab: '新建批次病疫信息',
-                type: 'table',
+                selectUrl2: [['breeds', 'id', 'serial', true]],
+                selectInit2: [{value: '', label: '养殖批次号选择'}],
+                popNumber2: [0],
                 labUrl: 'rfid',
+                type: 'assoc',
+                assocNum: 1,
                 components: [{
+                    name: 'breed_id',
+                    type: 'select',
+                    component: null,
+                    isNull: false,
+                    label: '养殖批次号',
+                    placeholder: '',
+                    rule: {required: true, trigger: 'blur', type: 'number', message: '请选择养殖批次号'},
+                    options: []
+                },
+                {
                     name: 'name',
                     type: 'table',
                     theads: ['养殖批次', 'Rfid', '养殖畜禽', '养殖日期'],
                     protos: ['serial', 'rfid', 'beast_name', 'date'],
-                    valueId: 'breed_ids',
+                    valueId: 'rfid_ids',
                     errormsg: '请选择rfid',
                     tableVal: []
                 }]

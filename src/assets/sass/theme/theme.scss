@@ -35,20 +35,14 @@ $small: 14px;
 
 // 字体大小
 @mixin font($size) {
-	.el-radio__label{
-		font-size: $size;
-	}
-	.explain{
-		font-size: $size;
-	}
-	.qu_title,.title{
+	.qu_title,.titleQu,.title,.explain,.el-radio__label,.head_right{
 		font-size: $size;
 	}
 }
 
 // 主题
 @mixin theme($bg, $img, $border) {
- .header{
+ .header,.el-tabs__active-bar{
      background: $bg;
  }
  .head_right{
@@ -59,7 +53,7 @@ $small: 14px;
 }
  	
  }
- .titleQu,.enterTo .tab{
+ .titleQu,.enterTo .tab,.el-tabs__item.is-active,.qu_title{
  	color: $bg;
  }
  .title{
@@ -67,16 +61,26 @@ $small: 14px;
  		border-left: 4px solid $bg;
  	}
  }
- .edit{
+ .el-menu--dark .el-submenu .el-menu .el-menu-item:hover{
+	background: $bg;
+ }
+ .el-menu--dark .el-menu-item:hover, .el-menu--dark .el-submenu__title:hover{
+ 	background: $bg;
+ }
+ .btn_change{
      background: $bg;
      border: $bg;
  }
+ .btn_change:hover{
+ 	color: $border;
+ }
+ .btn_change:focus{
+	color: $border;
+}
  .changeImg{
  	background: $img;
  }
- .qu_title{
- 	color: $bg;
- }
+
 }
 
 //大号字体

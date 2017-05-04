@@ -1,5 +1,4 @@
 import Vue from 'vue'
-
 /**
 * 全局注册通用方法
 */
@@ -227,5 +226,6 @@ default {
             }
             return {'selectArr': selectArr, 'selectUrl': selectUrl, 'selectData': selectData}
         }
+        Vue.prototype.Roles = {}
     }
 }

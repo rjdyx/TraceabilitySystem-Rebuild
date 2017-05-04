@@ -73,7 +73,7 @@
 					</el-form-item>
 
 				<el-form-item class="save" >
-					<el-button @click="submitForm('editForm')">保存</el-button>
+					<el-button @click="submitForm('editForm')" class="btn_change">保存</el-button>
 				</el-form-item>
 			</el-form>
 			</div>
@@ -124,11 +124,11 @@ export default {
             }
         },
         switchSize (label) {
-            if (label === 5) {
+            if (label === 1) {
                 this.switchFont('small')
-            } else if (label === 6) {
+            } else if (label === 2) {
                 this.switchFont('middle')
-            } else if (label === 7) {
+            } else if (label === 3) {
                 this.switchFont('big')
             }
         },
@@ -185,12 +185,13 @@ export default {
 	height: 100%;
     overflow:hidden;
     padding-left:10px;
+    // position: relative;
     .set_content{
     	margin-top: 15px;
     	overflow:scroll;
     	height: 100%;
+
     }
-}
 .switch{
 	width: 500px;
 	margin: 22px 94px;
@@ -216,6 +217,9 @@ export default {
 }
 .blue-bg{
 	background: #009acb;
+}
+.btn_change{
+	color: #fff;
 }
 .green-bg{
 	background: #55BBA6;
@@ -254,10 +258,8 @@ export default {
 .edition{
 	padding-left: 13px;
 }
-.el-input{
-	// width: 165px;
-	// margin-bottom: 10px;
-	// margin-left: -18px;
+.copyright{
+	margin-top: 180px;
 }
 .password{
 	float: right;
@@ -268,5 +270,6 @@ export default {
 }
 .save{
 	text-align: center;
+}
 }
 </style>

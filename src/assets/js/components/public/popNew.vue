@@ -108,8 +108,8 @@
         </el-tab-pane>
         
       </el-tabs>
-      <div class="form-footer">
-            <el-button type="primary"  @click="submitForm('tableForm')">确定</el-button>
+        <div class="form-footer">
+            <el-button class="btn_change" @click="submitForm('tableForm')">确定</el-button>
             <el-button class="activecancel" @click="cancelClick">取消</el-button>
         </div>
     </form>
@@ -234,24 +234,24 @@ export default {
         },
         // 关闭表单事件
         closeClick () {
-            this.$parent.changeNewShow()
+            this.$parent.closeNewShow()
         },
         // 取消事件
         cancelClick () {
-            this.$parent.changeNewShow()
+            this.$parent.closeNewShow()
         },
       /**
         * 提交表单
         */
         submitForm (formName) {
-            if (this.newComponent[0].type === 'table') {
+            if (this.newComponent[0].type === 'table' || this.newComponent[0].type === 'assoc') {
                 if (this.ids.length !== 0) {
                     this.$dataPost(this, this.url, this.tableForm, false, false, false)
                         .then((response) => {
                             this.$emit('submitNew', response.data)
                         })
                 } else {
-                    this.$message(this.newComponent[0].components[0].errormsg)
+                    this.$message(this.newComponent[0].components[this.newComponent[0].assocNum].errormsg)
                 }
             } else {
                 this.$refs[formName][0].validate((valid) => {
@@ -271,12 +271,15 @@ export default {
             for (let key in val) {
                 ids.push(val[key].id)
             }
-            this.tableForm[this.newComponent[0].components[0].valueId] = ids
+            this.tableForm[this.newComponent[0].components[this.newComponent[0].assocNum].valueId] = ids
             this.ids = ids
         },
+        // 选择框关联
         getSelectId (assoc, name, val) {
             if (assoc !== undefined) {
                 this.$emit('setAssoc', [assoc, name, val])
+            } else if (name === 'breed_id') {
+                this.$emit('setTable', [name, val])
             }
         }
     }
@@ -392,6 +395,9 @@ export default {
     } 
     .el-tabs__header{
         cursor: move;
+    }
+    .btn_change{
+        color: #fff;
     }
     // .formHeaderMask{
     //     width:100%;

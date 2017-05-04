@@ -1,6 +1,6 @@
 <template>
 
-	<el-button type="primary" size="small" class="output" @click="comeExcel">导出表格</el-button>
+	<el-button size="small" class="btn_change" @click="comeExcel">导出表格</el-button>
 
 </template>
 
@@ -28,7 +28,8 @@
 </script>
 
 <style>
-	.output {
+	.btn_change {
 		margin-left: 15px;
+        color: #fff;
 	}
 </style>

@@ -6,8 +6,8 @@
  * 
  */
 <template> 
-    <div>
-        <el-button type="primary" size="small" class="ImportBtn">导入</el-button> 
+    <div class="import">
+        <el-button size="small" class="btn_change">导入</el-button> 
     </div>
 </template>
 
@@ -20,8 +20,11 @@
 <style lang="sass" scoped>
 
     @import "../../../sass/function";
-
-    .ImportBtn{
+.import{
+    .btn_change{
         margin-left:15px;
+        color: #fff;
     }
+}
+    
 </style>

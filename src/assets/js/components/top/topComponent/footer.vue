@@ -25,13 +25,16 @@ export default {
 
 <style lang="sass">
 .copyright{
+    width: 100%;
     text-align: center;
     font-size: 12px;
     color: #919191;
-    position: absolute;
-    left: 55%;
-    bottom: 30px;
-    transform: translateX(-50%);    
+    // position: absolute;
+    margin: 0 auto;
+    // padding-top: 50px;
+    // left: 50%;
+    // bottom: 237px;
+    // transform: translateX(-50%);    
 }
 .copyright a{
     text-decoration: underline;

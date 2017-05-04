@@ -6,7 +6,7 @@
  * 
  */
 <template>
-<div>   
+<div class="detailsModel">   
   <!-- 标题 -->
     <contain-title :settitle="tab">
     </contain-title>
@@ -176,6 +176,7 @@ export default {
             editDefault: {},
             // 复选框选中返回对象
             checkObject: {},
+            selectNewEdit: [],
             index: 0
         }
     },
@@ -218,7 +219,13 @@ export default {
                     this.$dataGet(this, newArr.selectUrl + '/changeSelect', {'selectData': newArr.selectData})
                         .then((responce) => {
                             if (responce.data.length !== 0) {
-                                this.tabItem.newComponent[0].components[this.tabItem.newComponent[0].popNumber[key]].options = this.$selectData(this.tabItem.url, responce.data, newArr.selectArr)
+                                this.selectNewEdit[key] = []
+                                this.selectNewEdit[key].push(this.tabItem.newComponent[0].selectInit[key])
+                                let newOpt = this.$selectData(this.tabItem.url, responce.data, newArr.selectArr)
+                                for (let item of Object.keys(newOpt)) {
+                                    this.selectNewEdit[key].push(newOpt[item])
+                                }
+                                this.tabItem.newComponent[0].components[this.tabItem.newComponent[0].popNumber[key]].options = this.selectNewEdit[key]
                             }
                         })
                 }
@@ -230,7 +237,13 @@ export default {
                     this.$dataGet(this, '/util/selects', {table: newArr.selectUrl})
                         .then((responce) => {
                             if (responce.data.length !== 0) {
-                                this.tabItem.newComponent[0].components[this.tabItem.newComponent[0].popNumber2[key]].options = this.$selectData(this.tabItem.url, responce.data, newArr.selectArr)
+                                this.selectNewEdit[key] = []
+                                this.selectNewEdit[key].push(this.tabItem.newComponent[0].selectInit2[key])
+                                let newOpt = this.$selectData(this.tabItem.url, responce.data, newArr.selectArr)
+                                for (let item of Object.keys(newOpt)) {
+                                    this.selectNewEdit[key].push(newOpt[item])
+                                }
+                                this.tabItem.newComponent[0].components[this.tabItem.newComponent[0].popNumber2[key]].options = this.selectNewEdit[key]
                             }
                         })
                 }
@@ -274,6 +287,13 @@ export default {
                 for (let key of Object.keys(row)) {
                     this.editDefault[key] = row[key]
                 }
+            }
+        },
+        // 关闭新增弹窗
+        closeNewShow (val) {
+            this.isNewShow = false
+            if (this.tabItem.newComponent[0].components[this.tabItem.newComponent[0].assocNum] !== undefined) {
+                this.$set(this.tabItem.newComponent[0].components[this.tabItem.newComponent[0].assocNum], 'tableVal', [])
             }
         },
         // 关闭编辑弹窗
@@ -403,6 +423,9 @@ export default {
                 if (JSON.stringify(this.dataArr) === '{}') {
                     this.dataArr = ''
                 }
+                if (this.tabItem.newComponent[0].components[this.tabItem.newComponent[0].assocNum] !== undefined) {
+                    this.$set(this.tabItem.newComponent[0].components[this.tabItem.newComponent[0].assocNum], 'tableVal', [])
+                }
                 this.boxArr(this.dataArr)
                 this.getDetailSerial()
                 // this.getSelect()
@@ -421,7 +444,7 @@ export default {
                 confirmButtonText: '确定',
                 type: 'error'
             }).then(() => {
-                axios.delete(this.$adminUrl(this.apiUrlArr[this.tabList[0].url] + '/' + row.id))
+                axios.delete(this.$adminUrl(this.apiUrlArr[this.tabList[this.index].url] + '/' + row.id))
                     .then((responce) => {
                         // this.getSelect()
                         if (JSON.stringify(this.dataArr) === '{}') {
@@ -495,6 +518,25 @@ export default {
                     })
                 })
             }
+        },
+        // 根据下拉框获取表格数据
+        getTable (val) {
+            if (val[1] !== '' && val[1] !== undefined) {
+                var getSelect = {'getSelect': '444'}
+                var curl = {'curl': this.tabItem.url}
+                var routeId = {'routeId': this.tabItem.newComponent[0].labUrl}
+                var opqcurl = {'opqcurl': this.apiUrlArr[this.url]}
+                let surl = val[1] + '/' + this.tabItem.newComponent[0].labUrl
+                if (this.tabItem.newComponent[0].paramsIndex !== undefined) {
+                    var type = this.tabItem.newComponent[0].paramsIndex
+                }
+                this.$dataGet(this, surl, {getSelect, curl, routeId, opqcurl, type})
+                    .then((responce) => {
+                        this.$set(this.tabItem.newComponent[0].components[this.tabItem.newComponent[0].assocNum], 'tableVal', responce.data)
+                    })
+            } else {
+                this.$set(this.tabItem.newComponent[0].components[this.tabItem.newComponent[0].assocNum], 'tableVal', [])
+            }
         }
     },
     mounted () {
@@ -535,6 +577,7 @@ export default {
 .margin-left_10{
     margin-left: 10px;
 }
+.detailsModel{
   .pcActive{
         color: blue;
         text-decoration: underline;
@@ -612,4 +655,5 @@ export default {
      .detaActive{
         background: red;
      }
+}
 </style>
