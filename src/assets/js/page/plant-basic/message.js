@@ -9585,17 +9585,6 @@ export default {
             ]
         }]
     }],
-    // 公司
-    systemCompany: [{
-        settitle: '公司信息管理',
-        key: 'planManage',
-        tab: '销售订单信息',
-        url: 'plan',
-        theads: ['公司网站名称', '公司简称', '统一社会信用代码', '经营范围', '负责人/法人', '详细地址', '电话', '传真', '员工总数', '公司编码', '公司网站', '公司logo', '备注'],
-        protos: ['plan_type_name', 'name', 'content'],
-        widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
-        listComponent: []
-    }],
     // 用户管理
     systemUser: [{
         settitle: '用户管理',
@@ -10260,11 +10249,10 @@ export default {
         key: 'company',
         tab: '入驻单位信息',
         url: 'company',
-        hiddeUser: true,
-        hiddeRole: true,
+        batch: 'companyUser',
         searchPlaceholder: '请输入公司名称进行搜索',
-        theads: ['公司编码', '公司logo', '负责人/法人', '公司简称', '公司网站名称', '统一码', '电话', '地址', '经营范围', '员工总数', '公司网站', '销售网站'],
-        protos: ['coding', 'logo', 'legal_person', 'short_name', 'name', 'USCC', 'phone', 'address', 'business_scope', 'total_staff', 'website', 'sell_website'],
+        theads: ['公司名称', '公司编码', '公司logo', '负责人/法人', '公司简称', '统一码', '电话', '地址', '经营范围', '员工总数', '公司网站', '销售网站'],
+        protos: ['name', 'coding', 'logo', 'legal_person', 'short_name', 'USCC', 'phone', 'address', 'business_scope', 'total_staff', 'website', 'sell_website'],
         widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
         typeComponent: [{
             component: output
@@ -10272,6 +10260,7 @@ export default {
         {
             component: newbuildBtn
         }],
+        moreComponent: [{value: '权限'}, {value: '用户'}],
         listComponent: [],
         newComponent: [{
             tab: '新建入驻公司信息',

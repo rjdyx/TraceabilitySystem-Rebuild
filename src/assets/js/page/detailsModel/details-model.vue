@@ -58,6 +58,10 @@
             <popEdit v-if="isEditShow" :editComponent="tabItem.editComponent" :url="apiUrlArr[tabList[0].url]" :editForm="editForm"
                  @submitEdit="hangeEdit" :changeDataArr="changeDataArr" :editDefault="editDefault"></popEdit>
         </transition>
+        <!-- 权限模块 -->
+        <transition name="fade">
+            <permissionCheckbox v-if="isPermissionShow" :permissions="permissions"></permissionCheckbox>
+        </transition>
     <!-- 列表模块 -->
     <el-table :data="tableData"  @selection-change="handleSelectionChange">
         <!-- checkbox -->
@@ -101,6 +105,7 @@
                             <el-button type="text" size="small" @click="changeEditShow(scope.$index,scope.row)" v-if="tabList[0].hiddeEdit">编辑</el-button>
                             <el-button type="text" size="small" v-if="hiddeWatch">查看</el-button>
                             <el-button size="small" type="text" @click="handelDel(scope.$index,scope.row)" class="btn">删除</el-button>  
+                            <el-button size="small" type="text" @click="permissionShow(scope.$index,scope.row)" class="btn" v-if="tabItem.hiddeRole">权限</el-button> 
                         </template>
                     </template>
                 </el-table-column>
@@ -139,6 +144,7 @@ import operate from '../../components/public/operate.vue'
 import clickMore from '../../components/public/clickMore.vue'
 import lotOpearte from '../../components/public/lotOpearte.vue'
 import newMessage from '../plant-details/newMessage.js'
+import permissionCheckbox from '../../components/public/permissionCheckbox.vue'
 export default {
     name: 'BasicModel',
     props: {
@@ -166,6 +172,7 @@ export default {
             headData: {},
             isNewShow: false,
             isEditShow: false,
+            isPermissionShow: false,
             tabItem: {},
             // 列表数据
             tableData: [],
@@ -308,7 +315,11 @@ export default {
         getApiUrl () {
             this.apiUrlArr[this.url] = this.url + '/' + this.$route.params.id
             for (var i in this.tabList) {
-                this.apiUrlArr[this.tabList[i].url] = this.$route.params.id + '/' + this.tabList[i].url
+                if (this.tabList[i].split === undefined || this.tabList[i].split === false) {
+                    this.apiUrlArr[this.tabList[i].url] = this.$route.params.id + '/' + this.tabList[i].url
+                } else {
+                    this.apiUrlArr[this.tabList[i].url] = this.tabList[i].url
+                }
             }
         },
         // 获取头部详细信息
@@ -324,6 +335,10 @@ export default {
         },
         // 获取列表信息
         getAllMsg (data = '') {
+            let names = this.tabList[this.index].urlid
+            if (names !== undefined && names !== null) {
+                data = '{' + names + ':' + this.$route.params.id + '}'
+            }
             this.$dataGet(this, this.apiUrlArr[this.tabList[this.index].url], {params: data})
                 .then((responce) => {
                     if (responce.data.data.length !== 0) {
@@ -538,6 +553,9 @@ export default {
             } else {
                 this.$set(this.tabItem.newComponent[0].components[this.tabItem.newComponent[0].assocNum], 'tableVal', [])
             }
+        },
+        permissionShow (index, row) {
+            this.isPermissionShow = true
         }
     },
     mounted () {
@@ -570,7 +588,8 @@ export default {
         popEdit,
         operate,
         clickMore,
-        lotOpearte
+        lotOpearte,
+        permissionCheckbox
     }
 }
 </script>

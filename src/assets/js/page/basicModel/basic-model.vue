@@ -101,7 +101,8 @@
         label="操作" v-if="checkOperate==null">
             <template scope="scope" class="operateBtn">
                 <template v-if="moreComponent!=null">
-                    <clickMore :moreComponent="moreComponent" @showMore="moreShow(scope.$index,scope.row)" class="clickMoreBtn"></clickMore>
+                    <clickMore :moreComponent="moreComponent" 
+                    @showMore="moreShow(scope.$index,scope.row)" @showPermission="permissionShow(scope.$index,scope.row)" @showDetail="detailShow(scope.$index,scope.row)" class="clickMoreBtn"></clickMore>
                 </template>
                 <template>
 
@@ -111,9 +112,9 @@
                         
                     <el-button size="small" type="text" @click="handelDel(scope.$index,scope.row)" v-bind:class="{'btn':!hiddeEdit}">删除</el-button>  
 
-                    <el-button size="small" type="text" @click="userRole(scope.$index,scope.row)" class="btn" v-if="hiddeRole">权限</el-button> 
+                    <!-- <el-button size="small" type="text" @click="userRole(scope.$index,scope.row)" class="btn" v-if="hiddeRole">权限</el-button>  -->
 
-                    <el-button size="small" type="text" @click="" class="btn" v-if="hiddeUser">用户</el-button>  
+                    <!-- <el-button size="small" type="text" @click="" class="btn" v-if="hiddeUser">用户</el-button>   -->
 
                 </template>
             </template>
@@ -606,6 +607,13 @@ export default {
         moreShow (index, row) {
             this.isPrintShow = !this.isPrintShow
             this.printForm = row
+        },
+        permissionShow (index, row) {
+            this.isPermissionShow = true
+        },
+        detailShow (index, row) {
+            var id = row.id
+            this.$router.push('/index/details/' + this.batch + '/' + id)
         }
     },
     mounted () {

@@ -75,7 +75,11 @@
                 } else if (command === '视频') {
                     this.isShow = !this.isShow
                 } else if (command === '打印') {
-                    this.$emit('showMore', '')
+                    this.$emit('showMore')
+                } else if (command === '权限') {
+                    this.$emit('showPermission')
+                } else if (command === '用户') {
+                    this.$emit('showDetail')
                 }
             },
             closeClick () {
