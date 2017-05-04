@@ -36,7 +36,7 @@
                 v-for="typeOperate in typeComponent"
                 :is="typeOperate.component"
                 :params="typeOperate.params"
-                class="fr"
+                class="fr rightBtn"
                 :url="url"
                 :checkObject="checkObject"
                 :type="paramsIndex"
@@ -209,6 +209,7 @@ export default {
             pageVal: 1,
             // tab模块选择标志
             modelIndex: 0,
+            activeName: 'index0',
             modelName: this.$route.params,
             // 列表数据
             tableData: [],
@@ -637,107 +638,88 @@ export default {
 
 <style lang='sass'>
 .fade-enter-active, .fade-leave-active {
-  transition: opacity .5s
+  transition: opacity .5s;
 }
 .fade-enter, .fade-leave-active {
-  opacity: 0
+  opacity: 0;
 }
-    .pcActive{
-        color: blue;
-        text-decoration: underline;
-        cursor:pointer;
-    }
-	 .searchInp{
-	 	width:161px;
-	 	margin-bottom:10px;
-	 	font-size:12px;
-	 	margin-right:10px;
-	 }
-	 #btns{
-	 	float:right;
-	 }
-	 .operateBtns {
-            	display: inline-block;
-            	margin-top:10px;
-            	margin-right:10px;
-            }
-     .fr{
-     	float:right;
-     }
-     .fl{
-     	float:left;
-     }
-     .searchBtn{
-     	width:62px;
-     }
-     .searchOp{
-     	display:inline;
-     }
-     .margin{
-     	margin-left:15px;
-     }
-     .el-icon-caret-left{
-      padding-right: 15px;
-     }
-     i:hover{
-      cursor: pointer;
-     }
-     .active,.unactive{
-      width: 0;
-      height: 0;
-      display: inline-block;
-      vertical-align: middle;
-      margin: 0 10px 0 10px;
-      border-bottom: 10px solid transparent;
-      border-top: 10px solid transparent;
-     }
-     .active{
-      border-right: 18px solid #000;
-     }
-     .unactive{
-      border-left: 18px solid #000;
-     }
-     .clickMoreBtn{
-      display: inline-block;
-     }
-     .el-table th{
-      text-align:center;
-     }
-     .el-table th:last-child{
+.pcActive {
+  color: blue;
+  text-decoration: underline;
+  cursor: pointer;
+}
+.searchInp {
+  width: 161px;
+  margin-bottom: 10px;
+  font-size: 12px;
+  margin-right: 10px;
+}
+#btns {
+  float: right;
+}
+.fr {
+  float: right;
+}
+.fl {
+  float: left;
+}
+.searchBtn {
+  width: 62px;
+}
+.searchOp {
+  display: inline;
+}
+.margin {
+  margin-left: 15px;
+}
+.el-icon-caret-left {
+  padding-right: 15px;
+}
+i {
+  &:hover {
+    cursor: pointer;
+  }
+}
+.clickMoreBtn {
+  display: inline-block;
+}
+.el-table {
+  th {
+    text-align: center;
+    &:last-child {
       border-left: 1px solid red;
-     }
-     .btn span{
-        border-left: 1px solid #a7bad6;
-        padding: 0px 5px 0px 8px;
     }
-     .el-table td, .el-table th.is-leaf{
-        text-align: center;
-     }
-     .footer{
-      width: 100%;
-      height: 50px;
-      border: 1px solid #dfe6ec;
-      border-top: none; 
-        .pager{
+  }
+}
+.btn {
+  span {
+    border-left: 1px solid #a7bad6;
+    padding: 0px 5px 0px 8px;
+  }
+}
+.el-table td, .el-table th.is-leaf {
+  text-align: center;
+}
+.footer {
+  width: 100%;
+  height: 50px;
+  border: 1px solid #dfe6ec;
+  border-top: none;
+  .pager{
           display: inline-block;
-          float: right;
-          vertical-align: middle;
-          padding-top: 12px;
-          padding-right: 20px;
-        }
-        .operate-foot{
-          padding-left: 15px;
-          display: inline-block;
-          padding-top: 8px;
-         }
-        .record{
-          float: right;
-          padding: 15px 10px;
-         }
-     }
-     
-     .detaActive{
-        background: red;
-     }
-     
+  float: right;
+  vertical-align: middle;
+  padding-top: 12px;
+  padding-right: 20px;
+}
+.operate-foot {
+  padding-left: 15px;
+  display: inline-block;
+  padding-top: 8px;
+}
+.record {
+  float: right;
+  padding: 15px 10px;
+}
+   } 
 </style>

@@ -190,21 +190,12 @@ export default {
     	margin-top: 15px;
     	overflow:scroll;
     	height: 100%;
-
+		.switch{
+			width: 500px;
+			margin: 22px 94px;
+		}
     }
-.switch{
-	width: 500px;
-	margin: 22px 94px;
-}
-.selectTxt{
-	display: inline-block;
-	margin-left: 40px;
-}
-.option{
-	overflow: hidden;
-	margin-bottom: 20px;
-	padding-bottom: 5px;
-}
+
 .el-radio-group{
 	text-align: right;
 }
@@ -229,10 +220,6 @@ export default {
 }
 .yellow-bg{
 	background: #DEB355;
-}
-.explain{
-	display: inline-block;
-	float: left;
 }
 .el-radio{
 	display: block;
@@ -259,14 +246,7 @@ export default {
 	padding-left: 13px;
 }
 .copyright{
-	margin-top: 180px;
-}
-.password{
-	float: right;
-	width: 165px;
-	margin-left: -18px;
-	padding-right: 20px;
-	line-height:35px;
+	margin-top: 260px;
 }
 .save{
 	text-align: center;
