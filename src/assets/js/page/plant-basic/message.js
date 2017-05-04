@@ -4588,7 +4588,7 @@ export default {
         batch: 'beastPackBatch',
         paramsIndex: 'beast',
         searchPlaceholder: '请输入批次号进行搜索',
-        theads: ['加工批次号', '加工日期', '数量', '单位', '操作人', '备注信息'],
+        theads: ['加工批次号', '加工日期', '数量', '产地', '操作人', '备注信息'],
         protos: ['serial', 'date', 'amount', 'origin', 'operate_name', 'memo'],
         widths: [50, 50, 50, 50, 50, 50],
         typeComponent: [{
@@ -4601,6 +4601,7 @@ export default {
             tab: '新建加工批次信息',
             hiddenValue: {type: 'beast'},
             selectUrl2: [['operates', 'id', 'name', true]],
+            selectInit2: [{value: '', label: '选择加工人'}],
             popNumber2: [2],
             components: [{
                 name: 'date',
@@ -4610,24 +4611,7 @@ export default {
                 label: '加工日期',
                 placeholder: '',
                 disabled: true,
-                rule: {required: true, trigger: 'blur', type: 'date'}
-            },
-            {
-                name: 'amount',
-                type: 'textSelect',
-                component: inputTextSelect,
-                isNull: false,
-                label: '数量/重量',
-                placeholder: '',
-                rule: {required: true, trigger: 'blur'},
-                options: [{
-                    value: '0',
-                    label: '千克'
-                },
-                {
-                    value: '1',
-                    label: '个'
-                }]
+                rule: [{required: true, message: '请输入加工日期'}, {validator: validate2.reDate, message: '请输入加工日期'}]
             },
             {
                 name: 'operate_id',
@@ -4636,18 +4620,17 @@ export default {
                 isNull: false,
                 label: '操作人员',
                 placeholder: '请选择人物',
-                rule: {type: 'number'},
+                rule: {required: true, type: 'number'},
                 options: []
             },
             {
-                name: 'state',
+                name: 'origin',
                 type: 'text',
                 component: null,
-                isNull: false,
-                label: '状态',
+                isNull: true,
+                label: '产地',
                 placeholder: '',
-                rule: {required: true, trigger: 'blur'},
-                options: []
+                rule: {required: true}
             },
             {
                 name: 'memo',
@@ -4682,34 +4665,16 @@ export default {
                 label: '加工日期',
                 placeholder: '',
                 disabled: true,
-                rule: {required: true, trigger: 'blur', type: 'date'}
-            },
-            {
-                name: 'amount',
-                type: 'text',
-                component: null,
-                isNull: false,
-                label: '数量/重量',
-                placeholder: '',
-                rule: {required: true, trigger: 'blur'},
-                options: [{
-                    value: '0',
-                    label: '千克'
-                },
-                {
-                    value: '1',
-                    label: '个'
-                }]
+                rule: [{required: true, message: '请输入加工日期'}, {validator: validate2.reDate, message: '请输入加工日期'}]
             },
             {
                 name: 'origin',
-                type: 'select',
+                type: 'text',
                 component: null,
-                isNull: false,
+                isNull: true,
                 label: '产地',
                 placeholder: '',
-                rule: {required: true, trigger: 'blur'},
-                options: []
+                rule: {required: true}
             },
             {
                 name: 'operate_id',
@@ -4719,16 +4684,6 @@ export default {
                 label: '操作人员',
                 placeholder: '请选择人物',
                 rule: {required: false, type: 'number'},
-                options: []
-            },
-            {
-                name: 'state',
-                type: 'text',
-                component: null,
-                isNull: false,
-                label: '状态',
-                placeholder: '',
-                rule: {required: true, trigger: 'blur'},
                 options: []
             },
             {
@@ -6294,8 +6249,7 @@ export default {
             {
                 component: newbuildBtn
             }],
-        lotComponent: [{value: '批量农事'}, {value: '批量施肥'}, {value: '批量施药'}, {value: '批量检测'}],
-        moreComponent: [{value: '状态'}, {value: '农事'}, {value: '施肥'}, {value: '施药'}, {value: '检测'}, {value: '采收'}, {value: '图片'}]
+        moreComponent: [{value: '状态'}, {value: '图片'}]
     }],
     // 农事管理
     plantFarm: [
@@ -7824,7 +7778,7 @@ export default {
                 isNull: true,
                 label: '产地',
                 placeholder: '',
-                rule: null
+                rule: {required: true}
             },
             {
                 name: 'operate_id',
@@ -7867,7 +7821,7 @@ export default {
                 isNull: true,
                 label: '产地',
                 placeholder: '',
-                rule: null
+                rule: {required: true}
             },
             {
                 name: 'date',

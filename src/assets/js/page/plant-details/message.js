@@ -214,6 +214,7 @@ export default {
             newComponent: [{
                 tab: '新建批次饲料使用信息',
                 type: 'table',
+                assocNum: 0,
                 labUrl: 'breed',
                 components: [{
                     name: 'name',
@@ -502,6 +503,7 @@ export default {
                 tab: '新建加工产品信息',
                 type: 'table',
                 labUrl: 'product',
+                assocNum: 0,
                 components: [{
                     name: 'name',
                     type: 'table',
@@ -703,6 +705,7 @@ export default {
             newComponent: [{
                 tab: '新建批次施肥信息',
                 type: 'table',
+                assocNum: 0,
                 labUrl: 'cultivate',
                 components: [{
                     name: 'name',
@@ -743,6 +746,7 @@ export default {
             newComponent: [{
                 tab: '新建批次施药信息',
                 type: 'table',
+                assocNum: 0,
                 labUrl: 'cultivate',
                 components: [{
                     name: 'name',
@@ -787,6 +791,7 @@ export default {
                 labUrl: 'cultivate',
                 components: [{
                     name: 'name',
+                    assocNum: 0,
                     type: 'table',
                     theads: ['种植批次号', '种植果蔬', '种植日期'],
                     protos: ['serial', 'plant_name', 'date'],
@@ -824,6 +829,7 @@ export default {
             newComponent: [{
                 tab: '新建批次农事信息',
                 type: 'table',
+                assocNum: 0,
                 labUrl: 'cultivate',
                 components: [{
                     name: 'name',
@@ -927,6 +933,7 @@ export default {
             newComponent: [{
                 tab: '新建加工产品信息',
                 type: 'table',
+                assocNum: 0,
                 labUrl: 'product',
                 components: [{
                     name: 'name',
@@ -967,6 +974,7 @@ export default {
             newComponent: [{
                 tab: '新建溯源码信息',
                 selectUrl2: [['harvests', 'id', 'serial', true]],
+                selectInit2: [{value: '', label: '采收批次号选择'}],
                 popNumber2: [1],
                 hiddenValue: {type: 'plant'},
                 components: [{
