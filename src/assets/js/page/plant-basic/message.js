@@ -4755,7 +4755,7 @@ export default {
         batch: 'beastPackBatch',
         paramsIndex: 'beast',
         searchPlaceholder: '请输入批次号进行搜索',
-        theads: ['加工批次号', '加工日期', '数量', '单位', '操作人', '备注信息'],
+        theads: ['加工批次号', '加工日期', '数量', '产地', '操作人', '备注信息'],
         protos: ['serial', 'date', 'amount', 'origin', 'operate_name', 'memo'],
         widths: [50, 50, 50, 50, 50, 50],
         typeComponent: [{
@@ -4768,6 +4768,7 @@ export default {
             tab: '新建加工批次信息',
             hiddenValue: {type: 'beast'},
             selectUrl2: [['operates', 'id', 'name', true]],
+            selectInit2: [{value: '', label: '选择加工人'}],
             popNumber2: [2],
             components: [{
                 name: 'date',
@@ -4777,24 +4778,7 @@ export default {
                 label: '加工日期',
                 placeholder: '',
                 disabled: true,
-                rule: {required: true, trigger: 'blur', type: 'date'}
-            },
-            {
-                name: 'amount',
-                type: 'textSelect',
-                component: inputTextSelect,
-                isNull: false,
-                label: '数量/重量',
-                placeholder: '',
-                rule: {required: true, trigger: 'blur'},
-                options: [{
-                    value: '0',
-                    label: '千克'
-                },
-                {
-                    value: '1',
-                    label: '个'
-                }]
+                rule: [{required: true, message: '请输入加工日期'}, {validator: validate2.reDate, message: '请输入加工日期'}]
             },
             {
                 name: 'operate_id',
@@ -4803,18 +4787,17 @@ export default {
                 isNull: false,
                 label: '操作人员',
                 placeholder: '请选择人物',
-                rule: {type: 'number'},
+                rule: {required: true, type: 'number'},
                 options: []
             },
             {
-                name: 'state',
+                name: 'origin',
                 type: 'text',
                 component: null,
-                isNull: false,
-                label: '状态',
+                isNull: true,
+                label: '产地',
                 placeholder: '',
-                rule: {required: true, trigger: 'blur'},
-                options: []
+                rule: {required: true}
             },
             {
                 name: 'memo',
@@ -4849,34 +4832,16 @@ export default {
                 label: '加工日期',
                 placeholder: '',
                 disabled: true,
-                rule: {required: true, trigger: 'blur', type: 'date'}
-            },
-            {
-                name: 'amount',
-                type: 'text',
-                component: null,
-                isNull: false,
-                label: '数量/重量',
-                placeholder: '',
-                rule: {required: true, trigger: 'blur'},
-                options: [{
-                    value: '0',
-                    label: '千克'
-                },
-                {
-                    value: '1',
-                    label: '个'
-                }]
+                rule: [{required: true, message: '请输入加工日期'}, {validator: validate2.reDate, message: '请输入加工日期'}]
             },
             {
                 name: 'origin',
-                type: 'select',
+                type: 'text',
                 component: null,
-                isNull: false,
+                isNull: true,
                 label: '产地',
                 placeholder: '',
-                rule: {required: true, trigger: 'blur'},
-                options: []
+                rule: {required: true}
             },
             {
                 name: 'operate_id',
@@ -4886,16 +4851,6 @@ export default {
                 label: '操作人员',
                 placeholder: '请选择人物',
                 rule: {required: false, type: 'number'},
-                options: []
-            },
-            {
-                name: 'state',
-                type: 'text',
-                component: null,
-                isNull: false,
-                label: '状态',
-                placeholder: '',
-                rule: {required: true, trigger: 'blur'},
                 options: []
             },
             {
@@ -6461,8 +6416,7 @@ export default {
             {
                 component: newbuildBtn
             }],
-        lotComponent: [{value: '批量农事'}, {value: '批量施肥'}, {value: '批量施药'}, {value: '批量检测'}],
-        moreComponent: [{value: '状态'}, {value: '农事'}, {value: '施肥'}, {value: '施药'}, {value: '检测'}, {value: '采收'}, {value: '图片'}]
+        moreComponent: [{value: '状态'}, {value: '图片'}]
     }],
     // 农事管理
     plantFarm: [
@@ -7991,7 +7945,7 @@ export default {
                 isNull: true,
                 label: '产地',
                 placeholder: '',
-                rule: null
+                rule: {required: true}
             },
             {
                 name: 'operate_id',
@@ -8034,7 +7988,7 @@ export default {
                 isNull: true,
                 label: '产地',
                 placeholder: '',
-                rule: null
+                rule: {required: true}
             },
             {
                 name: 'date',
@@ -9585,17 +9539,6 @@ export default {
             ]
         }]
     }],
-    // 公司
-    systemCompany: [{
-        settitle: '公司信息管理',
-        key: 'planManage',
-        tab: '销售订单信息',
-        url: 'plan',
-        theads: ['公司网站名称', '公司简称', '统一社会信用代码', '经营范围', '负责人/法人', '详细地址', '电话', '传真', '员工总数', '公司编码', '公司网站', '公司logo', '备注'],
-        protos: ['plan_type_name', 'name', 'content'],
-        widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
-        listComponent: []
-    }],
     // 用户管理
     systemUser: [{
         settitle: '用户管理',
@@ -10260,11 +10203,10 @@ export default {
         key: 'company',
         tab: '入驻单位信息',
         url: 'company',
-        hiddeUser: true,
-        hiddeRole: true,
+        batch: 'companyUser',
         searchPlaceholder: '请输入公司名称进行搜索',
-        theads: ['公司编码', '公司logo', '负责人/法人', '公司简称', '公司网站名称', '统一码', '电话', '地址', '经营范围', '员工总数', '公司网站', '销售网站'],
-        protos: ['coding', 'logo', 'legal_person', 'short_name', 'name', 'USCC', 'phone', 'address', 'business_scope', 'total_staff', 'website', 'sell_website'],
+        theads: ['公司名称', '公司编码', '公司logo', '负责人/法人', '公司简称', '统一码', '电话', '地址', '经营范围', '员工总数', '公司网站', '销售网站'],
+        protos: ['name', 'coding', 'logo', 'legal_person', 'short_name', 'USCC', 'phone', 'address', 'business_scope', 'total_staff', 'website', 'sell_website'],
         widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
         typeComponent: [{
             component: output
@@ -10272,6 +10214,7 @@ export default {
         {
             component: newbuildBtn
         }],
+        moreComponent: [{value: '权限'}, {value: '用户'}],
         listComponent: [],
         newComponent: [{
             tab: '新建入驻公司信息',

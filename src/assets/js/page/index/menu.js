@@ -207,7 +207,7 @@ export default[{
     src: '/public/images/system.png',
     children: [{
         role: Vue.Roles.system === undefined ? 0 : Vue.Roles.system.company === undefined ? 0 : 1,
-        path: '/index/message/systemCompany',
+        path: '/index/company',
         name: '公司信息管理'
     },
     {

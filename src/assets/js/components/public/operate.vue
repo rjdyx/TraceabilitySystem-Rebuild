@@ -94,16 +94,16 @@
 </script>
 
 <style lang="sass">
-	.inline {
-		display: inline-block;
-		vertical-align: middle;
-		margin-right: 10px;
-	}	
-	.operate {
-		float: left;
-	}
-	.left{
-		margin-left: 20px;
-		display: inline-block;
-	}
+.inline {
+	display: inline-block;
+	vertical-align: middle;
+	margin-right: 10px;
+}	
+.operate {
+	float: left;
+}
+.left{
+	margin-left: 20px;
+	display: inline-block;
+}
 </style>

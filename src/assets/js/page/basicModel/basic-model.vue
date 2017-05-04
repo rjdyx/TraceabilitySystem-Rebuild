@@ -36,7 +36,7 @@
                 v-for="typeOperate in typeComponent"
                 :is="typeOperate.component"
                 :params="typeOperate.params"
-                class="fr"
+                class="fr rightBtn"
                 :url="url"
                 :checkObject="checkObject"
                 :type="paramsIndex"
@@ -101,7 +101,8 @@
         label="操作" v-if="checkOperate==null">
             <template scope="scope" class="operateBtn">
                 <template v-if="moreComponent!=null">
-                    <clickMore :moreComponent="moreComponent" @showMore="moreShow(scope.$index,scope.row)" class="clickMoreBtn"></clickMore>
+                    <clickMore :moreComponent="moreComponent" 
+                    @showMore="moreShow(scope.$index,scope.row)" @showPermission="permissionShow(scope.$index,scope.row)" @showDetail="detailShow(scope.$index,scope.row)" class="clickMoreBtn"></clickMore>
                 </template>
                 <template>
 
@@ -111,9 +112,9 @@
                         
                     <el-button size="small" type="text" @click="handelDel(scope.$index,scope.row)" v-bind:class="{'btn':!hiddeEdit}">删除</el-button>  
 
-                    <el-button size="small" type="text" @click="userRole(scope.$index,scope.row)" class="btn" v-if="hiddeRole">权限</el-button> 
+                    <!-- <el-button size="small" type="text" @click="userRole(scope.$index,scope.row)" class="btn" v-if="hiddeRole">权限</el-button>  -->
 
-                    <el-button size="small" type="text" @click="" class="btn" v-if="hiddeUser">用户</el-button>  
+                    <!-- <el-button size="small" type="text" @click="" class="btn" v-if="hiddeUser">用户</el-button>   -->
 
                 </template>
             </template>
@@ -216,6 +217,7 @@ export default {
             pageVal: 1,
             // tab模块选择标志
             modelIndex: 0,
+            activeName: 'index0',
             modelName: this.$route.params,
             // 列表数据
             tableData: [],
@@ -608,6 +610,13 @@ export default {
         moreShow (index, row) {
             this.isPrintShow = !this.isPrintShow
             this.printForm = row
+        },
+        permissionShow (index, row) {
+            this.isPermissionShow = true
+        },
+        detailShow (index, row) {
+            var id = row.id
+            this.$router.push('/index/details/' + this.batch + '/' + id)
         }
     },
     mounted () {
@@ -650,7 +659,7 @@ export default {
 
 <style lang='sass'>
     .pcActive{
-        color: blue;
+        /*color: blue;*/
         text-decoration: underline;
         cursor:pointer;
     }
@@ -710,41 +719,89 @@ export default {
      .el-table th{
       text-align:center;
      }
-     .el-table th:last-child{
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s;
+}
+.fade-enter, .fade-leave-active {
+  opacity: 0;
+}
+.pcActive {
+  color: blue;
+  text-decoration: underline;
+  cursor: pointer;
+}
+.searchInp {
+  width: 161px;
+  margin-bottom: 10px;
+  font-size: 12px;
+  margin-right: 10px;
+}
+#btns {
+  float: right;
+}
+.fr {
+  float: right;
+}
+.fl {
+  float: left;
+}
+.searchBtn {
+  width: 62px;
+}
+.searchOp {
+  display: inline;
+}
+.margin {
+  margin-left: 15px;
+}
+.el-icon-caret-left {
+  padding-right: 15px;
+}
+i {
+  &:hover {
+    cursor: pointer;
+  }
+}
+.clickMoreBtn {
+  display: inline-block;
+}
+.el-table {
+  th {
+    text-align: center;
+    &:last-child {
       border-left: 1px solid red;
-     }
-     .btn span{
-        border-left: 1px solid #a7bad6;
-        padding: 0px 5px 0px 8px;
     }
-     .el-table td, .el-table th.is-leaf{
-        text-align: center;
-     }
-     .footer{
-      width: 100%;
-      height: 50px;
-      border: 1px solid #dfe6ec;
-      border-top: none; 
-        .pager{
+  }
+}
+.btn {
+  span {
+    border-left: 1px solid #a7bad6;
+    padding: 0px 5px 0px 8px;
+  }
+}
+.el-table td, .el-table th.is-leaf {
+  text-align: center;
+}
+.footer {
+  width: 100%;
+  height: 50px;
+  border: 1px solid #dfe6ec;
+  border-top: none;
+  .pager{
           display: inline-block;
-          float: right;
-          vertical-align: middle;
-          padding-top: 12px;
-          padding-right: 20px;
-        }
-        .operate-foot{
-          padding-left: 15px;
-          display: inline-block;
-          padding-top: 8px;
-         }
-        .record{
-          float: right;
-          padding: 15px 10px;
-         }
-     }
-     
-     .detaActive{
-        background: red;
-     }
-     
+  float: right;
+  vertical-align: middle;
+  padding-top: 12px;
+  padding-right: 20px;
+}
+.operate-foot {
+  padding-left: 15px;
+  display: inline-block;
+  padding-top: 8px;
+}
+.record {
+  float: right;
+  padding: 15px 10px;
+}
+   } 
 </style>
