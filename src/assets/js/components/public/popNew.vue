@@ -21,6 +21,7 @@
         <el-form :model="tableForm" :rules="rules" ref="tableForm" label-width="110px" class="demo-tableForm">
             <table>
                 <template v-for="subItem in item.components">
+
                     <!-- 文本框 -->
                     <tr class="tr1" v-if="subItem.type=='text'">
                         <td>

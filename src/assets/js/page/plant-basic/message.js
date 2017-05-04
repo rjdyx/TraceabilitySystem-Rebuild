@@ -10261,6 +10261,7 @@ export default {
         tab: '入驻单位信息',
         url: 'company',
         hiddeUser: true,
+        hiddeRole: true,
         searchPlaceholder: '请输入公司名称进行搜索',
         theads: ['公司编码', '公司logo', '负责人/法人', '公司简称', '公司网站名称', '统一码', '电话', '地址', '经营范围', '员工总数', '公司网站', '销售网站'],
         protos: ['coding', 'logo', 'legal_person', 'short_name', 'name', 'USCC', 'phone', 'address', 'business_scope', 'total_staff', 'website', 'sell_website'],
@@ -10275,21 +10276,21 @@ export default {
         newComponent: [{
             tab: '新建入驻公司信息',
             components: [{
-                name: 'coding',
+                name: 'name',
                 type: 'text',
                 component: null,
                 isNull: false,
-                label: '公司编码',
-                placeholder: '请输入公司编码',
-                rule: [{required: false}, {validator: validate2.reInteger}]
+                label: '公司名称',
+                placeholder: '请输入公司网站名称',
+                rule: {required: true, trigger: 'blur'}
             },
             {
-                name: 'logo',
-                type: 'file',
-                component: inputFile,
+                name: 'short_name',
+                type: 'text',
+                component: null,
                 isNull: false,
-                label: '公司logo',
-                placeholder: '',
+                label: '公司简称',
+                placeholder: '请输入公司简称',
                 rule: null
             },
             {
@@ -10299,15 +10300,6 @@ export default {
                 isNull: false,
                 label: '负责人/法人',
                 placeholder: '请输入负责人/法人',
-                rule: null
-            },
-            {
-                name: 'short_name',
-                type: 'text',
-                component: null,
-                isNull: false,
-                label: '公司简称',
-                placeholder: '请输入公司简称',
                 rule: null
             },
             {
@@ -10365,15 +10357,6 @@ export default {
                 rule: [{required: false}, {validator: validate2.reInteger}]
             },
             {
-                name: 'name',
-                type: 'text',
-                component: null,
-                isNull: false,
-                label: '公司网站名称',
-                placeholder: '请输入公司网站名称',
-                rule: {required: true, trigger: 'blur'}
-            },
-            {
                 name: 'website',
                 type: 'text',
                 component: null,
@@ -10383,12 +10366,12 @@ export default {
                 rule: null
             },
             {
-                name: 'sell_website',
-                type: 'text',
-                component: null,
+                name: 'logo',
+                type: 'file',
+                component: inputFile,
                 isNull: false,
-                label: '销售网站',
-                placeholder: '请输入销售网站',
+                label: '公司logo',
+                placeholder: '',
                 rule: null
             },
             {
@@ -10411,23 +10394,23 @@ export default {
             }]
         }],
         editComponent: [{
-            tab: '新建入驻公司信息',
+            tab: '编辑入驻公司信息',
             components: [{
-                name: 'coding',
+                name: 'name',
                 type: 'text',
                 component: null,
                 isNull: false,
-                label: '公司编码',
-                placeholder: '请输入公司编码',
-                rule: [{required: false}, {validator: validate2.reInteger}]
+                label: '公司名称',
+                placeholder: '请输入公司网站名称',
+                rule: {required: true, trigger: 'blur'}
             },
             {
-                name: 'logo',
-                type: 'file',
-                component: inputFile,
+                name: 'short_name',
+                type: 'text',
+                component: null,
                 isNull: false,
-                label: '公司logo',
-                placeholder: '',
+                label: '公司简称',
+                placeholder: '请输入公司简称',
                 rule: null
             },
             {
@@ -10437,15 +10420,6 @@ export default {
                 isNull: false,
                 label: '负责人/法人',
                 placeholder: '请输入负责人/法人',
-                rule: null
-            },
-            {
-                name: 'short_name',
-                type: 'text',
-                component: null,
-                isNull: false,
-                label: '公司简称',
-                placeholder: '请输入公司简称',
                 rule: null
             },
             {
@@ -10503,15 +10477,6 @@ export default {
                 rule: [{required: false}, {validator: validate2.reInteger}]
             },
             {
-                name: 'name',
-                type: 'text',
-                component: null,
-                isNull: false,
-                label: '公司网站名称',
-                placeholder: '请输入公司网站名称',
-                rule: {required: true, trigger: 'blur'}
-            },
-            {
                 name: 'website',
                 type: 'text',
                 component: null,
@@ -10521,12 +10486,12 @@ export default {
                 rule: null
             },
             {
-                name: 'sell_website',
-                type: 'text',
-                component: null,
+                name: 'logo',
+                type: 'file',
+                component: inputFile,
                 isNull: false,
-                label: '销售网站',
-                placeholder: '请输入销售网站',
+                label: '公司logo',
+                placeholder: '',
                 rule: null
             },
             {
@@ -10555,131 +10520,15 @@ export default {
         key: 'feedback',
         tab: '用户反馈信息',
         url: 'feedback',
+        hiddeEdit: true,
         searchPlaceholder: '请输入公司名称进行搜索',
         theads: ['所属公司', '用户名', '姓名', '联系方式', '提交日期', '评价星级', '不足', '问题描述'],
         protos: ['company_name', 'user_name', 'name', 'contact', 'datetime', 'grade', 'lack', 'content'],
         widths: [50, 50, 50, 50, 50, 50, 50, 50],
         typeComponent: [{
             component: output
-        },
-        {
-            component: newbuildBtn
         }],
-        listComponent: [],
-        newComponent: [{
-            tab: '新建用户反馈信息',
-            components: [{
-                name: 'company_name',
-                type: 'select',
-                component: null,
-                isNull: false,
-                label: '所属公司',
-                placeholder: '请选择所属公司',
-                rule: null
-            },
-            {
-                name: 'legal_person',
-                type: 'text',
-                component: null,
-                isNull: false,
-                label: '联系方式',
-                placeholder: '请输入11位的手机号（固话用-隔开）',
-                rule: {validator: validate2.phone, trigger: 'blur'}
-            },
-            {
-                name: 'short_name',
-                type: 'text',
-                component: null,
-                isNull: false,
-                label: '评价星级',
-                placeholder: '请输入整数',
-                rule: {required: true, trigger: 'blur'}
-            },
-            {
-                name: 'lack',
-                type: 'text',
-                component: null,
-                isNull: false,
-                label: '不足之处',
-                placeholder: '请输入不足',
-                rule: null
-            },
-            {
-                name: 'memo',
-                type: 'content',
-                component: null,
-                isNull: true,
-                label: '问题描述',
-                placeholder: '',
-                rule: null
-            },
-            {
-                name: 'img',
-                type: 'file',
-                component: inputFile,
-                isNull: false,
-                label: '反馈图片',
-                placeholder: '',
-                rule: null
-            }]
-        }],
-        editComponent: [{
-            tab: '编辑用户反馈信息',
-            components: [{
-                name: 'company_name',
-                type: 'select',
-                component: null,
-                isNull: false,
-                label: '所属公司',
-                placeholder: '请选择所属公司',
-                rule: null
-            },
-            {
-                name: 'legal_person',
-                type: 'text',
-                component: null,
-                isNull: false,
-                label: '联系方式',
-                placeholder: '请输入11位的手机号（固话用-隔开）',
-                rule: {validator: validate2.phone, trigger: 'blur'}
-            },
-            {
-                name: 'short_name',
-                type: 'text',
-                component: null,
-                isNull: false,
-                label: '评价星级',
-                placeholder: '请输入整数',
-                rule: {required: true, trigger: 'blur'}
-            },
-            {
-                name: 'lack',
-                type: 'text',
-                component: null,
-                isNull: false,
-                label: '不足之处',
-                placeholder: '请输入不足',
-                rule: null
-            },
-            {
-                name: 'memo',
-                type: 'content',
-                component: null,
-                isNull: true,
-                label: '问题描述',
-                placeholder: '',
-                rule: null
-            },
-            {
-                name: 'img',
-                type: 'file',
-                component: inputFile,
-                isNull: false,
-                label: '反馈图片',
-                placeholder: '',
-                rule: null
-            }]
-        }]
+        listComponent: []
     }],
     // 系统日志
     logOperate: [{
@@ -10776,7 +10625,7 @@ export default {
             }]
         }],
         editComponent: [{
-            tab: '新建日志信息',
+            tab: '编辑日志信息',
             components: [{
                 name: 'module',
                 type: 'text',

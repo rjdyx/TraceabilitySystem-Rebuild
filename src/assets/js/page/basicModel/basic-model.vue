@@ -57,6 +57,10 @@
         <transition name="fade">
             <printf v-if="isPrintShow" :printComponent="printComponent" :url="url" :printForm="printForm"></printf>
         </transition>
+        <!-- 权限模块 -->
+        <transition name="fade">
+            <permissionCheckbox v-if="isPermissionShow" :permissions="permissions"></permissionCheckbox>
+        </transition>
     </div>
     <!-- 列表模块 -->
     <el-table :data="tableData"  @selection-change="handleSelectionChange">
@@ -151,6 +155,7 @@ import popEdit from '../../components/public/popEdit.vue'
 import clickMore from '../../components/public/clickMore.vue'
 import lotOpearte from '../../components/public/lotOpearte.vue'
 import printf from '../../components/public/printf.vue'
+import permissionCheckbox from '../../components/public/permissionCheckbox.vue'
 export default {
     name: 'BasicModel',
     props: {
@@ -190,6 +195,7 @@ export default {
                     printComponent: [],
                     lotComponent: [],
                     hiddeEdit: false,
+                    hiddeShow: false,
                     checkOperate: null,
                     hiddeRole: false,
                     hiddeUser: false,
@@ -220,6 +226,7 @@ export default {
             isEditShow: false,
             // 是否打印
             isPrintShow: false,
+            isPermissionShow: false,
             // msg: 1,
             editBol: false,
             editForm: {},
@@ -632,7 +639,8 @@ export default {
         popEdit,
         clickMore,
         lotOpearte,
-        printf
+        printf,
+        permissionCheckbox
     }
 }
 </script>
