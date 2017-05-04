@@ -13,7 +13,8 @@
 
   <!-- 信息列表 -->
     <el-row :gutter="20">
-         <el-col :span="6" v-for="(item,i) in theads" class="text-small">{{item}}:{{headData[protos[i]]}}</el-col>
+         <el-col :span="6" v-for="(item,i) in theads" class="text-small">{{item}}:<em class="margin-left_10">{{headData[protos[i]]}}</em>
+         </el-col>
     </el-row>
     
   <!-- tab栏 --> 
@@ -49,11 +50,14 @@
         </div>
     
         <!-- 新建模块 --> 
-        <popNew v-if="isNewShow" :newComponent="tabItem.newComponent" :url="apiUrlArr[tabList[index].url]" @submitNew="changeNew"
-                @setTable="getTable"></popNew>
+        <transition name="fade">
+            <popNew v-if="isNewShow" :newComponent="tabItem.newComponent" :url="apiUrlArr[tabList[0].url]" @submitNew="changeNew" @setTable="getTable"></popNew>
+        </transition>
         <!-- 编辑模块 -->
-        <popEdit v-if="isEditShow" :editComponent="tabItem.editComponent" :url="apiUrlArr[tabList[index].url]" :editForm="editForm"
+        <transition name="fade">
+            <popEdit v-if="isEditShow" :editComponent="tabItem.editComponent" :url="apiUrlArr[tabList[0].url]" :editForm="editForm"
                  @submitEdit="hangeEdit" :changeDataArr="changeDataArr" :editDefault="editDefault"></popEdit>
+        </transition>
     <!-- 列表模块 -->
     <el-table :data="tableData"  @selection-change="handleSelectionChange">
         <!-- checkbox -->
@@ -285,6 +289,13 @@ export default {
                 }
             }
         },
+        // 关闭新增弹窗
+        closeNewShow (val) {
+            this.isNewShow = false
+            if (this.tabItem.newComponent[0].components[this.tabItem.newComponent[0].assocNum] !== undefined) {
+                this.$set(this.tabItem.newComponent[0].components[this.tabItem.newComponent[0].assocNum], 'tableVal', [])
+            }
+        },
         // 关闭编辑弹窗
         closeEditShow (val) {
             this.isEditShow = false
@@ -412,6 +423,9 @@ export default {
                 if (JSON.stringify(this.dataArr) === '{}') {
                     this.dataArr = ''
                 }
+                if (this.tabItem.newComponent[0].components[this.tabItem.newComponent[0].assocNum] !== undefined) {
+                    this.$set(this.tabItem.newComponent[0].components[this.tabItem.newComponent[0].assocNum], 'tableVal', [])
+                }
                 this.boxArr(this.dataArr)
                 this.getDetailSerial()
                 // this.getSelect()
@@ -507,6 +521,7 @@ export default {
         },
         // 根据下拉框获取表格数据
         getTable (val) {
+            console.log(val)
             if (val[1] !== '' && val[1] !== undefined) {
                 var getSelect = {'getSelect': '444'}
                 var curl = {'curl': this.tabItem.url}
@@ -518,11 +533,10 @@ export default {
                 }
                 this.$dataGet(this, surl, {getSelect, curl, routeId, opqcurl, type})
                     .then((responce) => {
-                        console.log(this.tabItem.newComponent[0].assocNum)
-                        this.$set(this.tabItem.newComponent[0].components[this.tabItem.newComponent[0].assocNum], 'tableVal', responce.data.data)
+                        this.$set(this.tabItem.newComponent[0].components[this.tabItem.newComponent[0].assocNum], 'tableVal', responce.data)
                     })
             } else {
-                this.$set(this.tabItem.newComponent[0].components[this.tabItem.newComponent[0].assocNum], 'tableVal', {})
+                this.$set(this.tabItem.newComponent[0].components[this.tabItem.newComponent[0].assocNum], 'tableVal', [])
             }
         }
     },
@@ -561,8 +575,10 @@ export default {
 }
 </script>
 <style lang='sass'> 
+.margin-left_10{
+    margin-left: 10px;
+}
 .detailsModel{
-
   .pcActive{
         color: blue;
         text-decoration: underline;

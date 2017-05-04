@@ -54,7 +54,6 @@
     }
 </script>
 <style lang="sass">
-	@import "../../../sass/public/inputSize.scss";
 	#inputText input{
 		outline:none;
 		height:30px;

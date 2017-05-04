@@ -40,62 +40,6 @@ const details = resolve => {
     }, 'details')
 }
 
-// ---------------------------手机版首页----------------------------------
-const plantIndex = resolve => {
-    require.ensure(['../page/phone/plant/index.vue'], () => {
-        resolve(require('../page/phone/plant/index.vue'))
-    }, 'plantIndex')
-}
-
-// ---------------------------手机版首页__实时视频----------------------------------
-const video = resolve => {
-    require.ensure(['../page/phone/plant/video.vue'], () => {
-        resolve(require('../page/phone/plant/video.vue'))
-    }, 'video')
-}
-
-// ---------------------------手机版首页__基础信息----------------------------------
-const pBasic = resolve => {
-    require.ensure(['../page/phone/plant/basic.vue'], () => {
-        resolve(require('../page/phone/plant/basic.vue'))
-    }, 'basic')
-}
-
-// ---------------------------手机版首页__购物链接----------------------------------
-const shop = resolve => {
-    require.ensure(['../page/phone/plant/shop.vue'], () => {
-        resolve(require('../page/phone/plant/shop.vue'))
-    }, 'shop')
-}
-
-// ---------------------------手机版首页__生长图片----------------------------------
-const grow = resolve => {
-    require.ensure(['../page/phone/plant/grow.vue'], () => {
-        resolve(require('../page/phone/plant/grow.vue'))
-    }, 'grow')
-}
-
-// ---------------------------手机版首页__农事信息、肥料信息__记录页----------------------------------
-const bM1 = resolve => {
-    require.ensure(['../page/phone/plant/basic_model1.vue'], () => {
-        resolve(require('../page/phone/plant/basic_model1.vue'))
-    }, 'bM1')
-}
-
-// ---------------------------手机版首页__农事信息、肥料信息__记录详情页----------------------------------
-const bM2 = resolve => {
-    require.ensure(['../page/phone/plant/basic_model2.vue'], () => {
-        resolve(require('../page/phone/plant/basic_model2.vue'))
-    }, 'bM2')
-}
-
-// ---------------------------手机版首页__商品信息----------------------------------
-const commodity = resolve => {
-    require.ensure(['../page/phone/plant/commodity.vue'], () => {
-        resolve(require('../page/phone/plant/commodity.vue'))
-    }, 'commodity')
-}
-
 // =============================头部导航条按钮跳转=======================
 // -------------------------------问题反馈------------------------------
 const question = resolve => {
@@ -167,95 +111,10 @@ var routes = [
         component: notFound
     },
     {
-        path: '/',
+        path: '/login',
         name: 'login',
         component: login
     }
-    // ---------------- 手机端路由 -----------------
-    // {
-    //     path: '/plantIndex/:code',
-    //     meta: {key: 'plantIndex'},
-    //     component: plantIndex,
-    //     alias: '/run/plant/index/:code'
-    // },
-    // {
-    //     path: '/video/:id',
-    //     meta: {key: 'video'},
-    //     component: video,
-    //     alias: '/run/plant/video/:id'
-    // },
-    // {
-    //     path: '/basicInfor/:id',
-    //     meta: {key: 'basicInfor'},
-    //     component: pBasic,
-    //     alias: '/run/plant/basicInfor/:id'
-    // },
-    // {
-    //     path: '/shop/:id',
-    //     meta: {key: 'shop'},
-    //     component: shop,
-    //     alias: '/run/plant/shop/:id'
-    // },
-    // {
-    //     path: '/growImg/:id',
-    //     meta: {key: 'growImg'},
-    //     component: grow,
-    //     alias: '/run/plant/growImg/:id'
-    // },
-    // {
-    //     path: '/pesticideInfor/:id',
-    //     meta: {key: 'spray'},
-    //     component: bM1,
-    //     alias: '/run/plant/spray/:id'
-    // },
-    // {
-    //     path: '/datails/:id',
-    //     component: bM2,
-    //     meta: {key: 'spray'},
-    //     alias: '/run/plant/spray/datails/:id'
-    // },
-    // {
-    //     path: '/farmWorkInfor/:id',
-    //     meta: {key: 'farming'},
-    //     component: bM1,
-    //     alias: '/run/plant/farming/:id'
-    // },
-    // {
-    //     path: 'farmWorkInfor/datails/:id',
-    //     meta: {key: 'farming'},
-    //     component: bM2,
-    //     alias: '/run/plant/farming/datails/:id'
-    // },
-    // {
-    //     path: '/fertilizerInfor/:id',
-    //     meta: {key: 'fertilize'},
-    //     component: bM1,
-    //     alias: '/run/plant/fertilize/:id'
-    // },
-    // {
-    //     path: '/fertilizerInfor/datails/:id',
-    //     meta: {key: 'fertilize'},
-    //     component: bM2,
-    //     alias: '/run/plant/fertilize/datails/:id'
-    // },
-    // {
-    //     path: '/detectionInfor/:id',
-    //     meta: {key: 'detect'},
-    //     component: bM1,
-    //     alias: '/run/plant/detect/:id'
-    // },
-    // {
-    //     path: '/detectionInfor/datails/:id',
-    //     meta: {key: 'detect'},
-    //     component: bM2,
-    //     alias: '/run/plant/detect/datails/:id'
-    // },
-    // {
-    //     path: '/commodityInfor/:id',
-    //     meta: {key: 'commodityInfor'},
-    //     component: commodity,
-    //     alias: '/run/plant/commodityInfor/:id'
-    // }
 ]
 
 routes = routes.concat(phoneRouters.router)

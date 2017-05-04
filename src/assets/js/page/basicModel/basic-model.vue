@@ -109,8 +109,7 @@
 
                     <el-button type="text" size="small" v-if="hiddeShow">查看</el-button>
                         
-                    <el-button size="small" type="text" @click="handelDel(scope.$index,scope.row)" v-if="hiddeEdit===true">删除</el-button>   
-                    <el-button size="small" type="text" @click="handelDel(scope.$index,scope.row)" v-if="hiddeEdit===false" class="btn">删除</el-button>   
+                    <el-button size="small" type="text" @click="handelDel(scope.$index,scope.row)" v-bind:class="{'btn':!hiddeEdit}">删除</el-button>  
 
                     <el-button size="small" type="text" @click="userRole(scope.$index,scope.row)" class="btn" v-if="hiddeRole">权限</el-button> 
 
@@ -395,8 +394,12 @@ export default {
                 }
             }
         },
+        // 关闭新增弹窗
+        closeNewShow () {
+            this.isNewShow = false
+        },
         // 关闭编辑弹窗
-        closeEditShow (val) {
+        closeEditShow () {
             this.isEditShow = false
         },
         // 获取数据
@@ -644,12 +647,6 @@ export default {
 
 
 <style lang='sass'>
-.fade-enter-active, .fade-leave-active {
-  transition: opacity .5s
-}
-.fade-enter, .fade-leave-active {
-  opacity: 0
-}
     .pcActive{
         color: blue;
         text-decoration: underline;

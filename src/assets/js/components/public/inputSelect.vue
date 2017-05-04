@@ -52,7 +52,6 @@
     }
 </script>
 <style lang="sass">
-	@import "../../../sass/public/inputSize.scss";
 	#inputSelect{
 		width:312px;
 	}

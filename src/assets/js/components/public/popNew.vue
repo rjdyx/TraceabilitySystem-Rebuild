@@ -235,11 +235,11 @@ export default {
         },
         // 关闭表单事件
         closeClick () {
-            this.$parent.changeNewShow()
+            this.$parent.closeNewShow()
         },
         // 取消事件
         cancelClick () {
-            this.$parent.changeNewShow()
+            this.$parent.closeNewShow()
         },
       /**
         * 提交表单
@@ -291,7 +291,7 @@ export default {
   position: fixed;
   width:100%;
   height: 100%;
-  background:rgba(0,0,0,0.3);
+  background:rgba(0,0,0,.5);
   top:0;
   left:0;
   z-index:3;
@@ -309,6 +309,7 @@ export default {
     height:618px;
     .el-tabs{
         height:80%;
+        padding-top: 15px;
         .el-tabs__content{
             height:88%;
             overflow:auto;
