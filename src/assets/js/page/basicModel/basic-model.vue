@@ -23,7 +23,7 @@
             
             <!-- 搜索框 -->
             <div class="searchOp"> 
-                <el-input
+                <el-input   
                     :placeholder="searchPlaceholder"
                     v-model="inputValue"
                     :on-icon-click="search" class="searchInp" size="small">
@@ -254,7 +254,6 @@ export default {
             this.$set(this, 'multipleSelection', [])
         },
         jumpDetails (row) {
-            console.log(row)
             var id = row.id
             if (row.code !== undefined) {
                 id = row.pack_id
@@ -600,7 +599,6 @@ export default {
         }
     },
     mounted () {
-        console.log(this.GLOBAL)
         // 获取下拉框
         if (this.selectValueId) {
             this.getSelect()

@@ -23,12 +23,7 @@
                     return {}
                 }
             },
-            inputEditValue: {
-                type: String,
-                default () {
-                    return ''
-                }
-            },
+            inputEditValue: {},
             selectEditValue: {
                 type: String,
                 default () {

@@ -10,7 +10,7 @@
 			<contain-title :settitle="settitle">
 			</contain-title>
 			<div class="titleUser">
-				<span class="{'picture': isClass}">
+				<span class="picture">
 					<img src="img"/>
 				</span>
 				<el-row :gutter="20" class="text">
@@ -42,7 +42,8 @@ export default {
             listN: {'name': '用户名 :', 'realname': '姓名 :', 'number': '工号 :', 'gender': '性别 :', 'department': '所属部门 :', 'type': '用户类型 :', 'email': '邮箱 :', 'phone': '电话 :', 'birth_date': '出生日期 :'},
             listV: {},
             img: '',
-            isShow: false
+            isShow: false,
+            isClass: true
         }
     },
     methods: {
@@ -115,11 +116,8 @@ export default {
 	bottom: 10%;
 	color: #fff;
 }
-.edit:hover{
-	color: #ccc;
-}
-.edit:focus{
-	color: #fff;
+.copyright{
+    margin-top: 50px;
 }
 .coltext{
 	font-size:14px;

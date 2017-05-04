@@ -123,47 +123,43 @@ const test = resolve => {
 }
 
 var routes = [
-    {
-        path: '/',
-        name: 'index',
-        component: index,
-        meta: { auth: true }
-    },
-    {
-        path: '/index',
-        name: 'index',
-        component: index,
-        meta: { auth: true }
-    },
+    // {
+    //     path: '/index',
+    //     component: index,
+    //     meta: { auth: true }
+    // },
     {
         path: '/index',
         component: index,
-        children: [{
-            path: 'message/:model',
-            component: basic,
-            // 需要登录才能进入此路由
-            meta: { auth: true }
-        },
-        {
-            path: 'question',
-            component: question
-        },
-        {
-            path: 'set',
-            component: set
-        },
-        {
-            path: 'test',
-            component: test
-        },
-        {
-            path: 'home',
-            component: home
-        },
-        {
-            path: 'details/:model/:id',
-            component: details
-        }]
+        children: [
+            {
+                path: '',
+                component: home
+            },
+            {
+                path: 'message/:model',
+                component: basic,
+                // 需要登录才能进入此路由
+                meta: {
+                    auth: true
+                }
+            },
+            {
+                path: 'question',
+                component: question
+            },
+            {
+                path: 'set',
+                component: set
+            },
+            {
+                path: 'test',
+                component: test
+            },
+            {
+                path: 'details/:model/:id',
+                component: details
+            }]
     },
     {
         path: '/404',
@@ -171,7 +167,7 @@ var routes = [
         component: notFound
     },
     {
-        path: '/login',
+        path: '/',
         name: 'login',
         component: login
     }

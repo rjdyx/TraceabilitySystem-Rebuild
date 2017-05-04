@@ -6,7 +6,7 @@
  * 
  */
 <template>
-<div>   
+<div class="detailsModel">   
   <!-- 标题 -->
     <contain-title :settitle="tab">
     </contain-title>
@@ -49,9 +49,10 @@
         </div>
     
         <!-- 新建模块 --> 
-        <popNew v-if="isNewShow" :newComponent="tabItem.newComponent" :url="apiUrlArr[tabList[0].url]" @submitNew="changeNew"></popNew>
+        <popNew v-if="isNewShow" :newComponent="tabItem.newComponent" :url="apiUrlArr[tabList[index].url]" @submitNew="changeNew"
+                @setTable="getTable"></popNew>
         <!-- 编辑模块 -->
-        <popEdit v-if="isEditShow" :editComponent="tabItem.editComponent" :url="apiUrlArr[tabList[0].url]" :editForm="editForm"
+        <popEdit v-if="isEditShow" :editComponent="tabItem.editComponent" :url="apiUrlArr[tabList[index].url]" :editForm="editForm"
                  @submitEdit="hangeEdit" :changeDataArr="changeDataArr" :editDefault="editDefault"></popEdit>
     <!-- 列表模块 -->
     <el-table :data="tableData"  @selection-change="handleSelectionChange">
@@ -171,6 +172,7 @@ export default {
             editDefault: {},
             // 复选框选中返回对象
             checkObject: {},
+            selectNewEdit: [],
             index: 0
         }
     },
@@ -213,7 +215,13 @@ export default {
                     this.$dataGet(this, newArr.selectUrl + '/changeSelect', {'selectData': newArr.selectData})
                         .then((responce) => {
                             if (responce.data.length !== 0) {
-                                this.tabItem.newComponent[0].components[this.tabItem.newComponent[0].popNumber[key]].options = this.$selectData(this.tabItem.url, responce.data, newArr.selectArr)
+                                this.selectNewEdit[key] = []
+                                this.selectNewEdit[key].push(this.tabItem.newComponent[0].selectInit[key])
+                                let newOpt = this.$selectData(this.tabItem.url, responce.data, newArr.selectArr)
+                                for (let item of Object.keys(newOpt)) {
+                                    this.selectNewEdit[key].push(newOpt[item])
+                                }
+                                this.tabItem.newComponent[0].components[this.tabItem.newComponent[0].popNumber[key]].options = this.selectNewEdit[key]
                             }
                         })
                 }
@@ -225,7 +233,13 @@ export default {
                     this.$dataGet(this, '/util/selects', {table: newArr.selectUrl})
                         .then((responce) => {
                             if (responce.data.length !== 0) {
-                                this.tabItem.newComponent[0].components[this.tabItem.newComponent[0].popNumber2[key]].options = this.$selectData(this.tabItem.url, responce.data, newArr.selectArr)
+                                this.selectNewEdit[key] = []
+                                this.selectNewEdit[key].push(this.tabItem.newComponent[0].selectInit2[key])
+                                let newOpt = this.$selectData(this.tabItem.url, responce.data, newArr.selectArr)
+                                for (let item of Object.keys(newOpt)) {
+                                    this.selectNewEdit[key].push(newOpt[item])
+                                }
+                                this.tabItem.newComponent[0].components[this.tabItem.newComponent[0].popNumber2[key]].options = this.selectNewEdit[key]
                             }
                         })
                 }
@@ -416,7 +430,7 @@ export default {
                 confirmButtonText: '确定',
                 type: 'error'
             }).then(() => {
-                axios.delete(this.$adminUrl(this.apiUrlArr[this.tabList[0].url] + '/' + row.id))
+                axios.delete(this.$adminUrl(this.apiUrlArr[this.tabList[this.index].url] + '/' + row.id))
                     .then((responce) => {
                         // this.getSelect()
                         if (JSON.stringify(this.dataArr) === '{}') {
@@ -490,6 +504,26 @@ export default {
                     })
                 })
             }
+        },
+        // 根据下拉框获取表格数据
+        getTable (val) {
+            if (val[1] !== '' && val[1] !== undefined) {
+                var getSelect = {'getSelect': '444'}
+                var curl = {'curl': this.tabItem.url}
+                var routeId = {'routeId': this.tabItem.newComponent[0].labUrl}
+                var opqcurl = {'opqcurl': this.apiUrlArr[this.url]}
+                let surl = val[1] + '/' + this.tabItem.newComponent[0].labUrl
+                if (this.tabItem.newComponent[0].paramsIndex !== undefined) {
+                    var type = this.tabItem.newComponent[0].paramsIndex
+                }
+                this.$dataGet(this, surl, {getSelect, curl, routeId, opqcurl, type})
+                    .then((responce) => {
+                        console.log(this.tabItem.newComponent[0].assocNum)
+                        this.$set(this.tabItem.newComponent[0].components[this.tabItem.newComponent[0].assocNum], 'tableVal', responce.data.data)
+                    })
+            } else {
+                this.$set(this.tabItem.newComponent[0].components[this.tabItem.newComponent[0].assocNum], 'tableVal', {})
+            }
         }
     },
     mounted () {
@@ -527,6 +561,8 @@ export default {
 }
 </script>
 <style lang='sass'> 
+.detailsModel{
+
   .pcActive{
         color: blue;
         text-decoration: underline;
@@ -604,4 +640,5 @@ export default {
      .detaActive{
         background: red;
      }
+}
 </style>

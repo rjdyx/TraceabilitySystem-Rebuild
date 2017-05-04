@@ -35,11 +35,12 @@ export default {
         type () {
             return this.$route.params.model
         }
+    },
+    mounted () {
     }
 }
 </script>
 
 <style lang="sass" scoped>
     @import "../../../sass/function";
-
 </style>

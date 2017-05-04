@@ -6,8 +6,8 @@
  * 
  */
 <template>
-	<div>
-		<el-button type="primary" size="small" @click="handleAdd">新建</el-button>
+	<div class="NewBuild">
+		<el-button size="small" @click="handleAdd" class="btn_change">新建</el-button>
 	</div>
 </template>
 
@@ -33,3 +33,12 @@ export default {
     }
 }
 </script>
+
+<style lang="sass">
+.NewBuild{
+    .btn_change{
+        color: #fff;
+    }
+}
+    
+</style>

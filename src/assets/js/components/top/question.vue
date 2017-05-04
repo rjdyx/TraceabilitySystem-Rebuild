@@ -1,4 +1,4 @@
-/**
+ /**
  * @description:导航栏的问题反馈模块
  * @author 舒丹彤
  * @date 2017/4/25  
@@ -45,7 +45,7 @@
 						</el-form-item>
 					    	<el-form-item>
 					    		<div class="operate">
-							    	<el-button type="primary" @click="submitForm('form')">提交</el-button>
+							    	<el-button class="btn_change" @click="submitForm('form')">提交</el-button>
 							    	<el-button @click="resetForm('form')">取消</el-button>
 						    	</div>
 					    	</el-form-item>
@@ -129,7 +129,8 @@ export default {
 
 .contain {
   width: 650px;
-  margin: 68px auto;
+  margin: 68px auto 0px; 
+  // margin: 10px auto;
 }
 
 .thank {
@@ -139,7 +140,9 @@ export default {
     float: right;
   }
 }
-
+.btn_change{
+  color: #fff;
+}
 .title {
   font-size: 18px;
   // color: 变量
@@ -189,14 +192,7 @@ export default {
 }
 
 .copyright {
-  text-align: center;
-  font-size: 12px;
-  color: #919191;
-  margin-top: 150px;
-  a {
-    text-decoration: underline;
-    color: #919191;
-  }
+  margin-top: 100px;
 }
 .email{
 	font-size: 12px;

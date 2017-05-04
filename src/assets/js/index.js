@@ -37,6 +37,27 @@ router.beforeEach((to, from, next) => {
             }
         }
     })
+    // if (USER_STATE === 'false') {
+    //     axios.get('/login/state', this.ruleForm2).then(responce => {
+    //         let USER_STATE = responce.data.name
+    //         if (USER_STATE !== null) {
+    //             if (to.path === '/') {
+    //                 next({ path: '/index' })
+    //             } else {
+    //                 next()
+    //             }
+    //             console.log(USER_STATE)
+    //         } else {
+    //             if (to.path !== '/') {
+    //                 next({ path: '/' })
+    //             } else {
+    //                 next()
+    //             }
+    //         }
+    //     })
+    // } else {
+    //     next()
+    // }
 })
 
 router.afterEach(route => {})
