@@ -234,11 +234,11 @@ export default {
         },
         // 关闭表单事件
         closeClick () {
-            this.$parent.changeNewShow()
+            this.$parent.closeNewShow()
         },
         // 取消事件
         cancelClick () {
-            this.$parent.changeNewShow()
+            this.$parent.closeNewShow()
         },
       /**
         * 提交表单

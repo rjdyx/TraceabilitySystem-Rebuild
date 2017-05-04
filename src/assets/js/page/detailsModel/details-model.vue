@@ -285,6 +285,13 @@ export default {
                 }
             }
         },
+        // 关闭新增弹窗
+        closeNewShow (val) {
+            this.isNewShow = false
+            if (this.tabItem.newComponent[0].components[this.tabItem.newComponent[0].assocNum] !== undefined) {
+                this.$set(this.tabItem.newComponent[0].components[this.tabItem.newComponent[0].assocNum], 'tableVal', [])
+            }
+        },
         // 关闭编辑弹窗
         closeEditShow (val) {
             this.isEditShow = false
@@ -412,6 +419,9 @@ export default {
                 if (JSON.stringify(this.dataArr) === '{}') {
                     this.dataArr = ''
                 }
+                if (this.tabItem.newComponent[0].components[this.tabItem.newComponent[0].assocNum] !== undefined) {
+                    this.$set(this.tabItem.newComponent[0].components[this.tabItem.newComponent[0].assocNum], 'tableVal', [])
+                }
                 this.boxArr(this.dataArr)
                 this.getDetailSerial()
                 // this.getSelect()
@@ -518,11 +528,10 @@ export default {
                 }
                 this.$dataGet(this, surl, {getSelect, curl, routeId, opqcurl, type})
                     .then((responce) => {
-                        console.log(this.tabItem.newComponent[0].assocNum)
-                        this.$set(this.tabItem.newComponent[0].components[this.tabItem.newComponent[0].assocNum], 'tableVal', responce.data.data)
+                        this.$set(this.tabItem.newComponent[0].components[this.tabItem.newComponent[0].assocNum], 'tableVal', responce.data)
                     })
             } else {
-                this.$set(this.tabItem.newComponent[0].components[this.tabItem.newComponent[0].assocNum], 'tableVal', {})
+                this.$set(this.tabItem.newComponent[0].components[this.tabItem.newComponent[0].assocNum], 'tableVal', [])
             }
         }
     },

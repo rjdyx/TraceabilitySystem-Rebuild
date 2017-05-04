@@ -103,9 +103,9 @@
 
                     <el-button type="text" size="small" @click="changeEditShow(scope.$index,scope.row)" v-if="!hiddeEdit">编辑</el-button>
 
-                    <el-button type="text" size="small" v-if="hiddeEdit">查看</el-button>
+                    <el-button type="text" size="small" v-if="hiddeShow">查看</el-button>
                         
-                    <el-button size="small" type="text" @click="handelDel(scope.$index,scope.row)" class="btn">删除</el-button>  
+                    <el-button size="small" type="text" @click="handelDel(scope.$index,scope.row)" v-bind:class="{'btn':!hiddeEdit}">删除</el-button>  
 
                     <el-button size="small" type="text" @click="userRole(scope.$index,scope.row)" class="btn" v-if="hiddeRole">权限</el-button> 
 
@@ -241,8 +241,7 @@ export default {
             // 新增编辑下拉框数据
             selectNewEdit: [],
             // 批次号
-            isPcActive: true,
-            hiddeEdit: false
+            isPcActive: true
         }
     },
     mixins: [computed],
@@ -388,8 +387,12 @@ export default {
                 }
             }
         },
+        // 关闭新增弹窗
+        closeNewShow () {
+            this.isNewShow = false
+        },
         // 关闭编辑弹窗
-        closeEditShow (val) {
+        closeEditShow () {
             this.isEditShow = false
         },
         // 获取数据
