@@ -215,6 +215,7 @@ export default {
             newComponent: [{
                 tab: '新建批次饲料使用信息',
                 type: 'table',
+                assocNum: 0,
                 labUrl: 'breed',
                 components: [{
                     name: 'name',
@@ -234,9 +235,9 @@ export default {
         tab: '检测批次管理',
         theads: ['检测批次号', '检测日期', '检测项目名称', '专家', '操作人员', '检测内容', '检测结果', '审批人', '检测报告图片', '备注'],
         protos: ['serial', 'date', 'name', 'expert_name', 'operate_name', 'content', 'result', 'check', 'img', 'memo'],
-        url: 'detection',
+        url: 'detect',
         tabList: [{
-            url: 'detection-rfid',
+            url: 'detect-detail',
             tab: '养殖批次信息',
             searchPlaceholder: '请输入批次号进行搜索',
             // typeComponent: [{component: output}, {component: newbuildBtn}],
@@ -249,12 +250,12 @@ export default {
             newComponent: [{
                 tab: '新建批次检测信息',
                 type: 'table',
-                url: 'breed',
+                labUrl: 'breed',
                 components: [{
                     name: 'name',
                     type: 'table',
-                    headList: ['养殖批次号', '圈舍', '畜禽名称', '养殖日期'],
-                    protos: ['serial', 'area_name', 'beast_name', 'date'],
+                    theads: ['养殖批次号', '圈舍', '养殖畜禽', '养殖日期'],
+                    protos: ['serial', 'area_name', 'beast_name', 'start_date'],
                     valueId: 'breed_ids',
                     errormsg: '请选择养殖批次号',
                     tableVal: []
@@ -518,6 +519,7 @@ export default {
                 tab: '新建加工产品信息',
                 type: 'table',
                 labUrl: 'product',
+                assocNum: 0,
                 components: [{
                     name: 'name',
                     type: 'table',
@@ -719,6 +721,7 @@ export default {
             newComponent: [{
                 tab: '新建批次施肥信息',
                 type: 'table',
+                assocNum: 0,
                 labUrl: 'cultivate',
                 components: [{
                     name: 'name',
@@ -759,6 +762,7 @@ export default {
             newComponent: [{
                 tab: '新建批次施药信息',
                 type: 'table',
+                assocNum: 0,
                 labUrl: 'cultivate',
                 components: [{
                     name: 'name',
@@ -803,6 +807,7 @@ export default {
                 labUrl: 'cultivate',
                 components: [{
                     name: 'name',
+                    assocNum: 0,
                     type: 'table',
                     theads: ['种植批次号', '种植果蔬', '种植日期'],
                     protos: ['serial', 'plant_name', 'date'],
@@ -840,6 +845,7 @@ export default {
             newComponent: [{
                 tab: '新建批次农事信息',
                 type: 'table',
+                assocNum: 0,
                 labUrl: 'cultivate',
                 components: [{
                     name: 'name',
@@ -886,12 +892,12 @@ export default {
         }]
     },
     // 生产计划批次信息
-    planProduct: {
+    plantProduct: {
         key: 'planProduct',
         tab: '生产批次管理',
-        theads: ['批次号', '计划日期', '操作类型', '安排人员', '计划内容', '操作日期', '备注'],
-        protos: ['serial', 'date', 'type', 'operate_name', 'content', 'date', 'memo'],
-        url: 'farming',
+        theads: ['操作人员', '生产批次号', '操作类型', '日期', '内容', '备注'],
+        protos: ['operate_name', 'serial', 'type', 'date', 'content', 'memo'],
+        url: 'plan',
         tabList: [{
             tab: '采收批次信息',
             searchPlaceholder: '请输入rfid进行搜索',
@@ -943,6 +949,7 @@ export default {
             newComponent: [{
                 tab: '新建加工产品信息',
                 type: 'table',
+                assocNum: 0,
                 labUrl: 'product',
                 components: [{
                     name: 'name',
@@ -983,6 +990,7 @@ export default {
             newComponent: [{
                 tab: '新建溯源码信息',
                 selectUrl2: [['harvests', 'id', 'serial', true]],
+                selectInit2: [{value: '', label: '采收批次号选择'}],
                 popNumber2: [1],
                 hiddenValue: {type: 'plant'},
                 components: [{

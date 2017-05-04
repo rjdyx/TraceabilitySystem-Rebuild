@@ -1,7 +1,5 @@
 <template>
-
 	<el-button size="small" class="btn_change" @click="comeExcel">导出表格</el-button>
-
 </template>
 
 <script>

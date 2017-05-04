@@ -123,93 +123,79 @@ export default {
 
 <style lang="sass">
 .question {
-  height: 100%;
-  overflow: hidden;
-  padding-left: 10px;
+	height: 100%;
+	overflow: hidden;
+	padding-left: 10px;
+	.question_content {
+	  	margin-top: 15px;
+	  	overflow: scroll;
+	  	height: 100%;
+	  	.contain {
+		  	width: 650px;
+		  	margin: 68px auto 0px; 
+		  	thank {
+		  		overflow: hidden;
+			  	section {
+			    	width: 88%;
+			    	float: right;
+			    	article {
+					  	font-size: 14px;
+					  	text-indent: 6%;
+					}
+			  	}
+			}
+			.form {
+			  	margin-top: 40px;
+			  	.check {
+				  	width: 69%;
+				  	display: inline-block;
+				  	.el-checkbox-group {
+					  	display: inline-block;
+					  	width: 50%;
+					}
+				}
+				.el-rate {
+				  	display: inline-block;
+				  	margin-left: 10px;
+				}	
+				.phone {
+				   	width: 20%;   
+				   	margin: 0px 10px 0 10px;
+				}
+				.email,.enter{
+					font-size: 12px;
+				}
+				.operate {
+				  	float: right;
+				  	margin-top: 20px;
+				  	.btn_change{
+					  	color: #fff;
+					}
 
-.contain {
-  width: 650px;
-  margin: 68px auto 0px; 
-  // margin: 10px auto;
-}
-
-.thank {
-  // overflow: hidden;
-  section {
-    width: 88%;
-    float: right;
-  }
-}
-.btn_change{
-  color: #fff;
-}
-.title {
-  font-size: 18px;
-  // color: 变量
-}
-
-.section article {
-  font-size: 14px;
-  text-indent: 6%;
-}
-
-.form {
-  margin-top: 40px;
-}
-
-.el-checkbox-group {
-  display: inline-block;
-  width: 50%;
-}
-
-.check {
-  width: 69%;
-  display: inline-block;
-}
-
-.el-rate {
-  display: inline-block;
-  margin-left: 10px;
-}
-.question_content {
-  margin-top: 15px;
-  overflow: scroll;
-  height: 100%;
-}
-
-.phone {
-   width: 20%;   
-   margin: 0px 10px 0 10px;
- }
-
-.enter {
-  font-size: 12px;
-}
-
-.operate {
-  float: right;
-  margin-top: 20px;
-}
+				}
+			}
+		}
+	}
 
 .copyright {
-  margin-top: 100px;
+  	margin-top: 60px;
 }
-.email{
-	font-size: 12px;
-}
+
 .changeImg{
-  display: inline-block;
-  width: 71px;
-  height: 70px;
-}
+  	display: inline-block;
+  	margin-right: 1	0px;
+  	width: 71px;
+  	height: 70px;
+  	float: left;
+}	
 .el-form-item__content{
-  margin-left: 0px !important;
+  	margin-left: 0px !important;
 }
 .singelCheck{
-  margin-left: 30px;
+  	margin-left: 30px;
 }
 .qu_title{
-  margin-bottom: 10px;
+  	margin-bottom: 10px;
 }
 }
 </style>

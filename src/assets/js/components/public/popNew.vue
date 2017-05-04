@@ -272,7 +272,7 @@ export default {
             for (let key in val) {
                 ids.push(val[key].id)
             }
-            this.tableForm[this.newComponent[0].components[this.newComponent[0].assocNum].valueId] = ids
+            this.tableForm[this.newComponent[0].components[0].valueId] = ids
             this.ids = ids
         },
         // 选择框关联

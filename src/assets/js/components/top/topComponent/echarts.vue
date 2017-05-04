@@ -2,16 +2,16 @@
     <section class="chart-container">
         <el-row :gutter="20">
             <el-col :span="12">
-                <div id="chartColumn" style="height:350px;"></div>
+                <div id="chartColumn"></div>
             </el-col>
             <el-col :span="12">
-                <div id="chartBar" style="height:350px;"></div>
+                <div id="chartBar"></div>
             </el-col>
             <el-col :span="12">
-                <div id="chartLine" style="height:350px;"></div>
+                <div id="chartLine"></div>
             </el-col>
             <el-col :span="12">
-                <div id="chartPie" style="height:350px;"></div>
+                <div id="chartPie"></div>
             </el-col>
         </el-row>
     </section>
@@ -38,7 +38,6 @@
 
             this.chartColumn.setOption({
                 title: {text: '种植面积', x: 'center'},
-                tooltip: {},
                 xAxis: {
                     data: ['策划', '策划', '策划', '策划', '策划', '策划']
                 },
@@ -52,9 +51,6 @@
             window.onresize = this.chartColumn.resize
             this.chartBar.setOption({
                 title: { text: '销售订单', x: 'center' },
-                tooltip: {
-                    trigger: 'item'
-                },
                 toolbox: {
                     show: true,
                     feature: {
@@ -103,10 +99,8 @@
                 ]
             })
             window.onresize = this.chartBar.resize
-
             this.chartLine.setOption({
                 title: {text: '采收报表', x: 'center'},
-                tooltip: {},
                 xAxis: {
                     data: ['策划', '策划', '策划', '策划', '策划', '策划']
                 },
@@ -118,13 +112,8 @@
                 }]
             })
             window.onresize = this.chartLine.resize
-
             this.chartPie.setOption({
                 title: {text: '物流统计', x: 'center'},
-                tooltip: {
-                    trigger: 'item',
-                    formatter: '{a} <br/>{b} : {c} ({d}%)'
-                },
                 legend: {
                     orient: 'vertical',
                     x: 'left',
@@ -145,31 +134,6 @@
                 }]
             })
             window.onresize = this.chartPie.resize
-
-            // setTimeout(function () {
-            //     window.onresize = function () {
-            //         this.chartLine.resize()
-            //         this.chartColumn.resize()
-            //         this.chartBar.resize()
-            //         this.chartPie.resize()
-            //     }
-            // }, 1000)
-            // window.onresize = this.chartColumn.resize
-            // window.onresize = this.chartBar.resize
-            // window.onresize = this.chartPie.resize
-            // window.onresize = this.chartLine.resize
-            // window.addEventListener('resize', function () {
-            //     this.chartBar.resize()
-            // }.bind(this))
-            // window.addEventListener('resize', function () {
-            //     this.chartPie.resize()
-            // }.bind(this))
-            // window.addEventListener('resize', function () {
-            //     this.chartLine.resize()
-            // }.bind(this))
-            // window.addEventListener('resize', function () {
-            //     this.chartColumn.resize()
-            // }.bind(this))
         }
     }
 
@@ -178,8 +142,8 @@
 <style lang="sass">
 .chart-container{
 	.el-col div{
+        height: 350px;
         padding-left: 70px;
     }
 }
-    
 </style>

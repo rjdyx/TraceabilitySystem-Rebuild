@@ -1,6 +1,3 @@
-/**
- * Created by linxin on 2017/3/11.
- */
 const LocalEvent = function (item) {
     this.get = function () {
         return localStorage.getItem(item) ? JSON.parse(localStorage.getItem(item)) : ''
@@ -13,6 +10,6 @@ const LocalEvent = function (item) {
     }
 }
 
-export const themeLocal = new LocalEvent('lx_theme')
+export const themeLocal = new LocalEvent('theme')
 
-export const fontLocal = new LocalEvent('lx_font')
+export const fontLocal = new LocalEvent('font')
