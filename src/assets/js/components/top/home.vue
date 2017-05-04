@@ -110,6 +110,8 @@ export default{
 
 
 <style lang="sass">
+$inline: inline-block;
+$absolute: absolute;
 .home{
 	height: 100%;
     overflow:hidden;
@@ -118,128 +120,133 @@ export default{
     	margin-top: 15px;
     	overflow:scroll;
     	height: 100%;
-}
-.titleHome{
-	border-bottom: 1px solid #dcdcdc;
-	padding-bottom: 10px;
-	position: relative;
-	margin-bottom: 20px;
-}
-.text{
-	display: inline-block;
-	vertical-align: top;
-	margin-bottom: 10px;
-	width: 80%;
-}
-.homeImg{
-	width: 200px;
-	height: 175px;
-}
-.homeInfo{
-	margin-top: 25px;
-	padding-left: 44px;
-}
-.main{
-	width: 100%;
-	overflow: hidden;
-	height: 721px;
-}
-.leftMain{
-	width: 68%;
-	// min-width: 1200px;
-	background: url(../../../../../public/images/9.png) no-repeat;
-	background-size: 100% 100%;
-	height: 718px;
-	float: left;
-	display: inline-block;
-	position: relative;
-}
-.leftMain div{
-	width: 200px;
-	height: 200px;
-}
-.leftMain h1,.rightMain h1{
-	font-size: 34px;
-	text-align: center;
-}
-.rightMain h1{
-	padding-bottom: 15px;
-}
-.rightMain{
-	width: 26%;
-	float: right;
-	// display: inline-block;
-	padding-top: 170px;
-	min-width: 500x;
-}
-.siderImg{
-	display: inline-block;
-	width: 56px;
-	margin-right: 20px;
-	text-align: center;
-}
-.siderImg img{
-	vertical-align:middle;
-}
-.siderTip{
-	margin: 10px 0;
-	line-height: 55px;
-	height: 55px;
-
-}
-.siderType{
-	display: inline-block;
-	text-align: center;
-	width: 120px;
-	font-size: 16px;
-}
-.chart{
-	width: 60%;
-	float: left;
-}
-.dataRecord{
-	width: 100%;
-	margin-top: 80px;
-	overflow: hidden;
-	padding-bottom: 50px;
-}
-.record{
-	width: 26%;
-	float:right;
-	padding-top: 80px;
-	p{
-		margin:70px 0;
-		font-size: 20px;
+    	.titleHome{
+			border-bottom: 1px solid #dcdcdc;
+			position: relative;
+			margin-bottom: 20px;
+			.text{
+				display: $inline;
+				vertical-align: top;
+				margin-bottom: 10px;
+				width: 80%;
+			}
+			.homeImg{
+				width: 200px;
+				height: 175px;
+			}
+			.homeInfo{
+				margin-top: 25px;
+				padding-left: 44px;
+			}
+		}
+		.main{
+			width: 100%;
+			overflow: hidden;
+			height: 721px;
+			.leftMain{
+				width: 68%;
+				background: url(../../../../../public/images/9.png) no-repeat;
+				background-size: 100% 100%;
+				height: 718px;
+				float: left;
+				display: $inline;
+				position: relative;
+					div{
+						width: 200px;
+						height: 200px;
+					}
+			}
+			.leftMain h1,.rightMain h1{
+				font-size: 34px;
+				text-align: center;
+			}
+			.rightMain h1{
+				padding-bottom: 15px;
+			}
+			.rightMain{
+				width: 26%;
+				float: right;
+				// display: inline-block;
+				padding-top: 170px;
+				min-width: 500x;
+				.siderTip{
+					margin: 10px 0;
+					line-height: 55px;
+					height: 55px;
+					.siderImg{
+						display: $inline;
+						width: 56px;
+						margin-right: 20px;
+						text-align: center;
+						img{
+							vertical-align:middle;
+						}
+					}
+					.siderType{
+						display: $inline;
+						text-align: center;
+						width: 120px;
+						font-size: 16px;
+					}
+				}
+			}
+		}
+		.dataRecord{
+			width: 100%;
+			margin-top: 80px;
+			overflow: hidden;
+			padding-bottom: 50px;
+			.chart{
+				width: 60%;
+				float: left;
+			}	
+			.record{
+				width: 26%;
+				float:right;
+				padding-top: 80px;
+				p{
+					margin:70px 0;
+					font-size: 20px;
+				}
+			}
+		}
+	.coltext{
+		font-size:14px;
+		color: #898989;
+		padding: 20px;
+	}
+	.A{
+		position: $absolute;
+		bottom: 16%;
+		left: 2%;
+		/*border: 1px solid red;*/
+	}
+	.B{
+		position: $absolute;
+		top: 25%;
+		left: 14%;
+		/*border: 1px solid blue;*/
+	}
+	.C{
+		position: $absolute;
+		bottom:38%;
+		left: 43%;
+		// border: 1px solid green;
+	}
+	.D{
+		position: $absolute;
+		bottom: 32%;
+		left: 67%;
+		// border: 1px solid orange;
 	}
 }
-.coltext{
-	font-size:14px;
-	color: #898989;
-	padding: 21px;
-}
-.A{
-	position: absolute;
-	bottom: 16%;
-	left: 2%;
-	/*border: 1px solid red;*/
-}
-.B{
-	position: absolute;
-	top: 25%;
-	left: 14%;
-	/*border: 1px solid blue;*/
-}
-.C{
-	position: absolute;
-	bottom:38%;
-	left: 43%;
-	// border: 1px solid green;
-}
-.D{
-	position: absolute;
-	bottom: 32%;
-	left: 67%;
-	// border: 1px solid orange;
-}
+
+
+
+
+
+
+
+
 }
 </style>

@@ -96,6 +96,7 @@ export default {
 <style lang="sass" scoped>
 
 	.header {
+		width: 100%;
 		height: 66px;
 		overflow: hidden;
 		position: relative;

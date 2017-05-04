@@ -886,12 +886,12 @@ export default {
         }]
     },
     // 生产计划批次信息
-    planProduct: {
+    plantProduct: {
         key: 'planProduct',
         tab: '生产批次管理',
-        theads: ['批次号', '计划日期', '操作类型', '安排人员', '计划内容', '操作日期', '备注'],
-        protos: ['serial', 'date', 'type', 'operate_name', 'content', 'date', 'memo'],
-        url: 'farming',
+        theads: ['操作人员', '生产批次号', '操作类型', '日期', '内容', '备注'],
+        protos: ['operate_name', 'serial', 'type', 'date', 'content', 'memo'],
+        url: 'plan',
         tabList: [{
             tab: '采收批次信息',
             searchPlaceholder: '请输入rfid进行搜索',

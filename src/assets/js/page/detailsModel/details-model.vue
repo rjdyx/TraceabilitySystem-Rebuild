@@ -100,7 +100,7 @@
                         <template>
                             <el-button type="text" size="small" @click="changeEditShow(scope.$index,scope.row)" v-if="tabList[0].hiddeEdit">编辑</el-button>
                             <el-button type="text" size="small" v-if="hiddeWatch">查看</el-button>
-                            <el-button size="small" type="text" @click="handelDel(scope.$index,scope.row)" class="btn">删除</el-button>  
+                            <el-button size="small" type="text" @click="handelDel(scope.$index,scope.row)" class="btn">删除</el-button>
                         </template>
                     </template>
                 </el-table-column>
@@ -580,7 +580,7 @@ export default {
 }
 .detailsModel{
   .pcActive{
-        color: blue;
+        /*color: blue;*/
         text-decoration: underline;
         cursor:pointer;
     }

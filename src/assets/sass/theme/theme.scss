@@ -35,52 +35,73 @@ $small: 14px;
 
 // 字体大小
 @mixin font($size) {
-	.qu_title,.titleQu,.title,.explain,.el-radio__label,.head_right{
+	.qu_title,.titleQu,.title,.explain,.el-radio__label,.head_right,.tab{
 		font-size: $size;
 	}
 }
 
 // 主题
 @mixin theme($bg, $img, $border) {
- .header,.el-tabs__active-bar{
-     background: $bg;
- }
- .head_right{
- 	ul{
- 		li{
+	.header,
+	.el-tabs__active-bar{
+	 	background: $bg;
+	}
+	.head_right{
+		ul{
+			li{
 		border-left: 1px solid $border;
- 	}
+		}
+	}	
 }
- 	
- }
- .titleQu,.enterTo .tab,.el-tabs__item.is-active,.qu_title{
- 	color: $bg;
- }
- .title{
- 	h2{
- 		border-left: 4px solid $bg;
- 	}
- }
- .el-menu--dark .el-submenu .el-menu .el-menu-item:hover{
-	background: $bg;
- }
- .el-menu--dark .el-menu-item:hover, .el-menu--dark .el-submenu__title:hover{
- 	background: $bg;
- }
- .btn_change{
-     background: $bg;
-     border: $bg;
- }
- .btn_change:hover{
- 	color: $border;
- }
- .btn_change:focus{
-	color: $border;
-}
- .changeImg{
- 	background: $img;
- }
+	.el-input__inner:focus,
+	.el-input__inner:hover,
+	.el-checkbox__inner:hover{
+		border-color:$bg;
+	}
 
+	.titleQu,
+	.enterTo,
+	.tab,
+	.pcActive,
+	.el-tabs__item.is-active,
+	.qu_title{
+		color: $bg;
+	}
+	.title{
+		h2{
+			border-left: 4px solid $bg;
+		}
+	}
+	.el-menu--dark .el-submenu .el-menu .el-menu-item:hover{
+		background: $bg;
+	}
+	.el-menu--dark .el-menu-item:hover, 
+	.el-menu--dark .el-submenu__title:hover{
+		background: $bg;
+	}
+	.btn_change,
+	.el-pager li.active{
+	 	background: $bg;
+	 	border: $bg;
+	}
+	.btn_change:hover,
+	.btn_change:focus{
+		color: $border;
+	}
+	.changeImg{
+		background: $img;
+	}
+	.el-radio__input.is-checked .el-radio__inner,
+	.el-checkbox__input.is-checked .el-checkbox__inner{
+		background: $bg;
+		border:$bg;
+	}
+	.el-radio__inner:hover{
+		border-color: $bg;
+	}
+	.el-pager li:hover,.el-button--text{
+		color: $bg;
+	}
 }
 
 //大号字体
