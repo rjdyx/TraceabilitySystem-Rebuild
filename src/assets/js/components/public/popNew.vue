@@ -129,7 +129,9 @@ export default {
         type: '',
         newComponent: {
             type: Array,
-            default: []
+            default () {
+                return []
+            }
         },
         tab: {
             type: ''

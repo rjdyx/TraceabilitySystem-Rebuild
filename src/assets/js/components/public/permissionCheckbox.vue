@@ -6,52 +6,70 @@
  * 
  */
 
+
 <template>
-<div class="newWrap">
-    <div class="">
-        <div class="">
-        <el-form label-width="110px" class="newForm">
-        <i class="el-icon-circle-close" @click="closeClick"></i>
-        <el-tabs>
-            <el-tab-pane label="3232" name="111" >
-            <!-- 主题色切换 -->
-                <el-form-item label="网站皮肤">
-                    <el-radio-group >
-                        <el-radio >清新时尚蓝<span class=""></span></el-radio>
-                    </el-radio-group>
-                </el-form-item>
+<div class="permission">
+    <form class="newForm">
+        <i class="el-icon-circle-close" @click="closeClick" ></i>
+        <!-- tab选项卡 -->
+        <!-- <h4>{{editComponent[0].tab}}</h4> -->
+        <el-tabs v-model="activeName">
+            <el-tab-pane label="权限管理" name="first">
+              <!-- 表单 -->
+            <el-form ref="form" :model="form" label-width="110px" class="demo-editForm">
+                <div class="tr1" >
+                    <el-checkbox v-model="checked" @change="allChange">全选</el-checkbox>
+                    <ul class="ul">
+                        <li><allCheck v-for="(itemList,key) in memuList" :lists="itemList" :name="key" @return-isAllcheck="allChange"></allCheck></li>
+                    </ul>
+                </div>
+                      
+            </el-form>
             </el-tab-pane>
         </el-tabs>
-            <div class="form-footer">
-                <el-button class="btn_change" @click="submitForm">确定</el-button>
-                <el-button class="activecancel" @click="cancelClick">取消</el-button>
-            </div>
-        </el-form>
+        <div class="form-footer">
+            <el-button class="btn_change"  @click="submitForm('editForm')">确定</el-button>
+            <el-button class="activecancel" @click="cancelClick">取消</el-button>
         </div>
-    </div>
+    </form>
 </div>
 </template>
 
 <script>
+import AllCheck from './allCheck.vue'
+import vuexStore from '../../vuex/modules/isAllCheck.js'
 export default {
     name: 'validator-example',
+    store: vuexStore,
     // validator: null,
     components: {
       // ActiveBox,
+        AllCheck
     },
     props: {
-        type: '',
-        permissions: [],
-        tab: {
-            type: ''
-        },
-        url: ''
+        permissions: {
+            type: Object,
+            default () {
+                return {}
+            }
+        }
     },
     data () {
+        let obj = {}
+        this.permissions.protos.forEach(function (item) {
+            obj[item] = false
+        })
         return {
+            activeName: 'first',
+            memu: this.permissions.memu,
+            protos: this.permissions.protos,
+            memuList: this.permissions.memuList,
+            checked: false,
+            allCheckObj: obj
         }
     },
     mounted () {
+        console.log(this.allCheckObj)
         /**
         * 点击表单拖拽事件
         */
@@ -99,31 +117,42 @@ export default {
             var divT = ($(document).outerHeight() - $('.newForm').innerHeight()) / 2
             $('.newForm').css({left: divL, top: divT})
         },
-        handleClick (tab, event) {
-            console.log(tab, event)
-        },
-        // 返回InputTextSelect组件的数据
-        returnShuju (data) {
-            this.tableForm[data.name] = data.value
-        },
         // 关闭表单事件
         closeClick () {
-            this.$parent.changeNewShow()
+            this.$parent.userRole()
         },
         // 取消事件
         cancelClick () {
-            this.$parent.changeNewShow()
+            this.$parent.userRole()
         },
       /**
         * 提交表单
         */
         submitForm (formName) {
+        },
+        allChange (data = []) {
+            // console.log(data)
+            if (data.length) {
+                this.allCheckObj[data[0]] = data[1]
+                console.log(this.allCheckObj)
+                var bol = true
+                for (var key in this.allCheckObj) {
+                    bol = this.allCheckObj[key] && bol
+                }
+                if (bol) {
+                    this.checked = bol
+                } else {
+                    this.checked = bol
+                }
+            } else {
+                this.$store.commit('changeIsAllCheck', this.checked)
+            }
         }
     }
 }
 </script>
 <style lang="sass">
-.newWrap{
+.permission{
   position: fixed;
   width:100%;
   height: 100%;
@@ -152,41 +181,15 @@ export default {
                 // padding:20px 70px;
                 // box-sizing:border-box;
                 width:100%!important;
-                table{
-                    width:100%;
-                    text-align: left;
-                    .tr1{
-                        display:block;
-                        width:70%;
-                        // padding:20px 70px;
-                        // box-sizing:border-box;
-                        margin:0 auto;
-                        >td{
-                            display:block;
-                            width:100%;
-                            .el-select{
-                                display:block;
-                            }
-                            .el-textarea__inner{
-                                resize:none;
-                            }
-                            .el-form-item__label::before{
-                                float: left;
-                            }
-                        }
-                            
+                text-align: left;
+                display:block;
+                .tr1{
+                    width:95%;
+                    margin:0 auto;
+                    .ul{
+                        width:90%;
+                        margin-left:5%;
                     }
-                    .tr2{
-                        display:block;
-                        width:98%;
-                        margin:0 auto;
-                        padding-bottom:20px;
-                        >td{
-                            display:block;
-                            width:100%;
-                        }
-                    }
-                    
                 }
             }
         }
