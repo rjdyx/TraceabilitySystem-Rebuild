@@ -51,7 +51,7 @@
     
         <!-- 新建模块 --> 
         <transition name="fade">
-            <popNew v-if="isNewShow" :newComponent="tabItem.newComponent" :url="apiUrlArr[tabList[0].url]" @submitNew="changeNew"></popNew>
+            <popNew v-if="isNewShow" :newComponent="tabItem.newComponent" :url="apiUrlArr[tabList[0].url]" @submitNew="changeNew" @setTable="getTable"></popNew>
         </transition>
         <!-- 编辑模块 -->
         <transition name="fade">
@@ -521,6 +521,7 @@ export default {
         },
         // 根据下拉框获取表格数据
         getTable (val) {
+            console.log(val)
             if (val[1] !== '' && val[1] !== undefined) {
                 var getSelect = {'getSelect': '444'}
                 var curl = {'curl': this.tabItem.url}

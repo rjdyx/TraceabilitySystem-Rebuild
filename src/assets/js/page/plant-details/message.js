@@ -329,15 +329,30 @@ export default {
             listComponent: [],
             newComponent: [{
                 tab: '新建批次检疫信息',
-                type: 'table',
+                // type: 'table',
+                // labUrl: 'rfid',
+                selectUrl2: [['breeds', 'id', 'serial', true]],
+                selectInit2: [{value: '', label: '养殖批次号选择'}],
+                popNumber2: [0],
                 labUrl: 'rfid',
+                type: 'assoc',
+                assocNum: 1,
                 components: [{
+                    name: 'breed_id',
+                    type: 'select',
+                    component: null,
+                    isNull: false,
+                    label: '养殖批次号',
+                    placeholder: '',
+                    rule: {required: true, trigger: 'blur', type: 'number', message: '请选择养殖批次号'},
+                    options: []
+                },
+                {
                     name: 'name',
                     type: 'table',
-                    labUrl: 'rfid',
-                    theads: ['养殖批次号', 'Rfid', '畜禽名称', '养殖日期'],
+                    theads: ['养殖批次', 'Rfid', '养殖畜禽', '养殖日期'],
                     protos: ['serial', 'rfid', 'beast_name', 'date'],
-                    valueId: 'breed_ids',
+                    valueId: 'rfid_ids',
                     errormsg: '请选择rfid',
                     tableVal: []
                 }]
