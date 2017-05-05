@@ -70,9 +70,13 @@ exports.reInteger = (rule, value, callback, source, options) => {
 }
 // 验证时间
 exports.reDate = (rule, value, callback, source, options) => {
-    if (JSON.stringify(value) === '{}') {
-        callback(new Error(rule.message))
-    } else {
+    if (rule.aa !== undefined) {
         callback()
+    } else {
+        if (JSON.stringify(value) === '{}') {
+            callback(new Error(rule.message))
+        } else {
+            callback()
+        }
     }
 }

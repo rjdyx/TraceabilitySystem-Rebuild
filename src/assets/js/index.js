@@ -22,7 +22,6 @@ require('./config/init')
 
 router.beforeEach((to, from, next) => {
     axios.get('/login/state').then(responce => {
-        console.log(responce.data)
         if (responce.data === false) {
             Vue.Roles = {}
             if (to.path !== '/login') {
