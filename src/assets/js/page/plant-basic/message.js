@@ -8354,7 +8354,6 @@ export default {
                 isNull: false,
                 label: '加工批次号',
                 placeholder: '',
-                disabled: true,
                 rule: {required: true, trigger: 'blur', type: 'number', message: '请选择加工批次号'},
                 options: []
             },
@@ -8365,7 +8364,6 @@ export default {
                 isNull: false,
                 label: '加工产品',
                 placeholder: '',
-                disabled: true,
                 rule: {required: true, trigger: 'blur', type: 'number', message: '请选择加工产品'},
                 options: []
             },
@@ -8376,7 +8374,6 @@ export default {
                 isNull: false,
                 label: '采收批次号',
                 placeholder: '',
-                disabled: true,
                 rule: {required: true, trigger: 'blur', type: 'number', message: '请选择采收批次号'},
                 options: []
             },
@@ -8738,6 +8735,7 @@ export default {
             key: 'driver',
             tab: '驾驶员信息',
             url: 'driver',
+            changeDataArr: [{sex: {0: '男', 1: '女'}}],
             searchPlaceholder: '请输入司机姓名进行搜索',
             theads: ['驾驶员姓名', '性别', '联系电话', '取得驾照日期', '出生日期', '驾照类型(A1、C2...)', '备注信息'],
             protos: ['name', 'sex', 'phone', 'driver', 'birth', 'type', 'memo'],
@@ -8774,31 +8772,48 @@ export default {
                     rule: { required: true, validator: validate2.phone, trigger: 'blur' }
                 },
                 {
-                    name: 'date',
-                    type: 'date',
-                    component: inputDate,
-                    isNull: true,
-                    label: '取得驾照时间',
+                    name: 'sex',
+                    type: 'select',
+                    component: inputSelect,
+                    isNull: false,
+                    label: '性别',
                     placeholder: '',
-                    rule: ''
+                    rule: null,
+                    options: [{
+                        value: 0,
+                        label: '男'
+                    },
+                    {
+                        value: 1,
+                        label: '女'
+                    }]
                 },
                 {
                     name: 'birth',
-                    type: 'text',
-                    component: null,
+                    type: 'date',
+                    component: inputDate,
                     isNull: true,
                     label: '出生年月',
                     placeholder: '',
-                    rule: {validator: validate2.reNumber}
+                    rule: {validator: validate2.reDate, aa: '44'}
                 },
                 {
                     name: 'driver',
                     type: 'text',
                     component: null,
                     isNull: true,
-                    label: '驾照类型',
+                    label: '取得驾照时间',
                     placeholder: '',
                     rule: {validator: validate2.reNumber}
+                },
+                {
+                    name: 'type',
+                    type: 'text',
+                    component: null,
+                    isNull: true,
+                    label: '驾照类型',
+                    placeholder: '',
+                    rule: null
                 },
                 {
                     name: 'memo',
@@ -8831,25 +8846,42 @@ export default {
                     rule: { required: true, validator: validate2.phone, trigger: 'blur' }
                 },
                 {
-                    name: 'date',
-                    type: 'date',
-                    component: inputDate,
-                    isNull: true,
-                    label: '取得驾照时间',
+                    name: 'sex',
+                    type: 'select',
+                    component: inputSelect,
+                    isNull: false,
+                    label: '性别',
                     placeholder: '',
-                    rule: ''
+                    rule: null,
+                    options: [{
+                        value: 0,
+                        label: '男'
+                    },
+                    {
+                        value: 1,
+                        label: '女'
+                    }]
                 },
                 {
-                    name: 'date',
+                    name: 'birth',
                     type: 'date',
                     component: inputDate,
                     isNull: true,
-                    label: '出生日期',
+                    label: '出生年月',
                     placeholder: '',
-                    rule: ''
+                    rule: {validator: validate2.reDate, aa: '44'}
                 },
                 {
                     name: 'driver',
+                    type: 'text',
+                    component: null,
+                    isNull: true,
+                    label: '取得驾照时间',
+                    placeholder: '',
+                    rule: {validator: validate2.reNumber}
+                },
+                {
+                    name: 'type',
                     type: 'text',
                     component: null,
                     isNull: true,
@@ -8911,8 +8943,9 @@ export default {
         }],
         newComponent: [{
             tab: '新建物流批次信息',
-            selectUrl2: ['operates', 'id', 'name', true],
-            popNumber2: 2,
+            selectUrl2: [['operates', 'id', 'name', true]],
+            selectInit2: [{value: '', label: '操作人员选择'}],
+            popNumber2: [4],
             components: [{
                 name: 'datetime',
                 type: 'date',
@@ -8965,21 +8998,14 @@ export default {
                 }]
             },
             {
-                name: 'operate',
+                name: 'operate_id',
                 type: 'select',
                 component: null,
-                isNull: true,
-                label: '操作人员',
-                rule: {required: true},
+                isNull: false,
+                label: '物流人员',
+                placeholder: '',
+                rule: {required: true, trigger: 'blur', type: 'number', message: '请选择物流人员'},
                 options: []
-            },
-            {
-                name: 'number',
-                type: 'text',
-                component: null,
-                isNull: true,
-                label: '物流状态',
-                rule: null
             },
             {
                 name: 'memo',
