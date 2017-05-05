@@ -8,6 +8,7 @@ import addRfidBtn from '../../components/public/addRfidBtn.vue'
 import inputFile from '../../components/public/inputFile.vue'
 import inputDate from '../../components/public/inputDate.vue'
 import validate2 from '../../utils/validate2.js'
+import Qrcode from '../../components/public/Qrcode.vue'
 
 export default {
     // 养殖批次详情
@@ -452,14 +453,13 @@ export default {
     slaughterBatch: {
         key: 'slaughterBatch',
         tab: '畜禽出栏管理',
-        theads: ['出栏批次号', '出栏日期', '出栏数量', '操作人员', '状态', '备注'],
-        protos: ['serial', 'date', 'amount', 'operate_name', 'state', 'memo'],
+        theads: ['出栏批次号', '出栏日期', '出栏数量', '操作人员', '备注'],
+        protos: ['serial', 'date', 'amount', 'operate_name', 'memo'],
         url: 'come',
         tabList: [{
             url: 'come-rfid',
             tab: '畜禽RFID',
             searchPlaceholder: '请输入rfid进行搜索',
-            // typeComponent: [{component: output}, {component: addRfidBtn}],
             typeComponent: [{component: newbuildBtn}],
             headList: ['圈舍', '养殖批次', 'Rfid', '养殖畜禽', '养殖日期'],
             protos: ['area_name', 'serial', 'rfid', 'beast_name', 'date'],
@@ -467,15 +467,29 @@ export default {
             hiddeEdit: false,
             listComponent: [],
             newComponent: [{
-                tab: '新建出栏关联信息',
-                type: 'table',
+                tab: '新建出栏批次rfid信息',
+                selectUrl2: [['breeds', 'id', 'serial', true]],
+                selectInit2: [{value: '', label: '养殖批次号选择'}],
+                popNumber2: [0],
                 labUrl: 'rfid',
+                type: 'assoc',
+                assocNum: 1,
                 components: [{
+                    name: 'breed_id',
+                    type: 'select',
+                    component: null,
+                    isNull: false,
+                    label: '养殖批次号',
+                    placeholder: '',
+                    rule: {required: true, trigger: 'blur', type: 'number', message: '请选择养殖批次号'},
+                    options: []
+                },
+                {
                     name: 'name',
                     type: 'table',
                     theads: ['养殖批次', 'Rfid', '养殖畜禽', '养殖日期'],
                     protos: ['serial', 'rfid', 'beast_name', 'date'],
-                    valueId: 'breed_ids',
+                    valueId: 'rfid_ids',
                     errormsg: '请选择rfid',
                     tableVal: []
                 }]
@@ -522,6 +536,7 @@ export default {
         tab: '加工批次管理',
         theads: ['加工批次号', '加工日期', '数量', '产地', '加工人', '备注'],
         protos: ['serial', 'date', 'amount', 'origin', 'operate_name', 'memo'],
+        batch: 'beastPackProduct',
         url: 'pack',
         tabList: [{
             url: 'pack-product',
@@ -552,34 +567,214 @@ export default {
             }]
         }]
     },
-    // 屠宰加工批次详情
+    // 屠宰加工产品信息
+    beastPackProduct: {
+        key: 'beastPackProduct',
+        tab: '生产加工产品管理',
+        theads: ['产品名称', '执行标准', '商品型号', '包装规格', '保质期', '存储方法'],
+        protos: ['name', 'enforce_standard', 'marque', 'specification', 'expiration_date', 'storage_means'],
+        url: '{x}/pack-product',
+        tabList: [{
+            url: 'pack-product-rfid',
+            tab: '加工产品溯源码信息',
+            searchPlaceholder: '请输入溯源码进行搜索',
+            headList: ['产品溯源码', 'rfid', '生产日期', '溯源次数', '备注'],
+            protos: ['code', 'rfid', 'date', 'time', 'memo'],
+            widths: [50, 50, 50, 50, 50],
+            hiddeEdit: true,
+            typeComponent: [{
+                component: newbuildBtn
+            }],
+            moreComponent: [{
+                value: '打印'
+            }],
+            listComponent: [{
+                components: [{
+                    type: 'date',
+                    component: datePick
+                }]
+            }],
+            newComponent: [{
+                tab: '新建溯源码信息',
+                hiddenValue: {type: 'beast'},
+                selectUrl2: [['comes', 'id', 'serial', true]],
+                selectInit2: [{value: '', label: '出栏批次号选择'}],
+                popNumber2: [1],
+                labUrl: 'come-rfid',
+                type: 'assoc',
+                assocNum: 4,
+                components: [{
+                    name: 'date',
+                    type: 'date',
+                    component: inputDate,
+                    isNull: false,
+                    label: '生产日期',
+                    placeholder: '',
+                    rule: [{required: true, message: '请输入生产日期'}, {validator: validate2.reDate, message: '请输入生产日期'}]
+                },
+                {
+                    name: 'come_id',
+                    type: 'select',
+                    component: null,
+                    isNull: false,
+                    label: '出栏批次号',
+                    placeholder: '',
+                    rule: {required: true, trigger: 'blur', message: '请选择出栏批次', type: 'number'},
+                    options: []
+                },
+                {
+                    name: 'amount',
+                    type: 'text',
+                    component: null,
+                    isNull: false,
+                    label: '溯源码数量',
+                    placeholder: '请输入溯源码数量（整数）',
+                    rule: [{required: true, message: '请输入溯源码数量', trigger: 'blur'}, {validator: validate2.reInteger}]
+                },
+                {
+                    name: 'memo',
+                    type: 'textarea',
+                    component: null,
+                    isNull: true,
+                    label: '备注信息',
+                    placeholder: '',
+                    rule: null
+                },
+                {
+                    name: 'name',
+                    type: 'table',
+                    theads: ['出栏批次', 'Rfid', '养殖畜禽', '养殖日期'],
+                    protos: ['come_serial', 'rfid', 'beast_name', 'date'],
+                    valueId: 'rfid_ids',
+                    errormsg: '请选择rfid',
+                    tableVal: []
+                }]
+            }],
+            editComponent: [{
+                tab: '编辑溯源码信息',
+                components: [{
+                    name: 'code',
+                    type: 'text',
+                    component: null,
+                    isNull: false,
+                    label: '产品溯源码',
+                    placeholder: '',
+                    disabled: true,
+                    rule: {required: true}
+                },
+                {
+                    name: 'rfid',
+                    type: 'text',
+                    component: null,
+                    isNull: false,
+                    label: 'rfid',
+                    placeholder: '',
+                    disabled: true,
+                    rule: {required: true}
+                },
+                {
+                    name: 'date',
+                    type: 'date',
+                    component: inputDate,
+                    isNull: false,
+                    label: '生产日期',
+                    placeholder: '',
+                    rule: [{required: true, message: '请输入生产日期'}, {validator: validate2.reDate, message: '请输入生产日期'}]
+                },
+                {
+                    name: 'memo',
+                    type: 'textarea',
+                    component: null,
+                    isNull: true,
+                    label: '备注信息',
+                    placeholder: '',
+                    rule: null
+                }]
+            }],
+            printComponent: [{
+                tab: '打印溯源码信息',
+                components: [{
+                    name: 'product_name',
+                    type: 'text',
+                    component: null,
+                    isNull: false,
+                    label: '产品名称',
+                    placeholder: '',
+                    disabled: true,
+                    rule: {required: true}
+                },
+                {
+                    name: 'specification',
+                    type: 'text',
+                    component: null,
+                    isNull: false,
+                    label: '产品规格',
+                    placeholder: '',
+                    disabled: true,
+                    rule: {required: true}
+                },
+                {
+                    name: 'date',
+                    type: 'text',
+                    component: null,
+                    isNull: false,
+                    label: '生产日期',
+                    placeholder: '',
+                    disabled: true,
+                    rule: {required: true}
+                },
+                {
+                    name: 'origin',
+                    type: 'text',
+                    component: null,
+                    isNull: false,
+                    label: '产地',
+                    placeholder: '',
+                    disabled: true,
+                    rule: {required: true}
+                },
+                {
+                    name: 'code',
+                    component: Qrcode,
+                    isNull: false,
+                    label: '产品二维码',
+                    placeholder: '',
+                    rule: null
+                }]
+            }]
+        }]
+    },
+    // 屠宰加工检测详情
     beastDetectPkBatch: {
         key: 'beastDetectPkBatch',
         tab: '加工检测批次管理',
-        theads: ['检测批次号', '检测日期', '检测项目名称', '专家', '操作人员', '检测内容', '检测结果', '审批人', '检测报告图片', '备注'],
-        protos: ['serial', 'date', 'name', 'expert_name', 'operate_name', 'content', 'result', 'check', 'img', 'memo'],
+        theads: ['检测批次号', '检测名称', '检测内容', '检测日期', '检测结果', '检测机构', '负责人', '处理方法'],
+        protos: ['serial', 'name', 'content', 'date', 'result', 'organization', 'operate_name', 'method'],
+        changeDataArr: [{result: {'不合格': 0, '合格': 1}}],
         url: 'detect_pk',
         tabList: [{
-            url: 'detect-pk',
+            url: 'pack-detect-pk',
             tab: '加工批次信息',
             searchPlaceholder: '请输入产品名称进行搜索',
-            headList: ['加工批次', '加工日期', '操作人'],
-            protos: ['serial', 'date', 'operate_name'],
-            widths: [50, 50, 50],
+            headList: ['加工批次号', '加工日期', '数量', '产地', '操作人', '备注'],
+            protos: ['serial', 'date', 'amount', 'origin', 'operate_name', 'memo'],
+            widths: [50, 50, 50, 50, 50, 50],
             hiddeEdit: false,
             typeComponent: [{
                 component: newbuildBtn
             }],
             listComponent: [],
             newComponent: [{
-                tab: '新建加工产品信息',
+                tab: '新建加工批次检测信息',
                 type: 'table',
                 labUrl: 'pack',
+                assocNum: 0,
+                paramsIndex: 'beast',
                 components: [{
                     name: 'name',
                     type: 'table',
-                    theads: ['加工批次', '加工日期'],
-                    protos: ['serial', 'date'],
+                    theads: ['加工批次号', '加工日期', '产地'],
+                    protos: ['serial', 'date', 'origin'],
                     valueId: 'pack_ids',
                     errormsg: '请选择加工批次',
                     tableVal: []
@@ -879,38 +1074,6 @@ export default {
             }]
         }]
     },
-    // 采收批次号
-    cultivateBatch: {
-        key: 'cultivateBatch',
-        tab: '采收批次管理',
-        theads: ['采收批次号', '种植批次号', '种植区名称', '采收日期', '采收数量', '种植日期', '果蔬名称', '采收人', '种植面积', '养殖备注'],
-        protos: [],
-        tabList: [{
-            tab: '采收批次信息',
-            searchPlaceholder: '请输入rfid进行搜索',
-            listComponent: [{
-                components: [
-                    {
-                        type: 'select',
-                        components: selectSection,
-                        options: [
-                            {
-                            }
-                        ]
-                    },
-                    {
-                        type: 'date',
-                        component: datePick
-                    }
-                ]
-            }],
-            typeComponent: [{component: output}, {component: newbuildBtn}],
-            headList: ['检测方式', '检测日期', '检测机构', '检测项目名称', '检测人', '检测结果', '证书编号', '有效期', '备注信息'],
-            protos: ['ear', 'name', 'date', 'memo'],
-            widths: [50, 50, 50],
-            bottomOperateList: [{operateName: '删除'}, {operateName: '导出表格'}]
-        }]
-    },
     // 生产计划批次信息
     plantProduct: {
         key: 'planProduct',
@@ -991,7 +1154,7 @@ export default {
         protos: ['name', 'enforce_standard', 'marque', 'specification', 'expiration_date', 'storage_means'],
         url: '{x}/pack-product',
         tabList: [{
-            url: 'pack-product-code',
+            url: 'pack-product-harvest',
             tab: '加工产品溯源码信息',
             searchPlaceholder: '请输入溯源码进行搜索',
             headList: ['产品溯源码', '生产日期', '溯源次数', '备注'],
@@ -1000,6 +1163,9 @@ export default {
             hiddeEdit: true,
             typeComponent: [{
                 component: newbuildBtn
+            }],
+            moreComponent: [{
+                value: '打印'
             }],
             listComponent: [{
                 components: [{
@@ -1081,6 +1247,57 @@ export default {
                     placeholder: '',
                     rule: null
                 }]
+            }],
+            printComponent: [{
+                tab: '打印溯源码信息',
+                components: [{
+                    name: 'product_name',
+                    type: 'text',
+                    component: null,
+                    isNull: false,
+                    label: '产品名称',
+                    placeholder: '',
+                    disabled: true,
+                    rule: {required: true}
+                },
+                {
+                    name: 'specification',
+                    type: 'text',
+                    component: null,
+                    isNull: false,
+                    label: '产品规格',
+                    placeholder: '',
+                    disabled: true,
+                    rule: {required: true}
+                },
+                {
+                    name: 'date',
+                    type: 'text',
+                    component: null,
+                    isNull: false,
+                    label: '生产日期',
+                    placeholder: '',
+                    disabled: true,
+                    rule: {required: true}
+                },
+                {
+                    name: 'origin',
+                    type: 'text',
+                    component: null,
+                    isNull: false,
+                    label: '产地',
+                    placeholder: '',
+                    disabled: true,
+                    rule: {required: true}
+                },
+                {
+                    name: 'code',
+                    component: Qrcode,
+                    isNull: false,
+                    label: '产品二维码',
+                    placeholder: '',
+                    rule: null
+                }]
             }]
         }]
     },
@@ -1114,6 +1331,7 @@ export default {
                 tab: '新建加工批次检测信息',
                 type: 'table',
                 labUrl: 'pack',
+                assocNum: 0,
                 paramsIndex: 'plant',
                 components: [{
                     name: 'name',
