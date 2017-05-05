@@ -12,10 +12,10 @@
 </template>
 
 <script>
-import vuexStore from '../../vuex/modules/isNew.js'
+// import vuexStore from '../../vuex/modules/isNew.js'
 export default {
     name: 'NewBuild',
-    store: vuexStore,
+    // store: vuexStore,
     data () {
         return {
             count: 0

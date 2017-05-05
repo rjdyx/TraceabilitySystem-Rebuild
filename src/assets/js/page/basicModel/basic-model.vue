@@ -157,6 +157,7 @@ import clickMore from '../../components/public/clickMore.vue'
 import lotOpearte from '../../components/public/lotOpearte.vue'
 import printf from '../../components/public/printf.vue'
 import permissionCheckbox from '../../components/public/permissionCheckbox.vue'
+import company from '../../page/plant-basic/company.js'
 export default {
     name: 'BasicModel',
     props: {
@@ -250,7 +251,8 @@ export default {
             // 新增编辑下拉框数据
             selectNewEdit: [],
             // 批次号
-            isPcActive: true
+            isPcActive: true,
+            permissions: company
         }
     },
     mixins: [computed],
@@ -582,7 +584,7 @@ export default {
         },
         // 点击删除
         userRole (row, index) {
-            console.log(row)
+            this.isPermissionShow = !this.isPermissionShow
         },
         // 获取关联下拉框
         getAssoc (val) {

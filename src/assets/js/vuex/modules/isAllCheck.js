@@ -5,11 +5,18 @@ import Vuex from 'vuex'
 const store = new Vuex.Store({
     state: {
         // isNewShow: false
-        name: ''
+        isAllCheck: false
     },
     getters: {
+        getIsAllCheck: (state) => {
+            return state.isAllCheck
+        }
     },
     mutations: {
+        changeIsAllCheck (state, bol) {
+            state.isAllCheck = bol
+            console.log(state.isAllCheck)
+        }
     },
     actions: {
     }
