@@ -62,22 +62,24 @@
                     <!-- 表格  -->
                     <tr class="tr2" v-else-if="subItem.type=='table'">
                         <td>
-                            <el-table :data="subItem.tableVal" class="table2"  @selection-change="handleSelectionChange">
-                                <!-- checkbox -->
-                                <el-table-column width="50" type="selection">
-                                </el-table-column> 
-                                <el-table-column width="60" label="序号" type="index" id="test_id">
-                                </el-table-column>
-                                <template v-for="(item,index) in subItem.theads"> 
-                                    <template>
-                                        <el-table-column 
-                                            :label="item" 
-                                            :prop="subItem.protos[index]"
-                                            show-overflow-tooltip>
-                                        </el-table-column>
+                            <el-form-item :label="subItem.label" :prop="subItem.name" style="margin-left:-110px">
+                                <el-table :data="subItem.tableVal" class="table2"  @selection-change="handleSelectionChange">
+                                    <!-- checkbox -->
+                                    <el-table-column width="50" type="selection">
+                                    </el-table-column> 
+                                    <el-table-column width="60" label="序号" type="index" id="test_id">
+                                    </el-table-column>
+                                    <template v-for="(item,index) in subItem.theads"> 
+                                        <template>
+                                            <el-table-column 
+                                                :label="item" 
+                                                :prop="subItem.protos[index]"
+                                                show-overflow-tooltip>
+                                            </el-table-column>
+                                        </template>
                                     </template>
-                                </template>
-                            </el-table>
+                                </el-table>
+                            </el-form-item>
                         </td>
                     </tr>
                      <!-- 传组件 -->
@@ -247,41 +249,42 @@ export default {
         * 提交表单
         */
         submitForm (formName) {
-            if (this.newComponent[0].type === 'table' || this.newComponent[0].type === 'assoc') {
-                if (this.ids.length !== 0) {
-                    this.$dataPost(this, this.url, this.tableForm, false, false, false)
-                        .then((response) => {
-                            this.$emit('submitNew', response.data)
-                        })
-                } else {
-                    this.$message(this.newComponent[0].components[this.newComponent[0].assocNum].errormsg)
-                }
-            } else {
-                this.$refs[formName][0].validate((valid) => {
-                    if (valid) {
+            this.$refs[formName][0].validate((valid) => {
+                if (valid) {
+                    if (this.newComponent[0].type === 'table' || this.newComponent[0].type === 'assoc') {
+                        if (this.ids.length !== 0) {
+                            this.$dataPost(this, this.url, this.tableForm, false, false, false)
+                                .then((response) => {
+                                    this.$emit('submitNew', response.data)
+                                })
+                        } else {
+                            this.$message(this.newComponent[0].components[this.newComponent[0].assocNum].errormsg)
+                        }
+                    } else {
                         this.$dataPost(this, this.url, this.tableForm, this.newComponent[0].hasImg, this.newComponent[0].hiddenValue, false).then((response) => {
                             this.$emit('submitNew', response.data)
                         })
-                    } else {
-                        return false
                     }
-                })
-            }
+                } else {
+                    return false
+                }
+            })
         },
         // 选择框
         handleSelectionChange (val) {
+            console.log(val)
             let ids = []
             for (let key in val) {
                 ids.push(val[key].id)
             }
-            this.tableForm[this.newComponent[0].components[0].valueId] = ids
+            this.tableForm[this.newComponent[0].components[this.newComponent[0].assocNum].valueId] = ids
             this.ids = ids
         },
         // 选择框关联
         getSelectId (assoc, name, val) {
             if (assoc !== undefined) {
                 this.$emit('setAssoc', [assoc, name, val])
-            } else if (name === 'breed_id') {
+            } else if (name === 'breed_id' || name === 'come_id') {
                 this.$emit('setTable', [name, val])
             }
         }

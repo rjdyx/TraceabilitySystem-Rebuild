@@ -8,14 +8,14 @@ const store = new Vuex.Store({
         isAllCheck: false
     },
     getters: {
-        getIsAllCheck: (state) => {
+        isAllCheck: (state) => {
             return state.isAllCheck
         }
     },
     mutations: {
         changeIsAllCheck (state, bol) {
             state.isAllCheck = bol
-            console.log(state.isAllCheck)
+            console.log('2--vuex--isAllCheck' + state.isAllCheck)
         }
     },
     actions: {

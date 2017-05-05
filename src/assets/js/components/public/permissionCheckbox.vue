@@ -18,7 +18,7 @@
               <!-- 表单 -->
             <el-form ref="form" :model="form" label-width="110px" class="demo-editForm">
                 <div class="tr1" >
-                    <el-checkbox v-model="checked" @change="allChange">全选</el-checkbox>
+                    <!-- <el-checkbox v-model="checked" @change="allChange">全选</el-checkbox> -->
                     <ul class="ul">
                         <li><allCheck v-for="(itemList,key) in memuList" :checkeds="checkeds" :lists="itemList" :name="key" @return-isAllcheck="allChange" @return-checked="allChecked"></allCheck></li>
                     </ul>
@@ -68,7 +68,7 @@ export default {
             checked: false,
             allCheckObj: obj,
             checkeds: {},
-            newForm: []
+            newForm: {}
         }
     },
     mounted () {
@@ -76,19 +76,23 @@ export default {
         axios.get('api/permission/select')
             .then((responce) => {
                 this.memuList = responce.data
+                console.log(this)
+                for (var key in this.memuList) {
+                    this.newForm[key] = []
+                }
             })
         // 默认选中数据
         axios.get('api/permission/select' + '?company_id=' + this.companyId)
             .then((responce) => {
                 this.checkeds = responce.data
-                console.log(responce.data)
+                console.log(this.checkeds)
             })
         /**
         * 点击表单拖拽事件
         */
         var _this = this
         this.resizeFn()
-        $('.newWrap').find($('.el-tabs__header')).on('mousedown', (e) => {
+        $('.permission').find($('.el-tabs__header')).on('mousedown', (e) => {
             // console.log('mousedown')
             // 鼠标与newForm块的距离
             this.dmL = e.clientX - $('.newForm').position().left
@@ -120,8 +124,8 @@ export default {
             // $(document).off('mouseup')
             // console.log('mouseup')
         })
-        $(window).on('resize', function () {
-            _this.resizeFn()
+        $(window).on('resize', () => {
+            this.resizeFn()
         })
     },
     methods: {
@@ -142,27 +146,30 @@ export default {
         * 提交表单
         */
         submitForm (formName) {
-            console.log(this.newForm)
+            let allIdArr = []
+            for (let key in this.newForm) {
+                this.newForm[key].forEach(function (item) {
+                    allIdArr.push(item)
+                })
+            }
+            console.log(allIdArr)
         },
-        allChecked (id = '') {
-            console.log(id)
+        allChecked (data) {
+            this.newForm[data[0]] = data[1]
         },
         allChange (data = []) {
-            // console.log(data)
             if (data.length) {
                 this.allCheckObj[data[0]] = data[1]
-                // console.log(this.allCheckObj)
                 var bol = true
-                for (var key in this.allCheckObj) {
+                for (let key in this.allCheckObj) {
                     bol = this.allCheckObj[key] && bol
                 }
-                if (bol) {
-                    this.checked = bol
-                } else {
-                    this.checked = bol
-                }
+                this.checked = bol
             } else {
                 this.$store.commit('changeIsAllCheck', this.checked)
+                for (let key in this.allCheckObj) {
+                    this.allCheckObj[key] = this.checked
+                }
             }
         }
     }
@@ -177,8 +184,6 @@ export default {
   top:0;
   left:0;
   z-index:3;
-  // text-align:center;
-  // overflow:hidden;
   .newForm{
     width:618px;
     max-width:618px;
@@ -195,8 +200,6 @@ export default {
             height:88%;
             overflow:auto;
             .el-tab-pane{
-                // padding:20px 70px;
-                // box-sizing:border-box;
                 width:100%!important;
                 text-align: left;
                 display:block;

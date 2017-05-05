@@ -58,6 +58,10 @@
             <popEdit v-if="isEditShow" :editComponent="tabItem.editComponent" :url="apiUrlArr[tabList[0].url]" :editForm="editForm"
                  @submitEdit="hangeEdit" :changeDataArr="changeDataArr" :editDefault="editDefault"></popEdit>
         </transition>
+        <!-- 打印模块 -->
+        <transition name="fade">
+            <printf v-if="isPrintShow" :printComponent="tabItem.printComponent" :url="url" :printForm="printForm"></printf>
+        </transition>
         <!-- 权限模块 -->
         <transition name="fade">
             <permissionCheckbox v-if="isPermissionShow" :permissions="permissions"></permissionCheckbox>
@@ -101,6 +105,10 @@
                 <el-table-column 
                 label="操作" v-if="checkOperate==null">
                     <template scope="scope" class="operateBtn">
+                        <template v-if="tabItem.moreComponent!=null">
+                            <clickMore :moreComponent="tabItem.moreComponent" 
+                            @showMore="moreShow(scope.$index,scope.row)" class="clickMoreBtn"></clickMore>
+                        </template>
                         <template>
                             <el-button type="text" size="small" @click="changeEditShow(scope.$index,scope.row)" v-if="tabList[0].hiddeEdit">编辑</el-button>
                             <el-button type="text" size="small" v-if="hiddeWatch">查看</el-button>
@@ -146,6 +154,7 @@ import operate from '../../components/public/operate.vue'
 import clickMore from '../../components/public/clickMore.vue'
 import lotOpearte from '../../components/public/lotOpearte.vue'
 import newMessage from '../plant-details/newMessage.js'
+import printf from '../../components/public/printf.vue'
 import permissionCheckbox from '../../components/public/permissionCheckbox.vue'
 export default {
     name: 'BasicModel',
@@ -174,6 +183,7 @@ export default {
             headData: {},
             isNewShow: false,
             isEditShow: false,
+            isPrintShow: false,
             isPermissionShow: false,
             tabItem: {},
             // 列表数据
@@ -538,7 +548,6 @@ export default {
         },
         // 根据下拉框获取表格数据
         getTable (val) {
-            console.log(val)
             if (val[1] !== '' && val[1] !== undefined) {
                 var getSelect = {'getSelect': '444'}
                 var curl = {'curl': this.tabItem.url}
@@ -555,6 +564,10 @@ export default {
             } else {
                 this.$set(this.tabItem.newComponent[0].components[this.tabItem.newComponent[0].assocNum], 'tableVal', [])
             }
+        },
+        moreShow (index, row) {
+            this.isPrintShow = !this.isPrintShow
+            this.printForm = row
         },
         permissionShow (index, row) {
             this.isPermissionShow = true
@@ -591,7 +604,8 @@ export default {
         operate,
         clickMore,
         lotOpearte,
-        permissionCheckbox
+        permissionCheckbox,
+        printf
     }
 }
 </script>
@@ -651,6 +665,9 @@ export default {
 .searchOp{
         display:inline;
      }
+.clickMoreBtn {
+  display: inline-block;
+}
  .footer{
       width: 100%;
       height: 50px;
