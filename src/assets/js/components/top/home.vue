@@ -12,11 +12,11 @@
 			</contain-title>
 			<div class="titleHome">
 				<span :class="{'picture': isClass}">
-					<img src="/public/images/home.jpg" class="homeImg" />
+					<img src="listV.logo" class="homeImg" />
 				</span>
 				<el-row :gutter="20" class="text homeInfo">
-					<el-col :span='12' v-for="(item,index) in list" class="coltext">
-						{{item}}
+					<el-col :span='12' v-for="(item,index) in listN" class="coltext">
+						{{item}} {{listV[index]}}
 					</el-col>
 				</el-row>
 			</div>
@@ -24,8 +24,8 @@
 			<div class="main">
 				<div class="leftMain">
 					<template v-for="(area,index) in areas">
-						<div :class="{'A': area.isA, 'B': area.isB, 'C': area.isC, 'D': area.isD}">
-							<h1>{{area.title}}</h1>
+						<div :class="style[index]">
+							<h1>{{area.name}}</h1>
 							<el-row :gutter="20">
 								<el-col :span="8"></el-col>
 							</el-row>
@@ -65,15 +65,18 @@ export default{
     name: 'home',
     data () {
         return {
-            areas: [
-                {title: 'B区', isA: true, isB: false, isC: false, isD: false},
-                {title: 'A区', isA: false, isB: true, isC: false, isD: false},
-                {title: 'C区', isA: false, isB: false, isC: true, isD: false},
-                {title: 'D区', isA: false, isB: false, isC: false, isD: true}
+            areas: {},
+            style: [
+                {'A': true, 'B': false, 'C': false, 'D': false},
+                {'A': false, 'B': true, 'C': false, 'D': false},
+                {'A': false, 'B': false, 'C': true, 'D': false},
+                {'A': false, 'B': false, 'C': false, 'D': true}
             ],
             settitle: '首页',
             isClass: false,
-            list: ['所属公司:', '用户名:', '登录时间:', '用户类型:'],
+            listN: {'company_name': '所属公司:', 'name': '用户名:', 'date': '登录时间:', 'type': '用户类型:'},
+            listV: {},
+            state: '',
             siderTip: [
                 {
                     src: '/public/images/fertilize-home.png',
@@ -101,6 +104,26 @@ export default{
     components: {
         ContainTitle,
         chart
+    },
+    mounted () {
+        // axios.get('api/index/state')
+        //     .then((responce) => {
+        //         this.state = responce.data
+        //     })
+        axios.get('api/index')
+            .then((responce) => {
+                this.listV = responce.data
+                this.listV.date = '2017-05-01 16:23:21'
+            })
+        axios.get('api/index/district')
+            .then((responce) => {
+                var arr = []
+                for (var key in responce.data) {
+                    arr[key] = responce.data[key]
+                }
+                this.areas = arr.data
+                // console.log(arr.data)
+            })
     }
 }
 
@@ -152,13 +175,14 @@ $absolute: absolute;
 				display: $inline;
 				position: relative;
 					div{
-						width: 200px;
+						width: 260px;
 						height: 200px;
 					}
 			}
 			.leftMain h1,.rightMain h1{
-				font-size: 34px;
+				font-size: 22px;
 				text-align: center;
+				display:block;white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
 			}
 			.rightMain h1{
 				padding-bottom: 15px;
@@ -224,19 +248,19 @@ $absolute: absolute;
 	.B{
 		position: $absolute;
 		top: 25%;
-		left: 14%;
+		left: 11%;
 		/*border: 1px solid blue;*/
 	}
 	.C{
 		position: $absolute;
 		bottom:38%;
-		left: 43%;
+		left: 41%;
 		// border: 1px solid green;
 	}
 	.D{
 		position: $absolute;
-		bottom: 32%;
-		left: 67%;
+		bottom: 30%;
+		left: 68%;
 		// border: 1px solid orange;
 	}
 }
