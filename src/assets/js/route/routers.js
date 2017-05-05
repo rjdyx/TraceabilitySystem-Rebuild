@@ -72,11 +72,11 @@ const company = resolve => {
     }, 'company')
 }
 var routes = [
-    // {
-    //     path: '/index',
-    //     component: index,
-    //     meta: { auth: true }
-    // },
+    {
+        path: '/',
+        name: 'index',
+        component: index
+    },
     {
         path: '/index',
         component: index,
