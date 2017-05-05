@@ -46,7 +46,7 @@
 
         <!-- 新建模块 --> 
         <transition name="fade">
-            <popNew v-if="isNewShow" :newComponent="newComponent" :url="url" @submitNew="changeNew" @setAssoc="getAssoc"></popNew>
+            <popNew v-if="isNewShow" :newComponent="newComponent" :url="url" @submitNew="changeNew" @setAssoc="getAssoc" @setTable="getTable"></popNew>
         </transition>
         <!-- 编辑模块 -->
         <transition name="fade">
@@ -343,7 +343,10 @@ export default {
             if (this.newComponent[0].selectUrl2) {
                 for (let key in this.newComponent[0].selectUrl2) {
                     let newArr = this.$addAndEditSelectMethod(this.newComponent[0].selectUrl2[key])
-                    this.$dataGet(this, '/util/selects', {table: newArr.selectUrl})
+                    if (this.newComponent[0].selectAvl2[key] !== undefined) {
+                        var type = this.newComponent[0].selectAvl2[key]
+                    }
+                    this.$dataGet(this, '/util/selects', {table: newArr.selectUrl, type: type})
                         .then((responce) => {
                             if (responce.data.length !== 0) {
                                 this.selectNewEdit[key] = []
@@ -581,6 +584,22 @@ export default {
                         }
                     }
                 })
+        },
+        // 根据下拉框获取表格数据
+        getTable (val) {
+            if (val[1] !== '' && val[1] !== undefined) {
+                var getSelect = {'getSelect': '444'}
+                var curl = {'curl': this.newComponent[0].curl}
+                var routeId = {'routeId': this.newComponent[0].labUrl}
+                var opqcurl = {'opqcurl': this.newComponent[0].opqcurl}
+                let surl = val[1] + '/' + this.newComponent[0].labUrl
+                this.$dataGet(this, surl, {getSelect, curl, routeId, opqcurl})
+                    .then((responce) => {
+                        this.$set(this.newComponent[0].components[this.newComponent[0].assocNum], 'tableVal', responce.data)
+                    })
+            } else {
+                this.$set(this.newComponent[0].components[this.newComponent[0].assocNum], 'tableVal', [])
+            }
         },
         // 点击删除
         userRole (row, index) {
