@@ -68,7 +68,7 @@ export default {
             checked: false,
             allCheckObj: obj,
             checkeds: {},
-            newForm: []
+            newForm: {}
         }
     },
     mounted () {
@@ -76,12 +76,16 @@ export default {
         axios.get('api/permission/select')
             .then((responce) => {
                 this.memuList = responce.data
+                console.log(this)
+                for (var key in this.memuList) {
+                    this.newForm[key] = []
+                }
             })
         // 默认选中数据
         axios.get('api/permission/select' + '?company_id=' + this.companyId)
             .then((responce) => {
                 this.checkeds = responce.data
-                console.log(responce.data)
+                console.log(this.checkeds)
             })
         /**
         * 点击表单拖拽事件
@@ -120,8 +124,8 @@ export default {
             // $(document).off('mouseup')
             // console.log('mouseup')
         })
-        $(window).on('resize', function () {
-            _this.resizeFn()
+        $(window).on('resize', () => {
+            this.resizeFn()
         })
     },
     methods: {
@@ -142,13 +146,18 @@ export default {
         * 提交表单
         */
         submitForm (formName) {
-            console.log(this.newForm)
+            let allIdArr = []
+            for (let key in this.newForm) {
+                this.newForm[key].forEach(function (item) {
+                    allIdArr.push(item)
+                })
+            }
+            console.log(allIdArr)
         },
-        allChecked (id = '') {
-            console.log(id)
+        allChecked (data) {
+            this.newForm[data[0]] = data[1]
         },
         allChange (data = []) {
-            console.log(data)
             if (data.length) {
                 this.allCheckObj[data[0]] = data[1]
                 var bol = true

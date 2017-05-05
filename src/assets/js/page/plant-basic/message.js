@@ -8830,6 +8830,7 @@ export default {
         key: 'delivery',
         tab: '物流批次信息',
         url: 'delivery',
+        batch: 'logisticBatch',
         selectSearch: ['deliveries.transportable_type'],
         changeDataArr: [{transportable_type: { 'self': '自运', 'consign': '托运', 'selve': '自提' }}],
         searchPlaceholder: '请输入货物名称进行搜索',
