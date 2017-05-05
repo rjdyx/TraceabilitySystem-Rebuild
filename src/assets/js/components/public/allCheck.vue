@@ -7,7 +7,7 @@
  */
 <template>
 <div class="allCheck">
-    <el-checkbox :indeterminate="isIndeterminate" v-model="checkAll" @change="handleCheckAllChange">全选</el-checkbox>
+    <el-checkbox v-model="checkAll" @change="handleCheckAllChange">全选</el-checkbox>
     <div style="margin: 15px 0;"></div>
     <el-checkbox-group v-model="checkedMemus" @change="handleCheckedMemusChange">
         <el-checkbox v-for="(memu,i) in memus" :label="memu" :key="memu">{{memu}}</el-checkbox>
@@ -39,7 +39,7 @@ export default {
         return {
             activeName: 'first',
             checkedMemus: [],
-            checkAll: true,
+            checkAll: false,
             isIndeterminate: true,
             memus: this.lists
         }
@@ -49,15 +49,11 @@ export default {
     methods: {
         handleCheckAllChange (event) {
             this.checkedMemus = event.target.checked ? this.memus : []
-            this.isIndeterminate = false
             this.$emit('return-isAllcheck', [this.name, this.checkAll])
-            // console.log(this.checkAll)
         },
         handleCheckedMemusChange (value) {
-            // console.log(value)
             let checkedCount = value.length
             this.checkAll = checkedCount === this.memus.length
-            this.isIndeterminate = checkedCount > 0 && checkedCount < this.memus.length
             this.$emit('return-isAllcheck', [this.name, this.checkAll])
         }
     },

@@ -383,12 +383,22 @@ export default {
                 type: 'table',
                 labUrl: 'area',
                 components: [{
+                    name: 'breed_id',
+                    type: 'select',
+                    component: null,
+                    isNull: false,
+                    label: '养殖区名称',
+                    placeholder: '',
+                    rule: {required: true, trigger: 'blur', type: 'number', message: '请选择养殖区'},
+                    options: []
+                },
+                {
                     name: 'name',
                     type: 'table',
-                    theads: ['养殖区', '圈舍名称'],
-                    protos: ['farm_name', 'name'],
+                    theads: ['养殖批次号', '圈舍', '养殖畜禽', '养殖日期'],
+                    protos: ['serial', 'area_name', 'beast_name', 'start_date'],
                     valueId: 'breed_ids',
-                    errormsg: '请选择圈舍',
+                    errormsg: '请选择养殖批次号',
                     tableVal: []
                 }]
             }]
@@ -417,6 +427,16 @@ export default {
                 type: 'table',
                 labUrl: 'rfid',
                 components: [{
+                    name: 'breed_id',
+                    type: 'select',
+                    component: null,
+                    isNull: false,
+                    label: '养殖批次号',
+                    placeholder: '',
+                    rule: {required: true, trigger: 'blur', type: 'number', message: '请选择养殖批次号'},
+                    options: []
+                },
+                {
                     name: 'name',
                     type: 'table',
                     theads: ['养殖批次', 'Rfid', '养殖畜禽', '养殖日期'],
@@ -1075,6 +1095,48 @@ export default {
         changeDataArr: [{result: {'不合格': 0, '合格': 1}}],
         tabList: [{
             url: 'pack-detect-pk',
+            tab: '加工批次产品信息',
+            searchPlaceholder: '请输入加工批次号进行搜索',
+            headList: ['加工批次号', '加工日期', '数量', '产地', '操作人', '备注'],
+            protos: ['serial', 'date', 'amount', 'origin', 'operate_name', 'memo'],
+            widths: [50, 50, 50, 50, 50, 50],
+            hiddeEdit: false,
+            typeComponent: [{
+                component: newbuildBtn
+            }],
+            listComponent: [{
+                components: [{
+                    type: 'date',
+                    component: datePick
+                }]
+            }],
+            newComponent: [{
+                tab: '新建加工批次检测信息',
+                type: 'table',
+                labUrl: 'pack',
+                paramsIndex: 'plant',
+                components: [{
+                    name: 'name',
+                    type: 'table',
+                    theads: ['加工批次号', '加工日期', '产地'],
+                    protos: ['serial', 'date', 'origin'],
+                    valueId: 'pack_ids',
+                    errormsg: '请选择加工批次号',
+                    tableVal: []
+                }]
+            }]
+        }]
+    },
+    // 物流批次详情
+    logisticBatch: {
+        key: 'logisticBatch',
+        tab: '物流批次管理',
+        theads: ['物流批次号', '物流日期', '货物名称', '数量', '运输方式', '操作人员', '物流状态', '备注', '出库订单批次号'],
+        protos: ['serial', 'datetime', 'name', 'amount', 'transportable_type', 'operate_name', 'state', 'memo', 'serial2'],
+        batch: 'plantPackProduct',
+        url: 'delivery',
+        tabList: [{
+            url: '',
             tab: '加工批次产品信息',
             searchPlaceholder: '请输入加工批次号进行搜索',
             headList: ['加工批次号', '加工日期', '数量', '产地', '操作人', '备注'],

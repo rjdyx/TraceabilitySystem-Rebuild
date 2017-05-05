@@ -18,9 +18,9 @@
               <!-- 表单 -->
             <el-form ref="form" :model="form" label-width="110px" class="demo-editForm">
                 <div class="tr1" >
-                    <el-checkbox v-model="checked" @change="allChange">全选</el-checkbox>
+                    <!-- <el-checkbox v-model="checked" @change="allChange">全选</el-checkbox> -->
                     <ul class="ul">
-                        <li><allCheck v-for="(itemList,key) in memuList" :lists="itemList" :name="key" @return-isAllcheck="allChange"></allCheck></li>
+                        <li><allCheck :check="check" v-model="check" v-for="(itemList,key) in memuList" :lists="itemList" :name="key" @return-isAllcheck="allChange"></allCheck></li>
                     </ul>
                 </div>
                       
@@ -65,7 +65,8 @@ export default {
             protos: this.permissions.protos,
             memuList: this.permissions.memuList,
             checked: false,
-            allCheckObj: obj
+            allCheckObj: obj,
+            check: 'a'
         }
     },
     mounted () {
@@ -75,7 +76,7 @@ export default {
         */
         var _this = this
         this.resizeFn()
-        $('.newWrap').find($('.el-tabs__header')).on('mousedown', (e) => {
+        $('.permission').find($('.el-tabs__header')).on('mousedown', (e) => {
             // console.log('mousedown')
             // 鼠标与newForm块的距离
             this.dmL = e.clientX - $('.newForm').position().left
@@ -131,21 +132,19 @@ export default {
         submitForm (formName) {
         },
         allChange (data = []) {
-            // console.log(data)
+            console.log(data)
             if (data.length) {
                 this.allCheckObj[data[0]] = data[1]
-                console.log(this.allCheckObj)
                 var bol = true
-                for (var key in this.allCheckObj) {
+                for (let key in this.allCheckObj) {
                     bol = this.allCheckObj[key] && bol
                 }
-                if (bol) {
-                    this.checked = bol
-                } else {
-                    this.checked = bol
-                }
+                this.checked = bol
             } else {
                 this.$store.commit('changeIsAllCheck', this.checked)
+                for (let key in this.allCheckObj) {
+                    this.allCheckObj[key] = this.checked
+                }
             }
         }
     }
@@ -160,8 +159,6 @@ export default {
   top:0;
   left:0;
   z-index:3;
-  // text-align:center;
-  // overflow:hidden;
   .newForm{
     width:618px;
     max-width:618px;
@@ -178,8 +175,6 @@ export default {
             height:88%;
             overflow:auto;
             .el-tab-pane{
-                // padding:20px 70px;
-                // box-sizing:border-box;
                 width:100%!important;
                 text-align: left;
                 display:block;

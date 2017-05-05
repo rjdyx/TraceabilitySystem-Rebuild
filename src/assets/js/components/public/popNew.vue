@@ -247,7 +247,9 @@ export default {
         * 提交表单
         */
         submitForm (formName) {
+            console.log(111)
             if (this.newComponent[0].type === 'table' || this.newComponent[0].type === 'assoc') {
+                console.log(222)
                 if (this.ids.length !== 0) {
                     this.$dataPost(this, this.url, this.tableForm, false, false, false)
                         .then((response) => {
@@ -270,6 +272,7 @@ export default {
         },
         // 选择框
         handleSelectionChange (val) {
+            console.log(val)
             let ids = []
             for (let key in val) {
                 ids.push(val[key].id)
