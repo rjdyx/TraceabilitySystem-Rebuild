@@ -20,15 +20,14 @@
                 <div class="tr1" >
                     <el-checkbox v-model="checked" @change="allChange">全选</el-checkbox>
                     <ul class="ul">
-                        <li><allCheck v-for="(itemList,key) in memuList" :lists="itemList" :name="key" @return-isAllcheck="allChange"></allCheck></li>
+                        <li><allCheck v-for="(itemList,key) in memuList" :checkeds="checkeds" :lists="itemList" :name="key" @return-isAllcheck="allChange" @return-checked="allChecked"></allCheck></li>
                     </ul>
-                </div>
-                      
+                </div>  
             </el-form>
             </el-tab-pane>
         </el-tabs>
         <div class="form-footer">
-            <el-button class="btn_change"  @click="submitForm('editForm')">确定</el-button>
+            <el-button class="btn_change"  @click="submitForm()">确定</el-button>
             <el-button class="activecancel" @click="cancelClick">取消</el-button>
         </div>
     </form>
@@ -52,7 +51,8 @@ export default {
             default () {
                 return {}
             }
-        }
+        },
+        companyId: ''
     },
     data () {
         let obj = {}
@@ -63,13 +63,26 @@ export default {
             activeName: 'first',
             memu: this.permissions.memu,
             protos: this.permissions.protos,
-            memuList: this.permissions.memuList,
+            // memuList: this.permissions.memuList,
+            memuList: {},
             checked: false,
-            allCheckObj: obj
+            allCheckObj: obj,
+            checkeds: {},
+            newForm: []
         }
     },
     mounted () {
-        console.log(this.allCheckObj)
+        // 全部数据
+        axios.get('api/permission/select')
+            .then((responce) => {
+                this.memuList = responce.data
+            })
+        // 默认选中数据
+        axios.get('api/permission/select' + '?company_id=' + this.companyId)
+            .then((responce) => {
+                this.checkeds = responce.data
+                console.log(responce.data)
+            })
         /**
         * 点击表单拖拽事件
         */
@@ -129,12 +142,16 @@ export default {
         * 提交表单
         */
         submitForm (formName) {
+            console.log(this.newForm)
+        },
+        allChecked (id = '') {
+            console.log(id)
         },
         allChange (data = []) {
             // console.log(data)
             if (data.length) {
                 this.allCheckObj[data[0]] = data[1]
-                console.log(this.allCheckObj)
+                // console.log(this.allCheckObj)
                 var bol = true
                 for (var key in this.allCheckObj) {
                     bol = this.allCheckObj[key] && bol

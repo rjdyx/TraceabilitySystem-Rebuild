@@ -59,7 +59,7 @@
         </transition>
         <!-- 权限模块 -->
         <transition name="fade">
-            <permissionCheckbox v-if="isPermissionShow" :permissions="permissions"></permissionCheckbox>
+            <permissionCheckbox v-if="isPermissionShow" :permissions="permissions" :companyId="companyId"></permissionCheckbox>
         </transition>
     </div>
     <!-- 列表模块 -->
@@ -208,6 +208,7 @@ export default {
     },
     data () {
         return {
+            companyId: '',
             compute: this,
             // 搜索框内容
             inputValue: '',
@@ -612,6 +613,7 @@ export default {
             this.printForm = row
         },
         permissionShow (index, row) {
+            this.companyId = row.id
             this.isPermissionShow = true
         },
         detailShow (index, row) {
