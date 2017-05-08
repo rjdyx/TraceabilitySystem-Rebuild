@@ -7,41 +7,37 @@
  */
 <template>
 <div class="allCheck">
-    <el-checkbox :indeterminate="isIndeterminate" v-model="checkAll" @change="handleCheckAllChange">全选</el-checkbox>
+    <el-checkbox v-model="checkAll" @change="handleCheckAllChange">{{name}}</el-checkbox>
     <div style="margin: 15px 0;"></div>
-    <el-checkbox-group v-model="checkedMemus" @change="handleCheckedMemusChange">
-        <el-checkbox v-for="(memu,i) in memus" :label="memu" :key="memu">{{memu}}</el-checkbox>
+    <el-checkbox-group v-model="checkedMemus" @change="handleCheckedMemusChange" name='permission'>
+        <el-checkbox v-for="(id,i) in memus" :label="id" :key="id">{{id}}:{{nameArr[i]}}</el-checkbox>
     </el-checkbox-group>
 </div>
 </template>
 <script>
-import vuexStore from '../../vuex/modules/isAllCheck.js'
 export default {
     name: 'validator-example',
-    store: vuexStore,
     // validator: null,
     components: {
       // ActiveBox,
     },
-    props: {
-        lists: {
-            type: Array,
-            default () {
-                return []
-            }
-        },
-        name: {
-            type: String,
-            default: ''
-        }
-    },
+    props: ['lists', 'name', 'checkeds'],
     data () {
+        let idArr = []
+        for (let key in this.lists) {
+            idArr.push(this.lists[key].id)
+        }
+        let nameArr = []
+        for (let key in this.lists) {
+            nameArr.push(this.lists[key].name)
+        }
         return {
             activeName: 'first',
             checkedMemus: [],
-            checkAll: true,
+            checkAll: false,
             isIndeterminate: true,
-            memus: this.lists
+            memus: idArr,
+            nameArr: nameArr
         }
     },
     mounted () {
@@ -49,22 +45,12 @@ export default {
     methods: {
         handleCheckAllChange (event) {
             this.checkedMemus = event.target.checked ? this.memus : []
-            this.isIndeterminate = false
-            this.$emit('return-isAllcheck', [this.name, this.checkAll])
-            // console.log(this.checkAll)
+            this.$emit('return-checked', [this.name, this.checkedMemus])
         },
         handleCheckedMemusChange (value) {
-            // console.log(value)
             let checkedCount = value.length
             this.checkAll = checkedCount === this.memus.length
-            this.isIndeterminate = checkedCount > 0 && checkedCount < this.memus.length
-            this.$emit('return-isAllcheck', [this.name, this.checkAll])
-        }
-    },
-    computed: {
-        checkAll: function () {
-            console.log('isAllCheck' + this.$store.state.isAllCheck)
-            return this.$store.state.isAllCheck
+            this.$emit('return-checked', [this.name, value])
         }
     }
 }
