@@ -24,18 +24,21 @@ router.beforeEach((to, from, next) => {
     axios.get('/login/state').then(responce => {
         if (responce.data === false) {
             Vue.Roles = {}
+            Vue.State = 0
             if (to.path !== '/login') {
                 next(false)
             } else {
                 next()
             }
         } else {
+            Vue.State = 1
             var arr = responce.data.permissions.one
             Vue.Roles = responce.data.permissions.two
             if (to.path === '/login') {
                 next(false)
+            } else {
+                next()
             }
-            next()
             // 注释部分为控制权限判断 勿删除
             // if (arr === 'admin') {
             //     if (Admins.indexOf(to.path) !== -1) {

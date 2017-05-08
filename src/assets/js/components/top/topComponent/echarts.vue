@@ -38,7 +38,7 @@
 
             axios.get('api/index/echarts')
                 .then((responce) => {
-                    var area = responce.data.area.data
+                    var area = responce.data.area
                     var sell = responce.data.sell.data
                     var delivery = responce.data.delivery
                     var type = '养殖'
@@ -114,7 +114,7 @@
                         }
                     }
                     this.chartColumn.setOption({
-                        title: {text: type + '面积', x: 'center'},
+                        title: {text: type + '面积(单位：亩)', x: 'center'},
                         xAxis: {
                             data: areaX
                         },

@@ -71,11 +71,23 @@ const company = resolve => {
         resolve(require('../components/top/company.vue'))
     }, 'company')
 }
+// -------------------------------help帮助文档------------------------------
+const help = resolve => {
+    require.ensure(['../components/top/help.vue'], () => {
+        resolve(require('../components/top/help.vue'))
+    }, 'help')
+}
 var routes = [
     {
         path: '/',
         name: 'index',
-        component: index
+        component: index,
+        children: [
+            {
+                path: '',
+                component: home
+            }
+        ]
     },
     {
         path: '/index',
@@ -108,6 +120,10 @@ var routes = [
             {
                 path: 'test',
                 component: test
+            },
+            {
+                path: 'help',
+                component: help
             },
             {
                 path: 'details/:model/:id',
