@@ -110,12 +110,7 @@
 
                     <el-button type="text" size="small" v-if="hiddeShow">查看</el-button>
                         
-                    <el-button size="small" type="text" @click="handelDel(scope.$index,scope.row)" v-bind:class="{'btn':!hiddeEdit}">删除</el-button>  
-
-                    <!-- <el-button size="small" type="text" @click="userRole(scope.$index,scope.row)" class="btn" v-if="hiddeRole">权限</el-button>  -->
-
-                    <!-- <el-button size="small" type="text" @click="" class="btn" v-if="hiddeUser">用户</el-button>   -->
-
+                    <el-button size="small" type="text" @click="handelDel(scope.$index,scope.row)" v-bind:class="{'btn':!hiddeEdit}">删除</el-button>
                 </template>
             </template>
         </el-table-column>
@@ -318,45 +313,46 @@ export default {
         // 显示新建表单
         changeNewShow () {
             this.isNewShow = !this.isNewShow
-            if (this.newComponent[0].checkNumber !== undefined) {
-                for (let index in this.newComponent[0].checkNumber) {
-                    this.newComponent[0].components[this.newComponent[0].checkNumber[index]].rule[1].url = this.url
+            var com = this.newComponent[0]
+            if (com.checkNumber !== undefined) {
+                for (let index in com.checkNumber) {
+                    com.components[com.checkNumber[index]].rule[1].url = this.url
                 }
             }
-            if (this.newComponent[0].selectUrl) {
-                for (let key in this.newComponent[0].selectUrl) {
-                    let newArr = this.$addAndEditSelectMethod(this.newComponent[0].selectUrl[key])
+            if (com.selectUrl) {
+                for (let key in com.selectUrl) {
+                    let newArr = this.$addAndEditSelectMethod(com.selectUrl[key])
                     this.$dataGet(this, newArr.selectUrl + '/changeSelect', {'selectData': newArr.selectData})
                         .then((responce) => {
                             if (responce.data.length !== 0) {
                                 this.selectNewEdit[key] = []
-                                this.selectNewEdit[key].push(this.newComponent[0].selectInit[key])
+                                this.selectNewEdit[key].push(com.selectInit[key])
                                 let newOpt = this.$selectData(this.url, responce.data, newArr.selectArr)
                                 for (let item of Object.keys(newOpt)) {
                                     this.selectNewEdit[key].push(newOpt[item])
                                 }
-                                this.newComponent[0].components[this.newComponent[0].popNumber[key]].options = this.selectNewEdit[key]
+                                com.components[com.popNumber[key]].options = this.selectNewEdit[key]
                             }
                         })
                 }
             }
             // 无分类的下拉框模块查询
-            if (this.newComponent[0].selectUrl2) {
-                for (let key in this.newComponent[0].selectUrl2) {
-                    let newArr = this.$addAndEditSelectMethod(this.newComponent[0].selectUrl2[key])
-                    if (this.newComponent[0].selectAvl2[key] !== undefined) {
-                        var type = this.newComponent[0].selectAvl2[key]
+            if (com.selectUrl2) {
+                for (let key in com.selectUrl2) {
+                    let newArr = this.$addAndEditSelectMethod(com.selectUrl2[key])
+                    if (com.selectAvl2 !== undefined) {
+                        var type = com.selectAvl2[key]
                     }
                     this.$dataGet(this, '/util/selects', {table: newArr.selectUrl, type: type})
                         .then((responce) => {
                             if (responce.data.length !== 0) {
                                 this.selectNewEdit[key] = []
-                                this.selectNewEdit[key].push(this.newComponent[0].selectInit2[key])
+                                this.selectNewEdit[key].push(com.selectInit2[key])
                                 let newOpt = this.$selectData(this.url, responce.data, newArr.selectArr)
                                 for (let item of Object.keys(newOpt)) {
                                     this.selectNewEdit[key].push(newOpt[item])
                                 }
-                                this.newComponent[0].components[this.newComponent[0].popNumber2[key]].options = this.selectNewEdit[key]
+                                com.components[com.popNumber2[key]].options = this.selectNewEdit[key]
                             }
                         })
                 }
@@ -365,32 +361,33 @@ export default {
         // 显示编辑表单
         changeEditShow (index, row) {
             this.isEditShow = true
+            var com = this.editComponent[0]
             if (row !== undefined) {
-                if (this.editComponent[0].checkNumber !== undefined) {
-                    for (let index in this.editComponent[0].checkNumber) {
-                        this.editComponent[0].components[this.editComponent[0].checkNumber[index]].rule[1]['id'] = row.id
-                        this.editComponent[0].components[this.editComponent[0].checkNumber[index]].rule[1]['url'] = this.url
+                if (com.checkNumber !== undefined) {
+                    for (let index in com.checkNumber) {
+                        com.components[com.checkNumber[index]].rule[1]['id'] = row.id
+                        com.components[com.checkNumber[index]].rule[1]['url'] = this.url
                     }
                 }
-                if (this.editComponent[0].selectUrl) {
-                    for (let key in this.editComponent[0].selectUrl) {
-                        let editArr = this.$addAndEditSelectMethod(this.editComponent[0].selectUrl[key])
+                if (com.selectUrl) {
+                    for (let key in com.selectUrl) {
+                        let editArr = this.$addAndEditSelectMethod(com.selectUrl[key])
                         this.$dataGet(this, editArr.selectUrl + '/changeSelect', {'selectData': editArr.selectData})
                             .then((responce) => {
                                 if (responce.data.length !== 0) {
-                                    this.editComponent[0].components[this.editComponent[0].popNumber[key]].options = this.$selectData(this.url, responce.data, editArr.selectArr)
+                                    com.components[com.popNumber[key]].options = this.$selectData(this.url, responce.data, editArr.selectArr)
                                 }
                             })
                     }
                 }
                 // 无分类的下拉框模块查询
-                if (this.editComponent[0].selectUrl2) {
-                    for (let key in this.editComponent[0].selectUrl2) {
-                        let editArr = this.$addAndEditSelectMethod(this.editComponent[0].selectUrl2[key])
+                if (com.selectUrl2) {
+                    for (let key in com.selectUrl2) {
+                        let editArr = this.$addAndEditSelectMethod(com.selectUrl2[key])
                         this.$dataGet(this, '/util/selects', {table: editArr.selectUrl})
                             .then((responce) => {
                                 if (responce.data.length !== 0) {
-                                    this.editComponent[0].components[this.editComponent[0].popNumber2[key]].options = this.$selectData(this.url, responce.data, editArr.selectArr)
+                                    com.components[com.popNumber2[key]].options = this.$selectData(this.url, responce.data, editArr.selectArr)
                                 }
                             })
                     }
@@ -588,18 +585,19 @@ export default {
         },
         // 根据下拉框获取表格数据
         getTable (val) {
+            var com = this.newComponent[0]
             if (val[1] !== '' && val[1] !== undefined) {
                 var getSelect = {'getSelect': '444'}
-                var curl = {'curl': this.newComponent[0].curl}
-                var routeId = {'routeId': this.newComponent[0].labUrl}
-                var opqcurl = {'opqcurl': this.newComponent[0].opqcurl}
-                let surl = val[1] + '/' + this.newComponent[0].labUrl
+                var curl = {'curl': com.curl}
+                var routeId = {'routeId': com.labUrl}
+                var opqcurl = {'opqcurl': com.opqcurl}
+                let surl = val[1] + '/' + com.labUrl
                 this.$dataGet(this, surl, {getSelect, curl, routeId, opqcurl})
                     .then((responce) => {
-                        this.$set(this.newComponent[0].components[this.newComponent[0].assocNum], 'tableVal', responce.data)
+                        this.$set(com.components[com.assocNum], 'tableVal', responce.data)
                     })
             } else {
-                this.$set(this.newComponent[0].components[this.newComponent[0].assocNum], 'tableVal', [])
+                this.$set(com.components[com.assocNum], 'tableVal', [])
             }
         },
         // 点击删除

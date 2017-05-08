@@ -21,7 +21,7 @@
                 <template v-for="subItem in item.components">
                     <!-- 文本框 -->
                     <tr class="tr1" v-if="subItem.type=='text'">
-                        <td>
+                        <td v-if="!subItem.selfHidden && !subItem.consignHidden">
                             <el-form-item :label="subItem.label" :prop="subItem.name">
                                 <el-input 
                                     :placeholder="subItem.placeholder" 
@@ -131,6 +131,8 @@ export default {
         }
     },
     mounted () {
+        // 编辑表单加载事件
+        this.setDefaultTable()
          /**
         * 点击表单拖拽事件
         */
@@ -215,6 +217,29 @@ export default {
                     return false
                 }
             })
+        },
+        // 编辑表单预加载
+        setDefaultTable () {
+            var type = this.editForm.transportable_type
+            var com = this.editComponent[0].components
+            if (type !== undefined) {
+                if (type === '自运') {
+                    com[4].selfHidden = false
+                    com[5].selfHidden = false
+                    com[6].consignHidden = true
+                    com[7].consignHidden = true
+                } else if (type === '托运') {
+                    com[4].selfHidden = true
+                    com[5].selfHidden = true
+                    com[6].consignHidden = false
+                    com[7].consignHidden = false
+                } else {
+                    com[4].selfHidden = true
+                    com[5].selfHidden = true
+                    com[6].consignHidden = true
+                    com[7].consignHidden = true
+                }
+            }
         }
     }
 }

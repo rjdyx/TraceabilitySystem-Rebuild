@@ -24,7 +24,7 @@
 
                     <!-- 文本框 -->
                     <tr class="tr1" v-if="subItem.type=='text'">
-                        <td>
+                        <td v-if="!subItem.consignHidden">
                             <el-form-item :label="subItem.label" :prop="subItem.name">
                                 <el-input 
                                     :placeholder="subItem.placeholder" 
@@ -35,7 +35,7 @@
 
                     <!-- 下拉框 -->
                     <tr class="tr1" v-else-if="subItem.type=='select'"> 
-                        <td>
+                        <td v-if="!subItem.selfHidden && !subItem.consignHidden">
                             <el-form-item :label="subItem.label" :prop="subItem.name">
                               <el-select v-model="tableForm[subItem.name]" :placeholder="subItem.placeholder" size="small"
                                     @change="getSelectId(subItem.assoc,subItem.name,tableForm[subItem.name])">
@@ -178,6 +178,7 @@ export default {
             ids: [],
             // 判断鼠标是否点击
             isMouseClick: false,
+            trHidden: false,
             dmL: 0,
             dmT: 0
         }
@@ -240,10 +241,12 @@ export default {
         // 关闭表单事件
         closeClick () {
             this.$parent.closeNewShow()
+            this.successCallback()
         },
         // 取消事件
         cancelClick () {
             this.$parent.closeNewShow()
+            this.successCallback()
         },
       /**
         * 提交表单
@@ -262,6 +265,7 @@ export default {
                         }
                     } else {
                         this.$dataPost(this, this.url, this.tableForm, this.newComponent[0].hasImg, this.newComponent[0].hiddenValue, false).then((response) => {
+                            this.successCallback()
                             this.$emit('submitNew', response.data)
                         })
                     }
@@ -286,6 +290,54 @@ export default {
                 this.$emit('setAssoc', [assoc, name, val])
             } else if (name === 'breed_id' || name === 'come_id') {
                 this.$emit('setTable', [name, val])
+            } else if (name === 'transportable_type') {
+                var com = this.newComponent[0].components
+                if (val === 'self') {
+                    // 默认赋值
+                    this.tableForm.driver_id = ''
+                    this.tableForm.vehicle_id = ''
+                    this.tableForm.logistic_id = 1
+                    this.tableForm.number = 'abc'
+                    com[3].selfHidden = false
+                    com[4].selfHidden = false
+                    com[5].consignHidden = true
+                    com[6].consignHidden = true
+                } else if (val === 'consign') {
+                    // 默认赋值
+                    this.tableForm.driver_id = 1
+                    this.tableForm.vehicle_id = 1
+                    this.tableForm.logistic_id = ''
+                    this.tableForm.number = ''
+                    com[3].selfHidden = true
+                    com[4].selfHidden = true
+                    com[5].consignHidden = false
+                    com[6].consignHidden = false
+                } else if (val === 'selve') {
+                    // 默认赋值
+                    this.tableForm.driver_id = 1
+                    this.tableForm.vehicle_id = 1
+                    this.tableForm.logistic_id = 1
+                    this.tableForm.number = 'abc'
+                    com[3].selfHidden = true
+                    com[4].selfHidden = true
+                    com[5].consignHidden = true
+                    com[6].consignHidden = true
+                } else {
+                    com[3].selfHidden = true
+                    com[4].selfHidden = true
+                    com[5].consignHidden = true
+                    com[6].consignHidden = true
+                }
+            }
+        },
+        // 新增成功调用方法
+        successCallback () {
+            var com = this.newComponent[0].components
+            if (com[3].selfHidden !== undefined) {
+                com[3].selfHidden = true
+                com[4].selfHidden = true
+                com[5].consignHidden = true
+                com[6].consignHidden = true
             }
         }
     }
