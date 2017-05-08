@@ -183,7 +183,7 @@ export default {
 
 .changeImg{
   	display: inline-block;
-  	margin-right: 1	0px;
+  	margin-right: 10px;
   	width: 71px;
   	height: 70px;
   	float: left;

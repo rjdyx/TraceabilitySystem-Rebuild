@@ -83,6 +83,7 @@
 </template>
 
 <script>
+import {mapActions} from 'vuex'
 import ContainTitle from '../layout/contain-title.vue'
 import footerTop from './topComponent/footer.vue'
 import file from '../public/inputFile.vue'
@@ -175,6 +176,8 @@ export default {
                     this.role = true
                 }
             })
+    },
+    watch: {
     }
 }
 </script>
@@ -185,7 +188,6 @@ export default {
 	height: 100%;
     overflow:hidden;
     padding-left:10px;
-    // position: relative;
     .set_content{
     	margin-top: 15px;
     	overflow:scroll;
@@ -198,6 +200,9 @@ export default {
 
 .el-radio-group{
 	text-align: right;
+}
+.el-radio__label{
+
 }
 .bg{
 	width: 50px;

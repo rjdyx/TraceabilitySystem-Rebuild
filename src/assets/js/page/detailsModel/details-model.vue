@@ -8,7 +8,7 @@
 <template>
 <div class="detailsModel">   
   <!-- 标题 -->
-    <contain-title :settitle="tab">
+    <contain-title :settitle="tab" :isShow="isShow">
     </contain-title>
 
   <!-- 信息列表 -->
@@ -186,7 +186,8 @@ export default {
             // 复选框选中返回对象
             checkObject: {},
             selectNewEdit: [],
-            index: 0
+            index: 0,
+            isShow: true
         }
     },
     mixins: [computed],
