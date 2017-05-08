@@ -1,5 +1,6 @@
 import importBtn from '../../components/public/import-btn.vue'
 import newbuildBtn from '../../components/public/newbuild-btn.vue'
+import scanCode from '../../components/public/scanCode.vue'
 import output from '../../components/public/output.vue'
 import selectSection from '../../components/public/select-section.vue'
 import datePick from '../../components/public/datePick.vue'
@@ -417,7 +418,7 @@ export default {
             tab: '养殖批次信息',
             searchPlaceholder: '请输入批次号进行搜索',
             // typeComponent: [{component: output}, {component: newbuildBtn}],
-            typeComponent: [{component: newbuildBtn}],
+            typeComponent: [{component: scanCode}, {component: newbuildBtn}],
             headList: ['圈舍', '养殖批次', 'Rfid', '养殖畜禽', '养殖日期'],
             protos: ['area_name', 'serial', 'rfid', 'beast_name', 'date'],
             widths: [50, 50, 50, 50],

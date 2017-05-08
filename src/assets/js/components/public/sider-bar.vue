@@ -67,9 +67,9 @@ export default {
     }
     
     .menu-img{
-    	display: inline-block;
-    	vertical-align: middle;
-    	padding-right: 5px;
+        display: inline-block;
+        vertical-align: middle;
+        padding-right: 5px;
     }
 
 </style>

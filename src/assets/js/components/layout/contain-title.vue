@@ -7,6 +7,10 @@
 <template>
     <div class="title">
         <h2>{{settitle}}</h2>   
+        <a class="back" @click="back" v-if="isShow">
+          <span class="back_icon"></span>
+          <span class="back_text">返回</span>
+        </a>
     </div>
 </template> 
 
@@ -17,6 +21,15 @@
             settitle: {
                 type: String,
                 default: ''
+            },
+            isShow: {
+                type: Boolean,
+                default: ''
+            }
+        },
+        methods: {
+            back () {
+                this.$router.go(-1)
             }
         }
     }
@@ -34,6 +47,26 @@
         padding-left: 14px;
         display: inline-block;
         font-family: YouYuan;
+      }
+      .back{
+        display: inline-block;
+        float: right;
+        border: 1px solid #dcdcdc;
+        border-radius: 4px; 
+        padding: 0px 10px 2px 0px;
+        &:hover{
+          cursor: pointer;
+          .back_text{
+            color: #ccc;
+          }
+        }
+        .back_icon{
+          display: inline-block;
+          width: 28px;
+          height: 15px;
+          vertical-align: middle;
+          margin-right: 5px;
+        }
       }
     }
 </style>
