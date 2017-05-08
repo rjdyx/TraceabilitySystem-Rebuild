@@ -27,7 +27,10 @@
 						<div :class="style[index]">
 							<h1>{{area.name}}</h1>
 							<el-row :gutter="20">
-								<el-col :span="8"></el-col>
+								<el-col :span="8">
+									<div class="cols" style="height:20px;">区域面积：{{area.area}} {{area.unit}}</div>
+									<div class="cols" style="height:20px;">区域负责人：{{area.operate}}</div>
+								</el-col>
 							</el-row>
 						</div>
 					</template>	
@@ -35,11 +38,19 @@
 				<div class="rightMain">
 					<h1>My plan</h1>
 					<ul>
-						<li v-for="siderItem in siderTip" class="siderTip">
+						<li v-if="state==='beast'" v-for="siderItem in siderBeast" class="siderTip">
 							<span class="siderImg">
 								<img :src="siderItem.src" />
 							</span>
 							<span class="siderType">{{siderItem.type}}</span>
+							<span class="siderKey">{{plans[siderItem.key]}}</span>
+						</li>
+						<li v-else v-for="siderItem in siderPlant" class="siderTip">
+							<span class="siderImg">
+								<img :src="siderItem.src" />
+							</span>
+							<span class="siderType">{{siderItem.type}}</span>
+							<span class="siderKey">{{plans[siderItem.key]}}</span>
 						</li>
 					</ul>
 				</div>
@@ -48,9 +59,8 @@
 			<div class="dataRecord">
 				<chart class="chart"></chart>
 				<div class="record">
-					<p>本月追溯次数：{{}}次</p>
-					<p>本月生产溯源码：{{}}个</p>
-					<p>本月出栏头数：{{}}</p>
+					<p>本月追溯次数：{{codes.time}}次</p>
+					<p>本月生产溯源码：{{codes.code}}个</p>
 				</div>
 			</div>
 		</div>
@@ -76,27 +86,64 @@ export default{
             isClass: false,
             listN: {'company_name': '所属公司:', 'name': '用户名:', 'date': '登录时间:', 'type': '用户类型:'},
             listV: {},
-            state: '',
-            siderTip: [
+            state: 'beast',
+            plans: {},
+            codes: {},
+            siderPlant: [
                 {
                     src: '/public/images/fertilize-home.png',
-                    type: '施肥'
+                    type: '施肥',
+                    key: 'fertilize'
                 },
                 {
                     src: '/public/images/medicine-home.png',
-                    type: '施药'
-                },
-                {
-                    src: '/public/images/harvest-home.png',
-                    type: '采收'
-                },
-                {
-                    src: '/public/images/delivery-home.png',
-                    type: '收发量'
+                    type: '施药',
+                    key: 'spray'
                 },
                 {
                     src: '/public/images/sale-home.png',
-                    type: '销售订单'
+                    type: '检测',
+                    key: 'detect'
+                },
+                {
+                    src: '/public/images/harvest-home.png',
+                    type: '采收',
+                    key: 'harvest'
+                }
+                // {
+                //     src: '/public/images/delivery-home.png',
+                //     type: '收发量'
+                // },
+                // {
+                //     src: '/public/images/sale-home.png',
+                //     type: '销售订单'
+                // }
+            ],
+            siderBeast: [
+                {
+                    src: '/public/images/fertilize-home.png',
+                    type: '喂养',
+                    key: 'fodderuse'
+                },
+                {
+                    src: '/public/images/medicine-home.png',
+                    type: '病疫',
+                    key: 'disease'
+                },
+                {
+                    src: '/public/images/sale-home.png',
+                    type: '检测',
+                    key: 'detect'
+                },
+                {
+                    src: '/public/images/harvest-home.png',
+                    type: '出栏',
+                    key: 'come'
+                },
+                {
+                    src: '/public/images/sale-home.png',
+                    type: '检疫',
+                    key: 'detection'
                 }
             ]
         }
@@ -106,10 +153,10 @@ export default{
         chart
     },
     mounted () {
-        // axios.get('api/index/state')
-        //     .then((responce) => {
-        //         this.state = responce.data
-        //     })
+        axios.get('api/index/state')
+            .then((responce) => {
+                this.state = responce.data
+            })
         axios.get('api/index')
             .then((responce) => {
                 this.listV = responce.data
@@ -122,7 +169,14 @@ export default{
                     arr[key] = responce.data[key]
                 }
                 this.areas = arr.data
-                // console.log(arr.data)
+            })
+        axios.get('api/index/plan')
+            .then((responce) => {
+                this.plans = responce.data
+            })
+        axios.get('api/index/code')
+            .then((responce) => {
+                this.codes = responce.data
             })
     }
 }
@@ -135,6 +189,10 @@ export default{
 <style lang="sass">
 $inline: inline-block;
 $absolute: absolute;
+.cols{
+	padding: 5px;width: 90%;font-size:15px;color:#555555;
+	text-align: left;
+}
 .home{
 	height: 100%;
     overflow:hidden;
@@ -181,7 +239,8 @@ $absolute: absolute;
 			}
 			.leftMain h1,.rightMain h1{
 				font-size: 22px;
-				text-align: center;
+				text-align: left;
+				color:#333333;
 				display:block;white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
 			}
 			.rightMain h1{
@@ -211,6 +270,13 @@ $absolute: absolute;
 						text-align: center;
 						width: 120px;
 						font-size: 16px;
+					}
+					.siderKey{
+						display: $inline;
+						text-align: center;
+						width: 120px;
+						font-size: 16px;
+						color: #0098CA;
 					}
 				}
 			}
@@ -264,7 +330,6 @@ $absolute: absolute;
 		// border: 1px solid orange;
 	}
 }
-
 
 
 
