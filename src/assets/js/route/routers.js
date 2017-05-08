@@ -65,13 +65,18 @@ const test = resolve => {
         resolve(require('../components/top/user.vue'))
     }, 'test')
 }
-
+// -------------------------------company公司------------------------------
+const company = resolve => {
+    require.ensure(['../components/top/company.vue'], () => {
+        resolve(require('../components/top/company.vue'))
+    }, 'company')
+}
 var routes = [
-    // {
-    //     path: '/index',
-    //     component: index,
-    //     meta: { auth: true }
-    // },
+    {
+        path: '/',
+        name: 'index',
+        component: index
+    },
     {
         path: '/index',
         component: index,
@@ -87,6 +92,10 @@ var routes = [
                 meta: {
                     auth: true
                 }
+            },
+            {
+                path: 'company',
+                component: company
             },
             {
                 path: 'question',

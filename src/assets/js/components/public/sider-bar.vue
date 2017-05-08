@@ -14,14 +14,14 @@
                 class="list" theme="dark">
                 <el-submenu 
                     v-for="(menu, index) in menus"
-                    :index="menu.name" v-if="menu.role<1">
+                    :index="menu.name" v-if="!menu.role">
                     <template slot="title" >
                     <img :src="menu.src" class="menu-img">
                         {{menu.name}}
                     </template>
                     <el-menu-item 
                         v-for="(subMenu, subIndex) in menu.children" 
-                        :index="subMenu.path" exact v-if="subMenu.role<1"> 
+                        :index="subMenu.path" exact v-if="!subMenu.role"> 
                         {{subMenu.name}}
                     </el-menu-item>
                 </el-submenu>
@@ -67,9 +67,9 @@ export default {
     }
     
     .menu-img{
-    	display: inline-block;
-    	vertical-align: middle;
-    	padding-right: 5px;
+        display: inline-block;
+        vertical-align: middle;
+        padding-right: 5px;
     }
 
 </style>

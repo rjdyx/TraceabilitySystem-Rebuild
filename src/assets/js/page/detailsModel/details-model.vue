@@ -8,7 +8,7 @@
 <template>
 <div class="detailsModel">   
   <!-- 标题 -->
-    <contain-title :settitle="tab">
+    <contain-title :settitle="tab" :isShow="isShow">
     </contain-title>
 
   <!-- 信息列表 -->
@@ -58,6 +58,14 @@
             <popEdit v-if="isEditShow" :editComponent="tabItem.editComponent" :url="apiUrlArr[tabList[0].url]" :editForm="editForm"
                  @submitEdit="hangeEdit" :changeDataArr="changeDataArr" :editDefault="editDefault"></popEdit>
         </transition>
+        <!-- 打印模块 -->
+        <transition name="fade">
+            <printf v-if="isPrintShow" :printComponent="tabItem.printComponent" :url="url" :printForm="printForm"></printf>
+        </transition>
+        <!-- 权限模块 -->
+        <transition name="fade">
+            <permissionCheckbox v-if="isPermissionShow" :permissions="permissions"></permissionCheckbox>
+        </transition>
     <!-- 列表模块 -->
     <el-table :data="tableData"  @selection-change="handleSelectionChange">
         <!-- checkbox -->
@@ -97,10 +105,17 @@
                 <el-table-column 
                 label="操作" v-if="checkOperate==null">
                     <template scope="scope" class="operateBtn">
+                        <template v-if="tabItem.moreComponent!=null">
+                            <clickMore :moreComponent="tabItem.moreComponent" 
+                            @showMore="moreShow(scope.$index,scope.row)" class="clickMoreBtn"></clickMore>
+                        </template>
                         <template>
                             <el-button type="text" size="small" @click="changeEditShow(scope.$index,scope.row)" v-if="tabList[0].hiddeEdit">编辑</el-button>
                             <el-button type="text" size="small" v-if="hiddeWatch">查看</el-button>
-                            <el-button size="small" type="text" @click="handelDel(scope.$index,scope.row)" class="btn">删除</el-button>
+
+                            <el-button size="small" type="text" @click="handelDel(scope.$index,scope.row)" class="btn">删除</el-button>  
+                            <el-button size="small" type="text" @click="permissionShow(scope.$index,scope.row)" class="btn" v-if="tabItem.hiddeRole">权限</el-button> 
+                            
                         </template>
                     </template>
                 </el-table-column>
@@ -139,6 +154,8 @@ import operate from '../../components/public/operate.vue'
 import clickMore from '../../components/public/clickMore.vue'
 import lotOpearte from '../../components/public/lotOpearte.vue'
 import newMessage from '../plant-details/newMessage.js'
+import printf from '../../components/public/printf.vue'
+import permissionCheckbox from '../../components/public/permissionCheckbox.vue'
 export default {
     name: 'BasicModel',
     props: {
@@ -166,6 +183,8 @@ export default {
             headData: {},
             isNewShow: false,
             isEditShow: false,
+            isPrintShow: false,
+            isPermissionShow: false,
             tabItem: {},
             // 列表数据
             tableData: [],
@@ -177,7 +196,8 @@ export default {
             // 复选框选中返回对象
             checkObject: {},
             selectNewEdit: [],
-            index: 0
+            index: 0,
+            isShow: true
         }
     },
     mixins: [computed],
@@ -308,7 +328,11 @@ export default {
         getApiUrl () {
             this.apiUrlArr[this.url] = this.url + '/' + this.$route.params.id
             for (var i in this.tabList) {
-                this.apiUrlArr[this.tabList[i].url] = this.$route.params.id + '/' + this.tabList[i].url
+                if (this.tabList[i].split === undefined || this.tabList[i].split === false) {
+                    this.apiUrlArr[this.tabList[i].url] = this.$route.params.id + '/' + this.tabList[i].url
+                } else {
+                    this.apiUrlArr[this.tabList[i].url] = this.tabList[i].url
+                }
             }
         },
         // 获取头部详细信息
@@ -324,6 +348,10 @@ export default {
         },
         // 获取列表信息
         getAllMsg (data = '') {
+            let names = this.tabList[this.index].urlid
+            if (names !== undefined && names !== null) {
+                data = '{' + names + ':' + this.$route.params.id + '}'
+            }
             this.$dataGet(this, this.apiUrlArr[this.tabList[this.index].url], {params: data})
                 .then((responce) => {
                     if (responce.data.data.length !== 0) {
@@ -521,7 +549,6 @@ export default {
         },
         // 根据下拉框获取表格数据
         getTable (val) {
-            console.log(val)
             if (val[1] !== '' && val[1] !== undefined) {
                 var getSelect = {'getSelect': '444'}
                 var curl = {'curl': this.tabItem.url}
@@ -538,6 +565,13 @@ export default {
             } else {
                 this.$set(this.tabItem.newComponent[0].components[this.tabItem.newComponent[0].assocNum], 'tableVal', [])
             }
+        },
+        moreShow (index, row) {
+            this.isPrintShow = !this.isPrintShow
+            this.printForm = row
+        },
+        permissionShow (index, row) {
+            this.isPermissionShow = true
         }
     },
     mounted () {
@@ -570,7 +604,9 @@ export default {
         popEdit,
         operate,
         clickMore,
-        lotOpearte
+        lotOpearte,
+        permissionCheckbox,
+        printf
     }
 }
 </script>
@@ -630,6 +666,9 @@ export default {
 .searchOp{
         display:inline;
      }
+.clickMoreBtn {
+  display: inline-block;
+}
  .footer{
       width: 100%;
       height: 50px;

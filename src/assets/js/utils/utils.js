@@ -227,5 +227,6 @@ default {
             return {'selectArr': selectArr, 'selectUrl': selectUrl, 'selectData': selectData}
         }
         Vue.prototype.Roles = {}
+        Vue.prototype.State = 0
     }
 }

@@ -46,7 +46,7 @@
 
         <!-- 新建模块 --> 
         <transition name="fade">
-            <popNew v-if="isNewShow" :newComponent="newComponent" :url="url" @submitNew="changeNew" @setAssoc="getAssoc"></popNew>
+            <popNew v-if="isNewShow" :newComponent="newComponent" :url="url" @submitNew="changeNew" @setAssoc="getAssoc" @setTable="getTable"></popNew>
         </transition>
         <!-- 编辑模块 -->
         <transition name="fade">
@@ -59,7 +59,7 @@
         </transition>
         <!-- 权限模块 -->
         <transition name="fade">
-            <permissionCheckbox v-if="isPermissionShow" :permissions="permissions"></permissionCheckbox>
+            <permissionCheckbox v-if="isPermissionShow" :permissions="permissions" :companyId="companyId"></permissionCheckbox>
         </transition>
     </div>
     <!-- 列表模块 -->
@@ -101,7 +101,8 @@
         label="操作" v-if="checkOperate==null">
             <template scope="scope" class="operateBtn">
                 <template v-if="moreComponent!=null">
-                    <clickMore :moreComponent="moreComponent" @showMore="moreShow(scope.$index,scope.row)" class="clickMoreBtn"></clickMore>
+                    <clickMore :moreComponent="moreComponent" 
+                    @showMore="moreShow(scope.$index,scope.row)" @showPermission="permissionShow(scope.$index,scope.row)" @showDetail="detailShow(scope.$index,scope.row)" class="clickMoreBtn"></clickMore>
                 </template>
                 <template>
 
@@ -111,9 +112,9 @@
                         
                     <el-button size="small" type="text" @click="handelDel(scope.$index,scope.row)" v-bind:class="{'btn':!hiddeEdit}">删除</el-button>  
 
-                    <el-button size="small" type="text" @click="userRole(scope.$index,scope.row)" class="btn" v-if="hiddeRole">权限</el-button> 
+                    <!-- <el-button size="small" type="text" @click="userRole(scope.$index,scope.row)" class="btn" v-if="hiddeRole">权限</el-button>  -->
 
-                    <el-button size="small" type="text" @click="" class="btn" v-if="hiddeUser">用户</el-button>  
+                    <!-- <el-button size="small" type="text" @click="" class="btn" v-if="hiddeUser">用户</el-button>   -->
 
                 </template>
             </template>
@@ -156,6 +157,7 @@ import clickMore from '../../components/public/clickMore.vue'
 import lotOpearte from '../../components/public/lotOpearte.vue'
 import printf from '../../components/public/printf.vue'
 import permissionCheckbox from '../../components/public/permissionCheckbox.vue'
+import company from '../../page/plant-basic/company.js'
 export default {
     name: 'BasicModel',
     props: {
@@ -206,6 +208,7 @@ export default {
     },
     data () {
         return {
+            companyId: '',
             compute: this,
             // 搜索框内容
             inputValue: '',
@@ -249,7 +252,8 @@ export default {
             // 新增编辑下拉框数据
             selectNewEdit: [],
             // 批次号
-            isPcActive: true
+            isPcActive: true,
+            permissions: company
         }
     },
     mixins: [computed],
@@ -340,7 +344,10 @@ export default {
             if (this.newComponent[0].selectUrl2) {
                 for (let key in this.newComponent[0].selectUrl2) {
                     let newArr = this.$addAndEditSelectMethod(this.newComponent[0].selectUrl2[key])
-                    this.$dataGet(this, '/util/selects', {table: newArr.selectUrl})
+                    if (this.newComponent[0].selectAvl2[key] !== undefined) {
+                        var type = this.newComponent[0].selectAvl2[key]
+                    }
+                    this.$dataGet(this, '/util/selects', {table: newArr.selectUrl, type: type})
                         .then((responce) => {
                             if (responce.data.length !== 0) {
                                 this.selectNewEdit[key] = []
@@ -579,9 +586,25 @@ export default {
                     }
                 })
         },
+        // 根据下拉框获取表格数据
+        getTable (val) {
+            if (val[1] !== '' && val[1] !== undefined) {
+                var getSelect = {'getSelect': '444'}
+                var curl = {'curl': this.newComponent[0].curl}
+                var routeId = {'routeId': this.newComponent[0].labUrl}
+                var opqcurl = {'opqcurl': this.newComponent[0].opqcurl}
+                let surl = val[1] + '/' + this.newComponent[0].labUrl
+                this.$dataGet(this, surl, {getSelect, curl, routeId, opqcurl})
+                    .then((responce) => {
+                        this.$set(this.newComponent[0].components[this.newComponent[0].assocNum], 'tableVal', responce.data)
+                    })
+            } else {
+                this.$set(this.newComponent[0].components[this.newComponent[0].assocNum], 'tableVal', [])
+            }
+        },
         // 点击删除
         userRole (row, index) {
-            console.log(row)
+            this.isPermissionShow = !this.isPermissionShow
         },
         // 获取关联下拉框
         getAssoc (val) {
@@ -607,6 +630,14 @@ export default {
         moreShow (index, row) {
             this.isPrintShow = !this.isPrintShow
             this.printForm = row
+        },
+        permissionShow (index, row) {
+            this.companyId = row.id
+            this.isPermissionShow = true
+        },
+        detailShow (index, row) {
+            var id = row.id
+            this.$router.push('/index/details/' + this.batch + '/' + id)
         }
     },
     mounted () {
