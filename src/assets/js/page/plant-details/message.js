@@ -1346,48 +1346,6 @@ export default {
             }]
         }]
     },
-    // 物流批次详情
-    logisticBatch: {
-        key: 'logisticBatch',
-        tab: '物流批次管理',
-        theads: ['物流批次号', '物流日期', '货物名称', '数量', '运输方式', '操作人员', '物流状态', '备注', '出库订单批次号'],
-        protos: ['serial', 'datetime', 'name', 'amount', 'transportable_type', 'operate_name', 'state', 'memo', 'serial2'],
-        batch: 'plantPackProduct',
-        url: 'delivery',
-        tabList: [{
-            url: '',
-            tab: '加工批次产品信息',
-            searchPlaceholder: '请输入加工批次号进行搜索',
-            headList: ['加工批次号', '加工日期', '数量', '产地', '操作人', '备注'],
-            protos: ['serial', 'date', 'amount', 'origin', 'operate_name', 'memo'],
-            widths: [50, 50, 50, 50, 50, 50],
-            hiddeEdit: false,
-            typeComponent: [{
-                component: newbuildBtn
-            }],
-            listComponent: [{
-                components: [{
-                    type: 'date',
-                    component: datePick
-                }]
-            }],
-            newComponent: [{
-                tab: '新建加工批次检测信息',
-                type: 'table',
-                labUrl: 'pack',
-                paramsIndex: 'plant',
-                components: [{
-                    name: 'name',
-                    type: 'table',
-                    theads: ['加工批次号', '加工日期', '产地'],
-                    protos: ['serial', 'date', 'origin'],
-                    valueId: 'pack_ids',
-                    errormsg: '请选择加工批次号',
-                    tableVal: []
-                }]
-            }]
-        }]
-    },
     // 销售入库详情
     saleInput: {
         key: 'plantProduct',
@@ -1424,36 +1382,29 @@ export default {
     },
     // 销售订单详情
     saleOrder: {
-        key: 'plantProduct',
+        key: 'sellDetail',
         tab: '销售订单详情管理',
-        theads: ['订单号', '订单日期', '物流批次号', '客户名称', '金额', '数量', '销售员', '录入人', '备注'],
-        protos: [],
+        theads: ['销售订单号', '订单日期', '物流批次号', '客户名称', '金额', '数量', '销售员', '备注'],
+        protos: ['serial', 'datetime', 'delivery_serial', 'client_name', 'money', 'amount', 'operate_name', 'memo'],
+        url: 'sell',
         tabList: [{
-            tab: '采收批次信息',
-            searchPlaceholder: '请输入rfid进行搜索',
-            leftOperateList: [{
-                components: [
-                    {
-                        type: 'select',
-                        components: selectSection,
-                        options: [
-                            {
-                            }
-                        ]
-                    },
-                    {
-                        type: 'date',
-                        component: datePick
-                    }
-                ]
+            key: 'sell-code',
+            url: 'sell-code',
+            tab: '销售订单信息',
+            searchPlaceholder: '请输入溯源码进行搜索',
+            headList: ['产品溯源码', '销售产品', '生产日期', '产地', '溯源次数', '备注信息'],
+            protos: ['code', 'product_name', 'date', 'origin', 'time', 'memo'],
+            hiddeEdit: true,
+            widths: [50, 50, 50, 50, 50, 50],
+            typeComponent: [{
+                component: output
             }],
-            rightOperateComponent: [{component: output}, {component: newbuildBtn}],
-            headList: ['检测方式', '检测日期', '检测机构', '检测项目名称', '检测人', '检测结果', '证书编号', '有效期', '备注信息'],
-            protos: ['ear', 'name', 'date', 'memo'],
-            widths: [50, 50, 50],
-            newComponent: [{label: '', type: '', component: '', rule: ''}],
-            tableOperateList: [{operateName: '编辑'}, {operateName: '删除'}],
-            bottomOperateList: [{operateName: '删除'}, {operateName: '导出表格'}]
+            listComponent: [{
+                components: [{
+                    type: 'date',
+                    component: datePick
+                }]
+            }]
         }]
     },
     // 入驻单位详情
