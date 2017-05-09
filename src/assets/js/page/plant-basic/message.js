@@ -1655,7 +1655,7 @@ export default {
                     isNull: false,
                     label: '养殖场',
                     placeholder: '请选择养殖场',
-                    rule: {required: true, trigger: 'blur', type: 'number'},
+                    rule: {required: true},
                     disabled: true
                 },
                 {
@@ -1817,7 +1817,7 @@ export default {
                     isNull: false,
                     label: '圈舍面积',
                     placeholder: '请填写数字（必填）',
-                    rule: {validator: validate2.number},
+                    rule: {required: true, validator: validate2.number},
                     options: [
                         {
                             value: '亩', label: '亩'
@@ -1864,7 +1864,7 @@ export default {
                     isNull: false,
                     label: '所属养殖区',
                     placeholder: '必填',
-                    rule: {required: true, trigger: 'blur', type: 'number'},
+                    rule: {required: true},
                     options: [],
                     disabled: true
                 },
@@ -1884,7 +1884,7 @@ export default {
                     isNull: false,
                     label: '圈舍面积',
                     placeholder: '请填写数字（必填）',
-                    rule: {validator: validate2.number},
+                    rule: {required: true, validator: validate2.number},
                     options: [
                         {
                             value: '亩', label: '亩'
@@ -1990,7 +1990,7 @@ export default {
                     isNull: true,
                     label: 'RFID位置',
                     placeholder: '如 耳朵',
-                    rule: null
+                    rule: {required: true, trigger: 'blur'}
                 },
                 {
                     name: 'img',
@@ -2053,7 +2053,7 @@ export default {
                     isNull: true,
                     label: 'RFID位置',
                     placeholder: '如 耳朵',
-                    rule: null
+                    rule: {required: true, trigger: 'blur'}
                 },
                 {
                     name: 'img',

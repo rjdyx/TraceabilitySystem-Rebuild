@@ -420,6 +420,8 @@ export default {
                     if (responce.data.data.length !== 0) {
                         var ret = this.$conversion(this.changeDataArr, responce.data.data, 1)
                         ret = this.$eltable(ret)
+                        console.log('1---')
+                        console.log(ret)
                         this.$set(this, 'tableData', ret)
                         this.total_num = responce.data.total
                         this.num = responce.data.last_page
@@ -441,6 +443,7 @@ export default {
         // 文本与时间按钮查询
         textAndDateFind () {
             this.dataArr['query_text'] = this.inputValue
+            console.log(this.dataArr)
             this.boxArr(this.dataArr)
         },
         // 下拉框查询
