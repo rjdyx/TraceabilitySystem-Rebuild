@@ -8,7 +8,7 @@
 <template>
 <div class="detailsModel">   
   <!-- 标题 -->
-    <contain-title :settitle="tab">
+    <contain-title :settitle="tab" :isShow="isShow">
     </contain-title>
   <!-- 信息列表 -->
     <el-row :gutter="20">
@@ -50,7 +50,7 @@
     
         <!-- 新建模块 --> 
         <transition name="fade">
-            <popNew v-if="isNewShow" :newComponent="tabItem.newComponent" :url="apiUrlArr[tabList[0].url]" @submitNew="changeNew" @setTable="getTable"></popNew>
+            <popNew v-if="isNewShow" :newComponent="tabItem.newComponent" :url="apiUrlArr[tabList[0].url]" @submitNew="changeNew" @setTable="getTable" :routeId="routeId"></popNew>
         </transition>
         <!-- 编辑模块 -->
         <transition name="fade">
@@ -195,7 +195,9 @@ export default {
             // 复选框选中返回对象
             checkObject: {},
             selectNewEdit: [],
-            index: 0
+            index: 0,
+            routeId: this.$route.params.id,
+            isShow: true
         }
     },
     mixins: [computed],
@@ -353,7 +355,7 @@ export default {
             this.$dataGet(this, this.apiUrlArr[this.tabList[this.index].url], {params: data})
                 .then((responce) => {
                     if (responce.data.data.length !== 0) {
-                        var ret = this.$conversion(this.changeDataArr, responce.data.data, 1)
+                        var ret = this.$conversion(this.tabItem.changeDataArr, responce.data.data, 1)
                         ret = this.$eltable(ret)
                         this.$set(this, 'tableData', ret)
                         this.total_num = responce.data.total

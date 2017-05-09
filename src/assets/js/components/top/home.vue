@@ -12,11 +12,11 @@
 			</contain-title>
 			<div class="titleHome">
 				<span :class="{'picture': isClass}">
-					<img src="/public/images/home.jpg" class="homeImg" />
+					<img src="listV.logo" class="homeImg" />
 				</span>
 				<el-row :gutter="20" class="text homeInfo">
-					<el-col :span='12' v-for="(item,index) in list" class="coltext">
-						{{item}}
+					<el-col :span='12' v-for="(item,index) in listN" class="coltext">
+						{{item}} {{listV[index]}}
 					</el-col>
 				</el-row>
 			</div>
@@ -24,10 +24,13 @@
 			<div class="main">
 				<div class="leftMain">
 					<template v-for="(area,index) in areas">
-						<div :class="{'A': area.isA, 'B': area.isB, 'C': area.isC, 'D': area.isD}">
-							<h1>{{area.title}}</h1>
+						<div :class="style[index]">
+							<h1>{{area.name}}</h1>
 							<el-row :gutter="20">
-								<el-col :span="8"></el-col>
+								<el-col :span="8">
+									<div class="cols" style="height:20px;">区域面积：{{area.area}} {{area.unit}}</div>
+									<div class="cols" style="height:20px;">区域负责人：{{area.operate}}</div>
+								</el-col>
 							</el-row>
 						</div>
 					</template>	
@@ -35,11 +38,19 @@
 				<div class="rightMain">
 					<h1>My plan</h1>
 					<ul>
-						<li v-for="siderItem in siderTip" class="siderTip">
+						<li v-if="state==='beast'" v-for="siderItem in siderBeast" class="siderTip">
 							<span class="siderImg">
 								<img :src="siderItem.src" />
 							</span>
 							<span class="siderType">{{siderItem.type}}</span>
+							<span class="siderKey">{{plans[siderItem.key]}}</span>
+						</li>
+						<li v-else v-for="siderItem in siderPlant" class="siderTip">
+							<span class="siderImg">
+								<img :src="siderItem.src" />
+							</span>
+							<span class="siderType">{{siderItem.type}}</span>
+							<span class="siderKey">{{plans[siderItem.key]}}</span>
 						</li>
 					</ul>
 				</div>
@@ -48,9 +59,8 @@
 			<div class="dataRecord">
 				<chart class="chart"></chart>
 				<div class="record">
-					<p>本月追溯次数：{{}}次</p>
-					<p>本月生产溯源码：{{}}个</p>
-					<p>本月出栏头数：{{}}</p>
+					<p>本月追溯次数：{{codes.time}}次</p>
+					<p>本月生产溯源码：{{codes.code}}个</p>
 				</div>
 			</div>
 		</div>
@@ -65,35 +75,75 @@ export default{
     name: 'home',
     data () {
         return {
-            areas: [
-                {title: 'B区', isA: true, isB: false, isC: false, isD: false},
-                {title: 'A区', isA: false, isB: true, isC: false, isD: false},
-                {title: 'C区', isA: false, isB: false, isC: true, isD: false},
-                {title: 'D区', isA: false, isB: false, isC: false, isD: true}
+            areas: {},
+            style: [
+                {'A': true, 'B': false, 'C': false, 'D': false},
+                {'A': false, 'B': true, 'C': false, 'D': false},
+                {'A': false, 'B': false, 'C': true, 'D': false},
+                {'A': false, 'B': false, 'C': false, 'D': true}
             ],
             settitle: '首页',
             isClass: false,
-            list: ['所属公司:', '用户名:', '登录时间:', '用户类型:'],
-            siderTip: [
+            listN: {'company_name': '所属公司:', 'name': '用户名:', 'date': '登录时间:', 'type': '用户类型:'},
+            listV: {},
+            state: 'beast',
+            plans: {},
+            codes: {},
+            siderPlant: [
                 {
                     src: '/public/images/fertilize-home.png',
-                    type: '施肥'
+                    type: '施肥',
+                    key: 'fertilize'
                 },
                 {
                     src: '/public/images/medicine-home.png',
-                    type: '施药'
-                },
-                {
-                    src: '/public/images/harvest-home.png',
-                    type: '采收'
-                },
-                {
-                    src: '/public/images/delivery-home.png',
-                    type: '收发量'
+                    type: '施药',
+                    key: 'spray'
                 },
                 {
                     src: '/public/images/sale-home.png',
-                    type: '销售订单'
+                    type: '检测',
+                    key: 'detect'
+                },
+                {
+                    src: '/public/images/harvest-home.png',
+                    type: '采收',
+                    key: 'harvest'
+                }
+                // {
+                //     src: '/public/images/delivery-home.png',
+                //     type: '收发量'
+                // },
+                // {
+                //     src: '/public/images/sale-home.png',
+                //     type: '销售订单'
+                // }
+            ],
+            siderBeast: [
+                {
+                    src: '/public/images/fertilize-home.png',
+                    type: '喂养',
+                    key: 'fodderuse'
+                },
+                {
+                    src: '/public/images/medicine-home.png',
+                    type: '病疫',
+                    key: 'disease'
+                },
+                {
+                    src: '/public/images/sale-home.png',
+                    type: '检测',
+                    key: 'detect'
+                },
+                {
+                    src: '/public/images/harvest-home.png',
+                    type: '出栏',
+                    key: 'come'
+                },
+                {
+                    src: '/public/images/sale-home.png',
+                    type: '检疫',
+                    key: 'detection'
                 }
             ]
         }
@@ -101,6 +151,33 @@ export default{
     components: {
         ContainTitle,
         chart
+    },
+    mounted () {
+        axios.get('api/index/state')
+            .then((responce) => {
+                this.state = responce.data
+            })
+        axios.get('api/index')
+            .then((responce) => {
+                this.listV = responce.data
+                this.listV.date = '2017-05-01 16:23:21'
+            })
+        axios.get('api/index/district')
+            .then((responce) => {
+                var arr = []
+                for (var key in responce.data) {
+                    arr[key] = responce.data[key]
+                }
+                this.areas = arr.data
+            })
+        axios.get('api/index/plan')
+            .then((responce) => {
+                this.plans = responce.data
+            })
+        axios.get('api/index/code')
+            .then((responce) => {
+                this.codes = responce.data
+            })
     }
 }
 
@@ -112,6 +189,10 @@ export default{
 <style lang="sass">
 $inline: inline-block;
 $absolute: absolute;
+.cols{
+	padding: 5px;width: 90%;font-size:15px;color:#555555;
+	text-align: left;
+}
 .home{
 	height: 100%;
     overflow:hidden;
@@ -152,13 +233,15 @@ $absolute: absolute;
 				display: $inline;
 				position: relative;
 					div{
-						width: 200px;
+						width: 260px;
 						height: 200px;
 					}
 			}
 			.leftMain h1,.rightMain h1{
-				font-size: 34px;
-				text-align: center;
+				font-size: 22px;
+				text-align: left;
+				color:#333333;
+				display:block;white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
 			}
 			.rightMain h1{
 				padding-bottom: 15px;
@@ -187,6 +270,13 @@ $absolute: absolute;
 						text-align: center;
 						width: 120px;
 						font-size: 16px;
+					}
+					.siderKey{
+						display: $inline;
+						text-align: center;
+						width: 120px;
+						font-size: 16px;
+						color: #0098CA;
 					}
 				}
 			}
@@ -224,23 +314,22 @@ $absolute: absolute;
 	.B{
 		position: $absolute;
 		top: 25%;
-		left: 14%;
+		left: 11%;
 		/*border: 1px solid blue;*/
 	}
 	.C{
 		position: $absolute;
 		bottom:38%;
-		left: 43%;
+		left: 41%;
 		// border: 1px solid green;
 	}
 	.D{
 		position: $absolute;
-		bottom: 32%;
-		left: 67%;
+		bottom: 30%;
+		left: 68%;
 		// border: 1px solid orange;
 	}
 }
-
 
 
 

@@ -138,7 +138,8 @@ export default {
         tab: {
             type: ''
         },
-        url: ''
+        url: '',
+        routeId: ''
         // editForm: {
         //   type: Object,
         //   default: {}
@@ -251,6 +252,10 @@ export default {
         submitForm (formName) {
             this.$refs[formName][0].validate((valid) => {
                 if (valid) {
+                    if (this.newComponent[0].urlid !== undefined) {
+                        let field = this.newComponent[0].urlid
+                        this.tableForm[field] = this.routeId
+                    }
                     if (this.newComponent[0].type === 'table' || this.newComponent[0].type === 'assoc') {
                         if (this.ids.length !== 0) {
                             this.$dataPost(this, this.url, this.tableForm, false, false, false)

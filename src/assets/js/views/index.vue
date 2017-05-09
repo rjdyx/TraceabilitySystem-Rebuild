@@ -28,7 +28,7 @@ export default {
                 {
                     name: '帮助',
                     src: '/public/images/help.png',
-                    path: '/index/set'
+                    path: '/index/help'
                 },
                 {
                     name: '设置',

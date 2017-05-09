@@ -1,5 +1,6 @@
 import importBtn from '../../components/public/import-btn.vue'
 import newbuildBtn from '../../components/public/newbuild-btn.vue'
+import scanCode from '../../components/public/scanCode.vue'
 import output from '../../components/public/output.vue'
 import selectSection from '../../components/public/select-section.vue'
 import datePick from '../../components/public/datePick.vue'
@@ -410,7 +411,7 @@ export default {
             tab: '养殖批次信息',
             searchPlaceholder: '请输入批次号进行搜索',
             // typeComponent: [{component: output}, {component: newbuildBtn}],
-            typeComponent: [{component: newbuildBtn}],
+            typeComponent: [{component: scanCode}, {component: newbuildBtn}],
             headList: ['圈舍', '养殖批次', 'Rfid', '养殖畜禽', '养殖日期'],
             protos: ['area_name', 'serial', 'rfid', 'beast_name', 'date'],
             widths: [50, 50, 50, 50],
@@ -1484,16 +1485,16 @@ export default {
                 ]
             }],
             rightOperateComponent: [{component: output}, {component: newbuildBtn}],
+            changeDataArr: [{gender: {0: '男', 1: '女'}}],
             headList: ['用户名', '姓名', '工号', '邮箱', '性别', '电话号码', '出生日期', '所属部门', '入职日期', '头像', '备注'],
             protos: ['name', 'realname', 'number', 'email', 'gender', 'phone', 'birth_date', 'department', 'hiredate', 'thumb', 'memo'],
             widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
-            tableOperateList: [{operateName: '编辑'}, {operateName: '删除'}],
-            bottomOperateList: [{operateName: '删除'}, {operateName: '导出表格'}],
             typeComponent: [{component: newbuildBtn}],
             newComponent: [{
+                urlid: 'company_id',
                 tab: '新建用户信息',
                 hiddenValue: {type: 0},
-                checkNumber: [0],
+                checkNumber: [0, 1, 2],
                 components: [{
                     name: 'name',
                     type: 'text',
@@ -1509,8 +1510,17 @@ export default {
                     component: null,
                     isNull: false,
                     label: '邮箱',
-                    placeholder: '请输入邮箱'
-                    // rule: [{required: true, trigger: 'blur'}, {validator: validate2.reCheck}]
+                    placeholder: '请输入邮箱',
+                    rule: [{required: true, trigger: 'blur'}, {validator: validate2.reCheck}]
+                },
+                {
+                    name: 'phone',
+                    type: 'text',
+                    component: null,
+                    isNull: false,
+                    label: '手机号码',
+                    placeholder: '请输入手机号码',
+                    rule: [{required: true, trigger: 'blur'}, {validator: validate2.reCheck}, {validator: validate2.phone}]
                 },
                 {
                     name: 'gender',
@@ -1544,16 +1554,7 @@ export default {
                     isNull: false,
                     label: '出生日期',
                     placeholder: '请选择日期',
-                    rule: {required: false, trigger: 'blur'}
-                },
-                {
-                    name: 'phone',
-                    type: 'text',
-                    component: null,
-                    isNull: false,
-                    label: '手机号码',
-                    placeholder: '请输入手机号码',
-                    rule: {required: false, trigger: 'blur', type: 'number'}
+                    rule: {validator: validate2.reDate, aa: '666'}
                 },
                 {
                     name: 'department',
@@ -1580,7 +1581,7 @@ export default {
                     isNull: false,
                     label: '工号',
                     placeholder: '请输入工号',
-                    rule: {required: false, trigger: 'blur', type: 'number'}
+                    rule: [{required: false, trigger: 'blur'}, {validator: validate2.reInteger}]
                 },
                 {
                     name: 'img',
@@ -1604,7 +1605,7 @@ export default {
             editComponent: [{
                 tab: '编辑用户信息',
                 hiddenValue: {type: 0},
-                checkNumber: [0],
+                checkNumber: [0, 1, 2],
                 components: [{
                     name: 'name',
                     type: 'text',
@@ -1622,6 +1623,15 @@ export default {
                     label: '邮箱',
                     placeholder: '请输入邮箱',
                     rule: [{required: true, trigger: 'blur'}, {validator: validate2.reCheck}]
+                },
+                {
+                    name: 'phone',
+                    type: 'text',
+                    component: null,
+                    isNull: false,
+                    label: '手机号码',
+                    placeholder: '请输入手机号码',
+                    rule: [{required: true, trigger: 'blur'}, {validator: validate2.reCheck}, {validator: validate2.phone}]
                 },
                 {
                     name: 'gender',
@@ -1655,16 +1665,7 @@ export default {
                     isNull: false,
                     label: '出生日期',
                     placeholder: '请选择日期',
-                    rule: {required: false, trigger: 'blur', type: 'date'}
-                },
-                {
-                    name: 'phone',
-                    type: 'text',
-                    component: null,
-                    isNull: false,
-                    label: '手机号码',
-                    placeholder: '请输入手机号码',
-                    rule: {required: false, trigger: 'blur', type: 'number'}
+                    rule: {validator: validate2.reDate, aa: '666'}
                 },
                 {
                     name: 'department',
@@ -1691,7 +1692,7 @@ export default {
                     isNull: false,
                     label: '工号',
                     placeholder: '请输入工号',
-                    rule: {required: false, trigger: 'blur', type: 'number'}
+                    rule: [{required: false, trigger: 'blur'}, {validator: validate2.reInteger}]
                 },
                 {
                     name: 'img',

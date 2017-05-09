@@ -29,7 +29,7 @@
         <div class="video">
             <video></video>
             <i class="closeIcon" @click="closeClick"></i>
-        </div>
+        </div>  
     </div>
 </div>
 </template>
