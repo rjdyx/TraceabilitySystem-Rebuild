@@ -41,16 +41,23 @@ export default {
         }
     },
     mounted () {
+        this.checkedMemus = this.checkeds
+        console.log(this.checkeds)
     },
     methods: {
         handleCheckAllChange (event) {
             this.checkedMemus = event.target.checked ? this.memus : []
-            this.$emit('return-checked', [this.name, this.checkedMemus])
+            this.$emit('return-checked', [this.name, this.checkedMemus, true])
         },
         handleCheckedMemusChange (value) {
             let checkedCount = value.length
             this.checkAll = checkedCount === this.memus.length
-            this.$emit('return-checked', [this.name, value])
+            this.$emit('return-checked', [this.name, value, true])
+        }
+    },
+    watch: {
+        checkeds: function () {
+            this.checkedMemus = this.checkeds
         }
     }
 }

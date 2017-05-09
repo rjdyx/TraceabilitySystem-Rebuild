@@ -43,7 +43,8 @@
                 isNewShow: false,
                 isShow: false,
                 // newComponent: [],
-                more: more
+                more: more,
+                checkeds: {}
             }
         },
         props: {

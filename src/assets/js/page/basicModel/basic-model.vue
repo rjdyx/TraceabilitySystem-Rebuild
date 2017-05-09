@@ -101,8 +101,8 @@
         label="操作" v-if="checkOperate==null">
             <template scope="scope" class="operateBtn">
                 <template v-if="moreComponent!=null">
-                    <clickMore :moreComponent="moreComponent" 
-                    @showMore="moreShow(scope.$index,scope.row)" @showPermission="permissionShow(scope.$index,scope.row)" @showDetail="detailShow(scope.$index,scope.row)" class="clickMoreBtn"></clickMore>
+                    <clickMore :companyId="companyId" :moreComponent="moreComponent" 
+                    @showMore="moreShow(scope.$index,scope.row)" @showPermission="permissionShow(scope.$index,scope.row)" @showDetail="detailShow(scope.$index,scope.row)" class="clickMoreBtn" @return-permission="getPermission"></clickMore>
                 </template>
                 <template>
 
@@ -253,7 +253,9 @@ export default {
             selectNewEdit: [],
             // 批次号
             isPcActive: true,
-            permissions: company
+            permissions: company,
+            // 已选择的权限
+            checkeds: {}
         }
     },
     mixins: [computed],
@@ -344,8 +346,10 @@ export default {
             if (this.newComponent[0].selectUrl2) {
                 for (let key in this.newComponent[0].selectUrl2) {
                     let newArr = this.$addAndEditSelectMethod(this.newComponent[0].selectUrl2[key])
-                    if (this.newComponent[0].selectAvl2[key] !== undefined) {
-                        var type = this.newComponent[0].selectAvl2[key]
+                    if (this.newComponent[0].selectAvl2) {
+                        if (this.newComponent[0].selectAvl2[key] !== undefined) {
+                            var type = this.newComponent[0].selectAvl2[key]
+                        }
                     }
                     this.$dataGet(this, '/util/selects', {table: newArr.selectUrl, type: type})
                         .then((responce) => {
@@ -634,10 +638,15 @@ export default {
         permissionShow (index, row) {
             this.companyId = row.id
             this.isPermissionShow = true
+            console.log('this.companyId:' + this.companyId)
         },
         detailShow (index, row) {
             var id = row.id
             this.$router.push('/index/details/' + this.batch + '/' + id)
+        },
+        getPermission (data) {
+            this.checkeds = data
+            console.log(this.checkeds)
         }
     },
     mounted () {

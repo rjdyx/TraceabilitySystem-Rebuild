@@ -238,7 +238,7 @@ export default {
         protos: ['serial', 'date', 'name', 'expert_name', 'operate_name', 'content', 'result', 'check', 'img', 'memo'],
         url: 'detect',
         tabList: [{
-            url: 'detect-detail',
+            url: 'breed-detect',
             tab: '养殖批次信息',
             searchPlaceholder: '请输入批次号进行搜索',
             // typeComponent: [{component: output}, {component: newbuildBtn}],
@@ -251,6 +251,7 @@ export default {
             newComponent: [{
                 tab: '新建批次检测信息',
                 type: 'table',
+                assocNum: 0,
                 labUrl: 'breed',
                 components: [{
                     name: 'name',
@@ -383,17 +384,9 @@ export default {
                 tab: '新建批次圈舍维护信息',
                 type: 'table',
                 labUrl: 'area',
+                // labUrl: 'breed',
+                assocNum: 0,
                 components: [{
-                    name: 'breed_id',
-                    type: 'select',
-                    component: null,
-                    isNull: false,
-                    label: '养殖区名称',
-                    placeholder: '',
-                    rule: {required: true, trigger: 'blur', type: 'number', message: '请选择养殖区'},
-                    options: []
-                },
-                {
                     name: 'name',
                     type: 'table',
                     theads: ['养殖批次号', '圈舍', '养殖畜禽', '养殖日期'],
@@ -425,8 +418,12 @@ export default {
             listComponent: [],
             newComponent: [{
                 tab: '新建批次无害化信息',
-                type: 'table',
+                selectUrl2: [['breeds', 'id', 'serial', true]],
+                selectInit2: [{value: '', label: '养殖批次号选择'}],
+                popNumber2: [0],
                 labUrl: 'rfid',
+                type: 'assoc',
+                assocNum: 1,
                 components: [{
                     name: 'breed_id',
                     type: 'select',

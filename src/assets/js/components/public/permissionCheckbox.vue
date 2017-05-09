@@ -20,7 +20,7 @@
                 <div class="tr1" >
                     <!-- <el-checkbox v-model="checked" @change="allChange">全选</el-checkbox> -->
                     <ul class="ul">
-                        <li><allCheck v-for="(itemList,key) in memuList" :checkeds="checkeds" :lists="itemList" :name="key" @return-isAllcheck="allChange" @return-checked="allChecked"></allCheck></li>
+                        <li><allCheck v-for="(itemList,key) in memuList" :checkeds="checkeds[key]" :lists="itemList" :name="key" @return-isAllcheck="allChange" @return-checked="allChecked"></allCheck></li>
                     </ul>
                 </div>  
             </el-form>
@@ -67,30 +67,39 @@ export default {
             memuList: {},
             checked: false,
             allCheckObj: obj,
-            checkeds: {},
-            newForm: {}
+            checkeds: {}
         }
     },
     mounted () {
+        var _this = this
+        // 默认选中数据
+        axios.get('api/permission/select' + '?company_id=' + this.companyId)
+            .then((responce) => {
+                console.log('-----------')
+                console.log(responce.data)
+                if (responce.data) {
+                    this.checkeds = responce.data
+                    for (let key in responce.data) {
+                        let arr = []
+                        if (responce.data[key] !== null) {
+                            responce.data[key].forEach((obj) => {
+                                arr.push(obj.id)
+                            })
+                            this.checkeds[key] = arr
+                        } else {
+                            this.checkeds[key] = []
+                        }
+                    }
+                }
+            })
         // 全部数据
         axios.get('api/permission/select')
             .then((responce) => {
                 this.memuList = responce.data
-                console.log(this)
-                for (var key in this.memuList) {
-                    this.newForm[key] = []
-                }
-            })
-        // 默认选中数据
-        axios.get('api/permission/select' + '?company_id=' + this.companyId)
-            .then((responce) => {
-                this.checkeds = responce.data
-                console.log(this.checkeds)
             })
         /**
         * 点击表单拖拽事件
         */
-        var _this = this
         this.resizeFn()
         $('.permission').find($('.el-tabs__header')).on('mousedown', (e) => {
             // console.log('mousedown')
@@ -147,15 +156,17 @@ export default {
         */
         submitForm (formName) {
             let allIdArr = []
-            for (let key in this.newForm) {
-                this.newForm[key].forEach(function (item) {
+            for (let key in this.checkeds) {
+                this.checkeds[key].forEach(function (item) {
                     allIdArr.push(item)
                 })
             }
             console.log(allIdArr)
+            this.$parent.userRole()
         },
         allChecked (data) {
-            this.newForm[data[0]] = data[1]
+            this.checkeds[data[0]] = data[1]
+            this.isChange = data[2]
         },
         allChange (data = []) {
             if (data.length) {
