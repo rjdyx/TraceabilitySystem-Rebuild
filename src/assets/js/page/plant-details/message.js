@@ -1398,6 +1398,9 @@ export default {
             widths: [50, 50, 50, 50, 50, 50],
             typeComponent: [{
                 component: output
+            },
+            {
+                component: scanCode
             }],
             listComponent: [{
                 components: [{

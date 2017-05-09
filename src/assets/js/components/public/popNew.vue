@@ -338,7 +338,7 @@ export default {
         // 新增成功调用方法
         successCallback () {
             var com = this.newComponent[0].components
-            if (com[3].selfHidden !== undefined) {
+            if (this.newComponent[0].divHidden !== undefined) {
                 com[3].selfHidden = true
                 com[4].selfHidden = true
                 com[5].consignHidden = true
