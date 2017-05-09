@@ -8947,6 +8947,7 @@ export default {
         }],
         newComponent: [{
             tab: '新建物流批次信息',
+            divHidden: true,
             selectUrl2: [['operates', 'id', 'name', true], ['vehicles', 'id', 'number', true], ['drivers', 'id', 'name', true], ['logistics', 'id', 'name', true]],
             selectInit2: [{value: '', label: '操作人员选择'}, {value: '', label: '请选择车辆'}, {value: '', label: '请选择司机'}, {value: '', label: '请选择物流公司'}],
             popNumber2: [7, 3, 4, 5],

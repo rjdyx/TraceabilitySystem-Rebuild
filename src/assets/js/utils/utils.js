@@ -226,6 +226,25 @@ default {
             }
             return {'selectArr': selectArr, 'selectUrl': selectUrl, 'selectData': selectData}
         }
+        /**
+         *
+         * 用2替换
+         * @param ret
+         * @returns ret
+         */
+        Vue.prototype.$getProductInfo = (ret) => {
+            for (let key in ret) {
+                for (let item in ret[key]) {
+                    if (item.indexOf('2') !== -1) {
+                        if (ret[key][item] !== null) {
+                            let i = item.replace('2', '')
+                            ret[key][i] = ret[key][item]
+                        }
+                    }
+                }
+            }
+            return ret
+        }
         Vue.prototype.Roles = {}
         Vue.prototype.State = 0
     }
