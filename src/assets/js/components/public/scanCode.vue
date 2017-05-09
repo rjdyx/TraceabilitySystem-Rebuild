@@ -8,12 +8,26 @@
 <template>
 	<div class="scan_code">
 		<span>扫描溯源码</span>
-		<input type="text" name="" placeholder="扫码请在此输入焦点">
+		<input type="text" id="code_input" name="" placeholder="扫码请在此输入焦点" @change="handleAdd">
 	</div>
 
 </template>
 
-<script></script>
+<script>
+export default {
+    name: 'ScanCode',
+    methods: {
+        handleAdd (val) {
+            this.$parent.changeScanCode(val.target.value)
+            val.target.value = ''
+            document.getElementById('code_input').focus()
+        }
+    },
+    mounted () {
+        document.getElementById('code_input').focus()
+    }
+}
+</script>
 
 
 <style lang="sass">
