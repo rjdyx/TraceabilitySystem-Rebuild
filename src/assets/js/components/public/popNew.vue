@@ -106,6 +106,23 @@
                         </td>
                     </tr>
                 </template>
+
+                 <!-- 传二级多选框组件 -->
+                <tr class="tr1" v-if="checkboxShow">
+                    <td>
+                        <ul class="ul">
+                            <li>
+                                <allCheck v-for="(itemList,key) in memuList" 
+                                :lists="itemList" 
+                                :checkeds="checkeds[key]"
+                                :name="key" 
+                                @return-isAllcheck="allChange" 
+                                @return-checked="allChecked">
+                                </allCheck>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
           </table>
          </el-form>
         </el-tab-pane>
@@ -121,11 +138,15 @@
 </template>
 
 <script>
+import AllCheck from './allCheck.vue'
+import vuexStore from '../../vuex/modules/isAllCheck.js'
 export default {
     name: 'validator-example',
     // validator: null,
     components: {
-      // ActiveBox,
+        // ActiveBox,
+        AllCheck,
+        vuexStore
     },
     props: {
         type: '',
@@ -139,7 +160,8 @@ export default {
             type: ''
         },
         url: '',
-        routeId: ''
+        routeId: '',
+        checkboxShow: false
         // editForm: {
         //   type: Object,
         //   default: {}
@@ -181,10 +203,19 @@ export default {
             isMouseClick: false,
             trHidden: false,
             dmL: 0,
-            dmT: 0
+            dmT: 0,
+            memuList: {},
+            checkeds: []
         }
     },
     mounted () {
+        if (this.checkboxShow) {
+            // 全部数据
+            axios.get('api/company/permission')
+                .then((responce) => {
+                    this.memuList = responce.data
+                })
+        }
         /**
         * 点击表单拖拽事件
         */
@@ -253,6 +284,19 @@ export default {
         * 提交表单
         */
         submitForm (formName) {
+            // 多选框 权限
+            if (this.checkboxShow) {
+                let allIdArr = []
+                console.log(this.checkeds.length)
+                if (this.checkeds.length) {
+                    for (let key in this.checkeds) {
+                        this.checkeds[key].forEach(function (item) {
+                            allIdArr.push(item)
+                        })
+                    }
+                }
+                this.tableForm['permission_ids'] = allIdArr
+            }
             this.$refs[formName][0].validate((valid) => {
                 if (valid) {
                     if (this.newComponent[0].urlid !== undefined) {
@@ -278,6 +322,25 @@ export default {
                     return false
                 }
             })
+        },
+        allChecked (data) {
+            this.checkeds[data[0]] = data[1]
+            this.isChange = data[2]
+        },
+        allChange (data = []) {
+            if (data.length) {
+                this.allCheckObj[data[0]] = data[1]
+                var bol = true
+                for (let key in this.allCheckObj) {
+                    bol = this.allCheckObj[key] && bol
+                }
+                this.checked = bol
+            } else {
+                this.$store.commit('changeIsAllCheck', this.checked)
+                for (let key in this.allCheckObj) {
+                    this.allCheckObj[key] = this.checked
+                }
+            }
         },
         // 选择框
         handleSelectionChange (val) {

@@ -1,5 +1,5 @@
 /**
- * 权限多选组件
+ * 角色单选组件
  * @description 
  * @author 郭森林
  * @date 2017/5/04
@@ -8,91 +8,73 @@
 
 
 <template>
-<div class="permission">
-    <form class="newForm">
-        <i class="el-icon-circle-close" @click="closeClick" ></i>
-        <!-- tab选项卡 -->
-        <!-- <h4>{{editComponent[0].tab}}</h4> -->
-        <el-tabs v-model="activeName">
-            <el-tab-pane label="权限管理" name="first">
-              <!-- 表单 -->
+<div class="newWrap">
+  <form class="newForm">
+    <i class="el-icon-circle-close" @click="closeClick"></i>
+      <!-- tab选项卡 -->
+    <el-tabs v-model="activeName" >
+        <el-tab-pane label="权限管理" name="first">
+          <!-- 表单 -->
             <el-form ref="form" :model="form" label-width="110px" class="demo-editForm">
-                <div class="tr1" >
-                    <!-- <el-checkbox v-model="checked" @change="allChange">全选</el-checkbox> -->
-                    <ul class="ul">
-                        <li><allCheck v-for="(itemList,key) in memuList" :checkeds="checkeds[key]" :lists="itemList" :name="key" @return-isAllcheck="allChange" @return-checked="allChecked"></allCheck></li>
-                    </ul>
-                </div>  
-            </el-form>
-            </el-tab-pane>
-        </el-tabs>
-        <div class="form-footer">
-            <el-button class="btn_change"  @click="submitForm()">确定</el-button>
-            <el-button class="activecancel" @click="cancelClick">取消</el-button>
-        </div>
+            <table>
+                <template>
+                    <tr class="tr1"><td><i style="color:#55BBA6;margin-left: 40px;">* 选择用户关联的角色</i></td></tr>
+                    <br>
+                    <!-- 下拉框 -->
+                    <tr class="tr1"> 
+                        <td>
+                            <el-form-item label="权限角色" prop="role_id">
+                              <el-select v-model="form.value" size="small">
+                                <el-option 
+                                    v-for="option in options" 
+                                    :label="option.name" 
+                                    :value="option.id" 
+                                    size="small"></el-option>
+                              </el-select>
+                            </el-form-item>
+                        </td>
+                    </tr>
+                </template>
+          </table>
+         </el-form>
+        </el-tab-pane>
+    </el-tabs>
+    <div class="form-footer">
+        <el-button class="btn_change"  @click="submitForm">确定</el-button>
+        <el-button class="activecancel" @click="cancelClick">取消</el-button>
+    </div>
     </form>
 </div>
 </template>
 
 <script>
-import AllCheck from './allCheck.vue'
-import vuexStore from '../../vuex/modules/isAllCheck.js'
 export default {
     name: 'validator-example',
-    store: vuexStore,
-    // validator: null,
     components: {
-      // ActiveBox,
-        AllCheck
     },
     props: {
-        permissions: {
-            type: Object,
-            default () {
-                return {}
-            }
-        },
-        companyId: ''
+        rowId: ''
     },
     data () {
-        let obj = {}
-        this.permissions.protos.forEach(function (item) {
-            obj[item] = false
-        })
         return {
             activeName: 'first',
-            memu: this.permissions.memu,
-            protos: this.permissions.protos,
-            // memuList: this.permissions.memuList,
-            memuList: {},
-            checked: false,
-            allCheckObj: obj,
-            checkeds: {}
+            options: [],
+            form: {
+                value: null
+            }
         }
     },
     mounted () {
-        var _this = this
         // 全部数据
-        axios.get('api/permission/select')
+        axios.get('api/role/company/' + this.rowId)
             .then((responce) => {
-                this.memuList = responce.data
+                this.options = responce.data
             })
         // 默认选中数据
-        axios.get('api/permission/select' + '?company_id=' + this.companyId)
+        axios.get('api/role/user/' + this.rowId)
             .then((responce) => {
-                if (responce.data) {
-                    this.checkeds = responce.data
-                    for (let key in responce.data) {
-                        let arr = []
-                        if (responce.data[key] !== null) {
-                            for (let i in responce.data[key]) {
-                                arr.push(responce.data[key][i].id)
-                            }
-                            this.checkeds[key] = arr
-                        } else {
-                            this.checkeds[key] = []
-                        }
-                    }
+                if (responce.data.role_id !== undefined && responce.data.role_id !== null) {
+                    this.form.value = responce.data.role_id
                 }
             })
         /**
@@ -141,64 +123,41 @@ export default {
         },
         // 关闭表单事件
         closeClick () {
-            this.$parent.userRole()
+            this.$parent.closeRoleShow()
         },
         // 取消事件
         cancelClick () {
-            this.$parent.userRole()
+            this.$parent.closeRoleShow()
         },
       /**
         * 提交表单
         */
         submitForm (formName) {
-            let allIdArr = []
-            for (let key in this.checkeds) {
-                this.checkeds[key].forEach(function (item) {
-                    allIdArr.push(item)
-                })
-            }
-            var arr = {permissions: allIdArr}
-            axios.post('api/company_permission/' + this.companyId, arr)
+            var arr = {role_id: this.form.value}
+            axios.post('api/role/user/' + this.rowId, arr)
                 .then((responce) => {
-                    this.$parent.userRole()
+                    this.$parent.closeRoleShow()
                     if (responce.data !== false) {
                         alert('编辑权限成功')
                     } else {
                         alert('编辑权限失败')
                     }
                 })
-        },
-        allChecked (data) {
-            this.checkeds[data[0]] = data[1]
-            this.isChange = data[2]
-        },
-        allChange (data = []) {
-            if (data.length) {
-                this.allCheckObj[data[0]] = data[1]
-                var bol = true
-                for (let key in this.allCheckObj) {
-                    bol = this.allCheckObj[key] && bol
-                }
-                this.checked = bol
-            } else {
-                this.$store.commit('changeIsAllCheck', this.checked)
-                for (let key in this.allCheckObj) {
-                    this.allCheckObj[key] = this.checked
-                }
-            }
         }
     }
 }
 </script>
 <style lang="sass">
-.permission{
+.newWrap{
   position: fixed;
   width:100%;
   height: 100%;
-  background:rgba(0,0,0,0.3);
+  background:rgba(0,0,0,.5);
   top:0;
   left:0;
   z-index:3;
+  // text-align:center;
+  // overflow:hidden;
   .newForm{
     width:618px;
     max-width:618px;
@@ -208,22 +167,40 @@ export default {
     background:white;
     box-shadow:1px 1px 50px rgba(0,0,0,.3);
     border-radius:2px;  
-    height:618px;
+    height:318px;
     .el-tabs{
-        height:80%;
+        height:60%;
+        padding-top: 15px;
         .el-tabs__content{
             height:88%;
             overflow:auto;
             .el-tab-pane{
+                // padding:20px 70px;
+                // box-sizing:border-box;
                 width:100%!important;
-                text-align: left;
-                display:block;
-                .tr1{
-                    width:95%;
-                    margin:0 auto;
-                    .ul{
-                        width:90%;
-                        margin-left:5%;
+                table{
+                    width:100%;
+                    text-align: left;
+                    .tr1{
+                        display:block;
+                        width:70%;
+                        // padding:20px 70px;
+                        // box-sizing:border-box;
+                        margin:0 auto;
+                        >td{
+                            display:block;
+                            width:100%;
+                            .el-select{
+                                display:block;
+                            }
+                            .el-textarea__inner{
+                                resize:none;
+                            }
+                            .el-form-item__label::before{
+                                float: left;
+                            }
+                        }
+                            
                     }
                 }
             }
@@ -269,9 +246,6 @@ export default {
     } 
     .el-tabs__header{
         cursor: move;
-    }
-    .btn_change{
-        color: #fff;
     }
     // .formHeaderMask{
     //     width:100%;

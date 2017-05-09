@@ -1419,21 +1419,9 @@ export default {
             hiddeEdit: true,
             tab: '用户信息',
             searchPlaceholder: '请输入用户名进行搜索',
+            selectSearch: ['name'],
             leftOperateList: [{
-                components: [
-                    {
-                        type: 'select',
-                        components: selectSection,
-                        options: [
-                            {
-                            }
-                        ]
-                    },
-                    {
-                        type: 'date',
-                        component: datePick
-                    }
-                ]
+                components: []
             }],
             rightOperateComponent: [{component: output}, {component: newbuildBtn}],
             changeDataArr: [{gender: {0: '男', 1: '女'}}],

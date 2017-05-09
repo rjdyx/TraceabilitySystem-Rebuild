@@ -62,7 +62,7 @@
         </transition>
         <!-- 权限模块 -->
         <transition name="fade">
-            <permissionCheckbox v-if="isPermissionShow" :permissions="permissions"></permissionCheckbox>
+            <roleCheckbox v-if="isRoleShow" :rowId="rowId"></roleCheckbox>
         </transition>
     <!-- 列表模块 -->
     <el-table :data="tableData"  @selection-change="handleSelectionChange">
@@ -153,7 +153,7 @@ import clickMore from '../../components/public/clickMore.vue'
 import lotOpearte from '../../components/public/lotOpearte.vue'
 import newMessage from '../plant-details/newMessage.js'
 import printf from '../../components/public/printf.vue'
-import permissionCheckbox from '../../components/public/permissionCheckbox.vue'
+import roleCheckbox from '../../components/public/roleCheckbox.vue'
 export default {
     name: 'BasicModel',
     props: {
@@ -182,7 +182,7 @@ export default {
             isNewShow: false,
             isEditShow: false,
             isPrintShow: false,
-            isPermissionShow: false,
+            isRoleShow: false,
             tabItem: {},
             // 列表数据
             tableData: [],
@@ -195,6 +195,7 @@ export default {
             checkObject: {},
             selectNewEdit: [],
             index: 0,
+            rowId: null,
             routeId: this.$route.params.id,
             isShow: true
         }
@@ -319,6 +320,10 @@ export default {
         closeEditShow (val) {
             this.isEditShow = false
         },
+        // 关闭角色弹窗
+        closeRoleShow (val) {
+            this.isRoleShow = !this.isRoleShow
+        },
         // 列表全选
         handleSelectionChange (val) {
             this.checkObject = val
@@ -346,10 +351,10 @@ export default {
                 })
         },
         // 获取列表信息
-        getAllMsg (data = '') {
+        getAllMsg (data = {}) {
             let names = this.tabList[this.index].urlid
             if (names !== undefined && names !== null) {
-                data = '{' + names + ':' + this.$route.params.id + '}'
+                data[names] = this.$route.params.id
             }
             this.$dataGet(this, this.apiUrlArr[this.tabList[this.index].url], {params: data})
                 .then((responce) => {
@@ -570,7 +575,8 @@ export default {
             this.printForm = row
         },
         permissionShow (index, row) {
-            this.isPermissionShow = true
+            this.isRoleShow = true
+            this.rowId = row.id
         }
     },
     mounted () {
@@ -604,7 +610,7 @@ export default {
         operate,
         clickMore,
         lotOpearte,
-        permissionCheckbox,
+        roleCheckbox,
         printf
     }
 }

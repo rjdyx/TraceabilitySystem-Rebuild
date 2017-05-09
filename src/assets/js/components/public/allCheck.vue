@@ -42,7 +42,6 @@ export default {
     },
     mounted () {
         this.checkedMemus = this.checkeds
-        console.log(this.checkeds)
     },
     methods: {
         handleCheckAllChange (event) {

@@ -9939,10 +9939,11 @@ export default {
         }],
         newComponent: [{
             tab: '新建角色信息',
-            hiddenValue: {type: 0},
+            hiddenValue: {type: true},
+            checkboxShow: true,
             checkNumber: [0],
             components: [{
-                name: 'display_name',
+                name: 'name',
                 type: 'text',
                 component: null,
                 isNull: false,
@@ -9962,10 +9963,10 @@ export default {
         }],
         editComponent: [{
             tab: '编辑角色信息',
-            hiddenValue: {type: 0},
+            checkboxShow: true,
             checkNumber: [0],
             components: [{
-                name: 'display_name',
+                name: 'name',
                 type: 'text',
                 component: null,
                 isNull: false,
