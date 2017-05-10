@@ -43,7 +43,6 @@ export default{
             var divL = ($(document).outerWidth() - $('.newForm').innerWidth()) / 2
             var divT = ($(document).outerHeight() - $('.newForm').innerHeight()) / 2
             $('.newForm').css({left: divL, top: divT})
-            console.log(267832)
         }
     }
 }

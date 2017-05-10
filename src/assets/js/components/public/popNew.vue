@@ -269,11 +269,6 @@ export default {
                             this.$message(this.newComponent[0].components[this.newComponent[0].assocNum].errormsg)
                         }
                     } else {
-                        console.log('------')
-                        console.log(this.url)
-                        console.log(this.tableForm)
-                        console.log(this.newComponent[0].hasImg)
-                        console.log(this.newComponent[0].hiddenValue)
                         this.$dataPost(this, this.url, this.tableForm, this.newComponent[0].hasImg, this.newComponent[0].hiddenValue, false).then((response) => {
                             this.successCallback()
                             this.$emit('submitNew', response.data)
