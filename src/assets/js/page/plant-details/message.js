@@ -80,7 +80,7 @@ export default {
             searchPlaceholder: '请输入标题进行搜索',
             // typeComponent: [{component: importBtn}, {component: output}, {component: newbuildBtn}],
             headList: ['标题', '描述', '上传日期', '生长图片', '备注信息'],
-            protos: ['name', 'desc', 'date', 'img', 'memo'],
+            protos: ['name', 'desc', 'date', 'thumb', 'memo'],
             widths: [50, 50, 50, 50, 50],
             hiddeEdit: true,
             typeComponent: [{
