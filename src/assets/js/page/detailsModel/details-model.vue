@@ -10,13 +10,11 @@
   <!-- 标题 -->
     <contain-title :settitle="tab" :isShow="isShow">
     </contain-title>
-
   <!-- 信息列表 -->
     <el-row :gutter="20">
          <el-col :span="6" v-for="(item,i) in theads" class="text-small">{{item}}:<em class="margin-left_10">{{headData[protos[i]]}}</em>
          </el-col>
     </el-row>
-    
   <!-- tab栏 --> 
     <el-tabs v-model="activeName" type="card" id="tabs" @tab-click="tabClick">
         <el-tab-pane :label='tabItem.tab' :name='tabItem.tab' v-for="
@@ -51,7 +49,7 @@
     
         <!-- 新建模块 --> 
         <transition name="fade">
-            <popNew v-if="isNewShow" :newComponent="tabItem.newComponent" :url="apiUrlArr[tabList[0].url]" @submitNew="changeNew" @setTable="getTable"></popNew>
+            <popNew v-if="isNewShow" :newComponent="tabItem.newComponent" :url="apiUrlArr[tabList[index].url]" @submitNew="changeNew" @setTable="getTable" :routeId="routeId"></popNew>
         </transition>
         <!-- 编辑模块 -->
         <transition name="fade">
@@ -64,7 +62,7 @@
         </transition>
         <!-- 权限模块 -->
         <transition name="fade">
-            <permissionCheckbox v-if="isPermissionShow" :permissions="permissions"></permissionCheckbox>
+            <roleCheckbox v-if="isRoleShow" :rowId="rowId"></roleCheckbox>
         </transition>
     <!-- 列表模块 -->
     <el-table :data="tableData"  @selection-change="handleSelectionChange">
@@ -155,7 +153,7 @@ import clickMore from '../../components/public/clickMore.vue'
 import lotOpearte from '../../components/public/lotOpearte.vue'
 import newMessage from '../plant-details/newMessage.js'
 import printf from '../../components/public/printf.vue'
-import permissionCheckbox from '../../components/public/permissionCheckbox.vue'
+import roleCheckbox from '../../components/public/roleCheckbox.vue'
 export default {
     name: 'BasicModel',
     props: {
@@ -184,7 +182,7 @@ export default {
             isNewShow: false,
             isEditShow: false,
             isPrintShow: false,
-            isPermissionShow: false,
+            isRoleShow: false,
             tabItem: {},
             // 列表数据
             tableData: [],
@@ -197,6 +195,8 @@ export default {
             checkObject: {},
             selectNewEdit: [],
             index: 0,
+            rowId: null,
+            routeId: this.$route.params.id,
             isShow: true
         }
     },
@@ -214,56 +214,57 @@ export default {
         // 显示新建表单
         changeNewShow () {
             this.isNewShow = !this.isNewShow
-            if (this.tabItem.newComponent[0].checkNumber !== undefined) {
-                for (let index in this.tabItem.newComponent[0].checkNumber) {
-                    this.tabItem.newComponent[0].components[this.tabItem.newComponent[0].checkNumber[index]].rule[1].url = this.tabItem.url
+            var com = this.tabItem.newComponent[0]
+            if (com.checkNumber !== undefined) {
+                for (let index in com.checkNumber) {
+                    com.components[com.checkNumber[index]].rule[1].url = this.tabItem.url
                 }
             }
             // 获取新建表格数据
-            if (this.tabItem.newComponent[0].type === 'table') {
+            if (com.type === 'table') {
                 var getSelect = {'getSelect': '444'}
                 var curl = {'curl': this.tabItem.url}
-                var routeId = {'routeId': this.tabItem.newComponent[0].labUrl}
+                var routeId = {'routeId': com.labUrl}
                 var opqcurl = {'opqcurl': this.apiUrlArr[this.url]}
-                if (this.tabItem.newComponent[0].paramsIndex !== undefined) {
-                    var type = this.tabItem.newComponent[0].paramsIndex
+                if (com.paramsIndex !== undefined) {
+                    var type = com.paramsIndex
                 }
-                this.$dataGet(this, this.tabItem.newComponent[0].labUrl, {getSelect, curl, routeId, opqcurl, type})
+                this.$dataGet(this, com.labUrl, {getSelect, curl, routeId, opqcurl, type})
                     .then((responce) => {
-                        this.$set(this.tabItem.newComponent[0].components[0], 'tableVal', responce.data)
+                        this.$set(com.components[0], 'tableVal', responce.data)
                     })
             }
-            if (this.tabItem.newComponent[0].selectUrl) {
-                for (let key in this.tabItem.newComponent[0].selectUrl) {
-                    let newArr = this.$addAndEditSelectMethod(this.tabItem.newComponent[0].selectUrl[key])
+            if (com.selectUrl) {
+                for (let key in com.selectUrl) {
+                    let newArr = this.$addAndEditSelectMethod(com.selectUrl[key])
                     this.$dataGet(this, newArr.selectUrl + '/changeSelect', {'selectData': newArr.selectData})
                         .then((responce) => {
                             if (responce.data.length !== 0) {
                                 this.selectNewEdit[key] = []
-                                this.selectNewEdit[key].push(this.tabItem.newComponent[0].selectInit[key])
+                                this.selectNewEdit[key].push(com.selectInit[key])
                                 let newOpt = this.$selectData(this.tabItem.url, responce.data, newArr.selectArr)
                                 for (let item of Object.keys(newOpt)) {
                                     this.selectNewEdit[key].push(newOpt[item])
                                 }
-                                this.tabItem.newComponent[0].components[this.tabItem.newComponent[0].popNumber[key]].options = this.selectNewEdit[key]
+                                com.components[com.popNumber[key]].options = this.selectNewEdit[key]
                             }
                         })
                 }
             }
             // 无分类的下拉框模块查询
-            if (this.tabItem.newComponent[0].selectUrl2) {
-                for (let key in this.tabItem.newComponent[0].selectUrl2) {
-                    let newArr = this.$addAndEditSelectMethod(this.tabItem.newComponent[0].selectUrl2[key])
+            if (com.selectUrl2) {
+                for (let key in com.selectUrl2) {
+                    let newArr = this.$addAndEditSelectMethod(com.selectUrl2[key])
                     this.$dataGet(this, '/util/selects', {table: newArr.selectUrl})
                         .then((responce) => {
                             if (responce.data.length !== 0) {
                                 this.selectNewEdit[key] = []
-                                this.selectNewEdit[key].push(this.tabItem.newComponent[0].selectInit2[key])
+                                this.selectNewEdit[key].push(com.selectInit2[key])
                                 let newOpt = this.$selectData(this.tabItem.url, responce.data, newArr.selectArr)
                                 for (let item of Object.keys(newOpt)) {
                                     this.selectNewEdit[key].push(newOpt[item])
                                 }
-                                this.tabItem.newComponent[0].components[this.tabItem.newComponent[0].popNumber2[key]].options = this.selectNewEdit[key]
+                                com.components[com.popNumber2[key]].options = this.selectNewEdit[key]
                             }
                         })
                 }
@@ -272,32 +273,33 @@ export default {
         // 显示编辑表单
         changeEditShow (index, row) {
             this.isEditShow = true
+            var com = this.tabItem.editComponent[0]
             if (row !== undefined) {
-                if (this.tabItem.editComponent[0].checkNumber !== undefined) {
-                    for (let index in this.tabItem.editComponent[0].checkNumber) {
-                        this.tabItem.editComponent[0].components[this.tabItem.editComponent[0].checkNumber[index]].rule[1]['id'] = row.id
-                        this.tabItem.editComponent[0].components[this.tabItem.editComponent[0].checkNumber[index]].rule[1]['url'] = this.tabItem.url
+                if (com.checkNumber !== undefined) {
+                    for (let index in com.checkNumber) {
+                        com.components[com.checkNumber[index]].rule[1]['id'] = row.id
+                        com.components[com.checkNumber[index]].rule[1]['url'] = this.tabItem.url
                     }
                 }
-                if (this.tabItem.editComponent[0].selectUrl) {
-                    for (let key in this.tabItem.editComponent[0].selectUrl) {
-                        let editArr = this.$addAndEditSelectMethod(this.tabItem.editComponent[0].selectUrl[key])
+                if (com.selectUrl) {
+                    for (let key in com.selectUrl) {
+                        let editArr = this.$addAndEditSelectMethod(com.selectUrl[key])
                         this.$dataGet(this, editArr.selectUrl + '/changeSelect', {'selectData': editArr.selectData})
                             .then((responce) => {
                                 if (responce.data.length !== 0) {
-                                    this.tabItem.editComponent[0].components[this.tabItem.editComponent[0].popNumber[key]].options = this.$selectData(this.tabItem.url, responce.data, editArr.selectArr)
+                                    com.components[com.popNumber[key]].options = this.$selectData(this.tabItem.url, responce.data, editArr.selectArr)
                                 }
                             })
                     }
                 }
                 // 无分类的下拉框模块查询
-                if (this.tabItem.editComponent[0].selectUrl2) {
-                    for (let key in this.tabItem.editComponent[0].selectUrl2) {
-                        let editArr = this.$addAndEditSelectMethod(this.tabItem.editComponent[0].selectUrl2[key])
+                if (com.selectUrl2) {
+                    for (let key in com.selectUrl2) {
+                        let editArr = this.$addAndEditSelectMethod(com.selectUrl2[key])
                         this.$dataGet(this, '/util/selects', {table: editArr.selectUrl})
                             .then((responce) => {
                                 if (responce.data.length !== 0) {
-                                    this.tabItem.editComponent[0].components[this.tabItem.editComponent[0].popNumber2[key]].options = this.$selectData(this.tabItem.url, responce.data, editArr.selectArr)
+                                    com.components[com.popNumber2[key]].options = this.$selectData(this.tabItem.url, responce.data, editArr.selectArr)
                                 }
                             })
                     }
@@ -312,13 +314,18 @@ export default {
         // 关闭新增弹窗
         closeNewShow (val) {
             this.isNewShow = false
-            if (this.tabItem.newComponent[0].components[this.tabItem.newComponent[0].assocNum] !== undefined) {
-                this.$set(this.tabItem.newComponent[0].components[this.tabItem.newComponent[0].assocNum], 'tableVal', [])
+            var com = this.tabItem.newComponent[0]
+            if (com.components[com.assocNum] !== undefined) {
+                this.$set(com.components[com.assocNum], 'tableVal', [])
             }
         },
         // 关闭编辑弹窗
         closeEditShow (val) {
             this.isEditShow = false
+        },
+        // 关闭角色弹窗
+        closeRoleShow (val) {
+            this.isRoleShow = !this.isRoleShow
         },
         // 列表全选
         handleSelectionChange (val) {
@@ -347,16 +354,17 @@ export default {
                 })
         },
         // 获取列表信息
-        getAllMsg (data = '') {
+        getAllMsg (data = {}) {
             let names = this.tabList[this.index].urlid
             if (names !== undefined && names !== null) {
-                data = '{' + names + ':' + this.$route.params.id + '}'
+                data[names] = this.$route.params.id
             }
             this.$dataGet(this, this.apiUrlArr[this.tabList[this.index].url], {params: data})
                 .then((responce) => {
                     if (responce.data.data.length !== 0) {
-                        var ret = this.$conversion(this.changeDataArr, responce.data.data, 1)
+                        var ret = this.$conversion(this.tabItem.changeDataArr, responce.data.data, 1)
                         ret = this.$eltable(ret)
+                        ret = this.$getProductInfo(ret)
                         this.$set(this, 'tableData', ret)
                         this.total_num = responce.data.total
                         this.num = responce.data.last_page
@@ -549,29 +557,55 @@ export default {
         },
         // 根据下拉框获取表格数据
         getTable (val) {
+            var com = this.tabItem.newComponent[0]
             if (val[1] !== '' && val[1] !== undefined) {
                 var getSelect = {'getSelect': '444'}
                 var curl = {'curl': this.tabItem.url}
-                var routeId = {'routeId': this.tabItem.newComponent[0].labUrl}
+                var routeId = {'routeId': com.labUrl}
                 var opqcurl = {'opqcurl': this.apiUrlArr[this.url]}
-                let surl = val[1] + '/' + this.tabItem.newComponent[0].labUrl
-                if (this.tabItem.newComponent[0].paramsIndex !== undefined) {
-                    var type = this.tabItem.newComponent[0].paramsIndex
+                let surl = val[1] + '/' + com.labUrl
+                if (com.paramsIndex !== undefined) {
+                    var type = com.paramsIndex
                 }
                 this.$dataGet(this, surl, {getSelect, curl, routeId, opqcurl, type})
                     .then((responce) => {
-                        this.$set(this.tabItem.newComponent[0].components[this.tabItem.newComponent[0].assocNum], 'tableVal', responce.data)
+                        this.$set(com.components[com.assocNum], 'tableVal', responce.data)
                     })
             } else {
-                this.$set(this.tabItem.newComponent[0].components[this.tabItem.newComponent[0].assocNum], 'tableVal', [])
+                this.$set(com.components[com.assocNum], 'tableVal', [])
             }
+        },
+        // 扫描溯源码
+        changeScanCode (codeVal) {
+            let params = {code: codeVal}
+            axios.get(this.$adminUrl(this.apiUrlArr[this.tabList[this.index].url] + '/codeScan'), {params: params})
+                .then((responce) => {
+                    if (responce.data === 'error') {
+                        this.$message.error('溯源码不存在')
+                    } else if (responce.data === 'sale') {
+                        this.$message.error('当前产品已出售')
+                    } else if (responce.data === 'false') {
+                        this.$message.error('添加溯源码失败')
+                    } else {
+                        if (JSON.stringify(this.dataArr) === '{}') {
+                            this.dataArr = ''
+                        }
+                        this.getDetailSerial()
+                        this.boxArr(this.dataArr)
+                        this.$message({
+                            type: 'success',
+                            message: '添加溯源码成功'
+                        })
+                    }
+                })
         },
         moreShow (index, row) {
             this.isPrintShow = !this.isPrintShow
             this.printForm = row
         },
         permissionShow (index, row) {
-            this.isPermissionShow = true
+            this.isRoleShow = true
+            this.rowId = row.id
         }
     },
     mounted () {
@@ -605,7 +639,7 @@ export default {
         operate,
         clickMore,
         lotOpearte,
-        permissionCheckbox,
+        roleCheckbox,
         printf
     }
 }

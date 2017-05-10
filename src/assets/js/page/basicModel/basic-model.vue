@@ -46,11 +46,11 @@
 
         <!-- 新建模块 --> 
         <transition name="fade">
-            <popNew v-if="isNewShow" :newComponent="newComponent" :url="url" @submitNew="changeNew" @setAssoc="getAssoc" @setTable="getTable"></popNew>
+            <popNew v-if="isNewShow" :newComponent="newComponent" :checkboxShow="checkboxShow" :url="url" @submitNew="changeNew" @setAssoc="getAssoc" @setTable="getTable" ></popNew>
         </transition>
         <!-- 编辑模块 -->
         <transition name="fade">
-            <pop-edit v-if="isEditShow" :editComponent="editComponent" :url="url" :editForm="editForm"
+            <pop-edit v-if="isEditShow" :editComponent="editComponent" :roleId="roleId" :checkboxShow="checkboxShow" :url="url" :editForm="editForm"
              @submitEdit="hangeEdit" :changeDataArr="changeDataArr" :editDefault="editDefault"></pop-edit>
         </transition>
         <!-- 打印模块 -->
@@ -60,6 +60,10 @@
         <!-- 权限模块 -->
         <transition name="fade">
             <permissionCheckbox v-if="isPermissionShow" :permissions="permissions" :companyId="companyId"></permissionCheckbox>
+        </transition>
+        <!-- 角色权限模块 -->
+        <transition name="fade">
+            <roleCheckbox v-if="isRoleShow" :rowId="rowId"></roleCheckbox>
         </transition>
     </div>
     <!-- 列表模块 -->
@@ -101,21 +105,18 @@
         label="操作" v-if="checkOperate==null">
             <template scope="scope" class="operateBtn">
                 <template v-if="moreComponent!=null">
-                    <clickMore :moreComponent="moreComponent" 
-                    @showMore="moreShow(scope.$index,scope.row)" @showPermission="permissionShow(scope.$index,scope.row)" @showDetail="detailShow(scope.$index,scope.row)" class="clickMoreBtn"></clickMore>
+                    <clickMore :companyId="companyId" :moreComponent="moreComponent" 
+                    @showMore="moreShow(scope.$index,scope.row)" @showPermission="permissionShow(scope.$index,scope.row)" @showDetail="detailShow(scope.$index,scope.row)" class="clickMoreBtn" @return-permission="getPermission"></clickMore>
                 </template>
                 <template>
 
-                    <el-button type="text" size="small" @click="changeEditShow(scope.$index,scope.row)" v-if="!hiddeEdit">编辑</el-button>
+                    <el-button type="text" size="small" @click="roleShow(scope.$index,scope.row)" v-if="hiddeRole">权限</el-button>
+
+                    <el-button type="text" size="small" @click="changeEditShow(scope.$index,scope.row)" v-if="!hiddeEdit" v-bind:class="{'btn':hiddeRole}">编辑</el-button>
 
                     <el-button type="text" size="small" v-if="hiddeShow">查看</el-button>
                         
-                    <el-button size="small" type="text" @click="handelDel(scope.$index,scope.row)" v-bind:class="{'btn':!hiddeEdit}">删除</el-button>  
-
-                    <!-- <el-button size="small" type="text" @click="userRole(scope.$index,scope.row)" class="btn" v-if="hiddeRole">权限</el-button>  -->
-
-                    <!-- <el-button size="small" type="text" @click="" class="btn" v-if="hiddeUser">用户</el-button>   -->
-
+                    <el-button size="small" type="text" @click="handelDel(scope.$index,scope.row)" v-bind:class="{'btn':!hiddeEdit}">删除</el-button>
                 </template>
             </template>
         </el-table-column>
@@ -158,6 +159,7 @@ import lotOpearte from '../../components/public/lotOpearte.vue'
 import printf from '../../components/public/printf.vue'
 import permissionCheckbox from '../../components/public/permissionCheckbox.vue'
 import company from '../../page/plant-basic/company.js'
+import roleCheckbox from '../../components/public/roleCheckbox.vue'
 export default {
     name: 'BasicModel',
     props: {
@@ -231,6 +233,7 @@ export default {
             // 是否打印
             isPrintShow: false,
             isPermissionShow: false,
+            checkboxShow: false,
             // msg: 1,
             editBol: false,
             editForm: {},
@@ -253,7 +256,12 @@ export default {
             selectNewEdit: [],
             // 批次号
             isPcActive: true,
-            permissions: company
+            permissions: company,
+            // 已选择的权限
+            checkeds: {},
+            roleId: null,
+            rowId: null,
+            isRoleShow: false
         }
     },
     // 混合
@@ -292,6 +300,7 @@ export default {
                 confirmButtonText: '确定',
                 type: 'error'
             }).then(() => {
+                console.log(row.id)
                 axios.delete(this.$adminUrl(this.url + '/' + row.id))
                     .then((responce) => {
                         this.getSelect()
@@ -316,48 +325,56 @@ export default {
             this.active = !this.active
             this.clickMoreshow = !this.clickMoreshow
         },
+        // 关闭角色弹窗
+        closeRoleShow (val) {
+            this.isRoleShow = !this.isRoleShow
+        },
         // 显示新建表单
         changeNewShow () {
             this.isNewShow = !this.isNewShow
-            if (this.newComponent[0].checkNumber !== undefined) {
-                for (let index in this.newComponent[0].checkNumber) {
-                    this.newComponent[0].components[this.newComponent[0].checkNumber[index]].rule[1].url = this.url
+            var com = this.newComponent[0]
+            if (com.checkboxShow !== undefined) {
+                this.checkboxShow = com.checkboxShow
+            }
+            if (com.checkNumber !== undefined) {
+                for (let index in com.checkNumber) {
+                    com.components[com.checkNumber[index]].rule[1].url = this.url
                 }
             }
-            if (this.newComponent[0].selectUrl) {
-                for (let key in this.newComponent[0].selectUrl) {
-                    let newArr = this.$addAndEditSelectMethod(this.newComponent[0].selectUrl[key])
+            if (com.selectUrl) {
+                for (let key in com.selectUrl) {
+                    let newArr = this.$addAndEditSelectMethod(com.selectUrl[key])
                     this.$dataGet(this, newArr.selectUrl + '/changeSelect', {'selectData': newArr.selectData})
                         .then((responce) => {
                             if (responce.data.length !== 0) {
                                 this.selectNewEdit[key] = []
-                                this.selectNewEdit[key].push(this.newComponent[0].selectInit[key])
+                                this.selectNewEdit[key].push(com.selectInit[key])
                                 let newOpt = this.$selectData(this.url, responce.data, newArr.selectArr)
                                 for (let item of Object.keys(newOpt)) {
                                     this.selectNewEdit[key].push(newOpt[item])
                                 }
-                                this.newComponent[0].components[this.newComponent[0].popNumber[key]].options = this.selectNewEdit[key]
+                                com.components[com.popNumber[key]].options = this.selectNewEdit[key]
                             }
                         })
                 }
             }
             // 无分类的下拉框模块查询
-            if (this.newComponent[0].selectUrl2) {
-                for (let key in this.newComponent[0].selectUrl2) {
-                    let newArr = this.$addAndEditSelectMethod(this.newComponent[0].selectUrl2[key])
-                    if (this.newComponent[0].selectAvl2[key] !== undefined) {
-                        var type = this.newComponent[0].selectAvl2[key]
+            if (com.selectUrl2) {
+                for (let key in com.selectUrl2) {
+                    let newArr = this.$addAndEditSelectMethod(com.selectUrl2[key])
+                    if (com.selectAvl2 !== undefined) {
+                        var type = com.selectAvl2[key]
                     }
                     this.$dataGet(this, '/util/selects', {table: newArr.selectUrl, type: type})
                         .then((responce) => {
                             if (responce.data.length !== 0) {
                                 this.selectNewEdit[key] = []
-                                this.selectNewEdit[key].push(this.newComponent[0].selectInit2[key])
+                                this.selectNewEdit[key].push(com.selectInit2[key])
                                 let newOpt = this.$selectData(this.url, responce.data, newArr.selectArr)
                                 for (let item of Object.keys(newOpt)) {
                                     this.selectNewEdit[key].push(newOpt[item])
                                 }
-                                this.newComponent[0].components[this.newComponent[0].popNumber2[key]].options = this.selectNewEdit[key]
+                                com.components[com.popNumber2[key]].options = this.selectNewEdit[key]
                             }
                         })
                 }
@@ -365,33 +382,38 @@ export default {
         },
         // 显示编辑表单
         changeEditShow (index, row) {
+            this.roleId = row.id
             this.isEditShow = true
+            var com = this.editComponent[0]
+            if (com.checkboxShow !== undefined) {
+                this.checkboxShow = com.checkboxShow
+            }
             if (row !== undefined) {
-                if (this.editComponent[0].checkNumber !== undefined) {
-                    for (let index in this.editComponent[0].checkNumber) {
-                        this.editComponent[0].components[this.editComponent[0].checkNumber[index]].rule[1]['id'] = row.id
-                        this.editComponent[0].components[this.editComponent[0].checkNumber[index]].rule[1]['url'] = this.url
+                if (com.checkNumber !== undefined) {
+                    for (let index in com.checkNumber) {
+                        com.components[com.checkNumber[index]].rule[1]['id'] = row.id
+                        com.components[com.checkNumber[index]].rule[1]['url'] = this.url
                     }
                 }
-                if (this.editComponent[0].selectUrl) {
-                    for (let key in this.editComponent[0].selectUrl) {
-                        let editArr = this.$addAndEditSelectMethod(this.editComponent[0].selectUrl[key])
+                if (com.selectUrl) {
+                    for (let key in com.selectUrl) {
+                        let editArr = this.$addAndEditSelectMethod(com.selectUrl[key])
                         this.$dataGet(this, editArr.selectUrl + '/changeSelect', {'selectData': editArr.selectData})
                             .then((responce) => {
                                 if (responce.data.length !== 0) {
-                                    this.editComponent[0].components[this.editComponent[0].popNumber[key]].options = this.$selectData(this.url, responce.data, editArr.selectArr)
+                                    com.components[com.popNumber[key]].options = this.$selectData(this.url, responce.data, editArr.selectArr)
                                 }
                             })
                     }
                 }
                 // 无分类的下拉框模块查询
-                if (this.editComponent[0].selectUrl2) {
-                    for (let key in this.editComponent[0].selectUrl2) {
-                        let editArr = this.$addAndEditSelectMethod(this.editComponent[0].selectUrl2[key])
+                if (com.selectUrl2) {
+                    for (let key in com.selectUrl2) {
+                        let editArr = this.$addAndEditSelectMethod(com.selectUrl2[key])
                         this.$dataGet(this, '/util/selects', {table: editArr.selectUrl})
                             .then((responce) => {
                                 if (responce.data.length !== 0) {
-                                    this.editComponent[0].components[this.editComponent[0].popNumber2[key]].options = this.$selectData(this.url, responce.data, editArr.selectArr)
+                                    com.components[com.popNumber2[key]].options = this.$selectData(this.url, responce.data, editArr.selectArr)
                                 }
                             })
                     }
@@ -443,6 +465,7 @@ export default {
         // 文本与时间按钮查询
         textAndDateFind () {
             this.dataArr['query_text'] = this.inputValue
+            console.log(this.dataArr)
             this.boxArr(this.dataArr)
         },
         // 下拉框查询
@@ -454,6 +477,8 @@ export default {
             }
             this.dataArr[val[0]] = val[1]
             this.boxArr(this.dataArr)
+            console.log('下拉框查询')
+            console.log(this.dataArr)
         },
         // 日期存储
         dateFind (val) {
@@ -589,18 +614,19 @@ export default {
         },
         // 根据下拉框获取表格数据
         getTable (val) {
+            var com = this.newComponent[0]
             if (val[1] !== '' && val[1] !== undefined) {
                 var getSelect = {'getSelect': '444'}
-                var curl = {'curl': this.newComponent[0].curl}
-                var routeId = {'routeId': this.newComponent[0].labUrl}
-                var opqcurl = {'opqcurl': this.newComponent[0].opqcurl}
-                let surl = val[1] + '/' + this.newComponent[0].labUrl
+                var curl = {'curl': com.curl}
+                var routeId = {'routeId': com.labUrl}
+                var opqcurl = {'opqcurl': com.opqcurl}
+                let surl = val[1] + '/' + com.labUrl
                 this.$dataGet(this, surl, {getSelect, curl, routeId, opqcurl})
                     .then((responce) => {
-                        this.$set(this.newComponent[0].components[this.newComponent[0].assocNum], 'tableVal', responce.data)
+                        this.$set(com.components[com.assocNum], 'tableVal', responce.data)
                     })
             } else {
-                this.$set(this.newComponent[0].components[this.newComponent[0].assocNum], 'tableVal', [])
+                this.$set(com.components[com.assocNum], 'tableVal', [])
             }
         },
         // 点击删除
@@ -635,10 +661,19 @@ export default {
         permissionShow (index, row) {
             this.companyId = row.id
             this.isPermissionShow = true
+            console.log('this.companyId:' + this.companyId)
+        },
+        roleShow (index, row) {
+            this.isRoleShow = true
+            this.rowId = row.id
         },
         detailShow (index, row) {
             var id = row.id
             this.$router.push('/index/details/' + this.batch + '/' + id)
+        },
+        getPermission (data) {
+            this.checkeds = data
+            console.log(this.checkeds)
         }
     },
     mounted () {
@@ -673,7 +708,8 @@ export default {
         clickMore,
         lotOpearte,
         printf,
-        permissionCheckbox
+        permissionCheckbox,
+        roleCheckbox
     }
 }
 </script>
