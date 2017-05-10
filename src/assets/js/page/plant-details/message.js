@@ -598,62 +598,92 @@ export default {
                     component: datePick
                 }]
             }],
-            newComponent: [{
-                tab: '新建溯源码信息',
-                hiddenValue: {type: 'beast'},
-                selectUrl2: [['comes', 'id', 'serial', true]],
-                selectInit2: [{value: '', label: '出栏批次号选择'}],
-                popNumber2: [1],
-                labUrl: 'come-rfid',
-                type: 'assoc',
-                assocNum: 4,
-                components: [{
-                    name: 'date',
-                    type: 'date',
-                    component: inputDate,
-                    isNull: false,
-                    label: '生产日期',
-                    placeholder: '',
-                    rule: [{required: true, message: '请输入生产日期'}, {validator: validate2.reDate, message: '请输入生产日期'}]
-                },
+            newComponent: [
                 {
-                    name: 'come_id',
-                    type: 'select',
-                    component: null,
-                    isNull: false,
-                    label: '出栏批次号',
-                    placeholder: '',
-                    rule: {required: true, trigger: 'blur', message: '请选择出栏批次', type: 'number'},
-                    options: []
-                },
-                {
-                    name: 'amount',
-                    type: 'text',
-                    component: null,
-                    isNull: false,
-                    label: '溯源码数量',
-                    placeholder: '请输入溯源码数量（整数）',
-                    rule: [{required: true, message: '请输入溯源码数量', trigger: 'blur'}, {validator: validate2.reInteger}]
-                },
-                {
-                    name: 'memo',
-                    type: 'textarea',
-                    component: null,
-                    isNull: true,
-                    label: '备注信息',
-                    placeholder: '',
-                    rule: null
-                },
-                {
-                    name: 'name',
-                    type: 'table',
-                    theads: ['出栏批次', 'Rfid', '养殖畜禽', '养殖日期'],
-                    protos: ['come_serial', 'rfid', 'beast_name', 'date'],
-                    valueId: 'rfid_ids',
-                    errormsg: '请选择rfid',
-                    tableVal: []
-                }]
-            }],
+                    tab: '新建溯源码信息',
+                    hiddenValue: {type: 'beast'},
+                    selectUrl2: [['comes', 'id', 'serial', true]],
+                    selectInit2: [{value: '', label: '出栏批次号选择'}],
+                    popNumber2: [1],
+                    labUrl: 'come-rfid',
+                    type: 'assoc',
+                    assocNum: 4,
+                    components: [{
+                        name: 'date',
+                        type: 'date',
+                        component: inputDate,
+                        isNull: false,
+                        label: '生产日期',
+                        placeholder: '',
+                        rule: [{required: true, message: '请输入生产日期'}, {validator: validate2.reDate, message: '请输入生产日期'}]
+                    },
+                    {
+                        name: 'come_id',
+                        type: 'select',
+                        component: null,
+                        isNull: false,
+                        label: '出栏批次号',
+                        placeholder: '',
+                        rule: {required: true, trigger: 'blur', message: '请选择出栏批次', type: 'number'},
+                        options: []
+                    },
+                    {
+                        name: 'amount',
+                        type: 'text',
+                        component: null,
+                        isNull: false,
+                        label: '溯源码数量',
+                        placeholder: '请输入溯源码数量（整数）',
+                        rule: [{required: true, message: '请输入溯源码数量', trigger: 'blur'}, {validator: validate2.reInteger}]
+                    },
+                    {
+                        name: 'memo',
+                        type: 'textarea',
+                        component: null,
+                        isNull: true,
+                        label: '备注信息',
+                        placeholder: '',
+                        rule: null
+                    },
+                    {
+                        name: 'name',
+                        type: 'table',
+                        theads: ['出栏批次', 'Rfid', '养殖畜禽', '养殖日期'],
+                        protos: ['come_serial', 'rfid', 'beast_name', 'date'],
+                        valueId: 'rfid_ids',
+                        errormsg: '请选择rfid',
+                        tableVal: []
+                    }]
+                }
+                // {
+                //     tab: '选择产品出栏批次号',
+                //     selectUrl2: [['comes', 'id', 'serial', true]],
+                //     selectInit2: [{value: '', label: '出栏批次号选择'}],
+                //     popNumber2: [0],
+                //     labUrl: 'come-rfid',
+                //     type: 'assoc',
+                //     assocNum: 4,
+                //     components: [{
+                //         name: 'come_id',
+                //         type: 'select',
+                //         component: null,
+                //         isNull: false,
+                //         label: '出栏批次号',
+                //         placeholder: '',
+                //         rule: {required: true, trigger: 'blur', message: '请选择出栏批次', type: 'number'},
+                //         options: []
+                //     },
+                //     {
+                //         name: 'name',
+                //         type: 'table',
+                //         theads: ['出栏批次', 'Rfid', '养殖畜禽', '养殖日期'],
+                //         protos: ['come_serial', 'rfid', 'beast_name', 'date'],
+                //         valueId: 'rfid_ids',
+                //         errormsg: '请选择rfid',
+                //         tableVal: []
+                //     }]
+                // }
+            ],
             editComponent: [{
                 tab: '编辑溯源码信息',
                 components: [{

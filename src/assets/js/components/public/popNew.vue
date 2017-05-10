@@ -221,7 +221,7 @@ export default {
     },
     methods: {
         handleClick (tab, event) {
-            console.log(tab, event)
+            this.$parent.changeNewTab(tab.$data.index)
         },
         // 返回InputTextSelect组件的数据
         returnShuju (data) {
