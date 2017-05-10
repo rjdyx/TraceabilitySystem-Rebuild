@@ -8,7 +8,7 @@
 
 
 <template>
-<div class="newWrap">
+<div class="rolecheckbox">
   <form class="newForm">
     <i class="el-icon-circle-close" @click="closeClick"></i>
       <!-- tab选项卡 -->
@@ -81,7 +81,7 @@ export default {
         * 点击表单拖拽事件
         */
         this.resizeFn()
-        $('.permission').find($('.el-tabs__header')).on('mousedown', (e) => {
+        $('.rolecheckbox').find($('.el-tabs__header')).on('mousedown', (e) => {
             // console.log('mousedown')
             // 鼠标与newForm块的距离
             this.dmL = e.clientX - $('.newForm').position().left
@@ -148,7 +148,7 @@ export default {
 }
 </script>
 <style lang="sass">
-.newWrap{
+.rolecheckbox{
   position: fixed;
   width:100%;
   height: 100%;

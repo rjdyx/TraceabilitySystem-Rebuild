@@ -304,9 +304,6 @@ export default {
                 axios.delete(this.$adminUrl(this.url + '/' + row.id))
                     .then((responce) => {
                         this.getSelect()
-                        if (JSON.stringify(this.dataArr) === '{}') {
-                            this.dataArr = ''
-                        }
                         this.boxArr(this.dataArr)
                         this.$message({
                             type: 'success',
@@ -434,7 +431,7 @@ export default {
             this.isEditShow = false
         },
         // 获取数据
-        getAllMsg (data = '') {
+        getAllMsg (data = {}) {
             if (this.paramsIndex !== undefined) {
                 var type = this.paramsIndex
             }
@@ -448,17 +445,11 @@ export default {
                         this.total_num = responce.data.total
                         this.num = responce.data.last_page
                         this.paginator = responce.data
-                        if (this.dataArr === '') {
-                            this.dataArr = {}
-                        }
                     } else {
                         this.$set(this, 'tableData', responce.data.data)
                         this.total_num = 0
                         this.num = 0
                         this.paginator = 0
-                        if (this.dataArr === '') {
-                            this.dataArr = {}
-                        }
                     }
                 })
         },
@@ -476,9 +467,6 @@ export default {
                 }
             }
             this.dataArr[val[0]] = val[1]
-            this.boxArr(this.dataArr)
-            console.log('下拉框查询')
-            console.log(this.dataArr)
         },
         // 日期存储
         dateFind (val) {
@@ -514,9 +502,6 @@ export default {
                     .then((responce) => {
                         if (responce.data === 'true') {
                             this.getSelect()
-                            if (JSON.stringify(this.dataArr) === '{}') {
-                                this.dataArr = ''
-                            }
                             this.boxArr(this.dataArr)
                             this.$message({
                                 type: 'success',
@@ -553,9 +538,6 @@ export default {
         changeNew (val) {
             if (val !== 'false') {
                 this.isNewShow = false
-                if (JSON.stringify(this.dataArr) === '{}') {
-                    this.dataArr = ''
-                }
                 this.boxArr(this.dataArr)
                 this.getSelect()
                 this.$message({
@@ -571,9 +553,6 @@ export default {
             if (val !== 'false') {
                 this.isEditShow = false
                 this.getSelect()
-                if (JSON.stringify(this.dataArr) === '{}') {
-                    this.dataArr = ''
-                }
                 this.boxArr(this.dataArr)
                 this.$message({
                     type: 'success',

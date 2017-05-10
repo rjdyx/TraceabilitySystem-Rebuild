@@ -387,17 +387,11 @@ export default {
                         this.total_num = responce.data.total
                         this.num = responce.data.last_page
                         this.paginator = responce.data
-                        if (this.dataArr === '') {
-                            this.dataArr = {}
-                        }
                     } else {
                         this.$set(this, 'tableData', responce.data.data)
                         this.total_num = 0
                         this.num = 0
                         this.paginator = 0
-                        if (this.dataArr === '') {
-                            this.dataArr = {}
-                        }
                     }
                 })
         },
@@ -474,9 +468,6 @@ export default {
         changeNew (val) {
             if (val !== 'false') {
                 this.isNewShow = false
-                if (JSON.stringify(this.dataArr) === '{}') {
-                    this.dataArr = ''
-                }
                 if (this.tabItem.newComponent[0].components[this.tabItem.newComponent[0].assocNum] !== undefined) {
                     this.$set(this.tabItem.newComponent[0].components[this.tabItem.newComponent[0].assocNum], 'tableVal', [])
                 }
@@ -501,9 +492,6 @@ export default {
                 axios.delete(this.$adminUrl(this.apiUrlArr[this.tabList[this.index].url] + '/' + row.id))
                     .then((responce) => {
                         // this.getSelect()
-                        if (JSON.stringify(this.dataArr) === '{}') {
-                            this.dataArr = ''
-                        }
                         this.getDetailSerial()
                         this.boxArr(this.dataArr)
                         this.$message({
@@ -522,9 +510,6 @@ export default {
         hangeEdit (val) {
             if (val !== 'false') {
                 this.isEditShow = false
-                if (JSON.stringify(this.dataArr) === '{}') {
-                    this.dataArr = ''
-                }
                 this.getDetailSerial()
                 this.boxArr(this.dataArr)
                 this.$message({
@@ -552,9 +537,6 @@ export default {
                     .then((responce) => {
                         if (responce.data === 'true') {
                             // this.getSelect()
-                            if (JSON.stringify(this.dataArr) === '{}') {
-                                this.dataArr = ''
-                            }
                             this.getDetailSerial()
                             this.boxArr(this.dataArr)
                             this.$message({
