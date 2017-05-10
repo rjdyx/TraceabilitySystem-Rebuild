@@ -467,9 +467,6 @@ export default {
                 }
             }
             this.dataArr[val[0]] = val[1]
-            this.boxArr(this.dataArr)
-            console.log('下拉框查询')
-            console.log(this.dataArr)
         },
         // 日期存储
         dateFind (val) {

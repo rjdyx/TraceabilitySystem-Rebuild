@@ -211,7 +211,12 @@ export default {
             protos: ['serial', 'area_name', 'beast_name', 'date'],
             widths: [50, 50, 50, 50],
             hiddeEdit: false,
-            listComponent: [],
+            listComponent: [{
+                components: [{
+                    type: 'date',
+                    component: datePick
+                }]
+            }],
             newComponent: [{
                 tab: '新建批次饲料使用信息',
                 type: 'table',
@@ -245,7 +250,12 @@ export default {
             protos: ['serial', 'area_name', 'beast_name', 'date'],
             widths: [50, 50, 50, 50],
             hiddeEdit: false,
-            listComponent: [],
+            listComponent: [{
+                components: [{
+                    type: 'date',
+                    component: datePick
+                }]
+            }],
             newComponent: [{
                 tab: '新建批次检测信息',
                 type: 'table',
@@ -275,11 +285,16 @@ export default {
             tab: '养殖批次信息',
             searchPlaceholder: '请输入批次号进行搜索',
             typeComponent: [{component: newbuildBtn}],
-            headList: ['养殖批次号', '病疫Rfid', '用药时间', '备注信息'],
+            headList: ['养殖批次号', '病疫Rfid', '养殖日期', '备注信息'],
             protos: ['serial', 'rfid', 'date', 'memo'],
             widths: [50, 50, 50, 50],
             hiddeEdit: false,
-            listComponent: [],
+            listComponent: [{
+                components: [{
+                    type: 'date',
+                    component: datePick
+                }]
+            }],
             newComponent: [{
                 tab: '新建批次病疫信息',
                 selectUrl2: [['breeds', 'id', 'serial', true]],
@@ -321,7 +336,6 @@ export default {
             url: 'detection-rfid',
             tab: '养殖批次信息',
             searchPlaceholder: '请输入批次号进行搜索',
-            // typeComponent: [{component: output}, {component: newbuildBtn}],
             typeComponent: [{component: newbuildBtn}],
             headList: ['圈舍', '养殖批次号', 'Rfid', '畜禽名称', '养殖日期'],
             protos: ['area_name', 'serial', 'rfid', 'beast_name', 'date'],
@@ -330,8 +344,6 @@ export default {
             listComponent: [],
             newComponent: [{
                 tab: '新建批次检疫信息',
-                // type: 'table',
-                // labUrl: 'rfid',
                 selectUrl2: [['breeds', 'id', 'serial', true]],
                 selectInit2: [{value: '', label: '养殖批次号选择'}],
                 popNumber2: [0],
@@ -371,10 +383,7 @@ export default {
             url: 'clean-area',
             tab: '养殖批次信息',
             searchPlaceholder: '请输入批次号进行搜索',
-            // typeComponent: [{component: output}, {component: newbuildBtn}],
             typeComponent: [{component: newbuildBtn}],
-            // headList: ['养殖区', '圈舍', '圈舍面积'],
-            // protos: ['farm_name', 'name', 'area_unit'],
             headList: ['养殖批次号', '圈舍', '养殖畜禽', '养殖日期'],
             protos: ['serial', 'area_name', 'beast_name', 'start_date'],
             widths: [50, 50, 50],
