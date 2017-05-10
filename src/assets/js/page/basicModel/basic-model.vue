@@ -264,6 +264,7 @@ export default {
             isRoleShow: false
         }
     },
+    // 混合
     mixins: [computed],
     methods: {
         init (index = 0) {

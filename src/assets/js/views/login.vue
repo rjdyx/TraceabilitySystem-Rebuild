@@ -157,13 +157,6 @@ export default {
 
 
 <style lang='sass'>
-	.kit{
-		width:50%;
-		height:36px;
-		margin-left: 1%;
-		display: inline-block;
-		vertical-align: middle;
-	}
 	.login{
 		width: 100%;
 		height: 100%;
@@ -172,82 +165,87 @@ export default {
 		min-height: 900px;
 		min-width: 1360px;
 		overflow: hidden;
-		}
-		.bg{
-			width: 100%;
-			position: absolute;
-			bottom: 30%;
-		}
-		.logintitle{
-			font-size: 48px;
-			position: relative;
-			top: 18%;
-			margin: 0 auto;
-			width: 668px;
-			color: #007cc2;
-		}
-		.main-bg{
-			width: 36%;
-			height: 68%;
-			position: absolute;
-			left: 31.5%;
-			top: 37%;
-		}
-		.logincontent{
-			display: inline-block;
-			position: absolute;
-			top: 39.5%;
-			left: 32.5%;
-			width: 36%;
-			height: 26%;
-		}
-		.login-logo{
-			width: 50%;
-			float: left;
-		}
-		.login-logo img{
-			width: 54%;
-			margin: 12% auto;
-			display: block;
-		}
-		.form{
-			float: left;
-			width: 50%;
-		}
-		.el-form-item{
-			margin-top: 5px;
-			margin-bottom: 17px;
-			width:85%;
-		}
-		.receive{
-			margin-bottom: 0px;
-		}
-		.code{
-			width: 44% !important;
-		}
-		input:-ms-input-placeholder{
-		    color: #d6d6d7;
-		}
+			.bg{
+				width: 100%;
+				position: absolute;
+				bottom: 30%;
+			}
+			.logintitle{
+				font-size: 48px;
+				position: relative;
+				top: 18%;
+				margin: 0 auto;
+				width: 668px;
+				color: #007cc2;
+			}
+			.main-bg{
+				width: 36%;
+				height: 68%;
+				position: absolute;
+				left: 31.5%;
+				top: 37%;
+			}
+			.logincontent{
+				display: inline-block;
+				position: absolute;
+				top: 39.5%;
+				left: 32.5%;
+				width: 36%;
+				height: 26%;
+					.login-logo{
+					width: 50%;
+					float: left;
+							img{
+						width: 54%;
+						margin: 12% auto;
+						display: block;
+					}
+				}
+				.form{
+				float: left;
+				width: 50%;
+					.el-form-item{
+						margin-top: 5px;
+						margin-bottom: 17px;
+						width:85%;
+					}
+					.receive{
+						margin-bottom: 0px;
+					}
+					.code{
+						width: 44% !important;
+						
+					}
+					.kit{
+						width:50%;
+						height:36px;
+						margin-left: 1%;
+						display: inline-block;
+						vertical-align: middle;
+					}
+				}
+			}
+			input:-ms-input-placeholder{
+			    color: #d6d6d7;
+			}
 
-		input::-webkit-input-placeholder{
-		    color: #d6d6d7;
-		}
-		.copyright{
-			position: absolute;
-			left: 37%;
-			bottom: 2%;
-			font-size: 12px;
-			color: #919191;
-			text-align: center;
-		}
-		.link{
-			text-decoration: underline;
-			color: #919191;
-		}
-		.apply{
-			margin-left: 30px;
-		}
-		.acept{
-			font-size: 24px;
+			input::-webkit-input-placeholder{
+			    color: #d6d6d7;
+			}
+			.copyright{
+				position: absolute;
+				left: 37%;
+				bottom: 2%;
+				font-size: 12px;
+				color: #919191;
+				text-align: center;
+				.link{
+					text-decoration: underline;
+					color: #919191;
+				}
+			}
+			.apply{
+				margin-left: 30px;
+			}
 		}
 </style>
