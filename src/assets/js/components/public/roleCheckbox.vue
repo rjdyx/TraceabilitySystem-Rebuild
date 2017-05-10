@@ -8,7 +8,7 @@
 
 
 <template>
-<div class="newWrap">
+<div class="rolecheckbox">
   <form class="newForm">
     <i class="el-icon-circle-close" @click="closeClick"></i>
       <!-- tab选项卡 -->
@@ -148,7 +148,7 @@ export default {
 }
 </script>
 <style lang="sass">
-.newWrap{
+.rolecheckbox{
   position: fixed;
   width:100%;
   height: 100%;
