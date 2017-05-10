@@ -578,8 +578,20 @@ export default {
                 .then((responce) => {
                     if (responce.data === 'error') {
                         this.$message.error('溯源码不存在')
-                    } else if (responce.data === 'false') {
+                    } else if (responce.data === 'sale') {
                         this.$message.error('当前产品已出售')
+                    } else if (responce.data === 'false') {
+                        this.$message.error('添加溯源码失败')
+                    } else {
+                        if (JSON.stringify(this.dataArr) === '{}') {
+                            this.dataArr = ''
+                        }
+                        this.getDetailSerial()
+                        this.boxArr(this.dataArr)
+                        this.$message({
+                            type: 'success',
+                            message: '添加溯源码成功'
+                        })
                     }
                 })
         },
