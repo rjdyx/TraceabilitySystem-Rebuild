@@ -256,6 +256,7 @@ export default {
             permissions: company
         }
     },
+    // 混合
     mixins: [computed],
     methods: {
         init (index = 0) {

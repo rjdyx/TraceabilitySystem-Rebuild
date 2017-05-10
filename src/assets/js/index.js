@@ -10,9 +10,7 @@ import store from './vuex/index'
 Vue.prototype.$http = axios
 
 Vue.use(VueRouter)
-const Per = '/index/message/'
-const Excepts = ['/index', '/index/company', '/index/question', '/index/set', '/index/test', '/404', '/login']
-const Admins = [Per + 'rightsOperate', Per + 'settleOperate', Per + 'usersOperate', Per + 'logOperate', '/index', '/index/question', '/index/set', '/index/test', '/404', '/login']
+
 require('./config/init')
 
 // 处理刷新的时候vuex被清空但是用户已经登录的情况
@@ -21,37 +19,45 @@ require('./config/init')
 // }
 
 router.beforeEach((to, from, next) => {
-    axios.get('/login/state').then(responce => {
-        if (responce.data === false) {
-            Vue.Roles = {}
-            if (to.path !== '/login') {
-                next(false)
-            } else {
-                next()
-            }
-        } else {
-            var arr = responce.data.permissions.one
-            Vue.Roles = responce.data.permissions.two
-            if (to.path === '/login') {
-                next(false)
-            }
-            next()
-            // 注释部分为控制权限判断 勿删除
-            // if (arr === 'admin') {
-            //     if (Admins.indexOf(to.path) !== -1) {
-            //         next()
-            //     } else {
-            //         next(false)
-            //     }
-            // } else {
-            //     if (Excepts.indexOf(to.path) !== -1 || arr.indexOf(to.path) !== -1) {
-            //         next()
-            //     } else {
-            //         next(false)
-            //     }
-            // }
-        }
-    })
+    next()
+    // axios.get('/login/state').then(responce => {
+    //     if (responce.data === false) {
+    //         Vue.Roles = {}
+    //         if (to.path !== '/login') {
+    //             next(false)
+    //         } else {
+    //             next()
+    //         }
+    //     } else {
+    //         Vue.Roles = responce.data.permissions
+    //         if (to.path === '/login') {
+    //             next(false)
+    //         } else {
+    //             next()
+    //         }
+    //     }
+    // })
+    // if (USER_STATE === 'false') {
+    //     axios.get('/login/state', this.ruleForm2).then(responce => {
+    //         let USER_STATE = responce.data.name
+    //         if (USER_STATE !== null) {
+    //             if (to.path === '/') {
+    //                 next({ path: '/index' })
+    //             } else {
+    //                 next()
+    //             }
+    //             console.log(USER_STATE)
+    //         } else {
+    //             if (to.path !== '/') {
+    //                 next({ path: '/' })
+    //             } else {
+    //                 next()
+    //             }
+    //         }
+    //     })
+    // } else {
+    //     next()
+    // }
 })
 
 router.afterEach(route => {})

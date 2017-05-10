@@ -8,7 +8,7 @@
 
 
 <template>
-<div class="permission">
+<div class="newWrap">
     <form class="newForm">
         <i class="el-icon-circle-close" @click="closeClick" ></i>
         <!-- tab选项卡 -->
@@ -35,6 +35,7 @@
 </template>
 
 <script>
+import move from '../../directive/move.js'
 import AllCheck from './allCheck.vue'
 import vuexStore from '../../vuex/modules/isAllCheck.js'
 export default {
@@ -71,6 +72,7 @@ export default {
             newForm: {}
         }
     },
+    mixins: [move],
     mounted () {
         // 全部数据
         axios.get('api/permission/select')
@@ -87,53 +89,8 @@ export default {
                 this.checkeds = responce.data
                 console.log(this.checkeds)
             })
-        /**
-        * 点击表单拖拽事件
-        */
-        var _this = this
-        this.resizeFn()
-        $('.permission').find($('.el-tabs__header')).on('mousedown', (e) => {
-            // console.log('mousedown')
-            // 鼠标与newForm块的距离
-            this.dmL = e.clientX - $('.newForm').position().left
-            this.dmT = e.clientY - $('.newForm').position().top
-            e.preventDefault()
-            $(document).on('mousemove', (e) => {
-                // console.log('mousemove')
-                var L = e.clientX - _this.dmL
-                var T = e.clientY - _this.dmT
-                var maxL = $(document).outerWidth() - $('.newForm').innerWidth()
-                var maxT = $(document).outerHeight() - $('.newForm').innerHeight()
-                var w = $('.newForm').innerWidth() / 2
-                var h = $('.newForm').innerHeight() / 2
-                if (L > maxL) {
-                    L = maxL
-                } else if (L < 0) {
-                    L = 0
-                }
-                if (T > maxT) {
-                    T = maxT
-                } else if (T < 0) {
-                    T = 0
-                }
-                $('.newForm').css({left: L + 'px', top: T + 'px'})
-            })
-        })
-        $(document).on('mouseup', () => {
-            $(document).off('mousemove')
-            // $(document).off('mouseup')
-            // console.log('mouseup')
-        })
-        $(window).on('resize', () => {
-            this.resizeFn()
-        })
     },
     methods: {
-        resizeFn () {
-            var divL = ($(document).outerWidth() - $('.newForm').innerWidth()) / 2
-            var divT = ($(document).outerHeight() - $('.newForm').innerHeight()) / 2
-            $('.newForm').css({left: divL, top: divT})
-        },
         // 关闭表单事件
         closeClick () {
             this.$parent.userRole()
@@ -176,7 +133,7 @@ export default {
 }
 </script>
 <style lang="sass">
-.permission{
+.newWrap{
   position: fixed;
   width:100%;
   height: 100%;

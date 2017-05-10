@@ -5,10 +5,10 @@
  *  
  */ 
 <template>
-	<div class="mask">
-		<form class="formUser">
+	<div class="newWrap">
+		<form class="newForm">
 			<i class="closeIcon" @click="closeClick"></i>
-				<h2 class="tab">编辑用户信息</h2>
+				<h2 class="el-tabs__header tab">编辑用户信息</h2>
 					<div class="margin">
 						<el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px">
 
@@ -49,21 +49,20 @@
 							</el-form-item>
 
 							<file class="userFile"></file>
-              
-							<el-form-item class="userOperate">
-							    <el-button class="btn_change" @click="submitForm('ruleForm')">保存</el-button>
-							    <el-button @click="resetForm('ruleForm')">取消</el-button>
-							</el-form-item>
 						</el-form>
 					</div>
+                    <div class="userOperate">
+                        <el-button @click="resetForm('ruleForm')">取消</el-button>
+                        <el-button class="btn_change" @click="submitForm('ruleForm')">保存</el-button>
+                    </div>
 				</form>
 			</div>
 </template>
 
-
 <script>
 import validate2 from '../../../utils/validate2.js'
 import file from '../../public/inputFile.vue'
+import move from '../../../directive/move.js'
 export default {
     name: 'userEdit',
     data () {
@@ -96,6 +95,22 @@ export default {
             }
         }
     },
+    mixins: [move],
+    mounted () {
+        // 查询编辑数据
+        axios.get('api/system/1/edit')
+            .then((responce) => {
+                this.user_id = responce.data.user.id
+                this.ruleForm.name = responce.data.user.name
+                this.ruleForm.realname = responce.data.user.realname
+                this.ruleForm.email = responce.data.user.email
+                this.ruleForm.phone = responce.data.user.phone
+                this.ruleForm.department = responce.data.user.department
+                this.ruleForm.birth_date = responce.data.user.birth_date
+                this.ruleForm.number = responce.data.user.number
+                this.ruleForm.gender = responce.data.user.gender
+            })
+    },
     methods: {
         closeClick () {
             this.$parent.showEdit()
@@ -127,27 +142,12 @@ export default {
     },
     components: {
         file
-    },
-    mounted () {
-        // 查询编辑数据
-        axios.get('api/system/1/edit')
-            .then((responce) => {
-                this.user_id = responce.data.user.id
-                this.ruleForm.name = responce.data.user.name
-                this.ruleForm.realname = responce.data.user.realname
-                this.ruleForm.email = responce.data.user.email
-                this.ruleForm.phone = responce.data.user.phone
-                this.ruleForm.department = responce.data.user.department
-                this.ruleForm.birth_date = responce.data.user.birth_date
-                this.ruleForm.number = responce.data.user.number
-                this.ruleForm.gender = responce.data.user.gender
-            })
     }
 }
 </script>
 
 <style lang="sass">
-.mask {
+.newWrap {
     position: fixed;
     width: 100%;
     height: 100%;
@@ -157,13 +157,12 @@ export default {
     z-index: 2;
     text-align: center;
     overflow: hidden;
-        .formUser {
+        .newForm {
             width: 622px;
             position: absolute;
             background: #fff;
             left: 50%;
             top: 50%;
-            transform: translateX(-50%) translateY(-50%);
             box-shadow: 1px 1px 50px rgba(0, 0, 0, 0.3);
             padding: 0px 3px 30px 3px;
             .closeIcon {
@@ -179,6 +178,9 @@ export default {
                         background-position: -180px -31px;
                     }
                 }
+                .el-tabs__header{
+                    cursor: move;
+                }
                 .tab {
                     text-align: left;
                     font-weight: normal;
@@ -188,10 +190,17 @@ export default {
                 }
                 .margin {
                     padding-right: 30px;
+                    overflow: auto;
+                    height: 447px;
                 }
                 .userOperate {
                     margin-top: 15px;
-                    float: right;
+                    width: 100%;
+                    border-top: 2px solid #cecece;
+                    button{
+                        float: right;
+                        margin: 13px 13px 0 0;
+                    }
                 }
                 .userFile{
                     margin-left: -202px;
