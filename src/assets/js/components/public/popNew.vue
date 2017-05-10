@@ -349,7 +349,6 @@ export default {
         },
         // 选择框
         handleSelectionChange (val) {
-            console.log(val)
             let ids = []
             for (let key in val) {
                 ids.push(val[key].id)

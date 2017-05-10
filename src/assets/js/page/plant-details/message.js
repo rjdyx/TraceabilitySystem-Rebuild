@@ -23,7 +23,6 @@ export default {
             url: 'rfid',
             tab: '畜禽RFID',
             searchPlaceholder: '请输入rfid进行搜索',
-            // typeComponent: [{component: importBtn}, {component: output}, {component: newbuildBtn}],
             typeComponent: [{component: newbuildBtn}],
             headList: ['RFID', '畜禽名称', '养殖日期', '备注信息'],
             hiddeEdit: true,
@@ -207,7 +206,6 @@ export default {
             url: 'breed-fodderuse',
             tab: '养殖批次信息',
             searchPlaceholder: '请输入批次号进行搜索',
-            // typeComponent: [{component: output}, {component: newbuildBtn}],
             typeComponent: [{component: newbuildBtn}],
             headList: ['养殖批次号', '圈舍', '畜禽名称', '养殖日期'],
             protos: ['serial', 'area_name', 'beast_name', 'date'],
@@ -242,7 +240,6 @@ export default {
             url: 'breed-detect',
             tab: '养殖批次信息',
             searchPlaceholder: '请输入批次号进行搜索',
-            // typeComponent: [{component: output}, {component: newbuildBtn}],
             typeComponent: [{component: newbuildBtn}],
             headList: ['养殖批次号', '圈舍', '畜禽名称', '养殖日期'],
             protos: ['serial', 'area_name', 'beast_name', 'date'],
@@ -1347,36 +1344,86 @@ export default {
     },
     // 销售入库详情
     saleInput: {
-        key: 'plantProduct',
+        key: 'storageProduct',
         tab: '销售入库批次管理',
-        theads: ['入库批次号', '入库日期', '供货商', '商品名称', '数量', '入库人', '录入人', '备注信息'],
-        protos: ['ear', 'name', 'date', 'memo', 'date', 'amount', 'date', 'memo'],
+        theads: ['入库批次号', '入库日期', '供货商', '商品名称', '数量', '入库人', '备注信息'],
+        protos: ['serial', 'datetime', 'supplier_name', 'product_name', 'amount', 'operate_name', 'memo'],
+        url: 'storage',
         tabList: [{
-            tab: '采收批次信息',
-            searchPlaceholder: '请输入rfid进行搜索',
-            leftOperateList: [{
-                components: [
-                    {
-                        type: 'select',
-                        components: selectSection,
-                        options: [
-                            {
-                            }
-                        ]
-                    },
-                    {
-                        type: 'date',
-                        component: datePick
-                    }
-                ]
+            key: 'storage-code',
+            url: 'storage-code',
+            tab: '销售入库信息',
+            searchPlaceholder: '请输入溯源码进行搜索',
+            headList: ['产品溯源码', '销售产品', '生产日期', '产地', '溯源次数', '备注信息'],
+            protos: ['code', 'product_name', 'date', 'origin', 'time', 'memo'],
+            hiddeEdit: false,
+            widths: [50, 50, 50, 50, 50, 50],
+            moreComponent: [{
+                value: '打印'
             }],
-            rightOperateComponent: [{component: output}, {component: newbuildBtn}],
-            headList: ['检测方式', '检测日期', '检测机构', '检测项目名称', '检测人', '检测结果', '证书编号', '有效期', '备注信息'],
-            protos: ['ear', 'name', 'date', 'memo'],
-            widths: [50, 50, 50],
-            newComponent: [{label: '', type: '', component: '', rule: ''}],
-            tableOperateList: [{operateName: '编辑'}, {operateName: '删除'}],
-            bottomOperateList: [{operateName: '删除'}, {operateName: '导出表格'}]
+            typeComponent: [{
+                component: output
+            },
+            {
+                component: scanCode
+            }],
+            listComponent: [{
+                components: [{
+                    type: 'date',
+                    component: datePick
+                }]
+            }],
+            printComponent: [{
+                tab: '打印溯源码信息',
+                components: [{
+                    name: 'product_name',
+                    type: 'text',
+                    component: null,
+                    isNull: false,
+                    label: '产品名称',
+                    placeholder: '',
+                    disabled: true,
+                    rule: {required: true}
+                },
+                {
+                    name: 'specification',
+                    type: 'text',
+                    component: null,
+                    isNull: false,
+                    label: '产品规格',
+                    placeholder: '',
+                    disabled: true,
+                    rule: {required: true}
+                },
+                {
+                    name: 'date',
+                    type: 'text',
+                    component: null,
+                    isNull: false,
+                    label: '生产日期',
+                    placeholder: '',
+                    disabled: true,
+                    rule: {required: true}
+                },
+                {
+                    name: 'origin',
+                    type: 'text',
+                    component: null,
+                    isNull: false,
+                    label: '产地',
+                    placeholder: '',
+                    disabled: true,
+                    rule: {required: true}
+                },
+                {
+                    name: 'code',
+                    component: Qrcode,
+                    isNull: false,
+                    label: '产品二维码',
+                    placeholder: '',
+                    rule: null
+                }]
+            }]
         }]
     },
     // 销售订单详情
@@ -1393,8 +1440,11 @@ export default {
             searchPlaceholder: '请输入溯源码进行搜索',
             headList: ['产品溯源码', '销售产品', '生产日期', '产地', '溯源次数', '备注信息'],
             protos: ['code', 'product_name', 'date', 'origin', 'time', 'memo'],
-            hiddeEdit: true,
+            hiddeEdit: false,
             widths: [50, 50, 50, 50, 50, 50],
+            moreComponent: [{
+                value: '打印'
+            }],
             typeComponent: [{
                 component: output
             },
@@ -1405,6 +1455,57 @@ export default {
                 components: [{
                     type: 'date',
                     component: datePick
+                }]
+            }],
+            printComponent: [{
+                tab: '打印溯源码信息',
+                components: [{
+                    name: 'product_name',
+                    type: 'text',
+                    component: null,
+                    isNull: false,
+                    label: '产品名称',
+                    placeholder: '',
+                    disabled: true,
+                    rule: {required: true}
+                },
+                {
+                    name: 'specification',
+                    type: 'text',
+                    component: null,
+                    isNull: false,
+                    label: '产品规格',
+                    placeholder: '',
+                    disabled: true,
+                    rule: {required: true}
+                },
+                {
+                    name: 'date',
+                    type: 'text',
+                    component: null,
+                    isNull: false,
+                    label: '生产日期',
+                    placeholder: '',
+                    disabled: true,
+                    rule: {required: true}
+                },
+                {
+                    name: 'origin',
+                    type: 'text',
+                    component: null,
+                    isNull: false,
+                    label: '产地',
+                    placeholder: '',
+                    disabled: true,
+                    rule: {required: true}
+                },
+                {
+                    name: 'code',
+                    component: Qrcode,
+                    isNull: false,
+                    label: '产品二维码',
+                    placeholder: '',
+                    rule: null
                 }]
             }]
         }]
