@@ -46,11 +46,11 @@
 
         <!-- 新建模块 --> 
         <transition name="fade">
-            <popNew v-if="isNewShow" :newComponent="newComponent" :url="url" @submitNew="changeNew" @setAssoc="getAssoc" @setTable="getTable"></popNew>
+            <popNew v-if="isNewShow" :newComponent="newComponent" :checkboxShow="checkboxShow" :url="url" @submitNew="changeNew" @setAssoc="getAssoc" @setTable="getTable" ></popNew>
         </transition>
         <!-- 编辑模块 -->
         <transition name="fade">
-            <pop-edit v-if="isEditShow" :editComponent="editComponent" :url="url" :editForm="editForm"
+            <pop-edit v-if="isEditShow" :editComponent="editComponent" :roleId="roleId" :checkboxShow="checkboxShow" :url="url" :editForm="editForm"
              @submitEdit="hangeEdit" :changeDataArr="changeDataArr" :editDefault="editDefault"></pop-edit>
         </transition>
         <!-- 打印模块 -->
@@ -60,6 +60,10 @@
         <!-- 权限模块 -->
         <transition name="fade">
             <permissionCheckbox v-if="isPermissionShow" :permissions="permissions" :companyId="companyId"></permissionCheckbox>
+        </transition>
+        <!-- 角色权限模块 -->
+        <transition name="fade">
+            <roleCheckbox v-if="isRoleShow" :rowId="rowId"></roleCheckbox>
         </transition>
     </div>
     <!-- 列表模块 -->
@@ -106,7 +110,9 @@
                 </template>
                 <template>
 
-                    <el-button type="text" size="small" @click="changeEditShow(scope.$index,scope.row)" v-if="!hiddeEdit">编辑</el-button>
+                    <el-button type="text" size="small" @click="roleShow(scope.$index,scope.row)" v-if="hiddeRole">权限</el-button>
+
+                    <el-button type="text" size="small" @click="changeEditShow(scope.$index,scope.row)" v-if="!hiddeEdit" v-bind:class="{'btn':hiddeRole}">编辑</el-button>
 
                     <el-button type="text" size="small" v-if="hiddeShow">查看</el-button>
                         
@@ -153,6 +159,7 @@ import lotOpearte from '../../components/public/lotOpearte.vue'
 import printf from '../../components/public/printf.vue'
 import permissionCheckbox from '../../components/public/permissionCheckbox.vue'
 import company from '../../page/plant-basic/company.js'
+import roleCheckbox from '../../components/public/roleCheckbox.vue'
 export default {
     name: 'BasicModel',
     props: {
@@ -226,6 +233,7 @@ export default {
             // 是否打印
             isPrintShow: false,
             isPermissionShow: false,
+            checkboxShow: false,
             // msg: 1,
             editBol: false,
             editForm: {},
@@ -250,7 +258,10 @@ export default {
             isPcActive: true,
             permissions: company,
             // 已选择的权限
-            checkeds: {}
+            checkeds: {},
+            roleId: null,
+            rowId: null,
+            isRoleShow: false
         }
     },
     mixins: [computed],
@@ -313,10 +324,17 @@ export default {
             this.active = !this.active
             this.clickMoreshow = !this.clickMoreshow
         },
+        // 关闭角色弹窗
+        closeRoleShow (val) {
+            this.isRoleShow = !this.isRoleShow
+        },
         // 显示新建表单
         changeNewShow () {
             this.isNewShow = !this.isNewShow
             var com = this.newComponent[0]
+            if (com.checkboxShow !== undefined) {
+                this.checkboxShow = com.checkboxShow
+            }
             if (com.checkNumber !== undefined) {
                 for (let index in com.checkNumber) {
                     com.components[com.checkNumber[index]].rule[1].url = this.url
@@ -363,8 +381,12 @@ export default {
         },
         // 显示编辑表单
         changeEditShow (index, row) {
+            this.roleId = row.id
             this.isEditShow = true
             var com = this.editComponent[0]
+            if (com.checkboxShow !== undefined) {
+                this.checkboxShow = com.checkboxShow
+            }
             if (row !== undefined) {
                 if (com.checkNumber !== undefined) {
                     for (let index in com.checkNumber) {
@@ -640,6 +662,10 @@ export default {
             this.isPermissionShow = true
             console.log('this.companyId:' + this.companyId)
         },
+        roleShow (index, row) {
+            this.isRoleShow = true
+            this.rowId = row.id
+        },
         detailShow (index, row) {
             var id = row.id
             this.$router.push('/index/details/' + this.batch + '/' + id)
@@ -681,7 +707,8 @@ export default {
         clickMore,
         lotOpearte,
         printf,
-        permissionCheckbox
+        permissionCheckbox,
+        roleCheckbox
     }
 }
 </script>

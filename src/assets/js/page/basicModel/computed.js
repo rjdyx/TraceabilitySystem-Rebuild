@@ -86,6 +86,9 @@ export default {
         },
         hiddeUser () {
             return this.models[this.modelIndex].hiddeUser
+        },
+        checkboxShow () {
+            return this.models[this.modelIndex].checkboxShow
         }
     }
 }

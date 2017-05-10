@@ -85,6 +85,24 @@
                         </td>
                     </tr>
                 </template>
+
+                 <!-- 传二级多选框组件 -->
+                <tr class="tr1" v-if="checkboxShow">
+                    <td>
+                        <ul class="ul">
+                            <li>
+                                <allCheck v-for="(itemList,key) in memuList" 
+                                :lists="itemList" 
+                                :checkeds="checkeds[key]"
+                                :name="key" 
+                                @return-isAllcheck="allChange" 
+                                @return-checked="allChecked">
+                                </allCheck>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
           </table>
          </el-form>
         </el-tab-pane>
@@ -97,11 +115,15 @@
 </div>
 </template>
 <script>
+import AllCheck from './allCheck.vue'
+import vuexStore from '../../vuex/modules/isAllCheck.js'
 export default {
     name: 'validator-example',
     // validator: null,
     components: {
-      // ActiveBox,
+        // ActiveBox,
+        AllCheck,
+        vuexStore
     },
     props: {
         type: '',
@@ -117,7 +139,9 @@ export default {
         },
         url: '',
         changeDataArr: {},
-        editDefault: {}
+        editDefault: {},
+        checkboxShow: false,
+        roleId: null
     },
     data () {
         let rules = {}
@@ -127,10 +151,21 @@ export default {
         return {
             // 当前选中的标签页
             activeName: this.editComponent[0].tab,
-            rules: rules
+            rules: rules,
+            memuList: {},
+            checkeds: []
         }
     },
     mounted () {
+        if (this.checkboxShow) {
+            // 全部数据
+            axios.get('api/company/permission')
+                .then((responce) => {
+                    this.memuList = responce.data
+                })
+            // 角色权限默认选中
+            this.rolePermisstion()
+        }
         // 编辑表单加载事件
         this.setDefaultTable()
          /**
@@ -177,6 +212,26 @@ export default {
         }
     },
     methods: {
+        // 角色权限默认选中数据
+        rolePermisstion (roleId = null) {
+            axios.get('api/role/permission/' + this.roleId)
+                .then((responce) => {
+                    if (responce.data) {
+                        this.checkeds = responce.data
+                        for (let key in responce.data) {
+                            let arr = []
+                            if (responce.data[key] !== null) {
+                                for (let i in responce.data[key]) {
+                                    arr.push(responce.data[key][i].id)
+                                }
+                                this.checkeds[key] = arr
+                            } else {
+                                this.checkeds[key] = []
+                            }
+                        }
+                    }
+                })
+        },
         resizeFn () {
             var divL = ($(document).outerWidth() - $('.newForm').innerWidth()) / 2
             var divT = ($(document).outerHeight() - $('.newForm').innerHeight()) / 2
@@ -207,6 +262,18 @@ export default {
           * 提交表单
           */
         submitForm (formName) {
+            // 多选框 权限
+            if (this.checkboxShow) {
+                let allIdArr = []
+                for (let key in this.checkeds) {
+                    if (this.checkeds[key].length) {
+                        this.checkeds[key].forEach(function (item) {
+                            allIdArr.push(item)
+                        })
+                    }
+                }
+                this.editForm['permission_ids'] = allIdArr
+            }
             this.$refs[formName][0].validate((valid) => {
                 if (valid) {
                     var ret = this.$conversion(this.changeDataArr, this.editForm, 0)
@@ -217,6 +284,25 @@ export default {
                     return false
                 }
             })
+        },
+        allChecked (data) {
+            this.checkeds[data[0]] = data[1]
+            this.isChange = data[2]
+        },
+        allChange (data = []) {
+            if (data.length) {
+                this.allCheckObj[data[0]] = data[1]
+                var bol = true
+                for (let key in this.allCheckObj) {
+                    bol = this.allCheckObj[key] && bol
+                }
+                this.checked = bol
+            } else {
+                this.$store.commit('changeIsAllCheck', this.checked)
+                for (let key in this.allCheckObj) {
+                    this.allCheckObj[key] = this.checked
+                }
+            }
         },
         // 编辑表单预加载
         setDefaultTable () {
