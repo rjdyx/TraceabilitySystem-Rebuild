@@ -3168,7 +3168,7 @@ export default {
         searchPlaceholder: '请输入病疫批次号进行搜索',
         selectValueId: [['drug_id', 'drug_name', true]],
         selectDefault: [{value: '', label: '兽药选择'}],
-        selectSearch: ['disease.drug_id'],
+        selectSearch: ['diseases.drug_id'],
         theads: ['病疫批次号', '兽药名称', '用药日期', '病情描述', '专家', '平均用药量', '治疗方式', '备注'],
         protos: ['serial', 'drug_name', 'date', 'description', 'expert_name', 'amount_unit', 'way', 'memo'],
         widths: [50, 50, 50, 50, 50, 50, 50, 50],
@@ -3401,7 +3401,7 @@ export default {
         ],
         listComponent: [{
             components: [{
-                name: 'disease.drug_id',
+                name: 'diseases.drug_id',
                 value: '',
                 type: 'select',
                 component: selectSection,
@@ -3722,6 +3722,7 @@ export default {
         }],
         newComponent: [{
             tab: '新建检测信息',
+            hiddenValue: {type: 'beast'},
             selectUrl2: [['experts', 'id', 'name', true], ['operates', 'id', 'name', true]],
             selectInit2: [{value: '', label: '请选择专家'}, {value: '', label: '请选择操作人'}],
             popNumber2: [2, 1],
@@ -3732,7 +3733,7 @@ export default {
                 isNull: false,
                 label: '检测日期',
                 placeholder: '',
-                rule: {required: true, trigger: 'blur', type: 'date'}
+                rule: [{required: true, message: '请输入检测日期'}, {validator: validate2.reDate, message: '请输入检测日期'}]
             },
             {
                 name: 'operate_id',
@@ -3741,7 +3742,7 @@ export default {
                 isNull: true,
                 label: '操作人员',
                 placeholder: '请选择操作人',
-                rule: {required: true, trigger: 'blur'},
+                rule: {required: true, trigger: 'blur', type: 'number'},
                 options: []
             },
             {
@@ -3751,7 +3752,7 @@ export default {
                 isNull: true,
                 label: '指导专家',
                 placeholder: '请选择专家',
-                rule: null,
+                rule: {required: false, type: 'number'},
                 options: []
             },
             {
@@ -3833,6 +3834,7 @@ export default {
         }],
         editComponent: [{
             tab: '编辑检测信息',
+            hiddenValue: {type: 'beast'},
             selectUrl2: [['experts', 'id', 'name', true], ['operates', 'id', 'name', true]],
             popNumber2: [3, 2],
             components: [{
@@ -3843,7 +3845,7 @@ export default {
                 label: '检测批次号',
                 placeholder: '',
                 disabled: true,
-                rule: {required: null, trigger: 'blur'}
+                rule: {required: null}
             },
             {
                 name: 'date',
@@ -3852,26 +3854,26 @@ export default {
                 isNull: false,
                 label: '检测日期',
                 placeholder: '',
-                rule: {required: true, trigger: 'blur'}
+                rule: [{required: true, message: '请输入检测日期'}, {validator: validate2.reDate, message: '请输入检测日期'}]
             },
             {
-                name: 'operate_name',
+                name: 'operate_id',
                 type: 'select',
                 component: null,
                 isNull: true,
-                label: '操作人员',
-                placeholder: '请选择操作人',
-                rule: {required: true, trigger: 'blur'},
+                label: '检测人员',
+                placeholder: '',
+                rule: {required: true, trigger: 'blur', type: 'number', message: '请选择检测人员'},
                 options: []
             },
             {
-                name: 'expert_name',
+                name: 'expert_id',
                 type: 'select',
                 component: null,
                 isNull: true,
                 label: '指导专家',
                 placeholder: '请选择专家',
-                rule: null,
+                rule: {required: false, type: 'number'},
                 options: []
             },
             {
@@ -4191,9 +4193,6 @@ export default {
         // 链接批次信息模块数据的桥（养殖批次详情）
         batch: 'innocuityBatch',
         searchPlaceholder: '请输入操作内容进行',
-        selectValueId: [['expert_id', 'expert_name', true]],
-        selectDefault: [{value: '', label: '选择指导专家'}],
-        search: ['query_text', 'content'],
         theads: ['无害化批次号', '操作日期', '操作内容', '实行原因', '指导专家', '备注信息'],
         protos: ['serial', 'date', 'content', 'why', 'expert_name', 'memo'],
         selectSearch: ['dispose.expert_name'],
@@ -4365,13 +4364,6 @@ export default {
                 {
                     type: 'date',
                     component: 'datePick'
-                },
-                {
-                    type: 'select',
-                    component: selectSection,
-                    name: 'experts.id',
-                    value: '',
-                    options: []
                 }
             ]
         }]
@@ -4407,15 +4399,6 @@ export default {
                 label: '出栏日期',
                 placeholder: '',
                 rule: [{required: true, message: '请输入出栏日期'}, {validator: validate2.reDate, message: '请输入出栏日期'}]
-            },
-            {
-                name: 'amount',
-                type: 'text',
-                component: null,
-                isNull: false,
-                label: '出栏数量',
-                placeholder: '',
-                rule: {required: true, trigger: 'blur', type: 'number'}
             },
             {
                 name: 'operate_id',
@@ -4468,7 +4451,8 @@ export default {
                 isNull: false,
                 label: '出栏数量',
                 placeholder: '',
-                rule: {required: true, trigger: 'blur', type: 'number'}
+                disabled: true,
+                rule: {required: true}
             },
             {
                 name: 'operate_id',
@@ -4668,7 +4652,7 @@ export default {
             hiddenValue: {type: 'beast'},
             selectUrl2: [['operates', 'id', 'name', true]],
             selectInit2: [{value: '', label: '选择加工人'}],
-            popNumber2: [2],
+            popNumber2: [1],
             components: [{
                 name: 'date',
                 type: 'date',
