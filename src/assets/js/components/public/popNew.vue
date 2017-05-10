@@ -244,9 +244,8 @@ export default {
             // 多选框 权限
             if (this.checkboxShow) {
                 let allIdArr = []
-                console.log(this.checkeds.length)
-                if (this.checkeds.length) {
-                    for (let key in this.checkeds) {
+                for (let key in this.checkeds) {
+                    if (this.checkeds[key].length) {
                         this.checkeds[key].forEach(function (item) {
                             allIdArr.push(item)
                         })
