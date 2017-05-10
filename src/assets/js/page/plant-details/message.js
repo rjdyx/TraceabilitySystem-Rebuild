@@ -129,7 +129,7 @@ export default {
                     type: 'file',
                     component: inputFile,
                     isNull: false,
-                    label: '',
+                    label: '图片',
                     placeholder: '',
                     rule: {required: true, message: '请上传图片'}
                 },
@@ -376,8 +376,10 @@ export default {
             searchPlaceholder: '请输入批次号进行搜索',
             // typeComponent: [{component: output}, {component: newbuildBtn}],
             typeComponent: [{component: newbuildBtn}],
-            headList: ['养殖区', '圈舍', '圈舍面积'],
-            protos: ['farm_name', 'name', 'area_unit'],
+            // headList: ['养殖区', '圈舍', '圈舍面积'],
+            // protos: ['farm_name', 'name', 'area_unit'],
+            headList: ['养殖批次号', '圈舍', '养殖畜禽', '养殖日期'],
+            protos: ['serial', 'area_name', 'beast_name', 'start_date'],
             widths: [50, 50, 50],
             hiddeEdit: false,
             listComponent: [],
@@ -440,7 +442,7 @@ export default {
                     type: 'table',
                     theads: ['养殖批次', 'Rfid', '养殖畜禽', '养殖日期'],
                     protos: ['serial', 'rfid', 'beast_name', 'date'],
-                    valueId: 'breed_ids',
+                    valueId: 'rfid_ids',
                     errormsg: '请选择rfid',
                     tableVal: []
                 }]

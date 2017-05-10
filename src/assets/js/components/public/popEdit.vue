@@ -36,13 +36,13 @@
                     <tr class="tr1" v-else-if="subItem.type=='select'"> 
                         <td>
                             <el-form-item :label="subItem.label" :prop="subItem.name">
-                              <el-select v-model="editForm[subItem.name]" :placeholder="subItem.placeholder" size="small">
+                              <el-select v-model="editForm[subItem.name]" :placeholder="subItem.placeholder" size="small" :disabled="subItem.disabled">
                                 <el-option 
                                     v-for="option in subItem.options" 
                                     :label="option.label" 
                                     :value="option.value" 
                                     size="small"
-                                    :disabled="subItem.disabled"></el-option>
+                                    ></el-option>
                               </el-select>
                             </el-form-item>
                         </td>

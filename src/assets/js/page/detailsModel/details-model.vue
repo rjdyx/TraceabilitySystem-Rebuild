@@ -49,7 +49,7 @@
     
         <!-- 新建模块 --> 
         <transition name="fade">
-            <popNew v-if="isNewShow" :newComponent="tabItem.newComponent" :url="apiUrlArr[tabList[0].url]" @submitNew="changeNew" @setTable="getTable" :routeId="routeId"></popNew>
+            <popNew v-if="isNewShow" :newComponent="tabItem.newComponent" :url="apiUrlArr[tabList[index].url]" @submitNew="changeNew" @setTable="getTable" :routeId="routeId"></popNew>
         </transition>
         <!-- 编辑模块 -->
         <transition name="fade">

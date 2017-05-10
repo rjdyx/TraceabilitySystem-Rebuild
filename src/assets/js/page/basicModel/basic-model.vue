@@ -288,6 +288,7 @@ export default {
                 confirmButtonText: '确定',
                 type: 'error'
             }).then(() => {
+                console.log(row.id)
                 axios.delete(this.$adminUrl(this.url + '/' + row.id))
                     .then((responce) => {
                         this.getSelect()
@@ -420,8 +421,6 @@ export default {
                     if (responce.data.data.length !== 0) {
                         var ret = this.$conversion(this.changeDataArr, responce.data.data, 1)
                         ret = this.$eltable(ret)
-                        console.log('1---')
-                        console.log(ret)
                         this.$set(this, 'tableData', ret)
                         this.total_num = responce.data.total
                         this.num = responce.data.last_page
@@ -455,6 +454,8 @@ export default {
             }
             this.dataArr[val[0]] = val[1]
             this.boxArr(this.dataArr)
+            console.log('下拉框查询')
+            console.log(this.dataArr)
         },
         // 日期存储
         dateFind (val) {
