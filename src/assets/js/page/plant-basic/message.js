@@ -924,7 +924,7 @@ export default {
                 component: null,
                 isNull: false,
                 label: '电话',
-                placeholder: '',
+                placeholder: '请输入11位的手机号（固话用-隔开）',
                 rule: { validator: validate2.phone, trigger: 'blur' }
             },
             {
@@ -985,7 +985,7 @@ export default {
                 component: null,
                 isNull: false,
                 label: '电话',
-                placeholder: '',
+                placeholder: '请输入11位的手机号（固话用-隔开）',
                 rule: { validator: validate2.phone, trigger: 'blur' }
             },
             {
@@ -1013,7 +1013,7 @@ export default {
                 isNull: true,
                 label: '备注信息',
                 placeholder: '',
-                rule: ''
+                rule: null
             }
             ]
         }],
@@ -2654,7 +2654,7 @@ export default {
                 },
                 {
                     name: 'memo',
-                    type: 'memo',
+                    type: 'textarea',
                     component: null,
                     isNull: true,
                     label: '备注信息',
@@ -2744,7 +2744,7 @@ export default {
                 },
                 {
                     name: 'memo',
-                    type: 'memo',
+                    type: 'textarea',
                     component: null,
                     isNull: true,
                     label: '备注信息',
@@ -2880,8 +2880,7 @@ export default {
                 label: '圈舍',
                 placeholder: '请选择圈舍',
                 rule: {required: true, trigger: 'blur', type: 'number'},
-                options: [],
-                disabled: true
+                options: []
             },
             {
                 name: 'beast_id',
@@ -2891,8 +2890,7 @@ export default {
                 label: '畜禽名称',
                 placeholder: '请选择畜禽',
                 rule: {required: true, trigger: 'blur', type: 'number'},
-                options: [],
-                disabled: true
+                options: []
             },
             {
                 name: 'operate_id',
@@ -2903,6 +2901,16 @@ export default {
                 placeholder: '请选择操作人',
                 rule: {required: true, trigger: 'blur', type: 'number'},
                 options: []
+            },
+            {
+                name: 'amount',
+                type: 'text',
+                component: null,
+                isNull: true,
+                label: 'rfid数量',
+                placeholder: '',
+                disabled: true,
+                rule: null
             },
             {
                 name: 'start_date',
@@ -4390,7 +4398,7 @@ export default {
             tab: '新建出栏信息',
             selectUrl2: [['operates', 'id', 'name', true]],
             selectInit2: [{value: '', label: '选择出栏人'}],
-            popNumber2: [2],
+            popNumber2: [1],
             components: [{
                 name: 'date',
                 type: 'date',
@@ -4403,10 +4411,10 @@ export default {
             {
                 name: 'operate_id',
                 type: 'select',
-                component: inputSelect,
+                component: null,
                 isNull: false,
                 label: '出栏人员',
-                placeholder: '请选择出栏人员',
+                placeholder: '',
                 rule: {required: true, trigger: 'blur', type: 'number'},
                 options: []
             },
