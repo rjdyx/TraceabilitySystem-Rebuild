@@ -4,7 +4,7 @@
  * @date 2017/4/25  
  *  
  */ 
-<template>
+<template> 
 	<div class="set">
 		<div class="set_content">
 			<contain-title :settitle="settitle">
@@ -164,6 +164,7 @@ export default {
         }
     },
     mounted () {
+        console.log(this.radio1)
         // 查询编辑数据
         axios.get('api/system/1/edit')
             .then((responce) => {

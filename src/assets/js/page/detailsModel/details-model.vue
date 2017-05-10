@@ -10,6 +10,7 @@
   <!-- 标题 -->
     <contain-title :settitle="tab" :isShow="isShow">
     </contain-title>
+    
   <!-- 信息列表 -->
     <el-row :gutter="20">
          <el-col :span="6" v-for="(item,i) in theads" class="text-small">{{item}}:<em class="margin-left_10">{{headData[protos[i]]}}</em>
@@ -197,7 +198,24 @@ export default {
             index: 0,
             rowId: null,
             routeId: this.$route.params.id,
-            isShow: true
+            isShow: true,
+            gridData: [{
+                date: '2016-05-02',
+                name: '王小虎',
+                address: '上海市普陀区金沙江路 1518 弄'
+            }, {
+                date: '2016-05-04',
+                name: '王小虎',
+                address: '上海市普陀区金沙江路 1518 弄'
+            }, {
+                date: '2016-05-01',
+                name: '王小虎',
+                address: '上海市普陀区金沙江路 1518 弄'
+            }, {
+                date: '2016-05-03',
+                name: '王小虎',
+                address: '上海市普陀区金沙江路 1518 弄'
+            }]
         }
     },
     mixins: [computed],

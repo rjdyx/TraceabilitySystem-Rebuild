@@ -1,4 +1,4 @@
-<template>
+    <template>
     <div id="app" :class="[getTheme, getFont]">
         <router-view></router-view>
     </div>
