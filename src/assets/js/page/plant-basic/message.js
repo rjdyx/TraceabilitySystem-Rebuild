@@ -4390,7 +4390,7 @@ export default {
             tab: '新建出栏信息',
             selectUrl2: [['operates', 'id', 'name', true]],
             selectInit2: [{value: '', label: '选择出栏人'}],
-            popNumber2: [2],
+            popNumber2: [1],
             components: [{
                 name: 'date',
                 type: 'date',
