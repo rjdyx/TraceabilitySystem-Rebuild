@@ -81,7 +81,7 @@ export default {
         * 点击表单拖拽事件
         */
         this.resizeFn()
-        $('.permission').find($('.el-tabs__header')).on('mousedown', (e) => {
+        $('.rolecheckbox').find($('.el-tabs__header')).on('mousedown', (e) => {
             // console.log('mousedown')
             // 鼠标与newForm块的距离
             this.dmL = e.clientX - $('.newForm').position().left

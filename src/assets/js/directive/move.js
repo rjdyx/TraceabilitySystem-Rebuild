@@ -10,6 +10,7 @@ export default{
             this.dmL = e.clientX - $('.newForm').position().left
             this.dmT = e.clientY - $('.newForm').position().top
             $(document).on('mousemove', (e) => {
+                e.preventDefault()
                 // console.log('mousemove')
                 var L = e.clientX - _this.dmL
                 var T = e.clientY - _this.dmT
