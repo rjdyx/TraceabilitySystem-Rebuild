@@ -19,24 +19,24 @@ require('./config/init')
 // }
 
 router.beforeEach((to, from, next) => {
-    next()
-    // axios.get('/login/state').then(responce => {
-    //     if (responce.data === false) {
-    //         Vue.Roles = {}
-    //         if (to.path !== '/login') {
-    //             next(false)
-    //         } else {
-    //             next()
-    //         }
-    //     } else {
-    //         Vue.Roles = responce.data.permissions
-    //         if (to.path === '/login') {
-    //             next(false)
-    //         } else {
-    //             next()
-    //         }
-    //     }
-    // })
+    // next()
+    axios.get('/login/state').then(responce => {
+        if (responce.data === false) {
+            Vue.Roles = {}
+            if (to.path !== '/login') {
+                next(false)
+            } else {
+                next()
+            }
+        } else {
+            Vue.Roles = responce.data.permissions
+            if (to.path === '/login') {
+                next(false)
+            } else {
+                next()
+            }
+        }
+    })
     // if (USER_STATE === 'false') {
     //     axios.get('/login/state', this.ruleForm2).then(responce => {
     //         let USER_STATE = responce.data.name
