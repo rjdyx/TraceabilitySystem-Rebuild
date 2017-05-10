@@ -12,14 +12,16 @@
                 :router="true" 
                 :unique-opened="true"
                 class="list" theme="dark">
-                <!-- <el-submenu v-for="(menu, index) in menus" :index="menu.name" v-if="!menu.role"> -->
-                <el-submenu v-for="(menu, index) in menus" :index="menu.name">
+                <el-submenu 
+                    v-for="(menu, index) in menus"
+                    :index="menu.name" v-if="menu.role<1">
                     <template slot="title" >
                     <img :src="menu.src" class="menu-img">
                         {{menu.name}}
                     </template>
-                    <!-- <el-menu-item v-for="(subMenu, subIndex) in menu.children" :index="subMenu.path" exact v-if="!subMenu.role">  -->
-                    <el-menu-item v-for="(subMenu, subIndex) in menu.children" :index="subMenu.path" exact> 
+                    <el-menu-item 
+                        v-for="(subMenu, subIndex) in menu.children" 
+                        :index="subMenu.path" exact v-if="subMenu.role<1"> 
                         {{subMenu.name}}
                     </el-menu-item>
                 </el-submenu>

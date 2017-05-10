@@ -15,7 +15,7 @@
     <div class="formHeaderMask"></div>
       <!-- tab选项卡 -->
       <!-- <h4>{{newComponent[0].tab}}</h4> -->
-      <el-tabs v-model="activeName" @tab-click="handleClick">
+      <el-tabs v-model="activeName" @tab-click="handleClick" class="tab">
         <el-tab-pane :label="item.tab" :name="item.tab" v-for="(item,i) in newComponent">
           <!-- 表单 -->
         <el-form :model="tableForm" :rules="rules" ref="tableForm" label-width="110px" class="demo-tableForm">
@@ -140,6 +140,7 @@
 <script>
 import AllCheck from './allCheck.vue'
 import vuexStore from '../../vuex/modules/isAllCheck.js'
+import move from '../../directive/move.js'
 export default {
     name: 'validator-example',
     // validator: null,
@@ -208,6 +209,7 @@ export default {
             checkeds: []
         }
     },
+    mixins: [move],
     mounted () {
         if (this.checkboxShow) {
             // 全部数据
@@ -216,53 +218,8 @@ export default {
                     this.memuList = responce.data
                 })
         }
-        /**
-        * 点击表单拖拽事件
-        */
-        var _this = this
-        this.resizeFn()
-        $('.newWrap').find($('.el-tabs__header')).on('mousedown', (e) => {
-            // console.log('mousedown')
-            // 鼠标与newForm块的距离
-            this.dmL = e.clientX - $('.newForm').position().left
-            this.dmT = e.clientY - $('.newForm').position().top
-            e.preventDefault()
-            $(document).on('mousemove', (e) => {
-                // console.log('mousemove')
-                var L = e.clientX - _this.dmL
-                var T = e.clientY - _this.dmT
-                var maxL = $(document).outerWidth() - $('.newForm').innerWidth()
-                var maxT = $(document).outerHeight() - $('.newForm').innerHeight()
-                var w = $('.newForm').innerWidth() / 2
-                var h = $('.newForm').innerHeight() / 2
-                if (L > maxL) {
-                    L = maxL
-                } else if (L < 0) {
-                    L = 0
-                }
-                if (T > maxT) {
-                    T = maxT
-                } else if (T < 0) {
-                    T = 0
-                }
-                $('.newForm').css({left: L + 'px', top: T + 'px'})
-            })
-        })
-        $(document).on('mouseup', () => {
-            $(document).off('mousemove')
-            // $(document).off('mouseup')
-            // console.log('mouseup')
-        })
-        $(window).on('resize', function () {
-            _this.resizeFn()
-        })
     },
     methods: {
-        resizeFn () {
-            var divL = ($(document).outerWidth() - $('.newForm').innerWidth()) / 2
-            var divT = ($(document).outerHeight() - $('.newForm').innerHeight()) / 2
-            $('.newForm').css({left: divL, top: divT})
-        },
         handleClick (tab, event) {
             console.log(tab, event)
         },
@@ -349,7 +306,6 @@ export default {
         },
         // 选择框
         handleSelectionChange (val) {
-            console.log(val)
             let ids = []
             for (let key in val) {
                 ids.push(val[key].id)
@@ -524,7 +480,7 @@ export default {
     .el-icon-circle-close:hover{
         color:#0087b5;
     } 
-    .el-tabs__header{
+    .tab{
         cursor: move;
     }
     .btn_change{

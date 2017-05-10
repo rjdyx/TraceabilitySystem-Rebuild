@@ -9,14 +9,8 @@
 	<div>
 		<div v-for="item in listComponent" class="operate">
 			<div class="inline operateBtn" v-for="item in item.components">
-				<!-- 果蔬按钮 -->
-				<div class="vegetableBtn" v-if="item.type=='vegetableBtn'">
-					<el-button size="small">全部果蔬档案</el-button>
-					<el-button size="small">蔬菜类</el-button>
-					<el-button size="small">水果类</el-button>
-				</div>
 				<!-- 下拉框	 -->
-				<el-select class="select inline" size="small" v-model="item.value" v-else-if="item.type=='select'" @change="getSelect(item.name,item.value)">
+				<el-select class="select inline" size="small" v-model="item.value" v-if="item.type=='select'" @change="getSelect(item.name,item.value)">
 					<el-option v-for="option in item.options" :label="option.label" :value="option.value">
 					</el-option>
 				</el-select>

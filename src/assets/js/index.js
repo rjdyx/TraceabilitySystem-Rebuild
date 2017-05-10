@@ -10,9 +10,7 @@ import store from './vuex/index'
 Vue.prototype.$http = axios
 
 Vue.use(VueRouter)
-const Per = '/index/message/'
-const Excepts = ['/index', '/index/company', '/index/question', '/index/set', '/index/test', '/404', '/login']
-const Admins = [Per + 'rightsOperate', Per + 'settleOperate', Per + 'usersOperate', Per + 'logOperate', '/index', '/index/question', '/index/set', '/index/test', '/404', '/login']
+
 require('./config/init')
 
 // 处理刷新的时候vuex被清空但是用户已经登录的情况
@@ -21,6 +19,7 @@ require('./config/init')
 // }
 
 router.beforeEach((to, from, next) => {
+    // next()
     axios.get('/login/state').then(responce => {
         if (responce.data === false) {
             Vue.Roles = {}
@@ -31,9 +30,7 @@ router.beforeEach((to, from, next) => {
                 next()
             }
         } else {
-            Vue.State = 1
-            var arr = responce.data.permissions.one
-            Vue.Roles = responce.data.permissions.two
+            Vue.Roles = responce.data.permissions
             if (to.path === '/login') {
                 next(false)
             } else {
@@ -55,6 +52,27 @@ router.beforeEach((to, from, next) => {
             // }
         }
     })
+    // if (USER_STATE === 'false') {
+    //     axios.get('/login/state', this.ruleForm2).then(responce => {
+    //         let USER_STATE = responce.data.name
+    //         if (USER_STATE !== null) {
+    //             if (to.path === '/') {
+    //                 next({ path: '/index' })
+    //             } else {
+    //                 next()
+    //             }
+    //             console.log(USER_STATE)
+    //         } else {
+    //             if (to.path !== '/') {
+    //                 next({ path: '/' })
+    //             } else {
+    //                 next()
+    //             }
+    //         }
+    //     })
+    // } else {
+    //     next()
+    // }
 })
 
 router.afterEach(route => {})

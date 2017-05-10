@@ -165,6 +165,9 @@ export default {
 				.email,.enter{
 					font-size: 12px;
 				}
+				.enterTo{
+					cursor: pointer;
+				}
 				.operate {
 				  	float: right;
 				  	margin-top: 20px;
