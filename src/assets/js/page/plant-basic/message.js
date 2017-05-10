@@ -393,11 +393,11 @@ export default {
                 placeholder: '',
                 rule: null,
                 options: [{
-                    value: '男',
+                    value: 0,
                     label: '男'
                 },
                 {
-                    value: '女',
+                    value: 1,
                     label: '女'
                 }]
             },
@@ -460,7 +460,7 @@ export default {
         changeDataArr: [{sex: {0: '男', 1: '女'}}],
         searchPlaceholder: '请输入专家名称进行搜索',
         selectDefault: [{value: '', label: '选择专家类型'}],
-        theads: ['分类名称', '专家名称', '级别', '研究领域', '单位', '出生年月日', '性别', '联系方式', '图片', '备注'],
+        theads: ['分类名称', '专家名称', '级别', '研究领域', '单位', '年龄', '性别', '联系方式', '图片', '备注'],
         protos: ['category_name', 'name', 'level', 'major', 'unit', 'age', 'sex', 'phone', 'img', 'memo'],
         widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
         typeComponent: [{
@@ -513,7 +513,7 @@ export default {
                 isNull: false,
                 label: '研究领域',
                 placeholder: '',
-                rule: {required: true, trigger: 'blur'}
+                rule: {required: true, trigger: 'blur', message: '请输入研究领域'}
             },
             {
                 name: 'unit',
@@ -529,9 +529,9 @@ export default {
                 type: 'text',
                 component: null,
                 isNull: true,
-                label: '出生日期',
+                label: '年龄',
                 placeholder: '',
-                rule: null
+                rule: {required: false, validator: validate2.reInteger}
             },
             {
                 name: 'sex',
@@ -540,13 +540,13 @@ export default {
                 isNull: false,
                 label: '性别',
                 placeholder: '',
-                rule: {required: true, trigger: 'blur', type: 'number'},
+                rule: {required: true, trigger: 'blur'},
                 options: [{
-                    value: 0,
+                    value: '0',
                     label: '男'
                 },
                 {
-                    value: 1,
+                    value: '1',
                     label: '女'
                 }]
             },
@@ -619,7 +619,7 @@ export default {
                 isNull: false,
                 label: '研究领域',
                 placeholder: '',
-                rule: {required: true, trigger: 'blur'}
+                rule: {required: true, trigger: 'blur', message: '请输入研究领域'}
             },
             {
                 name: 'unit',
@@ -635,9 +635,9 @@ export default {
                 type: 'text',
                 component: null,
                 isNull: true,
-                label: '出生日期',
+                label: '年龄',
                 placeholder: '',
-                rule: null
+                rule: {validator: validate2.reInteger}
             },
             {
                 name: 'sex',
@@ -646,13 +646,13 @@ export default {
                 isNull: false,
                 label: '性别',
                 placeholder: '',
-                rule: {required: true, trigger: 'blur', type: 'number'},
+                rule: {required: true, trigger: 'blur'},
                 options: [{
-                    value: 0,
+                    value: '0',
                     label: '男'
                 },
                 {
-                    value: 1,
+                    value: '1',
                     label: '女'
                 }]
             },
@@ -755,7 +755,7 @@ export default {
                 component: null,
                 isNull: false,
                 label: '电话',
-                placeholder: '',
+                placeholder: '请输入11位的手机号（固话用-隔开）',
                 rule: { validator: validate2.phone, trigger: 'blur' }
             },
             {
@@ -838,7 +838,7 @@ export default {
                 component: null,
                 isNull: false,
                 label: '电话',
-                placeholder: '',
+                placeholder: '请输入11位的手机号（固话用-隔开）',
                 rule: { validator: validate2.phone, trigger: 'blur' }
             },
             {
@@ -5685,13 +5685,13 @@ export default {
                     rule: null
                 },
                 {
-                    name: 'date',
+                    name: 'growth_cycle',
                     type: 'text',
                     component: null,
                     isNull: false,
                     label: '生长周期（天）',
                     placeholder: '',
-                    rule: {validator: validate2.reInteger}
+                    rule: {validator: validate2.reNumber}
                 },
                 {
                     name: 'img',
@@ -5745,13 +5745,13 @@ export default {
                     placeholder: ''
                 },
                 {
-                    name: 'date',
+                    name: 'growth_cycle',
                     type: 'text',
                     component: null,
                     isNull: false,
                     label: '生长周期（天）',
                     placeholder: '',
-                    rule: {validator: validate2.reInteger}
+                    rule: {validator: validate2.reNumber}
                 },
                 {
                     name: 'img',
