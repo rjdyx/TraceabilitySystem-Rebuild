@@ -24,9 +24,9 @@
 								<el-input placeholder="必填" v-model="ruleForm.email"></el-input>
 							</el-form-item>
 
-              <el-form-item label="电话" prop="phone">
-                <el-input placeholder="请输入11位手机号(固话用-隔开)" v-model="ruleForm.phone"></el-input>
-              </el-form-item>
+                            <el-form-item label="电话" prop="phone">
+                                <el-input placeholder="请输入11位手机号(固话用-隔开)" v-model="ruleForm.phone"></el-input>
+                            </el-form-item>
 
 							<el-form-item label="姓名" prop="realname">
 								<el-input placeholder="请输入真实姓名" v-model="ruleForm.realname"></el-input>

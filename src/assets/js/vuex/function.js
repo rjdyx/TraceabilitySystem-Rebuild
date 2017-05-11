@@ -9,6 +9,7 @@ const LocalEvent = function (item) {
         localStorage.removeItem(item)
     }
 }
+export const modelLocal = new LocalEvent('record')
 
 export const themeLocal = new LocalEvent('theme')
 

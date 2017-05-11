@@ -300,7 +300,6 @@ export default {
                 confirmButtonText: '确定',
                 type: 'error'
             }).then(() => {
-                console.log(row.id)
                 axios.delete(this.$adminUrl(this.url + '/' + row.id))
                     .then((responce) => {
                         this.getSelect()

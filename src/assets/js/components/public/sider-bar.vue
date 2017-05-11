@@ -11,7 +11,7 @@
             <el-menu
                 :router="true" 
                 :unique-opened="true"
-                class="list" theme="dark">
+                class="list" theme="dark" :default-active="record" @select="handle">
                 <el-submenu 
                     v-for="(menu, index) in menus"
                     :index="menu.name" v-if="menu.role<1">
@@ -24,6 +24,9 @@
                         :index="subMenu.path" exact v-if="subMenu.role<1"> 
                         {{subMenu.name}}
                     </el-menu-item>
+                    <!-- <el-menu-item index="/index/message/plantSerial"> 
+                        丸子
+                    </el-menu-item> -->
                 </el-submenu>
             </el-menu>
         </vue-scrollbar> 
@@ -32,8 +35,14 @@
 </template>
 
 <script>
+import {mapGetters, mapMutation, mapActions} from 'vuex'
 export default {
     name: 'SiderBar',
+    data () {
+        return {
+            record: ''
+        }
+    },
     props: {
         menus: {
             type: Array,
@@ -42,8 +51,17 @@ export default {
             }
         }
     },
-    computed: {},
+    computed: {
+    },
+    mounted () {
+        let local = localStorage.getItem('record')
+        let checkdown = JSON.parse(local)
+        this.record = checkdown.record
+    },
     methods: {
+        handle (index) {
+            this.$store.commit('CHANGE', index)
+        }
     }
 }
 </script>
@@ -71,5 +89,10 @@ export default {
         vertical-align: middle;
         padding-right: 5px;
     }
-
+    .active{
+        background: red;
+    }
+    .unactive{
+        background: green;
+    }
 </style>

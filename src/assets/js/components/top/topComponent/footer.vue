@@ -13,7 +13,7 @@
         <p>
             最佳浏览器体验:360极速模式浏览器，最佳分别率：1680*1050
         </p>
-    </div>
+    </div> 
 </template>
 
 
@@ -27,14 +27,8 @@ export default {
 .copyright{
     width: 100%;
     text-align: center;
-    font-size: 12px;
     color: #919191;
-    // position: absolute;
-    margin: 0 auto;
-    // padding-top: 50px;
-    // left: 50%;
-    // bottom: 237px;
-    // transform: translateX(-50%);    
+    margin: 0 auto;  
 }
 .copyright a{
     text-decoration: underline;
