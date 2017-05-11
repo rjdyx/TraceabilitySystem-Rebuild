@@ -1,4 +1,4 @@
-/**
+ /**
  * @description:导航栏的设置模块
  * @author 舒丹彤
  * @date 2017/4/25  
@@ -132,6 +132,7 @@ export default {
             } else if (label === 3) {
                 this.switchFont('big')
             }
+            // this.$store.commit('CHANGEFONT', label)
         },
         switchTheme (color) {
             this.$store.dispatch('switch_theme', color)
@@ -164,7 +165,6 @@ export default {
         }
     },
     mounted () {
-        console.log(this.radio1)
         // 查询编辑数据
         axios.get('api/system/1/edit')
             .then((responce) => {

@@ -134,6 +134,7 @@ export default {
                             callback(new Error('登录失败'))
                         } else {
                             this.$router.push('/index')
+                            localStorage.removeItem('record')
                         }
                     })
                 } else {
