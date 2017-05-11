@@ -3476,7 +3476,7 @@ export default {
                 isNull: true,
                 label: '指导专家',
                 placeholder: '无',
-                rule: {required: false, type: 'number'},
+                rule: null,
                 options: []
             },
             {
@@ -3596,7 +3596,7 @@ export default {
                 isNull: true,
                 label: '指导专家',
                 placeholder: '无',
-                rule: {required: false, type: 'number'},
+                rule: null,
                 options: []
             },
             {
@@ -3735,7 +3735,7 @@ export default {
                 isNull: true,
                 label: '指导专家',
                 placeholder: '请选择专家',
-                rule: {required: false, type: 'number'},
+                rule: null,
                 options: []
             },
             {
@@ -3857,7 +3857,7 @@ export default {
                 isNull: true,
                 label: '指导专家',
                 placeholder: '请选择专家',
-                rule: {required: false, type: 'number'},
+                rule: null,
                 options: []
             },
             {
