@@ -12,7 +12,6 @@ const actions = {
 
 // mutations
 const mutations = {
-
     setNavbarName (state, navbarName) {
         state.navbarName = navbarName
     },

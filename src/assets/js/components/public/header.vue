@@ -81,6 +81,7 @@ export default {
         back () {
             axios.post('logout', this.data).then((responce) => {
                 if (responce.data === 200) {
+                    window.Roles = {}
                     this.$router.push('/login')
                 }
             })

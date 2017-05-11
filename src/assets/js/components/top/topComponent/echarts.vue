@@ -38,9 +38,12 @@
 
             axios.get('api/index/echarts')
                 .then((responce) => {
-                    var area = responce.data.area
-                    var sell = responce.data.sell.data
-                    var delivery = responce.data.delivery
+                    var bus = {}
+                    var area = []
+                    var sell = []
+                    var delivery = []
+                    var harvest = []
+                    var come = []
                     var type = '养殖'
                     var areaX = []
                     var areaY = []
@@ -52,13 +55,19 @@
                     var harvestY = []
                     var deliveryX = []
                     var deliveryY = []
-                    console.log(responce.data)
-                    if (responce.data.come === undefined) {
+                    // console.log(responce.data.area)
+                    if (responce.data.area !== undefined) bus = responce.data
+                    if (bus.area !== undefined) area = bus.area
+                    if (bus.sell !== undefined) sell = bus.sell.data
+                    if (bus.delivery !== undefined) delivery = bus.delivery
+                    if (bus.come === undefined) {
                         type = '种植'
-                        var harvest = responce.data.harvest.data
-                        for (var h = 0; h < harvest.length; h++) {
-                            harvestX[h] = harvest[h].date
-                            harvestY[h] = parseInt(harvest[h].amount)
+                        if (bus.harvest !== undefined) {
+                            harvest = bus.harvest.data
+                            for (var h = 0; h < harvest.length; h++) {
+                                harvestX[h] = harvest[h].date
+                                harvestY[h] = parseInt(harvest[h].amount)
+                            }
                         }
                         this.chartLine.setOption({
                             title: {text: '采收报表', x: 'center'},
@@ -73,10 +82,12 @@
                             }]
                         })
                     } else {
-                        var come = responce.data.come.data
-                        for (var c = 0; c < come.length; c++) {
-                            comeX[c] = come[c].date
-                            comeY[c] = parseInt(come[c].amount)
+                        if (bus.come !== undefined) {
+                            come = bus.come.data
+                            for (var c = 0; c < come.lengtc; c++) {
+                                comeX[c] = come[c].date
+                                comeY[c] = parseInt(come[c].amount)
+                            }
                         }
                         this.chartLine.setOption({
                             title: {text: '出栏报表', x: 'center'},

@@ -12,67 +12,56 @@ Vue.prototype.$http = axios
 Vue.use(VueRouter)
 
 require('./config/init')
+const pre = '/index/'
+const pre2 = '/index/message/'
+const Excepts = ['/', '/index', pre + 'set', pre + 'test', pre + 'help', pre + 'question', pre + '404']
+const Admins = [pre2 + 'rightsOperate', pre2 + 'settleOperate', pre2 + 'usersOperate', pre2 + 'logOperate']
 
 // 处理刷新的时候vuex被清空但是用户已经登录的情况
 // if (sessionStorage.user) {
 //     store.dispatch('setUserInfo', JSON.parse(sessionStorage.user))
 // }
 
-router.beforeEach((to, from, next) => {
-    // next()
-    axios.get('/login/state').then(responce => {
-        if (responce.data === false) {
-            Vue.Roles = {}
-            Vue.State = 0
-            if (to.path !== '/login') {
-                next(false)
-            } else {
-                next()
-            }
-        } else {
-            Vue.Roles = responce.data.permissions
-            if (to.path === '/login') {
-                next(false)
-            } else {
-                next()
-            }
-            // 注释部分为控制权限判断 勿删除
-            // if (arr === 'admin') {
-            //     if (Admins.indexOf(to.path) !== -1) {
-            //         next()
-            //     } else {
-            //         next(false)
-            //     }
-            // } else {
-            //     if (Excepts.indexOf(to.path) !== -1 || arr.indexOf(to.path) !== -1) {
-            //         next()
-            //     } else {
-            //         next(false)
-            //     }
-            // }
+router.beforeEach(async (to, from, next) => {
+    var check = false
+    if (window.Roles.name === undefined) {
+        try {
+            await axios.get('/login/state').then(responce => {
+                let except = to.matched.some((item, index, array) => {
+                    if (item.path !== '/login') return true
+                })
+                if (responce.data.name === undefined) {
+                    window.Roles = {}
+                    if (except) next({path: '/login'})
+                } else {
+                    if (!except) check = true
+                    window.Roles = responce.data
+                    let data = window.Roles.permissions
+                    if (to.path.indexOf('details') === -1) {
+                        if (data.one === 'admin') {
+                            if (Excepts.indexOf(to.path) === -1 && Admins.indexOf(to.path) === -1) check = true
+                        } else {
+                            if (Excepts.indexOf(to.path) === -1 && data.one.indexOf(to.path) === -1) check = true
+                        }
+                    }
+                }
+            })
+        } catch (e) {
+            console.log(e)
         }
-    })
-    // if (USER_STATE === 'false') {
-    //     axios.get('/login/state', this.ruleForm2).then(responce => {
-    //         let USER_STATE = responce.data.name
-    //         if (USER_STATE !== null) {
-    //             if (to.path === '/') {
-    //                 next({ path: '/index' })
-    //             } else {
-    //                 next()
-    //             }
-    //             console.log(USER_STATE)
-    //         } else {
-    //             if (to.path !== '/') {
-    //                 next({ path: '/' })
-    //             } else {
-    //                 next()
-    //             }
-    //         }
-    //     })
-    // } else {
-    //     next()
-    // }
+    } else {
+        var data2 = window.Roles.permissions
+        if (to.path === '/login') check = true
+        if (to.path.indexOf('details') === -1) {
+            if (data2.one === 'admin') {
+                if (Excepts.indexOf(to.path) === -1 && Admins.indexOf(to.path) === -1) check = true
+            } else {
+                if (Excepts.indexOf(to.path) === -1 && data2.one.indexOf(to.path) === -1) check = true
+            }
+        }
+    }
+    if (check) next({path: '/'})
+    next()
 })
 
 router.afterEach(route => {})
