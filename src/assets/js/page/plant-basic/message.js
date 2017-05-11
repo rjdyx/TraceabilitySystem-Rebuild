@@ -3034,12 +3034,12 @@ export default {
             },
             {
                 name: 'amount',
-                type: 'text',
-                component: null,
+                type: 'textSelect',
+                component: inputTextSelect,
                 isNull: true,
                 label: '平均喂养量',
                 placeholder: '请输入整数',
-                rule: [{required: true, trigger: 'blur', message: '请输入饲养量'}, {validator: validate2.reInteger}],
+                rule: [{required: true, trigger: 'blur', message: '请输入饲养量'}, {validator: validate2.reNumber}],
                 options: [{
                     value: 'kg/只',
                     label: 'kg/只'
@@ -3128,12 +3128,24 @@ export default {
             },
             {
                 name: 'amount',
-                type: 'text',
-                component: null,
+                type: 'textSelect',
+                component: inputTextSelect,
                 isNull: true,
                 label: '平均喂养量',
                 placeholder: '',
-                rule: [{required: true, message: '请输入饲养量'}, {validator: validate2.reInteger}]
+                rule: [{required: true, message: '请输入饲养量'}, {validator: validate2.reNumber}],
+                options: [{
+                    value: 'kg/只',
+                    label: 'kg/只'
+                },
+                {
+                    value: 'kg/头',
+                    label: 'kg/头'
+                },
+                {
+                    value: 'kg/条',
+                    label: 'kg/条'
+                }]
             },
             {
                 name: 'way',
@@ -4505,39 +4517,55 @@ export default {
         {
             component: newbuildBtn
         }],
+        listComponent: [{
+            components: [{
+                name: 'plans.type',
+                value: '',
+                type: 'select',
+                component: selectSection,
+                options: [{
+                    value: '',
+                    label: '操作类型'
+                },
+                {
+                    value: 'fertilize',
+                    label: '施肥'
+                },
+                {
+                    value: 'spray',
+                    label: '施药'
+                },
+                {
+                    value: 'detect',
+                    label: '检测'
+                },
+                {
+                    value: 'farming',
+                    label: '农事'
+                },
+                {
+                    value: 'harvest',
+                    label: '采收'
+                }]
+            },
+            {
+                type: 'date',
+                component: datePick
+            }]
+        }],
         newComponent: [{
-            tab: '新建养殖计划信息',
-            selectUrl2: [['experts', 'id', 'type', true], ['experts', 'id', 'name', true], ['operates', 'id', 'name', true]],
-            selectInit2: [{value: '', label: '请选择操作类型'}, {value: '', label: '请选择安排人员'}, {value: '', label: '请选择操作人员'}],
-            popNumber2: [1, 2, 4],
+            tab: '新建生产计划信息',
+            selectUrl2: [['operates', 'id', 'name', true]],
+            popNumber2: [2],
+            selectInit2: [{value: '', label: '请选择安排人员'}],
             components: [{
                 name: 'date',
                 type: 'date',
                 component: inputDate,
-                isNull: false,
+                isNull: true,
                 label: '计划日期',
                 placeholder: '',
-                rule: [{required: true, message: '请输入出栏日期'}, {validator: validate2.reDate, message: '请输入出栏日期'}]
-            },
-            {
-                name: 'type',
-                type: 'select',
-                component: null,
-                isNull: false,
-                label: '操作类型',
-                placeholder: '',
-                rule: {required: true, trigger: 'blur', type: 'number', message: '请选择操作类型'},
-                options: []
-            },
-            {
-                name: 'operate_id',
-                type: 'select',
-                component: null,
-                isNull: false,
-                label: '安排人员',
-                placeholder: '请选择安排人员',
-                rule: {required: true, trigger: 'blur', type: 'number', message: '请选择安排人员'},
-                options: []
+                rule: [{required: true, message: '请输入计划日期'}, {validator: validate2.reDate, message: '请输入计划日期'}]
             },
             {
                 name: 'content',
@@ -4549,58 +4577,81 @@ export default {
                 rule: null
             },
             {
-                name: 'user_id',
+                name: 'operate_id',
                 type: 'select',
                 component: null,
                 isNull: true,
-                label: '操作人员',
+                label: '安排人员',
                 placeholder: '',
-                rule: {required: true, trigger: 'blur', type: 'number', message: '请选择操作人员'},
+                rule: {required: true, trigger: 'blur', type: 'number', message: '请选择安排人员'},
                 options: []
+            },
+            {
+                name: 'type',
+                type: 'select',
+                component: null,
+                isNull: false,
+                label: '操作类型',
+                placeholder: '必填',
+                rule: {required: true, trigger: 'blur', message: '请选择分类名称'},
+                options: [{
+                    value: '',
+                    label: '操作类型'
+                },
+                {
+                    value: 'fertilize',
+                    label: '施肥'
+                },
+                {
+                    value: 'spray',
+                    label: '施药'
+                },
+                {
+                    value: 'detect',
+                    label: '检测'
+                },
+                {
+                    value: 'farming',
+                    label: '农事'
+                },
+                {
+                    value: 'harvest',
+                    label: '采收'
+                }]
             },
             {
                 name: 'memo',
                 type: 'textarea',
                 component: null,
                 isNull: true,
-                label: '备注信息',
+                label: '备注',
                 placeholder: '',
                 rule: null
             }]
         }],
         editComponent: [{
-            tab: '新建养殖计划信息',
-            selectUrl2: [['experts', 'id', 'type', true], ['experts', 'id', 'name', true], ['operates', 'id', 'name', true]],
-            selectInit2: [{value: '', label: '请选择操作类型'}, {value: '', label: '请选择安排人员'}, {value: '', label: '请选择操作人员'}],
-            popNumber2: [1, 2, 4],
+            tab: '编辑生产计划信息',
+            selectUrl2: [['operates', 'id', 'name', true]],
+            popNumber2: [3],
+            selectInit2: [{value: '', label: '请选择安排人员'}],
             components: [{
+                name: 'serial',
+                type: 'text',
+                component: null,
+                isNull: true,
+                label: '计划批次号',
+                placeholder: '',
+                disabled: true,
+                rule: null
+            },
+            {
                 name: 'date',
                 type: 'date',
                 component: inputDate,
-                isNull: false,
+                isNull: true,
                 label: '计划日期',
                 placeholder: '',
-                rule: [{required: true, message: '请输入出栏日期'}, {validator: validate2.reDate, message: '请输入出栏日期'}]
-            },
-            {
-                name: 'type',
-                type: 'select',
-                component: null,
-                isNull: false,
-                label: '操作类型',
-                placeholder: '',
-                rule: {required: true, trigger: 'blur', type: 'number', message: '请选择操作类型'},
-                options: []
-            },
-            {
-                name: 'operate_id',
-                type: 'select',
-                component: null,
-                isNull: false,
-                label: '安排人员',
-                placeholder: '请选择安排人员',
-                rule: {required: true, trigger: 'blur', type: 'number', message: '请选择安排人员'},
-                options: []
+                rule: [{required: true, message: '请输入计划日期'}, {validator: validate2.reDate, message: '请输入计划日期'}]
             },
             {
                 name: 'content',
@@ -4609,29 +4660,39 @@ export default {
                 isNull: true,
                 label: '计划内容',
                 placeholder: '',
-                rule: null
+                rule: {required: true, trigger: 'blur', type: 'number', message: '请选择操作类型'},
+                options: []
             },
             {
-                name: 'user_id',
+                name: 'operate_id',
                 type: 'select',
                 component: null,
                 isNull: true,
-                label: '操作用户',
+                label: '安排人员',
                 placeholder: '',
-                rule: {required: true, trigger: 'blur', type: 'number', message: '请选择操作用户'},
+                rule: {required: true, trigger: 'blur', type: 'number', message: '请选择安排人员'},
                 options: []
+            },
+            {
+                name: 'type',
+                type: 'text',
+                component: null,
+                isNull: true,
+                label: '操作类型',
+                placeholder: '',
+                disabled: true,
+                rule: null
             },
             {
                 name: 'memo',
                 type: 'textarea',
                 component: null,
                 isNull: true,
-                label: '备注信息',
+                label: '备注',
                 placeholder: '',
                 rule: null
             }]
-        }],
-        listComponent: []
+        }]
     }],
     // 畜禽-屠宰加工
     petProcess: [{
@@ -5228,9 +5289,9 @@ export default {
             tab: '种植场',
             url: 'plantation',
             searchPlaceholder: '请输入种植场进行搜索',
-            theads: ['种植场名称', '种植面积', '负责人', '联系电话', '详细地址', '备注信息'],
-            protos: ['name', 'area_unit', 'director', 'phone', 'address', 'memo'],
-            widths: [50, 50, 50, 50, 50, 50],
+            theads: ['种植场名称', '种植面积', '负责人', '联系电话', '详细地址', '图片', '备注信息'],
+            protos: ['name', 'area_unit', 'director', 'phone', 'address', 'img', 'memo'],
+            widths: [50, 50, 50, 50, 50, 50, 50],
             typeComponent: [{
                 component: importBtn
             },
@@ -5300,6 +5361,15 @@ export default {
                     component: null,
                     isNull: false,
                     label: '负责人',
+                    placeholder: '',
+                    rule: null
+                },
+                {
+                    name: 'img',
+                    type: 'file',
+                    component: inputFile,
+                    isNull: true,
+                    label: '',
                     placeholder: '',
                     rule: null
                 },
@@ -5380,6 +5450,15 @@ export default {
                     component: null,
                     isNull: false,
                     label: '负责人',
+                    placeholder: '',
+                    rule: null
+                },
+                {
+                    name: 'img',
+                    type: 'file',
+                    component: inputFile,
+                    isNull: true,
+                    label: '',
                     placeholder: '',
                     rule: null
                 },
@@ -5785,8 +5864,8 @@ export default {
             selectValueId: [['category_id', 'category_name', true]],
             searchPlaceholder: '请输入肥料名称',
             selectDefault: [{value: '', label: '肥料类别'}],
-            theads: ['肥料分类', '肥料名称', '用途', '包装规格', '产地', '经销商名称', '联系方式', '备注'],
-            protos: ['category_name', 'name', 'usage', 'specification', 'origin', 'specification', 'phone', 'memo'],
+            theads: ['肥料分类', '肥料名称', '用途', '包装规格', '产地', '经销商名称', '联系方式', '图片', '备注'],
+            protos: ['category_name', 'name', 'usage', 'specification', 'origin', 'specification', 'phone', 'img', 'memo'],
             widths: [50, 50, 50, 50, 50, 50, 50, 50, 50],
             typeComponent: [{
                 component: importBtn
@@ -5812,6 +5891,7 @@ export default {
                 selectInit: [{value: '', label: '选择肥料分类'}],
                 checkNumber: [1],
                 popNumber: [0],
+                hasImg: true,
                 components: [{
                     name: 'category_id',
                     type: 'select',
@@ -5865,6 +5945,14 @@ export default {
                     rule: { validator: validate2.phone, trigger: 'blur' }
                 },
                 {
+                    name: 'img',
+                    type: 'file',
+                    component: inputFile,
+                    isNull: false,
+                    label: '肥料图片',
+                    placeholder: ''
+                },
+                {
                     name: 'memo',
                     type: 'textarea',
                     component: null,
@@ -5879,6 +5967,7 @@ export default {
                 selectUrl: [['category', 'manure', 'category_id', 'category_name', true]],
                 checkNumber: [1],
                 popNumber: [0],
+                hasImg: true,
                 components: [{
                     name: 'category_id',
                     type: 'select',
@@ -5932,6 +6021,14 @@ export default {
                     rule: { validator: validate2.phone, trigger: 'blur' }
                 },
                 {
+                    name: 'img',
+                    type: 'file',
+                    component: inputFile,
+                    isNull: false,
+                    label: '肥料图片',
+                    placeholder: ''
+                },
+                {
                     name: 'memo',
                     type: 'textarea',
                     component: null,
@@ -5951,9 +6048,9 @@ export default {
             selectValueId: [['category_id', 'category_name', true]],
             searchPlaceholder: '请输入农药名称',
             selectDefault: [{value: '', label: '农药类别'}],
-            theads: ['农药分类', '农药名称', '用途', '防治对象', '药物毒性', '包装规格', '厂家名称', '产地', '联系方式', '备注'],
-            protos: ['category_name', 'name', 'usage', 'control_objects', 'toxicity_grade', 'specification', 'manufacturer', 'origin', 'phone', 'memo'],
-            widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
+            theads: ['农药分类', '农药名称', '用途', '防治对象', '药物毒性', '包装规格', '厂家名称', '产地', '联系方式', '图片', '备注'],
+            protos: ['category_name', 'name', 'usage', 'control_objects', 'toxicity_grade', 'specification', 'manufacturer', 'origin', 'phone', 'img', 'memo'],
+            widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
             typeComponent: [{
                 component: importBtn
             },
@@ -5974,6 +6071,7 @@ export default {
             }],
             newComponent: [{
                 tab: '新建农药档案',
+                hasImg: true,
                 selectUrl: [['category', 'medicament', 'category_id', 'category_name', true]],
                 selectInit: [{value: '', label: '选择农药分类'}],
                 checkNumber: [1],
@@ -6071,6 +6169,14 @@ export default {
                     label: '产地'
                 },
                 {
+                    name: 'img',
+                    type: 'file',
+                    component: inputFile,
+                    isNull: false,
+                    label: '农药图片',
+                    placeholder: ''
+                },
+                {
                     name: 'memo',
                     type: 'textarea',
                     component: null,
@@ -6082,6 +6188,7 @@ export default {
             }],
             editComponent: [{
                 tab: '编辑农药档案',
+                hasImg: true,
                 selectUrl: [['category', 'medicament', 'category_id', 'category_name', true]],
                 checkNumber: [1],
                 popNumber: [0],
@@ -6176,6 +6283,14 @@ export default {
                     isNull: false,
                     placeholder: '',
                     label: '产地'
+                },
+                {
+                    name: 'img',
+                    type: 'file',
+                    component: inputFile,
+                    isNull: false,
+                    label: '农药图片',
+                    placeholder: ''
                 },
                 {
                     name: 'memo',
@@ -6398,7 +6513,7 @@ export default {
             {
                 component: newbuildBtn
             }],
-        moreComponent: [{value: '状态'}, {value: '图片'}]
+        moreComponent: [{value: '状态'}]
     }],
     // 农事管理
     plantFarm: [
@@ -6685,7 +6800,7 @@ export default {
             searchPlaceholder: '请输入施药批次号进行搜索',
             theads: ['农药批次号', '农药', '喷洒日期', '天气', '使用量(L)', '施药浓度', '安全隔离期(天)', '施用方法', '施药人', '专家', '录入人', '备注'],
             protos: ['serial', 'medicament_name', 'date', 'weather', 'amount_unit', 'concentration', 'safety', 'way', 'operate_name', 'expert_name', 'user_name', 'memo'],
-            widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
+            widths: [60, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
             typeComponent: [
                 {
                     component: output
@@ -6996,7 +7111,7 @@ export default {
             searchPlaceholder: '请输入检测批次号进行搜索',
             theads: ['检测批次号', '检验类型', '检验日期', '天气', '检测部门', '检测内容', '检查结果', '检测人', '专家', '录入人', '备注'],
             protos: ['serial', 'name', 'date', 'weather', 'department', 'content', 'result', 'operate_name', 'expert_name', 'user_name', 'memo'],
-            widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
+            widths: [60, 50, 50, 50, 50, 50, 50, 50, 50, 50],
             typeComponent: [{
                 component: output
             },
@@ -7336,7 +7451,7 @@ export default {
             searchPlaceholder: '请输入田间批次号进行搜索',
             theads: ['田间批次号', '操作日期', '天气', '操作内容', '操作方法', '操作人', '专家', '录入人', '备注'],
             protos: ['serial', 'date', 'weather', 'content', 'method', 'operate_name', 'expert_name', 'user_name', 'memo'],
-            widths: [50, 50, 50, 50, 50, 50, 50, 50],
+            widths: [70, 50, 50, 50, 50, 50, 50, 50, 50],
             typeComponent: [
                 {
                     component: output
@@ -7550,45 +7665,62 @@ export default {
         settitle: '生产计划管理',
         key: 'plan',
         tab: '生产计划信息',
-        url: 'farming',
-        batch: 'plantProduct',
-        selectSearch: ['type'],
+        url: 'plan',
+        batch: 'planSerial',
+        paramsIndex: 'plant',
+        selectSearch: ['plans.type'],
+        changeDataArr: [{type: { 'fertilize': '施肥', 'spray': '施药', 'detect': '检测', 'farming': '农事', 'harvest': '采收' }}],
         searchPlaceholder: '请输入计划内容进行搜索',
         theads: ['批次号', '计划日期', '操作类型', '安排人员', '计划内容', '操作用户', '备注'],
         protos: ['serial', 'date', 'type', 'operate_name', 'content', 'user_name', 'memo'],
         widths: [50, 50, 50, 50, 50, 50, 50],
-        typeComponent: [
-            {
-                component: output
-            },
-            {
-                component: newbuildBtn
-            }
-        ],
+        typeComponent: [{
+            component: output
+        },
+        {
+            component: newbuildBtn
+        }],
         listComponent: [{
-            components: [
-                {
-                    type: 'select',
-                    component: selectSection,
-                    options: [
-                        {
-                            value: '',
-                            label: '操作类型'
-                        },
-                        {
-                            value: '施肥',
-                            label: '施肥'
-                        }
-                    ]
+            components: [{
+                name: 'plans.type',
+                value: '',
+                type: 'select',
+                component: selectSection,
+                options: [{
+                    value: '',
+                    label: '操作类型'
                 },
                 {
-                    type: 'date',
-                    component: datePick
-                }
-            ]
+                    value: 'fertilize',
+                    label: '施肥'
+                },
+                {
+                    value: 'spray',
+                    label: '施药'
+                },
+                {
+                    value: 'detect',
+                    label: '检测'
+                },
+                {
+                    value: 'farming',
+                    label: '农事'
+                },
+                {
+                    value: 'harvest',
+                    label: '采收'
+                }]
+            },
+            {
+                type: 'date',
+                component: datePick
+            }]
         }],
         newComponent: [{
             tab: '新建生产计划信息',
+            selectUrl2: [['operates', 'id', 'name', true]],
+            popNumber2: [2],
+            selectInit2: [{value: '', label: '请选择安排人员'}],
             components: [{
                 name: 'date',
                 type: 'date',
@@ -7596,17 +7728,7 @@ export default {
                 isNull: true,
                 label: '计划日期',
                 placeholder: '',
-                rule: {required: true, message: '请输入批次号', trigger: 'blur'}
-            },
-            {
-                name: 'category_id',
-                type: 'select',
-                component: null,
-                isNull: false,
-                label: '操作类型',
-                placeholder: '必填',
-                rule: {required: true, trigger: 'blur', type: 'number', message: '请选择分类名称'},
-                options: []
+                rule: [{required: true, message: '请输入计划日期'}, {validator: validate2.reDate, message: '请输入计划日期'}]
             },
             {
                 name: 'content',
@@ -7618,13 +7740,47 @@ export default {
                 rule: null
             },
             {
-                name: 'operate_name',
-                type: 'text',
+                name: 'operate_id',
+                type: 'select',
                 component: null,
                 isNull: true,
                 label: '安排人员',
                 placeholder: '',
-                rule: null
+                rule: {required: true, trigger: 'blur', type: 'number', message: '请选择安排人员'},
+                options: []
+            },
+            {
+                name: 'type',
+                type: 'select',
+                component: null,
+                isNull: false,
+                label: '操作类型',
+                placeholder: '必填',
+                rule: {required: true, trigger: 'blur', message: '请选择分类名称'},
+                options: [{
+                    value: '',
+                    label: '操作类型'
+                },
+                {
+                    value: 'fertilize',
+                    label: '施肥'
+                },
+                {
+                    value: 'spray',
+                    label: '施药'
+                },
+                {
+                    value: 'detect',
+                    label: '检测'
+                },
+                {
+                    value: 'farming',
+                    label: '农事'
+                },
+                {
+                    value: 'harvest',
+                    label: '采收'
+                }]
             },
             {
                 name: 'memo',
@@ -7638,24 +7794,27 @@ export default {
         }],
         editComponent: [{
             tab: '编辑生产计划信息',
+            selectUrl2: [['operates', 'id', 'name', true]],
+            popNumber2: [3],
+            selectInit2: [{value: '', label: '请选择安排人员'}],
             components: [{
+                name: 'serial',
+                type: 'text',
+                component: null,
+                isNull: true,
+                label: '计划批次号',
+                placeholder: '',
+                disabled: true,
+                rule: null
+            },
+            {
                 name: 'date',
                 type: 'date',
                 component: inputDate,
                 isNull: true,
                 label: '计划日期',
                 placeholder: '',
-                rule: {required: true, message: '请输入批次号', trigger: 'blur'}
-            },
-            {
-                name: 'category_id',
-                type: 'select',
-                component: null,
-                isNull: false,
-                label: '操作类型',
-                placeholder: '必填',
-                rule: {required: true, trigger: 'blur', type: 'number', message: '请选择分类名称'},
-                options: []
+                rule: [{required: true, message: '请输入计划日期'}, {validator: validate2.reDate, message: '请输入计划日期'}]
             },
             {
                 name: 'content',
@@ -7667,12 +7826,23 @@ export default {
                 rule: null
             },
             {
-                name: 'operate_name',
-                type: 'text',
+                name: 'operate_id',
+                type: 'select',
                 component: null,
                 isNull: true,
                 label: '安排人员',
                 placeholder: '',
+                rule: {required: true, trigger: 'blur', type: 'number', message: '请选择安排人员'},
+                options: []
+            },
+            {
+                name: 'type',
+                type: 'text',
+                component: null,
+                isNull: true,
+                label: '操作类型',
+                placeholder: '',
+                disabled: true,
                 rule: null
             },
             {
@@ -7700,7 +7870,7 @@ export default {
         searchPlaceholder: '请输入采收批次号进行搜索',
         theads: ['采收批次', '采收日期', '所属种植区', '种植批次号', '采收数量(kg)', '入库部门', '存放仓库位置', '操作人', '录入人', '备注'],
         protos: ['serial', 'date', 'plantation_name', 'cultivate_serial', 'amount', 'department', 'position', 'operate_name', 'user_name', 'memo'],
-        widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
+        widths: [50, 50, 50, 60, 50, 50, 50, 50, 50, 50],
         typeComponent: [
             {
                 component: output
@@ -7736,7 +7906,7 @@ export default {
                 isNull: true,
                 label: '采收日期',
                 placeholder: '必填',
-                rule: [{required: true}, {validator: validate2.reDate, message: '请输入采收日期'}]
+                rule: [{required: true, message: '请输入采收日期'}, {validator: validate2.reDate, message: '请输入采收日期'}]
             },
             {
                 name: 'cultivate_id',
