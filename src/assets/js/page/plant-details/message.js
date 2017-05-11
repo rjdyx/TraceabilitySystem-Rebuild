@@ -662,7 +662,7 @@ export default {
                 //     popNumber2: [0],
                 //     labUrl: 'come-rfid',
                 //     type: 'assoc',
-                //     assocNum: 4,
+                //     assocNum: 1,
                 //     components: [{
                 //         name: 'come_id',
                 //         type: 'select',
@@ -1053,6 +1053,7 @@ export default {
             newComponent: [{
                 tab: '新建批次施药信息',
                 type: 'table',
+                assocNum: 0,
                 labUrl: 'cultivate',
                 components: [{
                     name: 'name',
@@ -1108,39 +1109,45 @@ export default {
             }]
         }]
     },
-    // 生产计划批次信息
-    plantProduct: {
-        key: 'planProduct',
-        tab: '生产批次管理',
-        theads: ['操作人员', '生产批次号', '操作类型', '日期', '内容', '备注'],
-        protos: ['operate_name', 'serial', 'type', 'date', 'content', 'memo'],
+    // 计划批次信息
+    planSerial: {
+        key: 'planSerial',
+        tab: '计划批次管理',
+        theads: ['计划批次号', '计划日期', '操作类型', '安排人员', '计划内容', '备注'],
+        protos: ['serial', 'date', 'type', 'operate_name', 'content', 'memo'],
         url: 'plan',
         tabList: [{
-            tab: '采收批次信息',
-            searchPlaceholder: '请输入rfid进行搜索',
-            leftOperateList: [{
-                components: [
-                    {
-                        type: 'select',
-                        components: selectSection,
-                        options: [
-                            {
-                            }
-                        ]
-                    },
-                    {
-                        type: 'date',
-                        component: datePick
-                    }
-                ]
+            url: 'cultivate-plan',
+            tab: '种植批次计划信息',
+            searchPlaceholder: '请输入种植批次进行搜索',
+            headList: ['种植批次号', '种植区', '种植果蔬', '种植日期', '种植人', '备注信息'],
+            protos: ['serial', 'plantation_name', 'plant_name', 'date', 'operate_name', 'memo'],
+            widths: [50, 50, 50, 50, 50, 50],
+            hiddeEdit: false,
+            typeComponent: [{
+                component: newbuildBtn
             }],
-            rightOperateComponent: [{component: output}, {component: newbuildBtn}],
-            headList: ['计划日期', '操作类型', '计划内容', '安排人员', '操作用户', '状态', '备注信息'],
-            protos: ['ear', 'name', 'date', 'memo', 'date', 'memo', 'date'],
-            widths: [50, 50, 50, 50, 50, 50, 50],
-            newComponent: [{label: '', type: '', component: '', rule: ''}],
-            tableOperateList: [{operateName: '编辑'}, {operateName: '删除'}],
-            bottomOperateList: [{operateName: '删除'}, {operateName: '导出表格'}]
+            listComponent: [{
+                components: [{
+                    type: 'date',
+                    component: datePick
+                }]
+            }],
+            newComponent: [{
+                tab: '新建批次计划信息',
+                type: 'table',
+                assocNum: 0,
+                labUrl: 'cultivate',
+                components: [{
+                    name: 'name',
+                    type: 'table',
+                    theads: ['种植批次号', '种植果蔬', '种植日期'],
+                    protos: ['serial', 'plant_name', 'date'],
+                    valueId: 'cultivate_ids',
+                    errormsg: '请选择种植批次号',
+                    tableVal: []
+                }]
+            }]
         }]
     },
     // 生产加工批次信息
