@@ -102,8 +102,6 @@ export default {
 		height: 66px;
 		overflow: hidden;
 		position: relative;
-	
-	
 	.head_logo {
 		display: inline-block;
 		padding: 8px 0px 2px 20px;
