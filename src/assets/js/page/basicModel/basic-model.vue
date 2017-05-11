@@ -300,7 +300,6 @@ export default {
                 confirmButtonText: '确定',
                 type: 'error'
             }).then(() => {
-                console.log(row.id)
                 axios.delete(this.$adminUrl(this.url + '/' + row.id))
                     .then((responce) => {
                         this.getSelect()
@@ -456,7 +455,6 @@ export default {
         // 文本与时间按钮查询
         textAndDateFind () {
             this.dataArr['query_text'] = this.inputValue
-            console.log(this.dataArr)
             this.boxArr(this.dataArr)
         },
         // 下拉框查询
@@ -467,6 +465,7 @@ export default {
                 }
             }
             this.dataArr[val[0]] = val[1]
+            this.boxArr(this.dataArr)
         },
         // 日期存储
         dateFind (val) {
@@ -656,6 +655,7 @@ export default {
         }
     },
     mounted () {
+        this.activeName = 'index0'
         // 获取下拉框
         if (this.selectValueId) {
             this.getSelect()

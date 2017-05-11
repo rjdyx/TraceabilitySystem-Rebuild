@@ -65,8 +65,6 @@
         },
         methods: {
             getSelect (name, val) {
-                console.log('name:' + name)
-                console.log('val:' + val)
                 this.$emit('selectVal', [name, val])
             },
             getBeforeDate (val) {
