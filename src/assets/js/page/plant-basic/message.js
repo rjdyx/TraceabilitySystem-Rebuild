@@ -3290,6 +3290,7 @@ export default {
                 selectUrl2: [['drugs', 'id', 'name', true], ['operates', 'id', 'name', true], ['experts', 'id', 'name', true]],
                 selectInit2: [{value: '', label: '兽药选择'}, {value: '', label: '施药人员选择'}, {value: '', label: '专家选择'}],
                 popNumber2: [1, 4, 5],
+                hasImg: true,
                 components: [{
                     name: 'serial',
                     type: 'text',
@@ -3436,7 +3437,9 @@ export default {
         newComponent: [{
             tab: '新建检疫信息',
             selectUrl2: [['experts', 'id', 'name', true], ['operates', 'id', 'name', true]],
+            selectInit2: [{value: '', label: '请选择指导专家'}, {value: '', label: '请选择操作人员'}],
             popNumber2: [3, 4],
+            hasImg: true,
             components: [{
                 name: 'date',
                 type: 'date',
@@ -3465,32 +3468,24 @@ export default {
                 rule: {required: true, trigger: 'blur'}
             },
             {
-                name: 'expert_name',
+                name: 'expert_id',
                 type: 'select',
                 component: null,
                 isNull: true,
                 label: '指导专家',
                 placeholder: '无',
                 rule: null,
-                options: [{
-                    value: '',
-                    label: '无'
-                }
-                ]
+                options: []
             },
             {
-                name: 'operate_name',
+                name: 'operate_id',
                 type: 'select',
                 component: null,
                 isNull: true,
                 label: '操作人员',
                 placeholder: '无',
                 rule: {required: true, trigger: 'blur'},
-                options: [{
-                    value: '',
-                    label: '无'
-                }
-                ]
+                options: []
             },
             {
                 name: 'content',
@@ -3551,7 +3546,9 @@ export default {
         editComponent: [{
             tab: '编辑检疫信息',
             selectUrl2: [['experts', 'id', 'name', true], ['operates', 'id', 'name', true]],
-            popNumber2: [4, 5],
+            selectInit2: [{value: '', label: '请选择指导专家'}, {value: '', label: '请选择操作人员'}],
+            popNumber2: [3, 4],
+            hasImg: true,
             components: [{
                 name: 'serial',
                 type: 'text',
@@ -3725,7 +3722,7 @@ export default {
             hiddenValue: {type: 'beast'},
             selectUrl2: [['experts', 'id', 'name', true], ['operates', 'id', 'name', true]],
             selectInit2: [{value: '', label: '请选择专家'}, {value: '', label: '请选择操作人'}],
-            popNumber2: [2, 1],
+            popNumber2: [1, 2],
             components: [{
                 name: 'date',
                 type: 'date',
@@ -3736,16 +3733,6 @@ export default {
                 rule: [{required: true, message: '请输入检测日期'}, {validator: validate2.reDate, message: '请输入检测日期'}]
             },
             {
-                name: 'operate_id',
-                type: 'select',
-                component: null,
-                isNull: true,
-                label: '操作人员',
-                placeholder: '请选择操作人',
-                rule: {required: true, trigger: 'blur', type: 'number'},
-                options: []
-            },
-            {
                 name: 'expert_id',
                 type: 'select',
                 component: null,
@@ -3753,6 +3740,16 @@ export default {
                 label: '指导专家',
                 placeholder: '请选择专家',
                 rule: {required: false, type: 'number'},
+                options: []
+            },
+            {
+                name: 'operate_id',
+                type: 'select',
+                component: null,
+                isNull: true,
+                label: '操作人员',
+                placeholder: '请选择操作人',
+                rule: {required: true, trigger: 'blur', type: 'number', message: '请选择操作人'},
                 options: []
             },
             {
@@ -3857,16 +3854,6 @@ export default {
                 rule: [{required: true, message: '请输入检测日期'}, {validator: validate2.reDate, message: '请输入检测日期'}]
             },
             {
-                name: 'operate_id',
-                type: 'select',
-                component: null,
-                isNull: true,
-                label: '检测人员',
-                placeholder: '',
-                rule: {required: true, trigger: 'blur', type: 'number', message: '请选择检测人员'},
-                options: []
-            },
-            {
                 name: 'expert_id',
                 type: 'select',
                 component: null,
@@ -3874,6 +3861,16 @@ export default {
                 label: '指导专家',
                 placeholder: '请选择专家',
                 rule: {required: false, type: 'number'},
+                options: []
+            },
+            {
+                name: 'operate_id',
+                type: 'select',
+                component: null,
+                isNull: true,
+                label: '检测人员',
+                placeholder: '',
+                rule: {required: true, trigger: 'blur', type: 'number', message: '请选择检测人员'},
                 options: []
             },
             {
@@ -4638,8 +4635,8 @@ export default {
         batch: 'beastPackBatch',
         paramsIndex: 'beast',
         searchPlaceholder: '请输入批次号进行搜索',
-        theads: ['加工批次号', '加工日期', '数量', '产地', '操作人', '备注信息'],
-        protos: ['serial', 'date', 'amount', 'origin', 'operate_name', 'memo'],
+        theads: ['加工批次号', '加工日期', '数量', '单位', '操作人', '备注信息'],
+        protos: ['serial', 'date', 'amount', 'unit', 'operate_name', 'memo'],
         widths: [50, 50, 50, 50, 50, 50],
         typeComponent: [{
             component: output
