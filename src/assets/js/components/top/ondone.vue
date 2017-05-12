@@ -36,9 +36,9 @@ export default {
 .user{
 	height: 100%;
     overflow:hidden;
-    padding-left:10px;
+    /*padding-left:10px;*/
     .user_content{
-    	margin-top: 15px;
+    	/*margin-top: 15px;*/
     	overflow:scroll;
     	height: 100%;
     }
