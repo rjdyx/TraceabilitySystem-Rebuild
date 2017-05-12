@@ -86,47 +86,45 @@ export default {
 
 <style lang="sass">
 .newWrap{
-  position: fixed;
-  width:100%;
-  height: 100%;
-  background:rgba(0,0,0,0.3);
-  top:0;
-  left:0;
-  z-index:2;
-  text-align:center;
-  overflow:hidden;
-  .newForm{
-    width:618px;
-    position: absolute;
-    background:white;
-    left:50%;
-    top:50%;
-    transform:translateX(-50%) translateY(-50%);
-    box-shadow:1px 1px 50px rgba(0,0,0,.3);
-    border-radius:2px;  
-    .el-tabs{
-       max-height:618px;
-       overflow:scroll;
-      .el-tabs__content{
-        padding:20px 70px;
-        box-sizing:border-box;
-        table{
-            width:100%;
-            text-align: left;
-            .el-select{
-                display:block;
-            }
-            .el-textarea__inner{
-                resize:none;
-            }
-            .el-form-item__label::before{
-                float: left;
+    position: fixed;
+    width:100%;
+    height: 100%;
+    background:rgba(0,0,0,0.3);
+    top:0;
+    left:0;
+    z-index:2;
+    text-align:center;
+    overflow:hidden;
+    .newForm{
+        width:618px;
+        position: absolute;
+        background:white;
+        left:50%;
+        top:50%;
+        transform:translateX(-50%) translateY(-50%);
+        box-shadow:1px 1px 50px rgba(0,0,0,.3);
+        border-radius:2px;  
+        .el-tabs{
+            max-height:618px;
+            overflow:scroll;
+            .el-tabs__content{
+                padding:20px 70px;
+                box-sizing:border-box;
+                table{
+                    width:100%;
+                    text-align: left;
+                    .el-select{
+                        display:block;
+                    }
+                    .el-textarea__inner{
+                        resize:none;
+                    }
+                    .el-form-item__label::before{
+                        float: left;
+                    }
+                }
             }
         }
-      }
-    }
-      
-	    
         .el-icon-circle-close{
             font-size:24px;
             color:#8492a6;
