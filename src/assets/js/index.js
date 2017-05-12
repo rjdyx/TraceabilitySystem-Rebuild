@@ -14,7 +14,7 @@ Vue.use(VueRouter)
 require('./config/init')
 const pre = '/index/'
 const pre2 = '/index/message/'
-const Excepts = ['/', '/index', pre + 'set', pre + 'test', pre + 'help', pre + 'question', pre + '404']
+const Excepts = ['/', '/index', pre + 'set', pre + 'test', pre + 'help', pre + 'question', pre + '404', pre + 'ondone']
 const Admins = [pre2 + 'rightsOperate', pre2 + 'settleOperate', pre2 + 'usersOperate', pre2 + 'logOperate']
 
 // 处理刷新的时候vuex被清空但是用户已经登录的情况
@@ -24,6 +24,7 @@ const Admins = [pre2 + 'rightsOperate', pre2 + 'settleOperate', pre2 + 'usersOpe
 
 router.beforeEach(async (to, from, next) => {
     var check = false
+    // console.log(window.Roles)
     if (window.Roles.name === undefined) {
         try {
             await axios.get('/login/state').then(responce => {
@@ -37,7 +38,7 @@ router.beforeEach(async (to, from, next) => {
                     if (!except) check = true
                     window.Roles = responce.data
                     let data = window.Roles.permissions
-                    if (to.path.indexOf('details') === -1) {
+                    if (to.path.indexOf('details') === -1 && to.path.indexOf('run') === -1) {
                         if (data.one === 'admin') {
                             if (Excepts.indexOf(to.path) === -1 && Admins.indexOf(to.path) === -1) check = true
                         } else {
@@ -52,7 +53,7 @@ router.beforeEach(async (to, from, next) => {
     } else {
         var data2 = window.Roles.permissions
         if (to.path === '/login') check = true
-        if (to.path.indexOf('details') === -1) {
+        if (to.path.indexOf('details') === -1 && to.path.indexOf('run') === -1) {
             if (data2.one === 'admin') {
                 if (Excepts.indexOf(to.path) === -1 && Admins.indexOf(to.path) === -1) check = true
             } else {

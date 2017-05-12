@@ -192,6 +192,96 @@ export default {
                     rule: null
                 }]
             }]
+        },
+        {
+            url: 'breed_area',
+            tab: '圈舍记录',
+            searchPlaceholder: '请输入圈舍名称进行搜索',
+            headList: ['圈舍名称', '开始日期', '结束日期', '操作人', '录入人'],
+            protos: ['name', 'date', 'end_date', 'operate_name', 'user_name'],
+            widths: [50, 50, 50, 50, 50],
+            hiddeEdit: false,
+            typeComponent: [{
+                component: newbuildBtn
+            }],
+            listComponent: [{
+                components: [{
+                    type: 'date',
+                    component: datePick
+                }]
+            }],
+            newComponent: [{
+                tab: '新建圈舍转移信息',
+                selectUrl2: [['areas', 'id', 'name', true], ['operates', 'id', 'name', true]],
+                selectInit2: [{value: '', label: '选择要转移的圈舍'}, {value: '', label: '选择操作人'}],
+                popNumber2: [0, 1],
+                selectWhere2: 'id',
+                components: [{
+                    name: 'area_id',
+                    type: 'select',
+                    component: null,
+                    isNull: false,
+                    label: '圈舍名称',
+                    placeholder: '',
+                    rule: {required: true, trigger: 'blur', type: 'number', message: '请选择要转移的圈舍'},
+                    options: []
+                },
+                {
+                    name: 'operate_id',
+                    type: 'select',
+                    component: null,
+                    isNull: false,
+                    label: '操作人',
+                    placeholder: '',
+                    rule: {required: true, trigger: 'blur', type: 'number', message: '请选择操作人'},
+                    options: []
+                },
+                {
+                    name: 'date',
+                    type: 'date',
+                    component: inputDate,
+                    isNull: false,
+                    label: '转移日期',
+                    placeholder: '',
+                    rule: [{required: true, trigger: 'blur', message: '请输入上传日期'}, {validator: validate2.reDate, message: '请输入上传日期'}]
+                }]
+            }],
+            editComponent: [{
+                tab: '编辑圈舍转移信息',
+                selectUrl2: [['areas', 'id', 'name', true], ['operates', 'id', 'name', true]],
+                selectInit2: [{value: '', label: '选择要转移的圈舍'}, {value: '', label: '选择操作人'}],
+                popNumber2: [0, 1],
+                selectWhere2: 'id',
+                components: [{
+                    name: 'area_id',
+                    type: 'select',
+                    component: null,
+                    isNull: false,
+                    label: '圈舍名称',
+                    placeholder: '',
+                    rule: {required: true, trigger: 'blur', type: 'number', message: '请选择要转移的圈舍'},
+                    options: []
+                },
+                {
+                    name: 'operate_id',
+                    type: 'select',
+                    component: null,
+                    isNull: false,
+                    label: '操作人',
+                    placeholder: '',
+                    rule: {required: true, trigger: 'blur', type: 'number', message: '请选择操作人'},
+                    options: []
+                },
+                {
+                    name: 'date',
+                    type: 'date',
+                    component: inputDate,
+                    isNull: false,
+                    label: '转移日期',
+                    placeholder: '',
+                    rule: [{required: true, trigger: 'blur', message: '请输入上传日期'}, {validator: validate2.reDate, message: '请输入上传日期'}]
+                }]
+            }]
         }
         ]
     },

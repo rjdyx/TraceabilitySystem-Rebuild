@@ -143,8 +143,7 @@
           @current-change="pageChange">
         </el-pagination>
     </div>
-    
-</div> 
+</div>
 </template> 
  
 <script>

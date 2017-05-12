@@ -2,6 +2,7 @@
  *  左菜单栏数据
  */
 var roleData = {}
+console.log(window.Roles)
 if (window.Roles.permissions !== undefined) {
     roleData = window.Roles.permissions.two
 }
@@ -227,7 +228,7 @@ export default[{
     },
     {
         role: roleData.system === undefined ? 0 : roleData.system.statement === undefined ? 0 : 1,
-        path: '/index/message/systemReport',
+        path: '/index/ondone',
         name: '报表统计'
     }
     ]

@@ -54,7 +54,7 @@
         </transition>
         <!-- 编辑模块 -->
         <transition name="fade">
-            <popEdit v-if="isEditShow" :editComponent="tabItem.editComponent" :url="apiUrlArr[tabList[0].url]" :editForm="editForm"
+            <popEdit v-if="isEditShow" :editComponent="tabItem.editComponent" :url="apiUrlArr[tabList[index].url]" :editForm="editForm"
                  @submitEdit="hangeEdit" :changeDataArr="changeDataArr" :editDefault="editDefault"></popEdit>
         </transition>
         <!-- 打印模块 -->
@@ -113,7 +113,7 @@
                             @showMore="moreShow(scope.$index,scope.row)" class="clickMoreBtn"></clickMore>
                         </template>
                         <template>
-                            <el-button type="text" size="small" @click="changeEditShow(scope.$index,scope.row)" v-if="tabList[0].hiddeEdit">编辑</el-button>
+                            <el-button type="text" size="small" @click="changeEditShow(scope.$index,scope.row)" v-if="tabList[index].hiddeEdit">编辑</el-button>
                             <el-button type="text" size="small" v-if="hiddeWatch">查看</el-button>
 
                             <el-button size="small" type="text" @click="handelDel(scope.$index,scope.row)" class="btn">删除</el-button>  
@@ -202,24 +202,7 @@ export default {
             index: 0,
             rowId: null,
             routeId: this.$route.params.id,
-            isShow: true,
-            gridData: [{
-                date: '2016-05-02',
-                name: '王小虎',
-                address: '上海市普陀区金沙江路 1518 弄'
-            }, {
-                date: '2016-05-04',
-                name: '王小虎',
-                address: '上海市普陀区金沙江路 1518 弄'
-            }, {
-                date: '2016-05-01',
-                name: '王小虎',
-                address: '上海市普陀区金沙江路 1518 弄'
-            }, {
-                date: '2016-05-03',
-                name: '王小虎',
-                address: '上海市普陀区金沙江路 1518 弄'
-            }]
+            isShow: true
         }
     },
     mixins: [computed],
@@ -278,7 +261,13 @@ export default {
             if (com.selectUrl2) {
                 for (let key in com.selectUrl2) {
                     let newArr = this.$addAndEditSelectMethod(com.selectUrl2[key])
-                    this.$dataGet(this, '/util/selects', {table: newArr.selectUrl})
+                    let data = {table: newArr.selectUrl}
+                    let field = com.selectWhere2
+                    if (com.selectWhere2 !== undefined) {
+                        data.field = field
+                        data.id = this.headData.area_id
+                    }
+                    this.$dataGet(this, '/util/selects', data)
                         .then((responce) => {
                             if (responce.data.length !== 0) {
                                 this.selectNewEdit[key] = []
