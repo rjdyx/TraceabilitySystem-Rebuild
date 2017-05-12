@@ -17,12 +17,14 @@
             <el-tab-pane label="权限管理" name="first">
               <!-- 表单 -->
             <el-form ref="form" :model="form" label-width="110px" class="demo-editForm">
-                <div class="tr1" >
-                    <!-- <el-checkbox v-model="checked" @change="allChange">全选</el-checkbox> -->
-                    <ul class="ul">
-                        <li><allCheck v-for="(itemList,key) in memuList" :checkeds="checkeds[key]" :lists="itemList" :name="key" @return-isAllcheck="allChange" @return-checked="allChecked"></allCheck></li>
-                    </ul>
-                </div>  
+                <table>
+                    <tr class="tr2">
+                        <!-- <el-checkbox v-model="checked" @change="allChange">全选</el-checkbox> -->
+                        <ul class="ul">
+                            <li><allCheck v-for="(itemList,key) in memuList" :checkeds="checkeds[key]" :lists="itemList" :name="key" @return-isAllcheck="allChange" @return-checked="allChecked"></allCheck></li>
+                        </ul>
+                    </tr>
+                </table>
             </el-form>
             </el-tab-pane>
         </el-tabs>
@@ -151,96 +153,97 @@ export default {
 }
 </script>
 <style lang="sass">
-.newWrap{
-    position: fixed;
-    width:100%;
-    height: 100%;
-    background:rgba(0,0,0,0.3);
-    top:0;
-    left:0;
-    z-index:3;
-    .newForm{
-        width:618px;
-        max-width:618px;
-        left:50%;
-        top:50%;
-        position: absolute;
-        background:white;
-        box-shadow:1px 1px 50px rgba(0,0,0,.3);
-        border-radius:2px;  
-        height:618px;
-        .el-tabs{
-            height:80%;
-            .el-tabs__content{
-                height:88%;
-                overflow:auto;
-                .el-tab-pane{
-                    width:100%!important;
-                    text-align: left;
-                    display:block;
-                    .tr1{
-                        width:95%;
-                        margin:0 auto;
-                        .ul{
-                            width:90%;
-                            margin-left:5%;
-                        }
-                    }
-                }
-            }
+@import "../../../sass/public/pop.scss"
+// .newWrap{
+//     position: fixed;
+//     width:100%;
+//     height: 100%;
+//     background:rgba(0,0,0,0.3);
+//     top:0;
+//     left:0;
+//     z-index:3;
+//     .newForm{
+//         width:618px;
+//         max-width:618px;
+//         left:50%;
+//         top:50%;
+//         position: absolute;
+//         background:white;
+//         box-shadow:1px 1px 50px rgba(0,0,0,.3);
+//         border-radius:2px;  
+//         height:618px;
+//         .el-tabs{
+//             height:80%;
+//             .el-tabs__content{
+//                 height:88%;
+//                 overflow:auto;
+//                 .el-tab-pane{
+//                     width:100%!important;
+//                     text-align: left;
+//                     display:block;
+//                     .tr1{
+//                         width:95%;
+//                         margin:0 auto;
+//                         .ul{
+//                             width:90%;
+//                             margin-left:5%;
+//                         }
+//                     }
+//                 }
+//             }
                 
            
-        }
-        .form-footer{
-            border-top: 1px solid #d1dbe5;
-            text-align:-webkit-right;
-            padding:20px 10px 50px 0;
-                .activecancel{
-                    background-color:#cccccc;
-                    color:white;
-                }
-                .batchNumDiv{
-                    text-align:-webkit-left;
-                    padding-left:10px;
-                    // padding-top:20px;
-                    .batchNum{
-                        display:inline-block;
-                        width:40px;
-                        input{
-                            text-align:center;
-                            color:red;
-                        }
-                    }
-                }
-            }   
-        .el-icon-circle-close{
-            font-size:24px;
-            color:#8492a6;
-            position: absolute;
-            right:-12px;
-            top:-10px;
-            border:3px solid white;
-            border-radius:50%;
-            background:white;
-            z-index:3;
-        }
-        .el-icon-circle-close:hover{
-            color:#0087b5;
-        } 
-        .el-tabs__header{
-            cursor: move;
-        }
-        .btn_change{
-            color: #fff;
-        }
-        // .formHeaderMask{
-        //     width:100%;
-        //     height:41px;
-        //     position:absolute;
-        //     left:0;
-        //     top:0;
-        //     background:red;
-        // }
-    }
-}
+//         }
+//         .form-footer{
+//             border-top: 1px solid #d1dbe5;
+//             text-align:-webkit-right;
+//             padding:20px 10px 50px 0;
+//                 .activecancel{
+//                     background-color:#cccccc;
+//                     color:white;
+//                 }
+//                 .batchNumDiv{
+//                     text-align:-webkit-left;
+//                     padding-left:10px;
+//                     // padding-top:20px;
+//                     .batchNum{
+//                         display:inline-block;
+//                         width:40px;
+//                         input{
+//                             text-align:center;
+//                             color:red;
+//                         }
+//                     }
+//                 }
+//             }   
+//         .el-icon-circle-close{
+//             font-size:24px;
+//             color:#8492a6;
+//             position: absolute;
+//             right:-12px;
+//             top:-10px;
+//             border:3px solid white;
+//             border-radius:50%;
+//             background:white;
+//             z-index:3;
+//         }
+//         .el-icon-circle-close:hover{
+//             color:#0087b5;
+//         } 
+//         .el-tabs__header{
+//             cursor: move;
+//         }
+//         .btn_change{
+//             color: #fff;
+//         }
+//         // .formHeaderMask{
+//         //     width:100%;
+//         //     height:41px;
+//         //     position:absolute;
+//         //     left:0;
+//         //     top:0;
+//         //     background:red;
+//         // }
+//     }
+// }
 </style>

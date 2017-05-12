@@ -8,32 +8,52 @@
 	<div class="newWrap">
 		<form class="newForm">
 			<i class="closeIcon" @click="closeClick"></i>
-				<h2 class="el-tabs__header tab">编辑用户信息</h2>
-					<div class="margin">
+                <el-tabs class="tab">
+                    <el-tab-pane label="编辑用户信息" :name="编辑用户信息">
 						<el-form :model="editValue" :rules="rules" ref="editValue" label-width="100px">
-                            <template v-for="(item,key) in thread">
-                                <el-form-item v-if="item[1]=='text'" :label="item[0]" :prop="key">
-                                    <el-input :placeholder="item[2]" v-model="editValue[key]"></el-input>
-                                </el-form-item>
-                                <el-form-item v-else-if="item[1]=='file'" :label="item[0]" :prop="key">
-                                    <file @return-shuju="getInfo" :shuju="item[3]" :editValue="editValue[key]"></file>
-                                </el-form-item>
-                                <el-form-item v-else-if="item[1]=='select'" :label="item[0]" :prop="key">
-                                    <el-select  v-model="editValue[key]" :placeholder="item[2]">
-                                        <el-option label="男" value="0"></el-option>
-                                        <el-option label="女" value="1"></el-option>
-                                    </el-select>
-                                </el-form-item>
-                                <el-form-item v-else-if="item[1]=='date'" :label="item[0]" :prop="key">
-                                    <inputDate @return-shuju="getInfo" :shuju="item[3]" :editValue="editValue[key]"></inputDate>
-                                </el-form-item>
-                            </template>
+                            <table>
+                                <template v-for="(item,key) in thread">
+                                    <tr class="tr1" v-if="item[1]=='text'">
+                                        <td>
+                                            <el-form-item  :label="item[0]" :prop="key">
+                                                <el-input :placeholder="item[2]" v-model="editValue[key]"></el-input>
+                                            </el-form-item>
+                                        </td>
+                                    </tr>
+                                    <tr class="tr1" v-else-if="item[1]=='file'">
+                                        <td>
+                                            <el-form-item :label="item[0]" :prop="key">
+                                                <file @return-shuju="getInfo" :shuju="item[3]" :editValue="editValue[key]"></file>
+                                            </el-form-item>
+                                        </td>
+                                    </tr>
+                                    <tr class="tr1" v-else-if="item[1]=='select'">
+                                        <td>
+                                            <el-form-item :label="item[0]" :prop="key">
+                                                <el-select  v-model="editValue[key]" :placeholder="item[2]">
+                                                    <el-option label="男" value="0"></el-option>
+                                                    <el-option label="女" value="1"></el-option>
+                                                </el-select>
+                                            </el-form-item>
+                                        </td>
+                                    </tr>
+                                    <tr class="tr1" v-else-if="item[1]=='date'">
+                                        <td>
+                                            <el-form-item :label="item[0]" :prop="key">
+                                                <inputDate @return-shuju="getInfo" :shuju="item[3]" :editValue="editValue[key]"></inputDate>
+                                            </el-form-item>
+                                        </td>
+                                    </tr>    
+                                </template>
+                            </table>
+                                
 						</el-form>
-					</div>
-                    <div class="userOperate">
-                        <el-button @click="resetForm('editValue')">取消</el-button>
-                        <el-button class="btn_change" @click="submitForm('editValue')">保存</el-button>
-                    </div>
+                    </el-tab-pane>
+                </el-tabs>
+                <div class="form-footer">
+                    <el-button class="btn_change" @click="submitForm('editValue')">确定</el-button>
+                    <el-button class="activecancel" @click="resetForm('editValue')">取消</el-button>
+                </div>
 				</form>
 			</div>
 </template>
@@ -127,70 +147,5 @@ export default {
 </script>
 
 <style lang="sass">
-.newWrap {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.3);
-    top: 0;
-    left: 0;
-    z-index: 2;
-    text-align: center;
-    overflow: hidden;
-        .newForm {
-            width: 622px;
-            position: absolute;
-            background: #fff;
-            left: 50%;
-            top: 50%;
-            box-shadow: 1px 1px 50px rgba(0, 0, 0, 0.3);
-            padding: 0px 3px 30px 3px;
-            .closeIcon {
-                background: url(/public/images/close.png) no-repeat;
-                background-position: -149px -31px;
-                width: 30px;
-                height: 30px;
-                display: inline-block;
-                position: absolute;
-                right: -14px;
-                top: -12px;
-                    &:hover {
-                        background-position: -180px -31px;
-                    }
-                }
-                .el-tabs__header{
-                    cursor: move;
-                }
-                .tab {
-                    text-align: left;
-                    font-weight: normal;
-                    padding: 20px 0 15px 20px;
-                    border-bottom: 2px solid #cecece;
-                    margin-bottom: 20px;
-                }
-                .margin {
-                    padding-right: 30px;
-                    overflow: auto;
-                    height: 447px;
-                }
-                .userOperate {
-                    margin-top: 15px;
-                    width: 100%;
-                    border-top: 2px solid #cecece;
-                    button{
-                        float: right;
-                        margin: 13px 13px 0 0;
-                    }
-                }
-                .userFile{
-                    margin-left: -202px;
-                }
-            }
-    .el-select, .el-date-editor.el-input {
-         float: left;
-    }
-    .btn_change{
-        color: #fff;
-    }
-}
+@import "../../../../sass/public/pop.scss"
 </style>

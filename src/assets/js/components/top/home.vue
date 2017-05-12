@@ -332,12 +332,5 @@ $absolute: absolute;
 		// border: 1px solid orange;
 	}
 }
-
-
-
-
-
-
-
 }
 </style>

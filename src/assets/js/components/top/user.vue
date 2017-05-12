@@ -100,7 +100,7 @@ $display: inline-block;
 			position: relative;
 			.picture{
 				display: $display;
-				width: 10%;
+				width: 140px;
 				height: 124px;
 				border: $line #ccc;
 				margin:0 10px 0 30px;

@@ -10,18 +10,22 @@
 			<contain-title :settitle="settitle">
 			</contain-title>
 			<div class="titleUser">
-				<span class="picture">
-					<img :src="logo" width="100%" height="100%"/>
-				</span>
-				<el-row :gutter="20" class="text">
-					<el-col :span='8' v-for="(v,k) in listN"  class="coltext">
-						 {{v}} {{listV[k]}}
-					</el-col>
-			 	</el-row>
-			 	<span class="picture">
-					<img :src="watermark" width="100%" height="100%"/>
-				</span>
-				<el-button class="edit" @click="showEdit">编辑</el-button>
+                <el-row :gutter="20">
+                    <el-col :span="4">
+                        <img class="picture" :src="logo" width="100%" height="100%"/>
+                    </el-col>
+                    <el-col :span="14">
+                        <el-row :gutter="20" class="text">
+                            <el-col :span='8' v-for="(v,k) in listN"  class="coltext">
+                             {{v}} {{listV[k]}}
+                        </el-col>
+                    </el-row>
+                    </el-col>
+                    <el-col :span="4">
+                        <img  class="picture" :src="watermark" width="100%" height="100%"/>
+                    </el-col>
+                    <el-col :span="2"><el-button class="edit" @click="showEdit">编辑</el-button></el-col>   
+                </el-row>	
 			</div>
 			<div class="mainPic">
 				<img src="/public/images/rfid.png">
@@ -107,7 +111,7 @@ export default {
 	width: 140px;
 	height: 124px;
 	border: 1px solid #ccc;
-	margin:0 10px 0 30px;
+	// margin:0 10px 0 30px;
 	overflow: hidden;
 }
 .text{

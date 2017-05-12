@@ -53,7 +53,8 @@
                                 .el-form-item__label::before{
                                     float: left;
                                 }
-                            }   
+                            }  
+
                         }
                         .tr2{
                             display:block;
@@ -63,6 +64,10 @@
                             >td{
                                 display:block;
                                 width:100%;
+                            }
+                            .ul{
+                                width:85%;
+                                margin:0 auto;
                             }
                         } 
                     }
