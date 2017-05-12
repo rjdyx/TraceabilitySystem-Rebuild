@@ -71,8 +71,6 @@
                             message: '已取消删除'
                         })
                     })
-                } else if (command === '图片') {
-                    this.isNewShow = !this.isNewShow
                 } else if (command === '视频') {
                     this.isShow = !this.isShow
                 } else if (command === '打印') {

@@ -193,6 +193,7 @@ export default {
                             rule: ''
                         }
                     }],
+                    imgComponent: [],
                     editComponent: [],
                     moreComponent: [],
                     printComponent: [],

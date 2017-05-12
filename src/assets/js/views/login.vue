@@ -141,7 +141,6 @@ export default {
                         }
                     })
                 } else {
-                    console.log('error submit!!')
                     this.$message.error('请输入信息，再登录')
                     return false
                 }

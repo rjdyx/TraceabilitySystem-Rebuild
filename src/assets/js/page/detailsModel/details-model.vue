@@ -86,13 +86,13 @@
                             <div v-if="item.includes('产品名称')" slot="reference" class="name-wrapper pcActive" @click="jumpDetails(scope.row)">
                                 {{ tableData[scope.$index][tabItem.protos[index]] }}
                             </div>
-                            <div v-else-if="tabItem.protos[index]=='thumb'" slot="reference">
+                            <div class="imgTipDiv" v-else-if="tabItem.protos[index]=='thumb'" slot="reference">
                                 <el-popover trigger="hover" placement="right">
                                     <!-- 放大图片 -->
                                     <img style="width:100%; height:auto" v-if="tableData[scope.$index][tabItem.protos[index]]!=null && tableData[scope.$index][tabItem.protos[index]]!=''" :src="tableData[scope.$index].img" @mouseenter="enterPic" @mouseleave="">
                                     <div slot="reference" class="name-wrapper imgTip">
                                         <!-- 小图片 -->
-                                        <img v-if="tableData[scope.$index][tabItem.protos[index]]!=null && tableData[scope.$index][tabItem.protos[index]]!=''" :src="tableData[scope.$index][tabItem.protos[index]]" width="30" height="20" @mouseenter="enterPic" @mouseleave="">
+                                        <img v-if="tableData[scope.$index][tabItem.protos[index]]!=null && tableData[scope.$index][tabItem.protos[index]]!=''" :src="tableData[scope.$index][tabItem.protos[index]]" width="100%" height="100%" @mouseenter="enterPic" @mouseleave="">
                                     </div>
                                 </el-popover>
                             </div>
@@ -322,6 +322,9 @@ export default {
                     this.editDefault[key] = row[key]
                 }
             }
+        },
+        // 新增弹窗切换
+        changeNewTab (val) {
         },
         // 关闭新增弹窗
         closeNewShow (val) {
@@ -653,85 +656,84 @@ export default {
     .margin-left_10{
         margin-left: 10px;
     } 
-  .pcActive{
+    .pcActive{
         /*color: blue;*/
         text-decoration: underline;
         cursor:pointer;
     }
-  .el-row {
-    padding:0px 0px 20px 10px;
-    border-bottom: 2px solid #e5e5e5;
-    &:last-child {
-      margin-bottom: 0;
+    .el-row {
+        padding:0px 0px 20px 10px;
+        border-bottom: 2px solid #e5e5e5;
+        &:last-child {
+            margin-bottom: 0;
+        }
     }
-  }
-  .el-col {
-    padding: 10px 0px 0px 0px;
-  }
-  .el-tabs{
-    padding-top: 15px;
-  }
-   .operateBtns {
-                display: inline-block;
-                margin-top:10px;
-                margin-right:10px;
-            }
-   .fr{
+    .el-col {
+        padding: 10px 0px 0px 0px;
+    }
+    .el-tabs{
+        padding-top: 15px;
+    }
+    .operateBtns {
+        display: inline-block;
+        margin-top:10px;
+        margin-right:10px;
+    }
+    .fr{
         float:right;
-     }
-      .fl{
+    }
+    .fl{
         float:left;
-     }
-     .btn span{
+    }
+    .btn span{
         border-left: 1px solid #a7bad6;
         padding: 0px 5px 0px 8px;
     }
     .btn:nth-child(1) span{
         border-left: 0px solid #a7bad6;
     }
-.text-small{
-    font-size:13px;
-}
-.searchInp{
+    .text-small{
+        font-size:13px;
+    }
+    .searchInp{
         width:161px;
         margin-bottom:10px;
         font-size:12px;
         margin-right:10px;
-     }
-.searchBtn{
+    }
+    .searchBtn{
         width:62px;
-     }
-.searchOp{
+    }
+    .searchOp{
         display:inline;
-     }
-.clickMoreBtn {
-  display: inline-block;
-}
- .footer{
-      width: 100%;
-      height: 50px;
-      border: 1px solid #dfe6ec;
-      border-top: none; 
+    }
+    .clickMoreBtn {
+        display: inline-block;
+    }
+    .footer{
+        width: 100%;
+        height: 50px;
+        border: 1px solid #dfe6ec;
+        border-top: none; 
         .pager{
-          display: inline-block;
-          float: right;
-          vertical-align: middle;
-          padding-top: 12px;
-          padding-right: 20px;
+            display: inline-block;
+            float: right;
+            vertical-align: middle;
+            padding-top: 12px;
+            padding-right: 20px;
         }
         .operate-foot{
-          padding-left: 15px;
-          display: inline-block;
-          padding-top: 8px;
-         }
+            padding-left: 15px;
+            display: inline-block;
+            padding-top: 8px;
+        }
         .record{
-          float: right;
-          padding: 15px 10px;
-         }
-     }
-     
-     .detaActive{
+            float: right;
+            padding: 15px 10px;
+        }
+    }
+    .detaActive{
         background: red;
-     }
+    }
 }
 </style>

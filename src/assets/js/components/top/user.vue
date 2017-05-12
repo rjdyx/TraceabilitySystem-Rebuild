@@ -11,7 +11,7 @@
 			</contain-title>
 			<div class="titleUser">
 				<span class="picture">
-					<img src="img"/>
+					<img :src="img" width="100%" height="100%"/>
 				</span>
 				<el-row :gutter="20" class="text">
 					<el-col :span='8' v-for="(v,k) in listN"  class="coltext">
@@ -24,7 +24,7 @@
 				<img src="/public/images/rfid.png">
 			</div>
 			<footer-top></footer-top>
-			<userEdit v-if="isShow"></userEdit>
+			<userEdit v-if="isShow" :editValue="listV" @updateValue="updateVal" :changeDataArr="changeDataArr"></userEdit>
 		</div>
 	</div>
 </template>
@@ -39,16 +39,28 @@ export default {
     data () {
         return {
             settitle: '用户信息管理',
-            listN: {'name': '用户名 :', 'realname': '姓名 :', 'number': '工号 :', 'gender': '性别 :', 'department': '所属部门 :', 'type': '用户类型 :', 'email': '邮箱 :', 'phone': '电话 :', 'birth_date': '出生日期 :'},
+            listN: {'name': '用户名 :', 'realname': '真实姓名 :', 'number': '工号 :', 'gender': '性别 :', 'department': '所属部门 :', 'type': '用户类型 :', 'email': '邮箱 :', 'phone': '电话 :', 'birth_date': '出生日期 :'},
             listV: {},
+            editDefault: {},
             img: '',
             isShow: false,
-            isClass: true
+            isClass: true,
+            changeDataArr: [{gender: {'0': '男', '1': '女'}}, {type: {0: '高级管理员', 1: '管理员'}}]
         }
     },
     methods: {
         showEdit () {
             this.isShow = !this.isShow
+            for (let key of Object.keys(this.editDefault)) {
+                this.listV[key] = this.editDefault[key]
+            }
+        },
+        updateVal (val) {
+            let arr = []
+            arr[0] = val
+            var ret = this.$conversion(this.changeDataArr, arr, 1)
+            this.listV = ret[0]
+            this.img = ret[0].img
         }
     },
     components: {
@@ -60,19 +72,12 @@ export default {
         // 查询编辑数据
         axios.get('api/system/1/edit')
             .then((responce) => {
-                var ret = responce.data.user
-                this.listV = ret
-                this.img = ret.logo
-                if (ret.gender) {
-                    this.listV.gender = '女'
-                } else {
-                    this.listV.gender = '男'
+                var ret = this.$conversion(this.changeDataArr, responce.data, 1)
+                this.listV = ret.user
+                for (let key of Object.keys(ret.user)) {
+                    this.editDefault[key] = ret.user[key]
                 }
-                if (ret.type) {
-                    this.listV.type = '管理员'
-                } else {
-                    this.listV.type = '高级管理员'
-                }
+                this.img = ret.user.img
             })
     }
 }
@@ -95,7 +100,7 @@ $display: inline-block;
 			position: relative;
 			.picture{
 				display: $display;
-				width: 10%;
+				width: 140px;
 				height: 124px;
 				border: $line #ccc;
 				margin:0 10px 0 30px;
