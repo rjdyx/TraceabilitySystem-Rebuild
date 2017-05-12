@@ -1,8 +1,9 @@
 /**
-* httpÇëÇó¹ýÂË
+* httpÃ‡Ã«Ã‡Ã³Â¹Ã½Ã‚Ã‹
 */
 
 require('./require')
+import router from '../route/routers.js'
 
 axios.defaults.headers.common = {
     'X-CSRF-TOKEN': Laravel.csrfToken,
@@ -19,5 +20,12 @@ axios.interceptors.request.use(function (config) {
 axios.interceptors.response.use(function (response) {
     return response
 }, function (error) {
+    // console.log(error.response.status)
+    if (error.response.status === 401) {
+        router.replace({
+            path: '/login',
+            query: {}
+        })
+    }
     return Promise.reject(error)
 })

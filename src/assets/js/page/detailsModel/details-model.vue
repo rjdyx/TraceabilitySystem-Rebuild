@@ -334,6 +334,9 @@ export default {
                 }
             }
         },
+        // 新增弹窗切换
+        changeNewTab (val) {
+        },
         // 关闭新增弹窗
         closeNewShow (val) {
             this.isNewShow = false
