@@ -2881,8 +2881,7 @@ export default {
                 label: '圈舍',
                 placeholder: '请选择圈舍',
                 rule: {required: true, trigger: 'blur', type: 'number', message: '请选择圈舍'},
-                options: [],
-                disabled: true
+                options: []
             },
             {
                 name: 'beast_id',
@@ -2892,8 +2891,7 @@ export default {
                 label: '畜禽名称',
                 placeholder: '请选择畜禽',
                 rule: {required: true, trigger: 'blur', type: 'number', message: '请选择畜禽'},
-                options: [],
-                disabled: true
+                options: []
             },
             {
                 name: 'operate_id',
@@ -4500,12 +4498,13 @@ export default {
     // 养殖计划管理
     planManage: [{
         settitle: '养殖计划管理',
-        key: 'plan',
+        key: 'plan-beast',
         tab: '养殖计划信息',
         url: 'plan',
         paramsIndex: 'beast',
          // 链接批次信息模块数据的桥（养殖批次详情）
         batch: 'planBatch',
+        changeDataArr: [{type: { 'fodderuse': '饲养', 'disease': '病疫', 'detection': '检疫', 'detects': '检测', 'clean': '圈舍维护', 'dispose': '无害化', 'come': '出栏' }}],
         searchPlaceholder: '请输入操作类型',
         search: ['query_text', 'type'],
         theads: ['批次号', '计划日期', '操作类型', '安排人员', '计划内容', '操作用户', '备注'],
@@ -4528,24 +4527,32 @@ export default {
                     label: '操作类型'
                 },
                 {
-                    value: 'fertilize',
-                    label: '施肥'
+                    value: 'fodderuse',
+                    label: '饲养'
                 },
                 {
-                    value: 'spray',
-                    label: '施药'
+                    value: 'disease',
+                    label: '病疫'
                 },
                 {
-                    value: 'detect',
+                    value: 'detection',
+                    label: '检疫'
+                },
+                {
+                    value: 'detects',
                     label: '检测'
                 },
                 {
-                    value: 'farming',
-                    label: '农事'
+                    value: 'clean',
+                    label: '圈舍维护'
                 },
                 {
-                    value: 'harvest',
-                    label: '采收'
+                    value: 'dispose',
+                    label: '无害化'
+                },
+                {
+                    value: 'come',
+                    label: '出栏'
                 }]
             },
             {
@@ -4599,24 +4606,32 @@ export default {
                     label: '操作类型'
                 },
                 {
-                    value: 'fertilize',
-                    label: '施肥'
+                    value: 'fodderuse',
+                    label: '饲养'
                 },
                 {
-                    value: 'spray',
-                    label: '施药'
+                    value: 'disease',
+                    label: '病疫'
                 },
                 {
-                    value: 'detect',
+                    value: 'detection',
+                    label: '检疫'
+                },
+                {
+                    value: 'detects',
                     label: '检测'
                 },
                 {
-                    value: 'farming',
-                    label: '农事'
+                    value: 'clean',
+                    label: '圈舍维护'
                 },
                 {
-                    value: 'harvest',
-                    label: '采收'
+                    value: 'dispose',
+                    label: '无害化'
+                },
+                {
+                    value: 'come',
+                    label: '出栏'
                 }]
             },
             {

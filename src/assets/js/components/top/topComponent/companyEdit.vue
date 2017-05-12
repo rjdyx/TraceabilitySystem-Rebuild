@@ -8,72 +8,25 @@
 	<div class="mask">
 		<form class="formUser">
 			<i class="closeIcon" @click="closeClick"></i>
-				<h2 class="tab">编辑公司信息</h2>
-					<div class="margin">
-						<el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px">
-
-							<el-form-item label="公司名称" prop="name">
-								<el-input placeholder="必填" v-model="ruleForm.name"></el-input>
-							</el-form-item>
-
-							<el-form-item label="公司简称" prop="short_name">
-								<el-input placeholder="" v-model="ruleForm.short_name"></el-input>
-							</el-form-item>
-
-							<el-form-item label="负责人/法人" prop="legal_person">
-								<el-input placeholder="" v-model="ruleForm.legal_person"></el-input>
-							</el-form-item>
-
-              <el-form-item label="统一社会信用代码" prop="USCC">
-                <el-input placeholder="" v-model="ruleForm.USCC"></el-input>
-              </el-form-item>
-
-							<el-form-item label="电话" prop="phone">
-								<el-input placeholder="请输入11位手机号(固话用-隔开)" v-model="ruleForm.phone"></el-input>
-							</el-form-item>
-
-							<el-form-item label="传真" prop="fax">
-								<el-input  v-model="ruleForm.fax" placeholder="">
-								</el-input>
-							</el-form-item>
-
-							<el-form-item label="地址" prop="address">
-								<el-input v-model="ruleForm.address" placeholder="">
-								</el-input>
-							</el-form-item>
-
-							<el-form-item label="经营范围" prop="business_scope">
-								<el-input v-model="ruleForm.business_scope" placeholder=""></el-input>
-							</el-form-item>
-
-              <el-form-item label="员工总数" prop="total_staff">
-                <el-input v-model="ruleForm.total_staff" placeholder=""></el-input>
-              </el-form-item>
-
-              <el-form-item label="公司网站" prop="website">
-                <el-input v-model="ruleForm.website" placeholder=""></el-input>
-              </el-form-item>
-
-              <el-form-item label="备注" prop="memo">
-                <el-input v-model="ruleForm.memo" placeholder=""></el-input>
-              </el-form-item>
-
-              <el-form-item label="公司Logo" prop="logo">
-              <file></file>
-              </el-form-item>
-
-              <el-form-item label="水印" prop="watermark">
-              <file></file>
-              </el-form-item>
-
-							<el-form-item class="userOperate">
-							    <el-button type="primary" @click="submitForm('ruleForm')">保存</el-button>
-							    <el-button @click="resetForm('ruleForm')">取消</el-button>
-							</el-form-item>
-						</el-form>
-					</div>
-				</form>
+			<h2 class="tab">编辑公司信息</h2>
+			<div class="margin">
+				<el-form :model="editValue" :rules="rules" ref="editValue" label-width="100px">
+                    <template v-for="(item,key) in thread">
+                        <el-form-item v-if="item[1]=='text'" :label="item[0]" :prop="key">
+                            <el-input :placeholder="item[2]" v-model="editValue[key]"></el-input>
+                        </el-form-item>
+                        <el-form-item v-else-if="item[1]=='file'" :label="item[0]" :prop="key">
+                            <file @return-shuju="getImg" :shuju="item[3]" :editValue="editValue[key]"></file>
+                        </el-form-item>
+                    </template>
+                    <el-form-item class="userOperate">
+                        <el-button type="primary" @click="submitForm('editValue')">保存</el-button>
+                        <el-button @click="resetForm('editValue')">取消</el-button>
+                    </el-form-item>
+				</el-form>
 			</div>
+		</form>
+	</div>
 </template>
 
 
@@ -82,23 +35,26 @@ import validate2 from '../../../utils/validate2.js'
 import file from '../../public/inputFile.vue'
 export default {
     name: 'userEdit',
+    props: {
+        editValue: {}
+    },
     data () {
         return {
             id: '',
-            ruleForm: {
-                name: '',
-                short_name: '',
-                legal_person: '',
-                USCC: '',
-                phone: '',
-                fax: '',
-                address: '',
-                business_scope: '',
-                total_staff: '',
-                website: '',
-                logo: '',
-                watermark: '',
-                memo: ''
+            thread: {
+                name: ['公司名称', 'text', '必填'],
+                short_name: ['公司简称', 'text', ''],
+                legal_person: ['负责人/法人', 'text', ''],
+                USCC: ['统一社会信用代码', 'text', ''],
+                phone: ['电话', 'text', '请输入11位手机号(固话用-隔开)'],
+                fax: ['传真', 'text', ''],
+                address: ['公司地址', 'text', ''],
+                business_scope: ['经营范围', 'text', ''],
+                total_staff: ['员工总数', 'text', ''],
+                website: ['公司网站', 'text', ''],
+                logo: ['公司Logo', 'file', '', {name: 'logo'}],
+                watermark: ['水印', 'file', '', {name: 'watermark'}],
+                memo: ['公司简称', 'text', '']
             },
             rules: {
                 name: [
@@ -121,43 +77,32 @@ export default {
         submitForm (formName) {
             this.$refs[formName].validate((valid) => {
                 if (valid) {
-                    axios.put('api/company/' + this.id, this.ruleForm).then((response) => {
+                    this.$dataPost(this, 'company/' + this.editValue.id, this.editValue, true, false, true).then((response) => {
                         this.$parent.showEdit()
-                        if (response.data !== false) {
-                            alert('修改成功')
+                        if (response.data !== 'false') {
+                            this.$message({
+                                message: '修改数据成功',
+                                type: 'success'
+                            })
+                            this.$emit('updateValue', response.data)
                         } else {
-                            alert('修改失败')
+                            this.$message.error('修改数据失败')
                         }
                     })
                 } else {
-                    console.log('验证不通过')
                     return false
                 }
             })
+        },
+        // 获取图片
+        getImg (data) {
+            this.editValue[data.name] = data.value
         }
     },
     components: {
         file
     },
     mounted () {
-        // 查询编辑数据
-        axios.get('api/company/info')
-            .then((responce) => {
-                this.ruleForm.name = responce.data.name
-                this.ruleForm.short_name = responce.data.short_name
-                this.ruleForm.legal_person = responce.data.legal_person
-                this.ruleForm.USCC = responce.data.USCC
-                this.ruleForm.phone = responce.data.phone
-                this.ruleForm.fax = responce.data.fax
-                this.ruleForm.address = responce.data.address
-                this.ruleForm.business_scope = responce.data.business_scope
-                this.ruleForm.total_staff = responce.data.total_staff
-                this.ruleForm.website = responce.data.website
-                this.ruleForm.logo = responce.data.logo
-                this.ruleForm.watermark = responce.data.watermark
-                this.ruleForm.memo = responce.data.memo
-                this.id = responce.data.id
-            })
     }
 }
 </script>
