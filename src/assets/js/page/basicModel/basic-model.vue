@@ -656,6 +656,7 @@ export default {
         }
     },
     mounted () {
+        this.activeName = 'index0'
         // 获取下拉框
         if (this.selectValueId) {
             this.getSelect()

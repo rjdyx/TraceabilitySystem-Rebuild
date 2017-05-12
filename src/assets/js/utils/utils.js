@@ -246,6 +246,5 @@ default {
             return ret
         }
         Vue.prototype.Roles = {}
-        Vue.prototype.State = 0
     }
 }

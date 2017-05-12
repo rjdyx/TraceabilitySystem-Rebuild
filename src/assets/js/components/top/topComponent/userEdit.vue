@@ -10,50 +10,29 @@
 			<i class="closeIcon" @click="closeClick"></i>
 				<h2 class="el-tabs__header tab">编辑用户信息</h2>
 					<div class="margin">
-						<el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px">
-
-							<el-form-item label="用户名" prop="name">
-								<el-input placeholder="必填" v-model="ruleForm.name"></el-input>
-							</el-form-item>
-
-							<el-form-item label="工号" prop="number">
-								<el-input placeholder="必填" v-model="ruleForm.number"></el-input>
-							</el-form-item>
-
-							<el-form-item label="邮箱" prop="email">
-								<el-input placeholder="必填" v-model="ruleForm.email"></el-input>
-							</el-form-item>
-
-              <el-form-item label="电话" prop="phone">
-                <el-input placeholder="请输入11位手机号(固话用-隔开)" v-model="ruleForm.phone"></el-input>
-              </el-form-item>
-
-							<el-form-item label="姓名" prop="realname">
-								<el-input placeholder="请输入真实姓名" v-model="ruleForm.realname"></el-input>
-							</el-form-item>
-
-							<el-form-item label="性别" prop="gender">
-								<el-select  v-model="ruleForm.gender" placeholder="请选择性别">
-									<el-option label="男" value="0"></el-option>
-									<el-option label="女" value="1"></el-option>
-								</el-select>
-							</el-form-item>
-
-							<el-form-item label="出生日期" prop="birth_date">
-								<el-date-picker type="date" v-model="ruleForm.birth_date" placeholder="请选择出生日期">
-								</el-date-picker>
-
-							</el-form-item>
-							<el-form-item label="所属部门" prop="department">
-								<el-input v-model="ruleForm.department" placeholder="请输入所属部门"></el-input>
-							</el-form-item>
-
-							<file class="userFile"></file>
+						<el-form :model="editValue" :rules="rules" ref="editValue" label-width="100px">
+                            <template v-for="(item,key) in thread">
+                                <el-form-item v-if="item[1]=='text'" :label="item[0]" :prop="key">
+                                    <el-input :placeholder="item[2]" v-model="editValue[key]"></el-input>
+                                </el-form-item>
+                                <el-form-item v-else-if="item[1]=='file'" :label="item[0]" :prop="key">
+                                    <file @return-shuju="getInfo" :shuju="item[3]" :editValue="editValue[key]"></file>
+                                </el-form-item>
+                                <el-form-item v-else-if="item[1]=='select'" :label="item[0]" :prop="key">
+                                    <el-select  v-model="editValue[key]" :placeholder="item[2]">
+                                        <el-option label="男" value="0"></el-option>
+                                        <el-option label="女" value="1"></el-option>
+                                    </el-select>
+                                </el-form-item>
+                                <el-form-item v-else-if="item[1]=='date'" :label="item[0]" :prop="key">
+                                    <inputDate @return-shuju="getInfo" :shuju="item[3]" :editValue="editValue[key]"></inputDate>
+                                </el-form-item>
+                            </template>
 						</el-form>
 					</div>
                     <div class="userOperate">
-                        <el-button @click="resetForm('ruleForm')">取消</el-button>
-                        <el-button class="btn_change" @click="submitForm('ruleForm')">保存</el-button>
+                        <el-button @click="resetForm('editValue')">取消</el-button>
+                        <el-button class="btn_change" @click="submitForm('editValue')">保存</el-button>
                     </div>
 				</form>
 			</div>
@@ -62,22 +41,27 @@
 <script>
 import validate2 from '../../../utils/validate2.js'
 import file from '../../public/inputFile.vue'
+import inputDate from '../../public/inputDate.vue'
 import move from '../../../directive/move.js'
 export default {
     name: 'userEdit',
+    props: {
+        editValue: {},
+        changeDataArr: {}
+    },
     data () {
         return {
             user_id: '',
-            ruleForm: {
-                name: '',
-                number: '',
-                email: '',
-                realname: '',
-                sex: '',
-                date: '',
-                department: '',
-                phone: '',
-                gender: ''
+            thread: {
+                name: ['用户名', 'text', '必填'],
+                realname: ['真实姓名', 'text', ''],
+                number: ['工号', 'text', '必填'],
+                email: ['邮箱', 'text', '必填'],
+                phone: ['电话', 'text', '请输入11位手机号(固话用-隔开)'],
+                gender: ['性别', 'select', ''],
+                birth_date: ['出生日期', 'date', '请选择出生日期', {name: 'birth_date'}],
+                department: ['所属部门', 'text', ''],
+                img: ['头像', 'file', '', {name: 'img'}]
             },
             rules: {
                 name: [
@@ -97,19 +81,6 @@ export default {
     },
     mixins: [move],
     mounted () {
-        // 查询编辑数据
-        axios.get('api/system/1/edit')
-            .then((responce) => {
-                this.user_id = responce.data.user.id
-                this.ruleForm.name = responce.data.user.name
-                this.ruleForm.realname = responce.data.user.realname
-                this.ruleForm.email = responce.data.user.email
-                this.ruleForm.phone = responce.data.user.phone
-                this.ruleForm.department = responce.data.user.department
-                this.ruleForm.birth_date = responce.data.user.birth_date
-                this.ruleForm.number = responce.data.user.number
-                this.ruleForm.gender = responce.data.user.gender
-            })
     },
     methods: {
         closeClick () {
@@ -125,23 +96,32 @@ export default {
         submitForm (formName) {
             this.$refs[formName].validate((valid) => {
                 if (valid) {
-                    axios.put('api/user/' + this.user_id, this.ruleForm).then((response) => {
+                    var ret = this.$conversion(this.changeDataArr, this.editValue, 0)
+                    this.$dataPost(this, 'user/' + ret.id, ret, true, false, true).then((response) => {
                         this.$parent.showEdit()
-                        if (response.data !== false) {
-                            alert('修改成功')
+                        if (response.data !== 'false') {
+                            this.$message({
+                                message: '修改数据成功',
+                                type: 'success'
+                            })
+                            this.$emit('updateValue', response.data)
                         } else {
-                            alert('修改失败')
+                            this.$message.error('修改数据失败')
                         }
                     })
                 } else {
-                    console.log('验证不通过')
                     return false
                 }
             })
+        },
+        // 获取关联数据
+        getInfo (data) {
+            this.editValue[data.name] = data.value
         }
     },
     components: {
-        file
+        file,
+        inputDate
     }
 }
 </script>

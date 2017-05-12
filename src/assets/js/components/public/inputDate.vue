@@ -29,7 +29,6 @@
         methods: {
             getDate (val) {
                 this.value = val
-                // this.$emit('return-shuju', {name: this.shuju.name, value: val})
             }
         },
         watch: {

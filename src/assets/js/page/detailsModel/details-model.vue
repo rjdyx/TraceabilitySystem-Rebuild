@@ -10,6 +10,7 @@
   <!-- 标题 -->
     <contain-title :settitle="tab" :isShow="isShow">
     </contain-title>
+    
   <!-- 信息列表 -->
     <el-row :gutter="20">
          <el-col :span="6" v-for="(item,i) in theads" class="text-small">{{item}}:<em class="margin-left_10">{{headData[protos[i]]}}</em>

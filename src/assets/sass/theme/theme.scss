@@ -34,17 +34,39 @@ $purple_icon: url('/public/images/icon.png') 26px -8px;
 
 $yellow_icon: url('/public/images/icon.png') 26px -42px;
 
+// 字体大小(12px,13px,14px)
+$s_bigger: 14px;
+
+$s_middle: 13px;
+
+$s_small: 12px;
+
+// 字体大小(14px,15px,16px)
+$m_bigger: 16px;
+
+$m_middle: 15px;
+
+$m_small: 14px;
+
+// 字体大小(18px, 19px, 20px)
+$b_bigger: 20px;
+
+$b_middle: 19px;
+
+$b_small: 18px;
 // 字体大小
-$big: 18px;
-
-$middle: 16px;
-
-$small: 14px;
-
-// 字体大小
-@mixin font($size) {
-	.qu_title,.titleQu,.title,.explain,.el-radio__label,.head_right,.tab,.back_text{
+@mixin font($size, $m_size, $b_size) {
+	.tab,
+	.head_right,
+	.el-menu-item, .el-submenu__title,
+	.copyright,table{
 		font-size: $size;
+	}
+	.back_text,.el-radio__label,.explain{
+		font-size: $m_size;
+	}
+	.titleQu,.title,.qu_title{
+		font-size: $b_size;
 	}
 }
 
@@ -64,12 +86,13 @@ $small: 14px;
 		}
 	}	
 }
+	.el-button:focus, .el-button:hover,
 	.el-input__inner:focus,
 	.el-input__inner:hover,
 	.el-textarea__inner:focus,
 	.el-textarea__inner:hover,
 	.el-checkbox__inner:hover{
-		border-color:$bg;
+		border-color:$bg; 
 	}
 
 	.titleQu,
@@ -78,6 +101,7 @@ $small: 14px;
 	.pcActive,
 	.back_text,
 	.el-tabs__item.is-active,
+	.el-button:focus, .el-button:hover,
 	.qu_title{
 		color: $bg;
 	}
@@ -85,6 +109,9 @@ $small: 14px;
 		h2{
 			border-left: 4px solid $bg;
 		}
+	}
+	.el-menu--dark .el-submenu .el-menu .el-menu-item.is-active{
+		background: $bg;
 	}
 	.el-menu--dark .el-submenu .el-menu .el-menu-item:hover{
 		background: $bg;
@@ -108,8 +135,14 @@ $small: 14px;
 	.back_icon{
 		background: $icon;
 	}
-	.el-radio__input.is-checked .el-radio__inner,
-	.el-checkbox__input.is-checked .el-checkbox__inner{
+	.el-checkbox-group,.cell{
+		.el-checkbox__input.is-checked .el-checkbox__inner{
+			background: $bg;
+			border:$bg;
+		} 
+	}
+	.el-radio__input.is-checked .el-radio__inner
+	{
 		background: $bg;
 		border:$bg;
 	}
@@ -123,15 +156,15 @@ $small: 14px;
 
 //大号字体
 .big{
-	@include font(#{$big})
+	@include font(#{$s_bigger}, #{$m_bigger}, #{$b_bigger})
 }
 // 中号字体
 .middle{
-	@include font(#{$middle})
+	@include font(#{$s_middle}, #{$m_middle}, #{$b_middle})
 }
 // 小号字体
 .small{
-	@include font(#{$small})
+	@include font(#{$s_small}, #{$m_small}, #{$b_small})
 }
 
 // 蓝色主题

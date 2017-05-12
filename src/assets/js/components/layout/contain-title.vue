@@ -40,13 +40,15 @@
     .title {
       padding: 20px 8px 14px 0;
       border-bottom: 2px solid #e5e5e5;
-      font-size: 18px;
+      // font-size: 18px;
       margin-bottom: 10px;
       h2 {
         border-radius: 4px;
         padding-left: 14px;
         display: inline-block;
         font-family: YouYuan;
+        color: #333;
+        font-weight: 400;
       }
       .back{
         display: inline-block;

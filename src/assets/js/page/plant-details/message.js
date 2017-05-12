@@ -335,7 +335,7 @@ export default {
         tabList: [{
             url: 'detection-rfid',
             tab: '养殖批次信息',
-            searchPlaceholder: '请输入批次号进行搜索',
+            searchPlaceholder: '请输入rfid进行搜索',
             typeComponent: [{component: newbuildBtn}],
             headList: ['圈舍', '养殖批次号', 'Rfid', '畜禽名称', '养殖日期'],
             protos: ['area_name', 'serial', 'rfid', 'beast_name', 'date'],
@@ -538,8 +538,8 @@ export default {
     beastPackBatch: {
         key: 'beastPackBatch',
         tab: '加工批次管理',
-        theads: ['加工批次号', '加工日期', '数量', '产地', '加工人', '备注'],
-        protos: ['serial', 'date', 'amount', 'origin', 'operate_name', 'memo'],
+        theads: ['加工批次号', '加工日期', '数量', '单位', '加工人', '备注'],
+        protos: ['serial', 'date', 'amount', 'unit', 'operate_name', 'memo'],
         batch: 'beastPackProduct',
         url: 'pack',
         tabList: [{
@@ -789,7 +789,7 @@ export default {
         tabList: [{
             url: 'pack-detect-pk',
             tab: '加工批次信息',
-            searchPlaceholder: '请输入产品名称进行搜索',
+            searchPlaceholder: '请输入加工批次号进行搜索',
             headList: ['加工批次号', '加工日期', '数量', '产地', '操作人', '备注'],
             protos: ['serial', 'date', 'amount', 'origin', 'operate_name', 'memo'],
             widths: [50, 50, 50, 50, 50, 50],
