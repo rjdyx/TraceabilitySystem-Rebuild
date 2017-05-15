@@ -49,10 +49,12 @@ export default {
         }
     },
     methods: {
-        showEdit () {
+        showEdit (val) {
             this.isShow = !this.isShow
-            for (let key of Object.keys(this.editDefault)) {
-                this.listV[key] = this.editDefault[key]
+            if (val === 'false') {
+                for (let key of Object.keys(this.editDefault)) {
+                    this.listV[key] = this.editDefault[key]
+                }
             }
         },
         updateVal (val) {
