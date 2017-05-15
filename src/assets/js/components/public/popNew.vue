@@ -92,6 +92,9 @@
                                     :shuju="subItem"
                                     :inputEditValue="tableForm[subItem.name]"
                                     :selectEditValue="tableForm['unit']"
+                                    :disabled="disabled"
+                                    :disabledV="disabledV"
+                                    :allowance="allowance"
                                     @return-shuju="returnShuju"
                                 ></component>
                                 <!-- 其他类型 -->
@@ -162,14 +165,6 @@ export default {
         url: '',
         routeId: '',
         checkboxShow: false
-        // editForm: {
-        //   type: Object,
-        //   default: {}
-        // },
-        // editBol: {
-        //   type: Boolean,
-        //   default: false
-        // }
     },
     data () {
         let form = {}
@@ -198,6 +193,7 @@ export default {
             activeName: this.newComponent[0].tab,
             tableForm: form,
             rules: rules,
+            allowance: 0,
             ids: [],
             // 判断鼠标是否点击
             isMouseClick: false,
@@ -216,6 +212,10 @@ export default {
                 .then((responce) => {
                     this.memuList = responce.data
                 })
+        }
+        if (this.url === 'planta') {
+            this.disabled = true
+            this.disabledV = true
         }
     },
     methods: {
@@ -349,6 +349,22 @@ export default {
                     com[4].selfHidden = true
                     com[5].consignHidden = true
                     com[6].consignHidden = true
+                }
+            } else if (name === 'pid') {
+                if (val !== '') {
+                    let params = {id: val}
+                    axios.get(this.$adminUrl(this.url + '/getArea'), {params: params}).then((responce) => {
+                        this.allowance = responce.data['num']
+                        this.tableForm['unit'] = responce.data['unit']
+                        let nc = this.newComponent[0]
+                        this.disabledV = false
+                        nc.components[nc.limit].rule[1]['getMax'] = responce.data['num']
+                        nc.components[nc.limit].rule[1]['getMessage'] = nc.getMessage
+                    })
+                } else {
+                    this.tableForm['unit'] = '亩'
+                    this.allowance = 0
+                    this.disabledV = true
                 }
             }
         },

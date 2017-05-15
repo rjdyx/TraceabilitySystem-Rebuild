@@ -5347,6 +5347,7 @@ export default {
             newComponent: [{
                 tab: '新建种植场信息',
                 checkNumber: [0],
+                hasImg: true,
                 components: [{
                     name: 'name',
                     type: 'text',
@@ -5436,6 +5437,9 @@ export default {
             editComponent: [{
                 tab: '编辑种植场信息',
                 checkNumber: [0],
+                limit: 1,
+                hasImg: true,
+                getMessage: '种植场面积不能小于下属种植区之和',
                 components: [{
                     name: 'name',
                     type: 'text',
@@ -5561,6 +5565,8 @@ export default {
                 checkNumber: [1],
                 hasImg: true,
                 popNumber: [0],
+                limit: 2,
+                getMessage: '已超过种植种植场余留面积',
                 components: [{
                     name: 'pid',
                     type: 'select',
