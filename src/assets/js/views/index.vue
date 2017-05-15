@@ -1,7 +1,7 @@
 <template>
 	<div class="wrap">
-		<my-header :navbars="navbars"></my-header>
-		<sider-bar :menus='menus' :show="show"></sider-bar>
+		<my-header :navbars="navbars" @return-changeSub="changeSub"></my-header>
+		<sider-bar ref="siderBar" :menus='menus' :show="show" ></sider-bar>
 		<router-view></router-view>
 	</div>
 </template> 
@@ -18,7 +18,7 @@ export default {
                 {
                     name: '首页',
                     src: '/public/images/home.png',
-                    path: '/index'
+                    path: '/index/home'
                 },
                 {
                     name: 'test',
@@ -48,6 +48,20 @@ export default {
     components: {
         MyHeader,
         SiderBar
+    },
+    methods: {
+        changeSub () {
+            console.log(this.$refs.siderBar.$children[0].$children[0])
+            this.$refs.siderBar.$children[0].$children[0].closeMenu()
+            this.$refs.siderBar.$children[0].$children[0].activedIndex = ''
+            let recordStr = localStorage.getItem('record')
+            let json = JSON.parse(recordStr)
+            json.record = ''
+            let jsonStr = JSON.stringify(json)
+            localStorage.setItem('record', jsonStr)
+        }
+    },
+    mounted () {
     }
 }
 </script>
