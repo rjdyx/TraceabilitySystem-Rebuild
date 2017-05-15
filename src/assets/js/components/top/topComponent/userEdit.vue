@@ -51,7 +51,7 @@
                     </el-tab-pane>
                 </el-tabs>
                 <div class="form-footer">
-                    <el-button class="btn_change" @click="submitForm('editValue')">确定</el-button>
+                    <el-button class="btn_change" @click="closeClick">确定</el-button>
                     <el-button class="activecancel" @click="resetForm('editValue')">取消</el-button>
                 </div>
 				</form>
@@ -101,31 +101,26 @@ export default {
     },
     mixins: [move],
     mounted () {
+        console.log(this.editValue.img)
     },
     methods: {
         closeClick () {
-            this.$parent.showEdit()
-        },
-        resetForm () {
-            this.$parent.showEdit()
-        },
-        // 取消事件
-        cancelClick () {
-            this.$parent.closeEditShow()
+            this.$parent.showEdit('false')
         },
         submitForm (formName) {
             this.$refs[formName].validate((valid) => {
                 if (valid) {
                     var ret = this.$conversion(this.changeDataArr, this.editValue, 0)
                     this.$dataPost(this, 'user/' + ret.id, ret, true, false, true).then((response) => {
-                        this.$parent.showEdit()
                         if (response.data !== 'false') {
                             this.$message({
                                 message: '修改数据成功',
                                 type: 'success'
                             })
+                            this.$parent.showEdit('true')
                             this.$emit('updateValue', response.data)
                         } else {
+                            this.$parent.showEdit('false')
                             this.$message.error('修改数据失败')
                         }
                     })
