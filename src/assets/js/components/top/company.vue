@@ -10,21 +10,28 @@
 			<contain-title :settitle="settitle">
 			</contain-title>
 			<div class="titleUser">
-				<span class="picture">
-					<img src="img"/>
-				</span>
-				<el-row :gutter="20" class="text">
-					<el-col :span='8' v-for="(v,k) in listN"  class="coltext">
-						 {{v}} {{listV[k]}}
-					</el-col>
-			 	</el-row>
-				<el-button class="edit" @click="showEdit">编辑</el-button>
+                <el-row :gutter="20">
+                    <el-col :span="4">
+                        <img class="picture" :src="logo" width="100%" height="100%"/>
+                    </el-col>
+                    <el-col :span="14">
+                        <el-row :gutter="20" class="text">
+                            <el-col :span='8' v-for="(v,k) in listN"  class="coltext">
+                             {{v}} {{listV[k]}}
+                        </el-col>
+                    </el-row>
+                    </el-col>
+                    <el-col :span="4">
+                        <img  class="picture" :src="watermark" width="100%" height="100%"/>
+                    </el-col>
+                    <el-col :span="2"><el-button class="edit" @click="showEdit">编辑</el-button></el-col>   
+                </el-row>	
 			</div>
 			<div class="mainPic">
 				<img src="/public/images/rfid.png">
 			</div>
 			<footer-top></footer-top>
-			<companyEdit v-if="isShow"></companyEdit>
+			<companyEdit v-if="isShow" :editValue="listV" @updateValue="updateVal"></companyEdit>
 		</div>
 	</div>
 </template>
@@ -41,15 +48,27 @@ export default {
             settitle: '公司信息管理',
             listN: {'name': '公司名称 :', 'coding': '公司编码 :', 'legal_person': '负责人/法人 :', 'short_name': '公司简称 :', 'USCC': '统一码 :', 'phone': '电话 :', 'address': '地址 :', 'business_scope': '经营范围 :', 'total_staff': '员工总数 :', 'website': '公司网站 :'},
             listV: {},
-            img: '',
+            editDefault: {},
+            logo: '',
+            watermark: '',
             isShow: false,
             isClass: true,
             id: ''
         }
     },
     methods: {
-        showEdit () {
+        showEdit (val) {
             this.isShow = !this.isShow
+            if (val === 'false') {
+                for (let key of Object.keys(this.editDefault)) {
+                    this.listV[key] = this.editDefault[key]
+                }
+            }
+        },
+        updateVal (val) {
+            this.listV = val
+            this.logo = val.logo
+            this.watermark = val.watermark
         }
     },
     components: {
@@ -61,9 +80,12 @@ export default {
         // 查询编辑数据
         axios.get('api/company/info')
             .then((responce) => {
-                console.log(responce.data)
                 this.listV = responce.data
-                this.img = responce.data.logo
+                for (let key of Object.keys(responce.data)) {
+                    this.editDefault[key] = responce.data[key]
+                }
+                this.logo = responce.data.logo
+                this.watermark = responce.data.watermark
                 this.id = responce.data.id
             })
     }
@@ -91,7 +113,7 @@ export default {
 	width: 140px;
 	height: 124px;
 	border: 1px solid #ccc;
-	margin:0 10px 0 30px;
+	// margin:0 10px 0 30px;
 	overflow: hidden;
 }
 .text{

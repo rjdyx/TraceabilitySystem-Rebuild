@@ -43,14 +43,14 @@
 								<img :src="siderItem.src" />
 							</span>
 							<span class="siderType">{{siderItem.type}}</span>
-							<span class="siderKey">{{plans[siderItem.key]}}</span>
+							<span class="siderKey" v-if="plans!==null">{{plans[siderItem.key]}}</span>
 						</li>
 						<li v-else v-for="siderItem in siderPlant" class="siderTip">
 							<span class="siderImg">
 								<img :src="siderItem.src" />
 							</span>
 							<span class="siderType">{{siderItem.type}}</span>
-							<span class="siderKey">{{plans[siderItem.key]}}</span>
+							<span class="siderKey" v-if="plans!==null">{{plans[siderItem.key]}}</span>
 						</li>
 					</ul>
 				</div>
@@ -86,7 +86,7 @@ export default{
             isClass: false,
             listN: {'company_name': '所属公司:', 'name': '用户名:', 'date': '登录时间:', 'type': '用户类型:'},
             listV: {},
-            state: 'beast',
+            state: 'plant',
             plans: {},
             codes: {},
             siderPlant: [
@@ -155,7 +155,9 @@ export default{
     mounted () {
         axios.get('api/index/state')
             .then((responce) => {
-                this.state = responce.data
+                if (responce.data !== 'plant' && responce.data !== 'all') {
+                    this.state = 'beast'
+                }
             })
         axios.get('api/index')
             .then((responce) => {
@@ -330,12 +332,5 @@ $absolute: absolute;
 		// border: 1px solid orange;
 	}
 }
-
-
-
-
-
-
-
 }
 </style>

@@ -46,7 +46,6 @@ export default {
 }
 </script>
 <style lang="sass">
-	// @import "../../../sass/public/inputSize.scss";
 	#inputTextarea{
 		width: 312px;
 		height: 60px;

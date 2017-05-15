@@ -129,15 +129,18 @@ export default {
             this.$refs[formName].validate((valid) => {
                 if (valid) {
                     axios.post('/login', this.ruleForm2).then((responce) => {
-                        console.log(responce.data)
                         if (responce.data !== 200) {
                             callback(new Error('登录失败'))
                         } else {
                             this.$router.push('/index')
+                            let fa = localStorage.getItem('record')
+                            let json = JSON.parse(fa)
+                            json.record = ''
+                            let jsonStr = JSON.stringify(json)
+                            localStorage.setItem('record', jsonStr)
                         }
                     })
                 } else {
-                    console.log('error submit!!')
                     this.$message.error('请输入信息，再登录')
                     return false
                 }

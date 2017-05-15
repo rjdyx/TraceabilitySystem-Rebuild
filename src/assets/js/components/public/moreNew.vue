@@ -15,7 +15,7 @@
 					<el-form :model="tableForm" :rules="rules" ref="tableForm" label-width="110px" class="demo-tableForm">
 						<table>
 							<template v-for="subItem in item.components">
-								<tr v-if="subItem.type='text'">
+								<tr class="tr1" v-if="subItem.type='text'">
 									<td>
 										<el-form-item :label="subItem.label" :prop="subItem.name">
 											<el-input :placeholder="subItem.placeholder" v-model="tableForm[subItem.name]" size="small"></el-input>
@@ -23,7 +23,7 @@
 									</td>
 								</tr>
 		
-								<tr v-else-if="subItem.type=='select'">
+								<tr class="tr1" v-else-if="subItem.type=='select'">
 									<td>
 										<el-form-item :label="subItem.label" :prop="subItem.name">
 											<el-select v-model="tableForm[subItem.name]" :placeholder="subItem.placeholder" size="small">
@@ -36,7 +36,7 @@
 								</tr>
 
 
-								<tr v-else-if="subItem.type=='textarea'">
+								<tr class="tr1" v-else-if="subItem.type=='textarea'">
 									<el-form-item :label="subItem.label" :prop="subItem.name">
 										<el-input :placeholder="subItem.placeholder" type='textarea' v-model="tableForm[subItem.name]" size="small">
 											
@@ -85,71 +85,5 @@ export default {
 </script>
 
 <style lang="sass">
-.newWrap{
-  position: fixed;
-  width:100%;
-  height: 100%;
-  background:rgba(0,0,0,0.3);
-  top:0;
-  left:0;
-  z-index:2;
-  text-align:center;
-  overflow:hidden;
-  .newForm{
-    width:618px;
-    position: absolute;
-    background:white;
-    left:50%;
-    top:50%;
-    transform:translateX(-50%) translateY(-50%);
-    box-shadow:1px 1px 50px rgba(0,0,0,.3);
-    border-radius:2px;  
-    .el-tabs{
-       max-height:618px;
-       overflow:scroll;
-      .el-tabs__content{
-        padding:20px 70px;
-        box-sizing:border-box;
-        table{
-            width:100%;
-            text-align: left;
-            .el-select{
-                display:block;
-            }
-            .el-textarea__inner{
-                resize:none;
-            }
-            .el-form-item__label::before{
-                float: left;
-            }
-        }
-      }
-    }
-      
-	    
-        .el-icon-circle-close{
-            font-size:24px;
-            color:#8492a6;
-            position: absolute;
-            right:-12px;
-            top:-10px;
-            border:3px solid white;
-            border-radius:50%;
-            background:white;
-            z-index:3;
-        }
-        .el-icon-circle-close:hover{
-            color:#0087b5;
-        } 
-
-        .form-footer{
-          text-align:-webkit-right;
-          padding:20px 10px 50px 0;
-            .activecancel{
-              background-color:#cccccc;
-              color:white;
-            }
-        }
-    }
-}
+@import "../../../sass/public/pop.scss"
 </style>

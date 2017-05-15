@@ -192,6 +192,96 @@ export default {
                     rule: null
                 }]
             }]
+        },
+        {
+            url: 'breed_area',
+            tab: '圈舍记录',
+            searchPlaceholder: '请输入圈舍名称进行搜索',
+            headList: ['圈舍名称', '开始日期', '结束日期', '操作人', '录入人'],
+            protos: ['name', 'date', 'end_date', 'operate_name', 'user_name'],
+            widths: [50, 50, 50, 50, 50],
+            hiddeEdit: false,
+            typeComponent: [{
+                component: newbuildBtn
+            }],
+            listComponent: [{
+                components: [{
+                    type: 'date',
+                    component: datePick
+                }]
+            }],
+            newComponent: [{
+                tab: '新建圈舍转移信息',
+                selectUrl2: [['areas', 'id', 'name', true], ['operates', 'id', 'name', true]],
+                selectInit2: [{value: '', label: '选择要转移的圈舍'}, {value: '', label: '选择操作人'}],
+                popNumber2: [0, 1],
+                selectWhere2: 'id',
+                components: [{
+                    name: 'area_id',
+                    type: 'select',
+                    component: null,
+                    isNull: false,
+                    label: '圈舍名称',
+                    placeholder: '',
+                    rule: {required: true, trigger: 'blur', type: 'number', message: '请选择要转移的圈舍'},
+                    options: []
+                },
+                {
+                    name: 'operate_id',
+                    type: 'select',
+                    component: null,
+                    isNull: false,
+                    label: '操作人',
+                    placeholder: '',
+                    rule: {required: true, trigger: 'blur', type: 'number', message: '请选择操作人'},
+                    options: []
+                },
+                {
+                    name: 'date',
+                    type: 'date',
+                    component: inputDate,
+                    isNull: false,
+                    label: '转移日期',
+                    placeholder: '',
+                    rule: [{required: true, trigger: 'blur', message: '请输入上传日期'}, {validator: validate2.reDate, message: '请输入上传日期'}]
+                }]
+            }],
+            editComponent: [{
+                tab: '编辑圈舍转移信息',
+                selectUrl2: [['areas', 'id', 'name', true], ['operates', 'id', 'name', true]],
+                selectInit2: [{value: '', label: '选择要转移的圈舍'}, {value: '', label: '选择操作人'}],
+                popNumber2: [0, 1],
+                selectWhere2: 'id',
+                components: [{
+                    name: 'area_id',
+                    type: 'select',
+                    component: null,
+                    isNull: false,
+                    label: '圈舍名称',
+                    placeholder: '',
+                    rule: {required: true, trigger: 'blur', type: 'number', message: '请选择要转移的圈舍'},
+                    options: []
+                },
+                {
+                    name: 'operate_id',
+                    type: 'select',
+                    component: null,
+                    isNull: false,
+                    label: '操作人',
+                    placeholder: '',
+                    rule: {required: true, trigger: 'blur', type: 'number', message: '请选择操作人'},
+                    options: []
+                },
+                {
+                    name: 'date',
+                    type: 'date',
+                    component: inputDate,
+                    isNull: false,
+                    label: '转移日期',
+                    placeholder: '',
+                    rule: [{required: true, trigger: 'blur', message: '请输入上传日期'}, {validator: validate2.reDate, message: '请输入上传日期'}]
+                }]
+            }]
         }
         ]
     },
@@ -335,7 +425,7 @@ export default {
         tabList: [{
             url: 'detection-rfid',
             tab: '养殖批次信息',
-            searchPlaceholder: '请输入批次号进行搜索',
+            searchPlaceholder: '请输入rfid进行搜索',
             typeComponent: [{component: newbuildBtn}],
             headList: ['圈舍', '养殖批次号', 'Rfid', '畜禽名称', '养殖日期'],
             protos: ['area_name', 'serial', 'rfid', 'beast_name', 'date'],
@@ -538,8 +628,8 @@ export default {
     beastPackBatch: {
         key: 'beastPackBatch',
         tab: '加工批次管理',
-        theads: ['加工批次号', '加工日期', '数量', '产地', '加工人', '备注'],
-        protos: ['serial', 'date', 'amount', 'origin', 'operate_name', 'memo'],
+        theads: ['加工批次号', '加工日期', '数量', '单位', '加工人', '备注'],
+        protos: ['serial', 'date', 'amount', 'unit', 'operate_name', 'memo'],
         batch: 'beastPackProduct',
         url: 'pack',
         tabList: [{
@@ -662,7 +752,7 @@ export default {
                 //     popNumber2: [0],
                 //     labUrl: 'come-rfid',
                 //     type: 'assoc',
-                //     assocNum: 4,
+                //     assocNum: 1,
                 //     components: [{
                 //         name: 'come_id',
                 //         type: 'select',
@@ -789,7 +879,7 @@ export default {
         tabList: [{
             url: 'pack-detect-pk',
             tab: '加工批次信息',
-            searchPlaceholder: '请输入产品名称进行搜索',
+            searchPlaceholder: '请输入加工批次号进行搜索',
             headList: ['加工批次号', '加工日期', '数量', '产地', '操作人', '备注'],
             protos: ['serial', 'date', 'amount', 'origin', 'operate_name', 'memo'],
             widths: [50, 50, 50, 50, 50, 50],
@@ -1053,6 +1143,7 @@ export default {
             newComponent: [{
                 tab: '新建批次施药信息',
                 type: 'table',
+                assocNum: 0,
                 labUrl: 'cultivate',
                 components: [{
                     name: 'name',
@@ -1108,39 +1199,45 @@ export default {
             }]
         }]
     },
-    // 生产计划批次信息
-    plantProduct: {
-        key: 'planProduct',
-        tab: '生产批次管理',
-        theads: ['操作人员', '生产批次号', '操作类型', '日期', '内容', '备注'],
-        protos: ['operate_name', 'serial', 'type', 'date', 'content', 'memo'],
+    // 计划批次信息
+    planSerial: {
+        key: 'planSerial',
+        tab: '计划批次管理',
+        theads: ['计划批次号', '计划日期', '操作类型', '安排人员', '计划内容', '备注'],
+        protos: ['serial', 'date', 'type', 'operate_name', 'content', 'memo'],
         url: 'plan',
         tabList: [{
-            tab: '采收批次信息',
-            searchPlaceholder: '请输入rfid进行搜索',
-            leftOperateList: [{
-                components: [
-                    {
-                        type: 'select',
-                        components: selectSection,
-                        options: [
-                            {
-                            }
-                        ]
-                    },
-                    {
-                        type: 'date',
-                        component: datePick
-                    }
-                ]
+            url: 'cultivate-plan',
+            tab: '种植批次计划信息',
+            searchPlaceholder: '请输入种植批次进行搜索',
+            headList: ['种植批次号', '种植区', '种植果蔬', '种植日期', '种植人', '备注信息'],
+            protos: ['serial', 'plantation_name', 'plant_name', 'date', 'operate_name', 'memo'],
+            widths: [50, 50, 50, 50, 50, 50],
+            hiddeEdit: false,
+            typeComponent: [{
+                component: newbuildBtn
             }],
-            rightOperateComponent: [{component: output}, {component: newbuildBtn}],
-            headList: ['计划日期', '操作类型', '计划内容', '安排人员', '操作用户', '状态', '备注信息'],
-            protos: ['ear', 'name', 'date', 'memo', 'date', 'memo', 'date'],
-            widths: [50, 50, 50, 50, 50, 50, 50],
-            newComponent: [{label: '', type: '', component: '', rule: ''}],
-            tableOperateList: [{operateName: '编辑'}, {operateName: '删除'}],
-            bottomOperateList: [{operateName: '删除'}, {operateName: '导出表格'}]
+            listComponent: [{
+                components: [{
+                    type: 'date',
+                    component: datePick
+                }]
+            }],
+            newComponent: [{
+                tab: '新建批次计划信息',
+                type: 'table',
+                assocNum: 0,
+                labUrl: 'cultivate',
+                components: [{
+                    name: 'name',
+                    type: 'table',
+                    theads: ['种植批次号', '种植果蔬', '种植日期'],
+                    protos: ['serial', 'plant_name', 'date'],
+                    valueId: 'cultivate_ids',
+                    errormsg: '请选择种植批次号',
+                    tableVal: []
+                }]
+            }]
         }]
     },
     // 生产加工批次信息

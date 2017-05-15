@@ -1,10 +1,10 @@
-/**
+ /**
  * @description:导航栏的设置模块
  * @author 舒丹彤
  * @date 2017/4/25  
  *  
  */ 
-<template>
+<template> 
 	<div class="set">
 		<div class="set_content">
 			<contain-title :settitle="settitle">
@@ -132,6 +132,7 @@ export default {
             } else if (label === 3) {
                 this.switchFont('big')
             }
+            // this.$store.commit('CHANGEFONT', label)
         },
         switchTheme (color) {
             this.$store.dispatch('switch_theme', color)

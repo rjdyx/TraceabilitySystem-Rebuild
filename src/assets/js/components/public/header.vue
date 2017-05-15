@@ -11,14 +11,16 @@
 		</div>
 		<div class="head_des">
 			{{logo}}
-		</div>
+		</div> 
 		<!--右侧菜单栏-->
 		<div class="head_right">
 			<ul>
-				<li>
-					<img src="/public/images/time.png" />
-					<span class="time">{{time}}</span>
-				</li>
+				<template>
+					<router-link tag="li" to="/">
+						<img src="/public/images/time.png" />
+						<span class="time">{{time}}</span>
+					</router-link>
+				</template>
 				<template v-for="navbar in navbars">
 					<li class="navbar">
 						<router-link :to="navbar.path">
@@ -82,6 +84,7 @@ export default {
             axios.post('logout', this.data).then((responce) => {
                 if (responce.data === 200) {
                     this.$router.push('/login')
+                    history.go(0) // 刷新更新权限数据
                 }
             })
         }
@@ -100,8 +103,6 @@ export default {
 		height: 66px;
 		overflow: hidden;
 		position: relative;
-	}
-	
 	.head_logo {
 		display: inline-block;
 		padding: 8px 0px 2px 20px;
@@ -133,6 +134,11 @@ export default {
 				margin-bottom: 5px;
 				text-align: center;
 				color: #fff;
+				cursor: pointer;
+					&:hover{
+						animation: 1700ms ease-out backwards;
+						animation-name: header;
+					}
 				span {
 					color: #fff;
 				}
@@ -144,4 +150,13 @@ export default {
 			}
 		}
 	}
+	@keyframes header {
+		0%{
+			opacity: 0;
+		}
+		100%{
+			opacity: 1;
+		}
+	}
+}
 </style>

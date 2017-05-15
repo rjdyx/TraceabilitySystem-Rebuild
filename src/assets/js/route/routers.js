@@ -77,6 +77,12 @@ const help = resolve => {
         resolve(require('../components/top/help.vue'))
     }, 'help')
 }
+// -------------------------------ondone未完成图片------------------------------
+const ondone = resolve => {
+    require.ensure(['../components/top/ondone.vue'], () => {
+        resolve(require('../components/top/ondone.vue'))
+    }, 'ondone')
+}
 var routes = [
     {
         path: '/',
@@ -124,6 +130,10 @@ var routes = [
             {
                 path: 'help',
                 component: help
+            },
+            {
+                path: 'ondone',
+                component: ondone
             },
             {
                 path: 'details/:model/:id',

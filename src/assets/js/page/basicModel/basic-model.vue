@@ -143,8 +143,7 @@
           @current-change="pageChange">
         </el-pagination>
     </div>
-    
-</div> 
+</div>
 </template> 
  
 <script>
@@ -194,6 +193,7 @@ export default {
                             rule: ''
                         }
                     }],
+                    imgComponent: [],
                     editComponent: [],
                     moreComponent: [],
                     printComponent: [],
@@ -655,6 +655,7 @@ export default {
         }
     },
     mounted () {
+        this.activeName = 'index0'
         // 获取下拉框
         if (this.selectValueId) {
             this.getSelect()
