@@ -21,7 +21,7 @@
                     </template>
                     <el-form-item class="userOperate">
                         <el-button type="primary" @click="submitForm('editValue')">保存</el-button>
-                        <el-button @click="resetForm('editValue')">取消</el-button>
+                        <el-button @click="closeClick">取消</el-button>
                     </el-form-item>
 				</el-form>
 			</div>
@@ -65,27 +65,21 @@ export default {
     },
     methods: {
         closeClick () {
-            this.$parent.showEdit()
-        },
-        resetForm () {
-            this.$parent.showEdit()
-        },
-        // 取消事件
-        cancelClick () {
-            this.$parent.closeEditShow()
+            this.$parent.showEdit('false')
         },
         submitForm (formName) {
             this.$refs[formName].validate((valid) => {
                 if (valid) {
                     this.$dataPost(this, 'company/' + this.editValue.id, this.editValue, true, false, true).then((response) => {
-                        this.$parent.showEdit()
                         if (response.data !== 'false') {
                             this.$message({
                                 message: '修改数据成功',
                                 type: 'success'
                             })
+                            this.$parent.showEdit('true')
                             this.$emit('updateValue', response.data)
                         } else {
+                            this.$parent.showEdit('false')
                             this.$message.error('修改数据失败')
                         }
                     })
