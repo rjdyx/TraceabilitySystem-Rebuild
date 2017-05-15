@@ -21,7 +21,7 @@ export default {
                     path: '/index/home'
                 },
                 {
-                    name: 'test',
+                    name: window.Roles.name,
                     src: '/public/images/test.png',
                     path: '/index/test'
                 },

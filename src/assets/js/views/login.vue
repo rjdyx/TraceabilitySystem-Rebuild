@@ -130,7 +130,8 @@ export default {
                 if (valid) {
                     axios.post('/login', this.ruleForm2).then((responce) => {
                         if (responce.data !== 200) {
-                            callback(new Error('登录失败'))
+                            alert('用户名或密码错误')
+                            // callback(new Error('登录失败'))
                         } else {
                             this.$router.push('/index')
                             let fa = localStorage.getItem('record')

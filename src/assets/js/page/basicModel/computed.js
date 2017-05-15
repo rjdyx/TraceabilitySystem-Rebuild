@@ -89,6 +89,9 @@ export default {
         },
         checkboxShow () {
             return this.models[this.modelIndex].checkboxShow
+        },
+        roleName () {
+            return this.models[this.modelIndex].roleName
         }
     }
 }

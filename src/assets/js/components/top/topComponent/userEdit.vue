@@ -7,7 +7,7 @@
 <template>
 	<div class="newWrap">
 		<form class="newForm">
-			<i class="closeIcon" @click="closeClick"></i>
+			<i class="el-icon-circle-close" @click="closeClick"></i>
                 <el-tabs class="tab">
                     <el-tab-pane label="编辑用户信息" :name="编辑用户信息">
 						<el-form :model="editValue" :rules="rules" ref="editValue" label-width="100px">
@@ -52,7 +52,7 @@
                 </el-tabs>
                 <div class="form-footer">
                     <el-button class="btn_change" @click="submitForm('editValue')">确定</el-button>
-                    <el-button class="activecancel" @click="resetForm('editValue')">取消</el-button>
+                    <el-button class="activecancel" @click="closeClick">取消</el-button>
                 </div>
 				</form>
 			</div>
@@ -85,47 +85,42 @@ export default {
             },
             rules: {
                 name: [
-                    {required: true, message: '请输入用户名', trigger: 'blur'}
+                    {required: true, message: '请输入用户名'}, {validator: validate2.reCheck, url: 'user', id: this.editValue.id}
                 ],
                 number: [
-                    {required: true, message: '请输入用户工号', trigger: 'blur'}
+                    {required: true, message: '请输入用户工号'}, {validator: validate2.reInteger}, {validator: validate2.reCheck, url: 'user', id: this.editValue.id, message: '用户工号已重复'}
                 ],
                 email: [
-                    {required: true, message: '请输入邮箱', trigger: 'blur'}
+                    {required: true, message: '请输入正确的邮箱格式', type: 'email'}, {validator: validate2.reCheck, url: 'user', id: this.editValue.id, message: '用户邮箱已存在'}
                 ],
                 phone: [
-                    {required: true, message: '请输入手机号码', trigger: 'blur'}
+                    {required: true, message: '请输入手机号码', validator: validate2.phone}
                 ]
             }
         }
     },
     mixins: [move],
     mounted () {
+        console.log(this.editValue.img)
     },
     methods: {
         closeClick () {
-            this.$parent.showEdit()
-        },
-        resetForm () {
-            this.$parent.showEdit()
-        },
-        // 取消事件
-        cancelClick () {
-            this.$parent.closeEditShow()
+            this.$parent.showEdit('false')
         },
         submitForm (formName) {
             this.$refs[formName].validate((valid) => {
                 if (valid) {
                     var ret = this.$conversion(this.changeDataArr, this.editValue, 0)
                     this.$dataPost(this, 'user/' + ret.id, ret, true, false, true).then((response) => {
-                        this.$parent.showEdit()
                         if (response.data !== 'false') {
                             this.$message({
                                 message: '修改数据成功',
                                 type: 'success'
                             })
+                            this.$parent.showEdit('true')
                             this.$emit('updateValue', response.data)
                         } else {
+                            this.$parent.showEdit('false')
                             this.$message.error('修改数据失败')
                         }
                     })

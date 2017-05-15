@@ -34,7 +34,7 @@
         </el-tabs>
         <div class="form-footer">
             <el-button class="btn_change" @click="submitForm('editValue')">保存</el-button>
-            <el-button class="activecancel" @click="resetForm('editValue')">取消</el-button>
+            <el-button class="activecancel" @click="closeClick">取消</el-button>
         </div>
 		</form>
 	</div>
@@ -53,6 +53,7 @@ export default {
     data () {
         return {
             id: '',
+            checkNumber: [0],
             thread: {
                 name: ['公司名称', 'text', '必填'],
                 short_name: ['公司简称', 'text', ''],
@@ -66,11 +67,17 @@ export default {
                 website: ['公司网站', 'text', ''],
                 logo: ['公司Logo', 'file', '', {name: 'logo'}],
                 watermark: ['水印', 'file', '', {name: 'watermark'}],
-                memo: ['公司简称', 'text', '']
+                memo: ['备注', 'text', '']
             },
             rules: {
                 name: [
-                    {required: true, message: '请输入公司名称', trigger: 'blur'}
+                    {required: true, message: '请输入公司名称'}, {validator: validate2.reCheck, url: 'company', id: this.editValue.id}
+                ],
+                phone: [
+                    {required: false, validator: validate2.phone}
+                ],
+                total_staff: [
+                    {required: false, validator: validate2.reInteger}
                 ]
             }
         }
@@ -78,27 +85,21 @@ export default {
     mixins: [move],
     methods: {
         closeClick () {
-            this.$parent.showEdit()
-        },
-        resetForm () {
-            this.$parent.showEdit()
-        },
-        // 取消事件
-        cancelClick () {
-            this.$parent.closeEditShow()
+            this.$parent.showEdit('false')
         },
         submitForm (formName) {
             this.$refs[formName].validate((valid) => {
                 if (valid) {
                     this.$dataPost(this, 'company/' + this.editValue.id, this.editValue, true, false, true).then((response) => {
-                        this.$parent.showEdit()
                         if (response.data !== 'false') {
                             this.$message({
                                 message: '修改数据成功',
                                 type: 'success'
                             })
+                            this.$parent.showEdit('true')
                             this.$emit('updateValue', response.data)
                         } else {
+                            this.$parent.showEdit('false')
                             this.$message.error('修改数据失败')
                         }
                     })
@@ -122,63 +123,4 @@ export default {
 
 <style lang="sass">
 @import "../../../../sass/public/pop.scss"
-// .mask {
-//   position: fixed;
-//   width: 100%;
-//   height: 100%;
-//   background: rgba(0, 0, 0, 0.3);
-//   top: 0;
-//   left: 0;
-//   z-index: 2;
-//   text-align: center;
-//   overflow: hidden;
-
-// .formUser {
-//   width: 622px;
-//   position: absolute;
-//   background: #fff;
-//   left: 50%;
-//   top: 50%;
-//   transform: translateX(-50%) translateY(-50%);
-//   box-shadow: 1px 1px 50px rgba(0, 0, 0, 0.3);
-//   padding-bottom: 30px;
-// }
-
-// .closeIcon {
-//   background: url(/public/images/close.png) no-repeat;
-//   background-position: -149px -31px;
-//   width: 30px;
-//   height: 30px;
-//   display: inline-block;
-//   position: absolute;
-//   right: -14px;
-//   top: -12px;
-//   &:hover {
-//     background-position: -180px -31px;
-//   }
-// }
-
-// .tab {
-//   text-align: left;
-//   font-weight: normal;
-//   padding: 20px 0 15px 20px;
-//   border-bottom: 2px solid #cecece;
-//   margin-bottom: 20px;
-// }
-
-// .margin {
-//   padding-right: 30px;
-//   height:500px;
-//   overflow-y:scroll; overflow-x:scroll;
-// }
-
-// .el-select, .el-date-editor.el-input {
-//   float: left;
-// }
-
-// .userOperate {
-//   margin-top: 15px;
-//   float: right;
-// }
-// }
 </style>

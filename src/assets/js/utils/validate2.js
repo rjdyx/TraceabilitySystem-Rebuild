@@ -37,7 +37,7 @@ exports.reCheck = (rule, value, callback, source, options) => {
         axios.get(('/api/util/check/' + rule.url), {params: par})
         .then((responce) => {
             if (responce.data === 'false') {
-                callback(new Error('名称重复'))
+                callback(new Error(rule.message === undefined ? '名称重复' : rule.message))
             } else {
                 callback()
             }
@@ -48,7 +48,21 @@ exports.reCheck = (rule, value, callback, source, options) => {
 exports.reNumber = (rule, value, callback, source, options) => {
     if (value !== '' && value !== undefined && value !== null) {
         if (/^(-?\d+)(\.\d+)?$/.test(value)) {
-            callback()
+            if (rule.getMax !== undefined) {
+                if (parseInt(value) >= parseInt(rule.getMax)) {
+                    callback(new Error(rule.getMessage))
+                } else {
+                    callback()
+                }
+            } else if (rule.getMin !== undefined) {
+                if (parseInt(value) <= parseInt(rule.getMin)) {
+                    callback(new Error(rule.getMessage))
+                } else {
+                    callback()
+                }
+            } else {
+                callback()
+            }
         } else {
             callback(new Error('请输入数字'))
         }

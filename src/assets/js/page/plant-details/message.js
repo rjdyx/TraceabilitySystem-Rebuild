@@ -15,6 +15,7 @@ export default {
     // 养殖批次详情
     breedBatch: {
         key: 'breedBatch',
+        roleName: ['beast/breed', 0], // 接口权限参数 参数1为权限name 参数2为是否区分运营者 （默认0）
         tab: '养殖批次管理',
         theads: ['批次号', '养殖区', '圈舍', '畜禽', '开始日期', '数量', '养殖方式', '养殖人', '操作人', '录入人', '备注'],
         protos: ['serial', 'farm_name', 'area_name', 'beast_name', 'start_date', 'amount', 'way', 'operate', 'operate_name', 'user_name', 'meno'],
@@ -192,6 +193,96 @@ export default {
                     rule: null
                 }]
             }]
+        },
+        {
+            url: 'breed_area',
+            tab: '圈舍记录',
+            searchPlaceholder: '请输入圈舍名称进行搜索',
+            headList: ['圈舍名称', '开始日期', '结束日期', '操作人', '录入人'],
+            protos: ['name', 'date', 'end_date', 'operate_name', 'user_name'],
+            widths: [50, 50, 50, 50, 50],
+            hiddeEdit: false,
+            typeComponent: [{
+                component: newbuildBtn
+            }],
+            listComponent: [{
+                components: [{
+                    type: 'date',
+                    component: datePick
+                }]
+            }],
+            newComponent: [{
+                tab: '新建圈舍转移信息',
+                selectUrl2: [['areas', 'id', 'name', true], ['operates', 'id', 'name', true]],
+                selectInit2: [{value: '', label: '选择要转移的圈舍'}, {value: '', label: '选择操作人'}],
+                popNumber2: [0, 1],
+                selectWhere2: 'id',
+                components: [{
+                    name: 'area_id',
+                    type: 'select',
+                    component: null,
+                    isNull: false,
+                    label: '圈舍名称',
+                    placeholder: '',
+                    rule: {required: true, trigger: 'blur', type: 'number', message: '请选择要转移的圈舍'},
+                    options: []
+                },
+                {
+                    name: 'operate_id',
+                    type: 'select',
+                    component: null,
+                    isNull: false,
+                    label: '操作人',
+                    placeholder: '',
+                    rule: {required: true, trigger: 'blur', type: 'number', message: '请选择操作人'},
+                    options: []
+                },
+                {
+                    name: 'date',
+                    type: 'date',
+                    component: inputDate,
+                    isNull: false,
+                    label: '转移日期',
+                    placeholder: '',
+                    rule: [{required: true, trigger: 'blur', message: '请输入上传日期'}, {validator: validate2.reDate, message: '请输入上传日期'}]
+                }]
+            }],
+            editComponent: [{
+                tab: '编辑圈舍转移信息',
+                selectUrl2: [['areas', 'id', 'name', true], ['operates', 'id', 'name', true]],
+                selectInit2: [{value: '', label: '选择要转移的圈舍'}, {value: '', label: '选择操作人'}],
+                popNumber2: [0, 1],
+                selectWhere2: 'id',
+                components: [{
+                    name: 'area_id',
+                    type: 'select',
+                    component: null,
+                    isNull: false,
+                    label: '圈舍名称',
+                    placeholder: '',
+                    rule: {required: true, trigger: 'blur', type: 'number', message: '请选择要转移的圈舍'},
+                    options: []
+                },
+                {
+                    name: 'operate_id',
+                    type: 'select',
+                    component: null,
+                    isNull: false,
+                    label: '操作人',
+                    placeholder: '',
+                    rule: {required: true, trigger: 'blur', type: 'number', message: '请选择操作人'},
+                    options: []
+                },
+                {
+                    name: 'date',
+                    type: 'date',
+                    component: inputDate,
+                    isNull: false,
+                    label: '转移日期',
+                    placeholder: '',
+                    rule: [{required: true, trigger: 'blur', message: '请输入上传日期'}, {validator: validate2.reDate, message: '请输入上传日期'}]
+                }]
+            }]
         }
         ]
     },
@@ -199,6 +290,7 @@ export default {
     feedBatch: {
         key: 'feedBatch',
         tab: '饲料批次管理',
+        roleName: ['beast/fodderuse', 0],
         theads: ['饲料批次号', '饲料日期', '饲料名称', '喂养方式', '操作人员', '喂养量', '备注信息'],
         protos: ['serial', 'date', 'fodder_name', 'way', 'operate_name', 'amount_unit', 'meno'],
         url: 'fodderuse',
@@ -238,6 +330,7 @@ export default {
     beastDetectBatch: {
         key: 'beastDetectBatch',
         tab: '检测批次管理',
+        roleName: ['beast/detect', 0],
         theads: ['检测批次号', '检测日期', '检测项目名称', '专家', '操作人员', '检测内容', '检测结果', '审批人', '检测报告图片', '备注'],
         protos: ['serial', 'date', 'name', 'expert_name', 'operate_name', 'content', 'result', 'check', 'img', 'memo'],
         url: 'detect',
@@ -277,6 +370,7 @@ export default {
     plagueBatch: {
         key: 'plagueBatch',
         tab: '病疫批次管理',
+        roleName: ['beast/disease', 0],
         theads: ['病疫批次号', '兽药名称', '用药日期', '病情描述', '专家', '平均用药量', '治疗方式', '备注'],
         protos: ['serial', 'drug_name', 'date', 'description', 'expert_name', 'amount_unit', 'way', 'meno'],
         url: 'disease',
@@ -329,6 +423,7 @@ export default {
     detectionBatch: {
         key: 'detectionBatch',
         tab: '检疫批次管理',
+        roleName: ['beast/detection', 0],
         theads: ['检验批次号', '检测日期', '检测项目名称', '专家', '操作人员', '检测内容', '检测结果', '审批人', '检测报告图片', '备注'],
         protos: ['serial', 'date', 'name', 'expert_name', 'operate_name', 'content', 'result', 'check', 'img', 'memo'],
         url: 'detection',
@@ -375,7 +470,8 @@ export default {
     // 圈舍维护批次详情
     areaBatch: {
         key: 'areaBatch',
-        tab: '圈舍批次管理',
+        tab: '圈舍维护批次管理',
+        roleName: ['beast/clian', 0],
         theads: ['圈舍批次号', '操作类型', '操作方式', '操作内容', '专家', '操作人', '操作日期', '备注信息'],
         protos: ['serial', 'name', 'way', 'content', 'expert_name', 'operate_name', 'date', 'memo'],
         url: 'clean',
@@ -410,6 +506,7 @@ export default {
     innocuityBatch: {
         key: 'innocuityBatch',
         tab: '无害化批次管理',
+        roleName: ['beast/dispose', 0],
         theads: ['无害化批次号', '操作日期', '操作内容', '实行原因', '指导专家', '备注信息'],
         protos: ['serial', 'date', 'content', 'why', 'expert_name', 'memo'],
         url: 'dispose',
@@ -457,6 +554,7 @@ export default {
     slaughterBatch: {
         key: 'slaughterBatch',
         tab: '畜禽出栏管理',
+        roleName: ['beast/come', 0],
         theads: ['出栏批次号', '出栏日期', '出栏数量', '操作人员', '备注'],
         protos: ['serial', 'date', 'amount', 'operate_name', 'memo'],
         url: 'come',
@@ -504,6 +602,7 @@ export default {
     planBatch: {
         key: 'planBatch',
         tab: '养殖计划管理',
+        roleName: ['beast/plan', 0],
         theads: ['养殖批次号', '所属养殖场', '养殖人', '养殖日期', '所属养殖区', '养殖地址', '养殖畜禽名称', '养殖面积', '养殖备注'],
         protos: [],
         url: 'plan',
@@ -538,6 +637,7 @@ export default {
     beastPackBatch: {
         key: 'beastPackBatch',
         tab: '加工批次管理',
+        roleName: ['packb/pack', 0],
         theads: ['加工批次号', '加工日期', '数量', '单位', '加工人', '备注'],
         protos: ['serial', 'date', 'amount', 'unit', 'operate_name', 'memo'],
         batch: 'beastPackProduct',
@@ -575,6 +675,7 @@ export default {
     beastPackProduct: {
         key: 'beastPackProduct',
         tab: '生产加工产品管理',
+        roleName: ['packb/pack', 0],
         theads: ['产品名称', '执行标准', '商品型号', '包装规格', '保质期', '存储方法'],
         protos: ['name', 'enforce_standard', 'marque', 'specification', 'expiration_date', 'storage_means'],
         url: '{x}/pack-product',
@@ -782,6 +883,7 @@ export default {
     beastDetectPkBatch: {
         key: 'beastDetectPkBatch',
         tab: '加工检测批次管理',
+        roleName: ['packb/detect', 0],
         theads: ['检测批次号', '检测名称', '检测内容', '检测日期', '检测结果', '检测机构', '负责人', '处理方法'],
         protos: ['serial', 'name', 'content', 'date', 'result', 'organization', 'operate_name', 'method'],
         changeDataArr: [{result: {'不合格': 0, '合格': 1}}],
@@ -820,6 +922,7 @@ export default {
     plantSerial: {
         key: 'plantSerial',
         tab: '种植批次管理',
+        roleName: ['plant/cultivate', 0],
         theads: ['种植批次号', '所属种植区', '种植人', '种植日期', '种植地址', '种植果蔬名称', '当前批次面积', '备注'],
         protos: ['serial', 'plantation_name', 'operate_name', 'date', 'address', 'plant_name', 'area_unit', 'memo'],
         url: 'cultivate',
@@ -946,6 +1049,7 @@ export default {
     // 施肥批次详情
     fertilizeBatch: {
         key: 'fertilizeBatch',
+        roleName: ['plant/farming', 0],
         tab: '施肥批次管理',
         theads: ['施肥批次号', '肥料', '施肥人', '施肥日期', '施肥量（Kg）', '专家', '施肥方法', '备注'],
         protos: ['serial', 'manure_name', 'operate_name', 'date', 'amount_unit', 'expert_name', 'way', 'memo'],
@@ -988,6 +1092,7 @@ export default {
     sprayBatch: {
         key: 'sprayBatch',
         tab: '施药批次管理',
+        roleName: ['plant/farming', 0],
         theads: ['施药批次号', '农药', '施药人', '施药日期', '施药量（Kg）', '专家', '施药方法', '备注'],
         protos: ['serial', 'medicament_name', 'operate_name', 'date', 'amount_unit', 'expert_name', 'way', 'memo'],
         url: 'spray',
@@ -1029,6 +1134,7 @@ export default {
     plantDetectBatch: {
         key: 'plantDetectBatch',
         tab: '种植检测批次管理',
+        roleName: ['plant/farming', 0],
         theads: ['检测批次号', '检测类型', '检测人', '检测日期', '检测部门', '检测内容', '检测结果', '专家'],
         protos: ['serial', 'name', 'operate_name', 'date', 'department', 'content', 'result', 'expert_name'],
         url: 'detect',
@@ -1072,6 +1178,7 @@ export default {
     farmingBatch: {
         key: 'farmingBatch',
         tab: '种植田间批次管理',
+        roleName: ['plant/farming', 0],
         theads: ['田间批次号', '操作内容', '操作方法', '操作日期', '操作人', '专家', '天气'],
         protos: ['serial', 'content', 'method', 'date', 'operate_name', 'expert_name', 'weather'],
         url: 'farming',
@@ -1113,6 +1220,7 @@ export default {
     planSerial: {
         key: 'planSerial',
         tab: '计划批次管理',
+        roleName: ['plant/plan', 0],
         theads: ['计划批次号', '计划日期', '操作类型', '安排人员', '计划内容', '备注'],
         protos: ['serial', 'date', 'type', 'operate_name', 'content', 'memo'],
         url: 'plan',
@@ -1154,6 +1262,7 @@ export default {
     plantPackBatch: {
         key: 'plantPackBatch',
         tab: '果蔬加工批次管理',
+        roleName: ['packp/pack', 0],
         theads: ['加工批次号', '加工日期', '数量', '产地', '加工人', '备注'],
         protos: ['serial', 'date', 'amount', 'origin', 'operate_name', 'memo'],
         batch: 'plantPackProduct',
@@ -1191,6 +1300,7 @@ export default {
     plantPackProduct: {
         key: 'plantPackProduct',
         tab: '生产加工产品管理',
+        roleName: ['packp/pack', 0],
         theads: ['产品名称', '执行标准', '商品型号', '包装规格', '保质期', '存储方法'],
         protos: ['name', 'enforce_standard', 'marque', 'specification', 'expiration_date', 'storage_means'],
         url: '{x}/pack-product',
@@ -1346,6 +1456,7 @@ export default {
     detectPackBatch: {
         key: 'detectPackBatch',
         tab: '加工检测管理',
+        roleName: ['packp/detect', 0],
         theads: ['检测批次号', '检测名称', '检测内容', '检测日期', '检测结果', '检测机构', '负责人', '处理方法'],
         protos: ['serial', 'name', 'content', 'date', 'result', 'organization', 'operate_name', 'method'],
         batch: 'plantPackProduct',
@@ -1390,6 +1501,7 @@ export default {
     saleInput: {
         key: 'storageProduct',
         tab: '销售入库批次管理',
+        roleName: ['sell/storage', 0],
         theads: ['入库批次号', '入库日期', '供货商', '商品名称', '数量', '入库人', '备注信息'],
         protos: ['serial', 'datetime', 'supplier_name', 'product_name', 'amount', 'operate_name', 'memo'],
         url: 'storage',
@@ -1474,6 +1586,7 @@ export default {
     saleOrder: {
         key: 'sellDetail',
         tab: '销售订单详情管理',
+        roleName: ['sell/order', 0],
         theads: ['销售订单号', '订单日期', '物流批次号', '客户名称', '金额', '数量', '销售员', '备注'],
         protos: ['serial', 'datetime', 'delivery_serial', 'client_name', 'money', 'amount', 'operate_name', 'memo'],
         url: 'sell',
@@ -1558,6 +1671,7 @@ export default {
     companyUser: {
         key: 'companyUser',
         url: 'company',
+        roleName: ['admin/company', 1],
         tab: '入驻单位详情管理',
         theads: ['公司名称', '公司编码', '公司logo', '负责人/法人', '公司简称', '统一码', '电话', '地址', '经营范围', '员工总数', '公司网站', '销售网站'],
         protos: ['name', 'coding', 'logo', 'legal_person', 'short_name', 'USCC', 'phone', 'address', 'business_scope', 'total_staff', 'website', 'sell_website'],

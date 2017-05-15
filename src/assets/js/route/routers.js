@@ -13,6 +13,12 @@ const index = resolve => {
         resolve(require('../views/index.vue'))
     }, 'index')
 }
+// ---------------------------403----------------------------------
+const Role403 = resolve => {
+    require.ensure(['../views/403.vue'], () => {
+        resolve(require('../views/403.vue'))
+    }, 'Role403')
+}
 // ---------------------------404----------------------------------
 const notFound = resolve => {
     require.ensure(['../views/404.vue'], () => {
@@ -77,6 +83,12 @@ const help = resolve => {
         resolve(require('../components/top/help.vue'))
     }, 'help')
 }
+// -------------------------------ondone未完成图片------------------------------
+const ondone = resolve => {
+    require.ensure(['../components/top/ondone.vue'], () => {
+        resolve(require('../components/top/ondone.vue'))
+    }, 'ondone')
+}
 var routes = [
     {
         path: '/',
@@ -130,6 +142,10 @@ var routes = [
                 component: help
             },
             {
+                path: 'ondone',
+                component: ondone
+            },
+            {
                 path: 'details/:model/:id',
                 component: details
             }]
@@ -138,6 +154,11 @@ var routes = [
         path: '/404',
         name: 'notFound',
         component: notFound
+    },
+    {
+        path: '/403',
+        name: 'Role403',
+        component: Role403
     },
     {
         path: '/login',
