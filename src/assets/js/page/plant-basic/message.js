@@ -21,6 +21,7 @@ export default {
         settitle: '分类档案管理',
         key: 'category',
         tab: '分类档案信息',
+        roleName: ['basic/category', 0], // 接口权限参数 参数1为权限name 参数2为是否区分运营者 （默认0）
         url: 'category',
         searchPlaceholder: '请输入分类名称进行搜索',
         theads: ['分类名称', '模块类型', '备注信息'],
@@ -224,6 +225,7 @@ export default {
         settitle: '人员档案管理',
         key: 'operate',
         tab: '人员档案信息',
+        roleName: ['basic/operate', 0],
         url: 'operate',
         searchPlaceholder: '请输入人物姓名进行搜索',
         selectSearch: ['operates.category_id'],
@@ -454,6 +456,7 @@ export default {
         settitle: '专家档案管理',
         key: 'expert',
         tab: '专家档案信息',
+        roleName: ['basic/expert', 0],
         url: 'expert',
         selectSearch: ['experts.category_id'],
         selectValueId: [['category_id', 'category_name', true]],
@@ -699,6 +702,7 @@ export default {
         settitle: '客户档案管理',
         key: 'client',
         tab: '客户档案信息',
+        roleName: ['basic/client', 0],
         url: 'client',
         selectSearch: ['clients.category_id'],
         selectValueId: [['category_id', 'category_name', true]],
@@ -876,6 +880,7 @@ export default {
         settitle: '供货商档案管理',
         key: 'supplier',
         tab: '供货商档案信息',
+        roleName: ['basic/supplier', 0],
         url: 'supplier',
         selectSearch: ['suppliers.category_id'],
         selectValueId: [['category_id', 'category_name', true]],
@@ -1032,6 +1037,7 @@ export default {
         settitle: '产品档案管理',
         key: 'product',
         tab: '产品档案信息',
+        roleName: ['basic/product', 0],
         url: 'product',
         selectValueId: [['category_id', 'category_name', true]],
         searchPlaceholder: '请输入产品名称进行搜索',
@@ -1298,6 +1304,7 @@ export default {
             settitle: '养殖基础信息管理',
             key: 'farm',
             tab: '养殖场信息',
+            roleName: ['beast/basic', 0],
             url: 'farm',
             searchPlaceholder: '请输入养殖场进行搜索',
             search: ['query_text', 'name'],
@@ -1514,6 +1521,7 @@ export default {
             settitle: '养殖基础信息管理',
             key: 'farmcd',
             tab: '养殖区信息',
+            roleName: ['beast/basic', 0],
             url: 'farmcd',
             searchPlaceholder: '请输入养殖区进行搜索',
             selectValueId: [['pid', 'parent_name', true]],
@@ -1769,6 +1777,7 @@ export default {
             settitle: '养殖基础信息管理',
             key: 'area',
             tab: '圈舍档案',
+            roleName: ['beast/basic', 0],
             url: 'area',
             searchPlaceholder: '请输入圈舍名称进行搜索',
             selectValueId: [['farm_id', 'farm_name', true]],
@@ -1934,6 +1943,7 @@ export default {
             settitle: '养殖基础信息管理',
             key: 'beast',
             tab: '畜禽档案',
+            roleName: ['beast/basic', 0],
             url: 'beast',
             searchPlaceholder: '请输入畜禽名称进行搜索',
             selectValueId: [['category_id', 'category_name', true]],
@@ -2092,6 +2102,7 @@ export default {
             settitle: '养殖基础信息管理 ',
             key: 'fodder',
             tab: '饲料档案',
+            roleName: ['beast/basic', 0],
             url: 'fodder',
             searchPlaceholder: '请输入饲料名称',
             selectValueId: [['category_id', 'category_name', true]],
@@ -2306,6 +2317,7 @@ export default {
             settitle: '养殖基础信息管理 ',
             key: 'addition',
             tab: '饲料添加剂档案',
+            roleName: ['beast/basic', 0],
             url: 'addition',
             selectSearch: ['additions.category_id'],
             selectValueId: [['category_id', 'category_name', true]],
@@ -2556,6 +2568,7 @@ export default {
             key: 'drug',
             tab: '兽药档案',
             url: 'drug',
+            roleName: ['beast/basic', 0],
             searchPlaceholder: '请输入兽药名称',
             selectValueId: [['category_id', 'category_name', true]],
             selectDefault: [{value: '', label: '选择兽药类型'}],
@@ -2769,6 +2782,7 @@ export default {
         settitle: '养殖批次管理',
         key: 'breed',
         tab: '养殖批次信息',
+        roleName: ['beast/breed', 0],
         url: 'breed',
         // 链接批次信息模块数据的桥（养殖批次详情）
         batch: 'breedBatch',
@@ -2970,6 +2984,7 @@ export default {
         settitle: '饲料使用管理',
         key: 'fodderuse',
         tab: '饲料使用信息',
+        roleName: ['beast/fodderuse', 0],
         url: 'fodderuse',
         // 链接批次信息模块数据的桥（养殖批次详情）
         batch: 'feedBatch',
@@ -3183,6 +3198,7 @@ export default {
         settitle: '病疫管理',
         key: 'disease',
         tab: '病疫信息',
+        roleName: ['beast/disease', 0],
         url: 'disease',
         // 链接批次信息模块数据的桥（养殖批次详情）
         batch: 'plagueBatch',
@@ -3440,6 +3456,7 @@ export default {
     detectionManage: [{
         settitle: '检疫管理',
         key: 'detection',
+        roleName: ['beast/detection', 0],
         tab: '检疫信息',
         url: 'detection',
         // 链接批次信息模块数据的桥（养殖批次详情）
@@ -3717,6 +3734,7 @@ export default {
     beastDetectManage: [{
         settitle: '检测管理',
         key: 'detect',
+        roleName: ['beast/detect', 0],
         tab: '检测信息',
         url: 'detect',
         paramsIndex: 'beast',
@@ -4010,6 +4028,7 @@ export default {
     areaManage: [{
         settitle: '圈舍维护管理',
         key: 'clean',
+        roleName: ['beast/clean', 0],
         tab: '圈舍维护信息',
         url: 'clean',
         // 链接批次信息模块数据的桥（养殖批次详情）
@@ -4202,6 +4221,7 @@ export default {
     innocuityManage: [{
         settitle: '无害化管理',
         key: 'dispose',
+        roleName: ['beast/dispose', 0],
         tab: '无害化信息',
         url: 'dispose',
         // 链接批次信息模块数据的桥（养殖批次详情）
@@ -4386,6 +4406,7 @@ export default {
     slaughterManage: [{
         settitle: '出栏管理',
         key: 'come',
+        roleName: ['beast/come', 0],
         tab: '出栏信息',
         url: 'come',
         // 链接批次信息模块数据的桥（养殖批次详情）
@@ -4499,6 +4520,7 @@ export default {
     planManage: [{
         settitle: '养殖计划管理',
         key: 'plan-beast',
+        roleName: ['beast/plan', 0],
         tab: '养殖计划信息',
         url: 'plan',
         paramsIndex: 'beast',
@@ -4713,6 +4735,7 @@ export default {
     petProcess: [{
         settitle: '加工批次管理',
         key: 'pack',
+        roleName: ['packb/pack', 0],
         tab: '加工批次信息',
         url: 'pack',
         batch: 'beastPackBatch',
@@ -4837,6 +4860,7 @@ export default {
     petDectect: [{
         settitle: '检验检测管理',
         key: 'detect_pk',
+        roleName: ['packb/detect', 0],
         tab: '检验检测信息',
         url: 'detect_pk',
         batch: 'beastDetectPkBatch',
@@ -5069,6 +5093,7 @@ export default {
     petTrace: [{
         settitle: '产品溯源管理',
         key: 'code-beast',
+        roleName: ['packb/code', 0],
         tab: '产品溯源码信息',
         url: 'code',
         batch: 'beastPackBatch',
@@ -5301,6 +5326,7 @@ export default {
         {
             settitle: '种植基础资料',
             key: 'plantation',
+            roleName: ['plant/basic', 0],
             tab: '种植场',
             url: 'plantation',
             searchPlaceholder: '请输入种植场进行搜索',
@@ -5499,6 +5525,7 @@ export default {
         },
         {
             settitle: '种植基础资料',
+            roleName: ['plant/basic', 0],
             key: 'planta',
             tab: '种植区',
             url: 'planta',
@@ -5720,6 +5747,7 @@ export default {
         {
             settitle: '种植基础资料',
             key: 'plant',
+            roleName: ['plant/basic', 0],
             tab: '果蔬档案',
             url: 'plant',
             selectSearch: ['plants.category_id'],
@@ -5874,6 +5902,7 @@ export default {
             settitle: '种植基础资料',
             key: 'manure',
             tab: '肥料档案',
+            roleName: ['plant/basic', 0],
             url: 'manure',
             selectSearch: ['manures.category_id'],
             selectValueId: [['category_id', 'category_name', true]],
@@ -6058,6 +6087,7 @@ export default {
             settitle: '种植基础资料',
             key: 'medicament',
             tab: '农药档案',
+            roleName: ['plant/basic', 0],
             url: 'medicament',
             selectSearch: ['medicaments.category_id'],
             selectValueId: [['category_id', 'category_name', true]],
@@ -6323,6 +6353,7 @@ export default {
     plantSerial: [{
         settitle: '种植批次管理',
         key: 'cultivate',
+        roleName: ['plant/breed', 0],
         tab: '种植批次信息',
         url: 'cultivate',
         batch: 'plantSerial',
@@ -6535,6 +6566,7 @@ export default {
         {
             settitle: '农事管理',
             key: 'fertilize',
+            roleName: ['plant/farming', 0],
             tab: '施肥信息',
             url: 'fertilize',
             batch: 'fertilizeBatch',
@@ -6807,6 +6839,7 @@ export default {
             settitle: '农事管理',
             key: 'spray',
             tab: '病虫害信息',
+            roleName: ['plant/farming', 0],
             url: 'spray',
             batch: 'sprayBatch',
             selectSearch: ['medicaments.id'],
@@ -7118,6 +7151,7 @@ export default {
             settitle: '农事管理',
             key: 'plant-detect',
             tab: '种植检测信息',
+            roleName: ['plant/farming', 0],
             url: 'detect',
             batch: 'plantDetectBatch',
             paramsIndex: 'plant',
@@ -7460,6 +7494,7 @@ export default {
         {
             settitle: '农事管理',
             key: 'farming',
+            roleName: ['plant/farming', 0],
             tab: '田间信息',
             url: 'farming',
             batch: 'farmingBatch',
@@ -7680,6 +7715,7 @@ export default {
         settitle: '生产计划管理',
         key: 'plan',
         tab: '生产计划信息',
+        roleName: ['plant/plan', 0],
         url: 'plan',
         batch: 'planSerial',
         paramsIndex: 'plant',
@@ -7875,6 +7911,7 @@ export default {
     plantHarvest: [{
         settitle: '采收管理',
         key: 'harvest',
+        roleName: ['plant/harvest', 0],
         tab: '采收批次信息',
         url: 'harvest',
         batch: 'plantSerial',
@@ -8066,6 +8103,7 @@ export default {
         settitle: '加工批次管理',
         key: 'plant-pack',
         tab: '加工批次信息',
+        roleName: ['packp/pack', 0],
         url: 'pack',
         batch: 'plantPackBatch',
         paramsIndex: 'plant',
@@ -8191,6 +8229,7 @@ export default {
     vegetableDetect: [{
         settitle: '检验检测管理',
         key: 'detect_pk_plant',
+        roleName: ['packp/detect', 0],
         tab: '检验检测信息',
         url: 'detect_pk',
         batch: 'detectPackBatch',
@@ -8426,6 +8465,7 @@ export default {
     vegetableTrace: [{
         settitle: '产品溯源管理',
         key: 'code-plant',
+        roleName: ['packp/code', 0],
         tab: '产品溯源信息',
         url: 'code',
         batch: 'plantPackBatch',
@@ -8626,6 +8666,7 @@ export default {
         {
             settitle: '基础信息管理',
             key: 'logistic',
+            roleName: ['delivery/basic', 0],
             tab: '物流公司信息',
             url: 'logistic',
             searchPlaceholder: '请输入物流公司进行搜索',
@@ -8744,6 +8785,7 @@ export default {
         {
             settitle: '基础信息管理',
             key: 'vehicle',
+            roleName: ['delivery/basic', 0],
             tab: '车辆信息',
             url: 'vehicle',
             selectSearch: ['brand'],
@@ -8852,10 +8894,10 @@ export default {
                 }]
             }]
         },
-        // 少了数据库性别字段
         {
             settitle: '基础信息管理',
             key: 'driver',
+            roleName: ['delivery/basic', 0],
             tab: '驾驶员信息',
             url: 'driver',
             changeDataArr: [{sex: {0: '男', 1: '女'}}],
@@ -9028,6 +9070,7 @@ export default {
     logisticSerial: [{
         settitle: '物流批次管理',
         key: 'delivery',
+        roleName: ['delivery/order', 0],
         tab: '物流批次信息',
         url: 'delivery',
         batch: 'logisticBatch',
@@ -9288,6 +9331,7 @@ export default {
     saleProduct: [{
         settitle: '销售商品库管理',
         key: 'product-count',
+        roleName: ['sell/repertory', 0],
         checkOperate: 'true',
         tab: '商品统计信息',
         url: 'product-count',
@@ -9305,6 +9349,7 @@ export default {
         {
             settitle: '销售入库管理',
             key: 'storage0',
+            roleName: ['sell/storage', 0],
             tab: '销售入库信息(平台)',
             url: 'storage',
             batch: 'saleInput',
@@ -9468,6 +9513,7 @@ export default {
         {
             settitle: '销售入库管理',
             key: 'storage1',
+            roleName: ['sell/storage', 0],
             tab: '销售入库信息(非平台)',
             url: 'storage',
             selectSearch: ['products.id'],
@@ -9645,6 +9691,7 @@ export default {
         key: 'sell',
         tab: '销售订单信息',
         url: 'sell',
+        roleName: ['sell/order', 0],
         batch: 'saleOrder',
         searchPlaceholder: '请输入销售订单号',
         theads: ['销售订单批次号', '订单日期', '物流批次', '客户名称', '金额', '数量', '销售员', '录入人', '备注'],
@@ -9809,6 +9856,7 @@ export default {
     systemUser: [{
         settitle: '用户管理',
         key: 'myuser',
+        roleName: ['system/user', 0],
         tab: '公司用户信息',
         url: 'user',
         searchPlaceholder: '请输入用户名进行搜索',
@@ -10058,6 +10106,7 @@ export default {
         settitle: '用户管理',
         key: 'myrole',
         tab: '用户角色信息',
+        roleName: ['system/user', 0],
         url: 'role',
         hiddenValue: {'fixation': 1},
         searchPlaceholder: '请输入角色名称进行搜索',
@@ -10132,6 +10181,7 @@ export default {
         key: 'mylog',
         tab: '日志信息',
         url: 'log',
+        roleName: ['system/log', 0],
         selectSearch: ['operate'],
         searchPlaceholder: '请输入内容进行搜索',
         theads: ['模块名称', '操作', '内容', '日期时间', '客户端ip', '用户', '备注'],
@@ -10182,6 +10232,7 @@ export default {
     // 报表
     systemReport: [{
         settitle: '报表预览',
+        roleName: ['system/statement', 0],
         key: 'planManage',
         tab: '报表信息',
         url: 'plan',
@@ -10195,6 +10246,7 @@ export default {
     rightsOperate: [{
         settitle: '权限管理',
         key: 'permission-category',
+        roleName: ['admin/role', 1],
         tab: '权限分类信息',
         url: 'permission-category',
         searchPlaceholder: '请输入展示名称进行搜索',
@@ -10322,6 +10374,7 @@ export default {
     {
         settitle: '权限管理',
         key: 'permission',
+        roleName: ['admin/role', 1],
         tab: '权限信息',
         url: 'permission',
         searchPlaceholder: '请输入展示名称进行搜索',
@@ -10467,6 +10520,7 @@ export default {
     // 运营-入驻单位
     settleOperate: [{
         settitle: '入驻单位管理',
+        roleName: ['admin/company', 1],
         key: 'company',
         tab: '入驻单位信息',
         url: 'company',
@@ -10727,6 +10781,7 @@ export default {
     // 运营-用户反馈
     usersOperate: [{
         settitle: '用户反馈管理',
+        roleName: ['admin/feedback', 1],
         key: 'feedback',
         tab: '用户反馈信息',
         url: 'feedback',
@@ -10744,6 +10799,7 @@ export default {
     logOperate: [{
         settitle: '系统日志',
         key: 'log',
+        roleName: ['admin/log', 1],
         tab: '日志信息',
         url: 'log',
         selectSearch: ['operate'],

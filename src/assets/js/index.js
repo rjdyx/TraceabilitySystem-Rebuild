@@ -24,7 +24,6 @@ const Admins = [pre2 + 'rightsOperate', pre2 + 'settleOperate', pre2 + 'usersOpe
 
 router.beforeEach(async (to, from, next) => {
     var check = false
-    // console.log(window.Roles)
     if (window.Roles.name === undefined) {
         try {
             await axios.get('/login/state').then(responce => {
@@ -42,7 +41,7 @@ router.beforeEach(async (to, from, next) => {
                         if (data.one === 'admin') {
                             if (Excepts.indexOf(to.path) === -1 && Admins.indexOf(to.path) === -1) check = true
                         } else {
-                            if (Excepts.indexOf(to.path) === -1 && data.one.indexOf(to.path) === -1) check = true
+                            if ((Excepts.indexOf(to.path) === -1 && data.one.indexOf(to.path) === -1) || Admins.indexOf(to.path) !== -1) check = true
                         }
                     }
                 }
@@ -57,7 +56,7 @@ router.beforeEach(async (to, from, next) => {
             if (data2.one === 'admin') {
                 if (Excepts.indexOf(to.path) === -1 && Admins.indexOf(to.path) === -1) check = true
             } else {
-                if (Excepts.indexOf(to.path) === -1 && data2.one.indexOf(to.path) === -1) check = true
+                if ((Excepts.indexOf(to.path) === -1 && data2.one.indexOf(to.path) === -1) || Admins.indexOf(to.path) !== -1) check = true
             }
         }
     }

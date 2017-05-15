@@ -169,6 +169,7 @@ export default {
                     key: '',
                     tab: '',
                     url: '',
+                    roleName: '',
                     theads: [],
                     changeDataArr: [],
                     protos: [],
@@ -529,7 +530,7 @@ export default {
                     for (let key in this.checkObject) {
                         delArr.push(this.checkObject[key].id)
                     }
-                    var paramsDel = {'ids': delArr, 'other': this.apiUrlArr[this.url]}
+                    var paramsDel = {'ids': delArr, 'other': this.apiUrlArr[this.url], 'role': this.roleName}
                     axios.post(this.$adminUrl('util/batch-delete/' + this.tabItem.url), paramsDel)
                     .then((responce) => {
                         if (responce.data === 'true') {

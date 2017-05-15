@@ -170,6 +170,7 @@ export default {
                     tab: '',
                     tablePager: Object,
                     url: '',
+                    roleName: '',
                     urlParams: {},
                     // 从后台获取的所有数据
                     theads: [],
@@ -363,14 +364,16 @@ export default {
                     }
                     this.$dataGet(this, '/util/selects', {table: newArr.selectUrl, type: type})
                         .then((responce) => {
-                            if (responce.data.length !== 0) {
-                                this.selectNewEdit[key] = []
-                                this.selectNewEdit[key].push(com.selectInit2[key])
-                                let newOpt = this.$selectData(this.url, responce.data, newArr.selectArr)
-                                for (let item of Object.keys(newOpt)) {
-                                    this.selectNewEdit[key].push(newOpt[item])
+                            if (responce.data !== '') {
+                                if (responce.data.length !== 0) {
+                                    this.selectNewEdit[key] = []
+                                    this.selectNewEdit[key].push(com.selectInit2[key])
+                                    let newOpt = this.$selectData(this.url, responce.data, newArr.selectArr)
+                                    for (let item of Object.keys(newOpt)) {
+                                        this.selectNewEdit[key].push(newOpt[item])
+                                    }
+                                    com.components[com.popNumber2[key]].options = this.selectNewEdit[key]
                                 }
-                                com.components[com.popNumber2[key]].options = this.selectNewEdit[key]
                             }
                         })
                 }
@@ -437,18 +440,20 @@ export default {
             this.$dataGet(this, this.url, {params: data, type: type})
                 .then((responce) => {
                     // 数据转换
-                    if (responce.data.data.length !== 0) {
-                        var ret = this.$conversion(this.changeDataArr, responce.data.data, 1)
-                        ret = this.$eltable(ret)
-                        this.$set(this, 'tableData', ret)
-                        this.total_num = responce.data.total
-                        this.num = responce.data.last_page
-                        this.paginator = responce.data
-                    } else {
-                        this.$set(this, 'tableData', responce.data.data)
-                        this.total_num = 0
-                        this.num = 0
-                        this.paginator = 0
+                    if (responce.status === 200) {
+                        if (responce.data.data.length !== 0) {
+                            var ret = this.$conversion(this.changeDataArr, responce.data.data, 1)
+                            ret = this.$eltable(ret)
+                            this.$set(this, 'tableData', ret)
+                            this.total_num = responce.data.total
+                            this.num = responce.data.last_page
+                            this.paginator = responce.data
+                        } else {
+                            this.$set(this, 'tableData', responce.data.data)
+                            this.total_num = 0
+                            this.num = 0
+                            this.paginator = 0
+                        }
                     }
                 })
         },
@@ -496,7 +501,7 @@ export default {
                     for (let key in this.checkObject) {
                         delArr.push(this.checkObject[key].id)
                     }
-                    var paramsDel = { 'ids': delArr }
+                    var paramsDel = { 'ids': delArr, 'role': this.roleName }
                     axios.post(this.$adminUrl('util/batch-delete/' + this.url), paramsDel)
                     .then((responce) => {
                         if (responce.data === 'true') {
@@ -571,21 +576,23 @@ export default {
             this.$dataGet(this, this.url, {getSelect: getSelect, type: type})
                 .then((responce) => {
                     // 数据转换
-                    if (responce.data.length !== 0) {
-                        for (let index in this.selectValueId) {
-                            this.selectArrSet[index] = []
-                            let opt = this.$selectData(this.url, responce.data, this.selectValueId[index])
-                            this.selectArrSet[index].push(this.selectDefault[index])
-                            for (let key of Object.keys(opt)) {
-                                this.selectArrSet[index].push(opt[key])
+                    if (responce.status === 200) {
+                        if (responce.data.length !== 0) {
+                            for (let index in this.selectValueId) {
+                                this.selectArrSet[index] = []
+                                let opt = this.$selectData(this.url, responce.data, this.selectValueId[index])
+                                this.selectArrSet[index].push(this.selectDefault[index])
+                                for (let key of Object.keys(opt)) {
+                                    this.selectArrSet[index].push(opt[key])
+                                }
+                                this.listComponent[0].components[index].options = this.selectArrSet[index]
                             }
-                            this.listComponent[0].components[index].options = this.selectArrSet[index]
-                        }
-                    } else {
-                        for (let index in this.selectValueId) {
-                            this.selectArrSet[index] = []
-                            this.selectArrSet[index].push(this.selectDefault[index])
-                            this.listComponent[0].components[index].options = this.selectArrSet[index]
+                        } else {
+                            for (let index in this.selectValueId) {
+                                this.selectArrSet[index] = []
+                                this.selectArrSet[index].push(this.selectDefault[index])
+                                this.listComponent[0].components[index].options = this.selectArrSet[index]
+                            }
                         }
                     }
                 })
@@ -618,14 +625,16 @@ export default {
                 var getSelect = {'getSelect': '444'}
                 this.$dataGet(this, url, {getSelect})
                     .then((responce) => {
-                        if (responce.data.length !== 0) {
-                            let asr = []
-                            asr.push(val[0][4])
-                            let newOpt = this.$selectData(url, responce.data.data, [val[0][1], val[0][2], true])
-                            for (let item of Object.keys(newOpt)) {
-                                asr.push(newOpt[item])
+                        if (responce.status === 200) {
+                            if (responce.data.length !== 0) {
+                                let asr = []
+                                asr.push(val[0][4])
+                                let newOpt = this.$selectData(url, responce.data.data, [val[0][1], val[0][2], true])
+                                for (let item of Object.keys(newOpt)) {
+                                    asr.push(newOpt[item])
+                                }
+                                this.newComponent[0].components[val[0][3]].options = asr
                             }
-                            this.newComponent[0].components[val[0][3]].options = asr
                         }
                     })
             } else {
