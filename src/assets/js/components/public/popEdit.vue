@@ -72,6 +72,8 @@
                                     :shuju="subItem"
                                     :inputEditValue="editForm[subItem.name]"
                                     :selectEditValue="editForm['unit']"
+                                    :disabled="disabled"
+                                    :editAllowance="editAllowance"
                                     @return-shuju="returnShuju"
                                 ></component>
                                 <component 
@@ -154,7 +156,9 @@ export default {
             activeName: this.editComponent[0].tab,
             rules: rules,
             memuList: {},
-            checkeds: []
+            checkeds: [],
+            disabled: false,
+            editAllowance: 0
         }
     },
     mounted () {
@@ -169,6 +173,8 @@ export default {
         }
         // 编辑表单加载事件
         this.setDefaultTable()
+        // 编辑访问接口
+        this.routeApi()
     },
     watch: {
         editComponent () {
@@ -290,6 +296,23 @@ export default {
                     com[6].consignHidden = true
                     com[7].consignHidden = true
                 }
+            }
+        },
+        // 编辑访问接口
+        routeApi () {
+            var com = this.editComponent[0]
+            if (com.limit !== undefined) {
+                let params = {id: this.editForm.id}
+                axios.get(this.$adminUrl(this.url + '/getMinArea'), {params: params}).then((responce) => {
+                    if (responce.data !== 'false') {
+                        this.disabled = true
+                        this.editAllowance = responce.data
+                        com.components[com.limit].rule[1]['getMin'] = responce.data
+                        com.components[com.limit].rule[1]['getMessage'] = com.getMessage
+                    } else {
+                        this.disabled = false
+                    }
+                })
             }
         }
     }
