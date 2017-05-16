@@ -1,17 +1,17 @@
 import * as func from '../function'
 
 export default {
-    SWITCHTHEME (states, obj) {
-        states.theme = obj.theme
-        func.themeLocal.set(states)
+    SWITCHTHEME (state, obj) {
+        state.theme.theme = obj.theme
+        func.themeLocal.set(state.theme)
     },
-    SWITCHFONT (thing, obj) {
-        thing.font = obj.font
-        func.fontLocal.set(thing)
+    SWITCHFONT (state, obj) {
+        state.font.font = obj.font
+        func.fontLocal.set(state.font)
     },
-    CHANGE (model, index) {
-        model.record = index
-        func.modelLocal.set(model)
+    SWITCHRECORD (state, obj) {
+        state.record.record = obj.record
+        func.modelLocal.set(state.record)
     },
     CHANGECOLOR (model, label) {
         model.record = label

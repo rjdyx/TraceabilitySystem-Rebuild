@@ -53,20 +53,14 @@ export default {
     computed: {
     },
     mounted () {
-        let local = localStorage.getItem('record')
-        let checkdown = JSON.parse(local)
-        this.record = checkdown.record
+        this.record = this.$store.getters.getRecord
     },
     methods: {
         handle (index) {
-            this.$store.commit('CHANGE', index)
+            this.$store.dispatch('switch_record', index)
         },
         handleClose (key, keyPath) {
-            let recordStr = localStorage.getItem('record')
-            let json = JSON.parse(recordStr)
-            json.record = ''
-            let jsonStr = JSON.stringify(json)
-            localStorage.setItem('record', jsonStr)
+            // this.$store.dispatch('switch_record', '')
         }
     }
 }

@@ -31,11 +31,11 @@
 					</el-form-item>
 
 					<el-form-item label="原始密码" prop='old_password'>
-						<el-input placeholder="不填提交则不修改" v-model="editForm.old_password"></el-input>
+						<el-input type="password" auto-complete="off" placeholder="不填提交则不修改" v-model="editForm.old_password"></el-input>
 					</el-form-item>
 
 					<el-form-item label="新密码" prop='password' >
-						<el-input placeholder="至少6位字符" v-model="editForm.password"></el-input>
+						<el-input type="password" auto-complete="off" placeholder="至少6位字符" v-model="editForm.password"></el-input>
 					</el-form-item>
 
 					<el-form-item label="网站名称" prop='name' v-if="role">
@@ -176,6 +176,33 @@ export default {
         }
     },
     mounted () {
+        let theme = this.$store.getters.getTheme
+        switch (theme) {
+        case 'blue':
+            this.radio1 = 1
+            break
+        case 'green':
+            this.radio1 = 2
+            break
+        case 'purple':
+            this.radio1 = 3
+            break
+        case 'yellow':
+            this.radio1 = 4
+            break
+        }
+        let fontSize = this.$store.getters.getFont
+        switch (fontSize) {
+        case 'small':
+            this.radio2 = 1
+            break
+        case 'middle':
+            this.radio2 = 2
+            break
+        case 'big':
+            this.radio2 = 3
+            break
+        }
         // 查询编辑数据
         axios.get('api/system/1/edit')
             .then((responce) => {

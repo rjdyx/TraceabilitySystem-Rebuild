@@ -1,8 +1,11 @@
 export default {
-    getTheme (states) {
-        return states.theme
+    getTheme (state) {
+        return state.theme.theme
     },
-    getFont (thing) {
-        return thing.font
+    getFont (state) {
+        return state.font.font
+    },
+    getRecord (state) {
+        return state.record.record
     }
 }

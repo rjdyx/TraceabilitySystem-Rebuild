@@ -133,6 +133,7 @@ export default {
                             // callback(new Error('登录失败'))
                         } else {
                             this.$router.push('/index')
+                            this.$store.dispatch('switch_record', '')
                             var myDate = new Date()
                             localStorage.setItem('loginDate', myDate.toLocaleString())
                             if (this.recordeChecked) {

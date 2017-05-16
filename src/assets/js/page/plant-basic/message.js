@@ -3633,7 +3633,7 @@ export default {
                 isNull: true,
                 label: '指导专家',
                 placeholder: '无',
-                rule: null,
+                rule: {required: false},
                 options: []
             },
             {
@@ -3662,7 +3662,7 @@ export default {
                 isNull: true,
                 label: '检疫结果',
                 placeholder: '',
-                rule: {required: false, type: 'number'},
+                rule: {required: false},
                 options: [
                     {
                         value: 1,
