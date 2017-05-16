@@ -2,7 +2,6 @@
  *  左菜单栏数据
  */
 var roleData = {}
-console.log(window.Roles)
 if (window.Roles.permissions !== undefined) {
     roleData = window.Roles.permissions.two
 }

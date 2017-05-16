@@ -12,7 +12,7 @@
 			</contain-title>
 			<div class="titleHome">
 				<span :class="{'picture': isClass}">
-					<img src="listV.logo" class="homeImg" />
+					<img :src="listV.logo" class="homeImg" />
 				</span>
 				<el-row :gutter="20" class="text homeInfo">
 					<el-col :span='12' v-for="(item,index) in listN" class="coltext">

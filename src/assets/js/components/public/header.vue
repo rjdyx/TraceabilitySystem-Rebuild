@@ -15,23 +15,25 @@
 		<!--右侧菜单栏-->
 		<div class="head_right">
 			<ul>
-				<template>
-					<router-link tag="li" to="/">
+				<template @click="changeSub">
+					<!-- <router-link tag="li" to="/"> -->
+					<li>
 						<img src="/public/images/time.png" />
-						<span class="time">{{time}}</span>
-					</router-link>
+						<p class="time">{{time}}</p>
+					</li>
+					<!-- </router-link> -->
 				</template>
-				<template v-for="navbar in navbars">
-					<li class="navbar">
+				<template  v-for="(navbar,i) in navbars">
+					<li class="navbar" @click="changeSub(i)">
 						<router-link :to="navbar.path">
 							<img :src="navbar.src" />
-							<span>{{navbar.name}}</span>
+							<p>{{navbar.name}}</p>
 						</router-link>
 					</li>
 				</template>
 				<li @click="back">
 					<img src="/public/images/back.png" />
-					<span>退出</span>
+					<p>退出</p>
 				</li>
 			</ul>
 		</div>
@@ -44,7 +46,8 @@ export default {
         return {
             logo: '农产品质量安全溯源系统',
             time: '',
-            data: []
+            data: [],
+            headerLinkActive: '0'
         }
     },
     props: {
@@ -87,6 +90,9 @@ export default {
                     history.go(0) // 刷新更新权限数据
                 }
             })
+        },
+        changeSub (i) {
+            this.$emit('return-changeSub')
         }
     },
     mounted () {
@@ -97,7 +103,6 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-
 	.header {
 		width: 100%;
 		height: 66px;
@@ -121,6 +126,7 @@ export default {
 	.head_right {
 		display: inline-block;
 		width: 600px;
+		height:100%;
 		position: absolute;
 		right: 0;
 		bottom: 0;
@@ -130,32 +136,32 @@ export default {
 			li {
 				float: left;
 				width: 84px;
-				height: 55px;
+				height: 66px;
 				margin-bottom: 5px;
 				text-align: center;
 				color: #fff;
 				cursor: pointer;
-					&:hover{
-						animation: 1700ms ease-out backwards;
-						animation-name: header;
+				background:rgba(0,0,0,0);
+				text-align:center;
+					a{
+						display:inline-block;
+						width:100%;
+						height:100%;
 					}
-				span {
+					&:hover{
+						transition:background 1.5s ease-out;
+						background:rgba(0,0,0,.2);
+					}
+					.router-link-active{
+						background:rgba(0,0,0,.2);
+					}
+				p {
 					color: #fff;
 				}
 				img {
-					display: block;
-					padding-left: 30px;
-					padding-top: 6px;
+					padding-top: 10px;
 				}
 			}
-		}
-	}
-	@keyframes header {
-		0%{
-			opacity: 0;
-		}
-		100%{
-			opacity: 1;
 		}
 	}
 }

@@ -13,6 +13,12 @@ const index = resolve => {
         resolve(require('../views/index.vue'))
     }, 'index')
 }
+// ---------------------------403----------------------------------
+const Role403 = resolve => {
+    require.ensure(['../views/403.vue'], () => {
+        resolve(require('../views/403.vue'))
+    }, 'Role403')
+}
 // ---------------------------404----------------------------------
 const notFound = resolve => {
     require.ensure(['../views/404.vue'], () => {
@@ -112,6 +118,10 @@ var routes = [
                 }
             },
             {
+                path: 'home',
+                component: index
+            },
+            {
                 path: 'company',
                 component: company
             },
@@ -144,6 +154,11 @@ var routes = [
         path: '/404',
         name: 'notFound',
         component: notFound
+    },
+    {
+        path: '/403',
+        name: 'Role403',
+        component: Role403
     },
     {
         path: '/login',

@@ -53,6 +53,7 @@ export default {
     data () {
         return {
             id: '',
+            checkNumber: [0],
             thread: {
                 name: ['公司名称', 'text', '必填'],
                 short_name: ['公司简称', 'text', ''],
@@ -66,11 +67,17 @@ export default {
                 website: ['公司网站', 'text', ''],
                 logo: ['公司Logo', 'file', '', {name: 'logo'}],
                 watermark: ['水印', 'file', '', {name: 'watermark'}],
-                memo: ['公司简称', 'text', '']
+                memo: ['备注', 'text', '']
             },
             rules: {
                 name: [
-                    {required: true, message: '请输入公司名称', trigger: 'blur'}
+                    {required: true, message: '请输入公司名称'}, {validator: validate2.reCheck, url: 'company', id: this.editValue.id}
+                ],
+                phone: [
+                    {required: false, validator: validate2.phone}
+                ],
+                total_staff: [
+                    {required: false, validator: validate2.reInteger}
                 ]
             }
         }

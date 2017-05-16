@@ -23,6 +23,9 @@ export default {
         },
         changeDataArr () {
             return this.models.changeDataArr
+        },
+        roleName () {
+            return this.models.roleName
         }
     }
 }
