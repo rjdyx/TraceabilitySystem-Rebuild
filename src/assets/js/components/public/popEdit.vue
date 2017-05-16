@@ -36,7 +36,7 @@
                     <tr class="tr1" v-else-if="subItem.type=='select'"> 
                         <td>
                             <el-form-item :label="subItem.label" :prop="subItem.name">
-                              <el-select v-model="editForm[subItem.name]" :placeholder="subItem.placeholder" size="small" :disabled="subItem.disabled">
+                              <el-select v-model="editForm[subItem.name]" :placeholder="subItem.placeholder" size="small" @change="getSelectId(subItem.name,editForm[subItem.name])" :disabled="subItem.disabled">
                                 <el-option 
                                     v-for="option in subItem.options" 
                                     :label="option.label" 
@@ -74,6 +74,7 @@
                                     :selectEditValue="editForm['unit']"
                                     :disabled="disabled"
                                     :editAllowance="editAllowance"
+                                    :allowance="allowance"
                                     @return-shuju="returnShuju"
                                 ></component>
                                 <component 
@@ -158,7 +159,8 @@ export default {
             memuList: {},
             checkeds: [],
             disabled: false,
-            editAllowance: 0
+            editAllowance: 0,
+            allowance: 0
         }
     },
     mounted () {
@@ -302,17 +304,73 @@ export default {
         routeApi () {
             var com = this.editComponent[0]
             if (com.limit !== undefined) {
-                let params = {id: this.editForm.id}
-                axios.get(this.$adminUrl(this.url + '/getMinArea'), {params: params}).then((responce) => {
-                    if (responce.data !== 'false') {
-                        this.disabled = true
-                        this.editAllowance = responce.data
-                        com.components[com.limit].rule[1]['getMin'] = responce.data
+                if (this.url === 'plantation' || this.url === 'farm') {
+                    let id = {id: this.editForm.id}
+                    axios.get(this.$adminUrl(this.url + '/getMinArea'), {params: id}).then((responce) => {
+                        if (responce.data !== 'false') {
+                            this.disabled = true
+                            this.editAllowance = responce.data
+                            com.components[com.limit].rule[1]['getMin'] = responce.data
+                            com.components[com.limit].rule[1]['getMessage'] = com.getMessage
+                        } else {
+                            this.disabled = false
+                        }
+                    })
+                } else if (this.url === 'planta' || this.url === 'area') {
+                    this.disabled = true
+                    let pid = {id: this.editForm.pid !== undefined ? this.editForm.pid : this.editForm.farm_id}
+                    axios.get(this.$adminUrl(this.url + '/getArea'), {params: pid}).then((responce) => {
+                        this.allowance = parseInt(responce.data['num']) + parseInt(this.editForm.area)
+                        com.components[com.limit].rule[1]['getMax'] = this.allowance
                         com.components[com.limit].rule[1]['getMessage'] = com.getMessage
-                    } else {
-                        this.disabled = false
-                    }
-                })
+                    })
+                } else if (this.url === 'farmcd') {
+                    this.disabled = true
+                    let params = {id: this.editForm.id, pid: this.editForm.pid}
+                    axios.get(this.$adminUrl(this.url + '/getArea'), {params: params}).then((responce) => {
+                        this.allowance = parseInt(responce.data['max_num']) + parseInt(this.editForm.area)
+                        this.editAllowance = parseInt(responce.data['min_num'])
+                        com.components[com.limit].rule[1]['max'] = this.allowance
+                        com.components[com.limit].rule[1]['min'] = this.editAllowance
+                        com.components[com.limit].rule[1]['getMiddle'] = true
+                        com.components[com.limit].rule[1]['getMessage'] = '最大输入' + this.allowance + ', 最小输入' + this.editAllowance
+                    })
+                }
+            }
+        },
+        // 编辑下拉框选择事件
+        getSelectId (name, val) {
+            if (name === 'pid' || name === 'farm_id') {
+                let com = this.editComponent[0]
+                if (this.url !== 'farmcd') {
+                    let params = {id: val}
+                    let sid = this.editDefault.pid !== undefined ? this.editDefault.pid : this.editDefault.farm_id
+                    axios.get(this.$adminUrl(this.url + '/getArea'), {params: params}).then((responce) => {
+                        if (val === sid) {
+                            this.allowance = parseInt(responce.data['num']) + parseInt(this.editDefault.area)
+                        } else {
+                            this.allowance = responce.data['num']
+                        }
+                        this.editForm['unit'] = responce.data['unit']
+                        com.components[com.limit].rule[1]['getMax'] = this.allowance
+                        com.components[com.limit].rule[1]['getMessage'] = com.getMessage
+                    })
+                } else {
+                    let params = {id: this.editForm.id, pid: val}
+                    axios.get(this.$adminUrl(this.url + '/getArea'), {params: params}).then((responce) => {
+                        if (val === this.editDefault.pid) {
+                            this.allowance = parseInt(responce.data['max_num']) + parseInt(this.editDefault.area)
+                        } else {
+                            this.allowance = parseInt(responce.data['max_num'])
+                        }
+                        this.editForm['unit'] = responce.data['unit']
+                        this.editAllowance = parseInt(responce.data['min_num'])
+                        com.components[com.limit].rule[1]['max'] = this.allowance
+                        com.components[com.limit].rule[1]['min'] = this.editAllowance
+                        com.components[com.limit].rule[1]['getMiddle'] = true
+                        com.components[com.limit].rule[1]['getMessage'] = '最大输入' + this.allowance + ', 最小输入' + this.editAllowance
+                    })
+                }
             }
         }
     }

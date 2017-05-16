@@ -54,10 +54,10 @@
                 this.$emit('return-shuju', {name: 'unit', value: this.selectValue})
             },
             allowance () {
-                this.inputValue = ''
                 if (this.allowance !== 0) {
                     this.shuju.placeholder = '还可以输入' + this.allowance
                 } else {
+                    this.inputValue = ''
                     this.shuju.placeholder = '请填写数字（必填）'
                 }
             },
