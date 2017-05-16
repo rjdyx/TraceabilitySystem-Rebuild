@@ -118,6 +118,10 @@ var routes = [
                 }
             },
             {
+                path: 'home',
+                component: index
+            },
+            {
                 path: 'company',
                 component: company
             },

@@ -11,7 +11,7 @@
             <el-menu
                 :router="true" 
                 :unique-opened="true"
-                class="list" theme="dark" :default-active="record" @select="handle">
+                class="list" theme="dark" :default-active="record" @select="handle" @close="handleClose">
                 <el-submenu 
                     v-for="(menu, index) in menus"
                     :index="menu.name" v-if="menu.role">
@@ -22,7 +22,7 @@
                     <el-menu-item 
                         v-for="(subMenu, subIndex) in menu.children" 
                         :index="subMenu.path" exact v-if="subMenu.role"> 
-                        {{subMenu.name}} 
+                        {{subMenu.name}}
                     </el-menu-item>
                     <!-- <el-menu-item index="/index/message/plantSerial"> 
                         丸子
@@ -31,7 +31,6 @@
             </el-menu>
         </vue-scrollbar> 
     </div>
-    
 </template>
 
 <script>
@@ -61,6 +60,13 @@ export default {
     methods: {
         handle (index) {
             this.$store.commit('CHANGE', index)
+        },
+        handleClose (key, keyPath) {
+            let recordStr = localStorage.getItem('record')
+            let json = JSON.parse(recordStr)
+            json.record = ''
+            let jsonStr = JSON.stringify(json)
+            localStorage.setItem('record', jsonStr)
         }
     }
 }
