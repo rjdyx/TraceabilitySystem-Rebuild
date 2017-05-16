@@ -107,7 +107,8 @@ var routes = [
         children: [
             {
                 path: '',
-                component: home
+                component: home,
+                redirect: 'home'
             },
             {
                 path: 'message/:model',
@@ -119,7 +120,7 @@ var routes = [
             },
             {
                 path: 'home',
-                component: index
+                component: home
             },
             {
                 path: 'company',

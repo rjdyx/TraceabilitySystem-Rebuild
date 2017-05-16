@@ -2,16 +2,14 @@ import * as func from '../function.js'
 import actions from './actions.js'
 import mutations from './mutations.js'
 import getters from './getters.js'
-
-const state = func.themeLocal.get() || {
-    theme: 'green'
+const state = {
+    theme: func.themeLocal.get() || {theme: 'blue'},
+    font: func.fontLocal.get() || {font: 'big'},
+    record: func.modelLocal.get() || {record: ''}
 }
-const thing = func.fontLocal.get() || {
-    font: 'big'
-}
+console.log(state)
 export default{
     state,
-    thing,
     actions,
     mutations,
     getters

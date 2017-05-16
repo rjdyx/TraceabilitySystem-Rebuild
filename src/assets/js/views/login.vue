@@ -134,11 +134,7 @@ export default {
                             // callback(new Error('登录失败'))
                         } else {
                             this.$router.push('/index')
-                            let fa = localStorage.getItem('record')
-                            let json = JSON.parse(fa)
-                            json.record = ''
-                            let jsonStr = JSON.stringify(json)
-                            localStorage.setItem('record', jsonStr)
+                            this.$store.dispatch('switch_record', '')
                         }
                     })
                 } else {
@@ -155,6 +151,7 @@ export default {
     },
     mounted () {
         this.Kit()
+        console.log(this.$store)
     }
 }
 </script>

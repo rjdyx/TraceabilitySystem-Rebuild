@@ -436,7 +436,12 @@ export default {
             protos: ['area_name', 'serial', 'rfid', 'beast_name', 'date'],
             widths: [50, 50, 50, 50, 50],
             hiddeEdit: false,
-            listComponent: [],
+            listComponent: [{
+                components: [{
+                    type: 'date',
+                    component: datePick
+                }]
+            }],
             newComponent: [{
                 tab: '新建批次检疫信息',
                 selectUrl2: [['breeds', 'id', 'serial', true]],

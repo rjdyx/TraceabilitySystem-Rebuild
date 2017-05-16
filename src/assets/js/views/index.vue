@@ -54,11 +54,7 @@ export default {
             console.log(this.$refs.siderBar.$children[0].$children[0])
             this.$refs.siderBar.$children[0].$children[0].closeMenu()
             this.$refs.siderBar.$children[0].$children[0].activedIndex = ''
-            let recordStr = localStorage.getItem('record')
-            let json = JSON.parse(recordStr)
-            json.record = ''
-            let jsonStr = JSON.stringify(json)
-            localStorage.setItem('record', jsonStr)
+            this.$store.dispatch('switch_record', '')
         }
     },
     mounted () {
