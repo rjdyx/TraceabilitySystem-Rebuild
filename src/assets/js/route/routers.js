@@ -1,5 +1,5 @@
 /**
-* 路由
+* Â·ÓÉ
 */
 import Router from 'vue-router'
 import Vue from 'vue'
@@ -89,6 +89,18 @@ const ondone = resolve => {
         resolve(require('../components/top/ondone.vue'))
     }, 'ondone')
 }
+// -------------------------------协议¬------------------------------
+const protocol = resolve => {
+    require.ensure(['../views/protocol.vue'], () => {
+        resolve(require('../views/protocol.vue'))
+    }, 'protocol')
+}
+// -------------------------------重置密码¬------------------------------
+const forget = resolve => {
+    require.ensure(['../views/forget.vue'], () => {
+        resolve(require('../views/forget.vue'))
+    }, 'forget')
+}
 var routes = [
     {
         path: '/',
@@ -112,7 +124,6 @@ var routes = [
             {
                 path: 'message/:model',
                 component: basic,
-                // 需要登录才能进入此路由
                 meta: {
                     auth: true
                 }
@@ -149,6 +160,16 @@ var routes = [
                 path: 'details/:model/:id',
                 component: details
             }]
+    },
+    {
+        path: '/protocol',
+        name: 'protocol',
+        component: protocol
+    },
+    {
+        path: '/forget',
+        name: 'forget',
+        component: forget
     },
     {
         path: '/404',

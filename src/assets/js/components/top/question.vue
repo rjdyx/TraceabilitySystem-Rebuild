@@ -7,7 +7,7 @@
 <template>
 	<div class="question">
 		<div class="question_content">
-			<contain-title :settitle="settitle">
+			<contain-title :settitle="settitle" class="fonts">
 			</contain-title>
 			<div class="contain">
 				<div class="thank">
@@ -129,6 +129,9 @@ export default {
 	.question_content {
 	  	margin-top: 15px;
 	  	overflow: scroll;
+	  	.fonts{
+	  		font-size: 20px;
+	  	}
 	  	height: 100%;
 	  	.contain {
 		  	width: 650px;

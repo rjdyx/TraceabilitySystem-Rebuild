@@ -27,8 +27,6 @@ export default {
 </script>
 
 <style lang="sass">
-$line: 1px solid;
-$display: inline-block;
 .user{
 	height: 100%;
 	background: white;

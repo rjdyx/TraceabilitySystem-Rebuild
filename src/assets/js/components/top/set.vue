@@ -72,9 +72,9 @@
 						</el-radio-group>
 					</el-form-item>
             
-                    <el-form-item label="help" prop="help" v-if="role">
-                        <el-input type="file"></el-input>
-                    </el-form-item>
+<!--                     <el-form-item label="help" prop="help" v-if="role">
+                        <el-input type="file" v-model="editForm.help" name="help"></el-input>
+                    </el-form-item> -->
 
 				<el-form-item class="save" >
 					<el-button @click="submitForm('editForm')" class="btn_change">保存</el-button>
@@ -107,7 +107,8 @@ export default {
                 web_state: '',
                 keywords: '',
                 old_password: '',
-                password: ''
+                password: '',
+                help: ''
             }
         }
     },

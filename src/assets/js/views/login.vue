@@ -41,12 +41,10 @@
 						</el-form-item>
 						<el-form-item class="receive">
 							<el-checkbox v-model="checked">接受</el-checkbox>
-							<router-link to="">
-								《服务协议》
-							</router-link>
-							<el-checkbox>记住密码</el-checkbox>
-							<router-link to="">
-								<a>忘记密码</a>
+							<a href="#/protocol" target ="_blank" style="color:#20a0ff">《服务协议》</a>
+							<el-checkbox v-model="recordeChecked">记住账号 </el-checkbox>
+							<router-link to="/forget" style="color:#007cc2">
+								&nbsp;&nbsp; 忘记密码
 							</router-link>
 						</el-form-item>
 						<el-form-item>
@@ -105,6 +103,7 @@ export default {
         }
         return {
             kit_url: '',
+            recordeChecked: false,
             ruleForm2: {
                 name: '',
                 password: '',
@@ -136,6 +135,11 @@ export default {
                             this.$router.push('/index')
                             var myDate = new Date()
                             localStorage.setItem('loginDate', myDate.toLocaleString())
+                            if (this.recordeChecked) {
+                                localStorage.setItem('recordUser', this.ruleForm2.name)
+                            } else {
+                                localStorage.setItem('recordUser', '')
+                            }
                             let fa = localStorage.getItem('record')
                             let json = JSON.parse(fa)
                             json.record = ''
@@ -157,6 +161,14 @@ export default {
     },
     mounted () {
         this.Kit()
+        // 记住账号
+        if (localStorage.getItem('recordUser') === '' || localStorage.getItem('recordUser') === undefined) {
+            this.recordeChecked = false
+            this.ruleForm2.name = ''
+        } else {
+            this.recordeChecked = true
+            this.ruleForm2.name = localStorage.getItem('recordUser')
+        }
     }
 }
 </script>
