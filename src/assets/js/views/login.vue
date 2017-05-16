@@ -134,6 +134,8 @@ export default {
                             // callback(new Error('登录失败'))
                         } else {
                             this.$router.push('/index')
+                            var myDate = new Date()
+                            localStorage.setItem('loginDate', myDate.toLocaleString())
                             let fa = localStorage.getItem('record')
                             let json = JSON.parse(fa)
                             json.record = ''
