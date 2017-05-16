@@ -71,6 +71,10 @@
 						    <el-radio :label="1">关闭操作说明</el-radio>
 						</el-radio-group>
 					</el-form-item>
+            
+                    <el-form-item label="help" prop="help" v-if="role">
+                        <el-input type="file"></el-input>
+                    </el-form-item>
 
 				<el-form-item class="save" >
 					<el-button @click="submitForm('editForm')" class="btn_change">保存</el-button>
@@ -113,6 +117,12 @@ export default {
         file
     },
     methods: {
+        handleRemove (files, fileList) {
+            console.log(files, fileList)
+        },
+        handlePreview (files) {
+            console.log(files)
+        },
         switchColor (label) {
             if (label === 1) {
                 this.switchTheme('blue')

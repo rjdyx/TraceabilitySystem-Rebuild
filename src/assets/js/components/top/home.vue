@@ -16,7 +16,7 @@
 				</span>
 				<el-row :gutter="20" class="text homeInfo">
 					<el-col :span='12' v-for="(item,index) in listN" class="coltext">
-						{{item}} {{listV[index]}}
+						{{item}} {{listV[index]}} {{plans.come}}
 					</el-col>
 				</el-row>
 			</div>
@@ -38,14 +38,14 @@
 				<div class="rightMain">
 					<h1>My plan</h1>
 					<ul>
-						<li v-if="state==='beast'" v-for="siderItem in siderBeast" class="siderTip">
+						<li v-if="plans.harvest===undefined || plans.harvest===null" v-for="siderItem in siderBeast" class="siderTip">
 							<span class="siderImg">
 								<img :src="siderItem.src" />
 							</span>
 							<span class="siderType">{{siderItem.type}}</span>
 							<span class="siderKey" v-if="plans!==null">{{plans[siderItem.key]}}</span>
 						</li>
-						<li v-else v-for="siderItem in siderPlant" class="siderTip">
+						<li v-if="plans.come===undefined || plans.come===null" v-for="siderItem in siderPlant" class="siderTip">
 							<span class="siderImg">
 								<img :src="siderItem.src" />
 							</span>
@@ -162,7 +162,7 @@ export default{
         axios.get('api/index')
             .then((responce) => {
                 this.listV = responce.data
-                this.listV.date = '2017-05-01 16:23:21'
+                this.listV.date = localStorage.getItem('loginDate')
             })
         axios.get('api/index/district')
             .then((responce) => {

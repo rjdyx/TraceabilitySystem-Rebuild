@@ -135,6 +135,8 @@ export default {
                         } else {
                             this.$router.push('/index')
                             this.$store.dispatch('switch_record', '')
+                            var myDate = new Date()
+                            localStorage.setItem('loginDate', myDate.toLocaleString())
                         }
                     })
                 } else {
