@@ -56,21 +56,7 @@
         methods: {
             handleCommand (command) {
                 if (command === '状态') {
-                    this.$confirm('你确定要删除此批次号吗?', '信息', {
-                        confirmButtonText: '确定',
-                        cancelButtonText: '取消',
-                        type: 'error'
-                    }).then(() => {
-                        this.$message({
-                            type: 'success',
-                            message: '删除成功!'
-                        })
-                    }).catch(() => {
-                        this.$message({
-                            type: 'info',
-                            message: '已取消删除'
-                        })
-                    })
+                    this.$emit('changeState')
                 } else if (command === '视频') {
                     this.isShow = !this.isShow
                 } else if (command === '打印') {

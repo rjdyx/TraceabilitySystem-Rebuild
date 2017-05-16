@@ -51,7 +51,6 @@ export default {
     },
     methods: {
         changeSub () {
-            console.log(this.$refs.siderBar.$children[0].$children[0])
             this.$refs.siderBar.$children[0].$children[0].closeMenu()
             this.$refs.siderBar.$children[0].$children[0].activedIndex = ''
             this.$store.dispatch('switch_record', '')

@@ -105,8 +105,10 @@
         label="操作" v-if="checkOperate==null">
             <template scope="scope" class="operateBtn">
                 <template v-if="moreComponent!=null">
-                    <clickMore :companyId="companyId" :moreComponent="moreComponent" 
-                    @showMore="moreShow(scope.$index,scope.row)" @showPermission="permissionShow(scope.$index,scope.row)" @showDetail="detailShow(scope.$index,scope.row)" class="clickMoreBtn" @return-permission="getPermission"></clickMore>
+                    <clickMore :companyId="companyId" :moreComponent="moreComponent" @showMore="moreShow(scope.$index,scope.row)" 
+                    @showPermission="permissionShow(scope.$index,scope.row)" @showDetail="detailShow(scope.$index,scope.row)" class="clickMoreBtn"
+                    @return-permission="getPermission" @changeState="changeSerialState(scope.$index,scope.row)">
+                    </clickMore>
                 </template>
                 <template>
 
@@ -522,6 +524,33 @@ export default {
                     })
                 })
             }
+        },
+        // 更改批次状态
+        changeSerialState (index, row) {
+            this.$confirm('你确定要修改此批次状态吗?', '信息', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                type: 'error'
+            }).then(() => {
+                axios.get(this.$adminUrl('util/status/' + this.url + '/' + row.id))
+                    .then((responce) => {
+                        if (responce.data === 'true') {
+                            this.getSelect()
+                            this.boxArr(this.dataArr)
+                            this.$message({
+                                type: 'success',
+                                message: '修改状态成功'
+                            })
+                        } else {
+                            this.$message.error('修改状态失败')
+                        }
+                    })
+            }).catch(() => {
+                this.$message({
+                    type: 'info',
+                    message: '已取消删除'
+                })
+            })
         },
         // 批量导出excel
         excel () {

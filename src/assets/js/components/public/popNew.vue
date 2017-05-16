@@ -213,7 +213,7 @@ export default {
                     this.memuList = responce.data
                 })
         }
-        if (this.url === 'planta') {
+        if (this.url === 'planta' || this.url === 'farmcd' || this.url === 'area') {
             this.disabled = true
             this.disabledV = true
         }
@@ -350,7 +350,7 @@ export default {
                     com[5].consignHidden = true
                     com[6].consignHidden = true
                 }
-            } else if (name === 'pid') {
+            } else if (name === 'pid' || name === 'farm_id') {
                 if (val !== '') {
                     let params = {id: val}
                     axios.get(this.$adminUrl(this.url + '/getArea'), {params: params}).then((responce) => {
