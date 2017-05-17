@@ -260,6 +260,7 @@ export default {
             }
             // 无分类的下拉框模块查询
             if (com.selectUrl2) {
+                console.log()
                 for (let key in com.selectUrl2) {
                     let newArr = this.$addAndEditSelectMethod(com.selectUrl2[key])
                     let data = {table: newArr.selectUrl}
@@ -268,6 +269,10 @@ export default {
                         data.field = field
                         data.id = this.headData.area_id
                     }
+                    if (com.selectWhereArr2[key].field !== undefined) {
+                        data.where = [com.selectWhereArr2[key].field, com.selectWhereArr2[key].value]
+                    }
+                    console.log(data)
                     this.$dataGet(this, '/util/selects', data)
                         .then((responce) => {
                             if (responce.data.length !== 0) {

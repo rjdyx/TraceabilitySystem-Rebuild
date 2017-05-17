@@ -19,13 +19,89 @@
                     <p>{{product.description}}</p>
                 </div>
             </div>
-            <ul class="pCom_content_list">
-                <li v-for="item in models.tableList"><twoColList :tableList="item" :isbreed="isbreed"></twoColList></li>
-            </ul>
+            <div class="sell">
+                <div class="title">销售与物流</div>
+                <div class="content" v-for="sell in sells">
+                    <div class="title2"><b>|</b> 交易日期：{{sell.start_date}} 至 {{sell.end_date}}</div>
+                    <div>
+                        <li>运输商品：</li>
+                        <li>{{sell.delivery_name}}</li>
+                    </div>
+                    <div>
+                        <li>供货商：</li>
+                        <li>{{sell.supplier_name}}</li>
+                    </div>
+                    <div>
+                        <li>经销商：</li>
+                        <li>{{sell.client_name}}</li>
+                    </div>
+                    <div>
+                        <li>运输方式：</li>
+                        <li>{{sell.type_name}}</li>
+                    </div>
+                    <div v-if="sell.type==='self'">
+                        <li>车牌号：</li>
+                        <li>{{sell.vehicle_number}}</li>
+                    </div>
+                    <div v-if="sell.type==='consign'">
+                        <li>物流公司：</li>
+                        <li>{{sell.logistic_name}}</li>
+                    </div>
+                    <div v-if="sell.type==='consign'">
+                        <li>物流订单号：</li>
+                        <li>{{sell.consign_number}}</li>
+                    </div>
+                    <div v-if="sell.type==='selve'">
+                        <li>提货人：</li>
+                        <li>{{sell.selve_name}}</li>
+                    </div>
+                    <div v-if="sell.type==='selve'">
+                        <li>提货日期：</li>
+                        <li>{{sell.selve_date}}</li>
+                    </div>
+                </div> 
+            </div>
         </div>   
     </div>
 </template>
 <style type="text/css" lang="sass">
+.sell{
+    width:100%;
+    .title{
+        width:92%;
+        margin-left: 4%;
+        padding: 15px 0px;
+        color:#3ccfb5;
+        line-height: 100px;
+        font-size: 25px;
+        border-bottom: 1px solid #e6e6e6;
+    }
+    .content{
+        width:92%;
+        margin-left: 4%;
+        padding: 10px 0px;
+        color:#666;
+        font-size: 18px;
+    div{
+        height:60px;
+    }
+    li{
+        list-style-type: none;
+        float: left;
+        text-align: center;
+        width: 50%;
+        height:60px;
+        line-height: 60px;
+    }
+    .title2{
+        width:92%;
+        padding: 10px 0px;
+        color:#666;
+        line-height: 100px;
+        font-size: 20px;
+    }
+    }
+}
 .breedFontCol{
     color:#93bf46!important;
 }
@@ -96,22 +172,25 @@ export default {
         return {
             models: modelObj[this.$route.meta.key],
             isbreed: false,
-            product: {}
+            product: {},
+            sells: {}
         }
     },
     mounted () {
-        // if (this.$route.meta.runName === 'breed') {
-        //     this.isbreed = true
-        // }
         var params = {code_id: this.$route.params.id}
         axios.post('run/product', params)
             .then((responce) => {
                 if (responce.data !== 'false') {
                     this.product = responce.data
-                    console.log(this.product)
                 } else {
                     alert('溯源码无效！')
                     this.$router.push('/')
+                }
+            })
+        axios.post('run/sell', params)
+            .then((responce) => {
+                if (responce.data !== 'false') {
+                    this.sells = responce.data
                 }
             })
     },
