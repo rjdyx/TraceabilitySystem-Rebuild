@@ -18,7 +18,7 @@ export default {
                 {
                     name: '首页',
                     src: '/public/images/home.png',
-                    path: '/index'
+                    path: '/index/home'
                 },
                 {
                     name: window.Roles.name,
