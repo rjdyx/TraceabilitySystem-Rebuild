@@ -125,13 +125,11 @@
             </el-table>
     <div class="footer">
         <div class="operate-foot">
-            <div class="operate-foot">
-                <el-button @click="delAll" v-if="checkOperate==null">删除</el-button>
-                <template v-if="lotComponent!=null">
-                    <lotOpearte :lotComponent="lotComponent"></lotOpearte>
-                </template>
-                <el-button>导出表格</el-button>
-            </div>
+            <el-button @click="delAll" v-if="checkOperate==null">删除</el-button>
+            <template v-if="lotComponent!=null">
+                <lotOpearte :lotComponent="lotComponent"></lotOpearte>
+            </template>
+            <el-button>导出表格</el-button>
         </div>
 
         <p class="record">共有{{num}}页，{{total_num}}条记录</p>

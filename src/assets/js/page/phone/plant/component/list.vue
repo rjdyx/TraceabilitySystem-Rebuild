@@ -3,18 +3,24 @@
 	<div class="list">
         <h3>用药记录</h3>
         <table>
-            <tr>
-                <th v-for="item in thList">{{item}}</th>
-            </tr>
-            <tr v-for="item in trList" @click="goListDetails">
-                <td>{{item.type}}</td>
-                <td>{{item.operator}}</td>
-                <td>{{item.date}}</td>
-                <td>
-                    <!-- <img :src="item.img" alt=""> -->
-                    <img class="tdImg" src="../images/img.png" alt="">
-                </td>
-            </tr>
+            <col style="width: 25%" />
+            <col style="width: 25%" />
+            <col style="width: 25%" />
+            <col style="width: 25%" />
+            <tbody>
+                 <tr>
+                    <th style="width: 25%" v-for="item in thList">{{item}}</th>
+                </tr>
+                <tr v-for="item in trList" @click="goListDetails">
+                    <td>{{item.type}}</td>
+                    <td>{{item.operator}}</td>
+                    <td>{{item.date}}</td>
+                    <td>
+                        <!-- <img :src="item.img" alt=""> -->
+                        <img class="tdImg" src="../images/img.png" alt="">
+                    </td>
+                </tr>
+            </tbody>
         </table>
     </div>
     <router-view></router-view>
@@ -33,6 +39,7 @@
     >table{
         width:92%;
         margin: 0 auto;
+        table-layout:fixed;
         tr{
             width:100%;
             font-size: 1.3rem;

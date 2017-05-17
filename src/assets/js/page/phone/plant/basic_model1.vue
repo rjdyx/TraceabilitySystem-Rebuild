@@ -13,18 +13,23 @@
             <div>
                 <h3 :class="{breedFontCol:isbreed}">{{models.tableName}}</h3>
                 <table>
-                    <tr>
-                        <th v-for="item in models.tableTheads">{{item}}</th>
-                    </tr>
-                    <tr v-for="list in lists" @click="goListDetails(list.id)">
-                        <td>{{list.serial}}</td>
-                        <td>{{list.operate_name}}</td>
-                        <td>{{list.date}}</td>
-                        <td>
-                            <!-- <img :src="item.img" alt=""> -->
-                            <img class="tdImg" src="list.thumb" alt="">
-                        </td>
-                    </tr>
+                    <col style="width: 25%" />
+                    <col style="width: 25%" />
+                    <col style="width: 25%" />
+                    <col style="width: 25%" />
+                    <tbody>
+                        <tr>
+                            <th style="width: 25%" v-for="item in models.tableTheads">{{item}}</th>
+                        </tr>
+                        <tr v-for="list in lists" @click="goListDetails(list.id)">
+                            <td>{{list.serial}}</td>
+                            <td>{{list.operate_name}}</td>
+                            <td>{{list.date}}</td>
+                            <td>
+                                <img class="tdImg" src="list.thumb" alt="">
+                            </td>
+                        </tr>
+                    </tbody>
                 </table>
             </div> 
         </div>
@@ -54,6 +59,7 @@
             >table{
                 width:92%;
                 margin: 0 auto;
+                table-layout:fixed;
                 tr{
                     width:100%;
                     font-size: .37rem;
