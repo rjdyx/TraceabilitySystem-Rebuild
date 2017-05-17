@@ -20,7 +20,7 @@
 								type="text" 
 								v-model="ruleForm2.name" 
 								auto-complete="off" 
-								placeholder="请输入用户名或注册邮箱或电话">
+								placeholder="请输入用户名或注册邮箱或电话" @keyup.enter.native="passTo">
 							</el-input>
 						</el-form-item>
 						<el-form-item label="" prop="password">
@@ -28,32 +28,37 @@
 								type="password" 
 								v-model="ruleForm2.password"
 								auto-complete="off" 
-								placeholder="请输入密码">
+								placeholder="请输入密码"
+								@select="handle"
+								@keyup.enter.native="passTo">
 							</el-input>
 						</el-form-item>
 						<el-form-item label="" prop="code">
 							<el-input 
 								v-model.number="ruleForm2.code" 
 								placeholder="请输入验证码" 
-								class="code">
+								class="code" @keyup.enter.native="passTo">
 							</el-input>
 							<img :src="kit_url" alt="" class="kit" @click="Kit">
 						</el-form-item>
 						<el-form-item class="receive">
 							<el-checkbox v-model="checked">接受</el-checkbox>
-							<a href="#/protocol" target ="_blank" style="color:#20a0ff">《服务协议》</a>
-							<el-checkbox v-model="recordeChecked">记住账号 </el-checkbox>
-							<router-link to="/forget" style="color:#007cc2">
+							<a href="#/protocol" target ="_blank" style="color:#20a0ff" class="smaller">《服务协议》</a>
+							<el-checkbox v-model="recordeChecked">
+							记住账号 
+							</el-checkbox>
+							<router-link to="/forget" style="color:#007cc2" class="smaller">
 								&nbsp;&nbsp; 忘记密码
 							</router-link>
 						</el-form-item>
 						<el-form-item>
 							<el-button type="primary" 
 								@click="submitForm('ruleForm2')" 
+								size="small"
 								:disabled="this.checked!==true"
 								>登录</el-button>
 							<a href="http://www.gzlgit.com/about" target="_blank" class="apply">
-								<el-button type="primary">申请入驻</el-button>
+								<el-button type="primary" size="small">申请入驻</el-button>
 							</a>
 						</el-form-item>
 					</el-form>
@@ -132,7 +137,7 @@ export default {
                             alert('用户名或密码错误')
                             // callback(new Error('登录失败'))
                         } else {
-                            this.$router.push('/index')
+                            this.$router.push('/index/home')
                             this.$store.dispatch('switch_record', '')
                             var myDate = new Date()
                             localStorage.setItem('loginDate', myDate.toLocaleString())
@@ -154,10 +159,19 @@ export default {
                 }
             })
         },
+        passTo () {
+            this.submitForm('ruleForm2')
+        },
+        key () {
+            console.log('hfuiegubejbhjg')
+        },
         Kit () {
             axios.get('/kit').then((responce) => {
                 this.kit_url = responce.data
             })
+        },
+        handle () {
+            console.log('iwgufewgfyefheufeuf')
         }
     },
     mounted () {
@@ -182,7 +196,7 @@ export default {
 		position: absolute;
 		background-color: #d5dde0;
 		min-height: 900px;
-		min-width: 1360px;
+		min-width: 980px;
 		overflow: hidden;
 			.bg{
 				width: 100%;
@@ -212,8 +226,9 @@ export default {
 				width: 36%;
 				height: 26%;
 					.login-logo{
-					width: 50%;
+					width: 46%;
 					float: left;
+					margin-top: 30px;
 							img{
 						width: 54%;
 						margin: 12% auto;
@@ -222,10 +237,10 @@ export default {
 				}
 				.form{
 				float: left;
-				width: 50%;
+				width: 54%;
 					.el-form-item{
 						margin-top: 5px;
-						margin-bottom: 17px;
+						/*margin-bottom: 17px;*/
 						width:85%;
 					}
 					.receive{
@@ -233,7 +248,6 @@ export default {
 					}
 					.code{
 						width: 44% !important;
-						
 					}
 					.kit{
 						width:50%;
@@ -247,7 +261,6 @@ export default {
 			input:-ms-input-placeholder{
 			    color: #d6d6d7;
 			}
-
 			input::-webkit-input-placeholder{
 			    color: #d6d6d7;
 			}
@@ -263,8 +276,23 @@ export default {
 					color: #919191;
 				}
 			}
+			.el-checkbox__label,.smaller{
+				font-size: 12px;
+			}
 			.apply{
 				margin-left: 30px;
+			}
+			@media screen and(min-width:1200px) and(max-width:1490px) {
+				.form .el-form-item{
+					margin-bottom: 13px;
+				}
+				.el-form-item__content{
+					line-height: 28px;
+				}
+			}
+			.el-form-item__content{
+				/*line-height: 32px;*/
+				font-size: 12px;
 			}
 		}
 </style>
