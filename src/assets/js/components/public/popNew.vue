@@ -356,10 +356,13 @@ export default {
                     axios.get(this.$adminUrl(this.url + '/getArea'), {params: params}).then((responce) => {
                         this.allowance = responce.data['num']
                         this.tableForm['unit'] = responce.data['unit']
+                        console.log(this.tableForm)
                         let nc = this.newComponent[0]
                         this.disabledV = false
                         nc.components[nc.limit].rule[1]['getMax'] = responce.data['num']
                         nc.components[nc.limit].rule[1]['getMessage'] = nc.getMessage
+                        console.log(responce.data['num'] + ':' + nc.getMessage)
+                        console.log(this.rules)
                     })
                 } else {
                     this.tableForm['unit'] = '亩'
