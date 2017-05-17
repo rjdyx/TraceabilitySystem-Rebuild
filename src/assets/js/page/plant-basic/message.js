@@ -7935,11 +7935,11 @@ export default {
         selectSearch: ['plantations.id'],
         selectValueId: [['plantation_id', 'plantation_name', true]],
         selectDefault: [{value: '', label: '种植区选择'}],
-        paramsIndex: 0,
+        changeDataArr: [{state: {0: '未完成', 1: '已完成'}}],
         searchPlaceholder: '请输入采收批次号进行搜索',
-        theads: ['采收批次', '采收日期', '所属种植区', '种植批次号', '采收数量(kg)', '入库部门', '存放仓库位置', '操作人', '录入人', '备注'],
-        protos: ['serial', 'date', 'plantation_name', 'cultivate_serial', 'amount', 'department', 'position', 'operate_name', 'user_name', 'memo'],
-        widths: [50, 50, 50, 60, 50, 50, 50, 50, 50, 50],
+        theads: ['采收批次', '采收日期', '所属种植区', '种植批次号', '采收数量(kg)', '入库部门', '存放仓库位置', '操作人', '录入人', '状态', '备注'],
+        protos: ['serial', 'date', 'plantation_name', 'cultivate_serial', 'amount', 'department', 'position', 'operate_name', 'user_name', 'state', 'memo'],
+        widths: [50, 50, 50, 60, 50, 50, 50, 50, 50, 30, 50],
         typeComponent: [
             {
                 component: output
@@ -7963,6 +7963,7 @@ export default {
                 }
             ]
         }],
+        moreComponent: [{value: '状态'}],
         newComponent: [{
             tab: '新建采收批次',
             selectUrl2: [['cultivates', 'id', 'serial', true], ['operates', 'id', 'name', true]],
@@ -8125,9 +8126,10 @@ export default {
         batch: 'plantPackBatch',
         paramsIndex: 'plant',
         searchPlaceholder: '请输入加工批次号',
-        theads: ['加工批次号', '加工日期', '数量', '产地', '操作人', '录入人', '备注'],
-        protos: ['serial', 'date', 'amount', 'origin', 'operate_name', 'user_name', 'memo'],
-        widths: [50, 50, 50, 50, 50, 50, 50],
+        changeDataArr: [{state: {0: '未完成', 1: '已完成'}}],
+        theads: ['加工批次号', '加工日期', '数量', '产地', '操作人', '录入人', '状态', '备注'],
+        protos: ['serial', 'date', 'amount', 'origin', 'operate_name', 'user_name', 'state', 'memo'],
+        widths: [50, 50, 50, 50, 50, 50, 50, 50],
         moreComponent: [{value: '状态'}],
         typeComponent: [
             {
@@ -8919,7 +8921,7 @@ export default {
             url: 'driver',
             changeDataArr: [{sex: {0: '男', 1: '女'}}],
             searchPlaceholder: '请输入司机姓名进行搜索',
-            theads: ['驾驶员姓名', '性别', '联系电话', '取得驾照日期', '出生日期', '驾照类型(A1、C2...)', '备注信息'],
+            theads: ['驾驶员姓名', '性别', '联系电话', '取得驾照时间（年）', '出生日期', '驾照类型(A1、C2...)', '备注信息'],
             protos: ['name', 'sex', 'phone', 'driver', 'birth', 'type', 'memo'],
             widths: [50, 50, 50, 50, 50, 50],
             listComponent: [],
@@ -8984,7 +8986,7 @@ export default {
                     type: 'text',
                     component: null,
                     isNull: true,
-                    label: '取得驾照时间',
+                    label: '取得驾照时间（年）',
                     placeholder: '',
                     rule: {validator: validate2.reNumber}
                 },
@@ -9058,7 +9060,7 @@ export default {
                     type: 'text',
                     component: null,
                     isNull: true,
-                    label: '取得驾照时间',
+                    label: '取得驾照时间（年）',
                     placeholder: '',
                     rule: {validator: validate2.reNumber}
                 },

@@ -327,7 +327,7 @@ export default {
                 } else if (this.url === 'farmcd') {
                     this.disabled = true
                     let params = {id: this.editForm.id, pid: this.editForm.pid}
-                    axios.get(this.$adminUrl(this.url + '/getArea'), {params: params}).then((responce) => {
+                    axios.get(this.$adminUrl(this.url + '/getSetArea'), {params: params}).then((responce) => {
                         this.allowance = parseInt(responce.data['max_num']) + parseInt(this.editForm.area)
                         this.editAllowance = parseInt(responce.data['min_num'])
                         com.components[com.limit].rule[1]['max'] = this.allowance
@@ -357,7 +357,7 @@ export default {
                     })
                 } else {
                     let params = {id: this.editForm.id, pid: val}
-                    axios.get(this.$adminUrl(this.url + '/getArea'), {params: params}).then((responce) => {
+                    axios.get(this.$adminUrl(this.url + '/getSetArea'), {params: params}).then((responce) => {
                         if (val === this.editDefault.pid) {
                             this.allowance = parseInt(responce.data['max_num']) + parseInt(this.editDefault.area)
                         } else {

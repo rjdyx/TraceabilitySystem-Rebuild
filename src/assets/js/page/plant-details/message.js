@@ -17,8 +17,8 @@ export default {
         key: 'breedBatch',
         roleName: ['beast/breed', 0], // 接口权限参数 参数1为权限name 参数2为是否区分运营者 （默认0）
         tab: '养殖批次管理',
-        theads: ['批次号', '养殖区', '圈舍', '畜禽', '开始日期', '数量', '养殖方式', '养殖人', '操作人', '录入人', '备注'],
-        protos: ['serial', 'farm_name', 'area_name', 'beast_name', 'start_date', 'amount', 'way', 'operate', 'operate_name', 'user_name', 'meno'],
+        theads: ['批次号', '养殖区', '圈舍', '畜禽', '开始日期', '数量', '养殖方式', '养殖人', '操作人', '录入人', '状态'],
+        protos: ['serial', 'farm_name', 'area_name', 'beast_name', 'start_date', 'amount', 'way', 'operate', 'operate_name', 'user_name', 'state'],
         url: 'breed',
         tabList: [{
             url: 'rfid',
@@ -615,7 +615,6 @@ export default {
             url: 'plan-rfid',
             tab: '畜禽RFID',
             searchPlaceholder: '请输入rfid进行搜索',
-            // typeComponent: [{component: importBtn}, {component: output}, {component: newbuildBtn}],
             typeComponent: [{component: newbuildBtn}],
             headList: ['养殖批次', 'Rfid', '养殖畜禽', '养殖日期'],
             protos: ['serial', 'rfid', 'beast_name', 'date'],
@@ -928,8 +927,9 @@ export default {
         key: 'plantSerial',
         tab: '种植批次管理',
         roleName: ['plant/cultivate', 0],
-        theads: ['种植批次号', '所属种植区', '种植人', '种植日期', '种植地址', '种植果蔬名称', '当前批次面积', '备注'],
-        protos: ['serial', 'plantation_name', 'operate_name', 'date', 'address', 'plant_name', 'area_unit', 'memo'],
+        theads: ['种植批次号', '所属种植区', '种植人', '种植日期', '种植地址', '种植果蔬名称', '当前批次面积', '状态'],
+        protos: ['serial', 'plantation_name', 'operate_name', 'date', 'address', 'plant_name', 'area_unit', 'state'],
+        changeDataArr: [{state: {'未完成': 0, '已完成': 1}}],
         url: 'cultivate',
         tabList: [{
             key: 'grow',
@@ -1103,7 +1103,7 @@ export default {
         url: 'spray',
         tabList: [{
             url: 'cultivate-spray',
-            tab: '种植批次施肥信息',
+            tab: '种植批次施药信息',
             searchPlaceholder: '请输入种植批次进行搜索',
             headList: ['种植批次号', '种植区', '种植果蔬', '种植日期', '种植人', '备注信息'],
             protos: ['serial', 'plantation_name', 'plant_name', 'date', 'operate_name', 'memo'],
