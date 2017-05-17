@@ -6,7 +6,7 @@
  */ 
 <template>
 	<div class="user">
-		<iframe src="http://www.food.com/help.pdf" frameborder="0"></iframe>
+		<iframe :src="src" frameborder="0"></iframe>
 	</div>
 </template>
 
@@ -15,6 +15,7 @@ export default {
     name: 'user',
     data () {
         return {
+            src: require('projectRoot/env.js').app_url + '/help.pdf'
         }
     },
     methods: {

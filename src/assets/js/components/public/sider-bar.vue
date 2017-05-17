@@ -75,7 +75,9 @@ export default {
         height: 100%;
         background-color: #324157;
     }
-
+    .jiji{
+        border: 2px;
+    }
     #menu {
         max-height: 100%;
     }
