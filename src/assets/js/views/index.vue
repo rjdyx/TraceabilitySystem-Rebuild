@@ -26,7 +26,7 @@ export default {
                     path: '/index/test'
                 },
                 {
-                    name: '帮助文档',
+                    name: '帮助',
                     src: '/public/images/help.png',
                     path: '/index/help'
                 },
@@ -51,6 +51,7 @@ export default {
     },
     methods: {
         changeSub () {
+            console.log(this.$refs.siderBar.$children[0].$children[0])
             this.$refs.siderBar.$children[0].$children[0].closeMenu()
             this.$refs.siderBar.$children[0].$children[0].activedIndex = ''
             this.$store.dispatch('switch_record', '')
