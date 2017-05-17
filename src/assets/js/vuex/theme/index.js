@@ -7,7 +7,6 @@ const state = {
     font: func.fontLocal.get() || {font: 'big'},
     record: func.modelLocal.get() || {record: ''}
 }
-console.log(state)
 export default{
     state,
     actions,
