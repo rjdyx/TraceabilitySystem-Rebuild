@@ -60,7 +60,7 @@ router.beforeEach(async (to, from, next) => {
             }
         }
     }
-    if (check) next({path: '/'})
+    // if (check) next({path: '/index'})
     next()
 })
 

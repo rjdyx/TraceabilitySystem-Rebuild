@@ -18,7 +18,7 @@ export default {
                 {
                     name: '首页',
                     src: '/public/images/home.png',
-                    path: '/index'
+                    path: '/index/home'
                 },
                 {
                     name: window.Roles.name,
@@ -26,7 +26,7 @@ export default {
                     path: '/index/test'
                 },
                 {
-                    name: '帮助文档',
+                    name: '帮助',
                     src: '/public/images/help.png',
                     path: '/index/help'
                 },

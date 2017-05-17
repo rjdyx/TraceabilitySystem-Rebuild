@@ -53,6 +53,7 @@ export default {
     computed: {
     },
     mounted () {
+        console.log(this.menus)
         this.record = this.$store.getters.getRecord
     },
     methods: {
@@ -75,7 +76,9 @@ export default {
         height: 100%;
         background-color: #324157;
     }
-
+    .jiji{
+        border: 2px;
+    }
     #menu {
         max-height: 100%;
     }

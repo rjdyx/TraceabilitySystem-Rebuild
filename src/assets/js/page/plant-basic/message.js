@@ -1421,6 +1421,8 @@ export default {
             editComponent: [{
                 tab: '养殖场信息',
                 hasImg: true,
+                limit: 1,
+                getMessage: '养殖场面积不能小于下属养殖区之和',
                 components: [{
                     name: 'name',
                     type: 'text',
@@ -1546,6 +1548,8 @@ export default {
                 checkNumber: [1],
                 popNumber: [0],
                 hasImg: true,
+                limit: 2,
+                getMessage: '已超过养殖场余留面积',
                 components: [{
                     // 场名
                     name: 'pid',
@@ -1657,6 +1661,8 @@ export default {
                 checkNumber: [1],
                 popNumber: [0],
                 hasImg: true,
+                limit: 2,
+                getMessage: '已超过养殖场余留面积',
                 components: [{
                     // 场名
                     name: 'pid',
@@ -1666,8 +1672,7 @@ export default {
                     label: '养殖场',
                     placeholder: '请选择养殖场',
                     rule: {required: true},
-                    options: [],
-                    disabled: true
+                    options: []
                 },
                 {
                     name: 'name',
@@ -1802,6 +1807,8 @@ export default {
                 checkNumber: [1],
                 popNumber: [0],
                 hasImg: true,
+                limit: 2,
+                getMessage: '已超过养殖区余留面积',
                 components: [{
                     // 场名
                     name: 'farm_id',
@@ -1829,7 +1836,7 @@ export default {
                     isNull: false,
                     label: '圈舍面积',
                     placeholder: '请填写数字（必填）',
-                    rule: {required: true, validator: validate2.number, message: '请填写数字（必填）'},
+                    rule: [{required: true, message: '请填写数字（必填）', trigger: 'blur'}, {validator: validate2.reNumber}],
                     options: [
                         {
                             value: '亩', label: '亩'
@@ -1868,6 +1875,8 @@ export default {
                 checkNumber: [1],
                 popNumber: [0],
                 hasImg: true,
+                limit: 2,
+                getMessage: '已超过养殖区余留面积',
                 components: [{
                     // 场名
                     name: 'farm_id',
@@ -1877,8 +1886,7 @@ export default {
                     label: '所属养殖区',
                     placeholder: '必填',
                     rule: {required: true},
-                    options: [],
-                    disabled: true
+                    options: []
                 },
                 {
                     name: 'name',
@@ -1896,7 +1904,7 @@ export default {
                     isNull: false,
                     label: '圈舍面积',
                     placeholder: '请填写数字（必填）',
-                    rule: {required: true, validator: validate2.number, message: '请填写数字（必填）'},
+                    rule: [{required: true, message: '请填写数字（必填）', trigger: 'blur'}, {validator: validate2.reNumber}],
                     options: [
                         {
                             value: '亩', label: '亩'
@@ -5566,7 +5574,7 @@ export default {
                 hasImg: true,
                 popNumber: [0],
                 limit: 2,
-                getMessage: '已超过种植种植场余留面积',
+                getMessage: '已超过种植场余留面积',
                 components: [{
                     name: 'pid',
                     type: 'select',
@@ -5661,6 +5669,8 @@ export default {
                 checkNumber: [1],
                 popNumber: [0],
                 hasImg: true,
+                limit: 2,
+                getMessage: '已超过种植场余留面积',
                 components: [{
                     name: 'pid',
                     type: 'select',
@@ -6363,13 +6373,14 @@ export default {
         tab: '种植批次信息',
         url: 'cultivate',
         batch: 'plantSerial',
+        changeDataArr: [{state: {0: '未完成', 1: '已完成'}}],
         selectSearch: ['plantations.id', 'plants.id'],
         selectValueId: [['plantation_id', 'plantation_name', true], ['plant_id', 'plant_name', true]],
         selectDefault: [{value: '', label: '种植区选择'}, {value: '', label: '果蔬选择'}],
         searchPlaceholder: '请输入种植批次号进行搜索',
-        theads: ['所属种植区', '种植批次号', '果蔬名称', '种植日期', '种植面积', '种植人', '录入人', '备注'],
-        protos: ['plantation_name', 'serial', 'plant_name', 'date', 'area_unit', 'operate_name', 'user_name', 'memo'],
-        widths: [50, 50, 50, 50, 50, 50, 50, 50],
+        theads: ['所属种植区', '种植批次号', '果蔬名称', '种植日期', '种植面积', '种植人', '录入人', '状态', '备注'],
+        protos: ['plantation_name', 'serial', 'plant_name', 'date', 'area_unit', 'operate_name', 'user_name', 'state', 'memo'],
+        widths: [50, 50, 50, 50, 50, 50, 50, 50, 50],
         listComponent: [{
             components: [{
                 name: 'plantations.id',
@@ -7924,11 +7935,11 @@ export default {
         selectSearch: ['plantations.id'],
         selectValueId: [['plantation_id', 'plantation_name', true]],
         selectDefault: [{value: '', label: '种植区选择'}],
-        paramsIndex: 0,
+        changeDataArr: [{state: {0: '未完成', 1: '已完成'}}],
         searchPlaceholder: '请输入采收批次号进行搜索',
-        theads: ['采收批次', '采收日期', '所属种植区', '种植批次号', '采收数量(kg)', '入库部门', '存放仓库位置', '操作人', '录入人', '备注'],
-        protos: ['serial', 'date', 'plantation_name', 'cultivate_serial', 'amount', 'department', 'position', 'operate_name', 'user_name', 'memo'],
-        widths: [50, 50, 50, 60, 50, 50, 50, 50, 50, 50],
+        theads: ['采收批次', '采收日期', '所属种植区', '种植批次号', '采收数量(kg)', '入库部门', '存放仓库位置', '操作人', '录入人', '状态', '备注'],
+        protos: ['serial', 'date', 'plantation_name', 'cultivate_serial', 'amount', 'department', 'position', 'operate_name', 'user_name', 'state', 'memo'],
+        widths: [50, 50, 50, 60, 50, 50, 50, 50, 50, 30, 50],
         typeComponent: [
             {
                 component: output
@@ -7952,6 +7963,7 @@ export default {
                 }
             ]
         }],
+        moreComponent: [{value: '状态'}],
         newComponent: [{
             tab: '新建采收批次',
             selectUrl2: [['cultivates', 'id', 'serial', true], ['operates', 'id', 'name', true]],
@@ -8114,9 +8126,10 @@ export default {
         batch: 'plantPackBatch',
         paramsIndex: 'plant',
         searchPlaceholder: '请输入加工批次号',
-        theads: ['加工批次号', '加工日期', '数量', '产地', '操作人', '录入人', '备注'],
-        protos: ['serial', 'date', 'amount', 'origin', 'operate_name', 'user_name', 'memo'],
-        widths: [50, 50, 50, 50, 50, 50, 50],
+        changeDataArr: [{state: {0: '未完成', 1: '已完成'}}],
+        theads: ['加工批次号', '加工日期', '数量', '产地', '操作人', '录入人', '状态', '备注'],
+        protos: ['serial', 'date', 'amount', 'origin', 'operate_name', 'user_name', 'state', 'memo'],
+        widths: [50, 50, 50, 50, 50, 50, 50, 50],
         moreComponent: [{value: '状态'}],
         typeComponent: [
             {
@@ -8908,7 +8921,7 @@ export default {
             url: 'driver',
             changeDataArr: [{sex: {0: '男', 1: '女'}}],
             searchPlaceholder: '请输入司机姓名进行搜索',
-            theads: ['驾驶员姓名', '性别', '联系电话', '取得驾照日期', '出生日期', '驾照类型(A1、C2...)', '备注信息'],
+            theads: ['驾驶员姓名', '性别', '联系电话', '取得驾照时间（年）', '出生日期', '驾照类型(A1、C2...)', '备注信息'],
             protos: ['name', 'sex', 'phone', 'driver', 'birth', 'type', 'memo'],
             widths: [50, 50, 50, 50, 50, 50],
             listComponent: [],
@@ -8973,7 +8986,7 @@ export default {
                     type: 'text',
                     component: null,
                     isNull: true,
-                    label: '取得驾照时间',
+                    label: '取得驾照时间（年）',
                     placeholder: '',
                     rule: {validator: validate2.reNumber}
                 },
@@ -9047,7 +9060,7 @@ export default {
                     type: 'text',
                     component: null,
                     isNull: true,
-                    label: '取得驾照时间',
+                    label: '取得驾照时间（年）',
                     placeholder: '',
                     rule: {validator: validate2.reNumber}
                 },
