@@ -21,7 +21,7 @@ export default[{
         name: '人员档案管理'
     },
     {
-        role: roleData.basic === undefined ? 0 : roleData.basic.export === undefined ? 0 : 1,
+        role: roleData.basic === undefined ? 0 : roleData.basic.expert === undefined ? 0 : 1,
         path: '/index/message/expertFile',
         name: '专家档案管理'
     },

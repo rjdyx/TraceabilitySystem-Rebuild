@@ -125,13 +125,11 @@
             </el-table>
     <div class="footer">
         <div class="operate-foot">
-            <div class="operate-foot">
-                <el-button @click="delAll" v-if="checkOperate==null">删除</el-button>
-                <template v-if="lotComponent!=null">
-                    <lotOpearte :lotComponent="lotComponent"></lotOpearte>
-                </template>
-                <el-button>导出表格</el-button>
-            </div>
+            <el-button @click="delAll" v-if="checkOperate==null">删除</el-button>
+            <template v-if="lotComponent!=null">
+                <lotOpearte :lotComponent="lotComponent"></lotOpearte>
+            </template>
+            <el-button>导出表格</el-button>
         </div>
 
         <p class="record">共有{{num}}页，{{total_num}}条记录</p>
@@ -260,6 +258,7 @@ export default {
             }
             // 无分类的下拉框模块查询
             if (com.selectUrl2) {
+                console.log()
                 for (let key in com.selectUrl2) {
                     let newArr = this.$addAndEditSelectMethod(com.selectUrl2[key])
                     let data = {table: newArr.selectUrl}
@@ -268,6 +267,10 @@ export default {
                         data.field = field
                         data.id = this.headData.area_id
                     }
+                    if (com.selectWhereArr2[key].field !== undefined) {
+                        data.where = [com.selectWhereArr2[key].field, com.selectWhereArr2[key].value]
+                    }
+                    console.log(data)
                     this.$dataGet(this, '/util/selects', data)
                         .then((responce) => {
                             if (responce.data.length !== 0) {

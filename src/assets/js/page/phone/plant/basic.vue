@@ -13,11 +13,15 @@
             <div class="pBasic_content_planInfo">
                  <h3 :class="{breedFontCol:isbreed}">{{models.tableName}}</h3>
                  <table border="1" bordercolor="#fbfbfb">
+                    <col style="width: 28%" />
+                    <col style="width: 72%" />
+                    <tbody>
                      <tr v-for="(v,k) in models.tableProtos">
-                         <td>{{models.tableTheads[k] }}</td>
-                         <td v-if="v=='area'">{{data[v]}}{{data.unit}}</td>
-                         <td v-else>{{data[v]}}</td>
+                        <td style="width: 28%">{{models.tableTheads[k] }}</td>
+                        <td style="width: 72%" v-if="v=='area'">{{data[v]}}{{data.unit}}</td>
+                        <td style="width: 72%" v-else>{{data[v]}}</td>
                      </tr>
+                     </tbody>
                  </table>
             </div>
             <div class="pBasic_content_control">
@@ -102,11 +106,9 @@ export default {
                 font-size:.4rem;
                 border-collapse: collapse;
                 border-color:#e6e6e6;
+                table-layout:fixed;
                 tr{
                     width: 100%;
-                    white-space: nowrap;
-                    overflow: hidden;
-                    text-overflow:ellipsis;
                     td:first-child{
                         width:28%;
                         max-width:28%;

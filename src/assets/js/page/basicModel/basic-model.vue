@@ -305,12 +305,16 @@ export default {
             }).then(() => {
                 axios.delete(this.$adminUrl(this.url + '/' + row.id))
                     .then((responce) => {
-                        this.getSelect()
-                        this.boxArr(this.dataArr)
-                        this.$message({
-                            type: 'success',
-                            message: '删除成功'
-                        })
+                        if (responce.data === 'true') {
+                            this.getSelect()
+                            this.boxArr(this.dataArr)
+                            this.$message({
+                                type: 'success',
+                                message: '删除成功'
+                            })
+                        } else if (responce.data === 'state') {
+                            this.$message('该数据已被使用，无法删除')
+                        }
                     })
             }).catch(() => {
                 this.$message({
@@ -513,6 +517,8 @@ export default {
                                 type: 'success',
                                 message: '批量删除成功'
                             })
+                        } else if (responce.data === 'state') {
+                            this.$message('有数据已被使用，无法完成批量删除操作')
                         } else {
                             this.$message.error('批量删除失败')
                         }

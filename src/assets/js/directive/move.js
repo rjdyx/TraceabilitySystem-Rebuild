@@ -5,12 +5,14 @@ export default{
         let _this = this
         this.resizeFn()
         $('.newWrap').find($('.el-tabs__header')).on('mousedown', (e) => {
+            e.preventDefault()
             // console.log('mousedown')
             // 鼠标与newForm块的距离
             this.dmL = e.clientX - $('.newForm').position().left
             this.dmT = e.clientY - $('.newForm').position().top
             $(document).on('mousemove', (e) => {
                 e.preventDefault()
+                console.log('55555')
                 // console.log('mousemove')
                 var L = e.clientX - _this.dmL
                 var T = e.clientY - _this.dmT
