@@ -136,6 +136,7 @@ export default {
 .coltext{
 	font-size:14px;
 	color: #898989;
+    padding: 10px;
 }
 }
 </style>

@@ -21,5 +21,5 @@ Vue.use(utils)
 Vue.use(easyAjax)
 
 // 实例化Vue的filter
-import filters from '../filters/filters.js'
-Object.keys(filters).forEach(k => Vue.filter(k, filters[k]))
+// import filters from '../filters/filters.js'
+// Object.keys(filters).forEach(k => Vue.filter(k, filters[k]))

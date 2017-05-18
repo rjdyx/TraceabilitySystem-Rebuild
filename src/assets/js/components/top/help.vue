@@ -11,6 +11,7 @@
 </template>
 
 <script>
+import {mapActions} from 'vuex'
 export default {
     name: 'user',
     data () {
@@ -19,10 +20,14 @@ export default {
         }
     },
     methods: {
+        ...mapActions([
+            'change_siderBar'
+        ])
     },
     components: {
     },
     mounted () {
+        this.change_siderBar(true)
     }
 }
 </script>

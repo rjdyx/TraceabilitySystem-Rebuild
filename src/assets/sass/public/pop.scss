@@ -1,3 +1,4 @@
+@import '../mixins/_prefixer.scss';
 .newWrap{
     position: fixed;
     width:100%;
@@ -6,8 +7,6 @@
     top:0;
     left:0;
     z-index:3;
-    // text-align:center;
-    // overflow:hidden;
     .newForm{
         width:618px;
         max-width:618px;
@@ -29,8 +28,6 @@
                 height:88%;
                 overflow:auto;
                 .el-tab-pane{
-                    // padding:20px 70px;
-                    // box-sizing:border-box;
                     width:100%!important;
                     table{
                         width:100%;
@@ -38,8 +35,6 @@
                         .tr1{
                             display:block;
                             width:70%;
-                            // padding:20px 70px;
-                            // box-sizing:border-box;
                             margin:0 auto;
                             >td{
                                 display:block;
@@ -76,14 +71,14 @@
         }  
         .form-footer{
               border-top: 1px solid #d1dbe5;
-              text-align:-webkit-right;
+              text-align:right;
               padding:20px 10px 50px 0;
             .activecancel{
               background-color:#cccccc;
               color:white;
             }
             .batchNumDiv{
-                text-align:-webkit-left;
+                text-align:left;
                 padding-left:10px;
                 // padding-top:20px;
                 .batchNum{

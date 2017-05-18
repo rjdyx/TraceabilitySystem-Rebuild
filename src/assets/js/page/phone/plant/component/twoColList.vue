@@ -2,11 +2,16 @@
 <div class="twoColList">
     <h3 :class="{breedFontCol:isbreed}">{{tableList.tableName}}</h3> 
     <table>
-        <tr v-for="(v,k) in tableList.tableProtos ">
-            <td>{{tableList.tableTheads[k]}}</td>
-            <td v-if="v=='amount'">{{values[v]}}{{values.unit}}</td>
-            <td v-else>{{values[v]}}</td>
-        </tr>
+        <col style="width: 30%" />
+        <col style="width: 70%" />
+        <tbody>
+            <tr v-for="(v,k) in tableList.tableProtos ">
+                <td style="width: 30%">{{tableList.tableTheads[k]}}</td>
+                <td style="width: 70%" v-if="v=='amount'">{{values[v]}}{{values.unit}}</td>
+                <td style="width: 70%" v-else>{{values[v]}}</td>
+            </tr>
+        </tbody>
+            
     </table>
 </div>	
 </template>
@@ -26,6 +31,7 @@
     }
     >table{
         width: 100%;
+        table-layout:fixed;
         tr{
             font-size: .4rem;
             td:first-child{

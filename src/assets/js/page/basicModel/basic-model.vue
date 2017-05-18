@@ -6,7 +6,7 @@
  * 
  */
 <template>
-<div>   
+<div class="basic_model">   
   <!-- 标题 -->
     <contain-title :settitle="settitle">
     </contain-title>
@@ -149,6 +149,7 @@
 </template> 
  
 <script>
+import {mapActions} from 'vuex'
 import computed from './computed.js'
 import popNew from '../../components/public/popNew.vue'
 import ContainTitle from 'components/layout/contain-title.vue'
@@ -270,6 +271,9 @@ export default {
     // 混合
     mixins: [computed],
     methods: {
+        ...mapActions([
+            'change_siderBar'
+        ]),
         init (index = 0) {
             this.value = ''
             this.activeName = 0
@@ -305,12 +309,16 @@ export default {
             }).then(() => {
                 axios.delete(this.$adminUrl(this.url + '/' + row.id))
                     .then((responce) => {
-                        this.getSelect()
-                        this.boxArr(this.dataArr)
-                        this.$message({
-                            type: 'success',
-                            message: '删除成功'
-                        })
+                        if (responce.data === 'true') {
+                            this.getSelect()
+                            this.boxArr(this.dataArr)
+                            this.$message({
+                                type: 'success',
+                                message: '删除成功'
+                            })
+                        } else if (responce.data === 'state') {
+                            this.$message('该数据已被使用，无法删除')
+                        }
                     })
             }).catch(() => {
                 this.$message({
@@ -513,6 +521,8 @@ export default {
                                 type: 'success',
                                 message: '批量删除成功'
                             })
+                        } else if (responce.data === 'state') {
+                            this.$message('有数据已被使用，无法完成批量删除操作')
                         } else {
                             this.$message.error('批量删除失败')
                         }
@@ -693,6 +703,7 @@ export default {
         }
     },
     mounted () {
+        this.change_siderBar(false)
         this.activeName = 'index0'
         // 获取下拉框
         if (this.selectValueId) {
@@ -733,77 +744,27 @@ export default {
 
 
 <style lang='sass'>
+.basic_model{
+
     .pcActive{
         /*color: blue;*/
         text-decoration: underline;
         cursor:pointer;
     }
-	 .searchInp{
-	 	width:161px;
-	 	margin-bottom:10px;
-	 	font-size:12px;
-	 	margin-right:10px;
-	 }
-	 #btns{
-	 	float:right;
-	 }
-	 .operateBtns {
-            	display: inline-block;
-            	margin-top:10px;
-            	margin-right:10px;
-            }
      .fr{
      	float:right;
      }
      .fl{
      	float:left;
      }
-     .searchBtn{
-     	width:62px;
-     }
-     .searchOp{
-     	display:inline;
-     }
-     .margin{
-     	margin-left:15px;
-     }
      .el-icon-caret-left{
       padding-right: 15px;
-     }
-     i:hover{
-      cursor: pointer;
-     }
-     .active,.unactive{
-      width: 0;
-      height: 0;
-      display: inline-block;
-      vertical-align: middle;
-      margin: 0 10px 0 10px;
-      border-bottom: 10px solid transparent;
-      border-top: 10px solid transparent;
-     }
-     .active{
-      border-right: 18px solid #000;
-     }
-     .unactive{
-      border-left: 18px solid #000;
-     }
-     .clickMoreBtn{
-      display: inline-block;
-     }
-     .el-table th{
-      text-align:center;
      }
 .fade-enter-active, .fade-leave-active {
   transition: opacity .5s;
 }
 .fade-enter, .fade-leave-active {
   opacity: 0;
-}
-.pcActive {
-  color: blue;
-  text-decoration: underline;
-  cursor: pointer;
 }
 .searchInp {
   width: 161px;
@@ -814,12 +775,6 @@ export default {
 #btns {
   float: right;
 }
-.fr {
-  float: right;
-}
-.fl {
-  float: left;
-}
 .searchBtn {
   width: 62px;
 }
@@ -828,9 +783,6 @@ export default {
 }
 .margin {
   margin-left: 15px;
-}
-.el-icon-caret-left {
-  padding-right: 15px;
 }
 i {
   &:hover {
@@ -878,5 +830,6 @@ i {
   float: right;
   padding: 15px 10px;
 }
-   } 
+   }
+} 
 </style>

@@ -125,13 +125,11 @@
             </el-table>
     <div class="footer">
         <div class="operate-foot">
-            <div class="operate-foot">
-                <el-button @click="delAll" v-if="checkOperate==null">删除</el-button>
-                <template v-if="lotComponent!=null">
-                    <lotOpearte :lotComponent="lotComponent"></lotOpearte>
-                </template>
-                <el-button>导出表格</el-button>
-            </div>
+            <el-button @click="delAll" v-if="checkOperate==null">删除</el-button>
+            <template v-if="lotComponent!=null">
+                <lotOpearte :lotComponent="lotComponent"></lotOpearte>
+            </template>
+            <el-button>导出表格</el-button>
         </div>
 
         <p class="record">共有{{num}}页，{{total_num}}条记录</p>
@@ -149,6 +147,7 @@
 </div> 
 </template>
 <script>
+import {mapActions} from 'vuex'
 import computed from './computed.js'
 import popNew from '../../components/public/popNew.vue'
 import ContainTitle from 'components/layout/contain-title.vue'
@@ -208,6 +207,9 @@ export default {
     },
     mixins: [computed],
     methods: {
+        ...mapActions([
+            'change_siderBar'
+        ]),
         // tab点击事件
         tabClick (tab, event) {
             this.index = tab.$data.index
@@ -268,6 +270,7 @@ export default {
                         data.field = field
                         data.id = this.headData.area_id
                     }
+
                     // 多条件查询
                     if (com.selectWhereArr2 !== undefined) {
                         if (com.selectWhereArr2[key] !== undefined || com.selectWhereArr2[key] !== '') {
@@ -431,18 +434,6 @@ export default {
         boxArr (dataArr) {
             this.getAllMsg(dataArr)
         },
-        enterPic () {
-            // this.$alert('<img src>')
-            // this.$alert('这是一段内容', '标题名称', {
-            //     confirmButtonText: '确定',
-            //     callback: action => {
-            //         this.$message({
-            //             type: 'info',
-            //             message: 'action: ${ action }'
-            //         })
-            //     }
-            // }
-        },
         // 获取下拉框数据
         getSelect () {
             if (this.paramsIndex !== undefined) {
@@ -499,13 +490,16 @@ export default {
             }).then(() => {
                 axios.delete(this.$adminUrl(this.apiUrlArr[this.tabList[this.index].url] + '/' + row.id))
                     .then((responce) => {
-                        // this.getSelect()
-                        this.getDetailSerial()
-                        this.boxArr(this.dataArr)
-                        this.$message({
-                            type: 'success',
-                            message: '删除成功'
-                        })
+                        if (responce.data === 'true') {
+                            this.getDetailSerial()
+                            this.boxArr(this.dataArr)
+                            this.$message({
+                                type: 'success',
+                                message: '删除成功'
+                            })
+                        } else if (responce.data === 'state') {
+                            this.$message('该数据已被使用，无法删除')
+                        }
                     })
             }).catch(() => {
                 this.$message({
@@ -551,6 +545,8 @@ export default {
                                 type: 'success',
                                 message: '批量删除成功'
                             })
+                        } else if (responce.data === 'state') {
+                            this.$message('有数据已被使用，无法完成批量删除操作')
                         } else {
                             this.$message.error('批量删除失败')
                         }
@@ -624,6 +620,7 @@ export default {
         }
     },
     mounted () {
+        this.change_siderBar(false)
         this.tabItem = this.tabList[0]
         this.activeName = this.tabList[0].tab
         this.getApiUrl()
@@ -743,7 +740,7 @@ export default {
         .operate-foot{
             padding-left: 15px;
             display: inline-block;
-            padding-top: 8px;
+            padding-top: 4px;
         }
         .record{
             float: right;
