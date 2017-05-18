@@ -43,12 +43,12 @@
 						</el-form-item>
 						<el-form-item class="receive">
 							<el-checkbox v-model="checked">接受</el-checkbox>
-							<a href="#/protocol" target ="_blank" style="color:#20a0ff" class="smaller">《服务协议》</a>
+							<a href="#/protocol" target ="_blank" style="color:#20a0ff" class="smaller agreement">《服务协议》</a>
 							<el-checkbox v-model="recordeChecked">
 							记住账号 
 							</el-checkbox>
-							<router-link to="/forget" style="color:#007cc2" class="smaller">
-								&nbsp;&nbsp; 忘记密码
+							<router-link to="/forget" style="color:#007cc2" class="smaller margin">
+								忘记密码
 							</router-link>
 						</el-form-item>
 						<el-form-item>
@@ -281,6 +281,12 @@ export default {
 			}
 			.apply{
 				margin-left: 30px;
+			}
+			.margin{
+				margin-left: 18px;
+			}
+			.agreement{
+				margin-right: 18px;
 			}
 			@media screen and(min-width:1200px) and(max-width:1490px) {
 				.form .el-form-item{
