@@ -22,7 +22,7 @@
                 <template v-for="subItem in item.components">
 
                     <!-- 文本框 -->
-                    <tr class="tr1" v-if="subItem.type=='text'">
+                    <tr class="tr1" v-if="subItem.type=='text' && !subItem.hiddenSelect">
                         <td v-if="!subItem.consignHidden">
                             <el-form-item :label="subItem.label" :prop="subItem.name">
                                 <el-input 
@@ -33,11 +33,11 @@
                     </tr>
 
                     <!-- 下拉框 -->
-                    <tr class="tr1" v-else-if="subItem.type=='select'"> 
-                        <td v-if="!subItem.selfHidden && !subItem.consignHidden">
+                    <tr class="tr1" v-else-if="subItem.type=='select'">
+                        <td v-if="!subItem.hiddenSelect">
                             <el-form-item :label="subItem.label" :prop="subItem.name">
                               <el-select v-model="tableForm[subItem.name]" :placeholder="subItem.placeholder" size="small"
-                                    @change="getSelectId(subItem.assoc,subItem.name,tableForm[subItem.name])">
+                                    @change="getSelectId(subItem,tableForm[subItem.name])">
                                 <el-option 
                                     v-for="option in subItem.options" 
                                     :label="option.label" 
@@ -59,7 +59,7 @@
                         </td>
                     </tr>
                     <!-- 表格  -->
-                    <tr class="tr2" v-else-if="subItem.type=='table'">
+                    <tr class="tr2" v-else-if="subItem.type=='table' && !subItem.hiddenSelect">
                         <td>
                             <el-form-item :label="subItem.label" :prop="subItem.name" style="margin-left:-110px">
                                 <el-table :data="subItem.tableVal" class="table2"  @selection-change="handleSelectionChange">
@@ -259,6 +259,7 @@ export default {
                         this.tableForm[field] = this.routeId
                     }
                     if (this.newComponent[0].type === 'table' || this.newComponent[0].type === 'assoc') {
+                        this.tableForm.type = this.newComponent[0].hiddenValue.type
                         if (this.ids.length !== 0) {
                             this.$dataPost(this, this.url, this.tableForm, false, false, false)
                                 .then((response) => {
@@ -307,13 +308,36 @@ export default {
             this.ids = ids
         },
         // 选择框关联
-        getSelectId (assoc, name, val) {
+        getSelectId (subItem, val) {
+            var assoc = subItem.assoc
+            var name = subItem.name
+            var number = subItem.selectNumber
+            var changeTable = subItem.changeTable
+            var com = this.newComponent[0].components
             if (assoc !== undefined) {
                 this.$emit('setAssoc', [assoc, name, val])
-            } else if (name === 'breed_id' || name === 'come_id') {
+            } else if (number !== undefined && number !== '') {
+                for (let k in number) {
+                    var state = false
+                    var seed = ''
+                    var seed2 = []
+                    if (k !== val) {
+                        state = true
+                        seed = 'seed'
+                        seed2 = ['seed']
+                    }
+                    for (let k2 in number[k]) {
+                        com[number[k][k2]].hiddenSelect = state
+                        if (com[number[k][k2]].type === 'table') {
+                            this.ids = seed2
+                        } else {
+                            this.tableForm[com[number[k][k2]].name] = seed
+                        }
+                    }
+                }
+            } else if (name === 'breed_id' || name === 'come_id' || changeTable) {
                 this.$emit('setTable', [name, val])
             } else if (name === 'transportable_type') {
-                var com = this.newComponent[0].components
                 if (val === 'self') {
                     // 默认赋值
                     this.tableForm.driver_id = ''

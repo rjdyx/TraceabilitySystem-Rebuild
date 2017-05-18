@@ -260,7 +260,6 @@ export default {
             }
             // 无分类的下拉框模块查询
             if (com.selectUrl2) {
-                console.log()
                 for (let key in com.selectUrl2) {
                     let newArr = this.$addAndEditSelectMethod(com.selectUrl2[key])
                     let data = {table: newArr.selectUrl}
@@ -269,10 +268,16 @@ export default {
                         data.field = field
                         data.id = this.headData.area_id
                     }
-                    if (com.selectWhereArr2[key].field !== undefined) {
-                        data.where = [com.selectWhereArr2[key].field, com.selectWhereArr2[key].value]
+                    // 多条件查询
+                    if (com.selectWhereArr2 !== undefined) {
+                        if (com.selectWhereArr2[key] !== undefined || com.selectWhereArr2[key] !== '') {
+                            var arr = []
+                            for (let k in com.selectWhereArr2[key]) {
+                                arr[k] = [com.selectWhereArr2[key][k].n, com.selectWhereArr2[key][k].v]
+                            }
+                            data.where = arr
+                        }
                     }
-                    console.log(data)
                     this.$dataGet(this, '/util/selects', data)
                         .then((responce) => {
                             if (responce.data.length !== 0) {
@@ -566,11 +571,18 @@ export default {
                 var curl = {'curl': this.tabItem.url}
                 var routeId = {'routeId': com.labUrl}
                 var opqcurl = {'opqcurl': this.apiUrlArr[this.url]}
-                let surl = val[1] + '/' + com.labUrl
+                let surl = ''
+                var id = ''
+                if (com.labUrl === false || com.labNewUrl !== undefined) {
+                    surl = com.labNewUrl
+                    id = val[1]
+                } else {
+                    surl = val[1] + '/' + com.labUrl
+                }
                 if (com.paramsIndex !== undefined) {
                     var type = com.paramsIndex
                 }
-                this.$dataGet(this, surl, {getSelect, curl, routeId, opqcurl, type})
+                this.$dataGet(this, surl, {getSelect, curl, routeId, opqcurl, type, id})
                     .then((responce) => {
                         this.$set(com.components[com.assocNum], 'tableVal', responce.data)
                     })
