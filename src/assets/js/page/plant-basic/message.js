@@ -6369,7 +6369,7 @@ export default {
     plantSerial: [{
         settitle: '种植批次管理',
         key: 'cultivate',
-        roleName: ['plant/breed', 0],
+        roleName: ['plant/cultivate', 0],
         tab: '种植批次信息',
         url: 'cultivate',
         batch: 'plantSerial',

@@ -258,7 +258,6 @@ export default {
             }
             // 无分类的下拉框模块查询
             if (com.selectUrl2) {
-                console.log()
                 for (let key in com.selectUrl2) {
                     let newArr = this.$addAndEditSelectMethod(com.selectUrl2[key])
                     let data = {table: newArr.selectUrl}
@@ -267,10 +266,9 @@ export default {
                         data.field = field
                         data.id = this.headData.area_id
                     }
-                    if (com.selectWhereArr2[key].field !== undefined) {
+                    if (com.selectWhereArr2 !== undefined) {
                         data.where = [com.selectWhereArr2[key].field, com.selectWhereArr2[key].value]
                     }
-                    console.log(data)
                     this.$dataGet(this, '/util/selects', data)
                         .then((responce) => {
                             if (responce.data.length !== 0) {
@@ -424,18 +422,6 @@ export default {
         boxArr (dataArr) {
             this.getAllMsg(dataArr)
         },
-        enterPic () {
-            // this.$alert('<img src>')
-            // this.$alert('这是一段内容', '标题名称', {
-            //     confirmButtonText: '确定',
-            //     callback: action => {
-            //         this.$message({
-            //             type: 'info',
-            //             message: 'action: ${ action }'
-            //         })
-            //     }
-            // }
-        },
         // 获取下拉框数据
         getSelect () {
             if (this.paramsIndex !== undefined) {
@@ -492,13 +478,16 @@ export default {
             }).then(() => {
                 axios.delete(this.$adminUrl(this.apiUrlArr[this.tabList[this.index].url] + '/' + row.id))
                     .then((responce) => {
-                        // this.getSelect()
-                        this.getDetailSerial()
-                        this.boxArr(this.dataArr)
-                        this.$message({
-                            type: 'success',
-                            message: '删除成功'
-                        })
+                        if (responce.data === 'true') {
+                            this.getDetailSerial()
+                            this.boxArr(this.dataArr)
+                            this.$message({
+                                type: 'success',
+                                message: '删除成功'
+                            })
+                        } else if (responce.data === 'state') {
+                            this.$message('该数据已被使用，无法删除')
+                        }
                     })
             }).catch(() => {
                 this.$message({
@@ -544,6 +533,8 @@ export default {
                                 type: 'success',
                                 message: '批量删除成功'
                             })
+                        } else if (responce.data === 'state') {
+                            this.$message('有数据已被使用，无法完成批量删除操作')
                         } else {
                             this.$message.error('批量删除失败')
                         }
