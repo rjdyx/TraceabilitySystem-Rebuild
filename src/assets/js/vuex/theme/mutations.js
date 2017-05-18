@@ -16,5 +16,9 @@ export default {
     CHANGECOLOR (model, label) {
         model.record = label
         func.modelLocal.set(model)
+    },
+    CHANGESIDERBAR (state, obj) {
+        state.siderBar.siderBar = obj.siderBar
+        func.siderBarLocal.set(state.siderBar)
     }
 }

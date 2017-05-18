@@ -149,6 +149,7 @@
 </template> 
  
 <script>
+import {mapActions} from 'vuex'
 import computed from './computed.js'
 import popNew from '../../components/public/popNew.vue'
 import ContainTitle from 'components/layout/contain-title.vue'
@@ -270,6 +271,9 @@ export default {
     // 混合
     mixins: [computed],
     methods: {
+        ...mapActions([
+            'change_siderBar'
+        ]),
         init (index = 0) {
             this.value = ''
             this.activeName = 0
@@ -693,6 +697,7 @@ export default {
         }
     },
     mounted () {
+        this.change_siderBar(false)
         this.activeName = 'index0'
         // 获取下拉框
         if (this.selectValueId) {

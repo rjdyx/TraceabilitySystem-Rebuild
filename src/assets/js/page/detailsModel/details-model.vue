@@ -147,6 +147,7 @@
 </div> 
 </template>
 <script>
+import {mapActions} from 'vuex'
 import computed from './computed.js'
 import popNew from '../../components/public/popNew.vue'
 import ContainTitle from 'components/layout/contain-title.vue'
@@ -206,6 +207,9 @@ export default {
     },
     mixins: [computed],
     methods: {
+        ...mapActions([
+            'change_siderBar'
+        ]),
         // tab点击事件
         tabClick (tab, event) {
             this.index = tab.$data.index
@@ -610,6 +614,7 @@ export default {
         }
     },
     mounted () {
+        this.change_siderBar(false)
         this.tabItem = this.tabList[0]
         this.activeName = this.tabList[0].tab
         this.getApiUrl()

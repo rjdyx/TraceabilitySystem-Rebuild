@@ -1,25 +1,34 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
-// Vue.use(Vuex)
+// import Vue from 'vue'
+// import Vuex from 'vuex'
+// // Vue.use(Vuex)
 
-const store = new Vuex.Store({
-    state: {
-        // isNewShow: false
-        isAllCheck: false
-    },
-    getters: {
-        isAllCheck: (state) => {
-            return state.isAllCheck
-        }
-    },
-    mutations: {
-        changeIsAllCheck (state, bol) {
-            state.isAllCheck = bol
-            console.log('2--vuex--isAllCheck' + state.isAllCheck)
-        }
-    },
-    actions: {
+const state = {
+    isTrue: false
+}
+// getters
+const getters = {
+    isTrue: (state) => {
+        return state.isTrue
     }
-})
+}
 
-export default store
+// actions
+const actions = {
+    changeIsTrue ({ commit }, bol) {
+        commit('changeIsTrue', b)
+    }
+}
+
+// mutations
+const mutations = {
+    changeIsTrue (state, bol) {
+        state.isTrue = bol
+        console.log('2--vuex--isTrue:' + state.isTrue)
+    }
+}
+export default {
+    state,
+    getters,
+    actions,
+    mutations
+}
