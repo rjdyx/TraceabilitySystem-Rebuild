@@ -2987,7 +2987,7 @@ export default {
             }]
         }]
     }],
-    //  饲料使用管理
+    // 饲料使用管理
     feedManage: [{
         settitle: '饲料使用管理',
         key: 'fodderuse',
@@ -3214,9 +3214,9 @@ export default {
         selectValueId: [['drug_id', 'drug_name', true]],
         selectDefault: [{value: '', label: '兽药选择'}],
         selectSearch: ['diseases.drug_id'],
-        theads: ['病疫批次号', '兽药名称', '用药日期', '病情描述', '专家', '平均用药量', '治疗方式', '备注'],
-        protos: ['serial', 'drug_name', 'date', 'description', 'expert_name', 'amount_unit', 'way', 'memo'],
-        widths: [50, 50, 50, 50, 50, 50, 50, 50],
+        theads: ['病疫批次号', '兽药名称', '用药日期', '病情描述', '施药人员', '专家', '平均用药量', '治疗方式', '备注'],
+        protos: ['serial', 'drug_name', 'date', 'description', 'operate_name', 'expert_name', 'amount_unit', 'way', 'memo'],
+        widths: [50, 50, 50, 50, 50, 50, 50, 50, 50],
         typeComponent: [{
             component: output
         },
@@ -4235,10 +4235,10 @@ export default {
         // 链接批次信息模块数据的桥（养殖批次详情）
         batch: 'innocuityBatch',
         searchPlaceholder: '请输入操作内容进行',
-        theads: ['无害化批次号', '操作日期', '操作内容', '实行原因', '指导专家', '备注信息'],
-        protos: ['serial', 'date', 'content', 'why', 'expert_name', 'memo'],
+        theads: ['无害化批次号', '操作日期', '操作内容', '实行原因', '操作人员', '指导专家', '备注信息'],
+        protos: ['serial', 'date', 'content', 'why', 'operate_name', 'expert_name', 'memo'],
         selectSearch: ['dispose.expert_name'],
-        widths: [50, 50, 50, 50, 50, 50],
+        widths: [50, 50, 50, 50, 50, 50, 50],
         typeComponent: [{
             component: output
         },
@@ -4420,7 +4420,7 @@ export default {
         // 链接批次信息模块数据的桥（养殖批次详情）
         batch: 'slaughterBatch',
         searchPlaceholder: '请输入出栏批次进行搜索',
-        theads: ['出栏批次号', '出栏日期', '出栏数量', '操作人员', '备注'],
+        theads: ['出栏批次号', '出栏日期', '出栏数量', '出栏人员', '备注'],
         protos: ['serial', 'date', 'amount', 'operate_name', 'memo'],
         widths: [50, 50, 50, 50, 50],
         typeComponent: [{
@@ -6369,7 +6369,7 @@ export default {
     plantSerial: [{
         settitle: '种植批次管理',
         key: 'cultivate',
-        roleName: ['plant/breed', 0],
+        roleName: ['plant/cultivate', 0],
         tab: '种植批次信息',
         url: 'cultivate',
         batch: 'plantSerial',
@@ -9094,11 +9094,11 @@ export default {
         url: 'delivery',
         batch: 'logisticBatch',
         selectSearch: ['deliveries.transportable_type'],
-        changeDataArr: [{transportable_type: { 'self': '自运', 'consign': '托运', 'selve': '自提' }}],
+        changeDataArr: [{transportable_type: { 'self': '自运', 'consign': '托运', 'selve': '自提' }}, {state: {0: '未完成', 1: '已完成'}}],
         searchPlaceholder: '请输入货物名称进行搜索',
-        theads: ['物流批次', '物流日期', '货物名称', '运输方式', '操作人员', '备注'],
-        protos: ['serial', 'datetime', 'name', 'transportable_type', 'operate_name', 'memo'],
-        widths: [50, 50, 50, 50, 50, 50],
+        theads: ['物流批次', '物流日期', '货物名称', '运输方式', '操作人员', '状态', '备注'],
+        protos: ['serial', 'datetime', 'name', 'transportable_type', 'operate_name', 'state', 'memo'],
+        widths: [50, 50, 50, 50, 50, 50, 50],
         typeComponent: [{
             component: output
         },
@@ -9240,7 +9240,7 @@ export default {
                 rule: null
             }]
         }],
-        moreComponent: [{value: '更改状态'}],
+        moreComponent: [{value: '状态'}],
         editComponent: [{
             tab: '编辑物流批次信息',
             selectUrl2: [['operates', 'id', 'name', true]],

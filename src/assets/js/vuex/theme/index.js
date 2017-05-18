@@ -8,7 +8,6 @@ const state = {
     record: func.modelLocal.get() || {record: ''},
     siderBar: func.siderBarLocal.get() || {siderBar: false}
 }
-console.log(state)
 export default{
     state,
     actions,
