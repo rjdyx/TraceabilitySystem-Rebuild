@@ -726,7 +726,7 @@ export default {
         .operate-foot{
             padding-left: 15px;
             display: inline-block;
-            padding-top: 8px;
+            padding-top: 4px;
         }
         .record{
             float: right;

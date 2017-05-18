@@ -17,6 +17,7 @@ const pre2 = '/index/message/'
 const Excepts = ['/', '/index', pre + 'set', pre + 'test', pre + 'help', pre + 'question', pre + '404', pre + 'ondone']
 const Admins = [pre2 + 'rightsOperate', pre2 + 'settleOperate', pre2 + 'usersOperate', pre2 + 'logOperate']
 const any = ['/protocol', '/forget']
+
 // 处理刷新的时候vuex被清空但是用户已经登录的情况
 // if (sessionStorage.user) {
 //     store.dispatch('setUserInfo', JSON.parse(sessionStorage.user))

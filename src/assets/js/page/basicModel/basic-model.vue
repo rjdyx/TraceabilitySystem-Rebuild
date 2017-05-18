@@ -6,7 +6,7 @@
  * 
  */
 <template>
-<div>   
+<div class="basic_model">   
   <!-- 标题 -->
     <contain-title :settitle="settitle">
     </contain-title>
@@ -733,77 +733,27 @@ export default {
 
 
 <style lang='sass'>
+.basic_model{
+
     .pcActive{
         /*color: blue;*/
         text-decoration: underline;
         cursor:pointer;
     }
-	 .searchInp{
-	 	width:161px;
-	 	margin-bottom:10px;
-	 	font-size:12px;
-	 	margin-right:10px;
-	 }
-	 #btns{
-	 	float:right;
-	 }
-	 .operateBtns {
-            	display: inline-block;
-            	margin-top:10px;
-            	margin-right:10px;
-            }
      .fr{
      	float:right;
      }
      .fl{
      	float:left;
      }
-     .searchBtn{
-     	width:62px;
-     }
-     .searchOp{
-     	display:inline;
-     }
-     .margin{
-     	margin-left:15px;
-     }
      .el-icon-caret-left{
       padding-right: 15px;
-     }
-     i:hover{
-      cursor: pointer;
-     }
-     .active,.unactive{
-      width: 0;
-      height: 0;
-      display: inline-block;
-      vertical-align: middle;
-      margin: 0 10px 0 10px;
-      border-bottom: 10px solid transparent;
-      border-top: 10px solid transparent;
-     }
-     .active{
-      border-right: 18px solid #000;
-     }
-     .unactive{
-      border-left: 18px solid #000;
-     }
-     .clickMoreBtn{
-      display: inline-block;
-     }
-     .el-table th{
-      text-align:center;
      }
 .fade-enter-active, .fade-leave-active {
   transition: opacity .5s;
 }
 .fade-enter, .fade-leave-active {
   opacity: 0;
-}
-.pcActive {
-  color: blue;
-  text-decoration: underline;
-  cursor: pointer;
 }
 .searchInp {
   width: 161px;
@@ -814,12 +764,6 @@ export default {
 #btns {
   float: right;
 }
-.fr {
-  float: right;
-}
-.fl {
-  float: left;
-}
 .searchBtn {
   width: 62px;
 }
@@ -828,9 +772,6 @@ export default {
 }
 .margin {
   margin-left: 15px;
-}
-.el-icon-caret-left {
-  padding-right: 15px;
 }
 i {
   &:hover {
@@ -878,5 +819,6 @@ i {
   float: right;
   padding: 15px 10px;
 }
-   } 
+   }
+} 
 </style>
