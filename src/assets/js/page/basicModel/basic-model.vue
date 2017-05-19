@@ -577,6 +577,8 @@ export default {
                     str = str + '&type=' + this.paramsIndex
                 }
                 window.location.href = this.$adminUrl(this.url) + str
+            } else {
+                this.$message.error('请选择序号')
             }
         },
         // 新建数据
