@@ -21,7 +21,7 @@
                 <template v-for="subItem in item.components">
                     <!-- 文本框 -->
                     <tr class="tr1" v-if="subItem.type=='text'">
-                        <td v-if="!subItem.selfHidden && !subItem.consignHidden">
+                        <td v-if="!subItem.hiddenSelect">
                             <el-form-item :label="subItem.label" :prop="subItem.name">
                                 <el-input 
                                     :placeholder="subItem.placeholder" 
@@ -33,7 +33,7 @@
                     </tr>
 
                     <!-- 下拉框 -->
-                    <tr class="tr1" v-else-if="subItem.type=='select'"> 
+                    <tr class="tr1" v-else-if="subItem.type=='select' && !subItem.hiddenSelect"> 
                         <td>
                             <el-form-item :label="subItem.label" :prop="subItem.name">
                               <el-select v-model="editForm[subItem.name]" :placeholder="subItem.placeholder" size="small" @change="getSelectId(subItem.name,editForm[subItem.name])" :disabled="subItem.disabled">
@@ -283,20 +283,23 @@ export default {
             var com = this.editComponent[0].components
             if (type !== undefined) {
                 if (type === '自运') {
-                    com[4].selfHidden = false
-                    com[5].selfHidden = false
-                    com[6].consignHidden = true
-                    com[7].consignHidden = true
+                    com[4].hiddenSelect = false
+                    com[5].hiddenSelect = false
+                    com[6].hiddenSelect = true
+                    com[7].hiddenSelect = true
+                    com[8].hiddenSelect = true
                 } else if (type === '托运') {
-                    com[4].selfHidden = true
-                    com[5].selfHidden = true
-                    com[6].consignHidden = false
-                    com[7].consignHidden = false
+                    com[6].hiddenSelect = false
+                    com[7].hiddenSelect = false
+                    com[4].hiddenSelect = true
+                    com[5].hiddenSelect = true
+                    com[8].hiddenSelect = true
                 } else {
-                    com[4].selfHidden = true
-                    com[5].selfHidden = true
-                    com[6].consignHidden = true
-                    com[7].consignHidden = true
+                    com[4].hiddenSelect = true
+                    com[5].hiddenSelect = true
+                    com[6].hiddenSelect = true
+                    com[7].hiddenSelect = true
+                    com[8].hiddenSelect = false
                 }
             }
         },

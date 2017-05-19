@@ -9134,7 +9134,7 @@ export default {
             divHidden: true,
             selectUrl2: [['operates', 'id', 'name', true], ['vehicles', 'id', 'number', true], ['drivers', 'id', 'name', true], ['logistics', 'id', 'name', true]],
             selectInit2: [{value: '', label: '操作人员选择'}, {value: '', label: '请选择车辆'}, {value: '', label: '请选择司机'}, {value: '', label: '请选择物流公司'}],
-            popNumber2: [7, 3, 4, 5],
+            popNumber2: [8, 3, 4, 5],
             components: [{
                 name: 'datetime',
                 type: 'date',
@@ -9159,6 +9159,7 @@ export default {
                 isNull: false,
                 label: '运输方式',
                 placeholder: '必填',
+                selectNumber: {self: [3, 4], consign: [5, 6], selve: [7]},
                 rule: {required: true, trigger: 'blur', message: '请选择运输方式'},
                 options: [{
                     value: '',
@@ -9179,10 +9180,10 @@ export default {
             },
             {
                 name: 'vehicle_id',
-                selfHidden: true,
                 type: 'select',
                 component: null,
                 isNull: false,
+                hiddenSelect: true,
                 label: '车牌号',
                 placeholder: '',
                 rule: {required: true, trigger: 'blur', type: 'number', message: '请选择运输车辆'},
@@ -9190,7 +9191,7 @@ export default {
             },
             {
                 name: 'driver_id',
-                selfHidden: true,
+                hiddenSelect: true,
                 type: 'select',
                 component: null,
                 isNull: false,
@@ -9201,10 +9202,10 @@ export default {
             },
             {
                 name: 'logistic_id',
-                consignHidden: true,
                 type: 'select',
                 component: null,
                 isNull: false,
+                hiddenSelect: true,
                 label: '物流公司',
                 placeholder: '',
                 rule: {required: true, trigger: 'blur', type: 'number', message: '请选择物流公司'},
@@ -9212,22 +9213,32 @@ export default {
             },
             {
                 name: 'number',
-                consignHidden: true,
+                hiddenSelect: true,
                 type: 'text',
                 component: null,
                 isNull: false,
-                label: '物流订单',
+                label: '物流订单号',
                 placeholder: '',
-                rule: {required: true, message: '请输入物流订单'}
+                rule: {required: true, message: '请输入物流订单号'}
+            },
+            {
+                name: 'selve_name',
+                hiddenSelect: true,
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '提货人',
+                placeholder: '',
+                rule: {required: true, message: '请输入提货人姓名'}
             },
             {
                 name: 'operate_id',
                 type: 'select',
                 component: null,
                 isNull: false,
-                label: '物流人员',
+                label: '操作人员',
                 placeholder: '',
-                rule: {required: true, trigger: 'blur', type: 'number', message: '请选择物流人员'},
+                rule: {required: true, trigger: 'blur', type: 'number', message: '请选择操作人员'},
                 options: []
             },
             {
@@ -9244,7 +9255,7 @@ export default {
         editComponent: [{
             tab: '编辑物流批次信息',
             selectUrl2: [['operates', 'id', 'name', true]],
-            popNumber2: [8],
+            popNumber2: [9],
             components: [{
                 name: 'serial',
                 type: 'text',
@@ -9283,7 +9294,7 @@ export default {
             },
             {
                 name: 'vehicle_number',
-                selfHidden: true,
+                hiddenSelect: true,
                 type: 'text',
                 component: null,
                 isNull: false,
@@ -9294,7 +9305,7 @@ export default {
             },
             {
                 name: 'driver_name',
-                selfHidden: true,
+                hiddenSelect: true,
                 type: 'text',
                 component: null,
                 isNull: false,
@@ -9305,7 +9316,7 @@ export default {
             },
             {
                 name: 'logistic_name',
-                consignHidden: true,
+                hiddenSelect: true,
                 type: 'text',
                 component: null,
                 isNull: false,
@@ -9316,7 +9327,7 @@ export default {
             },
             {
                 name: 'number',
-                consignHidden: true,
+                hiddenSelect: true,
                 type: 'text',
                 component: null,
                 isNull: false,
@@ -9326,13 +9337,24 @@ export default {
                 rule: {required: true}
             },
             {
+                name: 'selve_name',
+                hiddenSelect: true,
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '提货人',
+                disabled: true,
+                placeholder: '',
+                rule: {required: true, message: '请输入提货人姓名'}
+            },
+            {
                 name: 'operate_id',
                 type: 'select',
                 component: null,
                 isNull: false,
-                label: '物流人员',
+                label: '操作人员',
                 placeholder: '',
-                rule: {required: true, trigger: 'blur', type: 'number', message: '请选择物流人员'},
+                rule: {required: true, trigger: 'blur', type: 'number', message: '请选择操作人员'},
                 options: []
             },
             {

@@ -7,5 +7,8 @@ export default {
     },
     getRecord (state) {
         return state.record.record
+    },
+    getSiderBar (state) {
+        return state.siderBar.siderBar
     }
 }

@@ -14,3 +14,5 @@ export const modelLocal = new LocalEvent('record')
 export const themeLocal = new LocalEvent('theme')
 
 export const fontLocal = new LocalEvent('font')
+
+export const siderBarLocal = new LocalEvent('siderBar')

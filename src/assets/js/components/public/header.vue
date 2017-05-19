@@ -24,7 +24,7 @@
 					<!-- </router-link> -->
 				</template>
 				<template  v-for="(navbar,i) in navbars">
-					<li class="navbar" @click="changeSub(i)">
+					<li class="navbar" @click="changeSub">
 						<router-link :to="navbar.path">
 							<img :src="navbar.src" />
 							<p>{{navbar.name}}</p>
@@ -40,6 +40,7 @@
 	</header>
 </template>
 <script>
+import {mapActions} from 'vuex'
 export default {
     name: 'MyHead',
     data: function () {
@@ -57,6 +58,9 @@ export default {
         }
     },
     methods: {
+        ...mapActions([
+            'change_siderBar'
+        ]),
         checkTime (i) {
             if (i < 10) {
                 return '0' + i
@@ -91,8 +95,8 @@ export default {
                 }
             })
         },
-        changeSub (i) {
-            this.$emit('return-changeSub')
+        changeSub () {
+            this.change_siderBar(true)
         }
     },
     mounted () {

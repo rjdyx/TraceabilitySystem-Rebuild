@@ -34,6 +34,7 @@
 import footerTop from './topComponent/footer.vue'
 import ContainTitle from '../layout/contain-title.vue'
 import userEdit from './topComponent/userEdit.vue'
+import {mapActions} from 'vuex'
 export default {
     name: 'user',
     data () {
@@ -49,6 +50,9 @@ export default {
         }
     },
     methods: {
+        ...mapActions([
+            'change_siderBar'
+        ]),
         showEdit (val) {
             this.isShow = !this.isShow
             if (val === 'false') {
@@ -71,6 +75,7 @@ export default {
         userEdit
     },
     mounted () {
+        this.change_siderBar(true)
         // 查询编辑数据
         axios.get('api/system/1/edit')
             .then((responce) => {

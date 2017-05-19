@@ -147,6 +147,7 @@
 </div> 
 </template>
 <script>
+import {mapActions} from 'vuex'
 import computed from './computed.js'
 import popNew from '../../components/public/popNew.vue'
 import ContainTitle from 'components/layout/contain-title.vue'
@@ -206,6 +207,9 @@ export default {
     },
     mixins: [computed],
     methods: {
+        ...mapActions([
+            'change_siderBar'
+        ]),
         // tab点击事件
         tabClick (tab, event) {
             this.index = tab.$data.index
@@ -266,8 +270,16 @@ export default {
                         data.field = field
                         data.id = this.headData.area_id
                     }
+
+                    // 多条件查询
                     if (com.selectWhereArr2 !== undefined) {
-                        data.where = [com.selectWhereArr2[key].field, com.selectWhereArr2[key].value]
+                        if (com.selectWhereArr2[key] !== undefined || com.selectWhereArr2[key] !== '') {
+                            var arr = []
+                            for (let k in com.selectWhereArr2[key]) {
+                                arr[k] = [com.selectWhereArr2[key][k].n, com.selectWhereArr2[key][k].v]
+                            }
+                            data.where = arr
+                        }
                     }
                     this.$dataGet(this, '/util/selects', data)
                         .then((responce) => {
@@ -554,11 +566,18 @@ export default {
                 var curl = {'curl': this.tabItem.url}
                 var routeId = {'routeId': com.labUrl}
                 var opqcurl = {'opqcurl': this.apiUrlArr[this.url]}
-                let surl = val[1] + '/' + com.labUrl
+                let surl = ''
+                var id = ''
+                if (com.labUrl === false || com.labNewUrl !== undefined) {
+                    surl = com.labNewUrl
+                    id = val[1]
+                } else {
+                    surl = val[1] + '/' + com.labUrl
+                }
                 if (com.paramsIndex !== undefined) {
                     var type = com.paramsIndex
                 }
-                this.$dataGet(this, surl, {getSelect, curl, routeId, opqcurl, type})
+                this.$dataGet(this, surl, {getSelect, curl, routeId, opqcurl, type, id})
                     .then((responce) => {
                         this.$set(com.components[com.assocNum], 'tableVal', responce.data)
                     })
@@ -600,6 +619,7 @@ export default {
         }
     },
     mounted () {
+        this.change_siderBar(false)
         this.tabItem = this.tabList[0]
         this.activeName = this.tabList[0].tab
         this.getApiUrl()
