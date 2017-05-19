@@ -89,10 +89,10 @@
                             <div class="imgTipDiv" v-else-if="tabItem.protos[index]=='thumb'" slot="reference">
                                 <el-popover trigger="hover" placement="right">
                                     <!-- 放大图片 -->
-                                    <img style="width:100%; height:auto" v-if="tableData[scope.$index][tabItem.protos[index]]!=null && tableData[scope.$index][tabItem.protos[index]]!=''" :src="tableData[scope.$index].img" @mouseenter="enterPic" @mouseleave="">
+                                    <img style="width:100%; height:auto" v-if="tableData[scope.$index][tabItem.protos[index]]!=null && tableData[scope.$index][tabItem.protos[index]]!=''" :src="tableData[scope.$index].img" >
                                     <div slot="reference" class="name-wrapper imgTip">
                                         <!-- 小图片 -->
-                                        <img v-if="tableData[scope.$index][tabItem.protos[index]]!=null && tableData[scope.$index][tabItem.protos[index]]!=''" :src="tableData[scope.$index][tabItem.protos[index]]" width="100%" height="100%" @mouseenter="enterPic" @mouseleave="">
+                                        <img v-if="tableData[scope.$index][tabItem.protos[index]]!=null && tableData[scope.$index][tabItem.protos[index]]!=''" :src="tableData[scope.$index][tabItem.protos[index]]" width="100%" height="100%">
                                     </div>
                                 </el-popover>
                             </div>
@@ -409,6 +409,7 @@ export default {
         // 文本与时间按钮查询
         textAndDateFind () {
             this.dataArr['query_text'] = this.inputValue
+            this.dataArr['page'] = 1
             this.boxArr(this.dataArr)
         },
         // 下拉框查询
@@ -419,6 +420,7 @@ export default {
                 }
             }
             this.dataArr[val[0]] = val[1]
+            this.dataArr['page'] = 1
             this.boxArr(this.dataArr)
         },
         // 日期存储
@@ -538,7 +540,6 @@ export default {
                     axios.post(this.$adminUrl('util/batch-delete/' + this.tabItem.url), paramsDel)
                     .then((responce) => {
                         if (responce.data === 'true') {
-                            // this.getSelect()
                             this.getDetailSerial()
                             this.boxArr(this.dataArr)
                             this.$message({

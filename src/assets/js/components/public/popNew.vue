@@ -353,8 +353,6 @@ export default {
                         this.disabledV = false
                         nc.components[nc.limit].rule[1]['getMax'] = responce.data['num']
                         nc.components[nc.limit].rule[1]['getMessage'] = nc.getMessage
-                        console.log(responce.data['num'] + ':' + nc.getMessage)
-                        console.log(this.rules)
                     })
                 } else {
                     this.tableForm['unit'] = '亩'

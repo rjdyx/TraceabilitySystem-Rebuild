@@ -2,7 +2,7 @@
  * @description:页面版权
  * @author 舒丹彤
  * @date 2017/4/26 
- *  
+ *   
  */ 
 <template>
 	<div class="copyright">
