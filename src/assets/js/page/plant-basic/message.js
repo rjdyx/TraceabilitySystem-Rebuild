@@ -1078,7 +1078,7 @@ export default {
                 isNull: false,
                 label: '产品名称',
                 placeholder: '必填',
-                rule: [{required: true, trigger: 'blur'}, {validator: validate2.reCheck, url: 'product'}]
+                rule: [{required: true, trigger: 'blur'}, {validator: validate2.reCheck}]
             },
             {
                 name: 'enforce_standard',
@@ -1323,6 +1323,7 @@ export default {
             }],
             newComponent: [{
                 tab: '养殖场信息',
+                checkNumber: [0],
                 hasImg: true,
                 components: [{
                     name: 'name',
@@ -1331,7 +1332,7 @@ export default {
                     isNull: false,
                     label: '养殖场名称',
                     placeholder: '必填',
-                    rule: {required: true, trigger: 'blur', message: '请输入养殖场'}
+                    rule: [{required: true, trigger: 'blur', message: '请输入养殖场'}, {validator: validate2.reCheck}]
                 },
                 {
                     name: 'area',

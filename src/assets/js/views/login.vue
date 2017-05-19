@@ -134,8 +134,8 @@ export default {
                 if (valid) {
                     axios.post('/login', this.ruleForm2).then((responce) => {
                         if (responce.data !== 200) {
-                            alert('用户名或密码错误')
-                            // callback(new Error('登录失败'))
+                            this.$message.error('用户名或密码错误')
+                            // alert('用户名或密码错误')
                         } else {
                             this.$router.push('/index/home')
                             this.$store.dispatch('switch_record', '')

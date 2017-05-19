@@ -470,6 +470,7 @@ export default {
         // 文本与时间按钮查询
         textAndDateFind () {
             this.dataArr['query_text'] = this.inputValue
+            this.dataArr['page'] = 1
             this.boxArr(this.dataArr)
         },
         // 下拉框查询
@@ -480,20 +481,21 @@ export default {
                 }
             }
             this.dataArr[val[0]] = val[1]
+            this.dataArr['page'] = 1
             this.boxArr(this.dataArr)
         },
         // 日期存储
         dateFind (val) {
             this.dataArr[val[0]] = val[1]
         },
-        // 组合查询
-        boxArr (dataArr) {
-            this.getAllMsg(dataArr)
-        },
         // 分页跳转
         pageChange (val) {
             this.dataArr['page'] = val
             this.boxArr(this.dataArr)
+        },
+        // 组合查询
+        boxArr (dataArr) {
+            this.getAllMsg(dataArr)
         },
         // 全选获取数据
         handleSelectionChange (val) {
