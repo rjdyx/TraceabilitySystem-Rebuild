@@ -168,9 +168,6 @@ export default {
 				.email,.enter{
 					font-size: 12px;
 				}
-				.enterTo{
-					cursor: pointer;
-				}
 				.operate {
 				  	float: right;
 				  	margin-top: 20px;
@@ -184,7 +181,7 @@ export default {
 	}
 
 .copyright {
-  	margin-top: 60px;
+  	margin-top: 81px;
 }
 
 .changeImg{

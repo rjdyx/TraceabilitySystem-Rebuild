@@ -75,6 +75,7 @@ $b_small: 18px;
 	.scan_code{
 		background: $bg;
 	}
+	
 	.header,
 	.el-tabs__active-bar{
 	 	background: $bg;
@@ -102,6 +103,7 @@ $b_small: 18px;
 	.back_text,
 	.el-tabs__item.is-active,
 	.el-button:focus, .el-button:hover,
+	.record_num,
 	.qu_title{
 		color: $bg;
 	}
@@ -151,6 +153,20 @@ $b_small: 18px;
 	}
 	.el-pager li:hover,.el-button--text{
 		color: $bg;
+	}
+	.el-select-dropdown__item.selected.hover{
+		background-color: $bg !important;
+	}
+	.avatar-uploader .el-upload:hover{
+		border-color: $bg;
+	}
+	
+	// 日期：
+	.el-select-dropdown__item.selected.is-active{
+		color: $bg !important;
+	}
+	.el-date-table td.current{
+		background-color: $bg !important;
 	}
 }
 

@@ -8,22 +8,28 @@
  */ 
  <template> 
 	<div class='basic'>
-        <basic-content class="content"></basic-content>
+        <div class="content">
+            <basic-content> 
+            </basic-content>
+            <footer-top></footer-top>
+        </div>
+        
     </div>
 </template>
 
 <script>
 import BasicContent from '../plant-basic/basic-content.vue'
+import footerTop from '../../components/top/topComponent/footer.vue'
 export default {
     name: 'Basic',
     components: {
-        BasicContent
+        BasicContent,
+        footerTop
     }
 }
 </script>
 
-<style lang='sass' scoped>
-    /*@import '../../../sass/function';*/
+<style lang='sass'>
     .basic{
     	height: 100%;
         overflow:hidden;
@@ -32,7 +38,16 @@ export default {
     .content{
         margin-top: 15px;
         overflow:scroll;
-        height: 100%;
+        /*height: 100%;*/
+        position: relative;
+        min-height: 100%;
+    }
+    .copyright{
+        width: 100%;
+        position: absolute;
+        bottom: 9%;
+        left: 50%;
+        margin-left: -50%;
     }
 }
 </style>
