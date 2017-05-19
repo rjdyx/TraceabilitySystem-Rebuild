@@ -580,10 +580,10 @@ export default {
                 }
                 this.$dataGet(this, surl, {getSelect, curl, routeId, opqcurl, type, id})
                     .then((responce) => {
-                        this.$set(com.components[com.assocNum], 'tableVal', responce.data)
+                        this.$set(com.components[val[2].assocNum], 'tableVal', responce.data)
                     })
             } else {
-                this.$set(com.components[com.assocNum], 'tableVal', [])
+                this.$set(com.components[val[2].assocNum], 'tableVal', [])
             }
         },
         // 扫描溯源码

@@ -5130,7 +5130,6 @@ export default {
             curl: 'pack-product-rfid',
             opqcurl: '{x}/pack-product',
             type: 'assoc',
-            assocNum: 6,
             components: [{
                 name: 'pack_id',
                 type: 'select',
@@ -5160,6 +5159,7 @@ export default {
                 component: null,
                 isNull: false,
                 label: '出栏批次号',
+                assocNum: 6,
                 placeholder: '',
                 disabled: true,
                 rule: {required: true, trigger: 'blur', type: 'number', message: '请选择出栏批次号'},

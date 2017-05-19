@@ -647,10 +647,10 @@ export default {
                 let surl = val[1] + '/' + com.labUrl
                 this.$dataGet(this, surl, {getSelect, curl, routeId, opqcurl})
                     .then((responce) => {
-                        this.$set(com.components[com.assocNum], 'tableVal', responce.data)
+                        this.$set(com.components[val[2].assocNum], 'tableVal', responce.data)
                     })
             } else {
-                this.$set(com.components[com.assocNum], 'tableVal', [])
+                this.$set(com.components[val[2].assocNum], 'tableVal', [])
             }
         },
         // 点击删除

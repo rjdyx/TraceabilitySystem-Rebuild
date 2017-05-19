@@ -90,26 +90,26 @@ const ondone = resolve => {
     }, 'ondone')
 }
 var routes = [
-    // {
-    //     path: '/index/home',
-    //     name: 'index',
-    //     component: index
-    //     // children: [
-    //     //     {
-    //     //         path: '',
-    //     //         component: home
-    //     //     }
-    //     // ]
-    // },
+    {
+        path: '/',
+        name: 'index',
+        component: index,
+        children: [
+            {
+                path: '',
+                component: home
+            }
+        ]
+    },
     {
         path: '/index',
         component: index,
         children: [
-            // {
-            //     path: 'home',
-            //     component: home
-            //     // redirect: 'home'
-            // },
+            {
+                path: 'home',
+                component: home
+                // redirect: 'home'
+            },
             {
                 path: 'message/:model',
                 component: basic,
