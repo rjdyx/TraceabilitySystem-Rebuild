@@ -162,17 +162,17 @@ export default {
             var ret = this.editForm
             axios.put('api/system/1', ret).then((response) => {
                 if (response.data === 'old_error') {
-                    alert('原始密码错误')
+                    this.$message('原始密码错误')
                     this.editForm.old_password = null
                 } else if (response.data === 'pas_error') {
-                    alert('新密码长度有误')
+                    this.$message('新密码长度有误')
                     this.editForm.password = null
                 } else if (response.data === false) {
-                    alert('修改失败')
+                    this.$message('修改失败')
                     this.editForm.password = null
                     this.editForm.old_password = null
                 } else {
-                    alert('修改成功')
+                    this.$message('修改成功')
                     this.editForm.password = null
                     this.editForm.old_password = null
                 }

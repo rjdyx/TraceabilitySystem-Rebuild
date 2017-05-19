@@ -7,7 +7,8 @@
  */
 <template>
 <div class="basic_model">   
-  <!-- 标题 -->
+  <div class="basic-wrap">
+      <!-- 标题 -->
     <contain-title :settitle="settitle">
     </contain-title>
   <!-- tab栏 --> 
@@ -102,8 +103,8 @@
         </template>
         <!-- 列表操作模块 -->
         <el-table-column 
-        label="操作" v-if="checkOperate==null">
-            <template scope="scope" class="operateBtn">
+        label="操作" v-if="checkOperate==null" class="more">
+            <template scope="scope">
                 <template v-if="moreComponent!=null">
                     <clickMore :companyId="companyId" :moreComponent="moreComponent" @showMore="moreShow(scope.$index,scope.row)" 
                     @showPermission="permissionShow(scope.$index,scope.row)" @showDetail="detailShow(scope.$index,scope.row)" class="clickMoreBtn"
@@ -133,7 +134,7 @@
             <el-button @click="excel">导出表格</el-button>
         </div>
 
-        <p class="record">共有{{num}}页，{{total_num}}条记录</p>
+        <p class="record">共有<span class="record_num">{{num}}</span>页，<span class="record_num">{{total_num}}</span>条记录</p>
 
         <!-- 分页模块 -->
         <el-pagination
@@ -145,6 +146,7 @@
           @current-change="pageChange">
         </el-pagination>
     </div>
+  </div>
 </div>
 </template> 
  
@@ -720,6 +722,9 @@ export default {
         }
         // 获取列表信息
         this.getAllMsg()
+        let change = $('.available')
+        console.log(change)
+        change.css('display', 'none')
     },
     watch: {
         models () {
@@ -754,9 +759,10 @@ export default {
 
 <style lang='sass'>
 .basic_model{
-
+    .basic-wrap{
+        min-height: 100%;
+    }
     .pcActive{
-        /*color: blue;*/
         text-decoration: underline;
         cursor:pointer;
     }
@@ -801,14 +807,15 @@ i {
 .clickMoreBtn {
   display: inline-block;
 }
-.el-table {
-  th {
-    text-align: center;
-    &:last-child {
-      border-left: 1px solid red;
+/*.el-table{
+    tr{
+        td{
+            &:last-child{
+                border-left:1px solid red;
+            }
+        }
     }
-  }
-}
+}*/
 .btn {
   span {
     border-left: 1px solid #a7bad6;
@@ -828,7 +835,6 @@ i {
   float: right;
   vertical-align: middle;
   padding-top: 12px;
-  padding-right: 20px;
 }
 .operate-foot {
   padding-left: 15px;
@@ -837,7 +843,8 @@ i {
 }
 .record {
   float: right;
-  padding: 15px 10px;
+  padding: 16px 26px;
+  font-size: 13px;
 }
    }
 } 

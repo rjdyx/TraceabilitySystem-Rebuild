@@ -7,7 +7,7 @@
  */ 
 
 <template>
-<div>
+<div class="clickmore">
 	<div>
         <!-- 更多选项 --> 
 		<el-dropdown class="more" @command="handleCommand">
@@ -78,6 +78,8 @@
     }
 </script>
 <style lang="sass">
+.clickmore{
+
 	.more{
 		cursor: pointer;
 		margin-right: 10px;
@@ -115,4 +117,14 @@
     .closeIcon:hover{
         background-position: -180px -31px;
     }
+
+}
+
+    .el-dropdown-menu{
+        min-width: 60px !important;
+    }
+    .el-dropdown-menu__item{
+        padding: 0 15px;
+    }
+    
 </style>
