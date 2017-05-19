@@ -6,7 +6,7 @@
  * 
  */
 <template>
-	<div>
+	<div class="operate_wrap">
 		<div v-for="item in listComponent" class="operate">
 			<div class="inline operateBtn" v-for="item in item.components">
 				<!-- 下拉框	 -->
@@ -16,7 +16,7 @@
 				</el-select>
 				<!-- 日期 -->
 				<div class="dateBtn" v-else-if="item.type=='date'">
-					<span>
+					    <span>
 			              <label>开始日期：</label>
 			                <el-date-picker 
 			                  size="small"
@@ -88,16 +88,27 @@
 </script>
 
 <style lang="sass">
+// @import '../../../sass/theme/theme.scss';
+.operate_wrap{
+
 .inline {
 	display: inline-block;
 	vertical-align: middle;
 	margin-right: 10px;
 }	
-.operate {
-	float: left;
+	.operate {
+		float: left;
+
+		.left{
+			margin-left: 20px;
+			display: inline-block;
+		}
+	}	
 }
-.left{
-	margin-left: 20px;
-	display: inline-block;
-}
+// .el-date-table{
+// 	font-size: 20px;
+// }
+// .el-picker-panel{
+// 	@include theme(color(red));
+// }
 </style>
