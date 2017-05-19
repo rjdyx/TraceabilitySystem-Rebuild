@@ -437,6 +437,11 @@ export default {
         // 关闭新增弹窗
         closeNewShow () {
             this.isNewShow = false
+            var com = this.newComponent[0]
+            if (com.components[com.assocNum] !== undefined) {
+                this.$set(com.components[com.assocNum], 'tableVal', [])
+                this.newComponent[0].components[1].options = []
+            }
         },
         // 关闭编辑弹窗
         closeEditShow () {

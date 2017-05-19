@@ -409,6 +409,7 @@ export default {
         // 文本与时间按钮查询
         textAndDateFind () {
             this.dataArr['query_text'] = this.inputValue
+            this.dataArr['page'] = 1
             this.boxArr(this.dataArr)
         },
         // 下拉框查询
@@ -419,6 +420,7 @@ export default {
                 }
             }
             this.dataArr[val[0]] = val[1]
+            this.dataArr['page'] = 1
             this.boxArr(this.dataArr)
         },
         // 日期存储
