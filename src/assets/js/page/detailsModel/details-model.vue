@@ -270,8 +270,16 @@ export default {
                         data.field = field
                         data.id = this.headData.area_id
                     }
+
+                    // 多条件查询
                     if (com.selectWhereArr2 !== undefined) {
-                        data.where = [com.selectWhereArr2[key].field, com.selectWhereArr2[key].value]
+                        if (com.selectWhereArr2[key] !== undefined || com.selectWhereArr2[key] !== '') {
+                            var arr = []
+                            for (let k in com.selectWhereArr2[key]) {
+                                arr[k] = [com.selectWhereArr2[key][k].n, com.selectWhereArr2[key][k].v]
+                            }
+                            data.where = arr
+                        }
                     }
                     this.$dataGet(this, '/util/selects', data)
                         .then((responce) => {
@@ -530,7 +538,6 @@ export default {
                     axios.post(this.$adminUrl('util/batch-delete/' + this.tabItem.url), paramsDel)
                     .then((responce) => {
                         if (responce.data === 'true') {
-                            // this.getSelect()
                             this.getDetailSerial()
                             this.boxArr(this.dataArr)
                             this.$message({
@@ -559,11 +566,18 @@ export default {
                 var curl = {'curl': this.tabItem.url}
                 var routeId = {'routeId': com.labUrl}
                 var opqcurl = {'opqcurl': this.apiUrlArr[this.url]}
-                let surl = val[1] + '/' + com.labUrl
+                let surl = ''
+                var id = ''
+                if (com.labUrl === false || com.labNewUrl !== undefined) {
+                    surl = com.labNewUrl
+                    id = val[1]
+                } else {
+                    surl = val[1] + '/' + com.labUrl
+                }
                 if (com.paramsIndex !== undefined) {
                     var type = com.paramsIndex
                 }
-                this.$dataGet(this, surl, {getSelect, curl, routeId, opqcurl, type})
+                this.$dataGet(this, surl, {getSelect, curl, routeId, opqcurl, type, id})
                     .then((responce) => {
                         this.$set(com.components[com.assocNum], 'tableVal', responce.data)
                     })
