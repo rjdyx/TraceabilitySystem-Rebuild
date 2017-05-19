@@ -137,7 +137,7 @@
         <!-- 分页模块 -->
             <el-pagination
               v-if="paginator!=0"
-              layout="prev, pager, next"
+              layout="prev, pager, next, jumper"
               :total="paginator.total"
               :page-size="paginator.per_page"
               class="pager"

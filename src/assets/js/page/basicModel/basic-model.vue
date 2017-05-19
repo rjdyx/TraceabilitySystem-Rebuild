@@ -138,7 +138,7 @@
         <!-- 分页模块 -->
         <el-pagination
           v-if="paginator!=0"
-          layout="prev, pager, next"
+          layout="prev, pager, next, jumper"
           :total="paginator.total"
           :page-size="paginator.per_page"
           class="pager"
@@ -694,7 +694,6 @@ export default {
         permissionShow (index, row) {
             this.companyId = row.id
             this.isPermissionShow = true
-            console.log('this.companyId:' + this.companyId)
         },
         roleShow (index, row) {
             this.isRoleShow = true
@@ -706,7 +705,6 @@ export default {
         },
         getPermission (data) {
             this.checkeds = data
-            console.log(this.checkeds)
         }
     },
     mounted () {
@@ -732,6 +730,7 @@ export default {
             }
             this.getAllMsg()
             this.inputValue = ''
+            this.paginator = 0
         }
     },
     components: {
