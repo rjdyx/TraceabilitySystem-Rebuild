@@ -526,7 +526,6 @@ export default {
                     axios.post(this.$adminUrl('util/batch-delete/' + this.tabItem.url), paramsDel)
                     .then((responce) => {
                         if (responce.data === 'true') {
-                            // this.getSelect()
                             this.getDetailSerial()
                             this.boxArr(this.dataArr)
                             this.$message({
