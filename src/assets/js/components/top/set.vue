@@ -118,6 +118,11 @@ export default {
         file
     },
     methods: {
+        ...mapActions([
+            'change_siderBar',
+            'switch_theme',
+            'switch_font'
+        ]),
         handleRemove (files, fileList) {
             console.log(files, fileList)
         },
@@ -143,13 +148,12 @@ export default {
             } else if (label === 3) {
                 this.switchFont('big')
             }
-            // this.$store.commit('CHANGEFONT', label)
         },
         switchTheme (color) {
-            this.$store.dispatch('switch_theme', color)
+            this.switch_theme(color)
         },
         switchFont (size) {
-            this.$store.dispatch('switch_font', size)
+            this.switch_font(size)
         },
         /**
           * 提交表单
@@ -176,6 +180,7 @@ export default {
         }
     },
     mounted () {
+        this.change_siderBar(true)
         let theme = this.$store.getters.getTheme
         switch (theme) {
         case 'blue':

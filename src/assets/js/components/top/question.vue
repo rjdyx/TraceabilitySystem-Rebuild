@@ -61,7 +61,7 @@
 <script>
 import ContainTitle from '../layout/contain-title.vue'
 import footerTop from './topComponent/footer.vue'
-
+import {mapActions} from 'vuex'
 export default {
     name: 'question',
     data () {
@@ -86,6 +86,9 @@ export default {
         }
     },
     methods: {
+        ...mapActions([
+            'change_siderBar'
+        ]),
         submitForm (formName) {
             this.$refs[formName].validate((valid) => {
                 if (valid) {
@@ -116,6 +119,9 @@ export default {
     components: {
         ContainTitle,
         footerTop
+    },
+    mounted () {
+        this.change_siderBar(true)
     }
 
 }

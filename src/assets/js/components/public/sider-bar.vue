@@ -34,12 +34,11 @@
 </template>
 
 <script>
-import {mapGetters, mapMutation, mapActions} from 'vuex'
+import {mapGetters, mapActions} from 'vuex'
 export default {
     name: 'SiderBar',
     data () {
         return {
-            record: ''
         }
     },
     props: {
@@ -50,11 +49,7 @@ export default {
             }
         }
     },
-    computed: {
-    },
     mounted () {
-        console.log(this.menus)
-        this.record = this.$store.getters.getRecord
     },
     methods: {
         handle (index) {
@@ -62,6 +57,21 @@ export default {
         },
         handleClose (key, keyPath) {
             // this.$store.dispatch('switch_record', '')
+        }
+    },
+    computed: {
+        ...mapGetters({
+            isCloseSiderBar: 'getSiderBar',
+            record: 'getRecord'
+        })
+    },
+    watch: {
+        isCloseSiderBar () {
+            if (this.isCloseSiderBar) {
+                this.$children[0].$children[0].closeMenu()
+                this.$children[0].$children[0].activedIndex = ''
+                this.$store.dispatch('switch_record', '')
+            }
         }
     }
 }

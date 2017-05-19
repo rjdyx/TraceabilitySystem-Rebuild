@@ -147,6 +147,7 @@
 </div> 
 </template>
 <script>
+import {mapActions} from 'vuex'
 import computed from './computed.js'
 import popNew from '../../components/public/popNew.vue'
 import ContainTitle from 'components/layout/contain-title.vue'
@@ -206,6 +207,9 @@ export default {
     },
     mixins: [computed],
     methods: {
+        ...mapActions([
+            'change_siderBar'
+        ]),
         // tab点击事件
         tabClick (tab, event) {
             this.index = tab.$data.index
@@ -258,7 +262,6 @@ export default {
             }
             // 无分类的下拉框模块查询
             if (com.selectUrl2) {
-                console.log()
                 for (let key in com.selectUrl2) {
                     let newArr = this.$addAndEditSelectMethod(com.selectUrl2[key])
                     let data = {table: newArr.selectUrl}
@@ -267,10 +270,17 @@ export default {
                         data.field = field
                         data.id = this.headData.area_id
                     }
-                    if (com.selectWhereArr2[key].field !== undefined) {
-                        data.where = [com.selectWhereArr2[key].field, com.selectWhereArr2[key].value]
+
+                    // 多条件查询
+                    if (com.selectWhereArr2 !== undefined) {
+                        if (com.selectWhereArr2[key] !== undefined || com.selectWhereArr2[key] !== '') {
+                            var arr = []
+                            for (let k in com.selectWhereArr2[key]) {
+                                arr[k] = [com.selectWhereArr2[key][k].n, com.selectWhereArr2[key][k].v]
+                            }
+                            data.where = arr
+                        }
                     }
-                    console.log(data)
                     this.$dataGet(this, '/util/selects', data)
                         .then((responce) => {
                             if (responce.data.length !== 0) {
@@ -399,6 +409,7 @@ export default {
         // 文本与时间按钮查询
         textAndDateFind () {
             this.dataArr['query_text'] = this.inputValue
+            this.dataArr['page'] = 1
             this.boxArr(this.dataArr)
         },
         // 下拉框查询
@@ -409,6 +420,7 @@ export default {
                 }
             }
             this.dataArr[val[0]] = val[1]
+            this.dataArr['page'] = 1
             this.boxArr(this.dataArr)
         },
         // 日期存储
@@ -423,18 +435,6 @@ export default {
         // 组合查询
         boxArr (dataArr) {
             this.getAllMsg(dataArr)
-        },
-        enterPic () {
-            // this.$alert('<img src>')
-            // this.$alert('这是一段内容', '标题名称', {
-            //     confirmButtonText: '确定',
-            //     callback: action => {
-            //         this.$message({
-            //             type: 'info',
-            //             message: 'action: ${ action }'
-            //         })
-            //     }
-            // }
         },
         // 获取下拉框数据
         getSelect () {
@@ -492,13 +492,16 @@ export default {
             }).then(() => {
                 axios.delete(this.$adminUrl(this.apiUrlArr[this.tabList[this.index].url] + '/' + row.id))
                     .then((responce) => {
-                        // this.getSelect()
-                        this.getDetailSerial()
-                        this.boxArr(this.dataArr)
-                        this.$message({
-                            type: 'success',
-                            message: '删除成功'
-                        })
+                        if (responce.data === 'true') {
+                            this.getDetailSerial()
+                            this.boxArr(this.dataArr)
+                            this.$message({
+                                type: 'success',
+                                message: '删除成功'
+                            })
+                        } else if (responce.data === 'state') {
+                            this.$message('该数据已被使用，无法删除')
+                        }
                     })
             }).catch(() => {
                 this.$message({
@@ -537,13 +540,14 @@ export default {
                     axios.post(this.$adminUrl('util/batch-delete/' + this.tabItem.url), paramsDel)
                     .then((responce) => {
                         if (responce.data === 'true') {
-                            // this.getSelect()
                             this.getDetailSerial()
                             this.boxArr(this.dataArr)
                             this.$message({
                                 type: 'success',
                                 message: '批量删除成功'
                             })
+                        } else if (responce.data === 'state') {
+                            this.$message('有数据已被使用，无法完成批量删除操作')
                         } else {
                             this.$message.error('批量删除失败')
                         }
@@ -564,11 +568,18 @@ export default {
                 var curl = {'curl': this.tabItem.url}
                 var routeId = {'routeId': com.labUrl}
                 var opqcurl = {'opqcurl': this.apiUrlArr[this.url]}
-                let surl = val[1] + '/' + com.labUrl
+                let surl = ''
+                var id = ''
+                if (com.labUrl === false || com.labNewUrl !== undefined) {
+                    surl = com.labNewUrl
+                    id = val[1]
+                } else {
+                    surl = val[1] + '/' + com.labUrl
+                }
                 if (com.paramsIndex !== undefined) {
                     var type = com.paramsIndex
                 }
-                this.$dataGet(this, surl, {getSelect, curl, routeId, opqcurl, type})
+                this.$dataGet(this, surl, {getSelect, curl, routeId, opqcurl, type, id})
                     .then((responce) => {
                         this.$set(com.components[com.assocNum], 'tableVal', responce.data)
                     })
@@ -610,6 +621,7 @@ export default {
         }
     },
     mounted () {
+        this.change_siderBar(false)
         this.tabItem = this.tabList[0]
         this.activeName = this.tabList[0].tab
         this.getApiUrl()

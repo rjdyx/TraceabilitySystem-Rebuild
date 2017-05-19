@@ -151,6 +151,7 @@
 </template> 
  
 <script>
+import {mapActions} from 'vuex'
 import computed from './computed.js'
 import popNew from '../../components/public/popNew.vue'
 import ContainTitle from 'components/layout/contain-title.vue'
@@ -272,6 +273,9 @@ export default {
     // 混合
     mixins: [computed],
     methods: {
+        ...mapActions([
+            'change_siderBar'
+        ]),
         init (index = 0) {
             this.value = ''
             this.activeName = 0
@@ -435,6 +439,11 @@ export default {
         // 关闭新增弹窗
         closeNewShow () {
             this.isNewShow = false
+            var com = this.newComponent[0]
+            if (com.components[com.assocNum] !== undefined) {
+                this.$set(com.components[com.assocNum], 'tableVal', [])
+                this.newComponent[0].components[1].options = []
+            }
         },
         // 关闭编辑弹窗
         closeEditShow () {
@@ -468,6 +477,7 @@ export default {
         // 文本与时间按钮查询
         textAndDateFind () {
             this.dataArr['query_text'] = this.inputValue
+            this.dataArr['page'] = 1
             this.boxArr(this.dataArr)
         },
         // 下拉框查询
@@ -478,20 +488,21 @@ export default {
                 }
             }
             this.dataArr[val[0]] = val[1]
+            this.dataArr['page'] = 1
             this.boxArr(this.dataArr)
         },
         // 日期存储
         dateFind (val) {
             this.dataArr[val[0]] = val[1]
         },
-        // 组合查询
-        boxArr (dataArr) {
-            this.getAllMsg(dataArr)
-        },
         // 分页跳转
         pageChange (val) {
             this.dataArr['page'] = val
             this.boxArr(this.dataArr)
+        },
+        // 组合查询
+        boxArr (dataArr) {
+            this.getAllMsg(dataArr)
         },
         // 全选获取数据
         handleSelectionChange (val) {
@@ -573,6 +584,8 @@ export default {
                     str = str + '&type=' + this.paramsIndex
                 }
                 window.location.href = this.$adminUrl(this.url) + str
+            } else {
+                this.$message.error('请选择序号')
             }
         },
         // 新建数据
@@ -701,6 +714,7 @@ export default {
         }
     },
     mounted () {
+        this.change_siderBar(false)
         this.activeName = 'index0'
         // 获取下拉框
         if (this.selectValueId) {

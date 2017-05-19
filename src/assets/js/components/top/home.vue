@@ -71,6 +71,7 @@
 <script>
 import ContainTitle from '../layout/contain-title.vue'
 import chart from './topComponent/echarts.vue'
+import {mapActions} from 'vuex'
 export default{
     name: 'home',
     data () {
@@ -145,14 +146,22 @@ export default{
                     type: '检疫',
                     key: 'detection'
                 }
-            ]
+            ],
+            // 是否合起侧边栏
+            isCloseSiderBar: false
         }
     },
     components: {
         ContainTitle,
         chart
     },
+    methods: {
+        ...mapActions([
+            'change_siderBar'
+        ])
+    },
     mounted () {
+        this.change_siderBar(true)
         axios.get('api/index/state')
             .then((responce) => {
                 if (responce.data !== 'plant' && responce.data !== 'all') {

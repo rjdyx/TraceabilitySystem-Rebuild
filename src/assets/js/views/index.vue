@@ -1,7 +1,7 @@
 <template>
 	<div class="wrap">
-		<my-header :navbars="navbars" @return-changeSub="changeSub"></my-header>
-		<sider-bar ref="siderBar" :menus='menus' :show="show" ></sider-bar>
+		<my-header :navbars="navbars"></my-header>
+		<sider-bar :menus='menus' :show="show" ></sider-bar>
 		<router-view></router-view>
 	</div>
 </template> 
@@ -50,12 +50,11 @@ export default {
         SiderBar
     },
     methods: {
-        changeSub () {
-            console.log(this.$refs.siderBar.$children[0].$children[0])
-            this.$refs.siderBar.$children[0].$children[0].closeMenu()
-            this.$refs.siderBar.$children[0].$children[0].activedIndex = ''
-            this.$store.dispatch('switch_record', '')
-        }
+        // changeSub () {
+        //     this.$refs.siderBar.$children[0].$children[0].closeMenu()
+        //     this.$refs.siderBar.$children[0].$children[0].activedIndex = ''
+        //     this.$store.dispatch('switch_record', '')
+        // }
     },
     mounted () {
     }

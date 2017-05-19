@@ -4,8 +4,9 @@ import mutations from './mutations.js'
 import getters from './getters.js'
 const state = {
     theme: func.themeLocal.get() || {theme: 'blue'},
-    font: func.fontLocal.get() || {font: 'big'},
-    record: func.modelLocal.get() || {record: ''}
+    font: func.fontLocal.get() || {font: 'middle'},
+    record: func.modelLocal.get() || {record: ''},
+    siderBar: func.siderBarLocal.get() || {siderBar: false}
 }
 export default{
     state,
