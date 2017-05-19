@@ -1061,6 +1061,7 @@ export default {
             selectInit: [{value: '', label: '选择产品分类'}],
             checkNumber: [1],
             popNumber: [0],
+            hasImg: true,
             components: [{
                 name: 'category_id',
                 type: 'select',
@@ -1177,6 +1178,7 @@ export default {
             selectUrl: [['category', 'product', 'category_id', 'category_name', true]],
             checkNumber: [1],
             popNumber: [0],
+            hasImg: true,
             components: [{
                 name: 'category_id',
                 type: 'select',
@@ -3287,7 +3289,7 @@ export default {
                     isNull: false,
                     label: '平均施药量',
                     placeholder: '请输入正确的数字（必填）',
-                    rule: [{required: true, message: '请输入平均施药量'}, {validator: validate2.reInteger}],
+                    rule: [{required: true, message: '请输入平均施药量'}, {validator: validate2.reNumber}],
                     options: [{
                         value: 'kg/只',
                         label: 'kg/只'
@@ -3403,7 +3405,7 @@ export default {
                     isNull: false,
                     label: '平均施药量',
                     placeholder: '请输入正确的数字（必填）',
-                    rule: [{required: true, message: '请输入平均施药量'}, {validator: validate2.reInteger}],
+                    rule: [{required: true, message: '请输入平均施药量'}, {validator: validate2.reNumber}],
                     options: [{
                         value: 'kg/只',
                         label: 'kg/只'
@@ -3573,20 +3575,20 @@ export default {
                 rule: null
             },
             {
-                name: 'memo',
-                type: 'textarea',
-                component: null,
-                isNull: true,
-                label: '备注信息',
-                placeholder: '',
-                rule: null
-            },
-            {
                 name: 'img',
                 type: 'file',
                 component: inputFile,
                 isNull: true,
                 label: '检疫报告图片',
+                placeholder: '',
+                rule: null
+            },
+            {
+                name: 'memo',
+                type: 'textarea',
+                component: null,
+                isNull: true,
+                label: '备注信息',
                 placeholder: '',
                 rule: null
             }
@@ -3693,20 +3695,20 @@ export default {
                 rule: null
             },
             {
-                name: 'memo',
-                type: 'textarea',
-                component: null,
-                isNull: true,
-                label: '备注信息',
-                placeholder: '',
-                rule: null
-            },
-            {
                 name: 'img',
                 type: 'file',
                 component: inputFile,
                 isNull: true,
                 label: '检疫报告图片',
+                placeholder: '',
+                rule: null
+            },
+            {
+                name: 'memo',
+                type: 'textarea',
+                component: null,
+                isNull: true,
+                label: '备注信息',
                 placeholder: '',
                 rule: null
             }
@@ -3765,6 +3767,7 @@ export default {
             selectUrl2: [['experts', 'id', 'name', true], ['operates', 'id', 'name', true]],
             selectInit2: [{value: '', label: '请选择专家'}, {value: '', label: '请选择操作人'}],
             popNumber2: [1, 2],
+            hasImg: true,
             components: [{
                 name: 'date',
                 type: 'date',
@@ -3852,20 +3855,20 @@ export default {
                 rule: {required: false, trigger: 'blur'}
             },
             {
-                name: 'memo',
-                type: 'textarea',
-                component: null,
-                isNull: true,
-                label: '备注信息',
-                placeholder: '',
-                rule: null
-            },
-            {
                 name: 'img',
                 type: 'file',
                 component: inputFile,
                 isNull: true,
                 label: '检测报告图片',
+                placeholder: '',
+                rule: null
+            },
+            {
+                name: 'memo',
+                type: 'textarea',
+                component: null,
+                isNull: true,
+                label: '备注信息',
                 placeholder: '',
                 rule: null
             }
@@ -3877,6 +3880,7 @@ export default {
             selectUrl2: [['experts', 'id', 'name', true], ['operates', 'id', 'name', true]],
             selectInit2: [{value: '', label: '请选择专家'}, {value: '', label: '请选择操作人'}],
             popNumber2: [2, 3],
+            hasImg: true,
             components: [{
                 name: 'serial',
                 type: 'text',
@@ -3974,20 +3978,20 @@ export default {
                 rule: {required: false, trigger: 'blur', message: '请输入检测部门'}
             },
             {
-                name: 'memo',
-                type: 'textarea',
-                component: null,
-                isNull: true,
-                label: '备注信息',
-                placeholder: '',
-                rule: null
-            },
-            {
                 name: 'img',
                 type: 'file',
                 component: inputFile,
                 isNull: true,
                 label: '检测报告图片',
+                placeholder: '',
+                rule: null
+            },
+            {
+                name: 'memo',
+                type: 'textarea',
+                component: null,
+                isNull: true,
+                label: '备注信息',
                 placeholder: '',
                 rule: null
             }
@@ -4203,7 +4207,7 @@ export default {
             component: newbuildBtn
         }],
         newComponent: [{
-            tab: '新建养殖场信息',
+            tab: '新建无害化管理信息',
             selectUrl2: [['experts', 'id', 'name', true], ['operates', 'id', 'name', true]],
             selectInit2: [{value: '', label: '请选择专家'}, {value: '', label: '请选择操作人'}],
             popNumber2: [1, 2],
@@ -4256,15 +4260,6 @@ export default {
                 rule: {required: true, trigger: 'blur', message: '请输入实行原因'}
             },
             {
-                name: 'memo',
-                type: 'textarea',
-                component: null,
-                isNull: true,
-                label: '备注信息',
-                placeholder: '',
-                rule: null
-            },
-            {
                 name: 'img',
                 type: 'file',
                 component: inputFile,
@@ -4272,11 +4267,20 @@ export default {
                 label: '无害化图片',
                 placeholder: '',
                 rule: null
+            },
+            {
+                name: 'memo',
+                type: 'textarea',
+                component: null,
+                isNull: true,
+                label: '备注信息',
+                placeholder: '',
+                rule: null
             }
             ]
         }],
         editComponent: [{
-            tab: '新建养殖场信息',
+            tab: '新建无害化管理信息',
             selectUrl2: [['experts', 'id', 'name', true], ['operates', 'id', 'name', true]],
             selectInit2: [{value: '', label: '请选择专家'}, {value: '', label: '请选择操作人'}],
             popNumber2: [2, 3],
@@ -4339,20 +4343,20 @@ export default {
                 rule: {required: true, trigger: 'blur', message: '请输入实行原因'}
             },
             {
-                name: 'memo',
-                type: 'textarea',
-                component: null,
-                isNull: true,
-                label: '备注信息',
-                placeholder: '',
-                rule: null
-            },
-            {
                 name: 'img',
                 type: 'file',
                 component: inputFile,
                 isNull: true,
                 label: '无害化图片',
+                placeholder: '',
+                rule: null
+            },
+            {
+                name: 'memo',
+                type: 'textarea',
+                component: null,
+                isNull: true,
+                label: '备注信息',
                 placeholder: '',
                 rule: null
             }
@@ -5087,7 +5091,6 @@ export default {
             curl: 'pack-product-rfid',
             opqcurl: '{x}/pack-product',
             type: 'assoc',
-            assocNum: 6,
             components: [{
                 name: 'pack_id',
                 type: 'select',
@@ -5117,6 +5120,7 @@ export default {
                 component: null,
                 isNull: false,
                 label: '出栏批次号',
+                assocNum: 6,
                 placeholder: '',
                 disabled: true,
                 rule: {required: true, trigger: 'blur', type: 'number', message: '请选择出栏批次号'},

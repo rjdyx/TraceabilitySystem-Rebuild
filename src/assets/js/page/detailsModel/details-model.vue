@@ -89,10 +89,10 @@
                             <div class="imgTipDiv" v-else-if="tabItem.protos[index]=='thumb'" slot="reference">
                                 <el-popover trigger="hover" placement="right">
                                     <!-- 放大图片 -->
-                                    <img style="width:100%; height:auto" v-if="tableData[scope.$index][tabItem.protos[index]]!=null && tableData[scope.$index][tabItem.protos[index]]!=''" :src="tableData[scope.$index].img" @mouseenter="enterPic" @mouseleave="">
+                                    <img style="width:100%; height:auto" v-if="tableData[scope.$index][tabItem.protos[index]]!=null && tableData[scope.$index][tabItem.protos[index]]!=''" :src="tableData[scope.$index].img" >
                                     <div slot="reference" class="name-wrapper imgTip">
                                         <!-- 小图片 -->
-                                        <img v-if="tableData[scope.$index][tabItem.protos[index]]!=null && tableData[scope.$index][tabItem.protos[index]]!=''" :src="tableData[scope.$index][tabItem.protos[index]]" width="100%" height="100%" @mouseenter="enterPic" @mouseleave="">
+                                        <img v-if="tableData[scope.$index][tabItem.protos[index]]!=null && tableData[scope.$index][tabItem.protos[index]]!=''" :src="tableData[scope.$index][tabItem.protos[index]]" width="100%" height="100%">
                                     </div>
                                 </el-popover>
                             </div>
@@ -581,10 +581,10 @@ export default {
                 }
                 this.$dataGet(this, surl, {getSelect, curl, routeId, opqcurl, type, id})
                     .then((responce) => {
-                        this.$set(com.components[com.assocNum], 'tableVal', responce.data)
+                        this.$set(com.components[val[2].assocNum], 'tableVal', responce.data)
                     })
             } else {
-                this.$set(com.components[com.assocNum], 'tableVal', [])
+                this.$set(com.components[val[2].assocNum], 'tableVal', [])
             }
         },
         // 扫描溯源码
