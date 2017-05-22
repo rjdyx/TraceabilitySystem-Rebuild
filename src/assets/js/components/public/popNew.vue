@@ -304,11 +304,15 @@ export default {
         // 选择框
         handleSelectionChange (val) {
             let ids = []
+            let com = this.newComponent[0]
             for (let key in val) {
                 ids.push(val[key].id)
             }
-            console.log(ids)
-            this.tableForm[this.newComponent[0].components[this.tableChangeNumber].valueId] = ids
+            if (this.tableChangeNumber !== '') {
+                this.tableForm[com.components[this.tableChangeNumber].valueId] = ids
+            } else {
+                this.tableForm[com.components[com.assocNum].valueId] = ids
+            }
             this.ids = ids
         },
         // 选择框关联
@@ -348,7 +352,6 @@ export default {
                     axios.get(this.$adminUrl(this.url + '/getArea'), {params: params}).then((responce) => {
                         this.allowance = responce.data['num']
                         this.tableForm['unit'] = responce.data['unit']
-                        console.log(this.tableForm)
                         let nc = this.newComponent[0]
                         this.disabledV = false
                         nc.components[nc.limit].rule[1]['getMax'] = responce.data['num']

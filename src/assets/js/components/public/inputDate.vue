@@ -7,7 +7,7 @@
  */
 <template>
 	<el-date-picker size="small" class="inputData" v-model="value" @change="getDate" type="date"
-     :editable="false" format="yyyy-MM-dd" placeholder="选择日期" >
+     :editable="false" format="yyyy-MM-dd" placeholder="选择日期" :picker-options="beforeOptions">
 	</el-date-picker>
 </template>
 <script>
@@ -19,16 +19,31 @@
                     return {}
                 }
             },
-            editValue: {}
+            editValue: {},
+            range: {
+                type: Boolean,
+                default () {
+                    return false
+                }
+            }
         },
         data () {
             return {
-                value: this.editValue
+                value: this.editValue !== undefined ? this.editValue : this.getCurrentDate(),
+                beforeOptions: {
+                    disabledDate (time) {
+                        return time.getTime() >= Date.now()
+                    }
+                }
             }
         },
         methods: {
             getDate (val) {
                 this.value = val
+            },
+            getCurrentDate () {
+                var md = new Date()
+                return md.toLocaleDateString().replace(/\//g, '-')
             }
         },
         watch: {

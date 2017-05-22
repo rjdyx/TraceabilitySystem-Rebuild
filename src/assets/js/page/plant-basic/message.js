@@ -4713,8 +4713,8 @@ export default {
         batch: 'beastPackBatch',
         paramsIndex: 'beast',
         searchPlaceholder: '请输入批次号进行搜索',
-        theads: ['加工批次号', '加工日期', '数量', '单位', '操作人', '备注信息'],
-        protos: ['serial', 'date', 'amount', 'unit', 'operate_name', 'memo'],
+        theads: ['加工批次号', '加工日期', '数量', '产地', '操作人', '备注信息'],
+        protos: ['serial', 'date', 'amount', 'origin', 'operate_name', 'memo'],
         widths: [50, 50, 50, 50, 50, 50],
         typeComponent: [{
             component: output
@@ -5095,6 +5095,7 @@ export default {
             curl: 'pack-product-rfid',
             opqcurl: '{x}/pack-product',
             type: 'assoc',
+            assocNum: 6,
             components: [{
                 name: 'pack_id',
                 type: 'select',
