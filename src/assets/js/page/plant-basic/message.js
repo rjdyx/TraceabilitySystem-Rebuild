@@ -1326,7 +1326,7 @@ export default {
                 component: newbuildBtn
             }],
             newComponent: [{
-                tab: '养殖场信息',
+                tab: '新建养殖场信息',
                 checkNumber: [0],
                 hasImg: true,
                 components: [{
@@ -1424,7 +1424,7 @@ export default {
                 ]
             }],
             editComponent: [{
-                tab: '养殖场信息',
+                tab: '编辑养殖场信息',
                 hasImg: true,
                 limit: 1,
                 getMessage: '养殖场面积不能小于下属养殖区之和',
@@ -3337,7 +3337,7 @@ export default {
         ],
         editComponent: [
             {
-                tab: '新建病疫情信息',
+                tab: '编辑病疫情信息',
                 selectUrl2: [['drugs', 'id', 'name', true], ['operates', 'id', 'name', true], ['experts', 'id', 'name', true]],
                 selectInit2: [{value: '', label: '兽药选择'}, {value: '', label: '施药人员选择'}, {value: '', label: '专家选择'}],
                 popNumber2: [1, 4, 5],
@@ -4283,7 +4283,7 @@ export default {
             ]
         }],
         editComponent: [{
-            tab: '新建无害化管理信息',
+            tab: '编辑无害化管理信息',
             selectUrl2: [['experts', 'id', 'name', true], ['operates', 'id', 'name', true]],
             selectInit2: [{value: '', label: '请选择专家'}, {value: '', label: '请选择操作人'}],
             popNumber2: [2, 3],
