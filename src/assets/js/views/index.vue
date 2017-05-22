@@ -68,6 +68,6 @@ export default {
 		width: 100%;
         height: 100%;
 		overflow: hidden;
-		min-width: 1280px;
+		min-width: 1024px;
 	}
 </style>

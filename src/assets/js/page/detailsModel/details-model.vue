@@ -6,7 +6,8 @@
  * 
  */
 <template>
-<div class="detailsModel">   
+<div class="detailsModel">
+
   <!-- 标题 -->
     <contain-title :settitle="tab" :isShow="isShow">
     </contain-title>
@@ -106,8 +107,8 @@
 
                 <!-- 列表操作模块 -->
                 <el-table-column 
-                label="操作" v-if="checkOperate==null">
-                    <template scope="scope" class="operateBtn">
+                label="操作" v-if="checkOperate==null" width="175">
+                    <template scope="scope" class="operateBtn" >
                         <template v-if="tabItem.moreComponent!=null">
                             <clickMore :moreComponent="tabItem.moreComponent" 
                             @showMore="moreShow(scope.$index,scope.row)" class="clickMoreBtn"></clickMore>
@@ -137,7 +138,7 @@
         <!-- 分页模块 -->
             <el-pagination
               v-if="paginator!=0"
-              layout="prev, pager, next"
+              layout="prev, pager, next, jumper"
               :total="paginator.total"
               :page-size="paginator.per_page"
               class="pager"
@@ -663,11 +664,12 @@ export default {
     width: 350px;
 }
 .detailsModel{
+    min-height: 792px;
    .imgTip{
+        display: inline-block;
         width:30px;
         height: 20px;
     }
-    
     .margin-left_10{
         margin-left: 10px;
     } 
@@ -725,6 +727,9 @@ export default {
     .clickMoreBtn {
         display: inline-block;
     }
+    .cell {
+        text-align:center;
+    }
     .footer{
         width: 100%;
         height: 50px;
@@ -740,7 +745,7 @@ export default {
         .operate-foot{
             padding-left: 15px;
             display: inline-block;
-            padding-top: 4px;
+            padding-top: 8px;
         }
         .record{
             float: right;

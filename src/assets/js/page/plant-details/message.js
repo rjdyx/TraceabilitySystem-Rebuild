@@ -377,7 +377,7 @@ export default {
         tabList: [{
             url: 'disease-rfid',
             tab: '养殖批次信息',
-            searchPlaceholder: '请输入批次号进行搜索',
+            searchPlaceholder: '请输入rfid进行搜索',
             typeComponent: [{component: newbuildBtn}],
             headList: ['养殖批次号', '病疫Rfid', '养殖日期', '备注信息'],
             protos: ['serial', 'rfid', 'date', 'memo'],

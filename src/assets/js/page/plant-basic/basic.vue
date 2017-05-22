@@ -8,12 +8,9 @@
  */ 
  <template> 
 	<div class='basic'>
-        <div class="content">
-            <basic-content> 
-            </basic-content>
-            <footer-top></footer-top>
-        </div>
-        
+        <basic-content> 
+        </basic-content>
+        <footer-top></footer-top>
     </div>
 </template>
 
@@ -33,21 +30,7 @@ export default {
     .basic{
     	height: 100%;
         overflow:hidden;
+        overflow-y: scroll;
         padding-left:10px;
-    
-    .content{
-        margin-top: 15px;
-        overflow:scroll;
-        /*height: 100%;*/
-        position: relative;
-        min-height: 100%;
-    }
-    .copyright{
-        width: 100%;
-        position: absolute;
-        bottom: 9%;
-        left: 50%;
-        margin-left: -50%;
-    }
 }
 </style>

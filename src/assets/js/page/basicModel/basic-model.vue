@@ -103,7 +103,7 @@
         </template>
         <!-- 列表操作模块 -->
         <el-table-column 
-        label="操作" v-if="checkOperate==null" class="more">
+        label="操作" v-if="checkOperate==null" width="180">
             <template scope="scope">
                 <template v-if="moreComponent!=null">
                     <clickMore :companyId="companyId" :moreComponent="moreComponent" @showMore="moreShow(scope.$index,scope.row)" 
@@ -139,7 +139,7 @@
         <!-- 分页模块 -->
         <el-pagination
           v-if="paginator!=0"
-          layout="prev, pager, next"
+          layout="prev, pager, next, jumper"
           :total="paginator.total"
           :page-size="paginator.per_page"
           class="pager"
@@ -434,6 +434,17 @@ export default {
                 for (let key of Object.keys(row)) {
                     this.editDefault[key] = row[key]
                 }
+                if (this.url === 'category') {
+                    let params = {id: row.id}
+                    axios.get(this.$adminUrl(this.url + '/changeEdit'), {params: params})
+                        .then((responce) => {
+                            if (responce.data === 'state') {
+                                com.components[com.popNumber].disabled = true
+                            } else {
+                                com.components[com.popNumber].disabled = false
+                            }
+                        })
+                }
             }
         },
         // 关闭新增弹窗
@@ -704,7 +715,6 @@ export default {
         permissionShow (index, row) {
             this.companyId = row.id
             this.isPermissionShow = true
-            // console.log('this.companyId:' + this.companyId)
         },
         roleShow (index, row) {
             this.isRoleShow = true
@@ -716,7 +726,6 @@ export default {
         },
         getPermission (data) {
             this.checkeds = data
-            // console.log(this.checkeds)
         }
     },
     mounted () {
@@ -729,7 +738,6 @@ export default {
         // 获取列表信息
         this.getAllMsg()
         let change = $('.available')
-        // console.log(change)
         change.css('display', 'none')
     },
     watch: {
@@ -745,6 +753,7 @@ export default {
             }
             this.getAllMsg()
             this.inputValue = ''
+            this.paginator = 0
         }
     },
     components: {
@@ -765,93 +774,93 @@ export default {
 
 <style lang='sass'>
 .basic_model{
+    min-height: 694px;
     .basic-wrap{
-        min-height: 100%;
-    }
-    .pcActive{
-        text-decoration: underline;
-        cursor:pointer;
-    }
-     .fr{
-     	float:right;
-     }
-     .fl{
-     	float:left;
-     }
-     .el-icon-caret-left{
-      padding-right: 15px;
-     }
-.fade-enter-active, .fade-leave-active {
-  transition: opacity .5s;
-}
-.fade-enter, .fade-leave-active {
-  opacity: 0;
-}
-.searchInp {
-  width: 161px;
-  margin-bottom: 10px;
-  font-size: 12px;
-  margin-right: 10px;
-}
-#btns {
-  float: right;
-}
-.searchBtn {
-  width: 62px;
-}
-.searchOp {
-  display: inline;
-}
-.margin {
-  margin-left: 15px;
-}
-i {
-  &:hover {
-    cursor: pointer;
-  }
-}
-.clickMoreBtn {
-  display: inline-block;
-}
-/*.el-table{
-    tr{
-        td{
-            &:last-child{
-                border-left:1px solid red;
+        .pcActive{
+                text-decoration: underline;
+                cursor:pointer;
+            }
+            .fr{
+                float:right;
+            }
+            .fl{
+                float:left;
+            }
+            .el-icon-caret-left{
+                padding-right: 15px;
+            }
+        .fade-enter-active, .fade-leave-active {
+            transition: opacity .5s;
+        }
+        .fade-enter, .fade-leave-active {
+            opacity: 0;
+        }
+        .searchInp {
+            width: 161px;
+            margin-bottom: 10px;
+            font-size: 12px;
+            margin-right: 10px;
+        }
+        #btns {
+            float: right;
+        }
+        .searchBtn {
+            width: 62px;
+        }
+        .searchOp {
+            display: inline;
+        }
+        .margin {
+            margin-left: 15px;
+        }
+        i {
+            &:hover {
+                cursor: pointer;
             }
         }
-    }
-}*/
-.btn {
-  span {
-    border-left: 1px solid #a7bad6;
-    padding: 0px 5px 0px 8px;
-  }
-}
-.el-table td, .el-table th.is-leaf {
-  text-align: center;
-}
-.footer {
-  width: 100%;
-  height: 50px;
-  border: 1px solid #dfe6ec;
-  border-top: none;
-  .pager{
-          display: inline-block;
-  float: right;
-  vertical-align: middle;
-  padding-top: 12px;
-}
-.operate-foot {
-  padding-left: 15px;
-  display: inline-block;
-  padding-top: 8px;
-}
-.record {
-  float: right;
-  padding: 16px 26px;
-  font-size: 13px;
-}
-   }
+        .clickMoreBtn {
+            display: inline-block;
+        }
+        /*.el-table{
+            tr{
+                td{
+                    &:last-child{
+                        border-left:1px solid red;
+                    }
+                }
+            }
+        }*/
+        .btn {
+            span {
+                border-left: 1px solid #a7bad6;
+                padding: 0px 5px 0px 8px;
+            }
+        }
+        .el-table td, .el-table th.is-leaf {
+            text-align: center;
+        }
+        .footer {
+            width: 100%;
+            height: 50px;
+            border: 1px solid #dfe6ec;
+            border-top: none;
+            .pager{
+                display: inline-block;
+                float: right;
+                vertical-align: middle;
+                padding-top: 12px;
+            }
+            .operate-foot {
+                padding-left: 15px;
+                display: inline-block;
+                padding-top: 8px;
+            }
+            .record {
+                float: right;
+                padding: 16px 26px;
+                font-size: 13px;
+            }
+        }
+    }        
 } 
 </style>

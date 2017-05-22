@@ -6,7 +6,8 @@
 <template>
 	<div>
 		<div class="content">出错了 403！</div>
-		<div class="return"><a href="/">返回首页</a></div>
+		<!-- <div class="return"><a href="/">返回首页</a></div> -->
+		<div class="return" @click='tiaoFn'>返回首页</div>
 	</div>
 </template>
 <style lang="sass" scoped>
@@ -33,6 +34,11 @@
 </style>
 <script>
     export default {
-        name: 'fourOFour'
+        name: 'fourOFour',
+        methods: {
+            tiaoFn () {
+                this.$router.push('/index/home')
+            }
+        }
     }
 </script>

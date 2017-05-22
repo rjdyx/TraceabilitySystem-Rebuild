@@ -6,7 +6,7 @@
 
 
 <template>
-	<div>
+	<div class="content">
         <basic-model :models="models[type]"></basic-model>
     </div> 
 </template>
@@ -43,4 +43,7 @@ export default {
 
 <style lang="sass" scoped>
     @import "../../../sass/function";
+    .content{
+        margin-top: 15px;
+    }
 </style>
