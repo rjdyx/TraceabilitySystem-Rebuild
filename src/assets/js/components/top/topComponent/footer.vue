@@ -26,9 +26,10 @@ export default {
 <style lang="sass">
 .copyright{
     width: 100%;
+    height: 80px;
     text-align: center;
     color: #919191;
-    margin: 0 auto;  
+    padding:30px 0px;
 }
 .copyright a{
     text-decoration: underline;

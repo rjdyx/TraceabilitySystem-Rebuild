@@ -39,7 +39,6 @@ export default {
     name: 'SiderBar',
     data () {
         return {
-            record: ''
         }
     },
     props: {
@@ -51,6 +50,10 @@ export default {
         }
     },
     computed: {
+        ...mapGetters({
+            record: 'getRecord',
+            isShowSiderBar: 'getSiderBar'
+        })
     },
     mounted () {
         console.log(this.menus)
@@ -62,6 +65,16 @@ export default {
         },
         handleClose (key, keyPath) {
             // this.$store.dispatch('switch_record', '')
+        }
+    },
+    watch: {
+        isShowSiderBar () {
+            console.log(111)
+            if (this.isShowSiderBar) {
+                this.$children[0].$children[0].closeMenu()
+                this.$children[0].$children[0].activedIndex = ''
+                this.$store.dispatch('switch_record', '')
+            }
         }
     }
 }

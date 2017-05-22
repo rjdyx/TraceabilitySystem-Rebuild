@@ -3751,7 +3751,7 @@ export default {
         paramsIndex: 'beast',
         // 链接批次信息模块数据的桥（养殖批次详情）
         batch: 'beastDetectBatch',
-        searchPlaceholder: '请输入检测项目名称进行',
+        searchPlaceholder: '请输入批次号进行搜索',
         selectSearch: ['detects.weather'],
         theads: ['检测批次号', '检测日期', '检测项目名称', '检测内容', '检测部门', '天气', '专家', '操作人员', '检测报告图片', '备注'],
         protos: ['serial', 'date', 'name', 'content', 'department', 'weather', 'expert_name', 'operate_name', 'img', 'memo'],
@@ -4877,7 +4877,7 @@ export default {
         tab: '检验检测信息',
         url: 'detect_pk',
         batch: 'beastDetectPkBatch',
-        searchPlaceholder: '请输入检测项目名称进行',
+        searchPlaceholder: '请输入批次号进行',
         paramsIndex: 'beast',
         changeDataArr: [{result: {0: '不合格', 1: '合格'}}],
         theads: ['检测批次号', '检测名称', '检测内容', '检测日期', '检测结果', '检测机构', '负责人', '处理方法', '图片报告', '备注'],
@@ -4944,7 +4944,7 @@ export default {
             },
             {
                 name: 'content',
-                type: 'textarea',
+                type: 'text',
                 component: null,
                 isNull: false,
                 label: '检测内容',
@@ -5051,7 +5051,7 @@ export default {
             },
             {
                 name: 'content',
-                type: 'textarea',
+                type: 'text',
                 component: null,
                 isNull: false,
                 label: '检测内容',
