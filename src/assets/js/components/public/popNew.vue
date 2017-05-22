@@ -191,6 +191,7 @@ export default {
         return {
             // 当前选中的标签页
             activeName: this.newComponent[0].tab,
+            tableChangeNumber: '',
             tableForm: form,
             rules: rules,
             allowance: 0,
@@ -259,7 +260,9 @@ export default {
                         this.tableForm[field] = this.routeId
                     }
                     if (this.newComponent[0].type === 'table' || this.newComponent[0].type === 'assoc') {
-                        this.tableForm.type = this.newComponent[0].hiddenValue.type
+                        if (this.newComponent[0].hiddenValue !== undefined) {
+                            this.tableForm.type = this.newComponent[0].hiddenValue.type
+                        }
                         if (this.ids.length !== 0) {
                             this.$dataPost(this, this.url, this.tableForm, false, false, false)
                                 .then((response) => {
@@ -304,7 +307,8 @@ export default {
             for (let key in val) {
                 ids.push(val[key].id)
             }
-            this.tableForm[this.newComponent[0].components[this.newComponent[0].assocNum].valueId] = ids
+            console.log(ids)
+            this.tableForm[this.newComponent[0].components[this.tableChangeNumber].valueId] = ids
             this.ids = ids
         },
         // 选择框关联
@@ -336,44 +340,8 @@ export default {
                     }
                 }
             } else if (name === 'breed_id' || name === 'come_id' || changeTable) {
-                this.$emit('setTable', [name, val])
-            } else if (name === 'transportable_type') {
-                if (val === 'self') {
-                    // 默认赋值
-                    this.tableForm.driver_id = ''
-                    this.tableForm.vehicle_id = ''
-                    this.tableForm.logistic_id = 1
-                    this.tableForm.number = 'abc'
-                    com[3].selfHidden = false
-                    com[4].selfHidden = false
-                    com[5].consignHidden = true
-                    com[6].consignHidden = true
-                } else if (val === 'consign') {
-                    // 默认赋值
-                    this.tableForm.driver_id = 1
-                    this.tableForm.vehicle_id = 1
-                    this.tableForm.logistic_id = ''
-                    this.tableForm.number = ''
-                    com[3].selfHidden = true
-                    com[4].selfHidden = true
-                    com[5].consignHidden = false
-                    com[6].consignHidden = false
-                } else if (val === 'selve') {
-                    // 默认赋值
-                    this.tableForm.driver_id = 1
-                    this.tableForm.vehicle_id = 1
-                    this.tableForm.logistic_id = 1
-                    this.tableForm.number = 'abc'
-                    com[3].selfHidden = true
-                    com[4].selfHidden = true
-                    com[5].consignHidden = true
-                    com[6].consignHidden = true
-                } else {
-                    com[3].selfHidden = true
-                    com[4].selfHidden = true
-                    com[5].consignHidden = true
-                    com[6].consignHidden = true
-                }
+                this.tableChangeNumber = subItem.assocNum
+                this.$emit('setTable', [name, val, subItem])
             } else if (name === 'pid' || name === 'farm_id') {
                 if (val !== '') {
                     let params = {id: val}
@@ -396,11 +364,12 @@ export default {
         // 新增成功调用方法
         successCallback () {
             var com = this.newComponent[0].components
-            if (this.newComponent[0].divHidden !== undefined) {
-                com[3].selfHidden = true
-                com[4].selfHidden = true
-                com[5].consignHidden = true
-                com[6].consignHidden = true
+            if (this.newComponent[0].type === 'assoc') {
+                for (let k in com) {
+                    if (com[k].hiddenSelect !== undefined) {
+                        com[k].hiddenSelect = true
+                    }
+                }
             }
         }
     }

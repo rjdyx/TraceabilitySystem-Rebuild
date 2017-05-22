@@ -139,7 +139,7 @@
         <!-- 分页模块 -->
         <el-pagination
           v-if="paginator!=0"
-          layout="prev, pager, next"
+          layout="prev, pager, next, jumper"
           :total="paginator.total"
           :page-size="paginator.per_page"
           class="pager"
@@ -434,6 +434,17 @@ export default {
                 for (let key of Object.keys(row)) {
                     this.editDefault[key] = row[key]
                 }
+                if (this.url === 'category') {
+                    let params = {id: row.id}
+                    axios.get(this.$adminUrl(this.url + '/changeEdit'), {params: params})
+                        .then((responce) => {
+                            if (responce.data === 'state') {
+                                com.components[com.popNumber].disabled = true
+                            } else {
+                                com.components[com.popNumber].disabled = false
+                            }
+                        })
+                }
             }
         },
         // 关闭新增弹窗
@@ -658,10 +669,10 @@ export default {
                 let surl = val[1] + '/' + com.labUrl
                 this.$dataGet(this, surl, {getSelect, curl, routeId, opqcurl})
                     .then((responce) => {
-                        this.$set(com.components[com.assocNum], 'tableVal', responce.data)
+                        this.$set(com.components[val[2].assocNum], 'tableVal', responce.data)
                     })
             } else {
-                this.$set(com.components[com.assocNum], 'tableVal', [])
+                this.$set(com.components[val[2].assocNum], 'tableVal', [])
             }
         },
         // 点击删除
@@ -698,7 +709,6 @@ export default {
         permissionShow (index, row) {
             this.companyId = row.id
             this.isPermissionShow = true
-            console.log('this.companyId:' + this.companyId)
         },
         roleShow (index, row) {
             this.isRoleShow = true
@@ -710,7 +720,6 @@ export default {
         },
         getPermission (data) {
             this.checkeds = data
-            console.log(this.checkeds)
         }
     },
     mounted () {
@@ -723,7 +732,6 @@ export default {
         // 获取列表信息
         this.getAllMsg()
         let change = $('.available')
-        console.log(change)
         change.css('display', 'none')
     },
     watch: {
@@ -739,6 +747,7 @@ export default {
             }
             this.getAllMsg()
             this.inputValue = ''
+            this.paginator = 0
         }
     },
     components: {

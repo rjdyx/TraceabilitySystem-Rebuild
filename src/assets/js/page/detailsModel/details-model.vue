@@ -138,7 +138,7 @@
         <!-- 分页模块 -->
             <el-pagination
               v-if="paginator!=0"
-              layout="prev, pager, next"
+              layout="prev, pager, next, jumper"
               :total="paginator.total"
               :page-size="paginator.per_page"
               class="pager"
@@ -582,10 +582,10 @@ export default {
                 }
                 this.$dataGet(this, surl, {getSelect, curl, routeId, opqcurl, type, id})
                     .then((responce) => {
-                        this.$set(com.components[com.assocNum], 'tableVal', responce.data)
+                        this.$set(com.components[val[2].assocNum], 'tableVal', responce.data)
                     })
             } else {
-                this.$set(com.components[com.assocNum], 'tableVal', [])
+                this.$set(com.components[val[2].assocNum], 'tableVal', [])
             }
         },
         // 扫描溯源码
