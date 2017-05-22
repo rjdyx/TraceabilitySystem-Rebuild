@@ -42,7 +42,6 @@
             return {
                 isNewShow: false,
                 isShow: false,
-                // newComponent: [],
                 more: more,
                 checkeds: {}
             }
