@@ -101,7 +101,7 @@ export default {
     },
     mixins: [move],
     mounted () {
-        console.log(this.editValue.img)
+        // console.log(this.editValue.img)
     },
     methods: {
         closeClick () {

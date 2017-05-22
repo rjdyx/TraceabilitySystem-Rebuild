@@ -12,11 +12,8 @@
 				<ul class="plantHeaderList">
 					<!-- 实时视频 -->
 					<li><router-link :to="'/run/plant/video/'+id"></router-link></li>
-					<!-- <li><router-link :to="{name: 'video', path: '/plant/video', params: {id:123}}"></router-link></li> -->
-					<!-- <li><router-link :to="{name:'video',query:{id:123}}"></router-link></li> -->
-					<!-- <li><router-link :to="{path:'/run/plant/video', name:'video'}"></router-link></li> -->
 					<!-- 基础信息 -->
-					<li><router-link :to="'/run/plant/basicInfor/'+plantation_id"></router-link></li>
+					<li><router-link :to="'/run/plant/basicInfor/'+code"></router-link></li>
 					<!-- 购物链接 -->
 					<li><router-link :to="'/run/plant/shop/'+video"></router-link></li>
 				</ul>
@@ -39,15 +36,15 @@
 			<div class="plant_product"><img src="img" alt=""></div>
 			<ul class="plantBottomList">
 			    <!-- 生长图片 -->
-				<li><router-link :to="'/run/plant/growImg/'+cultivate_id"></router-link></li>
+				<li><router-link :to="'/run/plant/growImg/'+code"></router-link></li>
 				<!-- 农药信息 -->
-				<li><router-link :to="'/run/plant/spray/'+cultivate_id"></router-link></li>
+				<li><router-link :to="'/run/plant/spray/'+code"></router-link></li>
 				<!-- 农事信息 -->
-				<li><router-link :to="'/run/plant/farming/'+cultivate_id"></router-link></li>
+				<li><router-link :to="'/run/plant/farming/'+code"></router-link></li>
 				<!-- 肥料信息 -->
-				<li><router-link :to="'/run/plant/fertilize/'+cultivate_id"></router-link></li>
+				<li><router-link :to="'/run/plant/fertilize/'+code"></router-link></li>
 				<!-- 检测信息 -->
-				<li><router-link :to="'/run/plant/detect/'+cultivate_id"></router-link></li>
+				<li><router-link :to="'/run/plant/detect/'+code"></router-link></li>
 				<!-- 商品信息 -->
 				<li><router-link :to="'/run/plant/commodityInfor/'+code_id"></router-link></li>
 			</ul>
@@ -70,14 +67,15 @@ export default{
             product_id: '',
             product_desc: '',
             img: '',
-            video: ''
+            video: '',
+            code: ''
         }
     },
     mounted () {
         // 获取溯源码
-        var code = this.$route.params.code
+        this.code = this.$route.params.code
         // 查询首页产品数据
-        var params = {code: code}
+        var params = {code: this.code}
         axios.get('run/plant/index', {params: params})
             .then((responce) => {
                 if (responce.data !== 'false') {

@@ -53,7 +53,7 @@ export default {
     computed: {
     },
     mounted () {
-        console.log(this.menus)
+        // console.log(this.menus)
         this.record = this.$store.getters.getRecord
     },
     methods: {

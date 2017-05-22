@@ -13,7 +13,7 @@
 					<!-- 实时视频 -->
 					<li><router-link :to="'/run/breed/video/'+data.video"></router-link></li>
 					<!-- 基础信息 -->
-					<li><router-link :to="'/run/breed/basicInfor/'+data.id+'/'+data.id" ></router-link></li>
+					<li><router-link :to="'/run/breed/basicInfor/'+code" ></router-link></li>
 					<!-- 购物链接 -->
 					<li><router-link :to="'/run/breed/shop/'+data.product_id"></router-link></li>
 				</ul>
@@ -30,19 +30,19 @@
 			<div class="plant_product"><img src="data.thumb" alt=""></div>
 			<ul class="plantBottomList">
 			    <!-- 圈舍维护 -->
-				<li><router-link :to="'/run/breed/area/'+data.breed_id"></router-link></li>
+				<li><router-link :to="'/run/breed/area/'+code"></router-link></li>
 				<!-- 生长过程 -->
-				<li><router-link :to="'/run/breed/growProcess/'+data.breed_id"></router-link></li>
+				<li><router-link :to="'/run/breed/growProcess/'+code"></router-link></li>
 				<!-- 商品 -->
-				<li><router-link :to="'/run/breed/commodity/'+data.id"></router-link></li>
+				<li><router-link :to="'/run/breed/commodity/'+data.code_id"></router-link></li>
 				<!-- 喂养 -->
-				<li><router-link :to="'/run/breed/fodderuse/'+data.id+'/'+data.breed_id"></router-link></li>
+				<li><router-link :to="'/run/breed/fodderuse/'+code"></router-link></li>
 				<!-- 病疫 -->
-				<li><router-link :to="'/run/breed/disease/'+data.id+'/'+data.rfid_id"></router-link></li>
+				<li><router-link :to="'/run/breed/disease/'+code"></router-link></li>
 				<!-- 检疫 -->
-				<li><router-link :to="'/run/breed/detection/'+data.id+'/'+data.breed_id"></router-link></li>
+				<li><router-link :to="'/run/breed/detection/'+code"></router-link></li>
 				<!-- 检测 -->
-				<li><router-link :to="'/run/breed/detect/'+data.id+'/'+data.rfid_id"></router-link></li>
+				<li><router-link :to="'/run/breed/detect/'+code"></router-link></li>
 			</ul>
 		</div>
 	</div>
@@ -58,14 +58,15 @@ export default{
             models: modelObj[this.$route.meta.key],
             data: {},
             thumb: '',
-            product_name: ''
+            product_name: '',
+            code: ''
         }
     },
     mounted () {
         // 获取溯源码
-        var code = this.$route.params.code
+        this.code = this.$route.params.code
         // 查询首页产品数据
-        var params = {code: code}
+        var params = {code: this.code}
         axios.get('run/beast/index', {params: params})
             .then((responce) => {
                 if (responce.data !== 'false') {

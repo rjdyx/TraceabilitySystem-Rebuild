@@ -687,8 +687,8 @@ export default {
             url: 'pack-product-rfid',
             tab: '加工产品溯源码信息',
             searchPlaceholder: '请输入溯源码进行搜索',
-            headList: ['产品溯源码', 'rfid', '生产日期', '溯源次数', '备注'],
-            protos: ['code', 'rfid', 'date', 'time', 'memo'],
+            headList: ['产品溯源码', '生产日期', '溯源次数', '备注'],
+            protos: ['code', 'date', 'time', 'memo'],
             widths: [50, 50, 50, 50, 50],
             hiddeEdit: true,
             typeComponent: [{
@@ -729,7 +729,7 @@ export default {
                         isNull: false,
                         label: '加工商品来源',
                         placeholder: '',
-                        selectNumber: {come: [2, 8], st: [3, 9], sf: [4]},
+                        selectNumber: {come: [2, 7], st: [3, 8], sf: [4]},
                         rule: {required: true, trigger: 'blur', message: '请选择商品来源'},
                         options: [{
                             label: '请选择商品来源',
@@ -755,7 +755,7 @@ export default {
                         isNull: false,
                         label: '出栏批次',
                         hiddenSelect: true,
-                        assocNum: 8,
+                        assocNum: 7,
                         placeholder: '',
                         rule: {required: true, trigger: 'blur', message: '请选择出栏批次', type: 'number'},
                         options: []
@@ -768,7 +768,7 @@ export default {
                         hiddenSelect: true,
                         changeTable: true,
                         label: '入库批次',
-                        assocNum: 9,
+                        assocNum: 8,
                         placeholder: '',
                         rule: {required: true, trigger: 'blur', type: 'number'},
                         options: []
@@ -782,17 +782,6 @@ export default {
                         label: '入库批次',
                         placeholder: '',
                         rule: {required: true, trigger: 'blur', type: 'number'},
-                        options: []
-                    },
-                    {
-                        name: 'come_id',
-                        type: 'select',
-                        component: null,
-                        isNull: false,
-                        label: '出栏批次号',
-                        hiddenSelect: true,
-                        placeholder: '',
-                        rule: {required: true, trigger: 'blur', message: '请选择出栏批次', type: 'number'},
                         options: []
                     },
                     {
@@ -816,6 +805,7 @@ export default {
                     {
                         name: 'rfid_ids',
                         type: 'table',
+                        tableUrl: ['come-rfid', true],
                         hiddenSelect: true,
                         theads: ['出栏批次', 'Rfid', '养殖畜禽', '养殖日期'],
                         protos: ['come_serial', 'rfid', 'beast_name', 'date'],
@@ -826,11 +816,12 @@ export default {
                     {
                         name: 'code_ids',
                         type: 'table',
+                        tableUrl: ['storage_code', false],
                         hiddenSelect: true,
                         theads: ['溯源码', '生产日期', '溯源次数'],
                         protos: ['code', 'date', 'time'],
                         valueId: 'code_ids',
-                        errormsg: '请选择rfid',
+                        errormsg: '请选择溯源码',
                         tableVal: []
                     }]
                 }
@@ -843,16 +834,6 @@ export default {
                     component: null,
                     isNull: false,
                     label: '产品溯源码',
-                    placeholder: '',
-                    disabled: true,
-                    rule: {required: true}
-                },
-                {
-                    name: 'rfid',
-                    type: 'text',
-                    component: null,
-                    isNull: false,
-                    label: 'rfid',
                     placeholder: '',
                     disabled: true,
                     rule: {required: true}

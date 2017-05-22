@@ -5127,11 +5127,12 @@ export default {
         newComponent: [{
             tab: '新建溯源码信息',
             hiddenValue: {type: 'beast'},
-            selectUrl2: [['packs', 'id', 'serial', true], ['comes', 'id', 'serial', true]],
-            selectInit2: [{value: '', label: '加工批次号选择'}, {value: '', label: '出栏批次号选择'}],
             selectAvl2: ['beast', ''],
-            popNumber2: [0, 2],
-            labUrl: 'come-rfid',
+            selectUrl2: [['packs', 'id', 'serial', true], ['comes', 'id', 'serial', true], ['storages', 'id', 'serial', true], ['storages', 'id', 'serial', true]],
+            selectInit2: [{value: '', label: '加工批次号选择'}, {value: '', label: '出栏批次号选择'}, {value: '', label: '请选择入库批次(平台)'}, {value: '', label: '请选择入库批次(非平台)'}],
+            selectWhereArr2: [[], [{n: 'type', v: 0}, {n: 'category', v: 'plant'}], [{n: 'type', v: 1}, {n: 'category', v: 'plant'}]],
+            popNumber2: [0, 3, 4, 5],
+            // labUrl: 'come-rfid',
             curl: 'pack-product-rfid',
             opqcurl: '{x}/pack-product',
             type: 'assoc',
@@ -5159,15 +5160,66 @@ export default {
                 options: []
             },
             {
+                name: 'category',
+                type: 'select',
+                component: null,
+                isNull: false,
+                label: '加工商品来源',
+                placeholder: '',
+                selectNumber: {come: [3, 9], st: [4, 10], sf: [5]},
+                rule: {required: true, trigger: 'blur', message: '请选择商品来源'},
+                options: [{
+                    label: '请选择商品来源',
+                    value: ''
+                },
+                {
+                    label: '养殖出栏',
+                    value: 'come'
+                },
+                {
+                    label: '入库(平台)',
+                    value: 'st'
+                },
+                {
+                    label: '入库(非平台)',
+                    value: 'sf'
+                }]
+            },
+            {
                 name: 'come_id',
                 type: 'select',
                 component: null,
                 isNull: false,
                 label: '出栏批次号',
-                assocNum: 6,
+                hiddenSelect: true,
+                assocNum: 9,
                 placeholder: '',
                 disabled: true,
                 rule: {required: true, trigger: 'blur', type: 'number', message: '请选择出栏批次号'},
+                options: []
+            },
+            {
+                name: 'st_id',
+                type: 'select',
+                component: null,
+                isNull: false,
+                hiddenSelect: true,
+                changeTable: true,
+                label: '入库批次',
+                assocNum: 10,
+                placeholder: '',
+                rule: {required: true, trigger: 'blur', type: 'number'},
+                options: []
+            },
+            {
+                name: 'sf_id',
+                type: 'select',
+                component: null,
+                isNull: false,
+                hiddenSelect: true,
+                label: '入库批次',
+                placeholder: '',
+                rule: {required: true, trigger: 'blur', type: 'number'},
                 options: []
             },
             {
@@ -5200,9 +5252,22 @@ export default {
             {
                 name: 'name',
                 type: 'table',
+                hiddenSelect: true,
+                tableUrl: ['come-rfid', true],
                 theads: ['出栏批次', 'Rfid', '养殖畜禽', '养殖日期'],
                 protos: ['come_serial', 'rfid', 'beast_name', 'date'],
                 valueId: 'rfid_ids',
+                errormsg: '请选择rfid',
+                tableVal: []
+            },
+            {
+                name: 'code_ids',
+                type: 'table',
+                hiddenSelect: true,
+                tableUrl: ['storage_code', false],
+                theads: ['溯源码', '生产日期', '溯源次数'],
+                protos: ['code', 'date', 'time'],
+                valueId: 'code_ids',
                 errormsg: '请选择rfid',
                 tableVal: []
             }]
@@ -8529,10 +8594,14 @@ export default {
         newComponent: [{
             tab: '新建溯源码信息',
             hiddenValue: {type: 'plant'},
-            selectUrl2: [['packs', 'id', 'serial', true], ['harvests', 'id', 'serial', true]],
-            selectInit2: [{value: '', label: '加工批次号选择'}, {value: '', label: '采收批次号选择'}],
             selectAvl2: ['plant', ''],
-            popNumber2: [0, 2],
+            selectUrl2: [['packs', 'id', 'serial', true], ['harvests', 'id', 'serial', true], ['storages', 'id', 'serial', true], ['storages', 'id', 'serial', true]],
+            selectInit2: [{value: '', label: '加工批次号选择'}, {value: '', label: '采收批次号选择'}, {value: '', label: '请选择入库批次(平台)'}, {value: '', label: '请选择入库批次(非平台)'}],
+            selectWhereArr2: [[], [{n: 'type', v: 0}, {n: 'category', v: 'plant'}], [{n: 'type', v: 1}, {n: 'category', v: 'plant'}]],
+            popNumber2: [0, 3, 4, 5],
+            curl: 'pack-product-rfid',
+            opqcurl: '{x}/pack-product',
+            type: 'assoc',
             components: [{
                 name: 'pack_id',
                 type: 'select',
@@ -8541,6 +8610,7 @@ export default {
                 isNull: false,
                 label: '加工批次号',
                 placeholder: '',
+                disabled: true,
                 rule: {required: true, trigger: 'blur', type: 'number', message: '请选择加工批次号'},
                 options: []
             },
@@ -8551,17 +8621,70 @@ export default {
                 isNull: false,
                 label: '加工产品',
                 placeholder: '',
+                disabled: true,
                 rule: {required: true, trigger: 'blur', type: 'number', message: '请选择加工产品'},
                 options: []
             },
             {
-                name: 'harvest_id',
+                name: 'category',
+                type: 'select',
+                component: null,
+                isNull: false,
+                label: '加工商品来源',
+                placeholder: '',
+                selectNumber: {harvest: [3], st: [4, 9], sf: [5]},
+                rule: {required: true, trigger: 'blur', message: '请选择商品来源'},
+                options: [{
+                    label: '请选择商品来源',
+                    value: ''
+                },
+                {
+                    label: '种植采收',
+                    value: 'harvest'
+                },
+                {
+                    label: '入库(平台)',
+                    value: 'st'
+                },
+                {
+                    label: '入库(非平台)',
+                    value: 'sf'
+                }]
+            },
+            {
+                name: 'come_id',
                 type: 'select',
                 component: null,
                 isNull: false,
                 label: '采收批次号',
+                hiddenSelect: true,
                 placeholder: '',
+                disabled: true,
                 rule: {required: true, trigger: 'blur', type: 'number', message: '请选择采收批次号'},
+                options: []
+            },
+            {
+                name: 'st_id',
+                type: 'select',
+                component: null,
+                isNull: false,
+                hiddenSelect: true,
+                changeTable: true,
+                label: '入库批次',
+                assocNum: 9,
+                placeholder: '',
+                rule: {required: true, trigger: 'blur', type: 'number'},
+                options: []
+            },
+            {
+                name: 'sf_id',
+                type: 'select',
+                component: null,
+                isNull: false,
+                hiddenSelect: true,
+                label: '入库批次',
+                placeholder: '',
+                rule: {required: true, trigger: 'blur', type: 'number'},
                 options: []
             },
             {
@@ -8590,6 +8713,17 @@ export default {
                 label: '备注信息',
                 placeholder: '',
                 rule: null
+            },
+            {
+                name: 'code_ids',
+                type: 'table',
+                tableUrl: ['storage_code', false],
+                hiddenSelect: true,
+                theads: ['溯源码', '生产日期', '溯源次数'],
+                protos: ['code', 'date', 'time'],
+                valueId: 'code_ids',
+                errormsg: '请选择溯源码',
+                tableVal: []
             }]
         }],
         editComponent: [{

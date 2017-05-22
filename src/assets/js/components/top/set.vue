@@ -211,13 +211,15 @@ export default {
         // 查询编辑数据
         axios.get('api/system/1/edit')
             .then((responce) => {
-                this.editForm.name = responce.data.system.name
-                this.editForm.keywords = responce.data.system.keywords
-                this.editForm.verify_state = responce.data.system.verify_state
-                this.editForm.web_state = responce.data.system.web_state
-                this.editForm.record_number = responce.data.system.record_number
-                if (responce.data.user.company_id === null) {
-                    this.role = true
+                if (responce.data.system !== undefined) {
+                    this.editForm.name = responce.data.system.name
+                    this.editForm.keywords = responce.data.system.keywords
+                    this.editForm.verify_state = responce.data.system.verify_state
+                    this.editForm.web_state = responce.data.system.web_state
+                    this.editForm.record_number = responce.data.system.record_number
+                    if (responce.data.user.company_id === null) {
+                        this.role = true
+                    }
                 }
             })
     },
