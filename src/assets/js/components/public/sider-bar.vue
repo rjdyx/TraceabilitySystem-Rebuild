@@ -56,7 +56,6 @@ export default {
         })
     },
     mounted () {
-        console.log(this.menus)
         this.record = this.$store.getters.getRecord
     },
     methods: {

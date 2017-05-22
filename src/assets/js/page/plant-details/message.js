@@ -396,7 +396,6 @@ export default {
                 popNumber2: [0],
                 labUrl: 'rfid',
                 type: 'assoc',
-                assocNum: 1,
                 components: [{
                     name: 'breed_id',
                     type: 'select',
@@ -404,6 +403,7 @@ export default {
                     isNull: false,
                     label: '养殖批次号',
                     placeholder: '',
+                    assocNum: 1,
                     rule: {required: true, trigger: 'blur', type: 'number', message: '请选择养殖批次号'},
                     options: []
                 },
@@ -449,13 +449,13 @@ export default {
                 popNumber2: [0],
                 labUrl: 'rfid',
                 type: 'assoc',
-                assocNum: 1,
                 components: [{
                     name: 'breed_id',
                     type: 'select',
                     component: null,
                     isNull: false,
                     label: '养殖批次号',
+                    assocNum: 1,
                     placeholder: '',
                     rule: {required: true, trigger: 'blur', type: 'number', message: '请选择养殖批次号'},
                     options: []
@@ -532,9 +532,9 @@ export default {
                 popNumber2: [0],
                 labUrl: 'rfid',
                 type: 'assoc',
-                assocNum: 1,
                 components: [{
                     name: 'breed_id',
+                    assocNum: 1,
                     type: 'select',
                     component: null,
                     isNull: false,
@@ -580,7 +580,6 @@ export default {
                 popNumber2: [0],
                 labUrl: 'rfid',
                 type: 'assoc',
-                assocNum: 1,
                 components: [{
                     name: 'breed_id',
                     type: 'select',
@@ -588,6 +587,7 @@ export default {
                     isNull: false,
                     label: '养殖批次号',
                     placeholder: '',
+                    assocNum: 1,
                     rule: {required: true, trigger: 'blur', type: 'number', message: '请选择养殖批次号'},
                     options: []
                 },
@@ -707,12 +707,12 @@ export default {
                 {
                     tab: '新建溯源码信息',
                     hiddenValue: {type: 'beast'},
-                    selectUrl2: [['comes', 'id', 'serial', true]],
-                    selectInit2: [{value: '', label: '出栏批次号选择'}],
-                    popNumber2: [1],
+                    selectUrl2: [['comes', 'id', 'serial', true], ['storages', 'id', 'serial', true], ['storages', 'id', 'serial', true]],
+                    selectInit2: [{value: '', label: '出栏批次号选择'}, {value: '', label: '请选择入库批次(平台)'}, {value: '', label: '请选择入库批次(非平台)'}],
+                    selectWhereArr2: [[], [{n: 'type', v: 0}, {n: 'category', v: 'plant'}], [{n: 'type', v: 1}, {n: 'category', v: 'plant'}]],
+                    popNumber2: [2, 3, 4],
                     labUrl: 'come-rfid',
                     type: 'assoc',
-                    assocNum: 4,
                     components: [{
                         name: 'date',
                         type: 'date',
@@ -723,11 +723,74 @@ export default {
                         rule: [{required: true, message: '请输入生产日期'}, {validator: validate2.reDate, message: '请输入生产日期'}]
                     },
                     {
+                        name: 'category',
+                        type: 'select',
+                        component: null,
+                        isNull: false,
+                        label: '加工商品来源',
+                        placeholder: '',
+                        selectNumber: {come: [2, 8], st: [3, 9], sf: [4]},
+                        rule: {required: true, trigger: 'blur', message: '请选择商品来源'},
+                        options: [{
+                            label: '请选择商品来源',
+                            value: ''
+                        },
+                        {
+                            label: '养殖出栏',
+                            value: 'come'
+                        },
+                        {
+                            label: '入库(平台)',
+                            value: 'st'
+                        },
+                        {
+                            label: '入库(非平台)',
+                            value: 'sf'
+                        }]
+                    },
+                    {
+                        name: 'come_id',
+                        type: 'select',
+                        component: null,
+                        isNull: false,
+                        label: '出栏批次',
+                        hiddenSelect: true,
+                        assocNum: 8,
+                        placeholder: '',
+                        rule: {required: true, trigger: 'blur', message: '请选择出栏批次', type: 'number'},
+                        options: []
+                    },
+                    {
+                        name: 'st_id',
+                        type: 'select',
+                        component: null,
+                        isNull: false,
+                        hiddenSelect: true,
+                        changeTable: true,
+                        label: '入库批次',
+                        assocNum: 9,
+                        placeholder: '',
+                        rule: {required: true, trigger: 'blur', type: 'number'},
+                        options: []
+                    },
+                    {
+                        name: 'sf_id',
+                        type: 'select',
+                        component: null,
+                        isNull: false,
+                        hiddenSelect: true,
+                        label: '入库批次',
+                        placeholder: '',
+                        rule: {required: true, trigger: 'blur', type: 'number'},
+                        options: []
+                    },
+                    {
                         name: 'come_id',
                         type: 'select',
                         component: null,
                         isNull: false,
                         label: '出栏批次号',
+                        hiddenSelect: true,
                         placeholder: '',
                         rule: {required: true, trigger: 'blur', message: '请选择出栏批次', type: 'number'},
                         options: []
@@ -751,43 +814,26 @@ export default {
                         rule: null
                     },
                     {
-                        name: 'name',
+                        name: 'rfid_ids',
                         type: 'table',
+                        hiddenSelect: true,
                         theads: ['出栏批次', 'Rfid', '养殖畜禽', '养殖日期'],
                         protos: ['come_serial', 'rfid', 'beast_name', 'date'],
                         valueId: 'rfid_ids',
                         errormsg: '请选择rfid',
                         tableVal: []
+                    },
+                    {
+                        name: 'code_ids',
+                        type: 'table',
+                        hiddenSelect: true,
+                        theads: ['溯源码', '生产日期', '溯源次数'],
+                        protos: ['code', 'date', 'time'],
+                        valueId: 'code_ids',
+                        errormsg: '请选择rfid',
+                        tableVal: []
                     }]
                 }
-                // {
-                //     tab: '选择产品出栏批次号',
-                //     selectUrl2: [['comes', 'id', 'serial', true]],
-                //     selectInit2: [{value: '', label: '出栏批次号选择'}],
-                //     popNumber2: [0],
-                //     labUrl: 'come-rfid',
-                //     type: 'assoc',
-                //     assocNum: 1,
-                //     components: [{
-                //         name: 'come_id',
-                //         type: 'select',
-                //         component: null,
-                //         isNull: false,
-                //         label: '出栏批次号',
-                //         placeholder: '',
-                //         rule: {required: true, trigger: 'blur', message: '请选择出栏批次', type: 'number'},
-                //         options: []
-                //     },
-                //     {
-                //         name: 'name',
-                //         type: 'table',
-                //         theads: ['出栏批次', 'Rfid', '养殖畜禽', '养殖日期'],
-                //         protos: ['come_serial', 'rfid', 'beast_name', 'date'],
-                //         valueId: 'rfid_ids',
-                //         errormsg: '请选择rfid',
-                //         tableVal: []
-                //     }]
-                // }
             ],
             editComponent: [{
                 tab: '编辑溯源码信息',
@@ -1339,7 +1385,6 @@ export default {
                 labUrl: false,
                 labNewUrl: 'storage_code',
                 type: 'assoc',
-                assocNum: 7,
                 components: [{
                     name: 'date',
                     type: 'date',
@@ -1395,6 +1440,7 @@ export default {
                     changeTable: true,
                     label: '入库批次',
                     placeholder: '',
+                    assocNum: 7,
                     rule: {required: true, trigger: 'blur', type: 'number'},
                     options: []
                 },

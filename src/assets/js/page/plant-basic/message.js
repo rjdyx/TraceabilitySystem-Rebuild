@@ -155,6 +155,7 @@ export default {
         editComponent: [{
             tab: '编辑分类档案信息',
             checkNumber: [0],
+            popNumber: 1,
             components: [{
                 name: 'name',
                 type: 'text',
@@ -171,6 +172,7 @@ export default {
                 isNull: false,
                 label: '模块类型',
                 placeholder: '',
+                disabled: false,
                 rule: {required: true, message: '请输入模块类型', trigger: 'blur'},
                 options: [{
                     value: 'operate', label: '操作人员'
@@ -1310,10 +1312,10 @@ export default {
             url: 'farm',
             searchPlaceholder: '请输入养殖场进行搜索',
             search: ['query_text', 'name'],
-            theads: ['养殖场名称', '养殖面积', '负责人', '养殖畜禽种类', '养殖规模', '详细地址', '备注信息'],
-            protos: ['name', 'area_unit', 'principal', 'kind', 'scale', 'address', 'memo'],
+            theads: ['养殖场名称', '养殖面积', '负责人', '养殖畜禽种类', '养殖规模', '详细地址', '图片', '备注信息'],
+            protos: ['name', 'area_unit', 'principal', 'kind', 'scale', 'address', 'img', 'memo'],
             selectSearch: ['farm.name'],
-            widths: [50, 50, 50, 50, 50, 50, 50],
+            widths: [50, 50, 50, 50, 50, 50, 50, 50],
             typeComponent: [{
                 component: importBtn
             },
@@ -1531,10 +1533,10 @@ export default {
             searchPlaceholder: '请输入养殖区进行搜索',
             selectValueId: [['pid', 'parent_name', true]],
             selectDefault: [{value: '', label: '选择养殖场'}],
-            theads: ['所属养殖场', '养殖区名称', '养殖面积', '负责人', '养殖畜禽种类', '养殖规模', '详细地址', '备注信息'],
-            protos: ['parent_name', 'name', 'area_unit', 'principal', 'kind', 'scale', 'address', 'memo'],
+            theads: ['所属养殖场', '养殖区名称', '养殖面积', '负责人', '养殖畜禽种类', '养殖规模', '详细地址', '图片', '备注信息'],
+            protos: ['parent_name', 'name', 'area_unit', 'principal', 'kind', 'scale', 'address', 'img', 'memo'],
             selectSearch: ['farmcds.pid'],
-            widths: [50, 50, 50, 50, 50, 50, 50, 50],
+            widths: [50, 50, 50, 50, 50, 50, 50, 50, 50],
             typeComponent: [{
                 component: importBtn
             },
@@ -3217,9 +3219,9 @@ export default {
         selectValueId: [['drug_id', 'drug_name', true]],
         selectDefault: [{value: '', label: '兽药选择'}],
         selectSearch: ['diseases.drug_id'],
-        theads: ['病疫批次号', '兽药名称', '用药日期', '病情描述', '施药人员', '专家', '平均用药量', '治疗方式', '备注'],
-        protos: ['serial', 'drug_name', 'date', 'description', 'operate_name', 'expert_name', 'amount_unit', 'way', 'memo'],
-        widths: [50, 50, 50, 50, 50, 50, 50, 50, 50],
+        theads: ['病疫批次号', '兽药名称', '用药日期', '病情描述', '施药人员', '专家', '平均用药量', '治疗方式', '图片', '备注'],
+        protos: ['serial', 'drug_name', 'date', 'description', 'operate_name', 'expert_name', 'amount_unit', 'way', 'img', 'memo'],
+        widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
         typeComponent: [{
             component: output
         },
@@ -3999,42 +4001,10 @@ export default {
             ]
         }],
         listComponent: [{
-            components: [
-                {
-                    value: '',
-                    name: 'detects.weather',
-                    type: 'select',
-                    component: selectSection,
-                    options: [{
-                        value: '',
-                        label: '请选择天气情况'
-                    },
-                    {
-                        value: '晴',
-                        label: '晴'
-                    },
-                    {
-                        value: '雨',
-                        label: '雨'
-                    },
-                    {
-                        value: '雪',
-                        label: '雪'
-                    },
-                    {
-                        value: '阴',
-                        label: '阴'
-                    },
-                    {
-                        value: '其它',
-                        label: '其它'
-                    }]
-                },
-                {
-                    type: 'date',
-                    component: 'datePick'
-                }
-            ]
+            components: [{
+                type: 'date',
+                component: 'datePick'
+            }]
         }]
     }],
     // 畜禽圈舍管理(
@@ -4047,13 +4017,10 @@ export default {
         // 链接批次信息模块数据的桥（养殖批次详情）
         batch: 'areaBatch',
         searchPlaceholder: '请输入标题进行搜索',
-        selectValueId: [['operate_id', 'operate_name', true]],
-        selectDefault: [{value: '', label: '选择操作人员'}],
         search: ['query_text', 'name'],
-        theads: ['圈舍批次号', '标题', '操作内容', '专家', '操作人', '操作日期', '备注信息'],
-        protos: ['serial', 'name', 'content', 'expert_name', 'operate_name', 'date', 'memo'],
-        selectSearch: ['cleans.name'],
-        widths: [50, 50, 50, 50, 50, 50, 50],
+        theads: ['圈舍批次号', '标题', '操作内容', '专家', '操作人', '操作日期', '图片', '备注信息'],
+        protos: ['serial', 'name', 'content', 'expert_name', 'operate_name', 'date', 'img', 'memo'],
+        widths: [50, 50, 50, 50, 50, 50, 50, 50],
         typeComponent: [{
             component: output
         },
@@ -4217,17 +4184,9 @@ export default {
         }],
         listComponent: [{
             components: [{
-                type: 'select',
-                component: selectSection,
-                name: 'operates.id',
-                value: '',
-                options: []
-            },
-            {
                 type: 'date',
                 component: 'datePick'
-            }
-            ]
+            }]
         }]
     }],
     // 无害化
@@ -4240,10 +4199,10 @@ export default {
         // 链接批次信息模块数据的桥（养殖批次详情）
         batch: 'innocuityBatch',
         searchPlaceholder: '请输入操作内容进行',
-        theads: ['无害化批次号', '操作日期', '操作内容', '实行原因', '操作人员', '指导专家', '备注信息'],
-        protos: ['serial', 'date', 'content', 'why', 'operate_name', 'expert_name', 'memo'],
+        theads: ['无害化批次号', '操作日期', '操作内容', '实行原因', '操作人员', '指导专家', '图片', '备注信息'],
+        protos: ['serial', 'date', 'content', 'why', 'operate_name', 'expert_name', 'img', 'memo'],
         selectSearch: ['dispose.expert_name'],
-        widths: [50, 50, 50, 50, 50, 50, 50],
+        widths: [50, 50, 50, 50, 50, 50, 50, 50],
         typeComponent: [{
             component: output
         },
@@ -5135,7 +5094,6 @@ export default {
             curl: 'pack-product-rfid',
             opqcurl: '{x}/pack-product',
             type: 'assoc',
-            assocNum: 6,
             components: [{
                 name: 'pack_id',
                 type: 'select',
@@ -5165,6 +5123,7 @@ export default {
                 component: null,
                 isNull: false,
                 label: '出栏批次号',
+                assocNum: 6,
                 placeholder: '',
                 disabled: true,
                 rule: {required: true, trigger: 'blur', type: 'number', message: '请选择出栏批次号'},
@@ -7180,9 +7139,9 @@ export default {
             selectSearch: ['detects.name'],
             changeDataArr: [{result: {'0': '合格', '1': '不合格'}}],
             searchPlaceholder: '请输入检测批次号进行搜索',
-            theads: ['检测批次号', '检验类型', '检验日期', '天气', '检测部门', '检测内容', '检查结果', '检测人', '专家', '录入人', '备注'],
-            protos: ['serial', 'name', 'date', 'weather', 'department', 'content', 'result', 'operate_name', 'expert_name', 'user_name', 'memo'],
-            widths: [60, 50, 50, 50, 50, 50, 50, 50, 50, 50],
+            theads: ['检测批次号', '检验类型', '检验日期', '天气', '检测部门', '检测内容', '检查结果', '检测人', '专家', '录入人', '图片', '备注'],
+            protos: ['serial', 'name', 'date', 'weather', 'department', 'content', 'result', 'operate_name', 'expert_name', 'user_name', 'img', 'memo'],
+            widths: [60, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
             typeComponent: [{
                 component: output
             },
@@ -7354,6 +7313,15 @@ export default {
                     options: []
                 },
                 {
+                    name: 'img',
+                    type: 'file',
+                    component: inputFile,
+                    isNull: true,
+                    label: '检测图片',
+                    placeholder: '',
+                    rule: null
+                },
+                {
                     name: 'memo',
                     type: 'textarea',
                     component: null,
@@ -7500,6 +7468,15 @@ export default {
                     placeholder: '',
                     rule: null,
                     options: []
+                },
+                {
+                    name: 'img',
+                    type: 'file',
+                    component: inputFile,
+                    isNull: true,
+                    label: '检测图片',
+                    placeholder: '',
+                    rule: null
                 },
                 {
                     name: 'memo',
