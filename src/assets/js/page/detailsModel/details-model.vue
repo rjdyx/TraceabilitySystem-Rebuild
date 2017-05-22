@@ -665,7 +665,7 @@ export default {
     width: 350px;
 }
 .detailsModel{
-    height: 792px;
+    min-height: 792px;
    .imgTip{
         display: inline-block;
         width:30px;

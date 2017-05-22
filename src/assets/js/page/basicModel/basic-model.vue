@@ -768,7 +768,7 @@ export default {
 
 <style lang='sass'>
 .basic_model{
-    height: 694px;
+    min-height: 694px;
     .basic-wrap{
         .pcActive{
                 text-decoration: underline;
