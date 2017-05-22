@@ -155,6 +155,7 @@ export default {
         editComponent: [{
             tab: '编辑分类档案信息',
             checkNumber: [0],
+            popNumber: 1,
             components: [{
                 name: 'name',
                 type: 'text',
@@ -171,6 +172,7 @@ export default {
                 isNull: false,
                 label: '模块类型',
                 placeholder: '',
+                disabled: false,
                 rule: {required: true, message: '请输入模块类型', trigger: 'blur'},
                 options: [{
                     value: 'operate', label: '操作人员'

@@ -434,6 +434,17 @@ export default {
                 for (let key of Object.keys(row)) {
                     this.editDefault[key] = row[key]
                 }
+                if (this.url === 'category') {
+                    let params = {id: row.id}
+                    axios.get(this.$adminUrl(this.url + '/changeEdit'), {params: params})
+                        .then((responce) => {
+                            if (responce.data === 'state') {
+                                com.components[com.popNumber].disabled = true
+                            } else {
+                                com.components[com.popNumber].disabled = false
+                            }
+                        })
+                }
             }
         },
         // 关闭新增弹窗
@@ -721,7 +732,6 @@ export default {
         // 获取列表信息
         this.getAllMsg()
         let change = $('.available')
-        console.log(change)
         change.css('display', 'none')
     },
     watch: {
