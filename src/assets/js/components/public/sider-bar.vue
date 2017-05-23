@@ -68,7 +68,7 @@ export default {
     },
     watch: {
         isShowSiderBar () {
-            console.log(111)
+            // console.log(111)
             if (this.isShowSiderBar) {
                 this.$children[0].$children[0].closeMenu()
                 this.$children[0].$children[0].activedIndex = ''
