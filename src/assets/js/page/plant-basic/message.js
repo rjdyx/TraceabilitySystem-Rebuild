@@ -2023,7 +2023,7 @@ export default {
                     type: 'file',
                     component: inputFile,
                     isNull: true,
-                    label: '',
+                    label: '畜禽图片',
                     placeholder: '',
                     rule: ''
                 },
@@ -2086,7 +2086,7 @@ export default {
                     type: 'file',
                     component: inputFile,
                     isNull: true,
-                    label: '',
+                    label: '畜禽图片',
                     placeholder: '',
                     rule: ''
                 },
@@ -4499,7 +4499,7 @@ export default {
          // 链接批次信息模块数据的桥（养殖批次详情）
         batch: 'planBatch',
         changeDataArr: [{type: { 'fodderuse': '饲养', 'disease': '病疫', 'detection': '检疫', 'detects': '检测', 'clean': '圈舍维护', 'dispose': '无害化', 'come': '出栏' }}],
-        searchPlaceholder: '请输入操作类型',
+        searchPlaceholder: '请输入批次号',
         search: ['query_text', 'type'],
         theads: ['批次号', '计划日期', '操作类型', '安排人员', '计划内容', '操作用户', '备注'],
         protos: ['serial', 'date', 'type', 'operate_name', 'content', 'user_name', 'memo'],
@@ -4518,7 +4518,7 @@ export default {
                 component: selectSection,
                 options: [{
                     value: '',
-                    label: '操作类型'
+                    label: '请选择操作类型'
                 },
                 {
                     value: 'fodderuse',
@@ -4597,7 +4597,7 @@ export default {
                 rule: {required: true, trigger: 'blur', message: '请选择分类名称'},
                 options: [{
                     value: '',
-                    label: '操作类型'
+                    label: '请选择操作类型'
                 },
                 {
                     value: 'fodderuse',
@@ -4669,7 +4669,7 @@ export default {
                 isNull: true,
                 label: '计划内容',
                 placeholder: '',
-                rule: {required: true, trigger: 'blur', type: 'number', message: '请选择操作类型'},
+                rule: null,
                 options: []
             },
             {

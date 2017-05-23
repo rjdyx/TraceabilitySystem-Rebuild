@@ -24,9 +24,6 @@
                         :index="subMenu.path" exact v-if="subMenu.role"> 
                         {{subMenu.name}}
                     </el-menu-item>
-                    <!-- <el-menu-item index="/index/message/plantSerial"> 
-                        丸子
-                    </el-menu-item> -->
                 </el-submenu>
             </el-menu>
         </vue-scrollbar> 
@@ -63,12 +60,10 @@ export default {
             this.$store.dispatch('switch_record', index)
         },
         handleClose (key, keyPath) {
-            // this.$store.dispatch('switch_record', '')
         }
     },
     watch: {
         isShowSiderBar () {
-            // console.log(111)
             if (this.isShowSiderBar) {
                 this.$children[0].$children[0].closeMenu()
                 this.$children[0].$children[0].activedIndex = ''
