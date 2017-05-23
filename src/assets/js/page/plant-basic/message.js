@@ -2023,7 +2023,7 @@ export default {
                     type: 'file',
                     component: inputFile,
                     isNull: true,
-                    label: '',
+                    label: '畜禽图片',
                     placeholder: '',
                     rule: ''
                 },
@@ -2086,7 +2086,7 @@ export default {
                     type: 'file',
                     component: inputFile,
                     isNull: true,
-                    label: '',
+                    label: '畜禽图片',
                     placeholder: '',
                     rule: ''
                 },
