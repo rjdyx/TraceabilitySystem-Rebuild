@@ -288,7 +288,7 @@ export default {
 			.agreement{
 				margin-right: 18px;
 			}
-			@media screen and(min-width:1200px) and(max-width:1490px) {
+			@media screen and(min-width:500px) and(max-width:1720px) {
 				.form .el-form-item{
 					margin-bottom: 13px;
 				}

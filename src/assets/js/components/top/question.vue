@@ -187,7 +187,7 @@ export default {
 	}
 
 .copyright {
-  	margin-top: 81px;
+  	margin-top: 66px;
 }
 
 .changeImg{
