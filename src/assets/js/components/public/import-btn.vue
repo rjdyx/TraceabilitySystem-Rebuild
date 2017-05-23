@@ -7,13 +7,19 @@
  */
 <template> 
     <div class="import">
-        <el-button size="small" class="btn_change">导入</el-button> 
+        <el-upload class="upload-demo">
+            <el-button size="small" class="btn_change">导入</el-button>
+        </el-upload>
     </div>
 </template>
 
 <script>
     export default {
-        name: 'ImportBtn'
+        name: 'ImportBtn',
+        methods: {
+        },
+        mounted () {
+        }
     }
 </script>
 
@@ -21,6 +27,9 @@
 
     @import "../../../sass/function";
 .import{
+    width: 60px;
+    height: 25px;
+    overflow: hidden;
     .btn_change{
         margin-left:15px;
         color: #fff;
