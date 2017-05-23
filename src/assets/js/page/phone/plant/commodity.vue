@@ -35,7 +35,7 @@
                         <li>经销商：</li>
                         <li>{{sell.client_name}}</li>
                     </div>
-                    <div>
+                    <div v-if="sell.type!==undefined">
                         <li>运输方式：</li>
                         <li>{{sell.type_name}}</li>
                     </div>
@@ -177,7 +177,7 @@ export default {
         }
     },
     mounted () {
-        var params = {code_id: this.$route.params.id}
+        var params = {code: this.$route.params.id}
         axios.post('run/product', params)
             .then((responce) => {
                 if (responce.data !== 'false') {

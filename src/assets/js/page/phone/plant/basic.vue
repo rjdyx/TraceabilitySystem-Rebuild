@@ -57,7 +57,7 @@ export default {
         product_name: ''
     },
     mounted () {
-        var params = {code_id: this.$route.params.id}
+        var params = {code: this.$route.params.id}
         var url = 'run/plant/plantation'
         if (this.$route.meta.runName === 'breed') {
             url = 'run/beast/farm'

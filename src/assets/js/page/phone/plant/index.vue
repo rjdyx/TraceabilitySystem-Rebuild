@@ -46,7 +46,7 @@
 				<!-- 检测信息 -->
 				<li><router-link :to="'/run/plant/detect/'+code"></router-link></li>
 				<!-- 商品信息 -->
-				<li><router-link :to="'/run/plant/commodityInfor/'+code_id"></router-link></li>
+				<li><router-link :to="'/run/plant/commodityInfor/'+code"></router-link></li>
 			</ul>
 		</div>
 	</div>

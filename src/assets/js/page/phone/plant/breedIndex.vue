@@ -34,7 +34,7 @@
 				<!-- 生长过程 -->
 				<li><router-link :to="'/run/breed/growProcess/'+code"></router-link></li>
 				<!-- 商品 -->
-				<li><router-link :to="'/run/breed/commodity/'+data.code_id"></router-link></li>
+				<li><router-link :to="'/run/breed/commodity/'+data.code"></router-link></li>
 				<!-- 喂养 -->
 				<li><router-link :to="'/run/breed/fodderuse/'+code"></router-link></li>
 				<!-- 病疫 -->

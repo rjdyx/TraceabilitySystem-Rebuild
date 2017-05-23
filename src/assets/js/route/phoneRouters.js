@@ -165,10 +165,10 @@ export default {
             alias: '/run/breed/video/:id'
         },
         {
-            path: '/b_basicInfor/:cid/:id',
+            path: '/b_basicInfor/:id',
             meta: {key: 'b_basicInfor', runName: 'breed'},
             component: pBasic,
-            alias: '/run/breed/basicInfor/:cid/:id'
+            alias: '/run/breed/basicInfor/:id'
         },
         {
             path: '/b_shop/:id',
