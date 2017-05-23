@@ -50,6 +50,9 @@
             value () {
                 this.$emit('return-shuju', {name: this.shuju.name, value: this.value})
             }
+        },
+        mounted () {
+            this.$emit('return-shuju', {name: this.shuju.name, value: this.value})
         }
     }
 </script>

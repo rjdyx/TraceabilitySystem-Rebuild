@@ -44,6 +44,7 @@
                 <component
                     v-for="operateItem in tabItem.typeComponent"
                     :is="operateItem.component"
+                    :url="apiUrlArr[tabList[index].url]"
                     class="fr"
                 ></component>
             </div>
@@ -130,7 +131,7 @@
             <template v-if="lotComponent!=null">
                 <lotOpearte :lotComponent="lotComponent"></lotOpearte>
             </template>
-            <el-button>导出表格</el-button>
+            <el-button @click="excel">导出表格</el-button>
         </div>
 
         <p class="record">共有{{num}}页，{{total_num}}条记录</p>
@@ -561,6 +562,23 @@ export default {
                 })
             }
         },
+        // 批量导出excel
+        excel () {
+            if (this.checkObject.length !== undefined && this.checkObject.length !== 0) {
+                var excelArr = []
+                var str = ''
+                for (let key in this.checkObject) {
+                    excelArr.push(this.checkObject[key].id)
+                }
+                str = str + '?excel=' + excelArr
+                if (this.paramsIndex !== undefined) {
+                    str = str + '&type=' + this.paramsIndex
+                }
+                window.location.href = this.$adminUrl(this.apiUrlArr[this.tabList[this.index].url]) + str
+            } else {
+                this.$message('请选择序号')
+            }
+        },
         // 根据下拉框获取表格数据
         getTable (val) {
             var com = this.tabItem.newComponent[0]
@@ -618,6 +636,11 @@ export default {
         permissionShow (index, row) {
             this.isRoleShow = true
             this.rowId = row.id
+        },
+        // 导入事件触发
+        importChange () {
+            this.getDetailSerial()
+            this.boxArr(this.dataArr)
         }
     },
     mounted () {

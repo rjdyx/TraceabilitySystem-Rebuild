@@ -24,11 +24,11 @@ export default {
             url: 'rfid',
             tab: '畜禽RFID',
             searchPlaceholder: '请输入rfid进行搜索',
-            typeComponent: [{component: newbuildBtn}],
+            typeComponent: [{component: output}, {component: importBtn}, {component: newbuildBtn}],
             headList: ['RFID', '畜禽名称', '养殖日期', '备注信息'],
             hiddeEdit: true,
             protos: ['rfid', 'beast_name', 'created_at', 'memo'],
-            widths: [50, 50, 50],
+            widths: [50, 50, 50, 50],
             listComponent: [],
             newComponent: [{
                 tab: '新建rfid信息',
@@ -79,7 +79,6 @@ export default {
             url: 'course',
             tab: '生长过程信息',
             searchPlaceholder: '请输入标题进行搜索',
-            // typeComponent: [{component: importBtn}, {component: output}, {component: newbuildBtn}],
             headList: ['标题', '描述', '上传日期', '生长图片', '备注信息'],
             protos: ['name', 'desc', 'date', 'thumb', 'memo'],
             widths: [50, 50, 50, 50, 50],
@@ -396,6 +395,7 @@ export default {
                 popNumber2: [0],
                 labUrl: 'rfid',
                 type: 'assoc',
+                assocNum: 1,
                 components: [{
                     name: 'breed_id',
                     type: 'select',
@@ -410,6 +410,7 @@ export default {
                 {
                     name: 'name',
                     type: 'table',
+                    tableUrl: ['rfid', true],
                     theads: ['养殖批次', 'Rfid', '养殖畜禽', '养殖日期'],
                     protos: ['serial', 'rfid', 'beast_name', 'date'],
                     valueId: 'rfid_ids',
@@ -449,6 +450,7 @@ export default {
                 popNumber2: [0],
                 labUrl: 'rfid',
                 type: 'assoc',
+                assocNum: 1,
                 components: [{
                     name: 'breed_id',
                     type: 'select',
@@ -463,6 +465,7 @@ export default {
                 {
                     name: 'name',
                     type: 'table',
+                    tableUrl: ['rfid', true],
                     theads: ['养殖批次', 'Rfid', '养殖畜禽', '养殖日期'],
                     protos: ['serial', 'rfid', 'beast_name', 'date'],
                     valueId: 'rfid_ids',
@@ -532,6 +535,7 @@ export default {
                 popNumber2: [0],
                 labUrl: 'rfid',
                 type: 'assoc',
+                assocNum: 1,
                 components: [{
                     name: 'breed_id',
                     assocNum: 1,
@@ -546,6 +550,7 @@ export default {
                 {
                     name: 'name',
                     type: 'table',
+                    tableUrl: ['rfid', true],
                     theads: ['养殖批次', 'Rfid', '养殖畜禽', '养殖日期'],
                     protos: ['serial', 'rfid', 'beast_name', 'date'],
                     valueId: 'rfid_ids',
@@ -580,6 +585,7 @@ export default {
                 popNumber2: [0],
                 labUrl: 'rfid',
                 type: 'assoc',
+                assocNum: 1,
                 components: [{
                     name: 'breed_id',
                     type: 'select',
@@ -594,6 +600,7 @@ export default {
                 {
                     name: 'name',
                     type: 'table',
+                    tableUrl: ['rfid', true],
                     theads: ['养殖批次', 'Rfid', '养殖畜禽', '养殖日期'],
                     protos: ['serial', 'rfid', 'beast_name', 'date'],
                     valueId: 'rfid_ids',

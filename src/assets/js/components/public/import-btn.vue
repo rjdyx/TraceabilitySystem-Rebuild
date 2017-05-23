@@ -7,7 +7,7 @@
  */
 <template> 
     <div class="import">
-        <el-upload class="upload-demo">
+        <el-upload class="upload-demo" :action="importUrl" :data="data" name="excel_file" :on-success="successOf">
             <el-button size="small" class="btn_change">导入</el-button>
         </el-upload>
     </div>
@@ -16,7 +16,33 @@
 <script>
     export default {
         name: 'ImportBtn',
+        props:
+        {
+            url: {
+                type: String,
+                default () {
+                    return ''
+                }
+            }
+        },
+        data () {
+            return {
+                importUrl: this.$adminUrl(this.url + '/import'),
+                data: {'_method': 'get'}
+            }
+        },
         methods: {
+            successOf (data) {
+                if (data === 'true') {
+                    this.$message({
+                        type: 'success',
+                        message: '上传数据成功'
+                    })
+                    this.$parent.importChange()
+                } else {
+                    this.$message.error(data)
+                }
+            }
         },
         mounted () {
         }
