@@ -7,7 +7,7 @@
  */
 <template> 
     <div class="import">
-        <el-upload class="upload-demo">
+        <el-upload class="upload-demo" action="https://jsonplaceholder.typicode.com/posts/">
             <el-button size="small" class="btn_change">导入</el-button>
         </el-upload>
     </div>
