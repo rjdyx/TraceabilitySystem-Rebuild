@@ -54,7 +54,7 @@
     @import "../../../sass/function";
 .import{
     width: 60px;
-    height: 25px;
+    height: 26px;
     overflow: hidden;
     .btn_change{
         margin-left:15px;
