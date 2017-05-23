@@ -79,7 +79,7 @@
         </el-table-column>
 
         <!-- 中间列表模块 -->
-        <template v-for="(item,index) in theads"> 
+        <template v-for="(item,index) in theads">
             <template>
                 <el-table-column
                     :label="item"
