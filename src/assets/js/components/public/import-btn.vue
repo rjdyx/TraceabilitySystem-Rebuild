@@ -7,7 +7,7 @@
  */
 <template> 
     <div class="import">
-        <el-button size="small" class="btn_change">导入</el-button> 
+        <el-button size="small" class="btn_change">导入</el-button>
     </div>
 </template>
 
