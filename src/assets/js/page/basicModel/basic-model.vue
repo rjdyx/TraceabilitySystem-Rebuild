@@ -553,6 +553,8 @@ export default {
                         message: '已取消删除'
                     })
                 })
+            } else {
+                this.$message('请选择序号')
             }
         },
         // 更改批次状态

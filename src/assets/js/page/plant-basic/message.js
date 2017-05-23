@@ -314,7 +314,7 @@ export default {
                 isNull: true,
                 label: '年龄',
                 placeholder: '',
-                rule: null
+                rule: [{required: false, message: '请输入整数'}, {validator: validate2.reInteger}]
             },
             {
                 name: 'phone',
@@ -339,7 +339,7 @@ export default {
                 type: 'file',
                 component: inputFile,
                 isNull: true,
-                label: '',
+                label: '人员图片',
                 placeholder: '',
                 rule: null
             },
@@ -437,7 +437,7 @@ export default {
                 type: 'file',
                 component: inputFile,
                 isNull: true,
-                label: '',
+                label: '人员图片',
                 placeholder: '',
                 rule: null
             },
@@ -483,6 +483,7 @@ export default {
             selectInit: [{value: '', label: '选择专家分类'}],
             checkNumber: [1],
             popNumber: [0],
+            hasImg: true,
             components: [{
                 name: 'category_id',
                 type: 'select',
@@ -569,7 +570,7 @@ export default {
                 type: 'file',
                 component: inputFile,
                 isNull: true,
-                label: '',
+                label: '专家图片',
                 placeholder: '',
                 rule: null
             },
@@ -589,6 +590,7 @@ export default {
             selectUrl: [['category', 'expert', 'category_id', 'category_name', true]],
             checkNumber: [1],
             popNumber: [0],
+            hasImg: true,
             components: [{
                 name: 'category_id',
                 type: 'select',
@@ -675,7 +677,7 @@ export default {
                 type: 'file',
                 component: inputFile,
                 isNull: true,
-                label: '',
+                label: '专家图片',
                 placeholder: '',
                 rule: null
             },
@@ -715,6 +717,7 @@ export default {
         widths: [50, 50, 50, 50, 50, 50, 50],
         listComponent: [{
             components: [{
+                name: 'clients.category_id',
                 value: '',
                 type: 'select',
                 component: selectSection,
@@ -1026,7 +1029,7 @@ export default {
         }],
         listComponent: [{
             components: [{
-                name: 'clients.category_id',
+                name: 'suppliers.category_id',
                 value: '',
                 type: 'select',
                 component: selectSection,
@@ -1160,7 +1163,7 @@ export default {
                 type: 'file',
                 component: inputFile,
                 isNull: true,
-                label: '',
+                label: '产品图片',
                 placeholder: '',
                 rule: null
             },
@@ -1278,7 +1281,7 @@ export default {
                 component: inputFile,
                 isNull: true,
                 label: '',
-                placeholder: '',
+                placeholder: '产品图片',
                 rule: null
             },
             {
