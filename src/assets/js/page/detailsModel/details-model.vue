@@ -564,28 +564,27 @@ export default {
         // 根据下拉框获取表格数据
         getTable (val) {
             var com = this.tabItem.newComponent[0]
+            var table = com.components[val[2].assocNum]
             if (val[1] !== '' && val[1] !== undefined) {
                 var getSelect = {'getSelect': '444'}
                 var curl = {'curl': this.tabItem.url}
-                var routeId = {'routeId': com.labUrl}
+                var vs = table.tableUrl
+                var routeId = {'routeId': vs[0]}
                 var opqcurl = {'opqcurl': this.apiUrlArr[this.url]}
-                let surl = ''
-                var id = ''
-                if (com.labUrl === false || com.labNewUrl !== undefined) {
-                    surl = com.labNewUrl
-                    id = val[1]
-                } else {
-                    surl = val[1] + '/' + com.labUrl
+                let surl = table.tableUrl[0]
+                var id = val[1]
+                if (vs[1]) {
+                    surl = val[1] + '/' + surl
                 }
                 if (com.paramsIndex !== undefined) {
                     var type = com.paramsIndex
                 }
                 this.$dataGet(this, surl, {getSelect, curl, routeId, opqcurl, type, id})
                     .then((responce) => {
-                        this.$set(com.components[val[2].assocNum], 'tableVal', responce.data)
+                        this.$set(table, 'tableVal', responce.data)
                     })
             } else {
-                this.$set(com.components[val[2].assocNum], 'tableVal', [])
+                this.$set(table, 'tableVal', [])
             }
         },
         // 扫描溯源码

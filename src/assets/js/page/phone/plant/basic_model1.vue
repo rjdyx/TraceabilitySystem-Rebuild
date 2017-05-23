@@ -115,10 +115,9 @@ export default {
         }
     },
     mounted () {
-        var params = {cultivate_id: this.$route.params.id}
+        var params = {code: this.$route.params.id}
         var url = 'run/plant/'
         if (this.$route.meta.runName === 'breed') {
-            params = {id: this.$route.params.id}
             url = 'run/beast/'
         }
         axios.post(url + this.$route.meta.key, params)

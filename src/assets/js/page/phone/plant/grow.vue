@@ -111,17 +111,15 @@ export default {
         }
     },
     mounted () {
-        var params = {cultivate_id: this.$route.params.id}
+        var params = {code: this.$route.params.id}
         var url = 'run/plant/grow'
         if (this.$route.meta.runName === 'breed') {
-            params = {breed_id: this.$route.params.id}
             url = 'run/beast/course'
         }
         axios.post(url, params)
             .then((responce) => {
                 if (responce.data !== 'false') {
                     this.grows = responce.data
-                    console.log(responce.data)
                 } else {
                     alert('溯源码无效！')
                     this.$router.push('/')
