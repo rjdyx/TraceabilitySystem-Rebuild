@@ -49,19 +49,19 @@ exports.reNumber = (rule, value, callback, source, options) => {
     if (value !== '' && value !== undefined && value !== null) {
         if (/^(-?\d+)(\.\d+)?$/.test(value)) {
             if (rule.getMax !== undefined) {
-                if (parseInt(value) > parseInt(rule.getMax)) {
+                if (parseInt(value) >= parseInt(rule.getMax)) {
                     callback(new Error(rule.getMessage))
                 } else {
                     callback()
                 }
             } else if (rule.getMin !== undefined) {
-                if (parseInt(value) < parseInt(rule.getMin)) {
+                if (parseInt(value) <= parseInt(rule.getMin)) {
                     callback(new Error(rule.getMessage))
                 } else {
                     callback()
                 }
             } else if (rule.getMiddle !== undefined) {
-                if (parseInt(value) < parseInt(rule.max) && parseInt(value) > parseInt(rule.min)) {
+                if (parseInt(value) <= parseInt(rule.max) && parseInt(value) >= parseInt(rule.min)) {
                     callback()
                 } else {
                     callback(new Error(rule.getMessage))

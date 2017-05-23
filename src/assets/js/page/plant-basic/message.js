@@ -314,7 +314,7 @@ export default {
                 isNull: true,
                 label: '年龄',
                 placeholder: '',
-                rule: null
+                rule: [{required: false, message: '请输入整数'}, {validator: validate2.reInteger}]
             },
             {
                 name: 'phone',
@@ -339,7 +339,7 @@ export default {
                 type: 'file',
                 component: inputFile,
                 isNull: true,
-                label: '',
+                label: '人员图片',
                 placeholder: '',
                 rule: null
             },
@@ -437,7 +437,7 @@ export default {
                 type: 'file',
                 component: inputFile,
                 isNull: true,
-                label: '',
+                label: '人员图片',
                 placeholder: '',
                 rule: null
             },
@@ -483,6 +483,7 @@ export default {
             selectInit: [{value: '', label: '选择专家分类'}],
             checkNumber: [1],
             popNumber: [0],
+            hasImg: true,
             components: [{
                 name: 'category_id',
                 type: 'select',
@@ -569,7 +570,7 @@ export default {
                 type: 'file',
                 component: inputFile,
                 isNull: true,
-                label: '',
+                label: '专家图片',
                 placeholder: '',
                 rule: null
             },
@@ -589,6 +590,7 @@ export default {
             selectUrl: [['category', 'expert', 'category_id', 'category_name', true]],
             checkNumber: [1],
             popNumber: [0],
+            hasImg: true,
             components: [{
                 name: 'category_id',
                 type: 'select',
@@ -675,7 +677,7 @@ export default {
                 type: 'file',
                 component: inputFile,
                 isNull: true,
-                label: '',
+                label: '专家图片',
                 placeholder: '',
                 rule: null
             },
@@ -715,6 +717,7 @@ export default {
         widths: [50, 50, 50, 50, 50, 50, 50],
         listComponent: [{
             components: [{
+                name: 'clients.category_id',
                 value: '',
                 type: 'select',
                 component: selectSection,
@@ -1026,7 +1029,7 @@ export default {
         }],
         listComponent: [{
             components: [{
-                name: 'clients.category_id',
+                name: 'suppliers.category_id',
                 value: '',
                 type: 'select',
                 component: selectSection,
@@ -1160,7 +1163,7 @@ export default {
                 type: 'file',
                 component: inputFile,
                 isNull: true,
-                label: '',
+                label: '产品图片',
                 placeholder: '',
                 rule: null
             },
@@ -1278,7 +1281,7 @@ export default {
                 component: inputFile,
                 isNull: true,
                 label: '',
-                placeholder: '',
+                placeholder: '产品图片',
                 rule: null
             },
             {
@@ -2023,7 +2026,7 @@ export default {
                     type: 'file',
                     component: inputFile,
                     isNull: true,
-                    label: '',
+                    label: '畜禽图片',
                     placeholder: '',
                     rule: ''
                 },
@@ -2086,7 +2089,7 @@ export default {
                     type: 'file',
                     component: inputFile,
                     isNull: true,
-                    label: '',
+                    label: '畜禽图片',
                     placeholder: '',
                     rule: ''
                 },
@@ -4499,7 +4502,7 @@ export default {
          // 链接批次信息模块数据的桥（养殖批次详情）
         batch: 'planBatch',
         changeDataArr: [{type: { 'fodderuse': '饲养', 'disease': '病疫', 'detection': '检疫', 'detects': '检测', 'clean': '圈舍维护', 'dispose': '无害化', 'come': '出栏' }}],
-        searchPlaceholder: '请输入操作类型',
+        searchPlaceholder: '请输入批次号',
         search: ['query_text', 'type'],
         theads: ['批次号', '计划日期', '操作类型', '安排人员', '计划内容', '操作用户', '备注'],
         protos: ['serial', 'date', 'type', 'operate_name', 'content', 'user_name', 'memo'],
@@ -4518,7 +4521,7 @@ export default {
                 component: selectSection,
                 options: [{
                     value: '',
-                    label: '操作类型'
+                    label: '请选择操作类型'
                 },
                 {
                     value: 'fodderuse',
@@ -4597,7 +4600,7 @@ export default {
                 rule: {required: true, trigger: 'blur', message: '请选择分类名称'},
                 options: [{
                     value: '',
-                    label: '操作类型'
+                    label: '请选择操作类型'
                 },
                 {
                     value: 'fodderuse',
@@ -4669,7 +4672,7 @@ export default {
                 isNull: true,
                 label: '计划内容',
                 placeholder: '',
-                rule: {required: true, trigger: 'blur', type: 'number', message: '请选择操作类型'},
+                rule: null,
                 options: []
             },
             {
@@ -4713,8 +4716,8 @@ export default {
         batch: 'beastPackBatch',
         paramsIndex: 'beast',
         searchPlaceholder: '请输入批次号进行搜索',
-        theads: ['加工批次号', '加工日期', '数量', '单位', '操作人', '备注信息'],
-        protos: ['serial', 'date', 'amount', 'unit', 'operate_name', 'memo'],
+        theads: ['加工批次号', '加工日期', '数量', '产地', '操作人', '备注信息'],
+        protos: ['serial', 'date', 'amount', 'origin', 'operate_name', 'memo'],
         widths: [50, 50, 50, 50, 50, 50],
         typeComponent: [{
             component: output
@@ -5095,6 +5098,7 @@ export default {
             curl: 'pack-product-rfid',
             opqcurl: '{x}/pack-product',
             type: 'assoc',
+            assocNum: 6,
             components: [{
                 name: 'pack_id',
                 type: 'select',

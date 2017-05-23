@@ -79,7 +79,7 @@
         </el-table-column>
 
         <!-- 中间列表模块 -->
-        <template v-for="(item,index) in theads"> 
+        <template v-for="(item,index) in theads">
             <template>
                 <el-table-column
                     :label="item"
@@ -553,6 +553,8 @@ export default {
                         message: '已取消删除'
                     })
                 })
+            } else {
+                this.$message('请选择序号')
             }
         },
         // 更改批次状态
@@ -596,7 +598,7 @@ export default {
                 }
                 window.location.href = this.$adminUrl(this.url) + str
             } else {
-                this.$message.error('请选择序号')
+                this.$message('请选择序号')
             }
         },
         // 新建数据
