@@ -17,7 +17,10 @@
             comeExcel () {
                 var str = '?excel=all'
                 if (this.type !== undefined) {
-                    str += '&type=' + this.type
+                    for (let k in this.type) {
+                        str += '&' + k + '=' + this.type[k]
+                    }
+                    // str += '&' + data
                 }
                 window.location.href = this.$adminUrl(this.url) + str
             }

@@ -231,10 +231,9 @@ export default[{
         name: '报表统计'
     },
     {
-        // role: roleData.system === undefined ? 0 : roleData.system.custom === undefined ? 0 : 1,
-        role: true,
+        role: roleData.system === undefined ? 0 : roleData.system.custom === undefined ? 0 : 1,
         path: '/index/message/custom',
-        name: '信息自定义'
+        name: '溯源自定义'
     }
     ]
 },

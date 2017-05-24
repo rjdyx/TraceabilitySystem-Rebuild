@@ -45,6 +45,7 @@
                     v-for="operateItem in tabItem.typeComponent"
                     :is="operateItem.component"
                     :url="apiUrlArr[tabList[index].url]"
+                    :type="tabItem.whereArr"
                     class="fr"
                 ></component>
             </div>
@@ -579,9 +580,15 @@ export default {
                 for (let key in this.checkObject) {
                     excelArr.push(this.checkObject[key].id)
                 }
+
                 str = str + '?excel=' + excelArr
                 if (this.paramsIndex !== undefined) {
                     str = str + '&type=' + this.paramsIndex
+                }
+                if (this.tabItem.whereArr !== undefined) {
+                    for (let k in this.tabItem.whereArr) {
+                        str += '&' + k + '=' + this.tabItem.whereArr[k]
+                    }
                 }
                 window.location.href = this.$adminUrl(this.apiUrlArr[this.tabList[this.index].url]) + str
             } else {

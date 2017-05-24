@@ -1792,9 +1792,6 @@ export default {
                 value: '打印'
             }],
             typeComponent: [{
-                component: output
-            },
-            {
                 component: newbuildBtn
             }],
             listComponent: [{
@@ -1805,12 +1802,27 @@ export default {
             }],
             newComponent: [{
                 tab: '养殖自定义信息添加溯源码',
-                type: 'table',
-                assocNum: 0,
-                labUrl: 'code',
+                selectUrl2: [['products', 'id', 'name', true]],
+                selectInit2: [{value: '', label: '请选择一个产品'}],
+                popNumber2: [0],
+                type: 'assoc',
+                assocNum: 1,
                 components: [{
-                    name: 'name',
+                    name: 'product_id',
+                    assocNum: 1,
+                    type: 'select',
+                    component: null,
+                    isNull: false,
+                    label: '产品',
+                    placeholder: '',
+                    changeTable: true,
+                    rule: {required: true, trigger: 'blur', type: 'number', message: '请选择产品'},
+                    options: []
+                },
+                {
+                    name: 'code',
                     type: 'table',
+                    tableUrl: ['beast_code', true],
                     theads: ['溯源码', '生产日期'],
                     protos: ['code', 'date'],
                     valueId: 'code_ids',
@@ -1955,7 +1967,7 @@ export default {
                     component: null,
                     isNull: false,
                     label: '天气',
-                    placeholder: '请输入所属部门',
+                    placeholder: '',
                     rule: {required: true, trigger: 'blur'},
                     options: [{
                         label: '晴天',
@@ -2093,10 +2105,10 @@ export default {
             whereArr: {type: 'disease'},
             tab: '病疫信息',
             hiddeEdit: true,
-            searchPlaceholder: '请输入饲料名称进行搜索',
-            headList: ['批次号', '操作日期', '操作人', '饲料名称', '饲料添加剂', '使用量', '天气', '指导专家', '备注信息'],
-            protos: ['serial', 'date', 'operate', 'name', 'name2', 'amount', 'weather', 'expert', 'memo'],
-            widths: [50, 50, 50, 50, 50, 50, 50, 50, 50],
+            searchPlaceholder: '请输入兽药名称进行搜索',
+            headList: ['批次号', '操作日期', '操作人', '兽药名称', '使用量', '病情描述', '指导专家', '备注信息'],
+            protos: ['serial', 'date', 'operate', 'name', 'amount', 'desc', 'expert', 'memo'],
+            widths: [50, 50, 50, 50, 50, 50, 50, 50],
             typeComponent: [{
                 component: output
             },
@@ -2111,7 +2123,7 @@ export default {
             }],
             newComponent: [{
                 tab: '新建病疫信息',
-                hiddenValue: {type: 'fodderuse'},
+                hiddenValue: {type: 'disease'},
                 components: [{
                     name: 'date',
                     type: 'date',
@@ -2135,18 +2147,9 @@ export default {
                     type: 'text',
                     component: null,
                     isNull: false,
-                    label: '饲料名称',
-                    placeholder: '请输入饲料名称',
-                    rule: [{required: true, trigger: 'blur', message: '请输入饲料名称'}]
-                },
-                {
-                    name: 'name2',
-                    type: 'text',
-                    component: null,
-                    isNull: false,
-                    label: '饲料添加剂',
-                    placeholder: '请输入饲料添加剂',
-                    rule: {required: false, trigger: 'blur'}
+                    label: '兽药名称',
+                    placeholder: '请输入兽药名称',
+                    rule: [{required: true, trigger: 'blur', message: '请输入兽药名称'}]
                 },
                 {
                     name: 'expert',
@@ -2167,25 +2170,13 @@ export default {
                     rule: {required: true, trigger: 'blur', message: '请输入使用量'}
                 },
                 {
-                    name: 'weather',
-                    type: 'select',
+                    name: 'desc',
+                    type: 'textarea',
                     component: null,
-                    isNull: false,
-                    label: '天气',
-                    placeholder: '请输入所属部门',
-                    rule: {required: true, trigger: 'blur'},
-                    options: [{
-                        label: '晴天',
-                        value: '晴天'
-                    },
-                    {
-                        label: '阴天',
-                        value: '阴天'
-                    },
-                    {
-                        label: '雨天',
-                        value: '雨天'
-                    }]
+                    isNull: true,
+                    label: '病情描述',
+                    placeholder: '请输入特征描述',
+                    rule: null
                 },
                 {
                     name: 'img',
@@ -2208,7 +2199,6 @@ export default {
             }],
             editComponent: [{
                 tab: '编辑病疫信息',
-                hiddenValue: {type: 'fodderuse'},
                 components: [{
                     name: 'date',
                     type: 'date',
@@ -2232,18 +2222,9 @@ export default {
                     type: 'text',
                     component: null,
                     isNull: false,
-                    label: '饲料名称',
-                    placeholder: '请输入饲料名称',
-                    rule: [{required: true, trigger: 'blur', message: '请输入饲料名称'}]
-                },
-                {
-                    name: 'name2',
-                    type: 'text',
-                    component: null,
-                    isNull: false,
-                    label: '饲料添加剂',
-                    placeholder: '请输入饲料添加剂',
-                    rule: {required: false, trigger: 'blur'}
+                    label: '兽药名称',
+                    placeholder: '请输入兽药名称',
+                    rule: [{required: true, trigger: 'blur', message: '请输入兽药名称'}]
                 },
                 {
                     name: 'expert',
@@ -2264,25 +2245,13 @@ export default {
                     rule: {required: true, trigger: 'blur', message: '请输入使用量'}
                 },
                 {
-                    name: 'weather',
-                    type: 'select',
+                    name: 'desc',
+                    type: 'textarea',
                     component: null,
-                    isNull: false,
-                    label: '天气',
-                    placeholder: '请输入所属部门',
-                    rule: {required: true, trigger: 'blur'},
-                    options: [{
-                        label: '晴天',
-                        value: '晴天'
-                    },
-                    {
-                        label: '阴天',
-                        value: '阴天'
-                    },
-                    {
-                        label: '雨天',
-                        value: '雨天'
-                    }]
+                    isNull: true,
+                    label: '病情描述',
+                    placeholder: '请输入特征描述',
+                    rule: null
                 },
                 {
                     name: 'img',
@@ -2310,9 +2279,9 @@ export default {
             whereArr: {type: 'detection'},
             tab: '检疫信息',
             hiddeEdit: true,
-            searchPlaceholder: '请输入饲料名称进行搜索',
-            headList: ['批次号', '操作日期', '操作人', '饲料名称', '饲料添加剂', '使用量', '天气', '指导专家', '备注信息'],
-            protos: ['serial', 'date', 'operate', 'name', 'name2', 'amount', 'weather', 'expert', 'memo'],
+            searchPlaceholder: '请输入项目名称进行搜索',
+            headList: ['批次号', '操作日期', '操作人', '项目名称', '审批人', '检疫内容', '检疫结果', '指导专家', '备注信息'],
+            protos: ['serial', 'date', 'operate', 'name', 'name2', 'desc', 'amount', 'expert', 'memo'],
             widths: [50, 50, 50, 50, 50, 50, 50, 50, 50],
             typeComponent: [{
                 component: output
@@ -2352,17 +2321,17 @@ export default {
                     type: 'text',
                     component: null,
                     isNull: false,
-                    label: '饲料名称',
-                    placeholder: '请输入饲料名称',
-                    rule: [{required: true, trigger: 'blur', message: '请输入饲料名称'}]
+                    label: '项目名称',
+                    placeholder: '请输入项目名称',
+                    rule: [{required: true, trigger: 'blur', message: '请输入项目名称'}]
                 },
                 {
                     name: 'name2',
                     type: 'text',
                     component: null,
                     isNull: false,
-                    label: '饲料添加剂',
-                    placeholder: '请输入饲料添加剂',
+                    label: '审批人',
+                    placeholder: '请输入审批人',
                     rule: {required: false, trigger: 'blur'}
                 },
                 {
@@ -2376,33 +2345,29 @@ export default {
                 },
                 {
                     name: 'amount',
-                    type: 'text',
-                    component: null,
-                    isNull: false,
-                    label: '使用量',
-                    placeholder: '请输入使用量',
-                    rule: {required: true, trigger: 'blur', message: '请输入使用量'}
-                },
-                {
-                    name: 'weather',
                     type: 'select',
                     component: null,
                     isNull: false,
-                    label: '天气',
-                    placeholder: '请输入所属部门',
-                    rule: {required: true, trigger: 'blur'},
+                    label: '检疫结果',
+                    placeholder: '请输入检疫结果',
+                    rule: {required: true, trigger: 'blur', message: '请输入检疫结果'},
                     options: [{
-                        label: '晴天',
-                        value: '晴天'
+                        label: '合格',
+                        value: '合格'
                     },
                     {
-                        label: '阴天',
-                        value: '阴天'
-                    },
-                    {
-                        label: '雨天',
-                        value: '雨天'
+                        label: '不合格',
+                        value: '不合格'
                     }]
+                },
+                {
+                    name: 'desc',
+                    type: 'text',
+                    component: null,
+                    isNull: false,
+                    label: '检疫内容',
+                    placeholder: '请输入检疫内容',
+                    rule: {required: true, trigger: 'blur'}
                 },
                 {
                     name: 'img',
@@ -2425,7 +2390,6 @@ export default {
             }],
             editComponent: [{
                 tab: '编辑检疫信息',
-                hiddenValue: {type: 'fodderuse'},
                 components: [{
                     name: 'date',
                     type: 'date',
@@ -2449,17 +2413,17 @@ export default {
                     type: 'text',
                     component: null,
                     isNull: false,
-                    label: '饲料名称',
-                    placeholder: '请输入饲料名称',
-                    rule: [{required: true, trigger: 'blur', message: '请输入饲料名称'}]
+                    label: '项目名称',
+                    placeholder: '请输入项目名称',
+                    rule: [{required: true, trigger: 'blur', message: '请输入项目名称'}]
                 },
                 {
                     name: 'name2',
                     type: 'text',
                     component: null,
                     isNull: false,
-                    label: '饲料添加剂',
-                    placeholder: '请输入饲料添加剂',
+                    label: '审批人',
+                    placeholder: '请输入审批人',
                     rule: {required: false, trigger: 'blur'}
                 },
                 {
@@ -2473,33 +2437,29 @@ export default {
                 },
                 {
                     name: 'amount',
-                    type: 'text',
-                    component: null,
-                    isNull: false,
-                    label: '使用量',
-                    placeholder: '请输入使用量',
-                    rule: {required: true, trigger: 'blur', message: '请输入使用量'}
-                },
-                {
-                    name: 'weather',
                     type: 'select',
                     component: null,
                     isNull: false,
-                    label: '天气',
-                    placeholder: '请输入所属部门',
-                    rule: {required: true, trigger: 'blur'},
+                    label: '检疫结果',
+                    placeholder: '请输入检疫结果',
+                    rule: {required: true, trigger: 'blur', message: '请输入检疫结果'},
                     options: [{
-                        label: '晴天',
-                        value: '晴天'
+                        label: '合格',
+                        value: '合格'
                     },
                     {
-                        label: '阴天',
-                        value: '阴天'
-                    },
-                    {
-                        label: '雨天',
-                        value: '雨天'
+                        label: '不合格',
+                        value: '不合格'
                     }]
+                },
+                {
+                    name: 'desc',
+                    type: 'text',
+                    component: null,
+                    isNull: false,
+                    label: '检疫内容',
+                    placeholder: '请输入检疫内容',
+                    rule: {required: true, trigger: 'blur'}
                 },
                 {
                     name: 'img',
@@ -2527,9 +2487,9 @@ export default {
             whereArr: {type: 'detect_b'},
             tab: '检验检测信息',
             hiddeEdit: true,
-            searchPlaceholder: '请输入饲料名称进行搜索',
-            headList: ['批次号', '操作日期', '操作人', '饲料名称', '饲料添加剂', '使用量', '天气', '指导专家', '备注信息'],
-            protos: ['serial', 'date', 'operate', 'name', 'name2', 'amount', 'weather', 'expert', 'memo'],
+            searchPlaceholder: '请输入项目名称进行搜索',
+            headList: ['批次号', '操作日期', '操作人', '检测项目名称', '检测部门', '检测结果', '天气', '检测内容', '指导专家', '备注信息'],
+            protos: ['serial', 'date', 'operate', 'name', 'name2', 'amount', 'weather', 'desc', 'expert', 'memo'],
             widths: [50, 50, 50, 50, 50, 50, 50, 50, 50],
             typeComponent: [{
                 component: output
@@ -2569,17 +2529,17 @@ export default {
                     type: 'text',
                     component: null,
                     isNull: false,
-                    label: '饲料名称',
-                    placeholder: '请输入饲料名称',
-                    rule: [{required: true, trigger: 'blur', message: '请输入饲料名称'}]
+                    label: '检测项目名称',
+                    placeholder: '请输入检测项目名称',
+                    rule: [{required: true, trigger: 'blur', message: '请输入检测项目名称'}]
                 },
                 {
                     name: 'name2',
                     type: 'text',
                     component: null,
                     isNull: false,
-                    label: '饲料添加剂',
-                    placeholder: '请输入饲料添加剂',
+                    label: '检测部门',
+                    placeholder: '请输入检测部门',
                     rule: {required: false, trigger: 'blur'}
                 },
                 {
@@ -2593,12 +2553,20 @@ export default {
                 },
                 {
                     name: 'amount',
-                    type: 'text',
+                    type: 'select',
                     component: null,
                     isNull: false,
-                    label: '使用量',
-                    placeholder: '请输入使用量',
-                    rule: {required: true, trigger: 'blur', message: '请输入使用量'}
+                    label: '检疫结果',
+                    placeholder: '请输入检疫结果',
+                    rule: {required: true, trigger: 'blur', message: '请输入检疫结果'},
+                    options: [{
+                        label: '合格',
+                        value: '合格'
+                    },
+                    {
+                        label: '不合格',
+                        value: '不合格'
+                    }]
                 },
                 {
                     name: 'weather',
@@ -2606,7 +2574,7 @@ export default {
                     component: null,
                     isNull: false,
                     label: '天气',
-                    placeholder: '请输入所属部门',
+                    placeholder: '',
                     rule: {required: true, trigger: 'blur'},
                     options: [{
                         label: '晴天',
@@ -2620,6 +2588,15 @@ export default {
                         label: '雨天',
                         value: '雨天'
                     }]
+                },
+                {
+                    name: 'desc',
+                    type: 'textarea',
+                    component: null,
+                    isNull: false,
+                    label: '检测内容',
+                    placeholder: '请输入检测内容',
+                    rule: {required: true, trigger: 'blur'}
                 },
                 {
                     name: 'img',
@@ -2642,7 +2619,6 @@ export default {
             }],
             editComponent: [{
                 tab: '编辑检验检测信息',
-                hiddenValue: {type: 'fodderuse'},
                 components: [{
                     name: 'date',
                     type: 'date',
@@ -2666,17 +2642,17 @@ export default {
                     type: 'text',
                     component: null,
                     isNull: false,
-                    label: '饲料名称',
-                    placeholder: '请输入饲料名称',
-                    rule: [{required: true, trigger: 'blur', message: '请输入饲料名称'}]
+                    label: '检测项目名称',
+                    placeholder: '请输入检测项目名称',
+                    rule: [{required: true, trigger: 'blur', message: '请输入检测项目名称'}]
                 },
                 {
                     name: 'name2',
                     type: 'text',
                     component: null,
                     isNull: false,
-                    label: '饲料添加剂',
-                    placeholder: '请输入饲料添加剂',
+                    label: '检测部门',
+                    placeholder: '请输入检测部门',
                     rule: {required: false, trigger: 'blur'}
                 },
                 {
@@ -2690,12 +2666,20 @@ export default {
                 },
                 {
                     name: 'amount',
-                    type: 'text',
+                    type: 'select',
                     component: null,
                     isNull: false,
-                    label: '使用量',
-                    placeholder: '请输入使用量',
-                    rule: {required: true, trigger: 'blur', message: '请输入使用量'}
+                    label: '检疫结果',
+                    placeholder: '请输入检疫结果',
+                    rule: {required: true, trigger: 'blur', message: '请输入检疫结果'},
+                    options: [{
+                        label: '合格',
+                        value: '合格'
+                    },
+                    {
+                        label: '不合格',
+                        value: '不合格'
+                    }]
                 },
                 {
                     name: 'weather',
@@ -2703,7 +2687,7 @@ export default {
                     component: null,
                     isNull: false,
                     label: '天气',
-                    placeholder: '请输入所属部门',
+                    placeholder: '',
                     rule: {required: true, trigger: 'blur'},
                     options: [{
                         label: '晴天',
@@ -2717,6 +2701,15 @@ export default {
                         label: '雨天',
                         value: '雨天'
                     }]
+                },
+                {
+                    name: 'desc',
+                    type: 'textarea',
+                    component: null,
+                    isNull: false,
+                    label: '检测内容',
+                    placeholder: '请输入检测内容',
+                    rule: {required: true, trigger: 'blur'}
                 },
                 {
                     name: 'img',
@@ -2773,12 +2766,27 @@ export default {
             }],
             newComponent: [{
                 tab: '种植自定义信息添加溯源码',
-                type: 'table',
-                assocNum: 0,
-                labUrl: 'code',
+                selectUrl2: [['products', 'id', 'name', true]],
+                selectInit2: [{value: '', label: '请选择一个产品'}],
+                popNumber2: [0],
+                type: 'assoc',
+                assocNum: 1,
                 components: [{
-                    name: 'name',
+                    name: 'product_id',
+                    assocNum: 1,
+                    type: 'select',
+                    component: null,
+                    isNull: false,
+                    label: '产品',
+                    placeholder: '',
+                    changeTable: true,
+                    rule: {required: true, trigger: 'blur', type: 'number', message: '请选择产品'},
+                    options: []
+                },
+                {
+                    name: 'code',
                     type: 'table',
+                    tableUrl: ['plant_code', true],
                     theads: ['溯源码', '生产日期'],
                     protos: ['code', 'date'],
                     valueId: 'code_ids',
@@ -2845,9 +2853,9 @@ export default {
             tab: '施肥信息',
             hiddeEdit: true,
             searchPlaceholder: '请输入肥料名称进行搜索',
-            headList: ['批次号', '操作日期', '操作人', '肥料名称', '使用量', '天气', '指导专家', '备注信息'],
-            protos: ['serial', 'date', 'operate', 'name', 'amount', 'weather', 'expert', 'memo'],
-            widths: [50, 50, 50, 50, 50, 50, 50, 50],
+            headList: ['批次号', '操作日期', '操作人', '肥料名称', '使用量', '描述', '天气', '指导专家', '备注信息'],
+            protos: ['serial', 'date', 'operate', 'name', 'amount', 'desc', 'weather', 'expert', 'memo'],
+            widths: [50, 50, 50, 50, 50, 50, 50, 50, 50],
             typeComponent: [{
                 component: output
             },
@@ -2862,7 +2870,7 @@ export default {
             }],
             newComponent: [{
                 tab: '新建施肥信息',
-                hiddenValue: {type: 'fertilizer'},
+                hiddenValue: {type: 'fertilize'},
                 components: [{
                     name: 'date',
                     type: 'date',
@@ -2886,18 +2894,18 @@ export default {
                     type: 'text',
                     component: null,
                     isNull: false,
-                    label: '饲料名称',
-                    placeholder: '请输入饲料名称',
-                    rule: [{required: true, trigger: 'blur', message: '请输入饲料名称'}]
+                    label: '肥料名称',
+                    placeholder: '请输入肥料名称',
+                    rule: [{required: true, trigger: 'blur', message: '请输入肥料名称'}]
                 },
                 {
-                    name: 'name2',
-                    type: 'text',
+                    name: 'desc',
+                    type: 'textarea',
                     component: null,
                     isNull: false,
-                    label: '饲料添加剂',
-                    placeholder: '请输入饲料添加剂',
-                    rule: {required: false, trigger: 'blur'}
+                    label: '施肥描述',
+                    placeholder: '请输入施肥描述',
+                    rule: {required: true, trigger: 'blur'}
                 },
                 {
                     name: 'expert',
@@ -2959,7 +2967,6 @@ export default {
             }],
             editComponent: [{
                 tab: '编辑施肥信息',
-                hiddenValue: {type: 'fodderuse'},
                 components: [{
                     name: 'date',
                     type: 'date',
@@ -2983,18 +2990,18 @@ export default {
                     type: 'text',
                     component: null,
                     isNull: false,
-                    label: '饲料名称',
-                    placeholder: '请输入饲料名称',
-                    rule: [{required: true, trigger: 'blur', message: '请输入饲料名称'}]
+                    label: '肥料名称',
+                    placeholder: '请输入肥料名称',
+                    rule: [{required: true, trigger: 'blur', message: '请输入肥料名称'}]
                 },
                 {
-                    name: 'name2',
-                    type: 'text',
+                    name: 'desc',
+                    type: 'textarea',
                     component: null,
                     isNull: false,
-                    label: '饲料添加剂',
-                    placeholder: '请输入饲料添加剂',
-                    rule: {required: false, trigger: 'blur'}
+                    label: '施肥描述',
+                    placeholder: '请输入施肥描述',
+                    rule: {required: true, trigger: 'blur'}
                 },
                 {
                     name: 'expert',
@@ -3062,8 +3069,8 @@ export default {
             tab: '病虫害信息',
             hiddeEdit: true,
             searchPlaceholder: '请输入农药名称进行搜索',
-            headList: ['批次号', '操作日期', '操作人', '农药名称', '使用量', '天气', '指导专家', '备注信息'],
-            protos: ['serial', 'date', 'operate', 'name', 'amount', 'weather', 'expert', 'memo'],
+            headList: ['批次号', '操作日期', '操作人', '农药名称', '使用量', '操作内容', '天气', '指导专家', '备注信息'],
+            protos: ['serial', 'date', 'operate', 'name', 'amount', 'weather', 'desc', 'expert', 'memo'],
             widths: [50, 50, 50, 50, 50, 50, 50, 50, 50],
             typeComponent: [{
                 component: output
@@ -3103,18 +3110,9 @@ export default {
                     type: 'text',
                     component: null,
                     isNull: false,
-                    label: '饲料名称',
-                    placeholder: '请输入饲料名称',
-                    rule: [{required: true, trigger: 'blur', message: '请输入饲料名称'}]
-                },
-                {
-                    name: 'name2',
-                    type: 'text',
-                    component: null,
-                    isNull: false,
-                    label: '饲料添加剂',
-                    placeholder: '请输入饲料添加剂',
-                    rule: {required: false, trigger: 'blur'}
+                    label: '农药名称',
+                    placeholder: '请输入农药名称',
+                    rule: [{required: true, trigger: 'blur', message: '请输入农药名称'}]
                 },
                 {
                     name: 'expert',
@@ -3133,6 +3131,15 @@ export default {
                     label: '使用量',
                     placeholder: '请输入使用量',
                     rule: {required: true, trigger: 'blur', message: '请输入使用量'}
+                },
+                {
+                    name: 'desc',
+                    type: 'textarea',
+                    component: null,
+                    isNull: false,
+                    label: '操作内容',
+                    placeholder: '请输入操作内容',
+                    rule: [{required: true, trigger: 'blur', message: '请输入操作内容'}]
                 },
                 {
                     name: 'weather',
@@ -3199,18 +3206,9 @@ export default {
                     type: 'text',
                     component: null,
                     isNull: false,
-                    label: '饲料名称',
-                    placeholder: '请输入饲料名称',
-                    rule: [{required: true, trigger: 'blur', message: '请输入饲料名称'}]
-                },
-                {
-                    name: 'name2',
-                    type: 'text',
-                    component: null,
-                    isNull: false,
-                    label: '饲料添加剂',
-                    placeholder: '请输入饲料添加剂',
-                    rule: {required: false, trigger: 'blur'}
+                    label: '农药名称',
+                    placeholder: '请输入农药名称',
+                    rule: [{required: true, trigger: 'blur', message: '请输入农药名称'}]
                 },
                 {
                     name: 'expert',
@@ -3229,6 +3227,15 @@ export default {
                     label: '使用量',
                     placeholder: '请输入使用量',
                     rule: {required: true, trigger: 'blur', message: '请输入使用量'}
+                },
+                {
+                    name: 'desc',
+                    type: 'textarea',
+                    component: null,
+                    isNull: false,
+                    label: '操作内容',
+                    placeholder: '请输入操作内容',
+                    rule: [{required: true, trigger: 'blur', message: '请输入操作内容'}]
                 },
                 {
                     name: 'weather',
@@ -3277,10 +3284,10 @@ export default {
             whereArr: {type: 'farming'},
             tab: '农事信息',
             hiddeEdit: true,
-            searchPlaceholder: '请输入农事名称进行搜索',
-            headList: ['批次号', '操作日期', '操作人', '饲料名称', '使用量', '天气', '指导专家', '备注信息'],
-            protos: ['serial', 'date', 'operate', 'name', 'amount', 'weather', 'expert', 'memo'],
-            widths: [50, 50, 50, 50, 50, 50, 50, 50],
+            searchPlaceholder: '请输入标题进行搜索',
+            headList: ['批次号', '操作日期', '操作人', '标题', '操作内容', '操作方法', '天气', '指导专家', '备注信息'],
+            protos: ['serial', 'date', 'operate', 'name', 'desc', 'amount', 'weather', 'expert', 'memo'],
+            widths: [50, 50, 50, 50, 50, 50, 50, 50, 50],
             typeComponent: [{
                 component: output
             },
@@ -3319,18 +3326,9 @@ export default {
                     type: 'text',
                     component: null,
                     isNull: false,
-                    label: '饲料名称',
-                    placeholder: '请输入饲料名称',
-                    rule: [{required: true, trigger: 'blur', message: '请输入饲料名称'}]
-                },
-                {
-                    name: 'name2',
-                    type: 'text',
-                    component: null,
-                    isNull: false,
-                    label: '饲料添加剂',
-                    placeholder: '请输入饲料添加剂',
-                    rule: {required: false, trigger: 'blur'}
+                    label: '标题',
+                    placeholder: '请输入标题',
+                    rule: [{required: true, trigger: 'blur', message: '请输入标题'}]
                 },
                 {
                     name: 'expert',
@@ -3346,9 +3344,18 @@ export default {
                     type: 'text',
                     component: null,
                     isNull: false,
-                    label: '使用量',
-                    placeholder: '请输入使用量',
-                    rule: {required: true, trigger: 'blur', message: '请输入使用量'}
+                    label: '操作方法',
+                    placeholder: '请输入操作方法',
+                    rule: {required: true, trigger: 'blur', message: '请输入操作方法'}
+                },
+                {
+                    name: 'desc',
+                    type: 'textarea',
+                    component: null,
+                    isNull: true,
+                    label: '操作内容',
+                    placeholder: '',
+                    rule: null
                 },
                 {
                     name: 'weather',
@@ -3392,6 +3399,7 @@ export default {
             }],
             editComponent: [{
                 tab: '编辑农事信息',
+                hiddenValue: {type: 'farming'},
                 components: [{
                     name: 'date',
                     type: 'date',
@@ -3415,18 +3423,9 @@ export default {
                     type: 'text',
                     component: null,
                     isNull: false,
-                    label: '饲料名称',
-                    placeholder: '请输入饲料名称',
-                    rule: [{required: true, trigger: 'blur', message: '请输入饲料名称'}]
-                },
-                {
-                    name: 'name2',
-                    type: 'text',
-                    component: null,
-                    isNull: false,
-                    label: '饲料添加剂',
-                    placeholder: '请输入饲料添加剂',
-                    rule: {required: false, trigger: 'blur'}
+                    label: '标题',
+                    placeholder: '请输入标题',
+                    rule: [{required: true, trigger: 'blur', message: '请输入标题'}]
                 },
                 {
                     name: 'expert',
@@ -3442,9 +3441,18 @@ export default {
                     type: 'text',
                     component: null,
                     isNull: false,
-                    label: '使用量',
-                    placeholder: '请输入使用量',
-                    rule: {required: true, trigger: 'blur', message: '请输入使用量'}
+                    label: '操作方法',
+                    placeholder: '请输入操作方法',
+                    rule: {required: true, trigger: 'blur', message: '请输入操作方法'}
+                },
+                {
+                    name: 'desc',
+                    type: 'textarea',
+                    component: null,
+                    isNull: true,
+                    label: '操作内容',
+                    placeholder: '',
+                    rule: null
                 },
                 {
                     name: 'weather',
@@ -3493,10 +3501,10 @@ export default {
             whereArr: {type: 'detect_p'},
             tab: '检验检测信息',
             hiddeEdit: true,
-            searchPlaceholder: '请输入饲料名称进行搜索',
-            headList: ['批次号', '操作日期', '操作人', '饲料名称', '使用量', '天气', '指导专家', '备注信息'],
-            protos: ['serial', 'date', 'operate', 'name', 'amount', 'weather', 'expert', 'memo'],
-            widths: [50, 50, 50, 50, 50, 50, 50, 50],
+            searchPlaceholder: '请输入项目名称进行搜索',
+            headList: ['批次号', '操作日期', '操作人', '检测项目名称', '检测部门', '检测结果', '天气', '检测内容', '指导专家', '备注信息'],
+            protos: ['serial', 'date', 'operate', 'name', 'name2', 'amount', 'weather', 'desc', 'expert', 'memo'],
+            widths: [50, 50, 50, 50, 50, 50, 50, 50, 50],
             typeComponent: [{
                 component: output
             },
@@ -3535,17 +3543,17 @@ export default {
                     type: 'text',
                     component: null,
                     isNull: false,
-                    label: '饲料名称',
-                    placeholder: '请输入饲料名称',
-                    rule: [{required: true, trigger: 'blur', message: '请输入饲料名称'}]
+                    label: '检测项目名称',
+                    placeholder: '请输入检测项目名称',
+                    rule: [{required: true, trigger: 'blur', message: '请输入检测项目名称'}]
                 },
                 {
                     name: 'name2',
                     type: 'text',
                     component: null,
                     isNull: false,
-                    label: '饲料添加剂',
-                    placeholder: '请输入饲料添加剂',
+                    label: '检测部门',
+                    placeholder: '请输入检测部门',
                     rule: {required: false, trigger: 'blur'}
                 },
                 {
@@ -3559,12 +3567,20 @@ export default {
                 },
                 {
                     name: 'amount',
-                    type: 'text',
+                    type: 'select',
                     component: null,
                     isNull: false,
-                    label: '使用量',
-                    placeholder: '请输入使用量',
-                    rule: {required: true, trigger: 'blur', message: '请输入使用量'}
+                    label: '检疫结果',
+                    placeholder: '请输入检疫结果',
+                    rule: {required: true, trigger: 'blur', message: '请输入检疫结果'},
+                    options: [{
+                        label: '合格',
+                        value: '合格'
+                    },
+                    {
+                        label: '不合格',
+                        value: '不合格'
+                    }]
                 },
                 {
                     name: 'weather',
@@ -3572,7 +3588,7 @@ export default {
                     component: null,
                     isNull: false,
                     label: '天气',
-                    placeholder: '请输入所属部门',
+                    placeholder: '',
                     rule: {required: true, trigger: 'blur'},
                     options: [{
                         label: '晴天',
@@ -3586,6 +3602,15 @@ export default {
                         label: '雨天',
                         value: '雨天'
                     }]
+                },
+                {
+                    name: 'desc',
+                    type: 'textarea',
+                    component: null,
+                    isNull: false,
+                    label: '检测内容',
+                    placeholder: '请输入检测内容',
+                    rule: {required: true, trigger: 'blur'}
                 },
                 {
                     name: 'img',
@@ -3631,17 +3656,17 @@ export default {
                     type: 'text',
                     component: null,
                     isNull: false,
-                    label: '饲料名称',
-                    placeholder: '请输入饲料名称',
-                    rule: [{required: true, trigger: 'blur', message: '请输入饲料名称'}]
+                    label: '检测项目名称',
+                    placeholder: '请输入检测项目名称',
+                    rule: [{required: true, trigger: 'blur', message: '请输入检测项目名称'}]
                 },
                 {
                     name: 'name2',
                     type: 'text',
                     component: null,
                     isNull: false,
-                    label: '饲料添加剂',
-                    placeholder: '请输入饲料添加剂',
+                    label: '检测部门',
+                    placeholder: '请输入检测部门',
                     rule: {required: false, trigger: 'blur'}
                 },
                 {
@@ -3655,12 +3680,20 @@ export default {
                 },
                 {
                     name: 'amount',
-                    type: 'text',
+                    type: 'select',
                     component: null,
                     isNull: false,
-                    label: '使用量',
-                    placeholder: '请输入使用量',
-                    rule: {required: true, trigger: 'blur', message: '请输入使用量'}
+                    label: '检疫结果',
+                    placeholder: '请输入检疫结果',
+                    rule: {required: true, trigger: 'blur', message: '请输入检疫结果'},
+                    options: [{
+                        label: '合格',
+                        value: '合格'
+                    },
+                    {
+                        label: '不合格',
+                        value: '不合格'
+                    }]
                 },
                 {
                     name: 'weather',
@@ -3668,7 +3701,7 @@ export default {
                     component: null,
                     isNull: false,
                     label: '天气',
-                    placeholder: '请输入所属部门',
+                    placeholder: '',
                     rule: {required: true, trigger: 'blur'},
                     options: [{
                         label: '晴天',
@@ -3682,6 +3715,15 @@ export default {
                         label: '雨天',
                         value: '雨天'
                     }]
+                },
+                {
+                    name: 'desc',
+                    type: 'textarea',
+                    component: null,
+                    isNull: false,
+                    label: '检测内容',
+                    placeholder: '请输入检测内容',
+                    rule: {required: true, trigger: 'blur'}
                 },
                 {
                     name: 'img',
