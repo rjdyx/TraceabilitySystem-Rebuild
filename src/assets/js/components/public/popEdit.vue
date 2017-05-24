@@ -160,7 +160,9 @@ export default {
             checkeds: [],
             disabled: false,
             editAllowance: 0,
-            allowance: 0
+            allowance: 0,
+            cname: '',
+            cval: ''
         }
     },
     mounted () {

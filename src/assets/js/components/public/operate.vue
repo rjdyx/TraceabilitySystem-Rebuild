@@ -24,7 +24,8 @@
 			                  type="date"
 			                  :editable="false"
 			                  @change="getBeforeDate"
-			                  format="yyyy-MM-dd">
+			                  format="yyyy-MM-dd"
+			                  @keyup.enter.native="returnRuselt">
 			                </el-date-picker>
 			            </span>
 					<span class="left">
@@ -72,6 +73,10 @@
             },
             getAfterDate (val) {
                 this.$emit('dateVal', ['afterDate', val])
+            },
+            returnRuselt () {
+                // this.$emit('return-ruselt')
+                console.log(11)
             }
         },
         watch: {

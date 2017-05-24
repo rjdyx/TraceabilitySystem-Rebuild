@@ -5,9 +5,6 @@ import newbuildBtn from '../../components/public/newbuild-btn.vue'
 import output from '../../components/public/output.vue'
 import selectSection from '../../components/public/select-section.vue'
 import datePick from '../../components/public/datePick.vue'
-import inputText from '../../components/public/inputText.vue'
-import inputTextArea from '../../components/public/inputTextArea.vue'
-import inputSelect from '../../components/public/inputSelect.vue'
 import inputDate from '../../components/public/inputDate.vue'
 import inputFile from '../../components/public/inputFile.vue'
 import inputTextSelect from '../../components/public/inputTextSelect.vue'
@@ -293,7 +290,7 @@ export default {
             {
                 name: 'sex',
                 type: 'select',
-                component: inputSelect,
+                component: null,
                 isNull: false,
                 label: '性别',
                 placeholder: '',
@@ -391,7 +388,7 @@ export default {
             {
                 name: 'sex',
                 type: 'select',
-                component: inputSelect,
+                component: null,
                 isNull: false,
                 label: '性别',
                 placeholder: '',
@@ -2910,6 +2907,7 @@ export default {
                 isNull: false,
                 label: '圈舍',
                 placeholder: '请选择圈舍',
+                disabled: true,
                 rule: {required: true, trigger: 'blur', type: 'number', message: '请选择圈舍'},
                 options: []
             },
@@ -3004,7 +3002,7 @@ export default {
         url: 'fodderuse',
         // 链接批次信息模块数据的桥（养殖批次详情）
         batch: 'feedBatch',
-        searchPlaceholder: '请输入喂养方式进行搜索',
+        searchPlaceholder: '请输入饲料批次号进行搜索',
         selectValueId: [['fodder_id', 'fodder_name', true]],
         selectDefault: [{value: '', label: '饲料选择'}],
         selectSearch: ['fodderuse.fodder_id'],
@@ -4201,7 +4199,7 @@ export default {
         url: 'dispose',
         // 链接批次信息模块数据的桥（养殖批次详情）
         batch: 'innocuityBatch',
-        searchPlaceholder: '请输入操作内容进行',
+        searchPlaceholder: '请输入无害化批次号进行搜索',
         theads: ['无害化批次号', '操作日期', '操作内容', '实行原因', '操作人员', '指导专家', '图片', '备注信息'],
         protos: ['serial', 'date', 'content', 'why', 'operate_name', 'expert_name', 'img', 'memo'],
         selectSearch: ['dispose.expert_name'],
@@ -4467,7 +4465,7 @@ export default {
             {
                 name: 'operate_id',
                 type: 'select',
-                component: inputSelect,
+                component: null,
                 isNull: false,
                 label: '出栏人',
                 placeholder: '请选择人物',
@@ -6673,7 +6671,7 @@ export default {
                 {
                     name: 'weather',
                     type: 'select',
-                    component: inputSelect,
+                    component: null,
                     isNull: false,
                     label: '天气',
                     placeholder: '',
@@ -6797,7 +6795,7 @@ export default {
                 {
                     name: 'weather',
                     type: 'select',
-                    component: inputSelect,
+                    component: null,
                     isNull: false,
                     label: '天气',
                     placeholder: '',
@@ -6948,7 +6946,7 @@ export default {
                 {
                     name: 'weather',
                     type: 'select',
-                    component: inputSelect,
+                    component: null,
                     isNull: false,
                     label: '天气',
                     placeholder: '',
@@ -7090,7 +7088,7 @@ export default {
                 {
                     name: 'weather',
                     type: 'select',
-                    component: inputSelect,
+                    component: null,
                     isNull: false,
                     label: '天气',
                     placeholder: '',
@@ -7262,7 +7260,7 @@ export default {
                 components: [{
                     name: 'name',
                     type: 'select',
-                    component: inputSelect,
+                    component: null,
                     isNull: false,
                     label: '检测类型',
                     placeholder: '',
@@ -7300,7 +7298,7 @@ export default {
                 {
                     name: 'weather',
                     type: 'select',
-                    component: inputSelect,
+                    component: null,
                     isNull: false,
                     label: '天气',
                     placeholder: '',
@@ -7419,7 +7417,7 @@ export default {
                 {
                     name: 'name',
                     type: 'select',
-                    component: inputSelect,
+                    component: null,
                     isNull: false,
                     label: '检测类型',
                     placeholder: '',
@@ -7457,7 +7455,7 @@ export default {
                 {
                     name: 'weather',
                     type: 'select',
-                    component: inputSelect,
+                    component: null,
                     isNull: false,
                     label: '天气',
                     placeholder: '',
@@ -7600,7 +7598,7 @@ export default {
                 {
                     name: 'weather',
                     type: 'select',
-                    component: inputSelect,
+                    component: null,
                     isNull: false,
                     label: '天气',
                     placeholder: '',
@@ -7701,7 +7699,7 @@ export default {
                 {
                     name: 'weather',
                     type: 'select',
-                    component: inputSelect,
+                    component: null,
                     isNull: false,
                     label: '天气',
                     placeholder: '',
@@ -9078,7 +9076,7 @@ export default {
                 {
                     name: 'sex',
                     type: 'select',
-                    component: inputSelect,
+                    component: null,
                     isNull: false,
                     label: '性别',
                     placeholder: '',
@@ -9152,7 +9150,7 @@ export default {
                 {
                     name: 'sex',
                     type: 'select',
-                    component: inputSelect,
+                    component: null,
                     isNull: false,
                     label: '性别',
                     placeholder: '',
