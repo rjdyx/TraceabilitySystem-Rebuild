@@ -5956,7 +5956,7 @@ export default {
             searchPlaceholder: '请输入肥料名称',
             selectDefault: [{value: '', label: '肥料类别'}],
             theads: ['肥料分类', '肥料名称', '用途', '包装规格', '产地', '经销商名称', '联系方式', '图片', '备注'],
-            protos: ['category_name', 'name', 'usage', 'specification', 'origin', 'specification', 'phone', 'img', 'memo'],
+            protos: ['category_name', 'name', 'usage', 'specification', 'origin', 'dealer', 'phone', 'img', 'memo'],
             widths: [50, 50, 50, 50, 50, 50, 50, 50, 50],
             typeComponent: [{
                 component: importBtn
@@ -7988,7 +7988,7 @@ export default {
         searchPlaceholder: '请输入采收批次号进行搜索',
         theads: ['采收批次', '采收日期', '所属种植区', '种植批次号', '采收数量(kg)', '入库部门', '存放仓库位置', '操作人', '录入人', '状态', '备注'],
         protos: ['serial', 'date', 'plantation_name', 'cultivate_serial', 'amount', 'department', 'position', 'operate_name', 'user_name', 'state', 'memo'],
-        widths: [50, 50, 50, 60, 50, 50, 50, 50, 50, 30, 50],
+        widths: [60, 50, 50, 60, 50, 50, 50, 50, 50, 30, 50],
         typeComponent: [
             {
                 component: output
@@ -8573,14 +8573,14 @@ export default {
         newComponent: [{
             tab: '新建溯源码信息',
             hiddenValue: {type: 'plant'},
-            selectAvl2: ['plant', ''],
             selectUrl2: [['packs', 'id', 'serial', true], ['harvests', 'id', 'serial', true], ['storages', 'id', 'serial', true], ['storages', 'id', 'serial', true]],
             selectInit2: [{value: '', label: '加工批次号选择'}, {value: '', label: '采收批次号选择'}, {value: '', label: '请选择入库批次(平台)'}, {value: '', label: '请选择入库批次(非平台)'}],
-            selectWhereArr2: [[], [{n: 'type', v: 0}, {n: 'category', v: 'plant'}], [{n: 'type', v: 1}, {n: 'category', v: 'plant'}]],
+            selectWhereArr2: [[{n: 'type', v: 'plant'}], [], [{n: 'type', v: 0}, {n: 'category', v: 'plant'}], [{n: 'type', v: 1}, {n: 'category', v: 'plant'}]],
             popNumber2: [0, 3, 4, 5],
             curl: 'pack-product-rfid',
             opqcurl: '{x}/pack-product',
             type: 'assoc',
+            assocNum: 1,
             components: [{
                 name: 'pack_id',
                 type: 'select',
@@ -9253,6 +9253,7 @@ export default {
             selectUrl2: [['operates', 'id', 'name', true], ['vehicles', 'id', 'number', true], ['drivers', 'id', 'name', true], ['logistics', 'id', 'name', true]],
             selectInit2: [{value: '', label: '操作人员选择'}, {value: '', label: '请选择车辆'}, {value: '', label: '请选择司机'}, {value: '', label: '请选择物流公司'}],
             popNumber2: [8, 3, 4, 5],
+            type: 'selectAssoc',
             components: [{
                 name: 'datetime',
                 type: 'date',
@@ -9853,16 +9854,17 @@ export default {
         roleName: ['sell/order', 0],
         batch: 'saleOrder',
         searchPlaceholder: '请输入销售订单号',
-        theads: ['销售订单批次号', '订单日期', '物流批次', '客户名称', '金额', '数量', '销售员', '录入人', '备注'],
-        protos: ['serial', 'datetime', 'delivery_serial', 'client_name', 'money', 'amount', 'operate_name', 'user_name', 'memo'],
-        widths: [50, 50, 50, 50, 50, 50, 50, 50, 50],
-        typeComponent: [
-            {
-                component: output
-            },
-            {
-                component: newbuildBtn
-            }],
+        changeDataArr: [{state: {0: '未完成', 1: '已完成'}}],
+        theads: ['销售订单批次号', '订单日期', '物流批次', '客户名称', '金额', '数量', '销售员', '录入人', '状态', '备注'],
+        protos: ['serial', 'datetime', 'delivery_serial', 'client_name', 'money', 'amount', 'operate_name', 'user_name', 'state', 'memo'],
+        widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
+        typeComponent: [{
+            component: output
+        },
+        {
+            component: newbuildBtn
+        }],
+        moreComponent: [{value: '状态'}],
         newComponent: [{
             tab: '新建订单信息',
             hiddenValue: {type: 1},
