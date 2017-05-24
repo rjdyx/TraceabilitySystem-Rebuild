@@ -46,6 +46,8 @@
                     :is="operateItem.component"
                     :url="apiUrlArr[tabList[index].url]"
                     :type="tabItem.whereArr"
+                    :routeId="routeId"
+                    :curl="url"
                     class="fr"
                 ></component>
             </div>
