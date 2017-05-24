@@ -178,9 +178,9 @@ export default {
                     type: 'file',
                     component: inputFile,
                     isNull: false,
-                    label: '',
+                    label: '图片',
                     placeholder: '',
-                    rule: {required: true, trigger: 'blur'}
+                    rule: {required: true, message: '请上传图片'}
                 },
                 {
                     name: 'memo',

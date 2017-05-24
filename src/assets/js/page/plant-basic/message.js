@@ -2950,7 +2950,7 @@ export default {
                 isNull: false,
                 label: '开始日期',
                 placeholder: '',
-                rule: [{required: true}, {validator: validate2.reDate, message: '请输入种植日期'}]
+                rule: [{required: true, message: '请输入种植日期'}, {validator: validate2.reDate, message: '请输入种植日期'}]
             },
             {
                 name: 'way',
@@ -4125,7 +4125,7 @@ export default {
                 isNull: false,
                 label: '操作日期',
                 placeholder: '',
-                rule: {required: true, trigger: 'blur'}
+                rule: [{required: true, message: '请输入操作日期'}, {validator: validate2.reDate, message: '请输入操作日期'}]
             },
             {
                 name: 'operate_id',
@@ -4866,7 +4866,7 @@ export default {
                 label: '检测日期',
                 placeholder: '',
                 disabled: true,
-                rule: [{required: true}, {validator: validate2.reDate, message: '请输入检测日期'}]
+                rule: [{required: true, message: '请输入检测日期'}, {validator: validate2.reDate, message: '请输入检测日期'}]
             },
             {
                 name: 'operate_id',
@@ -4973,7 +4973,7 @@ export default {
                 label: '检测日期',
                 placeholder: '',
                 disabled: true,
-                rule: [{required: true}, {validator: validate2.reDate, message: '请输入检测日期'}]
+                rule: [{required: true, message: '请输入检测日期'}, {validator: validate2.reDate, message: '请输入检测日期'}]
             },
             {
                 name: 'operate_id',
