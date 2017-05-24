@@ -45,6 +45,8 @@
                     v-for="operateItem in tabItem.typeComponent"
                     :is="operateItem.component"
                     :url="apiUrlArr[tabList[index].url]"
+                    :routeId="routeId"
+                    :curl="url"
                     class="fr"
                 ></component>
             </div>

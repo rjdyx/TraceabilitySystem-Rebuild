@@ -1372,6 +1372,7 @@ export default {
                 hiddenValue: {type: 'plant'},
                 labUrl: false,
                 labNewUrl: 'storage_code',
+                assocNum: 7,
                 type: 'assoc',
                 components: [{
                     name: 'date',
@@ -1465,6 +1466,7 @@ export default {
                     name: 'code_ids',
                     type: 'table',
                     hiddenSelect: true,
+                    tableUrl: ['storage-code', true],
                     theads: ['溯源码', '生产日期', '溯源次数'],
                     protos: ['code', 'date', 'time'],
                     valueId: 'code_ids',
@@ -1623,10 +1625,10 @@ export default {
             }],
             typeComponent: [{
                 component: output
-            },
-            {
-                component: scanCode
             }],
+            // {
+            //     component: scanCode
+            // }],
             listComponent: [{
                 components: [{
                     type: 'date',
@@ -1691,8 +1693,9 @@ export default {
         key: 'sellDetail',
         tab: '销售订单详情管理',
         roleName: ['sell/order', 0],
-        theads: ['销售订单号', '订单日期', '物流批次号', '客户名称', '金额', '数量', '销售员', '备注'],
-        protos: ['serial', 'datetime', 'delivery_serial', 'client_name', 'money', 'amount', 'operate_name', 'memo'],
+        changeDataArr: [{state: {'未完成': 0, '已完成': 1}}],
+        theads: ['销售订单号', '订单日期', '物流批次号', '客户名称', '金额', '数量', '销售员', '状态'],
+        protos: ['serial', 'datetime', 'delivery_serial', 'client_name', 'money', 'amount', 'operate_name', 'state'],
         url: 'sell',
         tabList: [{
             key: 'sell-code',

@@ -229,12 +229,10 @@ export default {
         },
         // 关闭表单事件
         closeClick () {
-            this.$parent.closeNewShow()
             this.successCallback()
         },
         // 取消事件
         cancelClick () {
-            this.$parent.closeNewShow()
             this.successCallback()
         },
       /**
@@ -266,6 +264,7 @@ export default {
                         if (this.ids.length !== 0) {
                             this.$dataPost(this, this.url, this.tableForm, false, false, false)
                                 .then((response) => {
+                                    this.successCallback()
                                     this.$emit('submitNew', response.data)
                                 })
                         } else {
@@ -366,8 +365,9 @@ export default {
         },
         // 新增成功调用方法
         successCallback () {
+            this.$parent.closeNewShow()
             var com = this.newComponent[0].components
-            if (this.newComponent[0].type === 'assoc') {
+            if (this.newComponent[0].type === 'assoc' || this.newComponent[0].type === 'selectAssoc') {
                 for (let k in com) {
                     if (com[k].hiddenSelect !== undefined) {
                         com[k].hiddenSelect = true

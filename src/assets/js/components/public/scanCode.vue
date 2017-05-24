@@ -15,7 +15,11 @@
 
 <script>
 export default {
-    name: 'ScanCode',
+    name: 'scanCode',
+    props: {
+        curl: '',
+        routeId: ''
+    },
     methods: {
         handleAdd (val) {
             this.$parent.changeScanCode(val.target.value)
@@ -25,6 +29,15 @@ export default {
     },
     mounted () {
         document.getElementById('code_input').focus()
+        if (this.curl === 'sell') {
+            let url = this.curl + '/' + this.routeId
+            this.$dataGet(this, url, {})
+                .then((responce) => {
+                    if (responce.data.state === 1) {
+                        $('#code_input').attr('disabled', 'disabled')
+                    }
+                })
+        }
     }
 }
 </script>
