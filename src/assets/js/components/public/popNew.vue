@@ -191,11 +191,11 @@ export default {
         return {
             // 当前选中的标签页
             activeName: this.newComponent[0].tab,
-            tableChangeNumber: '',
             tableForm: form,
             rules: rules,
             allowance: 0,
             ids: [],
+            ids2: [],
             // 判断鼠标是否点击
             isMouseClick: false,
             trHidden: false,
@@ -240,6 +240,7 @@ export default {
         */
         submitForm (formName) {
             // 多选框 权限
+            var com = this.newComponent[0]
             if (this.checkboxShow) {
                 let allIdArr = []
                 for (let key in this.checkeds) {
@@ -253,13 +254,13 @@ export default {
             }
             this.$refs[formName][0].validate((valid) => {
                 if (valid) {
-                    if (this.newComponent[0].urlid !== undefined) {
-                        let field = this.newComponent[0].urlid
+                    if (com.urlid !== undefined) {
+                        let field = com.urlid
                         this.tableForm[field] = this.routeId
                     }
-                    if (this.newComponent[0].type === 'table' || this.newComponent[0].type === 'assoc') {
-                        if (this.newComponent[0].hiddenValue !== undefined) {
-                            this.tableForm.type = this.newComponent[0].hiddenValue.type
+                    if (com.type === 'table' || com.type === 'assoc') {
+                        if (com.hiddenValue !== undefined) {
+                            this.tableForm.type = com.hiddenValue.type
                         }
                         if (this.ids.length !== 0) {
                             this.$dataPost(this, this.url, this.tableForm, false, false, false)
@@ -268,10 +269,10 @@ export default {
                                     this.$emit('submitNew', response.data)
                                 })
                         } else {
-                            this.$message(this.newComponent[0].components[this.newComponent[0].assocNum].errormsg)
+                            this.$message(com.components[com.assocNum].errormsg)
                         }
                     } else {
-                        this.$dataPost(this, this.url, this.tableForm, this.newComponent[0].hasImg, this.newComponent[0].hiddenValue, false).then((response) => {
+                        this.$dataPost(this, this.url, this.tableForm, com.hasImg, com.hiddenValue, false).then((response) => {
                             this.successCallback()
                             this.$emit('submitNew', response.data)
                         })
@@ -307,11 +308,7 @@ export default {
             for (let key in val) {
                 ids.push(val[key].id)
             }
-            if (this.tableChangeNumber !== '') {
-                this.tableForm[com.components[this.tableChangeNumber].valueId] = ids
-            } else {
-                this.tableForm[com.components[com.assocNum].valueId] = ids
-            }
+            this.tableForm[com.components[com.assocNum].valueId] = ids
             this.ids = ids
         },
         // 选择框关联
@@ -336,15 +333,18 @@ export default {
                     for (let k2 in number[k]) {
                         com[number[k][k2]].hiddenSelect = state
                         if (com[number[k][k2]].type === 'table') {
-                            this.ids = seed2
+                            this.tableForm[com[number[k][k2]].valueId] = seed2
                         } else {
                             this.tableForm[com[number[k][k2]].name] = seed
                         }
                     }
                 }
             } else if (name === 'breed_id' || name === 'come_id' || changeTable) {
-                this.tableChangeNumber = subItem.assocNum
+                this.ids = []
+                this.newComponent[0].assocNum = subItem.assocNum
                 this.$emit('setTable', [name, val, subItem])
+            } else if (name === 'harvest_id' || name === 'sf_id') {
+                this.ids = [1]
             } else if (name === 'pid' || name === 'farm_id') {
                 if (val !== '') {
                     let params = {id: val}

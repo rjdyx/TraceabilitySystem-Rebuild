@@ -469,6 +469,9 @@ export default {
                 this.$set(com.components[com.assocNum], 'tableVal', [])
                 this.newComponent[0].components[com.assocNum].options = []
             }
+            if (com.productNum !== undefined) {
+                this.newComponent[0].components[com.productNum].options = []
+            }
         },
         // 关闭编辑弹窗
         closeEditShow () {

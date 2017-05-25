@@ -5092,13 +5092,14 @@ export default {
             selectAvl2: ['beast', ''],
             selectUrl2: [['packs', 'id', 'serial', true], ['comes', 'id', 'serial', true], ['storages', 'id', 'serial', true], ['storages', 'id', 'serial', true]],
             selectInit2: [{value: '', label: '加工批次号选择'}, {value: '', label: '出栏批次号选择'}, {value: '', label: '请选择入库批次(平台)'}, {value: '', label: '请选择入库批次(非平台)'}],
-            selectWhereArr2: [[], [{n: 'type', v: 0}, {n: 'category', v: 'plant'}], [{n: 'type', v: 1}, {n: 'category', v: 'plant'}]],
+            selectWhereArr2: [[{n: 'type', v: 'beast'}], [], [{n: 'type', v: 0}, {n: 'category', v: 'plant'}], [{n: 'type', v: 1}, {n: 'category', v: 'plant'}]],
             popNumber2: [0, 3, 4, 5],
             // labUrl: 'come-rfid',
             curl: 'pack-product-rfid',
             opqcurl: '{x}/pack-product',
             type: 'assoc',
-            assocNum: 6,
+            assocNum: 1,
+            productNum: 1,
             components: [{
                 name: 'pack_id',
                 type: 'select',
@@ -5231,7 +5232,7 @@ export default {
                 theads: ['溯源码', '生产日期', '溯源次数'],
                 protos: ['code', 'date', 'time'],
                 valueId: 'code_ids',
-                errormsg: '请选择rfid',
+                errormsg: '请选择溯源码',
                 tableVal: []
             }]
         }],
@@ -8633,7 +8634,7 @@ export default {
                 }]
             },
             {
-                name: 'come_id',
+                name: 'harvest_id',
                 type: 'select',
                 component: null,
                 isNull: false,
