@@ -6467,7 +6467,7 @@ export default {
                 isNull: false,
                 label: '种植日期',
                 placeholder: '',
-                rule: [{required: true}, {validator: validate2.reDate, message: '请输入种植日期'}]
+                rule: [{required: true, message: '请输入种植日期'}, {validator: validate2.reDate, message: '请输入种植日期'}]
             },
             {
                 name: 'area',
@@ -6555,7 +6555,7 @@ export default {
                 isNull: false,
                 label: '种植日期',
                 placeholder: '',
-                rule: [{required: true}, {validator: validate2.reDate, message: '请输入种植日期'}]
+                rule: [{required: true, message: '请输入种植日期'}, {validator: validate2.reDate, message: '请输入种植日期'}]
             },
             {
                 name: 'area',
@@ -6666,7 +6666,7 @@ export default {
                     isNull: false,
                     label: '施肥日期',
                     placeholder: '',
-                    rule: [{required: true}, {validator: validate2.reDate, message: '请输入施肥日期'}]
+                    rule: [{required: true, message: '请输入施肥日期'}, {validator: validate2.reDate, message: '请输入施肥日期'}]
                 },
                 {
                     name: 'weather',
@@ -6790,7 +6790,7 @@ export default {
                     isNull: false,
                     label: '施肥日期',
                     placeholder: '',
-                    rule: [{required: true}, {validator: validate2.reDate, message: '请输入施肥日期'}]
+                    rule: [{required: true, message: '请输入施肥日期'}, {validator: validate2.reDate, message: '请输入施肥日期'}]
                 },
                 {
                     name: 'weather',
@@ -6941,7 +6941,7 @@ export default {
                     isNull: false,
                     label: '喷洒日期',
                     placeholder: '',
-                    rule: [{required: true}, {validator: validate2.reDate, message: '请输入喷洒日期'}]
+                    rule: [{required: true, message: '请输入喷洒日期'}, {validator: validate2.reDate, message: '请输入喷洒日期'}]
                 },
                 {
                     name: 'weather',
@@ -7083,7 +7083,7 @@ export default {
                     isNull: false,
                     label: '喷洒日期',
                     placeholder: '',
-                    rule: [{required: true}, {validator: validate2.reDate, message: '请输入喷洒日期'}]
+                    rule: [{required: true, message: '请输入喷洒日期'}, {validator: validate2.reDate, message: '请输入喷洒日期'}]
                 },
                 {
                     name: 'weather',
@@ -7293,7 +7293,7 @@ export default {
                     isNull: false,
                     label: '检测日期',
                     placeholder: '',
-                    rule: [{required: true}, {validator: validate2.reDate, message: '请输入检测日期'}]
+                    rule: [{required: true, message: '请输入检测日期'}, {validator: validate2.reDate, message: '请输入检测日期'}]
                 },
                 {
                     name: 'weather',
@@ -7450,7 +7450,7 @@ export default {
                     isNull: false,
                     label: '检测日期',
                     placeholder: '',
-                    rule: [{required: true}, {validator: validate2.reDate, message: '请输入检测日期'}]
+                    rule: [{required: true, message: '请输入检测日期'}, {validator: validate2.reDate, message: '请输入检测日期'}]
                 },
                 {
                     name: 'weather',
@@ -7593,7 +7593,7 @@ export default {
                     isNull: false,
                     label: '操作日期',
                     placeholder: '',
-                    rule: [{required: true}, {validator: validate2.reDate, message: '请输入操作日期'}]
+                    rule: [{required: true, message: '请输入操作日期'}, {validator: validate2.reDate, message: '请输入操作日期'}]
                 },
                 {
                     name: 'weather',
@@ -7694,7 +7694,7 @@ export default {
                     isNull: false,
                     label: '操作日期',
                     placeholder: '',
-                    rule: [{required: true}, {validator: validate2.reDate, message: '请输入操作日期'}]
+                    rule: [{required: true, message: '请输入操作日期'}, {validator: validate2.reDate, message: '请输入操作日期'}]
                 },
                 {
                     name: 'weather',
@@ -8105,7 +8105,7 @@ export default {
                 isNull: true,
                 label: '采收日期',
                 placeholder: '必填',
-                rule: [{required: true}, {validator: validate2.reDate, message: '请输入采收日期'}]
+                rule: [{required: true, message: '请输入采收日期'}, {validator: validate2.reDate, message: '请输入采收日期'}]
             },
             {
                 name: 'cultivate_id',
@@ -8209,7 +8209,7 @@ export default {
                 isNull: true,
                 label: '加工日期',
                 placeholder: '',
-                rule: [{required: true}, {validator: validate2.reDate, message: '请输入加工日期'}]
+                rule: [{required: true, message: '请输入加工日期'}, {validator: validate2.reDate, message: '请输入加工日期'}]
             },
             {
                 name: 'origin',
@@ -8270,7 +8270,7 @@ export default {
                 isNull: true,
                 label: '加工日期',
                 placeholder: '',
-                rule: [{required: true}, {validator: validate2.reDate, message: '请输入加工日期'}]
+                rule: [{required: true, message: '请输入加工日期'}, {validator: validate2.reDate, message: '请输入加工日期'}]
             },
             {
                 name: 'operate_id',
@@ -8337,7 +8337,7 @@ export default {
                 label: '检测日期',
                 placeholder: '',
                 disabled: true,
-                rule: [{required: true}, {validator: validate2.reDate, message: '请输入检测日期'}]
+                rule: [{required: true, message: '请输入检测日期'}, {validator: validate2.reDate, message: '请输入检测日期'}]
             },
             {
                 name: 'operate_id',
@@ -8346,7 +8346,7 @@ export default {
                 isNull: false,
                 label: '负责人',
                 placeholder: '请选择人物',
-                rule: {required: true, trigger: 'blur', type: 'number'},
+                rule: {required: true, trigger: 'blur', type: 'number', message: '请选择负责人'},
                 options: []
             },
             {
@@ -8444,7 +8444,7 @@ export default {
                 label: '检测日期',
                 placeholder: '',
                 disabled: true,
-                rule: [{required: true}, {validator: validate2.reDate, message: '请输入检测日期'}]
+                rule: [{required: true, message: '请输入检测日期'}, {validator: validate2.reDate, message: '请输入检测日期'}]
             },
             {
                 name: 'operate_id',
@@ -9260,7 +9260,7 @@ export default {
                 component: inputDate,
                 isNull: true,
                 label: '物流日期',
-                rule: [{required: true, trigger: 'blur', message: '请输入物流日期'}, {validator: validate2.reDate, message: '请输入物流日期'}]
+                rule: [{required: true, message: '请输入物流日期'}, {validator: validate2.reDate, message: '请输入物流日期'}]
             },
             {
                 name: 'name',
@@ -9541,7 +9541,7 @@ export default {
                     isNull: false,
                     label: '入库日期时间',
                     placeholder: '',
-                    rule: [{required: true, trigger: 'blur', message: '请输入入库时间'}, {validator: validate2.reDate, message: '请输入入库时间'}]
+                    rule: [{required: true, message: '请输入入库时间'}, {validator: validate2.reDate, message: '请输入入库时间'}]
                 },
                 {
                     name: 'product_id',
@@ -9704,7 +9704,7 @@ export default {
                     isNull: false,
                     label: '入库日期时间',
                     placeholder: '',
-                    rule: [{required: true, trigger: 'blur', message: '请输入入库时间'}, {validator: validate2.reDate, message: '请输入入库时间'}]
+                    rule: [{required: true, message: '请输入入库时间'}, {validator: validate2.reDate, message: '请输入入库时间'}]
                 },
                 {
                     name: 'product_id',
@@ -9777,7 +9777,7 @@ export default {
                     isNull: false,
                     label: '入库时间',
                     placeholder: '',
-                    rule: [{required: true, trigger: 'blur', message: '请输入入库时间'}, {validator: validate2.reDate, message: '请输入入库时间'}]
+                    rule: [{required: true, message: '请输入入库时间'}, {validator: validate2.reDate, message: '请输入入库时间'}]
                 },
                 {
                     name: 'product_id',
@@ -9879,7 +9879,7 @@ export default {
                 label: '订单日期时间',
                 placeholder: '',
                 disabled: true,
-                rule: [{required: true, trigger: 'blur', message: '请输入订单日期时间'}, {validator: validate2.reDate, message: '请输入订单日期时间'}]
+                rule: [{required: true, message: '请输入订单日期时间'}, {validator: validate2.reDate, message: '请输入订单日期时间'}]
             },
             {
                 name: 'delivery_id',
@@ -10043,7 +10043,7 @@ export default {
                 isNull: false,
                 label: '用户名',
                 placeholder: '请输入用户名',
-                rule: [{required: true, trigger: 'blur'}, {validator: validate2.reCheck}]
+                rule: [{required: true, trigger: 'blur', message: '请输入用户名'}, {validator: validate2.reCheck}]
             },
             {
                 name: 'email',
@@ -10086,7 +10086,8 @@ export default {
                 isNull: false,
                 label: '出生日期',
                 placeholder: '请选择日期',
-                rule: {required: false, trigger: 'blur'}
+                rule: [{required: true, message: '请输入出生日期'}, {validator: validate2.reDate, message: '请输入出生日期'}]
+
             },
             {
                 name: 'phone',
@@ -10095,7 +10096,7 @@ export default {
                 isNull: false,
                 label: '手机号码',
                 placeholder: '请输入手机号码',
-                rule: {required: false, trigger: 'blur', type: 'number'}
+                rule: {required: false, trigger: 'blur'}
             },
             {
                 name: 'department',
@@ -10122,7 +10123,7 @@ export default {
                 isNull: false,
                 label: '工号',
                 placeholder: '请输入工号',
-                rule: {required: false, trigger: 'blur', type: 'number'}
+                rule: {required: false, trigger: 'blur'}
             },
             {
                 name: 'img',
@@ -10154,7 +10155,7 @@ export default {
                 isNull: false,
                 label: '用户名',
                 placeholder: '请输入用户名',
-                rule: [{required: true, trigger: 'blur'}, {validator: validate2.reCheck}]
+                rule: [{required: true, trigger: 'blur', message: '请输入用户名'}, {validator: validate2.reCheck}]
             },
             {
                 name: 'email',
@@ -10292,7 +10293,7 @@ export default {
                 isNull: false,
                 label: '角色名称',
                 placeholder: '请输入角色名称',
-                rule: [{required: true, trigger: 'blur'}, {validator: validate2.reCheck}]
+                rule: [{required: true, trigger: 'blur', message: '请输入角色名称'}, {validator: validate2.reCheck}]
             },
             {
                 name: 'description',
@@ -10315,7 +10316,7 @@ export default {
                 isNull: false,
                 label: '角色名称',
                 placeholder: '请输入角色名称',
-                rule: [{required: true, trigger: 'blur'}, {validator: validate2.reCheck}]
+                rule: [{required: true, trigger: 'blur', message: '请输入角色名称'}, {validator: validate2.reCheck}]
             },
             {
                 name: 'description',
