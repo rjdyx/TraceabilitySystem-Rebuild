@@ -2730,6 +2730,144 @@ export default {
                     rule: null
                 }]
             }]
+        },
+        {
+            key: 'basicinfo-grow',
+            url: 'basicinfo',
+            whereArr: {type: 'grow'},
+            tab: '生长过程信息',
+            hiddeEdit: true,
+            searchPlaceholder: '请输入标题进行搜索',
+            headList: ['操作日期', '操作人', '标题', '描述', '备注信息'],
+            protos: ['date', 'operate', 'name', 'desc', 'memo'],
+            widths: [50, 50, 50, 50, 50, 50, 50, 50],
+            typeComponent: [{
+                component: output
+            },
+            {
+                component: newbuildBtn
+            }],
+            listComponent: [{
+                components: [{
+                    type: 'date',
+                    component: datePick
+                }]
+            }],
+            newComponent: [{
+                tab: '新建生长过程信息',
+                hiddenValue: {type: 'grow'},
+                components: [{
+                    name: 'date',
+                    type: 'date',
+                    component: inputDate,
+                    isNull: false,
+                    label: '操作日期',
+                    placeholder: '请选择操作日期',
+                    rule: {required: true, trigger: 'blur', validator: validate2.reDate, aa: '666', message: '请选择日期'}
+                },
+                {
+                    name: 'operate',
+                    type: 'text',
+                    component: null,
+                    isNull: false,
+                    label: '操作人',
+                    placeholder: '请输入操作人',
+                    rule: [{required: true, trigger: 'blur', message: '请输入操作人'}]
+                },
+                {
+                    name: 'name',
+                    type: 'text',
+                    component: null,
+                    isNull: false,
+                    label: '标题',
+                    placeholder: '请输入标题',
+                    rule: [{required: true, trigger: 'blur', message: '请输入标题'}]
+                },
+                {
+                    name: 'desc',
+                    type: 'textarea',
+                    component: null,
+                    isNull: false,
+                    label: '描述',
+                    placeholder: '请输入描述',
+                    rule: {required: true, trigger: 'blur'}
+                },
+                {
+                    name: 'img',
+                    type: 'file',
+                    component: inputFile,
+                    isNull: true,
+                    label: '描述图片',
+                    placeholder: '',
+                    rule: null
+                },
+                {
+                    name: 'memo',
+                    type: 'textarea',
+                    component: null,
+                    isNull: true,
+                    label: '备注信息',
+                    placeholder: '',
+                    rule: null
+                }]
+            }],
+            editComponent: [{
+                tab: '编辑生长过程信息',
+                components: [{
+                    name: 'date',
+                    type: 'date',
+                    component: inputDate,
+                    isNull: false,
+                    label: '操作日期',
+                    placeholder: '请选择操作日期',
+                    rule: {required: true, trigger: 'blur', validator: validate2.reDate, aa: '666', message: '请选择日期'}
+                },
+                {
+                    name: 'operate',
+                    type: 'text',
+                    component: null,
+                    isNull: false,
+                    label: '操作人',
+                    placeholder: '请输入操作人',
+                    rule: [{required: true, trigger: 'blur', message: '请输入操作人'}]
+                },
+                {
+                    name: 'name',
+                    type: 'text',
+                    component: null,
+                    isNull: false,
+                    label: '标题',
+                    placeholder: '请输入标题',
+                    rule: [{required: true, trigger: 'blur', message: '请输入标题'}]
+                },
+                {
+                    name: 'desc',
+                    type: 'textarea',
+                    component: null,
+                    isNull: false,
+                    label: '描述',
+                    placeholder: '请输入描述',
+                    rule: {required: true, trigger: 'blur'}
+                },
+                {
+                    name: 'img',
+                    type: 'file',
+                    component: inputFile,
+                    isNull: true,
+                    label: '描述图片',
+                    placeholder: '',
+                    rule: null
+                },
+                {
+                    name: 'memo',
+                    type: 'textarea',
+                    component: null,
+                    isNull: true,
+                    label: '备注信息',
+                    placeholder: '',
+                    rule: null
+                }]
+            }]
         }]
     },
     // 种植自定义详情
@@ -3723,6 +3861,144 @@ export default {
                     isNull: false,
                     label: '检测内容',
                     placeholder: '请输入检测内容',
+                    rule: {required: true, trigger: 'blur'}
+                },
+                {
+                    name: 'img',
+                    type: 'file',
+                    component: inputFile,
+                    isNull: true,
+                    label: '描述图片',
+                    placeholder: '',
+                    rule: null
+                },
+                {
+                    name: 'memo',
+                    type: 'textarea',
+                    component: null,
+                    isNull: true,
+                    label: '备注信息',
+                    placeholder: '',
+                    rule: null
+                }]
+            }]
+        },
+        {
+            key: 'basicinfo-course',
+            url: 'basicinfo',
+            whereArr: {type: 'course'},
+            tab: '生长过程信息',
+            hiddeEdit: true,
+            searchPlaceholder: '请输入标题进行搜索',
+            headList: ['操作日期', '操作人', '标题', '描述', '备注信息'],
+            protos: ['date', 'operate', 'name', 'desc', 'memo'],
+            widths: [50, 50, 50, 50, 50, 50, 50, 50],
+            typeComponent: [{
+                component: output
+            },
+            {
+                component: newbuildBtn
+            }],
+            listComponent: [{
+                components: [{
+                    type: 'date',
+                    component: datePick
+                }]
+            }],
+            newComponent: [{
+                tab: '新建生长过程信息',
+                hiddenValue: {type: 'course'},
+                components: [{
+                    name: 'date',
+                    type: 'date',
+                    component: inputDate,
+                    isNull: false,
+                    label: '操作日期',
+                    placeholder: '请选择操作日期',
+                    rule: {required: true, trigger: 'blur', validator: validate2.reDate, aa: '666', message: '请选择日期'}
+                },
+                {
+                    name: 'operate',
+                    type: 'text',
+                    component: null,
+                    isNull: false,
+                    label: '操作人',
+                    placeholder: '请输入操作人',
+                    rule: [{required: true, trigger: 'blur', message: '请输入操作人'}]
+                },
+                {
+                    name: 'name',
+                    type: 'text',
+                    component: null,
+                    isNull: false,
+                    label: '标题',
+                    placeholder: '请输入标题',
+                    rule: [{required: true, trigger: 'blur', message: '请输入标题'}]
+                },
+                {
+                    name: 'desc',
+                    type: 'textarea',
+                    component: null,
+                    isNull: false,
+                    label: '描述',
+                    placeholder: '请输入描述',
+                    rule: {required: true, trigger: 'blur'}
+                },
+                {
+                    name: 'img',
+                    type: 'file',
+                    component: inputFile,
+                    isNull: true,
+                    label: '描述图片',
+                    placeholder: '',
+                    rule: null
+                },
+                {
+                    name: 'memo',
+                    type: 'textarea',
+                    component: null,
+                    isNull: true,
+                    label: '备注信息',
+                    placeholder: '',
+                    rule: null
+                }]
+            }],
+            editComponent: [{
+                tab: '编辑生长过程信息',
+                components: [{
+                    name: 'date',
+                    type: 'date',
+                    component: inputDate,
+                    isNull: false,
+                    label: '操作日期',
+                    placeholder: '请选择操作日期',
+                    rule: {required: true, trigger: 'blur', validator: validate2.reDate, aa: '666', message: '请选择日期'}
+                },
+                {
+                    name: 'operate',
+                    type: 'text',
+                    component: null,
+                    isNull: false,
+                    label: '操作人',
+                    placeholder: '请输入操作人',
+                    rule: [{required: true, trigger: 'blur', message: '请输入操作人'}]
+                },
+                {
+                    name: 'name',
+                    type: 'text',
+                    component: null,
+                    isNull: false,
+                    label: '标题',
+                    placeholder: '请输入标题',
+                    rule: [{required: true, trigger: 'blur', message: '请输入标题'}]
+                },
+                {
+                    name: 'desc',
+                    type: 'textarea',
+                    component: null,
+                    isNull: false,
+                    label: '描述',
+                    placeholder: '请输入描述',
                     rule: {required: true, trigger: 'blur'}
                 },
                 {
