@@ -83,7 +83,7 @@ $b_small: 18px;
 	.head_right{
 		ul{
 			li{
-		border-left: 1px solid $border;
+				border-left: 1px solid $border;
 		}
 	}	
 }
@@ -131,6 +131,9 @@ $b_small: 18px;
 	.btn_change:focus{
 		color: $border;
 	}
+	.upload-demo .btn_change:hover{
+		color: $border;
+	}
 	.changeImg{
 		background: $img;
 	}
@@ -143,8 +146,7 @@ $b_small: 18px;
 			border:$bg;
 		} 
 	}
-	.el-radio__input.is-checked .el-radio__inner
-	{
+	.el-radio__input.is-checked .el-radio__inner{
 		background: $bg;
 		border:$bg;
 	}
@@ -152,14 +154,30 @@ $b_small: 18px;
 		border-color: $bg;
 	}
 	.el-pager li:hover,.el-button--text{
-		color: $bg;
+		color: $border;
 	}
 	.el-select-dropdown__item.selected.hover{
 		background-color: $bg !important;
 	}
-	.avatar-uploader .el-upload:hover{
+	.avatar-uploader .el-upload:hover,.el-pagination__editor:focus{
 		border-color: $bg;
 	}
+	.allCheck{
+		.el-checkbox__input.is-checked .el-checkbox__inner{
+		background-color: $bg;
+		border-color: $bg;
+	}
+}
+.user{
+	.edit{
+		background: $bg;
+		border-color: $bg;
+	}
+	.edit:hover,.btn_change:hover{
+		color: $border;
+	}
+}
+	
 	
 	// 日期：
 	.el-select-dropdown__item.selected.is-active{

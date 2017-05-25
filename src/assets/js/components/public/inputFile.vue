@@ -59,8 +59,12 @@ export default {
                 regexParams += this.pattern[index] + (index === this.pattern.length - 1 ? '' : '|')
             }
             let regex = new RegExp('(?:' + regexParams + ')', 'i')
-            if (!regex.test(file.type)) {
-                alert('请选择格式为 ' + this.pattern + ' 的图片')
+            if (file.type !== 'image/png' && file.type !== 'image/jpeg') {
+                this.$message('请上传文件格式为jpeg或png的图片')
+                return
+            }
+            if (file.size / 1024 >= 300) {
+                this.$message('图片过大，请输入小于300k图片')
                 return
             }
             let reader = new FileReader()

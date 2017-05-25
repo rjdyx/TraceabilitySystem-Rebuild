@@ -88,6 +88,9 @@ export default {
                 this.watermark = responce.data.watermark
                 this.id = responce.data.id
             })
+    },
+    created () {
+        document.title = '公司信息管理'
     }
 }
 </script>
@@ -101,8 +104,6 @@ export default {
     	margin-top: 15px;
     	overflow:scroll;
     	height: 100%;
-    }
-
 .titleUser{
 	border-bottom: 1px solid #dcdcdc;
 	padding-bottom: 10px;
@@ -128,7 +129,7 @@ export default {
 	position: absolute;
 	right: 2%;
 	bottom: 10%;
-	color: #55BBA6;
+	color: #fff;
 }
 .copyright{
     margin-top: 50px;
@@ -137,6 +138,7 @@ export default {
 	font-size:14px;
 	color: #898989;
     padding: 10px;
+}
 }
 }
 </style>

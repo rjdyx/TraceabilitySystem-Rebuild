@@ -160,7 +160,9 @@ export default {
             checkeds: [],
             disabled: false,
             editAllowance: 0,
-            allowance: 0
+            allowance: 0,
+            cname: '',
+            cval: ''
         }
     },
     mounted () {
@@ -214,8 +216,12 @@ export default {
             console.log(tab, event)
         },
         // 返回InputTextSelect组件的数据
-        returnShuju ({name, value}) {
-            this.editForm[name] = value
+        returnShuju (data) {
+            if (this.url.indexOf('course') >= 0 || this.url.indexOf('grow') >= 0) {
+                this.editForm['img1'] = data.value
+            } else {
+                this.editForm[data.name] = data.value
+            }
         },
         // 关闭表单事件
         closeClick () {

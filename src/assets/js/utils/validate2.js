@@ -49,7 +49,7 @@ exports.reNumber = (rule, value, callback, source, options) => {
     if (value !== '' && value !== undefined && value !== null) {
         if (/^(-?\d+)(\.\d+)?$/.test(value)) {
             if (rule.getMax !== undefined) {
-                if (parseInt(value) >= parseInt(rule.getMax)) {
+                if (parseInt(value) > parseInt(rule.getMax)) {
                     callback(new Error(rule.getMessage))
                 } else {
                     callback()

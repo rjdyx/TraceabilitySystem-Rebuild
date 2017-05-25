@@ -122,8 +122,10 @@ export default {
     },
     mounted () {
         this.change_siderBar(true)
+    },
+    created () {
+        document.title = '问题反馈'
     }
-
 }
 </script>
 
@@ -135,6 +137,7 @@ export default {
 	.question_content {
 	  	margin-top: 15px;
 	  	overflow: scroll;
+        padding-right: 10px;
 	  	.fonts{
 	  		font-size: 20px;
 	  	}

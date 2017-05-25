@@ -5,9 +5,6 @@ import newbuildBtn from '../../components/public/newbuild-btn.vue'
 import output from '../../components/public/output.vue'
 import selectSection from '../../components/public/select-section.vue'
 import datePick from '../../components/public/datePick.vue'
-import inputText from '../../components/public/inputText.vue'
-import inputTextArea from '../../components/public/inputTextArea.vue'
-import inputSelect from '../../components/public/inputSelect.vue'
 import inputDate from '../../components/public/inputDate.vue'
 import inputFile from '../../components/public/inputFile.vue'
 import inputTextSelect from '../../components/public/inputTextSelect.vue'
@@ -293,7 +290,7 @@ export default {
             {
                 name: 'sex',
                 type: 'select',
-                component: inputSelect,
+                component: null,
                 isNull: false,
                 label: '性别',
                 placeholder: '',
@@ -391,7 +388,7 @@ export default {
             {
                 name: 'sex',
                 type: 'select',
-                component: inputSelect,
+                component: null,
                 isNull: false,
                 label: '性别',
                 placeholder: '',
@@ -2910,6 +2907,7 @@ export default {
                 isNull: false,
                 label: '圈舍',
                 placeholder: '请选择圈舍',
+                disabled: true,
                 rule: {required: true, trigger: 'blur', type: 'number', message: '请选择圈舍'},
                 options: []
             },
@@ -3004,7 +3002,7 @@ export default {
         url: 'fodderuse',
         // 链接批次信息模块数据的桥（养殖批次详情）
         batch: 'feedBatch',
-        searchPlaceholder: '请输入喂养方式进行搜索',
+        searchPlaceholder: '请输入饲料批次号进行搜索',
         selectValueId: [['fodder_id', 'fodder_name', true]],
         selectDefault: [{value: '', label: '饲料选择'}],
         selectSearch: ['fodderuse.fodder_id'],
@@ -4201,7 +4199,7 @@ export default {
         url: 'dispose',
         // 链接批次信息模块数据的桥（养殖批次详情）
         batch: 'innocuityBatch',
-        searchPlaceholder: '请输入操作内容进行',
+        searchPlaceholder: '请输入无害化批次号进行搜索',
         theads: ['无害化批次号', '操作日期', '操作内容', '实行原因', '操作人员', '指导专家', '图片', '备注信息'],
         protos: ['serial', 'date', 'content', 'why', 'operate_name', 'expert_name', 'img', 'memo'],
         selectSearch: ['dispose.expert_name'],
@@ -4467,7 +4465,7 @@ export default {
             {
                 name: 'operate_id',
                 type: 'select',
-                component: inputSelect,
+                component: null,
                 isNull: false,
                 label: '出栏人',
                 placeholder: '请选择人物',
@@ -5092,13 +5090,14 @@ export default {
             selectAvl2: ['beast', ''],
             selectUrl2: [['packs', 'id', 'serial', true], ['comes', 'id', 'serial', true], ['storages', 'id', 'serial', true], ['storages', 'id', 'serial', true]],
             selectInit2: [{value: '', label: '加工批次号选择'}, {value: '', label: '出栏批次号选择'}, {value: '', label: '请选择入库批次(平台)'}, {value: '', label: '请选择入库批次(非平台)'}],
-            selectWhereArr2: [[], [{n: 'type', v: 0}, {n: 'category', v: 'plant'}], [{n: 'type', v: 1}, {n: 'category', v: 'plant'}]],
+            selectWhereArr2: [[{n: 'type', v: 'beast'}], [], [{n: 'type', v: 0}, {n: 'category', v: 'plant'}], [{n: 'type', v: 1}, {n: 'category', v: 'plant'}]],
             popNumber2: [0, 3, 4, 5],
             // labUrl: 'come-rfid',
             curl: 'pack-product-rfid',
             opqcurl: '{x}/pack-product',
             type: 'assoc',
-            assocNum: 6,
+            assocNum: 1,
+            productNum: 1,
             components: [{
                 name: 'pack_id',
                 type: 'select',
@@ -5231,7 +5230,7 @@ export default {
                 theads: ['溯源码', '生产日期', '溯源次数'],
                 protos: ['code', 'date', 'time'],
                 valueId: 'code_ids',
-                errormsg: '请选择rfid',
+                errormsg: '请选择溯源码',
                 tableVal: []
             }]
         }],
@@ -5958,7 +5957,7 @@ export default {
             searchPlaceholder: '请输入肥料名称',
             selectDefault: [{value: '', label: '肥料类别'}],
             theads: ['肥料分类', '肥料名称', '用途', '包装规格', '产地', '经销商名称', '联系方式', '图片', '备注'],
-            protos: ['category_name', 'name', 'usage', 'specification', 'origin', 'specification', 'phone', 'img', 'memo'],
+            protos: ['category_name', 'name', 'usage', 'specification', 'origin', 'dealer', 'phone', 'img', 'memo'],
             widths: [50, 50, 50, 50, 50, 50, 50, 50, 50],
             typeComponent: [{
                 component: importBtn
@@ -6469,7 +6468,7 @@ export default {
                 isNull: false,
                 label: '种植日期',
                 placeholder: '',
-                rule: [{required: true}, {validator: validate2.reDate, message: '请输入种植日期'}]
+                rule: [{required: true, message: '请输入种植日期'}, {validator: validate2.reDate, message: '请输入种植日期'}]
             },
             {
                 name: 'area',
@@ -6557,7 +6556,7 @@ export default {
                 isNull: false,
                 label: '种植日期',
                 placeholder: '',
-                rule: [{required: true}, {validator: validate2.reDate, message: '请输入种植日期'}]
+                rule: [{required: true, message: '请输入种植日期'}, {validator: validate2.reDate, message: '请输入种植日期'}]
             },
             {
                 name: 'area',
@@ -6668,12 +6667,12 @@ export default {
                     isNull: false,
                     label: '施肥日期',
                     placeholder: '',
-                    rule: [{required: true}, {validator: validate2.reDate, message: '请输入施肥日期'}]
+                    rule: [{required: true, message: '请输入施肥日期'}, {validator: validate2.reDate, message: '请输入施肥日期'}]
                 },
                 {
                     name: 'weather',
                     type: 'select',
-                    component: inputSelect,
+                    component: null,
                     isNull: false,
                     label: '天气',
                     placeholder: '',
@@ -6792,12 +6791,12 @@ export default {
                     isNull: false,
                     label: '施肥日期',
                     placeholder: '',
-                    rule: [{required: true}, {validator: validate2.reDate, message: '请输入施肥日期'}]
+                    rule: [{required: true, message: '请输入施肥日期'}, {validator: validate2.reDate, message: '请输入施肥日期'}]
                 },
                 {
                     name: 'weather',
                     type: 'select',
-                    component: inputSelect,
+                    component: null,
                     isNull: false,
                     label: '天气',
                     placeholder: '',
@@ -6943,12 +6942,12 @@ export default {
                     isNull: false,
                     label: '喷洒日期',
                     placeholder: '',
-                    rule: [{required: true}, {validator: validate2.reDate, message: '请输入喷洒日期'}]
+                    rule: [{required: true, message: '请输入喷洒日期'}, {validator: validate2.reDate, message: '请输入喷洒日期'}]
                 },
                 {
                     name: 'weather',
                     type: 'select',
-                    component: inputSelect,
+                    component: null,
                     isNull: false,
                     label: '天气',
                     placeholder: '',
@@ -7085,12 +7084,12 @@ export default {
                     isNull: false,
                     label: '喷洒日期',
                     placeholder: '',
-                    rule: [{required: true}, {validator: validate2.reDate, message: '请输入喷洒日期'}]
+                    rule: [{required: true, message: '请输入喷洒日期'}, {validator: validate2.reDate, message: '请输入喷洒日期'}]
                 },
                 {
                     name: 'weather',
                     type: 'select',
-                    component: inputSelect,
+                    component: null,
                     isNull: false,
                     label: '天气',
                     placeholder: '',
@@ -7262,7 +7261,7 @@ export default {
                 components: [{
                     name: 'name',
                     type: 'select',
-                    component: inputSelect,
+                    component: null,
                     isNull: false,
                     label: '检测类型',
                     placeholder: '',
@@ -7295,12 +7294,12 @@ export default {
                     isNull: false,
                     label: '检测日期',
                     placeholder: '',
-                    rule: [{required: true}, {validator: validate2.reDate, message: '请输入检测日期'}]
+                    rule: [{required: true, message: '请输入检测日期'}, {validator: validate2.reDate, message: '请输入检测日期'}]
                 },
                 {
                     name: 'weather',
                     type: 'select',
-                    component: inputSelect,
+                    component: null,
                     isNull: false,
                     label: '天气',
                     placeholder: '',
@@ -7419,7 +7418,7 @@ export default {
                 {
                     name: 'name',
                     type: 'select',
-                    component: inputSelect,
+                    component: null,
                     isNull: false,
                     label: '检测类型',
                     placeholder: '',
@@ -7452,12 +7451,12 @@ export default {
                     isNull: false,
                     label: '检测日期',
                     placeholder: '',
-                    rule: [{required: true}, {validator: validate2.reDate, message: '请输入检测日期'}]
+                    rule: [{required: true, message: '请输入检测日期'}, {validator: validate2.reDate, message: '请输入检测日期'}]
                 },
                 {
                     name: 'weather',
                     type: 'select',
-                    component: inputSelect,
+                    component: null,
                     isNull: false,
                     label: '天气',
                     placeholder: '',
@@ -7595,12 +7594,12 @@ export default {
                     isNull: false,
                     label: '操作日期',
                     placeholder: '',
-                    rule: [{required: true}, {validator: validate2.reDate, message: '请输入操作日期'}]
+                    rule: [{required: true, message: '请输入操作日期'}, {validator: validate2.reDate, message: '请输入操作日期'}]
                 },
                 {
                     name: 'weather',
                     type: 'select',
-                    component: inputSelect,
+                    component: null,
                     isNull: false,
                     label: '天气',
                     placeholder: '',
@@ -7696,12 +7695,12 @@ export default {
                     isNull: false,
                     label: '操作日期',
                     placeholder: '',
-                    rule: [{required: true}, {validator: validate2.reDate, message: '请输入操作日期'}]
+                    rule: [{required: true, message: '请输入操作日期'}, {validator: validate2.reDate, message: '请输入操作日期'}]
                 },
                 {
                     name: 'weather',
                     type: 'select',
-                    component: inputSelect,
+                    component: null,
                     isNull: false,
                     label: '天气',
                     placeholder: '',
@@ -7990,7 +7989,7 @@ export default {
         searchPlaceholder: '请输入采收批次号进行搜索',
         theads: ['采收批次', '采收日期', '所属种植区', '种植批次号', '采收数量(kg)', '入库部门', '存放仓库位置', '操作人', '录入人', '状态', '备注'],
         protos: ['serial', 'date', 'plantation_name', 'cultivate_serial', 'amount', 'department', 'position', 'operate_name', 'user_name', 'state', 'memo'],
-        widths: [50, 50, 50, 60, 50, 50, 50, 50, 50, 30, 50],
+        widths: [60, 50, 50, 60, 50, 50, 50, 50, 50, 30, 50],
         typeComponent: [
             {
                 component: output
@@ -8107,7 +8106,7 @@ export default {
                 isNull: true,
                 label: '采收日期',
                 placeholder: '必填',
-                rule: [{required: true}, {validator: validate2.reDate, message: '请输入采收日期'}]
+                rule: [{required: true, message: '请输入采收日期'}, {validator: validate2.reDate, message: '请输入采收日期'}]
             },
             {
                 name: 'cultivate_id',
@@ -8211,7 +8210,7 @@ export default {
                 isNull: true,
                 label: '加工日期',
                 placeholder: '',
-                rule: [{required: true}, {validator: validate2.reDate, message: '请输入加工日期'}]
+                rule: [{required: true, message: '请输入加工日期'}, {validator: validate2.reDate, message: '请输入加工日期'}]
             },
             {
                 name: 'origin',
@@ -8272,7 +8271,7 @@ export default {
                 isNull: true,
                 label: '加工日期',
                 placeholder: '',
-                rule: [{required: true}, {validator: validate2.reDate, message: '请输入加工日期'}]
+                rule: [{required: true, message: '请输入加工日期'}, {validator: validate2.reDate, message: '请输入加工日期'}]
             },
             {
                 name: 'operate_id',
@@ -8339,7 +8338,7 @@ export default {
                 label: '检测日期',
                 placeholder: '',
                 disabled: true,
-                rule: [{required: true}, {validator: validate2.reDate, message: '请输入检测日期'}]
+                rule: [{required: true, message: '请输入检测日期'}, {validator: validate2.reDate, message: '请输入检测日期'}]
             },
             {
                 name: 'operate_id',
@@ -8348,7 +8347,7 @@ export default {
                 isNull: false,
                 label: '负责人',
                 placeholder: '请选择人物',
-                rule: {required: true, trigger: 'blur', type: 'number'},
+                rule: {required: true, trigger: 'blur', type: 'number', message: '请选择负责人'},
                 options: []
             },
             {
@@ -8446,7 +8445,7 @@ export default {
                 label: '检测日期',
                 placeholder: '',
                 disabled: true,
-                rule: [{required: true}, {validator: validate2.reDate, message: '请输入检测日期'}]
+                rule: [{required: true, message: '请输入检测日期'}, {validator: validate2.reDate, message: '请输入检测日期'}]
             },
             {
                 name: 'operate_id',
@@ -8575,14 +8574,14 @@ export default {
         newComponent: [{
             tab: '新建溯源码信息',
             hiddenValue: {type: 'plant'},
-            selectAvl2: ['plant', ''],
             selectUrl2: [['packs', 'id', 'serial', true], ['harvests', 'id', 'serial', true], ['storages', 'id', 'serial', true], ['storages', 'id', 'serial', true]],
             selectInit2: [{value: '', label: '加工批次号选择'}, {value: '', label: '采收批次号选择'}, {value: '', label: '请选择入库批次(平台)'}, {value: '', label: '请选择入库批次(非平台)'}],
-            selectWhereArr2: [[], [{n: 'type', v: 0}, {n: 'category', v: 'plant'}], [{n: 'type', v: 1}, {n: 'category', v: 'plant'}]],
+            selectWhereArr2: [[{n: 'type', v: 'plant'}], [], [{n: 'type', v: 0}, {n: 'category', v: 'plant'}], [{n: 'type', v: 1}, {n: 'category', v: 'plant'}]],
             popNumber2: [0, 3, 4, 5],
             curl: 'pack-product-rfid',
             opqcurl: '{x}/pack-product',
             type: 'assoc',
+            assocNum: 1,
             components: [{
                 name: 'pack_id',
                 type: 'select',
@@ -8633,7 +8632,7 @@ export default {
                 }]
             },
             {
-                name: 'come_id',
+                name: 'harvest_id',
                 type: 'select',
                 component: null,
                 isNull: false,
@@ -9078,7 +9077,7 @@ export default {
                 {
                     name: 'sex',
                     type: 'select',
-                    component: inputSelect,
+                    component: null,
                     isNull: false,
                     label: '性别',
                     placeholder: '',
@@ -9152,7 +9151,7 @@ export default {
                 {
                     name: 'sex',
                     type: 'select',
-                    component: inputSelect,
+                    component: null,
                     isNull: false,
                     label: '性别',
                     placeholder: '',
@@ -9255,13 +9254,14 @@ export default {
             selectUrl2: [['operates', 'id', 'name', true], ['vehicles', 'id', 'number', true], ['drivers', 'id', 'name', true], ['logistics', 'id', 'name', true]],
             selectInit2: [{value: '', label: '操作人员选择'}, {value: '', label: '请选择车辆'}, {value: '', label: '请选择司机'}, {value: '', label: '请选择物流公司'}],
             popNumber2: [8, 3, 4, 5],
+            type: 'selectAssoc',
             components: [{
                 name: 'datetime',
                 type: 'date',
                 component: inputDate,
                 isNull: true,
                 label: '物流日期',
-                rule: [{required: true, trigger: 'blur', message: '请输入物流日期'}, {validator: validate2.reDate, message: '请输入物流日期'}]
+                rule: [{required: true, message: '请输入物流日期'}, {validator: validate2.reDate, message: '请输入物流日期'}]
             },
             {
                 name: 'name',
@@ -9542,7 +9542,7 @@ export default {
                     isNull: false,
                     label: '入库日期时间',
                     placeholder: '',
-                    rule: [{required: true, trigger: 'blur', message: '请输入入库时间'}, {validator: validate2.reDate, message: '请输入入库时间'}]
+                    rule: [{required: true, message: '请输入入库时间'}, {validator: validate2.reDate, message: '请输入入库时间'}]
                 },
                 {
                     name: 'product_id',
@@ -9705,7 +9705,7 @@ export default {
                     isNull: false,
                     label: '入库日期时间',
                     placeholder: '',
-                    rule: [{required: true, trigger: 'blur', message: '请输入入库时间'}, {validator: validate2.reDate, message: '请输入入库时间'}]
+                    rule: [{required: true, message: '请输入入库时间'}, {validator: validate2.reDate, message: '请输入入库时间'}]
                 },
                 {
                     name: 'product_id',
@@ -9778,7 +9778,7 @@ export default {
                     isNull: false,
                     label: '入库时间',
                     placeholder: '',
-                    rule: [{required: true, trigger: 'blur', message: '请输入入库时间'}, {validator: validate2.reDate, message: '请输入入库时间'}]
+                    rule: [{required: true, message: '请输入入库时间'}, {validator: validate2.reDate, message: '请输入入库时间'}]
                 },
                 {
                     name: 'product_id',
@@ -9855,16 +9855,17 @@ export default {
         roleName: ['sell/order', 0],
         batch: 'saleOrder',
         searchPlaceholder: '请输入销售订单号',
-        theads: ['销售订单批次号', '订单日期', '物流批次', '客户名称', '金额', '数量', '销售员', '录入人', '备注'],
-        protos: ['serial', 'datetime', 'delivery_serial', 'client_name', 'money', 'amount', 'operate_name', 'user_name', 'memo'],
-        widths: [50, 50, 50, 50, 50, 50, 50, 50, 50],
-        typeComponent: [
-            {
-                component: output
-            },
-            {
-                component: newbuildBtn
-            }],
+        changeDataArr: [{state: {0: '未完成', 1: '已完成'}}],
+        theads: ['销售订单批次号', '订单日期', '物流批次', '客户名称', '金额', '数量', '销售员', '录入人', '状态', '备注'],
+        protos: ['serial', 'datetime', 'delivery_serial', 'client_name', 'money', 'amount', 'operate_name', 'user_name', 'state', 'memo'],
+        widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
+        typeComponent: [{
+            component: output
+        },
+        {
+            component: newbuildBtn
+        }],
+        moreComponent: [{value: '状态'}],
         newComponent: [{
             tab: '新建订单信息',
             hiddenValue: {type: 1},
@@ -9879,7 +9880,7 @@ export default {
                 label: '订单日期时间',
                 placeholder: '',
                 disabled: true,
-                rule: [{required: true, trigger: 'blur', message: '请输入订单日期时间'}, {validator: validate2.reDate, message: '请输入订单日期时间'}]
+                rule: [{required: true, message: '请输入订单日期时间'}, {validator: validate2.reDate, message: '请输入订单日期时间'}]
             },
             {
                 name: 'delivery_id',
@@ -10043,7 +10044,7 @@ export default {
                 isNull: false,
                 label: '用户名',
                 placeholder: '请输入用户名',
-                rule: [{required: true, trigger: 'blur'}, {validator: validate2.reCheck}]
+                rule: [{required: true, trigger: 'blur', message: '请输入用户名'}, {validator: validate2.reCheck}]
             },
             {
                 name: 'email',
@@ -10086,7 +10087,8 @@ export default {
                 isNull: false,
                 label: '出生日期',
                 placeholder: '请选择日期',
-                rule: {required: false, trigger: 'blur'}
+                rule: [{required: true, message: '请输入出生日期'}, {validator: validate2.reDate, message: '请输入出生日期'}]
+
             },
             {
                 name: 'phone',
@@ -10095,7 +10097,7 @@ export default {
                 isNull: false,
                 label: '手机号码',
                 placeholder: '请输入手机号码',
-                rule: {required: false, trigger: 'blur', type: 'number'}
+                rule: {required: false, trigger: 'blur'}
             },
             {
                 name: 'department',
@@ -10122,7 +10124,7 @@ export default {
                 isNull: false,
                 label: '工号',
                 placeholder: '请输入工号',
-                rule: {required: false, trigger: 'blur', type: 'number'}
+                rule: {required: false, trigger: 'blur'}
             },
             {
                 name: 'img',
@@ -10154,7 +10156,7 @@ export default {
                 isNull: false,
                 label: '用户名',
                 placeholder: '请输入用户名',
-                rule: [{required: true, trigger: 'blur'}, {validator: validate2.reCheck}]
+                rule: [{required: true, trigger: 'blur', message: '请输入用户名'}, {validator: validate2.reCheck}]
             },
             {
                 name: 'email',
@@ -10292,7 +10294,7 @@ export default {
                 isNull: false,
                 label: '角色名称',
                 placeholder: '请输入角色名称',
-                rule: [{required: true, trigger: 'blur'}, {validator: validate2.reCheck}]
+                rule: [{required: true, trigger: 'blur', message: '请输入角色名称'}, {validator: validate2.reCheck}]
             },
             {
                 name: 'description',
@@ -10315,7 +10317,7 @@ export default {
                 isNull: false,
                 label: '角色名称',
                 placeholder: '请输入角色名称',
-                rule: [{required: true, trigger: 'blur'}, {validator: validate2.reCheck}]
+                rule: [{required: true, trigger: 'blur', message: '请输入角色名称'}, {validator: validate2.reCheck}]
             },
             {
                 name: 'description',

@@ -102,9 +102,11 @@
             border-radius:50%;
             background:white;
             z-index:3;
+            cursor: pointer;
         }
         .el-icon-circle-close:hover{
             color:#0087b5;
+            cursor:pointer;
         }
         .btn_change{
             color: #fff;
