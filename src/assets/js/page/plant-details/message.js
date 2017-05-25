@@ -694,8 +694,8 @@ export default {
             url: 'pack-product-rfid',
             tab: '加工产品溯源码信息',
             searchPlaceholder: '请输入溯源码进行搜索',
-            headList: ['产品溯源码', '生产日期', '溯源次数', '备注'],
-            protos: ['code', 'date', 'time', 'memo'],
+            headList: ['产品溯源码', '生产日期', 'RFID', '溯源次数', '备注'],
+            protos: ['code', 'date', 'rfid', 'time', 'memo'],
             widths: [50, 50, 50, 50, 50],
             hiddeEdit: true,
             typeComponent: [{

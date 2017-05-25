@@ -312,8 +312,13 @@ export default {
         handleSelectionChange (val) {
             let ids = []
             let com = this.newComponent[0]
+            console.log(this.url)
             for (let key in val) {
-                ids.push(val[key].id)
+                if (this.url === 'code' || this.url.indexOf('pack-product-rfid') >= 0) {
+                    ids.push(val[key].rfid_id)
+                } else {
+                    ids.push(val[key].id)
+                }
             }
             this.tableForm[com.components[com.assocNum].valueId] = ids
             this.ids = ids
