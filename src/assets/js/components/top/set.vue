@@ -221,7 +221,8 @@ export default {
                 }
             })
     },
-    watch: {
+    created () {
+        document.title = '系统设置'
     }
 }
 </script>

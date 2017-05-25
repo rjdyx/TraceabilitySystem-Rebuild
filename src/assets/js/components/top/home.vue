@@ -189,6 +189,9 @@ export default{
             .then((responce) => {
                 this.codes = responce.data
             })
+    },
+    created () {
+        document.title = '首页'
     }
 }
 

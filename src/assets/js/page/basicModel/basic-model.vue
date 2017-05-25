@@ -758,6 +758,7 @@ export default {
         this.getAllMsg()
         let change = $('.available')
         change.css('display', 'none')
+        console.log(this.totitle)
     },
     watch: {
         models () {
@@ -859,7 +860,7 @@ export default {
             text-align: center;
         }
         #operate{
-            padding-right: 10px;
+            min-width: 1400px;
         }
         .footer {
             width: 99.9%;
