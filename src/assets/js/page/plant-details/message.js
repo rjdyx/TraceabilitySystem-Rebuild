@@ -1470,7 +1470,7 @@ export default {
                     theads: ['溯源码', '生产日期', '溯源次数'],
                     protos: ['code', 'date', 'time'],
                     valueId: 'code_ids',
-                    errormsg: '请选择rfid',
+                    errormsg: '请选择入库溯源码',
                     tableVal: []
                 }]
             }],
