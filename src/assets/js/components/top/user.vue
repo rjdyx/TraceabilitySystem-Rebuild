@@ -86,6 +86,9 @@ export default {
                 }
                 this.img = ret.user.img
             })
+    },
+    created () {
+        document.title = '用户信息管理'
     }
 }
 </script>

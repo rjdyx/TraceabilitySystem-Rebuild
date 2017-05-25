@@ -28,6 +28,9 @@ export default {
     },
     mounted () {
         this.change_siderBar(true)
+    },
+    created () {
+        document.title = '帮助文档'
     }
 }
 </script>

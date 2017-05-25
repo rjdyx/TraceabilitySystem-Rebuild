@@ -88,6 +88,9 @@ export default {
                 this.watermark = responce.data.watermark
                 this.id = responce.data.id
             })
+    },
+    created () {
+        document.title = '公司信息管理'
     }
 }
 </script>

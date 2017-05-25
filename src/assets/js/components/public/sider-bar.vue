@@ -21,7 +21,7 @@
                     </template>
                     <el-menu-item 
                         v-for="(subMenu, subIndex) in menu.children" 
-                        :index="subMenu.path" exact v-if="subMenu.role"> 
+                        :index="subMenu.path" exact v-if="subMenu.role" @click="toggle(subIndex, subMenu.name)"> 
                         {{subMenu.name}}
                     </el-menu-item>
                 </el-submenu>
@@ -54,12 +54,16 @@ export default {
     },
     mounted () {
         this.record = this.$store.getters.getRecord
+        this.toggle(subMenu, subIndex)
     },
     methods: {
         handle (index) {
             this.$store.dispatch('switch_record', index)
         },
         handleClose (key, keyPath) {
+        },
+        toggle (subMenu, subIndex) {
+            document.title = subIndex
         }
     },
     watch: {
