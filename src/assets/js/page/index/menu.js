@@ -229,6 +229,11 @@ export default[{
         role: roleData.system === undefined ? 0 : roleData.system.statement === undefined ? 0 : 1,
         path: '/index/ondone',
         name: '报表统计'
+    },
+    {
+        role: roleData.system === undefined ? 0 : roleData.system.custom === undefined ? 0 : 1,
+        path: '/index/message/custom',
+        name: '溯源自定义'
     }
     ]
 },

@@ -45,6 +45,9 @@
                     v-for="operateItem in tabItem.typeComponent"
                     :is="operateItem.component"
                     :url="apiUrlArr[tabList[index].url]"
+                    :type="tabItem.whereArr"
+                    :routeId="routeId"
+                    :curl="url"
                     class="fr"
                 ></component>
             </div>
@@ -387,24 +390,33 @@ export default {
         // 获取列表信息
         getAllMsg (data = {}) {
             let names = this.tabList[this.index].urlid
+            let whereArr = this.tabList[this.index].whereArr
+            if (whereArr !== undefined && whereArr !== '') {
+                for (let k in whereArr) {
+                    data[k] = whereArr[k]
+                }
+            }
             if (names !== undefined && names !== null) {
                 data[names] = this.$route.params.id
             }
+            var datas = {}
             this.$dataGet(this, this.apiUrlArr[this.tabList[this.index].url], {params: data})
                 .then((responce) => {
-                    if (responce.data.data.length !== 0) {
-                        var ret = this.$conversion(this.tabItem.changeDataArr, responce.data.data, 1)
-                        ret = this.$eltable(ret)
-                        ret = this.$getProductInfo(ret)
-                        this.$set(this, 'tableData', ret)
-                        this.total_num = responce.data.total
-                        this.num = responce.data.last_page
-                        this.paginator = responce.data
-                    } else {
-                        this.$set(this, 'tableData', responce.data.data)
-                        this.total_num = 0
-                        this.num = 0
-                        this.paginator = 0
+                    if (responce.data.data !== undefined) {
+                        if (responce.data.data.length !== 0) {
+                            var ret = this.$conversion(this.tabItem.changeDataArr, responce.data.data, 1)
+                            ret = this.$eltable(ret)
+                            ret = this.$getProductInfo(ret)
+                            this.$set(this, 'tableData', ret)
+                            this.total_num = responce.data.total
+                            this.num = responce.data.last_page
+                            this.paginator = responce.data
+                        } else {
+                            this.$set(this, 'tableData', responce.data.data)
+                            this.total_num = 0
+                            this.num = 0
+                            this.paginator = 0
+                        }
                     }
                 })
         },
@@ -570,9 +582,15 @@ export default {
                 for (let key in this.checkObject) {
                     excelArr.push(this.checkObject[key].id)
                 }
+
                 str = str + '?excel=' + excelArr
                 if (this.paramsIndex !== undefined) {
                     str = str + '&type=' + this.paramsIndex
+                }
+                if (this.tabItem.whereArr !== undefined) {
+                    for (let k in this.tabItem.whereArr) {
+                        str += '&' + k + '=' + this.tabItem.whereArr[k]
+                    }
                 }
                 window.location.href = this.$adminUrl(this.apiUrlArr[this.tabList[this.index].url]) + str
             } else {

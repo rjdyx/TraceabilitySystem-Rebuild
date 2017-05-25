@@ -27,7 +27,7 @@
                 <el-input   
                     :placeholder="searchPlaceholder"
                     v-model="inputValue"
-                    :on-icon-click="search" class="searchInp" size="small">
+                    :on-icon-click="search" class="searchInp" size="small" @keyup.enter.native="textAndDateFind">
                 </el-input>
                 <el-button size="small" class="searchBtn" @click="textAndDateFind">搜索</el-button>
             </div>
@@ -284,6 +284,7 @@ export default {
         },
         jumpDetails (row) {
             var id = row.id
+            var state = row.state
             if (row.code !== undefined) {
                 id = row.pack_id
             } else if (row.harvest_change !== undefined) {
@@ -371,10 +372,23 @@ export default {
             if (com.selectUrl2) {
                 for (let key in com.selectUrl2) {
                     let newArr = this.$addAndEditSelectMethod(com.selectUrl2[key])
-                    if (com.selectAvl2 !== undefined) {
-                        var type = com.selectAvl2[key]
+                    let data = {table: newArr.selectUrl}
+                    let field = com.selectWhere2
+                    if (com.selectWhere2 !== undefined) {
+                        data.field = field
+                        data.id = this.headData.area_id
                     }
-                    this.$dataGet(this, '/util/selects', {table: newArr.selectUrl, type: type})
+                    // 多条件查询
+                    if (com.selectWhereArr2 !== undefined) {
+                        if (com.selectWhereArr2[key] !== undefined || com.selectWhereArr2[key] !== '') {
+                            var arr = []
+                            for (let k in com.selectWhereArr2[key]) {
+                                arr[k] = [com.selectWhereArr2[key][k].n, com.selectWhereArr2[key][k].v]
+                            }
+                            data.where = arr
+                        }
+                    }
+                    this.$dataGet(this, '/util/selects', data)
                         .then((responce) => {
                             if (responce.data !== '') {
                                 if (responce.data.length !== 0) {
@@ -453,7 +467,7 @@ export default {
             var com = this.newComponent[0]
             if (com.components[com.assocNum] !== undefined) {
                 this.$set(com.components[com.assocNum], 'tableVal', [])
-                this.newComponent[0].components[1].options = []
+                this.newComponent[0].components[com.assocNum].options = []
             }
         },
         // 关闭编辑弹窗
@@ -553,6 +567,8 @@ export default {
                         message: '已取消删除'
                     })
                 })
+            } else {
+                this.$message('请选择序号')
             }
         },
         // 更改批次状态

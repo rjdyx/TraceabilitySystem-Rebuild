@@ -5,9 +5,6 @@ import newbuildBtn from '../../components/public/newbuild-btn.vue'
 import output from '../../components/public/output.vue'
 import selectSection from '../../components/public/select-section.vue'
 import datePick from '../../components/public/datePick.vue'
-import inputText from '../../components/public/inputText.vue'
-import inputTextArea from '../../components/public/inputTextArea.vue'
-import inputSelect from '../../components/public/inputSelect.vue'
 import inputDate from '../../components/public/inputDate.vue'
 import inputFile from '../../components/public/inputFile.vue'
 import inputTextSelect from '../../components/public/inputTextSelect.vue'
@@ -293,7 +290,7 @@ export default {
             {
                 name: 'sex',
                 type: 'select',
-                component: inputSelect,
+                component: null,
                 isNull: false,
                 label: '性别',
                 placeholder: '',
@@ -314,7 +311,7 @@ export default {
                 isNull: true,
                 label: '年龄',
                 placeholder: '',
-                rule: null
+                rule: [{required: false, message: '请输入整数'}, {validator: validate2.reInteger}]
             },
             {
                 name: 'phone',
@@ -339,7 +336,7 @@ export default {
                 type: 'file',
                 component: inputFile,
                 isNull: true,
-                label: '',
+                label: '人员图片',
                 placeholder: '',
                 rule: null
             },
@@ -391,7 +388,7 @@ export default {
             {
                 name: 'sex',
                 type: 'select',
-                component: inputSelect,
+                component: null,
                 isNull: false,
                 label: '性别',
                 placeholder: '',
@@ -437,7 +434,7 @@ export default {
                 type: 'file',
                 component: inputFile,
                 isNull: true,
-                label: '',
+                label: '人员图片',
                 placeholder: '',
                 rule: null
             },
@@ -483,6 +480,7 @@ export default {
             selectInit: [{value: '', label: '选择专家分类'}],
             checkNumber: [1],
             popNumber: [0],
+            hasImg: true,
             components: [{
                 name: 'category_id',
                 type: 'select',
@@ -569,7 +567,7 @@ export default {
                 type: 'file',
                 component: inputFile,
                 isNull: true,
-                label: '',
+                label: '专家图片',
                 placeholder: '',
                 rule: null
             },
@@ -589,6 +587,7 @@ export default {
             selectUrl: [['category', 'expert', 'category_id', 'category_name', true]],
             checkNumber: [1],
             popNumber: [0],
+            hasImg: true,
             components: [{
                 name: 'category_id',
                 type: 'select',
@@ -675,7 +674,7 @@ export default {
                 type: 'file',
                 component: inputFile,
                 isNull: true,
-                label: '',
+                label: '专家图片',
                 placeholder: '',
                 rule: null
             },
@@ -715,6 +714,7 @@ export default {
         widths: [50, 50, 50, 50, 50, 50, 50],
         listComponent: [{
             components: [{
+                name: 'clients.category_id',
                 value: '',
                 type: 'select',
                 component: selectSection,
@@ -1026,7 +1026,7 @@ export default {
         }],
         listComponent: [{
             components: [{
-                name: 'clients.category_id',
+                name: 'suppliers.category_id',
                 value: '',
                 type: 'select',
                 component: selectSection,
@@ -1160,7 +1160,7 @@ export default {
                 type: 'file',
                 component: inputFile,
                 isNull: true,
-                label: '',
+                label: '产品图片',
                 placeholder: '',
                 rule: null
             },
@@ -1278,7 +1278,7 @@ export default {
                 component: inputFile,
                 isNull: true,
                 label: '',
-                placeholder: '',
+                placeholder: '产品图片',
                 rule: null
             },
             {
@@ -2907,6 +2907,7 @@ export default {
                 isNull: false,
                 label: '圈舍',
                 placeholder: '请选择圈舍',
+                disabled: true,
                 rule: {required: true, trigger: 'blur', type: 'number', message: '请选择圈舍'},
                 options: []
             },
@@ -2947,7 +2948,7 @@ export default {
                 isNull: false,
                 label: '开始日期',
                 placeholder: '',
-                rule: [{required: true}, {validator: validate2.reDate, message: '请输入种植日期'}]
+                rule: [{required: true, message: '请输入种植日期'}, {validator: validate2.reDate, message: '请输入种植日期'}]
             },
             {
                 name: 'way',
@@ -3001,7 +3002,7 @@ export default {
         url: 'fodderuse',
         // 链接批次信息模块数据的桥（养殖批次详情）
         batch: 'feedBatch',
-        searchPlaceholder: '请输入喂养方式进行搜索',
+        searchPlaceholder: '请输入饲料批次号进行搜索',
         selectValueId: [['fodder_id', 'fodder_name', true]],
         selectDefault: [{value: '', label: '饲料选择'}],
         selectSearch: ['fodderuse.fodder_id'],
@@ -4122,7 +4123,7 @@ export default {
                 isNull: false,
                 label: '操作日期',
                 placeholder: '',
-                rule: {required: true, trigger: 'blur'}
+                rule: [{required: true, message: '请输入操作日期'}, {validator: validate2.reDate, message: '请输入操作日期'}]
             },
             {
                 name: 'operate_id',
@@ -4198,7 +4199,7 @@ export default {
         url: 'dispose',
         // 链接批次信息模块数据的桥（养殖批次详情）
         batch: 'innocuityBatch',
-        searchPlaceholder: '请输入操作内容进行',
+        searchPlaceholder: '请输入无害化批次号进行搜索',
         theads: ['无害化批次号', '操作日期', '操作内容', '实行原因', '操作人员', '指导专家', '图片', '备注信息'],
         protos: ['serial', 'date', 'content', 'why', 'operate_name', 'expert_name', 'img', 'memo'],
         selectSearch: ['dispose.expert_name'],
@@ -4464,7 +4465,7 @@ export default {
             {
                 name: 'operate_id',
                 type: 'select',
-                component: inputSelect,
+                component: null,
                 isNull: false,
                 label: '出栏人',
                 placeholder: '请选择人物',
@@ -4863,7 +4864,7 @@ export default {
                 label: '检测日期',
                 placeholder: '',
                 disabled: true,
-                rule: [{required: true}, {validator: validate2.reDate, message: '请输入检测日期'}]
+                rule: [{required: true, message: '请输入检测日期'}, {validator: validate2.reDate, message: '请输入检测日期'}]
             },
             {
                 name: 'operate_id',
@@ -4970,7 +4971,7 @@ export default {
                 label: '检测日期',
                 placeholder: '',
                 disabled: true,
-                rule: [{required: true}, {validator: validate2.reDate, message: '请输入检测日期'}]
+                rule: [{required: true, message: '请输入检测日期'}, {validator: validate2.reDate, message: '请输入检测日期'}]
             },
             {
                 name: 'operate_id',
@@ -5955,7 +5956,7 @@ export default {
             searchPlaceholder: '请输入肥料名称',
             selectDefault: [{value: '', label: '肥料类别'}],
             theads: ['肥料分类', '肥料名称', '用途', '包装规格', '产地', '经销商名称', '联系方式', '图片', '备注'],
-            protos: ['category_name', 'name', 'usage', 'specification', 'origin', 'specification', 'phone', 'img', 'memo'],
+            protos: ['category_name', 'name', 'usage', 'specification', 'origin', 'dealer', 'phone', 'img', 'memo'],
             widths: [50, 50, 50, 50, 50, 50, 50, 50, 50],
             typeComponent: [{
                 component: importBtn
@@ -6670,7 +6671,7 @@ export default {
                 {
                     name: 'weather',
                     type: 'select',
-                    component: inputSelect,
+                    component: null,
                     isNull: false,
                     label: '天气',
                     placeholder: '',
@@ -6794,7 +6795,7 @@ export default {
                 {
                     name: 'weather',
                     type: 'select',
-                    component: inputSelect,
+                    component: null,
                     isNull: false,
                     label: '天气',
                     placeholder: '',
@@ -6945,7 +6946,7 @@ export default {
                 {
                     name: 'weather',
                     type: 'select',
-                    component: inputSelect,
+                    component: null,
                     isNull: false,
                     label: '天气',
                     placeholder: '',
@@ -7087,7 +7088,7 @@ export default {
                 {
                     name: 'weather',
                     type: 'select',
-                    component: inputSelect,
+                    component: null,
                     isNull: false,
                     label: '天气',
                     placeholder: '',
@@ -7259,7 +7260,7 @@ export default {
                 components: [{
                     name: 'name',
                     type: 'select',
-                    component: inputSelect,
+                    component: null,
                     isNull: false,
                     label: '检测类型',
                     placeholder: '',
@@ -7297,7 +7298,7 @@ export default {
                 {
                     name: 'weather',
                     type: 'select',
-                    component: inputSelect,
+                    component: null,
                     isNull: false,
                     label: '天气',
                     placeholder: '',
@@ -7416,7 +7417,7 @@ export default {
                 {
                     name: 'name',
                     type: 'select',
-                    component: inputSelect,
+                    component: null,
                     isNull: false,
                     label: '检测类型',
                     placeholder: '',
@@ -7454,7 +7455,7 @@ export default {
                 {
                     name: 'weather',
                     type: 'select',
-                    component: inputSelect,
+                    component: null,
                     isNull: false,
                     label: '天气',
                     placeholder: '',
@@ -7597,7 +7598,7 @@ export default {
                 {
                     name: 'weather',
                     type: 'select',
-                    component: inputSelect,
+                    component: null,
                     isNull: false,
                     label: '天气',
                     placeholder: '',
@@ -7698,7 +7699,7 @@ export default {
                 {
                     name: 'weather',
                     type: 'select',
-                    component: inputSelect,
+                    component: null,
                     isNull: false,
                     label: '天气',
                     placeholder: '',
@@ -7987,7 +7988,7 @@ export default {
         searchPlaceholder: '请输入采收批次号进行搜索',
         theads: ['采收批次', '采收日期', '所属种植区', '种植批次号', '采收数量(kg)', '入库部门', '存放仓库位置', '操作人', '录入人', '状态', '备注'],
         protos: ['serial', 'date', 'plantation_name', 'cultivate_serial', 'amount', 'department', 'position', 'operate_name', 'user_name', 'state', 'memo'],
-        widths: [50, 50, 50, 60, 50, 50, 50, 50, 50, 30, 50],
+        widths: [60, 50, 50, 60, 50, 50, 50, 50, 50, 30, 50],
         typeComponent: [
             {
                 component: output
@@ -8572,14 +8573,14 @@ export default {
         newComponent: [{
             tab: '新建溯源码信息',
             hiddenValue: {type: 'plant'},
-            selectAvl2: ['plant', ''],
             selectUrl2: [['packs', 'id', 'serial', true], ['harvests', 'id', 'serial', true], ['storages', 'id', 'serial', true], ['storages', 'id', 'serial', true]],
             selectInit2: [{value: '', label: '加工批次号选择'}, {value: '', label: '采收批次号选择'}, {value: '', label: '请选择入库批次(平台)'}, {value: '', label: '请选择入库批次(非平台)'}],
-            selectWhereArr2: [[], [{n: 'type', v: 0}, {n: 'category', v: 'plant'}], [{n: 'type', v: 1}, {n: 'category', v: 'plant'}]],
+            selectWhereArr2: [[{n: 'type', v: 'plant'}], [], [{n: 'type', v: 0}, {n: 'category', v: 'plant'}], [{n: 'type', v: 1}, {n: 'category', v: 'plant'}]],
             popNumber2: [0, 3, 4, 5],
             curl: 'pack-product-rfid',
             opqcurl: '{x}/pack-product',
             type: 'assoc',
+            assocNum: 1,
             components: [{
                 name: 'pack_id',
                 type: 'select',
@@ -9075,7 +9076,7 @@ export default {
                 {
                     name: 'sex',
                     type: 'select',
-                    component: inputSelect,
+                    component: null,
                     isNull: false,
                     label: '性别',
                     placeholder: '',
@@ -9149,7 +9150,7 @@ export default {
                 {
                     name: 'sex',
                     type: 'select',
-                    component: inputSelect,
+                    component: null,
                     isNull: false,
                     label: '性别',
                     placeholder: '',
@@ -9252,6 +9253,7 @@ export default {
             selectUrl2: [['operates', 'id', 'name', true], ['vehicles', 'id', 'number', true], ['drivers', 'id', 'name', true], ['logistics', 'id', 'name', true]],
             selectInit2: [{value: '', label: '操作人员选择'}, {value: '', label: '请选择车辆'}, {value: '', label: '请选择司机'}, {value: '', label: '请选择物流公司'}],
             popNumber2: [8, 3, 4, 5],
+            type: 'selectAssoc',
             components: [{
                 name: 'datetime',
                 type: 'date',
@@ -9852,16 +9854,17 @@ export default {
         roleName: ['sell/order', 0],
         batch: 'saleOrder',
         searchPlaceholder: '请输入销售订单号',
-        theads: ['销售订单批次号', '订单日期', '物流批次', '客户名称', '金额', '数量', '销售员', '录入人', '备注'],
-        protos: ['serial', 'datetime', 'delivery_serial', 'client_name', 'money', 'amount', 'operate_name', 'user_name', 'memo'],
-        widths: [50, 50, 50, 50, 50, 50, 50, 50, 50],
-        typeComponent: [
-            {
-                component: output
-            },
-            {
-                component: newbuildBtn
-            }],
+        changeDataArr: [{state: {0: '未完成', 1: '已完成'}}],
+        theads: ['销售订单批次号', '订单日期', '物流批次', '客户名称', '金额', '数量', '销售员', '录入人', '状态', '备注'],
+        protos: ['serial', 'datetime', 'delivery_serial', 'client_name', 'money', 'amount', 'operate_name', 'user_name', 'state', 'memo'],
+        widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
+        typeComponent: [{
+            component: output
+        },
+        {
+            component: newbuildBtn
+        }],
+        moreComponent: [{value: '状态'}],
         newComponent: [{
             tab: '新建订单信息',
             hiddenValue: {type: 1},
@@ -10400,6 +10403,517 @@ export default {
         widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
         listComponent: [],
         moreComponent: [{value: '打印'}]
+    }],
+    // 追溯信息自定义
+    custom: [{
+        settitle: '追溯信息自定义',
+        roleName: ['system/custom', 0],
+        key: 'customManage',
+        tab: '种植自定义信息',
+        batch: 'customPlant',
+        url: 'custom',
+        paramsIndex: 'plant',
+        theads: ['批次号', '种植场名称', '种植场负责人', '种植场面积', '种植区名称', '种植区负责人', '种植区面积', '种植日期', '种植人', '采收日期', '采收人'],
+        protos: ['serial', 'name', 'operate', 'area', 'c_name', 'c_operate', 'c_area', 'bc_date', 'bc_operate', 'ch_date', 'ch_operate'],
+        widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
+        typeComponent: [
+            {
+                component: output
+            },
+            {
+                component: newbuildBtn
+            }],
+        newComponent: [{
+            tab: '新建自定义种植信息',
+            hiddenValue: {type: 'plant'},
+            components: [{
+                name: 'name',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '种植场名称',
+                placeholder: '请填写种植场名称',
+                rule: [{required: true, trigger: 'blur', message: '请输入种植场名称'}]
+            },
+            {
+                name: 'operate',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '种植场负责人',
+                placeholder: '请填写种植场负责人（必填）',
+                rule: [{required: true, trigger: 'blur', message: '请输入种植场负责人'}]
+            },
+            {
+                name: 'area',
+                type: 'text',
+                component: inputTextSelect,
+                isNull: false,
+                label: '种植场面积',
+                placeholder: '请填写种植场面积及面积单位（必填）',
+                rule: [{required: true, message: '请输入正确的面积', trigger: 'blur'}]
+            },
+            {
+                name: 'address',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '种植场地址',
+                placeholder: '请填写种植场地址（必填）',
+                rule: [{required: true, trigger: 'blur', message: '请输入种植场地址'}]
+            },
+            {
+                name: 'c_name',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '种植区名称',
+                placeholder: '请填写种植区名称',
+                rule: [{required: true, trigger: 'blur', message: '请输入种植区名称'}]
+            },
+            {
+                name: 'c_operate',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '种植区负责人',
+                placeholder: '请填写种植区负责人（必填）',
+                rule: [{required: true, trigger: 'blur', message: '请输入种植区负责人'}]
+            },
+            {
+                name: 'c_area',
+                type: 'text',
+                component: inputTextSelect,
+                isNull: false,
+                label: '种植区面积',
+                placeholder: '请填写种植区面积及面积单位（必填）',
+                rule: [{required: true, message: '请输入正确的面积', trigger: 'blur'}]
+            },
+            {
+                name: 'c_address',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '种植区地址',
+                placeholder: '请填写种植区地址（必填）',
+                rule: [{required: true, trigger: 'blur', message: '请输入种植区地址'}]
+            },
+            {
+                name: 'bc_date',
+                type: 'date',
+                component: inputDate,
+                isNull: false,
+                label: '种植日期',
+                placeholder: '请选择种植日期',
+                disabled: true,
+                rule: [{required: true, trigger: 'blur', message: '请选择种植日期'}, {validator: validate2.reDate, message: '请选择日期'}]
+            },
+            {
+                name: 'bc_operate',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '种植人',
+                placeholder: '请输入种植人',
+                rule: [{required: true, trigger: 'blur', message: '请输入种植人'}]
+            },
+            {
+                name: 'ch_date',
+                type: 'date',
+                component: inputDate,
+                isNull: false,
+                label: '采收日期',
+                placeholder: '请选择采收日期',
+                disabled: true,
+                rule: [{required: true, trigger: 'blur', message: '请选择采收日期'}, {validator: validate2.reDate, message: '请选择日期'}]
+            },
+            {
+                name: 'ch_operate',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '采收人',
+                placeholder: '请输入采收人',
+                rule: [{required: true, trigger: 'blur', message: '请输入采收人'}]
+            }]
+        }],
+        editComponent: [{
+            tab: '编辑自定义种植信息',
+            hiddenValue: {type: 'plant'},
+            components: [{
+                name: 'name',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '种植场名称',
+                placeholder: '请填写种植场名称',
+                rule: [{required: true, trigger: 'blur', message: '请输入种植场名称'}]
+            },
+            {
+                name: 'operate',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '种植场负责人',
+                placeholder: '请填写种植场负责人（必填）',
+                rule: [{required: true, trigger: 'blur', message: '请输入种植场负责人'}]
+            },
+            {
+                name: 'area',
+                type: 'text',
+                component: inputTextSelect,
+                isNull: false,
+                label: '种植场面积',
+                placeholder: '请填写种植场面积及面积单位（必填）',
+                rule: [{required: true, message: '请输入正确的面积', trigger: 'blur'}]
+            },
+            {
+                name: 'address',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '种植场地址',
+                placeholder: '请填写种植场地址（必填）',
+                rule: [{required: true, trigger: 'blur', message: '请输入种植场地址'}]
+            },
+            {
+                name: 'c_name',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '种植区名称',
+                placeholder: '请填写种植区名称',
+                rule: [{required: true, trigger: 'blur', message: '请输入种植区名称'}]
+            },
+            {
+                name: 'c_operate',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '种植区负责人',
+                placeholder: '请填写种植区负责人（必填）',
+                rule: [{required: true, trigger: 'blur', message: '请输入种植区负责人'}]
+            },
+            {
+                name: 'c_area',
+                type: 'text',
+                component: inputTextSelect,
+                isNull: false,
+                label: '种植区面积',
+                placeholder: '请填写种植区面积及面积单位（必填）',
+                rule: [{required: true, message: '请输入正确的面积', trigger: 'blur'}]
+            },
+            {
+                name: 'c_address',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '种植区地址',
+                placeholder: '请填写种植区地址（必填）',
+                rule: [{required: true, trigger: 'blur', message: '请输入种植区地址'}]
+            },
+            {
+                name: 'bc_date',
+                type: 'date',
+                component: inputDate,
+                isNull: false,
+                label: '种植日期',
+                placeholder: '请选择种植日期',
+                disabled: true,
+                rule: [{required: true, trigger: 'blur', message: '请选择种植日期'}, {validator: validate2.reDate, message: '请选择日期'}]
+            },
+            {
+                name: 'bc_operate',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '种植人',
+                placeholder: '请输入种植人',
+                rule: [{required: true, trigger: 'blur', message: '请输入种植人'}]
+            },
+            {
+                name: 'ch_date',
+                type: 'date',
+                component: inputDate,
+                isNull: false,
+                label: '采收日期',
+                placeholder: '请选择采收日期',
+                disabled: true,
+                rule: [{required: true, trigger: 'blur', message: '请选择采收日期'}, {validator: validate2.reDate, message: '请选择日期'}]
+            },
+            {
+                name: 'ch_operate',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '采收人',
+                placeholder: '请输入采收人',
+                rule: [{required: true, trigger: 'blur', message: '请输入采收人'}]
+            }]
+        }],
+        listComponent: [{
+            components: [
+                {
+                    type: 'date',
+                    components: 'datePick'
+                }
+            ]
+        }]
+    },
+    {
+        settitle: '追溯信息自定义',
+        roleName: ['system/custom', 0],
+        key: 'custombManage',
+        tab: '养殖自定义信息',
+        batch: 'customBeast',
+        url: 'custom',
+        paramsIndex: 'beast',
+        theads: ['批次号', '养殖场名称', '养殖场负责人', '养殖场面积', '养殖区名称', '养殖区负责人', '养殖区面积', '养殖日期', '养殖人', '出栏日期', '出栏人'],
+        protos: ['serial', 'name', 'operate', 'area', 'c_name', 'c_operate', 'c_area', 'bc_date', 'bc_operate', 'ch_date', 'ch_operate'],
+        widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
+        typeComponent: [
+            {
+                component: output
+            },
+            {
+                component: newbuildBtn
+            }],
+        newComponent: [{
+            tab: '新建自定义养殖信息',
+            hiddenValue: {type: 'beast'},
+            components: [{
+                name: 'name',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '养殖场名称',
+                placeholder: '请填写养殖场名称',
+                rule: [{required: true, trigger: 'blur', message: '请输入养殖场名称'}]
+            },
+            {
+                name: 'operate',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '养殖场负责人',
+                placeholder: '请填写养殖场负责人（必填）',
+                rule: [{required: true, trigger: 'blur', message: '请输入养殖场负责人'}]
+            },
+            {
+                name: 'area',
+                type: 'text',
+                component: inputTextSelect,
+                isNull: false,
+                label: '养殖场面积',
+                placeholder: '请填写养殖场面积及面积单位（必填）',
+                rule: [{required: true, message: '请输入正确的面积', trigger: 'blur'}]
+            },
+            {
+                name: 'address',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '养殖场地址',
+                placeholder: '请填写养殖场地址（必填）',
+                rule: [{required: true, trigger: 'blur', message: '请输入养殖场地址'}]
+            },
+            {
+                name: 'c_name',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '养殖区名称',
+                placeholder: '请填写养殖区名称',
+                rule: [{required: true, trigger: 'blur', message: '请输入养殖区名称'}]
+            },
+            {
+                name: 'c_operate',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '养殖区负责人',
+                placeholder: '请填写养殖区负责人（必填）',
+                rule: [{required: true, trigger: 'blur', message: '请输入养殖区负责人'}]
+            },
+            {
+                name: 'c_area',
+                type: 'text',
+                component: inputTextSelect,
+                isNull: false,
+                label: '养殖区面积',
+                placeholder: '请填写养殖区面积及面积单位（必填）',
+                rule: [{required: true, message: '请输入正确的面积', trigger: 'blur'}]
+            },
+            {
+                name: 'c_address',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '养殖区地址',
+                placeholder: '请填写养殖区地址（必填）',
+                rule: [{required: true, trigger: 'blur', message: '请输入养殖区地址'}]
+            },
+            {
+                name: 'bc_date',
+                type: 'date',
+                component: inputDate,
+                isNull: false,
+                label: '养殖日期',
+                placeholder: '请选择养殖日期',
+                disabled: true,
+                rule: [{required: true, trigger: 'blur', message: '请选择养殖日期'}, {validator: validate2.reDate, message: '请选择日期'}]
+            },
+            {
+                name: 'bc_operate',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '养殖人',
+                placeholder: '请输入种植人',
+                rule: [{required: true, trigger: 'blur', message: '请输入种植人'}]
+            },
+            {
+                name: 'ch_date',
+                type: 'date',
+                component: inputDate,
+                isNull: false,
+                label: '出栏日期',
+                placeholder: '请选择出栏日期',
+                disabled: true,
+                rule: [{required: true, trigger: 'blur', message: '请选择出栏日期'}, {validator: validate2.reDate, message: '请选择日期'}]
+            },
+            {
+                name: 'ch_operate',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '出栏人',
+                placeholder: '请输入出栏人',
+                rule: [{required: true, trigger: 'blur', message: '请输入出栏人'}]
+            }]
+        }],
+        editComponent: [{
+            tab: '编辑自定义养殖信息',
+            hiddenValue: {type: 'beast'},
+            components: [{
+                name: 'name',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '养殖场名称',
+                placeholder: '请填写养殖场名称',
+                rule: [{required: true, trigger: 'blur', message: '请输入养殖场名称'}]
+            },
+            {
+                name: 'operate',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '养殖场负责人',
+                placeholder: '请填写养殖场负责人（必填）',
+                rule: [{required: true, trigger: 'blur', message: '请输入养殖场负责人'}]
+            },
+            {
+                name: 'area',
+                type: 'text',
+                component: inputTextSelect,
+                isNull: false,
+                label: '养殖场面积',
+                placeholder: '请填写养殖场面积及面积单位（必填）',
+                rule: [{required: true, message: '请输入正确的面积', trigger: 'blur'}]
+            },
+            {
+                name: 'address',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '养殖场地址',
+                placeholder: '请填写养殖场地址（必填）',
+                rule: [{required: true, trigger: 'blur', message: '请输入养殖场地址'}]
+            },
+            {
+                name: 'c_name',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '养殖区名称',
+                placeholder: '请填写养殖区名称',
+                rule: [{required: true, trigger: 'blur', message: '请输入养殖区名称'}]
+            },
+            {
+                name: 'c_operate',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '养殖区负责人',
+                placeholder: '请填写养殖区负责人（必填）',
+                rule: [{required: true, trigger: 'blur', message: '请输入养殖区负责人'}]
+            },
+            {
+                name: 'c_area',
+                type: 'text',
+                component: inputTextSelect,
+                isNull: false,
+                label: '养殖区面积',
+                placeholder: '请填写养殖区面积及面积单位（必填）',
+                rule: [{required: true, message: '请输入正确的面积', trigger: 'blur'}]
+            },
+            {
+                name: 'c_address',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '养殖区地址',
+                placeholder: '请填写养殖区地址（必填）',
+                rule: [{required: true, trigger: 'blur', message: '请输入养殖区地址'}]
+            },
+            {
+                name: 'bc_date',
+                type: 'date',
+                component: inputDate,
+                isNull: false,
+                label: '养殖日期',
+                placeholder: '请选择养殖日期',
+                disabled: true,
+                rule: [{required: true, trigger: 'blur', message: '请选择养殖日期'}, {validator: validate2.reDate, message: '请选择日期'}]
+            },
+            {
+                name: 'bc_operate',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '养殖人',
+                placeholder: '请输入养殖人',
+                rule: [{required: true, trigger: 'blur', message: '请输入养殖人'}]
+            },
+            {
+                name: 'ch_date',
+                type: 'date',
+                component: inputDate,
+                isNull: false,
+                label: '出栏日期',
+                placeholder: '请选择出栏日期',
+                disabled: true,
+                rule: [{required: true, trigger: 'blur', message: '请选择出栏日期'}, {validator: validate2.reDate, message: '请选择日期'}]
+            },
+            {
+                name: 'ch_operate',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '出栏人',
+                placeholder: '请输入出栏人',
+                rule: [{required: true, trigger: 'blur', message: '请输入出栏人'}]
+            }]
+        }],
+        listComponent: [{
+            components: [
+                {
+                    type: 'date',
+                    components: 'datePick'
+                }
+            ]
+        }]
     }],
     // 运营-权限
     rightsOperate: [{
