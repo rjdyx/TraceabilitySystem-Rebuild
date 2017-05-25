@@ -758,7 +758,6 @@ export default {
         this.getAllMsg()
         let change = $('.available')
         change.css('display', 'none')
-        console.log(this.totitle)
     },
     watch: {
         models () {

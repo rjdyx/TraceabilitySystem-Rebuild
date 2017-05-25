@@ -54,7 +54,6 @@ export default {
     },
     mounted () {
         this.record = this.$store.getters.getRecord
-        this.toggle(subMenu, subIndex)
     },
     methods: {
         handle (index) {
