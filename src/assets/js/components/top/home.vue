@@ -212,6 +212,7 @@ $absolute: absolute;
     	margin-top: 15px;
     	overflow:scroll;
     	height: 100%;
+        padding-right: 10px;
     	.titleHome{
 			border-bottom: 1px solid #dcdcdc;
 			position: relative;

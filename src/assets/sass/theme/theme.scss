@@ -168,6 +168,15 @@ $b_small: 18px;
 		border-color: $bg;
 	}
 }
+.user{
+	.edit{
+		background: $bg;
+		border-color: $bg;
+	}
+	.edit:hover{
+		color: $border;
+	}
+}
 	
 	
 	// 日期：

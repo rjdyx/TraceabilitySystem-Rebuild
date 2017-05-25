@@ -236,6 +236,7 @@ export default {
     	margin-top: 15px;
     	overflow:scroll;
     	height: 100%;
+        padding-right: 10px;
 		.switch{
 			width: 500px;
 			margin: 22px 94px;

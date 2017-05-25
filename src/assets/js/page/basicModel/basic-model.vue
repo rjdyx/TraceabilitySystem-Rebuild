@@ -855,8 +855,11 @@ export default {
         .el-table td, .el-table th.is-leaf {
             text-align: center;
         }
+        #operate{
+            padding-right: 10px;
+        }
         .footer {
-            width: 100%;
+            width: 99.9%;
             height: 50px;
             border: 1px solid #dfe6ec;
             border-top: none;

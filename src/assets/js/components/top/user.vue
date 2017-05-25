@@ -101,6 +101,7 @@ $display: inline-block;
     	margin-top: 15px;
     	overflow:scroll;
     	height: 100%;
+        padding-right: 10px;
     	.titleUser{
 			border-bottom: $line #dcdcdc;
 			padding-bottom: 10px;

@@ -135,6 +135,7 @@ export default {
 	.question_content {
 	  	margin-top: 15px;
 	  	overflow: scroll;
+        padding-right: 10px;
 	  	.fonts{
 	  		font-size: 20px;
 	  	}
