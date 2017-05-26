@@ -135,9 +135,9 @@ export default {
                     axios.post('/login', this.ruleForm2).then((responce) => {
                         if (responce.data !== 200) {
                             this.$message.error('用户名或密码错误')
-                            // alert('用户名或密码错误')
                         } else {
                             this.$router.push('/index/home')
+                            history.go(0) // 刷新更新权限数据
                             this.$store.dispatch('switch_record', '')
                             var myDate = new Date()
                             localStorage.setItem('loginDate', myDate.toLocaleString())

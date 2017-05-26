@@ -222,7 +222,12 @@ export default {
         returnShuju (data) {
             console.log(data.value)
             if (this.url.indexOf('course') >= 0 || this.url.indexOf('grow') >= 0) {
-                this.editForm['img1'] = data.value
+                if (data.value === '') {
+                    this.editForm['img'] = ''
+                } else {
+                    this.editForm['img1'] = data.value
+                    this.editForm['img'] = this.editDefault['img']
+                }
             } else {
                 this.editForm[data.name] = data.value
             }

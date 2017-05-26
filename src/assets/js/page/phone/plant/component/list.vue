@@ -12,8 +12,10 @@
                     <th style="width: 25%" v-for="item in thList">{{item}}</th>
                 </tr>
                 <tr v-for="item in trList" @click="goListDetails">
-                    <td>{{item.type}}</td>
-                    <td>{{item.operator}}</td>
+                    <td v-if="item.type!==null">{{item.type}}</td>
+                    <td v-else>{{lack}}</td>
+                    <td v-if="item.operate!==null">{{item.operate}}</td>
+                    <td v-else>{{lack}}</td>
                     <td>{{item.date}}</td>
                     <td>
                         <!-- <img :src="item.img" alt=""> -->
@@ -78,18 +80,8 @@ export default {
     data () {
         return {
             thList: ['操作类型', '操作人', '日期', '图片'],
-            trList: [
-                {type: '送土壤', operator: '李光耀', date: '2017-04-06', img: './images/img.png'},
-                {type: '送土壤', operator: '李光耀', date: '2017-04-06', img: './images/img.png'},
-                {type: '送土壤', operator: '李光耀', date: '2017-04-06', img: './images/img.png'},
-                {type: '送土壤', operator: '李光耀', date: '2017-04-06', img: './images/img.png'},
-                {type: '送土壤', operator: '李光耀', date: '2017-04-06', img: './images/img.png'},
-                {type: '送土壤', operator: '李光耀', date: '2017-04-06', img: './images/img.png'},
-                {type: '送土壤', operator: '李光耀', date: '2017-04-06', img: './images/img.png'},
-                {type: '送土壤', operator: '李光耀', date: '2017-04-06', img: './images/img.png'},
-                {type: '送土壤', operator: '李光耀', date: '2017-04-06', img: './images/img.png'},
-                {type: '送土壤', operator: '李光耀', date: '2017-04-06', img: './images/img.png'}
-            ]
+            trList: [],
+            lack: '信息缺失'
         }
     },
     methods: {
