@@ -136,8 +136,7 @@ export default {
                         if (responce.data !== 200) {
                             this.$message.error('用户名或密码错误')
                         } else {
-                            this.$router.push('/index/home')
-                            history.go(0) // 刷新更新权限数据
+                            // history.go(0) // 刷新更新权限数据
                             this.$store.dispatch('switch_record', '')
                             var myDate = new Date()
                             localStorage.setItem('loginDate', myDate.toLocaleString())
@@ -151,6 +150,7 @@ export default {
                             json.record = ''
                             let jsonStr = JSON.stringify(json)
                             localStorage.setItem('record', jsonStr)
+                            this.$router.push('/')
                         }
                     })
                 } else {

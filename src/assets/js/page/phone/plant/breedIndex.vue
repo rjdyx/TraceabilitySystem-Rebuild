@@ -29,12 +29,10 @@
 			</div>
 			<div class="plant_product"><img src="data.thumb" alt=""></div>
 			<ul class="plantBottomList">
-			    <!-- 圈舍维护 -->
-				<!-- <li><router-link :to="'/run/breed/area/'+code"></router-link></li> -->
 				<!-- 生长过程 -->
 				<li><router-link :to="'/run/breed/growProcess/'+code"></router-link></li>
 				<!-- 商品 -->
-				<li><router-link :to="'/run/breed/commodity/'+data.code"></router-link></li>
+				<li><router-link :to="'/run/breed/commodity/'+code"></router-link></li>
 				<!-- 喂养 -->
 				<li><router-link :to="'/run/breed/fodderuse/'+code"></router-link></li>
 				<!-- 病疫 -->
@@ -210,30 +208,27 @@ export default{
 			li:nth-child(1){
 				left:20%;
 				top: 6%;
+				width:25%;
 			}
 			li:nth-child(2){
-				left:50%;
+				left:60%;
 				top: 6%;
-				width:22%;
+				width:25%;
 			}
 			li:nth-child(3){
-				right: 14%;
-				top: 6%;
-			}
-			li:nth-child(4){
 				left:4.5%;
 				bottom: 6%;
 			}
-			li:nth-child(5){
+			li:nth-child(4){
 				left:32%;
 				bottom: 6%;
 			}
-			li:nth-child(6){
+			li:nth-child(5){
 				right:29%;
 				bottom: 6%;
 			}
-			li:nth-child(7){
-				right:3.5%;
+			li:nth-child(6){
+				right:4.5%;
 				bottom: 6%;
 			}
 		}	

@@ -21,45 +21,48 @@
             </div>
             <div class="sell">
                 <div class="title">销售与物流</div>
-                <div class="content" v-for="sell in sells">
-                    <div class="title2"><b>|</b> 交易日期：{{sell.start_date}} 至 {{sell.end_date}}</div>
-                    <div>
-                        <li>运输商品：</li>
-                        <li>{{sell.delivery_name}}</li>
+                <div v-if="sells">
+                    <div class="content" v-for="sell in sells">
+                        <div class="title2"><b>|</b> 交易日期：{{sell.start_date}} 至 {{sell.end_date}}</div>
+                        <div>
+                            <li>运输商品：</li>
+                            <li>{{sell.delivery_name}}</li>
+                        </div>
+                        <div>
+                            <li>供货商：</li>
+                            <li>{{sell.supplier_name}}</li>
+                        </div>
+                        <div>
+                            <li>经销商：</li>
+                            <li>{{sell.client_name}}</li>
+                        </div>
+                        <div v-if="sell.type!==undefined">
+                            <li>运输方式：</li>
+                            <li>{{sell.type_name}}</li>
+                        </div>
+                        <div v-if="sell.type==='self'">
+                            <li>车牌号：</li>
+                            <li>{{sell.vehicle_number}}</li>
+                        </div>
+                        <div v-if="sell.type==='consign'">
+                            <li>物流公司：</li>
+                            <li>{{sell.logistic_name}}</li>
+                        </div>
+                        <div v-if="sell.type==='consign'">
+                            <li>物流订单号：</li>
+                            <li>{{sell.consign_number}}</li>
+                        </div>
+                        <div v-if="sell.type==='selve'">
+                            <li>提货人：</li>
+                            <li>{{sell.selve_name}}</li>
+                        </div>
+                        <div v-if="sell.type==='selve'">
+                            <li>提货日期：</li>
+                            <li>{{sell.selve_date}}</li>
+                        </div>
                     </div>
-                    <div>
-                        <li>供货商：</li>
-                        <li>{{sell.supplier_name}}</li>
-                    </div>
-                    <div>
-                        <li>经销商：</li>
-                        <li>{{sell.client_name}}</li>
-                    </div>
-                    <div v-if="sell.type!==undefined">
-                        <li>运输方式：</li>
-                        <li>{{sell.type_name}}</li>
-                    </div>
-                    <div v-if="sell.type==='self'">
-                        <li>车牌号：</li>
-                        <li>{{sell.vehicle_number}}</li>
-                    </div>
-                    <div v-if="sell.type==='consign'">
-                        <li>物流公司：</li>
-                        <li>{{sell.logistic_name}}</li>
-                    </div>
-                    <div v-if="sell.type==='consign'">
-                        <li>物流订单号：</li>
-                        <li>{{sell.consign_number}}</li>
-                    </div>
-                    <div v-if="sell.type==='selve'">
-                        <li>提货人：</li>
-                        <li>{{sell.selve_name}}</li>
-                    </div>
-                    <div v-if="sell.type==='selve'">
-                        <li>提货日期：</li>
-                        <li>{{sell.selve_date}}</li>
-                    </div>
-                </div> 
+                </div>
+                <div class="content" v-else>{{lack}}</div>
             </div>
         </div>   
     </div>
@@ -173,38 +176,35 @@ export default {
             models: modelObj[this.$route.meta.key],
             isbreed: false,
             product: {},
-            sells: {}
+            sells: false,
+            lack: '无相关记录'
         }
     },
     mounted () {
         var params = {code: this.$route.params.id}
         axios.post('run/product', params)
             .then((responce) => {
-                if (responce.data !== 'false') {
+                var lists = responce.data
+                if (lists !== 400 && lists !== 404 && lists !== 403) {
                     this.product = responce.data
                 } else {
-                    alert('溯源码无效！')
-                    this.$router.push('/')
+                    if (lists === 404) {
+                        alert('溯源码无效！')
+                    }
+                    if (lists === 403) {
+                        alert('商家已关闭溯源码追溯！')
+                    }
+                    if (lists === 400) {
+                        alert('该溯源码无相关信息！')
+                    }
+                    this.$router.go('-1')
                 }
             })
         axios.post('run/sell', params)
             .then((responce) => {
-                var lists = responce.data
-                if (lists !== 404 && lists !== 403 && lists !== 400) {
+                var lists = responce.data[0]
+                if ((lists !== 404) && (lists !== 403) && (lists !== 400)) {
                     this.sells = lists
-                } else {
-                    if (lists === 404) {
-                        alert('溯源码无效！')
-                        this.$router.go('-1')
-                    }
-                    if (lists === 403) {
-                        alert('商家已关闭溯源码追溯！')
-                        this.$router.go('-1')
-                    }
-                    if (lists === 400) {
-                        alert('该溯源码无相关信息！')
-                        this.$router.go('-1')
-                    }
                 }
             })
     },
