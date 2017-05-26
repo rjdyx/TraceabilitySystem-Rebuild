@@ -3751,9 +3751,10 @@ export default {
         batch: 'beastDetectBatch',
         searchPlaceholder: '请输入批次号进行搜索',
         selectSearch: ['detects.weather'],
-        theads: ['检测批次号', '检测日期', '检测项目名称', '检测内容', '检测部门', '天气', '专家', '操作人员', '检测报告图片', '备注'],
-        protos: ['serial', 'date', 'name', 'content', 'department', 'weather', 'expert_name', 'operate_name', 'img', 'memo'],
-        widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
+        changeDataArr: [{result: {0: '不合格', 1: '合格'}}],
+        theads: ['检测批次号', '检测日期', '检测项目名称', '检测内容', '检测部门', '检测结果', '天气', '专家', '操作人员', '检测报告图片', '备注'],
+        protos: ['serial', 'date', 'name', 'content', 'department', 'result', 'weather', 'expert_name', 'operate_name', 'img', 'memo'],
+        widths: [60, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
         typeComponent: [{
             component: output
         },
