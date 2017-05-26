@@ -2,20 +2,15 @@
 	<div id="header_img">
         <img v-if="runName === 'plant'" class="header_img_bg" src="../images/p_header_bg.png">
         <img v-else="runName==='breed'" class="header_img_bg" src="../images/b_header_bg.png">
-        <p>{{productName}}</p>
+        <p>{{data.name}}</p>
         <!-- 产品图片 -->
-        <img class="pBasic_img_icon" src="imgUrl.default" alt="">
+        <img class="pBasic_img_icon" src="data.thumb" alt="">
     </div>
 </template>
 <script>
 export default {
     name: 'pBasic',
     props: {
-        // 产品名称
-        productName: {
-            type: String,
-            default: ''
-        },
         // 产品图片路径
         imgUrl: {
             type: String,
@@ -24,18 +19,15 @@ export default {
     },
     data () {
         return {
-            runName: ''
+            data: ''
         }
     },
     mounted () {
         this.runName = this.$route.meta.runName
-        axios.post('run/product', {code_id: this.$route.params.cid})
+        axios.post('run/product', {code: this.$route.params.id})
             .then((responce) => {
                 if (responce.data !== 'false') {
                     this.data = responce.data
-                    console.log(this.data)
-                } else {
-
                 }
             })
     }

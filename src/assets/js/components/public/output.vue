@@ -20,7 +20,6 @@
                     for (let k in this.type) {
                         str += '&' + k + '=' + this.type[k]
                     }
-                    // str += '&' + data
                 }
                 window.location.href = this.$adminUrl(this.url) + str
             }

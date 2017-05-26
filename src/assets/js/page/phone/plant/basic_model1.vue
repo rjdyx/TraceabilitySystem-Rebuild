@@ -21,7 +21,7 @@
                         <tr>
                             <th style="width: 25%" v-for="item in models.tableTheads">{{item}}</th>
                         </tr>
-                        <tr v-for="list in lists" @click="goListDetails(list.id)">
+                        <tr v-for="list in lists" @click="goListDetails(list.id,list.custom_id)">
                             <td>{{list.serial}}</td>
                             <td>{{list.operate_name}}</td>
                             <td>{{list.date}}</td>
@@ -110,8 +110,14 @@ export default {
         }
     },
     methods: {
-        goListDetails (id) {
-            this.$router.push('/run/' + this.$route.meta.runName + '/' + this.$route.meta.key + '/datails/' + id)
+        goListDetails (id, type) {
+            var url = '/run/' + this.$route.meta.runName + '/' + this.$route.meta.key + '/datails/' + id
+            var t = 1
+            if (type !== undefined && type) {
+                t = 0
+            }
+            sessionStorage.setItem('customDont', t)
+            this.$router.push(url)
         }
     },
     mounted () {
@@ -122,11 +128,22 @@ export default {
         }
         axios.post(url + this.$route.meta.key, params)
             .then((responce) => {
-                if (responce.data !== 'false') {
-                    this.lists = responce.data
+                var lists = responce.data
+                if (lists !== 404 && lists !== 403 && lists !== 400) {
+                    this.lists = lists
                 } else {
-                    alert('溯源码无效！')
-                    this.$router.push('/')
+                    if (lists === 404) {
+                        alert('溯源码无效！')
+                        this.$router.go('-1')
+                    }
+                    if (lists === 403) {
+                        alert('商家已关闭溯源码追溯！')
+                        this.$router.go('-1')
+                    }
+                    if (lists === 400) {
+                        alert('该溯源码无相关信息！')
+                        this.$router.go('-1')
+                    }
                 }
             })
     },

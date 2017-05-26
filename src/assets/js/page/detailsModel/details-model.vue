@@ -137,7 +137,7 @@
             <el-button @click="excel">导出表格</el-button>
         </div>
 
-        <p class="record">共有{{num}}页，{{total_num}}条记录</p>
+        <p class="record">共有<span class="record_num">{{num}}</span>页，<span class="record_num">{{total_num}}</span>条记录</p>
 
         <!-- 分页模块 -->
             <el-pagination
@@ -668,6 +668,7 @@ export default {
         this.getApiUrl()
         this.getDetailSerial()
         this.getAllMsg()
+        document.title = this.tab
     },
     watch: {
         tabItem () {
@@ -705,7 +706,7 @@ export default {
     width: 350px;
 }
 .detailsModel{
-    min-height: 792px;
+    min-height: 790px;
    .imgTip{
         display: inline-block;
         width:30px;
@@ -790,7 +791,8 @@ export default {
         }
         .record{
             float: right;
-            padding: 15px 10px;
+            padding: 16px 26px;
+            font-size: 13px;
         }
     }
     .detaActive{

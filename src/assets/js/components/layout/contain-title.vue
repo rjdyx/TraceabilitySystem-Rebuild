@@ -38,7 +38,7 @@
 <style lang="sass" scoped>
     @import "../../../sass/function";
     .title {
-      padding: 20px 8px 14px 0;
+      padding: 0px 8px 14px 0;
       border-bottom: 2px solid #e5e5e5;
       // font-size: 18px;
       margin-bottom: 10px;

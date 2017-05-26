@@ -118,11 +118,22 @@ export default {
         }
         axios.post(url, params)
             .then((responce) => {
-                if (responce.data !== 'false') {
-                    this.grows = responce.data
+                var lists = responce.data
+                if (lists !== 404 && lists !== 403 && lists !== 400) {
+                    this.grows = lists
                 } else {
-                    alert('溯源码无效！')
-                    this.$router.push('/')
+                    if (lists === 404) {
+                        alert('溯源码无效！')
+                        this.$router.go('-1')
+                    }
+                    if (lists === 403) {
+                        alert('商家已关闭溯源码追溯！')
+                        this.$router.go('-1')
+                    }
+                    if (lists === 400) {
+                        alert('该溯源码无相关信息！')
+                        this.$router.go('-1')
+                    }
                 }
             })
     },

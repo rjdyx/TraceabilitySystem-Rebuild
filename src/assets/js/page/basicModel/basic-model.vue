@@ -426,7 +426,13 @@ export default {
                         this.$dataGet(this, editArr.selectUrl + '/changeSelect', {'selectData': editArr.selectData})
                             .then((responce) => {
                                 if (responce.data.length !== 0) {
-                                    com.components[com.popNumber[key]].options = this.$selectData(this.url, responce.data, editArr.selectArr)
+                                    this.selectNewEdit[key] = []
+                                    this.selectNewEdit[key].push(com.selectInit[key])
+                                    let editOpt = this.$selectData(this.url, responce.data, editArr.selectArr)
+                                    for (let item of Object.keys(editOpt)) {
+                                        this.selectNewEdit[key].push(editOpt[item])
+                                    }
+                                    com.components[com.popNumber[key]].options = this.selectNewEdit[key]
                                 }
                             })
                     }
@@ -438,7 +444,14 @@ export default {
                         this.$dataGet(this, '/util/selects', {table: editArr.selectUrl})
                             .then((responce) => {
                                 if (responce.data.length !== 0) {
-                                    com.components[com.popNumber2[key]].options = this.$selectData(this.url, responce.data, editArr.selectArr)
+                                    this.selectNewEdit[key] = []
+                                    this.selectNewEdit[key].push(com.selectInit2[key])
+                                    let editOpt = this.$selectData(this.url, responce.data, editArr.selectArr)
+                                    for (let item of Object.keys(editOpt)) {
+                                        this.selectNewEdit[key].push(editOpt[item])
+                                    }
+                                    com.components[com.popNumber2[key]].options = this.selectNewEdit[key]
+                                    // com.components[com.popNumber2[key]].options = this.$selectData(this.url, responce.data, editArr.selectArr)
                                 }
                             })
                     }
@@ -468,6 +481,9 @@ export default {
             if (com.components[com.assocNum] !== undefined) {
                 this.$set(com.components[com.assocNum], 'tableVal', [])
                 this.newComponent[0].components[com.assocNum].options = []
+            }
+            if (com.productNum !== undefined) {
+                this.newComponent[0].components[com.productNum].options = []
             }
         },
         // 关闭编辑弹窗
@@ -790,7 +806,7 @@ export default {
 
 <style lang='sass'>
 .basic_model{
-    min-height: 694px;
+    min-height: 790px;
     .basic-wrap{
         .pcActive{
                 text-decoration: underline;
@@ -855,8 +871,11 @@ export default {
         .el-table td, .el-table th.is-leaf {
             text-align: center;
         }
+        #operate{
+            min-width: 1400px;
+        }
         .footer {
-            width: 100%;
+            width: 99.9%;
             height: 50px;
             border: 1px solid #dfe6ec;
             border-top: none;

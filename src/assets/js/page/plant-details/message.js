@@ -297,7 +297,7 @@ export default {
             url: 'breed-fodderuse',
             tab: '养殖批次信息',
             searchPlaceholder: '请输入批次号进行搜索',
-            typeComponent: [{component: newbuildBtn}],
+            typeComponent: [{component: newbuildBtn}, {component: output}],
             headList: ['养殖批次号', '圈舍', '畜禽名称', '养殖日期'],
             protos: ['serial', 'area_name', 'beast_name', 'date'],
             widths: [50, 50, 50, 50],
@@ -337,7 +337,7 @@ export default {
             url: 'breed-detect',
             tab: '养殖批次信息',
             searchPlaceholder: '请输入批次号进行搜索',
-            typeComponent: [{component: newbuildBtn}],
+            typeComponent: [{component: newbuildBtn}, {component: output}],
             headList: ['养殖批次号', '圈舍', '畜禽名称', '养殖日期'],
             protos: ['serial', 'area_name', 'beast_name', 'date'],
             widths: [50, 50, 50, 50],
@@ -371,16 +371,16 @@ export default {
         tab: '病疫批次管理',
         roleName: ['beast/disease', 0],
         theads: ['病疫批次号', '兽药名称', '用药日期', '病情描述', '专家', '平均用药量', '治疗方式', '备注'],
-        protos: ['serial', 'drug_name', 'date', 'description', 'expert_name', 'amount_unit', 'way', 'meno'],
+        protos: ['serial', 'drug_name', 'date', 'description', 'expert_name', 'amount_unit', 'way', 'memo'],
         url: 'disease',
         tabList: [{
             url: 'disease-rfid',
             tab: '养殖批次信息',
             searchPlaceholder: '请输入rfid进行搜索',
-            typeComponent: [{component: newbuildBtn}],
-            headList: ['养殖批次号', '病疫Rfid', '养殖日期', '备注信息'],
-            protos: ['serial', 'rfid', 'date', 'memo'],
-            widths: [50, 50, 50, 50],
+            typeComponent: [{component: newbuildBtn}, {component: output}],
+            headList: ['养殖批次号', '圈舍', '病疫Rfid', '畜禽名称', '养殖日期'],
+            protos: ['serial', 'area_name', 'rfid', 'beast_name', 'date'],
+            widths: [50, 50, 50, 50, 50],
             hiddeEdit: false,
             listComponent: [{
                 components: [{
@@ -432,9 +432,9 @@ export default {
             url: 'detection-rfid',
             tab: '养殖批次信息',
             searchPlaceholder: '请输入rfid进行搜索',
-            typeComponent: [{component: newbuildBtn}],
-            headList: ['圈舍', '养殖批次号', 'Rfid', '畜禽名称', '养殖日期'],
-            protos: ['area_name', 'serial', 'rfid', 'beast_name', 'date'],
+            typeComponent: [{component: newbuildBtn}, {component: output}],
+            headList: ['养殖批次号', '圈舍', 'Rfid', '畜禽名称', '养殖日期'],
+            protos: ['serial', 'area_name', 'rfid', 'beast_name', 'date'],
             widths: [50, 50, 50, 50, 50],
             hiddeEdit: false,
             listComponent: [{
@@ -487,8 +487,8 @@ export default {
             url: 'clean-area',
             tab: '养殖批次信息',
             searchPlaceholder: '请输入圈舍名称搜索',
-            typeComponent: [{component: newbuildBtn}],
-            headList: ['所属养殖区', '圈舍名称', '圈舍面积'],
+            typeComponent: [{component: newbuildBtn}, {component: output}],
+            headList: ['所属养殖区', '圈舍', '圈舍面积'],
             protos: ['farm_name', 'name', 'area_unit'],
             widths: [50, 50, 50],
             hiddeEdit: false,
@@ -694,8 +694,8 @@ export default {
             url: 'pack-product-rfid',
             tab: '加工产品溯源码信息',
             searchPlaceholder: '请输入溯源码进行搜索',
-            headList: ['产品溯源码', '生产日期', '溯源次数', '备注'],
-            protos: ['code', 'date', 'time', 'memo'],
+            headList: ['产品溯源码', '生产日期', 'RFID', '溯源次数', '备注'],
+            protos: ['code', 'date', 'rfid', 'time', 'memo'],
             widths: [50, 50, 50, 50, 50],
             hiddeEdit: true,
             typeComponent: [{
@@ -1470,7 +1470,7 @@ export default {
                     theads: ['溯源码', '生产日期', '溯源次数'],
                     protos: ['code', 'date', 'time'],
                     valueId: 'code_ids',
-                    errormsg: '请选择rfid',
+                    errormsg: '请选择入库溯源码',
                     tableVal: []
                 }]
             }],
@@ -2733,6 +2733,144 @@ export default {
                     rule: null
                 }]
             }]
+        },
+        {
+            key: 'basicinfo-grow',
+            url: 'basicinfo',
+            whereArr: {type: 'grow'},
+            tab: '生长过程信息',
+            hiddeEdit: true,
+            searchPlaceholder: '请输入标题进行搜索',
+            headList: ['操作日期', '操作人', '标题', '描述', '备注信息'],
+            protos: ['date', 'operate', 'name', 'desc', 'memo'],
+            widths: [50, 50, 50, 50, 50, 50, 50, 50],
+            typeComponent: [{
+                component: output
+            },
+            {
+                component: newbuildBtn
+            }],
+            listComponent: [{
+                components: [{
+                    type: 'date',
+                    component: datePick
+                }]
+            }],
+            newComponent: [{
+                tab: '新建生长过程信息',
+                hiddenValue: {type: 'grow'},
+                components: [{
+                    name: 'date',
+                    type: 'date',
+                    component: inputDate,
+                    isNull: false,
+                    label: '操作日期',
+                    placeholder: '请选择操作日期',
+                    rule: {required: true, trigger: 'blur', validator: validate2.reDate, aa: '666', message: '请选择日期'}
+                },
+                {
+                    name: 'operate',
+                    type: 'text',
+                    component: null,
+                    isNull: false,
+                    label: '操作人',
+                    placeholder: '请输入操作人',
+                    rule: [{required: true, trigger: 'blur', message: '请输入操作人'}]
+                },
+                {
+                    name: 'name',
+                    type: 'text',
+                    component: null,
+                    isNull: false,
+                    label: '标题',
+                    placeholder: '请输入标题',
+                    rule: [{required: true, trigger: 'blur', message: '请输入标题'}]
+                },
+                {
+                    name: 'desc',
+                    type: 'textarea',
+                    component: null,
+                    isNull: false,
+                    label: '描述',
+                    placeholder: '请输入描述',
+                    rule: {required: true, trigger: 'blur'}
+                },
+                {
+                    name: 'img',
+                    type: 'file',
+                    component: inputFile,
+                    isNull: true,
+                    label: '描述图片',
+                    placeholder: '',
+                    rule: null
+                },
+                {
+                    name: 'memo',
+                    type: 'textarea',
+                    component: null,
+                    isNull: true,
+                    label: '备注信息',
+                    placeholder: '',
+                    rule: null
+                }]
+            }],
+            editComponent: [{
+                tab: '编辑生长过程信息',
+                components: [{
+                    name: 'date',
+                    type: 'date',
+                    component: inputDate,
+                    isNull: false,
+                    label: '操作日期',
+                    placeholder: '请选择操作日期',
+                    rule: {required: true, trigger: 'blur', validator: validate2.reDate, aa: '666', message: '请选择日期'}
+                },
+                {
+                    name: 'operate',
+                    type: 'text',
+                    component: null,
+                    isNull: false,
+                    label: '操作人',
+                    placeholder: '请输入操作人',
+                    rule: [{required: true, trigger: 'blur', message: '请输入操作人'}]
+                },
+                {
+                    name: 'name',
+                    type: 'text',
+                    component: null,
+                    isNull: false,
+                    label: '标题',
+                    placeholder: '请输入标题',
+                    rule: [{required: true, trigger: 'blur', message: '请输入标题'}]
+                },
+                {
+                    name: 'desc',
+                    type: 'textarea',
+                    component: null,
+                    isNull: false,
+                    label: '描述',
+                    placeholder: '请输入描述',
+                    rule: {required: true, trigger: 'blur'}
+                },
+                {
+                    name: 'img',
+                    type: 'file',
+                    component: inputFile,
+                    isNull: true,
+                    label: '描述图片',
+                    placeholder: '',
+                    rule: null
+                },
+                {
+                    name: 'memo',
+                    type: 'textarea',
+                    component: null,
+                    isNull: true,
+                    label: '备注信息',
+                    placeholder: '',
+                    rule: null
+                }]
+            }]
         }]
     },
     // 种植自定义详情
@@ -3726,6 +3864,144 @@ export default {
                     isNull: false,
                     label: '检测内容',
                     placeholder: '请输入检测内容',
+                    rule: {required: true, trigger: 'blur'}
+                },
+                {
+                    name: 'img',
+                    type: 'file',
+                    component: inputFile,
+                    isNull: true,
+                    label: '描述图片',
+                    placeholder: '',
+                    rule: null
+                },
+                {
+                    name: 'memo',
+                    type: 'textarea',
+                    component: null,
+                    isNull: true,
+                    label: '备注信息',
+                    placeholder: '',
+                    rule: null
+                }]
+            }]
+        },
+        {
+            key: 'basicinfo-course',
+            url: 'basicinfo',
+            whereArr: {type: 'course'},
+            tab: '生长过程信息',
+            hiddeEdit: true,
+            searchPlaceholder: '请输入标题进行搜索',
+            headList: ['操作日期', '操作人', '标题', '描述', '备注信息'],
+            protos: ['date', 'operate', 'name', 'desc', 'memo'],
+            widths: [50, 50, 50, 50, 50, 50, 50, 50],
+            typeComponent: [{
+                component: output
+            },
+            {
+                component: newbuildBtn
+            }],
+            listComponent: [{
+                components: [{
+                    type: 'date',
+                    component: datePick
+                }]
+            }],
+            newComponent: [{
+                tab: '新建生长过程信息',
+                hiddenValue: {type: 'course'},
+                components: [{
+                    name: 'date',
+                    type: 'date',
+                    component: inputDate,
+                    isNull: false,
+                    label: '操作日期',
+                    placeholder: '请选择操作日期',
+                    rule: {required: true, trigger: 'blur', validator: validate2.reDate, aa: '666', message: '请选择日期'}
+                },
+                {
+                    name: 'operate',
+                    type: 'text',
+                    component: null,
+                    isNull: false,
+                    label: '操作人',
+                    placeholder: '请输入操作人',
+                    rule: [{required: true, trigger: 'blur', message: '请输入操作人'}]
+                },
+                {
+                    name: 'name',
+                    type: 'text',
+                    component: null,
+                    isNull: false,
+                    label: '标题',
+                    placeholder: '请输入标题',
+                    rule: [{required: true, trigger: 'blur', message: '请输入标题'}]
+                },
+                {
+                    name: 'desc',
+                    type: 'textarea',
+                    component: null,
+                    isNull: false,
+                    label: '描述',
+                    placeholder: '请输入描述',
+                    rule: {required: true, trigger: 'blur'}
+                },
+                {
+                    name: 'img',
+                    type: 'file',
+                    component: inputFile,
+                    isNull: true,
+                    label: '描述图片',
+                    placeholder: '',
+                    rule: null
+                },
+                {
+                    name: 'memo',
+                    type: 'textarea',
+                    component: null,
+                    isNull: true,
+                    label: '备注信息',
+                    placeholder: '',
+                    rule: null
+                }]
+            }],
+            editComponent: [{
+                tab: '编辑生长过程信息',
+                components: [{
+                    name: 'date',
+                    type: 'date',
+                    component: inputDate,
+                    isNull: false,
+                    label: '操作日期',
+                    placeholder: '请选择操作日期',
+                    rule: {required: true, trigger: 'blur', validator: validate2.reDate, aa: '666', message: '请选择日期'}
+                },
+                {
+                    name: 'operate',
+                    type: 'text',
+                    component: null,
+                    isNull: false,
+                    label: '操作人',
+                    placeholder: '请输入操作人',
+                    rule: [{required: true, trigger: 'blur', message: '请输入操作人'}]
+                },
+                {
+                    name: 'name',
+                    type: 'text',
+                    component: null,
+                    isNull: false,
+                    label: '标题',
+                    placeholder: '请输入标题',
+                    rule: [{required: true, trigger: 'blur', message: '请输入标题'}]
+                },
+                {
+                    name: 'desc',
+                    type: 'textarea',
+                    component: null,
+                    isNull: false,
+                    label: '描述',
+                    placeholder: '请输入描述',
                     rule: {required: true, trigger: 'blur'}
                 },
                 {
