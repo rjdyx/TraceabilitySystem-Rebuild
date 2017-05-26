@@ -10,7 +10,7 @@
 <template>
 <div class="newWrap">
   <form class="newForm">
-    <i class="el-icon-circle-close" @click="closeClick" ></i>
+    <i class="closeBtn" @click="closeClick" ></i>
       <!-- tab选项卡 -->
       <!-- <h4>{{editComponent[0].tab}}</h4> -->
       <el-tabs v-model="activeName" @tab-click="handleClick">
@@ -27,7 +27,9 @@
                                     :placeholder="subItem.placeholder" 
                                     v-model="editForm[subItem.name]" 
                                     size="small"
-                                    :disabled="subItem.disabled"></el-input>
+                                    :disabled="subItem.disabled"
+                                    @keyup.enter.native="returnRuselt"
+                                    ></el-input>
                             </el-form-item>
                         </td> 
                     </tr>
@@ -187,6 +189,9 @@ export default {
     },
     mixins: [move],
     methods: {
+        returnRuselt () {
+            this.submitForm('editForm')
+        },
         // 角色权限默认选中数据
         rolePermisstion (roleId = null) {
             axios.get('api/role/permission/' + this.roleId)
@@ -218,7 +223,12 @@ export default {
         // 返回InputTextSelect组件的数据
         returnShuju (data) {
             if (this.url.indexOf('course') >= 0 || this.url.indexOf('grow') >= 0) {
-                this.editForm['img1'] = data.value
+                if (data.value === '') {
+                    this.editForm['img'] = ''
+                } else {
+                    this.editForm['img1'] = data.value
+                    this.editForm['img'] = this.editDefault['img']
+                }
             } else {
                 this.editForm[data.name] = data.value
             }

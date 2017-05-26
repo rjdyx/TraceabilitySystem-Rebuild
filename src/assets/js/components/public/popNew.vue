@@ -11,7 +11,7 @@
 <div class="newWrap">
 <!-- @mousedown='formDown' @mousemove='formMove' -->
   <form class="newForm" >
-    <i class="el-icon-circle-close" @click="closeClick"></i>
+    <i class="closeBtn" @click="closeClick"></i>
       <!-- tab选项卡 -->
       <!-- <h4>{{newComponent[0].tab}}</h4> -->
       <el-tabs v-model="activeName" @tab-click="handleClick" class="tab">

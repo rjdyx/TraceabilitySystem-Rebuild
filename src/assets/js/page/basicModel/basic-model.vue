@@ -426,7 +426,13 @@ export default {
                         this.$dataGet(this, editArr.selectUrl + '/changeSelect', {'selectData': editArr.selectData})
                             .then((responce) => {
                                 if (responce.data.length !== 0) {
-                                    com.components[com.popNumber[key]].options = this.$selectData(this.url, responce.data, editArr.selectArr)
+                                    this.selectNewEdit[key] = []
+                                    this.selectNewEdit[key].push(com.selectInit[key])
+                                    let editOpt = this.$selectData(this.url, responce.data, editArr.selectArr)
+                                    for (let item of Object.keys(editOpt)) {
+                                        this.selectNewEdit[key].push(editOpt[item])
+                                    }
+                                    com.components[com.popNumber[key]].options = this.selectNewEdit[key]
                                 }
                             })
                     }
@@ -438,7 +444,14 @@ export default {
                         this.$dataGet(this, '/util/selects', {table: editArr.selectUrl})
                             .then((responce) => {
                                 if (responce.data.length !== 0) {
-                                    com.components[com.popNumber2[key]].options = this.$selectData(this.url, responce.data, editArr.selectArr)
+                                    this.selectNewEdit[key] = []
+                                    this.selectNewEdit[key].push(com.selectInit2[key])
+                                    let editOpt = this.$selectData(this.url, responce.data, editArr.selectArr)
+                                    for (let item of Object.keys(editOpt)) {
+                                        this.selectNewEdit[key].push(editOpt[item])
+                                    }
+                                    com.components[com.popNumber2[key]].options = this.selectNewEdit[key]
+                                    // com.components[com.popNumber2[key]].options = this.$selectData(this.url, responce.data, editArr.selectArr)
                                 }
                             })
                     }

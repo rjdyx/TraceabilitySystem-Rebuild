@@ -10,7 +10,7 @@
 <template>
 <div class="newWrap">
   <form class="newForm roleCheckbox">
-    <i class="el-icon-circle-close" @click="closeClick"></i>
+    <i class="closeBtn" @click="closeClick"></i>
       <!-- tab选项卡 -->
     <el-tabs v-model="activeName" >
         <el-tab-pane label="权限管理" name="first">

@@ -7,7 +7,7 @@
 <template>
 	<div class="newWrap">
 		<form class="newForm">
-			<i class="el-icon-circle-close" @click="closeClick"></i>
+			<i class="closeBtn" @click="closeClick"></i>
             <el-tabs class="tab">
                 <el-tab-pane label="编辑公司信息" :name="编辑公司信息">
 				<el-form :model="editValue" :rules="rules" ref="editValue" label-width="100px">
