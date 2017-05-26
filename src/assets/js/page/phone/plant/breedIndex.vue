@@ -30,7 +30,7 @@
 			<div class="plant_product"><img src="data.thumb" alt=""></div>
 			<ul class="plantBottomList">
 			    <!-- 圈舍维护 -->
-				<li><router-link :to="'/run/breed/area/'+code"></router-link></li>
+				<!-- <li><router-link :to="'/run/breed/area/'+code"></router-link></li> -->
 				<!-- 生长过程 -->
 				<li><router-link :to="'/run/breed/growProcess/'+code"></router-link></li>
 				<!-- 商品 -->
@@ -208,11 +208,11 @@ export default{
 				}
 			}
 			li:nth-child(1){
-				left:16.5%;
+				left:20%;
 				top: 6%;
 			}
 			li:nth-child(2){
-				left:40%;
+				left:50%;
 				top: 6%;
 				width:22%;
 			}

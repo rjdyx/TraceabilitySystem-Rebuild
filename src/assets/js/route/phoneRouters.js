@@ -195,10 +195,10 @@ export default {
             alias: '/run/breed/commodity/:id'
         },
         {
-            path: '/fodderuse/:cid/:id',
+            path: '/fodderuse/:id',
             meta: {key: 'fodderuse', runName: 'breed'},
             component: bM1,
-            alias: '/run/breed/fodderuse/:cid/:id'
+            alias: '/run/breed/fodderuse/:id'
         },
         {
             path: '/feedDetails/:id',
@@ -207,10 +207,10 @@ export default {
             alias: '/run/breed/fodderuse/datails/:id'
         },
         {
-            path: '/disease/:cid/:id',
+            path: '/disease/:id',
             meta: {key: 'disease', runName: 'breed'},
             component: bM1,
-            alias: '/run/breed/disease/:cid/:id'
+            alias: '/run/breed/disease/:id'
         },
         {
             path: '/diseaseDetails/:id',
@@ -219,10 +219,10 @@ export default {
             alias: '/run/breed/disease/datails/:id'
         },
         {
-            path: '/detection/:cid/:id',
+            path: '/detection/:id',
             meta: {key: 'detection', runName: 'breed'},
             component: bM1,
-            alias: '/run/breed/detection/:cid/:id'
+            alias: '/run/breed/detection/:id'
         },
         {
             path: '/b_detectionDetails/:id',
@@ -231,10 +231,10 @@ export default {
             alias: '/run/breed/detection/datails/:id'
         },
         {
-            path: '/detect/:cid/:id',
+            path: '/detect/:id',
             meta: {key: 'detect', runName: 'breed'},
             component: bM1,
-            alias: '/run/breed/detect/:cid/:id'
+            alias: '/run/breed/detect/:id'
         },
         {
             path: '/detectDatails/:id',

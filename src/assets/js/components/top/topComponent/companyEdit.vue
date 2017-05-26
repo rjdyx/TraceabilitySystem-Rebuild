@@ -16,7 +16,7 @@
                             <tr class="tr1" v-if="item[1]=='text'">
                                 <td>
                                     <el-form-item  :label="item[0]" :prop="key">
-                                        <el-input :placeholder="item[2]" v-model="editValue[key]"></el-input>
+                                        <el-input :placeholder="item[2]" v-model="editValue[key]" size="small" @keyup.enter.native="submitForm('editValue')"></el-input>
                                     </el-form-item>
                                 </td>
                             </tr>
