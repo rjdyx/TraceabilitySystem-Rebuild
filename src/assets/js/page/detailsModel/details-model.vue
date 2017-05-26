@@ -669,6 +669,7 @@ export default {
         this.getDetailSerial()
         this.getAllMsg()
         document.title = this.tab
+        console.log(document.title)
     },
     watch: {
         tabItem () {
