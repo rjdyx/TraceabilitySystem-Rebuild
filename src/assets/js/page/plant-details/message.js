@@ -1947,6 +1947,15 @@ export default {
                     rule: {required: false, trigger: 'blur'}
                 },
                 {
+                    name: 'desc',
+                    type: 'textarea',
+                    component: null,
+                    isNull: true,
+                    label: '喂养方式',
+                    placeholder: '',
+                    rule: null
+                },
+                {
                     name: 'expert',
                     type: 'text',
                     component: null,
@@ -2042,6 +2051,15 @@ export default {
                     label: '饲料添加剂',
                     placeholder: '请输入饲料添加剂',
                     rule: {required: false, trigger: 'blur'}
+                },
+                {
+                    name: 'desc',
+                    type: 'textarea',
+                    component: null,
+                    isNull: true,
+                    label: '喂养方式',
+                    placeholder: '',
+                    rule: null
                 },
                 {
                     name: 'expert',
@@ -2182,6 +2200,15 @@ export default {
                     rule: null
                 },
                 {
+                    name: 'name2',
+                    type: 'textarea',
+                    component: null,
+                    isNull: true,
+                    label: '治疗方式',
+                    placeholder: '请输入治疗方式',
+                    rule: null
+                },
+                {
                     name: 'img',
                     type: 'file',
                     component: inputFile,
@@ -2257,6 +2284,15 @@ export default {
                     rule: null
                 },
                 {
+                    name: 'name2',
+                    type: 'textarea',
+                    component: null,
+                    isNull: true,
+                    label: '治疗方式',
+                    placeholder: '请输入治疗方式',
+                    rule: null
+                },
+                {
                     name: 'img',
                     type: 'file',
                     component: inputFile,
@@ -2283,9 +2319,9 @@ export default {
             tab: '检疫信息',
             hiddeEdit: true,
             searchPlaceholder: '请输入项目名称进行搜索',
-            headList: ['批次号', '操作日期', '操作人', '项目名称', '审批人', '检疫内容', '检疫结果', '指导专家', '备注信息'],
-            protos: ['serial', 'date', 'operate', 'name', 'name2', 'desc', 'amount', 'expert', 'memo'],
-            widths: [50, 50, 50, 50, 50, 50, 50, 50, 50],
+            headList: ['批次号', '操作日期', '操作人', '项目名称', '检疫机构', '审批人', '检疫内容', '检疫结果', '指导专家', '备注信息'],
+            protos: ['serial', 'date', 'operate', 'name', 'genre', 'name2', 'desc', 'amount', 'expert', 'memo'],
+            widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
             typeComponent: [{
                 component: output
             },
@@ -2327,6 +2363,15 @@ export default {
                     label: '项目名称',
                     placeholder: '请输入项目名称',
                     rule: [{required: true, trigger: 'blur', message: '请输入项目名称'}]
+                },
+                {
+                    name: 'genre',
+                    type: 'text',
+                    component: null,
+                    isNull: false,
+                    label: '检疫机构',
+                    placeholder: '请输入检疫机构',
+                    rule: [{required: true, trigger: 'blur', message: '请输入检疫机构'}]
                 },
                 {
                     name: 'name2',
@@ -2421,6 +2466,15 @@ export default {
                     rule: [{required: true, trigger: 'blur', message: '请输入项目名称'}]
                 },
                 {
+                    name: 'genre',
+                    type: 'text',
+                    component: null,
+                    isNull: false,
+                    label: '检疫机构',
+                    placeholder: '请输入检疫机构',
+                    rule: [{required: true, trigger: 'blur', message: '请输入检疫机构'}]
+                },
+                {
                     name: 'name2',
                     type: 'text',
                     component: null,
@@ -2491,9 +2545,9 @@ export default {
             tab: '检验检测信息',
             hiddeEdit: true,
             searchPlaceholder: '请输入项目名称进行搜索',
-            headList: ['批次号', '操作日期', '操作人', '检测项目名称', '检测部门', '检测结果', '天气', '检测内容', '指导专家', '备注信息'],
-            protos: ['serial', 'date', 'operate', 'name', 'name2', 'amount', 'weather', 'desc', 'expert', 'memo'],
-            widths: [50, 50, 50, 50, 50, 50, 50, 50, 50],
+            headList: ['批次号', '操作日期', '操作人', '检测项目名称', '检测类型', '检测部门', '检测结果', '天气', '检测内容', '指导专家', '备注信息'],
+            protos: ['serial', 'date', 'operate', 'name', 'genre', 'name2', 'amount', 'weather', 'desc', 'expert', 'memo'],
+            widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
             typeComponent: [{
                 component: output
             },
@@ -2553,6 +2607,27 @@ export default {
                     label: '指导专家',
                     placeholder: '请输入指导专家',
                     rule: {required: false, trigger: 'blur'}
+                },
+                {
+                    name: 'genre',
+                    type: 'select',
+                    component: null,
+                    isNull: false,
+                    label: '检测类型',
+                    placeholder: '请选择检验类型',
+                    rule: {required: true, trigger: 'blur', message: '请输入检验类型'},
+                    options: [{
+                        label: '土壤',
+                        value: '土壤'
+                    },
+                    {
+                        label: '水质',
+                        value: '水质'
+                    },
+                    {
+                        label: '大气',
+                        value: '大气'
+                    }]
                 },
                 {
                     name: 'amount',
@@ -2666,6 +2741,27 @@ export default {
                     label: '指导专家',
                     placeholder: '请输入指导专家',
                     rule: {required: false, trigger: 'blur'}
+                },
+                {
+                    name: 'genre',
+                    type: 'select',
+                    component: null,
+                    isNull: false,
+                    label: '检测类型',
+                    placeholder: '请选择检验类型',
+                    rule: {required: true, trigger: 'blur', message: '请输入检验类型'},
+                    options: [{
+                        label: '土壤',
+                        value: '土壤'
+                    },
+                    {
+                        label: '水质',
+                        value: '水质'
+                    },
+                    {
+                        label: '大气',
+                        value: '大气'
+                    }]
                 },
                 {
                     name: 'amount',
@@ -3643,9 +3739,9 @@ export default {
             tab: '检验检测信息',
             hiddeEdit: true,
             searchPlaceholder: '请输入项目名称进行搜索',
-            headList: ['批次号', '操作日期', '操作人', '检测项目名称', '检测部门', '检测结果', '天气', '检测内容', '指导专家', '备注信息'],
-            protos: ['serial', 'date', 'operate', 'name', 'name2', 'amount', 'weather', 'desc', 'expert', 'memo'],
-            widths: [50, 50, 50, 50, 50, 50, 50, 50, 50],
+            headList: ['批次号', '操作日期', '操作人', '检测项目名称', '检测类型', '检测部门', '检测结果', '天气', '检测内容', '指导专家', '备注信息'],
+            protos: ['serial', 'date', 'operate', 'name', 'genre', 'name2', 'amount', 'weather', 'desc', 'expert', 'memo'],
+            widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
             typeComponent: [{
                 component: output
             },
@@ -3711,9 +3807,9 @@ export default {
                     type: 'select',
                     component: null,
                     isNull: false,
-                    label: '检疫结果',
-                    placeholder: '请输入检疫结果',
-                    rule: {required: true, trigger: 'blur', message: '请输入检疫结果'},
+                    label: '检验结果',
+                    placeholder: '请输入检验结果',
+                    rule: {required: true, trigger: 'blur', message: '请输入检验结果'},
                     options: [{
                         label: '合格',
                         value: '合格'
@@ -3721,6 +3817,31 @@ export default {
                     {
                         label: '不合格',
                         value: '不合格'
+                    }]
+                },
+                {
+                    name: 'genre',
+                    type: 'select',
+                    component: null,
+                    isNull: false,
+                    label: '检测类型',
+                    placeholder: '请选择检验类型',
+                    rule: {required: true, trigger: 'blur', message: '请输入检验类型'},
+                    options: [{
+                        label: '土壤',
+                        value: '土壤'
+                    },
+                    {
+                        label: '水质',
+                        value: '水质'
+                    },
+                    {
+                        label: '大气',
+                        value: '大气'
+                    },
+                    {
+                        label: '农药残留',
+                        value: '农药残留'
                     }]
                 },
                 {
@@ -3820,13 +3941,38 @@ export default {
                     rule: {required: false, trigger: 'blur'}
                 },
                 {
+                    name: 'genre',
+                    type: 'select',
+                    component: null,
+                    isNull: false,
+                    label: '检测类型',
+                    placeholder: '请选择检验类型',
+                    rule: {required: true, trigger: 'blur', message: '请输入检验类型'},
+                    options: [{
+                        label: '土壤',
+                        value: '土壤'
+                    },
+                    {
+                        label: '水质',
+                        value: '水质'
+                    },
+                    {
+                        label: '大气',
+                        value: '大气'
+                    },
+                    {
+                        label: '农药残留',
+                        value: '农药残留'
+                    }]
+                },
+                {
                     name: 'amount',
                     type: 'select',
                     component: null,
                     isNull: false,
-                    label: '检疫结果',
-                    placeholder: '请输入检疫结果',
-                    rule: {required: true, trigger: 'blur', message: '请输入检疫结果'},
+                    label: '检验结果',
+                    placeholder: '请输入检验结果',
+                    rule: {required: true, trigger: 'blur', message: '请输入检验结果'},
                     options: [{
                         label: '合格',
                         value: '合格'

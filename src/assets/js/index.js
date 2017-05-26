@@ -25,39 +25,41 @@ const any = ['/protocol', '/forget']
 
 router.beforeEach(async (to, from, next) => {
     var check = false
-    if (window.Roles.name === undefined) {
-        try {
-            await axios.get('/login/state').then(responce => {
-                let except = to.matched.some((item, index, array) => {
-                    if (item.path !== '/login' && any.indexOf(to.path) === -1) return true
-                })
-                if (responce.data.name === undefined) {
-                    window.Roles = {}
-                    if (except) next({path: '/login'})
-                } else {
-                    if (!except) check = true
-                    window.Roles = responce.data
-                    let data = window.Roles.permissions
-                    if (to.path.indexOf('details') === -1 && to.path.indexOf('run') === -1) {
-                        if (data.one === 'admin') {
-                            if (Excepts.indexOf(to.path) === -1 && Admins.indexOf(to.path) === -1) check = true
-                        } else {
-                            if ((Excepts.indexOf(to.path) === -1 && data.one.indexOf(to.path) === -1) || Admins.indexOf(to.path) !== -1) check = true
+    if (to.path.indexOf('run') === -1) {
+        if (window.Roles.name === undefined) {
+            try {
+                await axios.get('/login/state').then(responce => {
+                    let except = to.matched.some((item, index, array) => {
+                        if (item.path !== '/login' && any.indexOf(to.path) === -1) return true
+                    })
+                    if (responce.data.name === undefined) {
+                        window.Roles = {}
+                        if (except) next({path: '/login'})
+                    } else {
+                        if (!except) check = true
+                        window.Roles = responce.data
+                        let data = window.Roles.permissions
+                        if (to.path.indexOf('details') === -1 && to.path.indexOf('run') === -1) {
+                            if (data.one === 'admin') {
+                                if (Excepts.indexOf(to.path) === -1 && Admins.indexOf(to.path) === -1) check = true
+                            } else {
+                                if ((Excepts.indexOf(to.path) === -1 && data.one.indexOf(to.path) === -1) || Admins.indexOf(to.path) !== -1) check = true
+                            }
                         }
                     }
+                })
+            } catch (e) {
+                console.log(e)
+            }
+        } else {
+            var data2 = window.Roles.permissions
+            if (to.path === '/login') check = true
+            if (to.path.indexOf('details') === -1 && to.path.indexOf('run') === -1) {
+                if (data2.one === 'admin') {
+                    if (Excepts.indexOf(to.path) === -1 && Admins.indexOf(to.path) === -1) check = true
+                } else {
+                    if ((Excepts.indexOf(to.path) === -1 && data2.one.indexOf(to.path) === -1) || Admins.indexOf(to.path) !== -1) check = true
                 }
-            })
-        } catch (e) {
-            console.log(e)
-        }
-    } else {
-        var data2 = window.Roles.permissions
-        if (to.path === '/login') check = true
-        if (to.path.indexOf('details') === -1 && to.path.indexOf('run') === -1) {
-            if (data2.one === 'admin') {
-                if (Excepts.indexOf(to.path) === -1 && Admins.indexOf(to.path) === -1) check = true
-            } else {
-                if ((Excepts.indexOf(to.path) === -1 && data2.one.indexOf(to.path) === -1) || Admins.indexOf(to.path) !== -1) check = true
             }
         }
     }

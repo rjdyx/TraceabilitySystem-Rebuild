@@ -22,12 +22,16 @@
                             <th style="width: 25%" v-for="item in models.tableTheads">{{item}}</th>
                         </tr>
                         <tr v-for="list in lists" @click="goListDetails(list.id,list.custom_id)">
-                            <td>{{list.serial}}</td>
-                            <td>{{list.operate_name}}</td>
-                            <td>{{list.date}}</td>
-                            <td>
+                            <td v-if="list.serial!==null">{{list.serial}}</td>
+                            <td v-else>{{lack}}</td>
+                            <td v-if="list.operate!==null">{{list.operate_name}}</td>
+                            <td v-else>{{lack}}</td>
+                            <td v-if="list.date!==null">{{list.date}}</td>
+                            <td v-else>{{lack}}</td>
+                            <td v-if="list.thumb!==null">
                                 <img class="tdImg" src="list.thumb" alt="">
                             </td>
+                            <td v-else>{{lack}}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -105,6 +109,7 @@ export default {
             imgListName: '农事记录详情',
             id: 555,
             isbreed: false,
+            lack: '信息缺失',
             // imgListName: '农事记录详情',
             lists: ''
         }

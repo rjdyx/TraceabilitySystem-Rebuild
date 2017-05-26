@@ -7,8 +7,9 @@
         <tbody>
             <tr v-for="(v,k) in tableList.tableProtos ">
                 <td style="width: 30%">{{tableList.tableTheads[k]}}</td>
-                <td style="width: 70%" v-if="v=='amount'">{{values[v]}}{{values.unit}}</td>
-                <td style="width: 70%" v-else>{{values[v]}}</td>
+                <td style="width: 70%" v-if="v==='amount'&&values[v]!==null&&values.unit!==undefined">{{values[v]}}{{values.unit}}</td>
+                <td style="width: 70%" v-else-if="values[v]">{{values[v]}}</td>
+                <td style="width: 70%" v-else>{{lack}}</td>
             </tr>
         </tbody>
             
@@ -68,6 +69,7 @@ export default {
     },
     data () {
         return {
+            lack: '信息缺失'
         }
     },
     mounted () {
