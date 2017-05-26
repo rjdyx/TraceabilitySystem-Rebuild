@@ -668,7 +668,6 @@ export default {
         this.getApiUrl()
         this.getDetailSerial()
         this.getAllMsg()
-        document.title = this.tab
     },
     watch: {
         tabItem () {
@@ -678,6 +677,7 @@ export default {
             }
             this.getAllMsg()
             this.inputValue = ''
+            document.title = this.tab
         },
         tab () {
             this.tabItem = this.tabList[0]
