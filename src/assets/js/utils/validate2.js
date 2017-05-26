@@ -47,30 +47,34 @@ exports.reCheck = (rule, value, callback, source, options) => {
 // 验证数字（包含小数）
 exports.reNumber = (rule, value, callback, source, options) => {
     if (value !== '' && value !== undefined && value !== null) {
-        if (/^(-?\d+)(\.\d+)?$/.test(value)) {
-            if (rule.getMax !== undefined) {
-                if (parseInt(value) > parseInt(rule.getMax)) {
-                    callback(new Error(rule.getMessage))
-                } else {
-                    callback()
-                }
-            } else if (rule.getMin !== undefined) {
-                if (parseInt(value) <= parseInt(rule.getMin)) {
-                    callback(new Error(rule.getMessage))
-                } else {
-                    callback()
-                }
-            } else if (rule.getMiddle !== undefined) {
-                if (parseInt(value) <= parseInt(rule.max) && parseInt(value) >= parseInt(rule.min)) {
-                    callback()
-                } else {
-                    callback(new Error(rule.getMessage))
-                }
+        if (/^([0-9])+(\.[0-9]+)?$/.test(value)) {
+            if (value === '0') {
+                callback(new Error('请输入大于0数字'))
             } else {
-                callback()
+                if (rule.getMax !== undefined) {
+                    if (parseInt(value) > parseInt(rule.getMax)) {
+                        callback(new Error(rule.getMessage))
+                    } else {
+                        callback()
+                    }
+                } else if (rule.getMin !== undefined) {
+                    if (parseInt(value) <= parseInt(rule.getMin)) {
+                        callback(new Error(rule.getMessage))
+                    } else {
+                        callback()
+                    }
+                } else if (rule.getMiddle !== undefined) {
+                    if (parseInt(value) <= parseInt(rule.max) && parseInt(value) >= parseInt(rule.min)) {
+                        callback()
+                    } else {
+                        callback(new Error(rule.getMessage))
+                    }
+                } else {
+                    callback()
+                }
             }
         } else {
-            callback(new Error('请输入数字'))
+            callback(new Error('请输入大于0数字'))
         }
     } else {
         callback()

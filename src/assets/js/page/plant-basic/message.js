@@ -4495,7 +4495,6 @@ export default {
         url: 'plan',
         paramsIndex: 'beast',
          // 链接批次信息模块数据的桥（养殖批次详情）
-        batch: 'planBatch',
         changeDataArr: [{type: { 'fodderuse': '饲养', 'disease': '病疫', 'detection': '检疫', 'detects': '检测', 'clean': '圈舍维护', 'dispose': '无害化', 'come': '出栏' }}],
         searchPlaceholder: '请输入批次号',
         search: ['query_text', 'type'],
@@ -4533,10 +4532,6 @@ export default {
                 {
                     value: 'detects',
                     label: '检测'
-                },
-                {
-                    value: 'clean',
-                    label: '圈舍维护'
                 },
                 {
                     value: 'dispose',
@@ -4612,10 +4607,6 @@ export default {
                 {
                     value: 'detects',
                     label: '检测'
-                },
-                {
-                    value: 'clean',
-                    label: '圈舍维护'
                 },
                 {
                     value: 'dispose',

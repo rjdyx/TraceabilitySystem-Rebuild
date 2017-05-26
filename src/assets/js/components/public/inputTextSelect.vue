@@ -54,11 +54,13 @@
                 this.$emit('return-shuju', {name: 'unit', value: this.selectValue})
             },
             allowance () {
-                if (this.allowance !== 0) {
-                    this.shuju.placeholder = '还可以输入' + this.allowance
-                } else {
+                if (this.allowance === 0) {
                     this.inputValue = ''
                     this.shuju.placeholder = '请填写数字（必填）'
+                } else if (this.allowance === -1) {
+                    this.shuju.placeholder = '当前场域无剩余面积'
+                } else {
+                    this.shuju.placeholder = '还可以输入' + this.allowance
                 }
             },
             editAllowance () {
