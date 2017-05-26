@@ -479,7 +479,7 @@ export default {
     areaBatch: {
         key: 'areaBatch',
         tab: '圈舍维护批次管理',
-        roleName: ['beast/clian', 0],
+        roleName: ['beast/clean', 0],
         theads: ['圈舍批次号', '操作类型', '操作方式', '操作内容', '专家', '操作人', '操作日期', '备注信息'],
         protos: ['serial', 'name', 'way', 'content', 'expert_name', 'operate_name', 'date', 'memo'],
         url: 'clean',

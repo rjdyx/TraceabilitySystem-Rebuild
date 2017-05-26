@@ -28,7 +28,7 @@
                                     v-model="editForm[subItem.name]" 
                                     size="small"
                                     :disabled="subItem.disabled"
-                                    @keyup.enter.native="returnRuselt"
+                                    @keyup.enter.native="submitForm('editForm')"
                                     ></el-input>
                             </el-form-item>
                         </td> 
@@ -59,7 +59,8 @@
                                     type="textarea" 
                                     v-model="editForm[subItem.name]" 
                                     size="small"
-                                    :disabled="subItem.disabled"></el-input>
+                                    :disabled="subItem.disabled"
+                                    @keyup.enter.native="submitForm('editForm')"></el-input>
                             </el-form-item>
                         </td>
                     </tr>
@@ -189,9 +190,6 @@ export default {
     },
     mixins: [move],
     methods: {
-        returnRuselt () {
-            this.submitForm('editForm')
-        },
         // 角色权限默认选中数据
         rolePermisstion (roleId = null) {
             axios.get('api/role/permission/' + this.roleId)
@@ -222,6 +220,7 @@ export default {
         },
         // 返回InputTextSelect组件的数据
         returnShuju (data) {
+            console.log(data.value)
             if (this.url.indexOf('course') >= 0 || this.url.indexOf('grow') >= 0) {
                 this.editForm['img1'] = data.value
             } else {

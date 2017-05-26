@@ -3470,7 +3470,7 @@ export default {
         url: 'detection',
         // 链接批次信息模块数据的桥（养殖批次详情）
         batch: 'detectionBatch',
-        searchPlaceholder: '请输入检疫项目名称进行',
+        searchPlaceholder: '请输入检疫批次号进行',
         changeDataArr: [{result: {0: '不合格', 1: '合格'}}],
         selectSearch: ['detection.organization'],
         theads: ['检疫批次号', '检疫日期', '检疫项目名称', '检疫内容', '检疫结果', '专家', '操作人员', '审批人', '检疫报告图片', '备注'],
@@ -4012,7 +4012,7 @@ export default {
         url: 'clean',
         // 链接批次信息模块数据的桥（养殖批次详情）
         batch: 'areaBatch',
-        searchPlaceholder: '请输入标题进行搜索',
+        searchPlaceholder: '请输入圈舍批次号进行搜索',
         search: ['query_text', 'name'],
         theads: ['圈舍批次号', '标题', '操作内容', '专家', '操作人', '操作日期', '图片', '备注信息'],
         protos: ['serial', 'name', 'content', 'expert_name', 'operate_name', 'date', 'img', 'memo'],

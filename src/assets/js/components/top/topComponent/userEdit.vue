@@ -16,7 +16,7 @@
                                     <tr class="tr1" v-if="item[1]=='text'">
                                         <td>
                                             <el-form-item  :label="item[0]" :prop="key">
-                                                <el-input :placeholder="item[2]" v-model="editValue[key]"></el-input>
+                                                <el-input :placeholder="item[2]" v-model="editValue[key]" size="small"  @keyup.enter.native="submitForm('editValue')"></el-input>
                                             </el-form-item>
                                         </td>
                                     </tr>
@@ -30,9 +30,9 @@
                                     <tr class="tr1" v-else-if="item[1]=='select'">
                                         <td>
                                             <el-form-item :label="item[0]" :prop="key">
-                                                <el-select  v-model="editValue[key]" :placeholder="item[2]">
-                                                    <el-option label="男" value="0"></el-option>
-                                                    <el-option label="女" value="1"></el-option>
+                                                <el-select  v-model="editValue[key]" :placeholder="item[2]" size="small">
+                                                    <el-option label="男" value="0" size="small"></el-option>
+                                                    <el-option label="女" value="1" size="small"></el-option>
                                                 </el-select>
                                             </el-form-item>
                                         </td>
