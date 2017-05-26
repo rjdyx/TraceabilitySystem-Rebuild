@@ -330,8 +330,9 @@ export default {
         key: 'beastDetectBatch',
         tab: '检测批次管理',
         roleName: ['beast/detect', 0],
-        theads: ['检测批次号', '检测日期', '检测项目名称', '专家', '操作人员', '检测内容', '检测结果', '审批人', '检测报告图片', '备注'],
-        protos: ['serial', 'date', 'name', 'expert_name', 'operate_name', 'content', 'result', 'check', 'img', 'memo'],
+        theads: ['检测批次号', '检测日期', '检测项目名称', '专家', '操作人员', '检测内容', '检测结果', '审批人', '备注'],
+        protos: ['serial', 'date', 'name', 'expert_name', 'operate_name', 'content', 'result', 'check', 'memo'],
+        changeDataArr: [{result: {'不合格': 0, '合格': 1}}],
         url: 'detect',
         tabList: [{
             url: 'breed-detect',
@@ -425,8 +426,9 @@ export default {
         key: 'detectionBatch',
         tab: '检疫批次管理',
         roleName: ['beast/detection', 0],
-        theads: ['检验批次号', '检测日期', '检测项目名称', '专家', '操作人员', '检测内容', '检测结果', '审批人', '检测报告图片', '备注'],
-        protos: ['serial', 'date', 'name', 'expert_name', 'operate_name', 'content', 'result', 'check', 'img', 'memo'],
+        theads: ['检验批次号', '检测日期', '检测项目名称', '专家', '操作人员', '检测内容', '检测结果', '审批人', '备注'],
+        protos: ['serial', 'date', 'name', 'expert_name', 'operate_name', 'content', 'result', 'check', 'memo'],
+        changeDataArr: [{result: {'不合格': 0, '合格': 1}}],
         url: 'detection',
         tabList: [{
             url: 'detection-rfid',
