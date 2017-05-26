@@ -57,6 +57,9 @@ export default{
     components: {
     },
     mounted () {
+    },
+    created () {
+        document.title = '寻真溯源安全预警平台-服务协议'
     }
 }
 

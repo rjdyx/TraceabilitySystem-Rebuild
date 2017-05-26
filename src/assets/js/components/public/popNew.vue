@@ -29,7 +29,7 @@
                                     :placeholder="subItem.placeholder" 
                                     v-model="tableForm[subItem.name]" 
                                     size="small"
-                                    @keyup.enter.native="returnRuselt"
+                                    @keyup.enter.native="submitForm('tableForm')"
                                 ></el-input>
                             </el-form-item>
                         </td> 
@@ -58,7 +58,8 @@
                                 <el-input 
                                     :placeholder="subItem.placeholder" 
                                     type="textarea" 
-                                    v-model="tableForm[subItem.name]" size="small"></el-input>
+                                    v-model="tableForm[subItem.name]" size="small"
+                                    @keyup.enter.native="submitForm('tableForm')"></el-input>
                             </el-form-item>
                         </td>
                     </tr>
@@ -224,9 +225,6 @@ export default {
         }
     },
     methods: {
-        returnRuselt () {
-            this.submitForm('tableForm')
-        },
         handleClick (tab, event) {
             // this.$parent.changeNewTab(tab.$data.index)
         },
@@ -361,7 +359,11 @@ export default {
                 if (val !== '') {
                     let params = {id: val}
                     axios.get(this.$adminUrl(this.url + '/getArea'), {params: params}).then((responce) => {
-                        this.allowance = responce.data['num']
+                        if (responce.data['num'] === 0) {
+                            this.allowance = -1
+                        } else {
+                            this.allowance = responce.data['num']
+                        }
                         this.tableForm['unit'] = responce.data['unit']
                         let nc = this.newComponent[0]
                         this.disabledV = false

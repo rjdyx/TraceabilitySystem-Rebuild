@@ -270,9 +270,8 @@ export default {
                 for (let key in com.selectUrl2) {
                     let newArr = this.$addAndEditSelectMethod(com.selectUrl2[key])
                     let data = {table: newArr.selectUrl}
-                    let field = com.selectWhere2
                     if (com.selectWhere2 !== undefined) {
-                        data.field = field
+                        data.field = com.selectWhere2[key]
                         data.id = this.headData.area_id
                     }
 
@@ -668,7 +667,6 @@ export default {
         this.getApiUrl()
         this.getDetailSerial()
         this.getAllMsg()
-        document.title = this.tab
     },
     watch: {
         tabItem () {
@@ -678,6 +676,7 @@ export default {
             }
             this.getAllMsg()
             this.inputValue = ''
+            document.title = this.tab
         },
         tab () {
             this.tabItem = this.tabList[0]

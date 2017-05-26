@@ -184,6 +184,9 @@ export default {
             this.recordeChecked = true
             this.ruleForm2.name = localStorage.getItem('recordUser')
         }
+    },
+    created () {
+        document.title = '寻真溯源安全预警平台'
     }
 }
 </script>
@@ -299,6 +302,16 @@ export default {
 			.el-form-item__content{
 				/*line-height: 32px;*/
 				font-size: 12px;
+			}
+			.el-button:hover{
+				border-color: transparent !important;
+				color: #fff;
+			}
+			.el-input__inner:hover,.el-input__inner:focus{
+				border-color: #20a0ff !important;
+			}
+			.el-checkbox__inner:hover{
+				border-color: #20a0ff !important;
 			}
 		}
 </style>

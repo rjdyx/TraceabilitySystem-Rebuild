@@ -290,6 +290,15 @@ export default {
             } else if (row.harvest_change !== undefined) {
                 id = row.cultivate_id
             }
+            if (this.key === 'plan-beast') {
+                if (['饲养', '检测'].indexOf(row.type) >= 0) {
+                    this.$router.push('/index/details/planBreedBatch/' + id)
+                    return
+                } else {
+                    this.$router.push('/index/details/planRfidBatch/' + id)
+                    return
+                }
+            }
             this.$router.push('/index/details/' + this.batch + '/' + id)
         },
         /**

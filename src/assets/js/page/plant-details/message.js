@@ -200,7 +200,7 @@ export default {
             headList: ['圈舍名称', '开始日期', '结束日期', '操作人', '录入人'],
             protos: ['name', 'date', 'end_date', 'operate_name', 'user_name'],
             widths: [50, 50, 50, 50, 50],
-            hiddeEdit: false,
+            // hiddeEdit: false,
             typeComponent: [{
                 component: newbuildBtn
             }],
@@ -215,7 +215,7 @@ export default {
                 selectUrl2: [['areas', 'id', 'name', true], ['operates', 'id', 'name', true]],
                 selectInit2: [{value: '', label: '选择要转移的圈舍'}, {value: '', label: '选择操作人'}],
                 popNumber2: [0, 1],
-                selectWhere2: 'id',
+                selectWhere2: ['id', ''],
                 components: [{
                     name: 'area_id',
                     type: 'select',
@@ -251,7 +251,7 @@ export default {
                 selectUrl2: [['areas', 'id', 'name', true], ['operates', 'id', 'name', true]],
                 selectInit2: [{value: '', label: '选择要转移的圈舍'}, {value: '', label: '选择操作人'}],
                 popNumber2: [0, 1],
-                selectWhere2: 'id',
+                selectWhere2: ['id', ''],
                 components: [{
                     name: 'area_id',
                     type: 'select',
@@ -481,7 +481,7 @@ export default {
     areaBatch: {
         key: 'areaBatch',
         tab: '圈舍维护批次管理',
-        roleName: ['beast/clian', 0],
+        roleName: ['beast/clean', 0],
         theads: ['圈舍批次号', '操作类型', '操作方式', '操作内容', '专家', '操作人', '操作日期', '备注信息'],
         protos: ['serial', 'name', 'way', 'content', 'expert_name', 'operate_name', 'date', 'memo'],
         url: 'clean',
@@ -524,7 +524,7 @@ export default {
             url: 'dispose-rfid',
             tab: '养殖批次信息',
             searchPlaceholder: '请输入rfid进行搜索',
-            typeComponent: [{component: newbuildBtn}],
+            typeComponent: [{component: newbuildBtn}, {component: output}],
             headList: ['养殖批次', '圈舍', 'Rfid', '养殖畜禽', '养殖日期'],
             protos: ['serial', 'area_name', 'rfid', 'beast_name', 'date'],
             widths: [50, 50, 50, 50],
@@ -574,7 +574,7 @@ export default {
             url: 'come-rfid',
             tab: '畜禽RFID',
             searchPlaceholder: '请输入rfid进行搜索',
-            typeComponent: [{component: newbuildBtn}],
+            typeComponent: [{component: newbuildBtn}, {component: output}],
             headList: ['圈舍', '养殖批次', 'Rfid', '养殖畜禽', '养殖日期'],
             protos: ['area_name', 'serial', 'rfid', 'beast_name', 'date'],
             widths: [50, 50, 50, 50, 50],
@@ -612,13 +612,55 @@ export default {
             }]
         }]
     },
-    // 养殖计划批次详情
-    planBatch: {
+    // 养殖计划批次详情1
+    planBreedBatch: {
         key: 'planBatch',
         tab: '养殖计划管理',
         roleName: ['beast/plan', 0],
-        theads: ['养殖计划批次号', '计划日期', '操作类型', '安排人员', '计划内容', '操作用户', '备注'],
-        protos: ['serial', 'date', 'type', 'operate_name', 'content', 'user_name', 'memo'],
+        theads: ['养殖计划批次号', '计划日期', '操作类型', '安排人员', '计划内容', '备注'],
+        protos: ['serial', 'date', 'type', 'operate_name', 'content', 'memo'],
+        changeDataArr: [{type: {'饲养': 'fodderuse', '检测': 'detects'}}],
+        url: 'plan',
+        tabList: [{
+            url: 'breed-plan',
+            tab: '养殖批次信息',
+            searchPlaceholder: '请输入批次号进行搜索',
+            typeComponent: [{component: newbuildBtn}, {component: output}],
+            headList: ['养殖批次号', '圈舍', '畜禽名称', '养殖日期'],
+            protos: ['serial', 'area_name', 'beast_name', 'date'],
+            widths: [50, 50, 50, 50],
+            hiddeEdit: false,
+            listComponent: [{
+                components: [{
+                    type: 'date',
+                    component: datePick
+                }]
+            }],
+            newComponent: [{
+                tab: '新建养殖计划批次信息',
+                type: 'table',
+                assocNum: 0,
+                labUrl: 'breed',
+                components: [{
+                    name: 'name',
+                    type: 'table',
+                    theads: ['养殖批次号', '圈舍', '养殖畜禽', '养殖日期'],
+                    protos: ['serial', 'area_name', 'beast_name', 'start_date'],
+                    valueId: 'breed_ids',
+                    errormsg: '请选择养殖批次号',
+                    tableVal: []
+                }]
+            }]
+        }]
+    },
+    // 养殖计划批次详情2
+    planRfidBatch: {
+        key: 'planBatch',
+        tab: '养殖计划管理',
+        roleName: ['beast/plan', 0],
+        theads: ['养殖计划批次号', '计划日期', '操作类型', '安排人员', '计划内容', '备注'],
+        protos: ['serial', 'date', 'type', 'operate_name', 'content', 'memo'],
+        changeDataArr: [{type: {'病疫': 'disease', '检疫': 'detection', '无害化': 'dispose', '出栏': 'come'}}],
         url: 'plan',
         tabList: [{
             url: 'plan-rfid',
@@ -629,17 +671,38 @@ export default {
             protos: ['serial', 'rfid', 'beast_name', 'date'],
             widths: [50, 50, 50, 50, 50],
             hiddeEdit: false,
-            listComponent: [],
-            newComponent: [{
-                tab: '新建养殖计划关联信息',
-                type: 'table',
-                url: 'rfid',
+            listComponent: [{
                 components: [{
+                    type: 'date',
+                    component: datePick
+                }]
+            }],
+            newComponent: [{
+                tab: '新建批次病疫信息',
+                selectUrl2: [['breeds', 'id', 'serial', true]],
+                selectInit2: [{value: '', label: '养殖批次号选择'}],
+                popNumber2: [0],
+                labUrl: 'rfid',
+                type: 'assoc',
+                assocNum: 1,
+                components: [{
+                    name: 'breed_id',
+                    type: 'select',
+                    component: null,
+                    isNull: false,
+                    label: '养殖批次号',
+                    placeholder: '',
+                    assocNum: 1,
+                    rule: {required: true, trigger: 'blur', type: 'number', message: '请选择养殖批次号'},
+                    options: []
+                },
+                {
                     name: 'name',
                     type: 'table',
-                    theads: ['圈舍', '养殖批次', 'Rfid', '养殖畜禽', '养殖日期'],
-                    protos: ['area_name', 'serial', 'rfid', 'beast_name', 'date'],
-                    valueId: 'breed_ids',
+                    tableUrl: ['rfid', true],
+                    theads: ['养殖批次', 'Rfid', '养殖畜禽', '养殖日期'],
+                    protos: ['serial', 'rfid', 'beast_name', 'date'],
+                    valueId: 'rfid_ids',
                     errormsg: '请选择rfid',
                     tableVal: []
                 }]
