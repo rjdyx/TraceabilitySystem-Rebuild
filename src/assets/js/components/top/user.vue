@@ -20,11 +20,13 @@
 			 	</el-row>
 				<el-button class="btn_change" @click="showEdit">编辑</el-button>
 			</div>
-			<div class="mainPic">
+			<div class="mainPic">s
 				<img src="/public/images/rfid.png">
 			</div>
 			<footer-top></footer-top>
-			<userEdit v-if="isShow" :editValue="listV" @updateValue="updateVal" :changeDataArr="changeDataArr"></userEdit>
+            <transition name="fade">
+			    <userEdit v-if="isShow" :editValue="listV" @updateValue="updateVal" :changeDataArr="changeDataArr"></userEdit>
+            </transition>
 		</div>
 	</div>
 </template>

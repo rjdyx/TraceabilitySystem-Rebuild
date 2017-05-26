@@ -9,7 +9,7 @@
 <template>
 	<div class="newWrap">
 		<form class="newForm">
-			<i class="el-icon-circle-close" @click="close"></i>
+			<i class="closeBtn" @click="close"></i>
 			<el-tabs v-model="activeName">
 				<el-tab-pane :label="item.tab" :name="item.tab" v-for="(item,i) in more">
 					<el-form :model="tableForm" :rules="rules" ref="tableForm" label-width="110px" class="demo-tableForm">

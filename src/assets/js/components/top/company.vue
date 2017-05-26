@@ -31,7 +31,9 @@
 				<img src="/public/images/rfid.png">
 			</div>
 			<footer-top></footer-top>
-			<companyEdit v-if="isShow" :editValue="listV" @updateValue="updateVal"></companyEdit>
+            <transition name="fade">
+			    <companyEdit v-if="isShow" :editValue="listV" @updateValue="updateVal"></companyEdit>
+            </transition>
 		</div>
 	</div>
 </template>

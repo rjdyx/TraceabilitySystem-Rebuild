@@ -92,20 +92,18 @@
                 }
             }
         }   
-        .el-icon-circle-close{
-            font-size:24px;
-            color:#8492a6;
+        .closeBtn{
+            background: url(/public/images/close.png) no-repeat -149px -31px;
+            width: 30px;
+            height: 30px;
+            display: inline-block;
             position: absolute;
-            right:-12px;
-            top:-10px;
-            border:3px solid white;
-            border-radius:50%;
-            background:white;
+            right: -14px;
+            top: -12px;
             z-index:3;
         }
-        .el-icon-circle-close:hover{
-            color:#0087b5;
-            cursor:pointer;
+        .closeBtn:hover{
+            background-position: -180px -31px;
         }
         .btn_change{
             color: #fff;
