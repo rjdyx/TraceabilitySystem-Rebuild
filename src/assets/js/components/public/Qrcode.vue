@@ -35,7 +35,7 @@
             if (per === 'P') {
                 url += 'plant'
             } else {
-                url += 'beast'
+                url += 'breed'
             }
             this.qrText = url + '/index/' + this.editValue
         }
