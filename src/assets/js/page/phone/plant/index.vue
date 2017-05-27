@@ -33,7 +33,7 @@
 ">{{product_desc}}</dd>
 				</dl>
 			</div>
-			<div class="plant_product"><img src="img" alt=""></div>
+			<div class="plant_product"><img :src="img" alt=""></div>
 			<ul class="plantBottomList">
 			    <!-- 生长图片 -->
 				<li><router-link :to="'/run/plant/growImg/'+code"></router-link></li>

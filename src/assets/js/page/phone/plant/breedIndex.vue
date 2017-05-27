@@ -27,7 +27,7 @@
 					<dd style="overflow : hidden;text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp: 7;-webkit-box-orient: vertical;">{{data.description}}</dd>
 				</dl>
 			</div>
-			<div class="plant_product"><img src="data.thumb" alt=""></div>
+			<div class="plant_product"><img :src="data.thumb" alt=""></div>
 			<ul class="plantBottomList">
 				<!-- 生长过程 -->
 				<li><router-link :to="'/run/breed/growProcess/'+code"></router-link></li>
