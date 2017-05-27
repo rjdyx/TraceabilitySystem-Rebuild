@@ -58,12 +58,13 @@ exports.reNumber = (rule, value, callback, source, options) => {
                         callback()
                     }
                 } else if (rule.getMin !== undefined) {
-                    if (parseInt(value) <= parseInt(rule.getMin)) {
+                    if (parseInt(value) < parseInt(rule.getMin)) {
                         callback(new Error(rule.getMessage))
                     } else {
                         callback()
                     }
                 } else if (rule.getMiddle !== undefined) {
+                    console.log(555)
                     if (parseInt(value) <= parseInt(rule.max) && parseInt(value) >= parseInt(rule.min)) {
                         callback()
                     } else {

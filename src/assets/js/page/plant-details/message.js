@@ -666,9 +666,9 @@ export default {
             url: 'plan-rfid',
             tab: '畜禽RFID',
             searchPlaceholder: '请输入rfid进行搜索',
-            typeComponent: [{component: newbuildBtn}],
-            headList: ['养殖批次', 'Rfid', '养殖畜禽', '养殖日期'],
-            protos: ['serial', 'rfid', 'beast_name', 'date'],
+            typeComponent: [{component: newbuildBtn}, {component: output}],
+            headList: ['养殖批次', '圈舍', 'Rfid', '养殖畜禽', '养殖日期'],
+            protos: ['serial', 'area_name', 'rfid', 'beast_name', 'date'],
             widths: [50, 50, 50, 50, 50],
             hiddeEdit: false,
             listComponent: [{
@@ -728,6 +728,9 @@ export default {
             hiddeEdit: false,
             typeComponent: [{
                 component: newbuildBtn
+            },
+            {
+                component: output
             }],
             listComponent: [],
             newComponent: [{
@@ -1001,6 +1004,9 @@ export default {
             hiddeEdit: false,
             typeComponent: [{
                 component: newbuildBtn
+            },
+            {
+                component: output
             }],
             listComponent: [],
             newComponent: [{
@@ -1168,6 +1174,9 @@ export default {
             hiddeEdit: false,
             typeComponent: [{
                 component: newbuildBtn
+            },
+            {
+                component: output
             }],
             listComponent: [{
                 components: [{
@@ -1210,6 +1219,9 @@ export default {
             hiddeEdit: false,
             typeComponent: [{
                 component: newbuildBtn
+            },
+            {
+                component: output
             }],
             listComponent: [{
                 components: [{
@@ -1253,6 +1265,9 @@ export default {
             hiddeEdit: false,
             typeComponent: [{
                 component: newbuildBtn
+            },
+            {
+                component: output
             }],
             listComponent: [{
                 components: [{
@@ -1296,6 +1311,9 @@ export default {
             hiddeEdit: false,
             typeComponent: [{
                 component: newbuildBtn
+            },
+            {
+                component: output
             }],
             listComponent: [{
                 components: [{
