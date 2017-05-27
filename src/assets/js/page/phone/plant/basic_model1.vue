@@ -8,7 +8,7 @@
 <template>
     <div class="pBasicModel1">
         <header1 :title="models.title" :isbreed="isbreed"></header1>
-        <headerImg :productName='productName'></headerImg>
+        <headerImg :productName='productName' :isbreed="isbreed"></headerImg>
         <div class="pBM1_list">
             <div>
                 <h3 :class="{breedFontCol:isbreed}">{{models.tableName}}</h3>
@@ -41,56 +41,57 @@
     </div>
 </template>
 <style type="text/css" lang="sass">
-.breedCol{
-    background:#93bf46!important;
-}
-.breedFontCol{
-    color:#93bf46!important;
-}
-.pBasicModel1{
-    width: 100%;
-    padding-bottom: 1rem;
-    .pBM1_list{
-        background: #fbfbfb;
-        >div{
-            >h3{
-                font-weight:normal;
-                color:#3ccfb5;
-                font-size: .42rem;
-                padding: 2% 0% 0% 7%;
-                // font-weight:none;
-            }
-            >table{
-                width:92%;
-                margin: 0 auto;
-                table-layout:fixed;
-                tr{
-                    width:100%;
-                    font-size: .37rem;
-                    border-bottom: 1px solid #e6e6e6;
-                    text-align: center;
-                    th{
-                        font-weight:normal;
-                        color:#333;
-                        width: 25%;
-                        box-sizing: border-box;
-                        padding: 3% 0%;
-                    }
-                    td{
-                        color:#989898;
-                        padding: 1% 0%;
-                        width: 25%;
-                        box-sizing: border-box;
-                        >img{
-                            width: 80%;
-                            height: auto;
+    .breedCol{
+        background:#93bf46!important;
+    }
+    .breedFontCol{
+        color:#93bf46!important;
+    }
+    .pBasicModel1{
+        width: 100%;
+        padding-bottom: 1rem;
+        .pBM1_list{
+            background: #fbfbfb;
+            >div{
+                >h3{
+                    font-weight:normal;
+                    color:#3ccfb5;
+                    font-size: .42rem;
+                    padding: 2% 0% 0% 7%;
+                    // font-weight:none;
+                }
+                >table{
+                    width:92%;
+                    margin: 0 auto;
+                    table-layout:fixed;
+                    tr{
+                        width:100%;
+                        font-size: .37rem;
+                        border-bottom: 1px solid #e6e6e6;
+                        text-align: center;
+                        th{
+                            font-weight:normal;
+                            color:#333;
+                            width: 25%;
+                            box-sizing: border-box;
+                            padding: 3% 0%;
+                        }
+                        td{
+                            color:#989898;
+                            padding: 1% 0%;
+                            width: 25%;
+                            box-sizing: border-box;
+                            word-wrap: break-word;
+                            >img{
+                                width: 80%;
+                                height: auto;
+                            }
                         }
                     }
                 }
-            }
-        }      
+            }      
+        }
     }
-}
 </style>
 <script>
 import Header1 from './component/header.vue'
@@ -108,7 +109,6 @@ export default {
             // 要传给pBM2的数据
             imgListName: '农事记录详情',
             id: 555,
-            isbreed: false,
             lack: '信息缺失',
             // imgListName: '农事记录详情',
             lists: ''
@@ -155,6 +155,11 @@ export default {
     components: {
         Header1,
         HeaderImg
+    },
+    computed: {
+        isbreed () {
+            return this.isbreed = this.$route.meta.runName === 'breed'
+        }
     }
 }
 </script>

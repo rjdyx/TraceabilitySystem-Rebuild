@@ -1,7 +1,7 @@
 <template>
 	<div id="header_img">
-        <img v-if="runName === 'plant'" class="header_img_bg" src="../images/p_header_bg.png">
-        <img v-else="runName==='breed'" class="header_img_bg" src="../images/b_header_bg.png">
+        <img v-if="isbreed === false" class="header_img_bg" src="../images/p_header_bg.png">
+        <img v-else="isbreed === true" class="header_img_bg" src="../images/b_header_bg.png">
         <p>{{data.name}}</p>
         <!-- 产品图片 -->
         <img class="pBasic_img_icon" src="data.thumb" alt="">
@@ -15,6 +15,10 @@ export default {
         imgUrl: {
             type: String,
             default: '../images/apple.jpg'
+        },
+        isbreed: {
+            type: Boolean,
+            default: false
         }
     },
     data () {
@@ -23,6 +27,7 @@ export default {
         }
     },
     mounted () {
+        console.log(this.isbreed)
         this.runName = this.$route.meta.runName
         axios.post('run/product', {code: this.$route.params.id})
             .then((responce) => {
