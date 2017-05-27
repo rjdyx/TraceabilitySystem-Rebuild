@@ -40,12 +40,14 @@
                 width: 30%;
                 box-sizing: border-box;
                 padding: 1.5% 0% 1.5% 2%;
+                word-wrap: break-word;
             }
             td:last-child{
                 color:#989898;
                 width: 70%;
                 padding: 1.5% 0% 1.5% 2%;
                 box-sizing: border-box;
+                word-wrap: break-word;
             }
         }
     }    

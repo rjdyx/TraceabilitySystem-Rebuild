@@ -40,7 +40,7 @@
 				<!-- 检疫 -->
 				<li><router-link :to="'/run/breed/detection/'+code"></router-link></li>
 				<!-- 检测 -->
-				<li><router-link :to="'/run/breed/detect/'+code"></router-link></li>
+				<li @click="fn"><router-link :to="'/run/breed/detect/'+code"></router-link></li>
 			</ul>
 		</div>
 	</div>
@@ -89,6 +89,9 @@ export default{
             })
     },
     methods: {
+        fn () {
+            console.log('dianjil ')
+        }
     }
 }
 </script>
@@ -187,14 +190,14 @@ export default{
 		}
 		.plantBottomList{
 			width:78%;
-			height:11.3%;
+			height:12.3%;
 			position:absolute;
 			bottom:2%;
 			left:3%;
 			/*background:rgba(100,150,140,0.7);*/
 			li{
 				width: 12%;
-				height:35%;
+				height:30%;
 				/*background: rgba(0,0,0,0.5);*/
 				color: white;
 				text-align: center;
@@ -206,30 +209,34 @@ export default{
 				}
 			}
 			li:nth-child(1){
+				width:22%;
 				left:20%;
-				top: 6%;
-				width:25%;
+				top: 9%;
 			}
 			li:nth-child(2){
 				left:60%;
-				top: 6%;
-				width:25%;
+				top: 9%;
+				width:22%;
 			}
 			li:nth-child(3){
 				left:4.5%;
-				bottom: 6%;
+				bottom: 8%;
 			}
 			li:nth-child(4){
 				left:32%;
-				bottom: 6%;
+				bottom: 8%;
 			}
 			li:nth-child(5){
 				right:29%;
-				bottom: 6%;
+				bottom: 8%;
 			}
 			li:nth-child(6){
-				right:4.5%;
-				bottom: 6%;
+				right:3.5%;
+				bottom: 8%;
+			}
+			li:nth-child(7){
+				right:1.5%;
+				bottom: 8%;
 			}
 		}	
 	}

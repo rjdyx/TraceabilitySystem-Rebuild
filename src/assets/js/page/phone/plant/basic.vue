@@ -8,7 +8,7 @@
 <template>
     <div id="pBasic">
         <header1 :title="models.title" :isbreed="isbreed"></header1>
-        <headerImg></headerImg>
+        <headerImg :isbreed="isbreed"></headerImg>
         <div class="pBasic_content">
             <div class="pBasic_content_planInfo">
                  <h3 :class="{breedFontCol:isbreed}">{{models.tableName}}</h3>
@@ -45,7 +45,6 @@ export default {
         Object.assign(modelObj, plantMessage)
         return {
             models: modelObj[this.$route.meta.key],
-            isbreed: false,
             datas: {}
         }
     },
@@ -81,6 +80,11 @@ export default {
     components: {
         Header1,
         HeaderImg
+    },
+    computed: {
+        isbreed () {
+            return this.isbreed = this.$route.meta.runName === 'breed'
+        }
     }
 }
 </script>

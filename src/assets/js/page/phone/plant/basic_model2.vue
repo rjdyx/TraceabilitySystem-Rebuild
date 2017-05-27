@@ -24,41 +24,41 @@
     </div>
 </template>
 <style type="text/css" lang="sass">
-.breedCol{
-    background:#93bf46!important;
-}
-.breedFontCol{
-    color:#93bf46!important;
-}
-#pBasicModel2{
-    width: 100%;
-    .pBM2_content{
+    .breedCol{
+        background:#93bf46!important;
+    }
+    .breedFontCol{
+        color:#93bf46!important;
+    }
+    #pBasicModel2{
         width: 100%;
-        padding-top: 1rem;
-        background: #fbfbfb;
-        .pBM2_content_imgList{
-            width: 92%;
-            margin: 0 auto; 
-            padding-bottom:1rem;
-            >h3{
-                color:#3ccfb5;
-                font-size: .42rem;
-                padding: 4% 0% 3% 0%;
-                border-bottom: 1px solid #e6e6e6; 
-                font-weight:normal;
-            }
-            >ul{
-                >li{
-                    padding-top: 3%;
-                    >img{
-                        width: 100%;
-                        height: auto;
+        .pBM2_content{
+            width: 100%;
+            padding-top: 1rem;
+            background: #fbfbfb;
+            .pBM2_content_imgList{
+                width: 92%;
+                margin: 0 auto; 
+                padding-bottom:1rem;
+                >h3{
+                    color:#3ccfb5;
+                    font-size: .42rem;
+                    padding: 4% 0% 3% 0%;
+                    border-bottom: 1px solid #e6e6e6; 
+                    font-weight:normal;
+                }
+                >ul{
+                    >li{
+                        padding-top: 3%;
+                        >img{
+                            width: 100%;
+                            height: auto;
+                        }
                     }
                 }
-            }
-        } 
-    }
-} 
+            } 
+        }
+    } 
 </style>
 <script>
 import Header1 from './component/header.vue'
@@ -71,7 +71,6 @@ export default {
         Object.assign(modelObj, plantMessage)
         return {
             models: modelObj[this.$route.meta.key],
-            isbreed: false,
             values: {}
         }
     },
@@ -111,6 +110,11 @@ export default {
     components: {
         Header1,
         TwoColList
+    },
+    computed: {
+        isbreed () {
+            return this.isbreed = this.$route.meta.runName === 'breed'
+        }
     }
 }
 </script>
