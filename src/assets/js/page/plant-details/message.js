@@ -1356,6 +1356,9 @@ export default {
             hiddeEdit: false,
             typeComponent: [{
                 component: newbuildBtn
+            },
+            {
+                component: output
             }],
             listComponent: [{
                 components: [{
@@ -1399,6 +1402,9 @@ export default {
             hiddeEdit: false,
             typeComponent: [{
                 component: newbuildBtn
+            },
+            {
+                component: output
             }],
             listComponent: [],
             newComponent: [{
@@ -1661,6 +1667,9 @@ export default {
             hiddeEdit: false,
             typeComponent: [{
                 component: newbuildBtn
+            },
+            {
+                component: output
             }],
             listComponent: [{
                 components: [{
