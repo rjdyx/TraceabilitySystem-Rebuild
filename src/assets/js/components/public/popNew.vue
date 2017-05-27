@@ -359,7 +359,11 @@ export default {
                 if (val !== '') {
                     let params = {id: val}
                     axios.get(this.$adminUrl(this.url + '/getArea'), {params: params}).then((responce) => {
-                        this.allowance = responce.data['num']
+                        if (responce.data['num'] === 0) {
+                            this.allowance = -1
+                        } else {
+                            this.allowance = responce.data['num']
+                        }
                         this.tableForm['unit'] = responce.data['unit']
                         let nc = this.newComponent[0]
                         this.disabledV = false

@@ -8,3 +8,4 @@ yarn-error.log*
 env.js
 /nbproject/private/
 /nbproject
+/dist

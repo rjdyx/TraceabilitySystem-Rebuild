@@ -31,11 +31,11 @@
         },
         mounted () {
             var per = this.editValue.substring(0, 1)
-            var url = 'http://www.find360.cn/run/'
+            var url = require('projectRoot/env.js').app_ano_url + '/run/'
             if (per === 'P') {
                 url += 'plant'
             } else {
-                url += 'beast'
+                url += 'breed'
             }
             this.qrText = url + '/index/' + this.editValue
         }
