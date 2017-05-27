@@ -85,6 +85,7 @@
             padding: 10px 0px;
             color:#666;
             font-size: 18px;
+            font-size: .4rem;
         div{
             height:60px;
         }
@@ -101,7 +102,7 @@
             padding: 10px 0px;
             color:#666;
             line-height: 100px;
-            font-size: 20px;
+            font-size: .4rem;
         }
         }
     }

@@ -194,7 +194,7 @@ export default{
 			position:absolute;
 			bottom:2%;
 			left:3%;
-			background:rgba(100,150,140,0.7);
+			/*background:rgba(100,150,140,0.7);*/
 			li{
 				width: 12%;
 				height:30%;
