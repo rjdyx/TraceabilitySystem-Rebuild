@@ -40,6 +40,9 @@
 								class="code" @keyup.enter.native="passTo">
 							</el-input>
 							<img :src="kit_url" alt="" class="kit" @click="Kit">
+							<span class="loading">
+								<vue-loading type="spin" color="#d5dde0" :size="{width:'100%',height:'100%'}" v-show="codeLoading" class="codeLoading"></vue-loading>
+							</span>
 						</el-form-item>
 						<el-form-item class="receive">
 							<el-checkbox v-model="checked">接受</el-checkbox>
@@ -55,7 +58,9 @@
 							<el-button type="primary" 
 								@click="submitForm('ruleForm2')" 
 								size="small"
+								v-loading.fullscreen.lock="fullscreenLoading"
 								:disabled="this.checked!==true"
+								class="loginBtn"
 								>登录</el-button>
 							<a href="http://www.gzlgit.com/about" target="_blank" class="apply">
 								<el-button type="primary" size="small">申请入驻</el-button>
@@ -72,10 +77,13 @@
 				</p>
 				<p>最佳浏览器体验:360极速模式浏览器，最佳分别率：1680*1050</p>
 			</div>
+			 
+			<vue-progress-bar></vue-progress-bar>
 	</div>
 </template>
 
 <script>
+import vueLoading from 'vue-loading-template'
 export default {
     data () {
         let validateName = (rule, value, callback) => {
@@ -125,14 +133,19 @@ export default {
                 { validator: checkCode, trigger: 'blur' }
                 ]
             },
-            checked: true
+            checked: true,
+            fullscreenLoading: false,
+            loading: false,
+            codeLoading: false
         }
     },
     methods: {
         submitForm (formName) {
             this.$refs[formName].validate((valid) => {
                 if (valid) {
+                    this.$Progress.start()
                     axios.post('/login', this.ruleForm2).then((responce) => {
+                        this.$Progress.finish()
                         if (responce.data !== 200) {
                             this.$message.error('用户名或密码错误')
                         } else {
@@ -154,6 +167,7 @@ export default {
                         }
                     })
                 } else {
+                    this.$Progress.fail()
                     this.$message.error('请输入信息，再登录')
                     return false
                 }
@@ -166,8 +180,10 @@ export default {
             console.log('hfuiegubejbhjg')
         },
         Kit () {
+            this.codeLoading = true
             axios.get('/kit').then((responce) => {
                 this.kit_url = responce.data
+                this.codeLoading = false
             })
         },
         handle () {
@@ -184,6 +200,9 @@ export default {
             this.recordeChecked = true
             this.ruleForm2.name = localStorage.getItem('recordUser')
         }
+    },
+    components: {
+        vueLoading
     },
     created () {
         document.title = '寻真溯源安全预警平台'
@@ -250,13 +269,14 @@ export default {
 						margin-bottom: 0px;
 					}
 					.code{
-						width: 44% !important;
+						width: 50% !important;
 					}
 					.kit{
-						width:50%;
-						height:36px;
+						width:38%;
+						height:37px;
 						margin-left: 1%;
 						display: inline-block;
+						cursor: pointer;
 						vertical-align: middle;
 					}
 				}
@@ -313,5 +333,17 @@ export default {
 			.el-checkbox__inner:hover{
 				border-color: #20a0ff !important;
 			}
+			.loading{
+				width: 10%;
+				height: 37px;
+				line-height: 37px;
+                display: inline-block;
+                padding-left: 1.5%;
+                vertical-align: middle;
+                padding-top: 2%;
+            }
+            .loginBtn:hover,.loginBtn:focus{
+				color: #fff !important;
+            }
 		}
 </style>
