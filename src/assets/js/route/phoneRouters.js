@@ -176,12 +176,6 @@ export default {
             component: shop,
             alias: '/run/breed/shop/:id'
         },
-        // {
-        //     path: '/area/:id',
-        //     meta: {key: 'area', runName: 'breed'},
-        //     component: video,
-        //     alias: '/run/breed/area/:id'
-        // },
         {
             path: '/growProcess/:id',
             meta: {key: 'growProcess', runName: 'breed'},
