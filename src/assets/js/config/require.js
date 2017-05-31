@@ -19,6 +19,12 @@ require('../page/phone/plant/js/fontSize.js')
 import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 
+// 路由加载插件
+import VueProgressBar from 'vue-progressbar'
+Vue.use(VueProgressBar, {
+    color: 'blue',
+    height: '2px'
+})
 // 注册element-ui全局组件
 import enLocale from 'element-ui/lib/locale/lang/en'
 import zhLocale from 'element-ui/lib/locale/lang/zh-CH'
