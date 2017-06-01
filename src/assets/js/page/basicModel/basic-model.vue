@@ -84,8 +84,7 @@
                 <el-table-column
                     :label="item"
                     :prop="protos[index]"
-                    :min-width="widths[index]"
-                    show-overflow-tooltip>
+                    :min-width="widths[index]" show-overflow-tooltip>
                     <template  scope="scope">
                             <div v-if="item.includes('批次号')" slot="reference" class="name-wrapper pcActive" @click="jumpDetails(scope.row)">
                                 {{ scope.row[protos[index]] }}
@@ -915,6 +914,13 @@ export default {
                 font-size: 13px;
             }
         }
-    }        
+    }
+    /*溢出省略号替代  */
+    /*.name-wrapper{
+        width: 100px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }*/ 
 } 
 </style>
