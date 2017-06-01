@@ -68,7 +68,7 @@
         </transition>
     </div>
     <!-- 列表模块 -->
-    <el-table :data="tableData"  @selection-change="handleSelectionChange">
+    <el-table :data="tableData"  @selection-change="handleSelectionChange" v-loading="listLoading" element-loading-text="正在加载">
 
         <!-- checkbox -->
         <el-table-column width="50" type="selection">
@@ -84,8 +84,7 @@
                 <el-table-column
                     :label="item"
                     :prop="protos[index]"
-                    :min-width="widths[index]"
-                    show-overflow-tooltip>
+                    :min-width="widths[index]" show-overflow-tooltip>
                     <template  scope="scope">
                             <div v-if="item.includes('批次号')" slot="reference" class="name-wrapper pcActive" @click="jumpDetails(scope.row)">
                                 {{ scope.row[protos[index]] }}
@@ -267,7 +266,8 @@ export default {
             checkeds: {},
             roleId: null,
             rowId: null,
-            isRoleShow: false
+            isRoleShow: false,
+            listLoading: false
         }
     },
     // 混合
@@ -319,6 +319,7 @@ export default {
                 confirmButtonText: '确定',
                 type: 'error'
             }).then(() => {
+                this.listLoading = true
                 axios.delete(this.$adminUrl(this.url + '/' + row.id))
                     .then((responce) => {
                         if (responce.data === 'true') {
@@ -328,8 +329,10 @@ export default {
                                 type: 'success',
                                 message: '删除成功'
                             })
+                            this.listLoading = false
                         } else if (responce.data === 'state') {
                             this.$message('该数据已被使用，无法删除')
+                            this.listLoading = false
                         }
                     })
             }).catch(() => {
@@ -504,6 +507,7 @@ export default {
             if (this.paramsIndex !== undefined) {
                 var type = this.paramsIndex
             }
+            this.listLoading = true
             this.$dataGet(this, this.url, {params: data, type: type})
                 .then((responce) => {
                     // 数据转换
@@ -521,6 +525,7 @@ export default {
                             this.num = 0
                             this.paginator = 0
                         }
+                        this.listLoading = false
                     }
                 })
         },
@@ -566,6 +571,7 @@ export default {
                     confirmButtonText: '确定',
                     type: 'error'
                 }).then(() => {
+                    this.listLoading = true
                     var delArr = []
                     for (let key in this.checkObject) {
                         delArr.push(this.checkObject[key].id)
@@ -576,13 +582,16 @@ export default {
                         if (responce.data === 'true') {
                             this.getSelect()
                             this.boxArr(this.dataArr)
+                            this.listLoading = false
                             this.$message({
                                 type: 'success',
                                 message: '批量删除成功'
                             })
                         } else if (responce.data === 'state') {
+                            this.listLoading = false
                             this.$message('有数据已被使用，无法完成批量删除操作')
                         } else {
+                            this.listLoading = false
                             this.$message.error('批量删除失败')
                         }
                     })
@@ -905,6 +914,13 @@ export default {
                 font-size: 13px;
             }
         }
-    }        
+    }
+    /*溢出省略号替代  */
+    /*.name-wrapper{
+        width: 100px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }*/ 
 } 
 </style>

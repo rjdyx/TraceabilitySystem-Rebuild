@@ -17,6 +17,7 @@ export default {
         key: 'breedBatch',
         roleName: ['beast/breed', 0], // 接口权限参数 参数1为权限name 参数2为是否区分运营者 （默认0）
         tab: '养殖批次管理',
+        changeDataArr: [{state: {'未完成': 0, '已完成': 1}}],
         theads: ['批次号', '养殖区', '圈舍', '畜禽', '开始日期', '数量', '养殖方式', '养殖人', '操作人', '录入人', '状态'],
         protos: ['serial', 'farm_name', 'area_name', 'beast_name', 'start_date', 'amount', 'way', 'operate', 'operate_name', 'user_name', 'state'],
         url: 'breed',
@@ -527,7 +528,7 @@ export default {
             typeComponent: [{component: newbuildBtn}, {component: output}],
             headList: ['养殖批次', '圈舍', 'Rfid', '养殖畜禽', '养殖日期'],
             protos: ['serial', 'area_name', 'rfid', 'beast_name', 'date'],
-            widths: [50, 50, 50, 50],
+            widths: [50, 50, 50, 50, 50],
             hiddeEdit: false,
             listComponent: [],
             newComponent: [{
@@ -567,8 +568,9 @@ export default {
         key: 'slaughterBatch',
         tab: '畜禽出栏管理',
         roleName: ['beast/come', 0],
-        theads: ['出栏批次号', '出栏日期', '出栏数量', '操作人员', '备注'],
-        protos: ['serial', 'date', 'amount', 'operate_name', 'memo'],
+        changeDataArr: [{state: {'未完成': 0, '已完成': 1}}],
+        theads: ['出栏批次号', '出栏日期', '出栏数量', '操作人员', '状态', '备注'],
+        protos: ['serial', 'date', 'amount', 'operate_name', 'state', 'memo'],
         url: 'come',
         tabList: [{
             url: 'come-rfid',
@@ -1882,7 +1884,7 @@ export default {
             headList: ['产品溯源码', '生产日期', '产地', '溯源次数', '备注信息'],
             protos: ['code', 'date', 'origin', 'time', 'memo'],
             hiddeEdit: false,
-            widths: [50, 50, 50, 50, 50, 50],
+            widths: [50, 50, 50, 50, 50],
             moreComponent: [{
                 value: '打印'
             }],
@@ -2639,7 +2641,7 @@ export default {
             searchPlaceholder: '请输入项目名称进行搜索',
             headList: ['批次号', '操作日期', '操作人', '检测项目名称', '检测类型', '检测部门', '检测结果', '天气', '检测内容', '指导专家', '备注信息'],
             protos: ['serial', 'date', 'operate', 'name', 'genre', 'name2', 'amount', 'weather', 'desc', 'expert', 'memo'],
-            widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
+            widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
             typeComponent: [{
                 component: output
             },
@@ -2931,7 +2933,7 @@ export default {
             searchPlaceholder: '请输入标题进行搜索',
             headList: ['操作日期', '操作人', '标题', '描述', '备注信息'],
             protos: ['date', 'operate', 'name', 'desc', 'memo'],
-            widths: [50, 50, 50, 50, 50, 50, 50, 50],
+            widths: [50, 50, 50, 50, 50],
             typeComponent: [{
                 component: output
             },
@@ -3077,7 +3079,7 @@ export default {
             headList: ['产品溯源码', '生产日期', '产地', '溯源次数', '备注信息'],
             protos: ['code', 'date', 'origin', 'time', 'memo'],
             hiddeEdit: false,
-            widths: [50, 50, 50, 50, 50, 50],
+            widths: [50, 50, 50, 50, 50],
             moreComponent: [{
                 value: '打印'
             }],
@@ -3833,7 +3835,7 @@ export default {
             searchPlaceholder: '请输入项目名称进行搜索',
             headList: ['批次号', '操作日期', '操作人', '检测项目名称', '检测类型', '检测部门', '检测结果', '天气', '检测内容', '指导专家', '备注信息'],
             protos: ['serial', 'date', 'operate', 'name', 'genre', 'name2', 'amount', 'weather', 'desc', 'expert', 'memo'],
-            widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
+            widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
             typeComponent: [{
                 component: output
             },
@@ -4133,7 +4135,7 @@ export default {
             searchPlaceholder: '请输入标题进行搜索',
             headList: ['操作日期', '操作人', '标题', '描述', '备注信息'],
             protos: ['date', 'operate', 'name', 'desc', 'memo'],
-            widths: [50, 50, 50, 50, 50, 50, 50, 50],
+            widths: [50, 50, 50, 50, 50],
             typeComponent: [{
                 component: output
             },
@@ -4285,7 +4287,7 @@ export default {
             }],
             rightOperateComponent: [{component: output}, {component: newbuildBtn}],
             changeDataArr: [{gender: {0: '男', 1: '女'}}],
-            headList: ['用户名', '姓名', '工号', '邮箱', '性别', '电话号码', '出生日期', '所属部门', '入职日期', '头像', '备注'],
+            headList: ['用户名', '姓名', '工号', '邮箱', '性别', '电话号码', '出生日期', '所属部门', '入职日期', '头像', '备注22'],
             protos: ['name', 'realname', 'number', 'email', 'gender', 'phone', 'birth_date', 'department', 'hiredate', 'thumb', 'memo'],
             widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
             typeComponent: [{component: newbuildBtn}],

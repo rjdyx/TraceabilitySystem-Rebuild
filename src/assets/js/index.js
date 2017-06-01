@@ -6,6 +6,7 @@ import VueRouter from 'vue-router'
 // import store from './store/'
 import router from './route/routers.js'
 import store from './vuex/index'
+
 // 将axios挂载到prototype上，在组件就可以直接使用this.axios访问
 Vue.prototype.$http = axios
 
