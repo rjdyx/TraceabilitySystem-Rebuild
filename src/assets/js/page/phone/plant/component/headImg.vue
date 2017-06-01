@@ -4,7 +4,7 @@
         <img v-else="isbreed === true" class="header_img_bg" src="../images/b_header_bg.png">
         <p>{{data.name}}</p>
         <!-- 产品图片 -->
-        <img class="pBasic_img_icon" src="data.thumb" alt="">
+        <img class="pBasic_img_icon" :src="data.thumb" alt="">
     </div>
 </template>
 <script>
