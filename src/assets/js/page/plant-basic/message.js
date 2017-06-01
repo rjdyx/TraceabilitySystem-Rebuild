@@ -2796,10 +2796,11 @@ export default {
         searchPlaceholder: '请输入养殖批次号进行搜索',
         selectValueId: [['beast_id', 'beast_name', true]],
         selectDefault: [{value: '', label: '请选择畜禽'}],
-        theads: ['批次号', '养殖区', '圈舍', '畜禽', '开始日期', '数量', '养殖方式', '养殖人', '操作人', '录入人', '备注'],
-        protos: ['serial', 'farm_name', 'area_name', 'beast_name', 'start_date', 'amount', 'way', 'operate', 'operate_name', 'user_name', 'memo'],
+        changeDataArr: [{state: {0: '未完成', 1: '已完成'}}],
+        theads: ['批次号', '养殖区', '圈舍', '畜禽', '开始日期', '数量', '养殖方式', '养殖人', '操作人', '录入人', '状态', '备注'],
+        protos: ['serial', 'farm_name', 'area_name', 'beast_name', 'start_date', 'amount', 'way', 'operate', 'operate_name', 'user_name', 'state', 'memo'],
         selectSearch: ['breeds.beast_id'],
-        widths: [60, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
+        widths: [60, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
         typeComponent: [{
             component: output
         },
@@ -2985,7 +2986,8 @@ export default {
                 type: 'date',
                 component: 'datePick'
             }]
-        }]
+        }],
+        moreComponent: [{value: '状态'}]
     }],
     // 饲料使用管理
     feedManage: [{
@@ -4484,7 +4486,8 @@ export default {
                 type: 'date',
                 component: 'datePick'
             }]
-        }]
+        }],
+        moreComponent: [{value: '状态'}]
     }],
     // 养殖计划管理
     planManage: [{
