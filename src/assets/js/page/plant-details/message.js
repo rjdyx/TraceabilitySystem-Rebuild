@@ -17,6 +17,7 @@ export default {
         key: 'breedBatch',
         roleName: ['beast/breed', 0], // 接口权限参数 参数1为权限name 参数2为是否区分运营者 （默认0）
         tab: '养殖批次管理',
+        changeDataArr: [{state: {'未完成': 0, '已完成': 1}}],
         theads: ['批次号', '养殖区', '圈舍', '畜禽', '开始日期', '数量', '养殖方式', '养殖人', '操作人', '录入人', '状态'],
         protos: ['serial', 'farm_name', 'area_name', 'beast_name', 'start_date', 'amount', 'way', 'operate', 'operate_name', 'user_name', 'state'],
         url: 'breed',
@@ -567,8 +568,9 @@ export default {
         key: 'slaughterBatch',
         tab: '畜禽出栏管理',
         roleName: ['beast/come', 0],
-        theads: ['出栏批次号', '出栏日期', '出栏数量', '操作人员', '备注'],
-        protos: ['serial', 'date', 'amount', 'operate_name', 'memo'],
+        changeDataArr: [{state: {'未完成': 0, '已完成': 1}}],
+        theads: ['出栏批次号', '出栏日期', '出栏数量', '操作人员', '状态', '备注'],
+        protos: ['serial', 'date', 'amount', 'operate_name', 'state', 'memo'],
         url: 'come',
         tabList: [{
             url: 'come-rfid',
