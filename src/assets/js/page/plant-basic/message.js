@@ -92,7 +92,7 @@ export default {
                 isNull: false,
                 label: '分类名称',
                 placeholder: '必填',
-                rule: [{required: true, message: '请输入分类名称', trigger: 'blur'}, {validator: validate2.reCheck}]
+                rule: [{required: true, message: '请选择分类名称', trigger: 'blur'}, {validator: validate2.reCheck}]
             },
             {
                 name: 'type',
@@ -230,10 +230,10 @@ export default {
         selectSearch: ['operates.category_id'],
         selectValueId: [['category_id', 'category_name', true]],
         selectDefault: [{value: '', label: '选择操作人类型'}],
-        changeDataArr: [{sex: {0: '男', 1: '女'}}],
-        theads: ['分类名称', '姓名', '身份', '性别', '年龄', '联系方式', '地址', '图片', '备注信息'],
-        protos: ['category_name', 'name', 'identity', 'sex', 'age', 'phone', 'address', 'img', 'memo'],
-        widths: [50, 50, 50, 50, 50, 50, 50, 50, 50],
+        changeDataArr: [{sex: {0: '男', 1: '女'}}, {domain: {plant: '种植管理', beast: '养殖管理', packp: '果蔬加工管理', packb: '畜禽加工管理', sell: '销售管理', all: '公共模块'}}],
+        theads: ['分类名称', '模块领域', '姓名', '身份', '性别', '年龄', '联系方式', '地址', '图片', '备注信息'],
+        protos: ['category_name', 'domain', 'name', 'identity', 'sex', 'age', 'phone', 'address', 'img', 'memo'],
+        widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
         typeComponent: [{
             component: output
         },
@@ -265,6 +265,33 @@ export default {
                 placeholder: '必填',
                 rule: {required: true, trigger: 'blur', type: 'number', message: '请选择分类名称'},
                 options: []
+            },
+            {
+                name: 'domain',
+                type: 'select',
+                component: null,
+                isNull: false,
+                label: '模块领域',
+                placeholder: '',
+                rule: {required: true, message: '请选择模块领域', trigger: 'blur'},
+                options: [{
+                    value: 'all', label: '公共模块'
+                },
+                {
+                    value: 'plant', label: '种植管理'
+                },
+                {
+                    value: 'beast', label: '养殖管理'
+                },
+                {
+                    value: 'packb', label: '畜禽加工管理'
+                },
+                {
+                    value: 'packp', label: '果蔬加工管理'
+                },
+                {
+                    value: 'sell', label: '销售管理'
+                }]
             },
             {
                 name: 'name',
@@ -366,6 +393,33 @@ export default {
                 options: []
             },
             {
+                name: 'domain',
+                type: 'select',
+                component: null,
+                isNull: false,
+                label: '模块领域',
+                placeholder: '',
+                rule: {required: true, message: '请选择模块领域', trigger: 'blur'},
+                options: [{
+                    value: 'all', label: '公共模块'
+                },
+                {
+                    value: 'plant', label: '种植管理'
+                },
+                {
+                    value: 'beast', label: '养殖管理'
+                },
+                {
+                    value: 'packb', label: '畜禽加工管理'
+                },
+                {
+                    value: 'packp', label: '果蔬加工管理'
+                },
+                {
+                    value: 'sell', label: '销售管理'
+                }]
+            },
+            {
                 name: 'name',
                 type: 'text',
                 component: null,
@@ -457,12 +511,12 @@ export default {
         url: 'expert',
         selectSearch: ['experts.category_id'],
         selectValueId: [['category_id', 'category_name', true]],
-        changeDataArr: [{sex: {0: '男', 1: '女'}}],
+        changeDataArr: [{sex: {0: '男', 1: '女'}}, {domain: {plant: '种植管理', beast: '养殖管理', all: '公共模块'}}],
         searchPlaceholder: '请输入专家名称进行搜索',
         selectDefault: [{value: '', label: '选择专家类型'}],
-        theads: ['分类名称', '专家名称', '级别', '研究领域', '单位', '年龄', '性别', '联系方式', '图片', '备注'],
-        protos: ['category_name', 'name', 'level', 'major', 'unit', 'age', 'sex', 'phone', 'img', 'memo'],
-        widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
+        theads: ['分类名称', '模块领域', '专家名称', '级别', '研究领域', '单位', '年龄', '性别', '联系方式', '图片', '备注'],
+        protos: ['category_name', 'domain', 'name', 'level', 'major', 'unit', 'age', 'sex', 'phone', 'img', 'memo'],
+        widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
         typeComponent: [{
             component: output
         },
@@ -485,6 +539,24 @@ export default {
                 placeholder: '必填',
                 rule: {required: true, trigger: 'blur', type: 'number', message: '请选择分类名称'},
                 options: []
+            },
+            {
+                name: 'domain',
+                type: 'select',
+                component: null,
+                isNull: false,
+                label: '模块领域',
+                placeholder: '',
+                rule: {required: true, message: '请选择模块领域', trigger: 'blur'},
+                options: [{
+                    value: 'all', label: '公共模块'
+                },
+                {
+                    value: 'plant', label: '种植管理'
+                },
+                {
+                    value: 'beast', label: '养殖管理'
+                }]
             },
             {
                 name: 'name',
@@ -593,6 +665,24 @@ export default {
                 placeholder: '必填',
                 rule: {required: true, trigger: 'blur', type: 'number', message: '请选择分类名称'},
                 options: []
+            },
+            {
+                name: 'domain',
+                type: 'select',
+                component: null,
+                isNull: false,
+                label: '模块领域',
+                placeholder: '',
+                rule: {required: true, message: '请选择模块领域', trigger: 'blur'},
+                options: [{
+                    value: 'all', label: '公共模块'
+                },
+                {
+                    value: 'plant', label: '种植管理'
+                },
+                {
+                    value: 'beast', label: '养殖管理'
+                }]
             },
             {
                 name: 'name',
@@ -1038,9 +1128,10 @@ export default {
         searchPlaceholder: '请输入产品名称进行搜索',
         selectDefault: [{value: '', label: '选择产品类型'}],
         selectSearch: ['products.category_id'],
-        theads: ['分类名称', '名称', '执行标准', '商品型号', '商品简介', '包装规格', '保质期', '食用方法', '存储方法', '配料信息', '图片', '备注'],
-        protos: ['category_name', 'name', 'enforce_standard', 'marque', 'description', 'specification', 'expiration_date', 'edible_method', 'storage_means', 'burdening_info', 'img', 'memo'],
-        widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
+        changeDataArr: [{domain: {packp: '果蔬加工管理', packb: '畜禽加工管理', sell: '销售管理', all: '公共模块'}}],
+        theads: ['分类名称', '模块领域', '名称', '执行标准', '商品型号', '商品简介', '包装规格', '保质期', '食用方法', '存储方法', '配料信息', '图片', '备注'],
+        protos: ['category_name', 'domain', 'name', 'enforce_standard', 'marque', 'description', 'specification', 'expiration_date', 'edible_method', 'storage_means', 'burdening_info', 'img', 'memo'],
+        widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
         typeComponent: [{
             component: output
         },
@@ -1049,10 +1140,10 @@ export default {
         }],
         newComponent: [{
             tab: '新建产品信息',
-            selectUrl: [['category', 'product', 'category_id', 'category_name', true]],
+            selectUrl: [['category', 'product', 'category_id', 'category_name', true], ['permission_domain', '', 'name', 'display_name', true]],
             selectInit: [{value: '', label: '选择产品分类'}],
-            checkNumber: [1],
-            popNumber: [0],
+            checkNumber: [2],
+            popNumber: [0, 1],
             hasImg: true,
             components: [{
                 name: 'category_id',
@@ -1063,6 +1154,27 @@ export default {
                 placeholder: '必填',
                 rule: {required: true, trigger: 'blur', type: 'number', message: '请选择分类名称'},
                 options: []
+            },
+            {
+                name: 'domain',
+                type: 'select',
+                component: null,
+                isNull: false,
+                label: '模块领域',
+                placeholder: '',
+                rule: {required: true, message: '请选择模块领域', trigger: 'blur'},
+                options: [{
+                    value: 'all', label: '公共模块'
+                },
+                {
+                    value: 'packb', label: '畜禽加工管理'
+                },
+                {
+                    value: 'packp', label: '果蔬加工管理'
+                },
+                {
+                    value: 'sell', label: '销售管理'
+                }]
             },
             {
                 name: 'name',
@@ -1181,6 +1293,27 @@ export default {
                 placeholder: '必填',
                 rule: {required: true, trigger: 'blur', type: 'number', message: '请选择分类名称'},
                 options: []
+            },
+            {
+                name: 'domain',
+                type: 'select',
+                component: null,
+                isNull: false,
+                label: '模块领域',
+                placeholder: '',
+                rule: {required: true, message: '请选择模块领域', trigger: 'blur'},
+                options: [{
+                    value: 'all', label: '公共模块'
+                },
+                {
+                    value: 'packb', label: '畜禽加工管理'
+                },
+                {
+                    value: 'packp', label: '果蔬加工管理'
+                },
+                {
+                    value: 'sell', label: '销售管理'
+                }]
             },
             {
                 name: 'name',

@@ -31,7 +31,12 @@ const login = resolve => {
         resolve(require('../views/login.vue'))
     }, 'login')
 }
-
+// ---------------------------登录注册组件----------------------------------
+const protocol = resolve => {
+    require.ensure(['../views/protocol.vue'], () => {
+        resolve(require('../views/protocol.vue'))
+    }, 'protocol')
+}
 // ---------------------------基础信息管理----------------------------------
 const basic = resolve => {
     require.ensure(['../page/plant-basic/basic.vue'], () => {
@@ -165,6 +170,11 @@ var routes = [
         path: '/login',
         name: 'login',
         component: login
+    },
+    {
+        path: '/protocol',
+        name: 'protocol',
+        component: protocol
     }
 ]
 

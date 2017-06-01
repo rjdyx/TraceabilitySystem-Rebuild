@@ -73,7 +73,7 @@ html {
     font-size: 32px;
 }
 .wrap {
-    width: 96%;
+    width: 76%;
     margin:auto;
     padding: 2%;
 }
