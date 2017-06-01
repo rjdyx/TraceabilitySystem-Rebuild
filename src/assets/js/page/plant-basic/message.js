@@ -707,7 +707,7 @@ export default {
         selectDefault: [{value: '', label: '选择客户类型'}],
         theads: ['客户分类', '客户名称', '电话', '地址', '传真', '备注'],
         protos: ['category_name', 'name', 'phone', 'address', 'fax', 'memo'],
-        widths: [50, 50, 50, 50, 50, 50, 50],
+        widths: [50, 50, 50, 50, 50, 50],
         listComponent: [{
             components: [{
                 name: 'clients.category_id',
@@ -2115,7 +2115,7 @@ export default {
             theads: ['饲料类别', '饲料名称', '用途', '包装规格', '产地', '生产厂家名称', '联系方式', '图片', '备注信息'],
             protos: ['category_name', 'name', 'use', 'specification', 'address', 'vender_name', 'phone', 'img', 'memo'],
             selectSearch: ['fodder.category_name'],
-            widths: [50, 50, 50, 50, 50, 50],
+            widths: [50, 50, 50, 50, 50, 50, 50, 50, 50],
             typeComponent: [{
                 component: importBtn
             },
@@ -2581,7 +2581,7 @@ export default {
             theads: ['兽药分类', '兽药名称', '用途', '包装规格', '产地', '生产厂家名称', '联系方式', '图片', '备注信息'],
             protos: ['category_name', 'name', 'use', 'specification', 'address', 'vender_name', 'phone', 'img', 'memo'],
             selectSearch: ['drug.img'],
-            widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
+            widths: [50, 50, 50, 50, 50, 50, 50, 50, 50],
             typeComponent: [{
                 component: importBtn
             },
@@ -3004,7 +3004,7 @@ export default {
         selectSearch: ['fodderuse.fodder_id'],
         theads: ['饲料批次号', '饲料使用日期', '饲料名称', '饲料添加剂', '喂养方式', '操作人员', '平均喂养量', '备注信息'],
         protos: ['serial', 'date', 'fodder_name', 'addition_name', 'way', 'operate_name', 'amount_unit', 'memo'],
-        widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
+        widths: [50, 50, 50, 50, 50, 50, 50, 50],
         typeComponent: [{
             component: output
         },
@@ -7194,7 +7194,7 @@ export default {
             searchPlaceholder: '请输入检测批次号进行搜索',
             theads: ['检测批次号', '检验类型', '检验日期', '天气', '检测部门', '检测内容', '检查结果', '检测人', '专家', '录入人', '图片', '备注'],
             protos: ['serial', 'name', 'date', 'weather', 'department', 'content', 'result', 'operate_name', 'expert_name', 'user_name', 'img', 'memo'],
-            widths: [60, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
+            widths: [60, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
             typeComponent: [{
                 component: output
             },
@@ -9017,7 +9017,7 @@ export default {
             searchPlaceholder: '请输入司机姓名进行搜索',
             theads: ['驾驶员姓名', '性别', '联系电话', '取得驾照时间（年）', '出生日期', '驾照类型(A1、C2...)', '备注信息'],
             protos: ['name', 'sex', 'phone', 'driver', 'birth', 'type', 'memo'],
-            widths: [50, 50, 50, 50, 50, 50],
+            widths: [50, 50, 50, 50, 50, 50, 50],
             listComponent: [],
             typeComponent: [{
                 component: output
@@ -10375,7 +10375,7 @@ export default {
         url: 'plan',
         theads: ['模块名称', '操作', '内容', '日期时间', '客户端', '公司', '用户'],
         protos: ['plan_type_name', 'name', 'content'],
-        widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
+        widths: [50, 50, 50, 50, 50, 50, 50],
         listComponent: [],
         moreComponent: [{value: '打印'}]
     }],
@@ -11028,7 +11028,7 @@ export default {
         searchPlaceholder: '请输入展示名称进行搜索',
         theads: ['所属权限分类', '名称', '展示名称', '资源', '备注'],
         protos: ['pid', 'name', 'display_name', 'resource', 'memo'],
-        widths: [50, 50, 50, 50, 50, 50],
+        widths: [50, 50, 50, 50, 50],
         typeComponent: [{
             component: output
         },
@@ -11176,7 +11176,7 @@ export default {
         searchPlaceholder: '请输入公司名称进行搜索',
         theads: ['公司名称', '公司编码', '公司logo', '负责人/法人', '公司简称', '统一码', '电话', '地址', '经营范围', '员工总数', '公司网站', '销售网站'],
         protos: ['name', 'coding', 'logo', 'legal_person', 'short_name', 'USCC', 'phone', 'address', 'business_scope', 'total_staff', 'website', 'sell_website'],
-        widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
+        widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
         typeComponent: [{
             component: output
         },
@@ -11454,7 +11454,7 @@ export default {
         searchPlaceholder: '请输入内容进行搜索',
         theads: ['模块名称', '操作', '内容', '日期时间', '客户端ip', '公司', '用户', '备注'],
         protos: ['module', 'operate', 'content', 'datetime', 'ip', 'company_name', 'user_name', 'memo'],
-        widths: [50, 50, 50, 50, 50, 50, 50],
+        widths: [50, 50, 50, 50, 50, 50, 50, 50],
         typeComponent: [{
             component: output
         },

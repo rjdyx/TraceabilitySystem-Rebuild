@@ -19,8 +19,7 @@ export default {
         let modelObj = {}
         Object.assign(modelObj, plantMessage)
         return {
-            models: modelObj[this.$route.meta.key],
-            isbreed: false
+            models: modelObj[this.$route.meta.key]
         }
     },
     mounted () {
@@ -30,6 +29,11 @@ export default {
     },
     components: {
         Header1
+    },
+    computed: {
+        isbreed () {
+            return this.isbreed = this.$route.meta.runName === 'breed'
+        }
     }
 }
 </script>

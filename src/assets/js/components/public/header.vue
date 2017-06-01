@@ -16,12 +16,10 @@
 		<div class="head_right">
 			<ul>
 				<template @click="changeSub">
-					<!-- <router-link tag="li" to="/"> -->
 					<li>
 						<img src="/public/images/time.png" />
 						<p class="time">{{time}}</p>
 					</li>
-					<!-- </router-link> -->
 				</template>
 				<template  v-for="(navbar,i) in navbars">
 					<li class="navbar" @click="changeSub">
@@ -37,6 +35,7 @@
 				</li>
 			</ul>
 		</div>
+			<vue-progress-bar></vue-progress-bar>
 	</header>
 </template>
 <script>
@@ -98,7 +97,9 @@ export default {
             })
         },
         changeSub () {
+            this.$Progress.start()
             this.change_siderBar(true)
+            this.$Progress.finish()
         }
     },
     mounted () {

@@ -59,7 +59,6 @@ export default {
     mounted () {
     },
     created () {
-        // document.title = 'hiU废话覅额'
     }
 }
 </script>

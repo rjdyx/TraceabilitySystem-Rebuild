@@ -71,7 +71,7 @@
             <roleCheckbox v-if="isRoleShow" :rowId="rowId"></roleCheckbox>
         </transition>
     <!-- 列表模块 -->
-    <el-table :data="tableData"  @selection-change="handleSelectionChange">
+    <el-table :data="tableData"  @selection-change="handleSelectionChange" v-loading="listLoading">
         <!-- checkbox -->
         <el-table-column width="50" type="selection">
         </el-table-column> 
@@ -207,7 +207,8 @@ export default {
             index: 0,
             rowId: null,
             routeId: this.$route.params.id,
-            isShow: true
+            isShow: true,
+            listLoading: false
         }
     },
     mixins: [computed],
@@ -399,8 +400,10 @@ export default {
                 data[names] = this.$route.params.id
             }
             var datas = {}
+            this.listLoading = true
             this.$dataGet(this, this.apiUrlArr[this.tabList[this.index].url], {params: data})
                 .then((responce) => {
+                    this.listLoading = false
                     if (responce.data.data !== undefined) {
                         if (responce.data.data.length !== 0) {
                             var ret = this.$conversion(this.tabItem.changeDataArr, responce.data.data, 1)
@@ -503,6 +506,7 @@ export default {
                 confirmButtonText: '确定',
                 type: 'error'
             }).then(() => {
+                this.listLoading = true
                 axios.delete(this.$adminUrl(this.apiUrlArr[this.tabList[this.index].url] + '/' + row.id))
                     .then((responce) => {
                         if (responce.data === 'true') {
@@ -514,6 +518,7 @@ export default {
                             })
                         } else if (responce.data === 'state') {
                             this.$message('该数据已被使用，无法删除')
+                            this.listLoading = false
                         }
                     })
             }).catch(() => {
@@ -545,6 +550,7 @@ export default {
                     confirmButtonText: '确定',
                     type: 'error'
                 }).then(() => {
+                    this.listLoading = true
                     var delArr = []
                     for (let key in this.checkObject) {
                         delArr.push(this.checkObject[key].id)
@@ -555,13 +561,16 @@ export default {
                         if (responce.data === 'true') {
                             this.getDetailSerial()
                             this.boxArr(this.dataArr)
+                            this.listLoading = false
                             this.$message({
                                 type: 'success',
                                 message: '批量删除成功'
                             })
                         } else if (responce.data === 'state') {
+                            this.listLoading = false
                             this.$message('有数据已被使用，无法完成批量删除操作')
                         } else {
+                            this.listLoading = false
                             this.$message.error('批量删除失败')
                         }
                     })
