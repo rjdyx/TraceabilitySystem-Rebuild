@@ -5831,7 +5831,7 @@ export default {
                     isNull: false,
                     label: '所属种植场',
                     placeholder: '必填',
-                    rule: {required: true, trigger: 'blur', type: 'number', message: '请选择所属种植场'},
+                    rule: {required: true, type: 'number', message: '请选择所属种植场'},
                     options: []
                 },
                 {
@@ -5861,8 +5861,7 @@ export default {
                     {
                         value: '公顷',
                         label: '公顷'
-                    }
-                    ],
+                    }],
                     rule: [{required: true, message: '请输入种植面积', trigger: 'blur'}, {validator: validate2.reNumber}]
                 },
                 {
@@ -6556,6 +6555,8 @@ export default {
             popNumber2: [1, 4],
             selectInit: [{value: '', label: '种植区选择'}],
             selectInit2: [{value: '', label: '果蔬选择'}, {value: '', label: '种植人选择'}],
+            limit: 3,
+            getMessage: '已超过种植区余留面积',
             components: [{
                 name: 'plantation_id',
                 type: 'select',
@@ -6636,6 +6637,8 @@ export default {
             selectInit2: [{value: '', label: '果蔬选择'}, {value: '', label: '种植人选择'}],
             popNumber: [1],
             popNumber2: [2, 5],
+            limit: 4,
+            getMessage: '已超过种植区余留面积',
             components: [{
                 name: 'serial',
                 type: 'text',

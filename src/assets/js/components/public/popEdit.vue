@@ -220,7 +220,6 @@ export default {
         },
         // 返回InputTextSelect组件的数据
         returnShuju (data) {
-            console.log(data.value)
             if (this.url.indexOf('course') >= 0 || this.url.indexOf('grow') >= 0) {
                 if (data.value === '') {
                     this.editForm['img'] = ''
@@ -334,7 +333,7 @@ export default {
                             this.disabled = false
                         }
                     })
-                } else if (this.url === 'planta' || this.url === 'area') {
+                } else if (this.url === 'area') {
                     this.disabled = true
                     let pid = {id: this.editForm.pid !== undefined ? this.editForm.pid : this.editForm.farm_id}
                     axios.get(this.$adminUrl(this.url + '/getArea'), {params: pid}).then((responce) => {
@@ -342,7 +341,7 @@ export default {
                         com.components[com.limit].rule[1]['getMax'] = this.allowance
                         com.components[com.limit].rule[1]['getMessage'] = com.getMessage
                     })
-                } else if (this.url === 'farmcd') {
+                } else if (this.url === 'farmcd' || this.url === 'planta') {
                     this.disabled = true
                     let params = {id: this.editForm.id, pid: this.editForm.pid}
                     axios.get(this.$adminUrl(this.url + '/getSetArea'), {params: params}).then((responce) => {
@@ -360,7 +359,7 @@ export default {
         getSelectId (name, val) {
             if (name === 'pid' || name === 'farm_id') {
                 let com = this.editComponent[0]
-                if (this.url !== 'farmcd') {
+                if (this.url !== 'farmcd' && this.url !== 'planta') {
                     let params = {id: val}
                     let sid = this.editDefault.pid !== undefined ? this.editDefault.pid : this.editDefault.farm_id
                     axios.get(this.$adminUrl(this.url + '/getArea'), {params: params}).then((responce) => {
@@ -374,20 +373,26 @@ export default {
                         com.components[com.limit].rule[1]['getMessage'] = com.getMessage
                     })
                 } else {
-                    let params = {id: this.editForm.id, pid: val}
-                    axios.get(this.$adminUrl(this.url + '/getSetArea'), {params: params}).then((responce) => {
-                        if (val === this.editDefault.pid) {
-                            this.allowance = parseInt(responce.data['max_num']) + parseInt(this.editDefault.area)
-                        } else {
-                            this.allowance = parseInt(responce.data['max_num'])
-                        }
-                        this.editForm['unit'] = responce.data['unit']
-                        this.editAllowance = parseInt(responce.data['min_num'])
-                        com.components[com.limit].rule[1]['max'] = this.allowance
-                        com.components[com.limit].rule[1]['min'] = this.editAllowance
-                        com.components[com.limit].rule[1]['getMiddle'] = true
-                        com.components[com.limit].rule[1]['getMessage'] = '最大输入' + this.allowance + ', 最小输入' + this.editAllowance
-                    })
+                    if (val !== '') {
+                        let params = {id: this.editForm.id, pid: val}
+                        axios.get(this.$adminUrl(this.url + '/getSetArea'), {params: params}).then((responce) => {
+                            if (val === this.editDefault.pid) {
+                                this.allowance = parseInt(responce.data['max_num']) + parseInt(this.editDefault.area)
+                            } else {
+                                this.allowance = parseInt(responce.data['max_num'])
+                            }
+                            this.editForm['unit'] = responce.data['unit']
+                            this.editAllowance = parseInt(responce.data['min_num'])
+                            com.components[com.limit].rule[1]['max'] = this.allowance
+                            com.components[com.limit].rule[1]['min'] = this.editAllowance
+                            com.components[com.limit].rule[1]['getMiddle'] = true
+                            com.components[com.limit].rule[1]['getMessage'] = '最大输入' + this.allowance + ', 最小输入' + this.editAllowance
+                        })
+                    } else {
+                        this.editForm['unit'] = '亩'
+                        this.allowance = 0
+                        this.disabledV = true
+                    }
                 }
             }
         }

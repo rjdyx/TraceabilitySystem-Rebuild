@@ -64,7 +64,6 @@ exports.reNumber = (rule, value, callback, source, options) => {
                         callback()
                     }
                 } else if (rule.getMiddle !== undefined) {
-                    console.log(555)
                     if (parseInt(value) <= parseInt(rule.max) && parseInt(value) >= parseInt(rule.min)) {
                         callback()
                     } else {
