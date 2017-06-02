@@ -380,6 +380,31 @@ export default {
                         })
                 }
             }
+            // 根据一级模块权限 来填充下拉框内容
+            if (com.permissionSelectUrl) {
+                let arrs = com.permissionSelectArr
+                let urlArr = com.permissionSelectUrl
+                for (let key in arrs) {
+                    axios.get(urlArr[key])
+                        .then((responce) => {
+                            var datas = responce.data
+                            var newArr = []
+                            if (datas) {
+                                for (let k in arrs[key]) {
+                                    let field = arrs[key][k]
+                                    if (field.set !== undefined) {
+                                        if (datas.indexOf(field.set) !== -1) {
+                                            newArr.push(arrs[key][k])
+                                        }
+                                    } else {
+                                        newArr.push(arrs[key][k])
+                                    }
+                                }
+                            }
+                            com.components[com.permissionNumber[key]].options = newArr
+                        })
+                }
+            }
             // 无分类的下拉框模块查询
             if (com.selectUrl2) {
                 for (let key in com.selectUrl2) {
@@ -396,6 +421,11 @@ export default {
                             var arr = []
                             for (let k in com.selectWhereArr2[key]) {
                                 arr[k] = [com.selectWhereArr2[key][k].n, com.selectWhereArr2[key][k].v]
+                                if (com.selectWhereArr2[key][k].s !== undefined) {
+                                    if (com.selectWhereArr2[key][k].s) {
+                                        arr[k].push(true)
+                                    }
+                                }
                             }
                             data.where = arr
                         }
@@ -449,11 +479,52 @@ export default {
                             })
                     }
                 }
+                // 根据一级模块权限 来填充下拉框内容
+                if (com.permissionSelectUrl) {
+                    let arrs = com.permissionSelectArr
+                    let urlArr = com.permissionSelectUrl
+                    for (let key in arrs) {
+                        axios.get(urlArr[key])
+                            .then((responce) => {
+                                var datas = responce.data
+                                var newArr = []
+                                if (datas) {
+                                    for (let k in arrs[key]) {
+                                        let field = arrs[key][k]
+                                        if (field.set !== undefined) {
+                                            if (datas.indexOf(field.set) !== -1) {
+                                                newArr.push(arrs[key][k])
+                                            }
+                                        } else {
+                                            newArr.push(arrs[key][k])
+                                        }
+                                    }
+                                }
+                                com.components[com.permissionNumber[key]].options = newArr
+                            })
+                    }
+                }
                 // 无分类的下拉框模块查询
                 if (com.selectUrl2) {
                     for (let key in com.selectUrl2) {
                         let editArr = this.$addAndEditSelectMethod(com.selectUrl2[key])
-                        this.$dataGet(this, '/util/selects', {table: editArr.selectUrl})
+                        let data = {table: editArr.selectUrl}
+                        // 多条件查询
+                        if (com.selectWhereArr2 !== undefined) {
+                            if (com.selectWhereArr2[key] !== undefined || com.selectWhereArr2[key] !== '') {
+                                var arr = []
+                                for (let k in com.selectWhereArr2[key]) {
+                                    arr[k] = [com.selectWhereArr2[key][k].n, com.selectWhereArr2[key][k].v]
+                                    if (com.selectWhereArr2[key][k].s !== undefined) {
+                                        if (com.selectWhereArr2[key][k].s) {
+                                            arr[k].push(true)
+                                        }
+                                    }
+                                }
+                                data.where = arr
+                            }
+                        }
+                        this.$dataGet(this, '/util/selects', data)
                             .then((responce) => {
                                 if (responce.data.length !== 0) {
                                     this.selectNewEdit[key] = []

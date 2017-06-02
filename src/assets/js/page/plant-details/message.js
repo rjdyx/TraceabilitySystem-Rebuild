@@ -740,6 +740,7 @@ export default {
                 type: 'table',
                 labUrl: 'product',
                 assocNum: 0,
+                whereArr: [['domain', 'packb'], ['domain', 'all', true]],
                 components: [{
                     name: 'name',
                     type: 'table',
@@ -788,6 +789,9 @@ export default {
                     selectInit2: [{value: '', label: '出栏批次号选择'}, {value: '', label: '请选择入库批次(平台)'}, {value: '', label: '请选择入库批次(非平台)'}],
                     selectWhereArr2: [[], [{n: 'type', v: 0}, {n: 'category', v: 'plant'}], [{n: 'type', v: 1}, {n: 'category', v: 'plant'}]],
                     popNumber2: [2, 3, 4],
+                    permissionSelectUrl: ['api/permission_domain'],
+                    permissionSelectArr: [[{label: '请选择商品来源', value: ''}, {set: 'beast', label: '养殖出栏', value: 'come'}, {set: 'sell', label: '入库(平台)', value: 'st'}, {set: 'sell', label: '入库(非平台)', value: 'sf'}]],
+                    permissionNumber: [1],
                     labUrl: 'come-rfid',
                     type: 'assoc',
                     components: [{
@@ -808,22 +812,7 @@ export default {
                         placeholder: '',
                         selectNumber: {come: [2, 7], st: [3, 8], sf: [4]},
                         rule: {required: true, trigger: 'blur', message: '请选择商品来源'},
-                        options: [{
-                            label: '请选择商品来源',
-                            value: ''
-                        },
-                        {
-                            label: '养殖出栏',
-                            value: 'come'
-                        },
-                        {
-                            label: '入库(平台)',
-                            value: 'st'
-                        },
-                        {
-                            label: '入库(非平台)',
-                            value: 'sf'
-                        }]
+                        options: []
                     },
                     {
                         name: 'come_id',
@@ -1414,6 +1403,7 @@ export default {
                 type: 'table',
                 assocNum: 0,
                 labUrl: 'product',
+                whereArr: [['domain', 'packp'], ['domain', 'all', true]],
                 components: [{
                     name: 'name',
                     type: 'table',
@@ -1460,6 +1450,9 @@ export default {
                 selectWhereArr2: [[], [{n: 'type', v: 0}, {n: 'category', v: 'plant'}], [{n: 'type', v: 1}, {n: 'category', v: 'plant'}]],
                 selectInit2: [{value: '', label: '采收批次号选择'}, {value: '', label: '请选择入库批次(平台)'}, {value: '', label: '请选择入库批次(非平台)'}],
                 popNumber2: [2, 3, 4],
+                permissionSelectUrl: ['api/permission_domain'],
+                permissionSelectArr: [[{label: '请选择商品来源', value: ''}, {set: 'plant', label: '种植采收', value: 'harvest'}, {set: 'sell', label: '入库(平台)', value: 'st'}, {set: 'sell', label: '入库(非平台)', value: 'sf'}]],
+                permissionNumber: [1],
                 hiddenValue: {type: 'plant'},
                 labUrl: false,
                 labNewUrl: 'storage_code',
@@ -1483,22 +1476,7 @@ export default {
                     placeholder: '',
                     selectNumber: {harvest: [2], st: [3, 7], sf: [4]},
                     rule: {required: true, trigger: 'blur', message: '请选择商品来源'},
-                    options: [{
-                        label: '请选择商品来源',
-                        value: ''
-                    },
-                    {
-                        label: '种植采收',
-                        value: 'harvest'
-                    },
-                    {
-                        label: '入库(平台)',
-                        value: 'st'
-                    },
-                    {
-                        label: '入库(非平台)',
-                        value: 'sf'
-                    }]
+                    options: []
                 },
                 {
                     name: 'harvest_id',
