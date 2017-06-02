@@ -9,7 +9,7 @@
         <el-input :placeholder="shuju.placeholder" v-model="inputValue" size="small" :disabled="disabledV" @blur="getInputValue">
             <!-- slot="prepend" -->
             <el-select v-model="selectValue"  slot="append" placeholder="请选择" size="small" :disabled="disabled" @change="getSelectValue">
-                <el-option v-for="option in shuju.options" :label="option.label" :value="option.value" size="small"></el-option>
+                <el-option v-for="option in shuju.options" :label="option.label" :value="option.value" :key="option.label + option.value" size="small"></el-option>
             </el-select>
         </el-input>
     </div>

@@ -1,57 +1,61 @@
-const path = require('path');
-const webpack = require('webpack');
-const merge = require('webpack-merge');
-const base = require('./webpack.base.config');
-const vueConfig = require('./vue-loader.config');
-const HTMLPlugin = require('html-webpack-plugin');
-const projectRoot = path.resolve(__dirname, '../');
+const glob = require('glob')
+const webpack = require('webpack')
+const merge = require('webpack-merge')
+const base = require('./webpack.base.config')
+const SWPrecachePlugin = require('sw-precache-webpack-plugin')
+const VueSSRClientPlugin = require('vue-server-renderer/client-plugin')
 
-//生成 前端文件的webpack 配置
 const config = merge(base, {
-  plugins: (base.plugins || []).concat([
-    // strip comments in Vue code
+  entry: {
+    app: './src/assets/js/entry-client.js'
+  },
+  resolve: {
+    alias: {
+      'create-api': './create-api-client.js'
+    }
+  },
+  plugins: [
+    // strip dev-only code in Vue source
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
+      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
+      'process.env.VUE_ENV': '"client"'
     }),
-
-      //将类库文件进行分开打包,便于缓存
+    // extract vendor chunks for better caching
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
-      filename: 'client-vendor-bundle.[hash].js'
+      minChunks: function (module) {
+        // a module is extracted into the vendor chunk if...
+        return (
+          // it's inside node_modules
+          /node_modules/.test(module.context) &&
+          // and not a CSS file (due to extract-text-webpack-plugin limitation)
+          !/\.css$/.test(module.request)
+        )
+      }
     }),
-
-    // generate output HTML
-    new HTMLPlugin({
-      filename: projectRoot + '/dist/index.html',
-      template: 'src/views/index.template.html'
-    })
-
-  ])
+    // extract webpack runtime & manifest to avoid vendor chunk hash changing
+    // on every build.
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'manifest'
+    }),
+    new VueSSRClientPlugin()
+  ]
 })
 
 if (process.env.NODE_ENV === 'production') {
-  
-  const ExtractTextPlugin = require('extract-text-webpack-plugin')
-
-  
-  vueConfig.loaders = {
-    // 用 babel-loader 加载所有没有 "lang" 属性的 <script>
-    js: 'babel-loader',
-    // 将vue里面的css和sass抽离出来组成一个独立的css文件
-    css: ExtractTextPlugin.extract({fallbackLoader: 'vue-style-loader', loader: 'css-loader'}),
-    sass: ExtractTextPlugin.extract({fallbackLoader:'vue-style-loader', loader: 'css-loader!sass-loader'})
-  }
-
   config.plugins.push(
-    // this is needed in webpack 2 for minifying CSS
-    new webpack.LoaderOptionsPlugin({
-      minimize: true
-    }),
-    // minify JS
-    new webpack.optimize.UglifyJsPlugin({
-      compress: {
-        warnings: false
-      }
+    // auto generate service worker
+    new SWPrecachePlugin({
+      cacheId: 'vue-hn',
+      filename: 'service-worker.js',
+      dontCacheBustUrlsMatching: /./,
+      staticFileGlobsIgnorePatterns: [/\.map$/, /\.json$/],
+      runtimeCaching: [
+        {
+          urlPattern: '/',
+          handler: 'networkFirst'
+        }
+      ]
     })
   )
 }

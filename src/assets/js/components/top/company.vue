@@ -16,7 +16,7 @@
                     </el-col>
                     <el-col :span="14">
                         <el-row :gutter="20" class="text">
-                            <el-col :span='8' v-for="(v,k) in listN"  class="coltext">
+                            <el-col :span='8' v-for="(v,k) in listN" :key="k" class="coltext">
                              {{v}} {{listV[k]}}
                         </el-col>
                     </el-row>

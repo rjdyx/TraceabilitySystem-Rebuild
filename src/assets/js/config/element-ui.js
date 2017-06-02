@@ -25,6 +25,11 @@ export
     RadioGroup,
     RadioButton,
     DatePicker,
-    Popover
+    Popover,
+    Form,
+    FormItem,
+    Checkbox,
+    Row,
+    Col
 }
 from 'element-ui'

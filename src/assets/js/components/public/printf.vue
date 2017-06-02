@@ -14,7 +14,7 @@
       <!-- tab选项卡 -->
       <!-- <h4>{{printComponent[0].tab}}</h4> -->
       <el-tabs v-model="activeName" @tab-click="handleClick" class="tab">
-        <el-tab-pane :label="item.tab" :name="item.tab" v-for="(item,i) in printComponent">
+        <el-tab-pane :label="item.tab" :name="item.tab" v-for="(item,i) in printComponent" :key="i">
           <!-- 表单 -->
         <el-form :model="printForm" :rules="rules" ref="printForm" label-width="110px" class="demo-printForm">
             <table>

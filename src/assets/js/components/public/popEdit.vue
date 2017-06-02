@@ -14,7 +14,7 @@
       <!-- tab选项卡 -->
       <!-- <h4>{{editComponent[0].tab}}</h4> -->
       <el-tabs v-model="activeName" @tab-click="handleClick">
-        <el-tab-pane :label="item.tab" :name="item.tab" v-for="(item,i) in editComponent">
+        <el-tab-pane :label="item.tab" :name="item.tab" v-for="(item,i) in editComponent" :key="i">
           <!-- 表单 -->
         <el-form :model="editForm" :rules="rules" ref="editForm" label-width="110px" class="demo-editForm">
             <table>
@@ -43,6 +43,7 @@
                                     v-for="option in subItem.options" 
                                     :label="option.label" 
                                     :value="option.value" 
+                                    :key="option.label + option.value"
                                     size="small"
                                     ></el-option>
                               </el-select>
@@ -101,6 +102,7 @@
                                 :lists="itemList" 
                                 :checkeds="checkeds[key]"
                                 :name="key" 
+                                :key="key"
                                 @return-isAllcheck="allChange" 
                                 @return-checked="allChecked">
                                 </allCheck>

@@ -35,7 +35,7 @@
 				</li>
 			</ul>
 		</div>
-			<vue-progress-bar></vue-progress-bar>
+			<!-- <vue-progress-bar></vue-progress-bar> -->
 	</header>
 </template>
 <script>
@@ -91,7 +91,7 @@ export default {
                 if (responce.data === 200) {
                     // window.Roles = {}
                     // console.log(window.Roles)
-                    this.$router.push('/login')
+                    this.$router.push('/P/login')
                     // history.go(0) // 刷新更新权限数据
                 }
             })

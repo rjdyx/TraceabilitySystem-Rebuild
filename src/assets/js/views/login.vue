@@ -41,7 +41,7 @@
 							</el-input>
 							<img :src="kit_url" alt="" class="kit" @click="Kit">
 							<span class="loading">
-								<vue-loading type="spin" color="#d5dde0" :size="{width:'100%',height:'100%'}" v-show="codeLoading" class="codeLoading"></vue-loading>
+								<!-- <vue-loading type="spin" color="#d5dde0" :size="{width:'100%',height:'100%'}" v-show="codeLoading" class="codeLoading"></vue-loading> -->
 							</span>
 						</el-form-item>
 						<el-form-item class="receive">
@@ -58,7 +58,6 @@
 							<el-button type="primary" 
 								@click="submitForm('ruleForm2')" 
 								size="small"
-								v-loading.fullscreen.lock="fullscreenLoading"
 								:disabled="this.checked!==true"
 								class="loginBtn"
 								>登录</el-button>
@@ -78,12 +77,12 @@
 				<p>最佳浏览器体验:360极速模式浏览器，最佳分别率：1680*1050</p>
 			</div>
 			 
-			<vue-progress-bar></vue-progress-bar>
+			<!-- <vue-progress-bar></vue-progress-bar> -->
 	</div>
 </template>
 
 <script>
-import vueLoading from 'vue-loading-template'
+import { mapMutations } from 'vuex'
 export default {
     data () {
         let validateName = (rule, value, callback) => {
@@ -115,7 +114,6 @@ export default {
             }
         }
         return {
-            kit_url: '',
             recordeChecked: false,
             ruleForm2: {
                 name: '',
@@ -139,13 +137,25 @@ export default {
             codeLoading: false
         }
     },
+
+    computed: {
+        kit_url () {
+            return this.$store.state.auth.kit
+        }
+    },
+
     methods: {
+
+        ...mapMutations([
+            'SET_KIT'
+        ]),
+
         submitForm (formName) {
             this.$refs[formName].validate((valid) => {
                 if (valid) {
-                    this.$Progress.start()
+                    // this.$Progress.start()
                     axios.post('/login', this.ruleForm2).then((responce) => {
-                        this.$Progress.finish()
+                        // this.$Progress.finish()
                         if (responce.data !== 200) {
                             this.$message.error('用户名或密码错误')
                         } else {
@@ -182,7 +192,7 @@ export default {
         Kit () {
             this.codeLoading = true
             axios.get('/kit').then((responce) => {
-                this.kit_url = responce.data
+                this.SET_KIT(responce.data)
                 this.codeLoading = false
             })
         },
@@ -190,6 +200,7 @@ export default {
             console.log('iwgufewgfyefheufeuf')
         }
     },
+    
     mounted () {
         this.Kit()
         // 记住账号
@@ -200,12 +211,6 @@ export default {
             this.recordeChecked = true
             this.ruleForm2.name = localStorage.getItem('recordUser')
         }
-    },
-    components: {
-        vueLoading
-    },
-    created () {
-        document.title = '寻真溯源安全预警平台'
     }
 }
 </script>

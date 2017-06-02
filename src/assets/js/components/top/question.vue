@@ -24,7 +24,7 @@
 						<h2 class="titleQu">您对溯源系统感觉不足的地方？</h2>
 						<el-form-item>
 							<div class="check">
-								<el-checkbox-group v-model="form.lack" v-for="item in check" prop="lack" @change="checkedChange">
+								<el-checkbox-group v-model="form.lack" v-for="(item, i) in check" :key="i" prop="lack" @change="checkedChange">
 							  		<el-checkbox :label="item"></el-checkbox>
 								</el-checkbox-group>
 							</div>

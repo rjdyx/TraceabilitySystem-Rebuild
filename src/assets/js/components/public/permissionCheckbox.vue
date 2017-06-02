@@ -21,7 +21,7 @@
                     <tr class="tr2">
                         <!-- <el-checkbox v-model="checked" @change="allChange">全选</el-checkbox> -->
                         <ul class="ul">
-                            <li><allCheck v-for="(itemList,key) in memuList" :checkeds="checkeds[key]" :lists="itemList" :name="key" @return-isAllcheck="allChange" @return-checked="allChecked"></allCheck></li>
+                            <li><allCheck v-for="(itemList,key) in memuList" :checkeds="checkeds[key]" :lists="itemList" :name="key" :key="key" @return-isAllcheck="allChange" @return-checked="allChecked"></allCheck></li>
                         </ul>
                     </tr>
                 </table>

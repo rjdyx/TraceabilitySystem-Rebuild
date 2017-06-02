@@ -13,7 +13,7 @@
     </contain-title>
   <!-- tab栏 --> 
     <el-tabs v-model="activeName" id="tabs" @tab-click="tabClick" type="card">
-        <el-tab-pane v-for="(model,index) in models" :label="model.tab" :name="'index'+index">
+        <el-tab-pane v-for="(model,index) in models" :label="model.tab" :name="'index'+index" :key="index">
 
         </el-tab-pane>
     </el-tabs>  
@@ -34,13 +34,14 @@
 
             <!-- 操作按钮 -->
             <component
-                v-for="typeOperate in typeComponent"
+                v-for="(typeOperate, i) in typeComponent"
                 :is="typeOperate.component"
                 :params="typeOperate.params"
                 class="fr rightBtn"
                 :url="url"
                 :checkObject="checkObject"
-                :type="paramsIndex"
+                :type="paramsIndex" 
+                :key="i"
             ></component>
             
         </div>

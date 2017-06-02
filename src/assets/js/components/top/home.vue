@@ -15,7 +15,7 @@
 					<img :src="listV.logo" class="homeImg" />
 				</span>
 				<el-row :gutter="20" class="text homeInfo">
-					<el-col :span='12' v-for="(item,index) in listN" class="coltext">
+					<el-col :span='12' v-for="(item,index) in listN" :key="index" class="coltext">
 						{{item}} {{listV[index]}} {{plans.come}}
 					</el-col>
 				</el-row>
@@ -38,14 +38,14 @@
 				<div class="rightMain">
 					<h1>My plan</h1>
 					<ul>
-						<li v-if="plans.harvest===undefined || plans.harvest===null" v-for="siderItem in siderBeast" class="siderTip">
+						<li v-if="plans.harvest===undefined || plans.harvest===null" v-for="(siderItem, i) in siderBeast" :key="i" class="siderTip">
 							<span class="siderImg">
 								<img :src="siderItem.src" />
 							</span>
 							<span class="siderType">{{siderItem.type}}</span>
 							<span class="siderKey" v-if="plans!==null">{{plans[siderItem.key]}}</span>
 						</li>
-						<li v-if="plans.come===undefined || plans.come===null" v-for="siderItem in siderPlant" class="siderTip">
+						<li v-if="plans.come===undefined || plans.come===null" v-for="(siderItem, i) in siderPlant" :key="i" class="siderTip">
 							<span class="siderImg">
 								<img :src="siderItem.src" />
 							</span>
