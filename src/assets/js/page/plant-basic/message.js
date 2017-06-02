@@ -6685,6 +6685,7 @@ export default {
                 isNull: false,
                 label: '种植面积',
                 placeholder: '请填写数字（必填）',
+                disabled: true,
                 options: [{
                     value: '亩',
                     label: '亩'
