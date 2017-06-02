@@ -534,7 +534,6 @@ export default {
                                         this.selectNewEdit[key].push(editOpt[item])
                                     }
                                     com.components[com.popNumber2[key]].options = this.selectNewEdit[key]
-                                    // com.components[com.popNumber2[key]].options = this.$selectData(this.url, responce.data, editArr.selectArr)
                                 }
                             })
                     }
@@ -692,6 +691,8 @@ export default {
                                 type: 'success',
                                 message: '修改状态成功'
                             })
+                        } else if (responce.data === 'exit') {
+                            this.$message('该区域已被使用，无法修改批次状态')
                         } else {
                             this.$message.error('修改状态失败')
                         }
