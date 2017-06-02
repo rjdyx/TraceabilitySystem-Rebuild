@@ -219,7 +219,7 @@ export default {
                     this.memuList = responce.data
                 })
         }
-        if (this.url === 'planta' || this.url === 'farmcd' || this.url === 'area') {
+        if (this.url === 'planta' || this.url === 'farmcd' || this.url === 'area' || this.url === 'cultivate') {
             this.disabled = true
             this.disabledV = true
         }
@@ -354,7 +354,7 @@ export default {
                 this.$emit('setTable', [name, val, subItem])
             } else if (name === 'harvest_id' || name === 'sf_id') {
                 this.ids = [1]
-            } else if (name === 'pid' || name === 'farm_id') {
+            } else if (name === 'pid' || name === 'farm_id' || name === 'plantation_id') {
                 if (val !== '') {
                     let params = {id: val}
                     axios.get(this.$adminUrl(this.url + '/getArea'), {params: params}).then((responce) => {
