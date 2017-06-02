@@ -92,7 +92,7 @@ export default {
                 isNull: false,
                 label: '分类名称',
                 placeholder: '必填',
-                rule: [{required: true, message: '请输入分类名称', trigger: 'blur'}, {validator: validate2.reCheck}]
+                rule: [{required: true, message: '请选择分类名称', trigger: 'blur'}, {validator: validate2.reCheck}]
             },
             {
                 name: 'type',
@@ -230,10 +230,10 @@ export default {
         selectSearch: ['operates.category_id'],
         selectValueId: [['category_id', 'category_name', true]],
         selectDefault: [{value: '', label: '选择操作人类型'}],
-        changeDataArr: [{sex: {0: '男', 1: '女'}}],
-        theads: ['分类名称', '姓名', '身份', '性别', '年龄', '联系方式', '地址', '图片', '备注信息'],
-        protos: ['category_name', 'name', 'identity', 'sex', 'age', 'phone', 'address', 'img', 'memo'],
-        widths: [50, 50, 50, 50, 50, 50, 50, 50, 50],
+        changeDataArr: [{sex: {0: '男', 1: '女'}}, {domain: {plant: '种植管理', beast: '养殖管理', packp: '果蔬加工管理', packb: '畜禽加工管理', sell: '销售管理', delivery: '物流管理', all: '公共模块'}}],
+        theads: ['分类名称', '模块领域', '姓名', '身份', '性别', '年龄', '联系方式', '地址', '图片', '备注信息'],
+        protos: ['category_name', 'domain', 'name', 'identity', 'sex', 'age', 'phone', 'address', 'img', 'memo'],
+        widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
         typeComponent: [{
             component: output
         },
@@ -253,7 +253,10 @@ export default {
             tab: '新建人员档案信息',
             selectUrl: [['category', 'operate', 'category_id', 'category_name', true]],
             selectInit: [{value: '', label: '选择操作人分类'}],
-            checkNumber: [1],
+            permissionSelectUrl: ['api/permission_domain'],
+            permissionSelectArr: [[{value: 'all', label: '公共模块'}, {set: 'delivery', value: 'delivery', label: '物流管理'}, {set: 'plant', value: 'plant', label: '种植管理'}, {set: 'beast', value: 'beast', label: '养殖管理'}, {set: 'packb', value: 'packb', label: '畜禽加工管理'}, {set: 'packp', value: 'packp', label: '果蔬加工管理'}, {set: 'sell', value: 'sell', label: '销售管理'}]],
+            permissionNumber: [1],
+            checkNumber: [2],
             hasImg: true,
             popNumber: [0],
             components: [{
@@ -264,6 +267,16 @@ export default {
                 label: '分类',
                 placeholder: '必填',
                 rule: {required: true, trigger: 'blur', type: 'number', message: '请选择分类名称'},
+                options: []
+            },
+            {
+                name: 'domain',
+                type: 'select',
+                component: null,
+                isNull: false,
+                label: '模块领域',
+                placeholder: '',
+                rule: {required: true, message: '请选择模块领域', trigger: 'blur'},
                 options: []
             },
             {
@@ -352,7 +365,10 @@ export default {
             tab: '编辑人员档案信息',
             selectUrl: [['category', 'operate', 'category_id', 'category_name', true]],
             selectInit: [{value: '', label: '选择操作人分类'}],
-            checkNumber: [1],
+            checkNumber: [2],
+            permissionSelectUrl: ['api/permission_domain'],
+            permissionSelectArr: [[{value: 'all', label: '公共模块'}, {set: 'plant', value: 'plant', label: '种植管理'}, {set: 'beast', value: 'beast', label: '养殖管理'}, {set: 'packb', value: 'packb', label: '畜禽加工管理'}, {set: 'packp', value: 'packp', label: '果蔬加工管理'}, {set: 'sell', value: 'sell', label: '销售管理'}]],
+            permissionNumber: [1],
             popNumber: [0],
             hasImg: true,
             components: [{
@@ -364,6 +380,33 @@ export default {
                 placeholder: '必填',
                 rule: {required: true, trigger: 'blur', type: 'number', message: '请选择分类名称'},
                 options: []
+            },
+            {
+                name: 'domain',
+                type: 'select',
+                component: null,
+                isNull: false,
+                label: '模块领域',
+                placeholder: '',
+                rule: {required: true, message: '请选择模块领域', trigger: 'blur'},
+                options: [{
+                    value: 'all', label: '公共模块'
+                },
+                {
+                    value: 'plant', label: '种植管理'
+                },
+                {
+                    value: 'beast', label: '养殖管理'
+                },
+                {
+                    value: 'packb', label: '畜禽加工管理'
+                },
+                {
+                    value: 'packp', label: '果蔬加工管理'
+                },
+                {
+                    value: 'sell', label: '销售管理'
+                }]
             },
             {
                 name: 'name',
@@ -457,12 +500,12 @@ export default {
         url: 'expert',
         selectSearch: ['experts.category_id'],
         selectValueId: [['category_id', 'category_name', true]],
-        changeDataArr: [{sex: {0: '男', 1: '女'}}],
+        changeDataArr: [{sex: {0: '男', 1: '女'}}, {domain: {plant: '种植管理', beast: '养殖管理', all: '公共模块'}}],
         searchPlaceholder: '请输入专家名称进行搜索',
         selectDefault: [{value: '', label: '选择专家类型'}],
-        theads: ['分类名称', '专家名称', '级别', '研究领域', '单位', '年龄', '性别', '联系方式', '图片', '备注'],
-        protos: ['category_name', 'name', 'level', 'major', 'unit', 'age', 'sex', 'phone', 'img', 'memo'],
-        widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
+        theads: ['分类名称', '模块领域', '专家名称', '级别', '研究领域', '单位', '年龄', '性别', '联系方式', '图片', '备注'],
+        protos: ['category_name', 'domain', 'name', 'level', 'major', 'unit', 'age', 'sex', 'phone', 'img', 'memo'],
+        widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
         typeComponent: [{
             component: output
         },
@@ -473,7 +516,10 @@ export default {
             tab: '新建专家档案信息',
             selectUrl: [['category', 'expert', 'category_id', 'category_name', true]],
             selectInit: [{value: '', label: '选择专家分类'}],
-            checkNumber: [1],
+            permissionSelectUrl: ['api/permission_domain'],
+            permissionSelectArr: [[{value: 'all', label: '公共模块'}, {set: 'plant', value: 'plant', label: '种植管理'}, {set: 'beast', value: 'beast', label: '养殖管理'}]],
+            permissionNumber: [1],
+            checkNumber: [2],
             popNumber: [0],
             hasImg: true,
             components: [{
@@ -484,6 +530,16 @@ export default {
                 label: '分类',
                 placeholder: '必填',
                 rule: {required: true, trigger: 'blur', type: 'number', message: '请选择分类名称'},
+                options: []
+            },
+            {
+                name: 'domain',
+                type: 'select',
+                component: null,
+                isNull: false,
+                label: '模块领域',
+                placeholder: '',
+                rule: {required: true, message: '请选择模块领域', trigger: 'blur'},
                 options: []
             },
             {
@@ -581,7 +637,10 @@ export default {
             tab: '编辑专家档案信息',
             selectUrl: [['category', 'expert', 'category_id', 'category_name', true]],
             selectInit: [{value: '', label: '选择专家分类'}],
-            checkNumber: [1],
+            permissionSelectUrl: ['api/permission_domain'],
+            permissionSelectArr: [[{value: 'all', label: '公共模块'}, {set: 'plant', value: 'plant', label: '种植管理'}, {set: 'beast', value: 'beast', label: '养殖管理'}]],
+            permissionNumber: [1],
+            checkNumber: [2],
             popNumber: [0],
             hasImg: true,
             components: [{
@@ -592,6 +651,16 @@ export default {
                 label: '分类',
                 placeholder: '必填',
                 rule: {required: true, trigger: 'blur', type: 'number', message: '请选择分类名称'},
+                options: []
+            },
+            {
+                name: 'domain',
+                type: 'select',
+                component: null,
+                isNull: false,
+                label: '模块领域',
+                placeholder: '',
+                rule: {required: true, message: '请选择模块领域', trigger: 'blur'},
                 options: []
             },
             {
@@ -1038,9 +1107,10 @@ export default {
         searchPlaceholder: '请输入产品名称进行搜索',
         selectDefault: [{value: '', label: '选择产品类型'}],
         selectSearch: ['products.category_id'],
-        theads: ['分类名称', '名称', '执行标准', '商品型号', '商品简介', '包装规格', '保质期', '食用方法', '存储方法', '配料信息', '图片', '备注'],
-        protos: ['category_name', 'name', 'enforce_standard', 'marque', 'description', 'specification', 'expiration_date', 'edible_method', 'storage_means', 'burdening_info', 'img', 'memo'],
-        widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
+        changeDataArr: [{domain: {packp: '果蔬加工管理', packb: '畜禽加工管理', sell: '销售管理', all: '公共模块'}}],
+        theads: ['分类名称', '模块领域', '名称', '执行标准', '商品型号', '商品简介', '包装规格', '保质期', '食用方法', '存储方法', '配料信息', '图片', '备注'],
+        protos: ['category_name', 'domain', 'name', 'enforce_standard', 'marque', 'description', 'specification', 'expiration_date', 'edible_method', 'storage_means', 'burdening_info', 'img', 'memo'],
+        widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
         typeComponent: [{
             component: output
         },
@@ -1051,7 +1121,10 @@ export default {
             tab: '新建产品信息',
             selectUrl: [['category', 'product', 'category_id', 'category_name', true]],
             selectInit: [{value: '', label: '选择产品分类'}],
-            checkNumber: [1],
+            permissionSelectUrl: ['api/permission_domain'],
+            permissionSelectArr: [[{value: 'all', label: '公共模块'}, {set: 'packb', value: 'packb', label: '畜禽加工管理'}, {set: 'packp', value: 'packp', label: '果蔬加工管理'}, {set: 'sell', value: 'sell', label: '销售管理'}]],
+            permissionNumber: [1],
+            checkNumber: [2],
             popNumber: [0],
             hasImg: true,
             components: [{
@@ -1062,6 +1135,16 @@ export default {
                 label: '分类',
                 placeholder: '必填',
                 rule: {required: true, trigger: 'blur', type: 'number', message: '请选择分类名称'},
+                options: []
+            },
+            {
+                name: 'domain',
+                type: 'select',
+                component: null,
+                isNull: false,
+                label: '模块领域',
+                placeholder: '',
+                rule: {required: true, message: '请选择模块领域', trigger: 'blur'},
                 options: []
             },
             {
@@ -1169,7 +1252,10 @@ export default {
             tab: '编辑产品信息',
             selectUrl: [['category', 'product', 'category_id', 'category_name', true]],
             selectInit: [{value: '', label: '选择产品分类'}],
-            checkNumber: [1],
+            permissionSelectUrl: ['api/permission_domain'],
+            permissionSelectArr: [[{value: 'all', label: '公共模块'}, {set: 'packb', value: 'packb', label: '畜禽加工管理'}, {set: 'packp', value: 'packp', label: '果蔬加工管理'}, {set: 'sell', value: 'sell', label: '销售管理'}]],
+            permissionNumber: [1],
+            checkNumber: [2],
             popNumber: [0],
             hasImg: true,
             components: [{
@@ -1180,6 +1266,16 @@ export default {
                 label: '分类',
                 placeholder: '必填',
                 rule: {required: true, trigger: 'blur', type: 'number', message: '请选择分类名称'},
+                options: []
+            },
+            {
+                name: 'domain',
+                type: 'select',
+                component: null,
+                isNull: false,
+                label: '模块领域',
+                placeholder: '',
+                rule: {required: true, message: '请选择模块领域', trigger: 'blur'},
                 options: []
             },
             {
@@ -2796,10 +2892,11 @@ export default {
         searchPlaceholder: '请输入养殖批次号进行搜索',
         selectValueId: [['beast_id', 'beast_name', true]],
         selectDefault: [{value: '', label: '请选择畜禽'}],
-        theads: ['批次号', '养殖区', '圈舍', '畜禽', '开始日期', '数量', '养殖方式', '养殖人', '操作人', '录入人', '备注'],
-        protos: ['serial', 'farm_name', 'area_name', 'beast_name', 'start_date', 'amount', 'way', 'operate', 'operate_name', 'user_name', 'memo'],
+        changeDataArr: [{state: {0: '未完成', 1: '已完成'}}],
+        theads: ['批次号', '养殖区', '圈舍', '畜禽', '开始日期', '数量', '养殖方式', '养殖人', '操作人', '录入人', '状态', '备注'],
+        protos: ['serial', 'farm_name', 'area_name', 'beast_name', 'start_date', 'amount', 'way', 'operate', 'operate_name', 'user_name', 'state', 'memo'],
         selectSearch: ['breeds.beast_id'],
-        widths: [60, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
+        widths: [60, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
         typeComponent: [{
             component: output
         },
@@ -2811,6 +2908,7 @@ export default {
             selectUrl2: [['areas', 'id', 'name', true], ['beasts', 'id', 'name', true], ['operates', 'id', 'name', true]],
             selectInit2: [{value: '', label: '选择圈舍'}, {value: '', label: '选择畜禽'}, {value: '', label: '请选择操作人'}],
             popNumber2: [0, 1, 2],
+            selectWhereArr2: [[], [], [{n: 'domain', v: 'beast'}]],
             components: [{
                 name: 'area_id',
                 type: 'select',
@@ -2884,6 +2982,7 @@ export default {
             selectInit2: [{value: '', label: '选择圈舍'}, {value: '', label: '选择畜禽'}, {value: '', label: '请选择操作人'}],
             selectUrl2: [['areas', 'id', 'name', true], ['beasts', 'id', 'name', true], ['operates', 'id', 'name', true]],
             popNumber2: [1, 2, 3],
+            selectWhereArr2: [[], [], [{n: 'domain', v: 'beast'}]],
             components: [{
                 name: 'serial',
                 type: 'text',
@@ -2985,7 +3084,8 @@ export default {
                 type: 'date',
                 component: 'datePick'
             }]
-        }]
+        }],
+        moreComponent: [{value: '状态'}]
     }],
     // 饲料使用管理
     feedManage: [{
@@ -3014,6 +3114,7 @@ export default {
             selectUrl2: [['fodders', 'id', 'name', true], ['additions', 'id', 'name', true], ['operates', 'id', 'name', true]],
             selectInit2: [{value: '', label: '饲料选择'}, {value: '', label: '饲料添加剂选择'}, {value: '', label: '饲养人员选择'}],
             popNumber2: [0, 1, 2],
+            selectWhereArr2: [[], [], [{n: 'domain', v: 'beast'}, {n: 'domain', v: 'all', s: true}]],
             components: [{
                 name: 'fodder_id',
                 type: 'select',
@@ -3098,6 +3199,7 @@ export default {
             selectUrl2: [['fodders', 'id', 'name', true], ['additions', 'id', 'name', true], ['operates', 'id', 'name', true]],
             selectInit2: [{value: '', label: '饲料选择'}, {value: '', label: '饲料添加剂选择'}, {value: '', label: '饲养人员选择'}],
             popNumber2: [1, 2, 3],
+            selectWhereArr2: [[], [], [{n: 'domain', v: 'beast'}, {n: 'domain', v: 'all', s: true}]],
             components: [{
                 name: 'serial',
                 type: 'text',
@@ -3230,6 +3332,7 @@ export default {
                 selectUrl2: [['drugs', 'id', 'name', true], ['operates', 'id', 'name', true], ['experts', 'id', 'name', true]],
                 selectInit2: [{value: '', label: '兽药选择'}, {value: '', label: '施药人员选择'}, {value: '', label: '专家选择'}],
                 popNumber2: [0, 3, 4],
+                selectWhereArr2: [[], [{n: 'domain', v: 'beast'}], [{n: 'domain', v: 'beast'}]],
                 hasImg: true,
                 checkNumber: [1],
                 components: [{
@@ -3337,6 +3440,7 @@ export default {
                 selectUrl2: [['drugs', 'id', 'name', true], ['operates', 'id', 'name', true], ['experts', 'id', 'name', true]],
                 selectInit2: [{value: '', label: '兽药选择'}, {value: '', label: '施药人员选择'}, {value: '', label: '专家选择'}],
                 popNumber2: [1, 4, 5],
+                selectWhereArr2: [[], [{n: 'domain', v: 'beast'}, {n: 'domain', v: 'all', s: true}], [{n: 'domain', v: 'beast'}, {n: 'domain', v: 'all', s: true}]],
                 hasImg: true,
                 components: [{
                     name: 'serial',
@@ -3487,6 +3591,7 @@ export default {
             selectUrl2: [['experts', 'id', 'name', true], ['operates', 'id', 'name', true]],
             selectInit2: [{value: '', label: '请选择指导专家'}, {value: '', label: '请选择操作人员'}],
             popNumber2: [3, 4],
+            selectWhereArr2: [[{n: 'domain', v: 'beast'}, {n: 'domain', v: 'all', s: true}], [{n: 'domain', v: 'beast'}, {n: 'domain', v: 'all', s: true}]],
             hasImg: true,
             components: [{
                 name: 'date',
@@ -3597,6 +3702,7 @@ export default {
             selectUrl2: [['experts', 'id', 'name', true], ['operates', 'id', 'name', true]],
             selectInit2: [{value: '', label: '请选择指导专家'}, {value: '', label: '请选择操作人员'}],
             popNumber2: [4, 5],
+            selectWhereArr2: [[{n: 'domain', v: 'beast'}, {n: 'domain', v: 'all', s: true}], [{n: 'domain', v: 'beast'}, {n: 'domain', v: 'all', s: true}]],
             hasImg: true,
             components: [{
                 name: 'serial',
@@ -3767,6 +3873,7 @@ export default {
             selectUrl2: [['experts', 'id', 'name', true], ['operates', 'id', 'name', true]],
             selectInit2: [{value: '', label: '请选择专家'}, {value: '', label: '请选择操作人'}],
             popNumber2: [1, 2],
+            selectWhereArr2: [[{n: 'domain', v: 'beast'}, {n: 'domain', v: 'all', s: true}], [{n: 'domain', v: 'beast'}, {n: 'domain', v: 'all', s: true}]],
             hasImg: true,
             components: [{
                 name: 'date',
@@ -3880,6 +3987,7 @@ export default {
             selectUrl2: [['experts', 'id', 'name', true], ['operates', 'id', 'name', true]],
             selectInit2: [{value: '', label: '请选择专家'}, {value: '', label: '请选择操作人'}],
             popNumber2: [2, 3],
+            selectWhereArr2: [[{n: 'domain', v: 'beast'}, {n: 'domain', v: 'all', s: true}], [{n: 'domain', v: 'beast'}, {n: 'domain', v: 'all', s: true}]],
             hasImg: true,
             components: [{
                 name: 'serial',
@@ -4029,6 +4137,7 @@ export default {
             selectUrl2: [['experts', 'id', 'name', true], ['operates', 'id', 'name', true]],
             selectInit2: [{value: '', label: '请选择专家'}, {value: '', label: '请选择操作人'}],
             popNumber2: [2, 1],
+            selectWhereArr2: [[{n: 'domain', v: 'beast'}, {n: 'domain', v: 'all', s: true}], [{n: 'domain', v: 'beast'}, {n: 'domain', v: 'all', s: true}]],
             hasImg: true,
             components: [{
                 name: 'date',
@@ -4102,6 +4211,7 @@ export default {
             selectUrl2: [['experts', 'id', 'name', true], ['operates', 'id', 'name', true]],
             selectInit2: [{value: '', label: '请选择专家'}, {value: '', label: '请选择操作人'}],
             popNumber2: [3, 2],
+            selectWhereArr2: [[{n: 'domain', v: 'beast'}, {n: 'domain', v: 'all', s: true}], [{n: 'domain', v: 'beast'}, {n: 'domain', v: 'all', s: true}]],
             hasImg: true,
             components: [{
                 name: 'serial',
@@ -4212,6 +4322,7 @@ export default {
             selectUrl2: [['experts', 'id', 'name', true], ['operates', 'id', 'name', true]],
             selectInit2: [{value: '', label: '请选择专家'}, {value: '', label: '请选择操作人'}],
             popNumber2: [1, 2],
+            selectWhereArr2: [[{n: 'domain', v: 'beast'}, {n: 'domain', v: 'all', s: true}], [{n: 'domain', v: 'beast'}, {n: 'domain', v: 'all', s: true}]],
             hasImg: true,
             components: [{
                 name: 'date',
@@ -4285,6 +4396,7 @@ export default {
             selectUrl2: [['experts', 'id', 'name', true], ['operates', 'id', 'name', true]],
             selectInit2: [{value: '', label: '请选择专家'}, {value: '', label: '请选择操作人'}],
             popNumber2: [2, 3],
+            selectWhereArr2: [[{n: 'domain', v: 'beast'}, {n: 'domain', v: 'all', s: true}], [{n: 'domain', v: 'beast'}, {n: 'domain', v: 'all', s: true}]],
             hasImg: true,
             components: [{
                 name: 'serial',
@@ -4396,6 +4508,7 @@ export default {
             selectUrl2: [['operates', 'id', 'name', true]],
             selectInit2: [{value: '', label: '选择出栏人'}],
             popNumber2: [1],
+            selectWhereArr2: [[{n: 'domain', v: 'beast'}, {n: 'domain', v: 'all', s: true}]],
             components: [{
                 name: 'date',
                 type: 'date',
@@ -4430,6 +4543,7 @@ export default {
             selectUrl2: [['operates', 'id', 'name', true]],
             selectInit2: [{value: '', label: '选择出栏人'}],
             popNumber2: [3],
+            selectWhereArr2: [[{n: 'domain', v: 'beast'}, {n: 'domain', v: 'all', s: true}]],
             components: [{
                 name: 'serial',
                 type: 'text',
@@ -4484,7 +4598,8 @@ export default {
                 type: 'date',
                 component: 'datePick'
             }]
-        }]
+        }],
+        moreComponent: [{value: '状态'}]
     }],
     // 养殖计划管理
     planManage: [{
@@ -4552,6 +4667,7 @@ export default {
             selectUrl2: [['operates', 'id', 'name', true]],
             popNumber2: [2],
             selectInit2: [{value: '', label: '请选择安排人员'}],
+            selectWhereArr2: [[{n: 'domain', v: 'beast'}, {n: 'domain', v: 'all', s: true}]],
             components: [{
                 name: 'date',
                 type: 'date',
@@ -4632,6 +4748,7 @@ export default {
             selectUrl2: [['operates', 'id', 'name', true]],
             popNumber2: [3],
             selectInit2: [{value: '', label: '请选择安排人员'}],
+            selectWhereArr2: [[{n: 'domain', v: 'beast'}, {n: 'domain', v: 'all', s: true}]],
             components: [{
                 name: 'serial',
                 type: 'text',
@@ -4716,6 +4833,7 @@ export default {
             hiddenValue: {type: 'beast'},
             selectUrl2: [['operates', 'id', 'name', true]],
             selectInit2: [{value: '', label: '选择加工人'}],
+            selectWhereArr2: [[{n: 'domain', v: 'packb'}, {n: 'domain', v: 'all', s: true}]],
             popNumber2: [1],
             components: [{
                 name: 'date',
@@ -4762,6 +4880,7 @@ export default {
             selectUrl2: [['operates', 'id', 'name', true]],
             selectInit2: [{value: '', label: '选择加工人'}],
             popNumber2: [3],
+            selectWhereArr2: [[{n: 'domain', v: 'packb'}, {n: 'domain', v: 'all', s: true}]],
             components: [{
                 name: 'serial',
                 type: 'text',
@@ -4843,6 +4962,7 @@ export default {
             hiddenValue: {type: 'beast'},
             selectUrl2: [['operates', 'id', 'name', true]],
             selectInit2: [{value: '', label: '检测人选择'}],
+            selectWhereArr2: [[{n: 'domain', v: 'packb'}, {n: 'domain', v: 'all', s: true}]],
             popNumber2: [1],
             hasImg: true,
             components: [{
@@ -4941,6 +5061,7 @@ export default {
             tab: '编辑检验检测信息',
             selectUrl2: [['operates', 'id', 'name', true]],
             selectInit2: [{value: '', label: '检测人选择'}],
+            selectWhereArr2: [[{n: 'domain', v: 'packb'}, {n: 'domain', v: 'all', s: true}]],
             popNumber2: [2],
             hasImg: true,
             components: [{
@@ -5081,6 +5202,9 @@ export default {
             selectUrl2: [['packs', 'id', 'serial', true], ['comes', 'id', 'serial', true], ['storages', 'id', 'serial', true], ['storages', 'id', 'serial', true]],
             selectInit2: [{value: '', label: '加工批次号选择'}, {value: '', label: '出栏批次号选择'}, {value: '', label: '请选择入库批次(平台)'}, {value: '', label: '请选择入库批次(非平台)'}],
             selectWhereArr2: [[{n: 'type', v: 'beast'}], [], [{n: 'type', v: 0}, {n: 'category', v: 'plant'}], [{n: 'type', v: 1}, {n: 'category', v: 'plant'}]],
+            permissionSelectUrl: ['api/permission_domain'],
+            permissionSelectArr: [[{label: '请选择商品来源', value: ''}, {set: 'beast', label: '养殖出栏', value: 'come'}, {set: 'sell', label: '入库(平台)', value: 'st'}, {set: 'sell', label: '入库(非平台)', value: 'sf'}]],
+            permissionNumber: [2],
             popNumber2: [0, 3, 4, 5],
             // labUrl: 'come-rfid',
             curl: 'pack-product-rfid',
@@ -5120,22 +5244,7 @@ export default {
                 placeholder: '',
                 selectNumber: {come: [3, 9], st: [4, 10], sf: [5]},
                 rule: {required: true, trigger: 'blur', message: '请选择商品来源'},
-                options: [{
-                    label: '请选择商品来源',
-                    value: ''
-                },
-                {
-                    label: '养殖出栏',
-                    value: 'come'
-                },
-                {
-                    label: '入库(平台)',
-                    value: 'st'
-                },
-                {
-                    label: '入库(非平台)',
-                    value: 'sf'
-                }]
+                options: []
             },
             {
                 name: 'come_id',
@@ -5695,7 +5804,7 @@ export default {
                     isNull: false,
                     label: '所属种植场',
                     placeholder: '必填',
-                    rule: {required: true, trigger: 'blur', type: 'number', message: '请选择所属种植场'},
+                    rule: {required: true, type: 'number', message: '请选择所属种植场'},
                     options: []
                 },
                 {
@@ -5725,8 +5834,7 @@ export default {
                     {
                         value: '公顷',
                         label: '公顷'
-                    }
-                    ],
+                    }],
                     rule: [{required: true, message: '请输入种植面积', trigger: 'blur'}, {validator: validate2.reNumber}]
                 },
                 {
@@ -6418,8 +6526,11 @@ export default {
             selectUrl2: [['plants', 'id', 'name', true], ['operates', 'id', 'name', true]],
             popNumber: [0],
             popNumber2: [1, 4],
+            selectWhereArr2: [[], [{n: 'domain', v: 'plant'}, {n: 'domain', v: 'all', s: true}]],
             selectInit: [{value: '', label: '种植区选择'}],
             selectInit2: [{value: '', label: '果蔬选择'}, {value: '', label: '种植人选择'}],
+            limit: 3,
+            getMessage: '已超过种植区余留面积',
             components: [{
                 name: 'plantation_id',
                 type: 'select',
@@ -6497,9 +6608,12 @@ export default {
             selectUrl: [['planta', 'cultivate', 'plantation_id', 'plantation_name', true]],
             selectUrl2: [['plants', 'id', 'name', true], ['operates', 'id', 'name', true]],
             selectInit: [{value: '', label: '种植区选择'}],
+            selectWhereArr2: [[], [{n: 'domain', v: 'plant'}, {n: 'domain', v: 'all', s: true}]],
             selectInit2: [{value: '', label: '果蔬选择'}, {value: '', label: '种植人选择'}],
             popNumber: [1],
             popNumber2: [2, 5],
+            limit: 4,
+            getMessage: '已超过种植区余留面积',
             components: [{
                 name: 'serial',
                 type: 'text',
@@ -6630,6 +6744,7 @@ export default {
                 selectUrl2: [['manures', 'id', 'name', true], ['operates', 'id', 'name', true], ['experts', 'id', 'name', true]],
                 selectInit2: [{value: '', label: '肥料选择'}, {value: '', label: '施肥人选择'}, {value: '', label: '专家选择'}],
                 popNumber2: [0, 4, 5],
+                selectWhereArr2: [[], [{n: 'domain', v: 'plant'}, {n: 'domain', v: 'all', s: true}], [{n: 'domain', v: 'plant'}, {n: 'domain', v: 'all', s: true}]],
                 components: [{
                     name: 'manure_id',
                     type: 'select',
@@ -6745,6 +6860,7 @@ export default {
                 selectUrl2: [['manures', 'id', 'name', true], ['operates', 'id', 'name', true], ['experts', 'id', 'name', true]],
                 selectInit2: [{value: '', label: '肥料选择'}, {value: '', label: '施肥人选择'}, {value: '', label: '专家选择'}],
                 popNumber2: [1, 5, 6],
+                selectWhereArr2: [[], [{n: 'domain', v: 'plant'}, {n: 'domain', v: 'all', s: true}], [{n: 'domain', v: 'plant'}, {n: 'domain', v: 'all', s: true}]],
                 components: [{
                     name: 'serial',
                     type: 'text',
@@ -6906,6 +7022,7 @@ export default {
                 selectUrl2: [['medicaments', 'id', 'name', true], ['operates', 'id', 'name', true], ['experts', 'id', 'name', true]],
                 selectInit2: [{value: '', label: '农药选择'}, {value: '', label: '施药人选择'}, {value: '', label: '专家选择'}],
                 popNumber2: [0, 6, 7],
+                selectWhereArr2: [[], [{n: 'domain', v: 'plant'}, {n: 'domain', v: 'all', s: true}], [{n: 'domain', v: 'plant'}, {n: 'domain', v: 'all', s: true}]],
                 components: [{
                     name: 'medicament_id',
                     type: 'select',
@@ -7039,6 +7156,7 @@ export default {
                 selectUrl2: [['medicaments', 'id', 'name', true], ['operates', 'id', 'name', true], ['experts', 'id', 'name', true]],
                 selectInit2: [{value: '', label: '农药选择'}, {value: '', label: '施药人选择'}, {value: '', label: '专家选择'}],
                 popNumber2: [1, 7, 8],
+                selectWhereArr2: [[], [{n: 'domain', v: 'plant'}, {n: 'domain', v: 'all', s: true}], [{n: 'domain', v: 'plant'}, {n: 'domain', v: 'all', s: true}]],
                 components: [{
                     name: 'serial',
                     type: 'text',
@@ -7239,6 +7357,7 @@ export default {
                 selectUrl2: [['operates', 'id', 'name', true], ['experts', 'id', 'name', true]],
                 selectInit2: [{value: '', label: '检测人选择'}, {value: '', label: '专家选择'}],
                 popNumber2: [6, 7],
+                selectWhereArr2: [[{n: 'domain', v: 'plant'}, {n: 'domain', v: 'all', s: true}], [{n: 'domain', v: 'plant'}, {n: 'domain', v: 'all', s: true}]],
                 hiddenValue: {type: 'plant'},
                 components: [{
                     name: 'name',
@@ -7387,6 +7506,7 @@ export default {
                 selectUrl2: [['operates', 'id', 'name', true], ['experts', 'id', 'name', true]],
                 selectInit2: [{value: '', label: '检测人选择'}, {value: '', label: '专家选择'}],
                 popNumber2: [7, 8],
+                selectWhereArr2: [[{n: 'domain', v: 'plant'}, {n: 'domain', v: 'all', s: true}], [{n: 'domain', v: 'plant'}, {n: 'domain', v: 'all', s: true}]],
                 hiddenValue: {type: 'plant'},
                 components: [{
                     name: 'serial',
@@ -7570,6 +7690,7 @@ export default {
                 selectUrl2: [['operates', 'id', 'name', true], ['experts', 'id', 'name', true]],
                 selectInit2: [{value: '', label: '操作人选择'}, {value: '', label: '专家选择'}],
                 popNumber2: [4, 5],
+                selectWhereArr2: [[{n: 'domain', v: 'plant'}, {n: 'domain', v: 'all', s: true}], [{n: 'domain', v: 'plant'}, {n: 'domain', v: 'all', s: true}]],
                 components: [{
                     name: 'date',
                     type: 'date',
@@ -7662,6 +7783,7 @@ export default {
                 selectUrl2: [['operates', 'id', 'name', true], ['experts', 'id', 'name', true]],
                 selectInit2: [{value: '', label: '操作人选择'}, {value: '', label: '专家选择'}],
                 popNumber2: [5, 6],
+                selectWhereArr2: [[{n: 'domain', v: 'plant'}, {n: 'domain', v: 'all', s: true}], [{n: 'domain', v: 'plant'}, {n: 'domain', v: 'all', s: true}]],
                 components: [{
                     name: 'serial',
                     type: 'text',
@@ -7823,6 +7945,7 @@ export default {
             selectUrl2: [['operates', 'id', 'name', true]],
             popNumber2: [2],
             selectInit2: [{value: '', label: '请选择安排人员'}],
+            selectWhereArr2: [[{n: 'domain', v: 'plant'}, {n: 'domain', v: 'all', s: true}]],
             components: [{
                 name: 'date',
                 type: 'date',
@@ -7898,6 +8021,7 @@ export default {
             tab: '编辑生产计划信息',
             selectUrl2: [['operates', 'id', 'name', true]],
             popNumber2: [3],
+            selectWhereArr2: [[{n: 'domain', v: 'plant'}, {n: 'domain', v: 'all', s: true}]],
             selectInit2: [{value: '', label: '请选择安排人员'}],
             components: [{
                 name: 'serial',
@@ -8001,6 +8125,7 @@ export default {
             selectUrl2: [['cultivates', 'id', 'serial', true], ['operates', 'id', 'name', true]],
             selectInit2: [{value: '', label: '选择种植批次号'}, {value: '', label: '选择操作人'}],
             popNumber2: [1, 5],
+            selectWhereArr2: [[], [{n: 'domain', v: 'plant'}, {n: 'domain', v: 'all', s: true}]],
             components: [{
                 name: 'date',
                 type: 'date',
@@ -8072,6 +8197,7 @@ export default {
             selectUrl2: [['cultivates', 'id', 'serial', true], ['operates', 'id', 'name', true]],
             selectInit2: [{value: '', label: '选择种植批次号'}, {value: '', label: '选择操作人'}],
             popNumber2: [2, 6],
+            selectWhereArr2: [[], [{n: 'domain', v: 'plant'}, {n: 'domain', v: 'all', s: true}]],
             components: [{
                 name: 'serial',
                 type: 'text',
@@ -8184,6 +8310,7 @@ export default {
             selectUrl2: [['operates', 'id', 'name', true]],
             selectInit2: [{value: '', label: '加工人选择'}],
             popNumber2: [2],
+            selectWhereArr2: [[{n: 'domain', v: 'packp'}, {n: 'domain', v: 'all', s: true}]],
             components: [{
                 name: 'date',
                 type: 'date',
@@ -8227,6 +8354,7 @@ export default {
             hiddenValue: {type: 'plant'},
             selectUrl2: [['operates', 'id', 'name', true]],
             selectInit2: [{value: '', label: '加工人选择'}],
+            selectWhereArr2: [[{n: 'domain', v: 'packp'}, {n: 'domain', v: 'all', s: true}]],
             popNumber2: [3],
             components: [{
                 name: 'serial',
@@ -8309,6 +8437,7 @@ export default {
             hiddenValue: {type: 'plant'},
             selectUrl2: [['operates', 'id', 'name', true]],
             selectInit2: [{value: '', label: '检测人选择'}],
+            selectWhereArr2: [[{n: 'domain', v: 'packp'}, {n: 'domain', v: 'all', s: true}]],
             popNumber2: [1],
             hasImg: true,
             components: [{
@@ -8407,6 +8536,7 @@ export default {
             tab: '编辑检验检测信息',
             selectUrl2: [['operates', 'id', 'name', true]],
             selectInit2: [{value: '', label: '检测人选择'}],
+            selectWhereArr2: [[{n: 'domain', v: 'packp'}, {n: 'domain', v: 'all', s: true}]],
             popNumber2: [2],
             hasImg: true,
             components: [{
@@ -8559,6 +8689,9 @@ export default {
             selectUrl2: [['packs', 'id', 'serial', true], ['harvests', 'id', 'serial', true], ['storages', 'id', 'serial', true], ['storages', 'id', 'serial', true]],
             selectInit2: [{value: '', label: '加工批次号选择'}, {value: '', label: '采收批次号选择'}, {value: '', label: '请选择入库批次(平台)'}, {value: '', label: '请选择入库批次(非平台)'}],
             selectWhereArr2: [[{n: 'type', v: 'plant'}], [], [{n: 'type', v: 0}, {n: 'category', v: 'plant'}], [{n: 'type', v: 1}, {n: 'category', v: 'plant'}]],
+            permissionSelectUrl: ['api/permission_domain'],
+            permissionSelectArr: [[{label: '请选择商品来源', value: ''}, {set: 'plant', label: '种植采收', value: 'harvest'}, {set: 'sell', label: '入库(平台)', value: 'st'}, {set: 'sell', label: '入库(非平台)', value: 'sf'}]],
+            permissionNumber: [2],
             popNumber2: [0, 3, 4, 5],
             curl: 'pack-product-rfid',
             opqcurl: '{x}/pack-product',
@@ -8596,22 +8729,7 @@ export default {
                 placeholder: '',
                 selectNumber: {harvest: [3], st: [4, 9], sf: [5]},
                 rule: {required: true, trigger: 'blur', message: '请选择商品来源'},
-                options: [{
-                    label: '请选择商品来源',
-                    value: ''
-                },
-                {
-                    label: '种植采收',
-                    value: 'harvest'
-                },
-                {
-                    label: '入库(平台)',
-                    value: 'st'
-                },
-                {
-                    label: '入库(非平台)',
-                    value: 'sf'
-                }]
+                options: []
             },
             {
                 name: 'harvest_id',
@@ -9222,6 +9340,7 @@ export default {
             selectUrl2: [['operates', 'id', 'name', true], ['vehicles', 'id', 'number', true], ['drivers', 'id', 'name', true], ['logistics', 'id', 'name', true]],
             selectInit2: [{value: '', label: '操作人员选择'}, {value: '', label: '请选择车辆'}, {value: '', label: '请选择司机'}, {value: '', label: '请选择物流公司'}],
             popNumber2: [8, 3, 4, 5],
+            selectWhereArr2: [[{n: 'domain', v: 'delivery'}, {n: 'domain', v: 'all', s: true}]],
             type: 'selectAssoc',
             components: [{
                 name: 'datetime',
@@ -9344,6 +9463,7 @@ export default {
             tab: '编辑物流批次信息',
             selectUrl2: [['operates', 'id', 'name', true]],
             selectInit2: [{value: '', label: '操作人员选择'}],
+            selectWhereArr2: [[{n: 'domain', v: 'delivery'}, {n: 'domain', v: 'all', s: true}]],
             popNumber2: [9],
             components: [{
                 name: 'serial',
@@ -9504,6 +9624,7 @@ export default {
                 selectUrl2: [['products', 'id', 'name', true], ['suppliers', 'id', 'name', true], ['operates', 'id', 'name', true]],
                 selectInit2: [{value: '', label: '请选择商品'}, {value: '', label: '请选择供货商'}, {value: '', label: '请选择入库人员'}],
                 popNumber2: [1, 2, 3],
+                selectWhereArr2: [[{n: 'domain', v: 'sell'}, {n: 'domain', v: 'all', s: true}], [], [{n: 'domain', v: 'sell'}, {n: 'domain', v: 'all', s: true}]],
                 components: [{
                     name: 'datetime',
                     type: 'date',
@@ -9567,6 +9688,7 @@ export default {
                 hiddenValue: {type: 0},
                 selectUrl2: [['products', 'id', 'name', true], ['suppliers', 'id', 'name', true], ['operates', 'id', 'name', true]],
                 selectInit2: [{value: '', label: '请选择商品'}, {value: '', label: '请选择供货商'}, {value: '', label: '请选择入库人员'}],
+                selectWhereArr2: [[{n: 'domain', v: 'sell'}, {n: 'domain', v: 'all', s: true}], [], [{n: 'domain', v: 'sell'}, {n: 'domain', v: 'all', s: true}]],
                 popNumber2: [2, 3, 4],
                 components: [{
                     name: 'serial',
@@ -9668,6 +9790,7 @@ export default {
                 selectUrl2: [['products', 'id', 'name', true], ['suppliers', 'id', 'name', true], ['operates', 'id', 'name', true]],
                 selectInit2: [{value: '', label: '请选择商品'}, {value: '', label: '请选择供货商'}, {value: '', label: '请选择入库人员'}],
                 popNumber2: [1, 2, 3],
+                selectWhereArr2: [[{n: 'domain', v: 'sell'}, {n: 'domain', v: 'all', s: true}], [], [{n: 'domain', v: 'sell'}, {n: 'domain', v: 'all', s: true}]],
                 components: [{
                     name: 'datetime',
                     type: 'date',
@@ -9731,6 +9854,7 @@ export default {
                 hiddenValue: {type: 0},
                 selectUrl2: [['products', 'id', 'name', true], ['suppliers', 'id', 'name', true], ['operates', 'id', 'name', true]],
                 popNumber2: [2, 3, 4],
+                selectWhereArr2: [[{n: 'domain', v: 'sell'}, {n: 'domain', v: 'all', s: true}], [], [{n: 'domain', v: 'sell'}, {n: 'domain', v: 'all', s: true}]],
                 components: [{
                     name: 'serial',
                     type: 'text',
@@ -9842,6 +9966,7 @@ export default {
             selectUrl2: [['deliveries', 'id', 'serial', true], ['clients', 'id', 'name', true], ['operates', 'id', 'name', true]],
             selectInit2: [{value: '', label: '请选择物流批次号'}, {value: '', label: '请选择销售客户'}, {value: '', label: '请选择销售人员'}],
             popNumber2: [1, 2, 3],
+            selectWhereArr2: [[], [], [{n: 'domain', v: 'sell'}, {n: 'domain', v: 'all', s: true}]],
             components: [{
                 name: 'datetime',
                 type: 'date',
@@ -9907,6 +10032,7 @@ export default {
             selectUrl2: [['deliveries', 'id', 'serial', true], ['clients', 'id', 'name', true], ['operates', 'id', 'name', true]],
             selectInit2: [{value: '', label: '请选择物流批次号'}, {value: '', label: '请选择销售客户'}, {value: '', label: '请选择销售人员'}],
             popNumber2: [2, 3, 4],
+            selectWhereArr2: [[], [], [{n: 'domain', v: 'sell'}, {n: 'domain', v: 'all', s: true}]],
             components: [{
                 name: 'serial',
                 type: 'text',

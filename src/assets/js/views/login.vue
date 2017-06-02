@@ -63,7 +63,7 @@
 								class="loginBtn"
 								>登录</el-button>
 							<a href="http://www.gzlgit.com/about" target="_blank" class="apply">
-								<el-button type="primary" size="small">申请入驻</el-button>
+								<el-button type="primary" size="small" class="loginBtn">申请入驻</el-button>
 							</a>
 						</el-form-item>
 					</el-form>
@@ -344,6 +344,7 @@ export default {
             }
             .loginBtn:hover,.loginBtn:focus{
 				color: #fff !important;
+				border-color: transparent !important;
             }
 		}
 </style>

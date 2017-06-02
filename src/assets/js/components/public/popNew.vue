@@ -219,7 +219,7 @@ export default {
                     this.memuList = responce.data
                 })
         }
-        if (this.url === 'planta' || this.url === 'farmcd' || this.url === 'area') {
+        if (this.url === 'planta' || this.url === 'farmcd' || this.url === 'area' || this.url === 'cultivate') {
             this.disabled = true
             this.disabledV = true
         }
@@ -310,7 +310,6 @@ export default {
         handleSelectionChange (val) {
             let ids = []
             let com = this.newComponent[0]
-            console.log(this.url)
             for (let key in val) {
                 if (this.url === 'code' || this.url.indexOf('pack-product-rfid') >= 0) {
                     ids.push(val[key].rfid_id)
@@ -355,7 +354,7 @@ export default {
                 this.$emit('setTable', [name, val, subItem])
             } else if (name === 'harvest_id' || name === 'sf_id') {
                 this.ids = [1]
-            } else if (name === 'pid' || name === 'farm_id') {
+            } else if (name === 'pid' || name === 'farm_id' || name === 'plantation_id') {
                 if (val !== '') {
                     let params = {id: val}
                     axios.get(this.$adminUrl(this.url + '/getArea'), {params: params}).then((responce) => {
