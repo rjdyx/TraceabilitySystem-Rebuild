@@ -254,7 +254,7 @@ export default {
             selectUrl: [['category', 'operate', 'category_id', 'category_name', true]],
             selectInit: [{value: '', label: '选择操作人分类'}],
             permissionSelectUrl: ['api/permission_domain'],
-            permissionSelectArr: [[{value: 'all', label: '公共模块'}, {set: 'delivery', value: 'delivery', label: '物流管理'}, {set: 'plant', value: 'plant', label: '种植管理'}, {set: 'beast', value: 'beast', label: '养殖管理'}, {set: 'packb', value: 'packb', label: '畜禽加工管理'}, {set: 'packp', value: 'packp', label: '果蔬加工管理'}, {set: 'sell', value: 'sell', label: '销售管理'}]],
+            permissionSelectArr: [[{value: '', label: '请选择模块领域'}, {value: 'all', label: '公共模块'}, {set: 'delivery', value: 'delivery', label: '物流管理'}, {set: 'plant', value: 'plant', label: '种植管理'}, {set: 'beast', value: 'beast', label: '养殖管理'}, {set: 'packb', value: 'packb', label: '畜禽加工管理'}, {set: 'packp', value: 'packp', label: '果蔬加工管理'}, {set: 'sell', value: 'sell', label: '销售管理'}]],
             permissionNumber: [1],
             checkNumber: [2],
             hasImg: true,
@@ -367,7 +367,7 @@ export default {
             selectInit: [{value: '', label: '选择操作人分类'}],
             checkNumber: [2],
             permissionSelectUrl: ['api/permission_domain'],
-            permissionSelectArr: [[{value: 'all', label: '公共模块'}, {set: 'plant', value: 'plant', label: '种植管理'}, {set: 'beast', value: 'beast', label: '养殖管理'}, {set: 'packb', value: 'packb', label: '畜禽加工管理'}, {set: 'packp', value: 'packp', label: '果蔬加工管理'}, {set: 'sell', value: 'sell', label: '销售管理'}]],
+            permissionSelectArr: [[{value: '', label: '请选择模块领域'}, {value: 'all', label: '公共模块'}, {set: 'plant', value: 'plant', label: '种植管理'}, {set: 'beast', value: 'beast', label: '养殖管理'}, {set: 'packb', value: 'packb', label: '畜禽加工管理'}, {set: 'packp', value: 'packp', label: '果蔬加工管理'}, {set: 'sell', value: 'sell', label: '销售管理'}]],
             permissionNumber: [1],
             popNumber: [0],
             hasImg: true,
@@ -517,7 +517,7 @@ export default {
             selectUrl: [['category', 'expert', 'category_id', 'category_name', true]],
             selectInit: [{value: '', label: '选择专家分类'}],
             permissionSelectUrl: ['api/permission_domain'],
-            permissionSelectArr: [[{value: 'all', label: '公共模块'}, {set: 'plant', value: 'plant', label: '种植管理'}, {set: 'beast', value: 'beast', label: '养殖管理'}]],
+            permissionSelectArr: [[{value: '', label: '请选择模块领域'}, {value: 'all', label: '公共模块'}, {set: 'plant', value: 'plant', label: '种植管理'}, {set: 'beast', value: 'beast', label: '养殖管理'}]],
             permissionNumber: [1],
             checkNumber: [2],
             popNumber: [0],
@@ -638,7 +638,7 @@ export default {
             selectUrl: [['category', 'expert', 'category_id', 'category_name', true]],
             selectInit: [{value: '', label: '选择专家分类'}],
             permissionSelectUrl: ['api/permission_domain'],
-            permissionSelectArr: [[{value: 'all', label: '公共模块'}, {set: 'plant', value: 'plant', label: '种植管理'}, {set: 'beast', value: 'beast', label: '养殖管理'}]],
+            permissionSelectArr: [[{value: '', label: '请选择模块领域'}, {value: 'all', label: '公共模块'}, {set: 'plant', value: 'plant', label: '种植管理'}, {set: 'beast', value: 'beast', label: '养殖管理'}]],
             permissionNumber: [1],
             checkNumber: [2],
             popNumber: [0],
@@ -1122,7 +1122,7 @@ export default {
             selectUrl: [['category', 'product', 'category_id', 'category_name', true]],
             selectInit: [{value: '', label: '选择产品分类'}],
             permissionSelectUrl: ['api/permission_domain'],
-            permissionSelectArr: [[{value: 'all', label: '公共模块'}, {set: 'packb', value: 'packb', label: '畜禽加工管理'}, {set: 'packp', value: 'packp', label: '果蔬加工管理'}, {set: 'sell', value: 'sell', label: '销售管理'}]],
+            permissionSelectArr: [[{value: '', label: '请选择模块领域'}, {value: 'all', label: '公共模块'}, {set: 'packb', value: 'packb', label: '畜禽加工管理'}, {set: 'packp', value: 'packp', label: '果蔬加工管理'}, {set: 'sell', value: 'sell', label: '销售管理'}]],
             permissionNumber: [1],
             checkNumber: [2],
             popNumber: [0],
@@ -1154,7 +1154,7 @@ export default {
                 isNull: false,
                 label: '产品名称',
                 placeholder: '必填',
-                rule: [{required: true, trigger: 'blur'}, {validator: validate2.reCheck}]
+                rule: [{required: true, trigger: 'blur', message: '请输入产品名称'}, {validator: validate2.reCheck}]
             },
             {
                 name: 'enforce_standard',
@@ -1253,7 +1253,7 @@ export default {
             selectUrl: [['category', 'product', 'category_id', 'category_name', true]],
             selectInit: [{value: '', label: '选择产品分类'}],
             permissionSelectUrl: ['api/permission_domain'],
-            permissionSelectArr: [[{value: 'all', label: '公共模块'}, {set: 'packb', value: 'packb', label: '畜禽加工管理'}, {set: 'packp', value: 'packp', label: '果蔬加工管理'}, {set: 'sell', value: 'sell', label: '销售管理'}]],
+            permissionSelectArr: [[{value: '', label: '请选择模块领域'}, {value: 'all', label: '公共模块'}, {set: 'packb', value: 'packb', label: '畜禽加工管理'}, {set: 'packp', value: 'packp', label: '果蔬加工管理'}, {set: 'sell', value: 'sell', label: '销售管理'}]],
             permissionNumber: [1],
             checkNumber: [2],
             popNumber: [0],
@@ -1285,7 +1285,7 @@ export default {
                 isNull: false,
                 label: '产品名称',
                 placeholder: '必填',
-                rule: [{required: true, trigger: 'blur'}, {validator: validate2.reCheck, url: 'product'}]
+                rule: [{required: true, trigger: 'blur', message: '请输入产品名称'}, {validator: validate2.reCheck, url: 'product'}]
             },
             {
                 name: 'enforce_standard',
