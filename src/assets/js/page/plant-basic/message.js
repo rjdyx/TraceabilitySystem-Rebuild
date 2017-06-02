@@ -253,7 +253,7 @@ export default {
             tab: '新建人员档案信息',
             selectUrl: [['category', 'operate', 'category_id', 'category_name', true]],
             selectInit: [{value: '', label: '选择操作人分类'}],
-            checkNumber: [1],
+            checkNumber: [2],
             hasImg: true,
             popNumber: [0],
             components: [{
@@ -379,7 +379,7 @@ export default {
             tab: '编辑人员档案信息',
             selectUrl: [['category', 'operate', 'category_id', 'category_name', true]],
             selectInit: [{value: '', label: '选择操作人分类'}],
-            checkNumber: [1],
+            checkNumber: [2],
             popNumber: [0],
             hasImg: true,
             components: [{
@@ -527,7 +527,7 @@ export default {
             tab: '新建专家档案信息',
             selectUrl: [['category', 'expert', 'category_id', 'category_name', true]],
             selectInit: [{value: '', label: '选择专家分类'}],
-            checkNumber: [1],
+            checkNumber: [2],
             popNumber: [0],
             hasImg: true,
             components: [{
@@ -653,7 +653,7 @@ export default {
             tab: '编辑专家档案信息',
             selectUrl: [['category', 'expert', 'category_id', 'category_name', true]],
             selectInit: [{value: '', label: '选择专家分类'}],
-            checkNumber: [1],
+            checkNumber: [2],
             popNumber: [0],
             hasImg: true,
             components: [{
@@ -1281,7 +1281,7 @@ export default {
             tab: '编辑产品信息',
             selectUrl: [['category', 'product', 'category_id', 'category_name', true]],
             selectInit: [{value: '', label: '选择产品分类'}],
-            checkNumber: [1],
+            checkNumber: [2],
             popNumber: [0],
             hasImg: true,
             components: [{

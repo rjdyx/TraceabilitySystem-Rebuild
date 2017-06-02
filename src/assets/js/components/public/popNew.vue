@@ -355,7 +355,7 @@ export default {
                 this.$emit('setTable', [name, val, subItem])
             } else if (name === 'harvest_id' || name === 'sf_id') {
                 this.ids = [1]
-            } else if (name === 'pid' || name === 'farm_id' || 'plantation_id') {
+            } else if (name === 'pid' || name === 'farm_id' || name === 'plantation_id') {
                 if (val !== '') {
                     let params = {id: val}
                     axios.get(this.$adminUrl(this.url + '/getArea'), {params: params}).then((responce) => {
