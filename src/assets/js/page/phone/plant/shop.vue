@@ -6,9 +6,11 @@
  * 
  */
 <template>
+<transition name="fade2">
 	<div>
 		<header1 :title="models.title" :isbreed="isbreed"></header1>
 	</div>
+</transition>
 </template>
 <script>
 import Header1 from './component/header.vue'
@@ -23,6 +25,10 @@ export default {
         }
     },
     mounted () {
+        $(document).on('touchmove', function (e) {
+            e.preventDefault()
+            e.stopPropagation()
+        })
         if (this.$route.meta.runName === 'breed') {
             this.isbreed = true
         }
