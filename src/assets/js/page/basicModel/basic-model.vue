@@ -319,12 +319,11 @@ export default {
                 confirmButtonText: '确定',
                 type: 'error'
             }).then(() => {
-                this.listLoading = true
                 axios.delete(this.$adminUrl(this.url + '/' + row.id))
                     .then((responce) => {
                         if (responce.data === 'true') {
                             this.getSelect()
-                            this.boxArr(this.dataArr)
+                            this.boxArr(this.dataArr, false)
                             this.$message({
                                 type: 'success',
                                 message: '删除成功'
@@ -573,11 +572,13 @@ export default {
             this.isEditShow = false
         },
         // 获取数据
-        getAllMsg (data = {}) {
+        getAllMsg (data = {}, flag = false) {
             if (this.paramsIndex !== undefined) {
                 var type = this.paramsIndex
             }
-            this.listLoading = true
+            if (flag) {
+                this.listLoading = true
+            }
             this.$dataGet(this, this.url, {params: data, type: type})
                 .then((responce) => {
                     // 数据转换
@@ -603,7 +604,7 @@ export default {
         textAndDateFind () {
             this.dataArr['query_text'] = this.inputValue
             this.dataArr['page'] = 1
-            this.boxArr(this.dataArr)
+            this.boxArr(this.dataArr, true)
         },
         // 下拉框查询
         selectFind (val) {
@@ -614,7 +615,7 @@ export default {
             }
             this.dataArr[val[0]] = val[1]
             this.dataArr['page'] = 1
-            this.boxArr(this.dataArr)
+            this.boxArr(this.dataArr, true)
         },
         // 日期存储
         dateFind (val) {
@@ -623,11 +624,11 @@ export default {
         // 分页跳转
         pageChange (val) {
             this.dataArr['page'] = val
-            this.boxArr(this.dataArr)
+            this.boxArr(this.dataArr, true)
         },
         // 组合查询
-        boxArr (dataArr) {
-            this.getAllMsg(dataArr)
+        boxArr (dataArr, flag) {
+            this.getAllMsg(dataArr, flag)
         },
         // 全选获取数据
         handleSelectionChange (val) {
@@ -641,7 +642,6 @@ export default {
                     confirmButtonText: '确定',
                     type: 'error'
                 }).then(() => {
-                    this.listLoading = true
                     var delArr = []
                     for (let key in this.checkObject) {
                         delArr.push(this.checkObject[key].id)
@@ -651,7 +651,7 @@ export default {
                     .then((responce) => {
                         if (responce.data === 'true') {
                             this.getSelect()
-                            this.boxArr(this.dataArr)
+                            this.boxArr(this.dataArr, false)
                             this.listLoading = false
                             this.$message({
                                 type: 'success',
@@ -686,7 +686,7 @@ export default {
                     .then((responce) => {
                         if (responce.data === 'true') {
                             this.getSelect()
-                            this.boxArr(this.dataArr)
+                            this.boxArr(this.dataArr, false)
                             this.$message({
                                 type: 'success',
                                 message: '修改状态成功'
@@ -725,7 +725,7 @@ export default {
         changeNew (val) {
             if (val !== 'false') {
                 this.isNewShow = false
-                this.boxArr(this.dataArr)
+                this.boxArr(this.dataArr, false)
                 this.getSelect()
                 this.$message({
                     type: 'success',
@@ -740,7 +740,7 @@ export default {
             if (val !== 'false') {
                 this.isEditShow = false
                 this.getSelect()
-                this.boxArr(this.dataArr)
+                this.boxArr(this.dataArr, false)
                 this.$message({
                     type: 'success',
                     message: '编辑数据成功'
@@ -858,7 +858,7 @@ export default {
             this.getSelect()
         }
         // 获取列表信息
-        this.getAllMsg()
+        this.boxArr(this.dataArr, true)
         let change = $('.available')
         change.css('display', 'none')
     },
@@ -873,7 +873,7 @@ export default {
             if (this.selectValueId !== undefined) {
                 this.getSelect()
             }
-            this.getAllMsg()
+            this.boxArr(this.dataArr, true)
             this.inputValue = ''
             this.paginator = 0
         }
