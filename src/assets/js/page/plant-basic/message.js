@@ -435,7 +435,7 @@ export default {
                 isNull: true,
                 label: '年龄',
                 placeholder: '',
-                rule: null
+                rule: [{required: false, message: '请输入整数'}, {validator: validate2.reInteger}]
             },
             {
                 name: 'phone',
@@ -5058,7 +5058,7 @@ export default {
                 type: 'text',
                 component: null,
                 isNull: false,
-                label: '加工检测批次号',
+                label: '检测批次号',
                 placeholder: '',
                 disabled: true,
                 rule: {required: true}
@@ -6318,7 +6318,8 @@ export default {
                     component: null,
                     isNull: false,
                     placeholder: '请输入11位的手机号（固话用-隔开）',
-                    label: '联系方式'
+                    label: '联系方式',
+                    rule: { validator: validate2.phone, trigger: 'blur' }
                 },
                 {
                     name: 'manufacturer',
@@ -6435,7 +6436,8 @@ export default {
                     component: null,
                     isNull: false,
                     placeholder: '请输入11位的手机号（固话用-隔开）',
-                    label: '联系方式'
+                    label: '联系方式',
+                    rule: { validator: validate2.phone, trigger: 'blur' }
                 },
                 {
                     name: 'manufacturer',
@@ -10129,7 +10131,7 @@ export default {
         newComponent: [{
             tab: '新建用户信息',
             hiddenValue: {type: 0},
-            checkNumber: [0],
+            checkNumber: [0, 1, 5],
             components: [{
                 name: 'name',
                 type: 'text',
@@ -10145,8 +10147,8 @@ export default {
                 component: null,
                 isNull: false,
                 label: '邮箱',
-                placeholder: '请输入邮箱'
-                // rule: [{required: true, trigger: 'blur'}, {validator: validate2.reCheck}]
+                placeholder: '请输入邮箱',
+                rule: [{required: true, trigger: 'blur', message: '请输入正确邮箱格式', type: 'email'}, {validator: validate2.reCheck, trigger: 'blur', message: '邮箱已存在'}]
             },
             {
                 name: 'gender',
@@ -10190,7 +10192,7 @@ export default {
                 isNull: false,
                 label: '手机号码',
                 placeholder: '请输入手机号码',
-                rule: {required: false, trigger: 'blur'}
+                rule: [{required: true, trigger: 'blur', message: '请输入手机号码'}, {validator: validate2.reCheck, trigger: 'blur', message: '手机号码已存在'}, {validator: validate2.phone}]
             },
             {
                 name: 'department',
@@ -10241,7 +10243,7 @@ export default {
         editComponent: [{
             tab: '编辑用户信息',
             hiddenValue: {type: 0},
-            checkNumber: [0],
+            checkNumber: [0, 1],
             components: [{
                 name: 'name',
                 type: 'text',
@@ -10258,7 +10260,7 @@ export default {
                 isNull: false,
                 label: '邮箱',
                 placeholder: '请输入邮箱',
-                rule: [{required: true, trigger: 'blur'}, {validator: validate2.reCheck}]
+                rule: [{required: true, trigger: 'blur', message: '请输入正确邮箱格式', type: 'email'}, {validator: validate2.reCheck, trigger: 'blur', message: '邮箱已存在'}]
             },
             {
                 name: 'gender',
@@ -10301,7 +10303,7 @@ export default {
                 isNull: false,
                 label: '手机号码',
                 placeholder: '请输入手机号码',
-                rule: {required: false, trigger: 'blur', type: 'number'}
+                rule: [{required: true, trigger: 'blur', message: '请输入手机号码'}, {validator: validate2.reCheck, trigger: 'blur', message: '手机号码已存在'}, {validator: validate2.phone}]
             },
             {
                 name: 'department',
