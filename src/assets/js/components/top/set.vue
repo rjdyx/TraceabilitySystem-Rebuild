@@ -220,9 +220,6 @@ export default {
                     this.editForm['record_number'] = responce.data.system.record_number
                 }
             })
-    },
-    created () {
-        document.title = '系统设置'
     }
 }
 </script>

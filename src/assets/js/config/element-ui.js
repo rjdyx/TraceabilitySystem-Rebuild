@@ -30,6 +30,10 @@ export
     FormItem,
     Checkbox,
     Row,
-    Col
+    Col,
+    Dropdown,
+    DropdownMenu,
+    DropdownItem,
+    Upload
 }
 from 'element-ui'

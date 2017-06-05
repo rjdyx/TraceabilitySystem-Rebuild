@@ -18,16 +18,20 @@ const getters = {
 const actions = {
 
     FETCH_TOKEN_AND_KIT ({ commit, state }) {
-        return axios.all([
-            axios.get(url + 'token'),
-            axios.get(url + 'kit')
-        ])
+        let axiosGETS = typeof window === 'undefined'
+            ? [axios.get(url + 'token'), axios.get(url + 'kit', { headers: { Cookie: state.cookies }})]
+            : [axios.get(url + 'token'), axios.get(url + 'kit')]
+        return axios.all(axiosGETS)
         .then(axios.spread((tokenRes, kitRes) => {
-            let regx = /\"{1,}/g
-            let token = tokenRes.data.replace(regx, '')
-            let kit = kitRes.data.replace(regx, '')
-            regx = /\\{1,}/g
-            kit = kit.replace(regx, '')
+            let token = ''
+            let kit = ''
+            if(typeof window === 'undefined') {
+                token = eval('(' + tokenRes.data + ')')
+                kit = eval('(' + kitRes.data + ')')
+            }else {
+                token = tokenRes.data
+                kit = kitRes.data
+            }
             commit('SET_TOKEN', token)
             commit('SET_KIT', kit)
         }))
@@ -45,20 +49,24 @@ const actions = {
         : [axios.get(url + 'token'), axios.get(url + 'login/state')]
 
         return axios.all(axiosGETS)
-        .then(axios.spread((tokenRes, roles) => {
-            let regx = /\"{1,}/g
-            let token = tokenRes.data.replace(regx, '')
-            commit('SET_TOKEN', token)
-
+        .then(axios.spread((tokenRes, rolesRes) => {
+            let token = ''
+            let roles = null
             // 在浏览器端调用此action后获取到的数据是对象
             // 而在服务器端获取到的数据是json字符串，需转换成json对象
-            let obj = typeof roles.data !== 'object'
-                ? eval('(' + roles.data + ')')
-                : roles.data
-            if(obj.name === undefined) {
-                commit('SET_ROLES', {})
+            if(typeof window === 'undefined') {
+                token = eval('(' + tokenRes.data + ')')
+                roles = eval('(' + rolesRes.data + ')')
             }else {
-                commit('SET_ROLES', JSON.stringify(obj))
+                token = tokenRes.data
+                roles = rolesRes.data
+            }
+            
+            commit('SET_TOKEN', token)
+            if(roles.name === undefined) {
+                commit('SET_ROLES', JSON.stringify({}))
+            }else {
+                commit('SET_ROLES', JSON.stringify(roles))
             }
             
         }))
@@ -70,7 +78,6 @@ const actions = {
     FETCH_TOKEN ({ commit, state }) {
         return axios.get(url + 'token')
             .then((responce) => {
-                console.log(responce.data)
                 commit('SET_TOKEN', responce.data)
             })
             .catch((error) => {
@@ -81,7 +88,6 @@ const actions = {
     FETCH_KIT ({ commit, state }) {
         return axios.get(url + 'kit')
             .then((responce) => {
-                console.log(responce.data)
                 commit('SET_KIT', responce.data)
             })
             .catch((error) => {
@@ -92,7 +98,6 @@ const actions = {
     FETCH_ROLES ({ commit, state }) {
         return axios.get(url + 'login/state')
             .then((responce) => {
-                console.log(responce.data)
                 commit('SET_ROLES', responce.data)
             })
             .catch((error) => {

@@ -118,7 +118,7 @@ function render (req, res) {
 
   let laravelCookie = ''
   let cookies = new Cookies(req, null)
-  laravelCookie = 'XSRF-TOKEN=' + cookies.get('XSRF-TOKEN') + "; laravel_session=" + cookies.get('laravel_session')
+  laravelCookie = `XSRF-TOKEN=${cookies.get('XSRF-TOKEN')}; laravel_session=${cookies.get('laravel_session')}`
 
   const context = {
     title: '溯源', // default title

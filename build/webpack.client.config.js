@@ -44,15 +44,21 @@ const config = merge(base, {
 
 if (process.env.NODE_ENV === 'production') {
   config.plugins.push(
-    // auto generate service worker
+    // 使用 service worker
     new SWPrecachePlugin({
-      cacheId: 'vue-hn',
+      cacheId: 'szy-swp',
       filename: 'service-worker.js',
       dontCacheBustUrlsMatching: /./,
       staticFileGlobsIgnorePatterns: [/\.map$/, /\.json$/],
+      minify: true,
+      replacePrefix: 'http://localhost:8080/dist/',
       runtimeCaching: [
         {
           urlPattern: '/',
+          handler: 'networkFirst'
+        },
+        {
+          urlPattern: /\/(index)/,
           handler: 'networkFirst'
         }
       ]

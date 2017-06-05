@@ -4,11 +4,6 @@ const MFS = require('memory-fs')
 const clientConfig = require('./webpack.client.config')
 const serverConfig = require('./webpack.server.config')
 
-const fs = require('fs')
-const msgDir = path.resolve(__dirname, '../src/assets/js/page')
-let msgArr = []
-let pageDir = fs.readdirSync(msgDir)
-
 const readFile = (fs, file) => {
   try {
     return fs.readFileSync(path.join(clientConfig.output.path, file), 'utf-8')
@@ -54,15 +49,6 @@ module.exports = function setupDevServer (app, cb) {
         clientManifest
       })
     }
-
-    for(let dir of pageDir) {
-      let filePath = msgDir + '/' + dir + '/message.js'
-      if(fs.existsSync(filePath) && msgArr.indexOf(filePath) === -1) {
-        msgArr.push(filePath)
-      }
-    }
-    process.MSG_PATH = msgArr
-
   })
 
   // hot middleware

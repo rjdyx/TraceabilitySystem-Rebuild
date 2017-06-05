@@ -122,9 +122,6 @@ export default {
     },
     mounted () {
         this.change_siderBar(true)
-    },
-    created () {
-        document.title = '问题反馈'
     }
 }
 </script>

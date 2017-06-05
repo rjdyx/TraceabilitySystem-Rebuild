@@ -26,8 +26,8 @@
             <div class="searchOp"> 
                 <el-input   
                     :placeholder="searchPlaceholder"
-                    v-model="inputValue"
-                    :on-icon-click="search" class="searchInp" size="small" @keyup.enter.native="textAndDateFind">
+                    v-model="inputValue" 
+                    class="searchInp" size="small" @keyup.enter.native="textAndDateFind">
                 </el-input>
                 <el-button size="small" class="searchBtn" @click="textAndDateFind">搜索</el-button>
             </div>
@@ -69,7 +69,8 @@
         </transition>
     </div>
     <!-- 列表模块 -->
-    <el-table :data="tableData"  @selection-change="handleSelectionChange" v-loading="listLoading" element-loading-text="正在加载">
+    <el-table :data="tableData"  @selection-change="handleSelectionChange" element-loading-text="正在加载">
+    <!-- <el-table :data="tableData"  @selection-change="handleSelectionChange" v-loading="listLoading" element-loading-text="正在加载"> -->
 
         <!-- checkbox -->
         <el-table-column width="50" type="selection">
@@ -151,7 +152,7 @@
 </template> 
  
 <script>
-import {mapActions} from 'vuex'
+import { mapMutations, mapActions } from 'vuex'
 import computed from './computed.js'
 import popNew from '../../components/public/popNew.vue'
 import ContainTitle from 'components/layout/contain-title.vue'
@@ -165,7 +166,9 @@ import permissionCheckbox from '../../components/public/permissionCheckbox.vue'
 import company from '../../page/plant-basic/company.js'
 import roleCheckbox from '../../components/public/roleCheckbox.vue'
 export default {
+
     name: 'BasicModel',
+
     props: {
         models: {
             type: Array,
@@ -214,6 +217,7 @@ export default {
             }
         }
     },
+
     data () {
         return {
             companyId: '',
@@ -228,8 +232,6 @@ export default {
             modelIndex: 0,
             activeName: 'index0',
             modelName: this.$route.params,
-            // 列表数据
-            tableData: [],
             // 被选中的列表项数组
             multipleSelection: [],
             // 是否新建
@@ -239,13 +241,11 @@ export default {
             // 是否打印
             isPrintShow: false,
             isPermissionShow: false,
-            checkboxShow: false,
             // msg: 1,
             editBol: false,
             editForm: {},
             printForm: {},
             editDefault: {},
-            paginator: {},
             // 切换点击更多按钮的状态
             active: true,
             total: '',
@@ -271,16 +271,27 @@ export default {
             listLoading: false
         }
     },
+
     // 混合
     mixins: [computed],
+
     methods: {
+
+        ...mapMutations([
+            'SET_TABLE_DATA',
+            'SET_TOTAL_NUM',
+            'SET_NUM',
+            'SET_PAGINATOR'
+        ]),
+
         ...mapActions([
             'change_siderBar'
         ]),
+
         init (index = 0) {
             this.value = ''
             this.activeName = 0
-            this.$set(this, 'tableData', [])
+            this.SET_TABLE_DATA([])
             this.$set(this, 'multipleSelection', [])
         },
         jumpDetails (row) {
@@ -516,15 +527,15 @@ export default {
                         if (responce.data.data.length !== 0) {
                             var ret = this.$conversion(this.changeDataArr, responce.data.data, 1)
                             ret = this.$eltable(ret)
-                            this.$set(this, 'tableData', ret)
-                            this.total_num = responce.data.total
-                            this.num = responce.data.last_page
-                            this.paginator = responce.data
+                            this.SET_TABLE_DATA(responce.data.data)
+                            this.SET_TOTAL_NUM(responce.data.total)
+                            this.SET_NUM(responce.data.last_page)
+                            this.SET_PAGINATOR(responce.data)
                         } else {
-                            this.$set(this, 'tableData', responce.data.data)
-                            this.total_num = 0
-                            this.num = 0
-                            this.paginator = 0
+                            this.SET_TABLE_DATA(responce.data.data)
+                            this.SET_TOTAL_NUM(0)
+                            this.SET_NUM(0)
+                            this.SET_PAGINATOR(0)
                         }
                         this.listLoading = false
                     }
@@ -779,6 +790,7 @@ export default {
             this.checkeds = data
         }
     },
+
     mounted () {
         this.change_siderBar(false)
         this.activeName = 'index0'
@@ -787,17 +799,18 @@ export default {
             this.getSelect()
         }
         // 获取列表信息
-        this.getAllMsg()
+        // this.getAllMsg()
         let change = $('.available')
         change.css('display', 'none')
     },
+
     watch: {
         models () {
             this.modelIndex = 0
             this.activeName = 'index0'
         },
         key () {
-            this.tableData = []
+            this.SET_TABLE_DATA([])
             this.dataArr = {}
             if (this.selectValueId !== undefined) {
                 this.getSelect()
@@ -807,6 +820,7 @@ export default {
             this.paginator = 0
         }
     },
+
     components: {
         ContainTitle,
         popNew,

@@ -6,6 +6,7 @@ export
 default {
     install () {
         const { pre } = require('./api')
+        const env = require('projectRoot/env')
 
         /**
         * 自动生成完整的前台url

@@ -1,4 +1,6 @@
 const { pre } = require('../../utils/api')
+const { getMessageList } = require('../../utils/getMessageList')
+const host = 'http://localhost:8080/'
 
 const state = {
     navbarName: '',
@@ -16,21 +18,35 @@ const getters = {
 
 // actions
 const actions = {
-    FETCH_TABLE_DATA ({ commit, state }, {url}) {
-        axios.get(pre(url), {params: {params: {}, type: {}}} )
-            .then((responce) => {
+    FETCH_TABLE_DATA ({ commit, state }, { store, route: {query: { url='' }}}) {
+        let cookies = store.state.auth.cookies
+        let axiosGet = typeof window === 'undefined'
+            ? axios.get(host +pre(url), { headers: { Cookie: cookies }})
+            : axios.get(host +pre(url))
+        return axiosGet.then((responce) => {
+                // console.log('----------3---------')
+                // console.log(url)
+                // console.log(cookies)
+                // console.log('----------4---------')
+                let tableData = typeof window === 'undefined'
+                    ? eval('(' + responce.data + ')')
+                    : responce.data
                 // 数据转换
-                if (responce.data.data.length !== 0) {
-                    commit('SET_TABLE_DATA', responce.data.data)
-                    commit('SET_TABLE_DATA', responce.data.total)
-                    commit('SET_NUM', responce.data.last_page)
-                    commit('SET_PAGINATOR', responce.data)
+                console.log(tableData.next_page_url)
+                if (tableData.data.length !== 0) {
+                    commit('SET_TABLE_DATA', tableData.data)
+                    commit('SET_TOTAL_NUM', tableData.total)
+                    commit('SET_NUM', tableData.last_page)
+                    commit('SET_PAGINATOR', tableData)
                 } else {
-                    commit('SET_TABLE_DATA', responce.data.data)
-                    commit('SET_TABLE_DATA', 0)
+                    commit('SET_TABLE_DATA', tableData.data)
+                    commit('SET_TOTAL_NUM', 0)
                     commit('SET_NUM', 0)
                     commit('SET_PAGINATOR', 0)
                 }
+            })
+            .catch((error) => {
+                console.log(error.response.data)
             })
     }
 }
@@ -56,6 +72,7 @@ const mutations = {
         state.paginator = paginator
     }
 }
+
 export default {
     state,
     getters,

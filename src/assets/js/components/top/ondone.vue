@@ -26,8 +26,6 @@ export default {
     components: {
         ContainTitle,
         footerTop
-    },
-    mounted () {
     }
 }
 </script>

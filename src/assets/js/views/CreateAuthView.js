@@ -1,12 +1,9 @@
-// This is a factory function for dynamically creating root-level list views,
-// since they share most of the logic except for the type of items to display.
-// They are essentially higher order components wrapping ItemList.vue.
 export default function createAuthView (component) {
   return {
 
-    asyncData ({ store, route}) {
+    async asyncData ({ store, route}) {
       if(route.path === '/P/login') {
-        return store.dispatch('FETCH_TOKEN')
+        return store.dispatch('FETCH_TOKEN_AND_KIT')
       }else {
         return store.dispatch('FETCH_TOKEN_AND_ROLES')
       }

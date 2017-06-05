@@ -48,10 +48,10 @@ export default {
     computed: {
         menus () {
             let roleData = {}
-            if (this.$store.state.auth.roles.permissions !== undefined) {
-                roleData = this.$store.state.auth.roles.permissions.two
+            let roles = JSON.parse(this.$store.state.auth.roles)
+            if (roles.permissions !== undefined) {
+                roleData = roles.permissions.two
             }
-            console.log(roleData)
             return menu({roleData})
         }
     },

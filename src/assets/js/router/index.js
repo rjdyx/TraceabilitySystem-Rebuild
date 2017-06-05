@@ -8,6 +8,7 @@ import phoneRouters from './phoneRouters.js'
 Vue.use(Router)
 
 const CreateAuthView = component => () => import('../views/CreateAuthView').then(m => m.default(component))
+const CreateTableDataView = component => () => import('../views/CreateTableDataView').then(m => m.default(component))
 
 // =============================顶层组件====================================
 // ---------------------------最顶层组件----------------------------------
@@ -49,7 +50,7 @@ export function createRouter () {
             { path: 'home', component: CreateAuthView(home) },
             {
                 path: 'message/:model',
-                component: CreateAuthView(basic),
+                component: CreateTableDataView(basic),
                 // 需要登录才能进入此路由
                 meta: {
                     auth: true
