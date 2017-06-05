@@ -152,7 +152,7 @@ export default {
         editComponent: [{
             tab: '编辑分类档案信息',
             checkNumber: [0],
-            popNumber: 1,
+            editNumber: 1,
             components: [{
                 name: 'name',
                 type: 'text',
@@ -370,6 +370,7 @@ export default {
             permissionSelectArr: [[{value: '', label: '请选择模块领域'}, {value: 'all', label: '公共模块'}, {set: 'plant', value: 'plant', label: '种植管理'}, {set: 'beast', value: 'beast', label: '养殖管理'}, {set: 'packb', value: 'packb', label: '畜禽加工管理'}, {set: 'packp', value: 'packp', label: '果蔬加工管理'}, {set: 'sell', value: 'sell', label: '销售管理'}]],
             permissionNumber: [1],
             popNumber: [0],
+            editNumber: 1,
             hasImg: true,
             components: [{
                 name: 'category_id',
@@ -388,25 +389,9 @@ export default {
                 isNull: false,
                 label: '模块领域',
                 placeholder: '',
+                disabled: false,
                 rule: {required: true, message: '请选择模块领域', trigger: 'blur'},
-                options: [{
-                    value: 'all', label: '公共模块'
-                },
-                {
-                    value: 'plant', label: '种植管理'
-                },
-                {
-                    value: 'beast', label: '养殖管理'
-                },
-                {
-                    value: 'packb', label: '畜禽加工管理'
-                },
-                {
-                    value: 'packp', label: '果蔬加工管理'
-                },
-                {
-                    value: 'sell', label: '销售管理'
-                }]
+                options: []
             },
             {
                 name: 'name',
@@ -642,6 +627,7 @@ export default {
             permissionNumber: [1],
             checkNumber: [2],
             popNumber: [0],
+            editNumber: 1,
             hasImg: true,
             components: [{
                 name: 'category_id',
@@ -660,6 +646,7 @@ export default {
                 isNull: false,
                 label: '模块领域',
                 placeholder: '',
+                disabled: false,
                 rule: {required: true, message: '请选择模块领域', trigger: 'blur'},
                 options: []
             },
@@ -1258,6 +1245,7 @@ export default {
             checkNumber: [2],
             popNumber: [0],
             hasImg: true,
+            editNumber: 1,
             components: [{
                 name: 'category_id',
                 type: 'select',
@@ -1275,6 +1263,7 @@ export default {
                 isNull: false,
                 label: '模块领域',
                 placeholder: '',
+                disabled: false,
                 rule: {required: true, message: '请选择模块领域', trigger: 'blur'},
                 options: []
             },

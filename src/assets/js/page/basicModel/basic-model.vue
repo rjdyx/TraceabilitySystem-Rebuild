@@ -543,14 +543,14 @@ export default {
                 for (let key of Object.keys(row)) {
                     this.editDefault[key] = row[key]
                 }
-                if (this.url === 'category') {
+                if (this.url === 'category' || this.url === 'operate' || this.url === 'expert' || this.url === 'product') {
                     let params = {id: row.id}
                     axios.get(this.$adminUrl(this.url + '/changeEdit'), {params: params})
                         .then((responce) => {
                             if (responce.data === 'state') {
-                                com.components[com.popNumber].disabled = true
+                                com.components[com.editNumber].disabled = true
                             } else {
-                                com.components[com.popNumber].disabled = false
+                                com.components[com.editNumber].disabled = false
                             }
                         })
                 }
