@@ -44,7 +44,7 @@ router.beforeEach(async (to, from, next) => {
             try {
                 await axios.get('/login/state').then(responce => {
                     let except = to.matched.some((item, index, array) => {
-                        if (item.path !== '/login' && any.indexOf(to.path) === -1) return true
+                        if (item.path !== '/login' && item.path !== '/waplogin' && any.indexOf(to.path) === -1) return true
                     })
                     if (responce.data.name === undefined) {
                         window.Roles = {}
