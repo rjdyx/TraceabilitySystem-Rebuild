@@ -1,4 +1,4 @@
-// 服务端接口
+// 接口统一管理
 const env = require('projectRoot/env.js')
 const { pre } = require('../utils/api')
 

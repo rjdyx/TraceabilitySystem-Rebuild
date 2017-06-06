@@ -162,18 +162,18 @@ export default{
     },
     mounted () {
         this.change_siderBar(true)
-        axios.get('api/index/state')
+        axios.get('/api/index/state')
             .then((responce) => {
                 if (responce.data !== 'plant' && responce.data !== 'all') {
                     this.state = 'beast'
                 }
             })
-        axios.get('api/index')
+        axios.get('/api/index')
             .then((responce) => {
                 this.listV = responce.data
                 this.listV.date = localStorage.getItem('loginDate')
             })
-        axios.get('api/index/district')
+        axios.get('/api/index/district')
             .then((responce) => {
                 var arr = []
                 for (var key in responce.data) {
@@ -181,11 +181,11 @@ export default{
                 }
                 this.areas = arr.data
             })
-        axios.get('api/index/plan')
+        axios.get('/api/index/plan')
             .then((responce) => {
                 this.plans = responce.data
             })
-        axios.get('api/index/code')
+        axios.get('/api/index/code')
             .then((responce) => {
                 this.codes = responce.data
             })
