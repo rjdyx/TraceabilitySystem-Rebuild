@@ -549,9 +549,6 @@ export default {
         changeNew (val) {
             if (val !== 'false') {
                 this.isNewShow = false
-                if (this.tabItem.newComponent[0].components[this.tabItem.newComponent[0].assocNum] !== undefined) {
-                    this.$set(this.tabItem.newComponent[0].components[this.tabItem.newComponent[0].assocNum], 'tableVal', [])
-                }
                 this.boxArr(this.dataArr, false)
                 this.getDetailSerial()
                 // this.getSelect()
@@ -705,9 +702,6 @@ export default {
                     } else if (responce.data === 'false') {
                         this.$message.error('添加溯源码失败')
                     } else {
-                        if (JSON.stringify(this.dataArr) === '{}') {
-                            this.dataArr = ''
-                        }
                         this.getDetailSerial()
                         this.boxArr(this.dataArr, false)
                         this.$message({
