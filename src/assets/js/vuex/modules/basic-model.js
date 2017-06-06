@@ -1,5 +1,4 @@
 const { pre } = require('../../utils/api')
-const { getMessageList } = require('../../utils/getMessageList')
 const host = 'http://localhost:8080/'
 
 const state = {
@@ -20,14 +19,16 @@ const getters = {
 const actions = {
     FETCH_TABLE_DATA ({ commit, state }, { store, route: {query: { url='' }}}) {
         let cookies = store.state.auth.cookies
+        // 刷新页面或在浏览器进行路由跳转时会调用到此action
+        // 在浏览器端跳转时，无需设置headers的cookie
+        // 而刷新页面时是在服务器端进行调用，此时需要设置cookie以保持登录状态
         let axiosGet = typeof window === 'undefined'
             ? axios.get(host +pre(url), { headers: { Cookie: cookies }})
             : axios.get(host +pre(url))
-        return axiosGet.then((responce) => {
-                // console.log('----------3---------')
-                // console.log(url)
-                // console.log(cookies)
-                // console.log('----------4---------')
+        return axiosGet
+            .then((responce) => {
+                // 在浏览器端调用此action后获取到的数据是对象
+                // 而在服务器端获取到的数据是json字符串，需转换成json对象
                 let tableData = typeof window === 'undefined'
                     ? eval('(' + responce.data + ')')
                     : responce.data

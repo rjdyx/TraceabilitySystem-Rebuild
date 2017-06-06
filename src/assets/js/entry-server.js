@@ -1,4 +1,5 @@
 import { createApp } from './app'
+import { serverToLogin } from './router/authFilter'
 
 const isDev = process.env.NODE_ENV !== 'production'
 
@@ -10,10 +11,15 @@ export default context => {
     const s = isDev && Date.now()
     const { app, router, store } = createApp()
 
-    // 设置路由的路径
-    router.push(context.url)
+    // 记录cookie
     store.commit('SET_COOKIES', context.cookies)
-
+    // 根据是否有登录，设置路由的路径
+    if(serverToLogin(context.url, store)) {
+      router.push(context.url)
+    }else {
+      router.push('/P/login')
+    }
+    
     // 等路由执行完所有的同步数据钩子
     router.onReady(() => {
       const matchedComponents = router.getMatchedComponents()

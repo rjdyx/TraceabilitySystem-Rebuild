@@ -22,7 +22,7 @@ export function initAxios({ app, router, store }) {
         // 未登录
         if (error.response.status === 401) {
             router.replace({
-                path: '/login',
+                path: '/P/login',
                 query: {}
             })
         }
