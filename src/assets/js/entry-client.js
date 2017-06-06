@@ -55,7 +55,8 @@ router.onReady(() => {
                 return c.asyncData({ store, route: to })
             }
         })).then(() => {
-            bar.finish()
+            // bar.finish()
+            bar.pause()
             clientToLogin(to, store, next)
         }).catch(next)
     })

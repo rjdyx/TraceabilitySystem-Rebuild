@@ -92,8 +92,8 @@ export default {
         back () {
             axios.post('/logout', this.data).then((responce) => {
                 if (responce.data === 200) {
-                    this.SET_ROLES(JSON.stringify({}))
-                    this.$router.push('/P/login')
+                    // this.SET_ROLES(JSON.stringify({}))
+                    // this.$router.push('/P/login')
                     // history.go(0) // 刷新更新权限数据
                 }
             })

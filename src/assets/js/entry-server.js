@@ -14,11 +14,7 @@ export default context => {
     // 记录cookie
     store.commit('SET_COOKIES', context.cookies)
     // 根据是否有登录，设置路由的路径
-    if(serverToLogin(context.url, store)) {
-      router.push(context.url)
-    }else {
-      router.push('/P/login')
-    }
+    serverToLogin(context.url, store, router)
     
     // 等路由执行完所有的同步数据钩子
     router.onReady(() => {

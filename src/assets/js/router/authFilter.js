@@ -36,18 +36,19 @@ const clientToLogin = (to, store, next) => {
 /**
  * 服务器端权限过滤
  */
-const serverToLogin = (path, store) => {
+const serverToLogin = (path, store, router) => {
     axios.get('http://localhost:8080/login/state', { headers: { Cookie: store.state.auth.cookies }})
         .then((rolesRes) => {
             let roles = eval('(' + rolesRes.data + ')')
-            if(roles.name === undefined && path !== '/P/login') {
-                return false
+            if(roles.name !== undefined && path !== '/P/login') {
+                router.push(path)
             }else {
-                return true
+                router.push('/P/login')
             }
         })
         .catch((error) => {
-            console.log(error.response.data)
+            console.log(error)
+            router.push(path)
         })
 }
 
