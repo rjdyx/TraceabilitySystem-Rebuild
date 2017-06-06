@@ -6,6 +6,7 @@
  * 
  */
 <template>
+<transition name="fade2">
 	<div id="plant">
 		<div class="plant">
 			<div class="plantHead">
@@ -38,7 +39,7 @@
 			    <!-- 生长图片 -->
 				<li><router-link :to="'/run/plant/growImg/'+code"></router-link></li>
 				<!-- 农药信息 -->
-				<li><router-link :to="'/run/plant/spray/'+code"></router-link></li>
+				<li ><router-link :to="'/run/plant/spray/'+code" ></router-link></li>
 				<!-- 农事信息 -->
 				<li><router-link :to="'/run/plant/farming/'+code"></router-link></li>
 				<!-- 肥料信息 -->
@@ -50,6 +51,7 @@
 			</ul>
 		</div>
 	</div>
+	</transition>
 </template>
 <script>
 import plantMessage from './js/plantMessage.js'
@@ -72,6 +74,10 @@ export default{
         }
     },
     mounted () {
+        $(document).on('touchmove', function (e) {
+            e.preventDefault()
+            e.stopPropagation()
+        })
         // 获取溯源码
         this.code = this.$route.params.code
         // 查询首页产品数据

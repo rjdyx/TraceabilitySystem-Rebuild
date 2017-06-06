@@ -37,8 +37,11 @@ const grow = resolve => {
 
 // ---------------------------手机版首页__农事信息、肥料信息__记录页----------------------------------
 const bM1 = resolve => {
+    // # 加载前显示动画
+    $('.pBasicModel1').show()
     require.ensure(['../page/phone/plant/basic_model1.vue'], () => {
         resolve(require('../page/phone/plant/basic_model1.vue'))
+        $('.pBasicModel1').hide()
     }, 'bM1')
 }
 

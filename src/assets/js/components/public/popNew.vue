@@ -313,7 +313,6 @@ export default {
         handleSelectionChange (val) {
             let ids = []
             let com = this.newComponent[0]
-            console.log(this.url)
             for (let key in val) {
                 if (this.url === 'code' || this.url.indexOf('pack-product-rfid') >= 0) {
                     ids.push(val[key].rfid_id)

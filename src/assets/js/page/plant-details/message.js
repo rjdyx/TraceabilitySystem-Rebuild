@@ -41,7 +41,7 @@ export default {
                     isNull: false,
                     label: 'Rfid',
                     placeholder: '必填',
-                    rule: [{required: true, message: '请输入Rfid', trigger: 'blur'}, {validator: validate2.reCheck}]
+                    rule: [{required: true, message: '请输入Rfid', trigger: 'blur'}, {validator: validate2.reCheck, trigger: 'blur', message: 'Rfid已存在'}]
                 },
                 {
                     name: 'memo',
@@ -63,7 +63,7 @@ export default {
                     isNull: false,
                     label: 'Rfid',
                     placeholder: '必填',
-                    rule: [{required: true, message: '请输入Rfid', trigger: 'blur'}, {validator: validate2.reCheck}]
+                    rule: [{required: true, message: '请输入Rfid', trigger: 'blur'}, {validator: validate2.reCheck, trigger: 'blur', message: 'Rfid已存在'}]
                 },
                 {
                     name: 'memo',
@@ -104,7 +104,7 @@ export default {
                     isNull: false,
                     label: '图片标题',
                     placeholder: '必填',
-                    rule: [{required: true, message: '请输入标题'}, {validator: validate2.reCheck}]
+                    rule: [{required: true, message: '请输入标题'}, {validator: validate2.reCheck, trigger: 'blur', message: '生长图片标题重复'}]
                 },
                 {
                     name: 'desc',
@@ -154,7 +154,7 @@ export default {
                     isNull: false,
                     label: '图片标题',
                     placeholder: '必填',
-                    rule: [{required: true, message: '请输入标题', trigger: 'blur'}, {validator: validate2.reCheck}]
+                    rule: [{required: true, message: '请输入标题', trigger: 'blur'}, {validator: validate2.reCheck, trigger: 'blur', message: '生长图片标题重复'}]
                 },
                 {
                     name: 'desc',
@@ -740,6 +740,7 @@ export default {
                 type: 'table',
                 labUrl: 'product',
                 assocNum: 0,
+                whereArr: [['domain', 'packb'], ['domain', 'all', true]],
                 components: [{
                     name: 'name',
                     type: 'table',
@@ -788,6 +789,9 @@ export default {
                     selectInit2: [{value: '', label: '出栏批次号选择'}, {value: '', label: '请选择入库批次(平台)'}, {value: '', label: '请选择入库批次(非平台)'}],
                     selectWhereArr2: [[], [{n: 'type', v: 0}, {n: 'category', v: 'plant'}], [{n: 'type', v: 1}, {n: 'category', v: 'plant'}]],
                     popNumber2: [2, 3, 4],
+                    permissionSelectUrl: ['api/permission_domain'],
+                    permissionSelectArr: [[{label: '请选择商品来源', value: ''}, {set: 'beast', label: '养殖出栏', value: 'come'}, {set: 'sell', label: '入库(平台)', value: 'st'}, {set: 'sell', label: '入库(非平台)', value: 'sf'}]],
+                    permissionNumber: [1],
                     labUrl: 'come-rfid',
                     type: 'assoc',
                     components: [{
@@ -808,22 +812,7 @@ export default {
                         placeholder: '',
                         selectNumber: {come: [2, 7], st: [3, 8], sf: [4]},
                         rule: {required: true, trigger: 'blur', message: '请选择商品来源'},
-                        options: [{
-                            label: '请选择商品来源',
-                            value: ''
-                        },
-                        {
-                            label: '养殖出栏',
-                            value: 'come'
-                        },
-                        {
-                            label: '入库(平台)',
-                            value: 'st'
-                        },
-                        {
-                            label: '入库(非平台)',
-                            value: 'sf'
-                        }]
+                        options: []
                     },
                     {
                         name: 'come_id',
@@ -1067,7 +1056,7 @@ export default {
                     isNull: false,
                     label: '图片标题',
                     placeholder: '必填',
-                    rule: [{required: true, message: '请输入图片标题', trigger: 'blur'}, {validator: validate2.reCheck}]
+                    rule: [{required: true, message: '请输入图片标题', trigger: 'blur'}, {validator: validate2.reCheck, trigger: 'blur', message: '生长图片标题重复'}]
                 },
                 {
                     name: 'desc',
@@ -1117,7 +1106,7 @@ export default {
                     isNull: false,
                     label: '图片标题',
                     placeholder: '必填',
-                    rule: [{required: true, message: '请输入图片标题', trigger: 'blur'}, {validator: validate2.reCheck}]
+                    rule: [{required: true, message: '请输入图片标题', trigger: 'blur'}, {validator: validate2.reCheck, trigger: 'blur', message: '生长图片标题重复'}]
                 },
                 {
                     name: 'desc',
@@ -1414,6 +1403,7 @@ export default {
                 type: 'table',
                 assocNum: 0,
                 labUrl: 'product',
+                whereArr: [['domain', 'packp'], ['domain', 'all', true]],
                 components: [{
                     name: 'name',
                     type: 'table',
@@ -1460,6 +1450,9 @@ export default {
                 selectWhereArr2: [[], [{n: 'type', v: 0}, {n: 'category', v: 'plant'}], [{n: 'type', v: 1}, {n: 'category', v: 'plant'}]],
                 selectInit2: [{value: '', label: '采收批次号选择'}, {value: '', label: '请选择入库批次(平台)'}, {value: '', label: '请选择入库批次(非平台)'}],
                 popNumber2: [2, 3, 4],
+                permissionSelectUrl: ['api/permission_domain'],
+                permissionSelectArr: [[{label: '请选择商品来源', value: ''}, {set: 'plant', label: '种植采收', value: 'harvest'}, {set: 'sell', label: '入库(平台)', value: 'st'}, {set: 'sell', label: '入库(非平台)', value: 'sf'}]],
+                permissionNumber: [1],
                 hiddenValue: {type: 'plant'},
                 labUrl: false,
                 labNewUrl: 'storage_code',
@@ -1483,22 +1476,7 @@ export default {
                     placeholder: '',
                     selectNumber: {harvest: [2], st: [3, 7], sf: [4]},
                     rule: {required: true, trigger: 'blur', message: '请选择商品来源'},
-                    options: [{
-                        label: '请选择商品来源',
-                        value: ''
-                    },
-                    {
-                        label: '种植采收',
-                        value: 'harvest'
-                    },
-                    {
-                        label: '入库(平台)',
-                        value: 'st'
-                    },
-                    {
-                        label: '入库(非平台)',
-                        value: 'sf'
-                    }]
+                    options: []
                 },
                 {
                     name: 'harvest_id',
@@ -4303,7 +4281,7 @@ export default {
                     isNull: false,
                     label: '用户名',
                     placeholder: '请输入用户名',
-                    rule: [{required: true, trigger: 'blur'}, {validator: validate2.reCheck}]
+                    rule: [{required: true, trigger: 'blur', message: '请输入用户名'}, {validator: validate2.reCheck, trigger: 'blur', message: '用户名已存在'}]
                 },
                 {
                     name: 'email',
@@ -4312,7 +4290,7 @@ export default {
                     isNull: false,
                     label: '邮箱',
                     placeholder: '请输入邮箱',
-                    rule: [{required: true, trigger: 'blur'}, {validator: validate2.reCheck}]
+                    rule: [{required: true, trigger: 'blur', message: '请输入正确邮箱格式', type: 'email'}, {validator: validate2.reCheck, trigger: 'blur', message: '邮箱已存在'}]
                 },
                 {
                     name: 'phone',
@@ -4321,7 +4299,7 @@ export default {
                     isNull: false,
                     label: '手机号码',
                     placeholder: '请输入手机号码',
-                    rule: [{required: true, trigger: 'blur'}, {validator: validate2.reCheck}, {validator: validate2.phone}]
+                    rule: [{required: true, trigger: 'blur', message: '请输入手机号码'}, {validator: validate2.reCheck, trigger: 'blur', message: '手机号码已存在'}, {validator: validate2.phone}]
                 },
                 {
                     name: 'gender',
@@ -4414,7 +4392,7 @@ export default {
                     isNull: false,
                     label: '用户名',
                     placeholder: '请输入用户名',
-                    rule: [{required: true, trigger: 'blur'}, {validator: validate2.reCheck}]
+                    rule: [{required: true, trigger: 'blur', message: '请输入用户名'}, {validator: validate2.reCheck, trigger: 'blur', message: '用户名已存在'}]
                 },
                 {
                     name: 'email',
@@ -4423,7 +4401,7 @@ export default {
                     isNull: false,
                     label: '邮箱',
                     placeholder: '请输入邮箱',
-                    rule: [{required: true, trigger: 'blur'}, {validator: validate2.reCheck}]
+                    rule: [{required: true, trigger: 'blur', message: '请输入正确邮箱格式', type: 'email'}, {validator: validate2.reCheck, trigger: 'blur', message: '邮箱已存在'}]
                 },
                 {
                     name: 'phone',
@@ -4432,7 +4410,7 @@ export default {
                     isNull: false,
                     label: '手机号码',
                     placeholder: '请输入手机号码',
-                    rule: [{required: true, trigger: 'blur'}, {validator: validate2.reCheck}, {validator: validate2.phone}]
+                    rule: [{required: true, trigger: 'blur', message: '请输入手机号码'}, {validator: validate2.reCheck, trigger: 'blur', message: '手机号码已存在'}, {validator: validate2.phone}]
                 },
                 {
                     name: 'gender',

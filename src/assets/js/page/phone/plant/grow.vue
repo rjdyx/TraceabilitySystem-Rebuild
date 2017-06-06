@@ -6,6 +6,7 @@
  * 
  */
 <template>
+<transition name="fade2">
     <div id="home_grow">
         <header1 title="生长图片" :isbreed="isbreed"></header1>
         <div class="hg_content">
@@ -26,6 +27,7 @@
             </ul>
         </div>
     </div>
+</transition>
 </template>
 <style type="text/css" lang="sass">
     .breedBorder{
@@ -56,7 +58,7 @@
                         color:#76cfbd;
                         position: relative;
                         padding: 2% 0%;
-                        margin-left:-2.3%;
+                        margin-left:-2.5%;
                         >img{
                             width:4%;
                             height: auto;
@@ -111,6 +113,10 @@ export default {
         }
     },
     mounted () {
+        $(document).on('touchmove', function (e) {
+            e.preventDefault()
+            e.stopPropagation()
+        })
         var params = {code: this.$route.params.id}
         var url = 'run/plant/grow'
         if (this.$route.meta.runName === 'breed') {
