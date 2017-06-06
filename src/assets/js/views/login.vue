@@ -163,7 +163,7 @@ export default {
                             json.record = ''
                             let jsonStr = JSON.stringify(json)
                             localStorage.setItem('record', jsonStr)
-                            this.$router.push('/')
+                            this.$router.push('/index/home')
                         }
                     })
                 } else {
