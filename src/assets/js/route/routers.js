@@ -31,6 +31,12 @@ const login = resolve => {
         resolve(require('../views/login.vue'))
     }, 'login')
 }
+// ---------------------------手机登录注册组件----------------------------------
+const waplogin = resolve => {
+    require.ensure(['../views/waplogin.vue'], () => {
+        resolve(require('../views/waplogin.vue'))
+    }, 'waplogin')
+}
 // ---------------------------登录注册组件----------------------------------
 const protocol = resolve => {
     require.ensure(['../views/protocol.vue'], () => {
@@ -175,6 +181,11 @@ var routes = [
         path: '/protocol',
         name: 'protocol',
         component: protocol
+    },
+    {
+        path: '/waplogin',
+        name: 'waplogin',
+        component: waplogin
     }
 ]
 
