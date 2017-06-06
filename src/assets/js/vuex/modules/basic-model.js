@@ -1,5 +1,4 @@
-const { pre } = require('../../utils/api')
-const host = 'http://localhost:8080/'
+const { fetchTableData } = require('../../api')
 
 const state = {
     navbarName: '',
@@ -22,10 +21,7 @@ const actions = {
         // 刷新页面或在浏览器进行路由跳转时会调用到此action
         // 在浏览器端跳转时，无需设置headers的cookie
         // 而刷新页面时是在服务器端进行调用，此时需要设置cookie以保持登录状态
-        let axiosGet = typeof window === 'undefined'
-            ? axios.get(host +pre(url), { headers: { Cookie: cookies }})
-            : axios.get(host +pre(url))
-        return axiosGet
+        return fetchTableData(url, cookies)
             .then((responce) => {
                 // 在浏览器端调用此action后获取到的数据是对象
                 // 而在服务器端获取到的数据是json字符串，需转换成json对象
@@ -33,7 +29,6 @@ const actions = {
                     ? eval('(' + responce.data + ')')
                     : responce.data
                 // 数据转换
-                console.log(tableData.next_page_url)
                 if (tableData.data.length !== 0) {
                     commit('SET_TABLE_DATA', tableData.data)
                     commit('SET_TOTAL_NUM', tableData.total)

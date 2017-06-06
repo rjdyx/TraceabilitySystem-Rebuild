@@ -1,5 +1,9 @@
-const env = require('projectRoot/env.js')
-const url = 'http://localhost:8080/'
+const { 
+    fetchTokenAndKit, 
+    fetchTokenAndRole, 
+    fetchToken,
+    fetchKit 
+} = require('../../api')
 
 const state = {
     token: '',
@@ -21,10 +25,7 @@ const actions = {
         // 刷新页面或在浏览器进行路由跳转时会调用到此action
         // 在浏览器端跳转时，无需设置headers的cookie
         // 而刷新页面时是在服务器端进行调用，此时需要设置cookie以保持登录状态或相同的session信息
-        let axiosGETS = typeof window === 'undefined'
-            ? [axios.get(url + 'token'), axios.get(url + 'kit', { headers: { Cookie: state.cookies }})]
-            : [axios.get(url + 'token'), axios.get(url + 'kit')]
-        return axios.all(axiosGETS)
+        return fetchTokenAndKit(state.cookies)
         .then(axios.spread((tokenRes, kitRes) => {
             let token = ''
             let kit = ''
@@ -49,11 +50,7 @@ const actions = {
         // 刷新页面或在浏览器进行路由跳转时会调用到此action
         // 在浏览器端跳转时，无需设置headers的cookie
         // 而刷新页面时是在服务器端进行调用，此时需要设置cookie以保持登录状态
-        let axiosGETS = typeof window === 'undefined'
-        ? [axios.get(url + 'token'), axios.get(url + 'login/state', { headers: { Cookie: state.cookies }})]
-        : [axios.get(url + 'token'), axios.get(url + 'login/state')]
-
-        return axios.all(axiosGETS)
+        return fetchTokenAndRole(state.cookies)
         .then(axios.spread((tokenRes, rolesRes) => {
             let token = ''
             let roles = null
@@ -81,7 +78,7 @@ const actions = {
     },
 
     FETCH_TOKEN ({ commit, state }) {
-        return axios.get(url + 'token')
+        return fetchToken()
             .then((responce) => {
                 commit('SET_TOKEN', responce.data)
             })
@@ -91,7 +88,7 @@ const actions = {
     },
 
     FETCH_KIT ({ commit, state }) {
-        return axios.get(url + 'kit')
+        return fetchKit(state.cookies)
             .then((responce) => {
                 commit('SET_KIT', responce.data)
             })
@@ -101,7 +98,7 @@ const actions = {
     },
 
     FETCH_ROLES ({ commit, state }) {
-        return axios.get(url + 'login/state')
+        return fetchRoles(state.cookies)
             .then((responce) => {
                 commit('SET_ROLES', responce.data)
             })

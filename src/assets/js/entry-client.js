@@ -39,7 +39,7 @@ router.onReady(() => {
     // 为异步数据的处理添加路由钩子
     // 路由匹配成功后执行如下的数据对比，这样我们避免对在服务器端就已经
     // 获取到的数据进行重复获取。
-    router.beforeResolve((to, from, next) => {        
+    router.beforeResolve((to, from, next) => {
         const matched = router.getMatchedComponents(to)
         const prevMatched = router.getMatchedComponents(from)
         let diffed = false
@@ -55,8 +55,7 @@ router.onReady(() => {
                 return c.asyncData({ store, route: to })
             }
         })).then(() => {
-            // bar.finish()
-            bar.pause()
+            bar.finish()
             clientToLogin(to, store, next)
         }).catch(next)
     })

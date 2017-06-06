@@ -1,3 +1,5 @@
+const { fetchRoles } = require('../api')
+
 const pre = '/index/'
 const pre2 = '/index/message/'
 const Excepts = ['/', '/index', pre + 'set', pre + 'test', pre + 'help', pre + 'question', pre + '404', pre + 'ondone']
@@ -37,7 +39,7 @@ const clientToLogin = (to, store, next) => {
  * 服务器端权限过滤
  */
 const serverToLogin = (path, store, router) => {
-    axios.get('http://localhost:8080/login/state', { headers: { Cookie: store.state.auth.cookies }})
+    fetchRoles(store.state.auth.cookies)
         .then((rolesRes) => {
             let roles = eval('(' + rolesRes.data + ')')
             if(roles.name !== undefined && path !== '/P/login') {
