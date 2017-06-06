@@ -14,13 +14,13 @@
     
   <!-- 信息列表 -->
     <el-row :gutter="20">
-         <el-col :span="6" v-for="(item,i) in theads" class="text-small">{{item}}:<em class="margin-left_10">{{headData[protos[i]]}}</em>
+         <el-col :span="6" v-for="(item,i) in theads" :key="i" class="text-small">{{item}}:<em class="margin-left_10">{{headData[protos[i]]}}</em>
          </el-col>
     </el-row>
   <!-- tab栏 --> 
     <el-tabs v-model="activeName" type="card" id="tabs" @tab-click="tabClick">
         <el-tab-pane :label='tabItem.tab' :name='tabItem.tab' v-for="
-        tabItem in tabList">
+        (tabItem, i) in tabList" :key="i">
         </el-tab-pane>
     </el-tabs> 
 
@@ -42,12 +42,13 @@
                 <!-- 右边的操作按钮 -->
                 <!-- 操作按钮 -->
                 <component
-                    v-for="operateItem in tabItem.typeComponent"
+                    v-for="(operateItem, i) in tabItem.typeComponent"
                     :is="operateItem.component"
                     :url="apiUrlArr[tabList[index].url]"
                     :type="tabItem.whereArr"
                     :routeId="routeId"
-                    :curl="url"
+                    :curl="url" 
+                    :key="i"
                     class="fr"
                 ></component>
             </div>

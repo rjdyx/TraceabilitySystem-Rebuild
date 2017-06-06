@@ -11,7 +11,7 @@
 		<form class="newForm">
 			<i class="closeBtn" @click="close"></i>
 			<el-tabs v-model="activeName">
-				<el-tab-pane :label="item.tab" :name="item.tab" v-for="(item,i) in more">
+				<el-tab-pane :label="item.tab" :name="item.tab" v-for="(item,i) in more" :key="i">
 					<el-form :model="tableForm" :rules="rules" ref="tableForm" label-width="110px" class="demo-tableForm">
 						<table>
 							<template v-for="subItem in item.components">
@@ -28,7 +28,7 @@
 										<el-form-item :label="subItem.label" :prop="subItem.name">
 											<el-select v-model="tableForm[subItem.name]" :placeholder="subItem.placeholder" size="small">
 												<el-option
-													v-for="option in subItem.options" :label="option.label" :value="option.value" size="small">
+													v-for="option in subItem.options" :label="option.label" :value="option.value" :key="option.label + option.value" size="small">
 												</el-option>
 											</el-select>
 										</el-form-item>

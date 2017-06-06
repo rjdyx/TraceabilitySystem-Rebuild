@@ -1,4 +1,4 @@
-            <template>
+<template>
     <div id="app" :class="[getTheme, getFont]">
         <router-view></router-view>
     </div>
@@ -21,7 +21,7 @@ export default {
 <style lang="sass">
 
 @import "../sass/theme/theme.scss";
-	#app {
-		height: 100%;
-	}
+    #app {
+        height: 100%;
+    }
 </style>

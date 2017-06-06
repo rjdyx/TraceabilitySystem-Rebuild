@@ -2,7 +2,7 @@
 /**
 * js库初始化
 */
-
+import Vue from 'vue'
 require('babel-polyfill') // 解决手机端uc浏览器、qq浏览器和微信浏览器无法使用部分ES6语法
 require('animate.css') // 动画css插件
 require('./echarts.js')
@@ -13,21 +13,21 @@ Vue.component('vue-scrollbar', ScrollBar)
 require('vue2-scrollbar/dist/style/vue2-scrollbar.css')
 
 // html字体大小设置
-require('../page/phone/plant/js/fontSize.js')
+// require('../page/phone/plant/js/fontSize.js')
 
 // 路由插件
 import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 
 // 路由加载插件
-import VueProgressBar from 'vue-progressbar'
-Vue.use(VueProgressBar, {
-    color: 'blue',
-    height: '2px'
-})
+// import VueProgressBar from 'vue-progressbar'
+// Vue.use(VueProgressBar, {
+//     color: 'blue',
+//     height: '2px'
+// })
 // 注册element-ui全局组件
 import enLocale from 'element-ui/lib/locale/lang/en'
-import zhLocale from 'element-ui/lib/locale/lang/zh-CH'
+import zhLocale from 'element-ui/lib/locale/lang/zh-CN'
 import locale from 'element-ui/lib/locale'
 import 'element-ui/lib/theme-default/index.css'
 // 设置语言
@@ -66,7 +66,3 @@ Object.keys(elementComponent).forEach(function (component) {
 // Object.keys(locales).forEach(function (lang) {
 //     Vue.locale(lang, locales[lang])
 // })
-/**
-* css库
-*/
-require('sass/index.scss')

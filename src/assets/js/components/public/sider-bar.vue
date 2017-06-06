@@ -7,26 +7,26 @@
  */ 
  <template>
     <div id="menu-content">
-        <vue-scrollbar id="menu">
+        <!-- <vue-scrollbar id="menu"> -->
             <el-menu
                 :router="true" 
                 :unique-opened="true"
                 class="list" theme="dark" :default-active="record" @select="handle" @close="handleClose">
                 <el-submenu 
                     v-for="(menu, index) in menus"
-                    :index="menu.name" v-if="menu.role">
+                    :index="menu.name" :key="index" v-if="menu.role">
                     <template slot="title" >
                     <img :src="menu.src" class="menu-img">
                         {{menu.name}}
                     </template>
                     <el-menu-item 
                         v-for="(subMenu, subIndex) in menu.children" 
-                        :index="subMenu.path" exact v-if="subMenu.role" @click="toggle(subIndex, subMenu.name)"> 
+                        :index="subMenu.path" :key="subIndex" exact v-if="subMenu.role" @click="toggle(subIndex, subMenu.name)"> 
                         {{subMenu.name}}
                     </el-menu-item>
                 </el-submenu>
             </el-menu>
-        </vue-scrollbar> 
+        <!-- </vue-scrollbar>  -->
     </div>
 </template>
 
@@ -68,8 +68,8 @@ export default {
     watch: {
         isShowSiderBar () {
             if (this.isShowSiderBar) {
-                this.$children[0].$children[0].closeMenu()
-                this.$children[0].$children[0].activedIndex = ''
+                // if(this.$children[0].$children[0] !== undefined) this.$children[0].$children[0].closeMenu()
+                if(this.$children[0].$children[0] !== undefined) this.$children[0].$children[0].activedIndex = ''
                 this.$store.dispatch('switch_record', '')
             }
         }

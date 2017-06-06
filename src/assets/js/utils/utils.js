@@ -5,25 +5,17 @@ import Vue from 'vue'
 export
 default {
     install () {
-        const env = require('../../../../env')
-        // let host = env.app_url;
-        let host = ''
+        const { pre } = require('./api')
+        const env = require('projectRoot/env')
+
         /**
         * 自动生成完整的前台url
         *
         * @param url {string}
-        * @param type {string} url的类型，c为接口类型，p为视图类型
         * @returns {string}
         */
-        Vue.prototype.$homeUrl = (url, type = 'c') => {
-            let regx = /^\/{1,}/g
-            url = url.replace(regx, '')
-            if (type === 'c' || type === 'C') {
-                return host + '/home/c/' + url
-            }
-            if (type === 'p' || type === 'P') {
-                return host + '/home/p/' + url
-            }
+        Vue.prototype.$homeUrl = (url) => {
+            return pre(url, 'home')
         }
 
         /**
@@ -33,9 +25,7 @@ default {
         * @returns {string}
         */
         Vue.prototype.$adminUrl = (url) => {
-            let regx = /^\/{1,}/g
-            url = url.replace(regx, '')
-            return host + '/api/' + url
+            return pre(url)
         }
 
         /**

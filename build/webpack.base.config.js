@@ -1,129 +1,113 @@
-const path = require('path');
-const webpack = require('webpack');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const vueConfig = require('./vue-loader.config');
+const path = require('path')
+const webpack = require('webpack')
+const merge = require('webpack-merge')
+const vueConfig = require('./vue-loader.config')
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
+
+const isProd = process.env.NODE_ENV === 'production'
 const projectRoot = path.resolve(__dirname, '../');
 
-function resolve (dir) {
-  return path.join(__dirname, '..', dir)
-}
 
-module.exports = {
-    devtool: '#source-map',
-    entry: {
-        app: './src/assets/js/index.js',
-        vendor: [
-            'axios',
-            'jquery',
-            'lodash',
-            'velocity-animate',
-            'vue',
-            'vue-router', 
-            'vuex'
-        ]
-    },
-    output: {
-        path: path.resolve(__dirname, '../dist'),
-        publicPath: '/dist/',
-        filename: '[name].[chunkhash].js'
-    },
-    module: {
-        rules: [
-            {
-                test: /\.(js|vue)$/,
-                loader: 'eslint-loader',
-                enforce: 'pre',
-                include: [resolve('src'), resolve('test')],
-                options: {
-                  formatter: require('eslint-friendly-formatter')
-                }
-            },
-            {
-                test: /\.vue$/,
-                loader: 'vue-loader',
-                options: vueConfig
-            },
-            {
-                test: /\.css$/,
-                loader: ExtractTextPlugin.extract({fallback: 'style-loader', use: 'css-loader'})
-                // loader: 'style-loader!css-loader'
-            },
-            {
-                test: /\.json$/,
-                loader: 'json-loader'
-            },
-            { 
-                test: /iview.src.*?js$/, 
-                loader: 'babel-loader' 
-            },
-            {
-                test: /\.js$/,
-                loader: 'babel-loader',
-                include: projectRoot,
-                exclude: /node_modules/
-            },
-            {
-                test: /\.scss$/,
-                loader: ExtractTextPlugin.extract({fallback:'style-loader', use: 'css-loader!sass-loader'})
-                // loader: 'style-loader!css-loader!sass-loader'
-            },
-            {
-                test: /\.(eot|svg|ttf|woff|woff2)(\?\S*)?$/,
-                loader: 'file-loader'
-            },
-            {
-                test: /\.(png|jpe?g|gif|svg)(\?\S*)?$/,
-                loader: 'file-loader',
-                query: {
-                    name: '[name].[ext]?[hash]'
-                }
-            }
-        ]
-    },
-    // 配置应用层的模块（要被打包的模块）解析
-    resolve: {
-        // 这样就无需写后缀
-        extensions: ['.js', '.vue', '.json'],
-        // 路径别名
-        alias: {
-            'projectRoot': projectRoot,
-            'vue$': 'vue/dist/vue',
-            '@': resolve('src'),
-            'sass': path.resolve(__dirname, '../src/assets/sass'),
-            'jsPath': path.resolve(__dirname, '../src/assets/js'),
-            'lang': path.resolve(__dirname, '../src/lang'),
-            'components': path.resolve(__dirname, '../src/assets/js/components')
+let config = {
+  devtool: isProd
+    ? false
+    : '#cheap-module-source-map',
+  output: {
+    path: path.resolve(__dirname, '../dist'),
+    publicPath: '/dist/',
+    filename: '[name].[chunkhash].js'
+  },
+  resolve: {
+    extensions: ['.js', '.vue', '.json'],
+    alias: {
+      'projectRoot': projectRoot,
+      'public': path.resolve(__dirname, '../public'),
+      'assets': path.resolve(__dirname, '../src/assets'),
+      'components': path.resolve(__dirname, '../src/assets/js/components')
+    }
+  },
+  module: {
+    noParse: /es6-promise\.js$/, // avoid webpack shimming process
+    rules: [
+      {
+        test: /\.vue$/,
+        loader: 'vue-loader',
+        options: vueConfig
+      },
+      {
+        test: /\.js$/,
+        loader: 'babel-loader',
+        include: projectRoot,
+        exclude: /node_modules/
+      },
+      {
+        test: /\.(eot|svg|ttf|woff|woff2)(\?\S*)?$/,
+        loader: 'file-loader'
+      },
+      {
+        test: /\.(png|jpg|gif|svg)$/,
+        loader: 'url-loader',
+        options: {
+          limit: 10000,
+          name: '[name].[ext]?[hash]'
         }
-    },
-    
-    plugins: [
-        new ExtractTextPlugin({filename:'[name].[chunkhash].css', allChunks: true}),
-        new webpack.ProvidePlugin({
-            $: 'jquery',
-            jQuery: 'jquery',
-            'window.jQuery': 'jquery',
-            'window.$': 'jquery',
-
-            _: 'lodash',
-            'window._': 'lodash',
-
-            Velocity: 'velocity-animate',
-            'window.Velocity': 'velocity-animate',
-
-            axios: 'axios',
-            'window.axios': 'axios',
-
-            Vue: 'vue',
-            'window.Vue': 'vue'
-        }),
-        new webpack.NormalModuleReplacementPlugin(/element-ui[\/\\]lib[\/\\]locale[\/\\]lang[\/\\]zh-CN/, 'element-ui/lib/locale/lang/en'),
-        // new webpack.LoaderOptionsPlugin({
-        //     options: {
-        //         eslint: {
-        //             formatter: require('eslint-friendly-formatter')
-        //         },
-        //     }
-        // })
+      },
+      {
+        test: /\.css$/,
+        use: isProd
+          ? ExtractTextPlugin.extract({
+              use: 'css-loader?minimize',
+              fallback: 'vue-style-loader'
+            })
+          : ['vue-style-loader', 'css-loader']
+      },
+      {
+        test: /\.scss$/,
+        use: isProd
+          ? ExtractTextPlugin.extract({
+              use: 'css-loader!sass-loader',
+              fallback: 'style-loader'
+            })
+          : ['style-loader', 'css-loader', 'sass-loader?sourceMap=true']
+      }
     ]
+  },
+  performance: {
+    maxEntrypointSize: 300000,
+    hints: isProd ? 'warning' : false
+  },
+  plugins: [
+    new webpack.ProvidePlugin({
+      $: 'jquery',
+      jQuery: 'jquery',
+      'window.jQuery': 'jquery',
+      'window.$': 'jquery',
 
+      Velocity: 'velocity-animate',
+      'window.Velocity': 'velocity-animate',
+
+      axios: 'axios',
+      'window.axios': 'axios'
+    }),
+    new webpack.NormalModuleReplacementPlugin(/element-ui[\/\\]lib[\/\\]locale[\/\\]lang[\/\\]zh-CN/, 'element-ui/lib/locale/lang/en')
+  ],
+  node: {
+    fs: 'empty',
+  }
 }
+
+module.exports = merge(config, {
+  plugins: isProd
+    ? [
+        new webpack.optimize.UglifyJsPlugin({
+          compress: { warnings: false }
+        }),
+        new ExtractTextPlugin({
+          filename: 'common.[chunkhash].css'
+        })
+      ]
+    : [
+        new FriendlyErrorsPlugin()
+      ]
+})

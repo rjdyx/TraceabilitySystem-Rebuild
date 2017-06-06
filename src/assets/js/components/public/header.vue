@@ -35,11 +35,11 @@
 				</li>
 			</ul>
 		</div>
-			<vue-progress-bar></vue-progress-bar>
+			<!-- <vue-progress-bar></vue-progress-bar> -->
 	</header>
 </template>
 <script>
-import {mapActions} from 'vuex'
+import {mapActions, mapMutations} from 'vuex'
 export default {
     name: 'MyHead',
     data: function () {
@@ -59,6 +59,9 @@ export default {
     methods: {
         ...mapActions([
             'change_siderBar'
+        ]),
+        ...mapMutations([
+            'SET_ROLES'
         ]),
         checkTime (i) {
             if (i < 10) {
@@ -87,11 +90,10 @@ export default {
             1000)
         },
         back () {
-            axios.post('logout', this.data).then((responce) => {
+            axios.post('/logout', this.data).then((responce) => {
                 if (responce.data === 200) {
-                    // window.Roles = {}
-                    // console.log(window.Roles)
-                    this.$router.push('/login')
+                    this.SET_ROLES(JSON.stringify({}))
+                    this.$router.push('/P/login')
                     // history.go(0) // 刷新更新权限数据
                 }
             })
