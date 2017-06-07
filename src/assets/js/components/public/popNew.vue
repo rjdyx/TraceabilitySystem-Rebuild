@@ -210,7 +210,9 @@ export default {
             dmL: 0,
             dmT: 0,
             memuList: {},
-            checkeds: []
+            checkeds: [],
+            disabled: false,
+            disabledV: false
         }
     },
     mixins: [move],

@@ -165,6 +165,7 @@ export default {
             memuList: {},
             checkeds: [],
             disabled: false,
+            disabledV: false,
             editAllowance: 0,
             allowance: 0,
             cname: '',

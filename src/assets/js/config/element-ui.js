@@ -26,3 +26,18 @@ import * as elements from './elements'
 Object.keys(elements).forEach(function (component) {
     Vue.component(elements[component].name, elements[component])
 })
+
+// 这两个无法用上面的循环，否则报错
+import {
+    Loading,
+    MessageBox
+} from 'element-ui'
+
+Vue.use(Loading.directive)
+
+Vue.prototype.$loading = Loading.service
+Vue.prototype.$msgbox = MessageBox
+Vue.prototype.$alert = MessageBox.alert
+Vue.prototype.$confirm = MessageBox.confirm
+Vue.prototype.$prompt = MessageBox.prompt
+Vue.prototype.$message = elements['Message']
