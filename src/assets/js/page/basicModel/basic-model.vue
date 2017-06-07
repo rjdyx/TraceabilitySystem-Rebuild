@@ -135,7 +135,7 @@
             <el-button @click="excel">导出表格</el-button>
         </div>
 
-        <p class="record">共有<span class="record_num">{{num}}</span>页，<span class="record_num">{{total_num}}</span>条记录</p>
+        <p class="record">共有<span class="record_num">{{num}}</span>页，<span class="record_num">{{totalNum}}</span>条记录</p>
 
         <!-- 分页模块 -->
         <el-pagination

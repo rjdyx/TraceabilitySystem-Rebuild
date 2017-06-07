@@ -7,7 +7,7 @@ const Admins = [pre2 + 'rightsOperate', pre2 + 'settleOperate', pre2 + 'usersOpe
 const any = ['/protocol', '/forget']
 
 const isEmptyObject = (e) => {
-    for(let t in e) return false
+    for (let t in e) return false
     return true
 }
 
@@ -42,9 +42,9 @@ const serverToLogin = (path, store, router) => {
     fetchRoles(store.state.auth.cookies)
         .then((rolesRes) => {
             let roles = eval('(' + rolesRes.data + ')')
-            if(roles.name !== undefined && path !== '/P/login') {
+            if (roles.name !== undefined && path !== '/P/login') {
                 router.push(path)
-            }else {
+            } else {
                 router.push('/P/login')
             }
         })

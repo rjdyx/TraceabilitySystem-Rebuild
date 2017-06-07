@@ -2,8 +2,7 @@
 * httpÇëÇó¹ýÂË
 */
 
-export function initAxios({ app, router, store }) {
-    
+export function initAxios ({ app, router, store }) {
     axios.defaults.headers.common = {
         'X-CSRF-TOKEN': store.state.auth.token,
         'X-Requested-With': 'XMLHttpRequest'

@@ -11,7 +11,7 @@ const serverTitleMixin = {
     created () {
         const title = getTitle(this)
         if (title) {
-            this.$ssrContext.title = `溯源Vue HN 2.0 | ${title}`
+            this.$ssrContext.title = `${title} | 寻找溯源`
         }
     }
 }
@@ -20,7 +20,7 @@ const clientTitleMixin = {
     mounted () {
         const title = getTitle(this)
         if (title) {
-            document.title = `溯源 | ${title}`
+            document.title = `${title} | 寻找溯源`
         }
     }
 }

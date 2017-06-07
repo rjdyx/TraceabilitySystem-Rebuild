@@ -6,8 +6,8 @@ export default {
         tableData () {
             return this.$store.state.basicModel.tableData
         },
-        total_num () {
-            return this.$store.state.basicModel.total_num 
+        totalNum () {
+            return this.$store.state.basicModel.totalNum
         },
         num () {
             return this.$store.state.basicModel.num
@@ -15,7 +15,6 @@ export default {
         paginator () {
             return this.$store.state.basicModel.paginator
         },
-        
         modelUrlParams () {
             return this.$route.params.model
         },

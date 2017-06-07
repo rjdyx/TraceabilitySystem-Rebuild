@@ -69,7 +69,7 @@ export default {
         isShowSiderBar () {
             if (this.isShowSiderBar) {
                 // if(this.$children[0].$children[0] !== undefined) this.$children[0].$children[0].closeMenu()
-                if(this.$children[0].$children[0] !== undefined) this.$children[0].$children[0].activedIndex = ''
+                if (this.$children[0].$children[0] !== undefined) this.$children[0].$children[0].activedIndex = ''
                 this.$store.dispatch('switch_record', '')
             }
         }

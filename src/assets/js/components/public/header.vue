@@ -99,9 +99,7 @@ export default {
             })
         },
         changeSub () {
-            this.$Progress.start()
             this.change_siderBar(true)
-            this.$Progress.finish()
         }
     },
     mounted () {

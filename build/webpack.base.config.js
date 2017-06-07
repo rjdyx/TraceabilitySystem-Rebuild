@@ -8,6 +8,9 @@ const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
 const isProd = process.env.NODE_ENV === 'production'
 const projectRoot = path.resolve(__dirname, '../');
 
+function resolve (dir) {
+  return path.join(__dirname, '..', dir)
+}
 
 let config = {
   devtool: isProd
@@ -30,6 +33,15 @@ let config = {
   module: {
     noParse: /es6-promise\.js$/, // avoid webpack shimming process
     rules: [
+      {
+        test: /\.(js|vue)$/,
+        loader: 'eslint-loader',
+        enforce: 'pre',
+        include: [resolve('src'), resolve('test')],
+        options: {
+          formatter: require('eslint-friendly-formatter')
+        }
+      },
       {
         test: /\.vue$/,
         loader: 'vue-loader',

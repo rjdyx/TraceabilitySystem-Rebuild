@@ -1,18 +1,18 @@
-export default function createAuthView (component) {
-  return {
+export default function createAuthView (component, title = '') {
+    return {
 
-    async asyncData ({ store, route}) {
-      if(route.path === '/P/login') {
-        return store.dispatch('FETCH_TOKEN_AND_KIT')
-      }else {
-        return store.dispatch('FETCH_TOKEN_AND_ROLES')
-      }
-    },
+        async asyncData ({ store, route }) {
+            if (route.path === '/P/login') {
+                return store.dispatch('FETCH_TOKEN_AND_KIT')
+            } else {
+                return store.dispatch('FETCH_TOKEN_AND_ROLES')
+            }
+        },
 
-    title: '生之园',
+        title: title,
 
-    render (h) {
-      return h(component)
+        render (h) {
+            return h(component)
+        }
     }
-  }
 }
