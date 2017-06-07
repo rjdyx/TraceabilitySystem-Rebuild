@@ -71,3 +71,4 @@ if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
 * css库
 */
 require('../sass/index.scss')
+require('./page/phone/plant/js/fontSize.js')
