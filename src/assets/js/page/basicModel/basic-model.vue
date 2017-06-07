@@ -864,7 +864,6 @@ export default {
     },
 
     mounted () {
-        console.log(this)
         this.change_siderBar(false)
         this.activeName = 'index0'
         // 获取下拉框

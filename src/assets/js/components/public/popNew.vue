@@ -9,7 +9,6 @@
 
 <template>
 <div class="newWrap">
-<!-- @mousedown='formDown' @mousemove='formMove' -->
   <form class="newForm" >
     <i class="closeBtn" @click="closeClick"></i>
       <!-- tab选项卡 -->

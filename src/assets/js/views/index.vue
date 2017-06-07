@@ -21,7 +21,7 @@ export default {
                     path: '/index/home'
                 },
                 {
-                    name: this.$store.state.auth.roles.name,
+                    name: JSON.parse(this.$store.state.auth.roles).name,
                     src: '/public/images/test.png',
                     path: '/index/test'
                 },
