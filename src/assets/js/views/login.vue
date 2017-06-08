@@ -144,11 +144,9 @@ export default {
     },
 
     methods: {
-
         ...mapMutations([
             'SET_KIT'
         ]),
-
         submitForm (formName) {
             this.$refs[formName].validate((valid) => {
                 if (valid) {
@@ -199,9 +197,8 @@ export default {
             console.log('iwgufewgfyefheufeuf')
         }
     },
-    
     mounted () {
-        if(this.kit_url === '') this.Kit()
+        if (this.kit_url === '') this.Kit()
         // 记住账号
         if (localStorage.getItem('recordUser') === '' || localStorage.getItem('recordUser') === undefined) {
             this.recordeChecked = false

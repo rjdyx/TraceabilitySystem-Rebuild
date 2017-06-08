@@ -1,12 +1,12 @@
 const LocalEvent = function (item) {
     this.get = function () {
-        return (typeof localStorage) === 'undefined'?'':localStorage.getItem(item) ? JSON.parse(localStorage.getItem(item)) : ''
+        return (typeof localStorage) === 'undefined' ? '' : localStorage.getItem(item) ? JSON.parse(localStorage.getItem(item)) : ''
     }
     this.set = function (obj) {
-        if((typeof localStorage) !== 'undefined') localStorage.setItem(item, JSON.stringify(obj))
+        if ((typeof localStorage) !== 'undefined') localStorage.setItem(item, JSON.stringify(obj))
     }
     this.clear = function () {
-        if((typeof localStorage) !== 'undefined') localStorage.removeItem(item)
+        if ((typeof localStorage) !== 'undefined') localStorage.removeItem(item)
     }
 }
 export const modelLocal = new LocalEvent('record')

@@ -21,7 +21,7 @@
             <tbody></tbody>
                 <template v-for="subItem in item.components">
                     <!-- 文本框 -->
-                    <tr class="tr1" v-if="subItem.type=='text'">
+                    <tr class="tr1" v-if="subItem.type=='text' && !subItem.hiddenSelect">
                         <td v-if="!subItem.hiddenSelect">
                             <el-form-item :label="subItem.label" :prop="subItem.name">
                                 <el-input 
@@ -39,7 +39,7 @@
                     <tr class="tr1" v-else-if="subItem.type=='select' && !subItem.hiddenSelect"> 
                         <td>
                             <el-form-item :label="subItem.label" :prop="subItem.name">
-                              <el-select v-model="editForm[subItem.name]" :placeholder="subItem.placeholder" size="small" @change="getSelectId(subItem.name,editForm[subItem.name])" :disabled="subItem.disabled">
+                              <el-select v-model="editForm[subItem.name]" :placeholder="subItem.placeholder" size="small" @change="getSelectId(subItem,editForm[subItem.name])" :disabled="subItem.disabled">
                                 <el-option 
                                     v-for="option in subItem.options" 
                                     :label="option.label" 
@@ -53,7 +53,7 @@
                     </tr>
 
                     <!-- 多行文本框  -->
-                    <tr class="tr1" v-else-if="subItem.type=='textarea'">
+                    <tr class="tr1" v-else-if="subItem.type=='textarea' && !subItem.hiddenSelect">
                         <td>
                             <el-form-item :label="subItem.label" :prop="subItem.name">
                                 <el-input 
@@ -68,7 +68,7 @@
                     </tr>
 
                     <!-- 传组件 -->
-                    <tr class="tr1" v-else-if="subItem.component">
+                    <tr class="tr1" v-else-if="subItem.component && !subItem.hiddenSelect">
                         <td>
                             <el-form-item :label="subItem.label" :prop="subItem.name">
                                 <component 
@@ -96,7 +96,7 @@
                 </template>
 
                  <!-- 传二级多选框组件 -->
-                <tr class="tr1" v-if="checkboxShow">
+                <tr class="tr1" v-if="checkboxShow && !subItem.hiddenSelect">
                     <td>
                         <ul class="ul">
                             <li>
@@ -166,6 +166,7 @@ export default {
             memuList: {},
             checkeds: [],
             disabled: false,
+            disabledV: false,
             editAllowance: 0,
             allowance: 0,
             cname: '',
@@ -175,7 +176,7 @@ export default {
     mounted () {
         if (this.checkboxShow) {
             // 全部数据
-            axios.get('api/company/permission')
+            axios.get(this.$adminUrl('company/permission'))
                 .then((responce) => {
                     this.memuList = responce.data
                 })
@@ -196,7 +197,7 @@ export default {
     methods: {
         // 角色权限默认选中数据
         rolePermisstion (roleId = null) {
-            axios.get('api/role/permission/' + this.roleId)
+            axios.get(this.$adminUrl('role/permission/') + this.roleId)
                 .then((responce) => {
                     if (responce.data) {
                         this.checkeds = responce.data
@@ -370,7 +371,15 @@ export default {
             }
         },
         // 编辑下拉框选择事件
-        getSelectId (name, val) {
+        getSelectId (subItem, val) {
+            var assoc = subItem.assoc
+            var name = subItem.name
+            var number = subItem.selectNumber
+            var changeTable = subItem.changeTable
+            var com = this.editComponent[0].components
+            var state = false
+            var seed = ''
+            var seed2 = []
             if (val !== '') {
                 if (name === 'pid' || name === 'farm_id' || name === 'plantation_id') {
                     let com = this.editComponent[0]
@@ -397,16 +406,46 @@ export default {
                             }
                             this.editForm['unit'] = responce.data['unit']
                             this.editAllowance = parseInt(responce.data['min_num'])
-                            com.components[com.limit].rule[1]['max'] = this.allowance
-                            com.components[com.limit].rule[1]['min'] = this.editAllowance
-                            com.components[com.limit].rule[1]['getMiddle'] = true
-                            com.components[com.limit].rule[1]['getMessage'] = '最大输入' + this.allowance + ', 最小输入' + this.editAllowance
+                            com[com.limit].rule[1]['max'] = this.allowance
+                            com[com.limit].rule[1]['min'] = this.editAllowance
+                            com[com.limit].rule[1]['getMiddle'] = true
+                            com[com.limit].rule[1]['getMessage'] = '最大输入' + this.allowance + ', 最小输入' + this.editAllowance
                         })
                     }
                 }
             } else {
                 if (name === 'pid' || name === 'farm_id' || name === 'plantation_id') {
                     this.allowance = 0
+                }
+            }
+            if (number !== undefined && number !== '') {
+                for (let k in number) {
+                    if (k !== val) {
+                        state = true
+                        seed = 'seed'
+                        seed2 = ['seed']
+                    } else {
+                        state = false
+                        seed = ''
+                        seed2 = []
+                    }
+                    for (let k2 in number[k]) {
+                        com[number[k][k2]].hiddenSelect = state
+                        if (com[number[k][k2]].type === 'table') {
+                            this.editForm[com[number[k][k2]].valueId] = seed2
+                        }
+                        if (com[number[k][k2]].type === 'select') {
+                            this.editForm[com[number[k][k2]].value] = seed
+                        }
+                        if (com[number[k][k2]].type === 'text' || com[number[k][k2]].type === 'textSelect') {
+                            this.editForm[com[number[k][k2]].name] = seed
+                        }
+                    }
+                }
+                if (number[val] !== undefined) {
+                    for (let k3 in number[val]) {
+                        com[number[val][k3]].hiddenSelect = false
+                    }
                 }
             }
         }

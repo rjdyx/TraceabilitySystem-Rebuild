@@ -1,8 +1,8 @@
-const { 
-    fetchTokenAndKit, 
-    fetchTokenAndRole, 
+const {
+    fetchTokenAndKit,
+    fetchTokenAndRole,
     fetchToken,
-    fetchKit 
+    fetchKit
 } = require('../../api')
 
 const state = {
@@ -31,10 +31,10 @@ const actions = {
             let kit = ''
             // 在浏览器端调用此action后获取到的数据是对象
             // 而在服务器端获取到的数据是json字符串，需转换成json对象
-            if(typeof window === 'undefined') {
+            if (typeof window === 'undefined') {
                 token = eval('(' + tokenRes.data + ')')
                 kit = eval('(' + kitRes.data + ')')
-            }else {
+            } else {
                 token = tokenRes.data
                 kit = kitRes.data
             }
@@ -56,21 +56,19 @@ const actions = {
             let roles = null
             // 在浏览器端调用此action后获取到的数据是对象
             // 而在服务器端获取到的数据是json字符串，需转换成json对象
-            if(typeof window === 'undefined') {
+            if (typeof window === 'undefined') {
                 token = eval('(' + tokenRes.data + ')')
                 roles = eval('(' + rolesRes.data + ')')
-            }else {
+            } else {
                 token = tokenRes.data
                 roles = rolesRes.data
             }
-            
             commit('SET_TOKEN', token)
-            if(roles.name === undefined) {
+            if (roles.name === undefined) {
                 commit('SET_ROLES', JSON.stringify({}))
-            }else {
+            } else {
                 commit('SET_ROLES', JSON.stringify(roles))
             }
-            
         }))
         .catch((error) => {
             console.log(error.response.data)
@@ -84,6 +82,7 @@ const actions = {
             })
             .catch((error) => {
                 console.log('get token failed!')
+                console.log(error.response.data)
             })
     },
 
@@ -94,6 +93,7 @@ const actions = {
             })
             .catch((error) => {
                 console.log('get kit failed!')
+                console.log(error.response.data)
             })
     },
 
@@ -104,6 +104,7 @@ const actions = {
             })
             .catch((error) => {
                 console.log('get roles failed!')
+                console.log(error.response.data)
             })
     }
 }

@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import 'es6-promise/auto'
 import { createApp } from './app'
-import { initAxios } from './config/http'
-import { clientToLogin } from './router/authFilter'
+import { initAxios } from './utils/http'
+import { clientToLogin } from './utils/authFilter'
 import ProgressBar from './components/ProgressBar.vue'
 
 // 全局进度条
@@ -32,7 +32,6 @@ const { app, router, store } = createApp()
 // 这里的状态在服务端渲染期间就已经确定好了，并且嵌入到html结构中
 if (window.__INITIAL_STATE__) {
     store.replaceState(window.__INITIAL_STATE__)
-    
 }
 
 router.onReady(() => {
@@ -63,8 +62,6 @@ router.onReady(() => {
     app.$mount('#app')
 })
 
-
-
 // service worker
 if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
     navigator.serviceWorker.register('/service-worker.js')
@@ -74,3 +71,4 @@ if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
 * css库
 */
 require('../sass/index.scss')
+require('./page/phone/plant/js/fontSize.js')
