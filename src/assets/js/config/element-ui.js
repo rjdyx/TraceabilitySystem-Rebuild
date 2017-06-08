@@ -4,10 +4,10 @@
 
 // 注册element-ui全局组件
 import Vue from 'vue'
-import enLocale from 'element-uib/locale/lang/en'
-import zhLocale from 'element-uib/locale/lang/zh-CN'
-import locale from 'element-uib/locale'
-import 'element-uib/theme-default/index.css'
+import enLocale from 'element-ui/lib/locale/lang/en'
+import zhLocale from 'element-ui/lib/locale/lang/zh-CN'
+import locale from 'element-ui/lib/locale'
+import 'element-ui/lib/theme-default/index.css'
 // 设置语言
 switch (require('projectRoot/env.js').app_lang) {
 case 'zh-CN':
