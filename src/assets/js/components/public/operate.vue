@@ -7,11 +7,11 @@
  */
 <template>
 	<div class="operate_wrap">
-		<div v-for="item in listComponent" class="operate">
-			<div class="inline operateBtn" v-for="item in item.components">
+		<div v-for="(item, i) in listComponent" :key="i" class="operate">
+			<div class="inline operateBtn" v-for="(item, j) in item.components" :key="j">
 				<!-- 下拉框	 -->
 				<el-select class="select inline" size="small" v-model="item.value" v-if="item.type=='select'" @change="getSelect(item.name,item.value)">
-					<el-option v-for="option in item.options" :label="option.label" :value="option.value">
+					<el-option v-for="option in item.options" :label="option.label" :value="option.value" :key="option.label + option.value">
 					</el-option>
 				</el-select>
 				<!-- 日期 -->

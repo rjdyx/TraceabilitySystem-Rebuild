@@ -1,67 +1,18 @@
+/**
+* 手机端路由
+*/
 
 // ----------------------------种植模块------------------------------------
-// ---------------------------手机版首页----------------------------------
-const plantIndex = resolve => {
-    require.ensure(['../page/phone/plant/index.vue'], () => {
-        resolve(require('../page/phone/plant/index.vue'))
-    }, 'plantIndex')
-}
+const plantIndex = () => import('../page/phone/plant/index.vue') // 首页
+const video = () => import('../page/phone/plant/video.vue') // 实时视频
+const pBasic = () => import('../page/phone/plant/basic.vue') // 基础信息
+const shop = () => import('../page/phone/plant/shop.vue') // 购物链接
+const grow = () => import('../page/phone/plant/grow.vue') // 生长图片
+const bM1 = () => import('../page/phone/plant/basic_model1.vue') // 农事信息、肥料信息__记录页
+const bM2 = () => import('../page/phone/plant/basic_model1.vue') // 农事信息、肥料信息__记录详情页
+const commodity = () => import('../page/phone/plant/commodity.vue') // 商品信息
+const breedIndex = () => import('../page/phone/plant/breedIndex.vue') // 种植首页
 
-// ---------------------------手机版首页__实时视频----------------------------------
-const video = resolve => {
-    require.ensure(['../page/phone/plant/video.vue'], () => {
-        resolve(require('../page/phone/plant/video.vue'))
-    }, 'video')
-}
-
-// ---------------------------手机版首页__基础信息----------------------------------
-const pBasic = resolve => {
-    require.ensure(['../page/phone/plant/basic.vue'], () => {
-        resolve(require('../page/phone/plant/basic.vue'))
-    }, 'basic')
-}
-
-// ---------------------------手机版首页__购物链接----------------------------------
-const shop = resolve => {
-    require.ensure(['../page/phone/plant/shop.vue'], () => {
-        resolve(require('../page/phone/plant/shop.vue'))
-    }, 'shop')
-}
-
-// ---------------------------手机版首页__生长图片----------------------------------
-const grow = resolve => {
-    require.ensure(['../page/phone/plant/grow.vue'], () => {
-        resolve(require('../page/phone/plant/grow.vue'))
-    }, 'grow')
-}
-
-// ---------------------------手机版首页__农事信息、肥料信息__记录页----------------------------------
-const bM1 = resolve => {
-    require.ensure(['../page/phone/plant/basic_model1.vue'], () => {
-        resolve(require('../page/phone/plant/basic_model1.vue'))
-    }, 'bM1')
-}
-
-// ---------------------------手机版首页__农事信息、肥料信息__记录详情页----------------------------------
-const bM2 = resolve => {
-    require.ensure(['../page/phone/plant/basic_model2.vue'], () => {
-        resolve(require('../page/phone/plant/basic_model2.vue'))
-    }, 'bM2')
-}
-
-// ---------------------------手机版首页__商品信息----------------------------------
-const commodity = resolve => {
-    require.ensure(['../page/phone/plant/commodity.vue'], () => {
-        resolve(require('../page/phone/plant/commodity.vue'))
-    }, 'commodity')
-}
-
-// ---------------------------   种植首页  ----------------------------------
-const breedIndex = resolve => {
-    require.ensure(['../page/phone/plant/breedIndex.vue'], () => {
-        resolve(require('../page/phone/plant/breedIndex.vue'))
-    }, 'breedIndex')
-}
 
 // ---------------- 手机端路由  种植-----------------
 export default {

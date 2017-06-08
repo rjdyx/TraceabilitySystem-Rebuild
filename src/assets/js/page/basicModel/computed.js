@@ -1,5 +1,20 @@
 export default {
     computed: {
+        /**
+         * 列表数据和分页
+         */
+        tableData () {
+            return this.$store.state.basicModel.tableData
+        },
+        totalNum () {
+            return this.$store.state.basicModel.totalNum
+        },
+        num () {
+            return this.$store.state.basicModel.num
+        },
+        paginator () {
+            return this.$store.state.basicModel.paginator
+        },
         modelUrlParams () {
             return this.$route.params.model
         },
@@ -92,6 +107,9 @@ export default {
         },
         roleName () {
             return this.models[this.modelIndex].roleName
+        },
+        hiddeShow () {
+            return this.models[this.modelIndex].hiddeShow
         }
     }
 }

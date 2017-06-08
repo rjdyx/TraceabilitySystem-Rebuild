@@ -14,7 +14,7 @@
       <!-- tab选项卡 -->
       <!-- <h4>{{editComponent[0].tab}}</h4> -->
       <el-tabs v-model="activeName" @tab-click="handleClick">
-        <el-tab-pane :label="item.tab" :name="item.tab" v-for="(item,i) in editComponent">
+        <el-tab-pane :label="item.tab" :name="item.tab" v-for="(item,i) in editComponent" :key="i">
           <!-- 表单 -->
         <el-form :model="editForm" :rules="rules" ref="editForm" label-width="110px" class="demo-editForm">
             <table>
@@ -43,6 +43,7 @@
                                     v-for="option in subItem.options" 
                                     :label="option.label" 
                                     :value="option.value" 
+                                    :key="option.label + option.value"
                                     size="small"
                                     ></el-option>
                               </el-select>
@@ -76,6 +77,7 @@
                                     :inputEditValue="editForm[subItem.name]"
                                     :selectEditValue="editForm['unit']"
                                     :disabled="disabled"
+                                    :disabledV="disabledV"
                                     :editAllowance="editAllowance"
                                     :allowance="allowance"
                                     @return-shuju="returnShuju"
@@ -101,6 +103,7 @@
                                 :lists="itemList" 
                                 :checkeds="checkeds[key]"
                                 :name="key" 
+                                :key="key"
                                 @return-isAllcheck="allChange" 
                                 @return-checked="allChecked">
                                 </allCheck>
@@ -162,6 +165,7 @@ export default {
             memuList: {},
             checkeds: [],
             disabled: false,
+            disabledV: false,
             editAllowance: 0,
             allowance: 0,
             cname: '',
@@ -316,6 +320,15 @@ export default {
                     com[8].hiddenSelect = false
                 }
             }
+            if (this.url === 'cultivate') {
+                if (this.editForm.state === '已完成') {
+                    this.disabledV = true
+                    this.editComponent[0].components[1].disabled = true
+                } else {
+                    this.disabledV = false
+                    this.editComponent[0].components[1].disabled = false
+                }
+            }
         },
         // 编辑访问接口
         routeApi () {
@@ -333,9 +346,10 @@ export default {
                             this.disabled = false
                         }
                     })
-                } else if (this.url === 'area') {
+                } else if (this.url === 'area' || this.url === 'cultivate') {
                     this.disabled = true
-                    let pid = {id: this.editForm.pid !== undefined ? this.editForm.pid : this.editForm.farm_id}
+                    // let pid = {id: this.editForm.pid !== undefined ? this.editForm.pid : this.editForm.farm_id}
+                    let pid = {id: this.editForm.farm_id !== undefined ? this.editForm.farm_id : this.editForm.plantation_id}
                     axios.get(this.$adminUrl(this.url + '/getArea'), {params: pid}).then((responce) => {
                         this.allowance = parseInt(responce.data['num']) + parseInt(this.editForm.area)
                         com.components[com.limit].rule[1]['getMax'] = this.allowance
@@ -365,23 +379,23 @@ export default {
             var state = false
             var seed = ''
             var seed2 = []
-            if (name === 'pid' || name === 'farm_id') {
-                // let com = this.editComponent[0]
-                if (this.url !== 'farmcd' && this.url !== 'planta') {
-                    let params = {id: val}
-                    let sid = this.editDefault.pid !== undefined ? this.editDefault.pid : this.editDefault.farm_id
-                    axios.get(this.$adminUrl(this.url + '/getArea'), {params: params}).then((responce) => {
-                        if (val === sid) {
-                            this.allowance = parseInt(responce.data['num']) + parseInt(this.editDefault.area)
-                        } else {
-                            this.allowance = responce.data['num']
-                        }
-                        this.editForm['unit'] = responce.data['unit']
-                        com[com.limit].rule[1]['getMax'] = this.allowance
-                        com[com.limit].rule[1]['getMessage'] = com.getMessage
-                    })
-                } else {
-                    if (val !== '') {
+            if (val !== '') {
+                if (name === 'pid' || name === 'farm_id' || name === 'plantation_id') {
+                    let com = this.editComponent[0]
+                    if (this.url !== 'farmcd' && this.url !== 'planta') {
+                        let params = {id: val}
+                        let sid = this.editDefault.pid !== undefined ? this.editDefault.pid : this.editDefault.farm_id !== undefined ? this.editDefault.farm_id : this.editDefault.plantation_id
+                        axios.get(this.$adminUrl(this.url + '/getArea'), {params: params}).then((responce) => {
+                            if (val === sid) {
+                                this.allowance = parseInt(responce.data['num']) + parseInt(this.editDefault.area)
+                            } else {
+                                this.allowance = responce.data['num']
+                            }
+                            this.editForm['unit'] = responce.data['unit']
+                            com.components[com.limit].rule[1]['getMax'] = this.allowance
+                            com.components[com.limit].rule[1]['getMessage'] = com.getMessage
+                        })
+                    } else {
                         let params = {id: this.editForm.id, pid: val}
                         axios.get(this.$adminUrl(this.url + '/getSetArea'), {params: params}).then((responce) => {
                             if (val === this.editDefault.pid) {
@@ -396,11 +410,11 @@ export default {
                             com[com.limit].rule[1]['getMiddle'] = true
                             com[com.limit].rule[1]['getMessage'] = '最大输入' + this.allowance + ', 最小输入' + this.editAllowance
                         })
-                    } else {
-                        this.editForm['unit'] = '亩'
-                        this.allowance = 0
-                        this.disabledV = true
                     }
+                }
+            } else {
+                if (name === 'pid' || name === 'farm_id' || name === 'plantation_id') {
+                    this.allowance = 0
                 }
             }
             if (number !== undefined && number !== '') {

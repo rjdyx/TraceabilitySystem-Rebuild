@@ -36,7 +36,7 @@
             this.chartLine = echarts.init(document.getElementById('chartLine'))
             this.chartPie = echarts.init(document.getElementById('chartPie'))
 
-            axios.get('api/index/echarts')
+            axios.get('/api/index/echarts')
                 .then((responce) => {
                     var bus = {}
                     var area = []

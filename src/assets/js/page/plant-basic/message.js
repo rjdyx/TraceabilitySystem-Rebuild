@@ -92,7 +92,7 @@ export default {
                 isNull: false,
                 label: '分类名称',
                 placeholder: '必填',
-                rule: [{required: true, message: '请选择分类名称', trigger: 'blur'}, {validator: validate2.reCheck}]
+                rule: [{required: true, message: '请选择分类名称', trigger: 'blur'}, {validator: validate2.reCheck, trigger: 'blur', message: '分类名称重复'}]
             },
             {
                 name: 'type',
@@ -152,7 +152,7 @@ export default {
         editComponent: [{
             tab: '编辑分类档案信息',
             checkNumber: [0],
-            popNumber: 1,
+            editNumber: 1,
             components: [{
                 name: 'name',
                 type: 'text',
@@ -160,7 +160,7 @@ export default {
                 isNull: false,
                 label: '分类名称',
                 placeholder: '必填',
-                rule: [{required: true, message: '请输入分类名称', trigger: 'blur'}, {validator: validate2.reCheck}]
+                rule: [{required: true, message: '请输入分类名称', trigger: 'blur'}, {validator: validate2.reCheck, trigger: 'blur', message: '分类名称重复'}]
             },
             {
                 name: 'type',
@@ -254,7 +254,7 @@ export default {
             selectUrl: [['category', 'operate', 'category_id', 'category_name', true]],
             selectInit: [{value: '', label: '选择操作人分类'}],
             permissionSelectUrl: ['api/permission_domain'],
-            permissionSelectArr: [[{value: 'all', label: '公共模块'}, {set: 'delivery', value: 'delivery', label: '物流管理'}, {set: 'plant', value: 'plant', label: '种植管理'}, {set: 'beast', value: 'beast', label: '养殖管理'}, {set: 'packb', value: 'packb', label: '畜禽加工管理'}, {set: 'packp', value: 'packp', label: '果蔬加工管理'}, {set: 'sell', value: 'sell', label: '销售管理'}]],
+            permissionSelectArr: [[{value: '', label: '请选择模块领域'}, {value: 'all', label: '公共模块'}, {set: 'delivery', value: 'delivery', label: '物流管理'}, {set: 'plant', value: 'plant', label: '种植管理'}, {set: 'beast', value: 'beast', label: '养殖管理'}, {set: 'packb', value: 'packb', label: '畜禽加工管理'}, {set: 'packp', value: 'packp', label: '果蔬加工管理'}, {set: 'sell', value: 'sell', label: '销售管理'}]],
             permissionNumber: [1],
             checkNumber: [2],
             hasImg: true,
@@ -286,7 +286,7 @@ export default {
                 isNull: false,
                 label: '姓名',
                 placeholder: '必填',
-                rule: [{required: true, message: '请输入姓名', trigger: 'blur'}, {validator: validate2.reCheck}]
+                rule: [{required: true, message: '请输入姓名', trigger: 'blur'}, {validator: validate2.reCheck, trigger: 'blur', message: '人员名称重复'}]
             },
             {
                 name: 'identity',
@@ -367,9 +367,10 @@ export default {
             selectInit: [{value: '', label: '选择操作人分类'}],
             checkNumber: [2],
             permissionSelectUrl: ['api/permission_domain'],
-            permissionSelectArr: [[{value: 'all', label: '公共模块'}, {set: 'plant', value: 'plant', label: '种植管理'}, {set: 'beast', value: 'beast', label: '养殖管理'}, {set: 'packb', value: 'packb', label: '畜禽加工管理'}, {set: 'packp', value: 'packp', label: '果蔬加工管理'}, {set: 'sell', value: 'sell', label: '销售管理'}]],
+            permissionSelectArr: [[{value: '', label: '请选择模块领域'}, {value: 'all', label: '公共模块'}, {set: 'plant', value: 'plant', label: '种植管理'}, {set: 'beast', value: 'beast', label: '养殖管理'}, {set: 'packb', value: 'packb', label: '畜禽加工管理'}, {set: 'packp', value: 'packp', label: '果蔬加工管理'}, {set: 'sell', value: 'sell', label: '销售管理'}]],
             permissionNumber: [1],
             popNumber: [0],
+            editNumber: 1,
             hasImg: true,
             components: [{
                 name: 'category_id',
@@ -388,25 +389,9 @@ export default {
                 isNull: false,
                 label: '模块领域',
                 placeholder: '',
+                disabled: false,
                 rule: {required: true, message: '请选择模块领域', trigger: 'blur'},
-                options: [{
-                    value: 'all', label: '公共模块'
-                },
-                {
-                    value: 'plant', label: '种植管理'
-                },
-                {
-                    value: 'beast', label: '养殖管理'
-                },
-                {
-                    value: 'packb', label: '畜禽加工管理'
-                },
-                {
-                    value: 'packp', label: '果蔬加工管理'
-                },
-                {
-                    value: 'sell', label: '销售管理'
-                }]
+                options: []
             },
             {
                 name: 'name',
@@ -415,7 +400,7 @@ export default {
                 isNull: false,
                 label: '姓名',
                 placeholder: '必填',
-                rule: [{required: true, message: '请输入姓名', trigger: 'blur'}, {validator: validate2.reCheck}]
+                rule: [{required: true, message: '请输入姓名', trigger: 'blur'}, {validator: validate2.reCheck, trigger: 'blur', message: '人员名称重复'}]
             },
             {
                 name: 'identity',
@@ -450,7 +435,7 @@ export default {
                 isNull: true,
                 label: '年龄',
                 placeholder: '',
-                rule: null
+                rule: [{required: false, message: '请输入整数'}, {validator: validate2.reInteger}]
             },
             {
                 name: 'phone',
@@ -517,7 +502,7 @@ export default {
             selectUrl: [['category', 'expert', 'category_id', 'category_name', true]],
             selectInit: [{value: '', label: '选择专家分类'}],
             permissionSelectUrl: ['api/permission_domain'],
-            permissionSelectArr: [[{value: 'all', label: '公共模块'}, {set: 'plant', value: 'plant', label: '种植管理'}, {set: 'beast', value: 'beast', label: '养殖管理'}]],
+            permissionSelectArr: [[{value: '', label: '请选择模块领域'}, {value: 'all', label: '公共模块'}, {set: 'plant', value: 'plant', label: '种植管理'}, {set: 'beast', value: 'beast', label: '养殖管理'}]],
             permissionNumber: [1],
             checkNumber: [2],
             popNumber: [0],
@@ -549,7 +534,7 @@ export default {
                 isNull: false,
                 label: '专家名称',
                 placeholder: '必填',
-                rule: [{required: true, message: '请输入专家名称', trigger: 'blur'}, {validator: validate2.reCheck}]
+                rule: [{required: true, message: '请输入专家名称', trigger: 'blur'}, {validator: validate2.reCheck, trigger: 'blur', message: '专家名称重复'}]
             },
             {
                 name: 'level',
@@ -638,10 +623,11 @@ export default {
             selectUrl: [['category', 'expert', 'category_id', 'category_name', true]],
             selectInit: [{value: '', label: '选择专家分类'}],
             permissionSelectUrl: ['api/permission_domain'],
-            permissionSelectArr: [[{value: 'all', label: '公共模块'}, {set: 'plant', value: 'plant', label: '种植管理'}, {set: 'beast', value: 'beast', label: '养殖管理'}]],
+            permissionSelectArr: [[{value: '', label: '请选择模块领域'}, {value: 'all', label: '公共模块'}, {set: 'plant', value: 'plant', label: '种植管理'}, {set: 'beast', value: 'beast', label: '养殖管理'}]],
             permissionNumber: [1],
             checkNumber: [2],
             popNumber: [0],
+            editNumber: 1,
             hasImg: true,
             components: [{
                 name: 'category_id',
@@ -660,6 +646,7 @@ export default {
                 isNull: false,
                 label: '模块领域',
                 placeholder: '',
+                disabled: false,
                 rule: {required: true, message: '请选择模块领域', trigger: 'blur'},
                 options: []
             },
@@ -670,7 +657,7 @@ export default {
                 isNull: false,
                 label: '专家名称',
                 placeholder: '必填',
-                rule: [{required: true, message: '请输入专家名称', trigger: 'blur'}, {validator: validate2.reCheck}]
+                rule: [{required: true, message: '请输入专家名称', trigger: 'blur'}, {validator: validate2.reCheck, trigger: 'blur', message: '专家名称重复'}]
             },
             {
                 name: 'level',
@@ -815,7 +802,7 @@ export default {
                 isNull: false,
                 label: '客户名称',
                 placeholder: '必填',
-                rule: [{required: true, message: '请输入客户名称', trigger: 'blur'}, {validator: validate2.reCheck}]
+                rule: [{required: true, message: '请输入客户名称', trigger: 'blur'}, {validator: validate2.reCheck, trigger: 'blur', message: '客户名称重复'}]
             },
             {
                 name: 'phone',
@@ -899,7 +886,7 @@ export default {
                 isNull: false,
                 label: '客户名称',
                 placeholder: '必填',
-                rule: [{required: true, message: '请输入专家名称', trigger: 'blur'}, {validator: validate2.reCheck}]
+                rule: [{required: true, message: '请输入专家名称', trigger: 'blur'}, {validator: validate2.reCheck, trigger: 'blur', message: '客户名称重复'}]
             },
             {
                 name: 'phone',
@@ -983,7 +970,7 @@ export default {
                 isNull: false,
                 label: '供货商名称',
                 placeholder: '必填',
-                rule: [{required: true, trigger: 'blur'}, {validator: validate2.reCheck}]
+                rule: [{required: true, message: '请输入供货商名称', trigger: 'blur'}, {validator: validate2.reCheck, trigger: 'blur', message: '供货商名称重复'}]
             },
             {
                 name: 'phone',
@@ -1046,7 +1033,7 @@ export default {
                 isNull: false,
                 label: '供货商名称',
                 placeholder: '必填',
-                rule: [{required: true, trigger: 'blur'}, {validator: validate2.reCheck}]
+                rule: [{required: true, message: '请输入供货商名称', trigger: 'blur'}, {validator: validate2.reCheck, trigger: 'blur', message: '供货商名称重复'}]
             },
             {
                 name: 'phone',
@@ -1122,7 +1109,7 @@ export default {
             selectUrl: [['category', 'product', 'category_id', 'category_name', true]],
             selectInit: [{value: '', label: '选择产品分类'}],
             permissionSelectUrl: ['api/permission_domain'],
-            permissionSelectArr: [[{value: 'all', label: '公共模块'}, {set: 'packb', value: 'packb', label: '畜禽加工管理'}, {set: 'packp', value: 'packp', label: '果蔬加工管理'}, {set: 'sell', value: 'sell', label: '销售管理'}]],
+            permissionSelectArr: [[{value: '', label: '请选择模块领域'}, {value: 'all', label: '公共模块'}, {set: 'packb', value: 'packb', label: '畜禽加工管理'}, {set: 'packp', value: 'packp', label: '果蔬加工管理'}, {set: 'sell', value: 'sell', label: '销售管理'}]],
             permissionNumber: [1],
             checkNumber: [2],
             popNumber: [0],
@@ -1154,7 +1141,7 @@ export default {
                 isNull: false,
                 label: '产品名称',
                 placeholder: '必填',
-                rule: [{required: true, trigger: 'blur'}, {validator: validate2.reCheck}]
+                rule: [{required: true, trigger: 'blur', message: '请输入产品名称'}, {validator: validate2.reCheck, trigger: 'blur', message: '产品名称重复'}]
             },
             {
                 name: 'enforce_standard',
@@ -1253,11 +1240,12 @@ export default {
             selectUrl: [['category', 'product', 'category_id', 'category_name', true]],
             selectInit: [{value: '', label: '选择产品分类'}],
             permissionSelectUrl: ['api/permission_domain'],
-            permissionSelectArr: [[{value: 'all', label: '公共模块'}, {set: 'packb', value: 'packb', label: '畜禽加工管理'}, {set: 'packp', value: 'packp', label: '果蔬加工管理'}, {set: 'sell', value: 'sell', label: '销售管理'}]],
+            permissionSelectArr: [[{value: '', label: '请选择模块领域'}, {value: 'all', label: '公共模块'}, {set: 'packb', value: 'packb', label: '畜禽加工管理'}, {set: 'packp', value: 'packp', label: '果蔬加工管理'}, {set: 'sell', value: 'sell', label: '销售管理'}]],
             permissionNumber: [1],
             checkNumber: [2],
             popNumber: [0],
             hasImg: true,
+            editNumber: 1,
             components: [{
                 name: 'category_id',
                 type: 'select',
@@ -1275,6 +1263,7 @@ export default {
                 isNull: false,
                 label: '模块领域',
                 placeholder: '',
+                disabled: false,
                 rule: {required: true, message: '请选择模块领域', trigger: 'blur'},
                 options: []
             },
@@ -1285,7 +1274,7 @@ export default {
                 isNull: false,
                 label: '产品名称',
                 placeholder: '必填',
-                rule: [{required: true, trigger: 'blur'}, {validator: validate2.reCheck, url: 'product'}]
+                rule: [{required: true, trigger: 'blur', message: '请输入产品名称'}, {validator: validate2.reCheck, trigger: 'blur', message: '产品名称重复'}]
             },
             {
                 name: 'enforce_standard',
@@ -1420,7 +1409,7 @@ export default {
                     isNull: false,
                     label: '养殖场名称',
                     placeholder: '必填',
-                    rule: [{required: true, trigger: 'blur', message: '请输入养殖场'}, {validator: validate2.reCheck}]
+                    rule: [{required: true, trigger: 'blur', message: '请输入养殖场'}, {validator: validate2.reCheck, trigger: 'blur', message: '养殖场名称重复'}]
                 },
                 {
                     name: 'area',
@@ -1519,7 +1508,7 @@ export default {
                     isNull: false,
                     label: '养殖场名称',
                     placeholder: '必填',
-                    rule: {required: true, trigger: 'blur', message: '请输入养殖场名称'}
+                    rule: [{required: true, trigger: 'blur', message: '请输入养殖场'}, {validator: validate2.reCheck, trigger: 'blur', message: '养殖场名称重复'}]
                 },
                 {
                     name: 'area',
@@ -1657,7 +1646,7 @@ export default {
                     isNull: false,
                     label: '养殖区名称',
                     placeholder: '请输入养殖区名称',
-                    rule: [{required: true, message: '请输入养殖区名称', trigger: 'blur'}, {validator: validate2.reCheck}]
+                    rule: [{required: true, message: '请输入养殖区名称', trigger: 'blur'}, {validator: validate2.reCheck, trigger: 'blur', message: '养殖区名称重复'}]
                 },
                 {
                     name: 'area',
@@ -1771,7 +1760,7 @@ export default {
                     isNull: false,
                     label: '养殖区名称',
                     placeholder: '请输入养殖区名称',
-                    rule: [{required: true, message: '请输入养殖区名称', trigger: 'blur'}, {validator: validate2.reCheck}]
+                    rule: [{required: true, message: '请输入养殖区名称', trigger: 'blur'}, {validator: validate2.reCheck, trigger: 'blur', message: '养殖区名称重复'}]
                 },
                 {
                     name: 'area',
@@ -1917,7 +1906,7 @@ export default {
                     isNull: false,
                     label: '圈舍名称',
                     placeholder: '必填',
-                    rule: [{required: true, message: '请输入圈舍名称', trigger: 'blur'}, {validator: validate2.reCheck}]
+                    rule: [{required: true, message: '请输入圈舍名称', trigger: 'blur'}, {validator: validate2.reCheck, trigger: 'blur', message: '圈舍名称重复'}]
                 },
                 {
                     name: 'area',
@@ -1986,7 +1975,7 @@ export default {
                     isNull: false,
                     label: '圈舍名称',
                     placeholder: '必填',
-                    rule: [{required: true, message: '请输入圈舍名称', trigger: 'blur'}, {validator: validate2.reCheck}]
+                    rule: [{required: true, message: '请输入圈舍名称', trigger: 'blur'}, {validator: validate2.reCheck, trigger: 'blur', message: '圈舍名称重复'}]
                 },
                 {
                     name: 'area',
@@ -2084,7 +2073,7 @@ export default {
                     isNull: false,
                     label: '畜禽名称',
                     placeholder: '必填',
-                    rule: [{required: true, message: '请输入畜禽名称', trigger: 'blur'}, {validator: validate2.reCheck}]
+                    rule: [{required: true, message: '请输入畜禽名称', trigger: 'blur'}, {validator: validate2.reCheck, trigger: 'blur', message: '畜禽名称重复'}]
                 },
                 {
                     name: 'description',
@@ -2148,7 +2137,7 @@ export default {
                     isNull: false,
                     label: '畜禽名称',
                     placeholder: '必填',
-                    rule: [{required: true, message: '请输入畜禽名称', trigger: 'blur'}, {validator: validate2.reCheck}]
+                    rule: [{required: true, message: '请输入畜禽名称', trigger: 'blur'}, {validator: validate2.reCheck, trigger: 'blur', message: '畜禽名称重复'}]
                 },
                 {
                     name: 'description',
@@ -2245,7 +2234,7 @@ export default {
                     isNull: false,
                     label: '饲料名称',
                     placeholder: '必填',
-                    rule: [{required: true, message: '请输入饲料名称', trigger: 'blur'}, {validator: validate2.reCheck}]
+                    rule: [{required: true, message: '请输入饲料名称', trigger: 'blur'}, {validator: validate2.reCheck, trigger: 'blur', message: '饲料名称重复'}]
                 },
                 {
                     name: 'use',
@@ -2336,7 +2325,7 @@ export default {
                     isNull: false,
                     label: '饲料名称',
                     placeholder: '必填',
-                    rule: [{required: true, message: '请输入饲料名称', trigger: 'blur'}, {validator: validate2.reCheck}]
+                    rule: [{required: true, message: '请输入饲料名称', trigger: 'blur'}, {validator: validate2.reCheck, trigger: 'blur', message: '饲料名称重复'}]
                 },
                 {
                     name: 'use',
@@ -2461,7 +2450,7 @@ export default {
                     isNull: false,
                     label: '添加剂名称',
                     placeholder: '必填',
-                    rule: [{required: true, message: '请输入添加剂名称', trigger: 'blur'}, {validator: validate2.reCheck}]
+                    rule: [{required: true, message: '请输入添加剂名称', trigger: 'blur'}, {validator: validate2.reCheck, trigger: 'blur', message: '饲料添加剂名称重复'}]
                 },
                 {
                     name: 'date',
@@ -2570,7 +2559,7 @@ export default {
                     isNull: false,
                     label: '添加剂名称',
                     placeholder: '必填',
-                    rule: [{required: true, message: '请输入添加剂名称', trigger: 'blur'}, {validator: validate2.reCheck}]
+                    rule: [{required: true, message: '请输入添加剂名称', trigger: 'blur'}, {validator: validate2.reCheck, trigger: 'blur', message: '饲料添加剂名称重复'}]
                 },
                 {
                     name: 'date',
@@ -2711,7 +2700,7 @@ export default {
                     isNull: false,
                     label: '兽药名称',
                     placeholder: '必填',
-                    rule: [{required: true, message: '请输入兽药名称', trigger: 'blur'}, {validator: validate2.reCheck}]
+                    rule: [{required: true, message: '请输入兽药名称', trigger: 'blur'}, {validator: validate2.reCheck, trigger: 'blur', message: '兽药名称重复'}]
                 },
                 {
                     name: 'use',
@@ -2802,7 +2791,7 @@ export default {
                     isNull: false,
                     label: '兽药名称',
                     placeholder: '必填',
-                    rule: [{required: true, message: '请输入兽药名称', trigger: 'blur'}, {validator: validate2.reCheck}]
+                    rule: [{required: true, message: '请输入兽药名称', trigger: 'blur'}, {validator: validate2.reCheck, trigger: 'blur', message: '兽药名称重复'}]
                 },
                 {
                     name: 'use',
@@ -5251,7 +5240,7 @@ export default {
                 type: 'text',
                 component: null,
                 isNull: false,
-                label: '加工检测批次号',
+                label: '检测批次号',
                 placeholder: '',
                 disabled: true,
                 rule: {required: true}
@@ -5673,7 +5662,7 @@ export default {
                     isNull: false,
                     label: '种植场名称',
                     placeholder: '必填',
-                    rule: [{required: true, message: '请输入种植场名称', trigger: 'blur'}, {validator: validate2.reCheck}]
+                    rule: [{required: true, message: '请输入种植场名称', trigger: 'blur'}, {validator: validate2.reCheck, trigger: 'blur', message: '种植场名称重复'}]
                 },
                 {
                     name: 'area',
@@ -5765,7 +5754,7 @@ export default {
                     isNull: false,
                     label: '种植场名称',
                     placeholder: '必填',
-                    rule: [{required: true, message: '请输入种植场名称', trigger: 'blur'}, {validator: validate2.reCheck}]
+                    rule: [{required: true, message: '请输入种植场名称', trigger: 'blur'}, {validator: validate2.reCheck, trigger: 'blur', message: '种植场名称重复'}]
                 },
                 {
                     name: 'area',
@@ -5899,7 +5888,7 @@ export default {
                     isNull: false,
                     label: '种植区名称',
                     placeholder: '必填',
-                    rule: [{required: true, message: '请输入种植区名称', trigger: 'blur'}, {validator: validate2.reCheck}]
+                    rule: [{required: true, message: '请输入种植区名称', trigger: 'blur'}, {validator: validate2.reCheck, trigger: 'blur', message: '种植区名称重复'}]
                 },
                 {
                     name: 'area',
@@ -5996,7 +5985,7 @@ export default {
                     isNull: false,
                     label: '姓名',
                     placeholder: '必填',
-                    rule: [{required: true, message: '请输入种植区名称', trigger: 'blur'}, {validator: validate2.reCheck}]
+                    rule: [{required: true, message: '请输入种植区名称', trigger: 'blur'}, {validator: validate2.reCheck, trigger: 'blur', message: '种植区名称重复'}]
                 },
                 {
                     name: 'area',
@@ -6119,7 +6108,7 @@ export default {
                     isNull: false,
                     label: '果蔬名称',
                     placeholder: '必填',
-                    rule: [{required: true, message: '请输入果蔬名称', trigger: 'blur'}, {validator: validate2.reCheck}]
+                    rule: [{required: true, message: '请输入果蔬名称', trigger: 'blur'}, {validator: validate2.reCheck, trigger: 'blur', message: '果蔬名称重复'}]
                 },
                 {
                     name: 'description',
@@ -6181,7 +6170,7 @@ export default {
                     isNull: false,
                     label: '果蔬名称',
                     placeholder: '必填',
-                    rule: [{required: true, message: '请选择果蔬类别', trigger: 'blur'}, {validator: validate2.reCheck}]
+                    rule: [{required: true, message: '请选择果蔬类别', trigger: 'blur'}, {validator: validate2.reCheck, trigger: 'blur', message: '果蔬名称重复'}]
                 },
                 {
                     name: 'description',
@@ -6271,7 +6260,7 @@ export default {
                     isNull: false,
                     label: '肥料名称',
                     placeholder: '必填',
-                    rule: [{required: true, message: '请输入肥料名称', trigger: 'blur'}, {validator: validate2.reCheck}]
+                    rule: [{required: true, message: '请输入肥料名称', trigger: 'blur'}, {validator: validate2.reCheck, trigger: 'blur', message: '肥料名称重复'}]
                 },
                 {
                     name: 'usage',
@@ -6348,7 +6337,7 @@ export default {
                     isNull: false,
                     label: '肥料名称',
                     placeholder: '必填',
-                    rule: [{required: true, message: '请输入肥料名称', trigger: 'blur'}, {validator: validate2.reCheck}]
+                    rule: [{required: true, message: '请输入肥料名称', trigger: 'blur'}, {validator: validate2.reCheck, trigger: 'blur', message: '肥料名称重复'}]
                 },
                 {
                     name: 'specification',
@@ -6454,7 +6443,7 @@ export default {
                     isNull: false,
                     label: '农药名称',
                     placeholder: '必填',
-                    rule: [{required: true, message: '请输入农药名称', trigger: 'blur'}, {validator: validate2.reCheck}]
+                    rule: [{required: true, message: '请输入农药名称', trigger: 'blur'}, {validator: validate2.reCheck, trigger: 'blur', message: '农药名称重复'}]
                 },
                 {
                     name: 'usage',
@@ -6511,7 +6500,8 @@ export default {
                     component: null,
                     isNull: false,
                     placeholder: '请输入11位的手机号（固话用-隔开）',
-                    label: '联系方式'
+                    label: '联系方式',
+                    rule: { validator: validate2.phone, trigger: 'blur' }
                 },
                 {
                     name: 'manufacturer',
@@ -6571,7 +6561,7 @@ export default {
                     isNull: false,
                     label: '农药名称',
                     placeholder: '必填',
-                    rule: [{required: true, message: '请输入农药名称', trigger: 'blur'}, {validator: validate2.reCheck}]
+                    rule: [{required: true, message: '请输入农药名称', trigger: 'blur'}, {validator: validate2.reCheck, trigger: 'blur', message: '农药名称重复'}]
                 },
                 {
                     name: 'usage',
@@ -6628,7 +6618,8 @@ export default {
                     component: null,
                     isNull: false,
                     placeholder: '请输入11位的手机号（固话用-隔开）',
-                    label: '联系方式'
+                    label: '联系方式',
+                    rule: { validator: validate2.phone, trigger: 'blur' }
                 },
                 {
                     name: 'manufacturer',
@@ -6842,6 +6833,7 @@ export default {
                 isNull: false,
                 label: '种植面积',
                 placeholder: '请填写数字（必填）',
+                disabled: true,
                 options: [{
                     value: '亩',
                     label: '亩'
@@ -9348,6 +9340,7 @@ export default {
             }],
             newComponent: [{
                 tab: '新建物流公司信息',
+                checkNumber: [0],
                 components: [{
                     name: 'name',
                     type: 'text',
@@ -9355,7 +9348,7 @@ export default {
                     isNull: false,
                     label: '物流公司名称',
                     placeholder: '必填',
-                    rule: {required: true, message: '请输入物流公司名称', trigger: 'blur'}
+                    rule: [{required: true, message: '请输入物流公司名称', trigger: 'blur'}, {validator: validate2.reCheck, trigger: 'blur', message: '物流公司名称重复'}]
                 },
                 {
                     name: 'contacts',
@@ -9396,6 +9389,7 @@ export default {
             }],
             editComponent: [{
                 tab: '编辑物流公司',
+                checkNumber: [0],
                 components: [{
                     name: 'name',
                     type: 'text',
@@ -9403,7 +9397,7 @@ export default {
                     isNull: false,
                     label: '物流公司名称',
                     placeholder: '必填',
-                    rule: {required: true, message: '请输入物流公司名称', trigger: 'blur'}
+                    rule: [{required: true, message: '请输入物流公司名称', trigger: 'blur'}, {validator: validate2.reCheck, trigger: 'blur', message: '物流公司名称重复'}]
                 },
                 {
                     name: 'contacts',
@@ -9473,6 +9467,7 @@ export default {
             }],
             newComponent: [{
                 tab: '新建车辆信息',
+                checkNumber: [1],
                 components: [{
                     name: 'brand',
                     type: 'text',
@@ -9489,7 +9484,7 @@ export default {
                     isNull: false,
                     label: '车辆号码',
                     placeholder: '必填',
-                    rule: {required: true, message: '请输入车辆号码', trigger: 'blur'}
+                    rule: [{required: true, message: '请输入车辆号码', trigger: 'blur'}, {validator: validate2.reCheck, trigger: 'blur', message: '车辆号码已存在'}]
                 },
                 {
                     name: 'tonnage',
@@ -9512,6 +9507,7 @@ export default {
             }],
             editComponent: [{
                 tab: '编辑车辆信息',
+                checkNumber: [1],
                 components: [{
                     name: 'brand',
                     type: 'text',
@@ -9528,7 +9524,7 @@ export default {
                     isNull: false,
                     label: '车辆号码',
                     placeholder: '必填',
-                    rule: {required: true, message: '请输入车辆号码', trigger: 'blur'}
+                    rule: [{required: true, message: '请输入车辆号码', trigger: 'blur'}, {validator: validate2.reCheck, trigger: 'blur', message: '车辆号码已存在'}]
                 },
                 {
                     name: 'tonnage',
@@ -9570,6 +9566,7 @@ export default {
             }],
             newComponent: [{
                 tab: '新建司机信息',
+                checkNumber: [0],
                 components: [{
                     name: 'name',
                     type: 'text',
@@ -9577,7 +9574,7 @@ export default {
                     isNull: false,
                     label: '驾驶员姓名',
                     placeholder: '必填',
-                    rule: {required: true, message: '请输入驾驶员姓名', trigger: 'blur'}
+                    rule: [{required: true, message: '请输入驾驶员姓名', trigger: 'blur'}, {validator: validate2.reCheck, trigger: 'blur', message: '驾驶员已存在'}]
                 },
                 {
                     name: 'phone',
@@ -9644,6 +9641,7 @@ export default {
             }],
             editComponent: [{
                 tab: '编辑司机信息',
+                checkNumber: [0],
                 components: [{
                     name: 'name',
                     type: 'text',
@@ -9651,7 +9649,7 @@ export default {
                     isNull: false,
                     label: '驾驶员姓名',
                     placeholder: '必填',
-                    rule: {required: true, message: '请输入驾驶员姓名', trigger: 'blur'}
+                    rule: [{required: true, message: '请输入驾驶员姓名', trigger: 'blur'}, {validator: validate2.reCheck, trigger: 'blur', message: '驾驶员已存在'}]
                 },
                 {
                     name: 'phone',
@@ -10561,7 +10559,7 @@ export default {
         newComponent: [{
             tab: '新建用户信息',
             hiddenValue: {type: 0},
-            checkNumber: [0],
+            checkNumber: [0, 1, 5],
             components: [{
                 name: 'name',
                 type: 'text',
@@ -10569,7 +10567,7 @@ export default {
                 isNull: false,
                 label: '用户名',
                 placeholder: '请输入用户名',
-                rule: [{required: true, trigger: 'blur', message: '请输入用户名'}, {validator: validate2.reCheck}]
+                rule: [{required: true, trigger: 'blur', message: '请输入用户名'}, {validator: validate2.reCheck, trigger: 'blur', message: '用户名已存在'}]
             },
             {
                 name: 'email',
@@ -10577,8 +10575,8 @@ export default {
                 component: null,
                 isNull: false,
                 label: '邮箱',
-                placeholder: '请输入邮箱'
-                // rule: [{required: true, trigger: 'blur'}, {validator: validate2.reCheck}]
+                placeholder: '请输入邮箱',
+                rule: [{required: true, trigger: 'blur', message: '请输入正确邮箱格式', type: 'email'}, {validator: validate2.reCheck, trigger: 'blur', message: '邮箱已存在'}]
             },
             {
                 name: 'gender',
@@ -10622,7 +10620,7 @@ export default {
                 isNull: false,
                 label: '手机号码',
                 placeholder: '请输入手机号码',
-                rule: {required: false, trigger: 'blur'}
+                rule: [{required: true, trigger: 'blur', message: '请输入手机号码'}, {validator: validate2.reCheck, trigger: 'blur', message: '手机号码已存在'}, {validator: validate2.phone}]
             },
             {
                 name: 'department',
@@ -10673,7 +10671,7 @@ export default {
         editComponent: [{
             tab: '编辑用户信息',
             hiddenValue: {type: 0},
-            checkNumber: [0],
+            checkNumber: [0, 1],
             components: [{
                 name: 'name',
                 type: 'text',
@@ -10690,7 +10688,7 @@ export default {
                 isNull: false,
                 label: '邮箱',
                 placeholder: '请输入邮箱',
-                rule: [{required: true, trigger: 'blur'}, {validator: validate2.reCheck}]
+                rule: [{required: true, trigger: 'blur', message: '请输入正确邮箱格式', type: 'email'}, {validator: validate2.reCheck, trigger: 'blur', message: '邮箱已存在'}]
             },
             {
                 name: 'gender',
@@ -10733,7 +10731,7 @@ export default {
                 isNull: false,
                 label: '手机号码',
                 placeholder: '请输入手机号码',
-                rule: {required: false, trigger: 'blur', type: 'number'}
+                rule: [{required: true, trigger: 'blur', message: '请输入手机号码'}, {validator: validate2.reCheck, trigger: 'blur', message: '手机号码已存在'}, {validator: validate2.phone}]
             },
             {
                 name: 'department',

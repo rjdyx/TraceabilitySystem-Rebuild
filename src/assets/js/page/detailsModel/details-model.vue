@@ -13,7 +13,6 @@
     </contain-title>
     
   <!-- 信息列表 -->
-    <el-row :gutter="20">
         <el-col :span="6" v-for="(item,i) in theads" class="text-small">{{item}}:<em class="margin-left_10">{{headData[protos[i]]}}</em>
         </el-col>
         <el-col v-if="headData.type1===undefined||headData.type1===''||afterAdd===[]||!headData"></el-col>
@@ -24,7 +23,7 @@
   <!-- tab栏 --> 
     <el-tabs v-model="activeName" type="card" id="tabs" @tab-click="tabClick">
         <el-tab-pane :label='tabItem.tab' :name='tabItem.tab' v-for="
-        tabItem in tabList">
+        (tabItem, i) in tabList" :key="i">
         </el-tab-pane>
     </el-tabs> 
 
@@ -46,12 +45,13 @@
                 <!-- 右边的操作按钮 -->
                 <!-- 操作按钮 -->
                 <component
-                    v-for="operateItem in tabItem.typeComponent"
+                    v-for="(operateItem, i) in tabItem.typeComponent"
                     :is="operateItem.component"
                     :url="apiUrlArr[tabList[index].url]"
                     :type="tabItem.whereArr"
                     :routeId="routeId"
-                    :curl="url"
+                    :curl="url" 
+                    :key="i"
                     class="fr"
                 ></component>
             </div>
@@ -141,7 +141,7 @@
             <el-button @click="excel">导出表格</el-button>
         </div>
 
-        <p class="record">共有<span class="record_num">{{num}}</span>页，<span class="record_num">{{total_num}}</span>条记录</p>
+        <p class="record">共有<span class="record_num">{{num}}</span>页，<span class="record_num">{{totalNum}}</span>条记录</p>
 
         <!-- 分页模块 -->
             <el-pagination
@@ -460,7 +460,7 @@ export default {
                 })
         },
         // 获取列表信息
-        getAllMsg (data = {}) {
+        getAllMsg (data = {}, flag = false) {
             let names = this.tabList[this.index].urlid
             let whereArr = this.tabList[this.index].whereArr
             if (whereArr !== undefined && whereArr !== '') {
@@ -471,8 +471,9 @@ export default {
             if (names !== undefined && names !== null) {
                 data[names] = this.$route.params.id
             }
-            var datas = {}
-            this.listLoading = true
+            if (flag) {
+                this.listLoading = true
+            }
             this.$dataGet(this, this.apiUrlArr[this.tabList[this.index].url], {params: data})
                 .then((responce) => {
                     this.listLoading = false
@@ -482,12 +483,12 @@ export default {
                             ret = this.$eltable(ret)
                             ret = this.$getProductInfo(ret)
                             this.$set(this, 'tableData', ret)
-                            this.total_num = responce.data.total
+                            this.totalNum = responce.data.total
                             this.num = responce.data.last_page
                             this.paginator = responce.data
                         } else {
                             this.$set(this, 'tableData', responce.data.data)
-                            this.total_num = 0
+                            this.totalNum = 0
                             this.num = 0
                             this.paginator = 0
                         }
@@ -498,7 +499,7 @@ export default {
         textAndDateFind () {
             this.dataArr['query_text'] = this.inputValue
             this.dataArr['page'] = 1
-            this.boxArr(this.dataArr)
+            this.boxArr(this.dataArr, true)
         },
         // 下拉框查询
         selectFind (val) {
@@ -509,7 +510,7 @@ export default {
             }
             this.dataArr[val[0]] = val[1]
             this.dataArr['page'] = 1
-            this.boxArr(this.dataArr)
+            this.boxArr(this.dataArr, true)
         },
         // 日期存储
         dateFind (val) {
@@ -518,11 +519,11 @@ export default {
         // 分页跳转
         pageChange (val) {
             this.dataArr['page'] = val
-            this.boxArr(this.dataArr)
+            this.boxArr(this.dataArr, true)
         },
         // 组合查询
-        boxArr (dataArr) {
-            this.getAllMsg(dataArr)
+        boxArr (dataArr, flag) {
+            this.getAllMsg(dataArr, flag)
         },
         // 获取下拉框数据
         getSelect () {
@@ -557,10 +558,7 @@ export default {
         changeNew (val) {
             if (val !== 'false') {
                 this.isNewShow = false
-                if (this.tabItem.newComponent[0].components[this.tabItem.newComponent[0].assocNum] !== undefined) {
-                    this.$set(this.tabItem.newComponent[0].components[this.tabItem.newComponent[0].assocNum], 'tableVal', [])
-                }
-                this.boxArr(this.dataArr)
+                this.boxArr(this.dataArr, false)
                 this.getDetailSerial()
                 // this.getSelect()
                 this.$message({
@@ -578,12 +576,11 @@ export default {
                 confirmButtonText: '确定',
                 type: 'error'
             }).then(() => {
-                this.listLoading = true
                 axios.delete(this.$adminUrl(this.apiUrlArr[this.tabList[this.index].url] + '/' + row.id))
                     .then((responce) => {
                         if (responce.data === 'true') {
                             this.getDetailSerial()
-                            this.boxArr(this.dataArr)
+                            this.boxArr(this.dataArr, false)
                             this.$message({
                                 type: 'success',
                                 message: '删除成功'
@@ -605,7 +602,7 @@ export default {
             if (val !== 'false') {
                 this.isEditShow = false
                 this.getDetailSerial()
-                this.boxArr(this.dataArr)
+                this.boxArr(this.dataArr, false)
                 this.$message({
                     type: 'success',
                     message: '编辑数据成功'
@@ -622,7 +619,6 @@ export default {
                     confirmButtonText: '确定',
                     type: 'error'
                 }).then(() => {
-                    this.listLoading = true
                     var delArr = []
                     for (let key in this.checkObject) {
                         delArr.push(this.checkObject[key].id)
@@ -632,7 +628,7 @@ export default {
                     .then((responce) => {
                         if (responce.data === 'true') {
                             this.getDetailSerial()
-                            this.boxArr(this.dataArr)
+                            this.boxArr(this.dataArr, false)
                             this.listLoading = false
                             this.$message({
                                 type: 'success',
@@ -715,11 +711,8 @@ export default {
                     } else if (responce.data === 'false') {
                         this.$message.error('添加溯源码失败')
                     } else {
-                        if (JSON.stringify(this.dataArr) === '{}') {
-                            this.dataArr = ''
-                        }
                         this.getDetailSerial()
-                        this.boxArr(this.dataArr)
+                        this.boxArr(this.dataArr, false)
                         this.$message({
                             type: 'success',
                             message: '添加溯源码成功'
@@ -738,7 +731,7 @@ export default {
         // 导入事件触发
         importChange () {
             this.getDetailSerial()
-            this.boxArr(this.dataArr)
+            this.boxArr(this.dataArr, false)
         }
     },
     mounted () {
@@ -747,7 +740,7 @@ export default {
         this.activeName = this.tabList[0].tab
         this.getApiUrl()
         this.getDetailSerial()
-        this.getAllMsg()
+        this.boxArr(this.dataArr, true)
     },
     watch: {
         tabItem () {
@@ -755,7 +748,7 @@ export default {
             if (this.selectValueId !== undefined) {
                 this.getSelect()
             }
-            this.getAllMsg()
+            this.boxArr(this.dataArr, true)
             this.inputValue = ''
             document.title = this.tab
         },
@@ -764,7 +757,7 @@ export default {
             this.activeName = this.tabList[0].tab
             this.getApiUrl()
             this.getDetailSerial()
-            this.getAllMsg()
+            this.boxArr(this.dataArr, true)
         }
     },
     components: {

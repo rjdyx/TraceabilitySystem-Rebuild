@@ -29,6 +29,7 @@
                                     v-for="option in options" 
                                     :label="option.name" 
                                     :value="option.id" 
+                                    :key="option.id"
                                     size="small"></el-option>
                               </el-select>
                             </el-form-item>

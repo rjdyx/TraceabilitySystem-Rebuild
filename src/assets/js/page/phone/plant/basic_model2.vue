@@ -6,6 +6,7 @@
  * 
  */
 <template>
+<transition name="fade2">
     <div id="pBasicModel2">
         <header1 :title="models.title" :isbreed="isbreed"></header1>
         <div class="pBM2_content">
@@ -22,6 +23,7 @@
             
         </div>   
     </div>
+</transition>
 </template>
 <style type="text/css" lang="sass">
     .breedCol{
@@ -80,6 +82,10 @@ export default {
         }
     },
     mounted () {
+        $(document).on('touchmove', function (e) {
+            e.preventDefault()
+            e.stopPropagation()
+        })
         var type = sessionStorage.getItem('customDont')
         var params = {id: this.$route.params.id, type: type}
         var url = 'run/plant/'
