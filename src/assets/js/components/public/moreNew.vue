@@ -14,6 +14,7 @@
 				<el-tab-pane :label="item.tab" :name="item.tab" v-for="(item,i) in more" :key="i">
 					<el-form :model="tableForm" :rules="rules" ref="tableForm" label-width="110px" class="demo-tableForm">
 						<table>
+						<tbody></tbody>
 							<template v-for="subItem in item.components">
 								<tr class="tr1" v-if="subItem.type='text'">
 									<td>

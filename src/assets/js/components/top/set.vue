@@ -10,7 +10,7 @@
 			<contain-title :settitle="settitle">
 			</contain-title>
 			<div class="switch">
-			<el-form :model="editForm" :rules="rules" ref="editForm" label-width="110px" class="demo-editForm">
+			<el-form :model="editForm"  ref="editForm" label-width="110px" class="demo-editForm">
 				<!-- 主题色切换 -->
 
 					<el-form-item label="网站皮肤">

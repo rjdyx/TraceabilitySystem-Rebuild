@@ -29,6 +29,8 @@ const company = () => import('../components/top/company.vue') // company公司
 const help = () => import('../components/top/help.vue') // help帮助文档
 const ondone = () => import('../components/top/ondone.vue') // ondone未完成图片
 
+// =============================手机端追溯-种植=======================
+// const popNew = () => import('../webapp/webapp/public/popNew.vue')
 
 // routes = routes.concat(phoneRouters.router)
 
@@ -70,6 +72,8 @@ export function createRouter () {
     { path: '/403', component: CreateAuthView(Role403) },
     { path: '/P/login', component: CreateAuthView(login) },
     { path: '/protocol', component: CreateAuthView(protocol) }
+    // ,
+    // { path: '/popNew', component: CreateAuthView(popNew) }
     ]
   })
 }

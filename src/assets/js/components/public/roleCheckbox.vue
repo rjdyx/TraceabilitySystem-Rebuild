@@ -17,6 +17,7 @@
           <!-- 表单 -->
             <el-form ref="form" :model="form" label-width="110px" class="demo-editForm">
             <table>
+            <tbody></tbody>
                 <template>
                     <tr class="tr1"><td><i style="color:#55BBA6;margin-left: 40px;">* 选择用户关联的角色</i></td></tr>
                     <br>

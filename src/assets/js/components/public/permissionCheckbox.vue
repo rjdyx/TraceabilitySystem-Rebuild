@@ -18,6 +18,7 @@
               <!-- 表单 -->
             <el-form ref="form" :model="form" label-width="110px" class="demo-editForm">
                 <table>
+                <tbody></tbody>
                     <tr class="tr2">
                         <!-- <el-checkbox v-model="checked" @change="allChange">全选</el-checkbox> -->
                         <ul class="ul">

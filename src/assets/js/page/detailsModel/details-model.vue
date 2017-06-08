@@ -33,8 +33,7 @@
                 <div class="searchOp">
                     <el-input
                         :placeholder="tabItem.searchPlaceholder"
-                        v-model="inputValue"
-                        :on-icon-click="search" class="searchInp" size="small" @keyup.enter.native="textAndDateFind">
+                        v-model="inputValue" class="searchInp" size="small" @keyup.enter.native="textAndDateFind">
                     </el-input>
                     <el-button size="small" class="searchBtn" @click="textAndDateFind">搜索</el-button>
                 </div>
@@ -112,7 +111,7 @@
 
                 <!-- 列表操作模块 -->
                 <el-table-column 
-                label="操作" v-if="checkOperate==null" width="175">
+                label="操作" width="175">
                     <template scope="scope" class="operateBtn" >
                         <template v-if="tabItem.moreComponent!=null">
                             <clickMore :moreComponent="tabItem.moreComponent" 
@@ -120,7 +119,7 @@
                         </template>
                         <template>
                             <el-button type="text" size="small" @click="changeEditShow(scope.$index,scope.row)" v-if="tabList[index].hiddeEdit">编辑</el-button>
-                            <el-button type="text" size="small" v-if="hiddeWatch">查看</el-button>
+                            <el-button type="text" size="small" v-if="hiddeShow">查看</el-button>
 
                             <el-button size="small" type="text" @click="handelDel(scope.$index,scope.row)" class="btn">删除</el-button>  
                             <el-button size="small" type="text" @click="permissionShow(scope.$index,scope.row)" class="btn" v-if="tabItem.hiddeRole">权限</el-button> 
@@ -131,10 +130,7 @@
             </el-table>
     <div class="footer">
         <div class="operate-foot">
-            <el-button @click="delAll" v-if="checkOperate==null">删除</el-button>
-            <template v-if="lotComponent!=null">
-                <lotOpearte :lotComponent="lotComponent"></lotOpearte>
-            </template>
+            <el-button @click="delAll">删除</el-button>
             <el-button @click="excel">导出表格</el-button>
         </div>
 
@@ -209,7 +205,10 @@ export default {
             rowId: null,
             routeId: this.$route.params.id,
             isShow: true,
-            listLoading: false
+            listLoading: false,
+            num: 0,
+            total_num: 0,
+            hiddeShow: false,
         }
     },
     mixins: [computed],

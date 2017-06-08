@@ -19,6 +19,7 @@
           <!-- 表单 -->
         <el-form :model="tableForm" :rules="rules" ref="tableForm" label-width="110px" class="demo-tableForm">
             <table>
+                <tbody></tbody>
                 <template v-for="subItem in item.components">
 
                     <!-- 文本框 -->
