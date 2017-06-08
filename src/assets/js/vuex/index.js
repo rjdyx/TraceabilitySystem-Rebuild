@@ -13,16 +13,16 @@ Vue.use(Vuex)
 const debug = process.env.NODE_ENV !== 'production'
 
 export function createStore () {
-  return new Vuex.Store({
-    actions,
-    getters,
-    mutations,
-    modules: {
-      auth,
-      theme,
-      basicModel,
-      isAllCheck
-    },
-    strict: debug
-  })
+    return new Vuex.Store({
+        actions,
+        getters,
+        mutations,
+        modules: {
+            auth,
+            theme,
+            basicModel,
+            isAllCheck
+        },
+        strict: debug
+    })
 }
