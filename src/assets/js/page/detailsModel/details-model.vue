@@ -13,14 +13,19 @@
     </contain-title>
     
   <!-- 信息列表 -->
-    <el-row>
+  <!-- 信息列表 -->
+    <el-row :gutter="20">
+         <el-col :span="6" v-for="(item,i) in theads" :key="i" class="text-small">{{item}}:<em class="margin-left_10">{{headData[protos[i]]}}</em>
+         </el-col>
+    </el-row>
+  <!--   <el-row>
         <el-col :span="6" v-for="(item,i) in theads" class="text-small">{{item}}:<em class="margin-left_10">{{headData[protos[i]]}}</em>
         </el-col>
-       <!--  <el-col v-if="headData.type1===undefined||headData.type1===''||afterAdd===[]||!headData"></el-col>
+        <el-col v-if="headData.type1===undefined||headData.type1===''||afterAdd===[]||!headData"></el-col>
         <el-col v-else :span="6"  v-for="(item2,j) in afterAdd[headData.type1]" class="text-small">{{item2}}:<em class="margin-left_10" v-if="j=='amount'">{{headData[j]}}{{headData.unit}}</em>
         <em class="margin-left_10" v-else>{{headData[j]}}</em>
-         </el-col> -->
-    </el-row>
+         </el-col>
+    </el-row> -->
   <!-- tab栏 --> 
     <el-tabs v-model="activeName" type="card" id="tabs" @tab-click="tabClick">
         <el-tab-pane :label='tabItem.tab' :name='tabItem.tab' v-for="
