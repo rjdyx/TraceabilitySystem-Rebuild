@@ -26,6 +26,9 @@ export default {
         },
         roleName () {
             return this.models.roleName
+        },
+        afterAdd () {
+            return this.models.afterAdd
         }
     }
 }

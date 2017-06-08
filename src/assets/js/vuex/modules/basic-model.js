@@ -4,7 +4,7 @@ const state = {
     navbarName: '',
     subNavBarName: '',
     tableData: [],
-    total_num: 0,
+    totalNum: 0,
     num: 0,
     paginator: 0
 }
@@ -16,7 +16,7 @@ const getters = {
 
 // actions
 const actions = {
-    FETCH_TABLE_DATA ({ commit, state }, { store, route: {query: { url='' }}}) {
+    FETCH_TABLE_DATA ({ commit, state }, { store, route: { query: { url = '' } } }) {
         let cookies = store.state.auth.cookies
         // 刷新页面或在浏览器进行路由跳转时会调用到此action
         // 在浏览器端跳转时，无需设置headers的cookie
@@ -58,8 +58,8 @@ const mutations = {
     SET_TABLE_DATA (state, tableData) {
         state.tableData = tableData
     },
-    SET_TOTAL_NUM (state, total_num) {
-        state.total_num = total_num
+    SET_TOTAL_NUM (state, totalNum) {
+        state.totalNum = totalNum
     },
     SET_NUM (state, num) {
         state.num = num

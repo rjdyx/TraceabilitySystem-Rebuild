@@ -10,7 +10,7 @@
 </template>
 
 <script>
-    import Qrcode from 'v-qrcode/src/index'
+    import Qrcode from '../VQrcode.vue'
     export default {
         name: 'QrcodeModel',
         props: {
@@ -23,8 +23,6 @@
                 size: 150,
                 background: 'white'
             }
-        },
-        methods: {
         },
         components: {
             Qrcode

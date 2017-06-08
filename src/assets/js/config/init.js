@@ -1,13 +1,18 @@
-require('./require')
-import Vue from 'vue'
-/**
- * some global init
- */
 
-// 配置webpack动态加载模块的路径
-if (process.env.NODE_ENV === 'production') {
-    __webpack_public_path__ = '/dist/'
-}
+/**
+* js库初始化
+*/
+import Vue from 'vue'
+require('babel-polyfill') // 解决手机端uc浏览器、qq浏览器和微信浏览器无法使用部分ES6语法
+require('animate.css') // 动画css插件
+
+// 滚动条
+import ScrollBar from 'vue2-scrollbar'
+Vue.component('vue-scrollbar', ScrollBar)
+require('vue2-scrollbar/dist/style/vue2-scrollbar.css')
+
+require('./element-ui')
+// require('./i18n')
 
 // 注册全局组件
 // Vue.component('passport-clients', require('components/passport/Clients.vue'))

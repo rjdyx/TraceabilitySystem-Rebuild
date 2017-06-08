@@ -13,9 +13,13 @@
     </contain-title>
     
   <!-- 信息列表 -->
-    <el-row :gutter="20">
-         <el-col :span="6" v-for="(item,i) in theads" :key="i" class="text-small">{{item}}:<em class="margin-left_10">{{headData[protos[i]]}}</em>
-         </el-col>
+    <el-row>
+        <el-col :span="6" v-for="(item,i) in theads" class="text-small">{{item}}:<em class="margin-left_10">{{headData[protos[i]]}}</em>
+        </el-col>
+       <!--  <el-col v-if="headData.type1===undefined||headData.type1===''||afterAdd===[]||!headData"></el-col>
+        <el-col v-else :span="6"  v-for="(item2,j) in afterAdd[headData.type1]" class="text-small">{{item2}}:<em class="margin-left_10" v-if="j=='amount'">{{headData[j]}}{{headData.unit}}</em>
+        <em class="margin-left_10" v-else>{{headData[j]}}</em>
+         </el-col> -->
     </el-row>
   <!-- tab栏 --> 
     <el-tabs v-model="activeName" type="card" id="tabs" @tab-click="tabClick">
@@ -134,7 +138,7 @@
             <el-button @click="excel">导出表格</el-button>
         </div>
 
-        <p class="record">共有<span class="record_num">{{num}}</span>页，<span class="record_num">{{total_num}}</span>条记录</p>
+        <p class="record">共有<span class="record_num">{{num}}</span>页，<span class="record_num">{{totalNum}}</span>条记录</p>
 
         <!-- 分页模块 -->
             <el-pagination
@@ -173,6 +177,7 @@ export default {
                     roleName: '',
                     theads: [],
                     changeDataArr: [],
+                    afterAdd: [],
                     protos: [],
                     tabList: []
                 }
@@ -208,7 +213,7 @@ export default {
             listLoading: false,
             num: 0,
             total_num: 0,
-            hiddeShow: false,
+            hiddeShow: false
         }
     },
     mixins: [computed],
@@ -444,7 +449,12 @@ export default {
             var url = this.apiUrlArr[this.url]
             this.$dataGet(this, url, {})
                 .then((responce) => {
+                    var x = ''
+                    if (responce.data.type !== undefined) {
+                        responce.data.type1 = responce.data.type
+                    }
                     var ret = this.$conversion(this.changeDataArr, responce.data, 0)
+                    console.log(ret)
                     ret = this.$eltable(ret)
                     this.$set(this, 'headData', ret)
                 })
@@ -473,12 +483,12 @@ export default {
                             ret = this.$eltable(ret)
                             ret = this.$getProductInfo(ret)
                             this.$set(this, 'tableData', ret)
-                            this.total_num = responce.data.total
+                            this.totalNum = responce.data.total
                             this.num = responce.data.last_page
                             this.paginator = responce.data
                         } else {
                             this.$set(this, 'tableData', responce.data.data)
-                            this.total_num = 0
+                            this.totalNum = 0
                             this.num = 0
                             this.paginator = 0
                         }
