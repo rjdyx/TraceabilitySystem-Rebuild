@@ -396,7 +396,7 @@ export default {
                 let arrs = com.permissionSelectArr
                 let urlArr = com.permissionSelectUrl
                 for (let key in arrs) {
-                    axios.get(urlArr[key])
+                    axios.get(this.$adminUrl(urlArr[key]))
                         .then((responce) => {
                             var datas = responce.data
                             var newArr = []
@@ -495,7 +495,7 @@ export default {
                     let arrs = com.permissionSelectArr
                     let urlArr = com.permissionSelectUrl
                     for (let key in arrs) {
-                        axios.get(urlArr[key])
+                        axios.get(this.$adminUrl(urlArr[key]))
                             .then((responce) => {
                                 var datas = responce.data
                                 var newArr = []

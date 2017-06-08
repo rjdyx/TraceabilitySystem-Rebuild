@@ -175,7 +175,7 @@ export default {
     mounted () {
         if (this.checkboxShow) {
             // 全部数据
-            axios.get('api/company/permission')
+            axios.get(this.$adminUrl('company/permission'))
                 .then((responce) => {
                     this.memuList = responce.data
                 })
@@ -196,7 +196,7 @@ export default {
     methods: {
         // 角色权限默认选中数据
         rolePermisstion (roleId = null) {
-            axios.get('api/role/permission/' + this.roleId)
+            axios.get(this.$adminUrl('role/permission/') + this.roleId)
                 .then((responce) => {
                     if (responce.data) {
                         this.checkeds = responce.data

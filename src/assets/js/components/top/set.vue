@@ -158,7 +158,7 @@ export default {
           */
         submitForm (formName) {
             var ret = this.editForm
-            axios.put('/api/system/1', ret).then((response) => {
+            axios.put(this.$adminUrl('system/1'), ret).then((response) => {
                 if (response.data === 'old_error') {
                     this.$message('原始密码错误')
                     this.editForm.old_password = null
@@ -207,7 +207,7 @@ export default {
             break
         }
         // 查询编辑数据
-        axios.get('/api/system/1/edit')
+        axios.get(this.$adminUrl('system/1/edit'))
             .then((responce) => {
                 if (responce.data.user.company_id === null) {
                     this.role = true

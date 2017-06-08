@@ -218,7 +218,7 @@ export default {
     mounted () {
         if (this.checkboxShow) {
             // 全部数据
-            axios.get('api/company/permission')
+            axios.get(this.$adminUrl('company/permission'))
                 .then((responce) => {
                     this.memuList = responce.data
                 })
