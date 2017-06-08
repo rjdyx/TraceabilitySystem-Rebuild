@@ -14,7 +14,11 @@
     
   <!-- 信息列表 -->
     <el-row :gutter="20">
-         <el-col :span="6" v-for="(item,i) in theads" class="text-small">{{item}}:<em class="margin-left_10">{{headData[protos[i]]}}</em>
+        <el-col :span="6" v-for="(item,i) in theads" class="text-small">{{item}}:<em class="margin-left_10">{{headData[protos[i]]}}</em>
+        </el-col>
+        <el-col v-if="headData.type1===undefined||headData.type1===''||afterAdd===[]||!headData"></el-col>
+        <el-col v-else :span="6"  v-for="(item2,j) in afterAdd[headData.type1]" class="text-small">{{item2}}:<em class="margin-left_10" v-if="j=='amount'">{{headData[j]}}{{headData.unit}}</em>
+        <em class="margin-left_10" v-else>{{headData[j]}}</em>
          </el-col>
     </el-row>
   <!-- tab栏 --> 
@@ -176,6 +180,7 @@ export default {
                     roleName: '',
                     theads: [],
                     changeDataArr: [],
+                    afterAdd: [],
                     protos: [],
                     tabList: []
                 }
@@ -444,7 +449,12 @@ export default {
             var url = this.apiUrlArr[this.url]
             this.$dataGet(this, url, {})
                 .then((responce) => {
+                    var x = ''
+                    if (responce.data.type !== undefined) {
+                        responce.data.type1 = responce.data.type
+                    }
                     var ret = this.$conversion(this.changeDataArr, responce.data, 0)
+                    console.log(ret)
                     ret = this.$eltable(ret)
                     this.$set(this, 'headData', ret)
                 })
