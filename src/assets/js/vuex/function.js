@@ -1,6 +1,5 @@
 const LocalEvent = function (item) {
     this.get = function () {
-        console.log((typeof localStorage) === 'undefined' ? '' : localStorage.getItem(item) ? JSON.parse(localStorage.getItem(item)) : '')
         return (typeof localStorage) === 'undefined' ? '' : localStorage.getItem(item) ? JSON.parse(localStorage.getItem(item)) : ''
     }
     this.set = function (obj) {
