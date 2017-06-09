@@ -198,7 +198,7 @@ export default {
         }
     },
     mounted () {
-        if (this.kit_url === '') this.Kit()
+        if (this.kit_url !== '') this.Kit()
         // 记住账号
         if (localStorage.getItem('recordUser') === '' || localStorage.getItem('recordUser') === undefined) {
             this.recordeChecked = false
