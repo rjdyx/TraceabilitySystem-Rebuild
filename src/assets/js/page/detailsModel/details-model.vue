@@ -80,7 +80,7 @@
             <roleCheckbox v-if="isRoleShow" :rowId="rowId"></roleCheckbox>
         </transition>
     <!-- 列表模块 -->
-    <el-table :data="tableData"  @selection-change="handleSelectionChange" v-loading="listLoading">
+    <el-table :data="tableData"  @selection-change="handleSelectionChange" v-loading="listLoading" element-loading-text="正在加载">
         <!-- checkbox -->
         <el-table-column width="50" type="selection">
         </el-table-column> 
@@ -460,7 +460,6 @@ export default {
                         responce.data.type1 = responce.data.type
                     }
                     var ret = this.$conversion(this.changeDataArr, responce.data, 0)
-                    console.log(ret)
                     ret = this.$eltable(ret)
                     this.$set(this, 'headData', ret)
                 })

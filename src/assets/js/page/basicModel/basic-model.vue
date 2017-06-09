@@ -69,9 +69,7 @@
         </transition>
     </div>
     <!-- 列表模块 -->
-    <el-table :data="tableData"  @selection-change="handleSelectionChange" element-loading-text="正在加载">
-    <!-- <el-table :data="tableData"  @selection-change="handleSelectionChange" v-loading="listLoading" element-loading-text="正在加载"> -->
-
+    <el-table :data="tableData"  @selection-change="handleSelectionChange" v-loading="listLoading" element-loading-text="正在加载">
         <!-- checkbox -->
         <el-table-column width="50" type="selection">
         </el-table-column> 
