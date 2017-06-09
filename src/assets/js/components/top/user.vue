@@ -20,7 +20,7 @@
 			 	</el-row>
 				<el-button class="btn_change" @click="showEdit">编辑</el-button>
 			</div>
-			<div class="mainPic">s
+			<div class="mainPic">
 				<img src="/public/images/rfid.png">
 			</div>
 			<footer-top></footer-top>
@@ -79,7 +79,7 @@ export default {
     mounted () {
         this.change_siderBar(true)
         // 查询编辑数据
-        axios.get('api/system/1/edit')
+        axios.get(this.$adminUrl('system/1/edit'))
             .then((responce) => {
                 var ret = this.$conversion(this.changeDataArr, responce.data, 1)
                 this.listV = ret.user

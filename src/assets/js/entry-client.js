@@ -33,7 +33,6 @@ const { app, router, store } = createApp()
 if (window.__INITIAL_STATE__) {
     store.replaceState(window.__INITIAL_STATE__)
 }
-
 router.onReady(() => {
     // 为异步数据的处理添加路由钩子
     // 路由匹配成功后执行如下的数据对比，这样我们避免对在服务器端就已经

@@ -67,6 +67,10 @@ export default {
         //     this.$refs.siderBar.$children[0].$children[0].activedIndex = ''
         //     this.$store.dispatch('switch_record', '')
         // }
+    },
+    mouted () {
+        console.log(this.$store.state.auth.roles)
+        console.log(222)
     }
 }
 </script>

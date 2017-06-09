@@ -9,7 +9,7 @@ const state = {
     token: '',
     kit: '',
     user: {},
-    roles: {},
+    roles: JSON.stringify({}),
     cookies: ''
 }
 

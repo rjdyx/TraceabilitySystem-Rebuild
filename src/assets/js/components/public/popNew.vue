@@ -18,6 +18,7 @@
           <!-- 表单 -->
         <el-form :model="tableForm" :rules="rules" ref="tableForm" label-width="110px" class="demo-tableForm">
             <table>
+                <tbody>
                 <template v-for="subItem in item.components">
 
                     <!-- 文本框 -->
@@ -132,6 +133,7 @@
                         </ul>
                     </td>
                 </tr>
+            </tbody>
           </table>
          </el-form>
         </el-tab-pane>
@@ -218,7 +220,7 @@ export default {
     mounted () {
         if (this.checkboxShow) {
             // 全部数据
-            axios.get('api/company/permission')
+            axios.get(this.$adminUrl('company/permission'))
                 .then((responce) => {
                     this.memuList = responce.data
                 })

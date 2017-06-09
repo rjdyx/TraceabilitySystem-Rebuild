@@ -18,20 +18,20 @@
 				<template @click="changeSub">
 					<li>
 						<img src="/public/images/time.png" />
-						<p class="time">{{time}}</p>
+						<span class="time">{{time}}</span>
 					</li>
 				</template>
 				<template  v-for="(navbar,i) in navbars">
 					<li class="navbar" @click="changeSub">
 						<router-link :to="navbar.path">
 							<img :src="navbar.src" />
-							<p>{{navbar.name}}</p>
+							<span>{{navbar.name}}</span>
 						</router-link>
 					</li>
 				</template>
 				<li @click="back">
 					<img src="/public/images/back.png" />
-					<p>退出</p>
+					<span>退出</span>
 				</li>
 			</ul>
 		</div>
@@ -162,7 +162,9 @@ export default {
 					.router-link-active{
 						background:rgba(0,0,0,.2);
 					}
-				p {
+				span {
+					display:inline-block;
+					width:100%;
 					color: #fff;
 				}
 				img {

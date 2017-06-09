@@ -80,7 +80,7 @@ export default {
     },
     mounted () {
         // 查询编辑数据
-        axios.get('api/company/info')
+        axios.get(this.$adminUrl('company/info'))
             .then((responce) => {
                 this.listV = responce.data
                 for (let key of Object.keys(responce.data)) {

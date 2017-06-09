@@ -29,11 +29,14 @@ export
     Form,
     FormItem,
     Checkbox,
+    CheckboxGroup,
     Row,
     Col,
     Dropdown,
     DropdownMenu,
     DropdownItem,
-    Upload
+    Upload,
+    Radio,
+    Rate
 }
 from 'element-ui'

@@ -18,6 +18,7 @@
           <!-- 表单 -->
         <el-form :model="printForm" :rules="rules" ref="printForm" label-width="110px" class="demo-printForm">
             <table>
+            <tbody>
                 <template v-for="subItem in item.components">
                     <!-- 文本框 -->
                     <tr class="tr1" v-if="subItem.type=='text'">
@@ -55,6 +56,7 @@
                         </td>
                     </tr>
                 </template>
+            </tbody>
           </table>
          </el-form>
         </el-tab-pane>

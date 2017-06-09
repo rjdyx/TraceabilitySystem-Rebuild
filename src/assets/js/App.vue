@@ -5,15 +5,14 @@
 </template>
 
 <script>
+import {mapGetters} from 'vuex'
 export default {
     name: 'App',
     computed: {
-        getTheme () {
-            return this.$store.getters.getTheme
-        },
-        getFont () {
-            return this.$store.getters.getFont
-        }
+        ...mapGetters([
+            'getTheme',
+            'getFont'
+        ])
     }
 }
 </script> 
