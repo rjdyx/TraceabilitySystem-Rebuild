@@ -2,8 +2,12 @@ import * as func from '../function'
 
 export default {
     SWITCHTHEME (state, obj) {
+        console.log('mutations.js')
+        console.log(obj.theme)
         state.theme.theme = obj.theme
         func.themeLocal.set(state.theme)
+        // func.themeLocal.get()
+        console.log('mutations end')
     },
     SWITCHFONT (state, obj) {
         state.font.font = obj.font
