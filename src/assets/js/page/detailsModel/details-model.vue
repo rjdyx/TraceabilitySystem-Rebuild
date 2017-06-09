@@ -218,7 +218,8 @@ export default {
             listLoading: false,
             num: 0,
             total_num: 0,
-            hiddeShow: false
+            hiddeShow: false,
+            totalNum: 0
         }
     },
     mixins: [computed],

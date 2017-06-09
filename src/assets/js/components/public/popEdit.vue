@@ -18,7 +18,7 @@
           <!-- 表单 -->
         <el-form :model="editForm" :rules="rules" ref="editForm" label-width="110px" class="demo-editForm">
             <table>
-            <tbody></tbody>
+            <tbody>
                 <template v-for="subItem in item.components">
                     <!-- 文本框 -->
                     <tr class="tr1" v-if="subItem.type=='text' && !subItem.hiddenSelect">
@@ -112,7 +112,7 @@
                         </ul>
                     </td>
                 </tr>
-
+            </tbody>
           </table>
          </el-form>
         </el-tab-pane>
@@ -455,3 +455,4 @@ export default {
 
 <style lang="sass">
 @import "../../../sass/public/pop.scss"
+</style>
