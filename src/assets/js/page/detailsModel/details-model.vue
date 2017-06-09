@@ -103,10 +103,10 @@
                             <div class="imgTipDiv" v-else-if="tabItem.protos[index]=='thumb'" slot="reference">
                                 <el-popover trigger="hover" placement="right">
                                     <!-- 放大图片 -->
-                                    <img style="width:100%; height:auto" v-if="tableData[scope.$index][tabItem.protos[index]]!=null && tableData[scope.$index][tabItem.protos[index]]!=''" :src="tableData[scope.$index].img" >
+                                    <img style="width:100%; height:auto" v-if="tableData[scope.$index][tabItem.protos[index]]!=null && tableData[scope.$index][tabItem.protos[index]]!=''" :src="getImgUrl(tableData[scope.$index].img)">
                                     <div slot="reference" class="name-wrapper imgTip">
                                         <!-- 小图片 -->
-                                        <img v-if="tableData[scope.$index][tabItem.protos[index]]!=null && tableData[scope.$index][tabItem.protos[index]]!=''" :src="tableData[scope.$index][tabItem.protos[index]]" width="100%" height="100%">
+                                        <img v-if="tableData[scope.$index][tabItem.protos[index]]!=null && tableData[scope.$index][tabItem.protos[index]]!=''" :src="getImgUrl(tableData[scope.$index][tabItem.protos[index]])" width="100%" height="100%">
                                     </div>
                                 </el-popover>
                             </div>
@@ -211,7 +211,7 @@ export default {
             // 复选框选中返回对象
             checkObject: {},
             selectNewEdit: [],
-            index: 0,
+            index: localStorage.getItem('tabL') !== null ? localStorage.getItem('tabL') : 0,
             rowId: null,
             routeId: this.$route.params.id,
             isShow: true,
@@ -231,6 +231,11 @@ export default {
         tabClick (tab, event) {
             this.index = tab.$data.index
             this.tabItem = this.tabList[this.index]
+            localStorage.setItem('tabL', this.index)
+        },
+        // 返回图片完整路径
+        getImgUrl (val) {
+            return '/' + val
         },
         jumpDetails (row, cid) {
             var id = row.id
@@ -592,7 +597,6 @@ export default {
                             })
                         } else if (responce.data === 'state') {
                             this.$message('该数据已被使用，无法删除')
-                            this.listLoading = false
                         }
                     })
             }).catch(() => {
@@ -634,16 +638,13 @@ export default {
                         if (responce.data === 'true') {
                             this.getDetailSerial()
                             this.boxArr(this.dataArr, false)
-                            this.listLoading = false
                             this.$message({
                                 type: 'success',
                                 message: '批量删除成功'
                             })
                         } else if (responce.data === 'state') {
-                            this.listLoading = false
                             this.$message('有数据已被使用，无法完成批量删除操作')
                         } else {
-                            this.listLoading = false
                             this.$message.error('批量删除失败')
                         }
                     })
@@ -741,8 +742,9 @@ export default {
     },
     mounted () {
         this.change_siderBar(false)
-        this.tabItem = this.tabList[0]
-        this.activeName = this.tabList[0].tab
+        this.tabItem = this.tabList[localStorage.getItem('tabL') !== null ? localStorage.getItem('tabL') : 0]
+        this.activeName = this.tabList[localStorage.getItem('tabL') !== null ? localStorage.getItem('tabL') : 0].tab
+        localStorage.setItem('tab', 0)
         this.getApiUrl()
         this.getDetailSerial()
         this.boxArr(this.dataArr, true)

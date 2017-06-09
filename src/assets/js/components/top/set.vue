@@ -10,7 +10,7 @@
 			<contain-title :settitle="settitle">
 			</contain-title>
 			<div class="switch">
-			<el-form :model="editForm"  ref="editForm" label-width="110px" class="demo-editForm">
+			<el-form :model="editForm" :rules="rules"  ref="editForm" label-width="110px" class="demo-editForm">
 				<!-- 主题色切换 -->
 
 					<el-form-item label="网站皮肤">
@@ -37,6 +37,10 @@
 					<el-form-item label="新密码" prop='password' >
 						<el-input type="password" auto-complete="off" placeholder="至少6位字符" v-model="editForm.password"></el-input>
 					</el-form-item>
+
+                    <el-form-item label="确认新密码" prop='checkPass' >
+                        <el-input type="password" auto-complete="off" placeholder="至少6位字符" v-model="editForm.checkPass"></el-input>
+                    </el-form-item>
 
 					<el-form-item label="网站名称" prop='name' v-if="role">
 						<el-input placeholder="请输入备案号" v-model="editForm.name" ></el-input>
@@ -94,6 +98,21 @@ import file from '../public/inputFile.vue'
 export default {
     name: 'set',
     data () {
+        let validatePass = (rule, value, callback) => {
+            if (this.editForm.password !== '') {
+                if (value !== '') {
+                    if (value !== this.editForm.password) {
+                        callback(new Error('两次输入密码不一致!'))
+                    } else {
+                        callback()
+                    }
+                } else {
+                    callback(new Error('请再次输入密码'))
+                }
+            } else {
+                callback()
+            }
+        }
         return {
             radio1: 1,
             radio2: 1,
@@ -101,14 +120,21 @@ export default {
             settitle: '系统设置',
             role: false,
             editForm: {
+                id: '',
                 name: '',
                 record_number: '',
-                verify_state: '',
-                web_state: '',
+                verify_state: 0,
+                web_state: 0,
                 keywords: '',
                 old_password: '',
                 password: '',
+                checkPass: '',
                 help: ''
+            },
+            rules: {
+                checkPass: [
+                    { validator: validatePass, trigger: 'blur' }
+                ]
             }
         }
     },
@@ -153,26 +179,48 @@ export default {
         switchFont (size) {
             this.switch_font(size)
         },
+        callbackMethed (data) {
+            if (data === 'old_error') {
+                this.$message('原始密码错误')
+                this.editForm.old_password = null
+            } else if (data === 'pas_error') {
+                this.$message('新密码长度有误')
+                this.editForm.password = null
+            } else if (data === 'false') {
+                this.$message.error('修改数据失败')
+                this.editForm.password = null
+                this.editForm.checkPass = null
+                this.editForm.old_password = null
+            } else if (data === 'set') {
+                this.$message('请输入原始密码')
+            } else {
+                this.$message({
+                    message: '修改数据成功',
+                    type: 'success'
+                })
+                this.editForm.password = null
+                this.editForm.checkPass = null
+                this.editForm.old_password = null
+            }
+        },
         /**
           * 提交表单
           */
         submitForm (formName) {
-            var ret = this.editForm
-            axios.put(this.$adminUrl('system/1'), ret).then((response) => {
-                if (response.data === 'old_error') {
-                    this.$message('原始密码错误')
-                    this.editForm.old_password = null
-                } else if (response.data === 'pas_error') {
-                    this.$message('新密码长度有误')
-                    this.editForm.password = null
-                } else if (response.data === false) {
-                    this.$message('修改失败')
-                    this.editForm.password = null
-                    this.editForm.old_password = null
+            this.$refs[formName].validate((valid) => {
+                if (valid) {
+                    var ret = this.editForm
+                    if (ret.id !== '') {
+                        axios.put(this.$adminUrl('system/1'), ret).then((response) => {
+                            this.callbackMethed(response.data)
+                        })
+                    } else {
+                        axios.post(this.$adminUrl('system'), ret).then((response) => {
+                            this.callbackMethed(response.data)
+                        })
+                    }
                 } else {
-                    this.$message('修改成功')
-                    this.editForm.password = null
-                    this.editForm.old_password = null
+                    return false
                 }
             })
         }
@@ -211,8 +259,11 @@ export default {
             .then((responce) => {
                 if (responce.data.user.company_id === null) {
                     this.role = true
+                } else {
+                    this.editForm['id'] = responce.data.user.id
                 }
                 if (responce.data.system !== null && responce.data.system !== undefined) {
+                    this.editForm['id'] = responce.data.system.id
                     this.editForm['name'] = responce.data.system.name
                     this.editForm['keywords'] = responce.data.system.keywords
                     this.editForm['verify_state'] = responce.data.system.verify_state

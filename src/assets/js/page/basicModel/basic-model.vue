@@ -227,7 +227,7 @@ export default {
             // 分页
             pageVal: 1,
             // tab模块选择标志
-            modelIndex: 0,
+            modelIndex: localStorage.getItem('tab') !== null ? localStorage.getItem('tab') : 0,
             activeName: 'index0',
             modelName: this.$route.params,
             // 被选中的列表项数组
@@ -317,6 +317,7 @@ export default {
          **/
         tabClick (tab, event) {
             this.modelIndex = tab.$data.index
+            localStorage.setItem('tab', this.modelIndex)
         },
         // 操作更多选项
         filterTag (value, row) {
@@ -338,10 +339,8 @@ export default {
                                 type: 'success',
                                 message: '删除成功'
                             })
-                            this.listLoading = false
                         } else if (responce.data === 'state') {
                             this.$message('该数据已被使用，无法删除')
-                            this.listLoading = false
                         }
                     })
             }).catch(() => {
@@ -662,16 +661,13 @@ export default {
                         if (responce.data === 'true') {
                             this.getSelect()
                             this.boxArr(this.dataArr, false)
-                            this.listLoading = false
                             this.$message({
                                 type: 'success',
                                 message: '批量删除成功'
                             })
                         } else if (responce.data === 'state') {
-                            this.listLoading = false
                             this.$message('有数据已被使用，无法完成批量删除操作')
                         } else {
-                            this.listLoading = false
                             this.$message.error('批量删除失败')
                         }
                     })
@@ -863,7 +859,8 @@ export default {
 
     mounted () {
         this.change_siderBar(false)
-        this.activeName = 'index0'
+        this.activeName = localStorage.getItem('tab') !== null ? 'index' + localStorage.getItem('tab') : 'index0'
+        localStorage.setItem('tabL', 0)
         // 获取下拉框
         if (this.selectValueId) {
             this.getSelect()
@@ -878,6 +875,7 @@ export default {
         models () {
             this.modelIndex = 0
             this.activeName = 'index0'
+            localStorage.setItem('tab', this.modelIndex)
         },
         key () {
             this.SET_TABLE_DATA([])
