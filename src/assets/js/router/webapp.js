@@ -13,7 +13,6 @@ const bM2 = () => import('../page/phone/plant/basic_model1.vue') // 农事信息
 const commodity = () => import('../page/phone/plant/commodity.vue') // 商品信息
 const breedIndex = () => import('../page/phone/plant/breedIndex.vue') // 种植首页
 
-
 // ---------------- 手机端路由  种植-----------------
 export default {
     router: [
