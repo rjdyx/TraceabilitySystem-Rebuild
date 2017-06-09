@@ -92,7 +92,9 @@ export default {
         }
     },
     mounted () {
-        this.imageUrl = '/' + this.editValue
+        if (this.editValue !== null) {
+            this.imageUrl = '/' + this.editValue
+        }
     },
     watch: {
         imageUrl (curVal, oldVal) {
