@@ -39,7 +39,7 @@
 	</header>
 </template>
 <script>
-import {mapActions, mapMutations} from 'vuex'
+import {mapActions, mapMutations, mapGetters} from 'vuex'
 export default {
     name: 'MyHead',
     data: function () {
@@ -58,7 +58,9 @@ export default {
     },
     methods: {
         ...mapActions([
-            'change_siderBar'
+            'change_siderBar',
+            'switch_theme',
+            'switch_font'
         ]),
         ...mapMutations([
             'SET_ROLES'
@@ -101,6 +103,15 @@ export default {
         changeSub () {
             this.change_siderBar(true)
         }
+    },
+    beforeMount () {
+        console.log('header.vue')
+        console.log(localStorage.getItem('theme'))
+        console.log(localStorage.getItem('font'))
+        let color = JSON.parse(localStorage.getItem('theme')).theme || 'green'
+        let size = JSON.parse(localStorage.getItem('font')).font || 'small'
+        this.switch_theme(color)
+        this.switch_font(size)
     },
     mounted () {
         this.initData()

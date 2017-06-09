@@ -52,6 +52,10 @@ export default {
             isShowSiderBar: 'getSiderBar'
         })
     },
+    beforeMount () {
+        let index = JSON.parse(localStorage.getItem('record')).record || ''
+        this.handle(index)
+    },
     mounted () {
         this.record = this.$store.getters.getRecord
     },

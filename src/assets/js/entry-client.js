@@ -31,7 +31,13 @@ const { app, router, store } = createApp()
 // 用服务端初始化好的状态赋予store中
 // 这里的状态在服务端渲染期间就已经确定好了，并且嵌入到html结构中
 if (window.__INITIAL_STATE__) {
+    let color = JSON.parse(localStorage.getItem('theme')).theme || 'green'
+    let size = JSON.parse(localStorage.getItem('font')).font || 'small'
     store.replaceState(window.__INITIAL_STATE__)
+    // store.commit('switch_theme', {theme: color})
+    // store.commit('switch_font', {font: size})
+    store.dispatch('SWITCHTHEME', color)
+    store.dispatch('SWITCHFONT', size)
 }
 router.onReady(() => {
     // 为异步数据的处理添加路由钩子
