@@ -105,9 +105,6 @@ export default {
         }
     },
     beforeMount () {
-        console.log('header.vue')
-        console.log(localStorage.getItem('theme'))
-        console.log(localStorage.getItem('font'))
         let color = JSON.parse(localStorage.getItem('theme')).theme || 'green'
         let size = JSON.parse(localStorage.getItem('font')).font || 'small'
         this.switch_theme(color)

@@ -174,6 +174,7 @@ export default {
             }
         },
         switchTheme (color) {
+            localStorage.setItem('aaa', color)
             this.switch_theme(color)
         },
         switchFont (size) {
