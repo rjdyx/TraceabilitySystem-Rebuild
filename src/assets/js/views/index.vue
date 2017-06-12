@@ -9,7 +9,7 @@
 <script>
 import MyHeader from '../components/public/header.vue'
 import SiderBar from '../components/public/sider-bar.vue'
-import menu from '../page/index/menu.js'
+import { menu } from '../page/index/menu.js'
 export default {
     name: 'Index',
     data () {
@@ -21,7 +21,7 @@ export default {
                     path: '/index/home'
                 },
                 {
-                    name: window.Roles.name,
+                    name: JSON.parse(this.$store.state.auth.roles).name,
                     src: '/public/images/test.png',
                     path: '/index/test'
                 },
@@ -41,14 +41,26 @@ export default {
                     path: '/index/question'
                 }
             ],
-            menus: menu,
             show: true
         }
     },
+
+    computed: {
+        menus () {
+            let roleData = {}
+            let roles = JSON.parse(this.$store.state.auth.roles)
+            if (roles.permissions !== undefined) {
+                roleData = roles.permissions.two
+            }
+            return menu({roleData})
+        }
+    },
+
     components: {
         MyHeader,
         SiderBar
     },
+
     methods: {
         // changeSub () {
         //     this.$refs.siderBar.$children[0].$children[0].closeMenu()
@@ -56,9 +68,9 @@ export default {
         //     this.$store.dispatch('switch_record', '')
         // }
     },
-    mounted () {
-    },
-    created () {
+    mouted () {
+        console.log(this.$store.state.auth.roles)
+        console.log(222)
     }
 }
 </script>

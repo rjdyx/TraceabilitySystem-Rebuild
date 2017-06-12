@@ -9,3 +9,5 @@ env.js
 /nbproject/private/
 /nbproject
 /dist
+/yarn.lock
+

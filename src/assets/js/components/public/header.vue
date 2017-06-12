@@ -18,28 +18,28 @@
 				<template @click="changeSub">
 					<li>
 						<img src="/public/images/time.png" />
-						<p class="time">{{time}}</p>
+						<span class="time">{{time}}</span>
 					</li>
 				</template>
 				<template  v-for="(navbar,i) in navbars">
 					<li class="navbar" @click="changeSub">
 						<router-link :to="navbar.path">
 							<img :src="navbar.src" />
-							<p>{{navbar.name}}</p>
+							<span>{{navbar.name}}</span>
 						</router-link>
 					</li>
 				</template>
 				<li @click="back">
 					<img src="/public/images/back.png" />
-					<p>退出</p>
+					<span>退出</span>
 				</li>
 			</ul>
 		</div>
-			<vue-progress-bar></vue-progress-bar>
+			<!-- <vue-progress-bar></vue-progress-bar> -->
 	</header>
 </template>
 <script>
-import {mapActions} from 'vuex'
+import {mapActions, mapMutations} from 'vuex'
 export default {
     name: 'MyHead',
     data: function () {
@@ -59,6 +59,9 @@ export default {
     methods: {
         ...mapActions([
             'change_siderBar'
+        ]),
+        ...mapMutations([
+            'SET_ROLES'
         ]),
         checkTime (i) {
             if (i < 10) {
@@ -87,19 +90,16 @@ export default {
             1000)
         },
         back () {
-            axios.post('logout', this.data).then((responce) => {
+            axios.post('/logout', this.data).then((responce) => {
                 if (responce.data === 200) {
-                    // window.Roles = {}
-                    // console.log(window.Roles)
-                    this.$router.push('/login')
+                    this.SET_ROLES(JSON.stringify({}))
+                    this.$router.push('/P/login')
                     // history.go(0) // 刷新更新权限数据
                 }
             })
         },
         changeSub () {
-            this.$Progress.start()
             this.change_siderBar(true)
-            this.$Progress.finish()
         }
     },
     mounted () {
@@ -162,7 +162,9 @@ export default {
 					.router-link-active{
 						background:rgba(0,0,0,.2);
 					}
-				p {
+				span {
+					display:inline-block;
+					width:100%;
 					color: #fff;
 				}
 				img {

@@ -6,6 +6,7 @@
  * 
  */
 <template>
+<transition name="fade2">
 	<div id="breed">
 		<div class="plant">
 			<div class="plantHead">
@@ -40,10 +41,11 @@
 				<!-- 检疫 -->
 				<li><router-link :to="'/run/breed/detection/'+code"></router-link></li>
 				<!-- 检测 -->
-				<li @click="fn"><router-link :to="'/run/breed/detect/'+code"></router-link></li>
+				<li><router-link :to="'/run/breed/detect/'+code"></router-link></li>
 			</ul>
 		</div>
 	</div>
+</transition>
 </template>
 <script>
 import plantMessage from './js/plantMessage.js'
@@ -61,6 +63,10 @@ export default{
         }
     },
     mounted () {
+        $(document).on('touchmove', function (e) {
+            e.preventDefault()
+            e.stopPropagation()
+        })
         // 获取溯源码
         this.code = this.$route.params.code
         // 查询首页产品数据
@@ -89,9 +95,6 @@ export default{
             })
     },
     methods: {
-        fn () {
-            console.log('dianjil ')
-        }
     }
 }
 </script>

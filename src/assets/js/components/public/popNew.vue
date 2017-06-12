@@ -9,16 +9,16 @@
 
 <template>
 <div class="newWrap">
-<!-- @mousedown='formDown' @mousemove='formMove' -->
   <form class="newForm" >
     <i class="closeBtn" @click="closeClick"></i>
       <!-- tab选项卡 -->
       <!-- <h4>{{newComponent[0].tab}}</h4> -->
       <el-tabs v-model="activeName" @tab-click="handleClick" class="tab">
-        <el-tab-pane :label="item.tab" :name="item.tab" v-for="(item,i) in newComponent">
+        <el-tab-pane :label="item.tab" :name="item.tab" v-for="(item,i) in newComponent" :key="i">
           <!-- 表单 -->
         <el-form :model="tableForm" :rules="rules" ref="tableForm" label-width="110px" class="demo-tableForm">
             <table>
+                <tbody>
                 <template v-for="subItem in item.components">
 
                     <!-- 文本框 -->
@@ -44,7 +44,9 @@
                                     <el-option 
                                         v-for="option in subItem.options" 
                                         :label="option.label" 
-                                        :value="option.value" size="small">
+                                        :value="option.value" 
+                                        :key="option.label + option.value" 
+                                        size="small">
                                     </el-option>
                                 </el-select>
                             </el-form-item>
@@ -123,6 +125,7 @@
                                 :lists="itemList" 
                                 :checkeds="checkeds[key]"
                                 :name="key" 
+                                :key="key"
                                 @return-isAllcheck="allChange" 
                                 @return-checked="allChecked">
                                 </allCheck>
@@ -130,6 +133,7 @@
                         </ul>
                     </td>
                 </tr>
+            </tbody>
           </table>
          </el-form>
         </el-tab-pane>
@@ -207,14 +211,16 @@ export default {
             dmL: 0,
             dmT: 0,
             memuList: {},
-            checkeds: []
+            checkeds: [],
+            disabled: false,
+            disabledV: false
         }
     },
     mixins: [move],
     mounted () {
         if (this.checkboxShow) {
             // 全部数据
-            axios.get('api/company/permission')
+            axios.get(this.$adminUrl('company/permission'))
                 .then((responce) => {
                     this.memuList = responce.data
                 })

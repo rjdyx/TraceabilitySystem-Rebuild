@@ -13,18 +13,23 @@
     </contain-title>
     
   <!-- 信息列表 -->
+  <!-- 信息列表 -->
     <el-row :gutter="20">
+         <el-col :span="6" v-for="(item,i) in theads" :key="i" class="text-small">{{item}}:<em class="margin-left_10">{{headData[protos[i]]}}</em>
+         </el-col>
+    </el-row>
+  <!--   <el-row>
         <el-col :span="6" v-for="(item,i) in theads" class="text-small">{{item}}:<em class="margin-left_10">{{headData[protos[i]]}}</em>
         </el-col>
         <el-col v-if="headData.type1===undefined||headData.type1===''||afterAdd===[]||!headData"></el-col>
         <el-col v-else :span="6"  v-for="(item2,j) in afterAdd[headData.type1]" class="text-small">{{item2}}:<em class="margin-left_10" v-if="j=='amount'">{{headData[j]}}{{headData.unit}}</em>
         <em class="margin-left_10" v-else>{{headData[j]}}</em>
          </el-col>
-    </el-row>
+    </el-row> -->
   <!-- tab栏 --> 
     <el-tabs v-model="activeName" type="card" id="tabs" @tab-click="tabClick">
         <el-tab-pane :label='tabItem.tab' :name='tabItem.tab' v-for="
-        tabItem in tabList">
+        (tabItem, i) in tabList" :key="i">
         </el-tab-pane>
     </el-tabs> 
 
@@ -37,8 +42,7 @@
                 <div class="searchOp">
                     <el-input
                         :placeholder="tabItem.searchPlaceholder"
-                        v-model="inputValue"
-                        :on-icon-click="search" class="searchInp" size="small" @keyup.enter.native="textAndDateFind">
+                        v-model="inputValue" class="searchInp" size="small" @keyup.enter.native="textAndDateFind">
                     </el-input>
                     <el-button size="small" class="searchBtn" @click="textAndDateFind">搜索</el-button>
                 </div>
@@ -46,12 +50,13 @@
                 <!-- 右边的操作按钮 -->
                 <!-- 操作按钮 -->
                 <component
-                    v-for="operateItem in tabItem.typeComponent"
+                    v-for="(operateItem, i) in tabItem.typeComponent"
                     :is="operateItem.component"
                     :url="apiUrlArr[tabList[index].url]"
                     :type="tabItem.whereArr"
                     :routeId="routeId"
-                    :curl="url"
+                    :curl="url" 
+                    :key="i"
                     class="fr"
                 ></component>
             </div>
@@ -75,7 +80,7 @@
             <roleCheckbox v-if="isRoleShow" :rowId="rowId"></roleCheckbox>
         </transition>
     <!-- 列表模块 -->
-    <el-table :data="tableData"  @selection-change="handleSelectionChange" v-loading="listLoading">
+    <el-table :data="tableData"  @selection-change="handleSelectionChange" v-loading="listLoading" element-loading-text="正在加载">
         <!-- checkbox -->
         <el-table-column width="50" type="selection">
         </el-table-column> 
@@ -115,7 +120,7 @@
 
                 <!-- 列表操作模块 -->
                 <el-table-column 
-                label="操作" v-if="checkOperate==null" width="175">
+                label="操作" width="175">
                     <template scope="scope" class="operateBtn" >
                         <template v-if="tabItem.moreComponent!=null">
                             <clickMore :moreComponent="tabItem.moreComponent" 
@@ -123,7 +128,7 @@
                         </template>
                         <template>
                             <el-button type="text" size="small" @click="changeEditShow(scope.$index,scope.row)" v-if="tabList[index].hiddeEdit">编辑</el-button>
-                            <el-button type="text" size="small" v-if="hiddeWatch">查看</el-button>
+                            <el-button type="text" size="small" v-if="hiddeShow">查看</el-button>
 
                             <el-button size="small" type="text" @click="handelDel(scope.$index,scope.row)" class="btn">删除</el-button>  
                             <el-button size="small" type="text" @click="permissionShow(scope.$index,scope.row)" class="btn" v-if="tabItem.hiddeRole">权限</el-button> 
@@ -134,14 +139,11 @@
             </el-table>
     <div class="footer">
         <div class="operate-foot">
-            <el-button @click="delAll" v-if="checkOperate==null">删除</el-button>
-            <template v-if="lotComponent!=null">
-                <lotOpearte :lotComponent="lotComponent"></lotOpearte>
-            </template>
+            <el-button @click="delAll">删除</el-button>
             <el-button @click="excel">导出表格</el-button>
         </div>
 
-        <p class="record">共有<span class="record_num">{{num}}</span>页，<span class="record_num">{{total_num}}</span>条记录</p>
+        <p class="record">共有<span class="record_num">{{num}}</span>页，<span class="record_num">{{totalNum}}</span>条记录</p>
 
         <!-- 分页模块 -->
             <el-pagination
@@ -213,7 +215,11 @@ export default {
             rowId: null,
             routeId: this.$route.params.id,
             isShow: true,
-            listLoading: false
+            listLoading: false,
+            num: 0,
+            total_num: 0,
+            hiddeShow: false,
+            totalNum: 0
         }
     },
     mixins: [computed],
@@ -454,13 +460,12 @@ export default {
                         responce.data.type1 = responce.data.type
                     }
                     var ret = this.$conversion(this.changeDataArr, responce.data, 0)
-                    console.log(ret)
                     ret = this.$eltable(ret)
                     this.$set(this, 'headData', ret)
                 })
         },
         // 获取列表信息
-        getAllMsg (data = {}) {
+        getAllMsg (data = {}, flag = false) {
             let names = this.tabList[this.index].urlid
             let whereArr = this.tabList[this.index].whereArr
             if (whereArr !== undefined && whereArr !== '') {
@@ -471,8 +476,9 @@ export default {
             if (names !== undefined && names !== null) {
                 data[names] = this.$route.params.id
             }
-            var datas = {}
-            this.listLoading = true
+            if (flag) {
+                this.listLoading = true
+            }
             this.$dataGet(this, this.apiUrlArr[this.tabList[this.index].url], {params: data})
                 .then((responce) => {
                     this.listLoading = false
@@ -482,12 +488,12 @@ export default {
                             ret = this.$eltable(ret)
                             ret = this.$getProductInfo(ret)
                             this.$set(this, 'tableData', ret)
-                            this.total_num = responce.data.total
+                            this.totalNum = responce.data.total
                             this.num = responce.data.last_page
                             this.paginator = responce.data
                         } else {
                             this.$set(this, 'tableData', responce.data.data)
-                            this.total_num = 0
+                            this.totalNum = 0
                             this.num = 0
                             this.paginator = 0
                         }
@@ -498,7 +504,7 @@ export default {
         textAndDateFind () {
             this.dataArr['query_text'] = this.inputValue
             this.dataArr['page'] = 1
-            this.boxArr(this.dataArr)
+            this.boxArr(this.dataArr, true)
         },
         // 下拉框查询
         selectFind (val) {
@@ -509,7 +515,7 @@ export default {
             }
             this.dataArr[val[0]] = val[1]
             this.dataArr['page'] = 1
-            this.boxArr(this.dataArr)
+            this.boxArr(this.dataArr, true)
         },
         // 日期存储
         dateFind (val) {
@@ -518,11 +524,11 @@ export default {
         // 分页跳转
         pageChange (val) {
             this.dataArr['page'] = val
-            this.boxArr(this.dataArr)
+            this.boxArr(this.dataArr, true)
         },
         // 组合查询
-        boxArr (dataArr) {
-            this.getAllMsg(dataArr)
+        boxArr (dataArr, flag) {
+            this.getAllMsg(dataArr, flag)
         },
         // 获取下拉框数据
         getSelect () {
@@ -557,10 +563,7 @@ export default {
         changeNew (val) {
             if (val !== 'false') {
                 this.isNewShow = false
-                if (this.tabItem.newComponent[0].components[this.tabItem.newComponent[0].assocNum] !== undefined) {
-                    this.$set(this.tabItem.newComponent[0].components[this.tabItem.newComponent[0].assocNum], 'tableVal', [])
-                }
-                this.boxArr(this.dataArr)
+                this.boxArr(this.dataArr, false)
                 this.getDetailSerial()
                 // this.getSelect()
                 this.$message({
@@ -578,12 +581,11 @@ export default {
                 confirmButtonText: '确定',
                 type: 'error'
             }).then(() => {
-                this.listLoading = true
                 axios.delete(this.$adminUrl(this.apiUrlArr[this.tabList[this.index].url] + '/' + row.id))
                     .then((responce) => {
                         if (responce.data === 'true') {
                             this.getDetailSerial()
-                            this.boxArr(this.dataArr)
+                            this.boxArr(this.dataArr, false)
                             this.$message({
                                 type: 'success',
                                 message: '删除成功'
@@ -605,7 +607,7 @@ export default {
             if (val !== 'false') {
                 this.isEditShow = false
                 this.getDetailSerial()
-                this.boxArr(this.dataArr)
+                this.boxArr(this.dataArr, false)
                 this.$message({
                     type: 'success',
                     message: '编辑数据成功'
@@ -622,7 +624,6 @@ export default {
                     confirmButtonText: '确定',
                     type: 'error'
                 }).then(() => {
-                    this.listLoading = true
                     var delArr = []
                     for (let key in this.checkObject) {
                         delArr.push(this.checkObject[key].id)
@@ -632,7 +633,7 @@ export default {
                     .then((responce) => {
                         if (responce.data === 'true') {
                             this.getDetailSerial()
-                            this.boxArr(this.dataArr)
+                            this.boxArr(this.dataArr, false)
                             this.listLoading = false
                             this.$message({
                                 type: 'success',
@@ -715,11 +716,8 @@ export default {
                     } else if (responce.data === 'false') {
                         this.$message.error('添加溯源码失败')
                     } else {
-                        if (JSON.stringify(this.dataArr) === '{}') {
-                            this.dataArr = ''
-                        }
                         this.getDetailSerial()
-                        this.boxArr(this.dataArr)
+                        this.boxArr(this.dataArr, false)
                         this.$message({
                             type: 'success',
                             message: '添加溯源码成功'
@@ -738,7 +736,7 @@ export default {
         // 导入事件触发
         importChange () {
             this.getDetailSerial()
-            this.boxArr(this.dataArr)
+            this.boxArr(this.dataArr, false)
         }
     },
     mounted () {
@@ -747,7 +745,7 @@ export default {
         this.activeName = this.tabList[0].tab
         this.getApiUrl()
         this.getDetailSerial()
-        this.getAllMsg()
+        this.boxArr(this.dataArr, true)
     },
     watch: {
         tabItem () {
@@ -755,7 +753,7 @@ export default {
             if (this.selectValueId !== undefined) {
                 this.getSelect()
             }
-            this.getAllMsg()
+            this.boxArr(this.dataArr, true)
             this.inputValue = ''
             document.title = this.tab
         },
@@ -764,7 +762,7 @@ export default {
             this.activeName = this.tabList[0].tab
             this.getApiUrl()
             this.getDetailSerial()
-            this.getAllMsg()
+            this.boxArr(this.dataArr, true)
         }
     },
     components: {

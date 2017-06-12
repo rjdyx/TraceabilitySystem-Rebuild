@@ -8,7 +8,7 @@
 <template>
 	<div class="search-top">
 		<el-select class="select" size="small" v-model="value">
-			<el-option v-for="item in options" :label="item.label" :value="item.value">
+			<el-option v-for="(item, i) in options" :label="item.label" :value="item.value" :key="i">
 			</el-option>
 		</el-select>
 	</div>

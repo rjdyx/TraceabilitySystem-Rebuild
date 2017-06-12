@@ -1,70 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
+    <title>{{ title }}</title>
     <meta charset="utf-8">
-    <!-- 优先使用 IE 最新版本和 Chrome -->
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-    <!-- 页面描述 -->
-    <meta name="description" content="展示首页"/>
-    <!-- 网页作者 -->
-    <meta name="author" content="苏锐佳"/>
-    <!-- 启用360浏览器的极速模式(webkit) -->
-    <meta name="renderer" content="webkit">
-    <!-- 避免IE使用兼容模式 -->
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <!-- <title>寻真溯源</title> -->
-
-    
-
-</head>
-<body>
-
-    <div id="app">
-    </div>
-
-<script type="text/javascript">
-    window.Laravel = {csrfToken:''};
-    window.Roles = {};
-    var xmlhttp;
-    function loadXMLDoc(url) {
-        xmlhttp=null;
-        if (window.XMLHttpRequest) {
-            // code for all new browsers
-            xmlhttp=new XMLHttpRequest();
-        }
-        else if (window.ActiveXObject) {
-            // code for IE5 and IE6
-            xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-        }
-        if (xmlhttp!=null) {
-            xmlhttp.onreadystatechange=state_Change;
-            xmlhttp.open("GET",url,true);
-            xmlhttp.send(null);
-        }
-        else {
-            alert("Your browser does not support XMLHTTP.");
-        }
-    }
-
-    function state_Change()
-    {
-    if (xmlhttp.readyState==4)
-      {// 4 = "loaded"
-      if (xmlhttp.status==200)
-        {// 200 = OK
-            window.Laravel = {csrfToken:xmlhttp.responseText};
-        }
-      else
-        {
-        alert("token获取失败");
-        }
-      }
-    }
-
-    window.onload = function() {
-        loadXMLDoc('/token');
-    }
-</script>
-</body>
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+    <link rel="shortcut icon" sizes="48x48" href="/public/suyulogo.png">
+    <meta name="theme-color" content="#f60">
+    <link rel="manifest" href="/manifest.json">
+  </head>
+  <body>
+    <!--vue-ssr-outlet-->
+  </body>
 </html>

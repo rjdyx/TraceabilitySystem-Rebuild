@@ -28,11 +28,15 @@ module.exports = {
         'no-unused-vars': 0,
         // 允许使用未声明的变量，除非在/*global */注释中提及
         'no-undef': 0,
+        // 允许使用eval
+        'no-eval': 0,
         // Disallow Assignment in return Statement
         'no-return-assign': 0,
         // 允许混用tab和空格
         "no-mixed-spaces-and-tabs": [2, false],
         // Disallow camelcase naming convention
-        'camelcase': ['error', {properties: 'never'}]
+        'camelcase': ['error', {properties: 'never'}],
+        // allow the Promise rejection reason not to be an Error
+        'prefer-promise-reject-errors': 0
     }
 }

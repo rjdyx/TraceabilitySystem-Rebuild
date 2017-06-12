@@ -17,24 +17,27 @@
           <!-- 表单 -->
             <el-form ref="form" :model="form" label-width="110px" class="demo-editForm">
             <table>
-                <template>
-                    <tr class="tr1"><td><i style="color:#55BBA6;margin-left: 40px;">* 选择用户关联的角色</i></td></tr>
-                    <br>
-                    <!-- 下拉框 -->
-                    <tr class="tr1"> 
-                        <td>
-                            <el-form-item label="权限角色" prop="role_id">
-                              <el-select v-model="form.value" size="small">
-                                <el-option 
-                                    v-for="option in options" 
-                                    :label="option.name" 
-                                    :value="option.id" 
-                                    size="small"></el-option>
-                              </el-select>
-                            </el-form-item>
-                        </td>
-                    </tr>
-                </template>
+                <tbody>
+                    <template>
+                        <tr class="tr1"><td><i style="color:#55BBA6;margin-left: 40px;">* 选择用户关联的角色</i></td></tr>
+                        <br>
+                        <!-- 下拉框 -->
+                        <tr class="tr1"> 
+                            <td>
+                                <el-form-item label="权限角色" prop="role_id">
+                                  <el-select v-model="form.value" size="small">
+                                    <el-option 
+                                        v-for="option in options" 
+                                        :label="option.name" 
+                                        :value="option.id" 
+                                        :key="option.id"
+                                        size="small"></el-option>
+                                  </el-select>
+                                </el-form-item>
+                            </td>
+                        </tr>
+                    </template>
+                </tbody>
           </table>
          </el-form>
         </el-tab-pane>

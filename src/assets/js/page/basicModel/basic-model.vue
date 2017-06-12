@@ -13,7 +13,7 @@
     </contain-title>
   <!-- tab栏 --> 
     <el-tabs v-model="activeName" id="tabs" @tab-click="tabClick" type="card">
-        <el-tab-pane v-for="(model,index) in models" :label="model.tab" :name="'index'+index">
+        <el-tab-pane v-for="(model,index) in models" :label="model.tab" :name="'index'+index" :key="index">
 
         </el-tab-pane>
     </el-tabs>  
@@ -26,21 +26,22 @@
             <div class="searchOp"> 
                 <el-input   
                     :placeholder="searchPlaceholder"
-                    v-model="inputValue"
-                    :on-icon-click="search" class="searchInp" size="small" @keyup.enter.native="textAndDateFind">
+                    v-model="inputValue" 
+                    class="searchInp" size="small" @keyup.enter.native="textAndDateFind">
                 </el-input>
                 <el-button size="small" class="searchBtn" @click="textAndDateFind">搜索</el-button>
             </div>
 
             <!-- 操作按钮 -->
             <component
-                v-for="typeOperate in typeComponent"
+                v-for="(typeOperate, i) in typeComponent"
                 :is="typeOperate.component"
                 :params="typeOperate.params"
                 class="fr rightBtn"
                 :url="url"
                 :checkObject="checkObject"
-                :type="paramsIndex"
+                :type="paramsIndex" 
+                :key="i"
             ></component>
             
         </div>
@@ -69,7 +70,6 @@
     </div>
     <!-- 列表模块 -->
     <el-table :data="tableData"  @selection-change="handleSelectionChange" v-loading="listLoading" element-loading-text="正在加载">
-
         <!-- checkbox -->
         <el-table-column width="50" type="selection">
         </el-table-column> 
@@ -133,7 +133,7 @@
             <el-button @click="excel">导出表格</el-button>
         </div>
 
-        <p class="record">共有<span class="record_num">{{num}}</span>页，<span class="record_num">{{total_num}}</span>条记录</p>
+        <p class="record">共有<span class="record_num">{{num}}</span>页，<span class="record_num">{{totalNum}}</span>条记录</p>
 
         <!-- 分页模块 -->
         <el-pagination
@@ -150,7 +150,7 @@
 </template> 
  
 <script>
-import {mapActions} from 'vuex'
+import { mapMutations, mapActions } from 'vuex'
 import computed from './computed.js'
 import popNew from '../../components/public/popNew.vue'
 import ContainTitle from 'components/layout/contain-title.vue'
@@ -164,7 +164,9 @@ import permissionCheckbox from '../../components/public/permissionCheckbox.vue'
 import company from '../../page/plant-basic/company.js'
 import roleCheckbox from '../../components/public/roleCheckbox.vue'
 export default {
+
     name: 'BasicModel',
+
     props: {
         models: {
             type: Array,
@@ -213,6 +215,7 @@ export default {
             }
         }
     },
+
     data () {
         return {
             companyId: '',
@@ -227,8 +230,6 @@ export default {
             modelIndex: 0,
             activeName: 'index0',
             modelName: this.$route.params,
-            // 列表数据
-            tableData: [],
             // 被选中的列表项数组
             multipleSelection: [],
             // 是否新建
@@ -238,13 +239,11 @@ export default {
             // 是否打印
             isPrintShow: false,
             isPermissionShow: false,
-            checkboxShow: false,
             // msg: 1,
             editBol: false,
             editForm: {},
             printForm: {},
             editDefault: {},
-            paginator: {},
             // 切换点击更多按钮的状态
             active: true,
             total: '',
@@ -270,16 +269,27 @@ export default {
             listLoading: false
         }
     },
+
     // 混合
     mixins: [computed],
+
     methods: {
+
+        ...mapMutations([
+            'SET_TABLE_DATA',
+            'SET_TOTAL_NUM',
+            'SET_NUM',
+            'SET_PAGINATOR'
+        ]),
+
         ...mapActions([
             'change_siderBar'
         ]),
+
         init (index = 0) {
             this.value = ''
             this.activeName = 0
-            this.$set(this, 'tableData', [])
+            this.SET_TABLE_DATA([])
             this.$set(this, 'multipleSelection', [])
         },
         jumpDetails (row) {
@@ -319,12 +329,11 @@ export default {
                 confirmButtonText: '确定',
                 type: 'error'
             }).then(() => {
-                this.listLoading = true
                 axios.delete(this.$adminUrl(this.url + '/' + row.id))
                     .then((responce) => {
                         if (responce.data === 'true') {
                             this.getSelect()
-                            this.boxArr(this.dataArr)
+                            this.boxArr(this.dataArr, false)
                             this.$message({
                                 type: 'success',
                                 message: '删除成功'
@@ -385,7 +394,7 @@ export default {
                 let arrs = com.permissionSelectArr
                 let urlArr = com.permissionSelectUrl
                 for (let key in arrs) {
-                    axios.get(urlArr[key])
+                    axios.get(this.$adminUrl(urlArr[key]))
                         .then((responce) => {
                             var datas = responce.data
                             var newArr = []
@@ -484,7 +493,7 @@ export default {
                     let arrs = com.permissionSelectArr
                     let urlArr = com.permissionSelectUrl
                     for (let key in arrs) {
-                        axios.get(urlArr[key])
+                        axios.get(this.$adminUrl(urlArr[key]))
                             .then((responce) => {
                                 var datas = responce.data
                                 var newArr = []
@@ -534,7 +543,6 @@ export default {
                                         this.selectNewEdit[key].push(editOpt[item])
                                     }
                                     com.components[com.popNumber2[key]].options = this.selectNewEdit[key]
-                                    // com.components[com.popNumber2[key]].options = this.$selectData(this.url, responce.data, editArr.selectArr)
                                 }
                             })
                     }
@@ -544,14 +552,14 @@ export default {
                 for (let key of Object.keys(row)) {
                     this.editDefault[key] = row[key]
                 }
-                if (this.url === 'category') {
+                if (this.url === 'category' || this.url === 'operate' || this.url === 'expert' || this.url === 'product') {
                     let params = {id: row.id}
                     axios.get(this.$adminUrl(this.url + '/changeEdit'), {params: params})
                         .then((responce) => {
                             if (responce.data === 'state') {
-                                com.components[com.popNumber].disabled = true
+                                com.components[com.editNumber].disabled = true
                             } else {
-                                com.components[com.popNumber].disabled = false
+                                com.components[com.editNumber].disabled = false
                             }
                         })
                 }
@@ -574,11 +582,13 @@ export default {
             this.isEditShow = false
         },
         // 获取数据
-        getAllMsg (data = {}) {
+        getAllMsg (data = {}, flag = false) {
             if (this.paramsIndex !== undefined) {
                 var type = this.paramsIndex
             }
-            this.listLoading = true
+            if (flag) {
+                this.listLoading = true
+            }
             this.$dataGet(this, this.url, {params: data, type: type})
                 .then((responce) => {
                     // 数据转换
@@ -586,15 +596,15 @@ export default {
                         if (responce.data.data.length !== 0) {
                             var ret = this.$conversion(this.changeDataArr, responce.data.data, 1)
                             ret = this.$eltable(ret)
-                            this.$set(this, 'tableData', ret)
-                            this.total_num = responce.data.total
-                            this.num = responce.data.last_page
-                            this.paginator = responce.data
+                            this.SET_TABLE_DATA(responce.data.data)
+                            this.SET_TOTAL_NUM(responce.data.total)
+                            this.SET_NUM(responce.data.last_page)
+                            this.SET_PAGINATOR(responce.data)
                         } else {
-                            this.$set(this, 'tableData', responce.data.data)
-                            this.total_num = 0
-                            this.num = 0
-                            this.paginator = 0
+                            this.SET_TABLE_DATA(responce.data.data)
+                            this.SET_TOTAL_NUM(0)
+                            this.SET_NUM(0)
+                            this.SET_PAGINATOR(0)
                         }
                         this.listLoading = false
                     }
@@ -604,7 +614,7 @@ export default {
         textAndDateFind () {
             this.dataArr['query_text'] = this.inputValue
             this.dataArr['page'] = 1
-            this.boxArr(this.dataArr)
+            this.boxArr(this.dataArr, true)
         },
         // 下拉框查询
         selectFind (val) {
@@ -615,7 +625,7 @@ export default {
             }
             this.dataArr[val[0]] = val[1]
             this.dataArr['page'] = 1
-            this.boxArr(this.dataArr)
+            this.boxArr(this.dataArr, true)
         },
         // 日期存储
         dateFind (val) {
@@ -624,11 +634,11 @@ export default {
         // 分页跳转
         pageChange (val) {
             this.dataArr['page'] = val
-            this.boxArr(this.dataArr)
+            this.boxArr(this.dataArr, true)
         },
         // 组合查询
-        boxArr (dataArr) {
-            this.getAllMsg(dataArr)
+        boxArr (dataArr, flag) {
+            this.getAllMsg(dataArr, flag)
         },
         // 全选获取数据
         handleSelectionChange (val) {
@@ -642,7 +652,6 @@ export default {
                     confirmButtonText: '确定',
                     type: 'error'
                 }).then(() => {
-                    this.listLoading = true
                     var delArr = []
                     for (let key in this.checkObject) {
                         delArr.push(this.checkObject[key].id)
@@ -652,7 +661,7 @@ export default {
                     .then((responce) => {
                         if (responce.data === 'true') {
                             this.getSelect()
-                            this.boxArr(this.dataArr)
+                            this.boxArr(this.dataArr, false)
                             this.listLoading = false
                             this.$message({
                                 type: 'success',
@@ -687,11 +696,13 @@ export default {
                     .then((responce) => {
                         if (responce.data === 'true') {
                             this.getSelect()
-                            this.boxArr(this.dataArr)
+                            this.boxArr(this.dataArr, false)
                             this.$message({
                                 type: 'success',
                                 message: '修改状态成功'
                             })
+                        } else if (responce.data === 'exit') {
+                            this.$message('该区域已被使用，无法修改批次状态')
                         } else {
                             this.$message.error('修改状态失败')
                         }
@@ -724,7 +735,7 @@ export default {
         changeNew (val) {
             if (val !== 'false') {
                 this.isNewShow = false
-                this.boxArr(this.dataArr)
+                this.boxArr(this.dataArr, false)
                 this.getSelect()
                 this.$message({
                     type: 'success',
@@ -739,7 +750,7 @@ export default {
             if (val !== 'false') {
                 this.isEditShow = false
                 this.getSelect()
-                this.boxArr(this.dataArr)
+                this.boxArr(this.dataArr, false)
                 this.$message({
                     type: 'success',
                     message: '编辑数据成功'
@@ -849,6 +860,7 @@ export default {
             this.checkeds = data
         }
     },
+
     mounted () {
         this.change_siderBar(false)
         this.activeName = 'index0'
@@ -857,26 +869,28 @@ export default {
             this.getSelect()
         }
         // 获取列表信息
-        this.getAllMsg()
+        this.boxArr(this.dataArr, true)
         let change = $('.available')
         change.css('display', 'none')
     },
+
     watch: {
         models () {
             this.modelIndex = 0
             this.activeName = 'index0'
         },
         key () {
-            this.tableData = []
+            this.SET_TABLE_DATA([])
             this.dataArr = {}
             if (this.selectValueId !== undefined) {
                 this.getSelect()
             }
-            this.getAllMsg()
+            this.boxArr(this.dataArr, true)
             this.inputValue = ''
             this.paginator = 0
         }
     },
+
     components: {
         ContainTitle,
         popNew,
@@ -916,9 +930,13 @@ export default {
         .fade-enter, .fade-leave-active {
             opacity: 0;
         }
+        .operate_wrap{
+            /*display: inline-block;*/
+            float: left;
+            margin-bottom: 10px;
+        }
         .searchInp {
             width: 161px;
-            margin-bottom: 10px;
             font-size: 12px;
             margin-right: 10px;
         }
@@ -929,7 +947,11 @@ export default {
             width: 62px;
         }
         .searchOp {
-            display: inline;
+            float: left;
+            margin-bottom: 10px;
+        }
+        .rightBtn{
+            margin-bottom: 10px;
         }
         .margin {
             margin-left: 15px;
@@ -961,7 +983,8 @@ export default {
             text-align: center;
         }
         #operate{
-            min-width: 1400px;
+            /*min-width: 1400px;*/
+            /*margin-bottom: 10px;*/
         }
         .footer {
             width: 99.9%;

@@ -12,6 +12,7 @@
                     <el-tab-pane label="编辑用户信息" :name="编辑用户信息">
 						<el-form :model="editValue" :rules="rules" ref="editValue" label-width="100px">
                             <table>
+                            <tbody>
                                 <template v-for="(item,key) in thread">
                                     <tr class="tr1" v-if="item[1]=='text'">
                                         <td>
@@ -45,6 +46,7 @@
                                         </td>
                                     </tr>    
                                 </template>
+                            </tbody>
                             </table>
                                 
 						</el-form>

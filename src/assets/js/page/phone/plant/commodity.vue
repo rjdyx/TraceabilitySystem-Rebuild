@@ -6,6 +6,7 @@
  * 
  */
 <template>
+<transition name="fade2">
     <div class="pCommodity">
         <header1 :title="models.title" :isbreed="isbreed"></header1>
         <headerImg :isbreed="isbreed"></headerImg>
@@ -66,6 +67,7 @@
             </div>
         </div>   
     </div>
+</transition>
 </template>
 <style type="text/css" lang="sass">
     .sell{
@@ -181,6 +183,10 @@ export default {
         }
     },
     mounted () {
+        $(document).on('touchmove', function (e) {
+            e.preventDefault()
+            e.stopPropagation()
+        })
         var params = {code: this.$route.params.id}
         axios.post('run/product', params)
             .then((responce) => {

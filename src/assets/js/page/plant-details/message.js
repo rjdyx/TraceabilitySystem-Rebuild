@@ -41,7 +41,7 @@ export default {
                     isNull: false,
                     label: 'Rfid',
                     placeholder: '必填',
-                    rule: [{required: true, message: '请输入Rfid', trigger: 'blur'}, {validator: validate2.reCheck}]
+                    rule: [{required: true, message: '请输入Rfid', trigger: 'blur'}, {validator: validate2.reCheck, trigger: 'blur', message: 'Rfid已存在'}]
                 },
                 {
                     name: 'memo',
@@ -63,7 +63,7 @@ export default {
                     isNull: false,
                     label: 'Rfid',
                     placeholder: '必填',
-                    rule: [{required: true, message: '请输入Rfid', trigger: 'blur'}, {validator: validate2.reCheck}]
+                    rule: [{required: true, message: '请输入Rfid', trigger: 'blur'}, {validator: validate2.reCheck, trigger: 'blur', message: 'Rfid已存在'}]
                 },
                 {
                     name: 'memo',
@@ -104,7 +104,7 @@ export default {
                     isNull: false,
                     label: '图片标题',
                     placeholder: '必填',
-                    rule: [{required: true, message: '请输入标题'}, {validator: validate2.reCheck}]
+                    rule: [{required: true, message: '请输入标题'}, {validator: validate2.reCheck, trigger: 'blur', message: '生长图片标题重复'}]
                 },
                 {
                     name: 'desc',
@@ -154,7 +154,7 @@ export default {
                     isNull: false,
                     label: '图片标题',
                     placeholder: '必填',
-                    rule: [{required: true, message: '请输入标题', trigger: 'blur'}, {validator: validate2.reCheck}]
+                    rule: [{required: true, message: '请输入标题', trigger: 'blur'}, {validator: validate2.reCheck, trigger: 'blur', message: '生长图片标题重复'}]
                 },
                 {
                     name: 'desc',
@@ -1058,7 +1058,7 @@ export default {
                     isNull: false,
                     label: '图片标题',
                     placeholder: '必填',
-                    rule: [{required: true, message: '请输入图片标题', trigger: 'blur'}, {validator: validate2.reCheck}]
+                    rule: [{required: true, message: '请输入图片标题', trigger: 'blur'}, {validator: validate2.reCheck, trigger: 'blur', message: '生长图片标题重复'}]
                 },
                 {
                     name: 'desc',
@@ -1108,7 +1108,7 @@ export default {
                     isNull: false,
                     label: '图片标题',
                     placeholder: '必填',
-                    rule: [{required: true, message: '请输入图片标题', trigger: 'blur'}, {validator: validate2.reCheck}]
+                    rule: [{required: true, message: '请输入图片标题', trigger: 'blur'}, {validator: validate2.reCheck, trigger: 'blur', message: '生长图片标题重复'}]
                 },
                 {
                     name: 'desc',
@@ -4285,7 +4285,7 @@ export default {
                     isNull: false,
                     label: '用户名',
                     placeholder: '请输入用户名',
-                    rule: [{required: true, trigger: 'blur'}, {validator: validate2.reCheck}]
+                    rule: [{required: true, trigger: 'blur', message: '请输入用户名'}, {validator: validate2.reCheck, trigger: 'blur', message: '用户名已存在'}]
                 },
                 {
                     name: 'email',
@@ -4294,7 +4294,7 @@ export default {
                     isNull: false,
                     label: '邮箱',
                     placeholder: '请输入邮箱',
-                    rule: [{required: true, trigger: 'blur'}, {validator: validate2.reCheck}]
+                    rule: [{required: true, trigger: 'blur', message: '请输入正确邮箱格式', type: 'email'}, {validator: validate2.reCheck, trigger: 'blur', message: '邮箱已存在'}]
                 },
                 {
                     name: 'phone',
@@ -4303,7 +4303,7 @@ export default {
                     isNull: false,
                     label: '手机号码',
                     placeholder: '请输入手机号码',
-                    rule: [{required: true, trigger: 'blur'}, {validator: validate2.reCheck}, {validator: validate2.phone}]
+                    rule: [{required: true, trigger: 'blur', message: '请输入手机号码'}, {validator: validate2.reCheck, trigger: 'blur', message: '手机号码已存在'}, {validator: validate2.phone}]
                 },
                 {
                     name: 'gender',
@@ -4396,7 +4396,7 @@ export default {
                     isNull: false,
                     label: '用户名',
                     placeholder: '请输入用户名',
-                    rule: [{required: true, trigger: 'blur'}, {validator: validate2.reCheck}]
+                    rule: [{required: true, trigger: 'blur', message: '请输入用户名'}, {validator: validate2.reCheck, trigger: 'blur', message: '用户名已存在'}]
                 },
                 {
                     name: 'email',
@@ -4405,7 +4405,7 @@ export default {
                     isNull: false,
                     label: '邮箱',
                     placeholder: '请输入邮箱',
-                    rule: [{required: true, trigger: 'blur'}, {validator: validate2.reCheck}]
+                    rule: [{required: true, trigger: 'blur', message: '请输入正确邮箱格式', type: 'email'}, {validator: validate2.reCheck, trigger: 'blur', message: '邮箱已存在'}]
                 },
                 {
                     name: 'phone',
@@ -4414,7 +4414,7 @@ export default {
                     isNull: false,
                     label: '手机号码',
                     placeholder: '请输入手机号码',
-                    rule: [{required: true, trigger: 'blur'}, {validator: validate2.reCheck}, {validator: validate2.phone}]
+                    rule: [{required: true, trigger: 'blur', message: '请输入手机号码'}, {validator: validate2.reCheck, trigger: 'blur', message: '手机号码已存在'}, {validator: validate2.phone}]
                 },
                 {
                     name: 'gender',

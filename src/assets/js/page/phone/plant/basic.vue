@@ -6,6 +6,7 @@
  * 
  */
 <template>
+<transition name="fade2">
     <div id="pBasic">
         <header1 :title="models.title" :isbreed="isbreed"></header1>
         <headerImg :isbreed="isbreed"></headerImg>
@@ -33,6 +34,7 @@
             </div> 
          </div>
     </div>
+</transition>
 </template>
 <script>
 import Header1 from './component/header.vue'
@@ -51,6 +53,10 @@ export default {
     props: {
     },
     mounted () {
+        $(document).on('touchmove', function (e) {
+            e.preventDefault()
+            e.stopPropagation()
+        })
         var params = {code: this.$route.params.id}
         var url = 'run/plant/plantation'
         if (this.$route.meta.runName === 'breed') {

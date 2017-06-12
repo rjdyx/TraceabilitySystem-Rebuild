@@ -6,6 +6,7 @@
  * 
  */
 <template>
+<transition name="fade2">
     <div class="pBasicModel1">
         <header1 :title="models.title" :isbreed="isbreed"></header1>
         <headerImg :productName='productName' :isbreed="isbreed"></headerImg>
@@ -21,7 +22,7 @@
                         <tr>
                             <th style="width: 25%" v-for="item in models.tableTheads">{{item}}</th>
                         </tr>
-                        <tr v-for="list in lists" @click="goListDetails(list.id,list.custom_id)">
+                        <tr v-for="list in lists" @touchend="goListDetails(list.id,list.custom_id)">
                             <td v-if="list.serial!==null">{{list.serial}}</td>
                             <td v-else>{{lack}}</td>
                             <td v-if="list.operate!==null">{{list.operate_name}}</td>
@@ -39,6 +40,7 @@
         </div>
         <!-- <router-view :title="models.title" :imgListName="imgListName" :details="models.details"></router-view> -->
     </div>
+ </transition>
 </template>
 <style type="text/css" lang="sass">
     .breedCol{
@@ -126,6 +128,10 @@ export default {
         }
     },
     mounted () {
+        $(document).on('touchmove', function (e) {
+            e.preventDefault()
+            e.stopPropagation()
+        })
         var params = {code: this.$route.params.id}
         var url = 'run/plant/'
         if (this.$route.meta.runName === 'breed') {
