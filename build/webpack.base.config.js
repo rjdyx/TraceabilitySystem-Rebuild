@@ -4,6 +4,9 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const vueConfig = require('./vue-loader.config');
 const projectRoot = path.resolve(__dirname, '../');
 
+function resolve (dir) {
+  return path.join(__dirname, '..', dir)
+}
 
 module.exports = {
     devtool: '#source-map',
@@ -14,7 +17,6 @@ module.exports = {
             'jquery',
             'lodash',
             'velocity-animate',
-            'vee-validate',
             'vue',
             'vue-router', 
             'vuex'
@@ -26,8 +28,16 @@ module.exports = {
         filename: '[name].[chunkhash].js'
     },
     module: {
-        //加载器配置
-        loaders: [
+        rules: [
+            {
+                test: /\.(js|vue)$/,
+                loader: 'eslint-loader',
+                enforce: 'pre',
+                include: [resolve('src'), resolve('test')],
+                options: {
+                  formatter: require('eslint-friendly-formatter')
+                }
+            },
             {
                 test: /\.vue$/,
                 loader: 'vue-loader',
@@ -73,17 +83,19 @@ module.exports = {
     // 配置应用层的模块（要被打包的模块）解析
     resolve: {
         // 这样就无需写后缀
-        extensions: ['.js', '.vue'],
+        extensions: ['.js', '.vue', '.json'],
         // 路径别名
         alias: {
             'projectRoot': projectRoot,
             'vue$': 'vue/dist/vue',
+            '@': resolve('src'),
             'sass': path.resolve(__dirname, '../src/assets/sass'),
             'jsPath': path.resolve(__dirname, '../src/assets/js'),
             'lang': path.resolve(__dirname, '../src/lang'),
             'components': path.resolve(__dirname, '../src/assets/js/components')
         }
     },
+    
     plugins: [
         new ExtractTextPlugin({filename:'[name].[chunkhash].css', allChunks: true}),
         new webpack.ProvidePlugin({
@@ -104,7 +116,14 @@ module.exports = {
             Vue: 'vue',
             'window.Vue': 'vue'
         }),
-        new webpack.NormalModuleReplacementPlugin(/element-ui[\/\\]lib[\/\\]locale[\/\\]lang[\/\\]zh-CN/, 'element-ui/lib/locale/lang/en')
+        new webpack.NormalModuleReplacementPlugin(/element-ui[\/\\]lib[\/\\]locale[\/\\]lang[\/\\]zh-CN/, 'element-ui/lib/locale/lang/en'),
+        // new webpack.LoaderOptionsPlugin({
+        //     options: {
+        //         eslint: {
+        //             formatter: require('eslint-friendly-formatter')
+        //         },
+        //     }
+        // })
     ]
 
 }

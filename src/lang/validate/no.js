@@ -29,4 +29,4 @@ export default {
     required: (field) => `${field} feltet er obligatorisk.`,
     size: (field, [size]) => `${field} feltet må være mindre enn ${size} KB.`,
     url: (field) => `${field} feltet er ikkje en gyldig URL.`
-};
+}

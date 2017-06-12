@@ -25,4 +25,4 @@ export default {
     required: (field) => `${field} harus diisi.`,
     size: (field, [size]) => `${field} harus lebih kecil dari ${size} KB.`,
     url: (field) => `${field} harus berupa tautan yang benar.`
-};
+}

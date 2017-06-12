@@ -24,5 +24,5 @@ export default {
     regex: (field) => `Das Format von ${field} ist ungültig.`,
     required: (field) => `${field} ist ein Pflichtfeld.`,
     size: (field, [size]) => `${field} muss kleiner als ${size} KB sein.`,
-    url: (field) => `${field} ist keine gültige URL.`,
-};
+    url: (field) => `${field} ist keine gültige URL.`
+}

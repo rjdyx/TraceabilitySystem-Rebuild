@@ -28,4 +28,4 @@ export default {
     required: (field) => `${field} აუცილებელია.`,
     size: (field, [size]) => `${field} უნდა იყოს ${size}kb-ზე ნაკლები.`,
     url: (field) => `${field}-(ი)ს არ აქვს სწორი მისამართის ფორმატი`
-};
+}

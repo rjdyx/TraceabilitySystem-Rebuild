@@ -26,4 +26,4 @@ export default {
     required: (field) => `The ${field} is required.`,
     size: (field, [size]) => `Fältet ${field} måste vara mindre än${size} KB.`,
     url: (field) => `Fältet ${field} är inte en godkänd URL.`
-};
+}

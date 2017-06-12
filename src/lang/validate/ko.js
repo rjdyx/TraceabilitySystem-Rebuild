@@ -28,4 +28,4 @@ export default {
     required: (field) => `${field}가 필요합니다.`,
     size: (field, [size]) => `${field}는 ${size} KB 보다 작아야 합니다.`,
     url: (field) => `${field}는 올바른 URL이 아닙니다.`
-};
+}

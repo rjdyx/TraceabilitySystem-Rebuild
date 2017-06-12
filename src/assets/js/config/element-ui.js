@@ -1,28 +1,30 @@
 /**
- * 按需引用饿了么组件
- */
+* 按需引用饿了么组件
+*/
 
-export 
+export
 {
-	Button,
-	ButtonGroup,
-	Input,
-	Menu,
-	Submenu,
-	MenuItem,
-	MenuItemGroup,
-	Breadcrumb,
-	BreadcrumbItem,
-	Tabs,
-	TabPane,
-	Table,
-  	TableColumn,
-  	Pagination,
-  	Dialog,
-  	Message,
-  	Select,
-  	Option,
-  	RadioGroup,
-  	RadioButton
-} 
+    Button,
+    ButtonGroup,
+    Input,
+    Menu,
+    Submenu,
+    MenuItem,
+    MenuItemGroup,
+    Breadcrumb,
+    BreadcrumbItem,
+    Tabs,
+    TabPane,
+    Table,
+    TableColumn,
+    Pagination,
+    Dialog,
+    Message,
+    Select,
+    Option,
+    RadioGroup,
+    RadioButton,
+    DatePicker,
+    Popover
+}
 from 'element-ui'

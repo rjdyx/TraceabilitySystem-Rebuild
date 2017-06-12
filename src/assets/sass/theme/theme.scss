@@ -1,0 +1,209 @@
+// 主题颜色
+$blue_color: #009acb;
+
+$green_color : #55BBA6;
+
+$purple_color : #895E9B;
+
+$yellow_color :  #DEB355;
+
+// 边框
+$blue_border: #0087b5;
+
+$green_border: #3f9e83;
+
+$purple_border: #6F4F84;
+
+$yellow_border: #c69b4e;
+
+
+// 图片
+$blue_img: url('/public/images/blue.png');
+
+$green_img: url('/public/images/green.png');
+
+$purple_img: url('/public/images/purple.png');
+
+$yellow_img: url('/public/images/yellow.png');
+
+$blue_icon: url('/public/images/icon.png') 70px -38px;
+
+$green_icon: url('/public/images/icon.png') 26px -80px;
+
+$purple_icon: url('/public/images/icon.png') 26px -8px;
+
+$yellow_icon: url('/public/images/icon.png') 26px -42px;
+
+// 字体大小(12px,13px,14px)
+$s_bigger: 14px;
+
+$s_middle: 13px;
+
+$s_small: 12px;
+
+// 字体大小(14px,15px,16px)
+$m_bigger: 16px;
+
+$m_middle: 15px;
+
+$m_small: 14px;
+
+// 字体大小(18px, 19px, 20px)
+$b_bigger: 20px;
+
+$b_middle: 19px;
+
+$b_small: 18px;
+// 字体大小
+@mixin font($size, $m_size, $b_size) {
+	.tab,
+	.head_right,
+	.el-menu-item, .el-submenu__title,
+	.copyright,table{
+		font-size: $size;
+	}
+	.back_text,.el-radio__label,.explain{
+		font-size: $m_size;
+	}
+	.titleQu,.title,.qu_title{
+		font-size: $b_size;
+	}
+}
+
+// 主题
+@mixin theme($bg, $img, $border, $icon) {
+	.wrap{
+		.scan_code{
+		background: $bg;
+	}
+	
+	.header,
+	.el-tabs__active-bar{
+	 	background: $bg;
+	}
+	.head_right{
+		ul{
+			li{
+				border-left: 1px solid $border;
+		}
+	}	
+}
+	.el-button:focus, .el-button:hover,
+	.el-input__inner:focus,
+	.el-input__inner:hover,
+	.el-textarea__inner:focus,
+	.el-textarea__inner:hover,
+	.el-checkbox__inner:hover{
+		border-color:$bg; 
+	}
+
+	.titleQu,
+	.enterTo,
+	.tab,
+	.pcActive,
+	.back_text,
+	.el-tabs__item.is-active,
+	.el-button:focus, .el-button:hover,
+	.record_num,
+	.qu_title{
+		color: $bg;
+	}
+	.title{
+		h2{
+			border-left: 4px solid $bg;
+		}
+	}
+	.el-menu--dark .el-submenu .el-menu .el-menu-item.is-active{
+		background: $bg;
+	}
+	.el-menu--dark .el-submenu .el-menu .el-menu-item:hover{
+		background: $bg;
+	}
+	.el-menu--dark .el-menu-item:hover, 
+	.el-menu--dark .el-submenu__title:hover{
+		background: $bg;
+	}
+	.btn_change,
+	.el-pager li.active{
+	 	background: $bg;
+	 	border: $bg;
+	}
+	.btn_change:hover,
+	.btn_change:focus{
+		color: $border;
+	}
+	.upload-demo .btn_change:hover{
+		color: $border;
+	}
+	.changeImg{
+		background: $img;
+	}
+	.back_icon{
+		background: $icon;
+	}
+	.el-checkbox-group,.cell{
+		.el-checkbox__input.is-checked .el-checkbox__inner{
+			background: $bg;
+			border:$bg;
+		} 
+	}
+	.el-radio__input.is-checked .el-radio__inner{
+		background: $bg;
+		border:$bg;
+	}
+	.el-radio__inner:hover{
+		border-color: $bg;
+	}
+	.el-pager li:hover,.el-button--text{
+		color: $border;
+	}
+	.el-select-dropdown__item.selected.hover{
+		background-color: $bg !important;
+	}
+	.avatar-uploader .el-upload:hover,.el-pagination__editor:focus{
+		border-color: $bg;
+	}
+	.allCheck{
+		.el-checkbox__input.is-checked .el-checkbox__inner{
+		background-color: $bg;
+		border-color: $bg;
+	}
+}
+.user{
+	.edit{
+		background: $bg;
+		border-color: $bg;
+	}
+}
+	}
+}
+
+//大号字体
+.big{
+	@include font(#{$s_bigger}, #{$m_bigger}, #{$b_bigger})
+}
+// 中号字体
+.middle{
+	@include font(#{$s_middle}, #{$m_middle}, #{$b_middle})
+}
+// 小号字体
+.small{
+	@include font(#{$s_small}, #{$m_small}, #{$b_small})
+}
+
+// 蓝色主题
+.blue{
+    @include theme(#{$blue_color}, #{$blue_img}, #{$blue_border}, #{$blue_icon})
+}
+// 绿色主题
+.green{
+    @include theme(#{$green_color}, #{$green_img}, #{$green_border}, #{$green_icon})
+}
+// 紫色主题
+.purple{
+    @include theme(#{$purple_color}, #{$purple_img}, #{$purple_border}, #{$purple_icon})
+}
+// 黄色主题
+.yellow{
+    @include theme(#{$yellow_color}, #{$yellow_img}, #{$yellow_border}, #{$yellow_icon})
+}

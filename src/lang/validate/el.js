@@ -29,4 +29,4 @@ export default {
     required: (field) => `${field} δεν έχει συμπληρωθεί.`,
     size: (field, [size]) => `${field} πρέπει να μην υπερβαίνει τα ${size} KB.`,
     url: (field) => `${field} πρέπει να είναι έγκυρη διεύθυνση URL.`
-};
+}

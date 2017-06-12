@@ -28,4 +28,4 @@ export default {
     required: (field) => `Поле ${field} обязательно для заполнения.`,
     size: (field, [size]) => `Поле ${field} должно быть меньше, чем ${size} KB.`,
     url: (field) => `Поле ${field} имеет ошибочный формат URL.`
-};
+}

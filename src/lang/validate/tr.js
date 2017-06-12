@@ -10,7 +10,7 @@ export default {
     credit_card: (field) => `${field} numarası hatalı.`,
     date_between: (field, [min, max]) => `${field} ${min} ile ${max} tarihleri arasında olmalıdır.`,
     date_format: (field, [format]) => `${field} ${format} formatında olmalıdır.`,
-    decimal: (field, [decimals] = ['*']) => `${field} sayısal${decimals !== '*' ? 've noktadan sonra '+decimals+' basamaklı' : ''} olmalıdır.`,
+    decimal: (field, [decimals] = ['*']) => `${field} sayısal${decimals !== '*' ? 've noktadan sonra ' + decimals + ' basamaklı' : ''} olmalıdır.`,
     digits: (field, [length]) => `${field} sayısal ve en fazla ${length} basamaklı olmalıdır.`,
     dimensions: (field, [width, height]) => `${field} alanı ${width} piksel ile ${height} piksel arasında olmalıdır.`,
     email: (field) => `${field} alanının geçerli bir e-posta olması gerekir.`,
@@ -29,4 +29,4 @@ export default {
     required: (field) => `${field} alanı gereklidir.`,
     size: (field, [size]) => `${field} alanı ${size} KB'dan daha az olmalıdır.`,
     url: (field) => `${field} geçersiz URL.`
-};
+}

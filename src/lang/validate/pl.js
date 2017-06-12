@@ -26,4 +26,4 @@ export default {
     required: (field) => `Pole ${field} jest wymagane.`,
     size: (field, [size]) => `Plik ${field} musi być mniejszy niż ${size} KB.`,
     url: (field) => `Pole ${field} nie jest poprawnym URL.`
-};
+}

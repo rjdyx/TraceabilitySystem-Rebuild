@@ -25,4 +25,4 @@ export default {
     required: (field) => `${field} on pakollinen kenttä.`,
     size: (field, [size]) => `${field} tulee olla vähemmän kuin ${size} KB.`,
     url: (field) => `${field} tulee olla kelvollinen URL-osoite.`
-};
+}

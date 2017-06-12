@@ -25,4 +25,4 @@ export default {
     required: (field) => `${field} skal udfyldes.`,
     size: (field, [size]) => `${field} må maksimalt have en størrelse på ${size} KB.`,
     url: (field) => `${field} skal være en gyldig URL.`
-};
+}

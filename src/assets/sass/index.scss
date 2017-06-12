@@ -6,9 +6,10 @@
 
 // Reset and dependencies
 @import "public/reset";
-// @import "public/base";
+@import "public/base";
+@import "public/fade";
 
 //转为rem函数用法
 //body {
-//  width: pxToRem(1000);
+ // width: pxToRem(1000);
 //}

@@ -26,4 +26,4 @@ export default {
     required: (field) => `${field} مطلوب.`,
     size: (field, [size]) => `${field} يجب ان يكون اقل من ${size} كيلوبايت.`,
     url: (field) => `الحقل ${field} يجب ان يكون رابطاً صحيحاً.`
-};
+}

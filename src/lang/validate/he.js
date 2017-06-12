@@ -28,4 +28,4 @@ export default {
     required: (field) => `חובה למלא את השדה ${field}.`,
     size: (field, [size]) => `השדה ${field} חייב לשקול פחות מ ${size} KB`,
     url: (field) => `${field} אינו מכיל כתובת אינטרנט תקינה.`
-};
+}
