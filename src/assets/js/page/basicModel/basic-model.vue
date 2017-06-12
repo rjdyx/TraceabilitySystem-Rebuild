@@ -227,7 +227,7 @@ export default {
             // 分页
             pageVal: 1,
             // tab模块选择标志
-            modelIndex: localStorage.getItem('tab') !== null ? localStorage.getItem('tab') : 0,
+            modelIndex: (typeof localStorage) !== 'undefined' ? localStorage.getItem('tab') !== null ? localStorage.getItem('tab') : 0 : 0,
             activeName: 'index0',
             modelName: this.$route.params,
             // 被选中的列表项数组
@@ -859,8 +859,7 @@ export default {
 
     mounted () {
         this.change_siderBar(false)
-        this.activeName = localStorage.getItem('tab') !== null ? 'index' + localStorage.getItem('tab') : 'index0'
-        localStorage.setItem('tabL', 0)
+        this.activeName = (typeof localStorage) !== 'undefined' ? (localStorage.getItem('tab') !== null ? 'index' + localStorage.getItem('tab') : 'index0') : 'index0'
         // 获取下拉框
         if (this.selectValueId) {
             this.getSelect()
@@ -875,7 +874,9 @@ export default {
         models () {
             this.modelIndex = 0
             this.activeName = 'index0'
-            localStorage.setItem('tab', this.modelIndex)
+            if ((typeof localStorage) !== 'undefined') {
+                localStorage.setItem('tab', this.modelIndex)
+            }
         },
         key () {
             this.SET_TABLE_DATA([])
@@ -888,7 +889,6 @@ export default {
             this.paginator = 0
         }
     },
-
     components: {
         ContainTitle,
         popNew,

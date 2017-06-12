@@ -211,7 +211,7 @@ export default {
             // 复选框选中返回对象
             checkObject: {},
             selectNewEdit: [],
-            index: localStorage.getItem('tabL') !== null ? localStorage.getItem('tabL') : 0,
+            index: (typeof localStorage) !== 'undefined' ? localStorage.getItem('tabL') !== null ? localStorage.getItem('tabL') : 0 : 0,
             rowId: null,
             routeId: this.$route.params.id,
             isShow: true,
@@ -742,9 +742,11 @@ export default {
     },
     mounted () {
         this.change_siderBar(false)
-        this.tabItem = this.tabList[localStorage.getItem('tabL') !== null ? localStorage.getItem('tabL') : 0]
-        this.activeName = this.tabList[localStorage.getItem('tabL') !== null ? localStorage.getItem('tabL') : 0].tab
-        localStorage.setItem('tab', 0)
+        this.tabItem = this.tabList[(typeof localStorage) !== 'undefined' ? localStorage.getItem('tabL') !== null ? localStorage.getItem('tabL') : 0 : 0]
+        this.activeName = this.tabList[(typeof localStorage) !== 'undefined' ? localStorage.getItem('tabL') !== null ? localStorage.getItem('tabL') : 0 : 0].tab
+        if ((typeof localStorage) !== 'undefined') {
+            localStorage.setItem('tab', 0)
+        }
         this.getApiUrl()
         this.getDetailSerial()
         this.boxArr(this.dataArr, true)
