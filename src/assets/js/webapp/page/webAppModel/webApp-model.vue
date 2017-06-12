@@ -28,15 +28,9 @@
 
          <!-- 时间操作 -->
        <transition name="slide-fade">
-            <!-- <div class="appTime" v-show="showdate">
-                <el-date-picker 
-                    v-model="timeValue"
-                    type="date"
-                    placeholder="选择日期">
-                </el-date-picker>
-            </div> -->
-             <group :title="$t('set start-date and end-date') + ' 2015-11-11 ~ 2017-10-11'">
-                <datetime v-model="limitHourValue" :start-date="startDate" :end-date="endDate" format="YYYY-MM-DD HH:mm" @on-change="change" :title="$t('start time')"></datetime>
+            <group :title="time" v-show="showdate">
+                <datetime v-model="value1" @on-change="change" :title="'开始日期'"></datetime>
+                <datetime v-model="value1" @on-change="change" :title="'结束日期'"></datetime>
             </group>
        </transition>
 
@@ -829,7 +823,9 @@ export default {
         roleCheckbox,
         appTab,
         XTable,
-        paginator
+        paginator,
+        Group,
+        Datetime
     }
 }
 </script>
@@ -997,14 +993,20 @@ export default {
     }
     .downhide{
         background: url(/public/images/arrowTop.png) no-repeat;
-        /*transform: rotate(180deg);*/
         background-size: 100%;
+    }
+    .clickHide{
+        height: 30px;
+        border: 1px solid transparent; 
+        margin-bottom: 15px;
     }
     .hide{
         width: 5%;
-        height: 30px;
+        height: 15px;
         display: block;
         margin: 0 auto;
+        margin-top: 10px; 
+        border: 1px solid transparent; 
     }
     .slide-fade-enter-active {
         transition: all .3s ease;
@@ -1015,6 +1017,12 @@ export default {
     .slide-fade-enter, .slide-fade-leave-active {
         transform: translateY(10px);
         opacity: 0;
+    }
+    .weui-cells{
+        font-size: 14px;
+    }
+    table{
+        border-color: none;
     }
 } 
 </style>

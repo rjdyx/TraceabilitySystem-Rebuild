@@ -7,30 +7,28 @@
     <div class="webLogin">
     	<div class="webloginImg">
             <img src="/public/images/logintop.png" class="topImg">
+            <img src="/public/images/loginbottom.png" class="bottomImg" @click="submitForm('ruleForm2')" ref="btn">
         </div>
 
     	<div class="form" @click="hideLogo">
     			<el-form :model="ruleForm2" :rules="rules2" ref="ruleForm2" class="demo-ruleForm">
     				<el-form-item prop="name" class="item">
+                        <span></span>
     					<el-input type="text"
     					    v-model="ruleForm2.name" 
     					    auto-complete="off" 
     					    placeholder="请输入用户名" 
     					    @keyup.enter.native="passTo">
     					</el-input>
-    				    <span></span>
     				</el-form-item>
     				<el-form-item prop="password" class="item">
+                        <span></span>
     					<el-input type="password" 
     					    v-model="ruleForm2.password" 
     					    auto-complete="off"
     				        placeholder="请输入密码"
     				        @keyup.enter.native="passTo">
     				    </el-input>
-    				    <span></span>
-    				</el-form-item>
-    				<el-form-item>
-    					<el-button @click="submitForm('ruleForm2')" ref="btn">{{loginBtn}}</el-button>
     				</el-form-item>
     			</el-form>
     		</div>
@@ -124,15 +122,24 @@ export default{
 @import "../../sass/function";
 
     .webLogin{
-    	width: 92%;
-    	height: 254px;
-    	background: #009acb;
+    	width: 100%;
+    	height: 100%;
 		overflow: hidden;
         .webloginImg{
+            width: 100%;
+            margin-bottom: 20px;
         .topImg{
-            width: 100px;
-            height: 100px;
+            width: 92%;
+            height: 280px;
+            margin-top: 49px;
+            margin-left: 4%;
             display: inline-block;
+        }
+        .bottomImg{
+            width: 25%;
+            height: 100px;
+            margin-left: 37%;
+            margin-top: -13px;
         }
     }
     	.form{
@@ -140,29 +147,31 @@ export default{
     		margin: 0 auto;
     	}
     	.el-input__inner{
-    		padding: 25px 18px;
+    		padding: 30px 50px;
     		border-radius: 0px;
+            background: #f6f6f6;
     	}
     	.item{
     		position: relative;
     		span{
 	    		position: absolute;
-	    		right: 10px;
-	    		top: 13px;
+	    		left: 10px;
+	    		top: 18px;
 	    		bottom: 0;
 	    		display: inline-block;
 	    		width: 25px;
 	    		height: 25px;
 	    		background-size: 100%;
 	    		background-repeat: no-repeat;
+                z-index: 9999998;
 	    	}
     	}
     	
     	.item:nth-child(1) span{
-    		background-image: url(/public/images/user.png);
+    		background-image: url(/public/images/appuser.png);
     	}
     	.item:nth-child(2) span{
-    		background-image: url(/public/images/password.png);
+    		background-image: url(/public/images/apppassword.png);
     	}
     	.el-button{
     		width:100%;
@@ -178,5 +187,8 @@ export default{
     		border-color: #fff;
     		color: #fff;
     	}
+        .el-input__inner:focus{
+            border-color: #f3f3f3;
+        }
     }
 </style>

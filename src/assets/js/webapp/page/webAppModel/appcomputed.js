@@ -21,6 +21,9 @@ export default {
         // app
         tabComponent () {
             return this.models[this.modelIndex].tabComponent
+        },
+        searchPlaceholder () {
+            return this.models[this.modelIndex].searchPlaceholder
         }
     }
 }
