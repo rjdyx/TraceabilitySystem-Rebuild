@@ -4,7 +4,10 @@
 * @date 2017/6/6
 * */
 <template>
-    <div class="wrap">
+    <div class="webLogin">
+    	<div class="webloginImg">
+            <img src="/public/images/logintop.png" class="topImg">
+        </div>
 
     	<div class="form" @click="hideLogo">
     			<el-form :model="ruleForm2" :rules="rules2" ref="ruleForm2" class="demo-ruleForm">
@@ -120,37 +123,18 @@ export default{
 
 @import "../../sass/function";
 
-    .wrap{
-    	width: 100%;
-    	height: 100%;
+    .webLogin{
+    	width: 92%;
+    	height: 254px;
     	background: #009acb;
 		overflow: hidden;
-    	.logo{
-    		width: 26%;
-    		height: 105px;
-    		margin: 0 auto;
-    		margin-top: 93px;
-    		margin-bottom: 50px;
-    		background-image: url(/public/images/p-logo.png);
-    		background-repeat:  no-repeat;
-    		background-size: 100% 100%;
-    	}
-    	.logo-hide{
-    		width: 0;
-    		height: 0;
-    		margin: 0 auto;
-    		padding-top: 140px;
-    		margin-bottom: 50px;
-    	}
-    	.hide-logo-enter-active, .hide-logo-leave-active{
-				transition: all .5s ease;
-    	}
-    	.hide-logo-leave-active, .hide-logo-enter{
-    		width: 0;
-    		height: 0;
-    		opacity: 0;
-    		margin-bottom: 0;
-    	}
+        .webloginImg{
+        .topImg{
+            width: 100px;
+            height: 100px;
+            display: inline-block;
+        }
+    }
     	.form{
     		width: 80%;
     		margin: 0 auto;
