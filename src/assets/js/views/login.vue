@@ -58,7 +58,6 @@
 							<el-button type="primary" 
 								@click="submitForm('ruleForm2')" 
 								size="small"
-								v-loading.fullscreen.lock="fullscreenLoading"
 								:disabled="this.checked!==true"
 								class="loginBtn"
 								>登录</el-button>
@@ -134,7 +133,6 @@ export default {
                 ]
             },
             checked: true,
-            fullscreenLoading: false,
             loading: false,
             codeLoading: false
         }

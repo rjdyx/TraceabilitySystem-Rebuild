@@ -29,7 +29,7 @@
 
 <style>
 	.btn_change {
-		margin-left: 15px;
+		/*margin-left: 15px;*/
         color: #fff;
 	}
 </style>

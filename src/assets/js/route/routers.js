@@ -4,6 +4,7 @@
 import Router from 'vue-router'
 import Vue from 'vue'
 import phoneRouters from './phoneRouters.js'
+// import webAppRouters from './webAppRouters.js'
 Vue.use(Router)
 
 // =============================顶层组件====================================
@@ -31,12 +32,7 @@ const login = resolve => {
         resolve(require('../views/login.vue'))
     }, 'login')
 }
-// ---------------------------手机登录注册组件----------------------------------
-const waplogin = resolve => {
-    require.ensure(['../views/waplogin.vue'], () => {
-        resolve(require('../views/waplogin.vue'))
-    }, 'waplogin')
-}
+
 // ---------------------------登录注册组件----------------------------------
 const protocol = resolve => {
     require.ensure(['../views/protocol.vue'], () => {
@@ -100,6 +96,26 @@ const ondone = resolve => {
         resolve(require('../components/top/ondone.vue'))
     }, 'ondone')
 }
+
+// ----------------------------移动端------------------------------------
+// ---------------------------移动端首页----------------------------------
+const appIndex = resolve => {
+    require.ensure(['../webapp/page/index/webAppIndex.vue'], () => {
+        resolve(require('../webapp/page/index/webAppIndex.vue'))
+    }, 'appIndex')
+}
+// ---------------------------手机登录注册组件----------------------------------
+const waplogin = resolve => {
+    require.ensure(['../views/waplogin.vue'], () => {
+        resolve(require('../views/waplogin.vue'))
+    }, 'waplogin')
+}
+// ---------------------------基础信息管理----------------------------------
+const appbasic = resolve => {
+    require.ensure(['../webapp/page/webAppBasic/app-basic.vue'], () => {
+        resolve(require('../webapp/page/webAppBasic/app-basic.vue'))
+    }, 'appbasic')
+}
 var routes = [
     {
         path: '/',
@@ -112,6 +128,7 @@ var routes = [
             }
         ]
     },
+    // pc端
     {
         path: '/index',
         component: index,
@@ -186,6 +203,33 @@ var routes = [
         path: '/waplogin',
         name: 'waplogin',
         component: waplogin
+    },
+    // {
+    //     path: '/appIndex',
+    //     name: 'appIndex',
+    //     component: appIndex,
+    //     children: [
+    //         {
+    //             path: 'appIndex',
+    //             component: appIndex
+    //         }
+    //     ]
+    // },
+    {
+        path: '/appIndex',
+        name: 'appIndex',
+        component: appIndex,
+        children: [
+            {
+                path: 'appIndex',
+                component: appIndex
+            },
+            {
+                path: 'message/:model',
+                component: appbasic
+                // 需要登录才能进入此路由
+            }
+        ]
     }
 ]
 

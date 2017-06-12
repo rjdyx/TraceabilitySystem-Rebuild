@@ -28,7 +28,8 @@
     "vue-progressbar": "^0.7.2",
     "vue-router": "^2.0.1",
     "vue2-scrollbar": "0.0.1",
-    "vuex": "^2.0.0"
+    "vuex": "^2.0.0",
+    "vux": "^2.3.4"
   },
   "devDependencies": {
     "autoprefixer": "^6.4.0",
@@ -56,6 +57,8 @@
     "http-proxy-middleware": "^0.17.3",
     "jade": "^1.11.0",
     "jade-loader": "^0.8.0",
+    "less": "^2.7.2",
+    "less-loader": "^4.0.4",
     "lru-cache": "^4.0.2",
     "opn": "^4.0.2",
     "rimraf": "^2.5.4",
@@ -68,10 +71,12 @@
     "vue-progressbar": "^0.7.2",
     "vue-style-loader": "^1.0.0",
     "vue-template-compiler": "^2.1.4",
+    "vux-loader": "^1.0.63",
     "webpack": "^2.1.0-beta.25",
     "webpack-dev-middleware": "^1.6.1",
     "webpack-hot-middleware": "^2.12.2",
-    "webpack-merge": "^2.0.0"
+    "webpack-merge": "^2.0.0",
+    "yaml-loader": "^0.4.0"
   },
   "version": "1.0.0",
   "main": "index.js",

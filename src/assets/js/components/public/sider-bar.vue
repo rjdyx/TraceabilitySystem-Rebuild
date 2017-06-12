@@ -78,14 +78,12 @@ export default {
 </script>
 
 <style lang="sass">
-    // @import "../../../sass/function";
     
     #menu-content {
         float: left;
         width: 200px;
         height: 100%;
         background-color: #324157;
-    }
     .jiji{
         border: 2px;
     }
@@ -102,10 +100,5 @@ export default {
         vertical-align: middle;
         padding-right: 5px;
     }
-    .active{
-        background: red;
-    }
-    .unactive{
-        background: green;
-    }
+   }
 </style>

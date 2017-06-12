@@ -1,152 +1,198 @@
-/*登陆注册组件
+/*登录组件
 * @description 
 * @author 舒丹彤
-* @date 2017/4/11
+* @date 2017/6/6
 * */
 <template>
-    <div>
-        3333
+    <div class="wrap">
+
+    	<div class="form" @click="hideLogo">
+    			<el-form :model="ruleForm2" :rules="rules2" ref="ruleForm2" class="demo-ruleForm">
+    				<el-form-item prop="name" class="item">
+    					<el-input type="text"
+    					    v-model="ruleForm2.name" 
+    					    auto-complete="off" 
+    					    placeholder="请输入用户名" 
+    					    @keyup.enter.native="passTo">
+    					</el-input>
+    				    <span></span>
+    				</el-form-item>
+    				<el-form-item prop="password" class="item">
+    					<el-input type="password" 
+    					    v-model="ruleForm2.password" 
+    					    auto-complete="off"
+    				        placeholder="请输入密码"
+    				        @keyup.enter.native="passTo">
+    				    </el-input>
+    				    <span></span>
+    				</el-form-item>
+    				<el-form-item>
+    					<el-button @click="submitForm('ruleForm2')" ref="btn">{{loginBtn}}</el-button>
+    				</el-form-item>
+    			</el-form>
+    		</div>
     </div>
 </template>
 
 <script>
+export default{
+    name: 'login',
+    data () {
+        let validateName = (rule, value, callback) => {
+            if (value === '') {
+                callback(new Error('请输入用户名'))
+            } else {
+                callback()
+            }
+        }
+        let validatePassword = (rule, value, callback) => {
+            if (value === '') {
+                callback(new Error('请输入密码'))
+            } else {
+                callback()
+            }
+        }
+        return {
+            loginBtn: '登录',
+            showLogo: true,
+            ruleForm2: {
+                name: '',
+                password: '',
+                code: ''
+            },
+            rules2: {
+                name: [
+                { validator: validateName, trigger: 'blur' }
+                ],
+                password: [
+                { validator: validatePassword, trigger: 'blur' }
+                ]
+            }
+        }
+    },
+    methods: {
+        submitForm (formName) {
+            this.$refs[formName].validate((valid) => {
+                if (valid) {
+                    this.loginBtn = '登录中...'
+                    console.log(this.$refs.btn.html)
+                    axios.post('/login', this.ruleForm2).then((responce) => {
+                        if (responce.data !== 200) {
+                            this.loginBtn = '登录'
+                            this.$message.error('用户名或密码错误')
+                        } else {
+                            // history.go(0) // 刷新更新权限数据
+                            this.$store.dispatch('switch_record', '')
+                            var myDate = new Date()
+                            localStorage.setItem('loginDate', myDate.toLocaleString())
+                            if (this.recordeChecked) {
+                                localStorage.setItem('recordUser', this.ruleForm2.name)
+                            } else {
+                                localStorage.setItem('recordUser', '')
+                            }
+                            let fa = localStorage.getItem('record')
+                            let json = JSON.parse(fa)
+                            json.record = ''
+                            let jsonStr = JSON.stringify(json)
+                            localStorage.setItem('record', jsonStr)
+                            this.$router.push('/appIndex')
+                        }
+                    })
+                } else {
+                    this.loginBtn = '登录'
+                    this.$message.error('请输入信息，再登录')
+                    return false
+                }
+            })
+        },
+        passTo () {
+            this.submitForm('ruleForm2')
+        },
+        hideLogo () {
+            this.showLogo = false
+        }
+    }
+}
 </script>
 
 
 <style lang='sass'>
-    .login{
-        width: 100%;
-        height: 100%;
-        position: absolute;
-        background-color: #d5dde0;
-        min-height: 900px;
-        min-width: 980px;
-        overflow: hidden;
-            .bg{
-                width: 100%;
-                position: absolute;
-                bottom: 30%;
-            }
-            .logintitle{
-                font-size: 48px;
-                position: relative;
-                top: 18%;
-                margin: 0 auto;
-                width: 668px;
-                color: #007cc2;
-            }
-            .main-bg{
-                width: 36%;
-                height: 68%;
-                position: absolute;
-                left: 31.5%;
-                top: 37%;
-            }
-            .logincontent{
-                display: inline-block;
-                position: absolute;
-                top: 39.5%;
-                left: 32.5%;
-                width: 36%;
-                height: 26%;
-                    .login-logo{
-                    width: 46%;
-                    float: left;
-                    margin-top: 30px;
-                            img{
-                        width: 54%;
-                        margin: 12% auto;
-                        display: block;
-                    }
-                }
-                .form{
-                float: left;
-                width: 54%;
-                    .el-form-item{
-                        margin-top: 5px;
-                        /*margin-bottom: 17px;*/
-                        width:85%;
-                    }
-                    .receive{
-                        margin-bottom: 0px;
-                    }
-                    .code{
-                        width: 50% !important;
-                    }
-                    .kit{
-                        width:38%;
-                        height:37px;
-                        margin-left: 1%;
-                        display: inline-block;
-                        cursor: pointer;
-                        vertical-align: middle;
-                    }
-                }
-            }
-            input:-ms-input-placeholder{
-                color: #d6d6d7;
-            }
-            input::-webkit-input-placeholder{
-                color: #d6d6d7;
-            }
-            .copyright{
-                position: absolute;
-                left: 37%;
-                bottom: 2%;
-                font-size: 12px;
-                color: #919191;
-                text-align: center;
-                .link{
-                    text-decoration: underline;
-                    color: #919191;
-                }
-            }
-            .el-checkbox__label,.smaller{
-                font-size: 12px;
-            }
-            .apply{
-                margin-left: 30px;
-            }
-            .margin{
-                margin-left: 18px;
-            }
-            .agreement{
-                margin-right: 18px;
-            }
-            @media screen and(min-width:500px) and(max-width:1720px) {
-                .form .el-form-item{
-                    margin-bottom: 13px;
-                }
-                .el-form-item__content{
-                    line-height: 28px;
-                }
-            }
-            .el-form-item__content{
-                /*line-height: 32px;*/
-                font-size: 12px;
-            }
-            .el-button:hover{
-                border-color: transparent !important;
-                color: #fff;
-            }
-            .el-input__inner:hover,.el-input__inner:focus{
-                border-color: #20a0ff !important;
-            }
-            .el-checkbox__inner:hover{
-                border-color: #20a0ff !important;
-            }
-            .loading{
-                width: 10%;
-                height: 37px;
-                line-height: 37px;
-                display: inline-block;
-                padding-left: 1.5%;
-                vertical-align: middle;
-                padding-top: 2%;
-            }
-            .loginBtn:hover,.loginBtn:focus{
-                color: #fff !important;
-                border-color: transparent !important;
-            }
-        }
+
+@import "../../sass/function";
+
+    .wrap{
+    	width: 100%;
+    	height: 100%;
+    	background: #009acb;
+		overflow: hidden;
+    	.logo{
+    		width: 26%;
+    		height: 105px;
+    		margin: 0 auto;
+    		margin-top: 93px;
+    		margin-bottom: 50px;
+    		background-image: url(/public/images/p-logo.png);
+    		background-repeat:  no-repeat;
+    		background-size: 100% 100%;
+    	}
+    	.logo-hide{
+    		width: 0;
+    		height: 0;
+    		margin: 0 auto;
+    		padding-top: 140px;
+    		margin-bottom: 50px;
+    	}
+    	.hide-logo-enter-active, .hide-logo-leave-active{
+				transition: all .5s ease;
+    	}
+    	.hide-logo-leave-active, .hide-logo-enter{
+    		width: 0;
+    		height: 0;
+    		opacity: 0;
+    		margin-bottom: 0;
+    	}
+    	.form{
+    		width: 80%;
+    		margin: 0 auto;
+    	}
+    	.el-input__inner{
+    		padding: 25px 18px;
+    		border-radius: 0px;
+    	}
+    	.item{
+    		position: relative;
+    		span{
+	    		position: absolute;
+	    		right: 10px;
+	    		top: 13px;
+	    		bottom: 0;
+	    		display: inline-block;
+	    		width: 25px;
+	    		height: 25px;
+	    		background-size: 100%;
+	    		background-repeat: no-repeat;
+	    	}
+    	}
+    	
+    	.item:nth-child(1) span{
+    		background-image: url(/public/images/user.png);
+    	}
+    	.item:nth-child(2) span{
+    		background-image: url(/public/images/password.png);
+    	}
+    	.el-button{
+    		width:100%;
+			padding: 15px 5px;
+			border-radius: 0;
+			background: #009acb;
+			border-color: #fff;
+			color: #fff;
+			font-size: 20px;
+			font-weight: 600;
+    	}
+    	.el-button:focus{
+    		border-color: #fff;
+    		color: #fff;
+    	}
+    }
 </style>

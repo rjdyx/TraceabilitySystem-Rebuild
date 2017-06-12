@@ -6,163 +6,94 @@
  * 
  */
 <template>
-<div class="basic_model">   
-  <div class="basic-wrap">
-      <!-- 标题 -->
-    <contain-title :settitle="settitle">
-    </contain-title>
-  <!-- tab栏 --> 
-    <el-tabs v-model="activeName" id="tabs" @tab-click="tabClick" type="card">
-        <el-tab-pane v-for="(model,index) in models" :label="model.tab" :name="'index'+index">
+<div class="webApp_model">   
+  <div class="webApp-wrap">
+        <!-- 标题 -->
+        <template v-if="tabComponent!=null">
+            <appTab :tabComponent="tabComponent"></appTab>
+        </template>
 
-        </el-tab-pane>
-    </el-tabs>  
-    <!-- 操作模块 -->
-    <div id="operate">
-        <div id="inputs">
-            <operate :listComponent="listComponent" @selectVal="selectFind" @dateVal="dateFind"></operate>
-            
-            <!-- 搜索框 -->
-            <div class="searchOp"> 
+        <!-- 操作 -->
+        <div class="appOperate">
+            <el-button type="primary" class="newbuilt">新建</el-button>
+            <div class="searchOp">
                 <el-input   
                     :placeholder="searchPlaceholder"
                     v-model="inputValue"
-                    :on-icon-click="search" class="searchInp" size="small" @keyup.enter.native="textAndDateFind">
+                    :on-icon-click="search" class="searchInp" @keyup.enter.native="textAndDateFind">
                 </el-input>
-                <el-button size="small" class="searchBtn" @click="textAndDateFind">搜索</el-button>
+                <el-button class="searchBtn" @click="textAndDateFind">搜索</el-button>
             </div>
-
-            <!-- 操作按钮 -->
-            <component
-                v-for="typeOperate in typeComponent"
-                :is="typeOperate.component"
-                :params="typeOperate.params"
-                class="fr rightBtn"
-                :url="url"
-                :checkObject="checkObject"
-                :type="paramsIndex"
-            ></component>
-            
         </div>
 
-        <!-- 新建模块 --> 
-        <transition name="fade">
-            <popNew v-if="isNewShow" :newComponent="newComponent" :checkboxShow="checkboxShow" :url="url" @submitNew="changeNew" @setAssoc="getAssoc" @setTable="getTable" ></popNew>
-        </transition>
-        <!-- 编辑模块 -->
-        <transition name="fade">
-            <pop-edit v-if="isEditShow" :editComponent="editComponent" :roleId="roleId" :checkboxShow="checkboxShow" :url="url" :editForm="editForm"
-             @submitEdit="hangeEdit" :changeDataArr="changeDataArr" :editDefault="editDefault"></pop-edit>
-        </transition>
-        <!-- 打印模块 -->
-        <transition name="fade">
-            <printf v-if="isPrintShow" :printComponent="printComponent" :url="url" :printForm="printForm"></printf>
-        </transition>
-        <!-- 权限模块 -->
-        <transition name="fade">
-            <permissionCheckbox v-if="isPermissionShow" :permissions="permissions" :companyId="companyId"></permissionCheckbox>
-        </transition>
-        <!-- 角色权限模块 -->
-        <transition name="fade">
-            <roleCheckbox v-if="isRoleShow" :rowId="rowId"></roleCheckbox>
-        </transition>
-    </div>
-    <!-- 列表模块 -->
-    <el-table :data="tableData"  @selection-change="handleSelectionChange" v-loading="listLoading" element-loading-text="正在加载">
+         <!-- 时间操作 -->
+       <transition name="slide-fade">
+            <!-- <div class="appTime" v-show="showdate">
+                <el-date-picker 
+                    v-model="timeValue"
+                    type="date"
+                    placeholder="选择日期">
+                </el-date-picker>
+            </div> -->
+             <group :title="$t('set start-date and end-date') + ' 2015-11-11 ~ 2017-10-11'">
+                <datetime v-model="limitHourValue" :start-date="startDate" :end-date="endDate" format="YYYY-MM-DD HH:mm" @on-change="change" :title="$t('start time')"></datetime>
+            </group>
+       </transition>
 
-        <!-- checkbox -->
-        <el-table-column width="50" type="selection">
-        </el-table-column> 
-
-        <!-- 序号 --> 
-        <el-table-column width="80" label="序号" type="index" id="test_id">
-        </el-table-column> 
-
-        <!-- 中间列表模块 -->
-        <template v-for="(item,index) in theads">
-            <template>
-                <el-table-column
-                    :label="item"
-                    :prop="protos[index]"
-                    :min-width="widths[index]" show-overflow-tooltip>
-                    <template  scope="scope">
-                            <div v-if="item.includes('批次号')" slot="reference" class="name-wrapper pcActive" @click="jumpDetails(scope.row)">
-                                {{ scope.row[protos[index]] }}
-                            </div>
-                            <div v-else-if="protos[index]=='img'" slot="reference" class="name-wrapper">
-                                <img v-if="tableData[scope.$index][protos[index]]!=null && tableData[scope.$index][protos[index]]!=''" 
-                                    :src="$img('images/ok.png')">
-                            </div>
-                            <div v-else slot="reference" class="name-wrapper" >
-                                {{ scope.row[protos[index]] }}
-                            </div>
-                    </template>
-                </el-table-column>
-            </template>
-        </template>
-        <!-- 列表操作模块 -->
-        <el-table-column 
-        label="操作" v-if="checkOperate==null" width="180">
-            <template scope="scope">
-                <template v-if="moreComponent!=null">
-                    <clickMore :companyId="companyId" :moreComponent="moreComponent" @showMore="moreShow(scope.$index,scope.row)" 
-                    @showPermission="permissionShow(scope.$index,scope.row)" @showDetail="detailShow(scope.$index,scope.row)" class="clickMoreBtn"
-                    @return-permission="getPermission" @changeState="changeSerialState(scope.$index,scope.row)">
-                    </clickMore>
-                </template>
-                <template>
-
-                    <el-button type="text" size="small" @click="roleShow(scope.$index,scope.row)" v-if="hiddeRole">权限</el-button>
-
-                    <el-button type="text" size="small" @click="changeEditShow(scope.$index,scope.row)" v-if="!hiddeEdit" v-bind:class="{'btn':hiddeRole}">编辑</el-button>
-
-                    <el-button type="text" size="small" v-if="hiddeShow">查看</el-button>
-                        
-                    <el-button size="small" type="text" @click="handelDel(scope.$index,scope.row)" v-bind:class="{'btn':!hiddeEdit}">删除</el-button>
-                </template>
-            </template>
-        </el-table-column>
-    </el-table>
-
-    <div class="footer">
-        <div class="operate-foot">
-            <el-button @click="delAll" v-if="checkOperate==null">删除</el-button>
-            <template v-if="lotComponent!=null">
-                <lotOpearte :lotComponent="lotComponent"></lotOpearte>
-            </template>
-            <el-button @click="excel">导出表格</el-button>
+        <!-- 隐藏操作按钮 -->
+        <div class="clickHide" @click="hideDate">
+            <span class="hide" :class="{'uphide': isA,'downhide': !isA }"></span>
         </div>
+       
 
-        <p class="record">共有<span class="record_num">{{num}}</span>页，<span class="record_num">{{total_num}}</span>条记录</p>
-
-        <!-- 分页模块 -->
-        <el-pagination
-          v-if="paginator!=0"
-          layout="prev, pager, next, jumper"
-          :total="paginator.total"
-          :page-size="paginator.per_page"
-          class="pager"
-          @current-change="pageChange">
-        </el-pagination>
-    </div>
+        <!-- 列表 -->
+        <x-table>
+            <thead>
+               <tr class="list">
+                   <th>序号</th>
+                   <th v-for="(item,index) in theads" :style="{width: widths[index] + '%'}" :name="protos[index]">{{theads[index]}}</th>
+               </tr> 
+            </thead>
+            <tbody>
+                <tr v-for="pers in tableData">
+                    <td>
+                        <input type="checkbox" :value="pers.id" v-model="ischeckdate">
+                    </td>
+                    <td v-for="(item,index) in protos">{{pers.name}}</td>
+                    <td class="appEdit">
+                        <span class="editImg">
+                        </span>
+                    </td>
+                </tr>
+            </tbody>
+        </x-table>
+        <div class="tableFooter">
+            <input type="checkbox" class="allcheckbox" v-model="checkAll" @click="checkedAll()">
+            <el-button type="primary" class="allcheck" @click="checkedAll()">全选</el-button>
+            <el-button type="danger" class="appDelete">删除</el-button>
+        </div>
+        <paginator></paginator>
   </div>
 </div>
 </template> 
  
 <script>
-import {mapActions} from 'vuex'
-import computed from './computed.js'
-import popNew from '../../components/public/popNew.vue'
-import ContainTitle from 'components/layout/contain-title.vue'
-import edit from '../../components/public/edit.vue'
-import operate from '../../components/public/operate.vue'
-import popEdit from '../../components/public/popEdit.vue'
-import clickMore from '../../components/public/clickMore.vue'
-import lotOpearte from '../../components/public/lotOpearte.vue'
-import printf from '../../components/public/printf.vue'
-import permissionCheckbox from '../../components/public/permissionCheckbox.vue'
-import company from '../../page/plant-basic/company.js'
-import roleCheckbox from '../../components/public/roleCheckbox.vue'
+import { XTable, Datetime, Group } from 'vux'
+import {mapActions, mapMutations} from 'vuex'
+import appTab from '../../public/tab.vue'
+import paginator from '../../public/paginator.vue'
+import computed from '../webAppModel/appcomputed.js'
+import popNew from '../../../components/public/popNew.vue'
+import appTitle from '../../public/header.vue'
+import edit from '../../../components/public/edit.vue'
+import operate from '../../../components/public/operate.vue'
+import popEdit from '../../../components/public/popEdit.vue'
+import clickMore from '../../../components/public/clickMore.vue'
+import lotOpearte from '../../../components/public/lotOpearte.vue'
+import printf from '../../../components/public/printf.vue'
+import permissionCheckbox from '../../../components/public/permissionCheckbox.vue'
+import company from '../../../page/plant-basic/company.js'
+import roleCheckbox from '../../../components/public/roleCheckbox.vue'
 export default {
     name: 'BasicModel',
     props: {
@@ -170,9 +101,7 @@ export default {
             type: Array,
             default () {
                 return [{
-                    key: '',
-                    tab: '',
-                    tablePager: Object,
+                    // 时间操作
                     url: '',
                     roleName: '',
                     urlParams: {},
@@ -181,40 +110,19 @@ export default {
                     searchPlaceholder: '',
                     protos: ['name'],
                     widths: [50],
-                    batch: '',
                     title: '',
                     settitle: '',
-                    options: [],
-                    paramsIndex: {},
-                    selectSearch: [],
                     typeComponent: [],
-                    listComponent: [],
-                    newComponent: [{
-                        tab: {
-                            component: null,
-                            isNull: true,
-                            label: '',
-                            placeholder: '',
-                            rule: ''
-                        }
-                    }],
-                    imgComponent: [],
-                    editComponent: [],
-                    moreComponent: [],
-                    printComponent: [],
-                    lotComponent: [],
-                    hiddeEdit: false,
-                    hiddeShow: false,
-                    checkOperate: null,
-                    hiddeRole: false,
-                    hiddeUser: false,
-                    selectDefault: {}
+                    tabComponent: []
                 }]
             }
         }
     },
     data () {
         return {
+            timeValue: '',
+            showdate: false,
+            isA: false,
             companyId: '',
             compute: this,
             // 搜索框内容
@@ -267,7 +175,8 @@ export default {
             roleId: null,
             rowId: null,
             isRoleShow: false,
-            listLoading: false
+            listLoading: false,
+            ischeckdate: []
         }
     },
     // 混合
@@ -848,6 +757,24 @@ export default {
         },
         getPermission (data) {
             this.checkeds = data
+        },
+        ...mapMutations([
+            'setTitle'
+        ]),
+        // app
+        hideDate () {
+            this.isA = !this.isA
+            this.showdate = !this.showdate
+        },
+        // 实现全选与反选
+        checkedAll: function () {
+            let ischeckdate = []
+            if (!this.checkAll) {
+                this.tableData.forEach((item) => {
+                    ischeckdate.push(item.id)
+                })
+            }
+            this.ischeckdate = ischeckdate
         }
     },
     mounted () {
@@ -861,6 +788,7 @@ export default {
         this.boxArr(this.dataArr, true)
         let change = $('.available')
         change.css('display', 'none')
+        this.setTitle('人员')
     },
     watch: {
         models () {
@@ -876,10 +804,20 @@ export default {
             this.boxArr(this.dataArr, true)
             this.inputValue = ''
             this.paginator = 0
+        },
+        ischeckdate () {
+            if (this.tableData.length === this.ischeckdate.length) {
+                this.checkAll = true
+            } else {
+                this.checkAll = false
+            }
+        },
+        checkAll (yes) {
+            this.checkAll = yes
         }
     },
     components: {
-        ContainTitle,
+        appTitle,
         popNew,
         edit,
         operate,
@@ -888,16 +826,17 @@ export default {
         lotOpearte,
         printf,
         permissionCheckbox,
-        roleCheckbox
+        roleCheckbox,
+        appTab,
+        XTable,
+        paginator
     }
 }
 </script>
 
-
 <style lang='sass'>
-.basic_model{
-    min-height: 790px;
-    .basic-wrap{
+.webApp_model{
+    .webApp-wrap{
         .pcActive{
                 text-decoration: underline;
                 cursor:pointer;
@@ -918,16 +857,16 @@ export default {
             opacity: 0;
         }
         .searchInp {
-            width: 161px;
-            margin-bottom: 10px;
-            font-size: 12px;
-            margin-right: 10px;
+            width: 60%;
+            margin: 0 3% 10px;
+            /*margin-right: 10px;*/
         }
         #btns {
             float: right;
         }
         .searchBtn {
-            width: 62px;
+            float: right;
+            width: 17%;
         }
         .searchOp {
             display: inline;
@@ -961,11 +900,11 @@ export default {
         .el-table td, .el-table th.is-leaf {
             text-align: center;
         }
-        #operate{
+        /*#operate{
             min-width: 1400px;
-        }
+        }*/
         .footer {
-            width: 99.9%;
+            width: 99.5%;
             height: 50px;
             border: 1px solid #dfe6ec;
             border-top: none;
@@ -987,6 +926,12 @@ export default {
             }
         }
     }
+    .el-tabs--border-card>.el-tabs__content{
+        padding: 0;
+    }
+    .el-tabs--border-card{
+        margin-bottom: 10px;
+    }
     /*溢出省略号替代  */
     /*.name-wrapper{
         width: 100px;
@@ -994,5 +939,82 @@ export default {
         text-overflow: ellipsis;
         white-space: nowrap;
     }*/ 
+    .newbuilt{
+        width: 17%;
+        float: left;
+        /*margin-right: 10px;*/
+    }
+    .el-date-editor.el-input{
+        width: 100%;
+    }
+    .appTime{
+        margin-bottom: 10px;
+    }
+    .allcheck{
+        float: left;
+    }
+    .appDelete{
+        float: right;
+        margin-right: 4px;
+    }
+    .appDelete,.allcheck{
+        display: inline-block;
+        margin-top: 4px;
+    }
+    .allcheckbox{
+        float: left;
+        margin: 16px 7px 0 26px;
+    }
+    .tableFooter{
+        height: 45px;
+        background: #eaeaea;
+        border: 1px solid #d8d8d8;
+    }
+    .vux-table td:before, .vux-table th:before{
+        border-bottom: none;
+    }
+    .vux-table td:after, .vux-table th:after{
+        border-right: none;
+    }
+    .appEdit{
+        width: 7%;
+    }
+    .editImg{
+        width: 100%;
+        height: 26px;
+        vertical-align: middle;
+        display: inline-block;
+        /*border: 1px solid red;*/
+        background: url(/public/images/list.png) no-repeat;
+        background-size: 100%;
+    }
+    .clickHide{
+        width: 100%;
+    }
+    .uphide{
+        background: url(/public/images/arrowBottom.png) no-repeat;
+        background-size: 100%;   
+    }
+    .downhide{
+        background: url(/public/images/arrowTop.png) no-repeat;
+        /*transform: rotate(180deg);*/
+        background-size: 100%;
+    }
+    .hide{
+        width: 5%;
+        height: 30px;
+        display: block;
+        margin: 0 auto;
+    }
+    .slide-fade-enter-active {
+        transition: all .3s ease;
+    }
+    .slide-fade-leave-active {
+        transition: all .2s ease;
+    }
+    .slide-fade-enter, .slide-fade-leave-active {
+        transform: translateY(10px);
+        opacity: 0;
+    }
 } 
 </style>

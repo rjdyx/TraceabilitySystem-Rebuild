@@ -1,0 +1,26 @@
+export default {
+    computed: {
+        tab () {
+            return this.models[this.modelIndex].tab
+        },
+        url () {
+            return this.models[this.modelIndex].url
+        },
+        urlParams () {
+            return this.models[this.modelIndex].urlParams
+        },
+        theads () {
+            return this.models[this.modelIndex].theads
+        },
+        protos () {
+            return this.models[this.modelIndex].protos
+        },
+        widths () {
+            return this.models[this.modelIndex].widths
+        },
+        // app
+        tabComponent () {
+            return this.models[this.modelIndex].tabComponent
+        }
+    }
+}

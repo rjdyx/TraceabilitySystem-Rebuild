@@ -1,7 +1,7 @@
 const state = {
     navbarName: '',
-    subNavBarName: ''
-    // number: '1'
+    subNavBarName: '',
+    settitle: '生之园溯源系统'
 }
 // getters
 const getters = {
@@ -23,6 +23,9 @@ const mutations = {
     },
     setSubNavBarName (state, subNavBarName) {
         state.subNavBarName = subNavBarName
+    },
+    setTitle (state, settitle) {
+        state.settitle = settitle
     }
 }
 export default {

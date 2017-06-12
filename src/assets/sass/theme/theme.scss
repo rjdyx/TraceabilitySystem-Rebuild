@@ -72,7 +72,8 @@ $b_small: 18px;
 
 // 主题
 @mixin theme($bg, $img, $border, $icon) {
-	.scan_code{
+	.wrap{
+		.scan_code{
 		background: $bg;
 	}
 	
@@ -174,19 +175,6 @@ $b_small: 18px;
 		border-color: $bg;
 	}
 }
-	
-	// 日期：
-	.el-select-dropdown__item.selected.is-active{
-		color: $bg !important;
-	}
-	.el-date-table td.current{
-		background-color: $bg !important;
-	}
-	.el-loading-spinner .path{
-		stroke: $bg;
-	}
-	.el-loading-spinner .el-loading-text{
-		color: $bg;
 	}
 }
 

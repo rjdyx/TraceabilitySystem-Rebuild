@@ -1,4 +1,4 @@
-            <template>
+<template>
     <div id="app" :class="[getTheme, getFont]">
         <router-view></router-view>
     </div>
@@ -24,4 +24,5 @@ export default {
 	#app {
 		height: 100%;
 	}
+	
 </style>

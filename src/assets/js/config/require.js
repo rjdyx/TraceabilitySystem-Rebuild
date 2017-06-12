@@ -6,6 +6,7 @@
 require('babel-polyfill') // 解决手机端uc浏览器、qq浏览器和微信浏览器无法使用部分ES6语法
 require('animate.css') // 动画css插件
 require('./echarts.js')
+require('./vux.js')
 
 // 滚动条
 import ScrollBar from 'vue2-scrollbar'
@@ -70,3 +71,8 @@ Object.keys(elementComponent).forEach(function (component) {
 * css库
 */
 require('sass/index.scss')
+
+// vux
+// const vuxLoader = require('vux-loader')
+// const webpackConfig = originalConfig
+// module.exports = vuxLoader.merge(webpackConfig, {plugins: ['vux-ui']})
