@@ -30,8 +30,11 @@ export default {
 <style lang="sass">
 .NewBuild{
     .btn_change{
+        margin-left:15px;
+        margin-bottom: 10px;
         color: #fff;
     }
 }
+
     
 </style>

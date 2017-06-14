@@ -31,8 +31,8 @@ const { app, router, store } = createApp()
 // 用服务端初始化好的状态赋予store中
 // 这里的状态在服务端渲染期间就已经确定好了，并且嵌入到html结构中
 if (window.__INITIAL_STATE__) {
-    let color = JSON.parse(localStorage.getItem('theme')).theme || 'green'
-    let size = JSON.parse(localStorage.getItem('font')).font || 'small'
+    let color = localStorage.getItem('theme') ? JSON.parse(localStorage.getItem('theme')).theme : localStorage.setItem('theme', JSON.stringify({theme: 'blue'}))
+    let size = localStorage.getItem('font') ? JSON.parse(localStorage.getItem('font')).font : localStorage.setItem('font', JSON.stringify({font: 'small'}))
     store.replaceState(window.__INITIAL_STATE__)
     // store.commit('switch_theme', {theme: color})
     // store.commit('switch_font', {font: size})
