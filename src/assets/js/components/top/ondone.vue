@@ -28,6 +28,7 @@ export default {
         footerTop
     },
     mounted () {
+        localStorage.setItem('tab', 0)
     }
 }
 </script>

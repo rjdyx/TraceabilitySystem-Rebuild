@@ -227,6 +227,7 @@ export default {
     },
     mounted () {
         this.change_siderBar(true)
+        localStorage.setItem('tab', 0)
         let theme = this.$store.getters.getTheme
         switch (theme) {
         case 'blue':
