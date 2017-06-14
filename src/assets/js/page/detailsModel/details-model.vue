@@ -880,5 +880,8 @@ export default {
     .detaActive{
         background: red;
     }
+    .el-row{
+        margin:0!important;
+    }
 }
 </style>

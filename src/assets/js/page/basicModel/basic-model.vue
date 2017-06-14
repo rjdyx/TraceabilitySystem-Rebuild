@@ -948,9 +948,6 @@ export default {
             float: left;
             margin-bottom: 10px;
         }
-        .rightBtn{
-            margin-bottom: 10px;
-        }
         .margin {
             margin-left: 15px;
         }
