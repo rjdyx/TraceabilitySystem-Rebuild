@@ -17,7 +17,7 @@
 				<!-- 日期 -->
 				<div class="dateBtn" v-else-if="item.type=='date'">
 					    <span>
-			              <label>开始日期：</label>
+			              	<label>开始日期：</label>
 			                <el-date-picker 
 			                  size="small"
 			                  v-model="value1"
@@ -25,10 +25,11 @@
 			                  :editable="false"
 			                  @change="getBeforeDate"
 			                  format="yyyy-MM-dd"
-			                  @keyup.enter.native="returnRuselt">
+			                  @keyup.enter.native="returnRuselt"
+			                  :picker-options="beforeOptions">
 			                </el-date-picker>
 			            </span>
-					<span class="left">
+						<span class="left">
 			              <label>结束日期：</label>
 			                <el-date-picker 
 			                  size="small"
@@ -36,7 +37,8 @@
 			                  type="date"
 			                  :editable="false"
 			                  @change="getAfterDate"
-			                  format="yyyy-MM-dd">
+			                  format="yyyy-MM-dd"
+			                  :picker-options="afterOptions">
 			                </el-date-picker>
 			            </span>
 				</div>
@@ -61,7 +63,25 @@
             return {
                 value: '',
                 value1: '',
-                value2: ''
+                value2: '',
+                beforeOptions: {
+                    disabledDate: (time) => {
+                        let afterDateVal = this.value2
+                        if (afterDateVal !== '') {
+                            let timestamp = Date.parse(new Date(afterDateVal))
+                            return time.getTime() >= timestamp
+                        }
+                    }
+                },
+                afterOptions: {
+                    disabledDate: (time) => {
+                        let beforeDateVal = this.value1
+                        if (beforeDateVal !== '') {
+                            let timestamp = Date.parse(new Date(beforeDateVal))
+                            return time.getTime() <= timestamp
+                        }
+                    }
+                }
             }
         },
         methods: {
@@ -69,9 +89,11 @@
                 this.$emit('selectVal', [name, val])
             },
             getBeforeDate (val) {
+                this.value1 = val
                 this.$emit('dateVal', ['beforeDate', val])
             },
             getAfterDate (val) {
+                this.value2 = val
                 this.$emit('dateVal', ['afterDate', val])
             },
             returnRuselt () {
