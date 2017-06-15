@@ -107,7 +107,7 @@ export default{
         title: '基础信息',
         tableName: '养殖信息',
         tableTheads: ['养殖场', '养殖区', '负责人', '地址', '面积', '联系方式', '养殖人', '养殖日期', '出栏日期'],
-        tableProtos: ['parent_name', 'name', 'director', 'address', 'area', 'phone', 'operate_name', 'breed_date', 'come_date'],
+        tableProtos: ['parent_name', 'farm_name', 'director', 'address', 'area', 'phone', 'operate_name', 'breed_date', 'come_date'],
         tableName2: '实时监控'
     },
     // 购物链接

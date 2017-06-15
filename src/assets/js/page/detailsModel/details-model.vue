@@ -204,7 +204,7 @@ export default {
             // 复选框选中返回对象
             checkObject: {},
             selectNewEdit: [],
-            index: 0,
+            index: localStorage.getItem('tabL') !== null ? localStorage.getItem('tabL') : 0,
             rowId: null,
             routeId: this.$route.params.id,
             isShow: true,
@@ -220,6 +220,7 @@ export default {
         tabClick (tab, event) {
             this.index = tab.$data.index
             this.tabItem = this.tabList[this.index]
+            localStorage.setItem('tabL', this.index)
         },
         jumpDetails (row, cid) {
             var id = row.id
@@ -548,9 +549,6 @@ export default {
         changeNew (val) {
             if (val !== 'false') {
                 this.isNewShow = false
-                if (this.tabItem.newComponent[0].components[this.tabItem.newComponent[0].assocNum] !== undefined) {
-                    this.$set(this.tabItem.newComponent[0].components[this.tabItem.newComponent[0].assocNum], 'tableVal', [])
-                }
                 this.boxArr(this.dataArr, false)
                 this.getDetailSerial()
                 // this.getSelect()
@@ -580,7 +578,6 @@ export default {
                             })
                         } else if (responce.data === 'state') {
                             this.$message('该数据已被使用，无法删除')
-                            this.listLoading = false
                         }
                     })
             }).catch(() => {
@@ -622,16 +619,13 @@ export default {
                         if (responce.data === 'true') {
                             this.getDetailSerial()
                             this.boxArr(this.dataArr, false)
-                            this.listLoading = false
                             this.$message({
                                 type: 'success',
                                 message: '批量删除成功'
                             })
                         } else if (responce.data === 'state') {
-                            this.listLoading = false
                             this.$message('有数据已被使用，无法完成批量删除操作')
                         } else {
-                            this.listLoading = false
                             this.$message.error('批量删除失败')
                         }
                     })
@@ -704,9 +698,6 @@ export default {
                     } else if (responce.data === 'false') {
                         this.$message.error('添加溯源码失败')
                     } else {
-                        if (JSON.stringify(this.dataArr) === '{}') {
-                            this.dataArr = ''
-                        }
                         this.getDetailSerial()
                         this.boxArr(this.dataArr, false)
                         this.$message({
@@ -732,8 +723,9 @@ export default {
     },
     mounted () {
         this.change_siderBar(false)
-        this.tabItem = this.tabList[0]
-        this.activeName = this.tabList[0].tab
+        this.tabItem = this.tabList[localStorage.getItem('tabL') !== null ? localStorage.getItem('tabL') : 0]
+        this.activeName = this.tabList[localStorage.getItem('tabL') !== null ? localStorage.getItem('tabL') : 0].tab
+        localStorage.setItem('tab', 0)
         this.getApiUrl()
         this.getDetailSerial()
         this.boxArr(this.dataArr, true)

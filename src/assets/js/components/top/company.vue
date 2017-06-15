@@ -80,6 +80,7 @@ export default {
     },
     mounted () {
         // 查询编辑数据
+        localStorage.setItem('tab', 0)
         axios.get('api/company/info')
             .then((responce) => {
                 this.listV = responce.data

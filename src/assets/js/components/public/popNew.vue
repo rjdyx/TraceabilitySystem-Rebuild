@@ -9,16 +9,16 @@
 
 <template>
 <div class="newWrap">
-<!-- @mousedown='formDown' @mousemove='formMove' -->
   <form class="newForm" >
     <i class="closeBtn" @click="closeClick"></i>
       <!-- tab选项卡 -->
       <!-- <h4>{{newComponent[0].tab}}</h4> -->
       <el-tabs v-model="activeName" @tab-click="handleClick" class="tab">
-        <el-tab-pane :label="item.tab" :name="item.tab" v-for="(item,i) in newComponent">
+        <el-tab-pane :label="item.tab" :name="item.tab" v-for="(item,i) in newComponent" :key="i">
           <!-- 表单 -->
         <el-form :model="tableForm" :rules="rules" ref="tableForm" label-width="110px" class="demo-tableForm">
             <table>
+                <tbody>
                 <template v-for="subItem in item.components">
 
                     <!-- 文本框 -->
@@ -44,7 +44,9 @@
                                     <el-option 
                                         v-for="option in subItem.options" 
                                         :label="option.label" 
-                                        :value="option.value" size="small">
+                                        :value="option.value" 
+                                        :key="option.label + option.value" 
+                                        size="small">
                                     </el-option>
                                 </el-select>
                             </el-form-item>
@@ -52,7 +54,7 @@
                     </tr>
 
                     <!-- 多行文本框  -->
-                    <tr class="tr1" v-else-if="subItem.type=='textarea'">
+                    <tr class="tr1" v-else-if="subItem.type=='textarea' && !subItem.hiddenSelect">
                         <td>
                             <el-form-item :label="subItem.label" :prop="subItem.name">
                                 <el-input 
@@ -87,7 +89,7 @@
                         </td>
                     </tr>
                      <!-- 传组件 -->
-                    <tr class="tr1" v-else-if="subItem.component">
+                    <tr class="tr1" v-else-if="subItem.component && !subItem.hiddenSelect">
                         <td>
                             <el-form-item :label="subItem.label" :prop="subItem.name">
                                 <!-- 控件类型是textelect -->
@@ -115,7 +117,7 @@
                 </template>
 
                  <!-- 传二级多选框组件 -->
-                <tr class="tr1" v-if="checkboxShow">
+                <tr class="tr1" v-if="checkboxShow && !subItem.hiddenSelect">
                     <td>
                         <ul class="ul">
                             <li>
@@ -123,6 +125,7 @@
                                 :lists="itemList" 
                                 :checkeds="checkeds[key]"
                                 :name="key" 
+                                :key="key"
                                 @return-isAllcheck="allChange" 
                                 @return-checked="allChecked">
                                 </allCheck>
@@ -130,6 +133,7 @@
                         </ul>
                     </td>
                 </tr>
+            </tbody>
           </table>
          </el-form>
         </el-tab-pane>
@@ -207,14 +211,16 @@ export default {
             dmL: 0,
             dmT: 0,
             memuList: {},
-            checkeds: []
+            checkeds: [],
+            disabled: false,
+            disabledV: false
         }
     },
     mixins: [move],
     mounted () {
         if (this.checkboxShow) {
             // 全部数据
-            axios.get('api/company/permission')
+            axios.get(this.$adminUrl('company/permission'))
                 .then((responce) => {
                     this.memuList = responce.data
                 })
@@ -327,25 +333,38 @@ export default {
             var number = subItem.selectNumber
             var changeTable = subItem.changeTable
             var com = this.newComponent[0].components
+            var state = false
+            var seed = ''
+            var seed2 = []
             if (assoc !== undefined) {
                 this.$emit('setAssoc', [assoc, name, val])
             } else if (number !== undefined && number !== '') {
                 for (let k in number) {
-                    var state = false
-                    var seed = ''
-                    var seed2 = []
                     if (k !== val) {
                         state = true
                         seed = 'seed'
                         seed2 = ['seed']
+                    } else {
+                        state = false
+                        seed = ''
+                        seed2 = []
                     }
                     for (let k2 in number[k]) {
                         com[number[k][k2]].hiddenSelect = state
                         if (com[number[k][k2]].type === 'table') {
                             this.tableForm[com[number[k][k2]].valueId] = seed2
-                        } else {
-                            this.tableForm[com[number[k][k2]].name] = seed
                         }
+                        if (com[number[k][k2]].type === 'select') {
+                            this.tableForm[com[number[k][k2]].value] = seed
+                        }
+                        if (com[number[k][k2]].type === 'text' || com[number[k][k2]].type === 'textSelect') {
+                            this.tableForm[com[number[k][k2]].value] = seed
+                        }
+                    }
+                }
+                if (number[val] !== undefined) {
+                    for (let k3 in number[val]) {
+                        com[number[val][k3]].hiddenSelect = false
                     }
                 }
             } else if (name === 'breed_id' || name === 'come_id' || changeTable) {
