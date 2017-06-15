@@ -1388,10 +1388,10 @@ export default {
             url: 'farm',
             searchPlaceholder: '请输入养殖场进行搜索',
             search: ['query_text', 'name'],
-            theads: ['养殖场名称', '养殖面积', '负责人', '养殖畜禽种类', '养殖规模', '详细地址', '图片', '备注信息'],
-            protos: ['name', 'area_unit', 'principal', 'kind', 'scale', 'address', 'img', 'memo'],
+            theads: ['养殖场名称', '养殖面积', '负责人', '联系方式', '养殖畜禽种类', '养殖规模', '详细地址', '图片', '备注信息'],
+            protos: ['name', 'area_unit', 'principal', 'phone', 'kind', 'scale', 'address', 'img', 'memo'],
             selectSearch: ['farm.name'],
-            widths: [50, 50, 50, 50, 50, 50, 50, 50],
+            widths: [50, 50, 50, 50, 50, 50, 50, 50, 50],
             typeComponent: [{
                 component: output
             },
@@ -1439,6 +1439,15 @@ export default {
                     label: '负责人',
                     placeholder: '',
                     rule: null
+                },
+                {
+                    name: 'phone',
+                    type: 'text',
+                    component: null,
+                    isNull: true,
+                    label: '联系方式',
+                    placeholder: '请输入11位的手机号（固话用-隔开）',
+                    rule: { validator: validate2.phone, trigger: 'blur' }
                 },
                 {
                     name: 'kind',
@@ -1500,6 +1509,7 @@ export default {
                 tab: '编辑养殖场信息',
                 hasImg: true,
                 limit: 1,
+                checkNumber: [0],
                 getMessage: '养殖场面积不能小于下属养殖区之和',
                 components: [{
                     name: 'name',
@@ -1538,6 +1548,15 @@ export default {
                     label: '负责人',
                     placeholder: '',
                     rule: null
+                },
+                {
+                    name: 'phone',
+                    type: 'text',
+                    component: null,
+                    isNull: true,
+                    label: '联系方式',
+                    placeholder: '请输入11位的手机号（固话用-隔开）',
+                    rule: { validator: validate2.phone, trigger: 'blur' }
                 },
                 {
                     name: 'kind',
@@ -1606,10 +1625,10 @@ export default {
             searchPlaceholder: '请输入养殖区进行搜索',
             selectValueId: [['pid', 'parent_name', true]],
             selectDefault: [{value: '', label: '选择养殖场'}],
-            theads: ['所属养殖场', '养殖区名称', '养殖面积', '负责人', '养殖畜禽种类', '养殖规模', '详细地址', '图片', '备注信息'],
-            protos: ['parent_name', 'name', 'area_unit', 'principal', 'kind', 'scale', 'address', 'img', 'memo'],
+            theads: ['所属养殖场', '养殖区名称', '养殖面积', '负责人', '联系方式', '养殖畜禽种类', '养殖规模', '详细地址', '图片', '备注信息'],
+            protos: ['parent_name', 'name', 'area_unit', 'principal', 'phone', 'kind', 'scale', 'address', 'img', 'memo'],
             selectSearch: ['farmcds.pid'],
-            widths: [50, 50, 50, 50, 50, 50, 50, 50, 50],
+            widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
             typeComponent: [{
                 component: importBtn
             },
@@ -1676,6 +1695,15 @@ export default {
                     label: '负责人',
                     placeholder: '',
                     rule: null
+                },
+                {
+                    name: 'phone',
+                    type: 'text',
+                    component: null,
+                    isNull: true,
+                    label: '联系方式',
+                    placeholder: '请输入11位的手机号（固话用-隔开）',
+                    rule: { validator: validate2.phone, trigger: 'blur' }
                 },
                 {
                     name: 'kind',
@@ -1790,6 +1818,15 @@ export default {
                     label: '负责人',
                     placeholder: '',
                     rule: null
+                },
+                {
+                    name: 'phone',
+                    type: 'text',
+                    component: null,
+                    isNull: true,
+                    label: '联系方式',
+                    placeholder: '请输入11位的手机号（固话用-隔开）',
+                    rule: { validator: validate2.phone, trigger: 'blur' }
                 },
                 {
                     name: 'kind',
