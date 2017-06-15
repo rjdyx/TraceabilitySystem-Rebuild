@@ -46,6 +46,9 @@ export default {
     components: {
         Icon
     },
+    props: {
+        name: ''
+    },
     data () {
         return {
             imageUrl: '',
@@ -63,7 +66,7 @@ export default {
         delImgFn () {
             console.log('ksldghlsdglsdkjbg;l')
             this.imageUrl = ''
-            // this.$emit('return-shuju', {name: this.shuju.name, value: ''})
+            this.$emit('return-shuju', {name: this.name, value: ''})
         },
         selectPic (event) {
             // 取出空格
@@ -90,7 +93,7 @@ export default {
             reader.readAsDataURL(file)
             reader.onload = e => {
                 this.imageUrl = e.target.result
-                // this.$emit('return-shuju', {name: this.shuju.name, value: file})
+                this.$emit('return-shuju', {name: this.name, value: file})
             }
         }
     }
