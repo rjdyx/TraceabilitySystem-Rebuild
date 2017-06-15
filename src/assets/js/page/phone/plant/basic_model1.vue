@@ -129,7 +129,7 @@ export default {
     },
     mounted () {
         $(document).on('touchmove', function (e) {
-            e.preventDefault()
+            // e.preventDefault()
             e.stopPropagation()
         })
         var params = {code: this.$route.params.id}

@@ -78,6 +78,7 @@ export default {
     },
     mounted () {
         this.change_siderBar(true)
+        localStorage.setItem('tab', 0)
         // 查询编辑数据
         axios.get('api/system/1/edit')
             .then((responce) => {

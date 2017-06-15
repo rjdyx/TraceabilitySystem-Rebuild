@@ -26,7 +26,7 @@ export default {
     },
     mounted () {
         $(document).on('touchmove', function (e) {
-            e.preventDefault()
+            // e.preventDefault()
             e.stopPropagation()
         })
         if (this.$route.meta.runName === 'breed') {

@@ -29,7 +29,8 @@
 
 <style>
 	.btn_change {
-		/*margin-left: 15px;*/
+		margin-left: 15px;
+        margin-bottom: 10px;
         color: #fff;
 	}
 </style>

@@ -162,6 +162,7 @@ export default{
     },
     mounted () {
         this.change_siderBar(true)
+        localStorage.setItem('tab', 0)
         axios.get('api/index/state')
             .then((responce) => {
                 if (responce.data !== 'plant' && responce.data !== 'all') {

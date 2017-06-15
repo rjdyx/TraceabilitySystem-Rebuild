@@ -122,6 +122,7 @@ export default {
     },
     mounted () {
         this.change_siderBar(true)
+        localStorage.setItem('tab', 0)
     },
     created () {
         document.title = '问题反馈'

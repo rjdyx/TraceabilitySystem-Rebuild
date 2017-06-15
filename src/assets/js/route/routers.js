@@ -128,6 +128,12 @@ const appdetailbasic = resolve => {
         resolve(require('../webapp/appDetail/appDetailBasic/app-detail-basic.vue'))
     }, 'appdetailbasic')
 }
+// ---------------------------新建----------------------------------
+const webAppNew = resolve => {
+    require.ensure(['../webapp/page/webAppNew/webAppNew.vue'], () => {
+        resolve(require('../webapp/page/webAppNew/webAppNew.vue'))
+    }, 'webAppNew')
+}
 var routes = [
     {
         path: '/',
@@ -241,7 +247,13 @@ var routes = [
                 // 需要登录才能进入此路由
             }
         ]
+    },
+    {
+        path: '/webAppNew/:model/:modelIndex',
+        name: 'webAppNew',
+        component: webAppNew
     }
+
 ]
 
 routes = routes.concat(phoneRouters.router)

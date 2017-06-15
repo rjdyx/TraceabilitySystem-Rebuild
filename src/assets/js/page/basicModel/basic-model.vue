@@ -76,7 +76,7 @@
 
         <!-- 序号 --> 
         <el-table-column width="80" label="序号" type="index" id="test_id">
-        </el-table-column> 
+        </el-table-column>
 
         <!-- 中间列表模块 -->
         <template v-for="(item,index) in theads">
@@ -224,7 +224,7 @@ export default {
             // 分页
             pageVal: 1,
             // tab模块选择标志
-            modelIndex: 0,
+            modelIndex: localStorage.getItem('tab') !== null ? localStorage.getItem('tab') : 0,
             activeName: 'index0',
             modelName: this.$route.params,
             // 列表数据
@@ -307,6 +307,7 @@ export default {
          **/
         tabClick (tab, event) {
             this.modelIndex = tab.$data.index
+            localStorage.setItem('tab', this.modelIndex)
         },
         // 操作更多选项
         filterTag (value, row) {
@@ -328,10 +329,8 @@ export default {
                                 type: 'success',
                                 message: '删除成功'
                             })
-                            this.listLoading = false
                         } else if (responce.data === 'state') {
                             this.$message('该数据已被使用，无法删除')
-                            this.listLoading = false
                         }
                     })
             }).catch(() => {
@@ -652,16 +651,13 @@ export default {
                         if (responce.data === 'true') {
                             this.getSelect()
                             this.boxArr(this.dataArr, false)
-                            this.listLoading = false
                             this.$message({
                                 type: 'success',
                                 message: '批量删除成功'
                             })
                         } else if (responce.data === 'state') {
-                            this.listLoading = false
                             this.$message('有数据已被使用，无法完成批量删除操作')
                         } else {
-                            this.listLoading = false
                             this.$message.error('批量删除失败')
                         }
                     })
@@ -852,7 +848,8 @@ export default {
     },
     mounted () {
         this.change_siderBar(false)
-        this.activeName = 'index0'
+        this.activeName = localStorage.getItem('tab') !== null ? 'index' + localStorage.getItem('tab') : 'index0'
+        localStorage.setItem('tabL', 0)
         // 获取下拉框
         if (this.selectValueId) {
             this.getSelect()
@@ -866,6 +863,7 @@ export default {
         models () {
             this.modelIndex = 0
             this.activeName = 'index0'
+            localStorage.setItem('tab', this.modelIndex)
         },
         key () {
             this.tableData = []
@@ -917,9 +915,13 @@ export default {
         .fade-enter, .fade-leave-active {
             opacity: 0;
         }
+        .operate_wrap{
+            /*display: inline-block;*/
+            float: left;
+            margin-bottom: 10px;
+        }
         .searchInp {
             width: 161px;
-            margin-bottom: 10px;
             font-size: 12px;
             margin-right: 10px;
         }
@@ -930,7 +932,8 @@ export default {
             width: 62px;
         }
         .searchOp {
-            display: inline;
+            float: left;
+            margin-bottom: 10px;
         }
         .margin {
             margin-left: 15px;
@@ -962,7 +965,8 @@ export default {
             text-align: center;
         }
         #operate{
-            min-width: 1400px;
+            /*min-width: 1400px;*/
+            /*margin-bottom: 10px;*/
         }
         .footer {
             width: 99.9%;
