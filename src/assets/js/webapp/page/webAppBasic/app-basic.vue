@@ -1,9 +1,9 @@
 /*
-* 中间内容组件
+* webapp中间内容组件
 * @description 
 * @author 舒丹彤
 * @date 2017/6/6
-*/
+*/ 
 
 <template>
 	<div class="app-basic">
@@ -26,6 +26,6 @@ export default {
 		height: 100%;
 		// overflow: scroll;
 		// overflow-y: scroll;
-		margin: 10px 10px 0 10px;
+		// margin: 0 10px 0 10px;
 	}
 </style>

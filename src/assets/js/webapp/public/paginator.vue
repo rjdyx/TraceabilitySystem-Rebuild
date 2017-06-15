@@ -8,12 +8,12 @@
 
 <template>
 	<div class="paginator">
-        <div @click="lastPage(index-1)" :disabled="!leftBtn" class="left">&lt;&lt;</div>
-        <div class="middle" v-if="showInput" @click="showInputIndex">第{{index}}页/共{{total}}页</div>
+        <div @touchend="lastPage(index-1)" :disabled="!leftBtn" class="left">&lt;&lt;</div>
+        <div class="middle" v-if="showInput" @touchend="showInputIndex">第{{index}}页/共{{total}}页</div>
         <div class="middle-input" v-else>
             <input type="text" name="" v-model="inputIndex" @keyup.enter="changeIndex" v-focus class="input-index" placeholder="页数">
         </div>
-        <div @click="nextPage(index+1)" :disabled="!rightBtn" class="right">&gt;&gt;</div>
+        <div @touchend="nextPage(index+1)" :disabled="!rightBtn" class="right">&gt;&gt;</div>
 	</div>	
 
 </template>

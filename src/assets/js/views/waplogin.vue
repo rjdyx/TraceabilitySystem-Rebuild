@@ -10,7 +10,7 @@
             <img src="/public/images/loginbottom.png" class="bottomImg" @click="submitForm('ruleForm2')" ref="btn">
         </div>
 
-    	<div class="form" @click="hideLogo">
+    	<div class="form">
     			<el-form :model="ruleForm2" :rules="rules2" ref="ruleForm2" class="demo-ruleForm">
     				<el-form-item prop="name" class="item">
                         <span></span>
@@ -108,9 +108,6 @@ export default{
         },
         passTo () {
             this.submitForm('ruleForm2')
-        },
-        hideLogo () {
-            this.showLogo = false
         }
     }
 }

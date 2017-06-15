@@ -6,9 +6,9 @@
  
 <template>
 	<div class="app-header">
-
 		<span class="left-btn" @click="showmenu"></span>
 		<h1>{{settitle}}</h1>
+		<span class="right-btn" @click="goBack"></span>
 	</div>
 </template>
 
@@ -21,12 +21,15 @@ export default {
     },
     methods: {
         showmenu () {
-            this.$emit('toggle')
+            this.$emit('parentClick')
+        },
+        goBack () {
+            this.$router.go(-1)
         }
     }
 }
 </script>
-
+ 
 
 <style lang='sass'>
 	.app-header{
@@ -34,32 +37,33 @@ export default {
 		width: 100%;
 		background:  #009acb;
 		position: relative;
+		margin-bottom: 5px;
 			h1{
 				width: 100%;
-				height: 54px;
-				line-height: 54px;
 				font: 21px 微软雅黑;
 				color: #fff;
 				text-align: center;
 				padding-top: 10px;
 			}
-			.left-btn{
+			
+			.right-btn,.left-btn{
 				display: inline-block;
 				width: 20px;
-				height: 20px;
-				background: url(/public/images/slider.png);
 				position: absolute;
-				background-size: 100%;
-				top: 13px;
-				left: 20px;
 			}
-			.right{
-				position: absolute;
-				right: 0;
-				top: 0;
-				width: 30px;
-				height: 30px;
-				background: red;
+			.left-btn{
+				background: url(/public/images/slider.png);
+				background-size: 100%;
+				left: 20px;
+				height: 20px;
+				top: 13px;
+			}
+			.right-btn{
+				background: url(/public/images/appback.png);
+				background-size: 100%;
+				right: 20px;
+				height: 32px;
+				top: 7px;
 			}
 	}
 </style>

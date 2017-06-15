@@ -86,14 +86,14 @@
                     :prop="protos[index]"
                     :min-width="widths[index]" show-overflow-tooltip>
                     <template  scope="scope">
-                            <div v-if="item.includes('批次号')" slot="reference" class="name-wrapper pcActive" @click="jumpDetails(scope.row)">
+                            <div v-if="item.includes('批次号')" slot="reference" class="pcActive" @click="jumpDetails(scope.row)">
                                 {{ scope.row[protos[index]] }}
                             </div>
-                            <div v-else-if="protos[index]=='img'" slot="reference" class="name-wrapper">
+                            <div v-else-if="protos[index]=='img'" slot="reference">
                                 <img v-if="tableData[scope.$index][protos[index]]!=null && tableData[scope.$index][protos[index]]!=''" 
                                     :src="$img('images/ok.png')">
                             </div>
-                            <div v-else slot="reference" class="name-wrapper" >
+                            <div v-else slot="reference" >
                                 {{ scope.row[protos[index]] }}
                             </div>
                     </template>
@@ -105,7 +105,7 @@
         label="操作" v-if="checkOperate==null" width="180">
             <template scope="scope">
                 <template v-if="moreComponent!=null">
-                    <clickMore :companyId="companyId" :moreComponent="moreComponent" @showMore="moreShow(scope.$index,scope.row)" 
+                    <clickMore :companyId="companyId" :moreComponent="moreComponent" @showMore="moreShow(scope.$index,scope.row)"
                     @showPermission="permissionShow(scope.$index,scope.row)" @showDetail="detailShow(scope.$index,scope.row)" class="clickMoreBtn"
                     @return-permission="getPermission" @changeState="changeSerialState(scope.$index,scope.row)">
                     </clickMore>

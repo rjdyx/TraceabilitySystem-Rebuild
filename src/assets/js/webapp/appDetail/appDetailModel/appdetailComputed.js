@@ -28,9 +28,6 @@ export default {
         tabshow () {
             return this.models[this.modelIndex].tabshow
         },
-        settitle () {
-            return this.models[this.modelIndex].settitle
-        },
         timeshow () {
             return this.models[this.modelIndex].timeshow
         },

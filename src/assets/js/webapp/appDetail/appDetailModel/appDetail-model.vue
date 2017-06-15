@@ -1,8 +1,8 @@
 /**
  * 
- * webapp基础模块组件
+ * webapp详情页基础模块组件
  * @author 舒丹彤 
- * @date 2017/06/6
+ * @date 2017/06/15
  * 
  */
 <template>
@@ -12,7 +12,7 @@
         <!-- tab -->
         <div class="apptab" v-show="tabshow">
             <tab>
-                <tab-item v-for="(model,index)  in models" @on-item-click="tabClick(index)">{{model.tab}}</tab-item>
+                <tab-item v-for="(model,index) in models" @on-item-click="tabClick(index)">{{model.tab}}</tab-item>
             </tab>
         </div>
 
@@ -92,12 +92,8 @@
 <script>
 import { XTable, Datetime, Group, Tab, TabItem, Swipeout, SwipeoutItem, SwipeoutButton } from 'vux'
 import {mapActions, mapMutations} from 'vuex'
-// import appTab from '../../public/tab.vue'
-import appmenu from '../index/appmenu.js'
-import appHeader from '../../public/header.vue'
-import siderBar from '../../public/siderBar.vue'
 import paginator from '../../public/paginator.vue'
-import computed from '../webAppModel/appcomputed.js'
+import computed from '../appDetailModel/appdetailComputed.js'
 export default {
     name: 'BasicModel',
     props: {
@@ -120,8 +116,7 @@ export default {
                     typeComponent: [],
                     tabComponent: [],
                     tabshow: '',
-                    timeshow: '',
-                    batch: ''
+                    timeshow: ''
                 }]
             }
         }
@@ -140,7 +135,6 @@ export default {
             tableData: [],
             listLoading: false,
             ischeckdate: [],
-            menus: appmenu,
             show: false,
             gneder_list: [
                 ['男', '女']
@@ -220,8 +214,6 @@ export default {
             }
         },
         showDetail () {
-            console.log(213)
-            this.$router.push('/appIndex/appdetailbasic/' + this.batch)
         }
     },
     mounted () {
@@ -253,14 +245,12 @@ export default {
     computed: {
     },
     components: {
-        appHeader,
         XTable,
         paginator,
         Group,
         Datetime,
         Tab,
         TabItem,
-        siderBar,
         Swipeout,
         SwipeoutItem,
         SwipeoutButton
