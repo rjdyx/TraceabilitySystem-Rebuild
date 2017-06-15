@@ -31,7 +31,7 @@
         },
         mounted () {
             var per = this.editValue.substring(0, 1)
-            var url = require('projectRoot/env.js').app_ano_url + '/run/'
+            var url = require('projectRoot/env.js').app_ano_url + '/#/run/'
             if (per === 'P') {
                 url += 'plant'
             } else {
