@@ -99,6 +99,12 @@ const ondone = resolve => {
 
 // ----------------------------移动端------------------------------------
 // ---------------------------移动端首页----------------------------------
+const webIndex = resolve => {
+    require.ensure(['../webapp/page/index/webIndex.vue'], () => {
+        resolve(require('../webapp/page/index/webIndex.vue'))
+    }, 'webIndex')
+}
+// ---------------------------移动端基础页----------------------------------
 const appIndex = resolve => {
     require.ensure(['../webapp/page/index/webAppIndex.vue'], () => {
         resolve(require('../webapp/page/index/webAppIndex.vue'))
@@ -115,6 +121,12 @@ const appbasic = resolve => {
     require.ensure(['../webapp/page/webAppBasic/app-basic.vue'], () => {
         resolve(require('../webapp/page/webAppBasic/app-basic.vue'))
     }, 'appbasic')
+}
+// ---------------------------详情页基础信息管理----------------------------------
+const appdetailbasic = resolve => {
+    require.ensure(['../webapp/appDetail/appDetailBasic/app-detail-basic.vue'], () => {
+        resolve(require('../webapp/appDetail/appDetailBasic/app-detail-basic.vue'))
+    }, 'appdetailbasic')
 }
 // ---------------------------新建----------------------------------
 const webAppNew = resolve => {
@@ -210,29 +222,28 @@ var routes = [
         name: 'waplogin',
         component: waplogin
     },
-    // {
-    //     path: '/appIndex',
-    //     name: 'appIndex',
-    //     component: appIndex,
-    //     children: [
-    //         {
-    //             path: 'appIndex',
-    //             component: appIndex
-    //         }
-    //     ]
-    // },
+    {
+        path: '/webIndex',
+        name: 'webIndex',
+        component: webIndex
+    },
     {
         path: '/appIndex',
         name: 'appIndex',
         component: appIndex,
         children: [
             {
-                path: 'appIndex',
-                component: appIndex
+                path: '',
+                component: webIndex
             },
             {
                 path: 'message/:model',
                 component: appbasic
+                // 需要登录才能进入此路由
+            },
+            {
+                path: 'appdetailbasic/:model',
+                component: appdetailbasic
                 // 需要登录才能进入此路由
             }
         ]

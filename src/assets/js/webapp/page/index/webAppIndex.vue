@@ -1,13 +1,13 @@
 /*
-* 头部组件
+* 头部组件 
 * @description 
-* @author 舒丹彤
+* @author 舒丹彤 
 * @date 2017/6/6
 */
 
 <template>
 	<div class="appWrap">
-		<app-header @toggle="showsider" :settitle=settitle>
+		<app-header @parentClick="showsider" :settitle="settitle">
         </app-header>
 		<sider-bar :menus='menus' :show="show" @hidetoggle="hidesider" @children-info="getinfo"></sider-bar>
 		<router-view></router-view>
@@ -35,20 +35,42 @@ export default {
         hidesider () {
             this.show = false
         },
-        getinfo (sub) {
-            this.settitle = sub
+        getinfo (arr) {
+            let header = arr[0]
+            let detailname = arr[1]
+            localStorage.setItem('tit', header)
+            localStorage.setItem('dename', detailname)
         }
     },
     mounted () {
+        if (this.$route.path === '/appIndex') {
+            this.settitle = '生之园溯源系统'
+        } else if (this.$route.path.indexOf('appdetailbasic') !== -1) {
+            let detit = localStorage.getItem('dename')
+            this.settitle = detit
+        } else {
+            let apptitle = localStorage.getItem('tit')
+            this.settitle = apptitle
+        }
     },
     computed: {
-        settitle () {
-            return this.settitle
-        }
     },
     components: {
         appHeader,
         siderBar
+    },
+    watch: {
+        $route () {
+            if (this.$route.path === '/appIndex') {
+                this.settitle = '生之园溯源系统'
+            } else if (this.$route.path.indexOf('appdetailbasic') !== -1) {
+                let detit = localStorage.getItem('dename')
+                this.settitle = detit
+            } else {
+                let apptitle = localStorage.getItem('tit')
+                this.settitle = apptitle
+            }
+        }
     }
 }
 </script>

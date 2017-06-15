@@ -16,7 +16,7 @@
 	            <el-menu
 	                :router="true" 
 	                :unique-opened="true"
-	                class="list" theme="dark" @close="handleClose">
+	                class="menulist" theme="dark" @close="handleClose">
                     <div class="el-submenu__title" @click="hidemenu">
                         <span class="sider-arrow"></span>
                     </div>
@@ -29,7 +29,7 @@
                         </template>
                         <el-menu-item 
                             v-for="(subMenu, subIndex) in menu.children" 
-                            :index="subMenu.path" exact v-if="subMenu.role" @click="toggle(subIndex, subMenu.name)">
+                            :index="subMenu.path" exact v-if="subMenu.role" @click="toggle(subIndex, subMenu.name, subMenu.detail)">
                             {{subMenu.name}}
                         </el-menu-item>
                     </el-submenu>   
@@ -68,12 +68,9 @@ export default {
     methods: {
         handleClose (key, keyPath) {
         },
-        toggle (subMenu, subIndex) {
-            document.title = subIndex
+        toggle (subMenu, subIndex, detail) {
             this.hidemenu()
-            localStorage.setItem('da', subIndex)
-            let msg = localStorage.getItem('da')
-            this.$emit('children-info', msg)
+            this.$emit('children-info', [subIndex, detail])
         },
         hidemenu () {
             this.$emit('hidetoggle')
@@ -121,7 +118,7 @@ export default {
     			width: 100%;
     			height: 50px;
     		}
-            .list {
+            .menulist {
                 padding-bottom: 80px;
             }
         	.animated {
