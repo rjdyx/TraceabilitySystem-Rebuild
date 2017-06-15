@@ -104,42 +104,7 @@ export default {
                 label: '模块类型',
                 placeholder: '',
                 rule: {required: true, message: '请输入模块类型', trigger: 'blur'},
-                options: [{
-                    value: 'operate', label: '操作人员'
-                },
-                {
-                    value: 'expert', label: '专家'
-                },
-                {
-                    value: 'product', label: '产品'
-                },
-                {
-                    value: 'supplier', label: '供货商'
-                },
-                {
-                    value: 'client', label: '客户'
-                },
-                {
-                    value: 'fodder', label: '饲料'
-                },
-                {
-                    value: 'addition', label: '饲料添加剂'
-                },
-                {
-                    value: 'beast', label: '畜禽'
-                },
-                {
-                    value: 'drug', label: '兽药'
-                },
-                {
-                    value: 'plant', label: '果蔬'
-                },
-                {
-                    value: 'manure', label: '肥料'
-                },
-                {
-                    value: 'medicament', label: '农药'
-                }]
+                options: [['操作人员', '专家', '产品', '供货商', '客户', '饲料', '饲料添加剂', '畜禽', '兽药', '果蔬', '肥料', '农药']]
             },
             {
                 name: 'memo',
@@ -173,42 +138,7 @@ export default {
                 placeholder: '',
                 disabled: false,
                 rule: {required: true, message: '请输入模块类型', trigger: 'blur'},
-                options: [{
-                    value: 'operate', label: '操作人员'
-                },
-                {
-                    value: 'expert', label: '专家'
-                },
-                {
-                    value: 'product', label: '产品'
-                },
-                {
-                    value: 'supplier', label: '供货商'
-                },
-                {
-                    value: 'client', label: '客户'
-                },
-                {
-                    value: 'fodder', label: '饲料'
-                },
-                {
-                    value: 'addition', label: '饲料添加剂'
-                },
-                {
-                    value: 'beast', label: '畜禽'
-                },
-                {
-                    value: 'drug', label: '兽药'
-                },
-                {
-                    value: 'plant', label: '果蔬'
-                },
-                {
-                    value: 'manure', label: '肥料'
-                },
-                {
-                    value: 'medicament', label: '农药'
-                }]
+                options: [['操作人员', '专家', '产品', '供货商', '客户', '饲料', '饲料添加剂', '畜禽', '兽药', '果蔬', '肥料', '农药']]
             },
             {
                 name: 'memo',
@@ -307,14 +237,7 @@ export default {
                 label: '性别',
                 placeholder: '',
                 rule: null,
-                options: [{
-                    value: 0,
-                    label: '男'
-                },
-                {
-                    value: 1,
-                    label: '女'
-                }]
+                options: [['男', '女']]
             },
             {
                 name: 'age',
@@ -421,14 +344,7 @@ export default {
                 label: '性别',
                 placeholder: '',
                 rule: null,
-                options: [{
-                    value: 0,
-                    label: '男'
-                },
-                {
-                    value: 1,
-                    label: '女'
-                }]
+                options: [['男', '女']]
             },
             {
                 name: 'age',
@@ -582,14 +498,7 @@ export default {
                 label: '性别',
                 placeholder: '',
                 rule: {required: true, trigger: 'blur'},
-                options: [{
-                    value: '0',
-                    label: '男'
-                },
-                {
-                    value: '1',
-                    label: '女'
-                }]
+                options: [['男', '女']]
             },
             {
                 name: 'phone',
@@ -705,14 +614,7 @@ export default {
                 label: '性别',
                 placeholder: '',
                 rule: {required: true, trigger: 'blur'},
-                options: [{
-                    value: '0',
-                    label: '男'
-                },
-                {
-                    value: '1',
-                    label: '女'
-                }]
+                options: [['男', '女']]
             },
             {
                 name: 'phone',
@@ -832,18 +734,7 @@ export default {
                 label: '等级',
                 placeholder: '',
                 rule: {required: true, trigger: 'blur'},
-                options: [{
-                    value: '高',
-                    label: '高'
-                },
-                {
-                    value: '中',
-                    label: '中'
-                },
-                {
-                    value: '低',
-                    label: '低'
-                }]
+                options: [['高', '中', '低']]
             },
             {
                 name: 'fax',
@@ -1421,17 +1312,7 @@ export default {
                     label: '养殖面积',
                     placeholder: '请填写数字（必填）',
                     rule: [{required: true, message: '请输入正确的面积', trigger: 'blur'}, {validator: validate2.reNumber}],
-                    options: [
-                        {
-                            value: '亩', label: '亩'
-                        },
-                        {
-                            value: '平方米', label: '平方米'
-                        },
-                        {
-                            value: '公顷', label: '公顷'
-                        }
-                    ]
+                    options: [['亩', '平方米', '公顷']]
                 },
                 {
                     name: 'principal',
@@ -1520,17 +1401,7 @@ export default {
                     label: '养殖面积',
                     placeholder: '请填写数字（必填）',
                     rule: [{required: true, message: '请输入正确的面积', trigger: 'blur'}, {validator: validate2.reNumber}],
-                    options: [
-                        {
-                            value: '亩', label: '亩'
-                        },
-                        {
-                            value: '平方米', label: '平方米'
-                        },
-                        {
-                            value: '公顷', label: '公顷'
-                        }
-                    ]
+                    options: [['亩', '平方米', '公顷']]
                 },
                 {
                     name: 'principal',
@@ -1658,17 +1529,7 @@ export default {
                     label: '养殖区面积',
                     placeholder: '请填写数字（必填）',
                     rule: [{required: true, message: '请输入正确的面积', trigger: 'blur'}, {validator: validate2.reNumber}],
-                    options: [
-                        {
-                            value: '亩', label: '亩'
-                        },
-                        {
-                            value: '平方米', label: '平方米'
-                        },
-                        {
-                            value: '公顷', label: '公顷'
-                        }
-                    ]
+                    options: [['亩', '平方米', '公顷']]
                 },
                 {
                     name: 'principal',
@@ -1772,17 +1633,7 @@ export default {
                     label: '养殖区面积',
                     placeholder: '请填写数字（必填）',
                     rule: [{required: true, message: '请输入正确的面积', trigger: 'blur'}, {validator: validate2.reNumber}],
-                    options: [
-                        {
-                            value: '亩', label: '亩'
-                        },
-                        {
-                            value: '平方米', label: '平方米'
-                        },
-                        {
-                            value: '公顷', label: '公顷'
-                        }
-                    ]
+                    options: [['亩', '平方米', '公顷']]
                 },
                 {
                     name: 'principal',
@@ -1918,17 +1769,7 @@ export default {
                     label: '圈舍面积',
                     placeholder: '请填写数字（必填）',
                     rule: [{required: true, message: '请填写数字（必填）', trigger: 'blur'}, {validator: validate2.reNumber}],
-                    options: [
-                        {
-                            value: '亩', label: '亩'
-                        },
-                        {
-                            value: '平方米', label: '平方米'
-                        },
-                        {
-                            value: '公顷', label: '公顷'
-                        }
-                    ]
+                    options: [['亩', '平方米', '公顷']]
                 },
                 {
                     name: 'img',
@@ -1987,17 +1828,7 @@ export default {
                     label: '圈舍面积',
                     placeholder: '请填写数字（必填）',
                     rule: [{required: true, message: '请填写数字（必填）', trigger: 'blur'}, {validator: validate2.reNumber}],
-                    options: [
-                        {
-                            value: '亩', label: '亩'
-                        },
-                        {
-                            value: '平方米', label: '平方米'
-                        },
-                        {
-                            value: '公顷', label: '公顷'
-                        }
-                    ]
+                    options: [['亩', '平方米', '公顷']]
                 },
                 {
                     name: 'img',
@@ -3153,18 +2984,7 @@ export default {
                 label: '平均喂养量',
                 placeholder: '请输入整数',
                 rule: [{required: true, trigger: 'blur', message: '请输入饲养量'}, {validator: validate2.reNumber}],
-                options: [{
-                    value: 'kg/只',
-                    label: 'kg/只'
-                },
-                {
-                    value: 'kg/头',
-                    label: 'kg/头'
-                },
-                {
-                    value: 'kg/条',
-                    label: 'kg/条'
-                }]
+                options: [['kg/只', 'kg/头', 'kg/条']]
             },
             {
                 name: 'way',
@@ -3249,18 +3069,7 @@ export default {
                 label: '平均喂养量',
                 placeholder: '',
                 rule: [{required: true, message: '请输入饲养量'}, {validator: validate2.reNumber}],
-                options: [{
-                    value: 'kg/只',
-                    label: 'kg/只'
-                },
-                {
-                    value: 'kg/头',
-                    label: 'kg/头'
-                },
-                {
-                    value: 'kg/条',
-                    label: 'kg/条'
-                }]
+                options: [['kg/只', 'kg/头', 'kg/条']]
             },
             {
                 name: 'way',
@@ -3382,18 +3191,7 @@ export default {
                     label: '平均施药量',
                     placeholder: '请输入正确的数字（必填）',
                     rule: [{required: true, message: '请输入平均施药量'}, {validator: validate2.reNumber}],
-                    options: [{
-                        value: 'kg/只',
-                        label: 'kg/只'
-                    },
-                    {
-                        value: 'kg/头',
-                        label: 'kg/头'
-                    },
-                    {
-                        value: 'kg/条',
-                        label: 'kg/条'
-                    }]
+                    options: [['kg/只', 'kg/头', 'kg/条']]
                 },
                 {
                     name: 'way',
@@ -3499,18 +3297,7 @@ export default {
                     label: '平均施药量',
                     placeholder: '请输入正确的数字（必填）',
                     rule: [{required: true, message: '请输入平均施药量'}, {validator: validate2.reNumber}],
-                    options: [{
-                        value: 'kg/只',
-                        label: 'kg/只'
-                    },
-                    {
-                        value: 'kg/头',
-                        label: 'kg/头'
-                    },
-                    {
-                        value: 'kg/条',
-                        label: 'kg/条'
-                    }]
+                    options: [['kg/只', 'kg/头', 'kg/条']]
                 },
                 {
                     name: 'way',
@@ -3648,16 +3435,7 @@ export default {
                 label: '检疫结果',
                 placeholder: '',
                 rule: {required: false, type: 'number'},
-                options: [
-                    {
-                        value: 1,
-                        label: '合格'
-                    },
-                    {
-                        value: 0,
-                        label: '不合格'
-                    }
-                ]
+                options: [['合格', '不合格']]
             },
             {
                 name: 'check',
@@ -3769,16 +3547,7 @@ export default {
                 label: '检疫结果',
                 placeholder: '',
                 rule: {required: false},
-                options: [
-                    {
-                        value: 1,
-                        label: '合格'
-                    },
-                    {
-                        value: 0,
-                        label: '不合格'
-                    }
-                ]
+                options: [['合格', '不合格']]
             },
             {
                 name: 'check',
@@ -3903,27 +3672,7 @@ export default {
                 label: '天气',
                 placeholder: '请选择天气情况',
                 rule: {required: true, trigger: 'blur', message: '请选择天气情况'},
-                options: [{
-                    value: '晴',
-                    label: '晴'
-                },
-                {
-                    value: '雨',
-                    label: '雨'
-                },
-                {
-                    value: '雪',
-                    label: '雪'
-                },
-                {
-                    value: '阴',
-                    label: '阴'
-                },
-                {
-                    value: '其它',
-                    label: '其它'
-                }
-                ]
+                options: [['晴', '雨', '雪', '阴', '其它']]
             },
             {
                 name: 'name',
@@ -4027,27 +3776,7 @@ export default {
                 label: '天气',
                 placeholder: '请选择天气情况',
                 rule: {required: true, trigger: 'blur', message: '请选择天气情况'},
-                options: [{
-                    value: '晴',
-                    label: '晴'
-                },
-                {
-                    value: '雨',
-                    label: '雨'
-                },
-                {
-                    value: '雪',
-                    label: '雪'
-                },
-                {
-                    value: '阴',
-                    label: '阴'
-                },
-                {
-                    value: '其它',
-                    label: '其它'
-                }
-                ]
+                options: [['晴', '雨', '雪', '阴', '其它']]
             },
             {
                 name: 'name',
@@ -4620,7 +4349,6 @@ export default {
                 type: 'select',
                 component: selectSection,
                 options: [{
-                    value: '',
                     label: '请选择操作类型'
                 },
                 {
@@ -4695,34 +4423,7 @@ export default {
                 label: '操作类型',
                 placeholder: '必填',
                 rule: {required: true, trigger: 'blur', message: '请选择分类名称'},
-                options: [{
-                    value: '',
-                    label: '请选择操作类型'
-                },
-                {
-                    value: 'fodderuse',
-                    label: '饲养'
-                },
-                {
-                    value: 'disease',
-                    label: '病疫'
-                },
-                {
-                    value: 'detection',
-                    label: '检疫'
-                },
-                {
-                    value: 'detects',
-                    label: '检测'
-                },
-                {
-                    value: 'dispose',
-                    label: '无害化'
-                },
-                {
-                    value: 'come',
-                    label: '出栏'
-                }]
+                options: [['请选择操作类型', '饲养', '病疫', '检疫', '检测', '无害化', '出栏']]
             },
             {
                 name: 'memo',
@@ -4993,14 +4694,7 @@ export default {
                 label: '检测结果',
                 placeholder: '请选择检测结果',
                 rule: {required: true, trigger: 'blur'},
-                options: [{
-                    value: '1',
-                    label: '合格'
-                },
-                {
-                    value: '0',
-                    label: '不合格'
-                }]
+                options: [['合格', '不合格']]
             },
             {
                 name: 'content',
@@ -5102,14 +4796,7 @@ export default {
                 label: '检测结果',
                 placeholder: '请选择检测结果',
                 rule: {required: true, trigger: 'blur'},
-                options: [{
-                    value: '1',
-                    label: '合格'
-                },
-                {
-                    value: '0',
-                    label: '不合格'
-                }]
+                options: [['合格', '不合格']]
             },
             {
                 name: 'content',
@@ -5491,19 +5178,7 @@ export default {
                     isNull: false,
                     label: '种植面积',
                     placeholder: '请填写数字（必填）',
-                    options: [{
-                        value: '亩',
-                        label: '亩'
-                    },
-                    {
-                        value: '平方米',
-                        label: '平方米'
-                    },
-                    {
-                        value: '公顷',
-                        label: '公顷'
-                    }
-                    ],
+                    options: [['亩', '平方米', '公顷']],
                     rule: [{required: true, message: '请输入种植面积', trigger: 'blur'}, {validator: validate2.reNumber}]
                 },
                 {
@@ -5583,19 +5258,7 @@ export default {
                     isNull: false,
                     label: '种植面积',
                     placeholder: '请填写数字（必填）',
-                    options: [{
-                        value: '亩',
-                        label: '亩'
-                    },
-                    {
-                        value: '平方米',
-                        label: '平方米'
-                    },
-                    {
-                        value: '公顷',
-                        label: '公顷'
-                    }
-                    ],
+                    options: [['亩', '平方米', '公顷']],
                     rule: [{required: true, message: '请输入种植面积', trigger: 'blur'}, {validator: validate2.reNumber}]
                 },
                 {
@@ -5717,19 +5380,7 @@ export default {
                     isNull: false,
                     label: '种植面积',
                     placeholder: '请填写数字（必填）',
-                    options: [{
-                        value: '亩',
-                        label: '亩'
-                    },
-                    {
-                        value: '平方米',
-                        label: '平方米'
-                    },
-                    {
-                        value: '公顷',
-                        label: '公顷'
-                    }
-                    ],
+                    options: [['亩', '平方米', '公顷']],
                     rule: [{required: true, message: '请输入种植面积', trigger: 'blur'}, {validator: validate2.reNumber}]
                 },
                 {
@@ -5814,18 +5465,7 @@ export default {
                     isNull: false,
                     label: '种植面积',
                     placeholder: '请填写数字（必填）',
-                    options: [{
-                        value: '亩',
-                        label: '亩'
-                    },
-                    {
-                        value: '平方米',
-                        label: '平方米'
-                    },
-                    {
-                        value: '公顷',
-                        label: '公顷'
-                    }],
+                    options: [['亩', '平方米', '公顷']],
                     rule: [{required: true, message: '请输入种植面积', trigger: 'blur'}, {validator: validate2.reNumber}]
                 },
                 {
@@ -6289,22 +5929,7 @@ export default {
                     label: '毒性等级',
                     placeholder: '必填',
                     rule: {required: true, message: '请输入模块类型', trigger: 'blur'},
-                    options: [{
-                        value: '微毒',
-                        label: '微毒'
-                    },
-                    {
-                        value: '低毒',
-                        label: '低毒'
-                    },
-                    {
-                        value: '中毒',
-                        label: '中毒'
-                    },
-                    {
-                        value: '高毒',
-                        label: '高毒'
-                    }]
+                    options: [['微毒', '低毒', '中毒', '高毒']]
                 },
                 {
                     name: 'specification',
@@ -6407,22 +6032,7 @@ export default {
                     label: '毒性等级',
                     placeholder: '必填',
                     rule: {required: true, message: '请输入模块类型', trigger: 'blur'},
-                    options: [{
-                        value: '微毒',
-                        label: '微毒'
-                    },
-                    {
-                        value: '低毒',
-                        label: '低毒'
-                    },
-                    {
-                        value: '中毒',
-                        label: '中毒'
-                    },
-                    {
-                        value: '高毒',
-                        label: '高毒'
-                    }]
+                    options: [['微毒', '低毒', '中毒', '高毒']]
                 },
                 {
                     name: 'specification',
@@ -6560,19 +6170,7 @@ export default {
                 isNull: false,
                 label: '种植面积',
                 placeholder: '请填写数字（必填）',
-                options: [{
-                    value: '亩',
-                    label: '亩'
-                },
-                {
-                    value: '平方米',
-                    label: '平方米'
-                },
-                {
-                    value: '公顷',
-                    label: '公顷'
-                }
-                ],
+                options: [['亩', '平方米', '公顷']],
                 rule: [{required: true, message: '请输入种植面积', trigger: 'blur'}, {validator: validate2.reNumber}]
             },
             {
@@ -6654,19 +6252,7 @@ export default {
                 label: '种植面积',
                 placeholder: '请填写数字（必填）',
                 disabled: true,
-                options: [{
-                    value: '亩',
-                    label: '亩'
-                },
-                {
-                    value: '平方米',
-                    label: '平方米'
-                },
-                {
-                    value: '公顷',
-                    label: '公顷'
-                }
-                ],
+                options: [['亩', '平方米', '公顷']],
                 rule: [{required: true, message: '请输入种植面积', trigger: 'blur'}, {validator: validate2.reNumber}]
             },
             {
@@ -6766,26 +6352,7 @@ export default {
                     label: '天气',
                     placeholder: '',
                     rule: null,
-                    options: [{
-                        value: '晴',
-                        label: '晴'
-                    },
-                    {
-                        value: '雨',
-                        label: '雨'
-                    },
-                    {
-                        value: '雪',
-                        label: '雪'
-                    },
-                    {
-                        value: '阴',
-                        label: '阴'
-                    },
-                    {
-                        value: '其他',
-                        label: '其他'
-                    }]
+                    options: [['晴', '雨', '雪', '阴', '其他']]
                 },
                 {
                     name: 'amount',
@@ -6794,19 +6361,7 @@ export default {
                     isNull: false,
                     label: '使用量',
                     placeholder: '请填写数字（必填）',
-                    options: [{
-                        value: 'kg/亩',
-                        label: 'kg/亩'
-                    },
-                    {
-                        value: 'kg/平方米',
-                        label: 'kg/平方米'
-                    },
-                    {
-                        value: 'kg/公顷',
-                        label: 'kg/公顷'
-                    }
-                    ],
+                    options: [['kg/亩', 'kg/平方米', 'kg/公顷']],
                     rule: [{required: true, message: '请输入平均施肥用量', trigger: 'blur'}, {validator: validate2.reNumber}]
                 },
                 {
@@ -6892,26 +6447,7 @@ export default {
                     label: '天气',
                     placeholder: '',
                     rule: null,
-                    options: [{
-                        value: '晴',
-                        label: '晴'
-                    },
-                    {
-                        value: '雨',
-                        label: '雨'
-                    },
-                    {
-                        value: '雪',
-                        label: '雪'
-                    },
-                    {
-                        value: '阴',
-                        label: '阴'
-                    },
-                    {
-                        value: '其他',
-                        label: '其他'
-                    }]
+                    options: [['晴', '雨', '雪', '阴', '其他']]
                 },
                 {
                     name: 'amount',
@@ -6920,19 +6456,7 @@ export default {
                     isNull: false,
                     label: '使用量',
                     placeholder: '请填写数字（必填）',
-                    options: [{
-                        value: 'kg/亩',
-                        label: 'kg/亩'
-                    },
-                    {
-                        value: 'kg/平方米',
-                        label: 'kg/平方米'
-                    },
-                    {
-                        value: 'kg/公顷',
-                        label: 'kg/公顷'
-                    }
-                    ],
+                    options: [['kg/亩', 'kg/平方米', 'kg/公顷']],
                     rule: [{required: true, message: '请输入平均施肥用量', trigger: 'blur'}, {validator: validate2.reNumber}]
                 },
                 {
@@ -7044,26 +6568,7 @@ export default {
                     label: '天气',
                     placeholder: '',
                     rule: null,
-                    options: [{
-                        value: '晴',
-                        label: '晴'
-                    },
-                    {
-                        value: '雨',
-                        label: '雨'
-                    },
-                    {
-                        value: '雪',
-                        label: '雪'
-                    },
-                    {
-                        value: '阴',
-                        label: '阴'
-                    },
-                    {
-                        value: '其他',
-                        label: '其他'
-                    }]
+                    options: [['晴', '雨', '雪', '阴', '其他']]
                 },
                 {
                     name: 'amount',
@@ -7072,19 +6577,7 @@ export default {
                     isNull: false,
                     label: '施用量',
                     placeholder: '请填写数字（必填）',
-                    options: [{
-                        value: 'ml/亩',
-                        label: 'ml/亩'
-                    },
-                    {
-                        value: 'ml/平方米',
-                        label: 'ml/平方米'
-                    },
-                    {
-                        value: 'ml/公顷',
-                        label: 'ml/公顷'
-                    }
-                    ],
+                    options: [['ml/亩', 'ml/平方米', 'ml/公顷']],
                     rule: [{required: true, message: '请输入平均施药用量', trigger: 'blur'}, {validator: validate2.reNumber}]
                 },
                 {
@@ -7188,26 +6681,7 @@ export default {
                     label: '天气',
                     placeholder: '',
                     rule: null,
-                    options: [{
-                        value: '晴',
-                        label: '晴'
-                    },
-                    {
-                        value: '雨',
-                        label: '雨'
-                    },
-                    {
-                        value: '雪',
-                        label: '雪'
-                    },
-                    {
-                        value: '阴',
-                        label: '阴'
-                    },
-                    {
-                        value: '其他',
-                        label: '其他'
-                    }]
+                    options: [['晴', '雨', '雪', '阴', '其他']]
                 },
                 {
                     name: 'amount',
@@ -7216,19 +6690,7 @@ export default {
                     isNull: false,
                     label: '施用量',
                     placeholder: '请填写数字（必填）',
-                    options: [{
-                        value: 'ml/亩',
-                        label: 'ml/亩'
-                    },
-                    {
-                        value: 'ml/平方米',
-                        label: 'ml/平方米'
-                    },
-                    {
-                        value: 'ml/公顷',
-                        label: 'ml/公顷'
-                    }
-                    ],
+                    options: [['ml/亩', 'ml/平方米', 'ml/公顷']],
                     rule: [{required: true, message: '请输入平均施药用量', trigger: 'blur'}, {validator: validate2.reNumber}]
                 },
                 {
@@ -7361,26 +6823,7 @@ export default {
                     label: '检测类型',
                     placeholder: '',
                     rule: null,
-                    options: [{
-                        value: '土壤检测',
-                        label: '土壤检测'
-                    },
-                    {
-                        value: '水质检测',
-                        label: '水质检测'
-                    },
-                    {
-                        value: '大气污染检测',
-                        label: '大气污染检测'
-                    },
-                    {
-                        value: '农药残留检测',
-                        label: '农药残留检测'
-                    },
-                    {
-                        value: '其他检测',
-                        label: '其他检测'
-                    }]
+                    options: [['检测类型', '土壤检测', '水质检测', '大气污染检测', '农药残留检测', '其他检测']]
                 },
                 {
                     name: 'date',
@@ -7399,26 +6842,7 @@ export default {
                     label: '天气',
                     placeholder: '',
                     rule: null,
-                    options: [{
-                        value: '晴',
-                        label: '晴'
-                    },
-                    {
-                        value: '雨',
-                        label: '雨'
-                    },
-                    {
-                        value: '雪',
-                        label: '雪'
-                    },
-                    {
-                        value: '阴',
-                        label: '阴'
-                    },
-                    {
-                        value: '其他',
-                        label: '其他'
-                    }]
+                    options: [['晴', '雨', '雪', '阴', '其他']]
                 },
                 {
                     name: 'department',
@@ -7446,14 +6870,7 @@ export default {
                     label: '检测结果',
                     placeholder: '',
                     rule: null,
-                    options: [{
-                        value: '合格',
-                        label: '合格'
-                    },
-                    {
-                        value: '不合格',
-                        label: '不合格'
-                    }]
+                    options: [['合格', '不合格']]
                 },
                 {
                     name: 'operate_id',
@@ -7520,26 +6937,7 @@ export default {
                     label: '检测类型',
                     placeholder: '',
                     rule: null,
-                    options: [{
-                        value: '土壤检测',
-                        label: '土壤检测'
-                    },
-                    {
-                        value: '水质检测',
-                        label: '水质检测'
-                    },
-                    {
-                        value: '大气污染检测',
-                        label: '大气污染检测'
-                    },
-                    {
-                        value: '农药残留检测',
-                        label: '农药残留检测'
-                    },
-                    {
-                        value: '其他检测',
-                        label: '其他检测'
-                    }]
+                    options: [['土壤检测', '水质检测', '大气污染检测', '农药残留检测', '其他检测']]
                 },
                 {
                     name: 'date',
@@ -7558,26 +6956,7 @@ export default {
                     label: '天气',
                     placeholder: '',
                     rule: null,
-                    options: [{
-                        value: '晴',
-                        label: '晴'
-                    },
-                    {
-                        value: '雨',
-                        label: '雨'
-                    },
-                    {
-                        value: '雪',
-                        label: '雪'
-                    },
-                    {
-                        value: '阴',
-                        label: '阴'
-                    },
-                    {
-                        value: '其他',
-                        label: '其他'
-                    }]
+                    options: [['晴', '雨', '雪', '阴', '其他']]
                 },
                 {
                     name: 'department',
@@ -7605,14 +6984,7 @@ export default {
                     label: '检测结果',
                     placeholder: '',
                     rule: null,
-                    options: [{
-                        value: '合格',
-                        label: '合格'
-                    },
-                    {
-                        value: '不合格',
-                        label: '不合格'
-                    }]
+                    options: [['合格', '不合格']]
                 },
                 {
                     name: 'operate_id',
@@ -7702,26 +7074,7 @@ export default {
                     label: '天气',
                     placeholder: '',
                     rule: null,
-                    options: [{
-                        value: '晴',
-                        label: '晴'
-                    },
-                    {
-                        value: '雨',
-                        label: '雨'
-                    },
-                    {
-                        value: '雪',
-                        label: '雪'
-                    },
-                    {
-                        value: '阴',
-                        label: '阴'
-                    },
-                    {
-                        value: '其他',
-                        label: '其他'
-                    }]
+                    options: [['晴', '雨', '雪', '阴', '其他']]
                 },
                 {
                     name: 'content',
@@ -7805,26 +7158,7 @@ export default {
                     label: '天气',
                     placeholder: '',
                     rule: null,
-                    options: [{
-                        value: '晴',
-                        label: '晴'
-                    },
-                    {
-                        value: '雨',
-                        label: '雨'
-                    },
-                    {
-                        value: '雪',
-                        label: '雪'
-                    },
-                    {
-                        value: '阴',
-                        label: '阴'
-                    },
-                    {
-                        value: '其他',
-                        label: '其他'
-                    }]
+                    options: [['晴', '雨', '雪', '阴', '其他']]
                 },
                 {
                     name: 'content',
@@ -7976,30 +7310,7 @@ export default {
                 label: '操作类型',
                 placeholder: '必填',
                 rule: {required: true, trigger: 'blur', message: '请选择分类名称'},
-                options: [{
-                    value: '',
-                    label: '操作类型'
-                },
-                {
-                    value: 'fertilize',
-                    label: '施肥'
-                },
-                {
-                    value: 'spray',
-                    label: '施药'
-                },
-                {
-                    value: 'detect',
-                    label: '检测'
-                },
-                {
-                    value: 'farming',
-                    label: '农事'
-                },
-                {
-                    value: 'harvest',
-                    label: '采收'
-                }]
+                options: [['操作类型', '施肥', '施药', '检测', '农事', '采收']]
             },
             {
                 name: 'memo',
@@ -8471,14 +7782,7 @@ export default {
                 label: '检测结果',
                 placeholder: '请选择检测结果',
                 rule: {required: true, trigger: 'blur'},
-                options: [{
-                    value: '1',
-                    label: '合格'
-                },
-                {
-                    value: '0',
-                    label: '不合格'
-                }]
+                options: [['合格', '不合格']]
             },
             {
                 name: 'content',
@@ -8580,14 +7884,7 @@ export default {
                 label: '检测结果',
                 placeholder: '请选择检测结果',
                 rule: {required: true, trigger: 'blur'},
-                options: [{
-                    value: '1',
-                    label: '合格'
-                },
-                {
-                    value: '0',
-                    label: '不合格'
-                }]
+                options: [['合格', '不合格']]
             },
             {
                 name: 'content',
@@ -9167,14 +8464,7 @@ export default {
                     label: '性别',
                     placeholder: '',
                     rule: null,
-                    options: [{
-                        value: 0,
-                        label: '男'
-                    },
-                    {
-                        value: 1,
-                        label: '女'
-                    }]
+                    options: [['男', '女']]
                 },
                 {
                     name: 'birth',
@@ -9242,14 +8532,7 @@ export default {
                     label: '性别',
                     placeholder: '',
                     rule: null,
-                    options: [{
-                        value: 0,
-                        label: '男'
-                    },
-                    {
-                        value: 1,
-                        label: '女'
-                    }]
+                    options: [['男', '女']]
                 },
                 {
                     name: 'birth',
@@ -9368,22 +8651,7 @@ export default {
                 placeholder: '必填',
                 selectNumber: {self: [3, 4], consign: [5, 6], selve: [7]},
                 rule: {required: true, trigger: 'blur', message: '请选择运输方式'},
-                options: [{
-                    value: '',
-                    label: '运输方式'
-                },
-                {
-                    value: 'self',
-                    label: '自运'
-                },
-                {
-                    value: 'consign',
-                    label: '托运'
-                },
-                {
-                    value: 'selve',
-                    label: '自提'
-                }]
+                options: [['运输方式', '自运', '托运', '自提']]
             },
             {
                 name: 'vehicle_id',
@@ -10160,13 +9428,7 @@ export default {
                 label: '性别',
                 placeholder: '请选择性别',
                 rule: {required: true, trigger: 'blur', type: 'number'},
-                options: [{
-                    value: 0,
-                    label: '男'
-                }, {
-                    value: 1,
-                    label: '女'
-                }]
+                options: [['男', '女']]
             },
             {
                 name: 'realname',
@@ -10272,13 +9534,7 @@ export default {
                 label: '性别',
                 placeholder: '请选择性别',
                 rule: {required: true, trigger: 'blur', type: 'number'},
-                options: [{
-                    value: 0,
-                    label: '男'
-                }, {
-                    value: 1,
-                    label: '女'
-                }]
+                options: [['男', '女']]
             },
             {
                 name: 'realname',

@@ -75,7 +75,7 @@ export default{
     },
     mounted () {
         $(document).on('touchmove', function (e) {
-            e.preventDefault()
+            // e.preventDefault()
             e.stopPropagation()
         })
         // 获取溯源码

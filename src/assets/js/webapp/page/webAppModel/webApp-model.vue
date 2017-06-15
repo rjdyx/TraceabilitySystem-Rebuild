@@ -15,7 +15,7 @@
 
         <!-- 操作 -->
         <div class="appOperate">
-            <el-button type="primary" class="newbuilt">新建</el-button>
+            <el-button type="primary" class="newbuilt" @click="webAppNew">新建</el-button>
             <div class="searchOp">
                 <el-input   
                     :placeholder="searchPlaceholder"
@@ -184,6 +184,15 @@ export default {
             this.activeName = 0
             this.$set(this, 'tableData', [])
             this.$set(this, 'multipleSelection', [])
+        },
+        /*
+        新建
+         */
+        webAppNew () {
+            console.log(this.$route)
+            this.$router.push('/webAppNew' + '/' + this.$route.params.model + '/' + this.modelIndex)
+        },
+        change () {
         },
         jumpDetails (row) {
             var id = row.id

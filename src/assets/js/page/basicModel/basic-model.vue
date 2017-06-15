@@ -917,9 +917,13 @@ export default {
         .fade-enter, .fade-leave-active {
             opacity: 0;
         }
+        .operate_wrap{
+            /*display: inline-block;*/
+            float: left;
+            margin-bottom: 10px;
+        }
         .searchInp {
             width: 161px;
-            margin-bottom: 10px;
             font-size: 12px;
             margin-right: 10px;
         }
@@ -930,7 +934,8 @@ export default {
             width: 62px;
         }
         .searchOp {
-            display: inline;
+            float: left;
+            margin-bottom: 10px;
         }
         .margin {
             margin-left: 15px;
@@ -962,7 +967,8 @@ export default {
             text-align: center;
         }
         #operate{
-            min-width: 1400px;
+            /*min-width: 1400px;*/
+            /*margin-bottom: 10px;*/
         }
         .footer {
             width: 99.9%;

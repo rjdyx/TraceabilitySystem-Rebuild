@@ -29,8 +29,9 @@ export default {
     /*@import '../../../sass/function';*/
     .details{
     	height: 100%;
-        overflow:hidden;
+        overflow:scroll;
         overflow-y: scroll;
         padding-left:10px;
+        padding-right: 10px;
     }
 </style>

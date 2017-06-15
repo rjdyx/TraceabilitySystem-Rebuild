@@ -3,12 +3,13 @@ const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const vueConfig = require('./vue-loader.config');
 const projectRoot = path.resolve(__dirname, '../');
+const vuxLoader = require('vux-loader')
 
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
 }
 
-module.exports = {
+const webpackConfig = {
     devtool: '#source-map',
     entry: {
         app: './src/assets/js/index.js',
@@ -127,3 +128,10 @@ module.exports = {
     ]
 
 }
+
+module.exports = vuxLoader.merge(webpackConfig, {
+    options: {},
+    plugins: [{
+        name: 'vux-ui'
+    }]
+})
