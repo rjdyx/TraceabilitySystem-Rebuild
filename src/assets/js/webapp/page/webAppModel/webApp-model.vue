@@ -26,7 +26,7 @@
                     v-model="inputValue"
                     :on-icon-click="search" class="searchInp">
                 </el-input>
-                <el-button class="searchBtn">搜索</el-button>
+                <el-button class="searchBtn" @click="textAndDateFind">搜索</el-button>
             </div>
         </div>
 
@@ -34,8 +34,10 @@
              <!-- 时间操作 -->
             <transition name="slide-fade">
                 <group :title="time" v-show="showdate">
-                    <datetime v-model="value1" :title="'开始日期'" placeholder="请选择"></datetime>
-                    <datetime v-model="value1" :title="'结束日期'" placeholder="请选择"></datetime>
+                    <datetime v-model="value1" :title="'开始日期'" placeholder="请选择" confirm-text="确认" 
+                              cancel-text="取消" @on-change="beforeDate"></datetime>
+                    <datetime v-model="value2" :title="'结束日期'" placeholder="请选择" confirm-text="确认"
+                              cancel-text="取消" @on-change="afterDate"></datetime>
                 </group>
             </transition>
 
@@ -81,7 +83,7 @@
         <div class="tableFooter">
             <input type="checkbox" class="allcheckbox" v-model="checkAll" @click="checkedAll">
             <el-button type="primary" class="allcheck" @click="checkedAll">全选</el-button>
-            <el-button type="danger" class="appDelete">删除</el-button>
+            <el-button type="danger" class="appDelete" @click="listDelete">删除</el-button>
         </div>
         <paginator></paginator>
         </div>
@@ -139,6 +141,8 @@ export default {
             // 列表数据
             tableData: [],
             listLoading: false,
+            // 查询对象
+            dataArr: {},
             ischeckdate: [],
             menus: appmenu,
             show: false,
@@ -216,6 +220,28 @@ export default {
         },
         showDetail () {
             this.$router.push('/appIndex/appdetailbasic/' + this.batch)
+        },
+        // 文本与时间按钮查询
+        textAndDateFind () {
+            this.dataArr['query_text'] = this.inputValue
+            this.dataArr['page'] = 1
+            this.boxArr(this.dataArr, true)
+        },
+        // 开始日期
+        beforeDate (val) {
+            this.dataArr['beforeDate'] = val
+        },
+        // 结束日期
+        afterDate (val) {
+            this.dataArr['afterDate'] = val
+        },
+        // 组合查询
+        boxArr (dataArr, flag) {
+            this.getAllMsg(dataArr, flag)
+        },
+        // 单条删除或多条删除
+        listDelete () {
+            console.log(this.ischeckdate)
         }
     },
     mounted () {

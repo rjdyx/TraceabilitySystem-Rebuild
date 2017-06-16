@@ -198,6 +198,10 @@ export default {
             this.recordeChecked = true
             this.ruleForm2.name = localStorage.getItem('recordUser')
         }
+        // 判断是否已登录
+        if (window.Roles.permissions !== undefined) {
+            this.$router.push('/index/home')
+        }
     },
     components: {
         vueLoading
