@@ -12,7 +12,7 @@
         <!-- tab -->
         <div class="apptab" v-show="tabshow">
             <tab>
-                <tab-item v-for="(model,index)  in models" @on-item-click="tabClick(index)">{{model.tab}}</tab-item>
+                <tab-item v-for="(model,index)  in models" @on-item-click="tabClick(index, model.tab)">{{model.tab}}</tab-item>
             </tab>
         </div>
 
@@ -21,7 +21,7 @@
         <div class="appOperate">
             <el-button type="primary" class="newbuilt">新建</el-button>
             <div class="searchOp">
-                <el-input   
+                <el-input 
                     :placeholder="searchPlaceholder"
                     v-model="inputValue"
                     :on-icon-click="search" class="searchInp">
@@ -199,8 +199,9 @@ export default {
             }
             this.ischeckdate = ischeckdate
         },
-        tabClick (subindex) {
+        tabClick (subindex, modelName) {
             this.modelIndex = subindex
+            console.log(modelName)
         },
         // 侧边栏的显示与隐藏
         showsider () {

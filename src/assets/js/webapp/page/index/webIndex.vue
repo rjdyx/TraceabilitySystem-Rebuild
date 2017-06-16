@@ -37,11 +37,11 @@ export default{
 		height: 100%;
 		.indexImg{
 			width: 100%;
-			height: 418px;
+			height: 402px;
 			position: relative;
 			.logo{
 				width: 74%;
-				height: 78%;
+				height: 70%;
 				position: absolute;
 				left: 9%;
 				top: 11%;

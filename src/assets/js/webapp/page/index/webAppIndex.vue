@@ -7,7 +7,7 @@
 
 <template>
 	<div class="appWrap">
-		<app-header @parentClick="showsider" :settitle="settitle">
+		<app-header @parentClick="showsider" :settitle="settitle" :homeShow="homeShow">
         </app-header>
 		<sider-bar :menus='menus' :show="show" @hidetoggle="hidesider" @children-info="getinfo"></sider-bar>
 		<router-view></router-view>
@@ -25,7 +25,8 @@ export default {
         return {
             menus: appmenu,
             show: false,
-            settitle: ''
+            settitle: '',
+            homeShow: false
         }
     },
     methods: {
@@ -45,12 +46,15 @@ export default {
     mounted () {
         if (this.$route.path === '/appIndex') {
             this.settitle = '生之园溯源系统'
+            this.homeShow = false
         } else if (this.$route.path.indexOf('appdetailbasic') !== -1) {
             let detit = localStorage.getItem('dename')
             this.settitle = detit
+            this.homeShow = true
         } else {
             let apptitle = localStorage.getItem('tit')
             this.settitle = apptitle
+            this.homeShow = true
         }
     },
     computed: {
@@ -63,12 +67,15 @@ export default {
         $route () {
             if (this.$route.path === '/appIndex') {
                 this.settitle = '生之园溯源系统'
+                this.homeShow = false
             } else if (this.$route.path.indexOf('appdetailbasic') !== -1) {
                 let detit = localStorage.getItem('dename')
                 this.settitle = detit
+                this.homeShow = true
             } else {
                 let apptitle = localStorage.getItem('tit')
                 this.settitle = apptitle
+                this.homeShow = true
             }
         }
     }
