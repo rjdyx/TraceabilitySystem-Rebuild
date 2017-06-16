@@ -15,8 +15,10 @@
                         v-if="comItem.type ==='text'" 
                         :title="comItem.label" 
                         :placeholder="comItem.placeholder" 
-                        v-model="tableForm[comItem.name]">
+                        v-model="tableForm[comItem.name]"
+                        :required='true'>
                     </x-input>
+
 
                     <datetime 
                         v-if="comItem.type === 'date'"
@@ -29,10 +31,7 @@
                         v-if="comItem.type === 'select'"
                         :title="comItem.label" 
                         :data="comItem.options" 
-                        v-model="tableForm[comItem.name]"
-                        @on-show="onShow" 
-                        @on-hide="onHide" 
-                        @on-change="onChange">
+                        v-model="tableForm[comItem.name]">
                     </popup-picker>
 
                     <x-textarea
@@ -44,18 +43,16 @@
                         v-model="tableForm[comItem.name]">
                     </x-textarea>
                     
-                    <div>
-                        <x-number 
-                            v-if="comItem.type === 'textSelect'"
-                            :value="10" 
-                            :title="comItem.label"  
-                            :min="0"
-                            fillable>
-                        </x-number>
+                    <div v-if="comItem.type === 'textSelect'">
+                        <x-input 
+                            :title="comItem.label" 
+                            :placeholder="comItem.placeholder" 
+                            v-model="tableForm[comItem.name]">
+                        </x-input>
                         <popup-picker 
-                            title="haha"
-                            :data="list1" 
-                            v-model="value"
+                            title="单位"
+                            :data="comItem.options" 
+                            v-model="tableForm['unit']"
                             >
                         </popup-picker>
                     </popup-picker>
@@ -63,7 +60,12 @@
                     
                 </div>
             </group>
-            <camera v-for="comItem in newComponent.components" v-if="comItem.type === 'file'"></camera>
+            <camera 
+                v-for="comItem in newComponent.components" 
+                v-if="comItem.type === 'file'" 
+                @return-shuju="returnShuju"
+                :name="comItem.name"
+            ></camera>
             <flexbox>
                     <flexbox-item>
                       <x-button class="submitForm" @touchend.native='submitForm'>保存</x-button>
@@ -77,10 +79,9 @@
     </div>
 </template>
 <script>
-import { XHeader, Actionsheet, TransferDom, Group, XInput, Selector, PopupPicker, Datetime, ChinaAddressData, XTextarea, Icon, XButton, Flexbox, FlexboxItem, PopupRadio, XNumber } from 'vux'
+import { XHeader, Actionsheet, TransferDom, Group, XInput, Selector, PopupPicker, Datetime, ChinaAddressData, XTextarea, Icon, XButton, Flexbox, FlexboxItem, PopupRadio } from 'vux'
 import message from '../webAppBasic/appmessage.js'
 import Camera from '../../public/camera.vue'
-import TextSelect from '../../public/inputTextSelect.vue'
 export default {
     name: 'p_popNew',
     components: {
@@ -98,9 +99,7 @@ export default {
         Flexbox,
         FlexboxItem,
         PopupRadio,
-        Camera,
-        TextSelect,
-        XNumber
+        Camera
     },
     data () {
         let modelObj = {}
@@ -109,8 +108,8 @@ export default {
         let form = {}
         newComponent[0].components.forEach(function (item) {
             if (item.type === 'textSelect') {
-                form[item.name] = ''
-                form['unit'] = item.options[0][0]
+                form[item.name] = 0
+                form['unit'] = [item.options[0][0]]
             } else if (item.type === 'select') {
                 form[item.name] = []
             } else {
@@ -119,26 +118,19 @@ export default {
         })
 
         return {
-            gender: [],
-            gneder_list: [['男', '女']],
             settitle: newComponent[0].tab,
             newComponent: newComponent[0],
             tableForm: form,
-            time1: '2017-06-01',
-            list1: [['小米', 'iPhone', '华为', '情怀', '三星', '其他', '不告诉你']],
-            value: []
+            be2333: function (value) {
+                console.log(value)
+                return {
+                    valid: value !== '',
+                    msg: 'Must be 2333'
+                }
+            }
         }
     },
     methods: {
-        onShow () {
-            console.log('on show')
-        },
-        onHide (type) {
-            console.log('on hide', type)
-        },
-        onChange (val) {
-            console.log('val change', val)
-        },
         /*
         取消表单
          */
@@ -150,6 +142,18 @@ export default {
          */
         submitForm () {
             console.log('提交成功')
+            console.log(this.tableForm)
+        },
+        /*
+        返回图片信息
+         */
+        returnShuju (obj) {
+            this.tableForm[obj.name] = obj.value
+        },
+        /*
+        表单验证
+         */
+        validateFn () {
         }
     },
     created () {
@@ -173,8 +177,9 @@ export default {
     }
 #p_popNew{
     .weui-cells{
-        border: 1px solid #D9D9D9;
-
+        border-left: 1px solid #D9D9D9;
+        border-right: 1px solid #D9D9D9;
+        border-bottom: 1px solid #D9D9D9;
     }
     .gray{
         color: #4d4d4d;
@@ -263,6 +268,16 @@ export default {
     }
     .weui-cell{
         padding: 0rem!important;
+        >div>p{
+            background:$labelBgCol;
+            box-sizing: content-box;
+            text-align:left!important;
+            @include label;
+            border-right: 1px solid #D9D9D9;
+        }
+        .weui-cell__ft a,.weui-cell__ft input{
+            box-sizing: content-box;
+        }
     }
     // .weui-cell:before{
     //     left: 0px!important; 

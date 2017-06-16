@@ -39,6 +39,18 @@ default {
         }
 
         /**
+        * 自动生成完整的手机端url
+        *
+        * @param url {string}
+        * @returns {string}
+        */
+        Vue.prototype.$wapUrl = (url) => {
+            let regx = /^\/{1,}/g
+            url = url.replace(regx, '')
+            return host + '/wap/' + url
+        }
+
+        /**
         * 比较器
         * @param proto
         * @returns {function()}

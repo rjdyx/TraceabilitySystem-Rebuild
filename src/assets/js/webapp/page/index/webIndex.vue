@@ -13,20 +13,37 @@
 			<img src="/public/images/cloud-b.png" class="cloud-b" @click="push">
 		</div>
 		<div class="indexlist">
-			<h1 class="company">所属公司:{{}}</h1>
-			<p>用户名：{{}}</p>
-			<p>登录时间：{{}}</p>
-			<p>用户类型：{{}}</p>
+			<h1 class="company">所属公司:{{company}}</h1>
+			<p>用户名：{{user}}</p>
+			<p>登录时间：{{loginDate}}</p>
+			<p>用户类型：{{userType}}</p>
 		</div>
 	</div>
 </template>
 
 <script>
 export default{
+    data () {
+        return {
+            company: '',
+            user: '',
+            loginDate: '',
+            userType: ''
+        }
+    },
     methods: {
         push () {
             this.$router.push('/appIndex')
         }
+    },
+    mounted () {
+        axios.get('/api/index')
+            .then((responce) => {
+                this.company = responce.data.company_name
+                this.user = responce.data.name
+                this.userType = responce.data.type
+                this.loginDate = localStorage.getItem('loginDate')
+            })
     }
 }
 </script>

@@ -19,7 +19,7 @@
         <div class="appmain">
             <!-- 操作 -->
         <div class="appOperate">
-            <el-button type="primary" class="newbuilt">新建</el-button>
+            <el-button type="primary" class="newbuilt" @click="webAppNew">新建</el-button>
             <div class="searchOp">
                 <el-input 
                     :placeholder="searchPlaceholder"
@@ -155,32 +155,27 @@ export default {
             this.value = ''
             this.$set(this, 'tableData', [])
         },
+        /*
+        新建
+         */
+        webAppNew () {
+            console.log(this.$route)
+            this.$router.push('/webAppNew' + '/' + this.$route.params.model + '/' + this.modelIndex)
+        },
         // 获取数据
         getAllMsg (data = {}, flag = false) {
             if (this.paramsIndex !== undefined) {
                 var type = this.paramsIndex
             }
-            if (flag) {
-                this.listLoading = true
-            }
-            this.$dataGet(this, this.url, {params: data, type: type})
+            this.$dataWapGet(this, this.url, {params: data, type: type})
                 .then((responce) => {
                     // 数据转换
                     if (responce.status === 200) {
                         if (responce.data.data.length !== 0) {
-                            var ret = this.$conversion(this.changeDataArr, responce.data.data, 1)
-                            ret = this.$eltable(ret)
-                            this.$set(this, 'tableData', ret)
-                            this.total_num = responce.data.total
-                            this.num = responce.data.last_page
-                            // this.paginator = responce.data
+                            this.$set(this, 'tableData', responce.data.data)
                         } else {
                             this.$set(this, 'tableData', responce.data.data)
-                            this.total_num = 0
-                            this.num = 0
-                            // this.paginator = 0
                         }
-                        this.listLoading = false
                     }
                 })
         },
@@ -211,7 +206,6 @@ export default {
             this.show = false
         },
         serial () {
-            console.log(this.$refs.tdContent)
             let sername = this.$refs.tdContent
             for (let kem in sername) {
                 if (sername[kem].outerHTML.indexOf('批次号') !== -1) {
@@ -221,7 +215,6 @@ export default {
             }
         },
         showDetail () {
-            console.log(213)
             this.$router.push('/appIndex/appdetailbasic/' + this.batch)
         }
     },
