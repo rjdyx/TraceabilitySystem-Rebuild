@@ -18,7 +18,10 @@ require('../page/phone/plant/js/fontSize.js')
 
 // 路由插件
 import VueRouter from 'vue-router'
+import { ToastPlugin, ConfirmPlugin } from 'vux'
+Vue.use(ConfirmPlugin)
 Vue.use(VueRouter)
+Vue.use(ToastPlugin)
 
 // 路由加载插件
 import VueProgressBar from 'vue-progressbar'

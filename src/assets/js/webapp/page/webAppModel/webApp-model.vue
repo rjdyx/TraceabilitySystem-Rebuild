@@ -35,9 +35,9 @@
             <transition name="slide-fade">
                 <group :title="time" v-show="showdate">
                     <datetime v-model="value1" :title="'开始日期'" placeholder="请选择" confirm-text="确认" 
-                              cancel-text="取消" @on-change="beforeDate"></datetime>
+                              cancel-text="取消" clear-text="清空" @on-change="beforeDate"></datetime>
                     <datetime v-model="value2" :title="'结束日期'" placeholder="请选择" confirm-text="确认"
-                              cancel-text="取消" @on-change="afterDate"></datetime>
+                              cancel-text="取消" clear-text="清空" @on-change="afterDate"></datetime>
                 </group>
             </transition>
 
@@ -92,7 +92,7 @@
 </template> 
  
 <script>
-import { XTable, Datetime, Group, Tab, TabItem, Swipeout, SwipeoutItem, SwipeoutButton } from 'vux'
+import { XTable, Datetime, Group, Tab, TabItem, Swipeout, Toast, SwipeoutItem, Confirm, SwipeoutButton } from 'vux'
 import {mapActions, mapMutations} from 'vuex'
 // import appTab from '../../public/tab.vue'
 import appmenu from '../index/appmenu.js'
@@ -239,9 +239,42 @@ export default {
         boxArr (dataArr, flag) {
             this.getAllMsg(dataArr, flag)
         },
+        // 提示弹窗
+        setToast (type, text, width = '7.6em') {
+            this.$vux.toast.show({
+                type: type,
+                text: text,
+                width: width,
+                position: 'middle'
+            })
+        },
         // 单条删除或多条删除
         listDelete () {
-            console.log(this.ischeckdate)
+            if (this.ischeckdate.length !== undefined && this.ischeckdate.length !== 0) {
+                const _this = this
+                this.$vux.confirm.show({
+                    title: '删除选择信息',
+                    onCancel () {
+                        _this.setToast('text', '取消删除')
+                    },
+                    onConfirm () {
+                        var paramsDel = { 'ids': _this.ischeckdate }
+                        axios.get(_this.$wapUrl(_this.url + '/deletes'), { params: paramsDel })
+                            .then((responce) => {
+                                if (responce.data === 'true') {
+                                    _this.boxArr(_this.dataArr, false)
+                                    _this.setToast('success', '删除数据成功', '10em')
+                                } else if (responce.data === 'state') {
+                                    _this.setToast('text', '有数据已被使用，无法删除', '18em')
+                                } else {
+                                    _this.setToast('cancel', '删除数据失败', '10em')
+                                }
+                            })
+                    }
+                })
+            } else {
+                this.setToast('cancel', '请选择序号')
+            }
         }
     },
     mounted () {
@@ -283,7 +316,9 @@ export default {
         siderBar,
         Swipeout,
         SwipeoutItem,
-        SwipeoutButton
+        SwipeoutButton,
+        Toast,
+        Confirm
     }
 }
 </script>
