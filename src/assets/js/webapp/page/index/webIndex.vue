@@ -37,7 +37,7 @@ export default{
         }
     },
     mounted () {
-        axios.get('api/index')
+        axios.get('/api/index')
             .then((responce) => {
                 this.company = responce.data.company_name
                 this.user = responce.data.name
