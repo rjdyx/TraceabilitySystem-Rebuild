@@ -31,7 +31,7 @@ function IsPC () {
     }
     return flag
 }
-const PC = IsPC()
+window.isPC = IsPC()
 // 处理刷新的时候vuex被清空但是用户已经登录的情况
 // if (sessionStorage.user) {
 //     store.dispatch('setUserInfo', JSON.parse(sessionStorage.user))
@@ -48,7 +48,7 @@ router.beforeEach(async (to, from, next) => {
                     })
                     if (responce.data.name === undefined) {
                         window.Roles = {}
-                        if (PC) {
+                        if (window.isPC) {
                             if (except) next({path: '/login'})
                         } else {
                             if (except) next({path: '/waplogin'})

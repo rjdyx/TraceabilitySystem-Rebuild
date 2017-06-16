@@ -57,6 +57,9 @@ export default {
         // }
     },
     mounted () {
+        if (!window.isPC) {
+            this.$router.push('/appIndex')
+        }
     },
     created () {
     }

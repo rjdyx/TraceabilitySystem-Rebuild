@@ -28,7 +28,6 @@ export default {
         protos: ['fodder_name', 'date', 'operate_name'],
         widths: [26, 26, 26],
         selectSearch: ['type'],
-        changeDataArr: [{type: { 'operate': '操作人员', 'expert': '专家', 'product': '产品', 'supplier': '供货商', 'client': '客户', 'fodder': '饲料', 'addition': '饲料添加剂', 'drug': '兽药', 'beast': '畜禽', 'plant': '果蔬', 'manure': '肥料', 'medicament': '农药' }}],
         typeComponent: [{
             component: importBtn
         },
@@ -38,59 +37,11 @@ export default {
         {
             component: newbuildBtn
         }],
-        listComponent: [{
-            components: [{
-                value: '',
-                name: 'type',
-                type: 'select',
-                component: selectSection,
-                options: [{
-                    value: '', label: '模块类型'
-                },
-                {
-                    value: 'operate', label: '操作人员'
-                },
-                {
-                    value: 'expert', label: '专家'
-                },
-                {
-                    value: 'product', label: '产品'
-                },
-                {
-                    value: 'supplier', label: '供货商'
-                },
-                {
-                    value: 'client', label: '客户'
-                },
-                {
-                    value: 'fodder', label: '饲料'
-                },
-                {
-                    value: 'addition', label: '饲料添加剂'
-                },
-                {
-                    value: 'drug', label: '兽药'
-                },
-                {
-                    value: 'beast', label: '畜禽'
-                },
-                {
-                    value: 'plant', label: '果蔬'
-                },
-                {
-                    value: 'manure', label: '肥料'
-                },
-                {
-                    value: 'medicament', label: '农药'
-                }]
-            }]
-        }],
         newComponent: [{
             tab: '新建饲料使用信息',
             selectUrl2: [['fodders', 'id', 'name', true], ['additions', 'id', 'name', true], ['operates', 'id', 'name', true]],
             selectInit2: [{value: '', label: '饲料选择'}, {value: '', label: '饲料添加剂选择'}, {value: '', label: '饲养人员选择'}],
             popNumber2: [0, 1, 2],
-            selectWhereArr2: [[], [], [{n: 'domain', v: 'beast'}, {n: 'domain', v: 'all', s: true}]],
             components: [{
                 name: 'fodder_id',
                 type: 'select',
@@ -164,7 +115,6 @@ export default {
             selectUrl2: [['fodders', 'id', 'name', true], ['additions', 'id', 'name', true], ['operates', 'id', 'name', true]],
             selectInit2: [{value: '', label: '饲料选择'}, {value: '', label: '饲料添加剂选择'}, {value: '', label: '饲养人员选择'}],
             popNumber2: [1, 2, 3],
-            selectWhereArr2: [[], [], [{n: 'domain', v: 'beast'}, {n: 'domain', v: 'all', s: true}]],
             components: [{
                 name: 'serial',
                 type: 'text',
