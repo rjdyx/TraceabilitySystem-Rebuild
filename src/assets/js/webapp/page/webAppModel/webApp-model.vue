@@ -9,7 +9,6 @@
 <div class="webApp_model">   
     <div class="webApp-wrap">
 
-
         <!-- tab -->
         <div class="apptab" v-show="tabshow">
             <tab>
@@ -127,8 +126,6 @@ export default {
     },
     data () {
         return {
-            // 时间组件是否显示
-            showdate: false,
             // 展开时间组件样式
             isA: false,
             // 搜索框内容
@@ -519,7 +516,7 @@ export default {
         height: 100%;
         width: 100%;
         /*margin: 0 5px;*/
-        overflow: hidden;
+        overflow: scroll;
         position: relative;
     }
     .applist{
@@ -542,7 +539,7 @@ export default {
         height:250px;
     }
     .appOperate{
-        height: 132px;
+        /*height: 132px;*/
         margin-top: 1%;
     }
     .closeOperate{
@@ -569,6 +566,9 @@ export default {
             opacity: 0.5;
             transform: translateY(-10px);
         }
+    }
+    .paginator{
+        margin-bottom: 2%;
     }
 }  
 </style>
