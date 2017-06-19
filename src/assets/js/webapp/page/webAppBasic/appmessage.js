@@ -1358,7 +1358,7 @@ export default {
             url: 'farm',
             searchPlaceholder: '请输入标题进行搜索',
             search: ['query_text', 'name'],
-            theads: ['标题', '日期', '图片(缩略图)'],
+            theads: ['标题', '日期', '图片'],
             protos: ['name', 'area_unit', 'principal'],
             selectSearch: ['farm.name'],
             widths: [26, 26, 26],
