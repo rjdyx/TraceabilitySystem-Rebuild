@@ -30,6 +30,9 @@ export default {
         },
         batch () {
             return this.models[this.modelIndex].batch
+        },
+        rightMenu () {
+            return this.models[this.modelIndex].rightMenu
         }
     }
 }

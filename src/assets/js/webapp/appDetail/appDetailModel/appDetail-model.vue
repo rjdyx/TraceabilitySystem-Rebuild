@@ -75,9 +75,7 @@ export default {
                     title: '',
                     settitle: '',
                     typeComponent: [],
-                    tabComponent: [],
-                    tabshow: '',
-                    timeshow: ''
+                    tabComponent: []
                 }]
             }
         }
@@ -164,21 +162,10 @@ export default {
         hidesider () {
             this.show = false
         },
-        serial () {
-            console.log(this.$refs.tdContent)
-            let sername = this.$refs.tdContent
-            for (let kem in sername) {
-                if (sername[kem].outerHTML.indexOf('批次号') !== -1) {
-                    console.log(sername[kem].innerHTML)
-                    sername[kem].style.textDecoration = 'underline'
-                }
-            }
-        },
         showDetail () {
         }
     },
     mounted () {
-        this.serial()
         this.getAllMsg()
     },
     watch: {

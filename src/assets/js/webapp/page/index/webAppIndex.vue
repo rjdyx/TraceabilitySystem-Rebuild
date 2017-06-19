@@ -7,7 +7,7 @@
 
 <template>
 	<div class="appWrap">
-		<app-header @parentClick="showsider" :settitle="settitle" :homeShow="homeShow">
+		<app-header @parentClick="showsider" :settitle="settitle" :homeShow="homeShow" :back="back">
         </app-header>
 		<sider-bar :menus='menus' :show="show" @hidetoggle="hidesider" @children-info="getinfo"></sider-bar>
 		<router-view></router-view>
@@ -19,6 +19,7 @@ import {mapState} from 'vuex'
 import appHeader from '../../public/header.vue'
 import siderBar from '../../public/siderBar.vue'
 import appmenu from '../../page/index/appmenu.js'
+import appfunction from '../../directive/appfunction.js'
 export default {
     name: 'appIndex',
     data () {
@@ -26,9 +27,11 @@ export default {
             menus: appmenu,
             show: false,
             settitle: '',
-            homeShow: false
+            homeShow: false,
+            back: false
         }
     },
+    mixins: [appfunction],
     methods: {
         showsider () {
             this.show = true
@@ -44,18 +47,21 @@ export default {
         }
     },
     mounted () {
-        if (this.$route.path === '/appIndex') {
-            this.settitle = '生之园溯源系统'
-            this.homeShow = false
-        } else if (this.$route.path.indexOf('appdetailbasic') !== -1) {
-            let detit = localStorage.getItem('dename')
-            this.settitle = detit
-            this.homeShow = true
-        } else {
-            let apptitle = localStorage.getItem('tit')
-            this.settitle = apptitle
-            this.homeShow = true
-        }
+        // if (this.$route.path === '/appIndex') {
+        //     this.settitle = '生之园溯源系统'
+        //     this.homeShow = false
+        //     this.back = false
+        // } else if (this.$route.path.indexOf('appdetailbasic') !== -1) {
+        //     let detit = localStorage.getItem('dename')
+        //     this.settitle = detit
+        //     this.back = true
+        //     this.homeShow = false
+        // } else {
+        //     let apptitle = localStorage.getItem('tit')
+        //     this.settitle = apptitle
+        //     this.homeShow = true
+        //     this.back = false
+        // }
     },
     computed: {
     },
@@ -64,20 +70,23 @@ export default {
         siderBar
     },
     watch: {
-        $route () {
-            if (this.$route.path === '/appIndex') {
-                this.settitle = '生之园溯源系统'
-                this.homeShow = false
-            } else if (this.$route.path.indexOf('appdetailbasic') !== -1) {
-                let detit = localStorage.getItem('dename')
-                this.settitle = detit
-                this.homeShow = true
-            } else {
-                let apptitle = localStorage.getItem('tit')
-                this.settitle = apptitle
-                this.homeShow = true
-            }
-        }
+        // $route () {
+        //     if (this.$route.path === '/appIndex') {
+        //         this.settitle = '生之园溯源系统'
+        //         this.homeShow = false
+        //         this.back = false
+        //     } else if (this.$route.path.indexOf('appdetailbasic') !== -1) {
+        //         let detit = localStorage.getItem('dename')
+        //         this.settitle = detit
+        //         this.back = true
+        //         this.homeShow = false
+        //     } else {
+        //         let apptitle = localStorage.getItem('tit')
+        //         this.settitle = apptitle
+        //         this.homeShow = true
+        //         this.back = false
+        //     }
+        // }
     }
 }
 </script>

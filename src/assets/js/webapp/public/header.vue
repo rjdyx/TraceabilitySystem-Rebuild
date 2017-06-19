@@ -8,6 +8,7 @@
 	<div class="app-header">
 		<span class="left-btn" @click="showmenu"></span>
 		<h1>{{settitle}}</h1>
+		<span v-show="back" class="back" @click="backTo"></span>
 		<span class="right-btn" @click="goBack" v-show="homeShow"></span>
 	</div>
 </template>
@@ -23,6 +24,10 @@ export default {
         homeShow: {
             type: Boolean,
             default: false
+        },
+        back: {
+            type: Boolean,
+            default: false
         }
     },
     methods: {
@@ -31,6 +36,9 @@ export default {
         },
         goBack () {
             this.$router.push('/appIndex')
+        },
+        backTo () {
+            this.$router.go(-1)
         }
     }
 }
@@ -52,7 +60,7 @@ export default {
 				padding-top: 10px;
 			}
 			
-			.right-btn,.left-btn{
+			span{
 				display: inline-block;
 				width: 20px;
 				position: absolute;
@@ -64,14 +72,21 @@ export default {
 				height: 20px;
 				top:28%;
 			}
+			.right-btn,.back{
+				right: 5%;
+				top: 24%;
+			}
 			.right-btn{
 				background: url(/public/images/home.png);
 				background-size: 100%;
-				right: 5%;
-				top: 24%;
 				width: 28px;
 				height: 23px;
-
+			}
+			.back{
+				width: 34px;
+				height: 23px;
+				background: url(/public/images/re-back.png) no-repeat;
+				background-position: 100%;
 			}
 	}
 </style>

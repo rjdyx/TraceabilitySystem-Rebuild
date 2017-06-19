@@ -25,12 +25,6 @@ export default {
         searchPlaceholder () {
             return this.models[this.modelIndex].searchPlaceholder
         },
-        tabshow () {
-            return this.models[this.modelIndex].tabshow
-        },
-        timeshow () {
-            return this.models[this.modelIndex].timeshow
-        },
         batch () {
             return this.models[this.modelIndex].batch
         }

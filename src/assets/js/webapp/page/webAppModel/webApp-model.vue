@@ -2,7 +2,7 @@
  * 
  * webapp基础模块组件
  * @author 舒丹彤 
- * @date 2017/06/6
+ * @date 2017/06/06
  * 
  */
 <template>
@@ -10,9 +10,9 @@
     <div class="webApp-wrap">
 
         <!-- tab -->
-        <div class="apptab" v-show="tabshow">
+        <div class="apptab" v-if="tabshow">
             <tab>
-                <tab-item v-for="(model,index)  in models" @on-item-click="tabClick(index, model.tab)">{{model.tab}}</tab-item>
+                <tab-item v-for="(model,index) in models" @on-item-click="tabClick(index, model)" :selected="index===model.index">{{model.tab}}</tab-item>
             </tab>
         </div>
 
@@ -67,7 +67,7 @@
                             {{pers[protos[index]]}}
                     </span>
                 </div>
-                <div slot="right-menu">
+                <div slot="right-menu" v-if="rightMenu">
                   <swipeout-button class="lookOver" type="primary" @click.native="showDetail">查看</swipeout-button>
                   <swipeout-button class="appedit">编辑</swipeout-button>
                 </div>
@@ -95,7 +95,7 @@ import appHeader from '../../public/header.vue'
 import siderBar from '../../public/siderBar.vue'
 import paginator from '../../public/paginator.vue'
 import computed from '../webAppModel/appcomputed.js'
-import pulldown from '../../directive/pulldown.js'
+import appfunction from '../../directive/appfunction.js'
 export default {
     name: 'BasicModel',
     props: {
@@ -119,7 +119,8 @@ export default {
                     tabComponent: [],
                     tabshow: '',
                     timeshow: '',
-                    batch: ''
+                    batch: '',
+                    rightMenu: ''
                 }]
             }
         }
@@ -141,20 +142,13 @@ export default {
             menus: appmenu,
             show: false,
             startDate: '',
-            endDate: ''
+            endDate: '',
+            active: true
         }
     },
     // 混合
-    mixins: [computed, pulldown],
+    mixins: [computed, appfunction],
     methods: {
-        touchStart (e) {
-            console.log(e)
-        },
-        touchMove (e) {
-            this.showla = true
-        },
-        touchEnd (e) {
-        },
         init (index = 0) {
             this.inputValue = ''
             this.value = ''
@@ -198,7 +192,7 @@ export default {
         },
         tabClick (subindex, modelName) {
             this.modelIndex = subindex
-            this.$emit('changetab', modelName)
+            // this.$set(modelName, 'selected')
             console.log(modelName)
         },
         // 侧边栏的显示与隐藏
@@ -212,7 +206,7 @@ export default {
             this.$router.push('/appIndex/appdetailbasic/' + this.batch)
         },
         closeOperate () {
-            $('.applist').animate({top: '-139px'})
+            $('.applist').animate({top: '-132px'})
         },
         // 文本与时间按钮查询
         textAndDateFind () {
@@ -361,7 +355,7 @@ export default {
     }
     .allcheck{
         float: left;
-        margin: 5% 4% 0 5%;
+        margin: 5% 4% 0 1%;
     }
     .appDelete{
         float: right;
@@ -523,7 +517,7 @@ export default {
         width: 100%;
         height: 100%;
         position: absolute;
-        top: -139px;
+        top: -132px;
         left: 0;
     }
     /*.swipeout{
@@ -569,6 +563,12 @@ export default {
     }
     .paginator{
         margin-bottom: 2%;
+    }
+    .active{
+        background: red !important;
+    }
+    .unavtive{
+        background: green !important;
     }
 }  
 </style>
