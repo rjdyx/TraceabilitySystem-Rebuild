@@ -20,6 +20,10 @@ require('../page/phone/plant/js/fontSize.js')
 import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 
+// mint移动端插件
+// import Mint from 'mint-ui'
+// Vue.use(Mint)
+
 // 路由加载插件
 import VueProgressBar from 'vue-progressbar'
 Vue.use(VueProgressBar, {

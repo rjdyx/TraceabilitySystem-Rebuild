@@ -6,7 +6,7 @@
  * 
  */
 <template>
-<div class="webApp_model">   
+<div class="appdetail_model">   
     <div class="webApp-wrap">
 
         <!-- tab -->
@@ -17,73 +17,34 @@
         </div>
 
         <div class="appmain">
-            <!-- 操作 -->
-        <div class="appOperate">
-            <el-button type="primary" class="newbuilt">新建</el-button>
-            <div class="searchOp">
-                <el-input   
-                    :placeholder="searchPlaceholder"
-                    v-model="inputValue"
-                    :on-icon-click="search" class="searchInp">
-                </el-input>
-                <el-button class="searchBtn">搜索</el-button>
+
+            <!-- 列表头部 -->
+            <div class="list">
+                <span class="choice">序号</span>
+                <span v-for="(item,index) in theads" :style="{width: widths[index] + '%'}" class="appth">{{theads[index]}}</span>
+            </div>   
+
+            <!-- 列表中间 -->
+            <div class="listContent" v-for="(pers,index) in tableData">
+                <span class="choice">
+                    <input type="checkbox" :value="pers.id" v-model="ischeckdate">
+                    <span class="order">{{index+1}}</span>
+                </span>
+                <span 
+                    v-for="(item,index) in protos" 
+                    :name="theads[index]"  
+                    :style="{width: widths[index] + '%'}">
+                        {{pers[protos[index]]}}
+                </span>
             </div>
-        </div>
 
-        <div v-show="timeshow">
-             <!-- 时间操作 -->
-            <transition name="slide-fade">
-                <group :title="time" v-show="showdate">
-                    <datetime v-model="value1" :title="'开始日期'" placeholder="请选择"></datetime>
-                    <datetime v-model="value1" :title="'结束日期'" placeholder="请选择"></datetime>
-                </group>
-            </transition>
-
-            <!-- 隐藏操作按钮 -->
-            <div class="clickHide" @click="hideDate">
-                <span class="hide" :class="{'uphide': isA,'downhide': !isA }"></span>
+            <!-- 列表底部 -->
+            <div class="tableFooter">
+                <input type="checkbox" class="allcheckbox" v-model="checkAll" @click="checkedAll">
+                <el-button type="primary" class="allcheck" @click="checkedAll">全选</el-button>
+                <el-button type="danger" class="appDelete">删除</el-button>
             </div>
-        </div>
-
-        <!-- 列表头部 -->
-        <div class="list">
-            <span class="choice">序号</span>
-            <span v-for="(item,index) in theads" :style="{width: widths[index] + '%'}" class="appth">{{theads[index]}}</span>
-        </div>   
-
-        <!-- 列表中间 -->
-        <swipeout class="swipeout">
-            <swipeout-item transition-mode="follow" v-for="(pers,index) in tableData">
-                <div class="listContent demo-content vux-1px-t" slot="content">
-                    <span class="choice">
-                        <input type="checkbox" :value="pers.id" v-model="ischeckdate">
-                        <span class="order">{{index+1}}</span>
-                    </span>
-                    <span 
-                        v-for="(item,index) in protos" 
-                        :name="theads[index]"  
-                        :style="{width: widths[index] + '%'}">
-                            {{pers[protos[index]]}}
-                    </span>
-                    <!-- <span class="appEdit">
-                        <span class="editImg">
-                        </span>
-                    </span> -->
-                </div>
-                <div slot="right-menu">
-                  <swipeout-button class="lookOver" type="primary" @click.native="showDetail">查看</swipeout-button>
-                  <swipeout-button class="appedit">编辑</swipeout-button>
-                </div>
-            </swipeout-item>
-        </swipeout>
-
-        <!-- 列表底部 -->
-        <div class="tableFooter">
-            <input type="checkbox" class="allcheckbox" v-model="checkAll" @click="checkedAll">
-            <el-button type="primary" class="allcheck" @click="checkedAll">全选</el-button>
-            <el-button type="danger" class="appDelete">删除</el-button>
-        </div>
-        <paginator></paginator>
+            <paginator></paginator>
         </div>
   </div>
 </div>
@@ -259,7 +220,7 @@ export default {
 </script>
 
 <style lang='sass'>
-.webApp_model{
+.appdetail_model{
     .webApp-wrap{ 
         .searchInp {
             width: 60%;
@@ -295,7 +256,7 @@ export default {
     }
     .allcheckbox{
         float: left;
-        margin: 16px 7px 0 20px;
+        margin: 5% 4% 0 3%;
     }
     .tableFooter{
         height: 45px;
@@ -395,7 +356,7 @@ export default {
     .choice{
             width: 20%;
         }
-    .listContent:nth-child(2n){
+    .listContent:nth-child(3n){
         background: #eaeaea;
     }
     .order{
@@ -437,6 +398,7 @@ export default {
     }
     .appmain{
         margin: 0 5px;
+        margin-top: 5px;
     }
     /*.swipeout{
         width: 100%;

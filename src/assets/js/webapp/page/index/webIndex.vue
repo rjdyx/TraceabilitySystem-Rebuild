@@ -13,7 +13,7 @@
 			<img src="/public/images/cloud-b.png" class="cloud-b" @click="push">
 		</div>
 		<div class="indexlist">
-			<h1 class="company">所属公司:{{company}}</h1>
+			<h1 class="company">所属公司：{{company}}</h1>
 			<p>用户名：{{user}}</p>
 			<p>登录时间：{{loginDate}}</p>
 			<p>用户类型：{{userType}}</p>
@@ -58,7 +58,7 @@ export default{
 			position: relative;
 			.logo{
 				width: 74%;
-				height: 70%;
+				height: 76%;
 				position: absolute;
 				left: 9%;
 				top: 11%;
@@ -80,7 +80,9 @@ export default{
 			width: 100%;
 			text-align: center;
 			.company{
-				font-size:20px;
+				font-size: 24px;
+				color: #595957;
+				padding-bottom: 5%;
 			}
 			p{
 				font-size: 16px;
@@ -88,6 +90,52 @@ export default{
 				color: #50504e;
 			}
 		}
-		
-	}
+		@media (max-width: 320px) {
+			.indexlist {
+				.company{
+					font-size: 18px;
+					padding-bottom: 1%;
+				}
+				p{
+					font-size: 14px;
+				}
+			}
+			.indexImg{
+				height: 290px;
+			}
+		}
+		@media (min-device-width: 768px) {
+			.indexImg .logo{
+				height: 127%;
+			}
+			.indexlist{
+				margin-top: 30%;
+				.company{
+					font-size: 34px;
+				}
+				p{
+					font-size: 24px;
+				}
+			} 
+		}
+		@media (min-device-width: 768px) {
+			.indexImg{
+				.logo{
+					height: 180%;
+				}
+				.cloud-s{
+					height: 16%;
+				}
+			} 
+			.indexlist{
+				margin-top: 44%;
+				.company{
+					font-size: 57px;
+				}
+				p{
+					font-size: 35px;
+				}
+			} 
+		}
+}
 </style>

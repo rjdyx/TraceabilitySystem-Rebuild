@@ -9,6 +9,7 @@
 <div class="webApp_model">   
     <div class="webApp-wrap">
 
+
         <!-- tab -->
         <div class="apptab" v-show="tabshow">
             <tab>
@@ -16,9 +17,14 @@
             </tab>
         </div>
 
-        <div class="appmain">
-            <!-- 操作 -->
+    <div class="appmain">
+        <div class="applist">
+                <!-- 操作 -->
+        
         <div class="appOperate">
+            <div @touchstart="closeOperate" class="closeOperate">
+                <i class="el-icon-arrow-up"></i>
+            </div>
             <el-button type="primary" class="newbuilt" @click="webAppNew">新建</el-button>
             <div class="searchOp">
                 <el-input 
@@ -28,27 +34,20 @@
                 </el-input>
                 <el-button class="searchBtn">搜索</el-button>
             </div>
-        </div>
-
-        <div v-show="timeshow">
-             <!-- 时间操作 -->
-            <transition name="slide-fade">
-                <group :title="time" v-show="showdate">
-                    <datetime v-model="value1" :title="'开始日期'" placeholder="请选择"></datetime>
-                    <datetime v-model="value1" :title="'结束日期'" placeholder="请选择"></datetime>
-                </group>
-            </transition>
-
-            <!-- 隐藏操作按钮 -->
-            <div class="clickHide" @click="hideDate">
-                <span class="hide" :class="{'uphide': isA,'downhide': !isA }"></span>
-            </div>
+            <!-- 时间操作 -->
+            <group :title="time">
+                <datetime v-model="value1" :title="'开始日期'" placeholder="请选择"></datetime>
+                <datetime v-model="value1" :title="'结束日期'" placeholder="请选择"></datetime>
+            </group>
         </div>
 
         <!-- 列表头部 -->
         <div class="list">
             <span class="choice">序号</span>
-            <span v-for="(item,index) in theads" :style="{width: widths[index] + '%'}" class="appth">{{theads[index]}}</span>
+            <span v-for="(item,index) in theads" 
+                :style="{width: widths[index] + '%'}">
+                {{theads[index]}}
+            </span>
         </div>   
 
         <!-- 列表中间 -->
@@ -65,10 +64,6 @@
                         :style="{width: widths[index] + '%'}">
                             {{pers[protos[index]]}}
                     </span>
-                    <!-- <span class="appEdit">
-                        <span class="editImg">
-                        </span>
-                    </span> -->
                 </div>
                 <div slot="right-menu">
                   <swipeout-button class="lookOver" type="primary" @click.native="showDetail">查看</swipeout-button>
@@ -79,18 +74,18 @@
 
         <!-- 列表底部 -->
         <div class="tableFooter">
-            <input type="checkbox" class="allcheckbox" v-model="checkAll" @click="checkedAll">
             <el-button type="primary" class="allcheck" @click="checkedAll">全选</el-button>
             <el-button type="danger" class="appDelete">删除</el-button>
         </div>
         <paginator></paginator>
         </div>
+    </div>
   </div>
 </div>
 </template> 
  
 <script>
-import { XTable, Datetime, Group, Tab, TabItem, Swipeout, SwipeoutItem, SwipeoutButton } from 'vux'
+import { XTable, Datetime, Group, Tab, TabItem, Swipeout, SwipeoutItem, SwipeoutButton, Swiper, SwiperItem } from 'vux'
 import {mapActions, mapMutations} from 'vuex'
 // import appTab from '../../public/tab.vue'
 import appmenu from '../index/appmenu.js'
@@ -98,6 +93,7 @@ import appHeader from '../../public/header.vue'
 import siderBar from '../../public/siderBar.vue'
 import paginator from '../../public/paginator.vue'
 import computed from '../webAppModel/appcomputed.js'
+import pulldown from '../../directive/pulldown.js'
 export default {
     name: 'BasicModel',
     props: {
@@ -114,7 +110,7 @@ export default {
                     theads: [],
                     searchPlaceholder: '',
                     protos: ['name'],
-                    widths: [50],
+                    widths: [26],
                     title: '',
                     settitle: '',
                     typeComponent: [],
@@ -142,14 +138,26 @@ export default {
             ischeckdate: [],
             menus: appmenu,
             show: false,
-            gneder_list: [
-                ['男', '女']
-            ]
+            top: 0,
+            state: 0,
+            startY: 0,
+            touching: false,
+            showla: false,
+            hideopearte: false
         }
     },
     // 混合
-    mixins: [computed],
+    mixins: [computed, pulldown],
     methods: {
+        touchStart (e) {
+            console.log(e)
+        },
+        touchMove (e) {
+            this.showla = true
+            console.log(11111111111111111)
+        },
+        touchEnd (e) {
+        },
         init (index = 0) {
             this.inputValue = ''
             this.value = ''
@@ -179,11 +187,6 @@ export default {
                     }
                 })
         },
-        // 隐藏日期组件
-        hideDate () {
-            this.isA = !this.isA
-            this.showdate = !this.showdate
-        },
         // 实现全选与反选
         checkedAll () {
             let ischeckdate = []
@@ -196,6 +199,7 @@ export default {
         },
         tabClick (subindex, modelName) {
             this.modelIndex = subindex
+            this.$emit('changetab', modelName)
             console.log(modelName)
         },
         // 侧边栏的显示与隐藏
@@ -205,21 +209,14 @@ export default {
         hidesider () {
             this.show = false
         },
-        serial () {
-            let sername = this.$refs.tdContent
-            for (let kem in sername) {
-                if (sername[kem].outerHTML.indexOf('批次号') !== -1) {
-                    console.log(sername[kem].innerHTML)
-                    sername[kem].style.textDecoration = 'underline'
-                }
-            }
-        },
         showDetail () {
             this.$router.push('/appIndex/appdetailbasic/' + this.batch)
+        },
+        closeOperate () {
+            $('.applist').animate({top: '-139px'})
         }
     },
     mounted () {
-        this.serial()
         this.getAllMsg()
     },
     watch: {
@@ -227,6 +224,7 @@ export default {
             this.tableData = []
             this.getAllMsg()
             this.inputValue = ''
+            this.closeOperate()
         },
         key () {
             this.tableData = []
@@ -257,17 +255,25 @@ export default {
         siderBar,
         Swipeout,
         SwipeoutItem,
-        SwipeoutButton
+        SwipeoutButton,
+        Swiper,
+        SwiperItem
     }
 }
 </script>
 
 <style lang='sass'>
 .webApp_model{
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
     .webApp-wrap{ 
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
         .searchInp {
             width: 60%;
-            margin: 0 3% 10px;
+            margin: 0 3%;
             /*margin-right: 10px;*/
         }
         .searchBtn {
@@ -288,6 +294,7 @@ export default {
     }
     .allcheck{
         float: left;
+        margin: 5% 4% 0 5%;
     }
     .appDelete{
         float: right;
@@ -296,10 +303,6 @@ export default {
     .appDelete,.allcheck{
         display: inline-block;
         margin-top: 4px;
-    }
-    .allcheckbox{
-        float: left;
-        margin: 16px 7px 0 20px;
     }
     .tableFooter{
         height: 45px;
@@ -372,6 +375,8 @@ export default {
         width: 100%;
         background: #eaeaea;
         height: 54px;
+        /*margin-top: 50px;*/
+        -webkit-overflow-scrolling: touch;
         span{
             display: inline-block;
             height: 54px;
@@ -412,6 +417,7 @@ export default {
     .apptab{
         width: 100%;
         margin-bottom: 50px;
+        margin-top: 5px;
         .vux-tab{
             display: block;
             .vux-tab-item{
@@ -440,7 +446,18 @@ export default {
         margin-bottom: 5px;
     }
     .appmain{
-        margin: 0 5px;
+        height: 100%;
+        width: 100%;
+        /*margin: 0 5px;*/
+        overflow: hidden;
+        position: relative;
+    }
+    .applist{
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: -139px;
+        left: 0;
     }
     /*.swipeout{
         width: 100%;
@@ -451,5 +468,37 @@ export default {
     /*.lookOver{
         background: #eaeaea;
     }*/
+    .more{
+        height:250px;
+    }
+    .appOperate{
+        height: 132px;
+        margin-top: 1%;
+    }
+    .closeOperate{
+        width: 100%;
+        height: 13%;
+    }
+    .el-icon-arrow-up{
+        display: block;
+        margin: 0 auto;
+        width: 3%;
+        height: 44.5%;
+        animation: start 1.5s infinite ease-in-out;
+    }
+    @keyframes start {
+        0%, 30%{
+            opacity: 0.5;
+            transform: translateY(18px);
+        }
+        60%{
+            opacity: 1;
+            transform: translate(0);
+        }
+        100%{
+            opacity: 0.5;
+            transform: translateY(-10px);
+        }
+    }
 }  
 </style>

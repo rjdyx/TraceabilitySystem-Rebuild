@@ -43,7 +43,7 @@ export default {
 		width: 100%;
 		background:  #009acb;
 		position: relative;
-		margin-bottom: 5px;
+		/*margin-bottom: 5px;*/
 			h1{
 				width: 100%;
 				font: 21px 微软雅黑;
