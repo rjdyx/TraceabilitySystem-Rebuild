@@ -18,7 +18,10 @@ require('../page/phone/plant/js/fontSize.js')
 
 // 路由插件
 import VueRouter from 'vue-router'
+import { ToastPlugin, ConfirmPlugin } from 'vux'
+Vue.use(ConfirmPlugin)
 Vue.use(VueRouter)
+Vue.use(ToastPlugin)
 
 // mint移动端插件
 // import Mint from 'mint-ui'
@@ -32,7 +35,7 @@ Vue.use(VueProgressBar, {
 })
 // 注册element-ui全局组件
 import enLocale from 'element-ui/lib/locale/lang/en'
-import zhLocale from 'element-ui/lib/locale/lang/zh-CN'
+import zhLocale from 'element-ui/lib/locale/lang/zh-CH'
 import locale from 'element-ui/lib/locale'
 import 'element-ui/lib/theme-default/index.css'
 // 设置语言

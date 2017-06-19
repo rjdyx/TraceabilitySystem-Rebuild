@@ -32,14 +32,17 @@
                     v-model="inputValue"
                     :on-icon-click="search" class="searchInp">
                 </el-input>
-                <el-button class="searchBtn">搜索</el-button>
+                <el-button class="searchBtn" @click="textAndDateFind">搜索</el-button>
             </div>
             <!-- 时间操作 -->
             <group :title="time">
-                <datetime v-model="value1" :title="'开始日期'" placeholder="请选择"></datetime>
-                <datetime v-model="value1" :title="'结束日期'" placeholder="请选择"></datetime>
+                <datetime v-model="value1" :title="'开始日期'" placeholder="请选择" confirm-text="确认" cancel-text="取消" 
+                    clear-text="清空" @on-change="beforeDate" start-date="2000-1-1" :end-date="endDate"></datetime>
+                <datetime v-model="value2" :title="'结束日期'" placeholder="请选择" confirm-text="确认" cancel-text="取消" 
+                    clear-text="清空" @on-change="afterDate" :start-date="startDate"></datetime>
             </group>
         </div>
+
 
         <!-- 列表头部 -->
         <div class="list">
@@ -75,9 +78,9 @@
         <!-- 列表底部 -->
         <div class="tableFooter">
             <el-button type="primary" class="allcheck" @click="checkedAll">全选</el-button>
-            <el-button type="danger" class="appDelete">删除</el-button>
+            <el-button type="danger" class="appDelete" @click="listDelete">删除</el-button>
         </div>
-        <paginator></paginator>
+        <paginator :total="total" @pageEvent="pageChange"></paginator>
         </div>
     </div>
   </div>
@@ -85,7 +88,7 @@
 </template> 
  
 <script>
-import { XTable, Datetime, Group, Tab, TabItem, Swipeout, SwipeoutItem, SwipeoutButton, Swiper, SwiperItem } from 'vux'
+import { XTable, Datetime, Group, Tab, TabItem, Swipeout, SwipeoutItem, Toast, Confirm, SwipeoutButton, Swiper, SwiperItem } from 'vux'
 import {mapActions, mapMutations} from 'vuex'
 // import appTab from '../../public/tab.vue'
 import appmenu from '../index/appmenu.js'
@@ -135,15 +138,13 @@ export default {
             // 列表数据
             tableData: [],
             listLoading: false,
+            // 查询对象
+            dataArr: {},
             ischeckdate: [],
             menus: appmenu,
             show: false,
-            top: 0,
-            state: 0,
-            startY: 0,
-            touching: false,
-            showla: false,
-            hideopearte: false
+            startDate: '',
+            endDate: ''
         }
     },
     // 混合
@@ -154,7 +155,6 @@ export default {
         },
         touchMove (e) {
             this.showla = true
-            console.log(11111111111111111)
         },
         touchEnd (e) {
         },
@@ -181,8 +181,10 @@ export default {
                     if (responce.status === 200) {
                         if (responce.data.data.length !== 0) {
                             this.$set(this, 'tableData', responce.data.data)
+                            this.total = responce.data.last_page
                         } else {
                             this.$set(this, 'tableData', responce.data.data)
+                            this.total = 1
                         }
                     }
                 })
@@ -214,6 +216,72 @@ export default {
         },
         closeOperate () {
             $('.applist').animate({top: '-139px'})
+        },
+        // 文本与时间按钮查询
+        textAndDateFind () {
+            this.dataArr['query_text'] = this.inputValue
+            this.dataArr['page'] = 1
+            this.boxArr(this.dataArr, true)
+        },
+        // 开始日期
+        beforeDate (val) {
+            this.startDate = val
+            this.dataArr['beforeDate'] = val
+        },
+        // 结束日期
+        afterDate (val) {
+            this.endDate = val
+            this.dataArr['afterDate'] = val
+        },
+        // 分页跳转
+        pageChange (val) {
+            if (val !== 'error') {
+                this.dataArr['page'] = val
+                this.boxArr(this.dataArr, true)
+            } else {
+                this.setToast('text', '页数超过总页数', '12em')
+            }
+        },
+        // 组合查询
+        boxArr (dataArr, flag) {
+            this.getAllMsg(dataArr, flag)
+        },
+        // 提示弹窗
+        setToast (type, text, width = '7.6em') {
+            this.$vux.toast.show({
+                type: type,
+                text: text,
+                width: width,
+                position: 'middle'
+            })
+        },
+        // 单条删除或多条删除
+        listDelete () {
+            if (this.ischeckdate.length !== undefined && this.ischeckdate.length !== 0) {
+                const _this = this
+                this.$vux.confirm.show({
+                    title: '删除选择信息',
+                    onCancel () {
+                        _this.setToast('text', '取消删除')
+                    },
+                    onConfirm () {
+                        var paramsDel = { 'ids': _this.ischeckdate }
+                        axios.get(_this.$wapUrl(_this.url + '/deletes'), { params: paramsDel })
+                            .then((responce) => {
+                                if (responce.data === 'true') {
+                                    _this.boxArr(_this.dataArr, false)
+                                    _this.setToast('success', '删除数据成功', '10em')
+                                } else if (responce.data === 'state') {
+                                    _this.setToast('text', '有数据已被使用，无法删除', '18em')
+                                } else {
+                                    _this.setToast('cancel', '删除数据失败', '10em')
+                                }
+                            })
+                    }
+                })
+            } else {
+                this.setToast('cancel', '请选择序号')
+            }
         }
     },
     mounted () {
@@ -257,7 +325,9 @@ export default {
         SwipeoutItem,
         SwipeoutButton,
         Swiper,
-        SwiperItem
+        SwiperItem,
+        Toast,
+        Confirm
     }
 }
 </script>

@@ -76,7 +76,6 @@ export default{
             this.$refs[formName].validate((valid) => {
                 if (valid) {
                     this.loginBtn = '登录中...'
-                    console.log(this.$refs.btn.html)
                     axios.post('/login', this.ruleForm2).then((responce) => {
                         if (responce.data !== 200) {
                             this.loginBtn = '登录'
@@ -108,6 +107,12 @@ export default{
         },
         passTo () {
             this.submitForm('ruleForm2')
+        }
+    },
+    mounted () {
+        // 判断是否已登录
+        if (window.Roles.permissions !== undefined) {
+            this.$router.push('/appIndex')
         }
     }
 }
