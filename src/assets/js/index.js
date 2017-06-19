@@ -71,7 +71,9 @@ router.beforeEach(async (to, from, next) => {
             }
         } else {
             var data2 = window.Roles.permissions
-            if (to.path === '/login') check = true
+            if (to.path === '/login' || to.path === '/waplogin') {
+                check = true
+            }
             if (to.path.indexOf('details') === -1 && to.path.indexOf('run') === -1) {
                 if (data2.one === 'admin') {
                     if (Excepts.indexOf(to.path) === -1 && Admins.indexOf(to.path) === -1) check = true
