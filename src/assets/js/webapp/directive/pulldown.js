@@ -7,7 +7,7 @@ export default {
         $('.list').on({
             touchstart: function (e) {
                 this.startY = e.targetTouches[0].clientY - 100
-                console.log(this.startY + 'efue')
+                // console.log(this.startY + 'efue')
                 listTop = $('.applist').position().top
             },
             touchmove: function (e) {
