@@ -11,7 +11,7 @@
         <div @touchend="lastPage(index-1)" :disabled="!leftBtn" class="left">&lt;&lt;</div>
         <div class="middle" v-if="showInput" @touchend="showInputIndex">第{{index}}页/共{{total}}页</div>
         <div class="middle-input" v-else>
-            <input type="text" name="" v-model="inputIndex" @keyup.enter="changeIndex" v-focus class="input-index" placeholder="页数">
+            <input type="text" name="" v-model="inputIndex" @change="changeIndex" class="input-index" placeholder="页数">
         </div>
         <div @touchend="nextPage(index+1)" :disabled="!rightBtn" class="right">&gt;&gt;</div>
 	</div>	
@@ -73,11 +73,37 @@ export default {
             this.showInput = true
             this.inputIndex = ''
         },
-        changeIndex () {
-            this.showInput = true
-        },
+        // 输入框输入页数
         showInputIndex () {
             this.showInput = false
+        },
+        // 输入框事件
+        changeIndex () {
+            this.showInput = true
+            if (this.inputIndex > this.total) {
+                this.inputIndex = ''
+                this.$emit('pageEvent', 'error')
+                return
+            }
+            this.index = this.inputIndex
+            this.$emit('pageEvent', this.inputIndex)
+            this.inputIndex = ''
+        },
+        // 上一页
+        lastPage (index) {
+            if (!this.leftBtn) {
+                return
+            }
+            this.index = index
+            this.$emit('pageEvent', index)
+        },
+        // 下一页
+        nextPage (index) {
+            if (!this.rightBtn) {
+                return
+            }
+            this.index = index
+            this.$emit('pageEvent', index)
         }
     }
 }

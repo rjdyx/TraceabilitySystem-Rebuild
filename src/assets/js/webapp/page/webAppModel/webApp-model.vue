@@ -34,10 +34,10 @@
              <!-- 时间操作 -->
             <transition name="slide-fade">
                 <group :title="time" v-show="showdate">
-                    <datetime v-model="value1" :title="'开始日期'" placeholder="请选择" confirm-text="确认" 
-                              cancel-text="取消" clear-text="清空" @on-change="beforeDate"></datetime>
-                    <datetime v-model="value2" :title="'结束日期'" placeholder="请选择" confirm-text="确认"
-                              cancel-text="取消" clear-text="清空" @on-change="afterDate"></datetime>
+                    <datetime v-model="value1" :title="'开始日期'" placeholder="请选择" confirm-text="确认" cancel-text="取消" 
+                        clear-text="清空" @on-change="beforeDate" start-date="2000-1-1" :end-date="endDate"></datetime>
+                    <datetime v-model="value2" :title="'结束日期'" placeholder="请选择" confirm-text="确认" cancel-text="取消" 
+                        clear-text="清空" @on-change="afterDate" :start-date="startDate"></datetime>
                 </group>
             </transition>
 
@@ -85,7 +85,7 @@
             <el-button type="primary" class="allcheck" @click="checkedAll">全选</el-button>
             <el-button type="danger" class="appDelete" @click="listDelete">删除</el-button>
         </div>
-        <paginator></paginator>
+        <paginator :total="total" @pageEvent="pageChange"></paginator>
         </div>
   </div>
 </div>
@@ -146,6 +146,8 @@ export default {
             ischeckdate: [],
             menus: appmenu,
             show: false,
+            startDate: '',
+            endDate: '',
             gneder_list: [
                 ['男', '女']
             ]
@@ -177,8 +179,10 @@ export default {
                     if (responce.status === 200) {
                         if (responce.data.data.length !== 0) {
                             this.$set(this, 'tableData', responce.data.data)
+                            this.total = responce.data.last_page
                         } else {
                             this.$set(this, 'tableData', responce.data.data)
+                            this.total = 1
                         }
                     }
                 })
@@ -229,11 +233,22 @@ export default {
         },
         // 开始日期
         beforeDate (val) {
+            this.startDate = val
             this.dataArr['beforeDate'] = val
         },
         // 结束日期
         afterDate (val) {
+            this.endDate = val
             this.dataArr['afterDate'] = val
+        },
+        // 分页跳转
+        pageChange (val) {
+            if (val !== 'error') {
+                this.dataArr['page'] = val
+                this.boxArr(this.dataArr, true)
+            } else {
+                this.setToast('text', '页数超过总页数', '12em')
+            }
         },
         // 组合查询
         boxArr (dataArr, flag) {

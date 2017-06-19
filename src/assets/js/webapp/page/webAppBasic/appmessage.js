@@ -198,33 +198,16 @@ export default {
     // 养殖管理-病疫
     plague: [{
         settitle: '病疫',
-        key: 'operate',
+        key: 'disease',
         roleName: ['basic/operate', 0],
         timeshow: true,
-        url: 'operate',
+        url: 'disease',
         searchPlaceholder: '请输入兽药名称进行搜索',
         selectSearch: ['operates.category_id'],
         selectValueId: [['category_id', 'category_name', true]],
-        selectDefault: [{value: '', label: '选择操作人类型'}],
-        changeDataArr: [{sex: {0: '男', 1: '女'}}, {domain: {plant: '种植管理', beast: '养殖管理', packp: '果蔬加工管理', packb: '畜禽加工管理', sell: '销售管理', delivery: '物流管理', all: '公共模块'}}],
         theads: ['兽药名称', '操作日期', '操作人'],
-        protos: ['category_name', 'domain', 'name'],
+        protos: ['drug_name', 'date', 'operate_name'],
         widths: [26, 26, 26],
-        typeComponent: [{
-            component: output
-        },
-        {
-            component: newbuildBtn
-        }],
-        listComponent: [{
-            components: [{
-                name: 'operates.category_id',
-                value: '',
-                type: 'select',
-                component: selectSection,
-                options: []
-            }]
-        }],
         newComponent: [
             {
                 tab: '新建病疫情信息',
