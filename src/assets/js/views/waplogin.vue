@@ -113,6 +113,11 @@ export default{
         // 判断是否已登录
         if (window.Roles.permissions !== undefined) {
             this.$router.push('/appIndex')
+        } else {
+            // 判断pc端或电脑端
+            if (window.isPC) {
+                this.$router.push('/login')
+            }
         }
     }
 }

@@ -415,15 +415,11 @@ export default {
     // 养殖管理-检疫
     quarantine: [{
         settitle: '检疫',
-        key: 'expert',
+        key: 'detection',
         roleName: ['basic/expert', 0],
         timeshow: true,
-        url: 'expert',
-        selectSearch: ['experts.category_id'],
-        selectValueId: [['category_id', 'category_name', true]],
-        changeDataArr: [{sex: {0: '男', 1: '女'}}, {domain: {plant: '种植管理', beast: '养殖管理', all: '公共模块'}}],
+        url: 'detection',
         searchPlaceholder: '请输入检疫项目名称进行搜索',
-        selectDefault: [{value: '', label: '选择专家类型'}],
         theads: ['检疫项目名称', '操作日期', '操作人'],
         protos: ['category_name', 'domain', 'name'],
         widths: [26, 26, 26],

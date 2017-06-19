@@ -19,6 +19,7 @@ export default {
                         resolve(responce)
                     })
                     .catch((err) => {
+                        window.Roles = {}
                         reject(err)
                     })
             })
@@ -38,6 +39,7 @@ export default {
                         resolve(responce)
                     })
                     .catch((err) => {
+                        window.Roles = {}
                         reject(err)
                     })
             })

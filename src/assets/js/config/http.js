@@ -22,8 +22,9 @@ axios.interceptors.response.use(function (response) {
 }, function (error) {
     // 未登录
     if (error.response.status === 401) {
+        window.Roles = {}
         router.replace({
-            path: '/login',
+            path: window.isPC ? '/login' : '/waplogin',
             query: {}
         })
     }
