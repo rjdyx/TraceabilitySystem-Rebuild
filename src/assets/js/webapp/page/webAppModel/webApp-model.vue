@@ -11,82 +11,90 @@
 
         <!-- tab -->
         <div class="apptab" v-if="tabshow">
-            <tab>
-                <tab-item v-for="(model,index) in models" @on-item-click="tabClick(index, model)">{{model.tab}}</tab-item>
+            <tab v-model="index">
+                <tab-item v-for="(model,index) in models" 
+                @on-item-click="tabClick(index, model.tab)" 
+                :key="index" 
+                :selected="demo2===model.tab">
+                    {{model.tab}}
+                </tab-item>
             </tab>
         </div>
 
     <div class="appmain">
         <div class="applist" :class="{'has':ishas,'hasno':!ishas}">
-                <!-- 操作 -->
-        
-        <div class="appOperate">
-            <div @touchstart="closeOperate" class="closeOperate">
-                <i class="el-icon-arrow-up"></i>
+                
+            <!-- 操作 -->
+            <div class="appOperate">
+                <div @touchstart="closeOperate" class="closeOperate">
+                    <i class="el-icon-arrow-up"></i>
+                </div>
+                <div class="operation">
+                    <el-button type="primary" class="newbuilt" @click="webAppNew">新建</el-button>
+                    <div class="searchOp">
+                        <el-input 
+                            :placeholder="searchPlaceholder"
+                            v-model="inputValue"
+                            :on-icon-click="search" class="searchInp">
+                        </el-input>
+                        <el-button class="searchBtn" @click="textAndDateFind">搜索</el-button>
+                    </div>
+                </div>
+                <!-- 时间操作 -->
+                <group :title="time" v-if="timeshow">
+                    <datetime v-model="value1" :title="'开始日期'" placeholder="请选择" confirm-text="确认" cancel-text="取消" 
+                        clear-text="清空" @on-change="beforeDate" start-date="2000-1-1" :end-date="endDate"></datetime>
+                    <datetime v-model="value2" :title="'结束日期'" placeholder="请选择" confirm-text="确认" cancel-text="取消" 
+                        clear-text="清空" @on-change="afterDate" :start-date="startDate"></datetime>
+                </group>
             </div>
-            <div class="operation">
-                <el-button type="primary" class="newbuilt" @click="webAppNew">新建</el-button>
-                <div class="searchOp">
-                    <el-input 
-                        :placeholder="searchPlaceholder"
-                        v-model="inputValue"
-                        :on-icon-click="search" class="searchInp">
-                    </el-input>
-                    <el-button class="searchBtn" @click="textAndDateFind">搜索</el-button>
-                </div>
+
+
+            <!-- 列表头部 -->
+            <div class="list">
+                <span class="choice">序号</span>
+                <span v-for="(item,index) in theads" 
+                    :style="{width: widths[index] + '%'}">
+                    {{theads[index]}}
+                </span>
+            </div>   
+
+            <!-- 列表中间 -->
+            <swipeout class="swipeout">
+                <swipeout-item transition-mode="follow" v-for="(pers,index) in tableData">
+                    <div class="listContent demo-content vux-1px-t" slot="content">
+                        <span class="choice">
+                            <input type="checkbox" :value="pers.id" v-model="ischeckdate">
+                            <span class="order">{{index+1}}</span>
+                        </span>
+                        <span v-for="(item,index) in protos" 
+                              v-if="protos[index]=='img'"
+                              :style="{width: widths[index] + '%'}">
+                            <img :src="$img('images/ok.png')">
+                        </span>
+                        <span v-else="!protos[index]=='img'"
+                            :name="theads[index]"  
+                            :style="{width: widths[index] + '%'}">
+                                {{pers[protos[index]]}}
+                        </span>
+                        
+                    </div>
+                    <div slot="right-menu">
+                      <swipeout-button class="lookOver" type="primary" @click.native="showDetail(pers.id)" v-if="rightMenu">查看</swipeout-button>
+                      <swipeout-button class="appedit">编辑</swipeout-button>
+                    </div>
+                </swipeout-item>
+            </swipeout>
+
+            <!-- 列表底部 -->
+            <div class="tableFooter">
+                <el-button type="primary" class="allcheck" @click="checkedAll">全选</el-button>
+                <el-button type="danger" class="appDelete" @click="listDelete">删除</el-button>
             </div>
-            <!-- 时间操作 -->
-            <group :title="time" v-if="timeshow">
-                <datetime v-model="value1" :title="'开始日期'" placeholder="请选择" confirm-text="确认" cancel-text="取消" 
-                    clear-text="清空" @on-change="beforeDate" start-date="2000-1-1" :end-date="endDate"></datetime>
-                <datetime v-model="value2" :title="'结束日期'" placeholder="请选择" confirm-text="确认" cancel-text="取消" 
-                    clear-text="清空" @on-change="afterDate" :start-date="startDate"></datetime>
-            </group>
-        </div>
+            
+            <!-- 分页 -->
+            <paginator :total="total" @pageEvent="pageChange"></paginator>
 
-
-        <!-- 列表头部 -->
-        <div class="list">
-            <span class="choice">序号</span>
-            <span v-for="(item,index) in theads" 
-                :style="{width: widths[index] + '%'}">
-                {{theads[index]}}
-            </span>
-        </div>   
-
-        <!-- 列表中间 -->
-        <swipeout class="swipeout">
-            <swipeout-item transition-mode="follow" v-for="(pers,index) in tableData">
-                <div class="listContent demo-content vux-1px-t" slot="content">
-                    <span class="choice">
-                        <input type="checkbox" :value="pers.id" v-model="ischeckdate">
-                        <span class="order">{{index+1}}</span>
-                    </span>
-                    <span v-for="(item,index) in protos" 
-                          v-if="protos[index]=='img'"
-                          :style="{width: widths[index] + '%'}">
-                        <img :src="$img('images/ok.png')">
-                    </span>
-                    <span v-else="!protos[index]=='img'"
-                        :name="theads[index]"  
-                        :style="{width: widths[index] + '%'}">
-                            {{pers[protos[index]]}}
-                    </span>
-                    
-                </div>
-                <div slot="right-menu">
-                  <swipeout-button class="lookOver" type="primary" @click.native="showDetail(pers.id)" v-if="rightMenu">查看</swipeout-button>
-                  <swipeout-button class="appedit">编辑</swipeout-button>
-                </div>
-            </swipeout-item>
-        </swipeout>
-
-        <!-- 列表底部 -->
-        <div class="tableFooter">
-            <el-button type="primary" class="allcheck" @click="checkedAll">全选</el-button>
-            <el-button type="danger" class="appDelete" @click="listDelete">删除</el-button>
-        </div>
-        <paginator :total="total" @pageEvent="pageChange"></paginator>
         </div>
     </div>
   </div>
@@ -94,7 +102,7 @@
 </template> 
  
 <script>
-import { XTable, Datetime, Group, Tab, TabItem, Swipeout, SwipeoutItem, Toast, Confirm, SwipeoutButton, Swiper, SwiperItem } from 'vux'
+import { XTable, Datetime, Group, Tab, TabItem, Swipeout, SwipeoutItem, Toast, Confirm, SwipeoutButton, Swiper, SwiperItem, Popover } from 'vux'
 import {mapActions, mapMutations} from 'vuex'
 // import appTab from '../../public/tab.vue'
 import appmenu from '../index/appmenu.js'
@@ -151,7 +159,9 @@ export default {
             startDate: '',
             endDate: '',
             active: true,
-            ishas: true
+            ishas: true,
+            activeindex: '',
+            demo2: ''
         }
     },
     // 混合
@@ -200,9 +210,10 @@ export default {
         },
         tabClick (subindex, modelName) {
             this.modelIndex = subindex
-            // this.$set(modelName, 'selected')
-            console.log(subindex)
             console.log(modelName)
+            this.demo2 = modelName
+            localStorage.setItem('appTab', this.modelIndex)
+            // console.log(this.tabIndex)
         },
         // 侧边栏的显示与隐藏
         showsider () {
@@ -293,6 +304,8 @@ export default {
         if (this.$route.path.indexOf('plantTrace') !== -1) {
             this.ishas = false
         }
+        this.tabIndex = localStorage.getItem('appTab')
+        console.log(this.tabIndex)
     },
     watch: {
         models () {
@@ -483,6 +496,7 @@ export default {
             overflow: hidden;
             text-overflow: ellipsis;
             vertical-align: middle;
+            padding: 0 2%;
         }
     }
     .choice{
@@ -492,7 +506,7 @@ export default {
         background: #eaeaea !important;
     }*/
     .order{
-        padding-left: 10px;
+        margin-left: 18%;
     }
     .el-button--primary{
         background: #009acb;
@@ -585,6 +599,8 @@ export default {
         }
     }
     .paginator{
+       /* position: absolute;
+        bottom: 10%;*/
         margin-bottom: 2%;
     }
     .active{
@@ -614,6 +630,9 @@ export default {
     }
     .weui-cells:after{
         border-bottom: none;
+    }
+    .bg{
+        color: red;
     }
 }  
 </style>
