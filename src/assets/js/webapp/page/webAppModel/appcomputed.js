@@ -3,6 +3,9 @@ export default {
         tab () {
             return this.models[this.modelIndex].tab
         },
+        key () {
+            return this.models[this.modelIndex].key
+        },
         url () {
             return this.models[this.modelIndex].url
         },
@@ -19,23 +22,23 @@ export default {
             return this.models[this.modelIndex].widths
         },
         // app
-        tabComponent () {
-            return this.models[this.modelIndex].tabComponent
-        },
         searchPlaceholder () {
             return this.models[this.modelIndex].searchPlaceholder
         },
         tabshow () {
             return this.models[this.modelIndex].tabshow
         },
-        settitle () {
-            return this.models[this.modelIndex].settitle
-        },
         timeshow () {
             return this.models[this.modelIndex].timeshow
         },
         batch () {
             return this.models[this.modelIndex].batch
+        },
+        rightMenu () {
+            return this.models[this.modelIndex].rightMenu
+        },
+        paramsIndex () {
+            return this.models[this.modelIndex].paramsIndex
         }
     }
 }

@@ -76,7 +76,6 @@ export default{
             this.$refs[formName].validate((valid) => {
                 if (valid) {
                     this.loginBtn = '登录中...'
-                    console.log(this.$refs.btn.html)
                     axios.post('/login', this.ruleForm2).then((responce) => {
                         if (responce.data !== 200) {
                             this.loginBtn = '登录'
@@ -109,6 +108,17 @@ export default{
         passTo () {
             this.submitForm('ruleForm2')
         }
+    },
+    mounted () {
+        // 判断是否已登录
+        if (window.Roles.permissions !== undefined) {
+            this.$router.push('/appIndex')
+        } else {
+            // 判断pc端或电脑端
+            if (window.isPC) {
+                this.$router.push('/login')
+            }
+        }
     }
 }
 </script>
@@ -121,20 +131,20 @@ export default{
     .webLogin{
     	width: 100%;
     	height: 100%;
-		overflow: hidden;
+		/*overflow: hidden;*/
         .webloginImg{
             width: 100%;
             margin-bottom: 20px;
         .topImg{
             width: 92%;
-            height: 280px;
-            margin-top: 49px;
+            height: 20%;
+            margin-top: 12%;
             margin-left: 4%;
             display: inline-block;
         }
         .bottomImg{
             width: 25%;
-            height: 100px;
+            height: 10%;
             margin-left: 37%;
             margin-top: -13px;
         }
@@ -152,7 +162,7 @@ export default{
     		position: relative;
     		span{
 	    		position: absolute;
-	    		left: 10px;
+	    		left: 4%;
 	    		top: 18px;
 	    		bottom: 0;
 	    		display: inline-block;
@@ -186,6 +196,54 @@ export default{
     	}
         .el-input__inner:focus{
             border-color: #f3f3f3;
+        }
+        .el-form-item{
+            margin-bottom: 7%;
+        }
+        @media (max-height: 480px) {
+            .el-input__inner{
+                padding: 9% 20%;
+            }
+            .webloginImg .topImg{
+                margin-top: 8%;
+            }
+            .el-form-item{
+                margin-bottom: 7%;
+            }
+            .item span{
+                left: 6%;
+                top: 30%;
+                width: 8%;
+            }
+        }
+        @media (max-device-width:1024px) and (min-device-width: 768px) {
+                .el-input__inner{
+                padding: 10% 20%;
+                font-size: 28px;
+            }
+            .webloginImg{
+                width: 86%;
+            }
+            .webloginImg .topImg{
+                margin-top: 7%;
+                margin-left: 12%;
+            }
+            .webloginImg .bottomImg{
+                margin-left: 45%;
+                margin-top: -27px;
+            }
+            .item span{
+                left: 6%;
+                top: 25%;
+                width: 9%;
+                height: 56%;
+            }
+            .el-form-item__error{
+                font-size: 28px;
+            }
+            .webLogin .el-form-item{
+                margin-bottom: 5%;
+            }
         }
     }
 </style>

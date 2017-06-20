@@ -31,7 +31,7 @@ function IsPC () {
     }
     return flag
 }
-const PC = IsPC()
+window.isPC = IsPC()
 // 处理刷新的时候vuex被清空但是用户已经登录的情况
 // if (sessionStorage.user) {
 //     store.dispatch('setUserInfo', JSON.parse(sessionStorage.user))
@@ -48,7 +48,7 @@ router.beforeEach(async (to, from, next) => {
                     })
                     if (responce.data.name === undefined) {
                         window.Roles = {}
-                        if (PC) {
+                        if (window.isPC) {
                             if (except) next({path: '/login'})
                         } else {
                             if (except) next({path: '/waplogin'})
@@ -71,7 +71,9 @@ router.beforeEach(async (to, from, next) => {
             }
         } else {
             var data2 = window.Roles.permissions
-            if (to.path === '/login') check = true
+            if (to.path === '/login' || to.path === '/waplogin') {
+                check = true
+            }
             if (to.path.indexOf('details') === -1 && to.path.indexOf('run') === -1) {
                 if (data2.one === 'admin') {
                     if (Excepts.indexOf(to.path) === -1 && Admins.indexOf(to.path) === -1) check = true

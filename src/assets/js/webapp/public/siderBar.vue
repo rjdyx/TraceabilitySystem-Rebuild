@@ -35,6 +35,9 @@
                     </el-submenu>   
                     </template>
 	            </el-menu>
+                <div class="logout" @click="logout">
+                    <span>退出登录</span>
+                </div>
     	   </div>
         </div>
     </transition-group>
@@ -46,7 +49,8 @@ export default {
     name: 'SiderBar',
     data () {
         return {
-            children: ''
+            children: '',
+            data: []
         }
     },
     props: {
@@ -79,6 +83,14 @@ export default {
             if (event.target.className.indexOf('el-submenu') && event.target.className.indexOf('el-menu-item') === -1) {
                 this.hidemenu()
             }
+        },
+        logout () {
+            axios.post('logout', this.data).then((responce) => {
+                if (responce.data === 200) {
+                    window.Roles = {}
+                    this.$router.push('/waplogin')
+                }
+            })
         }
     },
     watch: {
@@ -111,7 +123,6 @@ export default {
     			width: 20px;
     			height: 20px;
     			background: url(/public/images/icon.png);
-    			// background-position: 224px 439px !important;
     			margin-left: 50px;
     		}
     		.text{
@@ -125,6 +136,23 @@ export default {
               -webkit-animation-duration: .6s;
               animation-duration: .6s;
             }
-    }
+        }
+        .logout{
+            width: 100%;
+            height: 7%;
+            border-top: 1px solid #1f2d3d;
+            position: relative;
+            bottom: -19%;
+            span{
+                color: #fff;
+                width: 50%;
+                background: url(/public/images/back.png) no-repeat;
+                padding-top: 14%;
+                margin-top: 7%;
+                background-position-x: 10px;
+                margin-left: 35%;
+                display: inline-block
+            }
+        }
 }
 </style>

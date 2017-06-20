@@ -2,7 +2,7 @@
  * 
  * webapp基础模块组件
  * @author 舒丹彤 
- * @date 2017/06/6
+ * @date 2017/06/06
  * 
  */
 <template>
@@ -10,87 +10,98 @@
     <div class="webApp-wrap">
 
         <!-- tab -->
-        <div class="apptab" v-show="tabshow">
-            <tab>
-                <tab-item v-for="(model,index)  in models" @on-item-click="tabClick(index)">{{model.tab}}</tab-item>
+        <div class="apptab" v-if="tabshow">
+            <tab v-model="index">
+                <tab-item v-for="(model,index) in models" 
+                @on-item-click="tabClick(index, model.tab)" 
+                :key="index" 
+                :selected="demo2===model.tab">
+                    {{model.tab}}
+                </tab-item>
             </tab>
         </div>
 
-        <div class="appmain">
+    <div class="appmain">
+        <div class="applist" :class="{'has':ishas,'hasno':!ishas}">
+                
             <!-- 操作 -->
-        <div class="appOperate">
-            <el-button type="primary" class="newbuilt" @click="webAppNew">新建</el-button>
-            <div class="searchOp">
-                <el-input   
-                    :placeholder="searchPlaceholder"
-                    v-model="inputValue"
-                    :on-icon-click="search" class="searchInp">
-                </el-input>
-                <el-button class="searchBtn">搜索</el-button>
-            </div>
-        </div>
-
-        <div v-show="timeshow">
-             <!-- 时间操作 -->
-            <transition name="slide-fade">
-                <group :title="time" v-show="showdate">
-                    <datetime v-model="value1" :title="'开始日期'" placeholder="请选择"></datetime>
-                    <datetime v-model="value1" :title="'结束日期'" placeholder="请选择"></datetime>
+            <div class="appOperate">
+                <div @touchstart="closeOperate" class="closeOperate">
+                    <i class="el-icon-arrow-up"></i>
+                </div>
+                <div class="operation">
+                    <el-button type="primary" class="newbuilt" @click="webAppNew">新建</el-button>
+                    <div class="searchOp">
+                        <el-input 
+                            :placeholder="searchPlaceholder"
+                            v-model="inputValue"
+                            :on-icon-click="search" class="searchInp">
+                        </el-input>
+                        <el-button class="searchBtn" @click="textAndDateFind">搜索</el-button>
+                    </div>
+                </div>
+                <!-- 时间操作 -->
+                <group :title="time" v-if="timeshow">
+                    <datetime v-model="value1" :title="'开始日期'" placeholder="请选择" confirm-text="确认" cancel-text="取消" 
+                        clear-text="清空" @on-change="beforeDate" start-date="2000-1-1" :end-date="endDate"></datetime>
+                    <datetime v-model="value2" :title="'结束日期'" placeholder="请选择" confirm-text="确认" cancel-text="取消" 
+                        clear-text="清空" @on-change="afterDate" :start-date="startDate"></datetime>
                 </group>
-            </transition>
-
-            <!-- 隐藏操作按钮 -->
-            <div class="clickHide" @click="hideDate">
-                <span class="hide" :class="{'uphide': isA,'downhide': !isA }"></span>
             </div>
-        </div>
 
-        <!-- 列表头部 -->
-        <div class="list">
-            <span class="choice">序号</span>
-            <span v-for="(item,index) in theads" :style="{width: widths[index] + '%'}" class="appth">{{theads[index]}}</span>
-        </div>   
 
-        <!-- 列表中间 -->
-        <swipeout class="swipeout">
-            <swipeout-item transition-mode="follow" v-for="(pers,index) in tableData">
-                <div class="listContent demo-content vux-1px-t" slot="content">
-                    <span class="choice">
-                        <input type="checkbox" :value="pers.id" v-model="ischeckdate">
-                        <span class="order">{{index+1}}</span>
-                    </span>
-                    <span 
-                        v-for="(item,index) in protos" 
-                        :name="theads[index]"  
-                        :style="{width: widths[index] + '%'}">
-                            {{pers[protos[index]]}}
-                    </span>
-                    <!-- <span class="appEdit">
-                        <span class="editImg">
+            <!-- 列表头部 -->
+            <div class="list">
+                <span class="choice">序号</span>
+                <span v-for="(item,index) in theads" 
+                    :style="{width: widths[index] + '%'}">
+                    {{theads[index]}}
+                </span>
+            </div>   
+            <!-- 列表中间 -->
+            <swipeout class="swipeout">
+                <swipeout-item transition-mode="follow" v-for="(pers,index) in tableData">
+                    <div class="listContent demo-content vux-1px-t" slot="content">
+                        <span class="choice">
+                            <input type="checkbox" :value="pers.id" v-model="ischeckdate">
+                            <span class="order">{{index+1}}</span>
                         </span>
-                    </span> -->
-                </div>
-                <div slot="right-menu">
-                  <swipeout-button class="lookOver" type="primary" @click.native="showDetail">查看</swipeout-button>
-                  <swipeout-button class="appedit">编辑</swipeout-button>
-                </div>
-            </swipeout-item>
-        </swipeout>
+                        <span v-for="(item,index) in protos" 
+                              v-if="protos[index]=='img'"
+                              :style="{width: widths[index] + '%'}">
+                            <img :src="$img('images/ok.png')">
+                        </span>
+                        <span v-else="!protos[index]=='img'"
+                            :name="theads[index]"  
+                            :style="{width: widths[index] + '%'}">
+                                {{pers[protos[index]]}}
+                        </span>
+                        
+                    </div>
+                    <div slot="right-menu">
+                      <swipeout-button class="lookOver" type="primary" @click.native="showDetail(pers.id)" v-if="rightMenu">查看</swipeout-button>
+                      <swipeout-button class="appedit">编辑</swipeout-button>
+                    </div>
+                </swipeout-item>
+            </swipeout>
 
-        <!-- 列表底部 -->
-        <div class="tableFooter">
-            <input type="checkbox" class="allcheckbox" v-model="checkAll" @click="checkedAll">
-            <el-button type="primary" class="allcheck" @click="checkedAll">全选</el-button>
-            <el-button type="danger" class="appDelete">删除</el-button>
+            <!-- 列表底部 -->
+            <div class="tableFooter">
+                <el-button type="primary" class="allcheck" @click="checkedAll">全选</el-button>
+                <el-button type="danger" class="appDelete" @click="listDelete">删除</el-button>
+            </div>
+            
+            <!-- 分页 -->
+            <paginator :total="total" @pageEvent="pageChange"></paginator>
+
         </div>
-        <paginator></paginator>
-        </div>
+    </div>
   </div>
 </div>
 </template> 
  
 <script>
-import { XTable, Datetime, Group, Tab, TabItem, Swipeout, SwipeoutItem, SwipeoutButton } from 'vux'
+import { XTable, Datetime, Group, Tab, TabItem, Swipeout, SwipeoutItem, Toast, Confirm, SwipeoutButton, Swiper, SwiperItem, Popover } from 'vux'
 import {mapActions, mapMutations} from 'vuex'
 // import appTab from '../../public/tab.vue'
 import appmenu from '../index/appmenu.js'
@@ -98,6 +109,7 @@ import appHeader from '../../public/header.vue'
 import siderBar from '../../public/siderBar.vue'
 import paginator from '../../public/paginator.vue'
 import computed from '../webAppModel/appcomputed.js'
+import appfunction from '../../directive/appfunction.js'
 export default {
     name: 'BasicModel',
     props: {
@@ -114,22 +126,22 @@ export default {
                     theads: [],
                     searchPlaceholder: '',
                     protos: ['name'],
-                    widths: [50],
+                    widths: [26],
                     title: '',
                     settitle: '',
                     typeComponent: [],
                     tabComponent: [],
                     tabshow: '',
                     timeshow: '',
-                    batch: ''
+                    batch: '',
+                    rightMenu: '',
+                    paramsIndex: ''
                 }]
             }
         }
     },
     data () {
         return {
-            // 时间组件是否显示
-            showdate: false,
             // 展开时间组件样式
             isA: false,
             // 搜索框内容
@@ -139,16 +151,21 @@ export default {
             // 列表数据
             tableData: [],
             listLoading: false,
+            // 查询对象
+            dataArr: {},
             ischeckdate: [],
             menus: appmenu,
             show: false,
-            gneder_list: [
-                ['男', '女']
-            ]
+            startDate: '',
+            endDate: '',
+            active: true,
+            ishas: true,
+            activeindex: '',
+            demo2: ''
         }
     },
     // 混合
-    mixins: [computed],
+    mixins: [computed, appfunction],
     methods: {
         init (index = 0) {
             this.inputValue = ''
@@ -159,7 +176,6 @@ export default {
         新建
          */
         webAppNew () {
-            console.log(this.$route)
             this.$router.push('/webAppNew' + '/' + this.$route.params.model + '/' + this.modelIndex)
         },
         // 获取数据
@@ -167,34 +183,19 @@ export default {
             if (this.paramsIndex !== undefined) {
                 var type = this.paramsIndex
             }
-            if (flag) {
-                this.listLoading = true
-            }
-            this.$dataGet(this, this.url, {params: data, type: type})
+            this.$dataWapGet(this, this.url, {params: data, type: type})
                 .then((responce) => {
                     // 数据转换
                     if (responce.status === 200) {
                         if (responce.data.data.length !== 0) {
-                            var ret = this.$conversion(this.changeDataArr, responce.data.data, 1)
-                            ret = this.$eltable(ret)
-                            this.$set(this, 'tableData', ret)
-                            this.total_num = responce.data.total
-                            this.num = responce.data.last_page
-                            // this.paginator = responce.data
+                            this.$set(this, 'tableData', responce.data.data)
+                            this.total = responce.data.last_page
                         } else {
                             this.$set(this, 'tableData', responce.data.data)
-                            this.total_num = 0
-                            this.num = 0
-                            // this.paginator = 0
+                            this.total = 1
                         }
-                        this.listLoading = false
                     }
                 })
-        },
-        // 隐藏日期组件
-        hideDate () {
-            this.isA = !this.isA
-            this.showdate = !this.showdate
         },
         // 实现全选与反选
         checkedAll () {
@@ -206,8 +207,12 @@ export default {
             }
             this.ischeckdate = ischeckdate
         },
-        tabClick (subindex) {
+        tabClick (subindex, modelName) {
             this.modelIndex = subindex
+            console.log(modelName)
+            this.demo2 = modelName
+            localStorage.setItem('appTab', this.modelIndex)
+            // console.log(this.tabIndex)
         },
         // 侧边栏的显示与隐藏
         showsider () {
@@ -216,34 +221,107 @@ export default {
         hidesider () {
             this.show = false
         },
-        serial () {
-            console.log(this.$refs.tdContent)
-            let sername = this.$refs.tdContent
-            for (let kem in sername) {
-                if (sername[kem].outerHTML.indexOf('批次号') !== -1) {
-                    console.log(sername[kem].innerHTML)
-                    sername[kem].style.textDecoration = 'underline'
-                }
+        showDetail (id) {
+            this.$router.push('/appIndex/appdetailbasic/' + this.batch + '/' + id)
+        },
+        closeOperate () {
+            if (this.ishas === true) {
+                $('.applist').animate({top: '-125px'})
+            } else {
+                $('.applist').animate({top: '-57px'})
             }
         },
-        showDetail () {
-            console.log(213)
-            this.$router.push('/appIndex/appdetailbasic/' + this.batch)
+        // 文本与时间按钮查询
+        textAndDateFind () {
+            this.dataArr['query_text'] = this.inputValue
+            this.dataArr['page'] = 1
+            this.boxArr(this.dataArr, true)
+        },
+        // 开始日期
+        beforeDate (val) {
+            this.startDate = val
+            this.dataArr['beforeDate'] = val
+        },
+        // 结束日期
+        afterDate (val) {
+            this.endDate = val
+            this.dataArr['afterDate'] = val
+        },
+        // 分页跳转
+        pageChange (val) {
+            if (val === 'first') {
+                this.setToast('text', '第一页')
+            } else if (val === 'last') {
+                this.setToast('text', '最后一页')
+            } else if (val === 'exceed') {
+                this.setToast('text', '页数超过总页数', '12em')
+            } else {
+                this.dataArr['page'] = val
+                this.boxArr(this.dataArr, true)
+            }
+        },
+        // 组合查询
+        boxArr (dataArr, flag) {
+            this.getAllMsg(dataArr, flag)
+        },
+        // 提示弹窗
+        setToast (type, text, width = '7.6em') {
+            this.$vux.toast.show({
+                type: type,
+                text: text,
+                width: width,
+                position: 'middle'
+            })
+        },
+        // 单条删除或多条删除
+        listDelete () {
+            if (this.ischeckdate.length !== undefined && this.ischeckdate.length !== 0) {
+                const _this = this
+                this.$vux.confirm.show({
+                    title: '删除选择信息',
+                    onCancel () {
+                        _this.setToast('text', '取消删除')
+                    },
+                    onConfirm () {
+                        var paramsDel = { 'ids': _this.ischeckdate }
+                        axios.get(_this.$wapUrl(_this.url + '/deletes'), { params: paramsDel })
+                            .then((responce) => {
+                                if (responce.data === 'true') {
+                                    _this.boxArr(_this.dataArr, false)
+                                    _this.setToast('success', '删除数据成功', '10em')
+                                } else if (responce.data === 'state') {
+                                    _this.setToast('text', '有数据已被使用，无法删除', '18em')
+                                } else {
+                                    _this.setToast('cancel', '删除数据失败', '10em')
+                                }
+                            })
+                    }
+                })
+            } else {
+                this.setToast('cancel', '请选择序号')
+            }
         }
     },
     mounted () {
-        this.serial()
         this.getAllMsg()
+        if (this.$route.path.indexOf('plantTrace') !== -1) {
+            this.ishas = false
+        }
+        this.tabIndex = localStorage.getItem('appTab')
+        console.log(this.tabIndex)
     },
     watch: {
         models () {
             this.tableData = []
             this.getAllMsg()
             this.inputValue = ''
+            this.closeOperate()
         },
         key () {
             this.tableData = []
-            this.getAllMsg()
+            this.dataArr = {}
+            this.boxArr(this.dataArr, true)
+            this.inputValue = ''
         },
         // 检测全选按钮
         ischeckdate () {
@@ -255,9 +333,14 @@ export default {
         },
         checkAll (check) {
             this.checkAll = check
+        },
+        $route () {
+            if (this.$route.path.indexOf('plantTrace') !== -1) {
+                this.ishas = false
+            } else {
+                this.ishas = true
+            }
         }
-    },
-    computed: {
     },
     components: {
         appHeader,
@@ -270,17 +353,27 @@ export default {
         siderBar,
         Swipeout,
         SwipeoutItem,
-        SwipeoutButton
+        SwipeoutButton,
+        Swiper,
+        SwiperItem,
+        Toast,
+        Confirm
     }
 }
 </script>
 
 <style lang='sass'>
 .webApp_model{
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
     .webApp-wrap{ 
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
         .searchInp {
             width: 60%;
-            margin: 0 3% 10px;
+            margin: 0 3%;
             /*margin-right: 10px;*/
         }
         .searchBtn {
@@ -301,6 +394,7 @@ export default {
     }
     .allcheck{
         float: left;
+        margin: 5% 4% 0 1%;
     }
     .appDelete{
         float: right;
@@ -309,10 +403,6 @@ export default {
     .appDelete,.allcheck{
         display: inline-block;
         margin-top: 4px;
-    }
-    .allcheckbox{
-        float: left;
-        margin: 16px 7px 0 20px;
     }
     .tableFooter{
         height: 45px;
@@ -385,6 +475,8 @@ export default {
         width: 100%;
         background: #eaeaea;
         height: 54px;
+        margin-top:5px;
+        -webkit-overflow-scrolling: touch;
         span{
             display: inline-block;
             height: 54px;
@@ -407,16 +499,17 @@ export default {
             overflow: hidden;
             text-overflow: ellipsis;
             vertical-align: middle;
+            padding: 0 2%;
         }
     }
     .choice{
-            width: 20%;
-        }
-    .listContent:nth-child(2n){
-        background: #eaeaea;
+        width: 20%;
     }
+    /*.listContent:nth-child(2n){
+        background: #eaeaea !important;
+    }*/
     .order{
-        padding-left: 10px;
+        margin-left: 18%;
     }
     .el-button--primary{
         background: #009acb;
@@ -425,6 +518,7 @@ export default {
     .apptab{
         width: 100%;
         margin-bottom: 50px;
+        margin-top: 5px;
         .vux-tab{
             display: block;
             .vux-tab-item{
@@ -453,7 +547,18 @@ export default {
         margin-bottom: 5px;
     }
     .appmain{
-        margin: 0 5px;
+        height: 100%;
+        width: 100%;
+        /*margin: 0 5px;*/
+        overflow: scroll;
+        position: relative;
+    }
+    .applist{
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        /*top: -132px;*/
+        left: 0;
     }
     /*.swipeout{
         width: 100%;
@@ -464,5 +569,73 @@ export default {
     /*.lookOver{
         background: #eaeaea;
     }*/
+    .more{
+        height:250px;
+    }
+    .appOperate{
+        /*height: 132px;*/
+        margin-top: 1%;
+    }
+    .closeOperate{
+        width: 100%;
+        height: 13%;
+    }
+    .el-icon-arrow-up{
+        display: block;
+        margin: 0 auto;
+        width: 3%;
+        height: 44.5%;
+        animation: start 1.5s infinite ease-in-out;
+    }
+    @keyframes start {
+        0%, 30%{
+            opacity: 0.5;
+            transform: translateY(18px);
+        }
+        60%{
+            opacity: 1;
+            transform: translate(0);
+        }
+        100%{
+            opacity: 0.5;
+            transform: translateY(-10px);
+        }
+    }
+    .paginator{
+       /* position: absolute;
+        bottom: 10%;*/
+        margin-bottom: 2%;
+    }
+    .active{
+        background: red !important;
+    }
+    .unavtive{
+        background: green !important;
+    }
+    .img{
+        display: inline-block;
+        background: red;
+    }
+    .has{
+        top:-125px;
+    }
+    .hasno{
+        top: -57px;
+    }
+    .operation{
+        margin-bottom: 10px;
+    }
+    .weui-cell:before{
+        border-top: 1px solid transparent !important;
+    }
+    .weui-cell{
+        padding: 6px 15px;
+    }
+    .weui-cells:after{
+        border-bottom: none;
+    }
+    .bg{
+        color: red;
+    }
 }  
 </style>

@@ -19,6 +19,27 @@ export default {
                         resolve(responce)
                     })
                     .catch((err) => {
+                        window.Roles = {}
+                        reject(err)
+                    })
+            })
+        }
+        /**
+         * 手机端方法
+         * @param vm
+         * @param url
+         * @param params
+         * @param resolve
+         * @param reject
+         */
+        Vue.prototype.$dataWapGet = (vm, url, params) => {
+            return new Promise(function (resolve, reject) {
+                axios.get(vm.$wapUrl(url), {params: params})
+                    .then((responce) => {
+                        resolve(responce)
+                    })
+                    .catch((err) => {
+                        window.Roles = {}
                         reject(err)
                     })
             })

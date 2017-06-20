@@ -7,7 +7,7 @@
 
 <template>
 	<div class="appWrap">
-		<app-header @parentClick="showsider" :settitle="settitle">
+		<app-header @parentClick="showsider" :settitle="settitle" :homeShow="homeShow" :back="back">
         </app-header>
 		<sider-bar :menus='menus' :show="show" @hidetoggle="hidesider" @children-info="getinfo"></sider-bar>
 		<router-view></router-view>
@@ -19,15 +19,19 @@ import {mapState} from 'vuex'
 import appHeader from '../../public/header.vue'
 import siderBar from '../../public/siderBar.vue'
 import appmenu from '../../page/index/appmenu.js'
+import appfunction from '../../directive/appfunction.js'
 export default {
     name: 'appIndex',
     data () {
         return {
             menus: appmenu,
             show: false,
-            settitle: ''
+            settitle: '',
+            homeShow: false,
+            back: false
         }
     },
+    mixins: [appfunction],
     methods: {
         showsider () {
             this.show = true
@@ -43,15 +47,6 @@ export default {
         }
     },
     mounted () {
-        if (this.$route.path === '/appIndex') {
-            this.settitle = '生之园溯源系统'
-        } else if (this.$route.path.indexOf('appdetailbasic') !== -1) {
-            let detit = localStorage.getItem('dename')
-            this.settitle = detit
-        } else {
-            let apptitle = localStorage.getItem('tit')
-            this.settitle = apptitle
-        }
     },
     computed: {
     },
@@ -60,17 +55,6 @@ export default {
         siderBar
     },
     watch: {
-        $route () {
-            if (this.$route.path === '/appIndex') {
-                this.settitle = '生之园溯源系统'
-            } else if (this.$route.path.indexOf('appdetailbasic') !== -1) {
-                let detit = localStorage.getItem('dename')
-                this.settitle = detit
-            } else {
-                let apptitle = localStorage.getItem('tit')
-                this.settitle = apptitle
-            }
-        }
     }
 }
 </script>
@@ -79,7 +63,7 @@ export default {
 <style lang='sass'>
 	.appWrap{
 		width: 100%;
-		/*height: 100%;*/
-		overflow: scroll;
+		height: 100%;
+		/*overflow: scroll;*/
 	}
 </style>

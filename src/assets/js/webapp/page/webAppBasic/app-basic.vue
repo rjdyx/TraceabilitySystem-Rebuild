@@ -24,8 +24,8 @@ export default {
 <style lang="sass">
 	.app-basic{
 		height: 100%;
-		// overflow: scroll;
-		// overflow-y: scroll;
-		// margin: 0 10px 0 10px;
+		// width: 100%;
+		overflow: hidden;
+		padding: 0 5px;
 	}
 </style>

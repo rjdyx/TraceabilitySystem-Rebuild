@@ -8,7 +8,8 @@
 	<div class="app-header">
 		<span class="left-btn" @click="showmenu"></span>
 		<h1>{{settitle}}</h1>
-		<span class="right-btn" @click="goBack"></span>
+		<span v-show="back" class="back" @click="backTo"></span>
+		<span class="right-btn" @click="goBack" v-show="homeShow"></span>
 	</div>
 </template>
 
@@ -16,15 +17,28 @@
 export default {
     name: 'appHeader',
     props: {
-        settitle: String,
-        default: ''
+        settitle: {
+            type: String,
+            default: ''
+        },
+        homeShow: {
+            type: Boolean,
+            default: false
+        },
+        back: {
+            type: Boolean,
+            default: false
+        }
     },
     methods: {
         showmenu () {
             this.$emit('parentClick')
         },
         goBack () {
-            this.$router.go(-1)
+            this.$router.push('/appIndex')
+        },
+        backTo () {
+            history.go(-1)
         }
     }
 }
@@ -37,7 +51,7 @@ export default {
 		width: 100%;
 		background:  #009acb;
 		position: relative;
-		margin-bottom: 5px;
+		/*margin-bottom: 5px;*/
 			h1{
 				width: 100%;
 				font: 21px 微软雅黑;
@@ -46,7 +60,7 @@ export default {
 				padding-top: 10px;
 			}
 			
-			.right-btn,.left-btn{
+			span{
 				display: inline-block;
 				width: 20px;
 				position: absolute;
@@ -54,16 +68,25 @@ export default {
 			.left-btn{
 				background: url(/public/images/slider.png);
 				background-size: 100%;
-				left: 20px;
+				left: 5%;
 				height: 20px;
-				top: 13px;
+				top:28%;
+			}
+			.right-btn,.back{
+				right: 5%;
+				top: 24%;
 			}
 			.right-btn{
-				background: url(/public/images/appback.png);
+				background: url(/public/images/home.png);
 				background-size: 100%;
-				right: 20px;
-				height: 32px;
-				top: 7px;
+				width: 28px;
+				height: 23px;
+			}
+			.back{
+				width: 34px;
+				height: 23px;
+				background: url(/public/images/re-back.png) no-repeat;
+				background-position: 100%;
 			}
 	}
 </style>

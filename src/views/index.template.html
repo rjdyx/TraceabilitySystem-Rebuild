@@ -26,6 +26,7 @@
 <script type="text/javascript">
     window.Laravel = {csrfToken:''};
     window.Roles = {};
+    window.isPC = true;
     var xmlhttp;
     function loadXMLDoc(url) {
         xmlhttp=null;
@@ -57,7 +58,8 @@
         }
       else
         {
-        alert("token获取失败");
+            alert("token获取失败");
+            document.write(404);
         }
       }
     }

@@ -89,10 +89,8 @@ export default {
         back () {
             axios.post('logout', this.data).then((responce) => {
                 if (responce.data === 200) {
-                    // window.Roles = {}
-                    // console.log(window.Roles)
+                    window.Roles = {}
                     this.$router.push('/login')
-                    // history.go(0) // 刷新更新权限数据
                 }
             })
         },

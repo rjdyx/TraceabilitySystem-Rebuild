@@ -48,7 +48,7 @@ export default[{
     },
     {
         role: roleData.basic === undefined ? 0 : roleData.basic.product === undefined ? 0 : 1,
-        path: '/appIndex/message/growProcess',
+        path: '/appIndex/message/courseProcess',
         name: '生长过程',
         detail: '生长过程详情'
     }
@@ -83,8 +83,8 @@ export default[{
     {
         role: roleData.packb === undefined ? 0 : roleData.packb.code === undefined ? 0 : 1,
         path: '/appIndex/message/plantTrace',
-        name: '产品溯源管理',
-        detail: '产品溯源管理详情'
+        name: '种植生产计划管理',
+        detail: '种植生产计划详情'
     }
     ]
 },

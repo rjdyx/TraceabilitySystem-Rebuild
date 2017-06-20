@@ -38,5 +38,8 @@ export default {
 }
 </script>
 <style lang='sass'>
-	
+	.app-content{
+        width: 100%;
+        height: 100%;
+    }
 </style>
