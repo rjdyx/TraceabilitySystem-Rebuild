@@ -242,7 +242,7 @@ var routes = [
                 // 需要登录才能进入此路由
             },
             {
-                path: 'appdetailbasic/:model',
+                path: 'appdetailbasic/:model/:id',
                 component: appdetailbasic
                 // 需要登录才能进入此路由
             }

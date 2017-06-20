@@ -75,7 +75,7 @@
                     
                 </div>
                 <div slot="right-menu">
-                  <swipeout-button class="lookOver" type="primary" @click.native="showDetail" v-if="rightMenu">查看</swipeout-button>
+                  <swipeout-button class="lookOver" type="primary" @click.native="showDetail(pers.id)" v-if="rightMenu">查看</swipeout-button>
                   <swipeout-button class="appedit">编辑</swipeout-button>
                 </div>
             </swipeout-item>
@@ -211,8 +211,8 @@ export default {
         hidesider () {
             this.show = false
         },
-        showDetail () {
-            this.$router.push('/appIndex/appdetailbasic/' + this.batch)
+        showDetail (id) {
+            this.$router.push('/appIndex/appdetailbasic/' + this.batch + '/' + id)
         },
         closeOperate () {
             if (this.ishas === true) {

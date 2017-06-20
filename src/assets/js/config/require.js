@@ -18,7 +18,10 @@ require('../page/phone/plant/js/fontSize.js')
 
 // 路由插件
 import VueRouter from 'vue-router'
+import { ToastPlugin, ConfirmPlugin } from 'vux'
 Vue.use(VueRouter)
+Vue.use(ToastPlugin)
+Vue.use(ConfirmPlugin)
 
 // mint移动端插件
 // import Mint from 'mint-ui'
@@ -47,18 +50,11 @@ default:
     locale.use(zhLocale)
 }
 import * as elementComponent from './element-ui.js'
-import * as vuxComponent from './vux-ui.js'
 /**
 * 饿了么组件按需引用组件有两种方式，其中Vue.use可能会导致属性冲突，故不推荐使用
 */
 Object.keys(elementComponent).forEach(function (component) {
     Vue.component(elementComponent[component].name, elementComponent[component])
-})
-/**
-* 手机端插件引用vux-ui.js
-*/
-Object.keys(vuxComponent).forEach(function (component) {
-    Vue.use(component)
 })
 // vue-i18n初始化
 // import VueI18n from 'vue-i18n'
