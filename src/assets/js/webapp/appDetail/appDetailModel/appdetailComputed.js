@@ -27,6 +27,9 @@ export default {
         },
         batch () {
             return this.models[this.modelIndex].batch
+        },
+        paramsIndex () {
+            return this.models[this.modelIndex].paramsIndex
         }
     }
 }

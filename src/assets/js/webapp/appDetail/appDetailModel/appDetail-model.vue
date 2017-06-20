@@ -42,9 +42,9 @@
             <div class="tableFooter">
                 <input type="checkbox" class="allcheckbox" v-model="checkAll" @click="checkedAll">
                 <el-button type="primary" class="allcheck" @click="checkedAll">全选</el-button>
-                <el-button type="danger" class="appDelete">删除</el-button>
+                <el-button type="danger" class="appDelete" @click="listDelete">删除</el-button>
             </div>
-            <paginator></paginator>
+            <paginator :total="total" @pageEvent="pageChange"></paginator>
         </div>
   </div>
 </div>
@@ -75,7 +75,8 @@ export default {
                     title: '',
                     settitle: '',
                     typeComponent: [],
-                    tabComponent: []
+                    tabComponent: [],
+                    paramsIndex: ''
                 }]
             }
         }
@@ -90,6 +91,8 @@ export default {
             inputValue: '',
             // tab模块选择标志
             modelIndex: 0,
+            // 查询对象
+            dataArr: {},
             // 列表数据
             tableData: [],
             listLoading: false,
@@ -108,10 +111,10 @@ export default {
         },
         // 获取数据
         getAllMsg (data = {}, flag = false) {
-            if (this.paramsIndex !== undefined) {
+            if (this.paramsIndex !== undefined && this.paramsIndex !== '') {
                 var type = this.paramsIndex
             }
-            this.$dataWapGet(this, this.url, {params: data, type: type})
+            this.$dataWapGet(this, this.wapUrl, {params: data, type: type})
                 .then((responce) => {
                     // 数据转换
                     if (responce.status === 200) {
@@ -153,12 +156,65 @@ export default {
         // 获取Api接口数据
         getApiUrl () {
             this.wapUrl = this.$route.params.id + '/' + this.url
+        },
+        // 分页跳转
+        pageChange (val) {
+            if (val === 'first') {
+                this.setToast('text', '第一页')
+            } else if (val === 'last') {
+                this.setToast('text', '最后一页')
+            } else if (val === 'exceed') {
+                this.setToast('text', '页数超过总页数', '12em')
+            } else {
+                this.dataArr['page'] = val
+                this.boxArr(this.dataArr, true)
+            }
+        },
+        // 组合查询
+        boxArr (dataArr, flag) {
+            this.getAllMsg(dataArr, flag)
+        },
+        // 提示弹窗
+        setToast (type, text, width = '7.6em') {
+            this.$vux.toast.show({
+                type: type,
+                text: text,
+                width: width,
+                position: 'middle'
+            })
+        },
+        // 单条删除或多条删除
+        listDelete () {
+            if (this.ischeckdate.length !== undefined && this.ischeckdate.length !== 0) {
+                const _this = this
+                this.$vux.confirm.show({
+                    title: '删除选择信息',
+                    onCancel () {
+                        _this.setToast('text', '取消删除')
+                    },
+                    onConfirm () {
+                        var paramsDel = { 'ids': _this.ischeckdate }
+                        axios.get(_this.$wapUrl(_this.wapUrl + '/deletes'), { params: paramsDel })
+                            .then((responce) => {
+                                if (responce.data === 'true') {
+                                    _this.boxArr(_this.dataArr, false)
+                                    _this.setToast('success', '删除数据成功', '10em')
+                                } else if (responce.data === 'state') {
+                                    _this.setToast('text', '有数据已被使用，无法删除', '18em')
+                                } else {
+                                    _this.setToast('cancel', '删除数据失败', '10em')
+                                }
+                            })
+                    }
+                })
+            } else {
+                this.setToast('cancel', '请选择序号')
+            }
         }
     },
     mounted () {
         this.getApiUrl()
         this.getAllMsg()
-        console.log(this.$route.params.id)
     },
     watch: {
         models () {

@@ -48,7 +48,7 @@ export default[{
     },
     {
         role: roleData.basic === undefined ? 0 : roleData.basic.product === undefined ? 0 : 1,
-        path: '/appIndex/message/growProcess',
+        path: '/appIndex/message/courseProcess',
         name: '生长过程',
         detail: '生长过程详情'
     }
