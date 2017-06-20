@@ -47,21 +47,6 @@ export default {
         }
     },
     mounted () {
-        // if (this.$route.path === '/appIndex') {
-        //     this.settitle = '生之园溯源系统'
-        //     this.homeShow = false
-        //     this.back = false
-        // } else if (this.$route.path.indexOf('appdetailbasic') !== -1) {
-        //     let detit = localStorage.getItem('dename')
-        //     this.settitle = detit
-        //     this.back = true
-        //     this.homeShow = false
-        // } else {
-        //     let apptitle = localStorage.getItem('tit')
-        //     this.settitle = apptitle
-        //     this.homeShow = true
-        //     this.back = false
-        // }
     },
     computed: {
     },
@@ -70,23 +55,6 @@ export default {
         siderBar
     },
     watch: {
-        // $route () {
-        //     if (this.$route.path === '/appIndex') {
-        //         this.settitle = '生之园溯源系统'
-        //         this.homeShow = false
-        //         this.back = false
-        //     } else if (this.$route.path.indexOf('appdetailbasic') !== -1) {
-        //         let detit = localStorage.getItem('dename')
-        //         this.settitle = detit
-        //         this.back = true
-        //         this.homeShow = false
-        //     } else {
-        //         let apptitle = localStorage.getItem('tit')
-        //         this.settitle = apptitle
-        //         this.homeShow = true
-        //         this.back = false
-        //     }
-        // }
     }
 }
 </script>

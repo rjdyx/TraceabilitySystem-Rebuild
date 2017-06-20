@@ -63,6 +63,15 @@ export default {
         protos: ['rfid', 'serial', 'date'],
         widths: [26, 26, 26]
     }],
+    // 种植关联-施肥详情
+    fertilizeBatch: [{
+        settitle: '施肥详情',
+        key: 'cultivate-fertilize',
+        url: 'cultivate-fertilize',
+        theads: ['种植批次号', '种植日期', '种植果蔬'],
+        protos: ['serial', 'date', 'plant_name'],
+        widths: [26, 26, 26]
+    }],
     // 销售管理-销售订单管理详情
     saleBatch: [{
         key: 'plan-beast',

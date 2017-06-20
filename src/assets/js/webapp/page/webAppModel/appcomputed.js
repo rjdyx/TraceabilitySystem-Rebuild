@@ -3,6 +3,9 @@ export default {
         tab () {
             return this.models[this.modelIndex].tab
         },
+        key () {
+            return this.models[this.modelIndex].key
+        },
         url () {
             return this.models[this.modelIndex].url
         },

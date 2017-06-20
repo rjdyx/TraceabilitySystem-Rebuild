@@ -168,7 +168,6 @@ export default {
         新建
          */
         webAppNew () {
-            console.log(this.$route)
             this.$router.push('/webAppNew' + '/' + this.$route.params.model + '/' + this.modelIndex)
         },
         // 获取数据
@@ -306,7 +305,9 @@ export default {
         },
         key () {
             this.tableData = []
-            this.getAllMsg()
+            this.dataArr = {}
+            this.boxArr(this.dataArr, true)
+            this.inputValue = ''
         },
         // 检测全选按钮
         ischeckdate () {
@@ -326,8 +327,6 @@ export default {
                 this.ishas = true
             }
         }
-    },
-    computed: {
     },
     components: {
         appHeader,
