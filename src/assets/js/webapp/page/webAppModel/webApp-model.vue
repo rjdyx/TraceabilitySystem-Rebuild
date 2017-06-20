@@ -12,29 +12,31 @@
         <!-- tab -->
         <div class="apptab" v-if="tabshow">
             <tab>
-                <tab-item v-for="(model,index) in models" @on-item-click="tabClick(index, model)" :selected="index===model.index">{{model.tab}}</tab-item>
+                <tab-item v-for="(model,index) in models" @on-item-click="tabClick(index, model)">{{model.tab}}</tab-item>
             </tab>
         </div>
 
     <div class="appmain">
-        <div class="applist">
+        <div class="applist" :class="{'has':ishas,'hasno':!ishas}">
                 <!-- 操作 -->
         
         <div class="appOperate">
             <div @touchstart="closeOperate" class="closeOperate">
                 <i class="el-icon-arrow-up"></i>
             </div>
-            <el-button type="primary" class="newbuilt" @click="webAppNew">新建</el-button>
-            <div class="searchOp">
-                <el-input 
-                    :placeholder="searchPlaceholder"
-                    v-model="inputValue"
-                    :on-icon-click="search" class="searchInp">
-                </el-input>
-                <el-button class="searchBtn" @click="textAndDateFind">搜索</el-button>
+            <div class="operation">
+                <el-button type="primary" class="newbuilt" @click="webAppNew">新建</el-button>
+                <div class="searchOp">
+                    <el-input 
+                        :placeholder="searchPlaceholder"
+                        v-model="inputValue"
+                        :on-icon-click="search" class="searchInp">
+                    </el-input>
+                    <el-button class="searchBtn" @click="textAndDateFind">搜索</el-button>
+                </div>
             </div>
             <!-- 时间操作 -->
-            <group :title="time">
+            <group :title="time" v-if="timeshow">
                 <datetime v-model="value1" :title="'开始日期'" placeholder="请选择" confirm-text="确认" cancel-text="取消" 
                     clear-text="清空" @on-change="beforeDate" start-date="2000-1-1" :end-date="endDate"></datetime>
                 <datetime v-model="value2" :title="'结束日期'" placeholder="请选择" confirm-text="确认" cancel-text="取消" 
@@ -60,15 +62,20 @@
                         <input type="checkbox" :value="pers.id" v-model="ischeckdate">
                         <span class="order">{{index+1}}</span>
                     </span>
-                    <span 
-                        v-for="(item,index) in protos" 
+                    <span v-for="(item,index) in protos" 
+                          v-if="protos[index]=='img'"
+                          :style="{width: widths[index] + '%'}">
+                        <img :src="$img('images/ok.png')">
+                    </span>
+                    <span v-else="!protos[index]=='img'"
                         :name="theads[index]"  
                         :style="{width: widths[index] + '%'}">
                             {{pers[protos[index]]}}
                     </span>
+                    
                 </div>
-                <div slot="right-menu" v-if="rightMenu">
-                  <swipeout-button class="lookOver" type="primary" @click.native="showDetail">查看</swipeout-button>
+                <div slot="right-menu">
+                  <swipeout-button class="lookOver" type="primary" @click.native="showDetail" v-if="rightMenu">查看</swipeout-button>
                   <swipeout-button class="appedit">编辑</swipeout-button>
                 </div>
             </swipeout-item>
@@ -143,7 +150,8 @@ export default {
             show: false,
             startDate: '',
             endDate: '',
-            active: true
+            active: true,
+            ishas: true
         }
     },
     // 混合
@@ -193,6 +201,7 @@ export default {
         tabClick (subindex, modelName) {
             this.modelIndex = subindex
             // this.$set(modelName, 'selected')
+            console.log(subindex)
             console.log(modelName)
         },
         // 侧边栏的显示与隐藏
@@ -206,7 +215,11 @@ export default {
             this.$router.push('/appIndex/appdetailbasic/' + this.batch)
         },
         closeOperate () {
-            $('.applist').animate({top: '-132px'})
+            if (this.ishas === true) {
+                $('.applist').animate({top: '-125px'})
+            } else {
+                $('.applist').animate({top: '-57px'})
+            }
         },
         // 文本与时间按钮查询
         textAndDateFind () {
@@ -277,6 +290,9 @@ export default {
     },
     mounted () {
         this.getAllMsg()
+        if (this.$route.path.indexOf('plantTrace') !== -1) {
+            this.ishas = false
+        }
     },
     watch: {
         models () {
@@ -299,6 +315,13 @@ export default {
         },
         checkAll (check) {
             this.checkAll = check
+        },
+        $route () {
+            if (this.$route.path.indexOf('plantTrace') !== -1) {
+                this.ishas = false
+            } else {
+                this.ishas = true
+            }
         }
     },
     computed: {
@@ -436,7 +459,7 @@ export default {
         width: 100%;
         background: #eaeaea;
         height: 54px;
-        /*margin-top: 50px;*/
+        margin-top:5px;
         -webkit-overflow-scrolling: touch;
         span{
             display: inline-block;
@@ -463,11 +486,11 @@ export default {
         }
     }
     .choice{
-            width: 20%;
-        }
-    .listContent:nth-child(2n){
-        background: #eaeaea;
+        width: 20%;
     }
+    /*.listContent:nth-child(2n){
+        background: #eaeaea !important;
+    }*/
     .order{
         padding-left: 10px;
     }
@@ -517,7 +540,7 @@ export default {
         width: 100%;
         height: 100%;
         position: absolute;
-        top: -132px;
+        /*top: -132px;*/
         left: 0;
     }
     /*.swipeout{
@@ -569,6 +592,28 @@ export default {
     }
     .unavtive{
         background: green !important;
+    }
+    .img{
+        display: inline-block;
+        background: red;
+    }
+    .has{
+        top:-125px;
+    }
+    .hasno{
+        top: -57px;
+    }
+    .operation{
+        margin-bottom: 10px;
+    }
+    .weui-cell:before{
+        border-top: 1px solid transparent !important;
+    }
+    .weui-cell{
+        padding: 6px 15px;
+    }
+    .weui-cells:after{
+        border-bottom: none;
     }
 }  
 </style>

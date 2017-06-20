@@ -15,7 +15,6 @@ import validate2 from '../../../utils/validate2.js'
 export default {
     // 1、养殖管理-饲料使用
     feedUse: [{
-        settitle: '饲料使用',
         key: 'fodderuse',
         timeshow: true,
         rightMenu: true,
@@ -29,15 +28,6 @@ export default {
         protos: ['fodder_name', 'date', 'operate_name'],
         widths: [26, 26, 26],
         selectSearch: ['type'],
-        typeComponent: [{
-            component: importBtn
-        },
-        {
-            component: output
-        },
-        {
-            component: newbuildBtn
-        }],
         newComponent: [{
             tab: '新建饲料使用信息',
             selectUrl2: [['fodders', 'id', 'name', true], ['additions', 'id', 'name', true], ['operates', 'id', 'name', true]],
@@ -429,14 +419,8 @@ export default {
         url: 'detection',
         searchPlaceholder: '请输入检疫项目名称进行搜索',
         theads: ['检疫项目名称', '操作日期', '操作人'],
-        protos: ['category_name', 'domain', 'name'],
+        protos: ['name', 'date', 'operate_name'],
         widths: [26, 26, 26],
-        typeComponent: [{
-            component: output
-        },
-        {
-            component: newbuildBtn
-        }],
         newComponent: [{
             tab: '新建检疫信息',
             selectUrl2: [['experts', 'id', 'name', true], ['operates', 'id', 'name', true]],
@@ -666,16 +650,16 @@ export default {
         settitle: '检验检测',
         timeshow: true,
         rightMenu: true,
-        key: 'client',
+        key: 'detect_pk',
         roleName: ['basic/client', 0],
-        url: 'client',
+        url: 'detect_pk',
         batch: 'detectBatch',
         selectSearch: ['clients.category_id'],
         selectValueId: [['category_id', 'category_name', true]],
         searchPlaceholder: '请输入客户名称进行搜索',
         selectDefault: [{value: '', label: '选择客户类型'}],
         theads: ['检测项目名称', '操作日期', '操作人'],
-        protos: ['category_name', 'name', 'phone'],
+        protos: ['content', 'date', 'operate_name'],
         widths: [26, 26, 26],
         newComponent: [{
             tab: '新建检验检测信息',
@@ -876,18 +860,18 @@ export default {
     // 养殖管理-圈舍维护
     penPreserve: [{
         settitle: '圈舍维护',
-        key: 'supplier',
+        key: 'clean',
         roleName: ['basic/supplier', 0],
         timeshow: true,
         rightMenu: true,
-        url: 'supplier',
+        url: 'clean',
         batch: 'penBatch',
         selectSearch: ['suppliers.category_id'],
         selectValueId: [['category_id', 'category_name', true]],
         searchPlaceholder: '请输入标题搜索',
         selectDefault: [{value: '', label: '选择供货商类型'}],
         theads: ['标题', '操作日期', '操作人'],
-        protos: ['category_name', 'name', 'phone'],
+        protos: ['name', 'date', 'operate_name'],
         widths: [26, 26, 26],
         newComponent: [{
             tab: '新建圈舍维护信息',
@@ -1050,9 +1034,10 @@ export default {
     }],
     // 养殖管理-出栏
     export: [{
-        key: 'product',
+        key: 'come',
+        timeshow: true,
         roleName: ['basic/product', 0],
-        url: 'product',
+        url: 'come',
         rightMenu: true,
         batch: 'exportBatch',
         selectValueId: [['category_id', 'category_name', true]],
@@ -1061,7 +1046,7 @@ export default {
         selectSearch: ['products.category_id'],
         changeDataArr: [{domain: {packp: '果蔬加工管理', packb: '畜禽加工管理', sell: '销售管理', all: '公共模块'}}],
         theads: ['出栏日期', '出栏数量', '出栏人'],
-        protos: ['category_name', 'domain', 'name', 'enforce_standard', 'marque', 'description', 'specification', 'expiration_date', 'edible_method', 'storage_means', 'burdening_info', 'img', 'memo'],
+        protos: ['date', 'amount', 'operate_name'],
         widths: [26, 26, 26],
         newComponent: [{
             tab: '新建产品信息',
@@ -1331,14 +1316,14 @@ export default {
     // 养殖管理-生长过程
     growProcess: [
         {
-            key: 'farm',
+            key: 'course',
             roleName: ['beast/basic', 0],
             timeshow: true,
-            url: 'farm',
+            url: 'course',
             rightMenu: false,
             search: ['query_text', 'name'],
             theads: ['标题', '日期', '图片'],
-            protos: ['name', 'area_unit', 'principal'],
+            protos: ['name', 'date', 'img'],
             selectSearch: ['farm.name'],
             widths: [26, 26, 26],
             newComponent: [{
@@ -1445,11 +1430,11 @@ export default {
     ],
     // 2、屠宰加工管理-加工批次检测
     processSerial: [{
-        key: 'breed',
+        key: 'detect_pk',
         roleName: ['beast/breed', 0],
         timeshow: true,
         rightMenu: false,
-        url: 'breed',
+        url: 'detect_pk',
         // 链接批次信息模块数据的桥（养殖批次详情）
         searchPlaceholder: '请输入检测名称进行搜索',
         selectValueId: [['beast_id', 'beast_name', true]],
@@ -1659,9 +1644,9 @@ export default {
     serialManage: [{
         timeshow: true,
         rightMenu: false,
-        key: 'fodderuse',
-        roleName: ['beast/fodderuse', 0],
-        url: 'fodderuse',
+        key: 'code',
+        roleName: ['packb/code', 0],
+        url: 'code',
         // 链接批次信息模块数据的桥（养殖批次详情）
         batch: 'manageBatch',
         searchPlaceholder: '请输入标题进行搜索',
@@ -1669,7 +1654,7 @@ export default {
         selectDefault: [{value: '', label: '饲料选择'}],
         selectSearch: ['fodderuse.fodder_id'],
         theads: ['产品溯源码', '产品名称', '生产日期'],
-        protos: ['serial', 'date', 'fodder_name'],
+        protos: ['code', 'product_name', 'date'],
         widths: [26, 26, 26],
         newComponent: [{
             tab: '新建溯源码信息',
@@ -1874,6 +1859,7 @@ export default {
     // 种植管理-种植事物管理
     plantThing: [
         {
+            timeshow: true,
             rightMenu: false,
             tabshow: true,
             key: 'plantation',
@@ -2044,6 +2030,7 @@ export default {
             }]
         },
         {
+            timeshow: true,
             tabshow: true,
             rightMenu: false,
             roleName: ['plant/basic', 0],
@@ -2229,6 +2216,7 @@ export default {
             }]
         },
         {
+            timeshow: true,
             rightMenu: false,
             tabshow: true,
             key: 'plant',
@@ -2367,6 +2355,7 @@ export default {
             }]
         },
         {
+            timeshow: true,
             rightMenu: false,
             tabshow: true,
             key: 'manure',
@@ -2551,6 +2540,7 @@ export default {
             }]
         },
         {
+            timeshow: true,
             rightMenu: false,
             tabshow: true,
             settitle: '种植基础资料',
@@ -2773,6 +2763,7 @@ export default {
             }]
         },
         {
+            timeshow: true,
             rightMenu: false,
             tabshow: true,
             key: 'medicament',
@@ -2996,17 +2987,18 @@ export default {
     ],
     // 种植管理-种植生产计划管理
     plantTrace: [{
+        timeshow: false,
         rightMenu: false,
-        key: 'detect',
+        key: 'plan',
         roleName: ['beast/detect', 0],
-        url: 'detect',
+        url: 'plan',
         paramsIndex: 'beast',
         // 链接批次信息模块数据的桥（养殖批次详情）
         searchPlaceholder: '请输入批次号进行搜索',
         selectSearch: ['detects.weather'],
         changeDataArr: [{result: {0: '不合格', 1: '合格'}}],
-        theads: ['检测批次号', '检测日期', '检测项目名称'],
-        protos: ['serial', 'date', 'name'],
+        theads: ['计划内容', '计划批次', '计划时间'],
+        protos: ['serial', 'serial', 'date'],
         widths: [26, 26, 26],
         newComponent: [{
             tab: '新建溯源码信息',
@@ -3176,6 +3168,7 @@ export default {
     // 果蔬加工管理-加工检测管理
     processManage: [{
         settitle: '加工检测管理',
+        timeshow: true,
         rightMenu: false,
         key: 'clean',
         roleName: ['beast/clean', 0],
