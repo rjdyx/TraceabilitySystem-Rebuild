@@ -95,9 +95,7 @@ export default {
             listLoading: false,
             ischeckdate: [],
             show: false,
-            gneder_list: [
-                ['男', '女']
-            ]
+            wapUrl: ''
         }
     },
     // 混合
@@ -113,27 +111,17 @@ export default {
             if (this.paramsIndex !== undefined) {
                 var type = this.paramsIndex
             }
-            if (flag) {
-                this.listLoading = true
-            }
-            this.$dataGet(this, this.url, {params: data, type: type})
+            this.$dataWapGet(this, this.url, {params: data, type: type})
                 .then((responce) => {
                     // 数据转换
                     if (responce.status === 200) {
                         if (responce.data.data.length !== 0) {
-                            var ret = this.$conversion(this.changeDataArr, responce.data.data, 1)
-                            ret = this.$eltable(ret)
-                            this.$set(this, 'tableData', ret)
-                            this.total_num = responce.data.total
-                            this.num = responce.data.last_page
-                            // this.paginator = responce.data
+                            this.$set(this, 'tableData', responce.data.data)
+                            this.total = responce.data.last_page
                         } else {
                             this.$set(this, 'tableData', responce.data.data)
-                            this.total_num = 0
-                            this.num = 0
-                            // this.paginator = 0
+                            this.total = 1
                         }
-                        this.listLoading = false
                     }
                 })
         },
@@ -162,11 +150,15 @@ export default {
         hidesider () {
             this.show = false
         },
-        showDetail () {
+        // 获取Api接口数据
+        getApiUrl () {
+            this.wapUrl = this.$route.params.id + '/' + this.url
         }
     },
     mounted () {
+        this.getApiUrl()
         this.getAllMsg()
+        console.log(this.$route.params.id)
     },
     watch: {
         models () {

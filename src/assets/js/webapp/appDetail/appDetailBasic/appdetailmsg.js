@@ -15,14 +15,13 @@ import validate2 from '../../../utils/validate2.js'
 export default {
     // 养殖管理-饲料使用详情
     breedBatch: [{
-        key: 'feedBatch',
+        key: 'breed-fodderuse',
         roleName: ['basic/category', 0], // 接口权限参数 参数1为权限name 参数2为是否区分运营者 （默认0）
-        url: 'category',
+        url: 'breed-fodderuse',
         theads: ['养殖批次', '养殖日期', '养殖人'],
-        protos: ['name', 'type', 'name'],
+        protos: ['serial', 'type', 'name'],
         widths: [26, 26, 26],
-        selectSearch: ['type'],
-        changeDataArr: [{type: { 'operate': '操作人员', 'expert': '专家', 'product': '产品', 'supplier': '供货商', 'client': '客户', 'fodder': '饲料', 'addition': '饲料添加剂', 'drug': '兽药', 'beast': '畜禽', 'plant': '果蔬', 'manure': '肥料', 'medicament': '农药' }}]
+        selectSearch: ['type']
     }],
     // 养殖管理-病疫详情
     plagueBactch: [{
