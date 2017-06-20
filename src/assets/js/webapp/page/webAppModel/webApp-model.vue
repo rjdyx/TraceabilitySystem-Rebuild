@@ -202,9 +202,6 @@ export default {
         },
         tabClick (subindex, modelName) {
             this.modelIndex = subindex
-            // this.$set(modelName, 'selected')
-            console.log(subindex)
-            console.log(modelName)
         },
         // 侧边栏的显示与隐藏
         showsider () {
@@ -241,11 +238,15 @@ export default {
         },
         // 分页跳转
         pageChange (val) {
-            if (val !== 'error') {
+            if (val === 'first') {
+                this.setToast('text', '第一页')
+            } else if (val === 'last') {
+                this.setToast('text', '最后一页')
+            } else if (val === 'exceed') {
+                this.setToast('text', '页数超过总页数', '12em')
+            } else {
                 this.dataArr['page'] = val
                 this.boxArr(this.dataArr, true)
-            } else {
-                this.setToast('text', '页数超过总页数', '12em')
             }
         },
         // 组合查询

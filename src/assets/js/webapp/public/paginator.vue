@@ -82,7 +82,7 @@ export default {
             this.showInput = true
             if (this.inputIndex > this.total) {
                 this.inputIndex = ''
-                this.$emit('pageEvent', 'error')
+                this.$emit('pageEvent', 'exceed')
                 return
             }
             this.index = this.inputIndex
@@ -92,6 +92,7 @@ export default {
         // 上一页
         lastPage (index) {
             if (!this.leftBtn) {
+                this.$emit('pageEvent', 'first')
                 return
             }
             this.index = index
@@ -100,6 +101,7 @@ export default {
         // 下一页
         nextPage (index) {
             if (!this.rightBtn) {
+                this.$emit('pageEvent', 'last')
                 return
             }
             this.index = index
