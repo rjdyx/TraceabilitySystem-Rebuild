@@ -6,45 +6,35 @@
 <template>
 	<div id="p_textSelect">
 		<x-number :value="10" title="单位" fillable></x-number>
-      <popup-picker :title="title1" :data="list1" v-model="value1" ></popup-picker>
-    55
+		<popup-picker 
+		 	title="haha"
+            :data="list1" 
+            v-model="value"
+            >
+        </popup-picker>
 	</div>
 </template>
 <style lang="sass">
 	
 </style>
 <script>
-import { XNumber, PopupPicker, Group, Cell, Picker, XButton, Divider, XSwitch } from 'vux'
+import { Group, Actionsheet, XNumber, XSwitch, TransferDom, PopupPicker } from 'vux'
 export default{
     name: 'p_textSelect',
     date () {
         return {
-            title1: '手机机型',
-            title2: '详细机型',
-            title3: '联动显示值',
-            title4: '联动显示文字',
+            tit: '单位',
             list1: [['小米', 'iPhone', '华为', '情怀', '三星', '其他', '不告诉你']],
-            list2: [['小米', 'iPhone', '华为', '情怀', '三星', '其他', '不告诉你'], ['小米1', 'iPhone2', '华为3', '情怀4', '三星5', '其他6', '不告诉你7']],
-            value1: ['iPhone'],
-            value1_1: ['iPhone'],
-            value2: ['iPhone', '华为3'],
-            value3: [],
-            value4: [],
-            showPopupPicker: false,
-            value5: ['2'],
-            switch6: false,
-            value6: []
+            value: ['iPhone']
         }
     },
     components: {
         XNumber,
+        XSwitch,
+        TransferDom,
         PopupPicker,
         Group,
-        Cell,
-        Picker,
-        XButton,
-        Divider,
-        XSwitch
+        Actionsheet
     },
     methods: {
     }
