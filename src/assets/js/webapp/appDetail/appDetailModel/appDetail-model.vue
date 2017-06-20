@@ -75,7 +75,8 @@ export default {
                     title: '',
                     settitle: '',
                     typeComponent: [],
-                    tabComponent: []
+                    tabComponent: [],
+                    paramsIndex: ''
                 }]
             }
         }
@@ -108,10 +109,10 @@ export default {
         },
         // 获取数据
         getAllMsg (data = {}, flag = false) {
-            if (this.paramsIndex !== undefined) {
+            if (this.paramsIndex !== undefined && this.paramsIndex !== '') {
                 var type = this.paramsIndex
             }
-            this.$dataWapGet(this, this.url, {params: data, type: type})
+            this.$dataWapGet(this, this.wapUrl, {params: data, type: type})
                 .then((responce) => {
                     // 数据转换
                     if (responce.status === 200) {
@@ -158,7 +159,6 @@ export default {
     mounted () {
         this.getApiUrl()
         this.getAllMsg()
-        console.log(this.$route.params.id)
     },
     watch: {
         models () {

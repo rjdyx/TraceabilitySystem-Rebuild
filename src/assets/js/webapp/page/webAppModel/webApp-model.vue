@@ -67,7 +67,7 @@
                             {{pers[protos[index]]}}
                     </span>
                 </div>
-                <div slot="right-menu" v-if="rightMenu">
+                <div slot="right-menu">
                   <swipeout-button class="lookOver" type="primary" @click.native="showDetail(pers.id)">查看</swipeout-button>
                   <swipeout-button class="appedit">编辑</swipeout-button>
                 </div>
@@ -120,7 +120,8 @@ export default {
                     tabshow: '',
                     timeshow: '',
                     batch: '',
-                    rightMenu: ''
+                    rightMenu: '',
+                    paramsIndex: ''
                 }]
             }
         }

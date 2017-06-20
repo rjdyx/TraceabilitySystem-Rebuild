@@ -38,7 +38,7 @@ export default {
             this.$router.push('/appIndex')
         },
         backTo () {
-            this.$router.go(-1)
+            history.go(-1)
         }
     }
 }

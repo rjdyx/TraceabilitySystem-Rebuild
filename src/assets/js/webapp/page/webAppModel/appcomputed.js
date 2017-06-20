@@ -33,6 +33,9 @@ export default {
         },
         rightMenu () {
             return this.models[this.modelIndex].rightMenu
+        },
+        paramsIndex () {
+            return this.models[this.modelIndex].paramsIndex
         }
     }
 }

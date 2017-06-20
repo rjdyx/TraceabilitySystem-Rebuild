@@ -16,75 +16,51 @@ export default {
     // 养殖管理-饲料使用详情
     breedBatch: [{
         key: 'breed-fodderuse',
-        roleName: ['basic/category', 0], // 接口权限参数 参数1为权限name 参数2为是否区分运营者 （默认0）
         url: 'breed-fodderuse',
-        theads: ['养殖批次', '养殖日期', '养殖人'],
-        protos: ['serial', 'type', 'name'],
-        widths: [26, 26, 26],
-        selectSearch: ['type']
+        theads: ['养殖批次', '养殖日期', '畜禽名称'],
+        protos: ['serial', 'date', 'beast_name'],
+        widths: [26, 26, 26]
     }],
     // 养殖管理-病疫详情
-    plagueBactch: [{
-        key: 'operate',
-        roleName: ['basic/operate', 0],
-        url: 'operate',
-        selectSearch: ['operates.category_id'],
-        selectValueId: [['category_id', 'category_name', true]],
-        selectDefault: [{value: '', label: '选择操作人类型'}],
-        changeDataArr: [{sex: {0: '男', 1: '女'}}, {domain: {plant: '种植管理', beast: '养殖管理', packp: '果蔬加工管理', packb: '畜禽加工管理', sell: '销售管理', delivery: '物流管理', all: '公共模块'}}],
-        theads: ['RFID', '养殖批次', '养殖圈舍'],
-        protos: ['category_name', 'domain', 'name'],
+    diseaseBactch: [{
+        key: 'disease-rfid',
+        url: 'disease-rfid',
+        theads: ['RFID', '养殖批次', '养殖日期'],
+        protos: ['rfid', 'serial', 'date'],
         widths: [26, 26, 26]
     }],
     // 养殖管理-检疫详情
-    quarantineBatch: [{
-        key: 'expert',
-        roleName: ['basic/expert', 0],
-        url: 'expert',
-        selectSearch: ['experts.category_id'],
-        selectValueId: [['category_id', 'category_name', true]],
-        changeDataArr: [{sex: {0: '男', 1: '女'}}, {domain: {plant: '种植管理', beast: '养殖管理', all: '公共模块'}}],
-        selectDefault: [{value: '', label: '选择专家类型'}],
-        theads: ['RFID', '养殖批次', '养殖圈舍'],
-        protos: ['category_name', 'domain', 'name'],
+    detectionBatch: [{
+        key: 'detection-rfid',
+        url: 'detection-rfid',
+        theads: ['RFID', '养殖批次', '养殖日期'],
+        protos: ['rfid', 'serial', 'date'],
         widths: [26, 26, 26]
     }],
     // 养殖管理-检验检测详情
-    detectBatch: [{
-        key: 'client',
-        roleName: ['basic/client', 0],
-        url: 'client',
-        selectSearch: ['clients.category_id'],
-        selectValueId: [['category_id', 'category_name', true]],
-        selectDefault: [{value: '', label: '选择客户类型'}],
-        theads: ['养殖批次', '养殖日期', '养殖人'],
-        protos: ['category_name', 'name', 'phone'],
+    breedDetectBatch: [{
+        key: 'detect-detail',
+        paramsIndex: 'beast',
+        url: 'detect-detail',
+        theads: ['养殖批次', '养殖日期', '畜禽名称'],
+        protos: ['serial', 'date', 'beast_name'],
         widths: [26, 26, 26]
     }],
     // 养殖管理-圈舍维护详情
     penBatch: [{
         settitle: '圈舍维护',
-        key: 'supplier',
-        roleName: ['basic/supplier', 0],
-        url: 'supplier',
-        selectSearch: ['suppliers.category_id'],
-        selectValueId: [['category_id', 'category_name', true]],
-        selectDefault: [{value: '', label: '选择供货商类型'}],
-        theads: ['养殖批次', '养殖圈舍', '养殖人'],
-        protos: ['category_name', 'name', 'phone'],
+        key: 'clean-area',
+        url: 'clean-area',
+        theads: ['所属养殖区', '圈舍', '圈舍面积'],
+        protos: ['farm_name', 'name', 'area'],
         widths: [26, 26, 26]
     }],
     // 养殖管理-出栏详情
     exportBatch: [{
-        key: 'product',
-        roleName: ['basic/product', 0],
-        url: 'product',
-        selectValueId: [['category_id', 'category_name', true]],
-        selectDefault: [{value: '', label: '选择产品类型'}],
-        selectSearch: ['products.category_id'],
-        changeDataArr: [{domain: {packp: '果蔬加工管理', packb: '畜禽加工管理', sell: '销售管理', all: '公共模块'}}],
-        theads: ['RFID', '养殖批次', '养殖圈舍'],
-        protos: ['category_name', 'domain', 'name', 'enforce_standard', 'marque', 'description', 'specification', 'expiration_date', 'edible_method', 'storage_means', 'burdening_info', 'img', 'memo'],
+        key: 'come-rfid',
+        url: 'come-rfid',
+        theads: ['RFID', '养殖批次', '养殖日期'],
+        protos: ['rfid', 'serial', 'date'],
         widths: [26, 26, 26]
     }],
     // 销售管理-销售订单管理详情
