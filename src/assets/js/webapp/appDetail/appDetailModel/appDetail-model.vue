@@ -76,7 +76,8 @@ export default {
                     settitle: '',
                     typeComponent: [],
                     tabComponent: [],
-                    paramsIndex: ''
+                    paramsIndex: '',
+                    delType: ''
                 }]
             }
         }
@@ -193,7 +194,10 @@ export default {
                         _this.setToast('text', '取消删除')
                     },
                     onConfirm () {
-                        var paramsDel = { 'ids': _this.ischeckdate }
+                        if (this.delType !== undefined && this.delType !== '') {
+                            var type = this.delType
+                        }
+                        var paramsDel = { 'ids': _this.ischeckdate, type: type }
                         axios.get(_this.$wapUrl(_this.wapUrl + '/deletes'), { params: paramsDel })
                             .then((responce) => {
                                 if (responce.data === 'true') {
