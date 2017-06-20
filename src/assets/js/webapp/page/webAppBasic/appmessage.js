@@ -11,6 +11,7 @@ import inputTextSelect from '../../../components/public/inputTextSelect.vue'
 import Qrcode from '../../../components/public/Qrcode.vue'
 
 import validate2 from '../../../utils/validate2.js'
+import appValidate from '../../../utils/appValidate.js'
 
 export default {
     // 养殖管理-饲料使用
@@ -92,71 +93,82 @@ export default {
             popNumber2: [0, 1, 2],
             selectWhereArr2: [[], [], [{n: 'domain', v: 'beast'}, {n: 'domain', v: 'all', s: true}]],
             components: [{
+           // 批次号格式
+            //     name: 'pch',
+            //     type: 'pcSelect',
+            //     label: '批次号',
+            //     placeholder: '请选择批次（必选）',
+            //     // rule: {required: true, trigger: 'blur', type: 'number', message: '请选择饲料'},
+            //     rule: {required: true}, // 这里如果需要验证类型写方法名，否则写null
+            //     options: [
+            //         {key: '15', value: '15PC158646464648746'},
+            //         {key: '2', value: '002PC158646464648746'},
+            //         {key: '3', value: '003PC158646464648746'},
+            //         {key: '14', value: '14PC158646464648746'},
+            //         {key: '5', value: '5PC158646464648746'},
+            //         {key: '16', value: '16PC158646464648746e'},
+            //         {key: '7', value: '7PC158646464648746'},
+            //         {key: '8', value: '8PC158646464648746'},
+            //         {key: '9', value: '9PC158646464648746'}
+            //     ]
+            // },
+            // {
                 name: 'fodder_id',
                 type: 'select',
-                component: null,
-                isNull: false,
                 label: '饲料名称',
-                placeholder: '',
-                rule: {required: true, trigger: 'blur', type: 'number', message: '请选择饲料'},
-                options: []
+                placeholder: '（必选）',
+                // rule: {required: true, trigger: 'blur', type: 'number', message: '请选择饲料'},
+                rule: {required: true}, // 这里如果需要验证类型写方法名，否则写null
+                options: [['饲料a', '饲料b', '饲料c']]
             },
             {
                 name: 'addition_id',
                 type: 'select',
-                component: null,
-                isNull: true,
                 label: '饲料添加剂',
-                placeholder: '',
-                rule: {required: true, trigger: 'blur', type: 'number', message: '请选择饲料添加剂'},
-                options: []
+                placeholder: '（必选）',
+                // rule: {required: true, trigger: 'blur', type: 'number', message: '请选择饲料添加剂'},
+                rule: {required: true},
+                options: [['a', 'b', 'c']]
             },
             {
                 name: 'operate_id',
                 type: 'select',
-                component: null,
-                isNull: false,
                 label: '饲养员',
-                placeholder: '请选择饲养员',
-                rule: {required: true, trigger: 'blur', type: 'number', message: '请选择饲养员'},
-                options: []
+                placeholder: '请选择饲养员（必选）',
+                // rule: {required: true, trigger: 'blur', type: 'number', message: '请选择饲养员'},
+                rule: {required: true},
+                options: [['a', 'b', 'c']]
             },
             {
                 name: 'date',
                 type: 'date',
-                component: inputDate,
-                isNull: false,
                 label: '饲养日期',
-                placeholder: '',
-                rule: [{required: true, trigger: 'blur', message: '请输入饲养日期'}, {validator: validate2.reDate, message: '请输入饲养日期'}]
+                placeholder: '（可选）',
+                // rule: [{required: true, trigger: 'blur', message: '请输入饲养日期'}, {validator: validate2.reDate, message: '请输入饲养日期'}]
+                rule: {required: true}
             },
             {
                 name: 'amount',
                 type: 'textSelect',
-                component: inputTextSelect,
-                isNull: true,
                 label: '平均喂养量',
-                placeholder: '请输入整数',
-                rule: [{required: true, trigger: 'blur', message: '请输入饲养量'}, {validator: validate2.reNumber}],
+                placeholder: '请输入整数（必填）',
+                // rule: [{required: true, trigger: 'blur', message: '请输入饲养量'}, {validator: validate2.reNumber}],
+                rule: {required: true, type: 'reNumber', message: '请输入整数'},
                 options: [['kg/只', 'kg/头', 'kg/条']]
             },
             {
                 name: 'way',
                 type: 'text',
-                component: null,
-                isNull: true,
                 label: '喂养方式',
-                placeholder: '',
-                rule: null
+                placeholder: '(可填)',
+                rule: {required: false}
             },
             {
-                name: 'name',
+                name: 'memo',
                 type: 'textarea',
-                component: null,
-                isNull: true,
                 label: '备注信息',
-                placeholder: '',
-                rule: null
+                placeholder: '（可填）',
+                rule: {required: false}
             }]
         }],
         editComponent: [{
@@ -168,80 +180,71 @@ export default {
             components: [{
                 name: 'serial',
                 type: 'text',
-                component: null,
-                isNull: false,
                 label: '饲料批次号',
-                placeholder: '',
+                placeholder: '(必填)',
                 disabled: true,
-                rule: {required: false, trigger: 'blur'},
-                options: []
+                // rule: {required: false, trigger: 'blur'},
+                rule: {required: false}
             },
             {
                 name: 'fodder_id',
                 type: 'select',
-                component: null,
-                isNull: false,
                 label: '饲料名称',
-                placeholder: '',
-                rule: {required: true, trigger: 'blur', type: 'number', message: '请选择饲料'},
-                options: []
+                placeholder: '必选',
+                // rule: {required: true, trigger: 'blur', type: 'number', message: '请选择饲料'},
+                rule: {required: true},
+                options: [['a', 'b', 'c']]
             },
             {
                 name: 'addition_id',
                 type: 'select',
-                component: null,
-                isNull: true,
                 label: '饲料添加剂',
-                placeholder: '',
-                rule: {required: true, trigger: 'blur', type: 'number', message: '请选择饲料添加剂'},
-                options: []
+                placeholder: '必选',
+                // rule: {required: true, trigger: 'blur', type: 'number', message: '请选择饲料添加剂'},
+                rule: {required: true},
+                options: [['a', 'b', 'c']]
             },
             {
                 name: 'operate_id',
                 type: 'select',
-                component: null,
-                isNull: false,
                 label: '饲养员',
-                placeholder: '请选择饲养员',
-                rule: {required: true, trigger: 'blur', type: 'number', message: '请选择饲养员'},
-                options: []
+                placeholder: '请选择饲养员（必选）',
+                // rule: {required: true, trigger: 'blur', type: 'number', message: '请选择饲养员'},
+                rule: {required: true},
+                options: [['a', 'b', 'c']]
             },
             {
                 name: 'date',
                 type: 'date',
-                component: inputDate,
-                isNull: false,
                 label: '使用日期',
-                placeholder: '',
-                rule: [{required: true, trigger: 'blur', message: '请输入饲养日期'}, {validator: validate2.reDate, message: '请输入饲养日期'}]
+                placeholder: '（必选）',
+                // rule: [{required: true, trigger: 'blur', message: '请输入饲养日期'}, {validator: validate2.reDate, message: '请输入饲养日期'}]
+                rule: {required: true}
             },
             {
                 name: 'amount',
                 type: 'textSelect',
-                component: inputTextSelect,
-                isNull: true,
                 label: '平均喂养量',
-                placeholder: '',
-                rule: [{required: true, message: '请输入饲养量'}, {validator: validate2.reNumber}],
+                placeholder: '（必填）',
+                // rule: [{required: true, message: '请输入饲养量'}, {validator: validate2.reNumber}],
+                rule: {required: true, type: 'reNumber'},
                 options: [['kg/只', 'kg/头', 'kg/条']]
             },
             {
                 name: 'way',
                 type: 'text',
                 component: null,
-                isNull: true,
                 label: '喂养方式',
-                placeholder: '',
-                rule: null
+                placeholder: '（可填）',
+                rule: {required: false}
             },
             {
                 name: 'memo',
                 type: 'textarea',
-                component: null,
-                isNull: true,
+                required: true,
                 label: '备注信息',
-                placeholder: '',
-                rule: null
+                placeholder: '（可填）',
+                rule: {required: false}
             }]
         }]
     }],
@@ -287,87 +290,75 @@ export default {
                 components: [{
                     name: 'drug_id',
                     type: 'select',
-                    component: null,
-                    isNull: false,
                     label: '兽药名称',
-                    placeholder: '',
-                    rule: {required: true, trigger: 'blur', type: 'number', message: '请选择兽药'},
-                    options: []
+                    placeholder: '（必选）',
+                    // rule: {required: true, trigger: 'blur', type: 'number', message: '请选择兽药'},
+                    rule: {required: true},
+                    options: [['a', 'b', 'c']]
                 },
                 {
                     name: 'date',
                     type: 'date',
                     component: inputDate,
-                    isNull: false,
                     label: '用药日期',
-                    placeholder: '',
-                    rule: [{required: true, message: '请输入用药日期'}, {validator: validate2.reDate, message: '请输入用药日期'}]
+                    placeholder: '（必选）',
+                    // rule: [{required: true, message: '请输入用药日期'}, {validator: validate2.reDate, message: '请输入用药日期'}]
+                    rule: {required: true}
                 },
                 {
                     name: 'description',
                     type: 'text',
-                    component: null,
-                    isNull: true,
                     label: '病情描述',
-                    placeholder: '',
-                    rule: null
+                    placeholder: '(可写)',
+                    rule: {required: false}
                 },
                 {
                     name: 'operate_id',
                     type: 'select',
-                    component: null,
-                    isNull: false,
                     label: '施药人员',
-                    placeholder: '',
-                    rule: {required: true, trigger: 'blur', type: 'number', message: '请选择施药人员'},
-                    options: []
+                    placeholder: '（必选）',
+                    // rule: {required: true, trigger: 'blur', type: 'number', message: '请选择施药人员'},
+                    rule: {required: true},
+                    options: [['a', 'b', 'c']]
                 },
                 {
                     name: 'expert_id',
                     type: 'select',
-                    component: null,
-                    isNull: true,
                     label: '专家',
-                    placeholder: '',
-                    rule: null,
-                    options: []
+                    placeholder: '（可选）',
+                    rule: {required: false},
+                    options: [['a', 'b', 'c']]
                 },
                 {
                     name: 'amount',
                     type: 'textSelect',
-                    component: inputTextSelect,
-                    isNull: false,
                     label: '平均施药量',
                     placeholder: '请输入正确的数字（必填）',
-                    rule: [{required: true, message: '请输入平均施药量'}, {validator: validate2.reNumber}],
+                    // rule: [{required: true, message: '请输入平均施药量'}, {validator: validate2.reNumber}],
+                    rule: {required: true, type: 'reNumber'},
                     options: [['kg/只', 'kg/头', 'kg/条']]
                 },
                 {
                     name: 'way',
                     type: 'text',
-                    component: null,
-                    isNull: true,
                     label: '治疗方式',
-                    placeholder: '',
-                    rule: null
+                    placeholder: '（可写）',
+                    rule: {required: false}
                 },
                 {
                     name: 'img',
                     type: 'file',
                     component: inputFile,
-                    isNull: true,
                     label: '病疫图片',
                     placeholder: '',
-                    rule: null
+                    rule: {required: true}
                 },
                 {
                     name: 'memo',
                     type: 'textarea',
-                    component: null,
-                    isNull: true,
                     label: '备注信息',
-                    placeholder: '',
-                    rule: null
+                    placeholder: '（可写）',
+                    rule: {required: false}
                 }
                 ]
             }
@@ -383,97 +374,84 @@ export default {
                 components: [{
                     name: 'serial',
                     type: 'text',
-                    component: null,
-                    isNull: true,
                     label: '病疫批次号',
                     placeholder: '',
                     disabled: true,
-                    rule: null
+                    rule: {required: false}
                 },
                 {
                     name: 'drug_id',
                     type: 'select',
-                    component: null,
-                    isNull: false,
                     label: '兽药名称',
                     placeholder: '',
-                    rule: {required: true, trigger: 'blur', type: 'number', message: '请选择兽药'},
+                    // rule: {required: true, trigger: 'blur', type: 'number', message: '请选择兽药'},
+                    rule: {required: true},
                     options: []
                 },
                 {
                     name: 'date',
                     type: 'date',
                     component: inputDate,
-                    isNull: false,
                     label: '用药日期',
                     placeholder: '',
-                    rule: [{required: true, message: '请输入用药日期'}, {validator: validate2.reDate, message: '请输入用药日期'}]
+                    // rule: [{required: true, message: '请输入用药日期'}, {validator: validate2.reDate, message: '请输入用药日期'}]
+                    rule: {required: false}
                 },
                 {
                     name: 'description',
                     type: 'text',
-                    component: null,
-                    isNull: true,
                     label: '病情描述',
                     placeholder: '',
-                    rule: null
+                    rule: {required: false}
                 },
                 {
                     name: 'operate_id',
                     type: 'select',
-                    component: null,
-                    isNull: false,
                     label: '施药人员',
                     placeholder: '',
-                    rule: {required: true, trigger: 'blur', type: 'number', message: '请选择施药人员'},
+                    // rule: {required: true, trigger: 'blur', type: 'number', message: '请选择施药人员'},
+                    rule: {required: true},
                     options: []
                 },
                 {
                     name: 'expert_id',
                     type: 'select',
-                    component: null,
-                    isNull: true,
                     label: '专家',
                     placeholder: '',
-                    rule: null,
+                    rule: {required: false},
                     options: []
                 },
                 {
                     name: 'amount',
                     type: 'textSelect',
                     component: inputTextSelect,
-                    isNull: false,
                     label: '平均施药量',
                     placeholder: '请输入正确的数字（必填）',
-                    rule: [{required: true, message: '请输入平均施药量'}, {validator: validate2.reNumber}],
+                    // rule: [{required: true, message: '请输入平均施药量'}, {validator: validate2.reNumber}],
+                    rule: {required: true, type: 'reNumber'},
                     options: [['kg/只', 'kg/头', 'kg/条']]
                 },
                 {
                     name: 'way',
                     type: 'text',
-                    component: null,
-                    isNull: true,
                     label: '治疗方式',
                     placeholder: '',
-                    rule: null
+                    rule: {required: false}
                 },
                 {
                     name: 'img',
                     type: 'file',
                     component: inputFile,
-                    isNull: true,
                     label: '',
                     placeholder: '',
-                    rule: null
+                    rule: {required: true}
                 },
                 {
                     name: 'memo',
                     type: 'textarea',
-                    component: null,
-                    isNull: true,
                     label: '备注信息',
                     placeholder: '',
-                    rule: null
+                    rule: {required: false}
                 }
                 ]
             }
@@ -510,95 +488,75 @@ export default {
             components: [{
                 name: 'date',
                 type: 'date',
-                component: inputDate,
-                isNull: false,
                 label: '检疫日期',
-                placeholder: '',
-                rule: [{required: true, message: '请输入检疫日期'}, {validator: validate2.reDate, message: '请输入检疫日期'}]
+                placeholder: '(必选)',
+                rule: {required: true, message: '请输入检疫日期'}
             },
             {
                 name: 'organization',
                 type: 'text',
-                component: null,
-                isNull: false,
                 label: '检疫机构',
-                placeholder: '',
-                rule: {required: true, trigger: 'blur', message: '请输入检疫机构'}
+                placeholder: '（必填）',
+                rule: {required: true, message: '请输入检疫机构'}
             },
             {
                 name: 'name',
                 type: 'text',
-                component: null,
-                isNull: false,
                 label: '检疫项目名称',
-                placeholder: '',
-                rule: {required: true, trigger: 'blur', message: '请输入检疫项目名称'}
+                placeholder: '(必填)',
+                rule: {required: true, message: '请输入检疫项目名称'}
             },
             {
                 name: 'expert_id',
                 type: 'select',
-                component: null,
-                isNull: true,
                 label: '指导专家',
-                placeholder: '无',
-                rule: null,
+                placeholder: '(可选)',
+                rule: {required: false},
                 options: []
             },
             {
                 name: 'operate_id',
                 type: 'select',
-                component: null,
-                isNull: true,
                 label: '操作人员',
-                placeholder: '无',
-                rule: {required: true, trigger: 'blur', type: 'number', message: '请选择操作人员'},
-                options: []
+                placeholder: '（必选）',
+                rule: {required: true, message: '请选择操作人员'},
+                options: [['a', 'b', 'c']]
             },
             {
                 name: 'content',
                 type: 'text',
-                component: null,
-                isNull: true,
                 label: '检疫内容',
-                placeholder: '',
-                rule: ''
+                placeholder: '（可填）',
+                rule: {required: false}
             },
             {
                 name: 'result',
                 type: 'select',
-                component: null,
-                isNull: true,
                 label: '检疫结果',
-                placeholder: '',
-                rule: {required: false, type: 'number'},
+                placeholder: '(可选)',
+                rule: {required: false},
                 options: [['合格', '不合格']]
             },
             {
                 name: 'check',
                 type: 'text',
-                component: null,
-                isNull: true,
                 label: '审批人',
-                placeholder: '',
-                rule: null
+                placeholder: '（可填）',
+                rule: {required: false}
             },
             {
                 name: 'img',
                 type: 'file',
-                component: inputFile,
-                isNull: true,
                 label: '检疫报告图片',
                 placeholder: '',
-                rule: null
+                rule: {required: false}
             },
             {
                 name: 'memo',
                 type: 'textarea',
-                component: null,
-                isNull: true,
                 label: '备注信息',
-                placeholder: '',
-                rule: null
+                placeholder: '(可填)',
+                rule: {required: false}
             }
             ]
         }],
@@ -612,105 +570,83 @@ export default {
             components: [{
                 name: 'serial',
                 type: 'text',
-                component: null,
-                isNull: false,
                 label: '检疫批次号',
                 placeholder: '',
                 disabled: true,
-                rule: {required: false, trigger: 'blur'}
+                rule: {required: false}
             },
             {
                 name: 'date',
                 type: 'date',
-                component: inputDate,
-                isNull: false,
                 label: '检疫日期',
-                placeholder: '',
-                rule: [{required: true, message: '请输入检疫日期'}, {validator: validate2.reDate, message: '请输入检疫日期'}]
+                placeholder: '(必选)',
+                rule: {required: true, message: '请输入检疫日期'}
             },
             {
                 name: 'organization',
                 type: 'text',
-                component: null,
-                isNull: false,
                 label: '检疫机构',
-                placeholder: '',
-                rule: {required: true, trigger: 'blur', message: '请输入检疫机构'}
+                placeholder: '（必填）',
+                rule: {required: true, message: '请输入检疫机构'}
             },
             {
                 name: 'name',
                 type: 'text',
-                component: null,
-                isNull: false,
                 label: '检疫项目名称',
-                placeholder: '',
-                rule: {required: true, trigger: 'blur', message: '请输入检疫项目名称'}
+                placeholder: '(必填)',
+                rule: {required: true, message: '请输入检疫项目名称'}
             },
             {
                 name: 'expert_id',
                 type: 'select',
-                component: null,
-                isNull: true,
                 label: '指导专家',
-                placeholder: '无',
+                placeholder: '(可选)',
                 rule: {required: false},
                 options: []
             },
             {
                 name: 'operate_id',
                 type: 'select',
-                component: null,
-                isNull: true,
                 label: '操作人员',
-                placeholder: '无',
-                rule: {required: true, trigger: 'blur', type: 'number', message: '请选择操作人员'},
-                options: []
+                placeholder: '（必选）',
+                rule: {required: true, message: '请选择操作人员'},
+                options: [['a', 'b', 'c']]
             },
             {
                 name: 'content',
                 type: 'text',
-                component: null,
-                isNull: true,
                 label: '检疫内容',
-                placeholder: '',
-                rule: ''
+                placeholder: '（可填）',
+                rule: {required: false}
             },
             {
                 name: 'result',
                 type: 'select',
-                component: null,
-                isNull: true,
                 label: '检疫结果',
-                placeholder: '',
+                placeholder: '(可选)',
                 rule: {required: false},
                 options: [['合格', '不合格']]
             },
             {
                 name: 'check',
                 type: 'text',
-                component: null,
-                isNull: true,
                 label: '审批人',
-                placeholder: '',
-                rule: null
+                placeholder: '（可填）',
+                rule: {required: false}
             },
             {
                 name: 'img',
                 type: 'file',
-                component: inputFile,
-                isNull: true,
                 label: '检疫报告图片',
                 placeholder: '',
-                rule: null
+                rule: {required: false}
             },
             {
                 name: 'memo',
                 type: 'textarea',
-                component: null,
-                isNull: true,
                 label: '备注信息',
-                placeholder: '',
-                rule: null
+                placeholder: '(可填)',
+                rule: {required: false}
             }
             ]
         }],
@@ -764,86 +700,68 @@ export default {
             components: [{
                 name: 'date',
                 type: 'date',
-                component: inputDate,
-                isNull: false,
                 label: '检测日期',
-                placeholder: '',
+                placeholder: '(必填)',
                 disabled: true,
-                rule: [{required: true, message: '请输入检测日期'}, {validator: validate2.reDate, message: '请输入检测日期'}]
+                rule: {required: true, message: '请输入检测日期'}
             },
             {
                 name: 'operate_id',
                 type: 'select',
-                component: null,
-                isNull: false,
                 label: '负责人',
-                placeholder: '请选择人物',
-                rule: {required: true, trigger: 'blur', type: 'number', message: '请选择负责人'},
-                options: []
+                placeholder: '（必选）',
+                rule: {required: true, message: '请选择负责人'},
+                options: [['a', 'b']]
             },
             {
                 name: 'name',
                 type: 'text',
-                component: null,
-                isNull: false,
                 label: '检测名称',
-                placeholder: '请填写检测项目名称',
-                rule: {required: true, trigger: 'blur', message: '请输入检测项目名称'}
+                placeholder: '(必填)',
+                rule: {required: true, message: '请输入检测项目名称'}
             },
             {
                 name: 'result',
                 type: 'select',
-                component: null,
-                isNull: false,
                 label: '检测结果',
-                placeholder: '请选择检测结果',
-                rule: {required: true, trigger: 'blur'},
+                placeholder: '（必选）',
+                rule: {required: true},
                 options: [['合格', '不合格']]
             },
             {
                 name: 'content',
                 type: 'text',
-                component: null,
-                isNull: false,
                 label: '检测内容',
-                placeholder: '请填写检测内容',
-                rule: null
+                placeholder: '（可选）',
+                rule: {required: false}
             },
             {
                 name: 'organization',
                 type: 'text',
-                component: null,
-                isNull: false,
                 label: '检测机构',
-                placeholder: '请填写检测机构名称',
-                rule: null
+                placeholder: '(可选)',
+                rule: {required: false}
             },
             {
                 name: 'method',
                 type: 'text',
-                component: null,
-                isNull: false,
                 label: '处理方法',
-                placeholder: '请填写检测处理方法',
-                rule: null
+                placeholder: '(可选)',
+                rule: {required: false}
             },
             {
                 name: 'img',
                 type: 'file',
-                component: inputFile,
-                isNull: true,
                 label: '检测图片报告',
                 placeholder: '',
-                rule: null
+                rule: {required: false}
             },
             {
                 name: 'memo',
                 type: 'textarea',
-                component: null,
-                isNull: true,
                 label: '备注信息',
-                placeholder: '',
-                rule: null
+                placeholder: '（可填）',
+                rule: {required: false}
             }]
         }],
         editComponent: [{
@@ -856,8 +774,6 @@ export default {
             components: [{
                 name: 'serial',
                 type: 'text',
-                component: null,
-                isNull: false,
                 label: '检测批次号',
                 placeholder: '',
                 disabled: true,
@@ -866,86 +782,68 @@ export default {
             {
                 name: 'date',
                 type: 'date',
-                component: inputDate,
-                isNull: false,
                 label: '检测日期',
-                placeholder: '',
+                placeholder: '(必填)',
                 disabled: true,
-                rule: [{required: true, message: '请输入检测日期'}, {validator: validate2.reDate, message: '请输入检测日期'}]
+                rule: {required: true, message: '请输入检测日期'}
             },
             {
                 name: 'operate_id',
                 type: 'select',
-                component: null,
-                isNull: false,
                 label: '负责人',
-                placeholder: '请选择人物',
-                rule: {required: true, trigger: 'blur', type: 'number', message: '请选择负责人'},
-                options: []
+                placeholder: '（必选）',
+                rule: {required: true, message: '请选择负责人'},
+                options: [['a', 'b']]
             },
             {
                 name: 'name',
                 type: 'text',
-                component: null,
-                isNull: false,
                 label: '检测名称',
-                placeholder: '请填写检测项目名称',
-                rule: {required: true, trigger: 'blur', message: '请输入检测项目名称'}
+                placeholder: '(必填)',
+                rule: {required: true, message: '请输入检测项目名称'}
             },
             {
                 name: 'result',
                 type: 'select',
-                component: null,
-                isNull: false,
                 label: '检测结果',
-                placeholder: '请选择检测结果',
-                rule: {required: true, trigger: 'blur'},
+                placeholder: '（必选）',
+                rule: {required: true},
                 options: [['合格', '不合格']]
             },
             {
                 name: 'content',
                 type: 'text',
-                component: null,
-                isNull: false,
                 label: '检测内容',
-                placeholder: '请填写检测内容',
-                rule: null
+                placeholder: '（可选）',
+                rule: {required: false}
             },
             {
                 name: 'organization',
                 type: 'text',
-                component: null,
-                isNull: false,
                 label: '检测机构',
-                placeholder: '请填写检测机构名称',
-                rule: null
+                placeholder: '(可选)',
+                rule: {required: false}
             },
             {
                 name: 'method',
                 type: 'text',
-                component: null,
-                isNull: false,
                 label: '处理方法',
-                placeholder: '请填写检测处理方法',
-                rule: null
+                placeholder: '(可选)',
+                rule: {required: false}
             },
             {
                 name: 'img',
                 type: 'file',
-                component: inputFile,
-                isNull: true,
                 label: '检测图片报告',
                 placeholder: '',
-                rule: null
+                rule: {required: false}
             },
             {
                 name: 'memo',
                 type: 'textarea',
-                component: null,
-                isNull: true,
                 label: '备注信息',
-                placeholder: '',
-                rule: null
+                placeholder: '（可填）',
+                rule: {required: false}
             }]
         }]
     }],
@@ -979,69 +877,54 @@ export default {
             components: [{
                 name: 'date',
                 type: 'date',
-                component: inputDate,
-                isNull: false,
                 label: '操作日期',
-                placeholder: '',
-                rule: [{required: true, message: '请输入操作日期'}, {validator: validate2.reDate, message: '请输入操作日期'}]
+                placeholder: '（必选）',
+                rule: {required: true, message: '请输入操作日期'}
             },
             {
                 name: 'operate_id',
                 type: 'select',
-                component: null,
-                isNull: false,
                 label: '操作人',
-                placeholder: '',
-                rule: {required: true, trigger: 'blur', type: 'number', message: '请选择操作人'},
-                options: []
+                placeholder: '（必选）',
+                rule: {required: true, message: '请选择操作人'},
+                options: [['a', 'b']]
             },
             {
                 name: 'expert_id',
                 type: 'select',
-                component: null,
-                isNull: true,
                 label: '专家',
-                placeholder: '',
-                rule: {required: false, type: 'number', message: '请选择专家'},
-                options: []
+                placeholder: '（可选）',
+                rule: {required: false, message: '请选择专家'},
+                options: [['a', 'b']]
             },
             {
                 name: 'name',
                 type: 'text',
-                component: null,
-                isNull: false,
                 label: '标题',
-                placeholder: '',
-                rule: {required: true, trigger: 'blur', message: '请输入标题'}
+                placeholder: '（必填）',
+                rule: {required: true, message: '请输入标题'}
             },
             {
                 name: 'content',
                 type: 'text',
-                component: null,
-                isNull: false,
                 label: '操作内容',
-                placeholder: '',
-                rule: {required: true, trigger: 'blur', message: '请输入操作内容'}
+                placeholder: '（必填）',
+                rule: {required: true, message: '请输入操作内容'}
             },
             {
                 name: 'img',
                 type: 'file',
-                component: inputFile,
-                isNull: true,
                 label: '圈舍维护图片',
                 placeholder: '',
-                rule: null
+                rule: {required: false}
             },
             {
                 name: 'memo',
                 type: 'textarea',
-                component: null,
-                isNull: true,
                 label: '备注信息',
-                placeholder: '',
-                rule: null
-            }
-            ]
+                placeholder: '（可填）',
+                rule: {required: false}
+            }]
         }],
         editComponent: [{
             tab: '编辑圈舍维护信息',
@@ -1053,8 +936,6 @@ export default {
             components: [{
                 name: 'serial',
                 type: 'text',
-                component: null,
-                isNull: false,
                 label: '圈舍批次号',
                 placeholder: '',
                 rule: {required: true, trigger: 'blur'},
@@ -1063,77 +944,53 @@ export default {
             {
                 name: 'date',
                 type: 'date',
-                component: inputDate,
-                isNull: false,
                 label: '操作日期',
-                placeholder: '',
-                rule: [{required: true, message: '请输入操作日期'}, {validator: validate2.reDate, message: '请输入操作日期'}]
+                placeholder: '（必选）',
+                rule: {required: true, message: '请输入操作日期'}
             },
             {
                 name: 'operate_id',
                 type: 'select',
-                component: null,
-                isNull: false,
                 label: '操作人',
-                placeholder: '',
-                rule: {required: true, trigger: 'blur', type: 'number'},
-                options: []
+                placeholder: '（必选）',
+                rule: {required: true, message: '请选择操作人'},
+                options: [['a', 'b']]
             },
             {
                 name: 'expert_id',
                 type: 'select',
-                component: null,
-                isNull: true,
                 label: '专家',
-                placeholder: '',
-                rule: {required: false, type: 'number', message: '请选择专家'},
-                options: []
+                placeholder: '（可选）',
+                rule: {required: false, message: '请选择专家'},
+                options: [['a', 'b']]
             },
             {
                 name: 'name',
                 type: 'text',
-                component: null,
-                isNull: false,
                 label: '标题',
-                placeholder: '',
-                rule: {required: true, trigger: 'blur', message: '请输入标题'}
+                placeholder: '（必填）',
+                rule: {required: true, message: '请输入标题'}
             },
             {
                 name: 'content',
                 type: 'text',
-                component: null,
-                isNull: false,
                 label: '操作内容',
-                placeholder: '',
-                rule: {required: true, trigger: 'blur', message: '请输入操作内容'}
+                placeholder: '（必填）',
+                rule: {required: true, message: '请输入操作内容'}
             },
             {
                 name: 'img',
                 type: 'file',
-                component: inputFile,
-                isNull: true,
                 label: '圈舍维护图片',
                 placeholder: '',
-                rule: null
+                rule: {required: false}
             },
             {
                 name: 'memo',
                 type: 'textarea',
-                component: null,
-                isNull: true,
                 label: '备注信息',
-                placeholder: '',
-                rule: null
-            }
-            ]
-        }],
-        listComponent: [{
-            components: [{
-                name: 'suppliers.category_id',
-                value: '',
-                type: 'select',
-                component: selectSection,
-                options: []
+                placeholder: '（可填）',
+                rule: {required: false}
             }]
         }]
     }],
@@ -1170,7 +1027,6 @@ export default {
     //             name: 'category_id',
     //             type: 'select',
     //             component: null,
-    //             isNull: false,
     //             label: '分类',
     //             placeholder: '必填',
     //             rule: {required: true, trigger: 'blur', type: 'number', message: '请选择分类名称'},
@@ -1180,7 +1036,6 @@ export default {
     //             name: 'domain',
     //             type: 'select',
     //             component: null,
-    //             isNull: false,
     //             label: '模块领域',
     //             placeholder: '',
     //             rule: {required: true, message: '请选择模块领域', trigger: 'blur'},
@@ -1190,7 +1045,6 @@ export default {
     //             name: 'name',
     //             type: 'text',
     //             component: null,
-    //             isNull: false,
     //             label: '产品名称',
     //             placeholder: '必填',
     //             rule: [{required: true, trigger: 'blur', message: '请输入产品名称'}, {validator: validate2.reCheck, trigger: 'blur', message: '产品名称重复'}]
@@ -1199,7 +1053,6 @@ export default {
     //             name: 'enforce_standard',
     //             type: 'text',
     //             component: null,
-    //             isNull: false,
     //             label: '执行标准',
     //             placeholder: '',
     //             rule: null
@@ -1208,7 +1061,6 @@ export default {
     //             name: 'marque',
     //             type: 'text',
     //             component: null,
-    //             isNull: true,
     //             label: '商品型号',
     //             placeholder: '',
     //             rule: null
@@ -1217,7 +1069,6 @@ export default {
     //             name: 'description',
     //             type: 'text',
     //             component: null,
-    //             isNull: true,
     //             label: '商品简介',
     //             placeholder: '',
     //             rule: null
@@ -1226,7 +1077,6 @@ export default {
     //             name: 'specification',
     //             type: 'text',
     //             component: null,
-    //             isNull: true,
     //             label: '包装规格',
     //             placeholder: '',
     //             rule: null
@@ -1235,7 +1085,6 @@ export default {
     //             name: 'expiration_date',
     //             type: 'text',
     //             component: null,
-    //             isNull: true,
     //             label: '保质期',
     //             placeholder: '',
     //             rule: null
@@ -1244,7 +1093,6 @@ export default {
     //             name: 'edible_method',
     //             type: 'text',
     //             component: null,
-    //             isNull: true,
     //             label: '食用方法',
     //             placeholder: '',
     //             rule: null
@@ -1253,7 +1101,6 @@ export default {
     //             name: 'storage_means',
     //             type: 'text',
     //             component: null,
-    //             isNull: true,
     //             label: '存储方法',
     //             placeholder: '',
     //             rule: null
@@ -1262,7 +1109,6 @@ export default {
     //             name: 'burdening_info',
     //             type: 'text',
     //             component: null,
-    //             isNull: true,
     //             label: '配料信息',
     //             placeholder: '',
     //             rule: null
@@ -1271,7 +1117,6 @@ export default {
     //             name: 'img',
     //             type: 'file',
     //             component: inputFile,
-    //             isNull: true,
     //             label: '产品图片',
     //             placeholder: '',
     //             rule: null
@@ -1280,7 +1125,6 @@ export default {
     //             name: 'memo',
     //             type: 'textarea',
     //             component: null,
-    //             isNull: true,
     //             label: '备注信息',
     //             placeholder: '',
     //             rule: ''
@@ -1302,7 +1146,6 @@ export default {
     //             name: 'category_id',
     //             type: 'select',
     //             component: null,
-    //             isNull: false,
     //             label: '分类',
     //             placeholder: '必填',
     //             rule: {required: true, trigger: 'blur', type: 'number', message: '请选择分类名称'},
@@ -1312,7 +1155,6 @@ export default {
     //             name: 'domain',
     //             type: 'select',
     //             component: null,
-    //             isNull: false,
     //             label: '模块领域',
     //             placeholder: '',
     //             disabled: false,
@@ -1323,7 +1165,6 @@ export default {
     //             name: 'name',
     //             type: 'text',
     //             component: null,
-    //             isNull: false,
     //             label: '产品名称',
     //             placeholder: '必填',
     //             rule: [{required: true, trigger: 'blur', message: '请输入产品名称'}, {validator: validate2.reCheck, trigger: 'blur', message: '产品名称重复'}]
@@ -1332,7 +1173,6 @@ export default {
     //             name: 'enforce_standard',
     //             type: 'text',
     //             component: null,
-    //             isNull: false,
     //             label: '执行标准',
     //             placeholder: '',
     //             rule: null
@@ -1341,7 +1181,6 @@ export default {
     //             name: 'marque',
     //             type: 'text',
     //             component: null,
-    //             isNull: true,
     //             label: '商品型号',
     //             placeholder: '',
     //             rule: null
@@ -1350,7 +1189,6 @@ export default {
     //             name: 'description',
     //             type: 'text',
     //             component: null,
-    //             isNull: true,
     //             label: '商品简介',
     //             placeholder: '',
     //             rule: null
@@ -1359,7 +1197,6 @@ export default {
     //             name: 'specification',
     //             type: 'text',
     //             component: null,
-    //             isNull: true,
     //             label: '包装规格',
     //             placeholder: '',
     //             rule: null
@@ -1368,7 +1205,6 @@ export default {
     //             name: 'expiration_date',
     //             type: 'text',
     //             component: null,
-    //             isNull: true,
     //             label: '保质期',
     //             placeholder: '',
     //             rule: null
@@ -1377,7 +1213,6 @@ export default {
     //             name: 'edible_method',
     //             type: 'text',
     //             component: null,
-    //             isNull: true,
     //             label: '食用方法',
     //             placeholder: '',
     //             rule: null
@@ -1386,7 +1221,6 @@ export default {
     //             name: 'storage_means',
     //             type: 'text',
     //             component: null,
-    //             isNull: true,
     //             label: '存储方法',
     //             placeholder: '',
     //             rule: null
@@ -1395,7 +1229,6 @@ export default {
     //             name: 'burdening_info',
     //             type: 'text',
     //             component: null,
-    //             isNull: true,
     //             label: '配料信息',
     //             placeholder: '',
     //             rule: null
@@ -1404,7 +1237,6 @@ export default {
     //             name: 'img',
     //             type: 'file',
     //             component: inputFile,
-    //             isNull: true,
     //             label: '',
     //             placeholder: '产品图片',
     //             rule: null
@@ -1413,7 +1245,6 @@ export default {
     //             name: 'memo',
     //             type: 'textarea',
     //             component: null,
-    //             isNull: true,
     //             label: '备注信息',
     //             placeholder: '',
     //             rule: ''
@@ -1458,7 +1289,6 @@ export default {
                     name: 'name',
                     type: 'text',
                     component: null,
-                    isNull: false,
                     label: '种植场名称',
                     placeholder: '必填',
                     rule: [{required: true, message: '请输入种植场名称', trigger: 'blur'}, {validator: validate2.reCheck, trigger: 'blur', message: '种植场名称重复'}]
@@ -1467,7 +1297,6 @@ export default {
                     name: 'area',
                     type: 'textSelect',
                     component: inputTextSelect,
-                    isNull: false,
                     label: '种植面积',
                     placeholder: '请填写数字（必填）',
                     options: [['亩', '平方米', '公顷']],
@@ -1477,7 +1306,6 @@ export default {
                     name: 'phone',
                     type: 'text',
                     component: null,
-                    isNull: false,
                     label: '联系电话',
                     placeholder: '请输入11位的手机号（固话用-隔开）',
                     rule: { validator: validate2.phone, trigger: 'blur' }
@@ -1486,7 +1314,6 @@ export default {
                     name: 'address',
                     type: 'text',
                     component: null,
-                    isNull: false,
                     label: '联系地址',
                     placeholder: '',
                     rule: null
@@ -1495,7 +1322,6 @@ export default {
                     name: 'director',
                     type: 'text',
                     component: null,
-                    isNull: false,
                     label: '负责人',
                     placeholder: '',
                     rule: null
@@ -1504,7 +1330,6 @@ export default {
                     name: 'img',
                     type: 'file',
                     component: inputFile,
-                    isNull: true,
                     label: '',
                     placeholder: '',
                     rule: null
@@ -1513,7 +1338,6 @@ export default {
                     name: 'video',
                     type: 'text',
                     component: null,
-                    isNull: false,
                     label: '视频检测设备号',
                     placeholder: '',
                     rule: null
@@ -1522,7 +1346,6 @@ export default {
                     name: 'memo',
                     type: 'textarea',
                     component: null,
-                    isNull: true,
                     label: '备注信息',
                     placeholder: '',
                     rule: null
@@ -1538,7 +1361,6 @@ export default {
                     name: 'name',
                     type: 'text',
                     component: null,
-                    isNull: false,
                     label: '种植场名称',
                     placeholder: '必填',
                     rule: [{required: true, message: '请输入种植场名称', trigger: 'blur'}, {validator: validate2.reCheck, trigger: 'blur', message: '种植场名称重复'}]
@@ -1547,7 +1369,6 @@ export default {
                     name: 'area',
                     type: 'textSelect',
                     component: inputTextSelect,
-                    isNull: false,
                     label: '种植面积',
                     placeholder: '请填写数字（必填）',
                     options: [['亩', '平方米', '公顷']],
@@ -1557,7 +1378,6 @@ export default {
                     name: 'phone',
                     type: 'text',
                     component: null,
-                    isNull: false,
                     label: '联系电话',
                     placeholder: '请输入11位的手机号（固话用-隔开）',
                     rule: { validator: validate2.phone, trigger: 'blur' }
@@ -1566,7 +1386,6 @@ export default {
                     name: 'address',
                     type: 'text',
                     component: null,
-                    isNull: false,
                     label: '联系地址',
                     placeholder: '',
                     rule: null
@@ -1575,7 +1394,6 @@ export default {
                     name: 'director',
                     type: 'text',
                     component: null,
-                    isNull: false,
                     label: '负责人',
                     placeholder: '',
                     rule: null
@@ -1584,7 +1402,6 @@ export default {
                     name: 'img',
                     type: 'file',
                     component: inputFile,
-                    isNull: true,
                     label: '',
                     placeholder: '',
                     rule: null
@@ -1593,7 +1410,6 @@ export default {
                     name: 'video',
                     type: 'text',
                     component: null,
-                    isNull: false,
                     label: '视频检测设备号',
                     placeholder: '',
                     rule: null
@@ -1602,7 +1418,6 @@ export default {
                     name: 'memo',
                     type: 'textarea',
                     component: null,
-                    isNull: true,
                     label: '备注信息',
                     placeholder: '',
                     rule: null
@@ -1651,7 +1466,6 @@ export default {
                     name: 'pid',
                     type: 'select',
                     component: null,
-                    isNull: false,
                     label: '所属种植场',
                     placeholder: '必填',
                     rule: {required: true, trigger: 'blur', message: '请选择所属种植场', type: 'number'},
@@ -1661,7 +1475,6 @@ export default {
                     name: 'name',
                     type: 'text',
                     component: null,
-                    isNull: false,
                     label: '种植区名称',
                     placeholder: '必填',
                     rule: [{required: true, message: '请输入种植区名称', trigger: 'blur'}, {validator: validate2.reCheck, trigger: 'blur', message: '种植区名称重复'}]
@@ -1670,7 +1483,6 @@ export default {
                     name: 'area',
                     type: 'textSelect',
                     component: inputTextSelect,
-                    isNull: false,
                     label: '种植面积',
                     placeholder: '请填写数字（必填）',
                     options: [['亩', '平方米', '公顷']],
@@ -1680,7 +1492,6 @@ export default {
                     name: 'director',
                     type: 'text',
                     component: null,
-                    isNull: true,
                     label: '负责人',
                     placeholder: '',
                     rule: null
@@ -1689,7 +1500,6 @@ export default {
                     name: 'phone',
                     type: 'text',
                     component: null,
-                    isNull: true,
                     label: '详细电话',
                     placeholder: '请输入11位的手机号（固话用-隔开）',
                     rule: { validator: validate2.phone, trigger: 'blur' }
@@ -1698,7 +1508,6 @@ export default {
                     name: 'address',
                     type: 'text',
                     component: null,
-                    isNull: true,
                     label: '地址',
                     placeholder: '',
                     rule: null
@@ -1707,7 +1516,6 @@ export default {
                     name: 'img',
                     type: 'file',
                     component: inputFile,
-                    isNull: true,
                     label: '',
                     placeholder: '',
                     rule: null
@@ -1716,7 +1524,6 @@ export default {
                     name: 'memo',
                     type: 'textarea',
                     component: null,
-                    isNull: true,
                     label: '备注信息',
                     placeholder: '',
                     rule: null
@@ -1736,7 +1543,6 @@ export default {
                     name: 'pid',
                     type: 'select',
                     component: null,
-                    isNull: false,
                     label: '所属种植场',
                     placeholder: '必填',
                     rule: {required: true, type: 'number', message: '请选择所属种植场'},
@@ -1746,7 +1552,6 @@ export default {
                     name: 'name',
                     type: 'text',
                     component: null,
-                    isNull: false,
                     label: '姓名',
                     placeholder: '必填',
                     rule: [{required: true, message: '请输入种植区名称', trigger: 'blur'}, {validator: validate2.reCheck, trigger: 'blur', message: '种植区名称重复'}]
@@ -1755,7 +1560,6 @@ export default {
                     name: 'area',
                     type: 'textSelect',
                     component: inputTextSelect,
-                    isNull: false,
                     label: '种植面积',
                     placeholder: '请填写数字（必填）',
                     options: [['亩', '平方米', '公顷']],
@@ -1765,7 +1569,6 @@ export default {
                     name: 'director',
                     type: 'text',
                     component: null,
-                    isNull: true,
                     label: '负责人',
                     placeholder: '',
                     rule: null
@@ -1774,7 +1577,6 @@ export default {
                     name: 'phone',
                     type: 'text',
                     component: null,
-                    isNull: true,
                     label: '详细电话',
                     placeholder: '请输入11位的手机号（固话用-隔开）',
                     rule: { validator: validate2.phone, trigger: 'blur' }
@@ -1783,7 +1585,6 @@ export default {
                     name: 'address',
                     type: 'text',
                     component: null,
-                    isNull: true,
                     label: '地址',
                     placeholder: '',
                     rule: null
@@ -1792,7 +1593,6 @@ export default {
                     name: 'img',
                     type: 'file',
                     component: inputFile,
-                    isNull: true,
                     label: '',
                     placeholder: '',
                     rule: null
@@ -1801,7 +1601,6 @@ export default {
                     name: 'memo',
                     type: 'textarea',
                     component: null,
-                    isNull: true,
                     label: '备注信息',
                     placeholder: '',
                     rule: null
@@ -1849,7 +1648,6 @@ export default {
                     name: 'category_id',
                     type: 'select',
                     component: null,
-                    isNull: false,
                     label: '果蔬类别',
                     placeholder: '必填',
                     rule: {required: true, message: '请选择果蔬类别', trigger: 'blur', type: 'number'},
@@ -1859,7 +1657,6 @@ export default {
                     name: 'name',
                     type: 'text',
                     component: null,
-                    isNull: false,
                     label: '果蔬名称',
                     placeholder: '必填',
                     rule: [{required: true, message: '请输入果蔬名称', trigger: 'blur'}, {validator: validate2.reCheck, trigger: 'blur', message: '果蔬名称重复'}]
@@ -1868,7 +1665,6 @@ export default {
                     name: 'description',
                     type: 'text',
                     component: null,
-                    isNull: false,
                     label: '基本特征描述',
                     placeholder: '',
                     rule: null
@@ -1877,7 +1673,6 @@ export default {
                     name: 'growth_cycle',
                     type: 'text',
                     component: null,
-                    isNull: false,
                     label: '生长周期（天）',
                     placeholder: '',
                     rule: {validator: validate2.reNumber}
@@ -1886,7 +1681,6 @@ export default {
                     name: 'img',
                     type: 'file',
                     component: inputFile,
-                    isNull: false,
                     label: '果蔬图片',
                     placeholder: ''
                 },
@@ -1894,7 +1688,6 @@ export default {
                     name: 'memo',
                     type: 'textarea',
                     component: null,
-                    isNull: true,
                     label: '备注信息',
                     placeholder: '',
                     rule: null
@@ -1911,7 +1704,6 @@ export default {
                     name: 'category_id',
                     type: 'select',
                     component: null,
-                    isNull: false,
                     label: '果蔬类别',
                     placeholder: '必填',
                     rule: {required: true, message: '请选择果蔬类别', trigger: 'blur', type: 'number'},
@@ -1921,7 +1713,6 @@ export default {
                     name: 'name',
                     type: 'text',
                     component: null,
-                    isNull: false,
                     label: '果蔬名称',
                     placeholder: '必填',
                     rule: [{required: true, message: '请选择果蔬类别', trigger: 'blur'}, {validator: validate2.reCheck, trigger: 'blur', message: '果蔬名称重复'}]
@@ -1930,7 +1721,6 @@ export default {
                     name: 'description',
                     type: 'text',
                     component: null,
-                    isNull: false,
                     label: '基本特征描述',
                     placeholder: ''
                 },
@@ -1938,7 +1728,6 @@ export default {
                     name: 'growth_cycle',
                     type: 'text',
                     component: null,
-                    isNull: false,
                     label: '生长周期（天）',
                     placeholder: '',
                     rule: {validator: validate2.reNumber}
@@ -1947,7 +1736,6 @@ export default {
                     name: 'img',
                     type: 'file',
                     component: inputFile,
-                    isNull: false,
                     label: '果蔬图片',
                     placeholder: ''
                 },
@@ -1955,7 +1743,6 @@ export default {
                     name: 'memo',
                     type: 'textarea',
                     component: null,
-                    isNull: true,
                     label: '备注信息',
                     placeholder: '',
                     rule: null
@@ -2002,7 +1789,6 @@ export default {
                     name: 'category_id',
                     type: 'select',
                     component: null,
-                    isNull: false,
                     label: '肥料分类',
                     placeholder: '必填',
                     rule: {required: true, message: '请选择肥料类别', trigger: 'blur', type: 'number'},
@@ -2012,7 +1798,6 @@ export default {
                     name: 'name',
                     type: 'text',
                     component: null,
-                    isNull: false,
                     label: '肥料名称',
                     placeholder: '必填',
                     rule: [{required: true, message: '请输入肥料名称', trigger: 'blur'}, {validator: validate2.reCheck, trigger: 'blur', message: '肥料名称重复'}]
@@ -2021,7 +1806,6 @@ export default {
                     name: 'usage',
                     type: 'text',
                     component: null,
-                    isNull: false,
                     label: '包装规格',
                     placeholder: ''
                 },
@@ -2029,7 +1813,6 @@ export default {
                     name: 'dealer',
                     type: 'text',
                     component: null,
-                    isNull: false,
                     label: '经销商名称',
                     placeholder: ''
                 },
@@ -2037,7 +1820,6 @@ export default {
                     name: 'origin',
                     type: 'text',
                     component: null,
-                    isNull: false,
                     placeholder: '',
                     label: '产地'
                 },
@@ -2045,7 +1827,6 @@ export default {
                     name: 'phone',
                     type: 'text',
                     component: null,
-                    isNull: false,
                     placeholder: '请输入11位的手机号（固话用-隔开）',
                     label: '联系方式',
                     rule: { validator: validate2.phone, trigger: 'blur' }
@@ -2054,7 +1835,6 @@ export default {
                     name: 'img',
                     type: 'file',
                     component: inputFile,
-                    isNull: false,
                     label: '肥料图片',
                     placeholder: ''
                 },
@@ -2062,7 +1842,6 @@ export default {
                     name: 'memo',
                     type: 'textarea',
                     component: null,
-                    isNull: true,
                     label: '备注信息',
                     placeholder: '',
                     rule: null
@@ -2079,7 +1858,6 @@ export default {
                     name: 'category_id',
                     type: 'select',
                     component: null,
-                    isNull: false,
                     label: '分类',
                     placeholder: '必填',
                     rule: {required: true, message: '请选择肥料类别', trigger: 'blur', type: 'number'},
@@ -2089,7 +1867,6 @@ export default {
                     name: 'name',
                     type: 'text',
                     component: null,
-                    isNull: false,
                     label: '肥料名称',
                     placeholder: '必填',
                     rule: [{required: true, message: '请输入肥料名称', trigger: 'blur'}, {validator: validate2.reCheck, trigger: 'blur', message: '肥料名称重复'}]
@@ -2098,7 +1875,6 @@ export default {
                     name: 'specification',
                     type: 'text',
                     component: null,
-                    isNull: false,
                     label: '包装规格',
                     placeholder: ''
                 },
@@ -2106,7 +1882,6 @@ export default {
                     name: 'dealer',
                     type: 'text',
                     component: null,
-                    isNull: false,
                     label: '经销商名称',
                     placeholder: ''
                 },
@@ -2114,7 +1889,6 @@ export default {
                     name: 'origin',
                     type: 'text',
                     component: null,
-                    isNull: false,
                     placeholder: '',
                     label: '产地'
                 },
@@ -2122,7 +1896,6 @@ export default {
                     name: 'phone',
                     type: 'text',
                     component: null,
-                    isNull: false,
                     placeholder: '请输入11位的手机号（固话用-隔开）',
                     label: '联系方式',
                     rule: { validator: validate2.phone, trigger: 'blur' }
@@ -2131,7 +1904,6 @@ export default {
                     name: 'img',
                     type: 'file',
                     component: inputFile,
-                    isNull: false,
                     label: '肥料图片',
                     placeholder: ''
                 },
@@ -2139,7 +1911,6 @@ export default {
                     name: 'memo',
                     type: 'textarea',
                     component: null,
-                    isNull: true,
                     label: '备注信息',
                     placeholder: '',
                     rule: null
@@ -2186,7 +1957,6 @@ export default {
                     name: 'category_id',
                     type: 'select',
                     component: null,
-                    isNull: false,
                     label: '农药分类',
                     placeholder: '必填',
                     rule: {required: true, message: '请选择农药分类', trigger: 'blur', type: 'number'},
@@ -2196,7 +1966,6 @@ export default {
                     name: 'name',
                     type: 'text',
                     component: null,
-                    isNull: false,
                     label: '农药名称',
                     placeholder: '必填',
                     rule: [{required: true, message: '请输入农药名称', trigger: 'blur'}, {validator: validate2.reCheck, trigger: 'blur', message: '农药名称重复'}]
@@ -2205,7 +1974,6 @@ export default {
                     name: 'usage',
                     type: 'text',
                     component: null,
-                    isNull: false,
                     label: '用途',
                     placeholder: ''
                 },
@@ -2213,7 +1981,6 @@ export default {
                     name: 'control_objects',
                     type: 'text',
                     component: null,
-                    isNull: false,
                     label: '防治对象',
                     placeholder: ''
                 },
@@ -2221,7 +1988,6 @@ export default {
                     name: 'toxicity_grade',
                     type: 'select',
                     component: null,
-                    isNull: false,
                     label: '毒性等级',
                     placeholder: '必填',
                     rule: {required: true, message: '请输入模块类型', trigger: 'blur'},
@@ -2231,7 +1997,6 @@ export default {
                     name: 'specification',
                     type: 'text',
                     component: null,
-                    isNull: false,
                     placeholder: '',
                     label: '包装规格'
                 },
@@ -2239,7 +2004,6 @@ export default {
                     name: 'phone',
                     type: 'text',
                     component: null,
-                    isNull: false,
                     placeholder: '请输入11位的手机号（固话用-隔开）',
                     label: '联系方式',
                     rule: { validator: validate2.phone, trigger: 'blur' }
@@ -2248,7 +2012,6 @@ export default {
                     name: 'manufacturer',
                     type: 'text',
                     component: null,
-                    isNull: false,
                     placeholder: '',
                     label: '厂家名称'
                 },
@@ -2256,7 +2019,6 @@ export default {
                     name: 'origin',
                     type: 'text',
                     component: null,
-                    isNull: false,
                     placeholder: '',
                     label: '产地'
                 },
@@ -2264,7 +2026,6 @@ export default {
                     name: 'img',
                     type: 'file',
                     component: inputFile,
-                    isNull: false,
                     label: '农药图片',
                     placeholder: ''
                 },
@@ -2272,7 +2033,6 @@ export default {
                     name: 'memo',
                     type: 'textarea',
                     component: null,
-                    isNull: true,
                     label: '备注信息',
                     placeholder: '',
                     rule: null
@@ -2289,7 +2049,6 @@ export default {
                     name: 'category_id',
                     type: 'select',
                     component: null,
-                    isNull: false,
                     label: '农药分类',
                     placeholder: '必填',
                     rule: {required: true, message: '请选择农药分类', trigger: 'blur', type: 'number'},
@@ -2299,7 +2058,6 @@ export default {
                     name: 'name',
                     type: 'text',
                     component: null,
-                    isNull: false,
                     label: '农药名称',
                     placeholder: '必填',
                     rule: [{required: true, message: '请输入农药名称', trigger: 'blur'}, {validator: validate2.reCheck, trigger: 'blur', message: '农药名称重复'}]
@@ -2308,7 +2066,6 @@ export default {
                     name: 'usage',
                     type: 'text',
                     component: null,
-                    isNull: false,
                     label: '用途',
                     placeholder: ''
                 },
@@ -2316,7 +2073,6 @@ export default {
                     name: 'control_objects',
                     type: 'text',
                     component: null,
-                    isNull: false,
                     label: '防治对象',
                     placeholder: ''
                 },
@@ -2324,7 +2080,6 @@ export default {
                     name: 'toxicity_grade',
                     type: 'select',
                     component: null,
-                    isNull: false,
                     label: '毒性等级',
                     placeholder: '必填',
                     rule: {required: true, message: '请输入模块类型', trigger: 'blur'},
@@ -2334,7 +2089,6 @@ export default {
                     name: 'specification',
                     type: 'text',
                     component: null,
-                    isNull: false,
                     placeholder: '',
                     label: '包装规格'
                 },
@@ -2342,7 +2096,6 @@ export default {
                     name: 'phone',
                     type: 'text',
                     component: null,
-                    isNull: false,
                     placeholder: '请输入11位的手机号（固话用-隔开）',
                     label: '联系方式',
                     rule: { validator: validate2.phone, trigger: 'blur' }
@@ -2351,7 +2104,6 @@ export default {
                     name: 'manufacturer',
                     type: 'text',
                     component: null,
-                    isNull: false,
                     placeholder: '',
                     label: '厂家名称'
                 },
@@ -2359,7 +2111,6 @@ export default {
                     name: 'origin',
                     type: 'text',
                     component: null,
-                    isNull: false,
                     placeholder: '',
                     label: '产地'
                 },
@@ -2367,7 +2118,6 @@ export default {
                     name: 'img',
                     type: 'file',
                     component: inputFile,
-                    isNull: false,
                     label: '农药图片',
                     placeholder: ''
                 },
@@ -2375,7 +2125,6 @@ export default {
                     name: 'memo',
                     type: 'textarea',
                     component: null,
-                    isNull: true,
                     label: '备注信息',
                     placeholder: '',
                     rule: null
@@ -2411,7 +2160,6 @@ export default {
                     name: 'name',
                     type: 'text',
                     component: null,
-                    isNull: false,
                     label: '图片标题',
                     placeholder: '必填',
                     rule: [{required: true, message: '请输入标题'}, {validator: validate2.reCheck, trigger: 'blur', message: '生长图片标题重复'}]
@@ -2420,7 +2168,6 @@ export default {
                     name: 'desc',
                     type: 'textarea',
                     component: null,
-                    isNull: false,
                     label: '特征描述',
                     placeholder: '',
                     rule: {required: true, trigger: 'blur', message: '请输入描述信息'}
@@ -2429,7 +2176,6 @@ export default {
                     name: 'date',
                     type: 'date',
                     component: inputDate,
-                    isNull: false,
                     label: '上传日期',
                     placeholder: '',
                     rule: [{required: true, trigger: 'blur', message: '请输入上传日期'}, {validator: validate2.reDate, message: '请输入上传日期'}]
@@ -2438,7 +2184,6 @@ export default {
                     name: 'img',
                     type: 'file',
                     component: inputFile,
-                    isNull: false,
                     label: '图片',
                     placeholder: '',
                     rule: {required: true, message: '请上传图片'}
@@ -2447,7 +2192,6 @@ export default {
                     name: 'memo',
                     type: 'textarea',
                     component: null,
-                    isNull: true,
                     label: '备注信息',
                     placeholder: '',
                     rule: null
@@ -2461,7 +2205,6 @@ export default {
                     name: 'name',
                     type: 'text',
                     component: null,
-                    isNull: false,
                     label: '图片标题',
                     placeholder: '必填',
                     rule: [{required: true, message: '请输入标题', trigger: 'blur'}, {validator: validate2.reCheck, trigger: 'blur', message: '生长图片标题重复'}]
@@ -2470,7 +2213,6 @@ export default {
                     name: 'desc',
                     type: 'textarea',
                     component: null,
-                    isNull: false,
                     label: '特征描述',
                     placeholder: '',
                     rule: {required: true, trigger: 'blur', message: '请输入描述信息'}
@@ -2479,7 +2221,6 @@ export default {
                     name: 'date',
                     type: 'date',
                     component: inputDate,
-                    isNull: false,
                     label: '上传日期',
                     placeholder: '',
                     rule: [{required: true, trigger: 'blur', message: '请输入上传日期'}, {validator: validate2.reDate, message: '请输入上传日期'}]
@@ -2488,7 +2229,6 @@ export default {
                     name: 'img',
                     type: 'file',
                     component: inputFile,
-                    isNull: false,
                     label: '图片',
                     placeholder: '',
                     rule: {required: true, message: '请上传图片'}
@@ -2497,7 +2237,6 @@ export default {
                     name: 'memo',
                     type: 'textarea',
                     component: null,
-                    isNull: true,
                     label: '备注信息',
                     placeholder: '',
                     rule: null
@@ -2541,7 +2280,6 @@ export default {
                 name: 'date',
                 type: 'date',
                 component: inputDate,
-                isNull: false,
                 label: '检测日期',
                 placeholder: '',
                 disabled: true,
@@ -2551,7 +2289,6 @@ export default {
                 name: 'operate_id',
                 type: 'select',
                 component: null,
-                isNull: false,
                 label: '负责人',
                 placeholder: '请选择人物',
                 rule: {required: true, trigger: 'blur', type: 'number', message: '请选择负责人'},
@@ -2561,7 +2298,6 @@ export default {
                 name: 'name',
                 type: 'text',
                 component: null,
-                isNull: false,
                 label: '检测名称',
                 placeholder: '请填写检测项目名称',
                 rule: {required: true, trigger: 'blur', message: '请输入检测项目名称'}
@@ -2570,7 +2306,6 @@ export default {
                 name: 'result',
                 type: 'select',
                 component: null,
-                isNull: false,
                 label: '检测结果',
                 placeholder: '请选择检测结果',
                 rule: {required: true, trigger: 'blur'},
@@ -2580,7 +2315,6 @@ export default {
                 name: 'content',
                 type: 'text',
                 component: null,
-                isNull: false,
                 label: '检测内容',
                 placeholder: '请填写检测内容',
                 rule: null
@@ -2589,7 +2323,6 @@ export default {
                 name: 'organization',
                 type: 'text',
                 component: null,
-                isNull: false,
                 label: '检测机构',
                 placeholder: '请填写检测机构名称',
                 rule: null
@@ -2598,7 +2331,6 @@ export default {
                 name: 'method',
                 type: 'text',
                 component: null,
-                isNull: false,
                 label: '处理方法',
                 placeholder: '请填写检测处理方法',
                 rule: null
@@ -2607,7 +2339,6 @@ export default {
                 name: 'img',
                 type: 'file',
                 component: inputFile,
-                isNull: true,
                 label: '检测图片报告',
                 placeholder: '',
                 rule: null
@@ -2616,7 +2347,6 @@ export default {
                 name: 'memo',
                 type: 'textarea',
                 component: null,
-                isNull: true,
                 label: '备注信息',
                 placeholder: '',
                 rule: null
@@ -2633,7 +2363,6 @@ export default {
                 name: 'serial',
                 type: 'text',
                 component: null,
-                isNull: false,
                 label: '检测批次号',
                 placeholder: '',
                 disabled: true,
@@ -2643,7 +2372,6 @@ export default {
                 name: 'date',
                 type: 'date',
                 component: inputDate,
-                isNull: false,
                 label: '检测日期',
                 placeholder: '',
                 disabled: true,
@@ -2653,7 +2381,6 @@ export default {
                 name: 'operate_id',
                 type: 'select',
                 component: null,
-                isNull: false,
                 label: '负责人',
                 placeholder: '请选择人物',
                 rule: {required: true, trigger: 'blur', type: 'number', message: '请选择负责人'},
@@ -2663,7 +2390,6 @@ export default {
                 name: 'name',
                 type: 'text',
                 component: null,
-                isNull: false,
                 label: '检测名称',
                 placeholder: '请填写检测项目名称',
                 rule: {required: true, trigger: 'blur', message: '请输入检测项目名称'}
@@ -2672,7 +2398,6 @@ export default {
                 name: 'result',
                 type: 'select',
                 component: null,
-                isNull: false,
                 label: '检测结果',
                 placeholder: '请选择检测结果',
                 rule: {required: true, trigger: 'blur'},
@@ -2682,7 +2407,6 @@ export default {
                 name: 'content',
                 type: 'text',
                 component: null,
-                isNull: false,
                 label: '检测内容',
                 placeholder: '请填写检测内容',
                 rule: null
@@ -2691,7 +2415,6 @@ export default {
                 name: 'organization',
                 type: 'text',
                 component: null,
-                isNull: false,
                 label: '检测机构',
                 placeholder: '请填写检测机构名称',
                 rule: null
@@ -2700,7 +2423,6 @@ export default {
                 name: 'method',
                 type: 'text',
                 component: null,
-                isNull: false,
                 label: '处理方法',
                 placeholder: '请填写检测处理方法',
                 rule: null
@@ -2709,7 +2431,6 @@ export default {
                 name: 'img',
                 type: 'file',
                 component: inputFile,
-                isNull: true,
                 label: '检测图片报告',
                 placeholder: '',
                 rule: null
@@ -2718,7 +2439,6 @@ export default {
                 name: 'memo',
                 type: 'textarea',
                 component: null,
-                isNull: true,
                 label: '备注信息',
                 placeholder: '',
                 rule: null
@@ -2783,7 +2503,6 @@ export default {
                 type: 'select',
                 assoc: ['pack-product', 'id', 'product_name', 1, {value: '', label: '产品选择'}],
                 component: null,
-                isNull: false,
                 label: '加工批次号',
                 placeholder: '',
                 disabled: true,
@@ -2794,7 +2513,6 @@ export default {
                 name: 'pack_product_id',
                 type: 'select',
                 component: null,
-                isNull: false,
                 label: '加工产品',
                 placeholder: '',
                 disabled: true,
@@ -2805,7 +2523,6 @@ export default {
                 name: 'category',
                 type: 'select',
                 component: null,
-                isNull: false,
                 label: '加工商品来源',
                 placeholder: '',
                 selectNumber: {come: [3, 9], st: [4, 10], sf: [5]},
@@ -2816,7 +2533,6 @@ export default {
                 name: 'come_id',
                 type: 'select',
                 component: null,
-                isNull: false,
                 label: '出栏批次号',
                 hiddenSelect: true,
                 assocNum: 9,
@@ -2829,7 +2545,6 @@ export default {
                 name: 'st_id',
                 type: 'select',
                 component: null,
-                isNull: false,
                 hiddenSelect: true,
                 changeTable: true,
                 label: '入库批次',
@@ -2842,7 +2557,6 @@ export default {
                 name: 'sf_id',
                 type: 'select',
                 component: null,
-                isNull: false,
                 hiddenSelect: true,
                 label: '入库批次',
                 placeholder: '',
@@ -2853,7 +2567,6 @@ export default {
                 name: 'date',
                 type: 'date',
                 component: inputDate,
-                isNull: false,
                 label: '生产日期',
                 placeholder: '',
                 rule: [{required: true, trigger: 'blur', message: '请输入生产日期'}, {validator: validate2.reDate, message: '请输入生产日期'}]
@@ -2862,7 +2575,6 @@ export default {
                 name: 'amount',
                 type: 'text',
                 component: null,
-                isNull: false,
                 label: '生成数量',
                 placeholder: '请填写数量',
                 rule: [{required: true, trigger: 'blur', message: '请输入生成溯源码数量'}, {validator: validate2.reInteger}]
@@ -2871,7 +2583,6 @@ export default {
                 name: 'memo',
                 type: 'textarea',
                 component: null,
-                isNull: true,
                 label: '备注信息',
                 placeholder: '',
                 rule: null
@@ -2905,7 +2616,6 @@ export default {
                 name: 'serial',
                 type: 'text',
                 component: null,
-                isNull: false,
                 label: '加工批次号',
                 placeholder: '',
                 disabled: true,
@@ -2915,7 +2625,6 @@ export default {
                 name: 'code',
                 type: 'text',
                 component: null,
-                isNull: false,
                 label: '产品溯源码',
                 placeholder: '',
                 disabled: true,
@@ -2925,7 +2634,6 @@ export default {
                 name: 'product_name',
                 type: 'text',
                 component: null,
-                isNull: false,
                 label: '加工产品',
                 placeholder: '',
                 disabled: true,
@@ -2935,7 +2643,6 @@ export default {
                 name: 'rfid',
                 type: 'text',
                 component: null,
-                isNull: false,
                 label: 'Rfid',
                 placeholder: '',
                 disabled: true,
@@ -2945,7 +2652,6 @@ export default {
                 name: 'date',
                 type: 'date',
                 component: inputDate,
-                isNull: false,
                 label: '生产日期',
                 placeholder: '',
                 rule: [{required: true, trigger: 'blur', message: '请输入生产日期'}, {validator: validate2.reDate, message: '请输入生产日期'}]
@@ -2954,7 +2660,6 @@ export default {
                 name: 'memo',
                 type: 'textarea',
                 component: null,
-                isNull: true,
                 label: '备注信息',
                 placeholder: '',
                 rule: null
@@ -3006,7 +2711,6 @@ export default {
                 name: 'manure_id',
                 type: 'select',
                 component: null,
-                isNull: false,
                 label: '肥料名称',
                 placeholder: '必填',
                 rule: {required: true, trigger: 'blur', message: '请选择肥料名称', type: 'number'},
@@ -3016,7 +2720,6 @@ export default {
                 name: 'date',
                 type: 'date',
                 component: inputDate,
-                isNull: false,
                 label: '施肥日期',
                 placeholder: '',
                 rule: [{required: true, message: '请输入施肥日期'}, {validator: validate2.reDate, message: '请输入施肥日期'}]
@@ -3025,7 +2728,6 @@ export default {
                 name: 'weather',
                 type: 'select',
                 component: null,
-                isNull: false,
                 label: '天气',
                 placeholder: '',
                 rule: null,
@@ -3035,7 +2737,6 @@ export default {
                 name: 'amount',
                 type: 'textSelect',
                 component: inputTextSelect,
-                isNull: false,
                 label: '使用量',
                 placeholder: '请填写数字（必填）',
                 options: [['kg/亩', 'kg/平方米', 'kg/公顷']],
@@ -3045,7 +2746,6 @@ export default {
                 name: 'operate_id',
                 type: 'select',
                 component: null,
-                isNull: true,
                 label: '施肥人',
                 placeholder: '',
                 rule: {required: true, trigger: 'blur', type: 'number', message: '请输入施肥人'},
@@ -3055,7 +2755,6 @@ export default {
                 name: 'expert_id',
                 type: 'select',
                 component: null,
-                isNull: true,
                 label: '专家',
                 placeholder: '',
                 rule: null,
@@ -3065,7 +2764,6 @@ export default {
                 name: 'way',
                 type: 'text',
                 component: null,
-                isNull: true,
                 label: '施肥方法',
                 placeholder: '',
                 rule: null
@@ -3074,7 +2772,6 @@ export default {
                 name: 'memo',
                 type: 'textarea',
                 component: null,
-                isNull: true,
                 label: '备注信息',
                 placeholder: '',
                 rule: null
@@ -3091,7 +2788,6 @@ export default {
                 name: 'serial',
                 type: 'text',
                 component: null,
-                isNull: false,
                 disabled: true,
                 label: '施肥批次号',
                 placeholder: '必填',
@@ -3101,7 +2797,6 @@ export default {
                 name: 'manure_id',
                 type: 'select',
                 component: null,
-                isNull: false,
                 label: '肥料名称',
                 placeholder: '必填',
                 rule: {required: true, trigger: 'blur', message: '请选择肥料名称', type: 'number'},
@@ -3111,7 +2806,6 @@ export default {
                 name: 'date',
                 type: 'date',
                 component: inputDate,
-                isNull: false,
                 label: '施肥日期',
                 placeholder: '',
                 rule: [{required: true, message: '请输入施肥日期'}, {validator: validate2.reDate, message: '请输入施肥日期'}]
@@ -3120,7 +2814,6 @@ export default {
                 name: 'weather',
                 type: 'select',
                 component: null,
-                isNull: false,
                 label: '天气',
                 placeholder: '',
                 rule: null,
@@ -3130,7 +2823,6 @@ export default {
                 name: 'amount',
                 type: 'textSelect',
                 component: inputTextSelect,
-                isNull: false,
                 label: '使用量',
                 placeholder: '请填写数字（必填）',
                 options: [['kg/亩', 'kg/平方米', 'kg/公顷']],
@@ -3140,7 +2832,6 @@ export default {
                 name: 'operate_id',
                 type: 'select',
                 component: null,
-                isNull: true,
                 label: '施肥人',
                 placeholder: '',
                 rule: {required: true, trigger: 'blur', type: 'number', message: '请输入施肥人'},
@@ -3150,7 +2841,6 @@ export default {
                 name: 'expert_id',
                 type: 'select',
                 component: null,
-                isNull: true,
                 label: '专家',
                 placeholder: '',
                 rule: null,
@@ -3160,7 +2850,6 @@ export default {
                 name: 'way',
                 type: 'text',
                 component: null,
-                isNull: true,
                 label: '施肥方法',
                 placeholder: '',
                 rule: null
@@ -3169,7 +2858,6 @@ export default {
                 name: 'memo',
                 type: 'textarea',
                 component: null,
-                isNull: true,
                 label: '备注信息',
                 placeholder: '',
                 rule: null
@@ -3244,7 +2932,6 @@ export default {
                 type: 'select',
                 assoc: ['pack-product', 'id', 'product_name', 1, {value: '', label: '产品选择'}],
                 component: null,
-                isNull: false,
                 label: '加工批次号',
                 placeholder: '',
                 disabled: true,
@@ -3255,7 +2942,6 @@ export default {
                 name: 'pack_product_id',
                 type: 'select',
                 component: null,
-                isNull: false,
                 label: '加工产品',
                 placeholder: '',
                 disabled: true,
@@ -3266,7 +2952,6 @@ export default {
                 name: 'category',
                 type: 'select',
                 component: null,
-                isNull: false,
                 label: '加工商品来源',
                 placeholder: '',
                 selectNumber: {harvest: [3], st: [4, 9], sf: [5]},
@@ -3277,7 +2962,6 @@ export default {
                 name: 'harvest_id',
                 type: 'select',
                 component: null,
-                isNull: false,
                 label: '采收批次号',
                 hiddenSelect: true,
                 placeholder: '',
@@ -3289,7 +2973,6 @@ export default {
                 name: 'st_id',
                 type: 'select',
                 component: null,
-                isNull: false,
                 hiddenSelect: true,
                 changeTable: true,
                 label: '入库批次',
@@ -3302,7 +2985,6 @@ export default {
                 name: 'sf_id',
                 type: 'select',
                 component: null,
-                isNull: false,
                 hiddenSelect: true,
                 label: '入库批次',
                 placeholder: '',
@@ -3313,7 +2995,6 @@ export default {
                 name: 'date',
                 type: 'date',
                 component: inputDate,
-                isNull: false,
                 label: '生产日期',
                 placeholder: '',
                 rule: [{required: true, trigger: 'blur', message: '请输入生产日期'}, {validator: validate2.reDate, message: '请输入生产日期'}]
@@ -3322,7 +3003,6 @@ export default {
                 name: 'amount',
                 type: 'text',
                 component: null,
-                isNull: false,
                 label: '生成数量',
                 placeholder: '请填写数量',
                 rule: [{required: true, trigger: 'blur', message: '请输入生成溯源码数量'}, {validator: validate2.reInteger}]
@@ -3331,7 +3011,6 @@ export default {
                 name: 'memo',
                 type: 'textarea',
                 component: null,
-                isNull: true,
                 label: '备注信息',
                 placeholder: '',
                 rule: null
@@ -3354,7 +3033,6 @@ export default {
                 name: 'serial',
                 type: 'text',
                 component: null,
-                isNull: false,
                 label: '加工批次号',
                 placeholder: '',
                 disabled: true,
@@ -3364,7 +3042,6 @@ export default {
                 name: 'code',
                 type: 'text',
                 component: null,
-                isNull: false,
                 label: '产品溯源码',
                 placeholder: '',
                 disabled: true,
@@ -3374,7 +3051,6 @@ export default {
                 name: 'date',
                 type: 'date',
                 component: inputDate,
-                isNull: false,
                 label: '生产日期',
                 placeholder: '',
                 rule: [{required: true, trigger: 'blur', message: '请输入生产日期'}, {validator: validate2.reDate, message: '请输入生产日期'}]
@@ -3383,7 +3059,6 @@ export default {
                 name: 'memo',
                 type: 'textarea',
                 component: null,
-                isNull: true,
                 label: '备注信息',
                 placeholder: '',
                 rule: null
@@ -3428,7 +3103,6 @@ export default {
                 name: 'date',
                 type: 'date',
                 component: inputDate,
-                isNull: false,
                 label: '检测日期',
                 placeholder: '',
                 disabled: true,
@@ -3438,7 +3112,6 @@ export default {
                 name: 'operate_id',
                 type: 'select',
                 component: null,
-                isNull: false,
                 label: '负责人',
                 placeholder: '请选择人物',
                 rule: {required: true, trigger: 'blur', type: 'number', message: '请选择负责人'},
@@ -3448,7 +3121,6 @@ export default {
                 name: 'name',
                 type: 'text',
                 component: null,
-                isNull: false,
                 label: '检测名称',
                 placeholder: '请填写检测项目名称',
                 rule: {required: true, trigger: 'blur', message: '请输入检测项目名称'}
@@ -3457,7 +3129,6 @@ export default {
                 name: 'result',
                 type: 'select',
                 component: null,
-                isNull: false,
                 label: '检测结果',
                 placeholder: '请选择检测结果',
                 rule: {required: true, trigger: 'blur'},
@@ -3467,7 +3138,6 @@ export default {
                 name: 'content',
                 type: 'textarea',
                 component: null,
-                isNull: false,
                 label: '检测内容',
                 placeholder: '请填写检测内容',
                 rule: null
@@ -3476,7 +3146,6 @@ export default {
                 name: 'organization',
                 type: 'text',
                 component: null,
-                isNull: false,
                 label: '检测机构',
                 placeholder: '请填写检测机构名称',
                 rule: null
@@ -3485,7 +3154,6 @@ export default {
                 name: 'method',
                 type: 'text',
                 component: null,
-                isNull: false,
                 label: '处理方法',
                 placeholder: '请填写检测处理方法',
                 rule: null
@@ -3494,7 +3162,6 @@ export default {
                 name: 'img',
                 type: 'file',
                 component: inputFile,
-                isNull: true,
                 label: '检测图片报告',
                 placeholder: '',
                 rule: null
@@ -3503,7 +3170,6 @@ export default {
                 name: 'memo',
                 type: 'textarea',
                 component: null,
-                isNull: true,
                 label: '备注信息',
                 placeholder: '',
                 rule: null
@@ -3520,7 +3186,6 @@ export default {
                 name: 'serial',
                 type: 'text',
                 component: null,
-                isNull: false,
                 label: '加工检测批次号',
                 placeholder: '',
                 disabled: true,
@@ -3530,7 +3195,6 @@ export default {
                 name: 'date',
                 type: 'date',
                 component: inputDate,
-                isNull: false,
                 label: '检测日期',
                 placeholder: '',
                 disabled: true,
@@ -3540,7 +3204,6 @@ export default {
                 name: 'operate_id',
                 type: 'select',
                 component: null,
-                isNull: false,
                 label: '负责人',
                 placeholder: '请选择人物',
                 rule: {required: true, trigger: 'blur', type: 'number'},
@@ -3550,7 +3213,6 @@ export default {
                 name: 'name',
                 type: 'text',
                 component: null,
-                isNull: false,
                 label: '检测名称',
                 placeholder: '请填写检测项目名称',
                 rule: {required: true, trigger: 'blur', message: '请输入检测项目名称'}
@@ -3559,7 +3221,6 @@ export default {
                 name: 'result',
                 type: 'select',
                 component: null,
-                isNull: false,
                 label: '检测结果',
                 placeholder: '请选择检测结果',
                 rule: {required: true, trigger: 'blur'},
@@ -3569,7 +3230,6 @@ export default {
                 name: 'content',
                 type: 'textarea',
                 component: null,
-                isNull: false,
                 label: '检测内容',
                 placeholder: '请填写检测内容',
                 rule: null
@@ -3578,7 +3238,6 @@ export default {
                 name: 'organization',
                 type: 'text',
                 component: null,
-                isNull: false,
                 label: '检测机构',
                 placeholder: '请填写检测机构名称',
                 rule: null
@@ -3587,7 +3246,6 @@ export default {
                 name: 'method',
                 type: 'text',
                 component: null,
-                isNull: false,
                 label: '处理方法',
                 placeholder: '请填写检测处理方法',
                 rule: null
@@ -3596,7 +3254,6 @@ export default {
                 name: 'img',
                 type: 'file',
                 component: inputFile,
-                isNull: true,
                 label: '检测图片报告',
                 placeholder: '',
                 rule: null
@@ -3605,7 +3262,6 @@ export default {
                 name: 'memo',
                 type: 'textarea',
                 component: null,
-                isNull: true,
                 label: '备注信息',
                 placeholder: '',
                 rule: null
@@ -3658,7 +3314,6 @@ export default {
                 type: 'select',
                 assoc: ['pack-product', 'id', 'product_name', 1, {value: '', label: '产品选择'}],
                 component: null,
-                isNull: false,
                 label: '加工批次号',
                 placeholder: '',
                 disabled: true,
@@ -3669,7 +3324,6 @@ export default {
                 name: 'pack_product_id',
                 type: 'select',
                 component: null,
-                isNull: false,
                 label: '加工产品',
                 placeholder: '',
                 disabled: true,
@@ -3680,7 +3334,6 @@ export default {
                 name: 'category',
                 type: 'select',
                 component: null,
-                isNull: false,
                 label: '加工商品来源',
                 placeholder: '',
                 selectNumber: {harvest: [3], st: [4, 9], sf: [5]},
@@ -3691,7 +3344,6 @@ export default {
                 name: 'harvest_id',
                 type: 'select',
                 component: null,
-                isNull: false,
                 label: '采收批次号',
                 hiddenSelect: true,
                 placeholder: '',
@@ -3703,7 +3355,6 @@ export default {
                 name: 'st_id',
                 type: 'select',
                 component: null,
-                isNull: false,
                 hiddenSelect: true,
                 changeTable: true,
                 label: '入库批次',
@@ -3716,7 +3367,6 @@ export default {
                 name: 'sf_id',
                 type: 'select',
                 component: null,
-                isNull: false,
                 hiddenSelect: true,
                 label: '入库批次',
                 placeholder: '',
@@ -3727,7 +3377,6 @@ export default {
                 name: 'date',
                 type: 'date',
                 component: inputDate,
-                isNull: false,
                 label: '生产日期',
                 placeholder: '',
                 rule: [{required: true, trigger: 'blur', message: '请输入生产日期'}, {validator: validate2.reDate, message: '请输入生产日期'}]
@@ -3736,7 +3385,6 @@ export default {
                 name: 'amount',
                 type: 'text',
                 component: null,
-                isNull: false,
                 label: '生成数量',
                 placeholder: '请填写数量',
                 rule: [{required: true, trigger: 'blur', message: '请输入生成溯源码数量'}, {validator: validate2.reInteger}]
@@ -3745,7 +3393,6 @@ export default {
                 name: 'memo',
                 type: 'textarea',
                 component: null,
-                isNull: true,
                 label: '备注信息',
                 placeholder: '',
                 rule: null
@@ -3768,7 +3415,6 @@ export default {
                 name: 'serial',
                 type: 'text',
                 component: null,
-                isNull: false,
                 label: '加工批次号',
                 placeholder: '',
                 disabled: true,
@@ -3778,7 +3424,6 @@ export default {
                 name: 'code',
                 type: 'text',
                 component: null,
-                isNull: false,
                 label: '产品溯源码',
                 placeholder: '',
                 disabled: true,
@@ -3788,7 +3433,6 @@ export default {
                 name: 'date',
                 type: 'date',
                 component: inputDate,
-                isNull: false,
                 label: '生产日期',
                 placeholder: '',
                 rule: [{required: true, trigger: 'blur', message: '请输入生产日期'}, {validator: validate2.reDate, message: '请输入生产日期'}]
@@ -3797,7 +3441,6 @@ export default {
                 name: 'memo',
                 type: 'textarea',
                 component: null,
-                isNull: true,
                 label: '备注信息',
                 placeholder: '',
                 rule: null
@@ -3844,7 +3487,6 @@ export default {
                 name: 'datetime',
                 type: 'date',
                 component: inputDate,
-                isNull: true,
                 label: '物流日期',
                 rule: [{required: true, message: '请输入物流日期'}, {validator: validate2.reDate, message: '请输入物流日期'}]
             },
@@ -3852,7 +3494,6 @@ export default {
                 name: 'name',
                 type: 'text',
                 component: null,
-                isNull: true,
                 label: '货物名称',
                 placeholder: '',
                 rule: {required: true, message: '请输入货物名称'}
@@ -3861,7 +3502,6 @@ export default {
                 name: 'transportable_type',
                 type: 'select',
                 component: null,
-                isNull: false,
                 label: '运输方式',
                 placeholder: '必填',
                 selectNumber: {self: [3, 4], consign: [5, 6], selve: [7]},
@@ -3872,7 +3512,6 @@ export default {
                 name: 'vehicle_id',
                 type: 'select',
                 component: null,
-                isNull: false,
                 hiddenSelect: true,
                 label: '车牌号',
                 placeholder: '',
@@ -3884,7 +3523,6 @@ export default {
                 hiddenSelect: true,
                 type: 'select',
                 component: null,
-                isNull: false,
                 label: '司机',
                 placeholder: '',
                 rule: {required: true, trigger: 'blur', type: 'number', message: '请选择运输司机'},
@@ -3894,7 +3532,6 @@ export default {
                 name: 'logistic_id',
                 type: 'select',
                 component: null,
-                isNull: false,
                 hiddenSelect: true,
                 label: '物流公司',
                 placeholder: '',
@@ -3906,7 +3543,6 @@ export default {
                 hiddenSelect: true,
                 type: 'text',
                 component: null,
-                isNull: false,
                 label: '物流订单号',
                 placeholder: '',
                 rule: {required: true, message: '请输入物流订单号'}
@@ -3916,7 +3552,6 @@ export default {
                 hiddenSelect: true,
                 type: 'text',
                 component: null,
-                isNull: false,
                 label: '提货人',
                 placeholder: '',
                 rule: {required: true, message: '请输入提货人姓名'}
@@ -3925,7 +3560,6 @@ export default {
                 name: 'operate_id',
                 type: 'select',
                 component: null,
-                isNull: false,
                 label: '操作人员',
                 placeholder: '',
                 rule: {required: true, trigger: 'blur', type: 'number', message: '请选择操作人员'},
@@ -3935,7 +3569,6 @@ export default {
                 name: 'memo',
                 type: 'textarea',
                 component: null,
-                isNull: true,
                 label: '备注信息',
                 placeholder: '',
                 rule: null
@@ -3951,7 +3584,6 @@ export default {
                 name: 'serial',
                 type: 'text',
                 component: null,
-                isNull: false,
                 label: '物流批次号',
                 placeholder: '必填',
                 disabled: true,
@@ -3961,7 +3593,6 @@ export default {
                 name: 'datetime',
                 type: 'date',
                 component: inputDate,
-                isNull: true,
                 label: '物流日期',
                 rule: [{required: true, trigger: 'blur', message: '请输入物流日期'}, {validator: validate2.reDate, message: '请输入物流日期'}]
             },
@@ -3969,7 +3600,6 @@ export default {
                 name: 'name',
                 type: 'text',
                 component: null,
-                isNull: true,
                 label: '货物名称',
                 rule: {required: true, message: '请输入货物名称'}
             },
@@ -3977,7 +3607,6 @@ export default {
                 name: 'transportable_type',
                 type: 'text',
                 component: null,
-                isNull: false,
                 label: '运输方式',
                 placeholder: '必填',
                 disabled: true,
@@ -3988,7 +3617,6 @@ export default {
                 hiddenSelect: true,
                 type: 'text',
                 component: null,
-                isNull: false,
                 label: '车牌号',
                 placeholder: '',
                 disabled: true,
@@ -3999,7 +3627,6 @@ export default {
                 hiddenSelect: true,
                 type: 'text',
                 component: null,
-                isNull: false,
                 label: '司机',
                 placeholder: '',
                 disabled: true,
@@ -4010,7 +3637,6 @@ export default {
                 hiddenSelect: true,
                 type: 'text',
                 component: null,
-                isNull: false,
                 label: '物流公司',
                 placeholder: '',
                 disabled: true,
@@ -4021,7 +3647,6 @@ export default {
                 hiddenSelect: true,
                 type: 'text',
                 component: null,
-                isNull: false,
                 label: '物流订单',
                 placeholder: '',
                 disabled: true,
@@ -4032,7 +3657,6 @@ export default {
                 hiddenSelect: true,
                 type: 'text',
                 component: null,
-                isNull: false,
                 label: '提货人',
                 disabled: true,
                 placeholder: '',
@@ -4042,7 +3666,6 @@ export default {
                 name: 'operate_id',
                 type: 'select',
                 component: null,
-                isNull: false,
                 label: '操作人员',
                 placeholder: '',
                 rule: {required: true, trigger: 'blur', type: 'number', message: '请选择操作人员'},
@@ -4052,7 +3675,6 @@ export default {
                 name: 'memo',
                 type: 'textarea',
                 component: null,
-                isNull: true,
                 label: '备注信息',
                 placeholder: '',
                 rule: null
@@ -4139,7 +3761,6 @@ export default {
                 name: 'datetime',
                 type: 'date',
                 component: inputDate,
-                isNull: false,
                 label: '订单日期时间',
                 placeholder: '',
                 disabled: true,
@@ -4149,7 +3770,6 @@ export default {
                 name: 'delivery_id',
                 type: 'select',
                 component: null,
-                isNull: false,
                 label: '物流订单',
                 placeholder: '',
                 rule: {required: true, trigger: 'blur', type: 'number', message: '请选择物流订单'},
@@ -4159,7 +3779,6 @@ export default {
                 name: 'client_id',
                 type: 'select',
                 component: null,
-                isNull: false,
                 label: '客户',
                 placeholder: '',
                 rule: {required: true, trigger: 'blur', type: 'number', message: '请选择销售客户'},
@@ -4169,7 +3788,6 @@ export default {
                 name: 'operate_id',
                 type: 'select',
                 component: null,
-                isNull: false,
                 label: '销售员',
                 placeholder: '',
                 rule: {required: true, trigger: 'blur', type: 'number', message: '请选择销售人员'},
@@ -4179,7 +3797,6 @@ export default {
                 name: 'money',
                 type: 'text',
                 component: null,
-                isNull: false,
                 label: '销售金额',
                 placeholder: '',
                 rule: [{required: true, trigger: 'blur', message: '请输入销售金额'}, {validator: validate2.reNumber}]
@@ -4188,7 +3805,6 @@ export default {
                 name: 'memo',
                 type: 'textarea',
                 component: null,
-                isNull: true,
                 label: '备注信息',
                 placeholder: '',
                 rule: null
@@ -4205,7 +3821,6 @@ export default {
                 name: 'serial',
                 type: 'text',
                 component: null,
-                isNull: false,
                 label: '销售批次号',
                 placeholder: '',
                 disabled: true,
@@ -4215,7 +3830,6 @@ export default {
                 name: 'datetime',
                 type: 'date',
                 component: inputDate,
-                isNull: false,
                 label: '订单日期时间',
                 placeholder: '',
                 disabled: true,
@@ -4225,7 +3839,6 @@ export default {
                 name: 'delivery_id',
                 type: 'select',
                 component: null,
-                isNull: false,
                 label: '物流订单',
                 placeholder: '',
                 rule: {required: true, trigger: 'blur', type: 'number', message: '请选择物流订单'},
@@ -4235,7 +3848,6 @@ export default {
                 name: 'client_id',
                 type: 'select',
                 component: null,
-                isNull: false,
                 label: '客户',
                 placeholder: '',
                 rule: {required: true, trigger: 'blur', type: 'number', message: '请选择销售客户'},
@@ -4245,7 +3857,6 @@ export default {
                 name: 'operate_id',
                 type: 'select',
                 component: null,
-                isNull: false,
                 label: '销售员',
                 placeholder: '',
                 rule: {required: true, trigger: 'blur', type: 'number', message: '请选择销售人员'},
@@ -4255,7 +3866,6 @@ export default {
                 name: 'money',
                 type: 'text',
                 component: null,
-                isNull: false,
                 label: '销售金额',
                 placeholder: '',
                 rule: [{required: true, trigger: 'blur', message: '请输入销售金额'}, {validator: validate2.reNumber}]
@@ -4264,7 +3874,6 @@ export default {
                 name: 'memo',
                 type: 'textarea',
                 component: null,
-                isNull: true,
                 label: '备注信息',
                 placeholder: '',
                 rule: null

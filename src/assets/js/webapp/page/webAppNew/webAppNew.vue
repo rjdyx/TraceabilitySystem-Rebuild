@@ -12,26 +12,38 @@
             <group label-width="4.5em" label-margin-right="2em" label-align="right">
                 <div class="formItem" v-for="comItem in newComponent.components" v-if="comItem.type !== 'file'">
                     <x-input 
+                        :inputName="comItem.name"
                         v-if="comItem.type ==='text'" 
                         :title="comItem.label" 
                         :placeholder="comItem.placeholder" 
                         v-model="tableForm[comItem.name]"
-                        :required='true'>
+                        @on-change="inputOnChange"
+                        @on-blur="onBlur"
+                        :class="{ inputErrors: ruleTableForm[comItem.name].bol}"
+                        >
                     </x-input>
-
-
-                    <datetime 
+                    <datetime
+                        :name="comItem.name" 
                         v-if="comItem.type === 'date'"
                         :title="comItem.label" 
                         v-model="tableForm[comItem.name]" 
-                        value-text-align="left">
+                        value-text-align="left"
+                        @on-dateHide="onDateHide"
+                        :placeholder="comItem.placeholder"
+                        :class="{ inputErrors: ruleTableForm[comItem.name].bol}">
                     </datetime>
 
-                    <popup-picker 
+                    <popup-picker
+                        :name = "comItem.name"
                         v-if="comItem.type === 'select'"
                         :title="comItem.label" 
                         :data="comItem.options" 
-                        v-model="tableForm[comItem.name]">
+                        :placeholder="comItem.placeholder"
+                        v-model="tableForm[comItem.name]"
+                        @on-hide="onHide"
+                        value-text-align="left"
+                        :class="{ inputErrors: ruleTableForm[comItem.name].bol}"
+                        >
                     </popup-picker>
 
                     <x-textarea
@@ -40,22 +52,69 @@
                         :placeholder="comItem.placeholder" 
                         :show-counter="false" 
                         :rows="3"
-                        v-model="tableForm[comItem.name]">
+                        v-model="tableForm[comItem.name]"
+                        :class="{ inputErrors: ruleTableForm[comItem.name].bol}">
                     </x-textarea>
                     
                     <div v-if="comItem.type === 'textSelect'">
                         <x-input 
+                            :inputName="comItem.name"
                             :title="comItem.label" 
                             :placeholder="comItem.placeholder" 
-                            v-model="tableForm[comItem.name]">
+                            v-model="tableForm[comItem.name]"
+                            @on-change="inputOnChange"
+                            @on-blur="onBlur"
+                            :class="{ inputErrors: ruleTableForm[comItem.name].bol}">
                         </x-input>
                         <popup-picker 
+                            :name="comItem.name"
                             title="单位"
                             :data="comItem.options" 
                             v-model="tableForm['unit']"
+                            @on-hide="onHide"
+                            value-text-align="left"
+                            :class="{ inputErrors: ruleTableForm['unit'].bol}"
                             >
                         </popup-picker>
-                    </popup-picker>
+                    </div>
+
+                    <div v-if="comItem.type === 'pcSelect'">
+                        <!-- <x-switch title="set max-height=50%" v-model="show13"></x-switch> -->
+                        <div class="pcDiv">
+                            <div class="vux-cell-box" @click='show13 = !show13'>
+                                <div :class="{ inputErrors: ruleTableForm[comItem.name].bol}">
+                                    <div class="weui-cell vux-tap-active weui-cell_access">
+                                        <div class="weui-cell__hd"><label class="weui-label" style="display: block; width: 4.5em; text-align: right; margin-right: 2em;">{{comItem.label}}</label><!---->
+                                        </div>
+                                        <div class="vux-cell-primary vux-popup-picker-select-box">
+                                            <div class="vux-popup-picker-select" style="text-align: left;"><!----><!----><!---->
+                                                <span class="vux-popup-picker-placeholder">{{pcPlaceholder}}</span>
+                                            </div>
+                                        </div>
+                                        <div class="weui-cell__ft"  ></div>
+                                    </div><!---->
+                                </div>
+                            </div>
+                            <div class="pcList" v-if="tableForm[comItem.name].length">
+                                <ul>
+                                    <li v-for="item in tableForm[comItem.name]">
+                                        <p v-for="itemOption in comItem.options" v-if='itemOption.key === item'>
+                                            <input type="checkbox" checked disabled="disabled">{{itemOption.value}}
+                                        </p>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div v-transfer-dom>
+                          <popup v-model="show13" position="bottom" height="100%">
+                            <group>
+                              <checklist title="请选择批次号" :options="comItem.options" v-model="tableForm[comItem.name]" @on-change="change"></checklist>
+                            </group>
+                            <div style="padding: 15px;">
+                              <x-button @click.native="pcClose(comItem.name)" plain type="primary"> Close Me </x-button>
+                            </div>
+                          </popup>
+                        </div>
                     </div>
                     
                 </div>
@@ -65,6 +124,7 @@
                 v-if="comItem.type === 'file'" 
                 @return-shuju="returnShuju"
                 :name="comItem.name"
+                :class="{ cameraErrors: ruleTableForm[comItem.name].bol}"
             ></camera>
             <flexbox>
                     <flexbox-item>
@@ -75,15 +135,18 @@
                     </flexbox-item>
             </flexbox>
         </div>
-
     </div>
 </template>
 <script>
-import { XHeader, Actionsheet, TransferDom, Group, XInput, Selector, PopupPicker, Datetime, ChinaAddressData, XTextarea, Icon, XButton, Flexbox, FlexboxItem, PopupRadio } from 'vux'
+import { XHeader, Actionsheet, TransferDom, Group, XInput, Selector, PopupPicker, Datetime, ChinaAddressData, XTextarea, Icon, XButton, Flexbox, FlexboxItem, PopupRadio, Popup, XSwitch, Cell, Checklist, Divider } from 'vux'
 import message from '../webAppBasic/appmessage.js'
 import Camera from '../../public/camera.vue'
+import validate from '../../../utils/appValidate.js'
 export default {
     name: 'p_popNew',
+    directives: {
+        TransferDom
+    },
     components: {
         XHeader,
         Actionsheet,
@@ -99,21 +162,31 @@ export default {
         Flexbox,
         FlexboxItem,
         PopupRadio,
-        Camera
+        Camera,
+        Popup,
+        XSwitch,
+        Cell,
+        Checklist,
+        Divider
     },
     data () {
         let modelObj = {}
         Object.assign(modelObj, message)
         let newComponent = modelObj[this.$route.params.model][this.$route.params.modelIndex].newComponent
-        let form = {}
+        let form = {} // 装内容
+        let ruleTableForm = {} // 装内容是否符合规则，boolean类型
         newComponent[0].components.forEach(function (item) {
             if (item.type === 'textSelect') {
                 form[item.name] = 0
                 form['unit'] = [item.options[0][0]]
-            } else if (item.type === 'select') {
+                ruleTableForm['unit'] = {bol: false, rule: {required: item.rule.required}}
+                ruleTableForm[item.name] = {bol: false, rule: item.rule}
+            } else if (item.type === 'select' || item.type === 'pcSelect') {
                 form[item.name] = []
+                ruleTableForm[item.name] = {bol: false, rule: item.rule}
             } else {
                 form[item.name] = ''
+                ruleTableForm[item.name] = {bol: false, rule: item.rule}
             }
         })
 
@@ -121,46 +194,118 @@ export default {
             settitle: newComponent[0].tab,
             newComponent: newComponent[0],
             tableForm: form,
-            be2333: function (value) {
-                console.log(value)
-                return {
-                    valid: value !== '',
-                    msg: 'Must be 2333'
-                }
-            }
+            ruleTableForm: ruleTableForm,
+            show13: false,
+            objectListValue: ['15', '2']
         }
     },
     methods: {
+        change (val) {
+            console.log('change1', val)
+            console.log(this.tableForm)
+        },
+        /*
+        popup-picker组件的方法
+        修改了vex里面popup-pickert组件的onShow, 原没有参数，现在是name。
+        popup-picker组件还需要传多一个：name的属性
+        */
+        onHide (obj) {
+            // (name, rule, value)
+            this.validateFn(obj)
+        },
+
+        /*
+        x-input组件的方法
+        修改了vex里面x-input组件的onChange, onBlur方法，原参数是字符串，现在是obj{name:name,value:value}。
+        x-input组件还需要传多一个：inputName的属性
+        */
+        validateFn (obj) {
+            // (name, rule, value)
+            let result = validate.fn(obj.name, this.ruleTableForm[obj.name].rule, this.tableForm[obj.name])
+            console.log(result)
+            if (result.valid) { // true验证成功
+                this.ruleTableForm[obj.name].bol = false
+                return result
+            } else { // 验证失败
+                this.ruleTableForm[obj.name].bol = true
+                return result
+            }
+        },
+        inputOnChange (obj) {
+            this.validateFn(obj)
+        },
+        onBlur (obj) {
+            this.validateFn(obj)
+        },
+
+        /*
+        datatime验证
+        datetime组件的方法
+        添加了vex里面x-input组件的onDateHide方法，参数obj{name:name}。
+        x-input组件还需要传多一个：name的属性
+        */
+        onDateHide (obj) {
+            this.validateFn(obj)
+        },
+
+        // 批次号验证
+        pcClose (name) {
+            this.show13 = !this.show13
+            this.validateFn({name: name})
+        },
         /*
         取消表单
-         */
+        */
         cancelForm () {
             this.$router.go(-1)
         },
+
         /*
         提交表单
          */
         submitForm () {
-            console.log('提交成功')
             console.log(this.tableForm)
+            console.log(this.ruleTableForm)
+            let allValBol = true
+            for (let key in this.ruleTableForm) {
+                let fnBol = this.validateFn({name: key, rule: this.ruleTableForm[key], value: this.tableForm[key]}).valid
+                allValBol = allValBol && fnBol
+            }
+            if (allValBol) {
+                console.log('提交成功')
+                console.log(this.tableForm)
+            } else {
+                console.log('请输入完整')
+            }
         },
+
         /*
         返回图片信息
          */
         returnShuju (obj) {
             this.tableForm[obj.name] = obj.value
+            // name, rule, value
+            this.validateFn({name: obj.name, rule: this.ruleTableForm[obj.name], value: this.tableForm[obj.name]})
         },
-        /*
-        表单验证
-         */
-        validateFn () {
+        resetScroller () {
+            this.$nextTick(() => {
+                this.$refs.scroller.reset()
+            })
+        },
+        log (str) {
+            console.log(str)
         }
     },
     created () {
         $('#app').removeClass('bule').addClass('gray')
     },
     mounted () {
-        console.log(this.newComponent)
+        console.log(this.ruleTableForm)
+    },
+    computed: {
+        pcPlaceholder () {
+            return this.objectListValue.length ? '已选择批次号' : '请选择批次号'
+        }
     }
 }
 </script>
@@ -175,7 +320,39 @@ export default {
         margin-right:0px!important;
         width:6em!important;
     }
+.pcDiv{
+    .pcList{
+        border-top: 1px solid #D9D9D9;
+        max-height:3rem;
+        overflow:scroll;
+        padding:.2rem .3rem;
+        li{
+            line-height:.6rem;
+            input{
+                vertical-align: text-bottom;
+                margin-right:10px;
+            }
+        }
+    }
+}
+.inputErrors{
+    color:red!important;
+}
+.cameraErrors{
+    border-color:red!important;
+}
+.weui-cells_checkbox .weui-check:checked + .vux-checklist-icon-checked:before
+{
+    color: #20a0ff!important;
+}
+.weui-btn_plain-primary{
+    color: #20a0ff!important;
+    border: 1px solid #20a0ff!important;
+}
 #p_popNew{
+    .checkbox{
+        background-color:$labelBgCol;
+    }
     .weui-cells{
         border-left: 1px solid #D9D9D9;
         border-right: 1px solid #D9D9D9;
@@ -215,19 +392,6 @@ export default {
             margin-right:10px;
         }
     }
-    // .vux-selector {
-    //     background:$labelBgCol;
-    //     .weui-label{
-    //         @include label;
-    //     }
-    //     .weui-cell__bd{
-    //         background:white;
-    //         border-left: 1px solid #D9D9D9;
-    //         .weui-select{
-    //             margin-left:10px;
-    //         }
-    //     }
-    // }
     .vux-x-textarea{
         background:$labelBgCol;
         .weui-label{
@@ -278,11 +442,10 @@ export default {
         .weui-cell__ft a,.weui-cell__ft input{
             box-sizing: content-box;
         }
+        .vux-popup-picker-select{
+           margin-left:10px; 
+        }
     }
-    // .weui-cell:before{
-    //     left: 0px!important; 
-    //     transform: scaleY(1)!important;
-    // }
     
     .vux-flexbox{
         margin:5px auto;
