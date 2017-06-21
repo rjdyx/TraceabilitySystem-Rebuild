@@ -40,7 +40,7 @@
 
             <!-- 列表底部 -->
             <div class="tableFooter">
-                <input type="checkbox" class="allcheckbox" v-model="checkAll" @click="checkedAll">
+                <!-- <input type="checkbox" class="allcheckbox" v-model="checkAll" @click="checkedAll"> -->
                 <el-button type="primary" class="allcheck" @click="checkedAll">全选</el-button>
                 <el-button type="danger" class="appDelete" @click="listDelete">删除</el-button>
             </div>
@@ -218,17 +218,19 @@ export default {
     },
     mounted () {
         this.getApiUrl()
-        this.getAllMsg()
+        this.boxArr(this.dataArr, true)
     },
     watch: {
         models () {
             this.tableData = []
-            this.getAllMsg()
+            this.dataArr = {}
+            this.boxArr(this.dataArr, true)
             this.inputValue = ''
         },
         key () {
             this.tableData = []
-            this.getAllMsg()
+            this.dataArr = {}
+            this.boxArr(this.dataArr, true)
         },
         // 检测全选按钮
         ischeckdate () {
@@ -284,6 +286,7 @@ export default {
     }
     .allcheck{
         float: left;
+        margin: 5% 4% 0 1%;
     }
     .appDelete{
         float: right;

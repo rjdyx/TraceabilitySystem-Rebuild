@@ -100,17 +100,28 @@ export default {
         protos: ['serial', 'date', 'plant_name'],
         widths: [26, 26, 26]
     }],
+    // 畜禽加工详情
+    beastDetectPkBatch: [{
+        key: 'pack-detect-pk',
+        url: 'pack-detect-pk',
+        theads: ['加工批次号', '加工日期', '加工数量'],
+        protos: ['serial', 'date', 'amount'],
+        widths: [26, 26, 26]
+    }],
+    // 果蔬加工详情
+    plantDetectPkBatch: [{
+        key: 'pack-detect-pk',
+        url: 'pack-detect-pk',
+        theads: ['加工批次号', '加工日期', '加工数量'],
+        protos: ['serial', 'date', 'amount'],
+        widths: [26, 26, 26]
+    }],
     // 销售管理-销售订单管理详情
     saleBatch: [{
-        key: 'plan-beast',
-        roleName: ['beast/plan', 0],
-        url: 'plan',
-        paramsIndex: 'beast',
-         // 链接批次信息模块数据的桥（养殖批次详情）
-        changeDataArr: [{type: { 'fodderuse': '饲养', 'disease': '病疫', 'detection': '检疫', 'detects': '检测', 'clean': '圈舍维护', 'dispose': '无害化', 'come': '出栏' }}],
-        search: ['query_text', 'type'],
-        theads: ['产品溯源码', '加工日期', '加工人'],
-        protos: ['serial', 'date', 'type'],
+        key: 'sell-code',
+        url: 'sell-code',
+        theads: ['产品溯源码', '销售产品', '销售日期'],
+        protos: ['code', 'product_name', 'date'],
         widths: [26, 26, 26]
     }]
 }

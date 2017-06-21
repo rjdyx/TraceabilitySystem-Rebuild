@@ -1218,26 +1218,18 @@ export default {
     // 2、屠宰加工管理-加工批次检测
     processSerial: [{
         settitle: '加工批次检测',
-        key: 'breed',
-        roleName: ['beast/breed', 0],
+        key: 'detect_pk',
+        roleName: ['beast/detect_pk', 0],
         timeshow: true,
-        url: 'breed',
+        rightMenu: true,
+        paramsIndex: 'beast',
+        url: 'detect_pk',
         // 链接批次信息模块数据的桥（养殖批次详情）
-        batch: 'breedBatch',
+        batch: 'beastDetectPkBatch',
         searchPlaceholder: '请输入检测名称进行搜索',
-        selectValueId: [['beast_id', 'beast_name', true]],
-        selectDefault: [{value: '', label: '请选择畜禽'}],
-        changeDataArr: [{state: {0: '未完成', 1: '已完成'}}],
-        theads: ['检测名称', '检测日期', '负责人'],
-        protos: ['serial', 'farm_name', 'area_name'],
-        selectSearch: ['breeds.beast_id'],
+        theads: ['检测项目名称', '检测日期', '检测人'],
+        protos: ['name', 'date', 'operate_name'],
         widths: [26, 26, 26],
-        typeComponent: [{
-            component: output
-        },
-        {
-            component: newbuildBtn
-        }],
         newComponent: [{
             tab: '新建检验检测信息',
             hiddenValue: {type: 'beast'},
@@ -1454,23 +1446,13 @@ export default {
         timeshow: true,
         rightMenu: false,
         key: 'code',
+        paramsIndex: 'beast',
         roleName: ['packb/code', 0],
         url: 'code',
-        // 链接批次信息模块数据的桥（养殖批次详情）
-        batch: 'feedBatch',
-        searchPlaceholder: '请输入标题进行搜索',
-        selectValueId: [['fodder_id', 'fodder_name', true]],
-        selectDefault: [{value: '', label: '饲料选择'}],
-        selectSearch: ['fodderuse.fodder_id'],
+        searchPlaceholder: '请输入产品溯源码进行搜索',
         theads: ['产品溯源码', '产品名称', '生产日期'],
         protos: ['code', 'product_name', 'date'],
         widths: [26, 26, 26],
-        typeComponent: [{
-            component: output
-        },
-        {
-            component: newbuildBtn
-        }],
         newComponent: [{
             tab: '新建溯源码信息',
             hiddenValue: {type: 'beast'},
@@ -1668,19 +1650,6 @@ export default {
                 label: '备注信息',
                 placeholder: '',
                 rule: null
-            }]
-        }],
-        listComponent: [{
-            components: [{
-                type: 'select',
-                component: selectSection,
-                name: 'fodders.id',
-                value: '',
-                options: []
-            },
-            {
-                type: 'date',
-                component: 'datePick'
             }]
         }]
     }],
@@ -2974,26 +2943,18 @@ export default {
     }],
     // 果蔬加工管理-加工检测管理
     processManage: [{
-        settitle: '加工检测管理',
+        settitle: '加工批次检测',
+        key: 'plant_detect_pk',
+        roleName: ['plant/detect_pk', 0],
         timeshow: true,
-        rightMenu: false,
-        key: 'clean',
-        roleName: ['beast/clean', 0],
-        tab: '圈舍维护信息',
-        url: 'clean',
-        // 链接批次信息模块数据的桥（养殖批次详情）
-        batch: 'areaBatch',
-        searchPlaceholder: '请输入圈舍批次号进行搜索',
-        search: ['query_text', 'name'],
-        theads: ['圈舍批次号', '标题', '操作内容'],
-        protos: ['serial', 'name', 'content'],
+        rightMenu: true,
+        paramsIndex: 'plant',
+        url: 'detect_pk',
+        batch: 'plantDetectPkBatch',
+        searchPlaceholder: '请输入检测名称进行搜索',
+        theads: ['检测项目名称', '检测日期', '检测人'],
+        protos: ['name', 'date', 'operate_name'],
         widths: [26, 26, 26],
-        typeComponent: [{
-            component: output
-        },
-        {
-            component: newbuildBtn
-        }],
         newComponent: [{
             tab: '新建检验检测信息',
             hiddenValue: {type: 'plant'},
@@ -3188,35 +3149,21 @@ export default {
                 placeholder: '',
                 rule: null
             }]
-        }],
-        listComponent: [{
-            components: [{
-                type: 'date',
-                component: 'datePick'
-            }]
         }]
     }],
     // 果蔬加工管理-产品溯源码管理
     vegetableTrace: [{
         settitle: '产品溯源码管理',
         timeshow: true,
-        key: 'dispose',
-        roleName: ['beast/dispose', 0],
-        tab: '无害化信息',
-        url: 'dispose',
-        // 链接批次信息模块数据的桥（养殖批次详情）
-        batch: 'innocuityBatch',
-        searchPlaceholder: '请输入无害化批次号进行搜索',
-        theads: ['无害化批次号', '操作日期', '操作内容'],
-        protos: ['serial', 'date', 'content'],
-        selectSearch: ['dispose.expert_name'],
+        rightMenu: false,
+        key: 'code',
+        paramsIndex: 'plant',
+        roleName: ['packb/code', 0],
+        url: 'code',
+        searchPlaceholder: '请输入产品溯源码进行搜索',
+        theads: ['产品溯源码', '产品名称', '生产日期'],
+        protos: ['code', 'product_name', 'date'],
         widths: [26, 26, 26],
-        typeComponent: [{
-            component: output
-        },
-        {
-            component: newbuildBtn
-        }],
         newComponent: [{
             tab: '新建溯源码信息',
             hiddenValue: {type: 'plant'},
@@ -3380,36 +3327,20 @@ export default {
                 placeholder: '',
                 rule: null
             }]
-        }],
-        listComponent: [{
-            components: [
-                {
-                    type: 'date',
-                    component: 'datePick'
-                }
-            ]
         }]
     }],
     // 物流运输管理-物流批次管理
     expressManage: [{
         settitle: '物流批次管理',
-        key: 'come',
-        roleName: ['beast/come', 0],
+        key: 'delivery',
+        roleName: ['delivery', 0],
         timeshow: true,
-        tab: '出栏信息',
-        url: 'come',
-        // 链接批次信息模块数据的桥（养殖批次详情）
-        batch: 'slaughterBatch',
+        tab: '物流信息信息',
+        url: 'delivery',
         searchPlaceholder: '请输入物流批次号进行搜索',
         theads: ['物流批次号', '货物名称', '物流日期'],
-        protos: ['serial', 'date', 'amount'],
+        protos: ['serial', 'name', 'datetime'],
         widths: [26, 26, 26],
-        typeComponent: [{
-            component: output
-        },
-        {
-            component: newbuildBtn
-        }],
         newComponent: [{
             tab: '新建物流批次信息',
             divHidden: true,
@@ -3635,77 +3566,19 @@ export default {
                 placeholder: '',
                 rule: null
             }]
-        }],
-        listComponent: [{
-            components: [{
-                type: 'date',
-                component: 'datePick'
-            }]
-        }],
-        moreComponent: [{value: '状态'}]
+        }]
     }],
     // 销售管理-销售订单管理
     saleOrder: [{
         settitle: '销售订单管理',
-        key: 'plan-beast',
-        roleName: ['beast/plan', 0],
+        key: 'sell',
         timeshow: true,
-        tab: '养殖计划信息',
-        url: 'plan',
-        paramsIndex: 'beast',
-         // 链接批次信息模块数据的桥（养殖批次详情）
-        changeDataArr: [{type: { 'fodderuse': '饲养', 'disease': '病疫', 'detection': '检疫', 'detects': '检测', 'clean': '圈舍维护', 'dispose': '无害化', 'come': '出栏' }}],
-        searchPlaceholder: '请输入客户名称',
-        search: ['query_text', 'type'],
+        rightMenu: true,
+        url: 'sell',
+        batch: 'saleBatch',
         theads: ['客户名称', '订单日期', '销售员'],
-        protos: ['serial', 'date', 'type'],
+        protos: ['client_name', 'datetime', 'operate_name'],
         widths: [26, 26, 26],
-        typeComponent: [{
-            component: output
-        },
-        {
-            component: newbuildBtn
-        }],
-        listComponent: [{
-            components: [{
-                name: 'plans.type',
-                value: '',
-                type: 'select',
-                component: selectSection,
-                options: [{
-                    value: '',
-                    label: '请选择操作类型'
-                },
-                {
-                    value: 'fodderuse',
-                    label: '饲养'
-                },
-                {
-                    value: 'disease',
-                    label: '病疫'
-                },
-                {
-                    value: 'detection',
-                    label: '检疫'
-                },
-                {
-                    value: 'detects',
-                    label: '检测'
-                },
-                {
-                    value: 'dispose',
-                    label: '无害化'
-                },
-                {
-                    value: 'come',
-                    label: '出栏'
-                }]
-            },
-            {
-                type: 'date',
-                component: datePick
-            }]
-        }],
         newComponent: [{
             tab: '新建订单信息',
             hiddenValue: {type: 1},
