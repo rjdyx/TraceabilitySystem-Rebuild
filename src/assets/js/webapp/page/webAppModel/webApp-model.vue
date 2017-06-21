@@ -128,7 +128,6 @@ export default {
                     protos: ['name'],
                     widths: [26],
                     title: '',
-                    settitle: '',
                     typeComponent: [],
                     tabComponent: [],
                     tabshow: '',
@@ -209,6 +208,10 @@ export default {
         },
         tabClick (subindex, modelName) {
             this.modelIndex = subindex
+            // console.log(modelName)
+            // this.demo2 = modelName
+            localStorage.setItem('appTab', modelName)
+            // console.log(this.tabIndex)
             this.demo2 = modelName
             localStorage.setItem('appTab', this.modelIndex)
         },
@@ -221,6 +224,10 @@ export default {
         },
         showDetail (id) {
             this.$router.push('/appIndex/appdetailbasic/' + this.batch + '/' + id)
+            let fuck = localStorage.getItem('appTab')
+            this.settitle = fuck
+            console.log(this.settitle + 'why')
+            console.log(fuck + 'ddddddddddddddddddddddddddddd')
         },
         closeOperate () {
             if (this.ishas === true) {
