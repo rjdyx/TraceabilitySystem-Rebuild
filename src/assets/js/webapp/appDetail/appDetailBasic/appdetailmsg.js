@@ -39,8 +39,9 @@ export default {
     }],
     // 养殖管理-检验检测详情
     breedDetectBatch: [{
-        key: 'detect-detail',
+        key: 'breed-detect',
         paramsIndex: 'beast',
+        delType: 'beast',
         url: 'detect-detail',
         theads: ['养殖批次', '养殖日期', '畜禽名称'],
         protos: ['serial', 'date', 'beast_name'],
@@ -68,6 +69,33 @@ export default {
         settitle: '施肥详情',
         key: 'cultivate-fertilize',
         url: 'cultivate-fertilize',
+        theads: ['种植批次号', '种植日期', '种植果蔬'],
+        protos: ['serial', 'date', 'plant_name'],
+        widths: [26, 26, 26]
+    }],
+    // 种植关联-施药详情
+    sprayBatch: [{
+        settitle: '施药详情',
+        key: 'cultivate-spray',
+        url: 'cultivate-spray',
+        theads: ['种植批次号', '种植日期', '种植果蔬'],
+        protos: ['serial', 'date', 'plant_name'],
+        widths: [26, 26, 26]
+    }],
+    // 种植管理-检验检测详情
+    cultivateDetectBatch: [{
+        key: 'cultivate-detect',
+        delType: 'plant',
+        paramsIndex: 'plant',
+        url: 'detect-detail',
+        theads: ['种植批次号', '种植日期', '种植果蔬'],
+        protos: ['serial', 'date', 'plant_name'],
+        widths: [26, 26, 26]
+    }],
+    // 种植管理-农事详情
+    cultivateFarmingBatch: [{
+        key: 'cultivate-farming',
+        url: 'cultivate-farming',
         theads: ['种植批次号', '种植日期', '种植果蔬'],
         protos: ['serial', 'date', 'plant_name'],
         widths: [26, 26, 26]

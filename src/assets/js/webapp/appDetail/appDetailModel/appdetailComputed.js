@@ -30,6 +30,9 @@ export default {
         },
         paramsIndex () {
             return this.models[this.modelIndex].paramsIndex
+        },
+        delType () {
+            return this.models[this.modelIndex].delType
         }
     }
 }

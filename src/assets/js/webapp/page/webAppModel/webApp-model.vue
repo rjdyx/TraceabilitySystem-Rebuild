@@ -212,6 +212,8 @@ export default {
             // this.demo2 = modelName
             localStorage.setItem('appTab', modelName)
             // console.log(this.tabIndex)
+            this.demo2 = modelName
+            localStorage.setItem('appTab', this.modelIndex)
         },
         // 侧边栏的显示与隐藏
         showsider () {
@@ -303,6 +305,17 @@ export default {
             } else {
                 this.setToast('cancel', '请选择序号')
             }
+        },
+        // 改变URL初始值
+        changeUrl () {
+            this.tableData = []
+            this.dataArr = {}
+            this.boxArr(this.dataArr, true)
+            this.inputValue = ''
+            this.value1 = ''
+            this.value2 = ''
+            this.closeOperate()
+            this.ischeckdate = []
         }
     },
     mounted () {
@@ -311,20 +324,14 @@ export default {
             this.ishas = false
         }
         this.tabIndex = localStorage.getItem('appTab')
-        console.log(this.tabIndex)
     },
     watch: {
         models () {
-            this.tableData = []
-            this.getAllMsg()
-            this.inputValue = ''
-            this.closeOperate()
+            this.modelIndex = 0
+            this.changeUrl()
         },
         key () {
-            this.tableData = []
-            this.dataArr = {}
-            this.boxArr(this.dataArr, true)
-            this.inputValue = ''
+            this.changeUrl()
         },
         // 检测全选按钮
         ischeckdate () {
