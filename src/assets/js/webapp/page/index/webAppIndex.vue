@@ -51,7 +51,6 @@ export default {
         }
     },
     mounted () {
-        console.log(localStorage.getItem('appTab') + '供热发发发发发发发发发发')
         if (this.$route.path === '/appIndex') {
             this.settitle = '生之园溯源系统'
             this.homeShow = false

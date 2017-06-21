@@ -49,7 +49,6 @@
                 </group>
             </div>
 
-
             <!-- 列表头部 -->
             <div class="list">
                 <span class="choice">序号</span>
@@ -58,6 +57,7 @@
                     {{theads[index]}}
                 </span>
             </div>   
+            <load-more :show-loading="listLoading" v-if="listLoading" tip="正在加载"></load-more>
             <!-- 列表中间 -->
             <swipeout class="swipeout">
                 <swipeout-item transition-mode="follow" v-for="(pers,index) in tableData">
@@ -101,7 +101,7 @@
 </template> 
  
 <script>
-import { XTable, Datetime, Group, Tab, TabItem, Swipeout, SwipeoutItem, Toast, Confirm, SwipeoutButton, Swiper, SwiperItem, Popover } from 'vux'
+import { XTable, Datetime, Group, Tab, TabItem, Swipeout, SwipeoutItem, LoadMore, Toast, Confirm, SwipeoutButton, Swiper, SwiperItem, Popover } from 'vux'
 import {mapActions, mapMutations} from 'vuex'
 // import appTab from '../../public/tab.vue'
 import appmenu from '../index/appmenu.js'
@@ -160,7 +160,8 @@ export default {
             active: true,
             ishas: true,
             activeindex: '',
-            demo2: ''
+            demo2: '',
+            checkAll: false
         }
     },
     // 混合
@@ -182,6 +183,9 @@ export default {
             if (this.paramsIndex !== undefined) {
                 var type = this.paramsIndex
             }
+            if (flag) {
+                this.listLoading = true
+            }
             this.$dataWapGet(this, this.url, {params: data, type: type})
                 .then((responce) => {
                     // 数据转换
@@ -193,6 +197,7 @@ export default {
                             this.$set(this, 'tableData', responce.data.data)
                             this.total = 1
                         }
+                        this.listLoading = false
                     }
                 })
         },
@@ -268,6 +273,7 @@ export default {
         // 组合查询
         boxArr (dataArr, flag) {
             this.getAllMsg(dataArr, flag)
+            this.clearCheck()
         },
         // 提示弹窗
         setToast (type, text, width = '7.6em') {
@@ -315,11 +321,16 @@ export default {
             this.value1 = ''
             this.value2 = ''
             this.closeOperate()
+            this.clearCheck()
+        },
+        // 清空复选框
+        clearCheck () {
             this.ischeckdate = []
+            this.checkAll = false
         }
     },
     mounted () {
-        this.getAllMsg()
+        this.boxArr(this.dataArr, true)
         if (this.$route.path.indexOf('plantTrace') !== -1) {
             this.ishas = false
         }
@@ -333,10 +344,12 @@ export default {
         key () {
             this.changeUrl()
         },
-        // 检测全选按钮
+        // 监测全选按钮
         ischeckdate () {
             if (this.tableData.length === this.ischeckdate.length) {
-                this.checkAll = true
+                if (this.tableData.length !== 0) {
+                    this.checkAll = true
+                }
             } else {
                 this.checkAll = false
             }
@@ -367,7 +380,8 @@ export default {
         Swiper,
         SwiperItem,
         Toast,
-        Confirm
+        Confirm,
+        LoadMore
     }
 }
 </script>

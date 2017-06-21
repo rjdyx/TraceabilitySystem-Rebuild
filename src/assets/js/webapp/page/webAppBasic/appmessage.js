@@ -33,31 +33,31 @@ export default {
             popNumber2: [0, 1, 2],
             selectWhereArr2: [[], [], [{n: 'domain', v: 'beast'}, {n: 'domain', v: 'all', s: true}]],
             components: [{
-           // 批次号格式
-            //     name: 'pch',
-            //     type: 'pcSelect',
-            //     label: '批次号',
-            //     placeholder: '请选择批次（必选）',
-            //     // rule: {required: true, trigger: 'blur', type: 'number', message: '请选择饲料'},
-            //     rule: {required: true}, // 这里如果需要验证类型写方法名，否则写null
-            //     options: [
-            //         {key: '15', value: '15PC158646464648746'},
-            //         {key: '2', value: '002PC158646464648746'},
-            //         {key: '3', value: '003PC158646464648746'},
-            //         {key: '14', value: '14PC158646464648746'},
-            //         {key: '5', value: '5PC158646464648746'},
-            //         {key: '16', value: '16PC158646464648746e'},
-            //         {key: '7', value: '7PC158646464648746'},
-            //         {key: '8', value: '8PC158646464648746'},
-            //         {key: '9', value: '9PC158646464648746'}
-            //     ]
-            // },
-            // {
+            // 批次号格式
+                name: 'pch',
+                type: 'pcSelect',
+                label: '批次号',
+                placeholder: '请选择批次（必选）',
+                // rule: {required: true, trigger: 'blur', type: 'number', message: '请选择饲料'},
+                rule: {required: true}, // 这里如果需要验证类型写方法名，否则写null
+                options: [
+                    {key: '15', value: '15PC158646464648746'},
+                    {key: '2', value: '002PC158646464648746'},
+                    {key: '3', value: '003PC158646464648746'},
+                    {key: '14', value: '14PC158646464648746'},
+                    {key: '5', value: '5PC158646464648746'},
+                    {key: '16', value: '16PC158646464648746e'},
+                    {key: '7', value: '7PC158646464648746'},
+                    {key: '8', value: '8PC158646464648746'},
+                    {key: '9', value: '9PC158646464648746'}
+                ],
+                show: false
+            },
+            {
                 name: 'fodder_id',
                 type: 'select',
                 label: '饲料名称',
                 placeholder: '（必选）',
-                // rule: {required: true, trigger: 'blur', type: 'number', message: '请选择饲料'},
                 rule: {required: true}, // 这里如果需要验证类型写方法名，否则写null
                 options: [['饲料a', '饲料b', '饲料c']]
             },
