@@ -15,7 +15,8 @@
                 <tab-item v-for="(model,index) in models" 
                 @on-item-click="tabClick(index, model.tab)" 
                 :key="index" 
-                :selected="demo2===0">
+                :selected="tabSelected===model.tab"
+                >
                     {{model.tab}}
                 </tab-item>
             </tab>
@@ -65,17 +66,24 @@
                         <span class="choice">
                             <input type="checkbox" :value="pers.id" v-model="ischeckdate">
                             <span class="order">{{index+1}}</span>
-                        </span>
+                         </span>
                         <span v-for="(item,index) in protos" 
                               v-if="protos[index]=='img'"
                               :style="{width: widths[index] + '%'}">
                             <img :src="$img('images/ok.png')">
                         </span>
-                        <span v-else="!protos[index]=='img'"
-                        :name="theads[index]"  
-                        :style="{width: widths[index] + '%'}">
-                            {{pers[protos[index]]}}
-                        </span>
+                        <el-tooltip effect="dark
+                        " placement="top" v-else="!protos[index] =='img'">
+                            <div slot="content">{{pers[protos[index]]}}</div>
+                            <div slot="content" v-if="pers[protos[index]] == null">null</div>
+                            <span
+                                :name="theads[index]"
+                                :style="{width: widths[index] + '%'}">
+                                    {{pers[protos[index]]}}
+                            </span>
+                        </el-tooltip>
+                        
+                           
                     </div>
                     <div slot="right-menu">
                       <swipeout-button class="lookOver" type="primary" @click.native="showDetail(pers.id)" v-if="rightMenu">查看</swipeout-button>
@@ -91,7 +99,6 @@
             </div>
             <!-- 分页 -->
             <paginator :total="total" @pageEvent="pageChange"></paginator>
-
         </div>
     </div>
   </div>
@@ -158,7 +165,8 @@ export default {
             endDate: '',
             active: true,
             ishas: true,
-            activeindex: ''
+            activeindex: '',
+            tabSelected: ''
         }
     },
     // 混合
@@ -207,6 +215,7 @@ export default {
         tabClick (subindex, modelName) {
             this.modelIndex = subindex
             localStorage.setItem('appTab', modelName)
+            localStorage.setItem('trends', this.modelIndex)
             localStorage.setItem('catname', modelName)
         },
         // 侧边栏的显示与隐藏
@@ -317,12 +326,14 @@ export default {
         if (this.$route.path.indexOf('plantTrace') !== -1) {
             this.ishas = false
         }
-        this.tabIndex = localStorage.getItem('appTab')
+        let tabTxt = localStorage.getItem('appTab')
+        this.tabSelected = tabTxt
     },
     watch: {
         models () {
             this.modelIndex = 0
             this.changeUrl()
+            this.tabSelected = '施肥信息'
         },
         key () {
             this.changeUrl()
@@ -482,7 +493,7 @@ export default {
         height: 54px;
         margin-top:5px;
         -webkit-overflow-scrolling: touch;
-        span{
+        li,span{
             display: inline-block;
             height: 54px;
             text-align: center;
@@ -494,7 +505,7 @@ export default {
         width: 100%;
         position: relative;
         height: 54px;
-        span {
+        li,span {
             display: inline-block;
             height: 54px;
             line-height: 54px;
@@ -505,6 +516,7 @@ export default {
             text-overflow: ellipsis;
             vertical-align: middle;
             padding: 0 2%;
+            position: relative;
         }
     }
     .choice{
@@ -639,8 +651,9 @@ export default {
     .weui-cells:after{
         border-bottom: none;
     }
-    .bg{
-        color: red;
+    .el-tooltip__popper{
+        left: 90px !important;
+        top: 230px !important;
     }
 }  
 </style>

@@ -1,4 +1,8 @@
 export default {
+    data () {
+        return {
+        }
+    },
     mounted () {
         let _this = this
         let distance = 0
