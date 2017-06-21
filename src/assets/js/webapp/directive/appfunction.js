@@ -23,39 +23,56 @@ export default {
                 }
             }
         })
-        // if (this.$route.path === '/appIndex') {
-        //     this.settitle = '生之园溯源系统'
-        //     this.homeShow = false
-        //     this.back = false
-        // } else if (this.$route.path.indexOf('appdetailbasic') !== -1) {
-        //     let detit = localStorage.getItem('dename')
-        //     this.settitle = detit
-        //     this.back = true
-        //     this.homeShow = false
-        // } else {
-        //     let apptitle = localStorage.getItem('tit')
-        //     this.settitle = apptitle
-        //     this.homeShow = true
-        //     this.back = false
-        // }
+        let path = this.$route.path
+        if (path === '/appIndex') {
+            this.settitle = '生之园溯源系统'
+            this.homeShow = false
+            this.back = false
+        } else if (path.indexOf('appdetailbasic') !== -1) {
+            if (path.indexOf('/plantTo') !== -1) {
+                let detect = localStorage.getItem('appTab')
+                this.settitle = detect
+                this.back = true
+                this.homeShow = false
+            } else {
+                let detit = localStorage.getItem('dename')
+                this.settitle = detit
+                this.back = true
+                this.homeShow = false
+            }
+        } else {
+            let apptitle = localStorage.getItem('tit')
+            this.settitle = apptitle
+            this.homeShow = true
+            this.back = false
+        }
     },
     watch: {
-        // $route () {
-        //     if (this.$route.path === '/appIndex') {
-        //         this.settitle = '生之园溯源系统'
-        //         this.homeShow = false
-        //         this.back = false
-        //     } else if (this.$route.path.indexOf('appdetailbasic') !== -1) {
-        //         let detit = localStorage.getItem('dename')
-        //         this.settitle = detit
-        //         this.back = true
-        //         this.homeShow = false
-        //     } else {
-        //         let apptitle = localStorage.getItem('tit')
-        //         this.settitle = apptitle
-        //         this.homeShow = true
-        //         this.back = false
-        //     }
-        // }
+        $route () {
+            let path = this.$route.path
+            if (path === '/appIndex') {
+                this.settitle = '生之园溯源系统'
+                this.homeShow = false
+                this.back = false
+            } else if (path.indexOf('appdetailbasic') !== -1) {
+                console.log(this.$route.path)
+                if (path.indexOf('/plantTo') !== -1) {
+                    let detect = localStorage.getItem('appTab')
+                    this.settitle = detect
+                    this.back = true
+                    this.homeShow = false
+                } else {
+                    let detit = localStorage.getItem('dename')
+                    this.settitle = detit
+                    this.back = true
+                    this.homeShow = false
+                }
+            } else {
+                let apptitle = localStorage.getItem('tit')
+                this.settitle = apptitle
+                this.homeShow = true
+                this.back = false
+            }
+        }
     }
 }

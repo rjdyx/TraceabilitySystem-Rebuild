@@ -15,7 +15,7 @@
                 <tab-item v-for="(model,index) in models" 
                 @on-item-click="tabClick(index, model.tab)" 
                 :key="index" 
-                :selected="demo2===model.tab">
+                :selected="demo2===0">
                     {{model.tab}}
                 </tab-item>
             </tab>
@@ -72,11 +72,10 @@
                             <img :src="$img('images/ok.png')">
                         </span>
                         <span v-else="!protos[index]=='img'"
-                            :name="theads[index]"  
-                            :style="{width: widths[index] + '%'}">
-                                {{pers[protos[index]]}}
+                        :name="theads[index]"  
+                        :style="{width: widths[index] + '%'}">
+                            {{pers[protos[index]]}}
                         </span>
-                        
                     </div>
                     <div slot="right-menu">
                       <swipeout-button class="lookOver" type="primary" @click.native="showDetail(pers.id)" v-if="rightMenu">查看</swipeout-button>
@@ -90,7 +89,6 @@
                 <el-button type="primary" class="allcheck" @click="checkedAll">全选</el-button>
                 <el-button type="danger" class="appDelete" @click="listDelete">删除</el-button>
             </div>
-            
             <!-- 分页 -->
             <paginator :total="total" @pageEvent="pageChange"></paginator>
 
@@ -118,6 +116,7 @@ export default {
             default () {
                 return [{
                     key: '',
+                    unite: '',
                     // 时间操作
                     url: '',
                     roleName: '',
@@ -213,12 +212,8 @@ export default {
         },
         tabClick (subindex, modelName) {
             this.modelIndex = subindex
-            // console.log(modelName)
-            // this.demo2 = modelName
             localStorage.setItem('appTab', modelName)
-            // console.log(this.tabIndex)
-            this.demo2 = modelName
-            localStorage.setItem('appTab', this.modelIndex)
+            localStorage.setItem('catname', modelName)
         },
         // 侧边栏的显示与隐藏
         showsider () {
@@ -228,11 +223,11 @@ export default {
             this.show = false
         },
         showDetail (id) {
-            this.$router.push('/appIndex/appdetailbasic/' + this.batch + '/' + id)
-            let fuck = localStorage.getItem('appTab')
-            this.settitle = fuck
-            console.log(this.settitle + 'why')
-            console.log(fuck + 'ddddddddddddddddddddddddddddd')
+            if (this.unite === 'plantTo') {
+                this.$router.push('/appIndex/appdetailbasic/' + this.batch + '/plantTo' + id)
+            } else {
+                this.$router.push('/appIndex/appdetailbasic/' + this.batch + '/' + id)
+            }
         },
         closeOperate () {
             if (this.ishas === true) {
@@ -381,7 +376,8 @@ export default {
         SwiperItem,
         Toast,
         Confirm,
-        LoadMore
+        LoadMore,
+        Popover
     }
 }
 </script>
