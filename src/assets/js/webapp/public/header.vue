@@ -40,6 +40,11 @@ export default {
         backTo () {
             history.go(-1)
         }
+    },
+    mounted () {
+        if (this.$route.path.indexOf('appIndex') !== -1 && window.isPC !== false) {
+            this.$router.push('/index/home')
+        }
     }
 }
 </script>

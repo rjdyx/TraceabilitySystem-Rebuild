@@ -14,8 +14,7 @@
             <tab v-model="index">
                 <tab-item v-for="(model,index) in models" 
                 @on-item-click="tabClick(index, model.tab)" 
-                :key="index" 
-                :selected="demo2===0">
+                :key="index" :selected="demo2===0">
                     {{model.tab}}
                 </tab-item>
             </tab>
