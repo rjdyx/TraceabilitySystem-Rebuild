@@ -156,7 +156,11 @@ export default {
         },
         // 获取Api接口数据
         getApiUrl () {
-            this.wapUrl = this.$route.params.id + '/' + this.url
+            var id = this.$route.params.id
+            if (id.indexOf('plantTo') !== -1) {
+                id = id.replace('plantTo', '')
+            }
+            this.wapUrl = id + '/' + this.url
         },
         // 分页跳转
         pageChange (val) {
