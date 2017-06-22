@@ -37,6 +37,7 @@
 	            </el-menu>
                 <div class="logout" @click="logout">
                     <span>退出登录</span>
+                    <p>{{end}}</p>
                 </div>
     	   </div>
         </div>
@@ -50,7 +51,8 @@ export default {
     data () {
         return {
             children: '',
-            data: []
+            data: [],
+            end: ''
         }
     },
     props: {
@@ -94,6 +96,8 @@ export default {
         }
     },
     watch: {
+    },
+    created: function () {
     }
 }
 </script>

@@ -28,7 +28,8 @@ export default {
             show: false,
             settitle: '',
             homeShow: false,
-            back: false
+            back: false,
+            trends: localStorage.getItem('trends')
         }
     },
     mixins: [appfunction],
@@ -47,6 +48,9 @@ export default {
         }
     },
     mounted () {
+        this.settitle = ''
+        let plantName = localStorage.getItem('appTab')
+        this.settitle = plantName
     },
     computed: {
     },
@@ -55,6 +59,11 @@ export default {
         siderBar
     },
     watch: {
+        trends () {
+            this.settitle = ''
+            let plantName = localStorage.getItem('appTab')
+            this.settitle = plantName
+        }
     }
 }
 </script>

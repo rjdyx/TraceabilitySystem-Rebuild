@@ -6,6 +6,9 @@ export default {
         key () {
             return this.models[this.modelIndex].key
         },
+        unite () {
+            return this.models[this.modelIndex].unite
+        },
         url () {
             return this.models[this.modelIndex].url
         },

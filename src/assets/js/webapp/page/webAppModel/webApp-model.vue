@@ -15,8 +15,8 @@
                 <tab-item v-for="(model,index) in models" 
                 @on-item-click="tabClick(index, model.tab)" 
                 :key="index" 
-                :selected="demo2===model.tab">
-                    {{model.tab}}
+                :selected="tabSelected===model.tab"
+                >{{model.tab}}
                 </tab-item>
             </tab>
         </div>
@@ -49,7 +49,6 @@
                 </group>
             </div>
 
-
             <!-- 列表头部 -->
             <div class="list">
                 <span class="choice">序号</span>
@@ -58,6 +57,7 @@
                     {{theads[index]}}
                 </span>
             </div>   
+            <load-more :show-loading="listLoading" v-if="listLoading" tip="正在加载"></load-more>
             <!-- 列表中间 -->
             <swipeout class="swipeout">
                 <swipeout-item transition-mode="follow" v-for="(pers,index) in tableData">
@@ -65,18 +65,23 @@
                         <span class="choice">
                             <input type="checkbox" :value="pers.id" v-model="ischeckdate">
                             <span class="order">{{index+1}}</span>
-                        </span>
+                         </span>
                         <span v-for="(item,index) in protos" 
                               v-if="protos[index]=='img'"
                               :style="{width: widths[index] + '%'}">
                             <img :src="$img('images/ok.png')">
                         </span>
-                        <span v-else="!protos[index]=='img'"
-                            :name="theads[index]"  
-                            :style="{width: widths[index] + '%'}">
-                                {{pers[protos[index]]}}
-                        </span>
+                        <el-tooltip effect="dark" placement="top" v-else="!protos[index] =='img'">
+                            <div slot="content">{{pers[protos[index]]}}</div>
+                            <div slot="content" v-if="pers[protos[index]] == null">null</div>
+                            <span
+                                :name="theads[index]"
+                                :style="{width: widths[index] + '%'}" @click="checkDom($event.currentTarget)">
+                                    {{pers[protos[index]]}}
+                            </span>
+                        </el-tooltip>
                         
+                           
                     </div>
                     <div slot="right-menu">
                       <swipeout-button class="lookOver" type="primary" @click.native="showDetail(pers.id)" v-if="rightMenu">查看</swipeout-button>
@@ -90,10 +95,8 @@
                 <el-button type="primary" class="allcheck" @click="checkedAll">全选</el-button>
                 <el-button type="danger" class="appDelete" @click="listDelete">删除</el-button>
             </div>
-            
             <!-- 分页 -->
             <paginator :total="total" @pageEvent="pageChange"></paginator>
-
         </div>
     </div>
   </div>
@@ -101,7 +104,7 @@
 </template> 
  
 <script>
-import { XTable, Datetime, Group, Tab, TabItem, Swipeout, SwipeoutItem, Toast, Confirm, SwipeoutButton, Swiper, SwiperItem, Popover } from 'vux'
+import { XTable, Datetime, Group, Tab, TabItem, Swipeout, SwipeoutItem, LoadMore, Toast, Confirm, SwipeoutButton, Swiper, SwiperItem, Popover } from 'vux'
 import {mapActions, mapMutations} from 'vuex'
 // import appTab from '../../public/tab.vue'
 import appmenu from '../index/appmenu.js'
@@ -118,6 +121,7 @@ export default {
             default () {
                 return [{
                     key: '',
+                    unite: '',
                     // 时间操作
                     url: '',
                     roleName: '',
@@ -128,7 +132,6 @@ export default {
                     protos: ['name'],
                     widths: [26],
                     title: '',
-                    settitle: '',
                     typeComponent: [],
                     tabComponent: [],
                     tabshow: '',
@@ -161,7 +164,11 @@ export default {
             active: true,
             ishas: true,
             activeindex: '',
-            demo2: ''
+            tabSelected: '',
+            checkAll: false,
+            // 延迟状态
+            delayState: false,
+            lastDom: ''
         }
     },
     // 混合
@@ -184,6 +191,9 @@ export default {
             if (this.paramsIndex !== undefined) {
                 var type = this.paramsIndex
             }
+            if (flag) {
+                this.listLoading = true
+            }
             this.$dataWapGet(this, this.url, {params: data, type: type})
                 .then((responce) => {
                     // 数据转换
@@ -195,6 +205,7 @@ export default {
                             this.$set(this, 'tableData', responce.data.data)
                             this.total = 1
                         }
+                        this.listLoading = false
                     }
                 })
         },
@@ -210,10 +221,9 @@ export default {
         },
         tabClick (subindex, modelName) {
             this.modelIndex = subindex
-            console.log(modelName)
-            this.demo2 = modelName
-            localStorage.setItem('appTab', this.modelIndex)
-            // console.log(this.tabIndex)
+            localStorage.setItem('appTab', modelName)
+            localStorage.setItem('trends', this.modelIndex)
+            localStorage.setItem('catname', modelName)
         },
         // 侧边栏的显示与隐藏
         showsider () {
@@ -223,7 +233,11 @@ export default {
             this.show = false
         },
         showDetail (id) {
-            this.$router.push('/appIndex/appdetailbasic/' + this.batch + '/' + id)
+            if (this.unite === 'plantTo') {
+                this.$router.push('/appIndex/appdetailbasic/' + this.batch + '/plantTo' + id)
+            } else {
+                this.$router.push('/appIndex/appdetailbasic/' + this.batch + '/' + id)
+            }
         },
         closeOperate () {
             if (this.ishas === true) {
@@ -264,6 +278,7 @@ export default {
         // 组合查询
         boxArr (dataArr, flag) {
             this.getAllMsg(dataArr, flag)
+            this.clearCheck()
         },
         // 提示弹窗
         setToast (type, text, width = '7.6em') {
@@ -301,33 +316,56 @@ export default {
             } else {
                 this.setToast('cancel', '请选择序号')
             }
-        }
-    },
-    mounted () {
-        this.getAllMsg()
-        if (this.$route.path.indexOf('plantTrace') !== -1) {
-            this.ishas = false
-        }
-        this.tabIndex = localStorage.getItem('appTab')
-        console.log(this.tabIndex)
-    },
-    watch: {
-        models () {
-            this.tableData = []
-            this.getAllMsg()
-            this.inputValue = ''
-            this.closeOperate()
         },
-        key () {
+        // 改变URL初始值
+        changeUrl () {
             this.tableData = []
             this.dataArr = {}
             this.boxArr(this.dataArr, true)
             this.inputValue = ''
+            this.value1 = ''
+            this.value2 = ''
+            this.closeOperate()
+            this.clearCheck()
         },
-        // 检测全选按钮
+        // 清空复选框
+        clearCheck () {
+            this.ischeckdate = []
+            this.checkAll = false
+        },
+        // 检测body最后dom
+        checkDom (val) {
+            if (this.lastDom !== val) {
+                this.lastDom = val
+            } else {
+                document.body.lastChild.style.display = 'block'
+            }
+            this.delayState = !this.delayState
+        }
+    },
+    mounted () {
+        this.boxArr(this.dataArr, true)
+        if (this.$route.path.indexOf('plantTrace') !== -1) {
+            this.ishas = false
+        }
+        let tabTxt = localStorage.getItem('appTab')
+        this.tabSelected = tabTxt
+    },
+    watch: {
+        models () {
+            this.modelIndex = 0
+            this.changeUrl()
+            this.tabSelected = '施肥信息'
+        },
+        key () {
+            this.changeUrl()
+        },
+        // 监测全选按钮
         ischeckdate () {
             if (this.tableData.length === this.ischeckdate.length) {
-                this.checkAll = true
+                if (this.tableData.length !== 0) {
+                    this.checkAll = true
+                }
             } else {
                 this.checkAll = false
             }
@@ -341,6 +379,12 @@ export default {
             } else {
                 this.ishas = true
             }
+        },
+        // 延迟状态监测
+        delayState () {
+            setTimeout(function () {
+                document.body.lastChild.style.display = 'none'
+            }, 1000)
         }
     },
     components: {
@@ -358,7 +402,9 @@ export default {
         Swiper,
         SwiperItem,
         Toast,
-        Confirm
+        Confirm,
+        LoadMore,
+        Popover
     }
 }
 </script>
@@ -478,7 +524,7 @@ export default {
         height: 54px;
         margin-top:5px;
         -webkit-overflow-scrolling: touch;
-        span{
+        li,span{
             display: inline-block;
             height: 54px;
             text-align: center;
@@ -490,7 +536,7 @@ export default {
         width: 100%;
         position: relative;
         height: 54px;
-        span {
+        li,span {
             display: inline-block;
             height: 54px;
             line-height: 54px;
@@ -501,6 +547,7 @@ export default {
             text-overflow: ellipsis;
             vertical-align: middle;
             padding: 0 2%;
+            position: relative;
         }
     }
     .choice{
@@ -635,8 +682,9 @@ export default {
     .weui-cells:after{
         border-bottom: none;
     }
-    .bg{
-        color: red;
+    .el-tooltip__popper{
+        left: 90px !important;
+        top: 230px !important;
     }
 }  
 </style>
