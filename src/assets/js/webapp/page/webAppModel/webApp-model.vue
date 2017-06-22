@@ -71,13 +71,12 @@
                               :style="{width: widths[index] + '%'}">
                             <img :src="$img('images/ok.png')">
                         </span>
-                        <el-tooltip effect="dark
-                        " placement="top" v-else="!protos[index] =='img'">
+                        <el-tooltip effect="dark" placement="top" v-else="!protos[index] =='img'">
                             <div slot="content">{{pers[protos[index]]}}</div>
                             <div slot="content" v-if="pers[protos[index]] == null">null</div>
                             <span
                                 :name="theads[index]"
-                                :style="{width: widths[index] + '%'}">
+                                :style="{width: widths[index] + '%'}" @click="checkDom($event.currentTarget)">
                                     {{pers[protos[index]]}}
                             </span>
                         </el-tooltip>
@@ -166,7 +165,10 @@ export default {
             ishas: true,
             activeindex: '',
             tabSelected: '',
-            checkAll: false
+            checkAll: false,
+            // 延迟状态
+            delayState: false,
+            lastDom: ''
         }
     },
     // 混合
@@ -329,6 +331,15 @@ export default {
         clearCheck () {
             this.ischeckdate = []
             this.checkAll = false
+        },
+        // 检测body最后dom
+        checkDom (val) {
+            if (this.lastDom !== val) {
+                this.lastDom = val
+            } else {
+                document.body.lastChild.style.display = 'block'
+            }
+            this.delayState = !this.delayState
         }
     },
     mounted () {
@@ -367,6 +378,12 @@ export default {
             } else {
                 this.ishas = true
             }
+        },
+        // 延迟状态监测
+        delayState () {
+            setTimeout(function () {
+                document.body.lastChild.style.display = 'none'
+            }, 1000)
         }
     },
     components: {
