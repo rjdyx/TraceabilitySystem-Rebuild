@@ -10,10 +10,10 @@
         <x-header :left-options="{backText: ''}">{{settitle}}</x-header>
         <div class="ppN_content">
             <group label-width="4.5em" label-margin-right="2em" label-align="right">
-                <div class="formItem" v-for="comItem in newComponent.components" v-if="comItem.type !== 'file'">
+                <div class="formItem" v-for="comItem in typeComponent.components" v-if="comItem.type !== 'file'">
                     <x-input 
+                        v-if="comItem.type ==='text'"
                         :inputName="comItem.name"
-                        v-if="comItem.type ==='text'" 
                         :title="comItem.label" 
                         :placeholder="comItem.placeholder" 
                         v-model="tableForm[comItem.name]"
@@ -22,6 +22,8 @@
                         :class="{ inputErrors: ruleTableForm[comItem.name].bol}"
                         >
                     </x-input>
+                    
+
                     <datetime
                         :name="comItem.name" 
                         v-if="comItem.type === 'date'"
@@ -38,6 +40,7 @@
                         v-if="comItem.type === 'select'"
                         :title="comItem.label" 
                         :data="comItem.options" 
+                        :datakeys="comItem.optionskeys"
                         :placeholder="comItem.placeholder"
                         v-model="tableForm[comItem.name]"
                         @on-hide="onHide"
@@ -45,6 +48,36 @@
                         :class="{ inputErrors: ruleTableForm[comItem.name].bol}"
                         >
                     </popup-picker>
+                     <!-- <div v-if="comItem.type === 'select'">
+                        <div class="pcDiv">
+                            <div class="vux-cell-box" @click='comItem.show = !comItem.show'>
+                                <div :class="{ inputErrors: ruleTableForm[comItem.name].bol}">
+                                    <div class="weui-cell vux-tap-active weui-cell_access">
+                                        <div class="weui-cell__hd"><label class="weui-label" style="display: block; width: 4.5em; text-align: right; margin-right: 2em;">{{comItem.label}}</label>
+                                        </div>
+                                        <div class="vux-cell-primary vux-popup-picker-select-box">
+                                            <div class="vux-popup-picker-select" style="text-align: left;">
+                                                <span class="vux-popup-picker-placeholder">
+                                                    {{Object.keys(tableForm[comItem.name]).length ? tableForm[comItem.name].value : comItem.placeholder}}
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="weui-cell__ft"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div v-transfer-dom>
+                          <popup v-model="comItem.show" height="200px" @on-first-show="resetScroller"> -->
+                            <!-- <group>
+                              <checklist title="请选择批次号" :options="comItem.options" v-model="tableForm[comItem.name]" @on-change="change"></checklist>
+                            </group> -->
+                     <!--        <group title="请选择">
+                              <radio :options="comItem.options" :name="comItem.name" @on-change="radioChange"></radio>
+                            </group>
+                          </popup>
+                        </div>
+                    </div> -->
 
                     <x-textarea
                         v-if="comItem.type === 'textarea'"
@@ -81,17 +114,17 @@
                     <div v-if="comItem.type === 'pcSelect'">
                         <!-- <x-switch title="set max-height=50%" v-model="show13"></x-switch> -->
                         <div class="pcDiv">
-                            <div class="vux-cell-box" @click='show13 = !show13'>
+                            <div class="vux-cell-box" @click='comItem.show = !comItem.show'>
                                 <div :class="{ inputErrors: ruleTableForm[comItem.name].bol}">
                                     <div class="weui-cell vux-tap-active weui-cell_access">
                                         <div class="weui-cell__hd"><label class="weui-label" style="display: block; width: 4.5em; text-align: right; margin-right: 2em;">{{comItem.label}}</label><!---->
                                         </div>
                                         <div class="vux-cell-primary vux-popup-picker-select-box">
                                             <div class="vux-popup-picker-select" style="text-align: left;"><!----><!----><!---->
-                                                <span class="vux-popup-picker-placeholder">{{pcPlaceholder}}</span>
+                                                <span class="vux-popup-picker-placeholder">{{tableForm[comItem.name].length ? '已选择批次号' : '请选择批次号'}}</span>
                                             </div>
                                         </div>
-                                        <div class="weui-cell__ft"  ></div>
+                                        <div class="weui-cell__ft"></div>
                                     </div><!---->
                                 </div>
                             </div>
@@ -106,12 +139,13 @@
                             </div>
                         </div>
                         <div v-transfer-dom>
-                          <popup v-model="show13" position="bottom" height="100%">
+                          <popup v-model="comItem.show" position="bottom" height="100%">
                             <group>
+                               <button>全选</button> 
                               <checklist title="请选择批次号" :options="comItem.options" v-model="tableForm[comItem.name]" @on-change="change"></checklist>
                             </group>
                             <div style="padding: 15px;">
-                              <x-button @click.native="pcClose(comItem.name)" plain type="primary"> Close Me </x-button>
+                              <x-button @click.native="pcClose(comItem)" plain type="primary"> 关闭 </x-button>
                             </div>
                           </popup>
                         </div>
@@ -120,7 +154,7 @@
                 </div>
             </group>
             <camera 
-                v-for="comItem in newComponent.components" 
+                v-for="comItem in typeComponent.components" 
                 v-if="comItem.type === 'file'" 
                 @return-shuju="returnShuju"
                 :name="comItem.name"
@@ -138,7 +172,7 @@
     </div>
 </template>
 <script>
-import { XHeader, Actionsheet, TransferDom, Group, XInput, Selector, PopupPicker, Datetime, ChinaAddressData, XTextarea, Icon, XButton, Flexbox, FlexboxItem, PopupRadio, Popup, XSwitch, Cell, Checklist, Divider } from 'vux'
+import { XHeader, Actionsheet, TransferDom, Group, XInput, Selector, PopupPicker, Datetime, ChinaAddressData, XTextarea, Icon, XButton, Flexbox, FlexboxItem, PopupRadio, Popup, XSwitch, Cell, Checklist, Divider, Radio } from 'vux'
 import message from '../webAppBasic/appmessage.js'
 import Camera from '../../public/camera.vue'
 import validate from '../../../utils/appValidate.js'
@@ -167,50 +201,98 @@ export default {
         XSwitch,
         Cell,
         Checklist,
-        Divider
+        Divider,
+        Radio
     },
     data () {
+        let type = this.$route.params.type
+        let typeComponent = []
         let modelObj = {}
         Object.assign(modelObj, message)
-        let newComponent = modelObj[this.$route.params.model][this.$route.params.modelIndex].newComponent
         let form = {} // 装内容
         let ruleTableForm = {} // 装内容是否符合规则，boolean类型
-        newComponent[0].components.forEach(function (item) {
-            if (item.type === 'textSelect') {
-                form[item.name] = 0
-                form['unit'] = [item.options[0][0]]
-                ruleTableForm['unit'] = {bol: false, rule: {required: item.rule.required}}
-                ruleTableForm[item.name] = {bol: false, rule: item.rule}
-            } else if (item.type === 'select' || item.type === 'pcSelect') {
-                form[item.name] = []
-                ruleTableForm[item.name] = {bol: false, rule: item.rule}
-            } else {
-                form[item.name] = ''
-                ruleTableForm[item.name] = {bol: false, rule: item.rule}
+        if (type === 'new') {
+            typeComponent = modelObj[this.$route.params.model][this.$route.params.modelIndex].newComponent
+            typeComponent[0].components.forEach(function (item) {
+                if (item.type === 'textSelect') {
+                    form[item.name] = 0
+                    form['unit'] = [item.options[0][0]]
+                    ruleTableForm['unit'] = {bol: false, rule: {required: item.rule.required}}
+                    ruleTableForm[item.name] = {bol: false, rule: item.rule}
+                } else if (item.type === 'select') {
+                    form[item.name] = []
+                    ruleTableForm[item.name] = {bol: false, rule: item.rule}
+                } else if (item.type === 'pcSelect') {
+                    form[item.name] = []
+                    ruleTableForm[item.name] = {bol: false, rule: item.rule}
+                } else {
+                    form[item.name] = ''
+                    ruleTableForm[item.name] = {bol: false, rule: item.rule}
+                }
+            })
+        } else {
+            typeComponent = modelObj[this.$route.params.model][this.$route.params.modelIndex].editComponent
+            typeComponent[0].components.forEach(function (item) {
+                if (item.type === 'textSelect') {
+                    ruleTableForm['unit'] = {bol: false, rule: {required: item.rule.required}}
+                    ruleTableForm[item.name] = {bol: false, rule: item.rule}
+                } else if (item.type === 'select') {
+                    ruleTableForm[item.name] = {bol: false, rule: item.rule}
+                } else if (item.type === 'pcSelect') {
+                    ruleTableForm[item.name] = {bol: false, rule: item.rule}
+                } else {
+                    ruleTableForm[item.name] = {bol: false, rule: item.rule}
+                }
+            })
+            // 编辑Form格式
+            form = {
+                fodder_id: ['a'],
+                addition_id: ['a'],
+                operate_id: ['a'],
+                date: '2017-06-22',
+                amount: '5',
+                unit: ['kg/只'],
+                way: 'sdfa',
+                memo: 'sdgdfhgfhfg'
             }
-        })
-
+        }
         return {
-            settitle: newComponent[0].tab,
-            newComponent: newComponent[0],
+            type: type, // 判断编辑模块还是新增模块的标志
+            settitle: typeComponent[0].tab,
+            typeComponent: typeComponent[0],
             tableForm: form,
             ruleTableForm: ruleTableForm,
             show13: false,
             objectListValue: ['15', '2']
+
         }
     },
     methods: {
+        radioChange (obj) {
+            this.tableForm[obj.name] = {key: obj.key, value: obj.value}
+            this.typeComponent.components.forEach(function (item) {
+                if (item.name === obj.name) {
+                    setTimeout(function () {
+                        item.show = !item.show
+                    }, 100)
+                }
+            })
+            this.validateFn(obj)
+        },
         change (val) {
-            console.log('change1', val)
-            console.log(this.tableForm)
         },
         /*
         popup-picker组件的方法
-        修改了vex里面popup-pickert组件的onShow, 原没有参数，现在是name。
+        修改了vex里面popup-pickert组件的onHide, 原参数只有type，现在是{closeType: this.closeType, name: this.name, index: 选择的数组下标}。
         popup-picker组件还需要传多一个：name的属性
         */
         onHide (obj) {
             // (name, rule, value)
+            this.typeComponent.components.forEach(function (item) {
+                if (item.name === obj.name) {
+                    console.log(item.optionskeys[0][obj.index])
+                }
+            })
             this.validateFn(obj)
         },
 
@@ -222,7 +304,6 @@ export default {
         validateFn (obj) {
             // (name, rule, value)
             let result = validate.fn(obj.name, this.ruleTableForm[obj.name].rule, this.tableForm[obj.name])
-            console.log(result)
             if (result.valid) { // true验证成功
                 this.ruleTableForm[obj.name].bol = false
                 return result
@@ -242,16 +323,16 @@ export default {
         datatime验证
         datetime组件的方法
         添加了vex里面x-input组件的onDateHide方法，参数obj{name:name}。
-        x-input组件还需要传多一个：name的属性
+         datatime组件还需要传多一个：name的属性
         */
         onDateHide (obj) {
             this.validateFn(obj)
         },
 
         // 批次号验证
-        pcClose (name) {
-            this.show13 = !this.show13
-            this.validateFn({name: name})
+        pcClose (comItem) {
+            comItem.show = !comItem.show
+            this.validateFn({name: comItem.name})
         },
         /*
         取消表单
@@ -291,9 +372,6 @@ export default {
             this.$nextTick(() => {
                 this.$refs.scroller.reset()
             })
-        },
-        log (str) {
-            console.log(str)
         }
     },
     created () {

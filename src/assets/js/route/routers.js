@@ -249,7 +249,7 @@ var routes = [
         ]
     },
     {
-        path: '/webAppNew/:model/:modelIndex',
+        path: '/webAppNew/:model/:modelIndex/:type',
         name: 'webAppNew',
         component: webAppNew
     }
