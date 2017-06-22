@@ -166,8 +166,6 @@ export default {
             activeindex: '',
             tabSelected: '',
             checkAll: false,
-            // 延迟状态
-            delayState: false,
             lastDom: ''
         }
     },
@@ -339,7 +337,9 @@ export default {
             } else {
                 document.body.lastChild.style.display = 'block'
             }
-            this.delayState = !this.delayState
+            setTimeout(function () {
+                document.body.lastChild.style.display = 'none'
+            }, 1000)
         }
     },
     mounted () {
@@ -378,12 +378,6 @@ export default {
             } else {
                 this.ishas = true
             }
-        },
-        // 延迟状态监测
-        delayState () {
-            setTimeout(function () {
-                document.body.lastChild.style.display = 'none'
-            }, 1000)
         }
     },
     components: {
