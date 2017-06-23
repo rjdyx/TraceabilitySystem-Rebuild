@@ -264,11 +264,17 @@ export default {
             }
         },
 
-        textareaOnBlur (obj) {
-            this.validateFn(obj)
+        /*
+        x-textarea组件的方法
+        修改了vex里面x-textarea组件的onBlur,参数name
+        修改了vex里面x-textarea组件的onChange,参数value，name
+        组件还需要传多一个：name的属性
+        */
+        textareaOnBlur (name) {
+            this.validateFn({name: name})
         },
-        textareaOnChange (obj) {
-            this.validateFn(obj)
+        textareaOnChange (value, name) {
+            this.validateFn({name: name})
         },
 
         /*
