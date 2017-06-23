@@ -85,7 +85,7 @@
                     </div>
                     <div slot="right-menu">
                       <swipeout-button class="lookOver" type="primary" @click.native="showDetail(pers.id)" v-if="rightMenu">查看</swipeout-button>
-                      <swipeout-button class="appedit" @click.native="webAppOperateType('edit')">编辑</swipeout-button>
+                      <swipeout-button class="appedit" @click.native="webAppOperateType('edit'+pers.id)">编辑</swipeout-button>
                     </div>
                 </swipeout-item>
             </swipeout>
@@ -166,8 +166,6 @@ export default {
             activeindex: '',
             tabSelected: '',
             checkAll: false,
-            // 延迟状态
-            delayState: false,
             lastDom: ''
         }
     },
@@ -183,7 +181,6 @@ export default {
         新建
          */
         webAppOperateType (operateType) {
-            console.log(operateType)
             this.$router.push('/webAppNew' + '/' + this.$route.params.model + '/' + this.modelIndex + '/' + operateType)
         },
         // 获取数据
@@ -340,7 +337,9 @@ export default {
             } else {
                 document.body.lastChild.style.display = 'block'
             }
-            this.delayState = !this.delayState
+            setTimeout(function () {
+                document.body.lastChild.style.display = 'none'
+            }, 1000)
         }
     },
     mounted () {
@@ -379,12 +378,6 @@ export default {
             } else {
                 this.ishas = true
             }
-        },
-        // 延迟状态监测
-        delayState () {
-            setTimeout(function () {
-                document.body.lastChild.style.display = 'none'
-            }, 1000)
         }
     },
     components: {

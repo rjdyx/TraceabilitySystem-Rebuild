@@ -257,6 +257,74 @@ default {
             }
             return ret
         }
+        /**
+         *
+         * 获取多批次列表
+         * @param ret
+         * @returns ret
+         */
+        Vue.prototype.$getCheckSelect = (ret, arr) => {
+            if (arr[2] === 'check') {
+                var options = {}
+                var optionArr = []
+                var arrId = []
+                for (let key in ret) {
+                    options['key'] = ret[key][arr[0]]
+                    options['value'] = ret[key][arr[1]]
+                    if (arrId.indexOf(ret[key][arr[0]]) === -1) {
+                        arrId[key] = ret[key][arr[0]]
+                        optionArr[key] = options
+                    }
+                    options = {}
+                }
+                return ['check', optionArr]
+            } else {
+                var arr1 = []
+                var arr2 = []
+                var optVal = []
+                var optKey = []
+                for (let key in ret) {
+                    arr1[key] = ret[key][arr[0]]
+                    arr2[key] = ret[key][arr[1]]
+                }
+                optKey.push(arr1)
+                optVal.push(arr2)
+                return [optKey, optVal]
+            }
+        }
+        /**
+         *
+         * 隐藏值与提交值转换
+         * @param ret
+         * @returns ret
+         */
+        Vue.prototype.$changeSubmit = (submitVal, hideVal) => {
+            var defaultVal = {}
+            for (let index of Object.keys(submitVal)) {
+                defaultVal[index] = submitVal[index]
+            }
+            for (let item of Object.keys(hideVal)) {
+                defaultVal[item] = hideVal[item]
+            }
+            return defaultVal
+        }
+        /**
+         *
+         * 编辑转化及存储隐藏值
+         * @param ret
+         * @returns ret
+         */
+        Vue.prototype.$changeArrBox = (ret, arr) => {
+            let setArr = []
+            let hideVal = {}
+            for (let key in arr) {
+                hideVal[key] = ret[key]
+                setArr.push(ret[arr[key]])
+                ret[key] = setArr
+                setArr = []
+            }
+            return [ret, hideVal]
+        }
         Vue.prototype.Roles = {}
     }
 }

@@ -85,9 +85,15 @@ export default {
                         form['_method'] = 'PUT'
                     }
                 }
-                axios.post(vm.$adminUrl(url), form, headers).then((response) => {
-                    resolve(response)
-                })
+                if (window.window.isPC) {
+                    axios.post(vm.$adminUrl(url), form, headers).then((response) => {
+                        resolve(response)
+                    })
+                } else {
+                    axios.post(vm.$wapUrl(url), form, headers).then((response) => {
+                        resolve(response)
+                    })
+                }
             })
         }
     }

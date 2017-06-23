@@ -32,6 +32,9 @@
                         value-text-align="left"
                         @on-dateHide="onDateHide"
                         :placeholder="comItem.placeholder"
+                        confirm-text="确认"
+                        cancel-text="取消" 
+                        clear-text="清空"
                         :class="{ inputErrors: ruleTableForm[comItem.name].bol}">
                     </datetime>
 
@@ -48,45 +51,19 @@
                         :class="{ inputErrors: ruleTableForm[comItem.name].bol}"
                         >
                     </popup-picker>
-                     <!-- <div v-if="comItem.type === 'select'">
-                        <div class="pcDiv">
-                            <div class="vux-cell-box" @click='comItem.show = !comItem.show'>
-                                <div :class="{ inputErrors: ruleTableForm[comItem.name].bol}">
-                                    <div class="weui-cell vux-tap-active weui-cell_access">
-                                        <div class="weui-cell__hd"><label class="weui-label" style="display: block; width: 4.5em; text-align: right; margin-right: 2em;">{{comItem.label}}</label>
-                                        </div>
-                                        <div class="vux-cell-primary vux-popup-picker-select-box">
-                                            <div class="vux-popup-picker-select" style="text-align: left;">
-                                                <span class="vux-popup-picker-placeholder">
-                                                    {{Object.keys(tableForm[comItem.name]).length ? tableForm[comItem.name].value : comItem.placeholder}}
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <div class="weui-cell__ft"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div v-transfer-dom>
-                          <popup v-model="comItem.show" height="200px" @on-first-show="resetScroller"> -->
-                            <!-- <group>
-                              <checklist title="请选择批次号" :options="comItem.options" v-model="tableForm[comItem.name]" @on-change="change"></checklist>
-                            </group> -->
-                     <!--        <group title="请选择">
-                              <radio :options="comItem.options" :name="comItem.name" @on-change="radioChange"></radio>
-                            </group>
-                          </popup>
-                        </div>
-                    </div> -->
 
                     <x-textarea
+                        :name = 'comItem.name'
                         v-if="comItem.type === 'textarea'"
                         :title="comItem.label" 
                         :placeholder="comItem.placeholder" 
                         :show-counter="false" 
                         :rows="3"
                         v-model="tableForm[comItem.name]"
-                        :class="{ inputErrors: ruleTableForm[comItem.name].bol}">
+                        :class="{ inputErrors: ruleTableForm[comItem.name].bol}"
+                        @on-blur="textareaOnBlur"
+                        @on-change="textareaOnChange"
+                        >
                     </x-textarea>
                     
                     <div v-if="comItem.type === 'textSelect'">
@@ -173,7 +150,7 @@
     </div>
 </template>
 <script>
-import { XHeader, Actionsheet, TransferDom, Group, XInput, Selector, PopupPicker, Datetime, ChinaAddressData, XTextarea, Icon, XButton, Flexbox, FlexboxItem, PopupRadio, Popup, XSwitch, Cell, Checklist, Divider, Radio } from 'vux'
+import { XHeader, Actionsheet, TransferDom, Group, XInput, Selector, PopupPicker, Datetime, ChinaAddressData, XTextarea, Icon, XButton, Flexbox, FlexboxItem, PopupRadio, Popup, XSwitch, Cell, Checklist, Divider, Radio, Toast } from 'vux'
 import message from '../webAppBasic/appmessage.js'
 import Camera from '../../public/camera.vue'
 import validate from '../../../utils/appValidate.js'
@@ -203,7 +180,8 @@ export default {
         Cell,
         Checklist,
         Divider,
-        Radio
+        Radio,
+        Toast
     },
     data () {
         let type = this.$route.params.type
@@ -212,6 +190,8 @@ export default {
         Object.assign(modelObj, message)
         let form = {} // 装内容
         let ruleTableForm = {} // 装内容是否符合规则，boolean类型
+        let url = modelObj[this.$route.params.model][this.$route.params.modelIndex].url
+        let changeDataArr = modelObj[this.$route.params.model][this.$route.params.modelIndex].changeDataArr
         if (type === 'new') {
             typeComponent = modelObj[this.$route.params.model][this.$route.params.modelIndex].newComponent
             typeComponent[0].components.forEach(function (item) {
@@ -246,38 +226,32 @@ export default {
                 }
             })
             // 编辑Form格式
-            form = {
-                fodder_id: ['a'],
-                addition_id: ['a'],
-                operate_id: ['a'],
-                date: '2017-06-22',
-                amount: '5',
-                unit: ['kg/只'],
-                way: 'sdfa',
-                memo: 'sdgdfhgfhfg'
-            }
+            form = {}
         }
         return {
             type: type, // 判断编辑模块还是新增模块的标志
             settitle: typeComponent[0].tab,
             typeComponent: typeComponent[0],
+            url: url,
+            changeDataArr: changeDataArr,
+            // form: {},
             tableForm: form,
-            ruleTableForm: ruleTableForm
-
+            ruleTableForm: ruleTableForm,
+            show13: false,
+            objectListValue: ['15', '2'],
+            selectHideId: {},
+            isEdit: false,
+            successMsg: '',
+            errorMsg: '',
+            // 提交路径
+            submitUrl: '',
+            // 编辑id
+            editId: '',
+            // 图片
+            hasImg: false
         }
     },
     methods: {
-        // radioChange (obj) {
-        //     this.tableForm[obj.name] = {key: obj.key, value: obj.value}
-        //     this.typeComponent.components.forEach(function (item) {
-        //         if (item.name === obj.name) {
-        //             setTimeout(function () {
-        //                 item.show = !item.show
-        //             }, 100)
-        //         }
-        //     })
-        //     this.validateFn(obj)
-        // },
         change (val) {
         },
         allcheckFn (name, options, bol) {
@@ -290,6 +264,13 @@ export default {
             }
         },
 
+        textareaOnBlur (obj) {
+            this.validateFn(obj)
+        },
+        textareaOnChange (obj) {
+            this.validateFn(obj)
+        },
+
         /*
         popup-picker组件的方法
         修改了vex里面popup-pickert组件的onHide, 原参数只有type，现在是{closeType: this.closeType, name: this.name, index: 选择的数组下标}。
@@ -297,12 +278,27 @@ export default {
         */
         onHide (obj) {
             // (name, rule, value)
+            var _this = this
             this.typeComponent.components.forEach(function (item) {
                 if (item.name === obj.name) {
-                    console.log(item.optionskeys[0][obj.index])
+                    if (item.name !== 'amount') {
+                        _this.selectHideId[item.name] = item.optionskeys[0][obj.index]
+                    } else {
+                        _this.selectHideId['unit'] = item.optionskeys[0][obj.index]
+                    }
                 }
             })
             this.validateFn(obj)
+        },
+
+        // 默认值存储进onHide
+        defaultHide () {
+            var _this = this
+            this.typeComponent.components.forEach(function (item) {
+                if (item.name === 'amount') {
+                    _this.selectHideId['unit'] = item.optionskeys[0][0]
+                }
+            })
         },
 
         /*
@@ -349,49 +345,129 @@ export default {
         cancelForm () {
             this.$router.go(-1)
         },
-
+        // 提示弹窗
+        setToast (type, text, width = '7.6em') {
+            this.$vux.toast.show({
+                type: type,
+                text: text,
+                width: width,
+                position: 'middle'
+            })
+        },
         /*
         提交表单
          */
         submitForm () {
-            console.log(this.tableForm)
-            console.log(this.ruleTableForm)
             let allValBol = true
             for (let key in this.ruleTableForm) {
                 let fnBol = this.validateFn({name: key, rule: this.ruleTableForm[key], value: this.tableForm[key]}).valid
                 allValBol = allValBol && fnBol
             }
             if (allValBol) {
-                console.log('提交成功')
-                console.log(this.tableForm)
+                // let beforeS = this.$conversion(this.changeDataArr, this.selectHideId, 0)
+                let submitVal = this.$changeSubmit(this.tableForm, this.selectHideId)
+                var _this = this
+                this.$dataPost(this, this.submitUrl, submitVal, this.hasImg, this.typeComponent.hiddenValue, this.isEdit).then((response) => {
+                    if (response.data !== 'false') {
+                        _this.setToast('success', _this.successMsg, '12em')
+                    } else {
+                        _this.setToast('cancel', _this.errorMsg, '12em')
+                    }
+                    this.$router.go(-1)
+                })
             } else {
-                console.log('请输入完整')
+                this.setToast('text', '请输入完整信息', '12em')
             }
         },
-
+        // 获取下拉框或多选框信息
+        getSelectInfo () {
+            var com = this.typeComponent
+            if (com.checkBoxUrl) {
+                for (let key in com.checkBoxUrl) {
+                    let dataArr = this.$addAndEditSelectMethod(com.checkBoxUrl[key])
+                    let data = {table: dataArr.selectUrl}
+                    this.$dataGet(this, '/util/selects', data)
+                        .then((responce) => {
+                            if (responce.data !== '') {
+                                if (responce.data.length !== 0) {
+                                    let dataOpt = this.$getCheckSelect(responce.data, dataArr.selectArr)
+                                    if (dataOpt[0] === 'check') {
+                                        com.components[com.checkBoxPosition[key]].options = dataOpt[1]
+                                    } else {
+                                        com.components[com.checkBoxPosition[key]].options = dataOpt[1]
+                                        com.components[com.checkBoxPosition[key]].optionskeys = dataOpt[0]
+                                    }
+                                }
+                            }
+                        })
+                }
+            }
+        },
+        // 获取编辑数据
+        getEditInfo () {
+            var type = this.type
+            if (type.indexOf('edit') !== -1) {
+                this.editId = type.replace('edit', '')
+            }
+            this.$dataWapGet(this, this.url + '/' + this.editId + '/edit', {})
+                .then((responce) => {
+                    if (this.typeComponent.arrBox) {
+                        let beforeVal = this.$conversion(this.changeDataArr, responce.data, 0)
+                        let initVal = this.$changeArrBox(beforeVal, this.typeComponent.arrBox)
+                        this.tableForm = initVal[0]
+                        this.selectHideId = initVal[1]
+                        console.log(this.selectHideId)
+                    } else {
+                        this.tableForm = responce.data
+                    }
+                })
+        },
         /*
         返回图片信息
          */
         returnShuju (obj) {
-            this.tableForm[obj.name] = obj.value
-            // name, rule, value
-            this.validateFn({name: obj.name, rule: this.ruleTableForm[obj.name], value: this.tableForm[obj.name]})
+            if (obj === 'type') {
+                this.setToast('text', '请上传jpeg或png的图片', '15em')
+            } else if (obj === 'size') {
+                this.setToast('text', '请输入小于300k图片', '15em')
+            } else {
+                this.tableForm[obj.name] = obj.value
+                this.validateFn({name: obj.name, rule: this.ruleTableForm[obj.name], value: this.tableForm[obj.name]})
+            }
         },
         resetScroller () {
             this.$nextTick(() => {
                 this.$refs.scroller.reset()
             })
+        },
+        // 新增编辑公共专用
+        basicModel () {
+            this.getSelectInfo()
+            if (this.typeComponent.hasImg) {
+                this.hasImg = true
+            }
         }
     },
     created () {
         $('#app').removeClass('bule').addClass('gray')
     },
     mounted () {
-        console.log(this.ruleTableForm)
-    },
-    computed: {
-        pcPlaceholder () {
-            return this.objectListValue.length ? '已选择批次号' : '请选择批次号'
+        // 新增编辑公共专用
+        this.basicModel()
+        // 编辑
+        if (this.type !== 'new') {
+            this.getEditInfo()
+            this.isEdit = true
+            this.successMsg = '编辑数据成功'
+            this.errorMsg = '编辑数据失败'
+            this.submitUrl = this.url + '/' + this.editId
+        // 新增
+        } else {
+            this.defaultHide()
+            this.isEdit = false
+            this.successMsg = '新增数据成功'
+            this.errorMsg = '新增数据失败'
+            this.submitUrl = this.url
         }
     }
 }
