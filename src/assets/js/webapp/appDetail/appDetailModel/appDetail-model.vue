@@ -266,6 +266,7 @@ export default {
 
 <style lang='sass'>
 .appdetail_model{
+    padding-top: 50px;
     .webApp-wrap{ 
         .searchInp {
             width: 60%;

@@ -9,8 +9,19 @@
 	<div class="webIndex">
 		<div class="indexImg">
 			<img src="/public/images/cloud-s.png" class="cloud-s">
-			<img src="/public/images/app.png" class="logo">
 			<img src="/public/images/cloud-b.png" class="cloud-b" @click="push">
+			<div class="clockDiv">
+				<img src="/public/images/clockbg.png" class="clockbg">
+				<img src="/public/images/cloud2.png" alt="" class="logo">
+				<div class="timeDiv">
+					<img class="quan" src="/public/images/quan.png" alt="">
+					<div>
+						<img src="/public/images/s.png" alt="" class="s">
+						<img src="/public/images/m.png" alt="" class="m">
+						<img src="/public/images/h.png" alt="" class="h">
+					</div>
+				</div>
+			</div>
 		</div>
 		<div class="indexlist">
 			<h1 class="company">所属公司：{{company}}</h1>
@@ -28,7 +39,8 @@ export default{
             company: '',
             user: '',
             loginDate: '',
-            userType: ''
+            userType: '',
+            timer: null
         }
     },
     methods: {
@@ -37,6 +49,15 @@ export default{
         }
     },
     mounted () {
+        this.timer = setInterval(() => {
+            let date = new Date()
+            let s = date.getSeconds()
+            let m = date.getMinutes()
+            let h = date.getHours()
+            $('.s').css('transform', 'rotate(' + s * 360 / 60 + 'deg)')
+            $('.m').css('transform', 'rotate(' + (m * 6 + s / 60 * 6) + 'deg)')
+            $('.h').css('transform', 'rotate(' + (h * 30 + m / 60 * 30) + 'deg)')
+        }, 1000)
         axios.get('/api/index')
             .then((responce) => {
                 this.company = responce.data.company_name
@@ -49,48 +70,121 @@ export default{
 </script>
 
 <style lang='sass'>
+@mixin clockImg($h, $mt, $ml){
+	height: $h;
+	margin-top: $mt;
+	margin-left: $ml;
+}
 	.webIndex{
 		width: 100%;
 		height: 100%;
+		padding-top: 50px;
 		.indexImg{
 			width: 100%;
-			height: 402px;
 			position: relative;
-			.logo{
+			text-align: center;
+			.clockDiv{
+				display:inline-block;
 				width: 74%;
-				height: 76%;
-				position: absolute;
-				left: 9%;
-				top: 11%;
+				margin-top: .8rem;
+				position: relative;
+				padding-bottom: 12%;
+				text-align: center;
+				.clockbg{
+					width: 100%;
+					margin-left: -10%;
+				}
+				.logo{
+					width: 76%;
+					position: absolute;
+					bottom: -0%;
+					left: 13%;
+					/*display: none;*/
+					z-index: 2;
+				}
+				.timeDiv{
+					width: 69%;
+					position: absolute;
+					bottom: 2%;
+					right:5%;
+					margin-right: 10%;
+					margin-bottom: 22%;
+					.quan{
+						width: 100%;
+						opacity: 0;
+					}
+					>div{
+						img{
+							position: absolute;
+							top: 48%;
+							left: 50%;
+							transform-origin: bottom;
+							/*z-index: 3;*/
+						}
+						.s{
+							@include clockImg(45%, -45%, -.399%);
+						}
+						.m{
+							@include clockImg(37%, -37%, -2%);
+						}
+						.h{
+							@include clockImg(28%, -28%, -2%);
+						}
+						
+					}
+
+				}
 			}
 			.cloud-s{
 				width: 15%;
 				height: 7%;
 				position: absolute;
 				top: 2%;
+				z-index: -1;
+				animation: cloud-s 30s linear infinite 0s;
+				left:0%;
 			}
 			.cloud-b{
 				width: 24%;
 				right: 2%;
 				position: absolute;
-				top: 4%
+				top: 4%;
+				z-index: -1;
+				left:-24%;
+				animation: cloud-b 40s linear infinite 5s;
+			}
+			@keyframes cloud-s{
+				0%{
+					left: 0%;
+				}
+				100%{
+					left: 100%;
+				}
+			}
+			@keyframes cloud-b{
+				0%{
+					left: -24%;
+				}
+				100%{
+					left:100%;
+				}
 			}
 		}
 		.indexlist{
 			width: 100%;
 			text-align: center;
+			padding-top:1rem;
 			.company{
-				font-size: 24px;
+				font-size: .55rem;
 				color: #595957;
-				padding-bottom: 5%;
 			}
 			p{
-				font-size: 16px;
+				font-size: .4rem;
 				padding-top: 10px;
 				color: #50504e;
 			}
 		}
-		@media (max-width: 320px) {
+		/*@media (max-width: 320px) {
 			.indexlist {
 				.company{
 					font-size: 18px;
@@ -136,6 +230,7 @@ export default{
 					font-size: 35px;
 				}
 			} 
-		}
+		}*/
 }
+
 </style>

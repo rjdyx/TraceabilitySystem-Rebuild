@@ -51,45 +51,19 @@
                         :class="{ inputErrors: ruleTableForm[comItem.name].bol}"
                         >
                     </popup-picker>
-                     <!-- <div v-if="comItem.type === 'select'">
-                        <div class="pcDiv">
-                            <div class="vux-cell-box" @click='comItem.show = !comItem.show'>
-                                <div :class="{ inputErrors: ruleTableForm[comItem.name].bol}">
-                                    <div class="weui-cell vux-tap-active weui-cell_access">
-                                        <div class="weui-cell__hd"><label class="weui-label" style="display: block; width: 4.5em; text-align: right; margin-right: 2em;">{{comItem.label}}</label>
-                                        </div>
-                                        <div class="vux-cell-primary vux-popup-picker-select-box">
-                                            <div class="vux-popup-picker-select" style="text-align: left;">
-                                                <span class="vux-popup-picker-placeholder">
-                                                    {{Object.keys(tableForm[comItem.name]).length ? tableForm[comItem.name].value : comItem.placeholder}}
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <div class="weui-cell__ft"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div v-transfer-dom>
-                          <popup v-model="comItem.show" height="200px" @on-first-show="resetScroller"> -->
-                            <!-- <group>
-                              <checklist title="请选择批次号" :options="comItem.options" v-model="tableForm[comItem.name]" @on-change="change"></checklist>
-                            </group> -->
-                     <!--        <group title="请选择">
-                              <radio :options="comItem.options" :name="comItem.name" @on-change="radioChange"></radio>
-                            </group>
-                          </popup>
-                        </div>
-                    </div> -->
 
                     <x-textarea
+                        :name = 'comItem.name'
                         v-if="comItem.type === 'textarea'"
                         :title="comItem.label" 
                         :placeholder="comItem.placeholder" 
                         :show-counter="false" 
                         :rows="3"
                         v-model="tableForm[comItem.name]"
-                        :class="{ inputErrors: ruleTableForm[comItem.name].bol}">
+                        :class="{ inputErrors: ruleTableForm[comItem.name].bol}"
+                        @on-blur="textareaOnBlur"
+                        @on-change="textareaOnChange"
+                        >
                     </x-textarea>
                     
                     <div v-if="comItem.type === 'textSelect'">
@@ -144,7 +118,8 @@
                         <div v-transfer-dom>
                           <popup v-model="comItem.show" position="bottom" height="100%">
                             <group>
-                               <button>全选</button> 
+                              <button @click="allcheckFn(comItem.name,comItem.options,true)">全选</button> 
+                              <button @click="allcheckFn(comItem.name,comItem.options,false)">反选</button>
                               <checklist title="请选择批次号" :options="comItem.options" v-model="tableForm[comItem.name]" @on-change="change"></checklist>
                             </group>
                             <div style="padding: 15px;">
@@ -277,19 +252,31 @@ export default {
         }
     },
     methods: {
-        radioChange (obj) {
-            this.tableForm[obj.name] = {key: obj.key, value: obj.value}
-            this.typeComponent.components.forEach(function (item) {
-                if (item.name === obj.name) {
-                    setTimeout(function () {
-                        item.show = !item.show
-                    }, 100)
-                }
-            })
-            this.validateFn(obj)
-        },
         change (val) {
         },
+        allcheckFn (name, options, bol) {
+            if (bol) {
+                options.forEach((item) => {
+                    this.tableForm[name].push(item.key)
+                })
+            } else {
+                this.tableForm[name] = []
+            }
+        },
+
+        /*
+        x-textarea组件的方法
+        修改了vex里面x-textarea组件的onBlur,参数name
+        修改了vex里面x-textarea组件的onChange,参数value，name
+        组件还需要传多一个：name的属性
+        */
+        textareaOnBlur (name) {
+            this.validateFn({name: name})
+        },
+        textareaOnChange (value, name) {
+            this.validateFn({name: name})
+        },
+
         /*
         popup-picker组件的方法
         修改了vex里面popup-pickert组件的onHide, 原参数只有type，现在是{closeType: this.closeType, name: this.name, index: 选择的数组下标}。
@@ -487,11 +474,6 @@ export default {
             this.successMsg = '新增数据成功'
             this.errorMsg = '新增数据失败'
             this.submitUrl = this.url
-        }
-    },
-    computed: {
-        pcPlaceholder () {
-            return this.objectListValue.length ? '已选择批次号' : '请选择批次号'
         }
     }
 }
