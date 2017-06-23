@@ -98,7 +98,7 @@ export default {
                 type: 'textarea',
                 label: '备注信息',
                 placeholder: '（可填）',
-                rule: {required: true}
+                rule: {required: false}
             }]
         }],
         editComponent: [{
