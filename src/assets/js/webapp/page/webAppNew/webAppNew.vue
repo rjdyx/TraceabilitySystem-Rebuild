@@ -32,6 +32,9 @@
                         value-text-align="left"
                         @on-dateHide="onDateHide"
                         :placeholder="comItem.placeholder"
+                        confirm-text="确认"
+                        cancel-text="取消" 
+                        clear-text="清空"
                         :class="{ inputErrors: ruleTableForm[comItem.name].bol}">
                     </datetime>
 
@@ -213,6 +216,7 @@ export default {
         let form = {} // 装内容
         let ruleTableForm = {} // 装内容是否符合规则，boolean类型
         let url = modelObj[this.$route.params.model][this.$route.params.modelIndex].url
+        let changeDataArr = modelObj[this.$route.params.model][this.$route.params.modelIndex].changeDataArr
         if (type === 'new') {
             typeComponent = modelObj[this.$route.params.model][this.$route.params.modelIndex].newComponent
             typeComponent[0].components.forEach(function (item) {
@@ -254,12 +258,22 @@ export default {
             settitle: typeComponent[0].tab,
             typeComponent: typeComponent[0],
             url: url,
+            changeDataArr: changeDataArr,
             // form: {},
             tableForm: form,
             ruleTableForm: ruleTableForm,
             show13: false,
             objectListValue: ['15', '2'],
-            selectHideId: {}
+            selectHideId: {},
+            isEdit: false,
+            successMsg: '',
+            errorMsg: '',
+            // 提交路径
+            submitUrl: '',
+            // 编辑id
+            editId: '',
+            // 图片
+            hasImg: false
         }
     },
     methods: {
@@ -288,10 +302,22 @@ export default {
                 if (item.name === obj.name) {
                     if (item.name !== 'amount') {
                         _this.selectHideId[item.name] = item.optionskeys[0][obj.index]
+                    } else {
+                        _this.selectHideId['unit'] = item.optionskeys[0][obj.index]
                     }
                 }
             })
             this.validateFn(obj)
+        },
+
+        // 默认值存储进onHide
+        defaultHide () {
+            var _this = this
+            this.typeComponent.components.forEach(function (item) {
+                if (item.name === 'amount') {
+                    _this.selectHideId['unit'] = item.optionskeys[0][0]
+                }
+            })
         },
 
         /*
@@ -357,13 +383,14 @@ export default {
                 allValBol = allValBol && fnBol
             }
             if (allValBol) {
+                // let beforeS = this.$conversion(this.changeDataArr, this.selectHideId, 0)
                 let submitVal = this.$changeSubmit(this.tableForm, this.selectHideId)
                 var _this = this
-                this.$dataPost(this, this.url, submitVal, false, false, false).then((response) => {
+                this.$dataPost(this, this.submitUrl, submitVal, this.hasImg, this.typeComponent.hiddenValue, this.isEdit).then((response) => {
                     if (response.data !== 'false') {
-                        _this.setToast('success', '新增数据成功', '12em')
+                        _this.setToast('success', _this.successMsg, '12em')
                     } else {
-                        _this.setToast('cancel', '新增数据失败', '12em')
+                        _this.setToast('cancel', _this.errorMsg, '12em')
                     }
                     this.$router.go(-1)
                 })
@@ -399,13 +426,16 @@ export default {
         getEditInfo () {
             var type = this.type
             if (type.indexOf('edit') !== -1) {
-                var id = type.replace('edit', '')
+                this.editId = type.replace('edit', '')
             }
-            this.$dataWapGet(this, this.url + '/' + id + '/edit', {})
+            this.$dataWapGet(this, this.url + '/' + this.editId + '/edit', {})
                 .then((responce) => {
                     if (this.typeComponent.arrBox) {
-                        let initVal = this.$changeArrBox(responce.data, this.typeComponent.arrBox)
-                        this.tableForm = initVal
+                        let beforeVal = this.$conversion(this.changeDataArr, responce.data, 0)
+                        let initVal = this.$changeArrBox(beforeVal, this.typeComponent.arrBox)
+                        this.tableForm = initVal[0]
+                        this.selectHideId = initVal[1]
+                        console.log(this.selectHideId)
                     } else {
                         this.tableForm = responce.data
                     }
@@ -415,22 +445,48 @@ export default {
         返回图片信息
          */
         returnShuju (obj) {
-            this.tableForm[obj.name] = obj.value
-            this.validateFn({name: obj.name, rule: this.ruleTableForm[obj.name], value: this.tableForm[obj.name]})
+            if (obj === 'type') {
+                this.setToast('text', '请上传jpeg或png的图片', '15em')
+            } else if (obj === 'size') {
+                this.setToast('text', '请输入小于300k图片', '15em')
+            } else {
+                this.tableForm[obj.name] = obj.value
+                this.validateFn({name: obj.name, rule: this.ruleTableForm[obj.name], value: this.tableForm[obj.name]})
+            }
         },
         resetScroller () {
             this.$nextTick(() => {
                 this.$refs.scroller.reset()
             })
+        },
+        // 新增编辑公共专用
+        basicModel () {
+            this.getSelectInfo()
+            if (this.typeComponent.hasImg) {
+                this.hasImg = true
+            }
         }
     },
     created () {
         $('#app').removeClass('bule').addClass('gray')
     },
     mounted () {
-        this.getSelectInfo()
+        // 新增编辑公共专用
+        this.basicModel()
+        // 编辑
         if (this.type !== 'new') {
             this.getEditInfo()
+            this.isEdit = true
+            this.successMsg = '编辑数据成功'
+            this.errorMsg = '编辑数据失败'
+            this.submitUrl = this.url + '/' + this.editId
+        // 新增
+        } else {
+            this.defaultHide()
+            this.isEdit = false
+            this.successMsg = '新增数据成功'
+            this.errorMsg = '新增数据失败'
+            this.submitUrl = this.url
         }
     },
     computed: {

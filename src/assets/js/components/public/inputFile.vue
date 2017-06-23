@@ -11,9 +11,9 @@
             <img v-if='imageUrl' :src='imageUrl' class='avatar'>
             <i v-else class='el-icon-plus avatar-uploader-icon'></i>
         </div>
-        <input type="file" hidden="hidden" @change="previewPic(item, $event)">
+        <input type="file" hidden="hidden" @change="previewPic($event.currentTarget, $event)">
         <div class="delete-pic-btn">
-            <el-button size="small" @click="deleteImgFn" class="btn_change">删除</el-button>
+            <el-button size="small" @click="deleteImgFn($event.currentTarget)" class="btn_change">删除</el-button>
         </div>
     </div>
 </div>
@@ -48,8 +48,9 @@ export default {
     },
     methods: {
         // 删除图片
-        deleteImgFn () {
+        deleteImgFn (src) {
             this.imageUrl = ''
+            src.parentNode.parentNode.getElementsByTagName('input')[0].value = ''
             this.$emit('return-shuju', {name: this.shuju.name, value: ''})
         },
         previewPic (srcPic, event) {
@@ -61,10 +62,12 @@ export default {
             let regex = new RegExp('(?:' + regexParams + ')', 'i')
             if (file.type !== 'image/png' && file.type !== 'image/jpeg') {
                 this.$message('请上传文件格式为jpeg或png的图片')
+                srcPic.value = ''
                 return
             }
             if (file.size / 1024 >= 300) {
                 this.$message('图片过大，请输入小于300k图片')
+                srcPic.value = ''
                 return
             }
             let reader = new FileReader()

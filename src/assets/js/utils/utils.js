@@ -308,14 +308,22 @@ default {
             }
             return defaultVal
         }
+        /**
+         *
+         * 编辑转化及存储隐藏值
+         * @param ret
+         * @returns ret
+         */
         Vue.prototype.$changeArrBox = (ret, arr) => {
             let setArr = []
+            let hideVal = {}
             for (let key in arr) {
+                hideVal[key] = ret[key]
                 setArr.push(ret[arr[key]])
                 ret[key] = setArr
                 setArr = []
             }
-            return ret
+            return [ret, hideVal]
         }
         Vue.prototype.Roles = {}
     }

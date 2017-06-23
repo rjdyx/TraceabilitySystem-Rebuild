@@ -5,13 +5,12 @@
 * */ 
 <template>
 	 <div class="camera">
-        <span class="cancelImg" @click="delImgFn"><icon type="cancel" ></icon></span>
+        <span class="cancelImg" @click="delImgFn($event.currentTarget)"><icon type="cancel" ></icon></span>
         <div class="cameraCon" @click="selectPic">
             <img v-if="imageUrl === ''" class="cameraImg" src="/public/images/xiangji.png" alt="">
-            <input type="file" hidden="hidden" accept="image/*;capture=camera" @change="previewPic(item, $event)">
+            <input type="file" hidden="hidden" accept="image/*;capture=camera" @change="previewPic($event.currentTarget, $event)">
             <img v-if='imageUrl' :src='imageUrl' width="100%" height="100%">
         </div>
-        
     </div>
 </template>
 <style lang="sass">
@@ -63,9 +62,9 @@ export default {
     },
     methods: {
         // 删除图片
-        delImgFn () {
-            console.log('ksldghlsdglsdkjbg;l')
+        delImgFn (src) {
             this.imageUrl = ''
+            src.parentNode.lastChild.getElementsByTagName('input')[0].value = ''
             this.$emit('return-shuju', {name: this.name, value: ''})
         },
         selectPic (event) {
@@ -82,11 +81,13 @@ export default {
             }
             let regex = new RegExp('(?:' + regexParams + ')', 'i')
             if (file.type !== 'image/png' && file.type !== 'image/jpeg') {
-                this.$message('请上传文件格式为jpeg或png的图片')
+                srcPic.value = ''
+                this.$emit('return-shuju', 'type')
                 return
             }
             if (file.size / 1024 >= 300) {
-                this.$message('图片过大，请输入小于300k图片')
+                srcPic.value = ''
+                this.$emit('return-shuju', 'size')
                 return
             }
             let reader = new FileReader()

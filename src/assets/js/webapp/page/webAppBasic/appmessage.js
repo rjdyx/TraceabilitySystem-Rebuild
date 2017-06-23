@@ -130,8 +130,8 @@ export default {
                 label: '饲养员',
                 placeholder: '请选择饲养员（必选）',
                 rule: {required: true},
-                options: [['a', 'b', 'c']],
-                optionskeys: [['0', '1', '2']]
+                options: [],
+                optionskeys: []
             },
             {
                 name: 'date',
@@ -147,7 +147,7 @@ export default {
                 placeholder: '（必填）',
                 rule: {required: true, type: 'reNumber'},
                 options: [['kg/只', 'kg/头', 'kg/条']],
-                optionskeys: [['0', '1', '2']]
+                optionskeys: [['kg/只', 'kg/头', 'kg/条']]
             },
             {
                 name: 'way',
@@ -558,15 +558,23 @@ export default {
         theads: ['检测项目名称', '检测日期', '操作人'],
         protos: ['name', 'date', 'operate_name'],
         widths: [26, 26, 26],
+        changeDataArr: [{result: {'不合格': 0, '合格': 1}}],
         newComponent: [{
             tab: '新建检验检测信息',
-            hiddenValue: {type: 'beast'},
-            selectUrl2: [['operates', 'id', 'name', true]],
-            selectInit2: [{value: '', label: '检测人选择'}],
-            selectWhereArr2: [[{n: 'domain', v: 'packb'}, {n: 'domain', v: 'all', s: true}]],
-            popNumber2: [1],
+            checkBoxUrl: [['breeds', 'id', 'serial', 'check'], ['operates', 'id', 'name', 'radio']],
+            checkBoxPosition: [0, 2],
             hasImg: true,
+            hiddenValue: {type: 'beast'},
             components: [{
+                name: 'breed_ids',
+                type: 'pcSelect',
+                label: '养殖批次号',
+                placeholder: '请选择批次（必选）',
+                rule: {required: true}, // 这里如果需要验证类型写方法名，否则写null
+                options: [],
+                show: false
+            },
+            {
                 name: 'date',
                 type: 'date',
                 label: '检测日期',
@@ -579,15 +587,17 @@ export default {
                 type: 'select',
                 label: '负责人',
                 placeholder: '（必选）',
-                rule: {required: true, message: '请选择负责人'},
-                options: [['a', 'b']]
+                rule: {required: true},
+                options: [],
+                optionskeys: [],
+                show: false
             },
             {
                 name: 'name',
                 type: 'text',
-                label: '检测名称',
+                label: '检测项目名称',
                 placeholder: '(必填)',
-                rule: {required: true, message: '请输入检测项目名称'}
+                rule: {required: true}
             },
             {
                 name: 'result',
@@ -595,7 +605,8 @@ export default {
                 label: '检测结果',
                 placeholder: '（必选）',
                 rule: {required: true},
-                options: [['合格', '不合格']]
+                options: [['合格', '不合格']],
+                optionskeys: [[1, 0]]
             },
             {
                 name: 'content',
@@ -635,41 +646,33 @@ export default {
         }],
         editComponent: [{
             tab: '编辑检验检测信息',
-            selectUrl2: [['operates', 'id', 'name', true]],
-            selectInit2: [{value: '', label: '检测人选择'}],
-            selectWhereArr2: [[{n: 'domain', v: 'packb'}, {n: 'domain', v: 'all', s: true}]],
-            popNumber2: [2],
+            arrBox: {'operate_id': 'operate_name', 'result': 'result'},
+            checkBoxUrl: [['operates', 'id', 'name', 'radio']],
+            checkBoxPosition: [1],
             hasImg: true,
             components: [{
-                name: 'serial',
-                type: 'text',
-                label: '检测批次号',
-                placeholder: '',
-                disabled: true,
-                rule: {required: true}
-            },
-            {
                 name: 'date',
                 type: 'date',
                 label: '检测日期',
                 placeholder: '(必填)',
                 disabled: true,
-                rule: {required: true, message: '请输入检测日期'}
+                rule: {required: true}
             },
             {
                 name: 'operate_id',
                 type: 'select',
                 label: '负责人',
                 placeholder: '（必选）',
-                rule: {required: true, message: '请选择负责人'},
-                options: [['a', 'b']]
+                rule: {required: true},
+                options: [],
+                optionskeys: []
             },
             {
                 name: 'name',
                 type: 'text',
                 label: '检测名称',
                 placeholder: '(必填)',
-                rule: {required: true, message: '请输入检测项目名称'}
+                rule: {required: true}
             },
             {
                 name: 'result',
@@ -677,7 +680,8 @@ export default {
                 label: '检测结果',
                 placeholder: '（必选）',
                 rule: {required: true},
-                options: [['合格', '不合格']]
+                options: [['合格', '不合格']],
+                optionskeys: [[1, 0]]
             },
             {
                 name: 'content',
