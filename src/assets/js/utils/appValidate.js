@@ -1,7 +1,6 @@
 exports.fn = (name, rule, value) => {
     let length = value.length
     if (rule.required) {
-        console.log(name)
         if (length || (length === undefined && name === 'img')) {
             if (rule.type) {
                 let bol = false

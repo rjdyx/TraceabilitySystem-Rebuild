@@ -28,27 +28,15 @@ export default {
         widths: [26, 26, 26],
         newComponent: [{
             tab: '新建饲料使用信息',
-            selectUrl2: [['fodders', 'id', 'name', true], ['additions', 'id', 'name', true], ['operates', 'id', 'name', true]],
-            selectInit2: [{value: '', label: '饲料选择'}, {value: '', label: '饲料添加剂选择'}, {value: '', label: '饲养人员选择'}],
-            popNumber2: [0, 1, 2],
-            selectWhereArr2: [[], [], [{n: 'domain', v: 'beast'}, {n: 'domain', v: 'all', s: true}]],
+            checkBoxUrl: [['breeds', 'id', 'serial', 'check'], ['fodders', 'id', 'name', 'radio'], ['additions', 'id', 'name', 'radio'], ['operates', 'id', 'name', 'radio']],
+            checkBoxPosition: [0, 1, 2, 3],
             components: [{
-                name: 'pch',
+                name: 'breed_ids',
                 type: 'pcSelect',
                 label: '养殖批次号',
                 placeholder: '请选择批次（必选）',
                 rule: {required: true}, // 这里如果需要验证类型写方法名，否则写null
-                options: [
-                    {key: 'SL15', value: '15PC158646464648746'},
-                    {key: 'SL2', value: '002PC158646464648746'},
-                    {key: 'SL3', value: '003PC158646464648746'},
-                    {key: 'SL14', value: '14PC158646464648746'},
-                    {key: 'SL5', value: '5PC158646464648746'},
-                    {key: 'SL16', value: '16PC158646464648746e'},
-                    {key: 'SL7', value: '7PC158646464648746'},
-                    {key: 'SL8', value: '8PC158646464648746'},
-                    {key: 'SL9', value: '9PC158646464648746'}
-                ],
+                options: [],
                 show: false
             },
             {
@@ -57,9 +45,8 @@ export default {
                 label: '饲料名称',
                 placeholder: '（必选）',
                 rule: {required: true}, // 这里如果需要验证类型写方法名，否则写null
-                // options: [{key: 'slA', value: '饲料a'}, {key: 'slB', value: '饲料b'}, {key: 'slC', value: '饲料c'}, {key: 'sld', value: '饲料d'}, {key: 'sle', value: '饲料e'}, {key: 'slf', value: '饲料f'}],
-                options: [['a', 'b', 'c']],
-                optionskeys: [['akey', 'bkey', 'ckey']],
+                options: [],
+                optionskeys: [],
                 show: false
             },
             {
@@ -67,11 +54,9 @@ export default {
                 type: 'select',
                 label: '饲料添加剂',
                 placeholder: '（必选）',
-                // rule: {required: true, trigger: 'blur', type: 'number', message: '请选择饲料添加剂'},
                 rule: {required: true},
-                // options: [{key: 'slAaa', value: '饲料aaa'}, {key: 'slBbb', value: '饲料bbb'}, {key: 'slCbb', value: '饲料cbb'}],
-                options: [['a', 'b', 'c']],
-                optionskeys: [['akey', 'bkey', 'ckey']],
+                options: [],
+                optionskeys: [],
                 show: false
             },
             {
@@ -79,19 +64,16 @@ export default {
                 type: 'select',
                 label: '饲养员',
                 placeholder: '请选择饲养员（必选）',
-                // rule: {required: true, trigger: 'blur', type: 'number', message: '请选择饲养员'},
                 rule: {required: true},
-                // options: [{key: 'slAa', value: '饲料aa'}, {key: 'slBb', value: '饲料bb'}, {key: 'slCc', value: '饲料cc'}],
-                options: [['a', 'b', 'c']],
-                optionskeys: [['akey', 'bkey', 'ckey']],
+                options: [],
+                optionskeys: [],
                 show: false
             },
             {
                 name: 'date',
                 type: 'date',
                 label: '饲养日期',
-                placeholder: '（可选）',
-                // rule: [{required: true, trigger: 'blur', message: '请输入饲养日期'}, {validator: validate2.reDate, message: '请输入饲养日期'}]
+                placeholder: '（必选）',
                 rule: {required: true}
             },
             {
@@ -99,11 +81,9 @@ export default {
                 type: 'textSelect',
                 label: '平均喂养量',
                 placeholder: '请输入整数（必填）',
-                // rule: [{required: true, trigger: 'blur', message: '请输入饲养量'}, {validator: validate2.reNumber}],
                 rule: {required: true, type: 'reNumber', message: '请输入整数'},
-                // options: [{key: '0', value: 'kg/只'}, {key: '1', value: 'kg/头'}, {key: '2', value: 'kg/条'}],
                 options: [['kg/只', 'kg/头', 'kg/条']],
-                optionskeys: [['0', '1', '2']],
+                optionskeys: [['kg/只', 'kg/头', 'kg/条']],
                 show: false
             },
             {
@@ -123,36 +103,32 @@ export default {
         }],
         editComponent: [{
             tab: '编辑饲料使用信息',
-            selectUrl2: [['fodders', 'id', 'name', true], ['additions', 'id', 'name', true], ['operates', 'id', 'name', true]],
-            selectInit2: [{value: '', label: '饲料选择'}, {value: '', label: '饲料添加剂选择'}, {value: '', label: '饲养人员选择'}],
-            popNumber2: [1, 2, 3],
-            selectWhereArr2: [[], [], [{n: 'domain', v: 'beast'}, {n: 'domain', v: 'all', s: true}]],
+            arrBox: {'fodder_id': 'fodder_name', 'addition_id': 'addition_name', 'operate_id': 'operate_name', 'unit': 'unit'},
+            checkBoxUrl: [['fodders', 'id', 'name', 'radio'], ['additions', 'id', 'name', 'radio'], ['operates', 'id', 'name', 'radio']],
+            checkBoxPosition: [0, 1, 2],
             components: [{
                 name: 'fodder_id',
                 type: 'select',
                 label: '饲料名称',
                 placeholder: '必选',
-                // rule: {required: true, trigger: 'blur', type: 'number', message: '请选择饲料'},
                 rule: {required: true},
-                options: [['a', 'b', 'c']],
-                optionskeys: [['0', '1', '2']]
+                options: [],
+                optionskeys: []
             },
             {
                 name: 'addition_id',
                 type: 'select',
                 label: '饲料添加剂',
                 placeholder: '必选',
-                // rule: {required: true, trigger: 'blur', type: 'number', message: '请选择饲料添加剂'},
                 rule: {required: true},
-                options: [['a', 'b', 'c']],
-                optionskeys: [['0', '1', '2']]
+                options: [],
+                optionskeys: []
             },
             {
                 name: 'operate_id',
                 type: 'select',
                 label: '饲养员',
                 placeholder: '请选择饲养员（必选）',
-                // rule: {required: true, trigger: 'blur', type: 'number', message: '请选择饲养员'},
                 rule: {required: true},
                 options: [['a', 'b', 'c']],
                 optionskeys: [['0', '1', '2']]
@@ -162,7 +138,6 @@ export default {
                 type: 'date',
                 label: '使用日期',
                 placeholder: '（必选）',
-                // rule: [{required: true, trigger: 'blur', message: '请输入饲养日期'}, {validator: validate2.reDate, message: '请输入饲养日期'}]
                 rule: {required: true}
             },
             {
@@ -170,7 +145,6 @@ export default {
                 type: 'textSelect',
                 label: '平均喂养量',
                 placeholder: '（必填）',
-                // rule: [{required: true, message: '请输入饲养量'}, {validator: validate2.reNumber}],
                 rule: {required: true, type: 'reNumber'},
                 options: [['kg/只', 'kg/头', 'kg/条']],
                 optionskeys: [['0', '1', '2']]

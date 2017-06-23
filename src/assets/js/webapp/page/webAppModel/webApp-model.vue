@@ -85,7 +85,7 @@
                     </div>
                     <div slot="right-menu">
                       <swipeout-button class="lookOver" type="primary" @click.native="showDetail(pers.id)" v-if="rightMenu">查看</swipeout-button>
-                      <swipeout-button class="appedit" @click.native="webAppOperateType('edit')">编辑</swipeout-button>
+                      <swipeout-button class="appedit" @click.native="webAppOperateType('edit'+pers.id)">编辑</swipeout-button>
                     </div>
                 </swipeout-item>
             </swipeout>
@@ -181,7 +181,6 @@ export default {
         新建
          */
         webAppOperateType (operateType) {
-            console.log(operateType)
             this.$router.push('/webAppNew' + '/' + this.$route.params.model + '/' + this.modelIndex + '/' + operateType)
         },
         // 获取数据

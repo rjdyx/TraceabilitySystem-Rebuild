@@ -172,7 +172,7 @@
     </div>
 </template>
 <script>
-import { XHeader, Actionsheet, TransferDom, Group, XInput, Selector, PopupPicker, Datetime, ChinaAddressData, XTextarea, Icon, XButton, Flexbox, FlexboxItem, PopupRadio, Popup, XSwitch, Cell, Checklist, Divider, Radio } from 'vux'
+import { XHeader, Actionsheet, TransferDom, Group, XInput, Selector, PopupPicker, Datetime, ChinaAddressData, XTextarea, Icon, XButton, Flexbox, FlexboxItem, PopupRadio, Popup, XSwitch, Cell, Checklist, Divider, Radio, Toast } from 'vux'
 import message from '../webAppBasic/appmessage.js'
 import Camera from '../../public/camera.vue'
 import validate from '../../../utils/appValidate.js'
@@ -202,7 +202,8 @@ export default {
         Cell,
         Checklist,
         Divider,
-        Radio
+        Radio,
+        Toast
     },
     data () {
         let type = this.$route.params.type
@@ -211,6 +212,7 @@ export default {
         Object.assign(modelObj, message)
         let form = {} // 装内容
         let ruleTableForm = {} // 装内容是否符合规则，boolean类型
+        let url = modelObj[this.$route.params.model][this.$route.params.modelIndex].url
         if (type === 'new') {
             typeComponent = modelObj[this.$route.params.model][this.$route.params.modelIndex].newComponent
             typeComponent[0].components.forEach(function (item) {
@@ -245,26 +247,19 @@ export default {
                 }
             })
             // 编辑Form格式
-            form = {
-                fodder_id: ['a'],
-                addition_id: ['a'],
-                operate_id: ['a'],
-                date: '2017-06-22',
-                amount: '5',
-                unit: ['kg/只'],
-                way: 'sdfa',
-                memo: 'sdgdfhgfhfg'
-            }
+            form = {}
         }
         return {
             type: type, // 判断编辑模块还是新增模块的标志
             settitle: typeComponent[0].tab,
             typeComponent: typeComponent[0],
+            url: url,
+            // form: {},
             tableForm: form,
             ruleTableForm: ruleTableForm,
             show13: false,
-            objectListValue: ['15', '2']
-
+            objectListValue: ['15', '2'],
+            selectHideId: {}
         }
     },
     methods: {
@@ -288,9 +283,12 @@ export default {
         */
         onHide (obj) {
             // (name, rule, value)
+            var _this = this
             this.typeComponent.components.forEach(function (item) {
                 if (item.name === obj.name) {
-                    console.log(item.optionskeys[0][obj.index])
+                    if (item.name !== 'amount') {
+                        _this.selectHideId[item.name] = item.optionskeys[0][obj.index]
+                    }
                 }
             })
             this.validateFn(obj)
@@ -340,32 +338,84 @@ export default {
         cancelForm () {
             this.$router.go(-1)
         },
-
+        // 提示弹窗
+        setToast (type, text, width = '7.6em') {
+            this.$vux.toast.show({
+                type: type,
+                text: text,
+                width: width,
+                position: 'middle'
+            })
+        },
         /*
         提交表单
          */
         submitForm () {
-            console.log(this.tableForm)
-            console.log(this.ruleTableForm)
             let allValBol = true
             for (let key in this.ruleTableForm) {
                 let fnBol = this.validateFn({name: key, rule: this.ruleTableForm[key], value: this.tableForm[key]}).valid
                 allValBol = allValBol && fnBol
             }
             if (allValBol) {
-                console.log('提交成功')
-                console.log(this.tableForm)
+                let submitVal = this.$changeSubmit(this.tableForm, this.selectHideId)
+                var _this = this
+                this.$dataPost(this, this.url, submitVal, false, false, false).then((response) => {
+                    if (response.data !== 'false') {
+                        _this.setToast('success', '新增数据成功', '12em')
+                    } else {
+                        _this.setToast('cancel', '新增数据失败', '12em')
+                    }
+                    this.$router.go(-1)
+                })
             } else {
-                console.log('请输入完整')
+                this.setToast('text', '请输入完整信息', '12em')
             }
         },
-
+        // 获取下拉框或多选框信息
+        getSelectInfo () {
+            var com = this.typeComponent
+            if (com.checkBoxUrl) {
+                for (let key in com.checkBoxUrl) {
+                    let dataArr = this.$addAndEditSelectMethod(com.checkBoxUrl[key])
+                    let data = {table: dataArr.selectUrl}
+                    this.$dataGet(this, '/util/selects', data)
+                        .then((responce) => {
+                            if (responce.data !== '') {
+                                if (responce.data.length !== 0) {
+                                    let dataOpt = this.$getCheckSelect(responce.data, dataArr.selectArr)
+                                    if (dataOpt[0] === 'check') {
+                                        com.components[com.checkBoxPosition[key]].options = dataOpt[1]
+                                    } else {
+                                        com.components[com.checkBoxPosition[key]].options = dataOpt[1]
+                                        com.components[com.checkBoxPosition[key]].optionskeys = dataOpt[0]
+                                    }
+                                }
+                            }
+                        })
+                }
+            }
+        },
+        // 获取编辑数据
+        getEditInfo () {
+            var type = this.type
+            if (type.indexOf('edit') !== -1) {
+                var id = type.replace('edit', '')
+            }
+            this.$dataWapGet(this, this.url + '/' + id + '/edit', {})
+                .then((responce) => {
+                    if (this.typeComponent.arrBox) {
+                        let initVal = this.$changeArrBox(responce.data, this.typeComponent.arrBox)
+                        this.tableForm = initVal
+                    } else {
+                        this.tableForm = responce.data
+                    }
+                })
+        },
         /*
         返回图片信息
          */
         returnShuju (obj) {
             this.tableForm[obj.name] = obj.value
-            // name, rule, value
             this.validateFn({name: obj.name, rule: this.ruleTableForm[obj.name], value: this.tableForm[obj.name]})
         },
         resetScroller () {
@@ -378,7 +428,10 @@ export default {
         $('#app').removeClass('bule').addClass('gray')
     },
     mounted () {
-        console.log(this.ruleTableForm)
+        this.getSelectInfo()
+        if (this.type !== 'new') {
+            this.getEditInfo()
+        }
     },
     computed: {
         pcPlaceholder () {
