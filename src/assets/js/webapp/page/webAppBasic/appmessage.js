@@ -715,7 +715,7 @@ export default {
                 name: 'memo',
                 type: 'textarea',
                 label: '备注信息',
-                placeholder: '（可填）',
+                placeholder: '(可选)',
                 rule: {required: false}
             }]
         }]

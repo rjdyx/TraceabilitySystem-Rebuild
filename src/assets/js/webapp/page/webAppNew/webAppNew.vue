@@ -385,6 +385,7 @@ export default {
             if (allValBol) {
                 // let beforeS = this.$conversion(this.changeDataArr, this.selectHideId, 0)
                 let submitVal = this.$changeSubmit(this.tableForm, this.selectHideId)
+                console.log(submitVal)
                 var _this = this
                 this.$dataPost(this, this.submitUrl, submitVal, this.hasImg, this.typeComponent.hiddenValue, this.isEdit).then((response) => {
                     if (response.data !== 'false') {
@@ -435,7 +436,6 @@ export default {
                         let initVal = this.$changeArrBox(beforeVal, this.typeComponent.arrBox)
                         this.tableForm = initVal[0]
                         this.selectHideId = initVal[1]
-                        console.log(this.selectHideId)
                     } else {
                         this.tableForm = responce.data
                     }

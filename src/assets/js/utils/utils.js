@@ -311,7 +311,7 @@ default {
         /**
          *
          * 编辑转化及存储隐藏值
-         * @param ret
+         * @param ret，arr
          * @returns ret
          */
         Vue.prototype.$changeArrBox = (ret, arr) => {
@@ -324,6 +324,14 @@ default {
                 setArr = []
             }
             return [ret, hideVal]
+        }
+        /**
+         *
+         * 相互转换
+         * @param ret, arr
+         * @returns ret
+         */
+        Vue.prototype.$changeMutual = (ret, arr) => {
         }
         Vue.prototype.Roles = {}
     }
