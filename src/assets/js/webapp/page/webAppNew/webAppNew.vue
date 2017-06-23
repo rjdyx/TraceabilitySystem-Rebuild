@@ -141,7 +141,8 @@
                         <div v-transfer-dom>
                           <popup v-model="comItem.show" position="bottom" height="100%">
                             <group>
-                               <button>全选</button> 
+                              <button @click="allcheckFn(comItem.name,comItem.options,true)">全选</button> 
+                              <button @click="allcheckFn(comItem.name,comItem.options,false)">反选</button>
                               <checklist title="请选择批次号" :options="comItem.options" v-model="tableForm[comItem.name]" @on-change="change"></checklist>
                             </group>
                             <div style="padding: 15px;">
@@ -261,26 +262,34 @@ export default {
             settitle: typeComponent[0].tab,
             typeComponent: typeComponent[0],
             tableForm: form,
-            ruleTableForm: ruleTableForm,
-            show13: false,
-            objectListValue: ['15', '2']
+            ruleTableForm: ruleTableForm
 
         }
     },
     methods: {
-        radioChange (obj) {
-            this.tableForm[obj.name] = {key: obj.key, value: obj.value}
-            this.typeComponent.components.forEach(function (item) {
-                if (item.name === obj.name) {
-                    setTimeout(function () {
-                        item.show = !item.show
-                    }, 100)
-                }
-            })
-            this.validateFn(obj)
-        },
+        // radioChange (obj) {
+        //     this.tableForm[obj.name] = {key: obj.key, value: obj.value}
+        //     this.typeComponent.components.forEach(function (item) {
+        //         if (item.name === obj.name) {
+        //             setTimeout(function () {
+        //                 item.show = !item.show
+        //             }, 100)
+        //         }
+        //     })
+        //     this.validateFn(obj)
+        // },
         change (val) {
         },
+        allcheckFn (name, options, bol) {
+            if (bol) {
+                options.forEach((item) => {
+                    this.tableForm[name].push(item.key)
+                })
+            } else {
+                this.tableForm[name] = []
+            }
+        },
+
         /*
         popup-picker组件的方法
         修改了vex里面popup-pickert组件的onHide, 原参数只有type，现在是{closeType: this.closeType, name: this.name, index: 选择的数组下标}。

@@ -7,7 +7,10 @@
     <div class="webLogin">
     	<div class="webloginImg">
             <img src="/public/images/logintop.png" class="topImg">
-            <img src="/public/images/loginbottom.png" class="bottomImg" @click="submitForm('ruleForm2')" ref="btn">
+            <div class="bottomImg" @click="submitForm('ruleForm2')">
+                <!-- <img src="/public/images/loginbottom.png" ref="btn"> -->
+                <!-- <img src="/public/images/" alt=""> -->
+            </div>
         </div>
 
     	<div class="form">
@@ -143,10 +146,27 @@ export default{
             display: inline-block;
         }
         .bottomImg{
-            width: 25%;
-            height: 10%;
-            margin-left: 37%;
+            width: 2.5rem;
+            height: 2.5rem;
+            margin:0 auto;
             margin-top: -13px;
+            -webkit-mask-image: url(/public/images/loginbottom.png);
+            -webkit-mask-size:100% 100%;
+            -webkit-mask-repeat: no-repeat;
+            /*background: url(/public/images/new-logo.png) no-repeat;*/
+            background-image: -webkit-linear-gradient(top, #d4f1ff,#929292);
+            /*background-image: -webkit-linear-gradient(top,#c4c2c2, #929292);*/
+            /*background-image: -webkit-linear-gradient(bottom, #929292,#c4c2c2);*/
+            background-position: 0% 0rem;
+            animation:mask 3s infinite 0s;
+        }
+        @keyframes mask{
+            0%{
+                background-position: 0% 0rem;
+            }
+            100%{
+                background-position: 0% 2.5rem;
+            }
         }
     }
     	.form{

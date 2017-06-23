@@ -55,7 +55,10 @@ export default {
 		height: 50px;
 		width: 100%;
 		background:  #009acb;
-		position: relative;
+		position: fixed;
+		top: 0;
+		left: 0;
+		z-index: 100;
 		/*margin-bottom: 5px;*/
 			h1{
 				width: 100%;

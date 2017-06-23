@@ -222,7 +222,8 @@ export default {
                     placeholder: '（必选）',
                     // rule: {required: true, trigger: 'blur', type: 'number', message: '请选择兽药'},
                     rule: {required: true},
-                    options: [['a', 'b', 'c']]
+                    options: [['a', 'b', 'c']],
+                    optionskeys: [['akey', 'bkey', 'ckey']]
                 },
                 {
                     name: 'date',
@@ -247,7 +248,8 @@ export default {
                     placeholder: '（必选）',
                     // rule: {required: true, trigger: 'blur', type: 'number', message: '请选择施药人员'},
                     rule: {required: true},
-                    options: [['a', 'b', 'c']]
+                    options: [['a', 'b', 'c']],
+                    optionskeys: [['akey', 'bkey', 'ckey']]
                 },
                 {
                     name: 'expert_id',
@@ -255,7 +257,8 @@ export default {
                     label: '专家',
                     placeholder: '（可选）',
                     rule: {required: false},
-                    options: [['a', 'b', 'c']]
+                    options: [['a', 'b', 'c']],
+                    optionskeys: [['akey', 'bkey', 'ckey']]
                 },
                 {
                     name: 'amount',
@@ -264,7 +267,8 @@ export default {
                     placeholder: '请输入正确的数字（必填）',
                     // rule: [{required: true, message: '请输入平均施药量'}, {validator: validate2.reNumber}],
                     rule: {required: true, type: 'reNumber'},
-                    options: [['kg/只', 'kg/头', 'kg/条']]
+                    options: [['kg/只', 'kg/头', 'kg/条']],
+                    optionskeys: [['0', '1', '2']]
                 },
                 {
                     name: 'way',
@@ -314,7 +318,8 @@ export default {
                     placeholder: '',
                     // rule: {required: true, trigger: 'blur', type: 'number', message: '请选择兽药'},
                     rule: {required: true},
-                    options: []
+                    options: [['a', 'b', 'c']],
+                    optionskeys: [['akey', 'bkey', 'ckey']]
                 },
                 {
                     name: 'date',
@@ -339,7 +344,8 @@ export default {
                     placeholder: '',
                     // rule: {required: true, trigger: 'blur', type: 'number', message: '请选择施药人员'},
                     rule: {required: true},
-                    options: []
+                    options: [['a', 'b', 'c']],
+                    optionskeys: [['akey', 'bkey', 'ckey']]
                 },
                 {
                     name: 'expert_id',
@@ -347,7 +353,8 @@ export default {
                     label: '专家',
                     placeholder: '',
                     rule: {required: false},
-                    options: []
+                    options: [['a', 'b', 'c']],
+                    optionskeys: [['akey', 'bkey', 'ckey']]
                 },
                 {
                     name: 'amount',
@@ -357,7 +364,8 @@ export default {
                     placeholder: '请输入正确的数字（必填）',
                     // rule: [{required: true, message: '请输入平均施药量'}, {validator: validate2.reNumber}],
                     rule: {required: true, type: 'reNumber'},
-                    options: [['kg/只', 'kg/头', 'kg/条']]
+                    options: [['kg/只', 'kg/头', 'kg/条']],
+                    optionskeys: [['akey', 'bkey', 'ckey']]
                 },
                 {
                     name: 'way',
@@ -432,7 +440,8 @@ export default {
                 label: '指导专家',
                 placeholder: '(可选)',
                 rule: {required: false},
-                options: []
+                options: [],
+                optionskeys: [['akey', 'bkey', 'ckey']]
             },
             {
                 name: 'operate_id',
