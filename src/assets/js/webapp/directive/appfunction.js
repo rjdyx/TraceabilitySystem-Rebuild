@@ -59,7 +59,6 @@ export default {
                 this.homeShow = false
                 this.back = false
             } else if (path.indexOf('appdetailbasic') !== -1) {
-                console.log(this.$route.path)
                 if (path.indexOf('/plantTo') !== -1) {
                     let detect = localStorage.getItem('appTab')
                     this.settitle = detect
