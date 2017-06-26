@@ -48,9 +48,6 @@ export default {
         }
     },
     mounted () {
-        this.settitle = ''
-        let plantName = localStorage.getItem('appTab')
-        this.settitle = plantName
     },
     computed: {
     },
@@ -59,11 +56,6 @@ export default {
         siderBar
     },
     watch: {
-        trends () {
-            this.settitle = ''
-            let plantName = localStorage.getItem('appTab')
-            this.settitle = plantName
-        }
     }
 }
 </script>
