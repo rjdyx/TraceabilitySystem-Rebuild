@@ -7347,7 +7347,7 @@ export default {
                     type: 'text',
                     component: null,
                     isNull: true,
-                    label: '施肥方法',
+                    label: '施药方法',
                     placeholder: '',
                     rule: null
                 },
@@ -8651,9 +8651,9 @@ export default {
         }],
         editComponent: [{
             tab: '编辑采收批次',
-            selectUrl2: [['cultivates', 'id', 'serial', true], ['operates', 'id', 'name', true]],
-            selectInit2: [{value: '', label: '选择种植批次号'}, {value: '', label: '选择操作人'}],
-            popNumber2: [2, 6],
+            selectUrl2: [['operates', 'id', 'name', true]],
+            selectInit2: [{value: '', label: '选择操作人'}],
+            popNumber2: [6],
             selectWhereArr2: [[], [{n: 'domain', v: 'plant'}, {n: 'domain', v: 'all', s: true}]],
             components: [{
                 name: 'serial',
@@ -8675,14 +8675,14 @@ export default {
                 rule: [{required: true, message: '请输入采收日期'}, {validator: validate2.reDate, message: '请输入采收日期'}]
             },
             {
-                name: 'cultivate_id',
-                type: 'select',
+                name: 'cultivate_serial',
+                type: 'text',
                 component: null,
                 isNull: true,
                 label: '种植批次号',
                 placeholder: '必填',
-                rule: {required: true, trigger: 'blur', message: '请选择种植批次号', type: 'number'},
-                options: []
+                disabled: true,
+                rule: {required: true}
             },
             {
                 name: 'amount',

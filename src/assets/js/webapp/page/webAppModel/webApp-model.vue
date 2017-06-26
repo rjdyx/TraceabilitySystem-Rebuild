@@ -150,7 +150,7 @@ export default {
             // 搜索框内容
             inputValue: '',
             // tab模块选择标志
-            modelIndex: 0,
+            modelIndex: localStorage.getItem('trends') !== null ? localStorage.getItem('trends') : 0,
             // 列表数据
             tableData: [],
             listLoading: false,

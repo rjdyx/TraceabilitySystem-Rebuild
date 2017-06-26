@@ -34,7 +34,7 @@ export default {
                 name: 'breed_ids',
                 type: 'pcSelect',
                 label: '养殖批次号',
-                placeholder: '请选择批次（必选）',
+                placeholder: '批次号',
                 rule: {required: true}, // 这里如果需要验证类型写方法名，否则写null
                 options: [],
                 show: false
@@ -567,7 +567,7 @@ export default {
         theads: ['检测项目名称', '检测日期', '操作人'],
         protos: ['name', 'date', 'operate_name'],
         widths: [26, 26, 26],
-        changeDataArr: [{result: {'不合格': 0, '合格': 1}}],
+        changeDataArr: [{result: {0: '不合格', 1: '合格'}}],
         newComponent: [{
             tab: '新建检验检测信息',
             checkBoxUrl: [['breeds', 'id', 'serial', 'check'], ['operates', 'id', 'name', 'radio']],
@@ -578,7 +578,7 @@ export default {
                 name: 'breed_ids',
                 type: 'pcSelect',
                 label: '养殖批次号',
-                placeholder: '请选择批次（必选）',
+                placeholder: '批次号',
                 rule: {required: true}, // 这里如果需要验证类型写方法名，否则写null
                 options: [],
                 show: false
@@ -625,16 +625,9 @@ export default {
                 rule: {required: false}
             },
             {
-                name: 'organization',
+                name: 'department',
                 type: 'text',
                 label: '检测机构',
-                placeholder: '(可选)',
-                rule: {required: false}
-            },
-            {
-                name: 'method',
-                type: 'text',
-                label: '处理方法',
                 placeholder: '(可选)',
                 rule: {required: false}
             },
@@ -700,16 +693,9 @@ export default {
                 rule: {required: false}
             },
             {
-                name: 'organization',
+                name: 'department',
                 type: 'text',
                 label: '检测机构',
-                placeholder: '(可选)',
-                rule: {required: false}
-            },
-            {
-                name: 'method',
-                type: 'text',
-                label: '处理方法',
                 placeholder: '(可选)',
                 rule: {required: false}
             },
@@ -733,7 +719,6 @@ export default {
     penPreserve: [{
         settitle: '圈舍维护',
         key: 'clean',
-        roleName: ['basic/supplier', 0],
         timeshow: true,
         rightMenu: true,
         url: 'clean',
@@ -744,47 +729,48 @@ export default {
         widths: [26, 26, 26],
         newComponent: [{
             tab: '新建圈舍维护信息',
-            selectUrl2: [['experts', 'id', 'name', true], ['operates', 'id', 'name', true]],
-            selectInit2: [{value: '', label: '请选择专家'}, {value: '', label: '请选择操作人'}],
-            popNumber2: [2, 1],
-            selectWhereArr2: [[{n: 'domain', v: 'beast'}, {n: 'domain', v: 'all', s: true}], [{n: 'domain', v: 'beast'}, {n: 'domain', v: 'all', s: true}]],
+            checkBoxUrl: [['areas', 'id', 'name', 'check'], ['operates', 'id', 'name', 'radio']],
+            checkBoxPosition: [0, 2],
             hasImg: true,
             components: [{
+                name: 'area_ids',
+                type: 'pcSelect',
+                label: '圈舍',
+                placeholder: '圈舍',
+                rule: {required: true}, // 这里如果需要验证类型写方法名，否则写null
+                options: [],
+                show: false
+            },
+            {
                 name: 'date',
                 type: 'date',
-                label: '操作日期',
+                label: '圈舍日期',
                 placeholder: '（必选）',
-                rule: {required: true, message: '请输入操作日期'}
+                rule: {required: true}
             },
             {
                 name: 'operate_id',
                 type: 'select',
-                label: '操作人',
-                placeholder: '（必选）',
-                rule: {required: true, message: '请选择操作人'},
-                options: [['a', 'b']]
-            },
-            {
-                name: 'expert_id',
-                type: 'select',
-                label: '专家',
-                placeholder: '（可选）',
-                rule: {required: false, message: '请选择专家'},
-                options: [['a', 'b']]
+                label: '操作人员',
+                placeholder: '请选择操作人员（必选）',
+                rule: {required: true},
+                options: [],
+                optionskeys: [],
+                show: false
             },
             {
                 name: 'name',
                 type: 'text',
                 label: '标题',
                 placeholder: '（必填）',
-                rule: {required: true, message: '请输入标题'}
+                rule: {required: true}
             },
             {
                 name: 'content',
                 type: 'text',
                 label: '操作内容',
                 placeholder: '（必填）',
-                rule: {required: true, message: '请输入操作内容'}
+                rule: {required: true}
             },
             {
                 name: 'img',
@@ -803,20 +789,11 @@ export default {
         }],
         editComponent: [{
             tab: '编辑圈舍维护信息',
-            selectUrl2: [['experts', 'id', 'name', true], ['operates', 'id', 'name', true]],
-            selectInit2: [{value: '', label: '请选择专家'}, {value: '', label: '请选择操作人'}],
-            popNumber2: [3, 2],
-            selectWhereArr2: [[{n: 'domain', v: 'beast'}, {n: 'domain', v: 'all', s: true}], [{n: 'domain', v: 'beast'}, {n: 'domain', v: 'all', s: true}]],
+            arrBox: {'operate_id': 'operate_name'},
+            checkBoxUrl: [['operates', 'id', 'name', 'radio']],
+            checkBoxPosition: [1],
             hasImg: true,
             components: [{
-                name: 'serial',
-                type: 'text',
-                label: '圈舍批次号',
-                placeholder: '',
-                rule: {required: true, trigger: 'blur'},
-                disabled: true
-            },
-            {
                 name: 'date',
                 type: 'date',
                 label: '操作日期',
@@ -826,32 +803,26 @@ export default {
             {
                 name: 'operate_id',
                 type: 'select',
-                label: '操作人',
-                placeholder: '（必选）',
-                rule: {required: true, message: '请选择操作人'},
-                options: [['a', 'b']]
-            },
-            {
-                name: 'expert_id',
-                type: 'select',
-                label: '专家',
-                placeholder: '（可选）',
-                rule: {required: false, message: '请选择专家'},
-                options: [['a', 'b']]
+                label: '操作人员',
+                placeholder: '请选择操作人员（必选）',
+                rule: {required: true},
+                options: [],
+                optionskeys: [],
+                show: false
             },
             {
                 name: 'name',
                 type: 'text',
                 label: '标题',
                 placeholder: '（必填）',
-                rule: {required: true, message: '请输入标题'}
+                rule: {required: true}
             },
             {
                 name: 'content',
                 type: 'text',
                 label: '操作内容',
                 placeholder: '（必填）',
-                rule: {required: true, message: '请输入操作内容'}
+                rule: {required: true}
             },
             {
                 name: 'img',
@@ -1121,103 +1092,114 @@ export default {
         }]
     }],
     // 养殖管理-生长过程
-    courseProcess: [
-        {
-            settitle: '生长过程',
-            key: 'course',
-            roleName: ['beast/basic', 0],
-            timeshow: true,
-            url: 'course',
-            searchPlaceholder: '请输入标题进行搜索',
-            theads: ['标题', '日期', '图片'],
-            protos: ['name', 'date', 'img'],
-            widths: [26, 26, 26],
-            newComponent: [{
-                tab: '新建生长过程信息',
-                hasImg: true,
-                checkNumber: [0],
-                components: [{
-                    name: 'name',
-                    type: 'text',
-                    label: '图片标题',
-                    placeholder: '（必填）',
-                    rule: {required: true, message: '请输入标题'}
-                },
-                {
-                    name: 'desc',
-                    type: 'textarea',
-                    label: '特征描述',
-                    placeholder: '（必填）',
-                    rule: {required: true, message: '请输入描述信息'}
-                },
-                {
-                    name: 'date',
-                    type: 'date',
-                    label: '上传日期',
-                    placeholder: '（必填）',
-                    rule: {required: true, trigger: 'blur', message: '请输入上传日期'}
-                },
-                {
-                    name: 'img',
-                    type: 'file',
-                    label: '图片',
-                    placeholder: '（必填）',
-                    rule: {required: true, message: '请上传图片'}
-                },
-                {
-                    name: 'memo',
-                    type: 'textarea',
-                    component: null,
-                    isNull: true,
-                    label: '备注信息',
-                    placeholder: '（可填）',
-                    rule: {required: false}
-                }]
-            }],
-            editComponent: [{
-                tab: '编辑生长过程信息',
-                hasImg: true,
-                checkNumber: [0],
-                components: [{
-                    name: 'name',
-                    type: 'text',
-                    label: '图片标题',
-                    placeholder: '（必填）',
-                    rule: {required: true, message: '请输入标题'}
-                },
-                {
-                    name: 'desc',
-                    type: 'textarea',
-                    label: '特征描述',
-                    placeholder: '（必填）',
-                    rule: {required: true, message: '请输入描述信息'}
-                },
-                {
-                    name: 'date',
-                    type: 'date',
-                    label: '上传日期',
-                    placeholder: '（必填）',
-                    rule: {required: true, trigger: 'blur', message: '请输入上传日期'}
-                },
-                {
-                    name: 'img',
-                    type: 'file',
-                    label: '图片',
-                    placeholder: '（必填）',
-                    rule: {required: true, message: '请上传图片'}
-                },
-                {
-                    name: 'memo',
-                    type: 'textarea',
-                    component: null,
-                    isNull: true,
-                    label: '备注信息',
-                    placeholder: '（可填）',
-                    rule: {required: false}
-                }]
+    courseProcess: [{
+        settitle: '生长过程',
+        key: 'course',
+        roleName: ['beast/basic', 0],
+        timeshow: true,
+        url: 'course',
+        searchPlaceholder: '请输入标题进行搜索',
+        theads: ['标题', '日期', '图片'],
+        protos: ['name', 'date', 'img'],
+        widths: [26, 26, 26],
+        newComponent: [{
+            tab: '新建生长过程信息',
+            checkBoxUrl: [['breeds', 'id', 'serial', 'radio']],
+            checkBoxPosition: [0],
+            hasImg: true,
+            components: [{
+                name: 'breed_id',
+                type: 'select',
+                label: '所属养殖批次',
+                placeholder: '请选择养殖批次',
+                rule: {required: true},
+                options: [],
+                optionskeys: [],
+                show: false
+            },
+            {
+                name: 'name',
+                type: 'text',
+                label: '图片标题',
+                placeholder: '（必填）',
+                rule: {required: true}
+            },
+            {
+                name: 'date',
+                type: 'date',
+                label: '上传日期',
+                placeholder: '（必填）',
+                rule: {required: true}
+            },
+            {
+                name: 'desc',
+                type: 'textarea',
+                label: '特征描述',
+                placeholder: '（必填）',
+                rule: {required: true}
+            },
+            {
+                name: 'img',
+                type: 'file',
+                label: '图片',
+                placeholder: '（必填）',
+                rule: {required: true}
+            },
+            {
+                name: 'memo',
+                type: 'textarea',
+                label: '备注信息',
+                placeholder: '（可填）',
+                rule: {required: false}
             }]
-        }
-    ],
+        }],
+        editComponent: [{
+            tab: '编辑生长过程信息',
+            hasImg: true,
+            components: [{
+                name: 'serial',
+                type: 'text',
+                label: '所属养殖批次',
+                rule: {required: true},
+                disabled: true
+            },
+            {
+                name: 'name',
+                type: 'text',
+                label: '图片标题',
+                placeholder: '（必填）',
+                rule: {required: true}
+            },
+            {
+                name: 'date',
+                type: 'date',
+                label: '上传日期',
+                placeholder: '（必填）',
+                rule: {required: true}
+            },
+            {
+                name: 'desc',
+                type: 'textarea',
+                label: '特征描述',
+                placeholder: '（必填）',
+                rule: {required: true}
+            },
+            {
+                name: 'img',
+                type: 'file',
+                label: '图片',
+                placeholder: '（必填）',
+                rule: {required: true}
+            },
+            {
+                name: 'memo',
+                type: 'textarea',
+                label: '备注信息',
+                placeholder: '（可填）',
+                rule: {required: false}
+            }]
+        }]
+    }],
     // 2、屠宰加工管理-加工批次检测
     processSerial: [{
         settitle: '加工批次检测',
@@ -1229,6 +1211,7 @@ export default {
         url: 'detect_pk',
         // 链接批次信息模块数据的桥（养殖批次详情）
         batch: 'beastDetectPkBatch',
+        changeDataArr: [{result: {0: '不合格', 1: '合格'}}],
         searchPlaceholder: '请输入检测名称进行搜索',
         theads: ['检测项目名称', '检测日期', '检测人'],
         protos: ['name', 'date', 'operate_name'],
@@ -1236,35 +1219,42 @@ export default {
         newComponent: [{
             tab: '新建检验检测信息',
             hiddenValue: {type: 'beast'},
-            selectUrl2: [['operates', 'id', 'name', true]],
-            selectInit2: [{value: '', label: '检测人选择'}],
-            selectWhereArr2: [[{n: 'domain', v: 'packb'}, {n: 'domain', v: 'all', s: true}]],
-            popNumber2: [1],
+            checkBoxUrl: [['packs', 'id', 'serial', 'check'], ['operates', 'id', 'name', 'radio']],
+            checkBoxPosition: [0, 2],
             hasImg: true,
             components: [{
+                name: 'pack_ids',
+                type: 'pcSelect',
+                label: '加工批次号',
+                placeholder: '批次号',
+                rule: {required: true}, // 这里如果需要验证类型写方法名，否则写null
+                options: [],
+                show: false
+            },
+            {
                 name: 'date',
                 type: 'date',
                 label: '检测日期',
                 placeholder: '（必选）',
                 disabled: true,
-                rule: {required: true, message: '请输入检测日期'}
+                rule: {required: true}
             },
             {
                 name: 'operate_id',
                 type: 'select',
-                component: null,
-                isNull: false,
-                label: '负责人',
-                placeholder: '（必选）',
+                label: '加工人',
+                placeholder: '请选择加工人员（必选）',
                 rule: {required: true},
-                options: [['b', 'c']]
+                options: [],
+                optionskeys: [],
+                show: false
             },
             {
                 name: 'name',
                 type: 'text',
                 label: '检测名称',
                 placeholder: '（必填）',
-                rule: {required: true, message: '请输入检测项目名称'}
+                rule: {required: true}
             },
             {
                 name: 'result',
@@ -1272,7 +1262,8 @@ export default {
                 label: '检测结果',
                 placeholder: '（必选）',
                 rule: {required: true},
-                options: [['合格', '不合格']]
+                options: [['合格', '不合格']],
+                optionskeys: [[1, 0]]
             },
             {
                 name: 'content',
@@ -1312,45 +1303,35 @@ export default {
         }],
         editComponent: [{
             tab: '编辑检验检测信息',
-            selectUrl2: [['operates', 'id', 'name', true]],
-            selectInit2: [{value: '', label: '检测人选择'}],
-            selectWhereArr2: [[{n: 'domain', v: 'packb'}, {n: 'domain', v: 'all', s: true}]],
-            popNumber2: [2],
+            arrBox: {'operate_id': 'operate_name', 'result': 'result'},
+            checkBoxUrl: [['operates', 'id', 'name', 'radio']],
+            checkBoxPosition: [1],
             hasImg: true,
+            hiddenValue: {type: 'beast'},
             components: [{
-                name: 'serial',
-                type: 'text',
-                component: null,
-                isNull: false,
-                label: '检测批次号',
-                placeholder: '',
-                disabled: true,
-                rule: {required: true}
-            },
-            {
                 name: 'date',
                 type: 'date',
                 label: '检测日期',
                 placeholder: '（必选）',
                 disabled: true,
-                rule: {required: true, message: '请输入检测日期'}
+                rule: {required: true}
             },
             {
                 name: 'operate_id',
                 type: 'select',
-                component: null,
-                isNull: false,
-                label: '负责人',
-                placeholder: '（必选）',
+                label: '加工人',
+                placeholder: '请选择加工人员（必选）',
                 rule: {required: true},
-                options: [['b', 'c']]
+                options: [],
+                optionskeys: [],
+                show: false
             },
             {
                 name: 'name',
                 type: 'text',
                 label: '检测名称',
                 placeholder: '（必填）',
-                rule: {required: true, message: '请输入检测项目名称'}
+                rule: {required: true}
             },
             {
                 name: 'result',
@@ -1358,7 +1339,8 @@ export default {
                 label: '检测结果',
                 placeholder: '（必选）',
                 rule: {required: true},
-                options: [['合格', '不合格']]
+                options: [['合格', '不合格']],
+                optionskeys: [[1, 0]]
             },
             {
                 name: 'content',
@@ -1395,21 +1377,7 @@ export default {
                 placeholder: '（可填）',
                 rule: {required: false}
             }]
-        }],
-        listComponent: [{
-            components: [{
-                type: 'select',
-                component: selectSection,
-                name: 'beast_id',
-                value: '',
-                options: []
-            },
-            {
-                type: 'date',
-                component: 'datePick'
-            }]
-        }],
-        moreComponent: [{value: '状态'}]
+        }]
     }],
     // 屠宰加工管理-产品溯源码管理
     serialManage: [{
@@ -1632,13 +1600,13 @@ export default {
     // 种植管理-种植事物管理
     plantThing: [
         {
+            tab: '施肥信息',
+            unite: 'plantTo',
+            key: 'fertilize',
             timeshow: true,
             rightMenu: true,
             tabshow: true,
-            unite: 'plantTo',
-            key: 'fertilize',
             roleName: ['plant/basic', 0],
-            tab: '施肥信息',
             url: 'fertilize',
             batch: 'fertilizeBatch',
             searchPlaceholder: '请输入肥料名称进行搜索',
@@ -1647,32 +1615,33 @@ export default {
             widths: [26, 26, 26],
             newComponent: [{
                 tab: '新建施肥信息',
-                selectUrl2: [['manures', 'id', 'name', true], ['operates', 'id', 'name', true], ['experts', 'id', 'name', true]],
-                selectInit2: [{value: '', label: '肥料选择'}, {value: '', label: '施肥人选择'}, {value: '', label: '专家选择'}],
-                popNumber2: [0, 4, 5],
-                selectWhereArr2: [[], [{n: 'domain', v: 'plant'}, {n: 'domain', v: 'all', s: true}], [{n: 'domain', v: 'plant'}, {n: 'domain', v: 'all', s: true}]],
+                checkBoxUrl: [['cultivates', 'id', 'serial', 'check'], ['manures', 'id', 'name', 'radio'], ['operates', 'id', 'name', 'radio']],
+                checkBoxPosition: [0, 1, 4],
                 components: [{
+                    name: 'cultivate_ids',
+                    type: 'pcSelect',
+                    label: '种植批次号',
+                    placeholder: '批次号',
+                    rule: {required: true}, // 这里如果需要验证类型写方法名，否则写null
+                    options: [],
+                    show: false
+                },
+                {
                     name: 'manure_id',
                     type: 'select',
                     label: '肥料名称',
                     placeholder: '（必填）',
                     rule: {required: true},
-                    options: [['a', 'b']]
+                    options: [],
+                    optionskeys: [],
+                    show: false
                 },
                 {
                     name: 'date',
                     type: 'date',
                     label: '施肥日期',
                     placeholder: '（必选）',
-                    rule: {required: true, message: '请输入施肥日期'}
-                },
-                {
-                    name: 'weather',
-                    type: 'select',
-                    label: '天气',
-                    placeholder: '（可选）',
-                    rule: {required: false},
-                    options: [['晴', '雨', '雪', '阴', '其他']]
+                    rule: {required: true}
                 },
                 {
                     name: 'amount',
@@ -1680,7 +1649,9 @@ export default {
                     label: '使用量',
                     placeholder: '请填写数字（必填）',
                     options: [['kg/亩', 'kg/平方米', 'kg/公顷']],
-                    rule: {required: true}
+                    optionskeys: [['kg/亩', 'kg/平方米', 'kg/公顷']],
+                    rule: {required: true, type: 'reNumber', message: '请输入整数'},
+                    show: false
                 },
                 {
                     name: 'operate_id',
@@ -1688,15 +1659,9 @@ export default {
                     label: '施肥人',
                     placeholder: '（必选）',
                     rule: {required: true},
-                    options: [['a', 'b']]
-                },
-                {
-                    name: 'expert_id',
-                    type: 'select',
-                    label: '专家',
-                    placeholder: '（可选）',
-                    rule: {required: false},
-                    options: [['a', 'b']]
+                    options: [],
+                    optionskeys: [],
+                    show: false
                 },
                 {
                     name: 'way',
@@ -1711,45 +1676,29 @@ export default {
                     label: '备注信息',
                     placeholder: '（可填）',
                     rule: {required: false}
-                }
-                ]
+                }]
             }],
             editComponent: [{
                 tab: '编辑施肥信息',
-                selectUrl2: [['manures', 'id', 'name', true], ['operates', 'id', 'name', true], ['experts', 'id', 'name', true]],
-                selectInit2: [{value: '', label: '肥料选择'}, {value: '', label: '施肥人选择'}, {value: '', label: '专家选择'}],
-                popNumber2: [1, 5, 6],
-                selectWhereArr2: [[], [{n: 'domain', v: 'plant'}, {n: 'domain', v: 'all', s: true}], [{n: 'domain', v: 'plant'}, {n: 'domain', v: 'all', s: true}]],
+                arrBox: {'manure_id': 'manure_name', 'operate_id': 'operate_name', 'unit': 'unit'},
+                checkBoxUrl: [['manures', 'id', 'name', 'radio'], ['operates', 'id', 'name', 'radio']],
+                checkBoxPosition: [0, 3],
                 components: [{
-                    name: 'serial',
-                    type: 'text',
-                    disabled: true,
-                    label: '施肥批次号',
-                    placeholder: '',
-                    rule: {required: true}
-                },
-                {
                     name: 'manure_id',
                     type: 'select',
                     label: '肥料名称',
                     placeholder: '（必填）',
                     rule: {required: true},
-                    options: [['a', 'b']]
+                    options: [],
+                    optionskeys: [],
+                    show: false
                 },
                 {
                     name: 'date',
                     type: 'date',
                     label: '施肥日期',
                     placeholder: '（必选）',
-                    rule: {required: true, message: '请输入施肥日期'}
-                },
-                {
-                    name: 'weather',
-                    type: 'select',
-                    label: '天气',
-                    placeholder: '（可选）',
-                    rule: {required: false},
-                    options: [['晴', '雨', '雪', '阴', '其他']]
+                    rule: {required: true}
                 },
                 {
                     name: 'amount',
@@ -1757,7 +1706,9 @@ export default {
                     label: '使用量',
                     placeholder: '请填写数字（必填）',
                     options: [['kg/亩', 'kg/平方米', 'kg/公顷']],
-                    rule: {required: true}
+                    optionskeys: [['kg/亩', 'kg/平方米', 'kg/公顷']],
+                    rule: {required: true, type: 'reNumber', message: '请输入整数'},
+                    show: false
                 },
                 {
                     name: 'operate_id',
@@ -1765,15 +1716,9 @@ export default {
                     label: '施肥人',
                     placeholder: '（必选）',
                     rule: {required: true},
-                    options: [['a', 'b']]
-                },
-                {
-                    name: 'expert_id',
-                    type: 'select',
-                    label: '专家',
-                    placeholder: '（可选）',
-                    rule: {required: false},
-                    options: [['a', 'b']]
+                    options: [],
+                    optionskeys: [],
+                    show: false
                 },
                 {
                     name: 'way',
@@ -1792,13 +1737,13 @@ export default {
             }]
         },
         {
+            tab: '施药信息',
             timeshow: true,
             tabshow: true,
             rightMenu: true,
             roleName: ['plant/basic', 0],
             key: 'spray',
             unite: 'plantTo',
-            tab: '施药信息',
             url: 'spray',
             batch: 'sprayBatch',
             searchPlaceholder: '请输入农药名称进行搜索',
@@ -1806,174 +1751,154 @@ export default {
             protos: ['medicament_name', 'date', 'operate_name'],
             widths: [26, 26, 26],
             newComponent: [{
-                tab: '新建种植区信息',
-                selectUrl: [['plantation', 'planta', 'pid', 'plantation_name', true]],
-                selectInit: [{value: '', label: '选择种植场'}],
-                checkNumber: [1],
-                hasImg: true,
-                popNumber: [0],
-                limit: 2,
-                getMessage: '已超过种植场余留面积',
+                tab: '新建药信息',
+                checkBoxUrl: [['cultivates', 'id', 'serial', 'check'], ['medicaments', 'id', 'name', 'radio'], ['operates', 'id', 'name', 'radio']],
+                checkBoxPosition: [0, 1, 4],
                 components: [{
-                    name: 'pid',
+                    name: 'cultivate_ids',
+                    type: 'pcSelect',
+                    label: '种植批次号',
+                    placeholder: '批次号',
+                    rule: {required: true}, // 这里如果需要验证类型写方法名，否则写null
+                    options: [],
+                    show: false
+                },
+                {
+                    name: 'medicament_id',
                     type: 'select',
-                    component: null,
-                    isNull: false,
-                    label: '所属种植场',
-                    placeholder: '必填',
-                    rule: {required: true, trigger: 'blur', message: '请选择所属种植场', type: 'number'},
-                    options: []
+                    label: '农药名称',
+                    placeholder: '（必填）',
+                    rule: {required: true},
+                    options: [],
+                    optionskeys: [],
+                    show: false
                 },
                 {
-                    name: 'name',
-                    type: 'text',
-                    component: null,
-                    isNull: false,
-                    label: '种植区名称',
-                    placeholder: '必填',
-                    rule: [{required: true, message: '请输入种植区名称', trigger: 'blur'}, {validator: validate2.reCheck, trigger: 'blur', message: '种植区名称重复'}]
+                    name: 'date',
+                    type: 'date',
+                    label: '施药日期',
+                    placeholder: '（必选）',
+                    rule: {required: true}
                 },
                 {
-                    name: 'area',
+                    name: 'amount',
                     type: 'textSelect',
-                    component: inputTextSelect,
-                    isNull: false,
-                    label: '种植面积',
+                    label: '施药量',
                     placeholder: '请填写数字（必填）',
-                    options: [['亩', '平方米', '公顷']],
-                    rule: [{required: true, message: '请输入种植面积', trigger: 'blur'}, {validator: validate2.reNumber}]
+                    options: [['ml/亩', 'ml/平方米', 'ml/公顷']],
+                    optionskeys: [['ml/亩', 'ml/平方米', 'ml/公顷']],
+                    rule: {required: true, type: 'reNumber', message: '请输入整数'},
+                    show: false
                 },
                 {
-                    name: 'director',
+                    name: 'operate_id',
+                    type: 'select',
+                    label: '施药人',
+                    placeholder: '（必选）',
+                    rule: {required: true},
+                    options: [],
+                    optionskeys: [],
+                    show: false
+                },
+                {
+                    name: 'concentration',
                     type: 'text',
-                    component: null,
-                    isNull: true,
-                    label: '负责人',
-                    placeholder: '',
-                    rule: null
+                    label: '施药浓度',
+                    placeholder: '（可填）',
+                    rule: {required: false, type: 'reNumber', message: '请输入整数'}
                 },
                 {
-                    name: 'phone',
+                    name: 'safety',
                     type: 'text',
-                    component: null,
-                    isNull: true,
-                    label: '详细电话',
-                    placeholder: '请输入11位的手机号（固话用-隔开）',
-                    rule: { validator: validate2.phone, trigger: 'blur' }
+                    label: '安全隔离期（天）',
+                    placeholder: '（可填）',
+                    rule: {required: false, type: 'reNumber', message: '请输入整数'}
                 },
                 {
-                    name: 'address',
+                    name: 'way',
                     type: 'text',
-                    component: null,
-                    isNull: true,
-                    label: '地址',
-                    placeholder: '',
-                    rule: null
-                },
-                {
-                    name: 'img',
-                    type: 'file',
-                    component: inputFile,
-                    isNull: true,
-                    label: '',
-                    placeholder: '',
-                    rule: null
+                    label: '施药方法',
+                    placeholder: '（可填）',
+                    rule: {required: false}
                 },
                 {
                     name: 'memo',
                     type: 'textarea',
-                    component: null,
-                    isNull: true,
                     label: '备注信息',
-                    placeholder: '',
-                    rule: null
-                }
-                ]
+                    placeholder: '（可填）',
+                    rule: {required: false}
+                }]
             }],
             editComponent: [{
-                tab: '编辑种植区信息',
-                selectUrl: [['plantation', 'planta', 'pid', 'plantation_name', true]],
-                selectInit: [{value: '', label: '选择种植场'}],
-                checkNumber: [1],
-                popNumber: [0],
-                hasImg: true,
-                limit: 2,
-                getMessage: '已超过种植场余留面积',
+                tab: '编辑施药信息',
+                arrBox: {'medicament_id': 'medicament_name', 'operate_id': 'operate_name', 'unit': 'unit'},
+                checkBoxUrl: [['medicaments', 'id', 'name', 'radio'], ['operates', 'id', 'name', 'radio']],
+                checkBoxPosition: [0, 3],
                 components: [{
-                    name: 'pid',
+                    name: 'medicament_id',
                     type: 'select',
-                    component: null,
-                    isNull: false,
-                    label: '所属种植场',
-                    placeholder: '必填',
-                    rule: {required: true, type: 'number', message: '请选择所属种植场'},
-                    options: []
+                    label: '农药名称',
+                    placeholder: '（必填）',
+                    rule: {required: true},
+                    options: [],
+                    optionskeys: [],
+                    show: false
                 },
                 {
-                    name: 'name',
-                    type: 'text',
-                    component: null,
-                    isNull: false,
-                    label: '姓名',
-                    placeholder: '必填',
-                    rule: [{required: true, message: '请输入种植区名称', trigger: 'blur'}, {validator: validate2.reCheck, trigger: 'blur', message: '种植区名称重复'}]
+                    name: 'date',
+                    type: 'date',
+                    label: '施药日期',
+                    placeholder: '（必选）',
+                    rule: {required: true}
                 },
                 {
-                    name: 'area',
+                    name: 'amount',
                     type: 'textSelect',
-                    component: inputTextSelect,
-                    isNull: false,
-                    label: '种植面积',
+                    label: '施药量',
                     placeholder: '请填写数字（必填）',
-                    options: [['亩', '平方米', '公顷']],
-                    rule: [{required: true, message: '请输入种植面积', trigger: 'blur'}, {validator: validate2.reNumber}]
+                    options: [['ml/亩', 'ml/平方米', 'ml/公顷']],
+                    optionskeys: [['ml/亩', 'ml/平方米', 'ml/公顷']],
+                    rule: {required: true, type: 'reNumber', message: '请输入整数'},
+                    show: false
                 },
                 {
-                    name: 'director',
+                    name: 'operate_id',
+                    type: 'select',
+                    label: '施药人',
+                    placeholder: '（必选）',
+                    rule: {required: true},
+                    options: [],
+                    optionskeys: [],
+                    show: false
+                },
+                {
+                    name: 'concentration',
                     type: 'text',
-                    component: null,
-                    isNull: true,
-                    label: '负责人',
-                    placeholder: '',
-                    rule: null
+                    label: '施药浓度',
+                    placeholder: '（可填）',
+                    rule: {required: false, type: 'reNumber', message: '请输入整数'}
                 },
                 {
-                    name: 'phone',
+                    name: 'safety',
                     type: 'text',
-                    component: null,
-                    isNull: true,
-                    label: '详细电话',
-                    placeholder: '请输入11位的手机号（固话用-隔开）',
-                    rule: { validator: validate2.phone, trigger: 'blur' }
+                    label: '安全隔离期（天）',
+                    placeholder: '（可填）',
+                    rule: {required: false, type: 'reNumber', message: '请输入整数'}
                 },
                 {
-                    name: 'address',
+                    name: 'way',
                     type: 'text',
-                    component: null,
-                    isNull: true,
-                    label: '地址',
-                    placeholder: '',
-                    rule: null
-                },
-                {
-                    name: 'img',
-                    type: 'file',
-                    component: inputFile,
-                    isNull: true,
-                    label: '',
-                    placeholder: '',
-                    rule: null
+                    label: '施药方法',
+                    placeholder: '（可填）',
+                    rule: {required: false}
                 },
                 {
                     name: 'memo',
                     type: 'textarea',
-                    component: null,
-                    isNull: true,
                     label: '备注信息',
-                    placeholder: '',
-                    rule: null
-                }
-                ]
+                    placeholder: '（可填）',
+                    rule: {required: false}
+                }]
             }]
         },
         {
@@ -1988,130 +1913,160 @@ export default {
             paramsIndex: 'plant',
             batch: 'cultivateDetectBatch',
             searchPlaceholder: '请输入检测项目名称搜索',
+            changeDataArr: [{result: {0: '不合格', 1: '合格'}}],
             theads: ['检测项目名称', '检测日期', '操作人'],
             protos: ['name', 'date', 'operate_name'],
             widths: [26, 26, 26],
             newComponent: [{
-                tab: '新建果蔬档案',
-                selectUrl: [['category', 'plant', 'category_id', 'category_name', true]],
-                selectInit: [{value: '', label: '选择果蔬分类'}],
-                checkNumber: [1],
-                popNumber: [0],
+                tab: '新建检验检测信息',
+                checkBoxUrl: [['cultivates', 'id', 'serial', 'check'], ['operates', 'id', 'name', 'radio']],
+                checkBoxPosition: [0, 2],
                 hasImg: true,
+                hiddenValue: {type: 'plant'},
                 components: [{
-                    name: 'category_id',
+                    name: 'cultivate_ids',
+                    type: 'pcSelect',
+                    label: '种植批次号',
+                    placeholder: '批次号',
+                    rule: {required: true}, // 这里如果需要验证类型写方法名，否则写null
+                    options: [],
+                    show: false
+                },
+                {
+                    name: 'date',
+                    type: 'date',
+                    label: '检测日期',
+                    placeholder: '(必填)',
+                    disabled: true,
+                    rule: {required: true, message: '请输入检测日期'}
+                },
+                {
+                    name: 'operate_id',
                     type: 'select',
-                    component: null,
-                    isNull: false,
-                    label: '果蔬类别',
-                    placeholder: '必填',
-                    rule: {required: true, message: '请选择果蔬类别', trigger: 'blur', type: 'number'},
-                    options: []
+                    label: '负责人',
+                    placeholder: '（必选）',
+                    rule: {required: true},
+                    options: [],
+                    optionskeys: [],
+                    show: false
                 },
                 {
                     name: 'name',
-                    type: 'text',
-                    component: null,
-                    isNull: false,
-                    label: '果蔬名称',
-                    placeholder: '必填',
-                    rule: [{required: true, message: '请输入果蔬名称', trigger: 'blur'}, {validator: validate2.reCheck, trigger: 'blur', message: '果蔬名称重复'}]
+                    type: 'select',
+                    label: '检测项目名称',
+                    placeholder: '(必填)',
+                    rule: {required: true},
+                    options: [['土壤检测', '水质检测', '大气污染检测', '农药残留检测', '其他检测']],
+                    optionskeys: [['土壤检测', '水质检测', '大气污染检测', '农药残留检测', '其他检测']],
+                    show: false
                 },
                 {
-                    name: 'description',
-                    type: 'text',
-                    component: null,
-                    isNull: false,
-                    label: '基本特征描述',
-                    placeholder: '',
-                    rule: null
+                    name: 'result',
+                    type: 'select',
+                    label: '检测结果',
+                    placeholder: '（必选）',
+                    rule: {required: true},
+                    options: [['合格', '不合格']],
+                    optionskeys: [[1, 0]]
                 },
                 {
-                    name: 'growth_cycle',
+                    name: 'content',
                     type: 'text',
-                    component: null,
-                    isNull: false,
-                    label: '生长周期（天）',
-                    placeholder: '',
-                    rule: {validator: validate2.reNumber}
+                    label: '检测内容',
+                    placeholder: '（可选）',
+                    rule: {required: false}
+                },
+                {
+                    name: 'department',
+                    type: 'text',
+                    label: '检测机构',
+                    placeholder: '(可选)',
+                    rule: {required: false}
                 },
                 {
                     name: 'img',
                     type: 'file',
-                    component: inputFile,
-                    isNull: false,
-                    label: '果蔬图片',
-                    placeholder: ''
+                    label: '检测图片报告',
+                    placeholder: '',
+                    rule: {required: false}
                 },
                 {
                     name: 'memo',
                     type: 'textarea',
-                    component: null,
-                    isNull: true,
                     label: '备注信息',
-                    placeholder: '',
-                    rule: null
+                    placeholder: '（可填）',
+                    rule: {required: false}
                 }]
             }],
             editComponent: [{
-                tab: '编辑果蔬档案',
-                selectUrl: [['category', 'plant', 'category_id', 'category_name', true]],
-                selectInit: [{value: '', label: '选择果蔬分类'}],
-                checkNumber: [1],
-                popNumber: [0],
+                tab: '编辑检验检测信息',
+                arrBox: {'operate_id': 'operate_name', 'name': 'name', 'result': 'result'},
+                checkBoxUrl: [['operates', 'id', 'name', 'radio']],
+                checkBoxPosition: [1],
                 hasImg: true,
                 components: [{
-                    name: 'category_id',
+                    name: 'date',
+                    type: 'date',
+                    label: '检测日期',
+                    placeholder: '(必填)',
+                    disabled: true,
+                    rule: {required: true}
+                },
+                {
+                    name: 'operate_id',
                     type: 'select',
-                    component: null,
-                    isNull: false,
-                    label: '果蔬类别',
-                    placeholder: '必填',
-                    rule: {required: true, message: '请选择果蔬类别', trigger: 'blur', type: 'number'},
-                    options: []
+                    label: '负责人',
+                    placeholder: '（必选）',
+                    rule: {required: true},
+                    options: [],
+                    optionskeys: []
                 },
                 {
                     name: 'name',
-                    type: 'text',
-                    component: null,
-                    isNull: false,
-                    label: '果蔬名称',
-                    placeholder: '必填',
-                    rule: [{required: true, message: '请选择果蔬类别', trigger: 'blur'}, {validator: validate2.reCheck, trigger: 'blur', message: '果蔬名称重复'}]
+                    type: 'select',
+                    label: '检测项目名称',
+                    placeholder: '(必填)',
+                    rule: {required: true},
+                    options: [['土壤检测', '水质检测', '大气污染检测', '农药残留检测', '其他检测']],
+                    optionskeys: [['土壤检测', '水质检测', '大气污染检测', '农药残留检测', '其他检测']],
+                    show: false
                 },
                 {
-                    name: 'description',
-                    type: 'text',
-                    component: null,
-                    isNull: false,
-                    label: '基本特征描述',
-                    placeholder: ''
+                    name: 'result',
+                    type: 'select',
+                    label: '检测结果',
+                    placeholder: '（必选）',
+                    rule: {required: true},
+                    options: [['合格', '不合格']],
+                    optionskeys: [[1, 0]]
                 },
                 {
-                    name: 'growth_cycle',
+                    name: 'content',
                     type: 'text',
-                    component: null,
-                    isNull: false,
-                    label: '生长周期（天）',
-                    placeholder: '',
-                    rule: {validator: validate2.reNumber}
+                    label: '检测内容',
+                    placeholder: '（可选）',
+                    rule: {required: false}
+                },
+                {
+                    name: 'department',
+                    type: 'text',
+                    label: '检测机构',
+                    placeholder: '(可选)',
+                    rule: {required: false}
                 },
                 {
                     name: 'img',
                     type: 'file',
-                    component: inputFile,
-                    isNull: false,
-                    label: '果蔬图片',
-                    placeholder: ''
+                    label: '检测图片报告',
+                    placeholder: '',
+                    rule: {required: false}
                 },
                 {
                     name: 'memo',
                     type: 'textarea',
-                    component: null,
-                    isNull: true,
                     label: '备注信息',
-                    placeholder: '',
-                    rule: null
+                    placeholder: '(可选)',
+                    rule: {required: false}
                 }]
             }]
         },
@@ -2130,376 +2085,231 @@ export default {
             protos: ['content', 'date', 'operate_name'],
             widths: [26, 26, 26],
             newComponent: [{
-                tab: '新建肥料档案',
-                selectUrl: [['category', 'manure', 'category_id', 'category_name', true]],
-                selectInit: [{value: '', label: '选择肥料分类'}],
-                checkNumber: [1],
-                popNumber: [0],
-                hasImg: true,
+                tab: '新建农事信息',
+                checkBoxUrl: [['cultivates', 'id', 'serial', 'check'], ['operates', 'id', 'name', 'radio']],
+                checkBoxPosition: [0, 2],
                 components: [{
-                    name: 'category_id',
+                    name: 'cultivate_ids',
+                    type: 'pcSelect',
+                    label: '种植批次号',
+                    placeholder: '批次号',
+                    rule: {required: true}, // 这里如果需要验证类型写方法名，否则写null
+                    options: [],
+                    show: false
+                },
+                {
+                    name: 'date',
+                    type: 'date',
+                    label: '操作日期',
+                    placeholder: '（必选）',
+                    rule: {required: true}
+                },
+                {
+                    name: 'operate_id',
                     type: 'select',
-                    component: null,
-                    isNull: false,
-                    label: '肥料分类',
-                    placeholder: '必填',
-                    rule: {required: true, message: '请选择肥料类别', trigger: 'blur', type: 'number'},
-                    options: []
+                    label: '操作人',
+                    placeholder: '（必选）',
+                    rule: {required: true},
+                    options: [],
+                    optionskeys: [],
+                    show: false
                 },
                 {
-                    name: 'name',
+                    name: 'content',
                     type: 'text',
-                    component: null,
-                    isNull: false,
-                    label: '肥料名称',
-                    placeholder: '必填',
-                    rule: [{required: true, message: '请输入肥料名称', trigger: 'blur'}, {validator: validate2.reCheck, trigger: 'blur', message: '肥料名称重复'}]
+                    label: '操作内容',
+                    placeholder: '可填',
+                    rule: {required: false}
                 },
                 {
-                    name: 'usage',
+                    name: 'method',
                     type: 'text',
-                    component: null,
-                    isNull: false,
-                    label: '包装规格',
-                    placeholder: ''
-                },
-                {
-                    name: 'dealer',
-                    type: 'text',
-                    component: null,
-                    isNull: false,
-                    label: '经销商名称',
-                    placeholder: ''
-                },
-                {
-                    name: 'origin',
-                    type: 'text',
-                    component: null,
-                    isNull: false,
-                    placeholder: '',
-                    label: '产地'
-                },
-                {
-                    name: 'phone',
-                    type: 'text',
-                    component: null,
-                    isNull: false,
-                    placeholder: '请输入11位的手机号（固话用-隔开）',
-                    label: '联系方式',
-                    rule: { validator: validate2.phone, trigger: 'blur' }
-                },
-                {
-                    name: 'img',
-                    type: 'file',
-                    component: inputFile,
-                    isNull: false,
-                    label: '肥料图片',
-                    placeholder: ''
+                    label: '操作方法',
+                    placeholder: '可填',
+                    rule: {required: false}
                 },
                 {
                     name: 'memo',
                     type: 'textarea',
-                    component: null,
-                    isNull: true,
                     label: '备注信息',
-                    placeholder: '',
-                    rule: null
+                    placeholder: '（可填）',
+                    rule: {required: false}
                 }]
             }],
             editComponent: [{
-                tab: '编辑肥料信息',
-                selectUrl: [['category', 'manure', 'category_id', 'category_name', true]],
-                selectInit: [{value: '', label: '选择肥料分类'}],
-                checkNumber: [1],
-                popNumber: [0],
-                hasImg: true,
+                tab: '编辑施肥信息',
+                arrBox: {'operate_id': 'operate_name'},
+                checkBoxUrl: [['operates', 'id', 'name', 'radio']],
+                checkBoxPosition: [1],
                 components: [{
-                    name: 'category_id',
+                    name: 'date',
+                    type: 'date',
+                    label: '操作日期',
+                    placeholder: '（必选）',
+                    rule: {required: true}
+                },
+                {
+                    name: 'operate_id',
                     type: 'select',
-                    component: null,
-                    isNull: false,
-                    label: '分类',
-                    placeholder: '必填',
-                    rule: {required: true, message: '请选择肥料类别', trigger: 'blur', type: 'number'},
-                    options: []
+                    label: '操作人',
+                    placeholder: '（必选）',
+                    rule: {required: true},
+                    options: [],
+                    optionskeys: [],
+                    show: false
                 },
                 {
-                    name: 'name',
+                    name: 'content',
                     type: 'text',
-                    component: null,
-                    isNull: false,
-                    label: '肥料名称',
-                    placeholder: '必填',
-                    rule: [{required: true, message: '请输入肥料名称', trigger: 'blur'}, {validator: validate2.reCheck, trigger: 'blur', message: '肥料名称重复'}]
+                    label: '操作内容',
+                    placeholder: '可填',
+                    rule: {required: false}
                 },
                 {
-                    name: 'specification',
+                    name: 'method',
                     type: 'text',
-                    component: null,
-                    isNull: false,
-                    label: '包装规格',
-                    placeholder: ''
-                },
-                {
-                    name: 'dealer',
-                    type: 'text',
-                    component: null,
-                    isNull: false,
-                    label: '经销商名称',
-                    placeholder: ''
-                },
-                {
-                    name: 'origin',
-                    type: 'text',
-                    component: null,
-                    isNull: false,
-                    placeholder: '',
-                    label: '产地'
-                },
-                {
-                    name: 'phone',
-                    type: 'text',
-                    component: null,
-                    isNull: false,
-                    placeholder: '请输入11位的手机号（固话用-隔开）',
-                    label: '联系方式',
-                    rule: { validator: validate2.phone, trigger: 'blur' }
-                },
-                {
-                    name: 'img',
-                    type: 'file',
-                    component: inputFile,
-                    isNull: false,
-                    label: '肥料图片',
-                    placeholder: ''
+                    label: '操作方法',
+                    placeholder: '可填',
+                    rule: {required: false}
                 },
                 {
                     name: 'memo',
                     type: 'textarea',
-                    component: null,
-                    isNull: true,
                     label: '备注信息',
-                    placeholder: '',
-                    rule: null
+                    placeholder: '（可填）',
+                    rule: {required: false}
                 }]
             }]
         },
         {
+            tab: '采收信息',
             timeshow: true,
             rightMenu: false,
             tabshow: true,
             key: 'harvest',
-            tab: '采收信息',
-            roleName: ['plant/basic', 0],
+            unite: 'plantTo',
             url: 'harvest',
             searchPlaceholder: '请输入采收批次号进行搜索',
             theads: ['采收批次号', '种植批次号', '采收日期'],
             protos: ['serial', 'cultivate_serial', 'date'],
             widths: [26, 26, 26],
             newComponent: [{
-                tab: '新建农药档案',
-                hasImg: true,
-                selectUrl: [['category', 'medicament', 'category_id', 'category_name', true]],
-                selectInit: [{value: '', label: '选择农药分类'}],
-                checkNumber: [1],
-                popNumber: [0],
+                tab: '新建采收信息',
+                checkBoxUrl: [['cultivates', 'id', 'serial', 'radio'], ['operates', 'id', 'name', 'radio']],
+                checkBoxPosition: [1, 3],
                 components: [{
-                    name: 'category_id',
+                    name: 'date',
+                    type: 'date',
+                    label: '操作日期',
+                    placeholder: '（必选）',
+                    rule: {required: true}
+                },
+                {
+                    name: 'cultivate_id',
                     type: 'select',
-                    component: null,
-                    isNull: false,
-                    label: '农药分类',
+                    label: '种植批次号',
+                    placeholder: '（必选）',
+                    rule: {required: true},
+                    options: [],
+                    optionskeys: [],
+                    show: false
+                },
+                {
+                    name: 'amount',
+                    type: 'text',
+                    label: '采收数量',
                     placeholder: '必填',
-                    rule: {required: true, message: '请选择农药分类', trigger: 'blur', type: 'number'},
-                    options: []
+                    rule: {required: true, type: 'reNumber', message: '请输入整数'}
                 },
                 {
-                    name: 'name',
-                    type: 'text',
-                    component: null,
-                    isNull: false,
-                    label: '农药名称',
-                    placeholder: '必填',
-                    rule: [{required: true, message: '请输入农药名称', trigger: 'blur'}, {validator: validate2.reCheck, trigger: 'blur', message: '农药名称重复'}]
-                },
-                {
-                    name: 'usage',
-                    type: 'text',
-                    component: null,
-                    isNull: false,
-                    label: '用途',
-                    placeholder: ''
-                },
-                {
-                    name: 'control_objects',
-                    type: 'text',
-                    component: null,
-                    isNull: false,
-                    label: '防治对象',
-                    placeholder: ''
-                },
-                {
-                    name: 'toxicity_grade',
+                    name: 'operate_id',
                     type: 'select',
-                    component: null,
-                    isNull: false,
-                    label: '毒性等级',
-                    placeholder: '必填',
-                    rule: {required: true, message: '请输入模块类型', trigger: 'blur'},
-                    options: [['微毒', '低毒', '中毒', '高毒']]
+                    label: '采收人',
+                    placeholder: '（必选）',
+                    rule: {required: true},
+                    options: [],
+                    optionskeys: [],
+                    show: false
                 },
                 {
-                    name: 'specification',
+                    name: 'department',
                     type: 'text',
-                    component: null,
-                    isNull: false,
-                    placeholder: '',
-                    label: '包装规格'
+                    label: '入库部门',
+                    placeholder: '可填',
+                    rule: {required: false}
                 },
                 {
-                    name: 'phone',
+                    name: 'position',
                     type: 'text',
-                    component: null,
-                    isNull: false,
-                    placeholder: '请输入11位的手机号（固话用-隔开）',
-                    label: '联系方式',
-                    rule: { validator: validate2.phone, trigger: 'blur' }
-                },
-                {
-                    name: 'manufacturer',
-                    type: 'text',
-                    component: null,
-                    isNull: false,
-                    placeholder: '',
-                    label: '厂家名称'
-                },
-                {
-                    name: 'origin',
-                    type: 'text',
-                    component: null,
-                    isNull: false,
-                    placeholder: '',
-                    label: '产地'
-                },
-                {
-                    name: 'img',
-                    type: 'file',
-                    component: inputFile,
-                    isNull: false,
-                    label: '农药图片',
-                    placeholder: ''
+                    label: '存放仓库位置',
+                    placeholder: '可填',
+                    rule: {required: false}
                 },
                 {
                     name: 'memo',
                     type: 'textarea',
-                    component: null,
-                    isNull: true,
                     label: '备注信息',
-                    placeholder: '',
-                    rule: null
+                    placeholder: '可填',
+                    rule: {required: false}
                 }]
             }],
             editComponent: [{
-                tab: '编辑农药档案',
-                hasImg: true,
-                selectUrl: [['category', 'medicament', 'category_id', 'category_name', true]],
-                selectInit: [{value: '', label: '选择农药分类'}],
-                checkNumber: [1],
-                popNumber: [0],
+                tab: '编辑采收信息',
+                arrBox: {'operate_id': 'operate_name'},
+                checkBoxUrl: [['operates', 'id', 'name', 'radio']],
+                checkBoxPosition: [3],
                 components: [{
-                    name: 'category_id',
+                    name: 'date',
+                    type: 'date',
+                    label: '操作日期',
+                    placeholder: '（必选）',
+                    rule: {required: true}
+                },
+                {
+                    name: 'cultivate_serial',
+                    type: 'text',
+                    label: '种植批次号',
+                    placeholder: '（必选）',
+                    disabled: true,
+                    rule: {required: true}
+                },
+                {
+                    name: 'amount',
+                    type: 'text',
+                    label: '采收数量',
+                    placeholder: '必填',
+                    rule: {required: true, type: 'reNumber', message: '请输入整数'}
+                },
+                {
+                    name: 'operate_id',
                     type: 'select',
-                    component: null,
-                    isNull: false,
-                    label: '农药分类',
-                    placeholder: '必填',
-                    rule: {required: true, message: '请选择农药分类', trigger: 'blur', type: 'number'},
-                    options: []
+                    label: '采收人',
+                    placeholder: '（必选）',
+                    rule: {required: true},
+                    options: [],
+                    optionskeys: [],
+                    show: false
                 },
                 {
-                    name: 'name',
+                    name: 'department',
                     type: 'text',
-                    component: null,
-                    isNull: false,
-                    label: '农药名称',
-                    placeholder: '必填',
-                    rule: [{required: true, message: '请输入农药名称', trigger: 'blur'}, {validator: validate2.reCheck, trigger: 'blur', message: '农药名称重复'}]
+                    label: '入库部门',
+                    placeholder: '可填',
+                    rule: {required: false}
                 },
                 {
-                    name: 'usage',
+                    name: 'position',
                     type: 'text',
-                    component: null,
-                    isNull: false,
-                    label: '用途',
-                    placeholder: ''
-                },
-                {
-                    name: 'control_objects',
-                    type: 'text',
-                    component: null,
-                    isNull: false,
-                    label: '防治对象',
-                    placeholder: ''
-                },
-                {
-                    name: 'toxicity_grade',
-                    type: 'select',
-                    component: null,
-                    isNull: false,
-                    label: '毒性等级',
-                    placeholder: '必填',
-                    rule: {required: true, message: '请输入模块类型', trigger: 'blur'},
-                    options: [['微毒', '低毒', '中毒', '高毒']]
-                },
-                {
-                    name: 'specification',
-                    type: 'text',
-                    component: null,
-                    isNull: false,
-                    placeholder: '',
-                    label: '包装规格'
-                },
-                {
-                    name: 'phone',
-                    type: 'text',
-                    component: null,
-                    isNull: false,
-                    placeholder: '请输入11位的手机号（固话用-隔开）',
-                    label: '联系方式',
-                    rule: { validator: validate2.phone, trigger: 'blur' }
-                },
-                {
-                    name: 'manufacturer',
-                    type: 'text',
-                    component: null,
-                    isNull: false,
-                    placeholder: '',
-                    label: '厂家名称'
-                },
-                {
-                    name: 'origin',
-                    type: 'text',
-                    component: null,
-                    isNull: false,
-                    placeholder: '',
-                    label: '产地'
-                },
-                {
-                    name: 'img',
-                    type: 'file',
-                    component: inputFile,
-                    isNull: false,
-                    label: '农药图片',
-                    placeholder: ''
+                    label: '存放仓库位置',
+                    placeholder: '可填',
+                    rule: {required: false}
                 },
                 {
                     name: 'memo',
                     type: 'textarea',
-                    component: null,
-                    isNull: true,
                     label: '备注信息',
-                    placeholder: '',
-                    rule: null
+                    placeholder: '可填',
+                    rule: {required: false}
                 }]
             }]
         },
@@ -2516,209 +2326,100 @@ export default {
             protos: ['name', 'date', 'img'],
             widths: [26, 26, 26],
             newComponent: [{
-                tab: '新建农药档案',
+                tab: '新建生长过程信息',
+                checkBoxUrl: [['cultivates', 'id', 'serial', 'radio']],
+                checkBoxPosition: [0],
                 hasImg: true,
-                selectUrl: [['category', 'medicament', 'category_id', 'category_name', true]],
-                selectInit: [{value: '', label: '选择农药分类'}],
-                checkNumber: [1],
-                popNumber: [0],
                 components: [{
-                    name: 'category_id',
+                    name: 'cultivate_id',
                     type: 'select',
-                    component: null,
-                    isNull: false,
-                    label: '农药分类',
-                    placeholder: '必填',
-                    rule: {required: true, message: '请选择农药分类', trigger: 'blur', type: 'number'},
-                    options: []
+                    label: '所属种植批次',
+                    placeholder: '请选择种植批次',
+                    rule: {required: true},
+                    options: [],
+                    optionskeys: [],
+                    show: false
                 },
                 {
                     name: 'name',
                     type: 'text',
-                    component: null,
-                    isNull: false,
-                    label: '农药名称',
-                    placeholder: '必填',
-                    rule: [{required: true, message: '请输入农药名称', trigger: 'blur'}, {validator: validate2.reCheck, trigger: 'blur', message: '农药名称重复'}]
+                    label: '图片标题',
+                    placeholder: '（必填）',
+                    rule: {required: true}
                 },
                 {
-                    name: 'usage',
-                    type: 'text',
-                    component: null,
-                    isNull: false,
-                    label: '用途',
-                    placeholder: ''
+                    name: 'date',
+                    type: 'date',
+                    label: '上传日期',
+                    placeholder: '（必填）',
+                    rule: {required: true}
                 },
                 {
-                    name: 'control_objects',
-                    type: 'text',
-                    component: null,
-                    isNull: false,
-                    label: '防治对象',
-                    placeholder: ''
-                },
-                {
-                    name: 'toxicity_grade',
-                    type: 'select',
-                    component: null,
-                    isNull: false,
-                    label: '毒性等级',
-                    placeholder: '必填',
-                    rule: {required: true, message: '请输入模块类型', trigger: 'blur'},
-                    options: [['微毒', '低毒', '中毒', '高毒']]
-                },
-                {
-                    name: 'specification',
-                    type: 'text',
-                    component: null,
-                    isNull: false,
-                    placeholder: '',
-                    label: '包装规格'
-                },
-                {
-                    name: 'phone',
-                    type: 'text',
-                    component: null,
-                    isNull: false,
-                    placeholder: '请输入11位的手机号（固话用-隔开）',
-                    label: '联系方式',
-                    rule: { validator: validate2.phone, trigger: 'blur' }
-                },
-                {
-                    name: 'manufacturer',
-                    type: 'text',
-                    component: null,
-                    isNull: false,
-                    placeholder: '',
-                    label: '厂家名称'
-                },
-                {
-                    name: 'origin',
-                    type: 'text',
-                    component: null,
-                    isNull: false,
-                    placeholder: '',
-                    label: '产地'
+                    name: 'desc',
+                    type: 'textarea',
+                    label: '特征描述',
+                    placeholder: '（必填）',
+                    rule: {required: true}
                 },
                 {
                     name: 'img',
                     type: 'file',
-                    component: inputFile,
-                    isNull: false,
-                    label: '农药图片',
-                    placeholder: ''
+                    label: '图片',
+                    placeholder: '（必填）',
+                    rule: {required: true}
                 },
                 {
                     name: 'memo',
                     type: 'textarea',
-                    component: null,
-                    isNull: true,
                     label: '备注信息',
-                    placeholder: '',
-                    rule: null
+                    placeholder: '（可填）',
+                    rule: {required: false}
                 }]
             }],
             editComponent: [{
-                tab: '编辑农药档案',
+                tab: '编辑生长过程信息',
                 hasImg: true,
-                selectUrl: [['category', 'medicament', 'category_id', 'category_name', true]],
-                selectInit: [{value: '', label: '选择农药分类'}],
-                checkNumber: [1],
-                popNumber: [0],
                 components: [{
-                    name: 'category_id',
-                    type: 'select',
-                    component: null,
-                    isNull: false,
-                    label: '农药分类',
-                    placeholder: '必填',
-                    rule: {required: true, message: '请选择农药分类', trigger: 'blur', type: 'number'},
-                    options: []
+                    name: 'serial',
+                    type: 'text',
+                    label: '所属种植批次',
+                    rule: {required: true},
+                    disabled: true
                 },
                 {
                     name: 'name',
                     type: 'text',
-                    component: null,
-                    isNull: false,
-                    label: '农药名称',
-                    placeholder: '必填',
-                    rule: [{required: true, message: '请输入农药名称', trigger: 'blur'}, {validator: validate2.reCheck, trigger: 'blur', message: '农药名称重复'}]
+                    label: '图片标题',
+                    placeholder: '（必填）',
+                    rule: {required: true}
                 },
                 {
-                    name: 'usage',
-                    type: 'text',
-                    component: null,
-                    isNull: false,
-                    label: '用途',
-                    placeholder: ''
+                    name: 'date',
+                    type: 'date',
+                    label: '上传日期',
+                    placeholder: '（必填）',
+                    rule: {required: true}
                 },
                 {
-                    name: 'control_objects',
-                    type: 'text',
-                    component: null,
-                    isNull: false,
-                    label: '防治对象',
-                    placeholder: ''
-                },
-                {
-                    name: 'toxicity_grade',
-                    type: 'select',
-                    component: null,
-                    isNull: false,
-                    label: '毒性等级',
-                    placeholder: '必填',
-                    rule: {required: true, message: '请输入模块类型', trigger: 'blur'},
-                    options: [['微毒', '低毒', '中毒', '高毒']]
-                },
-                {
-                    name: 'specification',
-                    type: 'text',
-                    component: null,
-                    isNull: false,
-                    placeholder: '',
-                    label: '包装规格'
-                },
-                {
-                    name: 'phone',
-                    type: 'text',
-                    component: null,
-                    isNull: false,
-                    placeholder: '请输入11位的手机号（固话用-隔开）',
-                    label: '联系方式',
-                    rule: { validator: validate2.phone, trigger: 'blur' }
-                },
-                {
-                    name: 'manufacturer',
-                    type: 'text',
-                    component: null,
-                    isNull: false,
-                    placeholder: '',
-                    label: '厂家名称'
-                },
-                {
-                    name: 'origin',
-                    type: 'text',
-                    component: null,
-                    isNull: false,
-                    placeholder: '',
-                    label: '产地'
+                    name: 'desc',
+                    type: 'textarea',
+                    label: '特征描述',
+                    placeholder: '（必填）',
+                    rule: {required: true}
                 },
                 {
                     name: 'img',
                     type: 'file',
-                    component: inputFile,
-                    isNull: false,
-                    label: '农药图片',
-                    placeholder: ''
+                    label: '图片',
+                    placeholder: '（必填）',
+                    rule: {required: true}
                 },
                 {
                     name: 'memo',
                     type: 'textarea',
-                    component: null,
-                    isNull: true,
                     label: '备注信息',
-                    placeholder: '',
-                    rule: null
+                    placeholder: '（可填）',
+                    rule: {required: false}
                 }]
             }]
         }
@@ -2915,202 +2616,170 @@ export default {
         url: 'detect_pk',
         batch: 'plantDetectPkBatch',
         searchPlaceholder: '请输入检测名称进行搜索',
+        changeDataArr: [{result: {0: '不合格', 1: '合格'}}],
         theads: ['检测项目名称', '检测日期', '检测人'],
         protos: ['name', 'date', 'operate_name'],
         widths: [26, 26, 26],
         newComponent: [{
             tab: '新建检验检测信息',
             hiddenValue: {type: 'plant'},
-            selectUrl2: [['operates', 'id', 'name', true]],
-            selectInit2: [{value: '', label: '检测人选择'}],
-            selectWhereArr2: [[{n: 'domain', v: 'packp'}, {n: 'domain', v: 'all', s: true}]],
-            popNumber2: [1],
+            checkBoxUrl: [['packs', 'id', 'serial', 'check'], ['operates', 'id', 'name', 'radio']],
+            checkBoxPosition: [0, 2],
             hasImg: true,
             components: [{
+                name: 'pack_ids',
+                type: 'pcSelect',
+                label: '加工批次号',
+                placeholder: '批次号',
+                rule: {required: true}, // 这里如果需要验证类型写方法名，否则写null
+                options: [],
+                show: false
+            },
+            {
                 name: 'date',
                 type: 'date',
-                component: inputDate,
-                isNull: false,
                 label: '检测日期',
-                placeholder: '',
-                disabled: true,
-                rule: [{required: true, message: '请输入检测日期'}, {validator: validate2.reDate, message: '请输入检测日期'}]
-            },
-            {
-                name: 'operate_id',
-                type: 'select',
-                component: null,
-                isNull: false,
-                label: '负责人',
-                placeholder: '请选择人物',
-                rule: {required: true, trigger: 'blur', type: 'number', message: '请选择负责人'},
-                options: []
-            },
-            {
-                name: 'name',
-                type: 'text',
-                component: null,
-                isNull: false,
-                label: '检测名称',
-                placeholder: '请填写检测项目名称',
-                rule: {required: true, trigger: 'blur', message: '请输入检测项目名称'}
-            },
-            {
-                name: 'result',
-                type: 'select',
-                component: null,
-                isNull: false,
-                label: '检测结果',
-                placeholder: '请选择检测结果',
-                rule: {required: true, trigger: 'blur'},
-                options: [['合格', '不合格']]
-            },
-            {
-                name: 'content',
-                type: 'textarea',
-                component: null,
-                isNull: false,
-                label: '检测内容',
-                placeholder: '请填写检测内容',
-                rule: null
-            },
-            {
-                name: 'organization',
-                type: 'text',
-                component: null,
-                isNull: false,
-                label: '检测机构',
-                placeholder: '请填写检测机构名称',
-                rule: null
-            },
-            {
-                name: 'method',
-                type: 'text',
-                component: null,
-                isNull: false,
-                label: '处理方法',
-                placeholder: '请填写检测处理方法',
-                rule: null
-            },
-            {
-                name: 'img',
-                type: 'file',
-                component: inputFile,
-                isNull: true,
-                label: '检测图片报告',
-                placeholder: '',
-                rule: null
-            },
-            {
-                name: 'memo',
-                type: 'textarea',
-                component: null,
-                isNull: true,
-                label: '备注信息',
-                placeholder: '',
-                rule: null
-            }]
-        }],
-        editComponent: [{
-            tab: '编辑检验检测信息',
-            selectUrl2: [['operates', 'id', 'name', true]],
-            selectInit2: [{value: '', label: '检测人选择'}],
-            selectWhereArr2: [[{n: 'domain', v: 'packp'}, {n: 'domain', v: 'all', s: true}]],
-            popNumber2: [2],
-            hasImg: true,
-            components: [{
-                name: 'serial',
-                type: 'text',
-                component: null,
-                isNull: false,
-                label: '加工检测批次号',
-                placeholder: '',
+                placeholder: '（必选）',
                 disabled: true,
                 rule: {required: true}
             },
             {
-                name: 'date',
-                type: 'date',
-                component: inputDate,
-                isNull: false,
-                label: '检测日期',
-                placeholder: '',
-                disabled: true,
-                rule: [{required: true, message: '请输入检测日期'}, {validator: validate2.reDate, message: '请输入检测日期'}]
-            },
-            {
                 name: 'operate_id',
                 type: 'select',
-                component: null,
-                isNull: false,
-                label: '负责人',
-                placeholder: '请选择人物',
-                rule: {required: true, trigger: 'blur', type: 'number'},
-                options: []
+                label: '加工人',
+                placeholder: '请选择加工人员（必选）',
+                rule: {required: true},
+                options: [],
+                optionskeys: [],
+                show: false
             },
             {
                 name: 'name',
                 type: 'text',
-                component: null,
-                isNull: false,
                 label: '检测名称',
-                placeholder: '请填写检测项目名称',
-                rule: {required: true, trigger: 'blur', message: '请输入检测项目名称'}
+                placeholder: '（必填）',
+                rule: {required: true}
             },
             {
                 name: 'result',
                 type: 'select',
-                component: null,
-                isNull: false,
                 label: '检测结果',
-                placeholder: '请选择检测结果',
-                rule: {required: true, trigger: 'blur'},
-                options: [['合格', '不合格']]
+                placeholder: '（必选）',
+                rule: {required: true},
+                options: [['合格', '不合格']],
+                optionskeys: [[1, 0]]
             },
             {
                 name: 'content',
-                type: 'textarea',
-                component: null,
-                isNull: false,
+                type: 'text',
                 label: '检测内容',
-                placeholder: '请填写检测内容',
-                rule: null
+                placeholder: '（可填）',
+                rule: {required: false}
             },
             {
                 name: 'organization',
                 type: 'text',
-                component: null,
-                isNull: false,
                 label: '检测机构',
-                placeholder: '请填写检测机构名称',
-                rule: null
+                placeholder: '（可填）',
+                rule: {required: false}
             },
             {
                 name: 'method',
                 type: 'text',
-                component: null,
-                isNull: false,
                 label: '处理方法',
-                placeholder: '请填写检测处理方法',
-                rule: null
+                placeholder: '（可填）',
+                rule: {required: false}
             },
             {
                 name: 'img',
                 type: 'file',
-                component: inputFile,
-                isNull: true,
                 label: '检测图片报告',
                 placeholder: '',
-                rule: null
+                rule: {required: false}
             },
             {
                 name: 'memo',
                 type: 'textarea',
-                component: null,
-                isNull: true,
                 label: '备注信息',
+                placeholder: '（可填）',
+                rule: {required: false}
+            }]
+        }],
+        editComponent: [{
+            tab: '编辑检验检测信息',
+            arrBox: {'operate_id': 'operate_name', 'result': 'result'},
+            checkBoxUrl: [['operates', 'id', 'name', 'radio']],
+            checkBoxPosition: [1],
+            hasImg: true,
+            hiddenValue: {type: 'plant'},
+            components: [{
+                name: 'date',
+                type: 'date',
+                label: '检测日期',
+                placeholder: '（必选）',
+                disabled: true,
+                rule: {required: true}
+            },
+            {
+                name: 'operate_id',
+                type: 'select',
+                label: '加工人',
+                placeholder: '请选择加工人员（必选）',
+                rule: {required: true},
+                options: [],
+                optionskeys: [],
+                show: false
+            },
+            {
+                name: 'name',
+                type: 'text',
+                label: '检测名称',
+                placeholder: '（必填）',
+                rule: {required: true}
+            },
+            {
+                name: 'result',
+                type: 'select',
+                label: '检测结果',
+                placeholder: '（必选）',
+                rule: {required: true},
+                options: [['合格', '不合格']],
+                optionskeys: [[1, 0]]
+            },
+            {
+                name: 'content',
+                type: 'text',
+                label: '检测内容',
+                placeholder: '（可填）',
+                rule: {required: false}
+            },
+            {
+                name: 'organization',
+                type: 'text',
+                label: '检测机构',
+                placeholder: '（可填）',
+                rule: {required: false}
+            },
+            {
+                name: 'method',
+                type: 'text',
+                label: '处理方法',
+                placeholder: '（可填）',
+                rule: {required: false}
+            },
+            {
+                name: 'img',
+                type: 'file',
+                label: '检测图片报告',
                 placeholder: '',
-                rule: null
+                rule: {required: false}
+            },
+            {
+                name: 'memo',
+                type: 'textarea',
+                label: '备注信息',
+                placeholder: '（可填）',
+                rule: {required: false}
             }]
         }]
     }],
