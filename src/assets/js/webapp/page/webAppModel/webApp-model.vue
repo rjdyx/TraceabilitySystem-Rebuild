@@ -21,8 +21,8 @@
             </tab>
         </div>
 
-    <div class="appmain">
-        <div class="applist" :class="{'has':ishas,'hasno':!ishas}">
+    <div class="appmain" v-model="index">
+        <div class="applist" :class="{'has':ishas,'hasno':!ishas}" :key="index">
                 
             <!-- 操作 -->
             <div class="appOperate">
