@@ -1830,7 +1830,7 @@ export default {
                 }]
             }],
             editComponent: [{
-                tab: '编辑施肥信息',
+                tab: '编辑施药信息',
                 arrBox: {'medicament_id': 'medicament_name', 'operate_id': 'operate_name', 'unit': 'unit'},
                 checkBoxUrl: [['medicaments', 'id', 'name', 'radio'], ['operates', 'id', 'name', 'radio']],
                 checkBoxPosition: [0, 3],
