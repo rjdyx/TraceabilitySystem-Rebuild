@@ -30,12 +30,16 @@
                     <input type="checkbox" :value="pers.id" v-model="ischeckdate">
                     <span class="order">{{index+1}}</span>
                 </span>
-                <span 
-                    v-for="(item,index) in protos" 
+                <el-tooltip effect="dark" placement="top" v-for="(item,index) in protos">
+                    <div slot="content">{{pers[protos[index]]}}</div>
+                    <div slot="content" v-if="pers[protos[index]] == null">null</div>
+                    <span 
+                     
                     :name="theads[index]"  
-                    :style="{width: widths[index] + '%'}">
+                    :style="{width: widths[index] + '%'}" @click="checkDom($event.currentTarget)">
                         {{pers[protos[index]]}}
-                </span>
+                    </span>
+                </el-tooltip>
             </div>
 
             <!-- 列表底部 -->
@@ -99,7 +103,8 @@ export default {
             listLoading: false,
             ischeckdate: [],
             show: false,
-            wapUrl: ''
+            wapUrl: '',
+            lastDom: ''
         }
     },
     // 混合
@@ -187,6 +192,17 @@ export default {
                 width: width,
                 position: 'middle'
             })
+        },
+        // 检测body最后dom
+        checkDom (val) {
+            if (this.lastDom !== val) {
+                this.lastDom = val
+            } else {
+                document.body.lastChild.style.display = 'block'
+            }
+            setTimeout(function () {
+                document.body.lastChild.style.display = 'none'
+            }, 1000)
         },
         // 单条删除或多条删除
         listDelete () {

@@ -25,7 +25,7 @@ export default {
 	.app-basic{
 		height: 100%;
 		// width: 100%;
-		overflow: hidden;
+		// overflow: hidden;
 		padding: 0 5px;
 	}
 </style>

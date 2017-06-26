@@ -219,7 +219,7 @@ export default {
         tabClick (subindex, modelName) {
             this.modelIndex = subindex
             localStorage.setItem('appTab', modelName)
-            localStorage.setItem('trends', this.modelIndex)
+            let nametxt = localStorage.getItem('appTab', modelName)
             localStorage.setItem('catname', modelName)
         },
         // 侧边栏的显示与隐藏
