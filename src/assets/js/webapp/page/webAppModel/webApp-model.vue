@@ -106,7 +106,6 @@
 <script>
 import { XTable, Datetime, Group, Tab, TabItem, Swipeout, SwipeoutItem, LoadMore, Toast, Confirm, SwipeoutButton, Swiper, SwiperItem, Popover } from 'vux'
 import {mapActions, mapMutations} from 'vuex'
-// import appTab from '../../public/tab.vue'
 import appmenu from '../index/appmenu.js'
 import appHeader from '../../public/header.vue'
 import siderBar from '../../public/siderBar.vue'
@@ -219,6 +218,7 @@ export default {
         tabClick (subindex, modelName) {
             this.modelIndex = subindex
             localStorage.setItem('appTab', modelName)
+            localStorage.setItem('trends', this.modelIndex)
             let nametxt = localStorage.getItem('appTab', modelName)
             localStorage.setItem('catname', modelName)
         },
