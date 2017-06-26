@@ -331,7 +331,29 @@ default {
          * @param ret, arr
          * @returns ret
          */
-        Vue.prototype.$changeMutual = (ret, arr) => {
+        Vue.prototype.$changeMutual = (ret, arr, pos) => {
+            if (pos === 0) {
+                for (let item in arr) {
+                    for (let index in arr[item]) {
+                        for (let key in ret) {
+                            if (key === index) {
+                                ret[key] = arr[item][index][ret[key]]
+                            }
+                        }
+                    }
+                }
+            } else {
+                for (let item in arr) {
+                    for (let index in arr[item]) {
+                        for (let key in arr[item][index]) {
+                            if (ret[index] === arr[item][index][key]) {
+                                ret[index] = key
+                            }
+                        }
+                    }
+                }
+            }
+            return ret
         }
         Vue.prototype.Roles = {}
     }
