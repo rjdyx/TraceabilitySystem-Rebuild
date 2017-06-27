@@ -100,7 +100,6 @@
                                         <div class="vux-cell-primary vux-popup-picker-select-box">
                                             <div class="vux-popup-picker-select" style="text-align: left;"><!----><!----><!---->
                                                 <span class="vux-popup-picker-placeholder">{{tableForm[comItem.name].length ? "已选择"+comItem.placeholder : "请选择"+comItem.placeholder}}</span>
-                                               <!-- <span class="vux-popup-picker-placeholder">{{'已选择批次号'}}</span> -->
                                             </div>
                                         </div>
                                         <div class="weui-cell__ft"></div>
@@ -122,7 +121,8 @@
                             <group>
                               <button @click="allcheckFn(comItem.name,comItem.options,true)">全选</button> 
                               <button @click="allcheckFn(comItem.name,comItem.options,false)">反选</button>
-                              <checklist title="请选择批次号" :options="comItem.options" v-model="tableForm[comItem.name]" @on-change="change"></checklist>
+                              <checklist v-if="!comItem.rfid" title="请选择批次号" :options="comItem.options" v-model="tableForm[comItem.name]" @on-change="change"></checklist>
+                              <radio :name="comItem.name" v-else :options="comItem.options" @on-change="radioChange"></radio>
                             </group>
                             <div style="padding: 15px;">
                               <x-button @click.native="pcClose(comItem)" plain type="primary"> 关闭 </x-button>
@@ -267,7 +267,11 @@ export default {
                 this.tableForm[name] = []
             }
         },
-
+        radioChange (obj) {
+            console.log(obj)
+            this.tableForm[obj.name] = [obj.key]
+            console.log(this.tableForm)
+        },
         /*
         x-textarea组件的方法
         修改了vex里面x-textarea组件的onBlur,参数name
@@ -392,6 +396,7 @@ export default {
         提交表单
          */
         submitForm () {
+            console.log(this.tableForm)
             let allValBol = true
             for (let key in this.ruleTableForm) {
                 let fnBol = this.validateFn({name: key, rule: this.ruleTableForm[key], value: this.tableForm[key]}).valid
