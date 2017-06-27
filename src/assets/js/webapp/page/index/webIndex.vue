@@ -58,6 +58,7 @@ export default{
             $('.m').css('transform', 'rotate(' + (m * 6 + s / 60 * 6) + 'deg)')
             $('.h').css('transform', 'rotate(' + (h * 30 + m / 60 * 30) + 'deg)')
         }, 1000)
+        localStorage.setItem('trends', 0)
         axios.get('/api/index')
             .then((responce) => {
                 this.company = responce.data.company_name

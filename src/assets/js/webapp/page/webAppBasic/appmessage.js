@@ -180,192 +180,169 @@ export default {
         theads: ['兽药名称', '操作日期', '操作人'],
         protos: ['drug_name', 'date', 'operate_name'],
         widths: [26, 26, 26],
-        newComponent: [
+        newComponent: [{
+            tab: '新建病疫情信息',
+            checkBoxUrl: [['breeds', 'id', 'serial', 'radio'], ['drugs', 'id', 'name', 'radio'], ['operates', 'id', 'name', 'radio']],
+            checkBoxPosition: [0, 2, 5],
+            hasImg: true,
+            components: [{
+                name: 'breed_id',
+                type: 'select',
+                label: '养殖批次号',
+                assoc: ['rfids', 'id', 'rfid', 'check'],
+                position: 1,
+                clearArr: 'rfid_ids',
+                placeholder: '（必选）',
+                rule: {required: true},
+                options: [],
+                optionskeys: [],
+                show: false
+            },
             {
-                tab: '新建病疫情信息',
-                selectUrl2: [['drugs', 'id', 'name', true], ['operates', 'id', 'name', true], ['experts', 'id', 'name', true]],
-                selectInit2: [{value: '', label: '兽药选择'}, {value: '', label: '施药人员选择'}, {value: '', label: '专家选择'}],
-                popNumber2: [0, 3, 4],
-                selectWhereArr2: [[], [{n: 'domain', v: 'beast'}], [{n: 'domain', v: 'beast'}]],
-                hasImg: true,
-                checkNumber: [1],
-                components: [{
-                    name: 'drug_id',
-                    type: 'select',
-                    label: '兽药名称',
-                    placeholder: '（必选）',
-                    // rule: {required: true, trigger: 'blur', type: 'number', message: '请选择兽药'},
-                    rule: {required: true},
-                    options: [['a', 'b', 'c']],
-                    optionskeys: [['akey', 'bkey', 'ckey']]
-                },
-                {
-                    name: 'date',
-                    type: 'date',
-                    component: inputDate,
-                    label: '用药日期',
-                    placeholder: '（必选）',
-                    // rule: [{required: true, message: '请输入用药日期'}, {validator: validate2.reDate, message: '请输入用药日期'}]
-                    rule: {required: true}
-                },
-                {
-                    name: 'description',
-                    type: 'text',
-                    label: '病情描述',
-                    placeholder: '(可写)',
-                    rule: {required: false}
-                },
-                {
-                    name: 'operate_id',
-                    type: 'select',
-                    label: '施药人员',
-                    placeholder: '（必选）',
-                    // rule: {required: true, trigger: 'blur', type: 'number', message: '请选择施药人员'},
-                    rule: {required: true},
-                    options: [['a', 'b', 'c']],
-                    optionskeys: [['akey', 'bkey', 'ckey']]
-                },
-                {
-                    name: 'expert_id',
-                    type: 'select',
-                    label: '专家',
-                    placeholder: '（可选）',
-                    rule: {required: false},
-                    options: [['a', 'b', 'c']],
-                    optionskeys: [['akey', 'bkey', 'ckey']]
-                },
-                {
-                    name: 'amount',
-                    type: 'textSelect',
-                    label: '平均施药量',
-                    placeholder: '请输入正确的数字（必填）',
-                    // rule: [{required: true, message: '请输入平均施药量'}, {validator: validate2.reNumber}],
-                    rule: {required: true, type: 'reNumber'},
-                    options: [['kg/只', 'kg/头', 'kg/条']],
-                    optionskeys: [['0', '1', '2']]
-                },
-                {
-                    name: 'way',
-                    type: 'text',
-                    label: '治疗方式',
-                    placeholder: '（可写）',
-                    rule: {required: false}
-                },
-                {
-                    name: 'img',
-                    type: 'file',
-                    component: inputFile,
-                    label: '病疫图片',
-                    placeholder: '',
-                    rule: {required: true}
-                },
-                {
-                    name: 'memo',
-                    type: 'textarea',
-                    label: '备注信息',
-                    placeholder: '（可写）',
-                    rule: {required: false}
-                }
-                ]
-            }
-        ],
-        editComponent: [
+                name: 'rfid_ids',
+                type: 'pcSelect',
+                label: 'RFID',
+                placeholder: 'rfid',
+                rule: {required: true}, // 这里如果需要验证类型写方法名，否则写null
+                options: [],
+                show: false
+            },
             {
-                tab: '编辑病疫情信息',
-                selectUrl2: [['drugs', 'id', 'name', true], ['operates', 'id', 'name', true], ['experts', 'id', 'name', true]],
-                selectInit2: [{value: '', label: '兽药选择'}, {value: '', label: '施药人员选择'}, {value: '', label: '专家选择'}],
-                popNumber2: [1, 4, 5],
-                selectWhereArr2: [[], [{n: 'domain', v: 'beast'}, {n: 'domain', v: 'all', s: true}], [{n: 'domain', v: 'beast'}, {n: 'domain', v: 'all', s: true}]],
-                hasImg: true,
-                components: [{
-                    name: 'serial',
-                    type: 'text',
-                    label: '病疫批次号',
-                    placeholder: '',
-                    disabled: true,
-                    rule: {required: false}
-                },
-                {
-                    name: 'drug_id',
-                    type: 'select',
-                    label: '兽药名称',
-                    placeholder: '',
-                    // rule: {required: true, trigger: 'blur', type: 'number', message: '请选择兽药'},
-                    rule: {required: true},
-                    options: [['a', 'b', 'c']],
-                    optionskeys: [['akey', 'bkey', 'ckey']]
-                },
-                {
-                    name: 'date',
-                    type: 'date',
-                    component: inputDate,
-                    label: '用药日期',
-                    placeholder: '',
-                    // rule: [{required: true, message: '请输入用药日期'}, {validator: validate2.reDate, message: '请输入用药日期'}]
-                    rule: {required: false}
-                },
-                {
-                    name: 'description',
-                    type: 'text',
-                    label: '病情描述',
-                    placeholder: '',
-                    rule: {required: false}
-                },
-                {
-                    name: 'operate_id',
-                    type: 'select',
-                    label: '施药人员',
-                    placeholder: '',
-                    // rule: {required: true, trigger: 'blur', type: 'number', message: '请选择施药人员'},
-                    rule: {required: true},
-                    options: [['a', 'b', 'c']],
-                    optionskeys: [['akey', 'bkey', 'ckey']]
-                },
-                {
-                    name: 'expert_id',
-                    type: 'select',
-                    label: '专家',
-                    placeholder: '',
-                    rule: {required: false},
-                    options: [['a', 'b', 'c']],
-                    optionskeys: [['akey', 'bkey', 'ckey']]
-                },
-                {
-                    name: 'amount',
-                    type: 'textSelect',
-                    component: inputTextSelect,
-                    label: '平均施药量',
-                    placeholder: '请输入正确的数字（必填）',
-                    // rule: [{required: true, message: '请输入平均施药量'}, {validator: validate2.reNumber}],
-                    rule: {required: true, type: 'reNumber'},
-                    options: [['kg/只', 'kg/头', 'kg/条']],
-                    optionskeys: [['akey', 'bkey', 'ckey']]
-                },
-                {
-                    name: 'way',
-                    type: 'text',
-                    label: '治疗方式',
-                    placeholder: '',
-                    rule: {required: false}
-                },
-                {
-                    name: 'img',
-                    type: 'file',
-                    component: inputFile,
-                    label: '',
-                    placeholder: '',
-                    rule: {required: true}
-                },
-                {
-                    name: 'memo',
-                    type: 'textarea',
-                    label: '备注信息',
-                    placeholder: '',
-                    rule: {required: false}
-                }
-                ]
-            }
-        ]
+                name: 'drug_id',
+                type: 'select',
+                label: '兽药名称',
+                placeholder: '（必选）',
+                rule: {required: true},
+                options: [],
+                optionskeys: [],
+                show: false
+            },
+            {
+                name: 'date',
+                type: 'date',
+                label: '施药日期',
+                placeholder: '（必选）',
+                rule: {required: true}
+            },
+            {
+                name: 'description',
+                type: 'text',
+                label: '病情描述',
+                placeholder: '(可写)',
+                rule: {required: false}
+            },
+            {
+                name: 'operate_id',
+                type: 'select',
+                label: '施药人员',
+                placeholder: '（必选）',
+                rule: {required: true},
+                options: [],
+                optionskeys: []
+            },
+            {
+                name: 'amount',
+                type: 'textSelect',
+                label: '平均施药量',
+                placeholder: '请输入正确的数字（必填）',
+                rule: {required: true, type: 'reNumber'},
+                options: [['kg/只', 'kg/头', 'kg/条']],
+                optionskeys: [['kg/只', 'kg/头', 'kg/条']],
+                show: false
+            },
+            {
+                name: 'way',
+                type: 'text',
+                label: '治疗方式',
+                placeholder: '（可写）',
+                rule: {required: false}
+            },
+            {
+                name: 'img',
+                type: 'file',
+                label: '病疫图片',
+                placeholder: '',
+                rule: {required: false}
+            },
+            {
+                name: 'memo',
+                type: 'textarea',
+                label: '备注信息',
+                placeholder: '（可写）',
+                rule: {required: false}
+            }]
+        }],
+        editComponent: [{
+            tab: '编辑病疫情信息',
+            arrBox: {'drug_id': 'drug_name', 'operate_id': 'operate_name', 'unit': 'unit'},
+            checkBoxUrl: [['drugs', 'id', 'name', 'radio'], ['operates', 'id', 'name', 'radio']],
+            checkBoxPosition: [0, 3],
+            hasImg: true,
+            components: [{
+                name: 'drug_id',
+                type: 'select',
+                label: '兽药名称',
+                placeholder: '',
+                rule: {required: true},
+                options: [],
+                optionskeys: [],
+                show: false
+            },
+            {
+                name: 'date',
+                type: 'date',
+                label: '施药日期',
+                placeholder: '（必选）',
+                rule: {required: true}
+            },
+            {
+                name: 'description',
+                type: 'text',
+                label: '病情描述',
+                placeholder: '(可写)',
+                rule: {required: false}
+            },
+            {
+                name: 'operate_id',
+                type: 'select',
+                label: '施药人员',
+                placeholder: '（必选）',
+                rule: {required: true},
+                options: [],
+                optionskeys: []
+            },
+            {
+                name: 'amount',
+                type: 'textSelect',
+                label: '平均施药量',
+                placeholder: '请输入正确的数字（必填）',
+                rule: {required: true, type: 'reNumber'},
+                options: [['kg/只', 'kg/头', 'kg/条']],
+                optionskeys: [['kg/只', 'kg/头', 'kg/条']],
+                show: false
+            },
+            {
+                name: 'way',
+                type: 'text',
+                label: '治疗方式',
+                placeholder: '（可写）',
+                rule: {required: false}
+            },
+            {
+                name: 'img',
+                type: 'file',
+                label: '病疫图片',
+                placeholder: '',
+                rule: {required: false}
+            },
+            {
+                name: 'memo',
+                type: 'textarea',
+                label: '备注信息',
+                placeholder: '（可写）',
+                rule: {required: false}
+            }]
+        }]
     }],
     // 养殖管理-检疫
     quarantine: [{
@@ -382,17 +359,37 @@ export default {
         widths: [26, 26, 26],
         newComponent: [{
             tab: '新建检疫信息',
-            selectUrl2: [['experts', 'id', 'name', true], ['operates', 'id', 'name', true]],
-            selectInit2: [{value: '', label: '请选择指导专家'}, {value: '', label: '请选择操作人员'}],
-            popNumber2: [3, 4],
-            selectWhereArr2: [[{n: 'domain', v: 'beast'}, {n: 'domain', v: 'all', s: true}], [{n: 'domain', v: 'beast'}, {n: 'domain', v: 'all', s: true}]],
+            checkBoxUrl: [['breeds', 'id', 'serial', 'radio'], ['operates', 'id', 'name', 'radio']],
+            checkBoxPosition: [0, 2, 5],
             hasImg: true,
             components: [{
+                name: 'breed_id',
+                type: 'select',
+                label: '养殖批次号',
+                assoc: ['rfids', 'id', 'rfid', 'check'],
+                position: 1,
+                clearArr: 'rfid_ids',
+                placeholder: '（必选）',
+                rule: {required: true},
+                options: [],
+                optionskeys: [],
+                show: false
+            },
+            {
+                name: 'rfid_ids',
+                type: 'pcSelect',
+                label: 'RFID',
+                placeholder: 'rfid',
+                rule: {required: true}, // 这里如果需要验证类型写方法名，否则写null
+                options: [],
+                show: false
+            },
+            {
                 name: 'date',
                 type: 'date',
                 label: '检疫日期',
                 placeholder: '(必选)',
-                rule: {required: true, message: '请输入检疫日期'}
+                rule: {required: true}
             },
             {
                 name: 'organization',

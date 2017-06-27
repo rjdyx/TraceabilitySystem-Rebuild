@@ -251,7 +251,8 @@ export default {
             // 编辑id
             editId: '',
             // 图片
-            hasImg: false
+            hasImg: false,
+            setId: ''
         }
     },
     methods: {
@@ -295,11 +296,17 @@ export default {
                     } else {
                         _this.selectHideId['unit'] = item.optionskeys[0][obj.index]
                     }
+                    // 关联查询获取多变量
+                    if (item.assoc !== undefined) {
+                        if (_this.setId !== item.optionskeys[0][obj.index]) {
+                            _this.setId = item.optionskeys[0][obj.index]
+                            _this.getCheckVal(item.assoc, item.position, item.name, item.optionskeys[0][obj.index], item.clearArr)
+                        }
+                    }
                 }
             })
             this.validateFn(obj)
         },
-
         // 默认值存储进onHide
         defaultHide () {
             var _this = this
@@ -311,7 +318,23 @@ export default {
                 }
             })
         },
-
+        // 获取关联查询(关联字段查询assoc，所处位置position, 查询条件, 查询条件id)
+        getCheckVal (assoc, position, whereName, id, clearArr) {
+            this.tableForm[clearArr] = []
+            let dataArr = this.$addAndEditSelectMethod(assoc)
+            let data = {table: dataArr.selectUrl, whereName: whereName, id: id}
+            this.$dataGet(this, '/util/assoc', data)
+                .then((responce) => {
+                    if (responce.data !== '') {
+                        if (responce.data.length !== 0) {
+                            let dataOpt = this.$getCheckSelect(responce.data, dataArr.selectArr)
+                            if (dataOpt[0] === 'check') {
+                                this.typeComponent.components[position].options = dataOpt[1]
+                            }
+                        }
+                    }
+                })
+        },
         /*
         x-input组件的方法
         修改了vex里面x-input组件的onChange, onBlur方法，原参数是字符串，现在是obj{name:name,value:value}。
