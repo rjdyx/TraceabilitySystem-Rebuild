@@ -30,6 +30,7 @@ export default {
             tab: '新建饲料使用信息',
             checkBoxUrl: [['breeds', 'id', 'serial', 'check'], ['fodders', 'id', 'name', 'radio'], ['additions', 'id', 'name', 'radio'], ['operates', 'id', 'name', 'radio']],
             checkBoxPosition: [0, 1, 2, 3],
+            selectValue: [[], [], [], [{n: 'domain', v: 'beast'}, {n: 'domain', v: 'all', s: true}]],
             components: [{
                 name: 'breed_ids',
                 type: 'pcSelect',
@@ -107,6 +108,7 @@ export default {
             arrBox: {'fodder_id': 'fodder_name', 'addition_id': 'addition_name', 'operate_id': 'operate_name', 'unit': 'unit'},
             checkBoxUrl: [['fodders', 'id', 'name', 'radio'], ['additions', 'id', 'name', 'radio'], ['operates', 'id', 'name', 'radio']],
             checkBoxPosition: [0, 1, 2],
+            selectValue: [[], [], [{n: 'domain', v: 'beast'}, {n: 'domain', v: 'all', s: true}]],
             components: [{
                 name: 'fodder_id',
                 type: 'select',
@@ -185,6 +187,7 @@ export default {
             tab: '新建病疫情信息',
             checkBoxUrl: [['breeds', 'id', 'serial', 'radio'], ['drugs', 'id', 'name', 'radio'], ['operates', 'id', 'name', 'radio']],
             checkBoxPosition: [0, 2, 5],
+            selectValue: [[], [], [{n: 'domain', v: 'beast'}, {n: 'domain', v: 'all', s: true}]],
             hasImg: true,
             components: [{
                 name: 'breed_id',
@@ -278,6 +281,7 @@ export default {
             arrBox: {'drug_id': 'drug_name', 'operate_id': 'operate_name', 'unit': 'unit'},
             checkBoxUrl: [['drugs', 'id', 'name', 'radio'], ['operates', 'id', 'name', 'radio']],
             checkBoxPosition: [0, 3],
+            selectValue: [[], [{n: 'domain', v: 'beast'}, {n: 'domain', v: 'all', s: true}]],
             hasImg: true,
             components: [{
                 name: 'drug_id',
@@ -354,6 +358,7 @@ export default {
         rightMenu: true,
         url: 'detection',
         batch: 'detectionBatch',
+        changeDataArr: [{result: {0: '不合格', 1: '合格'}}],
         searchPlaceholder: '请输入检疫项目名称进行搜索',
         theads: ['检疫项目名称', '操作日期', '操作人'],
         protos: ['name', 'date', 'operate_name'],
@@ -361,7 +366,8 @@ export default {
         newComponent: [{
             tab: '新建检疫信息',
             checkBoxUrl: [['breeds', 'id', 'serial', 'radio'], ['operates', 'id', 'name', 'radio']],
-            checkBoxPosition: [0, 2, 5],
+            checkBoxPosition: [0, 5],
+            selectValue: [[], [{n: 'domain', v: 'beast'}, {n: 'domain', v: 'all', s: true}]],
             hasImg: true,
             components: [{
                 name: 'breed_id',
@@ -397,31 +403,24 @@ export default {
                 type: 'text',
                 label: '检疫机构',
                 placeholder: '（必填）',
-                rule: {required: true, message: '请输入检疫机构'}
+                rule: {required: true}
             },
             {
                 name: 'name',
                 type: 'text',
                 label: '检疫项目名称',
                 placeholder: '(必填)',
-                rule: {required: true, message: '请输入检疫项目名称'}
-            },
-            {
-                name: 'expert_id',
-                type: 'select',
-                label: '指导专家',
-                placeholder: '(可选)',
-                rule: {required: false},
-                options: [],
-                optionskeys: []
+                rule: {required: true}
             },
             {
                 name: 'operate_id',
                 type: 'select',
                 label: '操作人员',
                 placeholder: '（必选）',
-                rule: {required: true, message: '请选择操作人员'},
-                options: []
+                rule: {required: true},
+                options: [],
+                optionskeys: [],
+                show: false
             },
             {
                 name: 'content',
@@ -436,7 +435,8 @@ export default {
                 label: '检疫结果',
                 placeholder: '(可选)',
                 rule: {required: false},
-                options: [['合格', '不合格']]
+                options: [['合格', '不合格']],
+                optionskeys: [[1, 0]]
             },
             {
                 name: 'check',
@@ -463,55 +463,41 @@ export default {
         }],
         editComponent: [{
             tab: '编辑检疫信息',
-            selectUrl2: [['experts', 'id', 'name', true], ['operates', 'id', 'name', true]],
-            selectInit2: [{value: '', label: '请选择指导专家'}, {value: '', label: '请选择操作人员'}],
-            popNumber2: [4, 5],
-            selectWhereArr2: [[{n: 'domain', v: 'beast'}, {n: 'domain', v: 'all', s: true}], [{n: 'domain', v: 'beast'}, {n: 'domain', v: 'all', s: true}]],
+            arrBox: {'operate_id': 'operate_name', 'result': 'result'},
+            checkBoxUrl: [['operates', 'id', 'name', 'radio']],
+            selectValue: [[{n: 'domain', v: 'beast'}, {n: 'domain', v: 'all', s: true}]],
+            checkBoxPosition: [3],
             hasImg: true,
             components: [{
-                name: 'serial',
-                type: 'text',
-                label: '检疫批次号',
-                placeholder: '',
-                disabled: true,
-                rule: {required: false}
-            },
-            {
                 name: 'date',
                 type: 'date',
                 label: '检疫日期',
                 placeholder: '(必选)',
-                rule: {required: true, message: '请输入检疫日期'}
+                rule: {required: true}
             },
             {
                 name: 'organization',
                 type: 'text',
                 label: '检疫机构',
                 placeholder: '（必填）',
-                rule: {required: true, message: '请输入检疫机构'}
+                rule: {required: true}
             },
             {
                 name: 'name',
                 type: 'text',
                 label: '检疫项目名称',
                 placeholder: '(必填)',
-                rule: {required: true, message: '请输入检疫项目名称'}
-            },
-            {
-                name: 'expert_id',
-                type: 'select',
-                label: '指导专家',
-                placeholder: '(可选)',
-                rule: {required: false},
-                options: []
+                rule: {required: true}
             },
             {
                 name: 'operate_id',
                 type: 'select',
                 label: '操作人员',
                 placeholder: '（必选）',
-                rule: {required: true, message: '请选择操作人员'},
-                options: []
+                rule: {required: true},
+                options: [],
+                optionskeys: [],
+                show: false
             },
             {
                 name: 'content',
@@ -526,7 +512,8 @@ export default {
                 label: '检疫结果',
                 placeholder: '(可选)',
                 rule: {required: false},
-                options: [['合格', '不合格']]
+                options: [['合格', '不合格']],
+                optionskeys: [[1, 0]]
             },
             {
                 name: 'check',
@@ -570,6 +557,7 @@ export default {
             tab: '新建检验检测信息',
             checkBoxUrl: [['breeds', 'id', 'serial', 'check'], ['operates', 'id', 'name', 'radio']],
             checkBoxPosition: [0, 2],
+            selectValue: [[], [{n: 'domain', v: 'beast'}, {n: 'domain', v: 'all', s: true}]],
             hasImg: true,
             hiddenValue: {type: 'beast'},
             components: [{
@@ -648,6 +636,7 @@ export default {
             tab: '编辑检验检测信息',
             arrBox: {'operate_id': 'operate_name', 'result': 'result'},
             checkBoxUrl: [['operates', 'id', 'name', 'radio']],
+            selectValue: [[{n: 'domain', v: 'beast'}, {n: 'domain', v: 'all', s: true}]],
             checkBoxPosition: [1],
             hasImg: true,
             components: [{
@@ -729,6 +718,7 @@ export default {
             tab: '新建圈舍维护信息',
             checkBoxUrl: [['areas', 'id', 'name', 'check'], ['operates', 'id', 'name', 'radio']],
             checkBoxPosition: [0, 2],
+            selectValue: [[], [{n: 'domain', v: 'beast'}, {n: 'domain', v: 'all', s: true}]],
             hasImg: true,
             components: [{
                 name: 'area_ids',
@@ -790,6 +780,7 @@ export default {
             arrBox: {'operate_id': 'operate_name'},
             checkBoxUrl: [['operates', 'id', 'name', 'radio']],
             checkBoxPosition: [1],
+            selectValue: [[], [{n: 'domain', v: 'beast'}, {n: 'domain', v: 'all', s: true}]],
             hasImg: true,
             components: [{
                 name: 'date',
@@ -851,102 +842,48 @@ export default {
         protos: ['date', 'amount', 'operate_name'],
         widths: [26, 26, 26],
         newComponent: [{
-            tab: '新建产品信息',
-            selectUrl: [['category', 'product', 'category_id', 'category_name', true]],
-            selectInit: [{value: '', label: '选择产品分类'}],
-            permissionSelectUrl: ['api/permission_domain'],
-            permissionSelectArr: [[{value: '', label: '请选择模块领域'}, {value: 'all', label: '公共模块'}, {set: 'packb', value: 'packb', label: '畜禽加工管理'}, {set: 'packp', value: 'packp', label: '果蔬加工管理'}, {set: 'sell', value: 'sell', label: '销售管理'}]],
-            permissionNumber: [1],
-            checkNumber: [2],
-            popNumber: [0],
-            hasImg: true,
+            tab: '新建病疫情信息',
+            checkBoxUrl: [['breeds', 'id', 'serial', 'radio'], ['operates', 'id', 'name', 'radio']],
+            selectValue: [[], [{n: 'domain', v: 'beast'}, {n: 'domain', v: 'all', s: true}]],
+            checkBoxPosition: [0, 3],
             components: [{
-                name: 'category_id',
+                name: 'breed_id',
                 type: 'select',
-                label: '分类',
-                placeholder: '（必填）',
-                rule: {required: true, message: '请选择分类名称'},
+                label: '养殖批次号',
+                assoc: ['rfids', 'id', 'rfid', 'check'],
+                position: 1,
+                clearArr: 'rfid_ids',
+                placeholder: '（必选）',
+                rule: {required: true},
                 options: [],
-                optionskeys: []
+                optionskeys: [],
+                show: false
             },
             {
-                name: 'domain',
+                name: 'rfid_ids',
+                type: 'pcSelect',
+                label: 'RFID',
+                placeholder: 'rfid',
+                rule: {required: true}, // 这里如果需要验证类型写方法名，否则写null
+                options: [],
+                show: false
+            },
+            {
+                name: 'date',
+                type: 'date',
+                label: '出栏日期',
+                placeholder: '（必选）',
+                rule: {required: true}
+            },
+            {
+                name: 'operate_id',
                 type: 'select',
-                label: '模块领域',
-                placeholder: '（必填）',
-                rule: {required: true, message: '请选择模块领域'},
+                label: '出栏人员',
+                placeholder: '（必选）',
+                rule: {required: true},
                 options: [],
-                optionskeys: []
-            },
-            {
-                name: 'name',
-                type: 'text',
-                label: '产品名称',
-                placeholder: '（必填）',
-                rule: {required: true, message: '请输入产品名称'}
-            },
-            {
-                name: 'enforce_standard',
-                type: 'text',
-                label: '执行标准',
-                placeholder: '（可填）',
-                rule: {required: false}
-            },
-            {
-                name: 'marque',
-                type: 'text',
-                label: '商品型号',
-                placeholder: '（可填）',
-                rule: {required: false}
-            },
-            {
-                name: 'description',
-                type: 'text',
-                label: '商品简介',
-                placeholder: '（可填）',
-                rule: {required: false}
-            },
-            {
-                name: 'specification',
-                type: 'text',
-                label: '包装规格',
-                placeholder: '（可填）',
-                rule: {required: false}
-            },
-            {
-                name: 'expiration_date',
-                type: 'text',
-                label: '保质期',
-                placeholder: '（可填）',
-                rule: {required: false}
-            },
-            {
-                name: 'edible_method',
-                type: 'text',
-                label: '食用方法',
-                placeholder: '（可填）',
-                rule: {required: false}
-            },
-            {
-                name: 'storage_means',
-                type: 'text',
-                label: '存储方法',
-                placeholder: '（可填）',
-                rule: {required: false}
-            },
-            {
-                name: 'burdening_info',
-                type: 'text',
-                label: '配料信息',
-                placeholder: '（可填）',
-                rule: {required: false}
-            },
-            {
-                name: 'img',
-                type: 'file',
-                label: '产品图片',
-                placeholder: '（可填）',
-                rule: {required: false}
+                optionskeys: [],
+                show: false
             },
             {
                 name: 'memo',
@@ -954,141 +891,38 @@ export default {
                 label: '备注信息',
                 placeholder: '（可填）',
                 rule: {required: false}
-            }
-            ]
+            }]
         }],
         editComponent: [{
-            tab: '编辑产品信息',
-            selectUrl: [['category', 'product', 'category_id', 'category_name', true]],
-            selectInit: [{value: '', label: '选择产品分类'}],
-            permissionSelectUrl: ['api/permission_domain'],
-            permissionSelectArr: [[{value: '', label: '请选择模块领域'}, {value: 'all', label: '公共模块'}, {set: 'packb', value: 'packb', label: '畜禽加工管理'}, {set: 'packp', value: 'packp', label: '果蔬加工管理'}, {set: 'sell', value: 'sell', label: '销售管理'}]],
-            permissionNumber: [1],
-            checkNumber: [2],
-            popNumber: [0],
-            hasImg: true,
-            editNumber: 1,
+            tab: '编辑出栏信息',
+            arrBox: {'operate_id': 'operate_name'},
+            checkBoxUrl: [['operates', 'id', 'name', 'radio']],
+            selectValue: [[{n: 'domain', v: 'beast'}, {n: 'domain', v: 'all', s: true}]],
+            checkBoxPosition: [1],
             components: [{
-                name: 'category_id',
+                name: 'date',
+                type: 'date',
+                label: '出栏日期',
+                placeholder: '（必选）',
+                rule: {required: true}
+            },
+            {
+                name: 'operate_id',
                 type: 'select',
-                component: null,
-                isNull: false,
-                label: '分类',
-                placeholder: '必填',
-                rule: {required: true, trigger: 'blur', type: 'number', message: '请选择分类名称'},
-                options: []
-            },
-            {
-                name: 'domain',
-                type: 'select',
-                component: null,
-                isNull: false,
-                label: '模块领域',
-                placeholder: '',
-                disabled: false,
-                rule: {required: true, message: '请选择模块领域', trigger: 'blur'},
-                options: []
-            },
-            {
-                name: 'name',
-                type: 'text',
-                component: null,
-                isNull: false,
-                label: '产品名称',
-                placeholder: '必填',
-                rule: [{required: true, trigger: 'blur', message: '请输入产品名称'}, {validator: validate2.reCheck, trigger: 'blur', message: '产品名称重复'}]
-            },
-            {
-                name: 'enforce_standard',
-                type: 'text',
-                component: null,
-                isNull: false,
-                label: '执行标准',
-                placeholder: '',
-                rule: null
-            },
-            {
-                name: 'marque',
-                type: 'text',
-                component: null,
-                isNull: true,
-                label: '商品型号',
-                placeholder: '',
-                rule: null
-            },
-            {
-                name: 'description',
-                type: 'text',
-                component: null,
-                isNull: true,
-                label: '商品简介',
-                placeholder: '',
-                rule: null
-            },
-            {
-                name: 'specification',
-                type: 'text',
-                component: null,
-                isNull: true,
-                label: '包装规格',
-                placeholder: '',
-                rule: null
-            },
-            {
-                name: 'expiration_date',
-                type: 'text',
-                component: null,
-                isNull: true,
-                label: '保质期',
-                placeholder: '',
-                rule: null
-            },
-            {
-                name: 'edible_method',
-                type: 'text',
-                component: null,
-                isNull: true,
-                label: '食用方法',
-                placeholder: '',
-                rule: null
-            },
-            {
-                name: 'storage_means',
-                type: 'text',
-                component: null,
-                isNull: true,
-                label: '存储方法',
-                placeholder: '',
-                rule: null
-            },
-            {
-                name: 'burdening_info',
-                type: 'text',
-                component: null,
-                isNull: true,
-                label: '配料信息',
-                placeholder: '',
-                rule: null
-            },
-            {
-                name: 'img',
-                type: 'file',
-                component: inputFile,
-                isNull: true,
-                label: '',
-                placeholder: '产品图片',
-                rule: null
+                label: '出栏人员',
+                placeholder: '（必选）',
+                rule: {required: true},
+                options: [],
+                optionskeys: [],
+                show: false
             },
             {
                 name: 'memo',
                 type: 'textarea',
-                component: null,
-                isNull: true,
                 label: '备注信息',
-                placeholder: '',
-                rule: ''
-            }
-            ]
+                placeholder: '（可填）',
+                rule: {required: false}
+            }]
         }]
     }],
     // 养殖管理-生长过程
@@ -1220,6 +1054,7 @@ export default {
             tab: '新建检验检测信息',
             hiddenValue: {type: 'beast'},
             checkBoxUrl: [['packs', 'id', 'serial', 'check'], ['operates', 'id', 'name', 'radio']],
+            selectValue: [[], [{n: 'domain', v: 'packb'}, {n: 'domain', v: 'all', s: true}]],
             checkBoxPosition: [0, 2],
             hasImg: true,
             components: [{
@@ -1305,6 +1140,7 @@ export default {
             tab: '编辑检验检测信息',
             arrBox: {'operate_id': 'operate_name', 'result': 'result'},
             checkBoxUrl: [['operates', 'id', 'name', 'radio']],
+            selectValue: [[{n: 'domain', v: 'packb'}, {n: 'domain', v: 'all', s: true}]],
             checkBoxPosition: [1],
             hasImg: true,
             hiddenValue: {type: 'beast'},
@@ -1589,6 +1425,7 @@ export default {
             newComponent: [{
                 tab: '新建施肥信息',
                 checkBoxUrl: [['cultivates', 'id', 'serial', 'check'], ['manures', 'id', 'name', 'radio'], ['operates', 'id', 'name', 'radio']],
+                selectValue: [[], [], [{n: 'domain', v: 'plant'}, {n: 'domain', v: 'all', s: true}]],
                 checkBoxPosition: [0, 1, 4],
                 components: [{
                     name: 'cultivate_ids',
@@ -1655,6 +1492,7 @@ export default {
                 tab: '编辑施肥信息',
                 arrBox: {'manure_id': 'manure_name', 'operate_id': 'operate_name', 'unit': 'unit'},
                 checkBoxUrl: [['manures', 'id', 'name', 'radio'], ['operates', 'id', 'name', 'radio']],
+                selectValue: [[], [{n: 'domain', v: 'plant'}, {n: 'domain', v: 'all', s: true}]],
                 checkBoxPosition: [0, 3],
                 components: [{
                     name: 'manure_id',
@@ -1726,6 +1564,7 @@ export default {
             newComponent: [{
                 tab: '新建药信息',
                 checkBoxUrl: [['cultivates', 'id', 'serial', 'check'], ['medicaments', 'id', 'name', 'radio'], ['operates', 'id', 'name', 'radio']],
+                selectValue: [[], [], [{n: 'domain', v: 'plant'}, {n: 'domain', v: 'all', s: true}]],
                 checkBoxPosition: [0, 1, 4],
                 components: [{
                     name: 'cultivate_ids',
@@ -1806,6 +1645,7 @@ export default {
                 tab: '编辑施药信息',
                 arrBox: {'medicament_id': 'medicament_name', 'operate_id': 'operate_name', 'unit': 'unit'},
                 checkBoxUrl: [['medicaments', 'id', 'name', 'radio'], ['operates', 'id', 'name', 'radio']],
+                selectValue: [[], [{n: 'domain', v: 'plant'}, {n: 'domain', v: 'all', s: true}]],
                 checkBoxPosition: [0, 3],
                 components: [{
                     name: 'medicament_id',
@@ -1893,6 +1733,7 @@ export default {
             newComponent: [{
                 tab: '新建检验检测信息',
                 checkBoxUrl: [['cultivates', 'id', 'serial', 'check'], ['operates', 'id', 'name', 'radio']],
+                selectValue: [[], [{n: 'domain', v: 'plant'}, {n: 'domain', v: 'all', s: true}]],
                 checkBoxPosition: [0, 2],
                 hasImg: true,
                 hiddenValue: {type: 'plant'},
@@ -1975,6 +1816,7 @@ export default {
                 tab: '编辑检验检测信息',
                 arrBox: {'operate_id': 'operate_name', 'name': 'name', 'result': 'result'},
                 checkBoxUrl: [['operates', 'id', 'name', 'radio']],
+                selectValue: [[{n: 'domain', v: 'plant'}, {n: 'domain', v: 'all', s: true}]],
                 checkBoxPosition: [1],
                 hasImg: true,
                 components: [{
@@ -2060,6 +1902,7 @@ export default {
             newComponent: [{
                 tab: '新建农事信息',
                 checkBoxUrl: [['cultivates', 'id', 'serial', 'check'], ['operates', 'id', 'name', 'radio']],
+                selectValue: [[], [{n: 'domain', v: 'plant'}, {n: 'domain', v: 'all', s: true}]],
                 checkBoxPosition: [0, 2],
                 components: [{
                     name: 'cultivate_ids',
@@ -2113,6 +1956,7 @@ export default {
                 tab: '编辑施肥信息',
                 arrBox: {'operate_id': 'operate_name'},
                 checkBoxUrl: [['operates', 'id', 'name', 'radio']],
+                selectValue: [[{n: 'domain', v: 'plant'}, {n: 'domain', v: 'all', s: true}]],
                 checkBoxPosition: [1],
                 components: [{
                     name: 'date',
@@ -2169,6 +2013,7 @@ export default {
             newComponent: [{
                 tab: '新建采收信息',
                 checkBoxUrl: [['cultivates', 'id', 'serial', 'radio'], ['operates', 'id', 'name', 'radio']],
+                selectValue: [[], [{n: 'domain', v: 'plant'}, {n: 'domain', v: 'all', s: true}]],
                 checkBoxPosition: [1, 3],
                 components: [{
                     name: 'date',
@@ -2704,6 +2549,7 @@ export default {
             tab: '新建检验检测信息',
             hiddenValue: {type: 'plant'},
             checkBoxUrl: [['packs', 'id', 'serial', 'check'], ['operates', 'id', 'name', 'radio']],
+            selectValue: [[], [{n: 'domain', v: 'packp'}, {n: 'domain', v: 'all', s: true}]],
             checkBoxPosition: [0, 2],
             hasImg: true,
             components: [{
@@ -2789,6 +2635,7 @@ export default {
             tab: '编辑检验检测信息',
             arrBox: {'operate_id': 'operate_name', 'result': 'result'},
             checkBoxUrl: [['operates', 'id', 'name', 'radio']],
+            selectValue: [[{n: 'domain', v: 'packp'}, {n: 'domain', v: 'all', s: true}]],
             checkBoxPosition: [1],
             hasImg: true,
             hiddenValue: {type: 'plant'},
@@ -3033,12 +2880,9 @@ export default {
         widths: [26, 26, 26],
         newComponent: [{
             tab: '新建物流批次信息',
-            divHidden: true,
-            selectUrl2: [['operates', 'id', 'name', true], ['vehicles', 'id', 'number', true], ['drivers', 'id', 'name', true], ['logistics', 'id', 'name', true]],
-            selectInit2: [{value: '', label: '操作人员选择'}, {value: '', label: '请选择车辆'}, {value: '', label: '请选择司机'}, {value: '', label: '请选择物流公司'}],
-            popNumber2: [8, 3, 4, 5],
-            selectWhereArr2: [[{n: 'domain', v: 'delivery'}, {n: 'domain', v: 'all', s: true}]],
-            type: 'selectAssoc',
+            checkBoxUrl: [['operates', 'id', 'name', 'radio'], ['vehicles', 'id', 'number', 'radio'], ['drivers', 'id', 'name', 'radio'], ['logistics', 'id', 'name', 'radio']],
+            selectValue: [[{n: 'domain', v: 'delivery'}, {n: 'domain', v: 'all', s: true}], [], [], []],
+            checkBoxPosition: [2, 4, 5, 6],
             components: [{
                 name: 'datetime',
                 type: 'date',
@@ -3054,14 +2898,25 @@ export default {
                 rule: {required: true}
             },
             {
+                name: 'operate_id',
+                type: 'select',
+                label: '操作人员',
+                placeholder: '（必选）',
+                rule: {required: true},
+                options: [],
+                optionskeys: []
+            },
+            {
                 name: 'transportable_type',
                 type: 'select',
                 label: '运输方式',
                 placeholder: '（必填）',
-                selectNumber: {self: [3, 4], consign: [5, 6], selve: [7]},
+                positionArr: {4: 'vehicle_id', 5: 'driver_id', 6: 'logistic_id', 7: 'number', 8: 'selve_name'},
+                typeArr: {4: 'select', 5: 'select', 6: 'select', 7: 'text', 8: 'text'},
+                selectNumber: {self: [4, 5], consign: [6, 7], selve: [8]},
                 rule: {required: true},
-                options: [['请选择运输方式', '自运', '托运', '自提']],
-                optionskeys: [['', 'self', 'consign', 'selve']]
+                options: [['自运', '托运', '自提']],
+                optionskeys: [['self', 'consign', 'selve']]
             },
             {
                 name: 'vehicle_id',
@@ -3069,9 +2924,10 @@ export default {
                 hiddenSelect: true,
                 label: '车牌号',
                 placeholder: '（必选）',
-                rule: {required: true, type: 'number'},
+                rule: {required: true},
                 options: [],
-                optionskeys: []
+                optionskeys: [],
+                show: false
             },
             {
                 name: 'driver_id',
@@ -3081,7 +2937,8 @@ export default {
                 placeholder: '（必选）',
                 rule: {required: true},
                 options: [],
-                optionskeys: []
+                optionskeys: [],
+                show: false
             },
             {
                 name: 'logistic_id',
@@ -3091,7 +2948,8 @@ export default {
                 placeholder: '（必选）',
                 rule: {required: true},
                 options: [],
-                optionskeys: []
+                optionskeys: [],
+                show: false
             },
             {
                 name: 'number',
@@ -3108,15 +2966,6 @@ export default {
                 label: '提货人',
                 placeholder: '（必填）',
                 rule: {required: true}
-            },
-            {
-                name: 'operate_id',
-                type: 'select',
-                label: '操作人员',
-                placeholder: '（必选）',
-                rule: {required: true},
-                options: [],
-                optionskeys: []
             },
             {
                 name: 'memo',

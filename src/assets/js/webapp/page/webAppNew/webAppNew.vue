@@ -10,7 +10,7 @@
         <x-header :left-options="{backText: ''}">{{settitle}}</x-header>
         <div class="ppN_content">
             <group label-width="4.5em" label-margin-right="2em" label-align="right">
-                <div class="formItem" v-for="comItem in typeComponent.components" v-if="comItem.type !== 'file'">
+                <div class="formItem" v-for="comItem in typeComponent.components" v-if="comItem.type !== 'file' && !comItem.hiddenSelect">
                     <x-input 
                         v-if="comItem.type ==='text'"
                         :inputName="comItem.name"
@@ -90,7 +90,6 @@
                     </div>
 
                     <div v-if="comItem.type === 'pcSelect'">
-                        <!-- <x-switch title="set max-height=50%" v-model="show13"></x-switch> -->
                         <div class="pcDiv">
                             <div class="vux-cell-box" @click='comItem.show = !comItem.show'>
                                 <div :class="{ inputErrors: ruleTableForm[comItem.name].bol}">
@@ -307,6 +306,10 @@ export default {
                             _this.getCheckVal(item.assoc, item.position, item.name, item.optionskeys[0][obj.index], item.clearArr)
                         }
                     }
+                    // 物流查询分类模块,并展示模块
+                    if (item.selectNumber !== undefined) {
+                        _this.showModel(item.selectNumber, item.name, item.optionskeys[0][obj.index], item.positionArr, item.typeArr)
+                    }
                 }
             })
             this.validateFn(obj)
@@ -322,7 +325,7 @@ export default {
                 }
             })
         },
-        // 获取关联查询(关联字段查询assoc，所处位置position, 查询条件, 查询条件id)
+        // 获取关联查询(关联字段查询assoc，所处位置position, 查询条件, 查询条件id, 清空条件clearArr)
         getCheckVal (assoc, position, whereName, id, clearArr) {
             this.tableForm[clearArr] = []
             let dataArr = this.$addAndEditSelectMethod(assoc)
@@ -338,6 +341,30 @@ export default {
                         }
                     }
                 })
+        },
+        // 获取关联模块(模块对象所在位置selectNumber，模块索引名称name, 模块索引值key, 位置数组positionArr, 表单类型type)
+        showModel (selectNumber, name, key, positionArr, typeArr) {
+            for (let index in selectNumber) {
+                if (index === key) {
+                    for (let i in positionArr) {
+                        if (selectNumber[index].indexOf(parseInt(i)) !== -1) {
+                            if (typeArr[i] === 'text') {
+                                this.tableForm[positionArr[i]] = ''
+                            } else {
+                                this.tableForm[positionArr[i]] = []
+                            }
+                            this.typeComponent.components[i].hiddenSelect = false
+                        } else {
+                            if (typeArr[i] === 'text') {
+                                this.tableForm[positionArr[i]] = 'a'
+                            } else {
+                                this.tableForm[positionArr[i]] = ['a']
+                            }
+                            this.typeComponent.components[i].hiddenSelect = true
+                        }
+                    }
+                }
+            }
         },
         /*
         x-input组件的方法
@@ -425,6 +452,11 @@ export default {
                 for (let key in com.checkBoxUrl) {
                     let dataArr = this.$addAndEditSelectMethod(com.checkBoxUrl[key])
                     let data = {table: dataArr.selectUrl}
+                    // 多条件查询
+                    if (com.selectValue[key] !== undefined || com.selectValue[key] !== '') {
+                        let arr = this.selectCheckSearch(com.selectValue[key])
+                        data.where = arr
+                    }
                     this.$dataGet(this, '/util/selects', data)
                         .then((responce) => {
                             if (responce.data !== '') {
@@ -484,6 +516,19 @@ export default {
             if (this.typeComponent.hasImg) {
                 this.hasImg = true
             }
+        },
+        // 多条件查询
+        selectCheckSearch (data) {
+            var arr = []
+            for (let k in data) {
+                arr[k] = [data[k].n, data[k].v]
+                if (data[k].s !== undefined) {
+                    if (data[k].s) {
+                        arr[k].push(true)
+                    }
+                }
+            }
+            return arr
         }
     },
     created () {
