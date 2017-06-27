@@ -46,12 +46,14 @@ export default {
         Icon
     },
     props: {
-        name: ''
+        name: '',
+        editValue: ''
     },
     data () {
         return {
             imageUrl: '',
             file: {},
+            flag: false,
             pattern: {
                 type: Array,
                 default () {
@@ -94,7 +96,17 @@ export default {
             reader.readAsDataURL(file)
             reader.onload = e => {
                 this.imageUrl = e.target.result
+                this.flag = true
                 this.$emit('return-shuju', {name: this.name, value: file})
+            }
+        }
+    },
+    watch: {
+        editValue () {
+            if (this.editValue !== undefined && this.editValue !== '' && this.editValue !== null) {
+                if (!this.flag) {
+                    this.imageUrl = this.editValue
+                }
             }
         }
     }

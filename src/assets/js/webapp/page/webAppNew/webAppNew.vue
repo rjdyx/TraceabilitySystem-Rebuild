@@ -19,6 +19,7 @@
                         v-model="tableForm[comItem.name]"
                         @on-change="inputOnChange"
                         @on-blur="onBlur"
+                        :disabled="comItem.disabled"
                         :class="{ inputErrors: ruleTableForm[comItem.name].bol}"
                         >
                     </x-input>
@@ -98,7 +99,7 @@
                                         </div>
                                         <div class="vux-cell-primary vux-popup-picker-select-box">
                                             <div class="vux-popup-picker-select" style="text-align: left;"><!----><!----><!---->
-                                                <span class="vux-popup-picker-placeholder">{{tableForm[comItem.name].length ? '已选择' : '请选择批次号'}}</span>
+                                                <span class="vux-popup-picker-placeholder">{{tableForm[comItem.name].length ? "已选择"+comItem.placeholder : "请选择"+comItem.placeholder}}</span>
                                             </div>
                                         </div>
                                         <div class="weui-cell__ft"></div>
@@ -137,6 +138,7 @@
                 v-if="comItem.type === 'file'" 
                 @return-shuju="returnShuju"
                 :name="comItem.name"
+                :editValue="tableForm[comItem.name]"
                 :class="{ cameraErrors: ruleTableForm[comItem.name].bol}"
             ></camera>
             <flexbox>
@@ -307,7 +309,9 @@ export default {
             var _this = this
             this.typeComponent.components.forEach(function (item) {
                 if (item.name === 'amount') {
-                    _this.selectHideId['unit'] = item.optionskeys[0][0]
+                    if (_this.url !== 'harvest') {
+                        _this.selectHideId['unit'] = item.optionskeys[0][0]
+                    }
                 }
             })
         },
@@ -376,11 +380,10 @@ export default {
                 allValBol = allValBol && fnBol
             }
             if (allValBol) {
-                // let beforeS = this.$conversion(this.changeDataArr, this.selectHideId, 0)
                 let submitVal = this.$changeSubmit(this.tableForm, this.selectHideId)
-                console.log(submitVal)
+                let beforeS = this.$changeMutual(submitVal, this.changeDataArr, 1)
                 var _this = this
-                this.$dataPost(this, this.submitUrl, submitVal, this.hasImg, this.typeComponent.hiddenValue, this.isEdit).then((response) => {
+                this.$dataPost(this, this.submitUrl, beforeS, this.hasImg, this.typeComponent.hiddenValue, this.isEdit).then((response) => {
                     if (response.data !== 'false') {
                         _this.setToast('success', _this.successMsg, '12em')
                     } else {
@@ -425,7 +428,7 @@ export default {
             this.$dataWapGet(this, this.url + '/' + this.editId + '/edit', {})
                 .then((responce) => {
                     if (this.typeComponent.arrBox) {
-                        let beforeVal = this.$conversion(this.changeDataArr, responce.data, 0)
+                        let beforeVal = this.$changeMutual(responce.data, this.changeDataArr, 0)
                         let initVal = this.$changeArrBox(beforeVal, this.typeComponent.arrBox)
                         this.tableForm = initVal[0]
                         this.selectHideId = initVal[1]

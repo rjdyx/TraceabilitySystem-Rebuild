@@ -21,8 +21,8 @@
             </tab>
         </div>
 
-    <div class="appmain">
-        <div class="applist" :class="{'has':ishas,'hasno':!ishas}">
+    <div class="appmain" v-model="index">
+        <div class="applist" :class="{'has':ishas,'hasno':!ishas}" :key="index">
                 
             <!-- 操作 -->
             <div class="appOperate">
@@ -106,7 +106,6 @@
 <script>
 import { XTable, Datetime, Group, Tab, TabItem, Swipeout, SwipeoutItem, LoadMore, Toast, Confirm, SwipeoutButton, Swiper, SwiperItem, Popover } from 'vux'
 import {mapActions, mapMutations} from 'vuex'
-// import appTab from '../../public/tab.vue'
 import appmenu from '../index/appmenu.js'
 import appHeader from '../../public/header.vue'
 import siderBar from '../../public/siderBar.vue'
@@ -150,7 +149,7 @@ export default {
             // 搜索框内容
             inputValue: '',
             // tab模块选择标志
-            modelIndex: 0,
+            modelIndex: localStorage.getItem('trends') !== null ? localStorage.getItem('trends') : 0,
             // 列表数据
             tableData: [],
             listLoading: false,
@@ -220,6 +219,7 @@ export default {
             this.modelIndex = subindex
             localStorage.setItem('appTab', modelName)
             localStorage.setItem('trends', this.modelIndex)
+            let nametxt = localStorage.getItem('appTab', modelName)
             localStorage.setItem('catname', modelName)
         },
         // 侧边栏的显示与隐藏
@@ -353,6 +353,7 @@ export default {
     watch: {
         models () {
             this.modelIndex = 0
+            localStorage.setItem('trends', this.modelIndex)
             this.changeUrl()
             this.tabSelected = '施肥信息'
         },
