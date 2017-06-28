@@ -1,3 +1,7 @@
+/*
+*下拉加载组件方法
+*模块切换标题方法
+*/
 export default {
     data () {
         return {

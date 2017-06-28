@@ -219,8 +219,6 @@ export default {
             this.modelIndex = subindex
             localStorage.setItem('appTab', modelName)
             localStorage.setItem('trends', this.modelIndex)
-            let nametxt = localStorage.getItem('appTab', modelName)
-            localStorage.setItem('catname', modelName)
         },
         // 侧边栏的显示与隐藏
         showsider () {
@@ -229,6 +227,7 @@ export default {
         hidesider () {
             this.show = false
         },
+        // 点击进入详情页
         showDetail (id) {
             if (this.unite === 'plantTo') {
                 this.$router.push('/appIndex/appdetailbasic/' + this.batch + '/plantTo' + id)
@@ -236,6 +235,7 @@ export default {
                 this.$router.push('/appIndex/appdetailbasic/' + this.batch + '/' + id)
             }
         },
+        // 关闭新建和时间组件
         closeOperate () {
             if (this.ishas === true) {
                 $('.applist').animate({top: '-125px'})
@@ -370,9 +370,11 @@ export default {
                 this.checkAll = false
             }
         },
+        // 全选
         checkAll (check) {
             this.checkAll = check
         },
+        // 检测路由变化
         $route () {
             if (this.$route.path.indexOf('plantTrace') !== -1) {
                 this.ishas = false
