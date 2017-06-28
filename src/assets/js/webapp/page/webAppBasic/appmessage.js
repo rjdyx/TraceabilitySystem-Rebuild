@@ -1230,98 +1230,67 @@ export default {
         widths: [26, 26, 26],
         newComponent: [{
             tab: '新建溯源码信息',
-            hiddenValue: {type: 'beast'},
-            selectAvl2: ['beast', ''],
-            selectUrl2: [['packs', 'id', 'serial', true], ['comes', 'id', 'serial', true], ['storages', 'id', 'serial', true], ['storages', 'id', 'serial', true]],
-            selectInit2: [{value: '', label: '加工批次号选择'}, {value: '', label: '出栏批次号选择'}, {value: '', label: '请选择入库批次(平台)'}, {value: '', label: '请选择入库批次(非平台)'}],
-            selectWhereArr2: [[{n: 'type', v: 'beast'}], [], [{n: 'type', v: 0}, {n: 'category', v: 'plant'}], [{n: 'type', v: 1}, {n: 'category', v: 'plant'}]],
-            permissionSelectUrl: ['api/permission_domain'],
-            permissionSelectArr: [[{label: '请选择商品来源', value: ''}, {set: 'beast', label: '养殖出栏', value: 'come'}, {set: 'sell', label: '入库(平台)', value: 'st'}, {set: 'sell', label: '入库(非平台)', value: 'sf'}]],
-            permissionNumber: [2],
-            popNumber2: [0, 3, 4, 5],
-            // labUrl: 'come-rfid',
-            curl: 'pack-product-rfid',
-            opqcurl: '{x}/pack-product',
-            type: 'assoc',
-            assocNum: 1,
-            productNum: 1,
+            hiddenValue: {category: 'come', type: 'beast'},
+            checkBoxUrl: [['packs', 'id', 'serial', 'radio'], ['comes', 'id', 'serial', 'radio']],
+            selectValue: [[{n: 'type', v: 'beast'}], []],
+            checkBoxPosition: [0, 2],
             components: [{
                 name: 'pack_id',
-                type: 'pcSelect',
-                assoc: ['pack-product', 'id', 'product_name', 1, {value: '', label: '产品选择'}],
+                type: 'select',
+                assoc: ['pack_products', 'id', 'name', 'radio'],
+                position: 1,
+                clearArr: 'pack_product_id',
                 label: '加工批次号',
-                placeholder: '（必填）',
-                disabled: true,
-                rule: {required: true, message: '请选择加工批次号'},
+                placeholder: '（必选）',
+                rule: {required: true},
                 options: [],
+                optionskeys: [],
                 show: false
             },
             {
                 name: 'pack_product_id',
                 type: 'select',
                 label: '加工产品',
-                placeholder: '（必填）',
-                disabled: true,
-                rule: {required: true, message: '请选择加工产品'},
-                options: [],
-                optionskeys: []
-            },
-            {
-                name: 'category',
-                type: 'select',
-                label: '加工商品来源',
-                placeholder: '（必填）',
-                selectNumber: {come: [3, 9], st: [4, 10], sf: [5]},
+                placeholder: '（必选）',
                 rule: {required: true},
                 options: [],
-                optionskeys: []
+                optionskeys: [],
+                show: false
             },
             {
                 name: 'come_id',
-                type: 'pcSelect',
+                type: 'select',
+                assoc: ['come_rfids', 'id', 'rfid', 'check'],
+                position: 3,
+                clearArr: 'rfid_ids',
                 label: '出栏批次号',
-                hiddenSelect: true,
-                assocNum: 9,
-                placeholder: '（必填）',
-                disabled: true,
-                rule: {required: true, message: '请选择出栏批次号'},
-                options: [],
-                show: false
-            },
-            {
-                name: 'st_id',
-                type: 'pcSelect',
-                hiddenSelect: true,
-                changeTable: true,
-                label: '入库批次',
-                assocNum: 10,
-                placeholder: '（必填）',
+                placeholder: '（必选）',
                 rule: {required: true},
                 options: [],
+                optionskeys: [],
                 show: false
             },
             {
-                name: 'sf_id',
-                type: 'select',
-                hiddenSelect: true,
-                label: '入库批次',
-                placeholder: '（必填）',
-                rule: {required: true, trigger: 'blur'},
+                name: 'rfid_ids',
+                type: 'pcSelect',
+                label: 'RFID',
+                placeholder: 'rfid',
+                rule: {required: true}, // 这里如果需要验证类型写方法名，否则写null
                 options: [],
-                optionskeys: []
+                show: false
             },
             {
                 name: 'date',
                 type: 'date',
                 label: '生产日期',
-                placeholder: '（必填）',
-                rule: {required: true, message: '请输入生产日期'}
+                placeholder: '（必选）',
+                rule: {required: true}
             },
             {
                 name: 'amount',
                 type: 'text',
                 label: '生成数量',
-                placeholder: '请填写数量（整数必填）',
+                placeholder: '请填写数量（必填）',
                 rule: {required: true, type: 'reInteger'}
             },
             {
@@ -1330,31 +1299,7 @@ export default {
                 label: '备注信息',
                 placeholder: '（可填）',
                 rule: {required: false}
-            }
-            // ,
-            // {
-            //     name: 'name',
-            //     type: 'table',
-            //     hiddenSelect: true,
-            //     tableUrl: ['come-rfid', true],
-            //     theads: ['出栏批次', 'Rfid', '养殖畜禽', '养殖日期'],
-            //     protos: ['come_serial', 'rfid', 'beast_name', 'date'],
-            //     valueId: 'rfid_ids',
-            //     errormsg: '请选择rfid',
-            //     tableVal: []
-            // },
-            // {
-            //     name: 'code_ids',
-            //     type: 'table',
-            //     hiddenSelect: true,
-            //     tableUrl: ['storage_code', false],
-            //     theads: ['溯源码', '生产日期', '溯源次数'],
-            //     protos: ['code', 'date', 'time'],
-            //     valueId: 'code_ids',
-            //     errormsg: '请选择溯源码',
-            //     tableVal: []
-            // }
-            ]
+            }]
         }],
         editComponent: [{
             tab: '编辑溯源码信息',
@@ -1383,19 +1328,11 @@ export default {
                 rule: {required: true}
             },
             {
-                name: 'rfid',
-                type: 'text',
-                label: 'Rfid',
-                placeholder: '',
-                disabled: true,
-                rule: {required: true}
-            },
-            {
                 name: 'date',
                 type: 'date',
                 label: '生产日期',
                 placeholder: '（必选）',
-                rule: {required: true, message: '请输入生产日期'}
+                rule: {required: true}
             },
             {
                 name: 'memo',
@@ -2725,79 +2662,42 @@ export default {
         widths: [26, 26, 26],
         newComponent: [{
             tab: '新建溯源码信息',
-            hiddenValue: {type: 'plant'},
-            selectUrl2: [['packs', 'id', 'serial', true], ['harvests', 'id', 'serial', true], ['storages', 'id', 'serial', true], ['storages', 'id', 'serial', true]],
-            selectInit2: [{value: '', label: '加工批次号选择'}, {value: '', label: '采收批次号选择'}, {value: '', label: '请选择入库批次(平台)'}, {value: '', label: '请选择入库批次(非平台)'}],
-            selectWhereArr2: [[{n: 'type', v: 'plant'}], [], [{n: 'type', v: 0}, {n: 'category', v: 'plant'}], [{n: 'type', v: 1}, {n: 'category', v: 'plant'}]],
-            permissionSelectUrl: ['api/permission_domain'],
-            permissionSelectArr: [[{label: '请选择商品来源', value: ''}, {set: 'plant', label: '种植采收', value: 'harvest'}, {set: 'sell', label: '入库(平台)', value: 'st'}, {set: 'sell', label: '入库(非平台)', value: 'sf'}]],
-            permissionNumber: [2],
-            popNumber2: [0, 3, 4, 5],
-            curl: 'pack-product-rfid',
-            opqcurl: '{x}/pack-product',
-            type: 'assoc',
-            assocNum: 1,
+            hiddenValue: {category: 'harvest', type: 'plant'},
+            checkBoxUrl: [['packs', 'id', 'serial', 'radio'], ['harvests', 'id', 'serial', 'radio']],
+            selectValue: [[{n: 'type', v: 'plant'}], []],
+            checkBoxPosition: [0, 2],
             components: [{
                 name: 'pack_id',
-                type: 'pcSelect',
-                assoc: ['pack-product', 'id', 'product_name', 1, {value: '', label: '产品选择'}],
+                type: 'select',
+                assoc: ['pack_products', 'id', 'name', 'radio'],
+                position: 1,
+                clearArr: 'pack_product_id',
                 label: '加工批次号',
                 placeholder: '（必选）',
-                disabled: true,
                 rule: {required: true},
-                options: []
+                options: [],
+                optionskeys: [],
+                show: false
             },
             {
                 name: 'pack_product_id',
                 type: 'select',
                 label: '加工产品',
                 placeholder: '（必选）',
-                disabled: true,
-                rule: {required: true},
-                options: []
-            },
-            {
-                name: 'category',
-                type: 'select',
-                label: '加工商品来源',
-                placeholder: '（必选）',
-                selectNumber: {harvest: [3], st: [4, 9], sf: [5]},
                 rule: {required: true},
                 options: [],
-                optionskeys: []
+                optionskeys: [],
+                show: false
             },
             {
                 name: 'harvest_id',
                 type: 'select',
                 label: '采收批次号',
-                hiddenSelect: true,
-                placeholder: '（必选）',
-                disabled: true,
-                rule: {required: true},
-                options: [],
-                optionskeys: []
-            },
-            {
-                name: 'st_id',
-                type: 'select',
-                hiddenSelect: true,
-                changeTable: true,
-                label: '入库批次',
-                assocNum: 9,
                 placeholder: '（必选）',
                 rule: {required: true},
                 options: [],
-                optionskeys: []
-            },
-            {
-                name: 'sf_id',
-                type: 'select',
-                hiddenSelect: true,
-                label: '入库批次',
-                placeholder: '（必选）',
-                rule: {required: true, trigger: 'blur', type: 'number'},
-                options: [],
-                optionskeys: []
+                optionskeys: [],
+                show: false
             },
             {
                 name: 'date',
@@ -2819,17 +2719,6 @@ export default {
                 label: '备注信息',
                 placeholder: '（可填）',
                 rule: {required: false}
-            },
-            {
-                name: 'code_ids',
-                type: 'table',
-                tableUrl: ['storage_code', false],
-                hiddenSelect: true,
-                theads: ['溯源码', '生产日期', '溯源次数'],
-                protos: ['code', 'date', 'time'],
-                valueId: 'code_ids',
-                errormsg: '请选择溯源码',
-                tableVal: []
             }]
         }],
         editComponent: [{
@@ -2846,6 +2735,14 @@ export default {
                 name: 'code',
                 type: 'text',
                 label: '产品溯源码',
+                placeholder: '',
+                disabled: true,
+                rule: {required: true}
+            },
+            {
+                name: 'product_name',
+                type: 'text',
+                label: '加工产品',
                 placeholder: '',
                 disabled: true,
                 rule: {required: true}
@@ -2874,6 +2771,7 @@ export default {
         timeshow: true,
         tab: '物流信息信息',
         url: 'delivery',
+        changeDataArr: [{transportable_type: {self: '自运', consign: '托运', selve: '自提'}}],
         searchPlaceholder: '请输入物流批次号进行搜索',
         theads: ['物流批次号', '货物名称', '物流日期'],
         protos: ['serial', 'name', 'datetime'],
@@ -2977,19 +2875,13 @@ export default {
         }],
         editComponent: [{
             tab: '编辑物流批次信息',
-            selectUrl2: [['operates', 'id', 'name', true]],
-            selectInit2: [{value: '', label: '操作人员选择'}],
-            selectWhereArr2: [[{n: 'domain', v: 'delivery'}, {n: 'domain', v: 'all', s: true}]],
-            popNumber2: [9],
+            arrBox: {'operate_id': 'operate_name'},
+            checkBoxUrl: [['operates', 'id', 'name', 'radio']],
+            selectValue: [[{n: 'domain', v: 'delivery'}, {n: 'domain', v: 'all', s: true}]],
+            checkBoxPosition: [2],
+            // 编辑回转触发状态
+            editState: {3: 'transportable_type'},
             components: [{
-                name: 'serial',
-                type: 'text',
-                label: '物流批次号',
-                placeholder: '必填',
-                disabled: true,
-                rule: {required: true}
-            },
-            {
                 name: 'datetime',
                 type: 'date',
                 label: '物流日期',
@@ -3004,50 +2896,56 @@ export default {
                 rule: {required: true}
             },
             {
-                name: 'transportable_type',
+                name: 'operate_id',
                 type: 'select',
-                label: '运输方式',
-                placeholder: '（必填）',
-                selectNumber: {self: [3, 4], consign: [5, 6], selve: [7]},
+                label: '操作人员',
+                placeholder: '（必选）',
                 rule: {required: true},
-                options: [['请选择运输方式', '自运', '托运', '自提']],
-                optionskeys: [['', 'self', 'consign', 'selve']]
+                options: [],
+                optionskeys: []
             },
             {
-                name: 'vehicle_id',
-                type: 'select',
+                name: 'transportable_type',
+                type: 'text',
+                label: '运输方式',
+                disabled: true,
+                positionArr: [4, 5, 6, 7, 8],
+                selectNumber: {self: [4, 5], consign: [6, 7], selve: [8]},
+                rule: {required: true}
+            },
+            {
+                name: 'vehicle_name',
+                type: 'text',
                 hiddenSelect: true,
                 label: '车牌号',
+                disabled: true,
                 placeholder: '（必选）',
-                rule: {required: true, type: 'number'},
-                options: [],
-                optionskeys: []
+                rule: {required: true}
             },
             {
-                name: 'driver_id',
+                name: 'driver_name',
                 hiddenSelect: true,
-                type: 'select',
+                type: 'text',
                 label: '司机',
+                disabled: true,
                 placeholder: '（必选）',
-                rule: {required: true},
-                options: [],
-                optionskeys: []
+                rule: {required: true}
             },
             {
-                name: 'logistic_id',
-                type: 'select',
+                name: 'logistic_name',
+                type: 'text',
                 hiddenSelect: true,
                 label: '物流公司',
+                disabled: true,
                 placeholder: '（必选）',
-                rule: {required: true},
-                options: [],
-                optionskeys: []
+                rule: {required: true}
             },
             {
                 name: 'number',
                 hiddenSelect: true,
                 type: 'text',
                 label: '物流订单号',
+                disabled: true,
                 placeholder: '（必填）',
                 rule: {required: true}
             },
@@ -3056,17 +2954,9 @@ export default {
                 hiddenSelect: true,
                 type: 'text',
                 label: '提货人',
+                disabled: true,
                 placeholder: '（必填）',
                 rule: {required: true}
-            },
-            {
-                name: 'operate_id',
-                type: 'select',
-                label: '操作人员',
-                placeholder: '（必选）',
-                rule: {required: true},
-                options: [],
-                optionskeys: []
             },
             {
                 name: 'memo',
@@ -3090,11 +2980,9 @@ export default {
         widths: [26, 26, 26],
         newComponent: [{
             tab: '新建订单信息',
-            hiddenValue: {type: 1},
-            selectUrl2: [['deliveries', 'id', 'serial', true], ['clients', 'id', 'name', true], ['operates', 'id', 'name', true]],
-            selectInit2: [{value: '', label: '请选择物流批次号'}, {value: '', label: '请选择销售客户'}, {value: '', label: '请选择销售人员'}],
-            popNumber2: [1, 2, 3],
-            selectWhereArr2: [[], [], [{n: 'domain', v: 'sell'}, {n: 'domain', v: 'all', s: true}]],
+            checkBoxUrl: [['deliveries', 'id', 'serial', 'radio'], ['clients', 'id', 'name', 'radio'], ['operates', 'id', 'name', 'radio']],
+            selectValue: [[], [], [{n: 'domain', v: 'sell'}, {n: 'domain', v: 'all', s: true}]],
+            checkBoxPosition: [1, 2, 3],
             components: [{
                 name: 'datetime',
                 type: 'date',
@@ -3108,7 +2996,7 @@ export default {
                 type: 'select',
                 label: '物流订单',
                 placeholder: '（必选）',
-                rule: {required: true, type: 'number'},
+                rule: {required: true},
                 options: [],
                 optionskeys: []
             },
@@ -3147,22 +3035,12 @@ export default {
         }],
         editComponent: [{
             tab: '编辑订单信息',
-            hiddenValue: {type: 1},
-            selectUrl2: [['deliveries', 'id', 'serial', true], ['clients', 'id', 'name', true], ['operates', 'id', 'name', true]],
-            selectInit2: [{value: '', label: '请选择物流批次号'}, {value: '', label: '请选择销售客户'}, {value: '', label: '请选择销售人员'}],
-            popNumber2: [2, 3, 4],
-            selectWhereArr2: [[], [], [{n: 'domain', v: 'sell'}, {n: 'domain', v: 'all', s: true}]],
+            // hiddenValue: {type: 1},
+            arrBox: {'delivery_id': 'delivery_serial', 'client_id': 'client_name', 'operate_id': 'operate_name'},
+            checkBoxUrl: [['deliveries', 'id', 'serial', 'radio'], ['clients', 'id', 'name', 'radio'], ['operates', 'id', 'name', 'radio']],
+            selectValue: [[], [], [{n: 'domain', v: 'sell'}, {n: 'domain', v: 'all', s: true}]],
+            checkBoxPosition: [1, 2, 3],
             components: [{
-                name: 'serial',
-                type: 'text',
-                component: null,
-                isNull: false,
-                label: '销售批次号',
-                placeholder: '',
-                disabled: true,
-                rule: {required: true}
-            },
-            {
                 name: 'datetime',
                 type: 'date',
                 label: '订单日期时间',
@@ -3175,7 +3053,7 @@ export default {
                 type: 'select',
                 label: '物流订单',
                 placeholder: '（必选）',
-                rule: {required: true, type: 'number'},
+                rule: {required: true},
                 options: [],
                 optionskeys: []
             },

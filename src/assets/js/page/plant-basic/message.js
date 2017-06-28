@@ -9286,6 +9286,16 @@ export default {
                 rule: {required: true}
             },
             {
+                name: 'product_name',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '加工产品',
+                placeholder: '',
+                disabled: true,
+                rule: {required: true}
+            },
+            {
                 name: 'date',
                 type: 'date',
                 component: inputDate,

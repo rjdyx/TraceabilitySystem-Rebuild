@@ -292,26 +292,28 @@ export default {
         onHide (obj) {
             // (name, rule, value)
             var _this = this
-            this.typeComponent.components.forEach(function (item) {
-                if (item.name === obj.name) {
-                    if (item.name !== 'amount') {
-                        _this.selectHideId[item.name] = item.optionskeys[0][obj.index]
-                    } else {
-                        _this.selectHideId['unit'] = item.optionskeys[0][obj.index]
-                    }
-                    // 关联查询获取多变量
-                    if (item.assoc !== undefined) {
-                        if (_this.setId !== item.optionskeys[0][obj.index]) {
-                            _this.setId = item.optionskeys[0][obj.index]
-                            _this.getCheckVal(item.assoc, item.position, item.name, item.optionskeys[0][obj.index], item.clearArr)
+            if (obj.closeType) {
+                this.typeComponent.components.forEach(function (item) {
+                    if (item.name === obj.name) {
+                        if (item.name !== 'amount') {
+                            _this.selectHideId[item.name] = item.optionskeys[0][obj.index]
+                        } else {
+                            _this.selectHideId['unit'] = item.optionskeys[0][obj.index]
+                        }
+                        // 关联查询获取多变量
+                        if (item.assoc !== undefined) {
+                            if (_this.setId !== item.optionskeys[0][obj.index]) {
+                                _this.setId = item.optionskeys[0][obj.index]
+                                _this.getCheckVal(item.assoc, item.position, item.name, item.optionskeys[0][obj.index], item.clearArr)
+                            }
+                        }
+                        // 物流查询分类模块,并展示模块
+                        if (item.selectNumber !== undefined) {
+                            _this.showModel(item.selectNumber, item.name, item.optionskeys[0][obj.index], item.positionArr, item.typeArr)
                         }
                     }
-                    // 物流查询分类模块,并展示模块
-                    if (item.selectNumber !== undefined) {
-                        _this.showModel(item.selectNumber, item.name, item.optionskeys[0][obj.index], item.positionArr, item.typeArr)
-                    }
-                }
-            })
+                })
+            }
             this.validateFn(obj)
         },
         // 默认值存储进onHide
@@ -319,7 +321,7 @@ export default {
             var _this = this
             this.typeComponent.components.forEach(function (item) {
                 if (item.name === 'amount') {
-                    if (_this.url !== 'harvest') {
+                    if (_this.url !== 'harvest' && _this.url !== 'code') {
                         _this.selectHideId['unit'] = item.optionskeys[0][0]
                     }
                 }
@@ -337,12 +339,15 @@ export default {
                             let dataOpt = this.$getCheckSelect(responce.data, dataArr.selectArr)
                             if (dataOpt[0] === 'check') {
                                 this.typeComponent.components[position].options = dataOpt[1]
+                            } else {
+                                this.typeComponent.components[position].options = dataOpt[1]
+                                this.typeComponent.components[position].optionskeys = dataOpt[0]
                             }
                         }
                     }
                 })
         },
-        // 获取关联模块(模块对象所在位置selectNumber，模块索引名称name, 模块索引值key, 位置数组positionArr, 表单类型type)
+        // 获取关联模块(模块对象所在位置selectNumber，模块索引名称name, 模块索引值key, 位置数组positionArr, 表单类型typeArr)
         showModel (selectNumber, name, key, positionArr, typeArr) {
             for (let index in selectNumber) {
                 if (index === key) {
@@ -423,7 +428,6 @@ export default {
         提交表单
          */
         submitForm () {
-            console.log(this.tableForm)
             let allValBol = true
             for (let key in this.ruleTableForm) {
                 let fnBol = this.validateFn({name: key, rule: this.ruleTableForm[key], value: this.tableForm[key]}).valid
@@ -453,7 +457,7 @@ export default {
                     let dataArr = this.$addAndEditSelectMethod(com.checkBoxUrl[key])
                     let data = {table: dataArr.selectUrl}
                     // 多条件查询
-                    if (com.selectValue[key] !== undefined || com.selectValue[key] !== '') {
+                    if (com.selectValue !== undefined && com.selectValue[key] !== '') {
                         let arr = this.selectCheckSearch(com.selectValue[key])
                         data.where = arr
                     }
@@ -482,6 +486,10 @@ export default {
             }
             this.$dataWapGet(this, this.url + '/' + this.editId + '/edit', {})
                 .then((responce) => {
+                    // 编辑触发回调
+                    if (this.typeComponent.editState) {
+                        this.editCallBack(this.typeComponent.editState, responce.data)
+                    }
                     if (this.typeComponent.arrBox) {
                         let beforeVal = this.$changeMutual(responce.data, this.changeDataArr, 0)
                         let initVal = this.$changeArrBox(beforeVal, this.typeComponent.arrBox)
@@ -491,6 +499,25 @@ export default {
                         this.tableForm = responce.data
                     }
                 })
+        },
+        // 编辑回调触发事件(回调字段editState，集合数值ret)
+        editCallBack (editState, ret) {
+            var com = this.typeComponent.components
+            for (let item in editState) {
+                if (com[item].selectNumber !== undefined) {
+                    for (let key in com[item].selectNumber) {
+                        if (ret[editState[item]] === key) {
+                            for (let i in com[item].positionArr) {
+                                if (com[item].selectNumber[key].indexOf(com[item].positionArr[i]) !== -1) {
+                                    com[com[item].positionArr[i]].hiddenSelect = false
+                                } else {
+                                    com[com[item].positionArr[i]].hiddenSelect = true
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         },
         /*
         返回图片信息

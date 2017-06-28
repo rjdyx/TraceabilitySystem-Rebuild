@@ -61,7 +61,6 @@ export default{
             $('.s').css('transform', 'rotate(' + s * 360 / 60 + 'deg)')
             $('.m').css('transform', 'rotate(' + (m * 6 + s / 60 * 6) + 'deg)')
             $('.h').css('transform', 'rotate(' + (h * 30 + m / 60 * 30) + 'deg)')
-            console.log(h)
             if (h > 18) {
             }
         }, 1000)
