@@ -12,7 +12,6 @@
         leave-active-class="animated slideOutLeft">
         <div key='black' class="black-layer" v-if="show" @click="initTouch">
    		 <div class="app-menu" key="menu">
-             <!-- 这里先去掉了:default-active="record"这个属性，手机端不需要默认显示记录点击 -->
 	            <el-menu
 	                :router="true" 
 	                :unique-opened="true"
@@ -37,7 +36,6 @@
 	            </el-menu>
                 <div class="logout" @click="logout">
                     <span>退出登录</span>
-                    <p>{{end}}</p>
                 </div>
     	   </div>
         </div>
@@ -51,8 +49,7 @@ export default {
     data () {
         return {
             children: '',
-            data: [],
-            end: ''
+            data: []
         }
     },
     props: {
