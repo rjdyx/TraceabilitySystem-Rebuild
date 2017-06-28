@@ -10,6 +10,10 @@
 		<div class="indexImg">
 			<img src="/public/images/cloud-s.png" class="cloud-s">
 			<img src="/public/images/cloud-b.png" class="cloud-b" @click="push">
+			<img src="/public/images/cloud-b.png" class="cloud-bb" @click="push">
+			<img src="/public/images/cloud-b.png" class="cloud-ss" @click="push">
+			<img src="/public/images/taiyang.png" class="taiyang">
+			<img src="/public/images/yuliang.png" class="yuliang">
 			<div class="clockDiv">
 				<img src="/public/images/clockbg.png" class="clockbg">
 				<img src="/public/images/cloud2.png" alt="" class="logo">
@@ -57,7 +61,11 @@ export default{
             $('.s').css('transform', 'rotate(' + s * 360 / 60 + 'deg)')
             $('.m').css('transform', 'rotate(' + (m * 6 + s / 60 * 6) + 'deg)')
             $('.h').css('transform', 'rotate(' + (h * 30 + m / 60 * 30) + 'deg)')
+            console.log(h)
+            if (h > 18) {
+            }
         }, 1000)
+        localStorage.setItem('trends', 0)
         axios.get('/api/index')
             .then((responce) => {
                 this.company = responce.data.company_name
@@ -74,6 +82,15 @@ export default{
 	height: $h;
 	margin-top: $mt;
 	margin-left: $ml;
+}
+@mixin cloud($w, $h, $p, $t, $l, $zI){
+	width: $w;
+	height: $h;
+	position: $p;
+	top: $t;
+	left:$l;
+	z-index: $zI;
+	
 }
 	.webIndex{
 		width: 100%;
@@ -136,22 +153,29 @@ export default{
 				}
 			}
 			.cloud-s{
-				width: 15%;
-				height: 7%;
-				position: absolute;
-				top: 2%;
-				z-index: -1;
-				animation: cloud-s 30s linear infinite 0s;
-				left:0%;
+				animation: cloud-s 30s linear 0s forwards;
+				@include cloud(15%, 7%, absolute, 2%, 0%, -1);
 			}
 			.cloud-b{
-				width: 24%;
-				right: 2%;
-				position: absolute;
-				top: 4%;
-				z-index: -1;
-				left:-24%;
-				animation: cloud-b 40s linear infinite 5s;
+				animation: cloud-b 8s linear forwards 0s;
+				@include cloud(24%, auto, absolute, 2%, 76%, -1);
+			}
+			.cloud-bb{
+				animation: cloud-bb 30s linear infinite 4s;
+				@include cloud(24%, auto, absolute, 4%, -24%, -1);
+			}
+			.cloud-ss{
+				animation: cloud-ss 30s linear infinite 20s;
+				@include cloud(15%, 7%, absolute, 3%, -15%, -1);
+			}
+			.taiyang{
+				@include cloud(15%, auto, absolute, 3%, 80%, -1);
+				transform: rotate(0deg);
+				animation: taiyang 20s linear infinite 0s;
+			}
+			.yuliang{
+				@include cloud(15%, auto, absolute, 3%, 10%, -1);
+				animation: yuliang 20s linear infinite 0s;
 			}
 			@keyframes cloud-s{
 				0%{
@@ -163,10 +187,34 @@ export default{
 			}
 			@keyframes cloud-b{
 				0%{
+					left: 76%;
+				}
+				100%{
+					left:100%;
+				}
+			}
+			@keyframes cloud-bb{
+				0%{
 					left: -24%;
 				}
 				100%{
 					left:100%;
+				}
+			}
+			@keyframes cloud-ss{
+				0%{
+					left: -15%;
+				}
+				100%{
+					left:100%;
+				}
+			}
+			@keyframes taiyang{
+				0%{
+					transform: rotate(0deg);
+				}
+				100%{
+					transform: rotate(360deg);
 				}
 			}
 		}

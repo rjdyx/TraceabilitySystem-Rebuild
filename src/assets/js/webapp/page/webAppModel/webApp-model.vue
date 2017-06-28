@@ -353,7 +353,7 @@ export default {
     watch: {
         models () {
             this.modelIndex = 0
-            localStorage.setItem('trends', this.modelIndex)
+            localStorage.setItem('trends', 0)
             this.changeUrl()
             this.tabSelected = '施肥信息'
         },

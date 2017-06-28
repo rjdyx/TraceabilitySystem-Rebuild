@@ -10,7 +10,7 @@
         <x-header :left-options="{backText: ''}">{{settitle}}</x-header>
         <div class="ppN_content">
             <group label-width="4.5em" label-margin-right="2em" label-align="right">
-                <div class="formItem" v-for="comItem in typeComponent.components" v-if="comItem.type !== 'file'">
+                <div class="formItem" v-for="comItem in typeComponent.components" v-if="comItem.type !== 'file' && !comItem.hiddenSelect">
                     <x-input 
                         v-if="comItem.type ==='text'"
                         :inputName="comItem.name"
@@ -90,7 +90,6 @@
                     </div>
 
                     <div v-if="comItem.type === 'pcSelect'">
-                        <!-- <x-switch title="set max-height=50%" v-model="show13"></x-switch> -->
                         <div class="pcDiv">
                             <div class="vux-cell-box" @click='comItem.show = !comItem.show'>
                                 <div :class="{ inputErrors: ruleTableForm[comItem.name].bol}">
@@ -100,7 +99,6 @@
                                         <div class="vux-cell-primary vux-popup-picker-select-box">
                                             <div class="vux-popup-picker-select" style="text-align: left;"><!----><!----><!---->
                                                 <span class="vux-popup-picker-placeholder">{{tableForm[comItem.name].length ? "已选择"+comItem.placeholder : "请选择"+comItem.placeholder}}</span>
-                                               <!-- <span class="vux-popup-picker-placeholder">{{'已选择批次号'}}</span> -->
                                             </div>
                                         </div>
                                         <div class="weui-cell__ft"></div>
@@ -122,7 +120,8 @@
                             <group>
                               <button @click="allcheckFn(comItem.name,comItem.options,true)">全选</button> 
                               <button @click="allcheckFn(comItem.name,comItem.options,false)">反选</button>
-                              <checklist title="请选择批次号" :options="comItem.options" v-model="tableForm[comItem.name]" @on-change="change"></checklist>
+                              <checklist v-if="!comItem.rfid" title="请选择批次号" :options="comItem.options" v-model="tableForm[comItem.name]" @on-change="change"></checklist>
+                              <radio :name="comItem.name" v-else :options="comItem.options" @on-change="radioChange"></radio>
                             </group>
                             <div style="padding: 15px;">
                               <x-button @click.native="pcClose(comItem)" plain type="primary"> 关闭 </x-button>
@@ -251,7 +250,8 @@ export default {
             // 编辑id
             editId: '',
             // 图片
-            hasImg: false
+            hasImg: false,
+            setId: ''
         }
     },
     methods: {
@@ -266,7 +266,11 @@ export default {
                 this.tableForm[name] = []
             }
         },
-
+        radioChange (obj) {
+            console.log(obj)
+            this.tableForm[obj.name] = [obj.key]
+            console.log(this.tableForm)
+        },
         /*
         x-textarea组件的方法
         修改了vex里面x-textarea组件的onBlur,参数name
@@ -295,11 +299,21 @@ export default {
                     } else {
                         _this.selectHideId['unit'] = item.optionskeys[0][obj.index]
                     }
+                    // 关联查询获取多变量
+                    if (item.assoc !== undefined) {
+                        if (_this.setId !== item.optionskeys[0][obj.index]) {
+                            _this.setId = item.optionskeys[0][obj.index]
+                            _this.getCheckVal(item.assoc, item.position, item.name, item.optionskeys[0][obj.index], item.clearArr)
+                        }
+                    }
+                    // 物流查询分类模块,并展示模块
+                    if (item.selectNumber !== undefined) {
+                        _this.showModel(item.selectNumber, item.name, item.optionskeys[0][obj.index], item.positionArr, item.typeArr)
+                    }
                 }
             })
             this.validateFn(obj)
         },
-
         // 默认值存储进onHide
         defaultHide () {
             var _this = this
@@ -311,7 +325,47 @@ export default {
                 }
             })
         },
-
+        // 获取关联查询(关联字段查询assoc，所处位置position, 查询条件, 查询条件id, 清空条件clearArr)
+        getCheckVal (assoc, position, whereName, id, clearArr) {
+            this.tableForm[clearArr] = []
+            let dataArr = this.$addAndEditSelectMethod(assoc)
+            let data = {table: dataArr.selectUrl, whereName: whereName, id: id}
+            this.$dataGet(this, '/util/assoc', data)
+                .then((responce) => {
+                    if (responce.data !== '') {
+                        if (responce.data.length !== 0) {
+                            let dataOpt = this.$getCheckSelect(responce.data, dataArr.selectArr)
+                            if (dataOpt[0] === 'check') {
+                                this.typeComponent.components[position].options = dataOpt[1]
+                            }
+                        }
+                    }
+                })
+        },
+        // 获取关联模块(模块对象所在位置selectNumber，模块索引名称name, 模块索引值key, 位置数组positionArr, 表单类型type)
+        showModel (selectNumber, name, key, positionArr, typeArr) {
+            for (let index in selectNumber) {
+                if (index === key) {
+                    for (let i in positionArr) {
+                        if (selectNumber[index].indexOf(parseInt(i)) !== -1) {
+                            if (typeArr[i] === 'text') {
+                                this.tableForm[positionArr[i]] = ''
+                            } else {
+                                this.tableForm[positionArr[i]] = []
+                            }
+                            this.typeComponent.components[i].hiddenSelect = false
+                        } else {
+                            if (typeArr[i] === 'text') {
+                                this.tableForm[positionArr[i]] = 'a'
+                            } else {
+                                this.tableForm[positionArr[i]] = ['a']
+                            }
+                            this.typeComponent.components[i].hiddenSelect = true
+                        }
+                    }
+                }
+            }
+        },
         /*
         x-input组件的方法
         修改了vex里面x-input组件的onChange, onBlur方法，原参数是字符串，现在是obj{name:name,value:value}。
@@ -369,6 +423,7 @@ export default {
         提交表单
          */
         submitForm () {
+            console.log(this.tableForm)
             let allValBol = true
             for (let key in this.ruleTableForm) {
                 let fnBol = this.validateFn({name: key, rule: this.ruleTableForm[key], value: this.tableForm[key]}).valid
@@ -397,6 +452,11 @@ export default {
                 for (let key in com.checkBoxUrl) {
                     let dataArr = this.$addAndEditSelectMethod(com.checkBoxUrl[key])
                     let data = {table: dataArr.selectUrl}
+                    // 多条件查询
+                    if (com.selectValue[key] !== undefined || com.selectValue[key] !== '') {
+                        let arr = this.selectCheckSearch(com.selectValue[key])
+                        data.where = arr
+                    }
                     this.$dataGet(this, '/util/selects', data)
                         .then((responce) => {
                             if (responce.data !== '') {
@@ -456,6 +516,19 @@ export default {
             if (this.typeComponent.hasImg) {
                 this.hasImg = true
             }
+        },
+        // 多条件查询
+        selectCheckSearch (data) {
+            var arr = []
+            for (let k in data) {
+                arr[k] = [data[k].n, data[k].v]
+                if (data[k].s !== undefined) {
+                    if (data[k].s) {
+                        arr[k].push(true)
+                    }
+                }
+            }
+            return arr
         }
     },
     created () {
