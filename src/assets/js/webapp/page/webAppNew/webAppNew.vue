@@ -204,7 +204,7 @@ export default {
             typeComponent = modelObj[this.$route.params.model][this.$route.params.modelIndex].newComponent
             typeComponent[0].components.forEach(function (item) {
                 if (item.type === 'textSelect') {
-                    form[item.name] = 0
+                    form[item.name] = ''
                     form['unit'] = [item.options[0][0]]
                     ruleTableForm['unit'] = {bol: false, rule: {required: item.rule.required}}
                     ruleTableForm[item.name] = {bol: false, rule: item.rule}
@@ -438,6 +438,7 @@ export default {
                 let fnBol = this.validateFn({name: key, rule: this.ruleTableForm[key], value: this.tableForm[key]}).valid
                 allValBol = allValBol && fnBol
             }
+            console.log(this.tableForm)
             if (allValBol) {
                 let submitVal = this.$changeSubmit(this.tableForm, this.selectHideId)
                 let beforeS = this.$changeMutual(submitVal, this.changeDataArr, 1)
@@ -565,18 +566,26 @@ export default {
         // 获取今天时间
         getToDate () {
             var _this = this
-            // console.log(date('Y-m-d H:i:s', '1350052653'))
             this.typeComponent.components.forEach(function (item) {
                 if (item.type === 'date') {
-                    if (item.format !== undefined) {
-                        _this.toDate = new Date(parseInt(Date.now())).toLocaleDateString().replace(/\//g, '-')
-                        _this.tableForm[item.name] = _this.toDate
-                    } else {
-                        _this.toDate = new Date(parseInt(Date.now())).toLocaleDateString().replace(/\//g, '-')
-                        _this.tableForm[item.name] = _this.toDate
-                    }
+                    _this.toDate = _this.getLocalTime(Date.now())
+                    _this.tableForm[item.name] = _this.toDate
                 }
             })
+        },
+        getLocalTime (nS) {
+            var dateStr = new Date(parseInt(nS)).toLocaleDateString()
+            dateStr = dateStr.replace(/年|月/g, '/').replace(/日/g, '')
+            var month = (new Date(dateStr)).getMonth() + 1
+            var year = (new Date(dateStr)).getFullYear()
+            var date = (new Date(dateStr)).getDate()
+            if (month < 10) {
+                month = '0' + month
+            }
+            if (date < 10) {
+                date = '0' + date
+            }
+            return year + '-' + month + '-' + date
         }
     },
     created () {
