@@ -7,7 +7,9 @@
 
 <template>
     <div id="p_popNew">
-        <x-header :left-options="{backText: ''}">{{settitle}}</x-header>
+        <!-- <x-header :left-options="{backText: ''}">{{settitle}}</x-header> -->
+        <header1 :settitle="settitle" :homeShow="false" :back="true">
+        </header1>
         <div class="ppN_content">
             <group label-width="4.5em" label-margin-right="2em" label-align="right">
                 <div class="formItem" v-for="comItem in typeComponent.components" v-if="comItem.type !== 'file' && !comItem.hiddenSelect">
@@ -151,10 +153,11 @@
     </div>
 </template>
 <script>
-import { XHeader, Actionsheet, TransferDom, Group, XInput, Selector, PopupPicker, Datetime, ChinaAddressData, XTextarea, Icon, XButton, Flexbox, FlexboxItem, PopupRadio, Popup, XSwitch, Cell, Checklist, Divider, Radio, Toast } from 'vux'
 import message from '../webAppBasic/appmessage.js'
 import Camera from '../../public/camera.vue'
 import validate from '../../../utils/appValidate.js'
+import Header1 from '../../public/header.vue'
+import { XHeader, Actionsheet, TransferDom, Group, XInput, Selector, PopupPicker, Datetime, ChinaAddressData, XTextarea, Icon, XButton, Flexbox, FlexboxItem, PopupRadio, Popup, XSwitch, Cell, Checklist, Divider, Radio, Toast } from 'vux'
 export default {
     name: 'p_popNew',
     directives: {
@@ -182,7 +185,8 @@ export default {
         Checklist,
         Divider,
         Radio,
-        Toast
+        Toast,
+        Header1
     },
     data () {
         let type = this.$route.params.type
