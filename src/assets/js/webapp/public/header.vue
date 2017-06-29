@@ -6,7 +6,8 @@
  
 <template>
 	<div class="app-header">
-		<span class="left-btn" @click="showmenu"></span>
+		<!-- <span class="left-btn" @click="showmenu"></span> -->
+		<slot name="menu"></slot>
 		<h1>{{settitle}}</h1>
 		<span v-show="back" class="back" @click="backTo"></span>
 		<span class="right-btn" @click="goBack" v-show="homeShow"></span>
@@ -31,9 +32,9 @@ export default {
         }
     },
     methods: {
-        showmenu () {
-            this.$emit('parentClick')
-        },
+        // showmenu () {
+        //     this.$emit('parentClick')
+        // },
         goBack () {
             this.$router.push('/appIndex')
         },

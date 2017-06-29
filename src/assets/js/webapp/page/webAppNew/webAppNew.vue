@@ -7,7 +7,9 @@
 
 <template>
     <div id="p_popNew">
-        <x-header :left-options="{backText: ''}">{{settitle}}</x-header>
+        <!-- <x-header :left-options="{backText: ''}">{{settitle}}</x-header> -->
+        <header1 :settitle="settitle" :homeShow="false" :back="true">
+        </header1>
         <div class="ppN_content">
             <group label-width="4.5em" label-margin-right="2em" label-align="right">
                 <div class="formItem" v-for="comItem in typeComponent.components" v-if="comItem.type !== 'file' && !comItem.hiddenSelect">
@@ -20,7 +22,7 @@
                         @on-change="inputOnChange"
                         @on-blur="onBlur"
                         :disabled="comItem.disabled"
-                        :class="{ inputErrors: ruleTableForm[comItem.name].bol}"
+                        :class="[{ inputErrors: ruleTableForm[comItem.name].bol},{bggray: comItem.disabled}]"
                         >
                     </x-input>
                     
@@ -123,8 +125,7 @@
                             <group>
                               <button @click="allcheckFn(comItem.name,comItem.options,true)">全选</button> 
                               <button @click="allcheckFn(comItem.name,comItem.options,false)">反选</button>
-                              <checklist v-if="!comItem.rfid" title="请选择批次号" :options="comItem.options" v-model="tableForm[comItem.name]" @on-change="change"></checklist>
-                              <radio :name="comItem.name" v-else :options="comItem.options" @on-change="radioChange"></radio>
+                              <checklist title="请选择批次号" :options="comItem.options" v-model="tableForm[comItem.name]" @on-change="change"></checklist>
                             </group>
                             <div style="padding: 15px;">
                               <x-button @click.native="pcClose(comItem)" plain type="primary"> 关闭 </x-button>
@@ -155,10 +156,11 @@
     </div>
 </template>
 <script>
-import { XHeader, Actionsheet, TransferDom, Group, XInput, Selector, PopupPicker, Datetime, ChinaAddressData, XTextarea, Icon, XButton, Flexbox, FlexboxItem, PopupRadio, Popup, XSwitch, Cell, Checklist, Divider, Radio, Toast } from 'vux'
 import message from '../webAppBasic/appmessage.js'
 import Camera from '../../public/camera.vue'
 import validate from '../../../utils/appValidate.js'
+import Header1 from '../../public/header.vue'
+import { XHeader, Actionsheet, TransferDom, Group, XInput, Selector, PopupPicker, Datetime, ChinaAddressData, XTextarea, Icon, XButton, Flexbox, FlexboxItem, PopupRadio, Popup, XSwitch, Cell, Checklist, Divider, Radio, Toast } from 'vux'
 export default {
     name: 'p_popNew',
     directives: {
@@ -186,7 +188,8 @@ export default {
         Checklist,
         Divider,
         Radio,
-        Toast
+        Toast,
+        Header1
     },
     data () {
         let type = this.$route.params.type
@@ -272,11 +275,6 @@ export default {
             } else {
                 this.tableForm[name] = []
             }
-        },
-        radioChange (obj) {
-            console.log(obj)
-            this.tableForm[obj.name] = [obj.key]
-            console.log(this.tableForm)
         },
         /*
         x-textarea组件的方法
@@ -645,6 +643,9 @@ export default {
 .weui-btn_plain-primary{
     color: #20a0ff!important;
     border: 1px solid #20a0ff!important;
+}
+.bggray{
+    background:#eef1f6;
 }
 #p_popNew{
     .checkbox{
