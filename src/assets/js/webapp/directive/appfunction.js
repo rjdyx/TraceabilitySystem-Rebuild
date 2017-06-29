@@ -1,3 +1,7 @@
+/*
+*下拉加载组件方法
+*模块切换标题方法
+*/
 export default {
     data () {
         return {
@@ -9,6 +13,7 @@ export default {
         let listTop = 0
         $('.list').on({
             touchstart: function (e) {
+                console.log(11111111)
                 this.startY = e.targetTouches[0].clientY - 100
                 listTop = $('.applist').position().top
             },

@@ -72,6 +72,7 @@ export default{
                 $('.webIndex').css('background', '#cccccc')
             }
         }, 1000)
+        localStorage.setItem('trends', 0)
         axios.get('/api/index')
             .then((responce) => {
                 this.company = responce.data.company_name

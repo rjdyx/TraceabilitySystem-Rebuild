@@ -10,7 +10,7 @@
         <x-header :left-options="{backText: ''}">{{settitle}}</x-header>
         <div class="ppN_content">
             <group label-width="4.5em" label-margin-right="2em" label-align="right">
-                <div class="formItem" v-for="comItem in typeComponent.components" v-if="comItem.type !== 'file'">
+                <div class="formItem" v-for="comItem in typeComponent.components" v-if="comItem.type !== 'file' && !comItem.hiddenSelect">
                     <x-input 
                         v-if="comItem.type ==='text'"
                         :inputName="comItem.name"
@@ -90,7 +90,6 @@
                     </div>
 
                     <div v-if="comItem.type === 'pcSelect'">
-                        <!-- <x-switch title="set max-height=50%" v-model="show13"></x-switch> -->
                         <div class="pcDiv">
                             <div class="vux-cell-box" @click='comItem.show = !comItem.show'>
                                 <div :class="{ inputErrors: ruleTableForm[comItem.name].bol}">
@@ -250,7 +249,8 @@ export default {
             // 编辑id
             editId: '',
             // 图片
-            hasImg: false
+            hasImg: false,
+            setId: ''
         }
     },
     methods: {
@@ -286,30 +286,85 @@ export default {
         onHide (obj) {
             // (name, rule, value)
             var _this = this
-            this.typeComponent.components.forEach(function (item) {
-                if (item.name === obj.name) {
-                    if (item.name !== 'amount') {
-                        _this.selectHideId[item.name] = item.optionskeys[0][obj.index]
-                    } else {
-                        _this.selectHideId['unit'] = item.optionskeys[0][obj.index]
+            if (obj.closeType) {
+                this.typeComponent.components.forEach(function (item) {
+                    if (item.name === obj.name) {
+                        if (item.name !== 'amount') {
+                            _this.selectHideId[item.name] = item.optionskeys[0][obj.index]
+                        } else {
+                            _this.selectHideId['unit'] = item.optionskeys[0][obj.index]
+                        }
+                        // 关联查询获取多变量
+                        if (item.assoc !== undefined) {
+                            if (_this.setId !== item.optionskeys[0][obj.index]) {
+                                _this.setId = item.optionskeys[0][obj.index]
+                                _this.getCheckVal(item.assoc, item.position, item.name, item.optionskeys[0][obj.index], item.clearArr)
+                            }
+                        }
+                        // 物流查询分类模块,并展示模块
+                        if (item.selectNumber !== undefined) {
+                            _this.showModel(item.selectNumber, item.name, item.optionskeys[0][obj.index], item.positionArr, item.typeArr)
+                        }
                     }
-                }
-            })
+                })
+            }
             this.validateFn(obj)
         },
-
         // 默认值存储进onHide
         defaultHide () {
             var _this = this
             this.typeComponent.components.forEach(function (item) {
                 if (item.name === 'amount') {
-                    if (_this.url !== 'harvest') {
+                    if (_this.url !== 'harvest' && _this.url !== 'code') {
                         _this.selectHideId['unit'] = item.optionskeys[0][0]
                     }
                 }
             })
         },
-
+        // 获取关联查询(关联字段查询assoc，所处位置position, 查询条件, 查询条件id, 清空条件clearArr)
+        getCheckVal (assoc, position, whereName, id, clearArr) {
+            this.tableForm[clearArr] = []
+            let dataArr = this.$addAndEditSelectMethod(assoc)
+            let data = {table: dataArr.selectUrl, whereName: whereName, id: id}
+            this.$dataGet(this, '/util/assoc', data)
+                .then((responce) => {
+                    if (responce.data !== '') {
+                        if (responce.data.length !== 0) {
+                            let dataOpt = this.$getCheckSelect(responce.data, dataArr.selectArr)
+                            if (dataOpt[0] === 'check') {
+                                this.typeComponent.components[position].options = dataOpt[1]
+                            } else {
+                                this.typeComponent.components[position].options = dataOpt[1]
+                                this.typeComponent.components[position].optionskeys = dataOpt[0]
+                            }
+                        }
+                    }
+                })
+        },
+        // 获取关联模块(模块对象所在位置selectNumber，模块索引名称name, 模块索引值key, 位置数组positionArr, 表单类型typeArr)
+        showModel (selectNumber, name, key, positionArr, typeArr) {
+            for (let index in selectNumber) {
+                if (index === key) {
+                    for (let i in positionArr) {
+                        if (selectNumber[index].indexOf(parseInt(i)) !== -1) {
+                            if (typeArr[i] === 'text') {
+                                this.tableForm[positionArr[i]] = ''
+                            } else {
+                                this.tableForm[positionArr[i]] = []
+                            }
+                            this.typeComponent.components[i].hiddenSelect = false
+                        } else {
+                            if (typeArr[i] === 'text') {
+                                this.tableForm[positionArr[i]] = 'a'
+                            } else {
+                                this.tableForm[positionArr[i]] = ['a']
+                            }
+                            this.typeComponent.components[i].hiddenSelect = true
+                        }
+                    }
+                }
+            }
+        },
         /*
         x-input组件的方法
         修改了vex里面x-input组件的onChange, onBlur方法，原参数是字符串，现在是obj{name:name,value:value}。
@@ -367,7 +422,6 @@ export default {
         提交表单
          */
         submitForm () {
-            console.log(this.tableForm)
             let allValBol = true
             for (let key in this.ruleTableForm) {
                 let fnBol = this.validateFn({name: key, rule: this.ruleTableForm[key], value: this.tableForm[key]}).valid
@@ -396,6 +450,11 @@ export default {
                 for (let key in com.checkBoxUrl) {
                     let dataArr = this.$addAndEditSelectMethod(com.checkBoxUrl[key])
                     let data = {table: dataArr.selectUrl}
+                    // 多条件查询
+                    if (com.selectValue !== undefined && com.selectValue[key] !== '') {
+                        let arr = this.selectCheckSearch(com.selectValue[key])
+                        data.where = arr
+                    }
                     this.$dataGet(this, '/util/selects', data)
                         .then((responce) => {
                             if (responce.data !== '') {
@@ -421,6 +480,10 @@ export default {
             }
             this.$dataWapGet(this, this.url + '/' + this.editId + '/edit', {})
                 .then((responce) => {
+                    // 编辑触发回调
+                    if (this.typeComponent.editState) {
+                        this.editCallBack(this.typeComponent.editState, responce.data)
+                    }
                     if (this.typeComponent.arrBox) {
                         let beforeVal = this.$changeMutual(responce.data, this.changeDataArr, 0)
                         let initVal = this.$changeArrBox(beforeVal, this.typeComponent.arrBox)
@@ -430,6 +493,25 @@ export default {
                         this.tableForm = responce.data
                     }
                 })
+        },
+        // 编辑回调触发事件(回调字段editState，集合数值ret)
+        editCallBack (editState, ret) {
+            var com = this.typeComponent.components
+            for (let item in editState) {
+                if (com[item].selectNumber !== undefined) {
+                    for (let key in com[item].selectNumber) {
+                        if (ret[editState[item]] === key) {
+                            for (let i in com[item].positionArr) {
+                                if (com[item].selectNumber[key].indexOf(com[item].positionArr[i]) !== -1) {
+                                    com[com[item].positionArr[i]].hiddenSelect = false
+                                } else {
+                                    com[com[item].positionArr[i]].hiddenSelect = true
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         },
         /*
         返回图片信息
@@ -455,6 +537,19 @@ export default {
             if (this.typeComponent.hasImg) {
                 this.hasImg = true
             }
+        },
+        // 多条件查询
+        selectCheckSearch (data) {
+            var arr = []
+            for (let k in data) {
+                arr[k] = [data[k].n, data[k].v]
+                if (data[k].s !== undefined) {
+                    if (data[k].s) {
+                        arr[k].push(true)
+                    }
+                }
+            }
+            return arr
         }
     },
     created () {

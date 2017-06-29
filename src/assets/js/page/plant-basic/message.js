@@ -2934,7 +2934,7 @@ export default {
             selectUrl2: [['areas', 'id', 'name', true], ['beasts', 'id', 'name', true], ['operates', 'id', 'name', true]],
             selectInit2: [{value: '', label: '选择圈舍'}, {value: '', label: '选择畜禽'}, {value: '', label: '请选择操作人'}],
             popNumber2: [0, 1, 2],
-            selectWhereArr2: [[], [], [{n: 'domain', v: 'beast'}]],
+            selectWhereArr2: [[], [], [{n: 'domain', v: 'beast'}, {n: 'domain', v: 'all', s: true}]],
             components: [{
                 name: 'area_id',
                 type: 'select',
@@ -3008,7 +3008,7 @@ export default {
             selectInit2: [{value: '', label: '选择圈舍'}, {value: '', label: '选择畜禽'}, {value: '', label: '请选择操作人'}],
             selectUrl2: [['areas', 'id', 'name', true], ['beasts', 'id', 'name', true], ['operates', 'id', 'name', true]],
             popNumber2: [1, 2, 3],
-            selectWhereArr2: [[], [], [{n: 'domain', v: 'beast'}]],
+            selectWhereArr2: [[], [], [{n: 'domain', v: 'beast'}, {n: 'domain', v: 'all', s: true}]],
             components: [{
                 name: 'serial',
                 type: 'text',
@@ -9281,6 +9281,16 @@ export default {
                 component: null,
                 isNull: false,
                 label: '产品溯源码',
+                placeholder: '',
+                disabled: true,
+                rule: {required: true}
+            },
+            {
+                name: 'product_name',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '加工产品',
                 placeholder: '',
                 disabled: true,
                 rule: {required: true}

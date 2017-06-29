@@ -88,8 +88,6 @@ export default {
     },
     data () {
         return {
-            // 时间组件是否显示
-            showdate: false,
             // 展开时间组件样式
             isA: false,
             // 搜索框内容
@@ -133,11 +131,6 @@ export default {
                         }
                     }
                 })
-        },
-        // 隐藏日期组件
-        hideDate () {
-            this.isA = !this.isA
-            this.showdate = !this.showdate
         },
         // 实现全选与反选
         checkedAll () {
@@ -252,7 +245,7 @@ export default {
             this.dataArr = {}
             this.boxArr(this.dataArr, true)
         },
-        // 检测全选按钮
+        // 检测全选反选按钮
         ischeckdate () {
             if (this.tableData.length === this.ischeckdate.length) {
                 this.checkAll = true
