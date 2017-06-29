@@ -35,7 +35,7 @@ export default {
                 name: 'breed_ids',
                 type: 'pcSelect',
                 label: '养殖批次号',
-                placeholder: '请选择批次（必选）',
+                placeholder: '批次号',
                 rule: {required: true}, // 这里如果需要验证类型写方法名，否则写false
                 options: [],
                 show: false,
@@ -549,6 +549,7 @@ export default {
         url: 'detect',
         paramsIndex: 'beast',
         batch: 'breedDetectBatch',
+        searchPlaceholder: '请输入检测项目名称进行搜索',
         theads: ['检测项目名称', '检测日期', '操作人'],
         protos: ['name', 'date', 'operate_name'],
         widths: [26, 26, 26],
@@ -1890,7 +1891,7 @@ export default {
                 }]
             }],
             editComponent: [{
-                tab: '编辑施肥信息',
+                tab: '编辑农事信息',
                 arrBox: {'operate_id': 'operate_name'},
                 checkBoxUrl: [['operates', 'id', 'name', 'radio']],
                 selectValue: [[{n: 'domain', v: 'plant'}, {n: 'domain', v: 'all', s: true}]],
@@ -2089,7 +2090,7 @@ export default {
                     name: 'cultivate_id',
                     type: 'select',
                     label: '所属种植批次',
-                    placeholder: '请选择种植批次',
+                    placeholder: '批次号',
                     rule: {required: true},
                     options: [],
                     optionskeys: [],
@@ -2785,6 +2786,7 @@ export default {
                 name: 'datetime',
                 type: 'date',
                 label: '物流日期',
+                format: 'YYYY-MM-DD HH:mm',
                 placeholder: '（必选）',
                 rule: {required: true}
             },

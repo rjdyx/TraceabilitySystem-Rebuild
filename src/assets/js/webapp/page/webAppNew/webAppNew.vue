@@ -35,6 +35,9 @@
                         value-text-align="left"
                         @on-dateHide="onDateHide"
                         :placeholder="comItem.placeholder"
+                        start-date="2000-1-1" 
+                        :end-date="toDate"
+                        :format="comItem.format != undefined ? comItem.format : format"
                         confirm-text="确认"
                         cancel-text="取消" 
                         clear-text="清空"
@@ -257,7 +260,11 @@ export default {
             editId: '',
             // 图片
             hasImg: false,
-            setId: ''
+            setId: '',
+            // 今天日期
+            toDate: '',
+            // 默认日期格式
+            format: 'YYYY-MM-DD'
         }
     },
     methods: {
@@ -559,6 +566,22 @@ export default {
                 }
             }
             return arr
+        },
+        // 获取今天时间
+        getToDate () {
+            var _this = this
+            // console.log(date('Y-m-d H:i:s', '1350052653'))
+            this.typeComponent.components.forEach(function (item) {
+                if (item.type === 'date') {
+                    if (item.format !== undefined) {
+                        _this.toDate = new Date(parseInt(Date.now())).toLocaleDateString().replace(/\//g, '-')
+                        _this.tableForm[item.name] = _this.toDate
+                    } else {
+                        _this.toDate = new Date(parseInt(Date.now())).toLocaleDateString().replace(/\//g, '-')
+                        _this.tableForm[item.name] = _this.toDate
+                    }
+                }
+            })
         }
     },
     created () {
@@ -577,6 +600,7 @@ export default {
         // 新增
         } else {
             this.defaultHide()
+            this.getToDate()
             this.isEdit = false
             this.successMsg = '新增数据成功'
             this.errorMsg = '新增数据失败'
