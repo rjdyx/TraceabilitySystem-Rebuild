@@ -412,9 +412,9 @@ export default {
     .choice{
             width: 20%;
         }
-    .listContent:nth-child(3n){
+    /*.listContent:nth-child(3n){
         background: #eaeaea;
-    }
+    }*/
     .order{
         padding-left: 10px;
     }

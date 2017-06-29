@@ -67,8 +67,8 @@ export default {
                 label: '饲养员',
                 placeholder: '请选择饲养员（必选）',
                 rule: {required: true},
-                options: [],
-                optionskeys: [],
+                options: [['请选择']],
+                optionskeys: [['qxz']],
                 show: false
             },
             {
@@ -1218,7 +1218,6 @@ export default {
     }],
     // 屠宰加工管理-产品溯源码管理
     serialManage: [{
-        settitle: '产品溯源码管理',
         timeshow: true,
         rightMenu: false,
         key: 'code',

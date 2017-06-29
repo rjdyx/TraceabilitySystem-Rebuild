@@ -123,8 +123,11 @@
                         <div v-transfer-dom>
                           <popup v-model="comItem.show" position="bottom" height="100%">
                             <group>
-                              <button @click="allcheckFn(comItem.name,comItem.options,true)">全选</button> 
-                              <button @click="allcheckFn(comItem.name,comItem.options,false)">反选</button>
+                                <div class="pcAllcheck">
+                                    <el-button @click="allcheckFn(comItem.name,comItem.options,true)" type="primary" size="small" >全选</el-button>
+                                    <el-button @click="allcheckFn(comItem.name,comItem.options,false)" type="primary" size="small">全不选</el-button>
+                                </div>
+                                
                               <checklist title="请选择批次号" :options="comItem.options" v-model="tableForm[comItem.name]" @on-change="change"></checklist>
                             </group>
                             <div style="padding: 15px;">
@@ -478,6 +481,8 @@ export default {
                                         com.components[com.checkBoxPosition[key]].options = dataOpt[1]
                                         com.components[com.checkBoxPosition[key]].optionskeys = dataOpt[0]
                                     }
+                                } else {
+                                    com.components[com.checkBoxPosition[key]].options = [['']]
                                 }
                             }
                         })
@@ -656,7 +661,12 @@ export default {
 .bggray{
     background:#eef1f6;
 }
+.pcAllcheck{
+        padding-top:.2rem;
+        padding-left:.4rem;
+    }
 #p_popNew{
+    
     .checkbox{
         background-color:$labelBgCol;
     }
