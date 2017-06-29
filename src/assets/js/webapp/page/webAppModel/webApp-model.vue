@@ -478,14 +478,6 @@ export default {
         margin-top: 5px;
         width: 100%;
     }
-    .uphide{
-        background: url(/public/images/arrowBottom.png) no-repeat;
-        background-size: 100%;   
-    }
-    .downhide{
-        background: url(/public/images/arrowTop.png) no-repeat;
-        background-size: 100%;
-    }
     .clickHide{
         height: 30px;
         border: 1px solid transparent; 

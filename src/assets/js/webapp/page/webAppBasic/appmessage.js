@@ -1217,7 +1217,6 @@ export default {
     }],
     // 屠宰加工管理-产品溯源码管理
     serialManage: [{
-        settitle: '产品溯源码管理',
         timeshow: true,
         rightMenu: false,
         key: 'code',
