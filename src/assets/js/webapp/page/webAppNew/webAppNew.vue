@@ -20,7 +20,7 @@
                         @on-change="inputOnChange"
                         @on-blur="onBlur"
                         :disabled="comItem.disabled"
-                        :class="{ inputErrors: ruleTableForm[comItem.name].bol}"
+                        :class="[{ inputErrors: ruleTableForm[comItem.name].bol},{bggray: comItem.disabled}]"
                         >
                     </x-input>
                     
@@ -121,8 +121,7 @@
                             <group>
                               <button @click="allcheckFn(comItem.name,comItem.options,true)">全选</button> 
                               <button @click="allcheckFn(comItem.name,comItem.options,false)">反选</button>
-                              <checklist v-if="!comItem.rfid" title="请选择批次号" :options="comItem.options" v-model="tableForm[comItem.name]" @on-change="change"></checklist>
-                              <radio :name="comItem.name" v-else :options="comItem.options" @on-change="radioChange"></radio>
+                              <checklist title="请选择批次号" :options="comItem.options" v-model="tableForm[comItem.name]" @on-change="change"></checklist>
                             </group>
                             <div style="padding: 15px;">
                               <x-button @click.native="pcClose(comItem)" plain type="primary"> 关闭 </x-button>
@@ -265,11 +264,6 @@ export default {
             } else {
                 this.tableForm[name] = []
             }
-        },
-        radioChange (obj) {
-            console.log(obj)
-            this.tableForm[obj.name] = [obj.key]
-            console.log(this.tableForm)
         },
         /*
         x-textarea组件的方法
@@ -526,6 +520,9 @@ export default {
 .weui-btn_plain-primary{
     color: #20a0ff!important;
     border: 1px solid #20a0ff!important;
+}
+.bggray{
+    background:#eef1f6;
 }
 #p_popNew{
     .checkbox{
