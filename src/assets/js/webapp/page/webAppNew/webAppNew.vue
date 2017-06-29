@@ -7,7 +7,9 @@
 
 <template>
     <div id="p_popNew">
-        <x-header :left-options="{backText: ''}">{{settitle}}</x-header>
+        <!-- <x-header :left-options="{backText: ''}">{{settitle}}</x-header> -->
+        <header1 :settitle="settitle" :homeShow="false" :back="true">
+        </header1>
         <div class="ppN_content">
             <group label-width="4.5em" label-margin-right="2em" label-align="right">
                 <div class="formItem" v-for="comItem in typeComponent.components" v-if="comItem.type !== 'file' && !comItem.hiddenSelect">
@@ -20,7 +22,7 @@
                         @on-change="inputOnChange"
                         @on-blur="onBlur"
                         :disabled="comItem.disabled"
-                        :class="{ inputErrors: ruleTableForm[comItem.name].bol}"
+                        :class="[{ inputErrors: ruleTableForm[comItem.name].bol},{bggray: comItem.disabled}]"
                         >
                     </x-input>
                     
@@ -33,6 +35,9 @@
                         value-text-align="left"
                         @on-dateHide="onDateHide"
                         :placeholder="comItem.placeholder"
+                        start-date="2000-1-1" 
+                        :end-date="toDate"
+                        :format="comItem.format != undefined ? comItem.format : format"
                         confirm-text="确认"
                         cancel-text="取消" 
                         clear-text="清空"
@@ -118,10 +123,12 @@
                         <div v-transfer-dom>
                           <popup v-model="comItem.show" position="bottom" height="100%">
                             <group>
-                              <button @click="allcheckFn(comItem.name,comItem.options,true)">全选</button> 
-                              <button @click="allcheckFn(comItem.name,comItem.options,false)">反选</button>
-                              <checklist v-if="!comItem.rfid" title="请选择批次号" :options="comItem.options" v-model="tableForm[comItem.name]" @on-change="change"></checklist>
-                              <radio :name="comItem.name" v-else :options="comItem.options" @on-change="radioChange"></radio>
+                                <div class="pcAllcheck">
+                                    <el-button @click="allcheckFn(comItem.name,comItem.options,true)" type="primary" size="small" >全选</el-button>
+                                    <el-button @click="allcheckFn(comItem.name,comItem.options,false)" type="primary" size="small">全不选</el-button>
+                                </div>
+                                
+                              <checklist title="请选择批次号" :options="comItem.options" v-model="tableForm[comItem.name]" @on-change="change"></checklist>
                             </group>
                             <div style="padding: 15px;">
                               <x-button @click.native="pcClose(comItem)" plain type="primary"> 关闭 </x-button>
@@ -152,10 +159,11 @@
     </div>
 </template>
 <script>
-import { XHeader, Actionsheet, TransferDom, Group, XInput, Selector, PopupPicker, Datetime, ChinaAddressData, XTextarea, Icon, XButton, Flexbox, FlexboxItem, PopupRadio, Popup, XSwitch, Cell, Checklist, Divider, Radio, Toast } from 'vux'
 import message from '../webAppBasic/appmessage.js'
 import Camera from '../../public/camera.vue'
 import validate from '../../../utils/appValidate.js'
+import Header1 from '../../public/header.vue'
+import { XHeader, Actionsheet, TransferDom, Group, XInput, Selector, PopupPicker, Datetime, ChinaAddressData, XTextarea, Icon, XButton, Flexbox, FlexboxItem, PopupRadio, Popup, XSwitch, Cell, Checklist, Divider, Radio, Toast } from 'vux'
 export default {
     name: 'p_popNew',
     directives: {
@@ -183,7 +191,8 @@ export default {
         Checklist,
         Divider,
         Radio,
-        Toast
+        Toast,
+        Header1
     },
     data () {
         let type = this.$route.params.type
@@ -251,7 +260,11 @@ export default {
             editId: '',
             // 图片
             hasImg: false,
-            setId: ''
+            setId: '',
+            // 今天日期
+            toDate: '',
+            // 默认日期格式
+            format: 'YYYY-MM-DD'
         }
     },
     methods: {
@@ -265,11 +278,6 @@ export default {
             } else {
                 this.tableForm[name] = []
             }
-        },
-        radioChange (obj) {
-            console.log(obj)
-            this.tableForm[obj.name] = [obj.key]
-            console.log(this.tableForm)
         },
         /*
         x-textarea组件的方法
@@ -472,6 +480,8 @@ export default {
                                         com.components[com.checkBoxPosition[key]].options = dataOpt[1]
                                         com.components[com.checkBoxPosition[key]].optionskeys = dataOpt[0]
                                     }
+                                } else {
+                                    com.components[com.checkBoxPosition[key]].options = [['']]
                                 }
                             }
                         })
@@ -556,6 +566,22 @@ export default {
                 }
             }
             return arr
+        },
+        // 获取今天时间
+        getToDate () {
+            var _this = this
+            // console.log(date('Y-m-d H:i:s', '1350052653'))
+            this.typeComponent.components.forEach(function (item) {
+                if (item.type === 'date') {
+                    if (item.format !== undefined) {
+                        _this.toDate = new Date(parseInt(Date.now())).toLocaleDateString().replace(/\//g, '-')
+                        _this.tableForm[item.name] = _this.toDate
+                    } else {
+                        _this.toDate = new Date(parseInt(Date.now())).toLocaleDateString().replace(/\//g, '-')
+                        _this.tableForm[item.name] = _this.toDate
+                    }
+                }
+            })
         }
     },
     created () {
@@ -574,6 +600,7 @@ export default {
         // 新增
         } else {
             this.defaultHide()
+            this.getToDate()
             this.isEdit = false
             this.successMsg = '新增数据成功'
             this.errorMsg = '新增数据失败'
@@ -622,7 +649,15 @@ export default {
     color: #20a0ff!important;
     border: 1px solid #20a0ff!important;
 }
+.bggray{
+    background:#eef1f6;
+}
+.pcAllcheck{
+        padding-top:.2rem;
+        padding-left:.4rem;
+    }
 #p_popNew{
+    
     .checkbox{
         background-color:$labelBgCol;
     }

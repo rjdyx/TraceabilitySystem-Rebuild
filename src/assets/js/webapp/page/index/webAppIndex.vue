@@ -8,6 +8,7 @@
 <template>
 	<div class="appWrap">
 		<app-header @parentClick="showsider" :settitle="settitle" :homeShow="homeShow" :back="back">
+            <span class="left-btn" @click="showmenu" slot="menu"></span>
         </app-header>
 		<sider-bar :menus='menus' :show="show" @hidetoggle="hidesider" @children-info="getinfo"></sider-bar>
 		<router-view></router-view>
@@ -45,6 +46,10 @@ export default {
             let detailname = arr[1]
             localStorage.setItem('tit', header)
             localStorage.setItem('dename', detailname)
+        },
+        showmenu () {
+            this.showsider()
+            // this.$emit('parentClick')
         }
     },
     mounted () {

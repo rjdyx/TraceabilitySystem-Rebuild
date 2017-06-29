@@ -13,7 +13,7 @@
 			<img src="/public/images/cloud-b.png" class="cloud-bb" @click="push">
 			<img src="/public/images/cloud-b.png" class="cloud-ss" @click="push">
 			<img src="/public/images/taiyang.png" class="taiyang">
-			<img src="/public/images/yuliang.png" class="yuliang">
+			<img src="/public/images/yueliang.png" class="yueliang">
 			<div class="clockDiv">
 				<img src="/public/images/clockbg.png" class="clockbg">
 				<img src="/public/images/cloud2.png" alt="" class="logo">
@@ -61,7 +61,15 @@ export default{
             $('.s').css('transform', 'rotate(' + s * 360 / 60 + 'deg)')
             $('.m').css('transform', 'rotate(' + (m * 6 + s / 60 * 6) + 'deg)')
             $('.h').css('transform', 'rotate(' + (h * 30 + m / 60 * 30) + 'deg)')
-            if (h > 18) {
+            // if (h > 6 && h < 18) {
+            if (s > 30) {
+                $('.taiyang').fadeIn('slow')
+                $('.yueliang').fadeOut('slow')
+                $('.webIndex').css('background', 'white')
+            } else {
+                $('.yueliang').fadeIn('slow')
+                $('.taiyang').fadeOut('slow')
+                $('.webIndex').css('background', '#cccccc')
             }
         }, 1000)
         localStorage.setItem('trends', 0)
@@ -95,6 +103,9 @@ export default{
 		width: 100%;
 		height: 100%;
 		padding-top: 50px;
+		position: relative;
+		z-index: -5;
+		overflow: hidden;
 		.indexImg{
 			width: 100%;
 			position: relative;
@@ -146,9 +157,7 @@ export default{
 						.h{
 							@include clockImg(28%, -28%, -2%);
 						}
-						
 					}
-
 				}
 			}
 			.cloud-s{
@@ -171,10 +180,12 @@ export default{
 				@include cloud(15%, auto, absolute, 3%, 80%, -1);
 				transform: rotate(0deg);
 				animation: taiyang 20s linear infinite 0s;
+				display: none;
 			}
-			.yuliang{
-				@include cloud(15%, auto, absolute, 3%, 10%, -1);
-				animation: yuliang 20s linear infinite 0s;
+			.yueliang{
+				@include cloud(15%, auto, absolute, 3%, 20%, -2);
+				/*animation: yueliang 20s linear infinite 0s;*/
+				display: none;
 			}
 			@keyframes cloud-s{
 				0%{
@@ -231,53 +242,6 @@ export default{
 				color: #50504e;
 			}
 		}
-		/*@media (max-width: 320px) {
-			.indexlist {
-				.company{
-					font-size: 18px;
-					padding-bottom: 1%;
-				}
-				p{
-					font-size: 14px;
-				}
-			}
-			.indexImg{
-				height: 290px;
-			}
-		}
-		@media (min-device-width: 768px) {
-			.indexImg .logo{
-				height: 127%;
-			}
-			.indexlist{
-				margin-top: 30%;
-				.company{
-					font-size: 34px;
-				}
-				p{
-					font-size: 24px;
-				}
-			} 
-		}
-		@media (min-device-width: 768px) {
-			.indexImg{
-				.logo{
-					height: 180%;
-				}
-				.cloud-s{
-					height: 16%;
-				}
-			} 
-			.indexlist{
-				margin-top: 44%;
-				.company{
-					font-size: 57px;
-				}
-				p{
-					font-size: 35px;
-				}
-			} 
-		}*/
-}
+	}
 
 </style>
