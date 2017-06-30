@@ -79,14 +79,7 @@ export default[{
         path: '/appIndex/message/plantThing',
         name: '种植事物管理',
         detail: '种植事物管理详情'
-    },
-    {
-        role: roleData.packb === undefined ? 0 : roleData.packb.code === undefined ? 0 : 1,
-        path: '/appIndex/message/plantTrace',
-        name: '种植生产计划管理',
-        detail: '种植生产计划详情'
-    }
-    ]
+    }]
 },
 {
     name: '果蔬加工管理',

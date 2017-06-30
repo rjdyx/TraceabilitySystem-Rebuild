@@ -1334,9 +1334,10 @@ export default {
         key: 'planSerial',
         tab: '计划批次管理',
         roleName: ['plant/plan', 0],
-        theads: ['计划批次号', '计划日期', '操作类型', '安排人员', '计划内容', '备注'],
-        protos: ['serial', 'date', 'type', 'operate_name', 'content', 'memo'],
+        theads: ['计划批次号', '计划开始日期', '计划结束日期', '操作类型', '安排人员', '计划内容', '具体规划', '备注'],
+        protos: ['serial', 'date', 'end_date', 'type', 'operate_name', 'content', 'planing', 'memo'],
         url: 'plan',
+        changeDataArr: [{type: {'施肥': 'fertilize', '施药': 'spray', '采收': 'harvest'}}],
         tabList: [{
             url: 'cultivate-plan',
             tab: '种植批次计划信息',

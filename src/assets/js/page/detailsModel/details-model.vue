@@ -17,137 +17,139 @@
          <el-col :span="6" v-for="(item,i) in theads" class="text-small">{{item}}:<em class="margin-left_10">{{headData[protos[i]]}}</em>
          </el-col>
     </el-row>
+    <div v-if="tableListBollean">
   <!-- tab栏 --> 
-    <el-tabs v-model="activeName" type="card" id="tabs" @tab-click="tabClick">
-        <el-tab-pane :label='tabItem.tab' :name='tabItem.tab' v-for="
-        tabItem in tabList">
-        </el-tab-pane>
-    </el-tabs> 
+        <el-tabs v-model="activeName" type="card" id="tabs" @tab-click="tabClick">
+            <el-tab-pane :label='tabItem.tab' :name='tabItem.tab' v-for="
+            tabItem in tabList">
+            </el-tab-pane>
+        </el-tabs> 
 
-            <!-- 操作模块 -->
-        <div id="operate">              
-            <div id="inputs">
-            <!-- 左边的操作按钮 -->
-                <operate :listComponent="tabItem.listComponent" @selectVal="selectFind" @dateVal="dateFind"></operate>
-                <!-- 搜索框 -->
-                <div class="searchOp">
-                    <el-input
-                        :placeholder="tabItem.searchPlaceholder"
-                        v-model="inputValue"
-                        :on-icon-click="search" class="searchInp" size="small" @keyup.enter.native="textAndDateFind">
-                    </el-input>
-                    <el-button size="small" class="searchBtn" @click="textAndDateFind">搜索</el-button>
+                <!-- 操作模块 -->
+            <div id="operate">              
+                <div id="inputs">
+                <!-- 左边的操作按钮 -->
+                    <operate :listComponent="tabItem.listComponent" @selectVal="selectFind" @dateVal="dateFind"></operate>
+                    <!-- 搜索框 -->
+                    <div class="searchOp">
+                        <el-input
+                            :placeholder="tabItem.searchPlaceholder"
+                            v-model="inputValue"
+                            :on-icon-click="search" class="searchInp" size="small" @keyup.enter.native="textAndDateFind">
+                        </el-input>
+                        <el-button size="small" class="searchBtn" @click="textAndDateFind">搜索</el-button>
+                    </div>
+
+                    <!-- 右边的操作按钮 -->
+                    <!-- 操作按钮 -->
+                    <component
+                        v-for="operateItem in tabItem.typeComponent"
+                        :is="operateItem.component"
+                        :url="apiUrlArr[tabList[index].url]"
+                        :type="tabItem.whereArr"
+                        :routeId="routeId"
+                        :curl="url"
+                        class="fr"
+                    ></component>
                 </div>
-
-                <!-- 右边的操作按钮 -->
-                <!-- 操作按钮 -->
-                <component
-                    v-for="operateItem in tabItem.typeComponent"
-                    :is="operateItem.component"
-                    :url="apiUrlArr[tabList[index].url]"
-                    :type="tabItem.whereArr"
-                    :routeId="routeId"
-                    :curl="url"
-                    class="fr"
-                ></component>
             </div>
-        </div>
-    
-        <!-- 新建模块 --> 
-        <transition name="fade">
-            <popNew v-if="isNewShow" :newComponent="tabItem.newComponent" :url="apiUrlArr[tabList[index].url]" @submitNew="changeNew" @setTable="getTable" :routeId="routeId"></popNew>
-        </transition>
-        <!-- 编辑模块 -->
-        <transition name="fade">
-            <popEdit v-if="isEditShow" :editComponent="tabItem.editComponent" :url="apiUrlArr[tabList[index].url]" :editForm="editForm"
-                 @submitEdit="hangeEdit" :changeDataArr="changeDataArr" :editDefault="editDefault"></popEdit>
-        </transition>
-        <!-- 打印模块 -->
-        <transition name="fade">
-            <printf v-if="isPrintShow" :printComponent="tabItem.printComponent" :url="url" :printForm="printForm"></printf>
-        </transition>
-        <!-- 权限模块 -->
-        <transition name="fade">
-            <roleCheckbox v-if="isRoleShow" :rowId="rowId"></roleCheckbox>
-        </transition>
-    <!-- 列表模块 -->
-    <el-table :data="tableData"  @selection-change="handleSelectionChange" v-loading="listLoading">
-        <!-- checkbox -->
-        <el-table-column width="50" type="selection">
-        </el-table-column> 
-        <!-- 序号 --> 
-        <el-table-column width="80" label="序号" type="index" id="test_id">
-        </el-table-column>
+        
+            <!-- 新建模块 --> 
+            <transition name="fade">
+                <popNew v-if="isNewShow" :newComponent="tabItem.newComponent" :url="apiUrlArr[tabList[index].url]" @submitNew="changeNew" @setTable="getTable" :routeId="routeId"></popNew>
+            </transition>
+            <!-- 编辑模块 -->
+            <transition name="fade">
+                <popEdit v-if="isEditShow" :editComponent="tabItem.editComponent" :url="apiUrlArr[tabList[index].url]" :editForm="editForm"
+                     @submitEdit="hangeEdit" :changeDataArr="changeDataArr" :editDefault="editDefault"></popEdit>
+            </transition>
+            <!-- 打印模块 -->
+            <transition name="fade">
+                <printf v-if="isPrintShow" :printComponent="tabItem.printComponent" :url="url" :printForm="printForm"></printf>
+            </transition>
+            <!-- 权限模块 -->
+            <transition name="fade">
+                <roleCheckbox v-if="isRoleShow" :rowId="rowId"></roleCheckbox>
+            </transition>
+        <!-- 列表模块 -->
+        <el-table :data="tableData"  @selection-change="handleSelectionChange" v-loading="listLoading">
+            <!-- checkbox -->
+            <el-table-column width="50" type="selection">
+            </el-table-column> 
+            <!-- 序号 --> 
+            <el-table-column width="80" label="序号" type="index" id="test_id">
+            </el-table-column>
 
-                <!-- 中间列表模块 -->
-                <template v-for="(item,index) in tabItem.headList"> 
-                  <template>
+                    <!-- 中间列表模块 -->
+                    <template v-for="(item,index) in tabItem.headList"> 
+                      <template>
+                        <el-table-column 
+                          :prop="tabItem.protos[index]"
+                          :label="item"
+                          :min-width="tabItem.widths[index]"
+                          show-overflow-tooltip>
+                          <template  scope="scope">
+                                <div v-if="item.includes('产品名称')" slot="reference" class="name-wrapper pcActive" @click="jumpDetails(scope.row)">
+                                    {{ tableData[scope.$index][tabItem.protos[index]] }}
+                                </div>
+                                <div class="imgTipDiv" v-else-if="tabItem.protos[index]=='thumb'" slot="reference">
+                                    <el-popover trigger="hover" placement="right">
+                                        <!-- 放大图片 -->
+                                        <img style="width:100%; height:auto" v-if="tableData[scope.$index][tabItem.protos[index]]!=null && tableData[scope.$index][tabItem.protos[index]]!=''" :src="tableData[scope.$index].img" >
+                                        <div slot="reference" class="name-wrapper imgTip">
+                                            <!-- 小图片 -->
+                                            <img v-if="tableData[scope.$index][tabItem.protos[index]]!=null && tableData[scope.$index][tabItem.protos[index]]!=''" :src="tableData[scope.$index][tabItem.protos[index]]" width="100%" height="100%">
+                                        </div>
+                                    </el-popover>
+                                </div>
+                                <div v-else slot="reference">
+                                    {{ tableData[scope.$index][tabItem.protos[index]] }}
+                                </div>
+                        </template>
+                        </el-table-column>
+                      </template>
+                    </template>
+
+                    <!-- 列表操作模块 -->
                     <el-table-column 
-                      :prop="tabItem.protos[index]"
-                      :label="item"
-                      :min-width="tabItem.widths[index]"
-                      show-overflow-tooltip>
-                      <template  scope="scope">
-                            <div v-if="item.includes('产品名称')" slot="reference" class="name-wrapper pcActive" @click="jumpDetails(scope.row)">
-                                {{ tableData[scope.$index][tabItem.protos[index]] }}
-                            </div>
-                            <div class="imgTipDiv" v-else-if="tabItem.protos[index]=='thumb'" slot="reference">
-                                <el-popover trigger="hover" placement="right">
-                                    <!-- 放大图片 -->
-                                    <img style="width:100%; height:auto" v-if="tableData[scope.$index][tabItem.protos[index]]!=null && tableData[scope.$index][tabItem.protos[index]]!=''" :src="tableData[scope.$index].img" >
-                                    <div slot="reference" class="name-wrapper imgTip">
-                                        <!-- 小图片 -->
-                                        <img v-if="tableData[scope.$index][tabItem.protos[index]]!=null && tableData[scope.$index][tabItem.protos[index]]!=''" :src="tableData[scope.$index][tabItem.protos[index]]" width="100%" height="100%">
-                                    </div>
-                                </el-popover>
-                            </div>
-                            <div v-else slot="reference">
-                                {{ tableData[scope.$index][tabItem.protos[index]] }}
-                            </div>
-                    </template>
+                    label="操作" v-if="checkOperate==null" width="175">
+                        <template scope="scope" class="operateBtn" >
+                            <template v-if="tabItem.moreComponent!=null">
+                                <clickMore :moreComponent="tabItem.moreComponent" 
+                                @showMore="moreShow(scope.$index,scope.row)" class="clickMoreBtn"></clickMore>
+                            </template>
+                            <template>
+                                <el-button type="text" size="small" @click="changeEditShow(scope.$index,scope.row)" v-if="tabList[index].hiddeEdit">编辑</el-button>
+                                <el-button type="text" size="small" v-if="hiddeWatch">查看</el-button>
+
+                                <el-button size="small" type="text" @click="handelDel(scope.$index,scope.row)" class="btn">删除</el-button>  
+                                <el-button size="small" type="text" @click="permissionShow(scope.$index,scope.row)" class="btn" v-if="tabItem.hiddeRole">权限</el-button> 
+                                
+                            </template>
+                        </template>
                     </el-table-column>
-                  </template>
+                </el-table>
+        <div class="footer">
+            <div class="operate-foot">
+                <el-button @click="delAll" v-if="checkOperate==null">删除</el-button>
+                <template v-if="lotComponent!=null">
+                    <lotOpearte :lotComponent="lotComponent"></lotOpearte>
                 </template>
+                <el-button @click="excel">导出表格</el-button>
+            </div>
 
-                <!-- 列表操作模块 -->
-                <el-table-column 
-                label="操作" v-if="checkOperate==null" width="175">
-                    <template scope="scope" class="operateBtn" >
-                        <template v-if="tabItem.moreComponent!=null">
-                            <clickMore :moreComponent="tabItem.moreComponent" 
-                            @showMore="moreShow(scope.$index,scope.row)" class="clickMoreBtn"></clickMore>
-                        </template>
-                        <template>
-                            <el-button type="text" size="small" @click="changeEditShow(scope.$index,scope.row)" v-if="tabList[index].hiddeEdit">编辑</el-button>
-                            <el-button type="text" size="small" v-if="hiddeWatch">查看</el-button>
+            <p class="record">共有<span class="record_num">{{num}}</span>页，<span class="record_num">{{total_num}}</span>条记录</p>
 
-                            <el-button size="small" type="text" @click="handelDel(scope.$index,scope.row)" class="btn">删除</el-button>  
-                            <el-button size="small" type="text" @click="permissionShow(scope.$index,scope.row)" class="btn" v-if="tabItem.hiddeRole">权限</el-button> 
-                            
-                        </template>
-                    </template>
-                </el-table-column>
-            </el-table>
-    <div class="footer">
-        <div class="operate-foot">
-            <el-button @click="delAll" v-if="checkOperate==null">删除</el-button>
-            <template v-if="lotComponent!=null">
-                <lotOpearte :lotComponent="lotComponent"></lotOpearte>
-            </template>
-            <el-button @click="excel">导出表格</el-button>
+            <!-- 分页模块 -->
+                <el-pagination
+                  v-if="paginator!=0"
+                  layout="prev, pager, next, jumper"
+                  :total="paginator.total"
+                  :page-size="paginator.per_page"
+                  class="pager"
+                  @current-change="pageChange">
+                </el-pagination>
         </div>
-
-        <p class="record">共有<span class="record_num">{{num}}</span>页，<span class="record_num">{{total_num}}</span>条记录</p>
-
-        <!-- 分页模块 -->
-            <el-pagination
-              v-if="paginator!=0"
-              layout="prev, pager, next, jumper"
-              :total="paginator.total"
-              :page-size="paginator.per_page"
-              class="pager"
-              @current-change="pageChange">
-            </el-pagination>
     </div>
 </div> 
 </template>
@@ -208,7 +210,8 @@ export default {
             rowId: null,
             routeId: this.$route.params.id,
             isShow: true,
-            listLoading: false
+            listLoading: false,
+            tableListBollean: true
         }
     },
     mixins: [computed],
@@ -447,8 +450,22 @@ export default {
                 .then((responce) => {
                     var ret = this.$conversion(this.changeDataArr, responce.data, 0)
                     ret = this.$eltable(ret)
+                    if (this.url === 'plan') {
+                        ret = this.setPlaning(ret)
+                    }
                     this.$set(this, 'headData', ret)
                 })
+        },
+        setPlaning (ret) {
+            if (ret.type === '施肥') {
+                ret['planing'] = '使用肥料:' + ret.manure_name + ', 使用量:' + ret.amount_unit
+            } else if (ret.type === '施药') {
+                ret['planing'] = '使用肥料:' + ret.medicament_name + ', 使用量:' + ret.amount_unit
+            } else if (ret.type === '采收') {
+                this.tableListBollean = false
+                ret['planing'] = '针对批次' + ret.cultivate_serial + '采收, 采收量:' + ret.amount_unit
+            }
+            return ret
         },
         // 获取列表信息
         getAllMsg (data = {}, flag = false) {
