@@ -9,9 +9,6 @@
     <div id="p_popNew">
         <!-- <x-header :left-options="{backText: ''}">{{settitle}}</x-header> -->
         <header1 :settitle="settitle" :homeShow="false" :back="true" :planShow="planShow">
-            <!-- <template>
-                <span  ></span>
-            </template> -->
         </header1>
         <div class="ppN_content">
             <group label-width="4.5em" label-margin-right="2em" label-align="right">

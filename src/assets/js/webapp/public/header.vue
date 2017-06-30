@@ -110,13 +110,14 @@ export default {
 				background-position: 100%;
 			}
 			.newplan{
-		        width: 34px;
+		        width: 9%;
 		        height: 36px;
 		        display: inline-block;
-		        background: url(/public/images/plan.png) no-repeat;
+		        background: url(/public/images/newplan.png) no-repeat;
 		        background-position: 100%;
-		        left: 5%;
+		        left: 6%;
 		        top: 13%;
+		        /*border: 1px solid red;*/
 		    }
 	}
 </style>
