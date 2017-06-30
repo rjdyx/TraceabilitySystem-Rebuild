@@ -27,6 +27,7 @@ export default {
         protos: ['fodder_name', 'date', 'operate_name'],
         widths: [26, 26, 26],
         newComponent: [{
+            plan: true,
             tab: '新建饲料使用信息',
             checkBoxUrl: [['breeds', 'id', 'serial', 'check'], ['fodders', 'id', 'name', 'radio'], ['additions', 'id', 'name', 'radio'], ['operates', 'id', 'name', 'radio']],
             checkBoxPosition: [0, 1, 2, 3],
