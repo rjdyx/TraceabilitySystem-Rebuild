@@ -115,9 +115,8 @@ export default {
 		        display: inline-block;
 		        background: url(/public/images/newplan.png) no-repeat;
 		        background-position: 100%;
-		        left: 6%;
+		        left: 5%;
 		        top: 13%;
-		        /*border: 1px solid red;*/
 		    }
 	}
 </style>
