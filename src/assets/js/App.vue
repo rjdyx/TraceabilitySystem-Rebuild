@@ -14,6 +14,8 @@ export default {
         getFont () {
             return this.$store.getters.getFont
         }
+    },
+    methods: {
     }
 }
 </script> 
