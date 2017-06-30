@@ -442,7 +442,6 @@ export default {
                 let fnBol = this.validateFn({name: key, rule: this.ruleTableForm[key], value: this.tableForm[key]}).valid
                 allValBol = allValBol && fnBol
             }
-            console.log(this.tableForm)
             if (allValBol) {
                 let submitVal = this.$changeSubmit(this.tableForm, this.selectHideId)
                 let beforeS = this.$changeMutual(submitVal, this.changeDataArr, 1)
@@ -574,24 +573,10 @@ export default {
             var _this = this
             this.typeComponent.components.forEach(function (item) {
                 if (item.type === 'date') {
-                    _this.toDate = _this.getLocalTime(Date.now())
+                    _this.toDate = _this.$getLocalTime(Date.now())
                     _this.tableForm[item.name] = _this.toDate
                 }
             })
-        },
-        getLocalTime (nS) {
-            var dateStr = new Date(parseInt(nS)).toLocaleDateString()
-            dateStr = dateStr.replace(/年|月/g, '/').replace(/日/g, '')
-            var month = (new Date(dateStr)).getMonth() + 1
-            var year = (new Date(dateStr)).getFullYear()
-            var date = (new Date(dateStr)).getDate()
-            if (month < 10) {
-                month = '0' + month
-            }
-            if (date < 10) {
-                date = '0' + date
-            }
-            return year + '-' + month + '-' + date
         }
     },
     created () {
