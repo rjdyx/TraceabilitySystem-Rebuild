@@ -8,6 +8,7 @@
 	<div class="app-header">
 		<!-- <span class="left-btn" @click="showmenu"></span> -->
 		<slot name="menu"></slot>
+		<span name="plan" class="newplan" v-if="planShow"></span>
 		<h1>{{settitle}}</h1>
 		<span v-show="back" class="back" @click="backTo"></span>
 		<span class="right-btn" @click="goBack" v-show="homeShow"></span>
@@ -17,6 +18,11 @@
 <script>
 export default {
     name: 'appHeader',
+    data () {
+        return {
+            // planShow: false
+        }
+    },
     props: {
         settitle: {
             type: String,
@@ -27,6 +33,10 @@ export default {
             default: false
         },
         back: {
+            type: Boolean,
+            default: false
+        },
+        planShow: {
             type: Boolean,
             default: false
         }
@@ -46,6 +56,8 @@ export default {
         if (this.$route.path.indexOf('appIndex') !== -1 && window.isPC !== false) {
             this.$router.push('/index/home')
         }
+    },
+    watch: {
     }
 }
 </script>
@@ -97,5 +109,14 @@ export default {
 				background: url(/public/images/re-back.png) no-repeat;
 				background-position: 100%;
 			}
+			.newplan{
+		        width: 34px;
+		        height: 36px;
+		        display: inline-block;
+		        background: url(/public/images/plan.png) no-repeat;
+		        background-position: 100%;
+		        left: 5%;
+		        top: 13%;
+		    }
 	}
 </style>
