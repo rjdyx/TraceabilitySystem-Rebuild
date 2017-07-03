@@ -61,8 +61,8 @@ export default{
             $('.s').css('transform', 'rotate(' + s * 360 / 60 + 'deg)')
             $('.m').css('transform', 'rotate(' + (m * 6 + s / 60 * 6) + 'deg)')
             $('.h').css('transform', 'rotate(' + (h * 30 + m / 60 * 30) + 'deg)')
-            // if (h > 6 && h < 18) {
-            if (s > 30) {
+            if (h > 6 && h < 18) {
+            // if (s > 30) {
                 $('.taiyang').fadeIn('slow')
                 $('.yueliang').fadeOut('slow')
                 $('.webIndex').css('background', 'white')
@@ -177,7 +177,7 @@ export default{
 				@include cloud(15%, 7%, absolute, 3%, -15%, -1);
 			}
 			.taiyang{
-				@include cloud(15%, auto, absolute, 3%, 80%, -1);
+				@include cloud(15%, auto, absolute, 2%, 80%, -2);
 				transform: rotate(0deg);
 				animation: taiyang 20s linear infinite 0s;
 				display: none;
