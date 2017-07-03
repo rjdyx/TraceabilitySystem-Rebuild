@@ -355,6 +355,26 @@ default {
             }
             return ret
         }
+        /**
+         *
+         * 手机端区分时间函数
+         * @param nS(时间戳)
+         * @returns date(****-**-**)
+         */
+        Vue.prototype.$getLocalTime = (nS) => {
+            var dateStr = new Date(parseInt(nS)).toLocaleDateString()
+            dateStr = dateStr.replace(/年|月/g, '/').replace(/日/g, '')
+            var month = (new Date(dateStr)).getMonth() + 1
+            var year = (new Date(dateStr)).getFullYear()
+            var date = (new Date(dateStr)).getDate()
+            if (month < 10) {
+                month = '0' + month
+            }
+            if (date < 10) {
+                date = '0' + date
+            }
+            return year + '-' + month + '-' + date
+        }
         Vue.prototype.Roles = {}
     }
 }

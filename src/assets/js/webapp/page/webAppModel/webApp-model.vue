@@ -433,9 +433,6 @@ export default {
         float: left;
         /*margin-right: 10px;*/
     }
-    .appTime{
-        margin-bottom: 10px;
-    }
     .allcheck{
         float: left;
         margin: 5% 4% 0 1%;
@@ -452,12 +449,6 @@ export default {
         height: 45px;
         background: #eaeaea;
         border: 1px solid #d8d8d8;
-    }
-    .vux-table td:before, .vux-table th:before{
-        border-bottom: none;
-    }
-    .vux-table td:after, .vux-table th:after{
-        border-right: none;
     }
     .appEdit{
         width: 5%;
@@ -477,14 +468,6 @@ export default {
     .clickHide{
         margin-top: 5px;
         width: 100%;
-    }
-    .uphide{
-        background: url(/public/images/arrowBottom.png) no-repeat;
-        background-size: 100%;   
-    }
-    .downhide{
-        background: url(/public/images/arrowTop.png) no-repeat;
-        background-size: 100%;
     }
     .clickHide{
         height: 30px;
@@ -562,7 +545,7 @@ export default {
     }
     .apptab{
         width: 100%;
-        margin-bottom: 50px;
+        margin-bottom: 47px;
         margin-top: 5px;
         .vux-tab{
             display: block;
@@ -605,17 +588,8 @@ export default {
         /*top: -132px;*/
         left: 0;
     }
-    /*.swipeout{
-        width: 100%;
-    }*/
     .appedit{
         background: #009acb;
-    }
-    /*.lookOver{
-        background: #eaeaea;
-    }*/
-    .more{
-        height:250px;
     }
     .appOperate{
         /*height: 132px;*/

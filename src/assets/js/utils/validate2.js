@@ -100,7 +100,11 @@ exports.reDate = (rule, value, callback, source, options) => {
         if (JSON.stringify(value) === '{}') {
             callback(new Error(rule.message))
         } else {
-            callback()
+            if (rule.lastDate) {
+                callback(new Error(rule.message))
+            } else {
+                callback()
+            }
         }
     }
 }

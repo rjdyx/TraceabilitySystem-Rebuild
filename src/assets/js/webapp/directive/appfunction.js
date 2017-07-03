@@ -13,10 +13,14 @@ export default {
         let listTop = 0
         $('.list').on({
             touchstart: function (e) {
+                e.stopPropagation()
+                e.preventDefault()
                 this.startY = e.targetTouches[0].clientY - 100
                 listTop = $('.applist').position().top
             },
             touchmove: function (e) {
+                e.stopPropagation()
+                e.preventDefault()
                 this.moveY = e.targetTouches[0].clientY - 100
                 distance = this.moveY - this.startY
                 if (listTop < 7) {

@@ -8,7 +8,7 @@
 <template>
     <div id="p_popNew">
         <!-- <x-header :left-options="{backText: ''}">{{settitle}}</x-header> -->
-        <header1 :settitle="settitle" :homeShow="false" :back="true">
+        <header1 :settitle="settitle" :homeShow="false" :back="true" :planShow="planShow">
         </header1>
         <div class="ppN_content">
             <group label-width="4.5em" label-margin-right="2em" label-align="right">
@@ -207,7 +207,7 @@ export default {
             typeComponent = modelObj[this.$route.params.model][this.$route.params.modelIndex].newComponent
             typeComponent[0].components.forEach(function (item) {
                 if (item.type === 'textSelect') {
-                    form[item.name] = 0
+                    form[item.name] = ''
                     form['unit'] = [item.options[0][0]]
                     ruleTableForm['unit'] = {bol: false, rule: {required: item.rule.required}}
                     ruleTableForm[item.name] = {bol: false, rule: item.rule}
@@ -242,6 +242,7 @@ export default {
         return {
             type: type, // 判断编辑模块还是新增模块的标志
             settitle: typeComponent[0].tab,
+            planShow: typeComponent[0].plan,
             typeComponent: typeComponent[0],
             url: url,
             changeDataArr: changeDataArr,
@@ -571,16 +572,10 @@ export default {
         // 获取今天时间
         getToDate () {
             var _this = this
-            // console.log(date('Y-m-d H:i:s', '1350052653'))
             this.typeComponent.components.forEach(function (item) {
                 if (item.type === 'date') {
-                    if (item.format !== undefined) {
-                        _this.toDate = new Date(parseInt(Date.now())).toLocaleDateString().replace(/\//g, '-')
-                        _this.tableForm[item.name] = _this.toDate
-                    } else {
-                        _this.toDate = new Date(parseInt(Date.now())).toLocaleDateString().replace(/\//g, '-')
-                        _this.tableForm[item.name] = _this.toDate
-                    }
+                    _this.toDate = _this.$getLocalTime(Date.now())
+                    _this.tableForm[item.name] = _this.toDate
                 }
             })
         }
@@ -770,5 +765,6 @@ export default {
             line-height:3;
         }
     }
+    
 }
 </style>

@@ -109,6 +109,7 @@
                                     v-else
                                     v-bind:is="subItem.component" 
                                     :shuju="subItem"
+                                    :range="subItem.range"
                                     @return-shuju="returnShuju"
                                 ></component>
                             </el-form-item>
@@ -177,6 +178,7 @@ export default {
     },
     data () {
         let form = {}
+        let _this = this
         this.newComponent[0].components.forEach(function (item) {
             if (item.type === 'text' || item.type === 'textarea' || item.type === 'file') {
                 form[item.name] = ''
@@ -236,6 +238,13 @@ export default {
         },
         // 返回InputTextSelect组件的数据
         returnShuju (data) {
+            if (data.name === 'end_date') {
+                if (data.value !== undefined && data.value !== '') {
+                    this.newComponent[0].components[0].rule[1]['lastDate'] = false
+                } else {
+                    this.newComponent[0].components[0].rule[1]['lastDate'] = true
+                }
+            }
             this.tableForm[data.name] = data.value
         },
         // 关闭表单事件
@@ -366,6 +375,7 @@ export default {
                     for (let k3 in number[val]) {
                         com[number[val][k3]].hiddenSelect = false
                     }
+                    this.setUnit(val)
                 }
             } else if (name === 'breed_id' || name === 'come_id' || changeTable) {
                 this.ids = []
@@ -395,14 +405,23 @@ export default {
                 }
             }
         },
+        setUnit (val) {
+            if (val === 'fertilize') {
+                this.tableForm['unit'] = 'kg/亩'
+            } else if (val === 'spray') {
+                this.tableForm['unit'] = 'ml/亩'
+            } else if (val === 'harvest') {
+                this.tableForm['unit'] = 'kg'
+            }
+        },
         // 新增成功调用方法
         successCallback () {
             this.$parent.closeNewShow()
             var com = this.newComponent[0].components
-            if (this.newComponent[0].type === 'assoc' || this.newComponent[0].type === 'selectAssoc') {
-                for (let k in com) {
-                    if (com[k].hiddenSelect !== undefined) {
-                        com[k].hiddenSelect = true
+            if (com.type === 'assoc' || com.type === 'selectAssoc' || com.type === 'planAssoc') {
+                for (let k in com.components) {
+                    if (com.components[k].hiddenSelect !== undefined) {
+                        com.components[k].hiddenSelect = true
                     }
                 }
             }
