@@ -7,9 +7,12 @@
 
 <template>
     <div id="p_popNew">
-        <!-- <x-header :left-options="{backText: ''}">{{settitle}}</x-header> -->
-        <header1 :settitle="settitle" :homeShow="false" :back="true" :planShow="planShow">
+        <header1 :settitle="settitle" :homeShow="false" :back="true" >
+            <span slot="plan" class="newplan" v-if="planShow" @click="newPlanFn"></span> 
         </header1>
+        <group>
+          <popup-radio class="newPlanRadio" title="options" :options="options2" v-model="option2" v-if="planShow"></popup-radio>
+        </group>
         <div class="ppN_content">
             <group label-width="4.5em" label-margin-right="2em" label-align="right">
                 <div class="formItem" v-for="comItem in typeComponent.components" v-if="comItem.type !== 'file' && !comItem.hiddenSelect">
@@ -265,7 +268,15 @@ export default {
             // 今天日期
             toDate: '',
             // 默认日期格式
-            format: 'YYYY-MM-DD'
+            format: 'YYYY-MM-DD',
+            option2: '',
+            options2: [{
+                key: 'A',
+                value: 'label A'
+            }, {
+                key: 'B',
+                value: 'label B'
+            }]
         }
     },
     methods: {
@@ -578,6 +589,11 @@ export default {
                     _this.tableForm[item.name] = _this.toDate
                 }
             })
+        },
+        // 计划
+        newPlanFn () {
+            console.log(4)
+            $('.newPlanRadio').click()
         }
     },
     created () {
@@ -653,7 +669,11 @@ export default {
         padding-left:.4rem;
     }
 #p_popNew{
-    
+    .newPlanRadio{
+        position:absolute;
+        z-index:-5;
+        opacity:0;
+    }
     .checkbox{
         background-color:$labelBgCol;
     }
