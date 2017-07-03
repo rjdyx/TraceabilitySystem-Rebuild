@@ -29,7 +29,6 @@
                         :class="[{ inputErrors: ruleTableForm[comItem.name].bol},{bggray: comItem.disabled}]"
                         >
                     </x-input>
-                    
 
                     <datetime
                         :name="comItem.name" 
@@ -58,7 +57,8 @@
                         v-model="tableForm[comItem.name]"
                         @on-hide="onHide"
                         value-text-align="left"
-                        :class="{ inputErrors: ruleTableForm[comItem.name].bol}"
+                        :class="[{ inputErrors: ruleTableForm[comItem.name].bol},{bggray: comItem.disabled}]"
+                        :disabled="comItem.disabled"
                         >
                     </popup-picker>
 
@@ -94,13 +94,14 @@
                             @on-hide="onHide"
                             value-text-align="left"
                             :class="{ inputErrors: ruleTableForm['unit'].bol}"
+                            :disabled='comItem.disabled'
                             >
                         </popup-picker>
                     </div>
 
                     <div v-if="comItem.type === 'pcSelect'">
-                        <div class="pcDiv">
-                            <div class="vux-cell-box" @click='comItem.show = !comItem.show'>
+                        <div :class="[{pcDiv:true},{bggray: comItem.disabled}]" >
+                            <div class="vux-cell-box" @click='pcShowFn(comItem)'>
                                 <div :class="{ inputErrors: ruleTableForm[comItem.name].bol}">
                                     <div class="weui-cell vux-tap-active weui-cell_access">
                                         <div class="weui-cell__hd"><label class="weui-label" style="display: block; width: 4.5em; text-align: right; margin-right: 2em;">{{comItem.label}}</label><!---->
@@ -275,6 +276,12 @@ export default {
         }
     },
     methods: {
+        pcShowFn (comItem) {
+            console.log(comItem)
+            comItem.show = !comItem.show && !comItem.disabled
+            console.log(comItem.show)
+            this.tableForm['breed_ids'] = [4, 5]
+        },
         change (val) {
         },
         allcheckFn (name, options, bol) {
@@ -652,7 +659,7 @@ export default {
     $placeholderCol:#b7b7b7;
     @mixin label {
         text-align:left!important;
-        padding: 10px 15px;
+        padding: 15px 15px;
         margin-right:0px!important;
         width:6em!important;
     }
@@ -662,6 +669,7 @@ export default {
         max-height:3rem;
         overflow:scroll;
         padding:.2rem .3rem;
+        background:white;
         li{
             line-height:.6rem;
             input{

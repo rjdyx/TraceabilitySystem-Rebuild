@@ -40,7 +40,8 @@ export default {
                 rule: {required: true}, // 这里如果需要验证类型写方法名，否则写false
                 options: [],
                 show: false,
-                rfid: false
+                rfid: false,
+                disabled: true
             },
             {
                 name: 'fodder_id',
@@ -50,7 +51,8 @@ export default {
                 rule: {required: true}, // 这里如果需要验证类型写方法名
                 options: [],
                 optionskeys: [],
-                show: false
+                show: false,
+                disabled: true
             },
             {
                 name: 'addition_id',
@@ -87,7 +89,8 @@ export default {
                 rule: {required: true, type: 'reNumber'},
                 options: [['kg/只', 'kg/头', 'kg/条']],
                 optionskeys: [['kg/只', 'kg/头', 'kg/条']],
-                show: false
+                show: false,
+                disabled: true
             },
             {
                 name: 'way',
