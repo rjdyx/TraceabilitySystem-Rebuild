@@ -259,6 +259,7 @@ export default {
             show13: false,
             objectListValue: ['15', '2'],
             selectHideId: {},
+            defaultInit: {},
             isEdit: false,
             successMsg: '',
             errorMsg: '',
@@ -280,7 +281,6 @@ export default {
     methods: {
         pcShowFn (comItem) {
             comItem.show = !comItem.show && !comItem.disabled
-            this.tableForm['breed_ids'] = [4, 5]
         },
         change (val) {
         },
@@ -569,6 +569,7 @@ export default {
             if (this.typeComponent.hasImg) {
                 this.hasImg = true
             }
+            this.clearClass()
         },
         // 多条件查询
         selectCheckSearch (data) {
@@ -593,13 +594,28 @@ export default {
                 }
             })
         },
+        // 新增获取默认值
+        getDefaultInit () {
+            for (let key of Object.keys(this.tableForm)) {
+                this.defaultInit[key] = this.tableForm[key]
+            }
+        },
+        // 清空样式
+        clearClass () {
+            if (this.typeComponent.planPosition !== undefined) {
+                for (let index in this.typeComponent.planPosition) {
+                    this.typeComponent.components[this.typeComponent.planPosition[index]]['disabled'] = false
+                }
+                this.typeComponent['hiddenValue'] = ''
+            }
+        },
         // 获取计划
         newPlanFn () {
             let params = {type: this.url}
             this.$dataGet(this, 'plan/getPlanInfo', params)
                 .then((responce) => {
                     if (responce.data.length !== 0) {
-                        let arr = this.$selectDataArr(responce.data, this.typeComponent.planArr)
+                        let arr = this.$selectDataArr(responce.data, this.typeComponent.planArr, this.typeComponent.planString)
                         this.options2 = arr
                         $('.newPlanRadio').click()
                     } else {
@@ -609,27 +625,35 @@ export default {
         },
         // 填充计划
         getPlanInfo (val) {
-            let params = {type: this.url, id: val}
-            this.$dataGet(this, 'plan/selectPlan', params)
-                .then((responce) => {
-                    let arrId = []
-                    let initVal = this.$changeArrBox(responce.data.planData, this.typeComponent.planBox)
-                    for (let key of Object.keys(initVal[0])) {
-                        this.tableForm[key] = initVal[0][key]
-                    }
-                    if (this.typeComponent.planIds !== undefined) {
-                        for (let item in responce.data.planList) {
-                            arrId.push(responce.data.planList[item].id)
+            if (val !== '') {
+                let params = {type: this.url, id: val}
+                this.$dataGet(this, 'plan/selectPlan', params)
+                    .then((responce) => {
+                        let arrId = []
+                        let initVal = this.$changeArrBox(responce.data.planData, this.typeComponent.planBox)
+                        for (let key of Object.keys(initVal[0])) {
+                            this.tableForm[key] = initVal[0][key]
                         }
-                        this.tableForm[this.typeComponent.planIds] = arrId
-                    }
-                    if (this.typeComponent.planPosition !== undefined) {
-                        for (let index in this.typeComponent.planPosition) {
-                            this.typeComponent.components[this.typeComponent.planPosition[index]]['disabled'] = true
+                        if (this.typeComponent.planIds !== undefined) {
+                            for (let item in responce.data.planList) {
+                                arrId.push(responce.data.planList[item].id)
+                            }
+                            this.tableForm[this.typeComponent.planIds] = arrId
                         }
-                    }
-                    this.selectHideId = initVal[1]
-                })
+                        if (this.typeComponent.planPosition !== undefined) {
+                            for (let index in this.typeComponent.planPosition) {
+                                this.typeComponent.components[this.typeComponent.planPosition[index]]['disabled'] = true
+                            }
+                        }
+                        this.selectHideId = initVal[1]
+                        this.typeComponent['hiddenValue'] = {'plan_id': val}
+                    })
+            } else {
+                for (let key of Object.keys(this.defaultInit)) {
+                    this.tableForm[key] = this.defaultInit[key]
+                }
+                this.clearClass()
+            }
         }
     },
     created () {
@@ -649,6 +673,7 @@ export default {
         } else {
             this.defaultHide()
             this.getToDate()
+            this.getDefaultInit()
             this.isEdit = false
             this.successMsg = '新增数据成功'
             this.errorMsg = '新增数据失败'

@@ -42,9 +42,6 @@ export default {
         // }
     },
     methods: {
-        // showmenu () {
-        //     this.$emit('parentClick')
-        // },
         goBack () {
             this.$router.push('/appIndex')
         },
@@ -53,8 +50,10 @@ export default {
         }
     },
     mounted () {
-        if (this.$route.path.indexOf('appIndex') !== -1 && window.isPC !== false) {
-            this.$router.push('/index/home')
+        if (window.isPC) {
+            if (this.$route.path.indexOf('appIndex') !== -1 || this.$route.path.indexOf('webAppNew') !== -1) {
+                this.$router.push('/index/home')
+            }
         }
     },
     watch: {

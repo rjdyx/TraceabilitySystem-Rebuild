@@ -1365,6 +1365,7 @@ export default {
             widths: [26, 26, 26],
             newComponent: [{
                 plan: true,
+                planString: '请选择施肥计划',
                 planArr: {'manure_name': '肥料名称', 'operate_name': '施肥人', 'amount': '施肥量', 'unit': '单位'},
                 planBox: {'manure_id': 'manure_name', 'operate_id': 'operate_name', 'unit': 'unit'},
                 planIds: 'cultivate_ids',
