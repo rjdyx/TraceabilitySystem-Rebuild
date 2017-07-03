@@ -40,11 +40,12 @@
                         :placeholder="comItem.placeholder"
                         start-date="2000-1-1" 
                         :end-date="toDate"
+                        :readonly="comItem.disabled"
                         :format="comItem.format != undefined ? comItem.format : format"
                         confirm-text="确认"
                         cancel-text="取消" 
                         clear-text="清空"
-                        :class="{ inputErrors: ruleTableForm[comItem.name].bol}">
+                        :class="[{ inputErrors: ruleTableForm[comItem.name].bol},{bggray: comItem.disabled}]">
                     </datetime>
 
                     <popup-picker
@@ -84,7 +85,8 @@
                             v-model="tableForm[comItem.name]"
                             @on-change="inputOnChange"
                             @on-blur="onBlur"
-                            :class="{ inputErrors: ruleTableForm[comItem.name].bol}">
+                            :disabled="comItem.disabled"
+                            :class="[{ inputErrors: ruleTableForm[comItem.name].bol},{bggray: comItem.disabled}]">
                         </x-input>
                         <popup-picker 
                             :name="comItem.name"
@@ -93,7 +95,7 @@
                             v-model="tableForm['unit']"
                             @on-hide="onHide"
                             value-text-align="left"
-                            :class="{ inputErrors: ruleTableForm['unit'].bol}"
+                            :class="[{ inputErrors: ruleTableForm['unit'].bol},{bggray: comItem.disabled}]"
                             :disabled='comItem.disabled'
                             >
                         </popup-picker>
@@ -277,9 +279,7 @@ export default {
     },
     methods: {
         pcShowFn (comItem) {
-            console.log(comItem)
             comItem.show = !comItem.show && !comItem.disabled
-            console.log(comItem.show)
             this.tableForm['breed_ids'] = [4, 5]
         },
         change (val) {
@@ -622,6 +622,11 @@ export default {
                             arrId.push(responce.data.planList[item].id)
                         }
                         this.tableForm[this.typeComponent.planIds] = arrId
+                    }
+                    if (this.typeComponent.planPosition !== undefined) {
+                        for (let index in this.typeComponent.planPosition) {
+                            this.typeComponent.components[this.typeComponent.planPosition[index]]['disabled'] = true
+                        }
                     }
                     this.selectHideId = initVal[1]
                 })

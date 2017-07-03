@@ -1368,6 +1368,7 @@ export default {
                 planArr: {'manure_name': '肥料名称', 'operate_name': '施肥人', 'amount': '施肥量', 'unit': '单位'},
                 planBox: {'manure_id': 'manure_name', 'operate_id': 'operate_name', 'unit': 'unit'},
                 planIds: 'cultivate_ids',
+                planPosition: [0, 1, 2, 3, 4],
                 tab: '新建施肥信息',
                 checkBoxUrl: [['cultivates', 'id', 'serial', 'check'], ['manures', 'id', 'name', 'radio'], ['operates', 'id', 'name', 'radio']],
                 selectValue: [[], [], [{n: 'domain', v: 'plant'}, {n: 'domain', v: 'all', s: true}]],
@@ -1396,6 +1397,7 @@ export default {
                     type: 'date',
                     label: '施肥日期',
                     placeholder: '（必选）',
+                    disabled: false,
                     rule: {required: true}
                 },
                 {
