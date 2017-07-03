@@ -43,7 +43,8 @@
                         confirm-text="确认"
                         cancel-text="取消" 
                         clear-text="清空"
-                        :class="{ inputErrors: ruleTableForm[comItem.name].bol}">
+                        :class="[{ inputErrors: ruleTableForm[comItem.name].bol},{bggray: comItem.disabled}]"
+                        :readonly="readonly">
                     </datetime>
 
                     <popup-picker
@@ -277,7 +278,8 @@ export default {
             }, {
                 key: 'B',
                 value: 'label B'
-            }]
+            }],
+            readonly: true
         }
     },
     methods: {

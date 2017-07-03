@@ -79,7 +79,8 @@ export default {
                 type: 'date',
                 label: '饲养日期',
                 placeholder: '（必选）',
-                rule: {required: true}
+                rule: {required: true},
+                disabled: 'true'
             },
             {
                 name: 'amount',
