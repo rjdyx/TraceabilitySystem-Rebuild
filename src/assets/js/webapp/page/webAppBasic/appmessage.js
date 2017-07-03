@@ -83,7 +83,7 @@ export default {
                 type: 'textSelect',
                 label: '平均喂养量',
                 placeholder: '请输入整数（必填）',
-                rule: {required: true, type: 'reNumber', message: '请输入整数'},
+                rule: {required: true, type: 'reNumber'},
                 options: [['kg/只', 'kg/头', 'kg/条']],
                 optionskeys: [['kg/只', 'kg/头', 'kg/条']],
                 show: false

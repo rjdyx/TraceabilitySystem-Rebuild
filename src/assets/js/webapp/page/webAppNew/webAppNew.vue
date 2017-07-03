@@ -399,6 +399,7 @@ export default {
             this.validateFn(obj)
         },
         onBlur (obj) {
+            console.log(obj)
             this.validateFn(obj)
         },
 
