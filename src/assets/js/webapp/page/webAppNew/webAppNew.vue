@@ -11,7 +11,8 @@
             <span slot="plan" class="newplan" v-if="planShow" @click="newPlanFn"></span> 
         </header1>
         <group>
-          <popup-radio class="newPlanRadio" title="options" :options="options2" v-model="option2" v-if="planShow"></popup-radio>
+          <popup-radio class="newPlanRadio" title="options" :options="options2" v-model="option2" v-if="planShow"
+                @on-change="getPlanInfo"></popup-radio>
         </group>
         <div class="ppN_content">
             <group label-width="4.5em" label-margin-right="2em" label-align="right">
@@ -270,13 +271,7 @@ export default {
             // 默认日期格式
             format: 'YYYY-MM-DD',
             option2: '',
-            options2: [{
-                key: 'A',
-                value: 'label A'
-            }, {
-                key: 'B',
-                value: 'label B'
-            }]
+            options2: []
         }
     },
     methods: {
@@ -341,7 +336,7 @@ export default {
             var _this = this
             this.typeComponent.components.forEach(function (item) {
                 if (item.name === 'amount') {
-                    if (_this.url !== 'harvest' && _this.url !== 'code') {
+                    if (_this.url !== 'code') {
                         _this.selectHideId['unit'] = item.optionskeys[0][0]
                     }
                 }
@@ -518,6 +513,7 @@ export default {
                         let initVal = this.$changeArrBox(beforeVal, this.typeComponent.arrBox)
                         this.tableForm = initVal[0]
                         this.selectHideId = initVal[1]
+                        console.log(this.selectHideId)
                     } else {
                         this.tableForm = responce.data
                     }
@@ -590,10 +586,38 @@ export default {
                 }
             })
         },
-        // 计划
+        // 获取计划
         newPlanFn () {
-            console.log(4)
-            $('.newPlanRadio').click()
+            let params = {type: this.url}
+            this.$dataGet(this, 'plan/getPlanInfo', params)
+                .then((responce) => {
+                    if (responce.data.length !== 0) {
+                        let arr = this.$selectDataArr(responce.data, this.typeComponent.planArr)
+                        this.options2 = arr
+                        $('.newPlanRadio').click()
+                    } else {
+                        this.setToast('text', '当前日期无计划', '13em')
+                    }
+                })
+        },
+        // 填充计划
+        getPlanInfo (val) {
+            let params = {type: this.url, id: val}
+            this.$dataGet(this, 'plan/selectPlan', params)
+                .then((responce) => {
+                    let arrId = []
+                    let initVal = this.$changeArrBox(responce.data.planData, this.typeComponent.planBox)
+                    for (let key of Object.keys(initVal[0])) {
+                        this.tableForm[key] = initVal[0][key]
+                    }
+                    if (this.typeComponent.planIds !== undefined) {
+                        for (let item in responce.data.planList) {
+                            arrId.push(responce.data.planList[item].id)
+                        }
+                        this.tableForm[this.typeComponent.planIds] = arrId
+                    }
+                    this.selectHideId = initVal[1]
+                })
         }
     },
     created () {
