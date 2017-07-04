@@ -206,7 +206,7 @@ export default {
                 })
         },
         // 实现全选与反选
-        checkedAll () {
+        checkedAll (e) {
             let ischeckdate = []
             if (!this.checkAll) {
                 this.tableData.forEach((item) => {

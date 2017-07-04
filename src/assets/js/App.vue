@@ -18,28 +18,38 @@ export default {
     methods: {
     },
     mounted () {
-        // $('#app').on({
-        //     touchstart: function (e) {
-        //         var top = e.scrollTop
-        //         let totalScroll = top + e.scrollHeight
-        //         let currentScroll = top + e.offsetHeight
-        //         if (top === 0) {
-        //             e.scrollTop = 1
-        //         } else if (currentScroll === totalScroll) {
-        //             e.scrollTop = top - 1
-        //         }
-        //     },
-        //     touchmove: function (evt) {
-        //         if (e.offsetHeight < e.scrollHeight) {
-        //             evt._isScroller = true
-        //         }
-        //     }
-        // })
-        // document.body.addeventListener('touchmove', function (evt) {
-        //     if (!evt._isScroller) {
-        //         evt.preventDefault()
-        //     }
-        // })
+        let overscroll = function (el) {
+            el.addEventListener('touchstart', function () {
+                let top = el.scrollTop
+                let totalScroll = el.scrollHeight
+                let currentScroll = top + el.offsetHeight
+        // If we're at the top or the bottom of the containers
+        // scroll, push up or down one pixel.
+        //
+        // this prevents the scroll from "passing through" to
+        // the body.
+                if (top === 0) {
+                    el.scrollTop = 1
+                } else if (currentScroll === totalScroll) {
+                    el.scrollTop = top - 1
+                }
+            })
+            el.addEventListener('touchmove', function (evt) {
+                // if the content is actually scrollable, i.e. the content is long enough
+                // that scrolling can occur
+                if (el.offsetHeight < el.scrollHeight) {
+                    evt._isScroller = true
+                }
+            })
+        }
+        overscroll(document.querySelector('#app'))
+        document.body.addEventListener('touchmove', function (evt) {
+            // In this case, the default behavior is scrolling the body, which
+            // would result in an overflow.  Since we don't want that, we preventDefault.
+            if (!evt._isScroller) {
+                evt.preventDefault()
+            }
+        })
     }
 }
 </script> 
