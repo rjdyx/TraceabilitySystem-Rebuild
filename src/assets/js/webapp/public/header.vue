@@ -20,7 +20,6 @@ export default {
     name: 'appHeader',
     data () {
         return {
-            // planShow: false
         }
     },
     props: {
