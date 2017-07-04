@@ -6,9 +6,8 @@
  
 <template>
 	<div class="app-header">
-		<!-- <span class="left-btn" @click="showmenu"></span> -->
 		<slot name="menu"></slot>
-		<span name="plan" class="newplan" v-if="planShow"></span>
+		<slot name="plan"></slot>
 		<h1>{{settitle}}</h1>
 		<span v-show="back" class="back" @click="backTo"></span>
 		<span class="right-btn" @click="goBack" v-show="homeShow"></span>
@@ -34,16 +33,14 @@ export default {
         back: {
             type: Boolean,
             default: false
-        },
-        planShow: {
-            type: Boolean,
-            default: false
         }
+        // ,
+        // planShow: {
+        //     type: Boolean,
+        //     default: false
+        // }
     },
     methods: {
-        // showmenu () {
-        //     this.$emit('parentClick')
-        // },
         goBack () {
             this.$router.push('/appIndex')
         },
@@ -52,8 +49,10 @@ export default {
         }
     },
     mounted () {
-        if (this.$route.path.indexOf('appIndex') !== -1 && window.isPC !== false) {
-            this.$router.push('/index/home')
+        if (window.isPC) {
+            if (this.$route.path.indexOf('appIndex') !== -1 || this.$route.path.indexOf('webAppNew') !== -1) {
+                this.$router.push('/index/home')
+            }
         }
     },
     watch: {

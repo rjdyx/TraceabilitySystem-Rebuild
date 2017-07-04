@@ -7,9 +7,13 @@
 
 <template>
     <div id="p_popNew">
-        <!-- <x-header :left-options="{backText: ''}">{{settitle}}</x-header> -->
-        <header1 :settitle="settitle" :homeShow="false" :back="true" :planShow="planShow">
+        <header1 :settitle="settitle" :homeShow="false" :back="true" >
+            <span slot="plan" class="newplan" v-if="planShow" @click="newPlanFn"></span> 
         </header1>
+        <group>
+          <popup-radio class="newPlanRadio" title="options" :options="options2" v-model="option2" v-if="planShow"
+                @on-change="getPlanInfo"></popup-radio>
+        </group>
         <div class="ppN_content">
             <group label-width="4.5em" label-margin-right="2em" label-align="right">
                 <div class="formItem" v-for="comItem in typeComponent.components" v-if="comItem.type !== 'file' && !comItem.hiddenSelect">
@@ -25,7 +29,6 @@
                         :class="[{ inputErrors: ruleTableForm[comItem.name].bol},{bggray: comItem.disabled}]"
                         >
                     </x-input>
-                    
 
                     <datetime
                         :name="comItem.name" 
@@ -37,11 +40,12 @@
                         :placeholder="comItem.placeholder"
                         start-date="2000-1-1" 
                         :end-date="toDate"
+                        :readonly="comItem.disabled"
                         :format="comItem.format != undefined ? comItem.format : format"
                         confirm-text="确认"
                         cancel-text="取消" 
                         clear-text="清空"
-                        :class="{ inputErrors: ruleTableForm[comItem.name].bol}">
+                        :class="[{ inputErrors: ruleTableForm[comItem.name].bol},{bggray: comItem.disabled}]">
                     </datetime>
 
                     <popup-picker
@@ -54,7 +58,8 @@
                         v-model="tableForm[comItem.name]"
                         @on-hide="onHide"
                         value-text-align="left"
-                        :class="{ inputErrors: ruleTableForm[comItem.name].bol}"
+                        :class="[{ inputErrors: ruleTableForm[comItem.name].bol},{bggray: comItem.disabled}]"
+                        :disabled="comItem.disabled"
                         >
                     </popup-picker>
 
@@ -80,7 +85,8 @@
                             v-model="tableForm[comItem.name]"
                             @on-change="inputOnChange"
                             @on-blur="onBlur"
-                            :class="{ inputErrors: ruleTableForm[comItem.name].bol}">
+                            :disabled="comItem.disabled"
+                            :class="[{ inputErrors: ruleTableForm[comItem.name].bol},{bggray: comItem.disabled}]">
                         </x-input>
                         <popup-picker 
                             :name="comItem.name"
@@ -89,14 +95,15 @@
                             v-model="tableForm['unit']"
                             @on-hide="onHide"
                             value-text-align="left"
-                            :class="{ inputErrors: ruleTableForm['unit'].bol}"
+                            :class="[{ inputErrors: ruleTableForm['unit'].bol},{bggray: comItem.disabled}]"
+                            :disabled='comItem.disabled'
                             >
                         </popup-picker>
                     </div>
 
                     <div v-if="comItem.type === 'pcSelect'">
-                        <div class="pcDiv">
-                            <div class="vux-cell-box" @click='comItem.show = !comItem.show'>
+                        <div :class="[{pcDiv:true},{bggray: comItem.disabled}]" >
+                            <div class="vux-cell-box" @click='pcShowFn(comItem)'>
                                 <div :class="{ inputErrors: ruleTableForm[comItem.name].bol}">
                                     <div class="weui-cell vux-tap-active weui-cell_access">
                                         <div class="weui-cell__hd"><label class="weui-label" style="display: block; width: 4.5em; text-align: right; margin-right: 2em;">{{comItem.label}}</label><!---->
@@ -252,6 +259,7 @@ export default {
             show13: false,
             objectListValue: ['15', '2'],
             selectHideId: {},
+            defaultInit: {},
             isEdit: false,
             successMsg: '',
             errorMsg: '',
@@ -265,10 +273,15 @@ export default {
             // 今天日期
             toDate: '',
             // 默认日期格式
-            format: 'YYYY-MM-DD'
+            format: 'YYYY-MM-DD',
+            option2: '',
+            options2: []
         }
     },
     methods: {
+        pcShowFn (comItem) {
+            comItem.show = !comItem.show && !comItem.disabled
+        },
         change (val) {
         },
         allcheckFn (name, options, bol) {
@@ -330,7 +343,7 @@ export default {
             var _this = this
             this.typeComponent.components.forEach(function (item) {
                 if (item.name === 'amount') {
-                    if (_this.url !== 'harvest' && _this.url !== 'code') {
+                    if (_this.url !== 'code') {
                         _this.selectHideId['unit'] = item.optionskeys[0][0]
                     }
                 }
@@ -400,6 +413,7 @@ export default {
             this.validateFn(obj)
         },
         onBlur (obj) {
+            console.log(obj)
             this.validateFn(obj)
         },
 
@@ -506,6 +520,7 @@ export default {
                         let initVal = this.$changeArrBox(beforeVal, this.typeComponent.arrBox)
                         this.tableForm = initVal[0]
                         this.selectHideId = initVal[1]
+                        console.log(this.selectHideId)
                     } else {
                         this.tableForm = responce.data
                     }
@@ -554,6 +569,7 @@ export default {
             if (this.typeComponent.hasImg) {
                 this.hasImg = true
             }
+            this.clearClass()
         },
         // 多条件查询
         selectCheckSearch (data) {
@@ -577,6 +593,67 @@ export default {
                     _this.tableForm[item.name] = _this.toDate
                 }
             })
+        },
+        // 新增获取默认值
+        getDefaultInit () {
+            for (let key of Object.keys(this.tableForm)) {
+                this.defaultInit[key] = this.tableForm[key]
+            }
+        },
+        // 清空样式
+        clearClass () {
+            if (this.typeComponent.planPosition !== undefined) {
+                for (let index in this.typeComponent.planPosition) {
+                    this.typeComponent.components[this.typeComponent.planPosition[index]]['disabled'] = false
+                }
+                this.typeComponent['hiddenValue'] = ''
+            }
+        },
+        // 获取计划
+        newPlanFn () {
+            let params = {type: this.url}
+            this.$dataGet(this, 'plan/getPlanInfo', params)
+                .then((responce) => {
+                    if (responce.data.length !== 0) {
+                        let arr = this.$selectDataArr(responce.data, this.typeComponent.planArr, this.typeComponent.planString)
+                        this.options2 = arr
+                        $('.newPlanRadio').click()
+                    } else {
+                        this.setToast('text', '当前日期无计划', '13em')
+                    }
+                })
+        },
+        // 填充计划
+        getPlanInfo (val) {
+            if (val !== '') {
+                let params = {type: this.url, id: val}
+                this.$dataGet(this, 'plan/selectPlan', params)
+                    .then((responce) => {
+                        let arrId = []
+                        let initVal = this.$changeArrBox(responce.data.planData, this.typeComponent.planBox)
+                        for (let key of Object.keys(initVal[0])) {
+                            this.tableForm[key] = initVal[0][key]
+                        }
+                        if (this.typeComponent.planIds !== undefined) {
+                            for (let item in responce.data.planList) {
+                                arrId.push(responce.data.planList[item].id)
+                            }
+                            this.tableForm[this.typeComponent.planIds] = arrId
+                        }
+                        if (this.typeComponent.planPosition !== undefined) {
+                            for (let index in this.typeComponent.planPosition) {
+                                this.typeComponent.components[this.typeComponent.planPosition[index]]['disabled'] = true
+                            }
+                        }
+                        this.selectHideId = initVal[1]
+                        this.typeComponent['hiddenValue'] = {'plan_id': val}
+                    })
+            } else {
+                for (let key of Object.keys(this.defaultInit)) {
+                    this.tableForm[key] = this.defaultInit[key]
+                }
+                this.clearClass()
+            }
         }
     },
     created () {
@@ -596,6 +673,7 @@ export default {
         } else {
             this.defaultHide()
             this.getToDate()
+            this.getDefaultInit()
             this.isEdit = false
             this.successMsg = '新增数据成功'
             this.errorMsg = '新增数据失败'
@@ -611,7 +689,7 @@ export default {
     $placeholderCol:#b7b7b7;
     @mixin label {
         text-align:left!important;
-        padding: 10px 15px;
+        padding: 15px 15px;
         margin-right:0px!important;
         width:6em!important;
     }
@@ -621,6 +699,7 @@ export default {
         max-height:3rem;
         overflow:scroll;
         padding:.2rem .3rem;
+        background:white;
         li{
             line-height:.6rem;
             input{
@@ -652,7 +731,11 @@ export default {
         padding-left:.4rem;
     }
 #p_popNew{
-    
+    .newPlanRadio{
+        position:absolute;
+        z-index:-5;
+        opacity:0;
+    }
     .checkbox{
         background-color:$labelBgCol;
     }

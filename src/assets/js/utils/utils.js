@@ -375,6 +375,30 @@ default {
             }
             return year + '-' + month + '-' + date
         }
+        /**
+         *
+         * 获取多数据下拉框
+         * @param ret(数据对象)
+         * @returns arr（数据数组）
+         */
+        Vue.prototype.$selectDataArr = (ret, arrBox, message) => {
+            let arr = [{key: '', value: message}]
+            let obj = {}
+            obj['value'] = ''
+            for (let index in ret) {
+                for (let item in ret[index]) {
+                    if (item === 'id') {
+                        obj['key'] = ret[index][item]
+                    } else {
+                        obj['value'] += arrBox[item] + ':' + ret[index][item] + ',  '
+                    }
+                }
+                arr.push(obj)
+                obj = {}
+                obj['value'] = ''
+            }
+            return arr
+        }
         Vue.prototype.Roles = {}
     }
 }
