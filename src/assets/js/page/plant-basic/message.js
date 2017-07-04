@@ -4636,12 +4636,12 @@ export default {
         url: 'plan',
         paramsIndex: 'beast',
          // 链接批次信息模块数据的桥（养殖批次详情）
-        changeDataArr: [{type: { 'fodderuse': '饲养', 'disease': '病疫' }}],
+        changeDataArr: [{type: { 'fodderuse': '饲养', 'disease': '病疫' }}, {state: {0: '未完成', 1: '已完成'}}],
         searchPlaceholder: '请输入批次号',
         search: ['query_text', 'type'],
-        theads: ['批次号', '计划开始日期', '计划结束日期', '操作类型', '安排人员', '计划内容', '操作用户', '备注'],
-        protos: ['serial', 'date', 'end_date', 'type', 'operate_name', 'user_name', 'content', 'memo'],
-        widths: [50, 50, 50, 50, 50, 50, 50],
+        theads: ['批次号', '计划开始日期', '计划结束日期', '操作类型', '安排人员', '计划内容', '操作用户', '状态', '备注'],
+        protos: ['serial', 'date', 'end_date', 'type', 'operate_name', 'user_name', 'content', 'state', 'memo'],
+        widths: [50, 50, 50, 50, 50, 50, 50, 50, 50],
         typeComponent: [{
             component: output
         },

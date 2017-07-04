@@ -413,7 +413,6 @@ export default {
             this.validateFn(obj)
         },
         onBlur (obj) {
-            console.log(obj)
             this.validateFn(obj)
         },
 
@@ -526,7 +525,6 @@ export default {
                         let initVal = this.$changeArrBox(beforeVal, this.typeComponent.arrBox)
                         this.tableForm = initVal[0]
                         this.selectHideId = initVal[1]
-                        console.log(this.selectHideId)
                     } else {
                         this.tableForm = responce.data
                     }
