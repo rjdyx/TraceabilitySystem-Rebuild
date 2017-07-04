@@ -464,6 +464,8 @@ export default {
             } else if (ret.type === '采收') {
                 this.tableListBollean = false
                 ret['planing'] = '针对批次' + ret.cultivate_serial + '采收, 采收量:' + ret.amount_unit
+            } else if (ret.type === '饲养') {
+                ret['planing'] = '使用饲料：' + ret.fodder_name + '，饲料添加剂：' + ret.addition_name + '， 使用量：' + ret.amount_unit
             }
             return ret
         },

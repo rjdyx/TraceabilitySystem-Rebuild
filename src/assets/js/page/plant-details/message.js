@@ -619,8 +619,8 @@ export default {
         key: 'planBatch',
         tab: '养殖计划管理',
         roleName: ['beast/plan', 0],
-        theads: ['养殖计划批次号', '计划日期', '操作类型', '安排人员', '计划内容', '备注'],
-        protos: ['serial', 'date', 'type', 'operate_name', 'content', 'memo'],
+        theads: ['养殖计划批次号', '计划开始日期', '计划结束日期', '操作类型', '安排人员', '计划内容', '具体规划', '备注'],
+        protos: ['serial', 'date', 'end_date', 'type', 'operate_name', 'content', 'planing', 'memo'],
         changeDataArr: [{type: {'饲养': 'fodderuse', '检测': 'detects'}}],
         url: 'plan',
         tabList: [{

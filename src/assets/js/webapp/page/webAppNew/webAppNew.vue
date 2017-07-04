@@ -7,7 +7,7 @@
 
 <template>
     <div id="p_popNew">
-        <header1 :settitle="settitle" :homeShow="false" :back="true" >
+        <header1 :settitle="settitle" :homeShow="false" :back="true" @setClassClear="goBackClear">
             <span slot="plan" class="newplan" v-if="planShow" @click="newPlanFn"></span> 
         </header1>
         <group>
@@ -275,7 +275,8 @@ export default {
             // 默认日期格式
             format: 'YYYY-MM-DD',
             option2: '',
-            options2: []
+            options2: [],
+            bbb: true
         }
     },
     methods: {
@@ -305,7 +306,6 @@ export default {
         textareaOnChange (value, name) {
             this.validateFn({name: name})
         },
-
         /*
         popup-picker组件的方法
         修改了vex里面popup-pickert组件的onHide, 原参数只有type，现在是{closeType: this.closeType, name: this.name, index: 选择的数组下标}。
@@ -349,7 +349,7 @@ export default {
                 }
             })
         },
-        // 获取关联查询(关联字段查询assoc，所处位置position, 查询条件, 查询条件id, 清空条件clearArr)
+        // 获取关联查询(关联字段查询assoc，所处位置position, 查询条件whereName, 查询条件id, 清空条件clearArr)
         getCheckVal (assoc, position, whereName, id, clearArr) {
             this.tableForm[clearArr] = []
             let dataArr = this.$addAndEditSelectMethod(assoc)
@@ -432,11 +432,16 @@ export default {
             comItem.show = !comItem.show
             this.validateFn({name: comItem.name})
         },
+        // 顶部返回清空样式
+        goBackClear () {
+            this.clearClass()
+        },
         /*
         取消表单
         */
         cancelForm () {
             this.$router.go(-1)
+            this.clearClass()
         },
         // 提示弹窗
         setToast (type, text, width = '7.6em') {
@@ -466,6 +471,7 @@ export default {
                     } else {
                         _this.setToast('cancel', _this.errorMsg, '12em')
                     }
+                    this.clearClass()
                     this.$router.go(-1)
                 })
             } else {
@@ -569,7 +575,6 @@ export default {
             if (this.typeComponent.hasImg) {
                 this.hasImg = true
             }
-            this.clearClass()
         },
         // 多条件查询
         selectCheckSearch (data) {
@@ -608,6 +613,9 @@ export default {
                 }
                 this.typeComponent['hiddenValue'] = ''
             }
+            if (this.typeComponent.planIds === 'rfid_ids') {
+                this.typeComponent.components[this.typeComponent.planSelectArrPosition].options = []
+            }
         },
         // 获取计划
         newPlanFn () {
@@ -635,6 +643,12 @@ export default {
                             this.tableForm[key] = initVal[0][key]
                         }
                         if (this.typeComponent.planIds !== undefined) {
+                            if (this.typeComponent.planIds === 'rfid_ids') {
+                                let dataOpt = this.$getCheckSelect(responce.data.planList, this.typeComponent.planSelectArr)
+                                if (dataOpt[0] === 'check') {
+                                    this.typeComponent.components[this.typeComponent.planSelectArrPosition].options = dataOpt[1]
+                                }
+                            }
                             for (let item in responce.data.planList) {
                                 arrId.push(responce.data.planList[item].id)
                             }
