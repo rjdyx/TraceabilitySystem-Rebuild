@@ -446,11 +446,15 @@ export default {
         color: #009acb!important;
     }
 }
+.weui-dialog{
+    width: auto;
+}
 .webApp_model{
     width: 100%;
     height: 100%;
     overflow: hidden;
     padding-top: 50px;
+    
     .webApp-wrap{ 
         width: 100%;
         height: 100%;
