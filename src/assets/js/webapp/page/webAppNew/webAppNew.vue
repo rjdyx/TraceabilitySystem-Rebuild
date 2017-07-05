@@ -7,7 +7,7 @@
 
 <template>
     <div id="p_popNew">
-        <header1 :settitle="settitle" :homeShow="false" :back="true" >
+        <header1 :settitle="settitle" :homeShow="false" :back="true" @setClassClear="goBackClear">
             <span slot="plan" class="newplan" v-if="planShow" @click="newPlanFn"></span> 
         </header1>
         <group>
@@ -259,6 +259,7 @@ export default {
             show13: false,
             objectListValue: ['15', '2'],
             selectHideId: {},
+            defaultInit: {},
             isEdit: false,
             successMsg: '',
             errorMsg: '',
@@ -274,7 +275,8 @@ export default {
             // 默认日期格式
             format: 'YYYY-MM-DD',
             option2: '',
-            options2: []
+            options2: [],
+            bbb: true
         }
     },
     methods: {
@@ -304,7 +306,6 @@ export default {
         textareaOnChange (value, name) {
             this.validateFn({name: name})
         },
-
         /*
         popup-picker组件的方法
         修改了vex里面popup-pickert组件的onHide, 原参数只有type，现在是{closeType: this.closeType, name: this.name, index: 选择的数组下标}。
@@ -348,7 +349,7 @@ export default {
                 }
             })
         },
-        // 获取关联查询(关联字段查询assoc，所处位置position, 查询条件, 查询条件id, 清空条件clearArr)
+        // 获取关联查询(关联字段查询assoc，所处位置position, 查询条件whereName, 查询条件id, 清空条件clearArr)
         getCheckVal (assoc, position, whereName, id, clearArr) {
             this.tableForm[clearArr] = []
             let dataArr = this.$addAndEditSelectMethod(assoc)
@@ -412,7 +413,6 @@ export default {
             this.validateFn(obj)
         },
         onBlur (obj) {
-            console.log(obj)
             this.validateFn(obj)
         },
 
@@ -431,11 +431,16 @@ export default {
             comItem.show = !comItem.show
             this.validateFn({name: comItem.name})
         },
+        // 顶部返回清空样式
+        goBackClear () {
+            this.clearClass()
+        },
         /*
         取消表单
         */
         cancelForm () {
             this.$router.go(-1)
+            this.clearClass()
         },
         // 提示弹窗
         setToast (type, text, width = '7.6em') {
@@ -465,6 +470,7 @@ export default {
                     } else {
                         _this.setToast('cancel', _this.errorMsg, '12em')
                     }
+                    this.clearClass()
                     this.$router.go(-1)
                 })
             } else {
@@ -519,7 +525,6 @@ export default {
                         let initVal = this.$changeArrBox(beforeVal, this.typeComponent.arrBox)
                         this.tableForm = initVal[0]
                         this.selectHideId = initVal[1]
-                        console.log(this.selectHideId)
                     } else {
                         this.tableForm = responce.data
                     }
@@ -592,13 +597,31 @@ export default {
                 }
             })
         },
+        // 新增获取默认值
+        getDefaultInit () {
+            for (let key of Object.keys(this.tableForm)) {
+                this.defaultInit[key] = this.tableForm[key]
+            }
+        },
+        // 清空样式
+        clearClass () {
+            if (this.typeComponent.planPosition !== undefined) {
+                for (let index in this.typeComponent.planPosition) {
+                    this.typeComponent.components[this.typeComponent.planPosition[index]]['disabled'] = false
+                }
+                this.typeComponent['hiddenValue'] = ''
+            }
+            if (this.typeComponent.planIds === 'rfid_ids') {
+                this.typeComponent.components[this.typeComponent.planSelectArrPosition].options = []
+            }
+        },
         // 获取计划
         newPlanFn () {
             let params = {type: this.url}
             this.$dataGet(this, 'plan/getPlanInfo', params)
                 .then((responce) => {
                     if (responce.data.length !== 0) {
-                        let arr = this.$selectDataArr(responce.data, this.typeComponent.planArr)
+                        let arr = this.$selectDataArr(responce.data, this.typeComponent.planArr, this.typeComponent.planString)
                         this.options2 = arr
                         $('.newPlanRadio').click()
                     } else {
@@ -608,27 +631,41 @@ export default {
         },
         // 填充计划
         getPlanInfo (val) {
-            let params = {type: this.url, id: val}
-            this.$dataGet(this, 'plan/selectPlan', params)
-                .then((responce) => {
-                    let arrId = []
-                    let initVal = this.$changeArrBox(responce.data.planData, this.typeComponent.planBox)
-                    for (let key of Object.keys(initVal[0])) {
-                        this.tableForm[key] = initVal[0][key]
-                    }
-                    if (this.typeComponent.planIds !== undefined) {
-                        for (let item in responce.data.planList) {
-                            arrId.push(responce.data.planList[item].id)
+            if (val !== '') {
+                let params = {type: this.url, id: val}
+                this.$dataGet(this, 'plan/selectPlan', params)
+                    .then((responce) => {
+                        let arrId = []
+                        let initVal = this.$changeArrBox(responce.data.planData, this.typeComponent.planBox)
+                        for (let key of Object.keys(initVal[0])) {
+                            this.tableForm[key] = initVal[0][key]
                         }
-                        this.tableForm[this.typeComponent.planIds] = arrId
-                    }
-                    if (this.typeComponent.planPosition !== undefined) {
-                        for (let index in this.typeComponent.planPosition) {
-                            this.typeComponent.components[this.typeComponent.planPosition[index]]['disabled'] = true
+                        if (this.typeComponent.planIds !== undefined) {
+                            if (this.typeComponent.planIds === 'rfid_ids') {
+                                let dataOpt = this.$getCheckSelect(responce.data.planList, this.typeComponent.planSelectArr)
+                                if (dataOpt[0] === 'check') {
+                                    this.typeComponent.components[this.typeComponent.planSelectArrPosition].options = dataOpt[1]
+                                }
+                            }
+                            for (let item in responce.data.planList) {
+                                arrId.push(responce.data.planList[item].id)
+                            }
+                            this.tableForm[this.typeComponent.planIds] = arrId
                         }
-                    }
-                    this.selectHideId = initVal[1]
-                })
+                        if (this.typeComponent.planPosition !== undefined) {
+                            for (let index in this.typeComponent.planPosition) {
+                                this.typeComponent.components[this.typeComponent.planPosition[index]]['disabled'] = true
+                            }
+                        }
+                        this.selectHideId = initVal[1]
+                        this.typeComponent['hiddenValue'] = {'plan_id': val}
+                    })
+            } else {
+                for (let key of Object.keys(this.defaultInit)) {
+                    this.tableForm[key] = this.defaultInit[key]
+                }
+                this.clearClass()
+            }
         }
     },
     created () {
@@ -648,6 +685,7 @@ export default {
         } else {
             this.defaultHide()
             this.getToDate()
+            this.getDefaultInit()
             this.isEdit = false
             this.successMsg = '新增数据成功'
             this.errorMsg = '新增数据失败'

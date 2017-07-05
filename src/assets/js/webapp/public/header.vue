@@ -19,7 +19,6 @@ export default {
     name: 'appHeader',
     data () {
         return {
-            // planShow: false
         }
     },
     props: {
@@ -42,19 +41,19 @@ export default {
         // }
     },
     methods: {
-        // showmenu () {
-        //     this.$emit('parentClick')
-        // },
         goBack () {
             this.$router.push('/appIndex')
         },
         backTo () {
+            this.$emit('setClassClear')
             history.go(-1)
         }
     },
     mounted () {
-        if (this.$route.path.indexOf('appIndex') !== -1 && window.isPC !== false) {
-            this.$router.push('/index/home')
+        if (window.isPC) {
+            if (this.$route.path.indexOf('appIndex') !== -1 || this.$route.path.indexOf('webAppNew') !== -1) {
+                this.$router.push('/index/home')
+            }
         }
     },
     watch: {

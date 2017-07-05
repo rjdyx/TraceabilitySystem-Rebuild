@@ -28,6 +28,11 @@ export default {
         widths: [26, 26, 26],
         newComponent: [{
             plan: true,
+            planString: '请选择饲养计划',
+            planArr: {'fodder_name': '饲料名称', 'addition_name': '饲料添加剂', 'operate_name': '饲养人', 'amount': '饲养量', 'unit': '单位'},
+            planBox: {'fodder_id': 'fodder_name', 'addition_id': 'addition_name', 'operate_id': 'operate_name', 'unit': 'unit'},
+            planIds: 'breed_ids',
+            planPosition: [0, 1, 2, 3, 4, 5],
             tab: '新建饲料使用信息',
             checkBoxUrl: [['breeds', 'id', 'serial', 'check'], ['fodders', 'id', 'name', 'radio'], ['additions', 'id', 'name', 'radio'], ['operates', 'id', 'name', 'radio']],
             checkBoxPosition: [0, 1, 2, 3],
@@ -40,8 +45,7 @@ export default {
                 rule: {required: true}, // 这里如果需要验证类型写方法名，否则写false
                 options: [],
                 show: false,
-                rfid: false,
-                disabled: true
+                rfid: false
             },
             {
                 name: 'fodder_id',
@@ -51,8 +55,7 @@ export default {
                 rule: {required: true}, // 这里如果需要验证类型写方法名
                 options: [],
                 optionskeys: [],
-                show: false,
-                disabled: true
+                show: false
             },
             {
                 name: 'addition_id',
@@ -90,8 +93,7 @@ export default {
                 rule: {required: true, type: 'reNumber'},
                 options: [['kg/只', 'kg/头', 'kg/条']],
                 optionskeys: [['kg/只', 'kg/头', 'kg/条']],
-                show: false,
-                disabled: true
+                show: false
             },
             {
                 name: 'way',
@@ -190,8 +192,16 @@ export default {
         widths: [26, 26, 26],
         newComponent: [{
             tab: '新建病疫情信息',
+            plan: true,
+            planString: '请选择病疫实施计划',
+            planArr: {'drug_name': '兽药名称', 'operate_name': '施药人', 'amount': '使用量', 'unit': '单位'},
+            planBox: {'drug_id': 'drug_name', 'operate_id': 'operate_name', 'unit': 'unit'},
+            planIds: 'rfid_ids',
+            planSelectArr: ['id', 'rfid', 'check'],
+            planSelectArrPosition: 1,
+            planPosition: [0, 1, 2, 3, 4, 5],
             checkBoxUrl: [['breeds', 'id', 'serial', 'radio'], ['drugs', 'id', 'name', 'radio'], ['operates', 'id', 'name', 'radio']],
-            checkBoxPosition: [0, 2, 5],
+            checkBoxPosition: [0, 2, 4],
             selectValue: [[], [], [{n: 'domain', v: 'beast'}, {n: 'domain', v: 'all', s: true}]],
             hasImg: true,
             components: [{
@@ -202,7 +212,7 @@ export default {
                 position: 1,
                 clearArr: 'rfid_ids',
                 placeholder: '（必选）',
-                rule: {required: true},
+                rule: {required: false},
                 options: [],
                 optionskeys: [],
                 show: false
@@ -234,13 +244,6 @@ export default {
                 rule: {required: true}
             },
             {
-                name: 'description',
-                type: 'text',
-                label: '病情描述',
-                placeholder: '(可写)',
-                rule: {required: false}
-            },
-            {
                 name: 'operate_id',
                 type: 'select',
                 label: '施药人员',
@@ -258,6 +261,13 @@ export default {
                 options: [['kg/只', 'kg/头', 'kg/条']],
                 optionskeys: [['kg/只', 'kg/头', 'kg/条']],
                 show: false
+            },
+            {
+                name: 'description',
+                type: 'text',
+                label: '病情描述',
+                placeholder: '(可写)',
+                rule: {required: false}
             },
             {
                 name: 'way',
@@ -306,13 +316,6 @@ export default {
                 rule: {required: true}
             },
             {
-                name: 'description',
-                type: 'text',
-                label: '病情描述',
-                placeholder: '(可写)',
-                rule: {required: false}
-            },
-            {
                 name: 'operate_id',
                 type: 'select',
                 label: '施药人员',
@@ -330,6 +333,13 @@ export default {
                 options: [['kg/只', 'kg/头', 'kg/条']],
                 optionskeys: [['kg/只', 'kg/头', 'kg/条']],
                 show: false
+            },
+            {
+                name: 'description',
+                type: 'text',
+                label: '病情描述',
+                placeholder: '(可写)',
+                rule: {required: false}
             },
             {
                 name: 'way',
@@ -1366,6 +1376,7 @@ export default {
             widths: [26, 26, 26],
             newComponent: [{
                 plan: true,
+                planString: '请选择施肥计划',
                 planArr: {'manure_name': '肥料名称', 'operate_name': '施肥人', 'amount': '施肥量', 'unit': '单位'},
                 planBox: {'manure_id': 'manure_name', 'operate_id': 'operate_name', 'unit': 'unit'},
                 planIds: 'cultivate_ids',
@@ -1512,9 +1523,11 @@ export default {
             newComponent: [{
                 tab: '新建药信息',
                 plan: true,
+                planString: '请选择施药计划',
                 planArr: {'medicament_name': '农药名称', 'operate_name': '施药人', 'amount': '施药量', 'unit': '单位'},
                 planBox: {'medicament_id': 'medicament_name', 'operate_id': 'operate_name', 'unit': 'unit'},
                 planIds: 'cultivate_ids',
+                planPosition: [0, 1, 2, 3, 4],
                 checkBoxUrl: [['cultivates', 'id', 'serial', 'check'], ['medicaments', 'id', 'name', 'radio'], ['operates', 'id', 'name', 'radio']],
                 selectValue: [[], [], [{n: 'domain', v: 'plant'}, {n: 'domain', v: 'all', s: true}]],
                 checkBoxPosition: [0, 1, 4],
@@ -1703,7 +1716,6 @@ export default {
                     type: 'date',
                     label: '检测日期',
                     placeholder: '(必填)',
-                    disabled: true,
                     rule: {required: true, message: '请输入检测日期'}
                 },
                 {
@@ -2203,294 +2215,6 @@ export default {
             }]
         }
     ],
-    // 种植管理-种植生产计划管理
-    plantTrace: [{
-        key: 'detect',
-        timeshow: false,
-        rightMenu: false,
-        roleName: ['beast/detect', 0],
-        url: 'plan',
-        paramsIndex: 'beast',
-        // 链接批次信息模块数据的桥（养殖批次详情）
-        batch: 'beastDetectBatch',
-        searchPlaceholder: '请输入批次号进行搜索',
-        selectSearch: ['detects.weather'],
-        changeDataArr: [{result: {0: '不合格', 1: '合格'}}],
-        theads: ['计划内容', '计划批次', '计划时间'],
-        protos: ['serial', 'serial', 'date'],
-        widths: [26, 26, 26],
-        newComponent: [{
-            tab: '新建生产计划信息',
-            components: [{
-                name: 'date',
-                type: 'date',
-                label: '计划开始日期',
-                placeholder: '（必选）',
-                rule: {required: true}
-            },
-            {
-                name: 'end_date',
-                type: 'date',
-                label: '计划结束日期',
-                placeholder: '（必选）',
-                rule: {required: true}
-            },
-            {
-                name: 'operate_id',
-                type: 'select',
-                label: '安排人员',
-                placeholder: '（必选）',
-                rule: {required: true},
-                options: [],
-                optionskeys: []
-            },
-            {
-                name: 'type',
-                type: 'select',
-                label: '操作类型',
-                placeholder: '（必填）',
-                rule: {required: true},
-                options: [['请选择操作类型', '施肥', '施药', '检测', '农事', '采收']],
-                optionskeys: [['', 'fertilize', 'spray', 'detect', 'farming', 'harvest']]
-            },
-            {
-                name: 'expert',
-                type: 'select',
-                hiddenSelect: true,
-                label: '指导专家',
-                placeholder: '（可选）',
-                rule: {required: false},
-                options: [],
-                optionskeys: []
-            },
-            {
-                name: 'manure_id',
-                type: 'select',
-                label: '肥料名称',
-                hiddenSelect: true,
-                placeholder: '（必选）',
-                rule: {required: true},
-                options: [],
-                optionskeys: []
-            },
-            {
-                name: 'amount1',
-                type: 'textSelect',
-                hiddenSelect: true,
-                label: '施肥量',
-                placeholder: '请填写数字（必填）',
-                rule: {required: true, type: 'reNumber'},
-                options: [['kg/亩', 'kg/平方米', 'kg/公顷']],
-                optionskeys: [['kg/亩', 'kg/平方米', 'kg/公顷']]
-            },
-            {
-                name: 'way1',
-                type: 'text',
-                hiddenSelect: true,
-                label: '施肥方式',
-                placeholder: '（可填）',
-                rule: {required: false}
-            },
-            {
-                name: 'medicament_id',
-                type: 'select',
-                label: '农药名称',
-                hiddenSelect: true,
-                placeholder: '（必选）',
-                rule: {required: true},
-                options: [],
-                optionskeys: []
-            },
-            {
-                name: 'amount2',
-                type: 'textSelect',
-                hiddenSelect: true,
-                label: '施药量',
-                placeholder: '请填写数字（必填）',
-                rule: {required: true, type: 'reNumber'},
-                options: [['ml/亩', 'ml/平方米', 'ml/公顷']],
-                optionskeys: [['ml/亩', 'ml/平方米', 'ml/公顷']]
-            },
-            {
-                name: 'concentration',
-                type: 'text',
-                hiddenSelect: true,
-                label: '施药浓度',
-                placeholder: '（可填）',
-                rule: {required: false}
-            },
-            {
-                name: 'safety',
-                type: 'text',
-                hiddenSelect: true,
-                label: '安全隔离期（天）',
-                placeholder: '（可填）',
-                rule: {required: false}
-            },
-            {
-                name: 'way2',
-                type: 'text',
-                hiddenSelect: true,
-                label: '施药方法',
-                placeholder: '（可填）',
-                rule: {required: false}
-            },
-            {
-                name: 'content',
-                type: 'text',
-                hiddenSelect: true,
-                label: '操作内容',
-                placeholder: '（必填）',
-                rule: {required: true}
-            },
-            {
-                name: 'way3',
-                type: 'text',
-                hiddenSelect: true,
-                label: '操作方法',
-                placeholder: '（必填）',
-                rule: {required: true}
-            },
-            {
-                name: 'name2',
-                type: 'text',
-                hiddenSelect: true,
-                label: '检测名称',
-                placeholder: '（必填）',
-                rule: {required: true}
-            },
-            {
-                name: 'result',
-                type: 'select',
-                hiddenSelect: true,
-                label: '检测结果',
-                placeholder: '（必选）',
-                rule: {required: true},
-                options: [['合格', '不合格']],
-                optionskeys: [[1, 0]]
-            },
-            {
-                name: 'content2',
-                type: 'textarea',
-                hiddenSelect: true,
-                label: '检测内容',
-                placeholder: '（可填）',
-                rule: {required: false}
-            },
-            {
-                name: 'organization',
-                type: 'text',
-                hiddenSelect: true,
-                label: '检测机构',
-                placeholder: '（可填）',
-                rule: {required: false}
-            },
-            {
-                name: 'way4',
-                type: 'text',
-                hiddenSelect: true,
-                label: '处理方法',
-                placeholder: '（可填）',
-                rule: {required: false}
-            },
-            {
-                name: 'cultivate',
-                type: 'select',
-                hiddenSelect: true,
-                label: '种植批次',
-                placeholder: '（可填）',
-                rule: {required: false},
-                options: [],
-                optionskeys: []
-            },
-            {
-                name: 'amount3',
-                type: 'textSelect',
-                hiddenSelect: true,
-                label: '采收重/数量',
-                placeholder: '请填写数字（必填）',
-                rule: {required: true, type: 'reNumber'},
-                options: [['kg', '个', '箱']],
-                optionskeys: [['kg', '个', '箱']]
-            },
-            {
-                name: 'department2',
-                type: 'text',
-                hiddenSelect: true,
-                label: '入库部门',
-                placeholder: '（可填）',
-                rule: {required: false}
-            },
-            {
-                name: 'nametwo',
-                type: 'text',
-                hiddenSelect: true,
-                label: '存放位置',
-                placeholder: '（可填）',
-                rule: {required: false}
-            },
-            {
-                name: 'memo',
-                type: 'textarea',
-                label: '备注',
-                placeholder: '（可填）',
-                rule: {required: false}
-            }]
-        }],
-        editComponent: [{
-            tab: '编辑生产计划信息',
-            selectUrl2: [['operates', 'id', 'name', true]],
-            popNumber2: [3],
-            selectWhereArr2: [[{n: 'domain', v: 'plant'}, {n: 'domain', v: 'all', s: true}]],
-            selectInit2: [{value: '', label: '请选择安排人员'}],
-            components: [{
-                name: 'serial',
-                type: 'text',
-                label: '计划批次号',
-                placeholder: '',
-                disabled: true,
-                rule: {required: false}
-            },
-            {
-                name: 'date',
-                type: 'date',
-                label: '计划日期',
-                placeholder: '（必选）',
-                rule: {required: true}
-            },
-            {
-                name: 'content',
-                type: 'text',
-                label: '计划内容',
-                placeholder: '（可填）',
-                rule: {required: false}
-            },
-            {
-                name: 'operate_id',
-                type: 'select',
-                label: '安排人员',
-                placeholder: '（必选）',
-                rule: {required: true},
-                options: [],
-                optionskeys: []
-            },
-            {
-                name: 'type',
-                type: 'text',
-                label: '操作类型',
-                placeholder: '（可填）',
-                disabled: true,
-                rule: {required: false}
-            },
-            {
-                name: 'memo',
-                type: 'textarea',
-                label: '备注',
-                placeholder: '（可填）',
-                rule: {required: false}
-            }]
-        }]
-    }],
     // 果蔬加工管理-加工检测管理
     processManage: [{
         settitle: '加工批次检测',

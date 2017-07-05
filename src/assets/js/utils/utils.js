@@ -381,8 +381,8 @@ default {
          * @param ret(数据对象)
          * @returns arr（数据数组）
          */
-        Vue.prototype.$selectDataArr = (ret, arrBox) => {
-            let arr = []
+        Vue.prototype.$selectDataArr = (ret, arrBox, message) => {
+            let arr = [{key: '', value: message}]
             let obj = {}
             obj['value'] = ''
             for (let index in ret) {
