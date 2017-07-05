@@ -42,6 +42,9 @@ export default {
         },
         paramsIndex () {
             return this.models[this.modelIndex].paramsIndex
+        },
+        isCode () {
+            return this.models[this.modelIndex].isCode
         }
     }
 }

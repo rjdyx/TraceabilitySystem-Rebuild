@@ -84,7 +84,8 @@
                            
                     </div>
                     <div slot="right-menu">
-                      <swipeout-button class="lookOver" type="primary" @click.native="showDetail(pers.id)" v-if="rightMenu">查看</swipeout-button>
+                      <swipeout-button class="lookOver" type="primary" @click.native="showDetail(pers.id)" v-if="rightMenu">
+                      {{operateOn}}</swipeout-button>
                       <swipeout-button class="appedit" @click.native="webAppOperateType('edit'+pers.id)">编辑</swipeout-button>
                     </div>
                 </swipeout-item>
@@ -107,7 +108,6 @@
 import { XTable, Datetime, Group, Tab, TabItem, Swipeout, SwipeoutItem, LoadMore, Toast, Confirm, SwipeoutButton, Swiper, SwiperItem, Popover } from 'vux'
 import {mapActions, mapMutations} from 'vuex'
 import appmenu from '../index/appmenu.js'
-import appHeader from '../../public/header.vue'
 import siderBar from '../../public/siderBar.vue'
 import paginator from '../../public/paginator.vue'
 import computed from '../webAppModel/appcomputed.js'
@@ -137,7 +137,8 @@ export default {
                     timeshow: '',
                     batch: '',
                     rightMenu: '',
-                    paramsIndex: ''
+                    paramsIndex: '',
+                    isCode: false
                 }]
             }
         }
@@ -165,7 +166,8 @@ export default {
             activeindex: '',
             tabSelected: '',
             checkAll: false,
-            lastDom: ''
+            lastDom: '',
+            operateOn: '查看'
         }
     },
     // 混合
@@ -238,7 +240,7 @@ export default {
         // 关闭新建和时间组件
         closeOperate () {
             if (this.ishas === true) {
-                $('.applist').animate({top: '-125px'})
+                $('.applist').animate({top: '-141px'})
             } else {
                 $('.applist').animate({top: '-57px'})
             }
@@ -340,6 +342,14 @@ export default {
             setTimeout(function () {
                 document.body.lastChild.style.display = 'none'
             }, 1000)
+        },
+        // 判断是查看还是二维码
+        getMenu () {
+            if (this.isCode) {
+                this.operateOn = '二维码'
+            } else {
+                this.operateOn = '查看'
+            }
         }
     },
     mounted () {
@@ -349,6 +359,7 @@ export default {
         }
         let tabTxt = localStorage.getItem('appTab')
         this.tabSelected = tabTxt
+        this.getMenu()
     },
     watch: {
         models () {
@@ -356,6 +367,7 @@ export default {
             localStorage.setItem('trends', 0)
             this.changeUrl()
             this.tabSelected = '施肥信息'
+            this.getMenu()
         },
         key () {
             this.changeUrl()
@@ -384,7 +396,6 @@ export default {
         }
     },
     components: {
-        appHeader,
         XTable,
         paginator,
         Group,
@@ -576,9 +587,6 @@ export default {
             background-color: transparent;
         }
     }
-    .appHeader{
-        margin-bottom: 5px;
-    }
     .appmain{
         height: 100%;
         width: 100%;
@@ -602,19 +610,21 @@ export default {
     }
     .closeOperate{
         width: 100%;
-        height: 13%;
+        height: 23px;
+        /*border: 1px solid;*/
+        margin-bottom: 5px;
     }
     .el-icon-arrow-up{
         display: block;
         margin: 0 auto;
         width: 3%;
-        height: 44.5%;
-        animation: start 1.5s infinite ease-in-out;
+        height: 100%;
+        animation: start 2s infinite ease-in-out;
     }
     @keyframes start {
         0%, 30%{
-            opacity: 0.5;
-            transform: translateY(18px);
+            opacity: 0.3;
+            transform: translateY(27px);
         }
         60%{
             opacity: 1;
@@ -622,7 +632,7 @@ export default {
         }
         100%{
             opacity: 0.5;
-            transform: translateY(-10px);
+            transform: translateY(-8px);
         }
     }
     .paginator{
@@ -641,7 +651,7 @@ export default {
         background: red;
     }
     .has{
-        top:-125px;
+        top:-141px;
     }
     .hasno{
         top: -57px;
