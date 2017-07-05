@@ -287,6 +287,7 @@ export default {
         },
         allcheckFn (name, options, bol) {
             if (bol) {
+                this.tableForm[name] = []
                 options.forEach((item) => {
                     this.tableForm[name].push(item.key)
                 })
