@@ -84,7 +84,7 @@
                            
                     </div>
                     <div slot="right-menu">
-                      <swipeout-button class="lookOver" type="primary" @click.native="showDetail(pers.id,operateOn)" v-if="rightMenu">
+                      <swipeout-button class="lookOver" type="primary" @click.native="showDetail(pers.id, pers)" v-if="rightMenu">
                       {{operateOn}}</swipeout-button>
                       <swipeout-button class="appedit" @click.native="webAppOperateType('edit'+pers.id)">编辑</swipeout-button>
                     </div>
@@ -95,7 +95,7 @@
             <div v-transfer-dom>
                 <x-dialog v-model="showHideOnBlur" class="dialog-demo" hide-on-blur>
                     <div class="img-box">
-                        <img src="/public/images/taiyang.png" style="max-width:100%">
+                        <qrcode :value="qrcodeUrl" type="img"></qrcode>
                     </div>
                     <div @click="showHideOnBlur=false">
                         <span class="vux-close"></span>
@@ -117,7 +117,7 @@
 </template> 
  
 <script>
-import { XTable, Datetime, Group, Tab, TabItem, Swipeout, SwipeoutItem, LoadMore, Toast, Confirm, SwipeoutButton, Swiper, SwiperItem, Popover, XDialog, TransferDomDirective as TransferDom, XSwitch } from 'vux'
+import { XTable, Datetime, Group, Tab, TabItem, Swipeout, SwipeoutItem, LoadMore, Toast, Confirm, SwipeoutButton, Swiper, SwiperItem, Popover, XDialog, TransferDomDirective as TransferDom, XSwitch, Qrcode } from 'vux'
 import {mapActions, mapMutations} from 'vuex'
 import appmenu from '../index/appmenu.js'
 import siderBar from '../../public/siderBar.vue'
@@ -184,7 +184,9 @@ export default {
             lastDom: '',
             operateOn: '查看',
             // 二维码图片是否显示
-            showHideOnBlur: false
+            showHideOnBlur: false,
+            // 二维码跳转地址
+            qrcodeUrl: ''
         }
     },
     // 混合
@@ -247,17 +249,29 @@ export default {
             this.show = false
         },
         // 点击进入详情页
-        showDetail (id, operateOn) {
-            if (operateOn === '查看') {
+        showDetail (id, ret) {
+            if (!this.isCode) {
                 if (this.unite === 'plantTo') {
                     this.$router.push('/appIndex/appdetailbasic/' + this.batch + '/plantTo' + id)
                 } else {
                     this.$router.push('/appIndex/appdetailbasic/' + this.batch + '/' + id)
                 }
-            } else if (operateOn === '二维码') {
+            } else {
+                this.setCodeUrl(ret.code)
                 this.showHideOnBlur = true
-                console.log(this.showHideOnBlur)
             }
+        },
+        // 生产二维码地址
+        setCodeUrl (code) {
+            var per = code.substring(0, 1)
+            var url = require('projectRoot/env.js').app_ano_url + '/#/run/'
+            if (per === 'P') {
+                url += 'plant'
+            } else {
+                url += 'breed'
+            }
+            this.qrcodeUrl = url + '/index/' + code
+            console.log(this.qrcodeUrl)
         },
         // 关闭新建和时间组件
         closeOperate () {
@@ -435,7 +449,8 @@ export default {
         LoadMore,
         Popover,
         XDialog,
-        XSwitch
+        XSwitch,
+        Qrcode
     }
 }
 </script>
