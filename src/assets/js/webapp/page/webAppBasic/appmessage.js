@@ -82,8 +82,7 @@ export default {
                 type: 'date',
                 label: '饲养日期',
                 placeholder: '（必选）',
-                rule: {required: true},
-                disabled: true
+                rule: {required: true}
             },
             {
                 name: 'amount',
@@ -587,7 +586,6 @@ export default {
                 type: 'date',
                 label: '检测日期',
                 placeholder: '(必填)',
-                disabled: true,
                 rule: {required: true, message: '请输入检测日期'}
             },
             {
@@ -657,7 +655,6 @@ export default {
                 type: 'date',
                 label: '检测日期',
                 placeholder: '(必填)',
-                disabled: true,
                 rule: {required: true}
             },
             {
@@ -1081,7 +1078,6 @@ export default {
                 type: 'date',
                 label: '检测日期',
                 placeholder: '（必选）',
-                disabled: true,
                 rule: {required: true}
             },
             {
@@ -1159,7 +1155,6 @@ export default {
                 type: 'date',
                 label: '检测日期',
                 placeholder: '（必选）',
-                disabled: true,
                 rule: {required: true}
             },
             {
@@ -1404,7 +1399,6 @@ export default {
                     type: 'date',
                     label: '施肥日期',
                     placeholder: '（必选）',
-                    disabled: false,
                     rule: {required: true}
                 },
                 {
@@ -1783,7 +1777,6 @@ export default {
                     type: 'date',
                     label: '检测日期',
                     placeholder: '(必填)',
-                    disabled: true,
                     rule: {required: true}
                 },
                 {
@@ -2245,7 +2238,6 @@ export default {
                 type: 'date',
                 label: '检测日期',
                 placeholder: '（必选）',
-                disabled: true,
                 rule: {required: true}
             },
             {
@@ -2323,7 +2315,6 @@ export default {
                 type: 'date',
                 label: '检测日期',
                 placeholder: '（必选）',
-                disabled: true,
                 rule: {required: true}
             },
             {
@@ -2731,7 +2722,6 @@ export default {
                 type: 'date',
                 label: '订单日期时间',
                 placeholder: '（必选）',
-                disabled: true,
                 rule: {required: true}
             },
             {
@@ -2788,7 +2778,6 @@ export default {
                 type: 'date',
                 label: '订单日期时间',
                 placeholder: '（必选）',
-                disabled: true,
                 rule: {required: true}
             },
             {
