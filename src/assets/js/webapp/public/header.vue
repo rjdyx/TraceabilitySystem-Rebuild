@@ -45,6 +45,7 @@ export default {
             this.$router.push('/appIndex')
         },
         backTo () {
+            this.$emit('setClassClear')
             history.go(-1)
         }
     },

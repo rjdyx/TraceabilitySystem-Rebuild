@@ -4636,12 +4636,12 @@ export default {
         url: 'plan',
         paramsIndex: 'beast',
          // 链接批次信息模块数据的桥（养殖批次详情）
-        changeDataArr: [{type: { 'fodderuse': '饲养', 'disease': '病疫' }}],
+        changeDataArr: [{type: { 'fodderuse': '饲养', 'disease': '病疫' }}, {state: {0: '未完成', 1: '已完成'}}],
         searchPlaceholder: '请输入批次号',
         search: ['query_text', 'type'],
-        theads: ['批次号', '计划开始日期', '计划结束日期', '操作类型', '安排人员', '操作用户', '备注'],
-        protos: ['serial', 'date', 'end_date', 'type', 'operate_name', 'user_name', 'memo'],
-        widths: [50, 50, 50, 50, 50, 50, 50],
+        theads: ['批次号', '计划开始日期', '计划结束日期', '操作类型', '安排人员', '计划内容', '操作用户', '状态', '备注'],
+        protos: ['serial', 'date', 'end_date', 'type', 'operate_name', 'user_name', 'content', 'state', 'memo'],
+        widths: [50, 50, 50, 50, 50, 50, 50, 50, 50],
         typeComponent: [{
             component: output
         },
@@ -4674,10 +4674,10 @@ export default {
         }],
         newComponent: [{
             tab: '新建生产计划信息',
-            selectUrl2: [['operates', 'id', 'name', true], ['fodders', 'id', 'name', true], ['drugs', 'id', 'name', true]],
-            popNumber2: [1, 4, 6],
-            selectInit2: [{value: '', label: '请选择安排人员'}, {value: '', label: '请选择饲料'}, {value: '', label: '请选择兽药'}],
-            selectWhereArr2: [[{n: 'domain', v: 'beast'}, {n: 'domain', v: 'all', s: true}], [], []],
+            selectUrl2: [['operates', 'id', 'name', true], ['fodders', 'id', 'name', true], ['additions', 'id', 'name', true], ['drugs', 'id', 'name', true]],
+            popNumber2: [1, 4, 5, 7],
+            selectInit2: [{value: '', label: '请选择安排人员'}, {value: '', label: '请选择饲料'}, {value: '', label: '请选择饲料添加剂'}, {value: '', label: '请选择兽药'}],
+            selectWhereArr2: [[{n: 'domain', v: 'beast'}, {n: 'domain', v: 'all', s: true}], [], [], []],
             type: 'planAssoc',
             components: [{
                 name: 'date',
@@ -4715,7 +4715,7 @@ export default {
                 isNull: false,
                 label: '操作类型',
                 placeholder: '必填',
-                selectNumber: {fodderuse: [4, 5], disease: [6, 7]},
+                selectNumber: {fodderuse: [4, 5, 6], disease: [7, 8]},
                 rule: {required: true, trigger: 'blur', message: '请选择操作类型'},
                 options: [{
                     value: '',
@@ -4739,6 +4739,17 @@ export default {
                 hiddenSelect: true,
                 placeholder: '',
                 rule: {required: true, trigger: 'blur', type: 'number', message: '请选择饲料名称'},
+                options: []
+            },
+            {
+                name: 'addition_id',
+                type: 'select',
+                component: null,
+                isNull: true,
+                label: '饲料添加剂',
+                hiddenSelect: true,
+                placeholder: '',
+                rule: {required: true, trigger: 'blur', type: 'number', message: '请选择饲料添加剂'},
                 options: []
             },
             {
@@ -7957,7 +7968,7 @@ export default {
             }]
         }
     ],
-    // 生产计划
+    // 种植计划
     plantProduct: [{
         settitle: '生产计划管理',
         key: 'plan',
@@ -8010,7 +8021,7 @@ export default {
             tab: '新建生产计划信息',
             selectUrl2: [['operates', 'id', 'name', true], ['manures', 'id', 'name', true], ['medicaments', 'id', 'name', true], ['cultivates', 'id', 'serial', true]],
             popNumber2: [1, 4, 6, 8],
-            selectInit2: [{value: '', label: '请选择安排人员'}, {value: '', label: '请选择肥料'}, {value: '', label: '请选择兽药'}, {value: '', label: '请选择种植批次号'}],
+            selectInit2: [{value: '', label: '请选择安排人员'}, {value: '', label: '请选择肥料'}, {value: '', label: '请选择农药'}, {value: '', label: '请选择种植批次号'}],
             selectWhereArr2: [[{n: 'domain', v: 'plant'}, {n: 'domain', v: 'all', s: true}], [], [], []],
             type: 'planAssoc',
             components: [{
