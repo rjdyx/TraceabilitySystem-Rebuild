@@ -271,7 +271,6 @@ export default {
                 url += 'breed'
             }
             this.qrcodeUrl = url + '/index/' + code
-            console.log(this.qrcodeUrl)
         },
         // 关闭新建和时间组件
         closeOperate () {
@@ -327,7 +326,7 @@ export default {
         // 单条删除或多条删除
         listDelete () {
             if (this.ischeckdate.length !== undefined && this.ischeckdate.length !== 0) {
-                const _this = this
+                var _this = this
                 this.$vux.confirm.show({
                     title: '删除选择信息',
                     onCancel () {
