@@ -691,6 +691,8 @@ export default {
             this.errorMsg = '新增数据失败'
             this.submitUrl = this.url
         }
+    },
+    watch: {
     }
 }
 </script>
@@ -705,6 +707,14 @@ export default {
         margin-right:0px!important;
         width:6em!important;
     }
+.vux-popup-picker-header{
+    color: #009acb!important;
+}
+.dp-header{
+    .dp-item.dp-left,.dp-item,.dp-item.dp-right {
+        color: #009acb!important;
+    }
+}
 .pcDiv{
     .pcList{
         border-top: 1px solid #D9D9D9;

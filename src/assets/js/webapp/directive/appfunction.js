@@ -33,6 +33,8 @@ export default {
                 } else {
                     $('.applist').css({top: listTop + 'px'})
                 }
+                distance = 0
+                listTop = 0
             }
         })
         let path = this.$route.path

@@ -108,7 +108,6 @@
 import { XTable, Datetime, Group, Tab, TabItem, Swipeout, SwipeoutItem, LoadMore, Toast, Confirm, SwipeoutButton, Swiper, SwiperItem, Popover } from 'vux'
 import {mapActions, mapMutations} from 'vuex'
 import appmenu from '../index/appmenu.js'
-import appHeader from '../../public/header.vue'
 import siderBar from '../../public/siderBar.vue'
 import paginator from '../../public/paginator.vue'
 import computed from '../webAppModel/appcomputed.js'
@@ -241,7 +240,7 @@ export default {
         // 关闭新建和时间组件
         closeOperate () {
             if (this.ishas === true) {
-                $('.applist').animate({top: '-125px'})
+                $('.applist').animate({top: '-141px'})
             } else {
                 $('.applist').animate({top: '-57px'})
             }
@@ -392,7 +391,6 @@ export default {
         }
     },
     components: {
-        appHeader,
         XTable,
         paginator,
         Group,
@@ -414,6 +412,11 @@ export default {
 </script>
 
 <style lang='sass'>
+.dp-header{
+    .dp-item.dp-left,.dp-item,.dp-item.dp-right {
+        color: #009acb!important;
+    }
+}
 .webApp_model{
     width: 100%;
     height: 100%;
@@ -579,9 +582,6 @@ export default {
             background-color: transparent;
         }
     }
-    .appHeader{
-        margin-bottom: 5px;
-    }
     .appmain{
         height: 100%;
         width: 100%;
@@ -605,19 +605,21 @@ export default {
     }
     .closeOperate{
         width: 100%;
-        height: 13%;
+        height: 23px;
+        /*border: 1px solid;*/
+        margin-bottom: 5px;
     }
     .el-icon-arrow-up{
         display: block;
         margin: 0 auto;
         width: 3%;
-        height: 44.5%;
-        animation: start 1.5s infinite ease-in-out;
+        height: 100%;
+        animation: start 2s infinite ease-in-out;
     }
     @keyframes start {
         0%, 30%{
-            opacity: 0.5;
-            transform: translateY(18px);
+            opacity: 0.3;
+            transform: translateY(27px);
         }
         60%{
             opacity: 1;
@@ -625,7 +627,7 @@ export default {
         }
         100%{
             opacity: 0.5;
-            transform: translateY(-10px);
+            transform: translateY(-8px);
         }
     }
     .paginator{
@@ -644,7 +646,7 @@ export default {
         background: red;
     }
     .has{
-        top:-125px;
+        top:-141px;
     }
     .hasno{
         top: -57px;

@@ -82,7 +82,8 @@ export default {
                 type: 'date',
                 label: '饲养日期',
                 placeholder: '（必选）',
-                rule: {required: true}
+                rule: {required: true},
+                disabled: true
             },
             {
                 name: 'amount',
@@ -178,7 +179,6 @@ export default {
     }],
     // 养殖管理-病疫
     plague: [{
-        settitle: '病疫',
         key: 'disease',
         roleName: ['basic/operate', 0],
         timeshow: true,
@@ -365,7 +365,6 @@ export default {
     }],
     // 养殖管理-检疫
     quarantine: [{
-        settitle: '检疫',
         key: 'detection',
         roleName: ['basic/expert', 0],
         timeshow: true,
@@ -555,7 +554,6 @@ export default {
     }],
     // 养殖管理-检验检测
     detectTest: [{
-        settitle: '检验检测',
         timeshow: true,
         rightMenu: true,
         key: 'breed-detect',
@@ -719,7 +717,6 @@ export default {
     }],
     // 养殖管理-圈舍维护
     penPreserve: [{
-        settitle: '圈舍维护',
         key: 'clean',
         timeshow: true,
         rightMenu: true,
@@ -942,7 +939,6 @@ export default {
     }],
     // 养殖管理-生长过程
     courseProcess: [{
-        settitle: '生长过程',
         key: 'course',
         roleName: ['beast/basic', 0],
         timeshow: true,
@@ -1051,7 +1047,6 @@ export default {
     }],
     // 2、屠宰加工管理-加工批次检测
     processSerial: [{
-        settitle: '加工批次检测',
         key: 'detect_pk',
         roleName: ['beast/detect_pk', 0],
         timeshow: true,
@@ -2217,7 +2212,6 @@ export default {
     ],
     // 果蔬加工管理-加工检测管理
     processManage: [{
-        settitle: '加工批次检测',
         key: 'plant_detect_pk',
         roleName: ['plant/detect_pk', 0],
         timeshow: true,
@@ -2397,7 +2391,6 @@ export default {
     }],
     // 果蔬加工管理-产品溯源码管理
     vegetableTrace: [{
-        settitle: '产品溯源码管理',
         timeshow: true,
         rightMenu: true,
         isCode: true,
@@ -2514,7 +2507,6 @@ export default {
     }],
     // 物流运输管理-物流批次管理
     expressManage: [{
-        settitle: '物流批次管理',
         key: 'delivery',
         roleName: ['delivery', 0],
         timeshow: true,
@@ -2720,12 +2712,12 @@ export default {
     }],
     // 销售管理-销售订单管理
     saleOrder: [{
-        settitle: '销售订单管理',
         key: 'sell',
         timeshow: true,
         rightMenu: true,
         url: 'sell',
         batch: 'saleBatch',
+        searchPlaceholder: '请输入客户名称进行搜索',
         theads: ['客户名称', '订单日期', '销售员'],
         protos: ['client_name', 'datetime', 'operate_name'],
         widths: [26, 26, 26],
