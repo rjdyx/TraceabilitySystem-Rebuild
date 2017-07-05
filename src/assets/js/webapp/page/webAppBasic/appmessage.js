@@ -1233,7 +1233,8 @@ export default {
     // 屠宰加工管理-产品溯源码管理
     serialManage: [{
         timeshow: true,
-        rightMenu: false,
+        rightMenu: true,
+        isCode: true,
         key: 'code',
         paramsIndex: 'beast',
         roleName: ['packb/code', 0],
@@ -2398,7 +2399,8 @@ export default {
     vegetableTrace: [{
         settitle: '产品溯源码管理',
         timeshow: true,
-        rightMenu: false,
+        rightMenu: true,
+        isCode: true,
         key: 'code',
         paramsIndex: 'plant',
         roleName: ['packb/code', 0],

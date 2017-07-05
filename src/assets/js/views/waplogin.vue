@@ -82,9 +82,8 @@ export default{
                     axios.post('/login', this.ruleForm2).then((responce) => {
                         if (responce.data !== 200) {
                             this.loginBtn = '登录'
-                            this.$message.error('用户名或密码错误')
+                            this.setToast('cancel', '用户名或密码错误', '13em')
                         } else {
-                            // history.go(0) // 刷新更新权限数据
                             this.$store.dispatch('switch_record', '')
                             var myDate = new Date()
                             localStorage.setItem('loginDate', myDate.toLocaleString())
@@ -103,13 +102,22 @@ export default{
                     })
                 } else {
                     this.loginBtn = '登录'
-                    this.$message.error('请输入信息，再登录')
+                    this.setToast('text', '请输入用户名密码', '13em')
                     return false
                 }
             })
         },
         passTo () {
             this.submitForm('ruleForm2')
+        },
+        // 提示弹窗
+        setToast (type, text, width = '7.6em') {
+            this.$vux.toast.show({
+                type: type,
+                text: text,
+                width: width,
+                position: 'middle'
+            })
         }
     },
     mounted () {
