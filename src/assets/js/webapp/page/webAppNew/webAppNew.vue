@@ -9,6 +9,13 @@
     <div id="p_popNew">
         <header1 :settitle="settitle" :homeShow="false" :back="true" @setClassClear="goBackClear">
             <span slot="plan" class="newplan" v-if="planShow" @click="newPlanFn"></span> 
+            <el-upload  
+                class="upload-demo upload" 
+                slot="upImg" 
+                :action="importUrl" 
+                v-if="uploadShow">
+                <span class="upImg"></span>
+            </el-upload>
         </header1>
         <group>
           <popup-radio class="newPlanRadio" title="options" :options="options2" v-model="option2" v-if="planShow"
@@ -250,6 +257,7 @@ export default {
             type: type, // 判断编辑模块还是新增模块的标志
             settitle: typeComponent[0].tab,
             planShow: typeComponent[0].plan,
+            uploadShow: typeComponent[0].uploadShow,
             typeComponent: typeComponent[0],
             url: url,
             changeDataArr: changeDataArr,
@@ -869,6 +877,24 @@ export default {
             line-height:3;
         }
     }
-    
+    .upload{
+        width: 9%;
+        height: 36px;
+        display: inline-block;
+        position: absolute;
+        left: 5%;
+        top: 11%;
+    }
+    .upImg{
+        width:100%;
+        height: 36px;
+        display: inline-block;
+        background: url(/public/images/upLoad.png) no-repeat;
+        background-position: 100%;
+    }
+    .el-upload{
+        width: 9%;
+        height: 36px;
+    }
 }
 </style>

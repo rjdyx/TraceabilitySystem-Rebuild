@@ -2721,6 +2721,7 @@ export default {
         widths: [26, 26, 26],
         newComponent: [{
             tab: '新建订单信息',
+            uploadShow: true,
             checkBoxUrl: [['deliveries', 'id', 'serial', 'radio'], ['clients', 'id', 'name', 'radio'], ['operates', 'id', 'name', 'radio']],
             selectValue: [[], [], [{n: 'domain', v: 'sell'}, {n: 'domain', v: 'all', s: true}]],
             checkBoxPosition: [1, 2, 3],
