@@ -82,14 +82,13 @@ export default {
                 type: 'date',
                 label: '饲养日期',
                 placeholder: '（必选）',
-                rule: {required: true},
-                disabled: true
+                rule: {required: true}
             },
             {
                 name: 'amount',
                 type: 'textSelect',
                 label: '平均喂养量',
-                placeholder: '请输入整数（必填）',
+                placeholder: '请输入正确的数字（必填）',
                 rule: {required: true, type: 'reNumber'},
                 options: [['kg/只', 'kg/头', 'kg/条']],
                 optionskeys: [['kg/只', 'kg/头', 'kg/条']],
@@ -211,7 +210,7 @@ export default {
                 position: 1,
                 clearArr: 'rfid_ids',
                 placeholder: '（必选）',
-                rule: {required: false},
+                rule: {required: true},
                 options: [],
                 optionskeys: [],
                 show: false
@@ -294,7 +293,7 @@ export default {
             tab: '编辑病疫情信息',
             arrBox: {'drug_id': 'drug_name', 'operate_id': 'operate_name', 'unit': 'unit'},
             checkBoxUrl: [['drugs', 'id', 'name', 'radio'], ['operates', 'id', 'name', 'radio']],
-            checkBoxPosition: [0, 3],
+            checkBoxPosition: [0, 2],
             selectValue: [[], [{n: 'domain', v: 'beast'}, {n: 'domain', v: 'all', s: true}]],
             hasImg: true,
             components: [{
@@ -447,7 +446,7 @@ export default {
                 type: 'select',
                 label: '检疫结果',
                 placeholder: '(可选)',
-                rule: {required: false},
+                rule: {required: true},
                 options: [['合格', '不合格']],
                 optionskeys: [[1, 0]]
             },
@@ -587,7 +586,6 @@ export default {
                 type: 'date',
                 label: '检测日期',
                 placeholder: '(必填)',
-                disabled: true,
                 rule: {required: true, message: '请输入检测日期'}
             },
             {
@@ -657,7 +655,6 @@ export default {
                 type: 'date',
                 label: '检测日期',
                 placeholder: '(必填)',
-                disabled: true,
                 rule: {required: true}
             },
             {
@@ -1081,7 +1078,6 @@ export default {
                 type: 'date',
                 label: '检测日期',
                 placeholder: '（必选）',
-                disabled: true,
                 rule: {required: true}
             },
             {
@@ -1159,7 +1155,6 @@ export default {
                 type: 'date',
                 label: '检测日期',
                 placeholder: '（必选）',
-                disabled: true,
                 rule: {required: true}
             },
             {
@@ -1228,7 +1223,8 @@ export default {
     // 屠宰加工管理-产品溯源码管理
     serialManage: [{
         timeshow: true,
-        rightMenu: false,
+        rightMenu: true,
+        isCode: true,
         key: 'code',
         paramsIndex: 'beast',
         roleName: ['packb/code', 0],
@@ -1403,7 +1399,6 @@ export default {
                     type: 'date',
                     label: '施肥日期',
                     placeholder: '（必选）',
-                    disabled: false,
                     rule: {required: true}
                 },
                 {
@@ -1782,7 +1777,6 @@ export default {
                     type: 'date',
                     label: '检测日期',
                     placeholder: '(必填)',
-                    disabled: true,
                     rule: {required: true}
                 },
                 {
@@ -2244,7 +2238,6 @@ export default {
                 type: 'date',
                 label: '检测日期',
                 placeholder: '（必选）',
-                disabled: true,
                 rule: {required: true}
             },
             {
@@ -2322,7 +2315,6 @@ export default {
                 type: 'date',
                 label: '检测日期',
                 placeholder: '（必选）',
-                disabled: true,
                 rule: {required: true}
             },
             {
@@ -2391,7 +2383,8 @@ export default {
     // 果蔬加工管理-产品溯源码管理
     vegetableTrace: [{
         timeshow: true,
-        rightMenu: false,
+        rightMenu: true,
+        isCode: true,
         key: 'code',
         paramsIndex: 'plant',
         roleName: ['packb/code', 0],
@@ -2730,7 +2723,6 @@ export default {
                 type: 'date',
                 label: '订单日期时间',
                 placeholder: '（必选）',
-                disabled: true,
                 rule: {required: true}
             },
             {
@@ -2787,7 +2779,6 @@ export default {
                 type: 'date',
                 label: '订单日期时间',
                 placeholder: '（必选）',
-                disabled: true,
                 rule: {required: true}
             },
             {

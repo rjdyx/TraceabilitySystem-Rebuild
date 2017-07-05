@@ -79,16 +79,28 @@
                                 :style="{width: widths[index] + '%'}" @click="checkDom($event.currentTarget)">
                                     {{pers[protos[index]]}}
                             </span>
-                        </el-tooltip>
-                        
-                           
+                        </el-tooltip>   
                     </div>
                     <div slot="right-menu">
-                      <swipeout-button class="lookOver" type="primary" @click.native="showDetail(pers.id)" v-if="rightMenu">查看</swipeout-button>
+                      <swipeout-button class="lookOver" type="primary" @click.native="showDetail(pers.id, pers)" v-if="rightMenu">
+                      {{operateOn}}</swipeout-button>
                       <swipeout-button class="appedit" @click.native="webAppOperateType('edit'+pers.id)">编辑</swipeout-button>
                     </div>
                 </swipeout-item>
             </swipeout>
+
+            <!-- 二维码提示框  -->
+            <div v-transfer-dom>
+                <x-dialog v-model="showHideOnBlur" class="dialog-demo" hide-on-blur>
+                    <div class="img-box">
+                        <div class="sym"><strong>溯源码：</strong>{{tracingCode}}</div>
+                        <qrcode :value="qrcodeUrl" type="img"></qrcode>
+                    </div>
+                    <div @click="showHideOnBlur=false">
+                        <span class="vux-close"></span>
+                    </div>
+                </x-dialog>
+            </div>
 
             <!-- 列表底部 -->
             <div class="tableFooter">
@@ -104,7 +116,7 @@
 </template> 
  
 <script>
-import { XTable, Datetime, Group, Tab, TabItem, Swipeout, SwipeoutItem, LoadMore, Toast, Confirm, SwipeoutButton, Swiper, SwiperItem, Popover } from 'vux'
+import { XTable, Datetime, Group, Tab, TabItem, Swipeout, SwipeoutItem, LoadMore, Toast, Confirm, SwipeoutButton, Swiper, SwiperItem, Popover, XDialog, TransferDomDirective as TransferDom, XSwitch, Qrcode } from 'vux'
 import {mapActions, mapMutations} from 'vuex'
 import appmenu from '../index/appmenu.js'
 import siderBar from '../../public/siderBar.vue'
@@ -113,6 +125,9 @@ import computed from '../webAppModel/appcomputed.js'
 import appfunction from '../../directive/appfunction.js'
 export default {
     name: 'BasicModel',
+    directives: {
+        TransferDom
+    },
     props: {
         models: {
             type: Array,
@@ -136,7 +151,8 @@ export default {
                     timeshow: '',
                     batch: '',
                     rightMenu: '',
-                    paramsIndex: ''
+                    paramsIndex: '',
+                    isCode: false
                 }]
             }
         }
@@ -164,7 +180,13 @@ export default {
             activeindex: '',
             tabSelected: '',
             checkAll: false,
-            lastDom: ''
+            lastDom: '',
+            operateOn: '查看',
+            // 二维码图片是否显示
+            showHideOnBlur: false,
+            // 二维码跳转地址
+            qrcodeUrl: '',
+            tracingCode: ''
         }
     },
     // 混合
@@ -227,12 +249,29 @@ export default {
             this.show = false
         },
         // 点击进入详情页
-        showDetail (id) {
-            if (this.unite === 'plantTo') {
-                this.$router.push('/appIndex/appdetailbasic/' + this.batch + '/plantTo' + id)
+        showDetail (id, ret) {
+            if (!this.isCode) {
+                if (this.unite === 'plantTo') {
+                    this.$router.push('/appIndex/appdetailbasic/' + this.batch + '/plantTo' + id)
+                } else {
+                    this.$router.push('/appIndex/appdetailbasic/' + this.batch + '/' + id)
+                }
             } else {
-                this.$router.push('/appIndex/appdetailbasic/' + this.batch + '/' + id)
+                this.setCodeUrl(ret.code)
+                this.tracingCode = ret.code
+                this.showHideOnBlur = true
             }
+        },
+        // 生产二维码地址
+        setCodeUrl (code) {
+            var per = code.substring(0, 1)
+            var url = require('projectRoot/env.js').app_ano_url + '/#/run/'
+            if (per === 'P') {
+                url += 'plant'
+            } else {
+                url += 'breed'
+            }
+            this.qrcodeUrl = url + '/index/' + code
         },
         // 关闭新建和时间组件
         closeOperate () {
@@ -288,7 +327,7 @@ export default {
         // 单条删除或多条删除
         listDelete () {
             if (this.ischeckdate.length !== undefined && this.ischeckdate.length !== 0) {
-                const _this = this
+                var _this = this
                 this.$vux.confirm.show({
                     title: '删除选择信息',
                     onCancel () {
@@ -339,6 +378,14 @@ export default {
             setTimeout(function () {
                 document.body.lastChild.style.display = 'none'
             }, 1000)
+        },
+        // 判断是查看还是二维码
+        getMenu () {
+            if (this.isCode) {
+                this.operateOn = '二维码'
+            } else {
+                this.operateOn = '查看'
+            }
         }
     },
     mounted () {
@@ -348,6 +395,7 @@ export default {
         }
         let tabTxt = localStorage.getItem('appTab')
         this.tabSelected = tabTxt
+        this.getMenu()
     },
     watch: {
         models () {
@@ -355,6 +403,7 @@ export default {
             localStorage.setItem('trends', 0)
             this.changeUrl()
             this.tabSelected = '施肥信息'
+            this.getMenu()
         },
         key () {
             this.changeUrl()
@@ -398,7 +447,10 @@ export default {
         Toast,
         Confirm,
         LoadMore,
-        Popover
+        Popover,
+        XDialog,
+        XSwitch,
+        Qrcode
     }
 }
 </script>
@@ -409,11 +461,23 @@ export default {
         color: #009acb!important;
     }
 }
+.weui-dialog{
+    .sym{
+        word-break: break-all;
+        padding: .3rem .5rem 0rem .5rem;
+    }
+    img{
+        width: 100%;
+        padding: .5rem;
+        box-sizing: border-box;
+    }
+}
 .webApp_model{
     width: 100%;
     height: 100%;
     overflow: hidden;
     padding-top: 50px;
+    
     .webApp-wrap{ 
         width: 100%;
         height: 100%;
