@@ -80,7 +80,7 @@ export default {
                 label: '饲养日期',
                 placeholder: '（必选）',
                 rule: {required: true},
-                disabled: 'true'
+                disabled: true
             },
             {
                 name: 'amount',
@@ -1365,6 +1365,11 @@ export default {
             protos: ['manure_name', 'date', 'operate_name'],
             widths: [26, 26, 26],
             newComponent: [{
+                plan: true,
+                planArr: {'manure_name': '肥料名称', 'operate_name': '施肥人', 'amount': '施肥量', 'unit': '单位'},
+                planBox: {'manure_id': 'manure_name', 'operate_id': 'operate_name', 'unit': 'unit'},
+                planIds: 'cultivate_ids',
+                planPosition: [0, 1, 2, 3, 4],
                 tab: '新建施肥信息',
                 checkBoxUrl: [['cultivates', 'id', 'serial', 'check'], ['manures', 'id', 'name', 'radio'], ['operates', 'id', 'name', 'radio']],
                 selectValue: [[], [], [{n: 'domain', v: 'plant'}, {n: 'domain', v: 'all', s: true}]],
@@ -1393,6 +1398,7 @@ export default {
                     type: 'date',
                     label: '施肥日期',
                     placeholder: '（必选）',
+                    disabled: false,
                     rule: {required: true}
                 },
                 {
@@ -1505,6 +1511,10 @@ export default {
             widths: [26, 26, 26],
             newComponent: [{
                 tab: '新建药信息',
+                plan: true,
+                planArr: {'medicament_name': '农药名称', 'operate_name': '施药人', 'amount': '施药量', 'unit': '单位'},
+                planBox: {'medicament_id': 'medicament_name', 'operate_id': 'operate_name', 'unit': 'unit'},
+                planIds: 'cultivate_ids',
                 checkBoxUrl: [['cultivates', 'id', 'serial', 'check'], ['medicaments', 'id', 'name', 'radio'], ['operates', 'id', 'name', 'radio']],
                 selectValue: [[], [], [{n: 'domain', v: 'plant'}, {n: 'domain', v: 'all', s: true}]],
                 checkBoxPosition: [0, 1, 4],
@@ -1954,6 +1964,9 @@ export default {
             widths: [26, 26, 26],
             newComponent: [{
                 tab: '新建采收信息',
+                plan: true,
+                planArr: {'cultivate_serial': '种植批次号', 'operate_name': '采收人', 'amount': '采收量', 'unit': '单位'},
+                planBox: {'cultivate_id': 'cultivate_serial', 'operate_id': 'operate_name', 'unit': 'unit'},
                 checkBoxUrl: [['cultivates', 'id', 'serial', 'radio'], ['operates', 'id', 'name', 'radio']],
                 selectValue: [[], [{n: 'domain', v: 'plant'}, {n: 'domain', v: 'all', s: true}]],
                 checkBoxPosition: [1, 3],
@@ -1976,10 +1989,13 @@ export default {
                 },
                 {
                     name: 'amount',
-                    type: 'text',
+                    type: 'textSelect',
                     label: '采收数量',
-                    placeholder: '必填',
-                    rule: {required: true, type: 'reNumber', message: '请输入整数'}
+                    placeholder: '请填写数字（必填）',
+                    options: [['kg', '个', '箱']],
+                    optionskeys: [['kg', '个', '箱']],
+                    rule: {required: true, type: 'reNumber', message: '请输入整数'},
+                    show: false
                 },
                 {
                     name: 'operate_id',
@@ -2015,7 +2031,7 @@ export default {
             }],
             editComponent: [{
                 tab: '编辑采收信息',
-                arrBox: {'operate_id': 'operate_name'},
+                arrBox: {'operate_id': 'operate_name', 'unit': 'unit'},
                 checkBoxUrl: [['operates', 'id', 'name', 'radio']],
                 checkBoxPosition: [3],
                 components: [{
@@ -2035,10 +2051,13 @@ export default {
                 },
                 {
                     name: 'amount',
-                    type: 'text',
+                    type: 'textSelect',
                     label: '采收数量',
-                    placeholder: '必填',
-                    rule: {required: true, type: 'reNumber', message: '请输入整数'}
+                    placeholder: '请填写数字（必填）',
+                    options: [['kg', '个', '箱']],
+                    optionskeys: [['kg', '个', '箱']],
+                    rule: {required: true, type: 'reNumber', message: '请输入整数'},
+                    show: false
                 },
                 {
                     name: 'operate_id',
@@ -2890,6 +2909,7 @@ export default {
             components: [{
                 name: 'datetime',
                 type: 'date',
+                format: 'YYYY-MM-DD HH:mm',
                 label: '物流日期',
                 placeholder: '（必选）',
                 rule: {required: true}

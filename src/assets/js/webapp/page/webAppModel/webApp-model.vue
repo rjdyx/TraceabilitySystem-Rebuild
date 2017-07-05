@@ -406,6 +406,11 @@ export default {
 </script>
 
 <style lang='sass'>
+.dp-header{
+    .dp-item.dp-left,.dp-item,.dp-item.dp-right {
+        color: #009acb!important;
+    }
+}
 .webApp_model{
     width: 100%;
     height: 100%;

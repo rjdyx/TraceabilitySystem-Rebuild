@@ -11,7 +11,8 @@
             <span slot="plan" class="newplan" v-if="planShow" @click="newPlanFn"></span> 
         </header1>
         <group>
-          <popup-radio class="newPlanRadio" title="options" :options="options2" v-model="option2" v-if="planShow"></popup-radio>
+          <popup-radio class="newPlanRadio" title="options" :options="options2" v-model="option2" v-if="planShow"
+                @on-change="getPlanInfo"></popup-radio>
         </group>
         <div class="ppN_content">
             <group label-width="4.5em" label-margin-right="2em" label-align="right">
@@ -39,12 +40,12 @@
                         :placeholder="comItem.placeholder"
                         start-date="2000-1-1" 
                         :end-date="toDate"
+                        :readonly="comItem.disabled"
                         :format="comItem.format != undefined ? comItem.format : format"
                         confirm-text="确认"
                         cancel-text="取消" 
                         clear-text="清空"
-                        :class="[{ inputErrors: ruleTableForm[comItem.name].bol},{bggray: comItem.disabled}]"
-                        :readonly="readonly">
+                        :class="[{ inputErrors: ruleTableForm[comItem.name].bol},{bggray: comItem.disabled}]">
                     </datetime>
 
                     <popup-picker
@@ -84,7 +85,8 @@
                             v-model="tableForm[comItem.name]"
                             @on-change="inputOnChange"
                             @on-blur="onBlur"
-                            :class="{ inputErrors: ruleTableForm[comItem.name].bol}">
+                            :disabled="comItem.disabled"
+                            :class="[{ inputErrors: ruleTableForm[comItem.name].bol},{bggray: comItem.disabled}]">
                         </x-input>
                         <popup-picker 
                             :name="comItem.name"
@@ -93,7 +95,7 @@
                             v-model="tableForm['unit']"
                             @on-hide="onHide"
                             value-text-align="left"
-                            :class="{ inputErrors: ruleTableForm['unit'].bol}"
+                            :class="[{ inputErrors: ruleTableForm['unit'].bol},{bggray: comItem.disabled}]"
                             :disabled='comItem.disabled'
                             >
                         </popup-picker>
@@ -272,22 +274,12 @@ export default {
             // 默认日期格式
             format: 'YYYY-MM-DD',
             option2: '',
-            options2: [{
-                key: 'A',
-                value: 'label A'
-            }, {
-                key: 'B',
-                value: 'label B'
-            }],
-            readonly: true
+            options2: []
         }
     },
     methods: {
         pcShowFn (comItem) {
-            console.log(comItem)
             comItem.show = !comItem.show && !comItem.disabled
-            console.log(comItem.show)
-            this.tableForm['breed_ids'] = [4, 5]
         },
         change (val) {
         },
@@ -350,7 +342,7 @@ export default {
             var _this = this
             this.typeComponent.components.forEach(function (item) {
                 if (item.name === 'amount') {
-                    if (_this.url !== 'harvest' && _this.url !== 'code') {
+                    if (_this.url !== 'code') {
                         _this.selectHideId['unit'] = item.optionskeys[0][0]
                     }
                 }
@@ -527,6 +519,7 @@ export default {
                         let initVal = this.$changeArrBox(beforeVal, this.typeComponent.arrBox)
                         this.tableForm = initVal[0]
                         this.selectHideId = initVal[1]
+                        console.log(this.selectHideId)
                     } else {
                         this.tableForm = responce.data
                     }
@@ -599,9 +592,43 @@ export default {
                 }
             })
         },
-        // 计划
+        // 获取计划
         newPlanFn () {
-            $('.newPlanRadio').click()
+            let params = {type: this.url}
+            this.$dataGet(this, 'plan/getPlanInfo', params)
+                .then((responce) => {
+                    if (responce.data.length !== 0) {
+                        let arr = this.$selectDataArr(responce.data, this.typeComponent.planArr)
+                        this.options2 = arr
+                        $('.newPlanRadio').click()
+                    } else {
+                        this.setToast('text', '当前日期无计划', '13em')
+                    }
+                })
+        },
+        // 填充计划
+        getPlanInfo (val) {
+            let params = {type: this.url, id: val}
+            this.$dataGet(this, 'plan/selectPlan', params)
+                .then((responce) => {
+                    let arrId = []
+                    let initVal = this.$changeArrBox(responce.data.planData, this.typeComponent.planBox)
+                    for (let key of Object.keys(initVal[0])) {
+                        this.tableForm[key] = initVal[0][key]
+                    }
+                    if (this.typeComponent.planIds !== undefined) {
+                        for (let item in responce.data.planList) {
+                            arrId.push(responce.data.planList[item].id)
+                        }
+                        this.tableForm[this.typeComponent.planIds] = arrId
+                    }
+                    if (this.typeComponent.planPosition !== undefined) {
+                        for (let index in this.typeComponent.planPosition) {
+                            this.typeComponent.components[this.typeComponent.planPosition[index]]['disabled'] = true
+                        }
+                    }
+                    this.selectHideId = initVal[1]
+                })
         }
     },
     created () {
@@ -640,6 +667,14 @@ export default {
         margin-right:0px!important;
         width:6em!important;
     }
+.vux-popup-picker-header{
+    color: #009acb!important;
+}
+.dp-header{
+    .dp-item.dp-left,.dp-item,.dp-item.dp-right {
+        color: #009acb!important;
+    }
+}
 .pcDiv{
     .pcList{
         border-top: 1px solid #D9D9D9;
