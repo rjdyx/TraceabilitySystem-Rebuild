@@ -447,7 +447,13 @@ export default {
     }
 }
 .weui-dialog{
-    width: auto;
+    /*width: auto;*/
+    img{
+        border:1px solid red;
+        width: 100%;
+        padding: 10px;
+        box-sizing: border-box;
+    }
 }
 .webApp_model{
     width: 100%;
