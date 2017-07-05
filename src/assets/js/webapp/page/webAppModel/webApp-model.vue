@@ -342,6 +342,14 @@ export default {
             setTimeout(function () {
                 document.body.lastChild.style.display = 'none'
             }, 1000)
+        },
+        // 判断是查看还是二维码
+        getMenu () {
+            if (this.isCode) {
+                this.operateOn = '二维码'
+            } else {
+                this.operateOn = '查看'
+            }
         }
     },
     mounted () {
@@ -351,6 +359,7 @@ export default {
         }
         let tabTxt = localStorage.getItem('appTab')
         this.tabSelected = tabTxt
+        this.getMenu()
     },
     watch: {
         models () {
@@ -358,11 +367,7 @@ export default {
             localStorage.setItem('trends', 0)
             this.changeUrl()
             this.tabSelected = '施肥信息'
-            if (this.isCode) {
-                this.operateOn = '二维码'
-            } else {
-                this.operateOn = '查看'
-            }
+            this.getMenu()
         },
         key () {
             this.changeUrl()
