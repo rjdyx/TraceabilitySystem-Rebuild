@@ -17,6 +17,7 @@
         <div class="ppN_content">
             <group label-width="4.5em" label-margin-right="2em" label-align="right">
                 <div class="formItem" v-for="comItem in typeComponent.components" v-if="comItem.type !== 'file' && !comItem.hiddenSelect">
+                    <!-- 文本框 -->
                     <x-input 
                         v-if="comItem.type ==='text'"
                         :inputName="comItem.name"
@@ -29,7 +30,8 @@
                         :class="[{ inputErrors: ruleTableForm[comItem.name].bol},{bggray: comItem.disabled}]"
                         >
                     </x-input>
-
+                    
+                    <!-- 时间框 -->
                     <datetime
                         :name="comItem.name" 
                         v-if="comItem.type === 'date'"
@@ -48,6 +50,7 @@
                         :class="[{ inputErrors: ruleTableForm[comItem.name].bol},{bggray: comItem.disabled}]">
                     </datetime>
 
+                    <!-- 滑动选择框 -->
                     <popup-picker
                         :name = "comItem.name"
                         v-if="comItem.type === 'select'"
@@ -63,6 +66,7 @@
                         >
                     </popup-picker>
 
+                    <!-- 多行文本框 -->
                     <x-textarea
                         :name = 'comItem.name'
                         v-if="comItem.type === 'textarea'"
@@ -77,6 +81,7 @@
                         >
                     </x-textarea>
                     
+                    <!-- 文本与滑动选择框 -->
                     <div v-if="comItem.type === 'textSelect'">
                         <x-input 
                             :inputName="comItem.name"
@@ -101,22 +106,24 @@
                         </popup-picker>
                     </div>
 
+                    <!-- 选择框（可选择多个） -->
                     <div v-if="comItem.type === 'pcSelect'">
                         <div :class="[{pcDiv:true},{bggray: comItem.disabled}]" >
                             <div class="vux-cell-box" @click='pcShowFn(comItem)'>
                                 <div :class="{ inputErrors: ruleTableForm[comItem.name].bol}">
                                     <div class="weui-cell vux-tap-active weui-cell_access">
-                                        <div class="weui-cell__hd"><label class="weui-label" style="display: block; width: 4.5em; text-align: right; margin-right: 2em;">{{comItem.label}}</label><!---->
+                                        <div class="weui-cell__hd"><label class="weui-label" style="display: block; width: 4.5em; text-align: right; margin-right: 2em;">{{comItem.label}}</label>
                                         </div>
                                         <div class="vux-cell-primary vux-popup-picker-select-box">
-                                            <div class="vux-popup-picker-select" style="text-align: left;"><!----><!----><!---->
+                                            <div class="vux-popup-picker-select" style="text-align: left;">
                                                 <span class="vux-popup-picker-placeholder">{{tableForm[comItem.name].length ? "已选择"+comItem.placeholder : "请选择"+comItem.placeholder}}</span>
                                             </div>
                                         </div>
                                         <div class="weui-cell__ft"></div>
-                                    </div><!---->
+                                    </div>
                                 </div>
                             </div>
+                            <!-- 列表 -->
                             <div class="pcList" v-if="tableForm[comItem.name].length">
                                 <ul>
                                     <li v-for="item in tableForm[comItem.name]">
@@ -127,6 +134,8 @@
                                 </ul>
                             </div>
                         </div>
+
+                        <!-- 选择框的弹出框 -->
                         <div v-transfer-dom>
                           <popup v-model="comItem.show" position="bottom" height="100%">
                             <group>
@@ -146,6 +155,8 @@
                     
                 </div>
             </group>
+
+            <!-- 图片选择框 -->
             <camera 
                 v-for="comItem in typeComponent.components" 
                 v-if="comItem.type === 'file'" 
@@ -154,13 +165,14 @@
                 :editValue="tableForm[comItem.name]"
                 :class="{ cameraErrors: ruleTableForm[comItem.name].bol}"
             ></camera>
+
             <flexbox>
-                    <flexbox-item>
-                      <x-button class="submitForm" @touchend.native='submitForm'>保存</x-button>
-                    </flexbox-item>
-                    <flexbox-item>
-                      <x-button class="cancelForm" @touchend.native='cancelForm'>取消</x-button>
-                    </flexbox-item>
+                <flexbox-item>
+                  <x-button class="submitForm" @touchend.native='submitForm'>保存</x-button>
+                </flexbox-item>
+                <flexbox-item>
+                  <x-button class="cancelForm" @touchend.native='cancelForm'>取消</x-button>
+                </flexbox-item>
             </flexbox>
         </div>
     </div>
@@ -175,31 +187,6 @@ export default {
     name: 'p_popNew',
     directives: {
         TransferDom
-    },
-    components: {
-        XHeader,
-        Actionsheet,
-        TransferDom,
-        Group,
-        XInput,
-        Selector,
-        PopupPicker,
-        Datetime,
-        XTextarea,
-        Icon,
-        XButton,
-        Flexbox,
-        FlexboxItem,
-        PopupRadio,
-        Camera,
-        Popup,
-        XSwitch,
-        Cell,
-        Checklist,
-        Divider,
-        Radio,
-        Toast,
-        Header1
     },
     data () {
         let type = this.$route.params.type
@@ -694,6 +681,31 @@ export default {
         }
     },
     watch: {
+    },
+    components: {
+        XHeader,
+        Actionsheet,
+        TransferDom,
+        Group,
+        XInput,
+        Selector,
+        PopupPicker,
+        Datetime,
+        XTextarea,
+        Icon,
+        XButton,
+        Flexbox,
+        FlexboxItem,
+        PopupRadio,
+        Camera,
+        Popup,
+        XSwitch,
+        Cell,
+        Checklist,
+        Divider,
+        Radio,
+        Toast,
+        Header1
     }
 }
 </script>

@@ -79,9 +79,7 @@
                                 :style="{width: widths[index] + '%'}" @click="checkDom($event.currentTarget)">
                                     {{pers[protos[index]]}}
                             </span>
-                        </el-tooltip>
-                        
-                           
+                        </el-tooltip>   
                     </div>
                     <div slot="right-menu">
                       <swipeout-button class="lookOver" type="primary" @click.native="showDetail(pers.id, pers)" v-if="rightMenu">
@@ -95,6 +93,7 @@
             <div v-transfer-dom>
                 <x-dialog v-model="showHideOnBlur" class="dialog-demo" hide-on-blur>
                     <div class="img-box">
+                        <div class="sym"><strong>溯源码：</strong>6464648646646879684146748</div>
                         <qrcode :value="qrcodeUrl" type="img"></qrcode>
                     </div>
                     <div @click="showHideOnBlur=false">
@@ -461,7 +460,15 @@ export default {
     }
 }
 .weui-dialog{
-    width: auto;
+    .sym{
+        word-break: break-all;
+        padding: .3rem .5rem 0rem .5rem;
+    }
+    img{
+        width: 100%;
+        padding: .5rem;
+        box-sizing: border-box;
+    }
 }
 .webApp_model{
     width: 100%;
