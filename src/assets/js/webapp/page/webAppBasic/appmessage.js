@@ -211,7 +211,7 @@ export default {
                 position: 1,
                 clearArr: 'rfid_ids',
                 placeholder: '（必选）',
-                rule: {required: false},
+                rule: {required: true},
                 options: [],
                 optionskeys: [],
                 show: false

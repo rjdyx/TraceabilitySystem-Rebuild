@@ -84,12 +84,24 @@
                            
                     </div>
                     <div slot="right-menu">
-                      <swipeout-button class="lookOver" type="primary" @click.native="showDetail(pers.id)" v-if="rightMenu">
+                      <swipeout-button class="lookOver" type="primary" @click.native="showDetail(pers.id,operateOn)" v-if="rightMenu">
                       {{operateOn}}</swipeout-button>
                       <swipeout-button class="appedit" @click.native="webAppOperateType('edit'+pers.id)">编辑</swipeout-button>
                     </div>
                 </swipeout-item>
             </swipeout>
+
+            <!-- 二维码提示框  -->
+            <div v-transfer-dom>
+                <x-dialog v-model="showHideOnBlur" class="dialog-demo" hide-on-blur>
+                    <div class="img-box">
+                        <img src="/public/images/taiyang.png" style="max-width:100%">
+                    </div>
+                    <div @click="showHideOnBlur=false">
+                        <span class="vux-close"></span>
+                    </div>
+                </x-dialog>
+            </div>
 
             <!-- 列表底部 -->
             <div class="tableFooter">
@@ -105,7 +117,7 @@
 </template> 
  
 <script>
-import { XTable, Datetime, Group, Tab, TabItem, Swipeout, SwipeoutItem, LoadMore, Toast, Confirm, SwipeoutButton, Swiper, SwiperItem, Popover } from 'vux'
+import { XTable, Datetime, Group, Tab, TabItem, Swipeout, SwipeoutItem, LoadMore, Toast, Confirm, SwipeoutButton, Swiper, SwiperItem, Popover, XDialog, TransferDomDirective as TransferDom, XSwitch } from 'vux'
 import {mapActions, mapMutations} from 'vuex'
 import appmenu from '../index/appmenu.js'
 import siderBar from '../../public/siderBar.vue'
@@ -114,6 +126,9 @@ import computed from '../webAppModel/appcomputed.js'
 import appfunction from '../../directive/appfunction.js'
 export default {
     name: 'BasicModel',
+    directives: {
+        TransferDom
+    },
     props: {
         models: {
             type: Array,
@@ -167,7 +182,9 @@ export default {
             tabSelected: '',
             checkAll: false,
             lastDom: '',
-            operateOn: '查看'
+            operateOn: '查看',
+            // 二维码图片是否显示
+            showHideOnBlur: false
         }
     },
     // 混合
@@ -230,11 +247,16 @@ export default {
             this.show = false
         },
         // 点击进入详情页
-        showDetail (id) {
-            if (this.unite === 'plantTo') {
-                this.$router.push('/appIndex/appdetailbasic/' + this.batch + '/plantTo' + id)
-            } else {
-                this.$router.push('/appIndex/appdetailbasic/' + this.batch + '/' + id)
+        showDetail (id, operateOn) {
+            if (operateOn === '查看') {
+                if (this.unite === 'plantTo') {
+                    this.$router.push('/appIndex/appdetailbasic/' + this.batch + '/plantTo' + id)
+                } else {
+                    this.$router.push('/appIndex/appdetailbasic/' + this.batch + '/' + id)
+                }
+            } else if (operateOn === '二维码') {
+                this.showHideOnBlur = true
+                console.log(this.showHideOnBlur)
             }
         },
         // 关闭新建和时间组件
@@ -411,7 +433,9 @@ export default {
         Toast,
         Confirm,
         LoadMore,
-        Popover
+        Popover,
+        XDialog,
+        XSwitch
     }
 }
 </script>
