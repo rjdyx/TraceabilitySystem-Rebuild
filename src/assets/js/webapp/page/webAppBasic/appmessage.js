@@ -293,7 +293,7 @@ export default {
             tab: '编辑病疫情信息',
             arrBox: {'drug_id': 'drug_name', 'operate_id': 'operate_name', 'unit': 'unit'},
             checkBoxUrl: [['drugs', 'id', 'name', 'radio'], ['operates', 'id', 'name', 'radio']],
-            checkBoxPosition: [0, 3],
+            checkBoxPosition: [0, 2],
             selectValue: [[], [{n: 'domain', v: 'beast'}, {n: 'domain', v: 'all', s: true}]],
             hasImg: true,
             components: [{
@@ -446,7 +446,7 @@ export default {
                 type: 'select',
                 label: '检疫结果',
                 placeholder: '(可选)',
-                rule: {required: false},
+                rule: {required: true},
                 options: [['合格', '不合格']],
                 optionskeys: [[1, 0]]
             },
