@@ -474,7 +474,7 @@ export default {
                     this.$router.go(-1)
                 })
             } else {
-                this.setToast('text', '请输入完整信息', '12em')
+                this.setToast('text', '请输入完整正确信息', '14em')
             }
         },
         // 获取下拉框或多选框信息
@@ -614,6 +614,9 @@ export default {
             if (this.typeComponent.planIds === 'rfid_ids') {
                 this.typeComponent.components[this.typeComponent.planSelectArrPosition].options = []
             }
+            if (this.typeComponent.codeIds === 'code_ids') {
+                this.typeComponent.components[this.typeComponent.codeSelectArrPosition].options = []
+            }
         },
         // 获取计划
         newPlanFn () {
@@ -667,16 +670,27 @@ export default {
                 this.clearClass()
             }
         },
-        // 溯源码添加
+        // 手机溯源码添加
         successOf (data) {
-            let codeArr = []
-            codeArr.push(data)
-            let dataOpt = this.$getCheckSelect(codeArr, this.typeComponent.codeSelectArr)
-            if (dataOpt[0] === 'check') {
-                this.typeComponent.components[this.typeComponent.codeSelectArrPosition].options.push(dataOpt[1][0])
+            if (data === 'error') {
+                this.setToast('text', '溯源码不存在', '13em')
+            } else if (data === 'sale') {
+                this.setToast('text', '当前产品已出售', '14em')
+            } else {
+                this.setToast('text', '溯源码添加成功', '14em')
+                let codeArr = []
+                codeArr.push(data)
+                let dataOpt = this.$getCheckSelect(codeArr, this.typeComponent.codeSelectArr)
+                if (this.codeArrId.indexOf(data.id) === -1) {
+                    if (dataOpt[0] === 'check') {
+                        this.typeComponent.components[this.typeComponent.codeSelectArrPosition].options.push(dataOpt[1][0])
+                    }
+                    this.codeArrId.push(data.id)
+                } else {
+                    this.setToast('text', '溯源码已存在于订单列表', '18em')
+                }
+                this.tableForm[this.typeComponent.codeIds] = this.codeArrId
             }
-            this.codeArrId.push(data.id)
-            this.tableForm[this.typeComponent.codeIds] = this.codeArrId
         }
     },
     created () {
