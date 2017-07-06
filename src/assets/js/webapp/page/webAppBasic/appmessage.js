@@ -98,7 +98,7 @@ export default {
                 name: 'way',
                 type: 'text',
                 label: '喂养方式',
-                placeholder: '(可填)',
+                placeholder: '（可填）',
                 rule: {required: false}
             },
             {
@@ -264,7 +264,7 @@ export default {
                 name: 'description',
                 type: 'text',
                 label: '病情描述',
-                placeholder: '(可写)',
+                placeholder: '（可写）',
                 rule: {required: false}
             },
             {
@@ -336,7 +336,7 @@ export default {
                 name: 'description',
                 type: 'text',
                 label: '病情描述',
-                placeholder: '(可写)',
+                placeholder: '（可写）',
                 rule: {required: false}
             },
             {
@@ -407,7 +407,7 @@ export default {
                 name: 'date',
                 type: 'date',
                 label: '检疫日期',
-                placeholder: '(必选)',
+                placeholder: '（必选）',
                 rule: {required: true}
             },
             {
@@ -421,7 +421,7 @@ export default {
                 name: 'name',
                 type: 'text',
                 label: '检疫项目名称',
-                placeholder: '(必填)',
+                placeholder: '（必填）',
                 rule: {required: true}
             },
             {
@@ -445,7 +445,7 @@ export default {
                 name: 'result',
                 type: 'select',
                 label: '检疫结果',
-                placeholder: '(可选)',
+                placeholder: '（可选）',
                 rule: {required: true},
                 options: [['合格', '不合格']],
                 optionskeys: [[1, 0]]
@@ -468,7 +468,7 @@ export default {
                 name: 'memo',
                 type: 'textarea',
                 label: '备注信息',
-                placeholder: '(可填)',
+                placeholder: '（可填）',
                 rule: {required: false}
             }
             ]
@@ -484,7 +484,7 @@ export default {
                 name: 'date',
                 type: 'date',
                 label: '检疫日期',
-                placeholder: '(必选)',
+                placeholder: '（必选）',
                 rule: {required: true}
             },
             {
@@ -498,7 +498,7 @@ export default {
                 name: 'name',
                 type: 'text',
                 label: '检疫项目名称',
-                placeholder: '(必填)',
+                placeholder: '（必填）',
                 rule: {required: true}
             },
             {
@@ -522,7 +522,7 @@ export default {
                 name: 'result',
                 type: 'select',
                 label: '检疫结果',
-                placeholder: '(可选)',
+                placeholder: '（可选）',
                 rule: {required: false},
                 options: [['合格', '不合格']],
                 optionskeys: [[1, 0]]
@@ -545,7 +545,7 @@ export default {
                 name: 'memo',
                 type: 'textarea',
                 label: '备注信息',
-                placeholder: '(可填)',
+                placeholder: '（可填）',
                 rule: {required: false}
             }
             ]
@@ -585,7 +585,7 @@ export default {
                 name: 'date',
                 type: 'date',
                 label: '检测日期',
-                placeholder: '(必填)',
+                placeholder: '（必填）',
                 rule: {required: true, message: '请输入检测日期'}
             },
             {
@@ -602,7 +602,7 @@ export default {
                 name: 'name',
                 type: 'text',
                 label: '检测项目名称',
-                placeholder: '(必填)',
+                placeholder: '（必填）',
                 rule: {required: true}
             },
             {
@@ -625,7 +625,7 @@ export default {
                 name: 'department',
                 type: 'text',
                 label: '检测机构',
-                placeholder: '(可选)',
+                placeholder: '（可选）',
                 rule: {required: false}
             },
             {
@@ -654,7 +654,7 @@ export default {
                 name: 'date',
                 type: 'date',
                 label: '检测日期',
-                placeholder: '(必填)',
+                placeholder: '（必填）',
                 rule: {required: true}
             },
             {
@@ -670,7 +670,7 @@ export default {
                 name: 'name',
                 type: 'text',
                 label: '检测名称',
-                placeholder: '(必填)',
+                placeholder: '（必填）',
                 rule: {required: true}
             },
             {
@@ -693,7 +693,7 @@ export default {
                 name: 'department',
                 type: 'text',
                 label: '检测机构',
-                placeholder: '(可选)',
+                placeholder: '（可选）',
                 rule: {required: false}
             },
             {
@@ -707,7 +707,7 @@ export default {
                 name: 'memo',
                 type: 'textarea',
                 label: '备注信息',
-                placeholder: '(可选)',
+                placeholder: '（可选）',
                 rule: {required: false}
             }]
         }]
@@ -1704,7 +1704,7 @@ export default {
                     name: 'date',
                     type: 'date',
                     label: '检测日期',
-                    placeholder: '(必填)',
+                    placeholder: '（必填）',
                     rule: {required: true, message: '请输入检测日期'}
                 },
                 {
@@ -1721,7 +1721,7 @@ export default {
                     name: 'name',
                     type: 'select',
                     label: '检测项目名称',
-                    placeholder: '(必填)',
+                    placeholder: '（必填）',
                     rule: {required: true},
                     options: [['土壤检测', '水质检测', '大气污染检测', '农药残留检测', '其他检测']],
                     optionskeys: [['土壤检测', '水质检测', '大气污染检测', '农药残留检测', '其他检测']],
@@ -1747,7 +1747,7 @@ export default {
                     name: 'department',
                     type: 'text',
                     label: '检测机构',
-                    placeholder: '(可选)',
+                    placeholder: '（可选）',
                     rule: {required: false}
                 },
                 {
@@ -1776,7 +1776,7 @@ export default {
                     name: 'date',
                     type: 'date',
                     label: '检测日期',
-                    placeholder: '(必填)',
+                    placeholder: '（必填）',
                     rule: {required: true}
                 },
                 {
@@ -1792,7 +1792,7 @@ export default {
                     name: 'name',
                     type: 'select',
                     label: '检测项目名称',
-                    placeholder: '(必填)',
+                    placeholder: '（必填）',
                     rule: {required: true},
                     options: [['土壤检测', '水质检测', '大气污染检测', '农药残留检测', '其他检测']],
                     optionskeys: [['土壤检测', '水质检测', '大气污染检测', '农药残留检测', '其他检测']],
@@ -1818,7 +1818,7 @@ export default {
                     name: 'department',
                     type: 'text',
                     label: '检测机构',
-                    placeholder: '(可选)',
+                    placeholder: '（可选）',
                     rule: {required: false}
                 },
                 {
@@ -1832,7 +1832,7 @@ export default {
                     name: 'memo',
                     type: 'textarea',
                     label: '备注信息',
-                    placeholder: '(可选)',
+                    placeholder: '（可选）',
                     rule: {required: false}
                 }]
             }]
@@ -1887,7 +1887,7 @@ export default {
                     type: 'text',
                     label: '操作内容',
                     placeholder: '可填',
-                    rule: {required: false}
+                    rule: {required: true}
                 },
                 {
                     name: 'method',
@@ -1932,7 +1932,7 @@ export default {
                     type: 'text',
                     label: '操作内容',
                     placeholder: '可填',
-                    rule: {required: false}
+                    rule: {required: true}
                 },
                 {
                     name: 'method',

@@ -825,6 +825,9 @@ export default {
             padding: 10px 15px 10px 10px;
             border-left: 1px solid #D9D9D9;
         }
+        textarea::-webkit-input-placeholder{
+            color:$placeholderCol;
+        }
     }
     .vux-datetime{
         p{
