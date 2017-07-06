@@ -12,7 +12,9 @@
             <el-upload  
                 class="upload-demo upload" 
                 slot="upImg" 
-                :action="importUrl" 
+                :action="codeUrl"
+                :data="codeMethod" 
+                name="code"
                 v-if="uploadShow">
                 <span class="upImg"></span>
             </el-upload>
@@ -271,7 +273,8 @@ export default {
             format: 'YYYY-MM-DD',
             option2: '',
             options2: [],
-            bbb: true
+            codeUrl: this.$wapUrl(url + '/getCodeImage'),
+            codeMethod: {'_method': 'get'}
         }
     },
     methods: {
