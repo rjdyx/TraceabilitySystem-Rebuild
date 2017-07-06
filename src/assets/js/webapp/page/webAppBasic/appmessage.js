@@ -2715,10 +2715,23 @@ export default {
         newComponent: [{
             tab: '新建订单信息',
             uploadShow: true,
+            codeSelectArr: ['id', 'code', 'check'],
+            codeSelectArrPosition: 0,
+            codeIds: 'code_ids',
             checkBoxUrl: [['deliveries', 'id', 'serial', 'radio'], ['clients', 'id', 'name', 'radio'], ['operates', 'id', 'name', 'radio']],
             selectValue: [[], [], [{n: 'domain', v: 'sell'}, {n: 'domain', v: 'all', s: true}]],
             checkBoxPosition: [1, 2, 3],
             components: [{
+                name: 'code_ids',
+                type: 'pcSelect',
+                label: '产品溯源码',
+                placeholder: '产品溯源码',
+                disabled: true,
+                rule: {required: true}, // 这里如果需要验证类型写方法名，否则写null
+                options: [],
+                show: false
+            },
+            {
                 name: 'datetime',
                 type: 'date',
                 label: '订单日期时间',

@@ -15,6 +15,7 @@
                 :action="codeUrl"
                 :data="codeMethod" 
                 name="code"
+                :on-success="successOf"
                 v-if="uploadShow">
                 <span class="upImg"></span>
             </el-upload>
@@ -274,7 +275,8 @@ export default {
             option2: '',
             options2: [],
             codeUrl: this.$wapUrl(url + '/getCodeImage'),
-            codeMethod: {'_method': 'get'}
+            codeMethod: {'_method': 'get'},
+            codeArrId: []
         }
     },
     methods: {
@@ -414,7 +416,6 @@ export default {
         onBlur (obj) {
             this.validateFn(obj)
         },
-
         /*
         datatime验证
         datetime组件的方法
@@ -665,6 +666,17 @@ export default {
                 }
                 this.clearClass()
             }
+        },
+        // 溯源码添加
+        successOf (data) {
+            let codeArr = []
+            codeArr.push(data)
+            let dataOpt = this.$getCheckSelect(codeArr, this.typeComponent.codeSelectArr)
+            if (dataOpt[0] === 'check') {
+                this.typeComponent.components[this.typeComponent.codeSelectArrPosition].options.push(dataOpt[1][0])
+            }
+            this.codeArrId.push(data.id)
+            this.tableForm[this.typeComponent.codeIds] = this.codeArrId
         }
     },
     created () {
