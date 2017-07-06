@@ -906,23 +906,24 @@ export default {
         }
     }
     .upload{
-        width: 9%;
-        height: 36px;
+        width: 8%;
+        height: 31px;
         display: inline-block;
         position: absolute;
         left: 5%;
-        top: 12%;
+        top: 17%;
+        overflow: hidden;
     }
     .upImg{
         width:100%;
-        height: 36px;
+        height: 31px;
         display: inline-block;
         background: url(/public/images/two-dimensional.png) no-repeat;
         background-position: 100%;
     }
     .el-upload{
-        width: 9%;
-        height: 36px;
+        width: 8%;
+        height: 31px;
     }
 }
 </style>

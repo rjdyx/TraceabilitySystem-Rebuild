@@ -84,7 +84,7 @@ export default {
 			.left-btn{
 				background: url(/public/images/slider.png);
 				background-size: 100%;
-				left: 5%;
+				left: 6%;
 				height: 20px;
 				top:28%;
 			}

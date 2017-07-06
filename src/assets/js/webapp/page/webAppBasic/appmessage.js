@@ -2720,7 +2720,7 @@ export default {
             codeIds: 'code_ids',
             checkBoxUrl: [['deliveries', 'id', 'serial', 'radio'], ['clients', 'id', 'name', 'radio'], ['operates', 'id', 'name', 'radio']],
             selectValue: [[], [], [{n: 'domain', v: 'sell'}, {n: 'domain', v: 'all', s: true}]],
-            checkBoxPosition: [1, 2, 3],
+            checkBoxPosition: [2, 3, 4],
             components: [{
                 name: 'code_ids',
                 type: 'pcSelect',
