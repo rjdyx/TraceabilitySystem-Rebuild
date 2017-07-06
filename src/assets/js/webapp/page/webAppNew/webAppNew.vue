@@ -917,7 +917,7 @@ export default {
         width:100%;
         height: 36px;
         display: inline-block;
-        background: url(/public/images/upLoad.png) no-repeat;
+        background: url(/public/images/code.png) no-repeat;
         background-position: 100%;
     }
     .el-upload{
