@@ -899,13 +899,13 @@ export default {
         display: inline-block;
         position: absolute;
         left: 5%;
-        top: 11%;
+        top: 12%;
     }
     .upImg{
         width:100%;
         height: 36px;
         display: inline-block;
-        background: url(/public/images/code.png) no-repeat;
+        background: url(/public/images/two-dimensional.png) no-repeat;
         background-position: 100%;
     }
     .el-upload{
