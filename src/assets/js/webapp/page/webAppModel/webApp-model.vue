@@ -93,7 +93,7 @@
             <div v-transfer-dom>
                 <x-dialog v-model="showHideOnBlur" class="dialog-demo" hide-on-blur>
                     <div class="img-box">
-                        <div class="sym"><strong>溯源码：</strong>6464648646646879684146748</div>
+                        <div class="sym"><strong>溯源码：</strong>{{tracingCode}}</div>
                         <qrcode :value="qrcodeUrl" type="img"></qrcode>
                     </div>
                     <div @click="showHideOnBlur=false">
@@ -185,7 +185,8 @@ export default {
             // 二维码图片是否显示
             showHideOnBlur: false,
             // 二维码跳转地址
-            qrcodeUrl: ''
+            qrcodeUrl: '',
+            tracingCode: ''
         }
     },
     // 混合
@@ -257,6 +258,7 @@ export default {
                 }
             } else {
                 this.setCodeUrl(ret.code)
+                this.tracingCode = ret.code
                 this.showHideOnBlur = true
             }
         },
@@ -270,7 +272,6 @@ export default {
                 url += 'breed'
             }
             this.qrcodeUrl = url + '/index/' + code
-            console.log(this.qrcodeUrl)
         },
         // 关闭新建和时间组件
         closeOperate () {
@@ -326,7 +327,7 @@ export default {
         // 单条删除或多条删除
         listDelete () {
             if (this.ischeckdate.length !== undefined && this.ischeckdate.length !== 0) {
-                const _this = this
+                var _this = this
                 this.$vux.confirm.show({
                     title: '删除选择信息',
                     onCancel () {

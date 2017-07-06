@@ -119,7 +119,7 @@ export default[{
         role: roleData.sell === undefined ? 0 : roleData.sell.order === undefined ? 0 : 1,
         path: '/appIndex/message/saleOrder',
         name: '销售订单管理',
-        detail: '饲料详情'
+        detail: '销售订单详情'
     }
     ]
 }

@@ -9,6 +9,16 @@
     <div id="p_popNew">
         <header1 :settitle="settitle" :homeShow="false" :back="true" @setClassClear="goBackClear">
             <span slot="plan" class="newplan" v-if="planShow" @click="newPlanFn"></span> 
+            <el-upload  
+                class="upload-demo upload" 
+                slot="upImg" 
+                :action="codeUrl"
+                :data="codeMethod" 
+                name="code"
+                :on-success="successOf"
+                v-if="uploadShow">
+                <span class="upImg"></span>
+            </el-upload>
         </header1>
         <group>
           <popup-radio class="newPlanRadio" title="options" :options="options2" v-model="option2" v-if="planShow"
@@ -237,6 +247,7 @@ export default {
             type: type, // 判断编辑模块还是新增模块的标志
             settitle: typeComponent[0].tab,
             planShow: typeComponent[0].plan,
+            uploadShow: typeComponent[0].uploadShow,
             typeComponent: typeComponent[0],
             url: url,
             changeDataArr: changeDataArr,
@@ -263,7 +274,9 @@ export default {
             format: 'YYYY-MM-DD',
             option2: '',
             options2: [],
-            bbb: true
+            codeUrl: this.$wapUrl(url + '/getCodeImage'),
+            codeMethod: {'_method': 'get'},
+            codeArrId: []
         }
     },
     methods: {
@@ -403,7 +416,6 @@ export default {
         onBlur (obj) {
             this.validateFn(obj)
         },
-
         /*
         datatime验证
         datetime组件的方法
@@ -654,6 +666,17 @@ export default {
                 }
                 this.clearClass()
             }
+        },
+        // 溯源码添加
+        successOf (data) {
+            let codeArr = []
+            codeArr.push(data)
+            let dataOpt = this.$getCheckSelect(codeArr, this.typeComponent.codeSelectArr)
+            if (dataOpt[0] === 'check') {
+                this.typeComponent.components[this.typeComponent.codeSelectArrPosition].options.push(dataOpt[1][0])
+            }
+            this.codeArrId.push(data.id)
+            this.tableForm[this.typeComponent.codeIds] = this.codeArrId
         }
     },
     created () {
@@ -885,6 +908,25 @@ export default {
             line-height:3;
         }
     }
-    
+    .upload{
+        width: 8%;
+        height: 31px;
+        display: inline-block;
+        position: absolute;
+        left: 5%;
+        top: 17%;
+        overflow: hidden;
+    }
+    .upImg{
+        width:100%;
+        height: 31px;
+        display: inline-block;
+        background: url(/public/images/two-dimensional.png) no-repeat;
+        background-position: 100%;
+    }
+    .el-upload{
+        width: 8%;
+        height: 31px;
+    }
 }
 </style>

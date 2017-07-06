@@ -8,6 +8,7 @@
 	<div class="app-header">
 		<slot name="menu"></slot>
 		<slot name="plan"></slot>
+		<slot name="upImg"></slot>
 		<h1>{{settitle}}</h1>
 		<span v-show="back" class="back" @click="backTo"></span>
 		<span class="right-btn" @click="goBack" v-show="homeShow"></span>
@@ -34,11 +35,6 @@ export default {
             type: Boolean,
             default: false
         }
-        // ,
-        // planShow: {
-        //     type: Boolean,
-        //     default: false
-        // }
     },
     methods: {
         goBack () {
@@ -88,7 +84,7 @@ export default {
 			.left-btn{
 				background: url(/public/images/slider.png);
 				background-size: 100%;
-				left: 5%;
+				left: 6%;
 				height: 20px;
 				top:28%;
 			}
