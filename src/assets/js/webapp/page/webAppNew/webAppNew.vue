@@ -502,6 +502,7 @@ export default {
                                     }
                                 } else {
                                     com.components[com.checkBoxPosition[key]].options = [['']]
+                                    com.components[com.checkBoxPosition[key]].optionskeys = [['']]
                                 }
                             }
                         })
@@ -573,6 +574,7 @@ export default {
             if (this.typeComponent.hasImg) {
                 this.hasImg = true
             }
+            this.getToDate()
         },
         // 多条件查询
         selectCheckSearch (data) {
@@ -676,6 +678,8 @@ export default {
                 this.setToast('text', '溯源码不存在', '13em')
             } else if (data === 'sale') {
                 this.setToast('text', '当前产品已出售', '14em')
+            } else if (data === 'false') {
+                this.setToast('text', '上传的产品二维码有误', '16em')
             } else {
                 this.setToast('text', '溯源码添加成功', '14em')
                 let codeArr = []
@@ -709,7 +713,6 @@ export default {
         // 新增
         } else {
             this.defaultHide()
-            this.getToDate()
             this.getDefaultInit()
             this.isEdit = false
             this.successMsg = '新增数据成功'
