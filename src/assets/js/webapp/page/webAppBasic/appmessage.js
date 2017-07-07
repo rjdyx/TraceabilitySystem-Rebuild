@@ -153,7 +153,7 @@ export default {
                 name: 'amount',
                 type: 'textSelect',
                 label: '平均喂养量',
-                placeholder: '（必填）',
+                placeholder: '请填写数字（必填）',
                 rule: {required: true, type: 'reNumber'},
                 options: [['kg/只', 'kg/头', 'kg/条']],
                 optionskeys: [['kg/只', 'kg/头', 'kg/条']]
@@ -1258,8 +1258,8 @@ export default {
                 label: '加工产品',
                 placeholder: '（必选）',
                 rule: {required: true},
-                options: [],
-                optionskeys: [],
+                options: [['']],
+                optionskeys: [['']],
                 show: false
             },
             {
@@ -1570,14 +1570,14 @@ export default {
                     name: 'concentration',
                     type: 'text',
                     label: '施药浓度',
-                    placeholder: '（可填）',
+                    placeholder: '请填写数字（可填）',
                     rule: {required: false, type: 'reNumber', message: '请输入整数'}
                 },
                 {
                     name: 'safety',
                     type: 'text',
                     label: '安全隔离期（天）',
-                    placeholder: '（可填）',
+                    placeholder: '请填写数字（可填）',
                     rule: {required: false, type: 'reNumber', message: '请输入整数'}
                 },
                 {
@@ -1642,14 +1642,14 @@ export default {
                     name: 'concentration',
                     type: 'text',
                     label: '施药浓度',
-                    placeholder: '（可填）',
+                    placeholder: '请填写数字（可填）',
                     rule: {required: false, type: 'reNumber', message: '请输入整数'}
                 },
                 {
                     name: 'safety',
                     type: 'text',
                     label: '安全隔离期（天）',
-                    placeholder: '（可填）',
+                    placeholder: '请填写数字（可填）',
                     rule: {required: false, type: 'reNumber', message: '请输入整数'}
                 },
                 {
@@ -2418,8 +2418,8 @@ export default {
                 label: '加工产品',
                 placeholder: '（必选）',
                 rule: {required: true},
-                options: [],
-                optionskeys: [],
+                options: [['']],
+                optionskeys: [['']],
                 show: false
             },
             {
