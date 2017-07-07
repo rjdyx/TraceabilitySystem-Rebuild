@@ -9,13 +9,6 @@
 <div class="appdetail_model">   
     <div class="webApp-wrap">
 
-        <!-- tab -->
-        <div class="apptab" v-show="tabshow">
-            <tab>
-                <tab-item v-for="(model,index) in models" @on-item-click="tabClick(index)">{{model.tab}}</tab-item>
-            </tab>
-        </div>
-
         <div class="appmain">
 
             <!-- 列表头部 -->
@@ -27,17 +20,18 @@
             <!-- 列表中间 -->
             <div class="listContent" v-for="(pers,index) in tableData">
                 <span class="choice">
-                    <input type="checkbox" :value="pers.id" v-model="ischeckdate">
+                    <input type="checkbox" 
+                    :value="pers.id" 
+                    v-model="ischeckdate">
                     <span class="order">{{index+1}}</span>
                 </span>
                 <el-tooltip effect="dark" placement="top" v-for="(item,index) in protos">
                     <div slot="content">{{pers[protos[index]]}}</div>
                     <div slot="content" v-if="pers[protos[index]] == null">null</div>
                     <span 
-                     
-                    :name="theads[index]"  
-                    :style="{width: widths[index] + '%'}" @click="checkDom($event.currentTarget)">
-                        {{pers[protos[index]]}}
+                        :name="theads[index]"  
+                        :style="{width: widths[index] + '%'}" @click="checkDom($event.currentTarget)">
+                            {{pers[protos[index]]}}
                     </span>
                 </el-tooltip>
             </div>
@@ -48,6 +42,8 @@
                 <el-button type="primary" class="allcheck" @click="checkedAll">全选</el-button>
                 <el-button type="danger" class="appDelete" @click="listDelete">删除</el-button>
             </div>
+            
+            <!-- 分页 -->
             <paginator :total="total" @pageEvent="pageChange"></paginator>
         </div>
   </div>
