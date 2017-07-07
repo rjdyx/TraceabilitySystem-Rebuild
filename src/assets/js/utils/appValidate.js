@@ -1,4 +1,5 @@
 exports.fn = (name, rule, value) => {
+    if (value === null) value = ''
     value = value + ''
     var length = value.length
     if (rule.required) {

@@ -7820,8 +7820,8 @@ export default {
                     component: null,
                     isNull: false,
                     label: '操作内容',
-                    placeholder: '',
-                    rule: null
+                    placeholder: '必填',
+                    rule: {required: true, trigger: 'blur', message: '请输入操作内容'}
                 },
                 {
                     name: 'method',
@@ -7923,8 +7923,8 @@ export default {
                     component: null,
                     isNull: false,
                     label: '操作内容',
-                    placeholder: '',
-                    rule: null
+                    placeholder: '必填',
+                    rule: {required: true, trigger: 'blur', message: '请输入操作内容'}
                 },
                 {
                     name: 'method',
