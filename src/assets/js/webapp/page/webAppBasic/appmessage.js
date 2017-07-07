@@ -2734,6 +2734,7 @@ export default {
             {
                 name: 'datetime',
                 type: 'date',
+                format: 'YYYY-MM-DD HH:mm',
                 label: '订单日期时间',
                 placeholder: '（必选）',
                 rule: {required: true}
@@ -2790,6 +2791,7 @@ export default {
             components: [{
                 name: 'datetime',
                 type: 'date',
+                format: 'YYYY-MM-DD HH:mm',
                 label: '订单日期时间',
                 placeholder: '（必选）',
                 rule: {required: true}
