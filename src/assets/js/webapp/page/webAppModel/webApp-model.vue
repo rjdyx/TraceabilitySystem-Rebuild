@@ -201,7 +201,7 @@ export default {
         新建
          */
         webAppOperateType (operateType) {
-            this.$router.push('/webAppNew' + '/' + this.$route.params.model + '/' + this.modelIndex + '/' + operateType)
+            this.$router.push('/webAppForm' + '/' + this.$route.params.model + '/' + this.modelIndex + '/' + operateType)
         },
         // 获取数据
         getAllMsg (data = {}, flag = false) {
