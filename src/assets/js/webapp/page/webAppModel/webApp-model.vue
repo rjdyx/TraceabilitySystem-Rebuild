@@ -201,7 +201,7 @@ export default {
         新建
          */
         webAppOperateType (operateType) {
-            this.$router.push('/webAppNew' + '/' + this.$route.params.model + '/' + this.modelIndex + '/' + operateType)
+            this.$router.push('/webAppForm' + '/' + this.$route.params.model + '/' + this.modelIndex + '/' + operateType)
         },
         // 获取数据
         getAllMsg (data = {}, flag = false) {
@@ -235,6 +235,7 @@ export default {
                 })
             }
             this.ischeckdate = ischeckdate
+            console.log(e)
         },
         tabClick (subindex, modelName) {
             this.modelIndex = subindex
@@ -396,6 +397,9 @@ export default {
         let tabTxt = localStorage.getItem('appTab')
         this.tabSelected = tabTxt
         this.getMenu()
+        document.querySelector('input').addEventListener('invalid', function (event) {
+            event.preventDefault()
+        })
     },
     watch: {
         models () {

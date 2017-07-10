@@ -8,7 +8,7 @@
 <template>
     <div id="p_popNew">
         <header1 :settitle="settitle" :homeShow="false" :back="true" @setClassClear="goBackClear">
-            <span slot="plan" class="newplan" v-if="planShow" @click="newPlanFn"></span> 
+            <span slot="plan" class="newplan" v-if="planShow" @click="newPlanFn"></span>
             <el-upload  
                 class="upload-demo upload" 
                 slot="upImg" 

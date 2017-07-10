@@ -129,10 +129,10 @@ const appdetailbasic = resolve => {
     }, 'appdetailbasic')
 }
 // ---------------------------新建----------------------------------
-const webAppNew = resolve => {
-    require.ensure(['../webapp/page/webAppNew/webAppNew.vue'], () => {
-        resolve(require('../webapp/page/webAppNew/webAppNew.vue'))
-    }, 'webAppNew')
+const webAppForm = resolve => {
+    require.ensure(['../webapp/page/webAppForm/webAppForm.vue'], () => {
+        resolve(require('../webapp/page/webAppForm/webAppForm.vue'))
+    }, 'webAppForm')
 }
 const webChildren = [{
     path: '',
@@ -260,9 +260,9 @@ var routes = [
         ]
     },
     {
-        path: '/webAppNew/:model/:modelIndex/:type',
-        name: 'webAppNew',
-        component: webAppNew
+        path: '/webAppForm/:model/:modelIndex/:type',
+        name: 'webAppForm',
+        component: webAppForm
     }
 
 ]
