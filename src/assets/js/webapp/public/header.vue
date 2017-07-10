@@ -132,11 +132,11 @@ export default {
 	}
 	@font-face {
 	  	font-family: 'iconfont';
-	  	src: url('../../iconfont/iconfont.eot');
-	  	src: url('../../iconfont/iconfont.eot?#iefix') format('embedded-opentype'),
-	  	url('../../iconfont/iconfont.woff') format('woff'),
-	  	url('../../iconfont/iconfont.ttf') format('truetype'),
-	  	url('../../iconfont/iconfont.svg#iconfont') format('svg');
+	  	src: url('../../iconfont/icon_one/iconfont.eot');
+	  	src: url('../../iconfont/icon_one/iconfont.eot?#iefix') format('embedded-opentype'),
+	  	url('../../iconfont/icon_one/iconfont.woff') format('woff'),
+	  	url('../../iconfont/icon_one/iconfont.ttf') format('truetype'),
+	  	url('../../iconfont/icon_one/iconfont.svg#iconfont') format('svg');
 	}
 	.iconfont{
 	    font-family:"iconfont" !important;
