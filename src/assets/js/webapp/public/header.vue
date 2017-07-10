@@ -74,6 +74,13 @@ export default {
 				color: #fff;
 				text-align: center;
 				padding-top: 10px;
+				/*移动端禁止长按选中文本*/
+				-webkit-touch-callout: none;
+				-webkit-user-select: none;
+				-khtml-user-select: none;
+				-moz-user-select: none;
+				-ms-user-select: none;
+				user-select: none;
 			}
 			
 			span{
