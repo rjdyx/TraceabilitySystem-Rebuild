@@ -23,7 +23,6 @@ export default {
         Object.assign(modelObj, message)
         return {
             checked: [],
-            activeName: 'first',
             models: modelObj
         }
     },

@@ -49,7 +49,6 @@ export default {
         },
         showmenu () {
             this.showsider()
-            // this.$emit('parentClick')
         }
     },
     mounted () {

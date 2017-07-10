@@ -11,7 +11,7 @@
         enter-active-class="animated slideInLeft"
         leave-active-class="animated slideOutLeft">
         <div key='black' class="black-layer" v-if="show" @click="initTouch">
-   		 <div class="app-menu" key="menu">
+   		   <div class="app-menu" key="menu">
 	            <el-menu
 	                :router="true" 
 	                :unique-opened="true"
@@ -21,23 +21,26 @@
                     </div>
 	                <template class="eui">
                         <el-submenu 
-                        v-for="(menu, index) in menus"
-                        :index="menu.name" v-if="menu.role">
-                        <template slot="title" >
-                            {{menu.name}}
-                        </template>
-                        <el-menu-item 
-                            v-for="(subMenu, subIndex) in menu.children" 
-                            :index="subMenu.path" exact v-if="subMenu.role" @click="toggle(subIndex, subMenu.name, subMenu.detail)">
-                            {{subMenu.name}}
-                        </el-menu-item>
-                    </el-submenu>   
+                            v-for="(menu, index) in menus"
+                            :index="menu.name" v-if="menu.role">
+                                <template slot="title" >
+                                    {{menu.name}}
+                                </template>
+                                <el-menu-item 
+                                    v-for="(subMenu, subIndex) in menu.children" 
+                                    :index="subMenu.path" 
+                                    exact 
+                                    v-if="subMenu.role" 
+                                    @click="toggle(subIndex, subMenu.name, subMenu.detail)">
+                                    {{subMenu.name}}
+                                </el-menu-item>
+                        </el-submenu>   
                     </template>
 	            </el-menu>
                 <div class="logout" @click="logout">
                     <span>退出登录</span>
                 </div>
-    	   </div>
+    	    </div>
         </div>
     </transition-group>
 </template>
@@ -91,10 +94,6 @@ export default {
                 }
             })
         }
-    },
-    watch: {
-    },
-    created: function () {
     }
 }
 </script>

@@ -51,8 +51,6 @@ export default {
                 this.$router.push('/index/home')
             }
         }
-    },
-    watch: {
     }
 }
 </script>
