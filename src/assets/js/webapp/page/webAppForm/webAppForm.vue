@@ -8,20 +8,11 @@
 <template>
     <div id="p_popNew">
         <header1 :settitle="settitle" :homeShow="false" :back="true" @setClassClear="goBackClear">
-            <span slot="plan" class="newplan" v-if="planShow" @click="newPlanFn"></span>
-            <el-upload
-                class="upload-demo upload" 
-                slot="upImg" 
-                :action="codeUrl"
-                :data="codeMethod" 
-                name="code"
-                :on-success="successOf"
-                v-if="uploadShow">
-                <span class="upImg"></span>
-            </el-upload>
+            <span slot="plan" class="newplan iconfont" v-if="planShow" @click="newPlanFn">&#xe72d;</span>
+            <erweima slot="upImg" v-if="uploadShow" @qrcodeCode="changeCodeImage"></erweima>
         </header1>
         <group>
-        <popup-radio class="newPlanRadio" title="options" :options="options2" v-model="option2" v-if="planShow"
+          <popup-radio class="newPlanRadio" title="options" :options="options2" v-model="option2" v-if="planShow"
                 @on-change="getPlanInfo"></popup-radio>
         </group>
         <div class="ppN_content">
@@ -103,7 +94,7 @@
                             :disabled="comItem.disabled"
                             :class="[{ inputErrors: ruleTableForm[comItem.name].bol},{bggray: comItem.disabled}]">
                         </x-input>
-                        <popup-picker 
+                        <popup-picker
                             :name="comItem.name"
                             title="单位"
                             :data="comItem.options" 
@@ -184,9 +175,9 @@
                   <x-button class="cancelForm" @touchend.native='cancelForm'>取消</x-button>
                 </flexbox-item>
             </flexbox>
-            <div class="qr-btn" node-type="qr-btn">
+            <!-- <div class="qr-btn" node-type="qr-btn">
                 <input node-type="jsbridge" type="file" @change="changeCodeImage($event.currentTarget)"/>
-            </div>
+            </div> -->
             <div class="result-qrcode" id="resultQrcode" style="display:none">
             </div>
         </div>
@@ -197,6 +188,7 @@ import message from '../webAppBasic/appmessage.js'
 import Camera from '../../public/camera.vue'
 import validate from '../../../utils/appValidate.js'
 import Header1 from '../../public/header.vue'
+import erweima from './webAppInputFile.vue'
 import { XHeader, Actionsheet, TransferDom, Group, XInput, Selector, PopupPicker, Datetime, ChinaAddressData, XTextarea, Icon, XButton, Flexbox, FlexboxItem, PopupRadio, Popup, XSwitch, Cell, Checklist, Divider, Radio, Toast } from 'vux'
 export default {
     name: 'p_popNew',
@@ -679,7 +671,6 @@ export default {
         },
         // 图片上传解析二维码
         changeCodeImage (codeUrl) {
-            Qrcode.init($('[node-type=qr-btn]'))
             var _this = this
             setTimeout(function () {
                 _this.getCodeString($('#resultQrcode').text(), codeUrl)
@@ -768,7 +759,8 @@ export default {
         Divider,
         Radio,
         Toast,
-        Header1
+        Header1,
+        erweima
     }
 }
 </script>
@@ -957,16 +949,26 @@ export default {
         top: 17%;
         overflow: hidden;
     }
-    .upImg{
-        width:100%;
-        height: 31px;
-        display: inline-block;
-        background: url(/public/images/two-dimensional.png) no-repeat;
-        background-position: 100%;
-    }
+   
     .el-upload{
         width: 8%;
         height: 31px;
     }
 }
+    @font-face {
+      font-family: 'iconfont';
+      src: url('../../../iconfont/icon_one/iconfont.eot');
+      src: url('../../../iconfont/icon_one/iconfont.eot?#iefix') format('embedded-opentype'),
+      url('../../../iconfont/icon_one/iconfont.woff') format('woff'),
+      url('../../../iconfont/icon_one/iconfont.ttf') format('truetype'),
+      url('../../../iconfont/icon_one/iconfont.svg#iconfont') format('svg');
+    }
+    .iconfont{
+      font-family:"iconfont" !important;
+      font-size:16px;
+      font-style:normal;
+      -webkit-font-smoothing: antialiased;
+      -webkit-text-stroke-width: 0.2px;
+      -moz-osx-font-smoothing: grayscale;
+    }
 </style>

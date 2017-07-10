@@ -10,8 +10,8 @@
 		<slot name="plan"></slot>
 		<slot name="upImg"></slot>
 		<h1>{{settitle}}</h1>
-		<span v-show="back" class="back" @click="backTo"></span>
-		<span class="right-btn" @click="goBack" v-show="homeShow"></span>
+		<span v-show="back" class="back iconfont" @click="backTo">&#xe64e;</span>
+		<span class="right-btn iconfont" @click="goBack" v-show="homeShow">&#xe60d;</span>
 	</div>
 </template>
 
@@ -57,6 +57,11 @@ export default {
  
 
 <style lang='sass'>
+@mixin font($fontcolor,$fontSize,$lineHeight){
+	color: $fontcolor;
+	line-height: $lineHeight;
+	font-size: $fontSize;
+}
 	.app-header{
 		height: 50px;
 		width: 100%;
@@ -72,6 +77,13 @@ export default {
 				color: #fff;
 				text-align: center;
 				padding-top: 10px;
+				/*移动端禁止长按选中文本*/
+				-webkit-touch-callout: none;
+				-webkit-user-select: none;
+				-khtml-user-select: none;
+				-moz-user-select: none;
+				-ms-user-select: none;
+				user-select: none;
 			}
 			
 			span{
@@ -91,25 +103,47 @@ export default {
 				top: 24%;
 			}
 			.right-btn{
-				background: url(/public/images/home.png);
-				background-size: 100%;
+				@include font(#fff, 30px, 23px);
 				width: 28px;
 				height: 23px;
 			}
 			.back{
 				width: 34px;
 				height: 23px;
-				background: url(/public/images/re-back.png) no-repeat;
-				background-position: 100%;
+				@include font(#fff,35px,23px);
+				/*font-size: 35px;*/
+				/*line-height: 23px;*/
 			}
 			.newplan{
 		        width: 9%;
 		        height: 36px;
 		        display: inline-block;
-		        background: url(/public/images/newplan.png) no-repeat;
-		        background-position: 100%;
+		        @include font(#fff,30px,36px);
 		        left: 5%;
 		        top: 13%;
 		    }
+			.upImg{
+		        width:100%;
+		        height: 31px;
+		        display: inline-block;
+		        @include font(#fff,30px,31px)
+		        
+		    }
+	}
+	@font-face {
+	  	font-family: 'iconfont';
+	  	src: url('../../iconfont/icon_one/iconfont.eot');
+	  	src: url('../../iconfont/icon_one/iconfont.eot?#iefix') format('embedded-opentype'),
+	  	url('../../iconfont/icon_one/iconfont.woff') format('woff'),
+	  	url('../../iconfont/icon_one/iconfont.ttf') format('truetype'),
+	  	url('../../iconfont/icon_one/iconfont.svg#iconfont') format('svg');
+	}
+	.iconfont{
+	    font-family:"iconfont" !important;
+	    font-size:16px;
+	    font-style:normal;
+	    -webkit-font-smoothing: antialiased;
+	    -webkit-text-stroke-width: 0.2px;
+	    -moz-osx-font-smoothing: grayscale;
 	}
 </style>
