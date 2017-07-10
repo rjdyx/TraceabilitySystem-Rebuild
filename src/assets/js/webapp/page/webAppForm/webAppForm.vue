@@ -8,8 +8,8 @@
 <template>
     <div id="p_popNew">
         <header1 :settitle="settitle" :homeShow="false" :back="true" @setClassClear="goBackClear">
-            <span slot="plan" class="newplan" v-if="planShow" @click="newPlanFn"></span>
-            <el-upload
+            <span slot="plan" class="newplan" v-if="planShow" @click="newPlanFn"></span> 
+            <el-upload  
                 class="upload-demo upload" 
                 slot="upImg" 
                 :action="codeUrl"
@@ -19,12 +19,9 @@
                 v-if="uploadShow">
                 <span class="upImg"></span>
             </el-upload>
-            <!-- <div class="qr-btn" node-type="qr-btn">
-                <input node-type="jsbridge" type="file" @change="bbb"/>
-            </div> -->
         </header1>
         <group>
-        <popup-radio class="newPlanRadio" title="options" :options="options2" v-model="option2" v-if="planShow"
+          <popup-radio class="newPlanRadio" title="options" :options="options2" v-model="option2" v-if="planShow"
                 @on-change="getPlanInfo"></popup-radio>
         </group>
         <div class="ppN_content">
@@ -187,8 +184,6 @@
                   <x-button class="cancelForm" @touchend.native='cancelForm'>取消</x-button>
                 </flexbox-item>
             </flexbox>
-            <div class="result-qrcode" v-if="false">
-            </div>
         </div>
     </div>
 </template>
@@ -700,10 +695,6 @@ export default {
                 }
                 this.tableForm[this.typeComponent.codeIds] = this.codeArrId
             }
-        },
-        bbb () {
-            // require('./qrcode.lib.min.js')
-            Qrcode.init($('[node-type=qr-btn]'))
         }
     },
     created () {
