@@ -134,17 +134,28 @@ const webAppNew = resolve => {
         resolve(require('../webapp/page/webAppNew/webAppNew.vue'))
     }, 'webAppNew')
 }
+const webChildren = [{
+    path: '',
+    component: home
+}]
+const wapChildren = [{
+    path: '',
+    component: webIndex
+},
+{
+    path: 'message/:model',
+    component: appbasic
+},
+{
+    path: 'appdetailbasic/:model/:id',
+    component: appdetailbasic
+}]
 var routes = [
     {
         path: '/',
-        name: 'index',
-        component: index,
-        children: [
-            {
-                path: '',
-                component: home
-            }
-        ]
+        name: window.isPC ? 'index' : 'appIndex',
+        component: window.isPC ? index : appIndex,
+        children: window.isPC ? webChildren : wapChildren
     },
     // pc端
     {

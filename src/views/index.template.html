@@ -65,6 +65,7 @@
     window.Roles = {};
     window.isPC = true;
     var xmlhttp;
+    window.isPC = IsPC();
     function loadXMLDoc(url) {
         xmlhttp=null;
         if (window.XMLHttpRequest) {
@@ -84,7 +85,19 @@
             alert("Your browser does not support XMLHTTP.");
         }
     }
-
+    // 判断是电脑端还是手机端
+    function IsPC() {
+        var userAgentInfo = navigator.userAgent;
+        var Agents = ['Android', 'iPhone', 'SymbianOS', 'Windows Phone', 'iPad', 'iPod'];
+        var flag = true;
+        for(var v=0;v<Agents.length;v++) {
+            if (userAgentInfo.indexOf(Agents[v]) > 0) {
+                flag = false;
+                break;
+            }
+        }
+        return flag;
+    }
     function state_Change()
     {
     if (xmlhttp.readyState==4)
