@@ -50,7 +50,7 @@
             }
 
             if (!rFilter.test(oFile.type)) {
-                alert("选择正确的图片格式!");
+				$('.result-qrcode').html('typeError');
                 return;
             }
 

@@ -19,9 +19,6 @@
                 v-if="uploadShow">
                 <span class="upImg"></span>
             </el-upload>
-            <!-- <div class="qr-btn" node-type="qr-btn">
-                <input node-type="jsbridge" type="file" @change="bbb"/>
-            </div> -->
         </header1>
         <group>
         <popup-radio class="newPlanRadio" title="options" :options="options2" v-model="option2" v-if="planShow"
@@ -187,7 +184,10 @@
                   <x-button class="cancelForm" @touchend.native='cancelForm'>取消</x-button>
                 </flexbox-item>
             </flexbox>
-            <div class="result-qrcode" v-if="false">
+            <div class="qr-btn" node-type="qr-btn">
+                <input node-type="jsbridge" type="file" @change="changeCodeImage($event.currentTarget)"/>
+            </div>
+            <div class="result-qrcode" id="resultQrcode" style="display:none">
             </div>
         </div>
     </div>
@@ -677,33 +677,47 @@ export default {
                 this.clearClass()
             }
         },
-        // 手机溯源码添加
-        successOf (data) {
-            if (data === 'error') {
-                this.setToast('text', '溯源码不存在', '13em')
-            } else if (data === 'sale') {
-                this.setToast('text', '当前产品已出售', '14em')
-            } else if (data === 'false') {
-                this.setToast('text', '上传的产品二维码有误', '16em')
-            } else {
-                this.setToast('text', '溯源码添加成功', '14em')
-                let codeArr = []
-                codeArr.push(data)
-                let dataOpt = this.$getCheckSelect(codeArr, this.typeComponent.codeSelectArr)
-                if (this.codeArrId.indexOf(data.id) === -1) {
-                    if (dataOpt[0] === 'check') {
-                        this.typeComponent.components[this.typeComponent.codeSelectArrPosition].options.push(dataOpt[1][0])
-                    }
-                    this.codeArrId.push(data.id)
-                } else {
-                    this.setToast('text', '溯源码已存在于订单列表', '18em')
-                }
-                this.tableForm[this.typeComponent.codeIds] = this.codeArrId
-            }
-        },
-        bbb () {
-            // require('./qrcode.lib.min.js')
+        // 图片上传解析二维码
+        changeCodeImage (codeUrl) {
             Qrcode.init($('[node-type=qr-btn]'))
+            var _this = this
+            setTimeout(function () {
+                _this.getCodeString($('#resultQrcode').text(), codeUrl)
+            }, 500)
+        },
+        // 获取溯源码
+        getCodeString (str, codeUrl) {
+            if (str === 'typeError') {
+                this.setToast('text', '请选择正确的图片格式!', '18em')
+            } else if (str === 'error decoding QR Code') {
+                this.setToast('text', '不是二维码图片或图片不清晰', '21em')
+            } else {
+                let code = str.slice(-18)
+                let params = {code: code}
+                this.$dataWapGet(this, this.url + '/getCodeString', params)
+                    .then((responce) => {
+                        if (responce.data === 'error') {
+                            this.setToast('text', '溯源码不存在', '13em')
+                        } else if (responce.data === 'sale') {
+                            this.setToast('text', '当前产品已出售', '14em')
+                        } else {
+                            this.setToast('text', '溯源码添加成功', '14em')
+                            let codeArr = []
+                            codeArr.push(responce.data)
+                            let dataOpt = this.$getCheckSelect(codeArr, this.typeComponent.codeSelectArr)
+                            if (this.codeArrId.indexOf(responce.data.id) === -1) {
+                                if (dataOpt[0] === 'check') {
+                                    this.typeComponent.components[this.typeComponent.codeSelectArrPosition].options.push(dataOpt[1][0])
+                                }
+                                this.codeArrId.push(responce.data.id)
+                            } else {
+                                this.setToast('text', '溯源码已存在于订单列表', '18em')
+                            }
+                            this.tableForm[this.typeComponent.codeIds] = this.codeArrId
+                        }
+                    })
+            }
+            codeUrl.value = ''
         }
     },
     created () {
