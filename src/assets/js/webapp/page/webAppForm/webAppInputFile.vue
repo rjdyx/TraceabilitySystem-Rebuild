@@ -1,5 +1,5 @@
 <template>
-	<div class="qr-btn iconfont" node-type="qr-btn" @touchend="bbb">&#xe634
+	<div class="qr-btn iconfont" node-type="qr-btn" @change="changeImage($event.currentTarget)">&#xe634
         <input node-type="jsbridge" type="file" />
     </div>
 </template>
@@ -23,10 +23,12 @@
 export default{
     name: 'webAppFile',
     methods: {
-        bbb () {
-            console.log('file')
-            $('.qr-btn').find('input').click()
+        changeImage (url) {
+            this.$emit('qrcodeCode', url)
         }
+    },
+    mounted () {
+        Qrcode.init($('[node-type=qr-btn]'))
     }
 }
 </script>
