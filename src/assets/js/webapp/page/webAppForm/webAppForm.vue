@@ -8,7 +8,7 @@
 <template>
     <div id="p_popNew">
         <header1 :settitle="settitle" :homeShow="false" :back="true" @setClassClear="goBackClear">
-            <span slot="plan" class="newplan" v-if="planShow" @click="newPlanFn"></span>
+            <span slot="plan" class="newplan iconfont" v-if="planShow" @click="newPlanFn">&#xe72d;</span>
             <el-upload  
                 class="upload-demo upload" 
                 slot="upImg" 
@@ -17,7 +17,7 @@
                 name="code"
                 :on-success="successOf"
                 v-if="uploadShow">
-                <span class="upImg"></span>
+                <span class="upImg iconfont">&#xe634;</span>
             </el-upload>
         </header1>
         <group>
@@ -103,7 +103,7 @@
                             :disabled="comItem.disabled"
                             :class="[{ inputErrors: ruleTableForm[comItem.name].bol},{bggray: comItem.disabled}]">
                         </x-input>
-                        <popup-picker 
+                        <popup-picker
                             :name="comItem.name"
                             title="单位"
                             :data="comItem.options" 
@@ -934,16 +934,26 @@ export default {
         top: 17%;
         overflow: hidden;
     }
-    .upImg{
-        width:100%;
-        height: 31px;
-        display: inline-block;
-        background: url(/public/images/two-dimensional.png) no-repeat;
-        background-position: 100%;
-    }
+   
     .el-upload{
         width: 8%;
         height: 31px;
     }
 }
+    @font-face {
+      font-family: 'iconfont';
+      src: url('../../../iconfont/iconfont.eot');
+      src: url('../../../iconfont/iconfont.eot?#iefix') format('embedded-opentype'),
+      url('../../../iconfont/iconfont.woff') format('woff'),
+      url('../../../iconfont/iconfont.ttf') format('truetype'),
+      url('../../../iconfont/iconfont.svg#iconfont') format('svg');
+    }
+    .iconfont{
+      font-family:"iconfont" !important;
+      font-size:16px;
+      font-style:normal;
+      -webkit-font-smoothing: antialiased;
+      -webkit-text-stroke-width: 0.2px;
+      -moz-osx-font-smoothing: grayscale;
+    }
 </style>
