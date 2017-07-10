@@ -175,9 +175,6 @@
                   <x-button class="cancelForm" @touchend.native='cancelForm'>取消</x-button>
                 </flexbox-item>
             </flexbox>
-            <!-- <div class="qr-btn" node-type="qr-btn">
-                <input node-type="jsbridge" type="file" @change="changeCodeImage($event.currentTarget)"/>
-            </div> -->
             <div class="result-qrcode" id="resultQrcode" style="display:none">
             </div>
         </div>
