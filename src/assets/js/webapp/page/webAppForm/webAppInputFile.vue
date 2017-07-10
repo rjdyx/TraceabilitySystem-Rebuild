@@ -11,7 +11,7 @@
     position:absolute;
     left:5%;
     top: 0;
-    font-size:40px;
+    font-size:30px;
     line-height:50px;
     color:white;
     >input{
