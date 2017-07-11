@@ -711,9 +711,6 @@ export default {
             codeUrl.value = ''
         }
     },
-    created () {
-        $('#app').removeClass('bule').addClass('gray')
-    },
     mounted () {
         // 新增编辑公共专用
         this.basicModel()
@@ -833,9 +830,6 @@ export default {
         border-left: 1px solid #D9D9D9;
         border-right: 1px solid #D9D9D9;
         border-bottom: 1px solid #D9D9D9;
-    }
-    .gray{
-        color: #4d4d4d;
     }
     .vux-header {
         background-color: #0099cb!important;
