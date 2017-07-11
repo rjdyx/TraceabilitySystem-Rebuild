@@ -37,7 +37,7 @@
                         </el-submenu>   
                     </template>
 	            </el-menu>
-                <div class="logout" @click="logout">
+                <div class="logout" @touchend.native="logout">
                     <span>退出登录</span>
                 </div>
     	    </div>
