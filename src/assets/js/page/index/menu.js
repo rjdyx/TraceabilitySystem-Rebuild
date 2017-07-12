@@ -60,76 +60,44 @@ export default[{
     ]
 },
 {
-    name: '物流管理',
-    role: roleData.delivery === undefined ? 0 : 1,
-    src: '/public/images/express.png',
-    children: [{
-        role: roleData.delivery === undefined ? 0 : roleData.delivery.basic === undefined ? 0 : 1,
-        path: '/index/message/Logisticbase',
-        name: '基础信息管理'
-    },
-    {
-        role: roleData.delivery === undefined ? 0 : roleData.delivery.order === undefined ? 0 : 1,
-        path: '/index/message/logisticSerial',
-        name: '物流批次管理'
-    }
-    ]
-},
-
-{
-    name: '系统管理',
+    name: '仓库物流管理',
     role: roleData.system === undefined ? 0 : 1,
     src: '/public/images/system.png',
     children: [{
         role: roleData.system === undefined ? 0 : roleData.system.company === undefined ? 0 : 1,
-        path: '/index/company',
-        name: '公司信息管理'
+        path: '/index/message/storageBasic',
+        name: '基础信息管理'
     },
     {
         role: roleData.system === undefined ? 0 : roleData.system.user === undefined ? 0 : 1,
-        path: '/index/message/systemUser',
-        name: '用户管理'
+        path: '/index/message/logisticsBatch',
+        name: '物流批次管理'
     },
     {
         role: roleData.system === undefined ? 0 : roleData.system.log === undefined ? 0 : 1,
-        path: '/index/message/systemLog',
-        name: '系统日志'
-    },
-    {
-        role: roleData.system === undefined ? 0 : roleData.system.statement === undefined ? 0 : 1,
-        path: '/index/ondone',
-        name: '报表统计'
-    },
-    {
-        role: roleData.system === undefined ? 0 : roleData.system.custom === undefined ? 0 : 1,
-        path: '/index/message/custom',
-        name: '溯源自定义'
+        path: '/index/message/storageOperate',
+        name: '仓库管理'
     }
     ]
 },
 {
-    name: '运营管理',
+    name: '系统管理',
     role: roleData !== 'admin' ? 0 : 1,
     src: '/public/images/system.png',
     children: [{
         role: roleData !== 'admin' ? 0 : 1,
-        path: '/index/message/rightsOperate',
-        name: '权限管理'
+        path: '/index/message/company',
+        name: '公司信息管理'
     },
     {
         role: roleData !== 'admin' ? 0 : 1,
-        path: '/index/message/settleOperate',
-        name: '入驻单位管理'
+        path: '/index/message/userOperate',
+        name: '用户管理'
     },
     {
         role: roleData !== 'admin' ? 0 : 1,
-        path: '/index/message/usersOperate',
-        name: '用户反馈管理'
-    },
-    {
-        role: roleData !== 'admin' ? 0 : 1,
-        path: '/index/message/logOperate',
-        name: '日志管理'
+        path: '/index/message/systemLog',
+        name: '系统日志管理'
     }
     ]
 }
