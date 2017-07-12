@@ -2443,7 +2443,7 @@ export default {
     // 基础信息管理
     storageBasic: [
         {
-            settitle: '物流公司信息管理',
+            settitle: '基础信息管理',
             key: 'myuser',
             roleName: ['system/user', 0],
             tab: '物流公司信息管理',
@@ -2554,7 +2554,7 @@ export default {
             }]
         },
         {
-            settitle: '车辆信息管理',
+            settitle: '基础信息管理',
             key: 'myrole',
             tab: '车辆信息管理',
             roleName: ['system/user', 0],
@@ -2755,7 +2755,7 @@ export default {
             }]
         },
         {
-            settitle: '驾驶员信息管理',
+            settitle: '基础信息管理',
             key: 'myrole',
             tab: '驾驶员信息管理',
             roleName: ['system/user', 0],
@@ -2935,7 +2935,7 @@ export default {
             }]
         },
         {
-            settitle: '仓库信息管理',
+            settitle: '基础信息管理',
             key: 'myrole',
             tab: '仓库信息管理',
             roleName: ['system/user', 0],
@@ -3190,7 +3190,7 @@ export default {
     // 仓库管理
     storageOperate: [
         {
-            settitle: '凤凰山茶库出库管理',
+            settitle: '仓库管理',
             key: 'delivery',
             roleName: ['delivery/order', 0],
             tab: '凤凰山茶库出库管理',
@@ -3407,7 +3407,7 @@ export default {
             }]
         },
         {
-            settitle: '毛茶入库管理',
+            settitle: '仓库管理',
             key: 'delivery',
             roleName: ['delivery/order', 0],
             tab: '毛茶入库管理',
@@ -3659,7 +3659,7 @@ export default {
             }]
         },
         {
-            settitle: '产品入库管理',
+            settitle: '仓库管理',
             key: 'delivery',
             roleName: ['delivery/order', 0],
             tab: '产品入库管理',
@@ -3985,7 +3985,7 @@ export default {
             }]
         },
         {
-            settitle: '生产任务管理',
+            settitle: '仓库管理',
             key: 'delivery',
             roleName: ['delivery/order', 0],
             tab: '生产任务管理',
@@ -4310,7 +4310,7 @@ export default {
             }]
         },
         {
-            settitle: '领料单管理',
+            settitle: '仓库管理',
             key: 'delivery',
             roleName: ['delivery/order', 0],
             tab: '领料单管理',
@@ -4626,7 +4626,7 @@ export default {
             }]
         },
         {
-            settitle: '毛茶库出库管理',
+            settitle: '仓库管理',
             key: 'delivery',
             roleName: ['delivery/order', 0],
             tab: '毛茶库出库管理',
