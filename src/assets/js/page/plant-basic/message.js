@@ -7,6 +7,7 @@ import selectSection from '../../components/public/select-section.vue'
 import datePick from '../../components/public/datePick.vue'
 import inputDate from '../../components/public/inputDate.vue'
 import inputFile from '../../components/public/inputFile.vue'
+import inputFiles from '../../components/public/inputFiles.vue'
 import inputTextSelect from '../../components/public/inputTextSelect.vue'
 import Qrcode from '../../components/public/Qrcode.vue'
 
@@ -88,8 +89,8 @@ export default {
                 },
                 {
                     name: 'img',
-                    type: 'file',
-                    component: inputFile,
+                    type: 'files',
+                    component: inputFiles,
                     isNull: true,
                     label: '种植场图片',
                     placeholder: '',
@@ -3242,7 +3243,8 @@ export default {
                     component: null,
                     label: '送货人',
                     placeholder: '必填',
-                    rule: {required: true, trigger: 'blur', message: '请选择送货人'}
+                    rule: {required: true, trigger: 'blur', message: '请选择送货人'},
+                    options: []
                 },
                 {
                     name: 'date',
@@ -3336,7 +3338,8 @@ export default {
                     component: null,
                     label: '送货人',
                     placeholder: '必填',
-                    rule: {required: true, trigger: 'blur', message: '请选择送货人'}
+                    rule: {required: true, trigger: 'blur', message: '请选择送货人'},
+                    options: []
                 },
                 {
                     name: 'date',
@@ -3734,7 +3737,8 @@ export default {
                     component: null,
                     label: '规格型号',
                     placeholder: '',
-                    rule: {required: true, message: '请输入规格型号'}
+                    rule: {required: true, message: '请输入规格型号'},
+                    options: []
                 },
                 {
                     name: 'number',
@@ -3774,7 +3778,8 @@ export default {
                     component: null,
                     label: '单位',
                     placeholder: '',
-                    rule: {required: true, message: '请选择单位'}
+                    rule: {required: true, message: '请选择单位'},
+                    options: []
                 },
                 {
                     name: 'operate_id',
@@ -3883,7 +3888,8 @@ export default {
                     component: null,
                     label: '规格型号',
                     placeholder: '',
-                    rule: {required: true, message: '请输入规格型号'}
+                    rule: {required: true, message: '请输入规格型号'},
+                    options: []
                 },
                 {
                     name: 'number',
@@ -3923,7 +3929,8 @@ export default {
                     component: null,
                     label: '单位',
                     placeholder: '',
-                    rule: {required: true, message: '请选择单位'}
+                    rule: {required: true, message: '请选择单位'},
+                    options: []
                 },
                 {
                     name: 'operate_id',
@@ -4152,7 +4159,7 @@ export default {
                 },
                 {
                     name: 'operate_id',
-                    type: 'select',
+                    type: 'text',
                     component: null,
                     label: '送货地址',
                     placeholder: '',
@@ -4301,7 +4308,7 @@ export default {
                 },
                 {
                     name: 'operate_id',
-                    type: 'select',
+                    type: 'text',
                     component: null,
                     label: '送货地址',
                     placeholder: '',
@@ -4784,7 +4791,7 @@ export default {
                 },
                 {
                     name: 'operate_id',
-                    type: 'select',
+                    type: 'textarea',
                     component: null,
                     label: '备注',
                     placeholder: '',
@@ -4933,7 +4940,7 @@ export default {
                 },
                 {
                     name: 'operate_id',
-                    type: 'select',
+                    type: 'textarea',
                     component: null,
                     label: '备注',
                     placeholder: '',

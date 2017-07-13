@@ -249,11 +249,11 @@ export default {
         },
         // 关闭表单事件
         closeClick () {
-            this.successCallback()
+            this.$parent.closeNewShow()
         },
         // 取消事件
         cancelClick () {
-            this.successCallback()
+            this.$parent.closeNewShow()
         },
       /**
         * 提交表单
@@ -274,136 +274,23 @@ export default {
             }
             this.$refs[formName][0].validate((valid) => {
                 if (valid) {
-                    if (com.urlid !== undefined) {
-                        let field = com.urlid
-                        this.tableForm[field] = this.routeId
-                    }
-                    if (com.type === 'table' || com.type === 'assoc') {
-                        if (com.hiddenValue !== undefined) {
-                            this.tableForm.type = com.hiddenValue.type
-                        }
-                        if (this.ids.length !== 0) {
-                            this.$dataPost(this, this.url, this.tableForm, false, false, false)
-                                .then((response) => {
-                                    this.successCallback()
-                                    this.$emit('submitNew', response.data)
-                                })
-                        } else {
-                            this.$message(com.components[com.assocNum].errormsg)
-                        }
-                    } else {
-                        this.$dataPost(this, this.url, this.tableForm, com.hasImg, com.hiddenValue, false).then((response) => {
-                            this.successCallback()
-                            this.$emit('submitNew', response.data)
-                        })
-                    }
+                    alert('submit')
+                    this.$parent.closeNewShow()
                 } else {
+                    console.log('error submit!!')
                     return false
                 }
             })
         },
         allChecked (data) {
-            this.checkeds[data[0]] = data[1]
-            this.isChange = data[2]
         },
         allChange (data = []) {
-            if (data.length) {
-                this.allCheckObj[data[0]] = data[1]
-                var bol = true
-                for (let key in this.allCheckObj) {
-                    bol = this.allCheckObj[key] && bol
-                }
-                this.checked = bol
-            } else {
-                this.$store.commit('changeIsAllCheck', this.checked)
-                for (let key in this.allCheckObj) {
-                    this.allCheckObj[key] = this.checked
-                }
-            }
         },
         // 选择框
         handleSelectionChange (val) {
-            let ids = []
-            let com = this.newComponent[0]
-            for (let key in val) {
-                if (this.url === 'code' || this.url.indexOf('pack-product-rfid') >= 0) {
-                    ids.push(val[key].rfid_id)
-                } else {
-                    ids.push(val[key].id)
-                }
-            }
-            this.tableForm[com.components[com.assocNum].valueId] = ids
-            this.ids = ids
         },
         // 选择框关联
         getSelectId (subItem, val) {
-            var assoc = subItem.assoc
-            var name = subItem.name
-            var number = subItem.selectNumber
-            var changeTable = subItem.changeTable
-            var com = this.newComponent[0].components
-            var state = false
-            var seed = ''
-            var seed2 = []
-            if (assoc !== undefined) {
-                this.$emit('setAssoc', [assoc, name, val])
-            } else if (number !== undefined && number !== '') {
-                for (let k in number) {
-                    if (k !== val) {
-                        state = true
-                        seed = 'seed'
-                        seed2 = ['seed']
-                    } else {
-                        state = false
-                        seed = ''
-                        seed2 = []
-                    }
-                    for (let k2 in number[k]) {
-                        com[number[k][k2]].hiddenSelect = state
-                        if (com[number[k][k2]].type === 'table') {
-                            this.tableForm[com[number[k][k2]].valueId] = seed2
-                        }
-                        if (com[number[k][k2]].type === 'select') {
-                            this.tableForm[com[number[k][k2]].value] = seed
-                        }
-                        if (com[number[k][k2]].type === 'text' || com[number[k][k2]].type === 'textSelect') {
-                            this.tableForm[com[number[k][k2]].value] = seed
-                        }
-                    }
-                }
-                if (number[val] !== undefined) {
-                    for (let k3 in number[val]) {
-                        com[number[val][k3]].hiddenSelect = false
-                    }
-                    this.setUnit(val)
-                }
-            } else if (name === 'breed_id' || name === 'come_id' || changeTable) {
-                this.ids = []
-                this.newComponent[0].assocNum = subItem.assocNum
-                this.$emit('setTable', [name, val, subItem])
-            } else if (name === 'harvest_id' || name === 'sf_id') {
-                this.ids = [1]
-            } else if (name === 'pid' || name === 'farm_id' || name === 'plantation_id') {
-                if (val !== '') {
-                    let params = {id: val}
-                    axios.get(this.$adminUrl(this.url + '/getArea'), {params: params}).then((responce) => {
-                        if (responce.data['num'] === 0) {
-                            this.allowance = -1
-                        } else {
-                            this.allowance = responce.data['num']
-                        }
-                        this.tableForm['unit'] = responce.data['unit']
-                        let nc = this.newComponent[0]
-                        this.disabledV = false
-                        nc.components[nc.limit].rule[1]['getMax'] = responce.data['num']
-                        nc.components[nc.limit].rule[1]['getMessage'] = nc.getMessage
-                    })
-                } else {
-                    this.tableForm['unit'] = '亩'
-                    this.allowance = 0
-                    this.disabledV = true
-                }
-            }
         },
         setUnit (val) {
             if (val === 'fertilize') {
@@ -416,15 +303,6 @@ export default {
         },
         // 新增成功调用方法
         successCallback () {
-            this.$parent.closeNewShow()
-            var com = this.newComponent[0].components
-            if (com.type === 'assoc' || com.type === 'selectAssoc' || com.type === 'planAssoc') {
-                for (let k in com.components) {
-                    if (com.components[k].hiddenSelect !== undefined) {
-                        com.components[k].hiddenSelect = true
-                    }
-                }
-            }
         }
     }
 }
