@@ -23,9 +23,9 @@ export default {
             tab: '种植场',
             url: 'plantation',
             searchPlaceholder: '请输入种植场进行搜索',
-            theads: ['种植场名称', '有机种植面积', '热线电话', '负责人', '种植场图片', '视频', '备注'],
-            protos: ['name', 'area_unit', 'director', 'phone', 'address', 'img', 'memo'],
-            widths: [50, 50, 50, 50, 50, 50, 50],
+            theads: ['种植场名称', '种植面积', '负责人', '热线电话', '地址', '种植场图片', '视频', '备注'],
+            protos: ['name', 'area_unit', 'director', 'phone', 'address', 'img', 'video', 'memo'],
+            widths: [50, 50, 50, 50, 50, 50, 50, 50],
             typeComponent: [{
                 component: output
             },
@@ -209,8 +209,8 @@ export default {
             selectValueId: [['pid', 'plantation_name', true]],
             searchPlaceholder: '请输入种植区进行搜索',
             selectDefault: [{value: '', label: '种植场选择'}],
-            theads: ['所属种植场', '种植区名称', '种植区面积', '种植区图片', '海拔高度', '宣传视频', '备注'],
-            protos: ['plantation_name', 'name', 'area_unit', 'director', 'phone', 'address', 'img', 'memo'],
+            theads: ['所属种植场', '种植区名称', '种植区面积', '海拔高度', '种植区图片', '宣传视频', '备注'],
+            protos: ['plantation_name', 'name', 'area_unit', 'altitude', 'img', 'video', 'memo'],
             widths: [50, 50, 50, 50, 50, 50, 50],
             typeComponent: [{
                 component: output
