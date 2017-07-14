@@ -73,6 +73,7 @@ export default {
             let reader = new FileReader()
             reader.readAsDataURL(file)
             reader.onload = e => {
+                console.log(file)
                 this.imageUrl = e.target.result
                 this.$emit('return-shuju', {name: this.shuju.name, value: file})
             }

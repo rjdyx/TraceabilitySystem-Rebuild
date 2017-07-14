@@ -32,6 +32,11 @@ const login = resolve => {
         resolve(require('../views/login.vue'))
     }, 'login')
 }
+const test1 = resolve => {
+    require.ensure(['../views/test1.vue'], () => {
+        resolve(require('../views/test1.vue'))
+    }, 'test1')
+}
 
 // ---------------------------登录注册组件----------------------------------
 const protocol = resolve => {
@@ -212,6 +217,11 @@ var routes = [
         path: '/404',
         name: 'notFound',
         component: notFound
+    },
+    {
+        path: '/test1',
+        name: 'test1',
+        component: test1
     },
     {
         path: '/403',
