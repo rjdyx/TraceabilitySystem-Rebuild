@@ -18,17 +18,6 @@
         </el-tab-pane>
     </el-tabs>  
 
-    <el-upload
-  action="https://jsonplaceholder.typicode.com/posts/"
-  list-type="picture-card"
-  :on-preview="handlePictureCardPreview"
-  :on-remove="handleRemove">
-  <i class="el-icon-plus"></i>
-</el-upload>
-<el-dialog v-model="dialogVisible" size="tiny">
-  <img width="100%" :src="dialogImageUrl" alt="">
-</el-dialog>
-
     <!-- 操作模块 -->
     <div id="operate">
         <div id="inputs">
