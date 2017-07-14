@@ -81,7 +81,7 @@
 
         <!-- 展开 -->
         <el-table-column 
-            type="expand" v-if="expandMore">
+            type="expand" v-if="expandMore" class="expand">
             <template scope="props">
                 <el-form label-position="left" inline class="demo-table-expand">
                   <template v-for="(expand,index) in theads">
@@ -883,6 +883,11 @@ export default {
         this.boxArr(this.dataArr, true)
         let change = $('.available')
         change.css('display', 'none')
+        if (this.theads.length > 8) {
+            this.expandMore = true
+        } else {
+            this.expandMore = false
+        }
     },
     watch: {
         models () {
@@ -1028,25 +1033,28 @@ export default {
         text-overflow: ellipsis;
         white-space: nowrap;
     }*/ 
-    .demo-table-expand {
-    font-size: 0;
-  }
-  .demo-table-expand label {
-    width: 90px;
-    color: #99a9bf;
-  }
-  .demo-table-expand .el-form-item {
-    margin-right: 0;
-    margin-bottom: 0;
-    width: 33%;
-    float: left;
-  }
-  .el-form-item__content{
-    width: 40%;
-    text-align: left;
-  }
-  .demo-table-expand label{
-    width: 30% !important;
-  }
 } 
+.el-table__expanded-cell{
+    .demo-table-expand {
+        font-size: 0;
+    }
+    .demo-table-expand label {
+        width: 90px;
+        color: #99a9bf;
+    }
+    .demo-table-expand .el-form-item {
+        margin-right: 0;
+        margin-bottom: 0;
+        width: 33%;
+        float: left;
+    }
+    .el-form-item__content{
+        width: 40%;
+        text-align: left;
+    }
+    .demo-table-expand label{
+        width: 30% !important;
+    }
+}
+
 </style>
