@@ -17,6 +17,7 @@
 
         </el-tab-pane>
     </el-tabs>  
+
     <!-- 操作模块 -->
     <div id="operate">
         <div id="inputs">
@@ -78,14 +79,28 @@
         <el-table-column width="80" label="序号" type="index" id="test_id">
         </el-table-column>
 
+        <!-- 展开 -->
+        <el-table-column 
+            type="expand" v-if="expandMore" class="expand">
+            <template scope="props">
+                <el-form label-position="left" inline class="demo-table-expand">
+                  <template v-for="(expand,index) in theads">
+                      <el-form-item :label="expand">
+                        <span>{{ props.row[protos[index]] }}</span>
+                      </el-form-item>
+                  </template>
+                </el-form>
+            </template>
+        </el-table-column>
+
         <!-- 中间列表模块 -->
-        <template v-for="(item,index) in theads">
+        <template v-for="(item,index) in theads.slice(0,8)">
             <template>
                 <el-table-column
                     :label="item"
                     :prop="protos[index]"
                     :min-width="widths[index]" show-overflow-tooltip>
-                    <template  scope="scope">
+                    <template scope="scope">
                             <div v-if="item.includes('批次号')" slot="reference" class="pcActive" @click="jumpDetails(scope.row)">
                                 {{ scope.row[protos[index]] }}
                             </div>
@@ -267,7 +282,10 @@ export default {
             roleId: null,
             rowId: null,
             isRoleShow: false,
-            listLoading: false
+            listLoading: false,
+            expandMore: false,
+            dialogImageUrl: '',
+            dialogVisible: false
         }
     },
     // 混合
@@ -281,6 +299,13 @@ export default {
             this.activeName = 0
             this.$set(this, 'tableData', [])
             this.$set(this, 'multipleSelection', [])
+        },
+        handleRemove (file, fileList) {
+            console.log(file, fileList)
+        },
+        handlePictureCardPreview (file) {
+            this.dialogImageUrl = file.url
+            this.dialogVisible = true
         },
         jumpDetails (row) {
             var id = row.id
@@ -858,12 +883,22 @@ export default {
         this.boxArr(this.dataArr, true)
         let change = $('.available')
         change.css('display', 'none')
+        if (this.theads.length > 8) {
+            this.expandMore = true
+        } else {
+            this.expandMore = false
+        }
     },
     watch: {
         models () {
             this.modelIndex = 0
             this.activeName = 'index0'
             localStorage.setItem('tab', this.modelIndex)
+            if (this.theads.length > 8) {
+                this.expandMore = true
+            } else {
+                this.expandMore = false
+            }
         },
         key () {
             this.tableData = []
@@ -999,4 +1034,27 @@ export default {
         white-space: nowrap;
     }*/ 
 } 
+.el-table__expanded-cell{
+    .demo-table-expand {
+        font-size: 0;
+    }
+    .demo-table-expand label {
+        width: 90px;
+        color: #99a9bf;
+    }
+    .demo-table-expand .el-form-item {
+        margin-right: 0;
+        margin-bottom: 0;
+        width: 33%;
+        float: left;
+    }
+    .el-form-item__content{
+        width: 40%;
+        text-align: left;
+    }
+    .demo-table-expand label{
+        width: 30% !important;
+    }
+}
+
 </style>

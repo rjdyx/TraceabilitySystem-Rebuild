@@ -7,6 +7,7 @@ import selectSection from '../../components/public/select-section.vue'
 import datePick from '../../components/public/datePick.vue'
 import inputDate from '../../components/public/inputDate.vue'
 import inputFile from '../../components/public/inputFile.vue'
+import inputFiles from '../../components/public/inputFiles.vue'
 import inputTextSelect from '../../components/public/inputTextSelect.vue'
 import Qrcode from '../../components/public/Qrcode.vue'
 
@@ -22,9 +23,9 @@ export default {
             tab: '种植场',
             url: 'plantation',
             searchPlaceholder: '请输入种植场进行搜索',
-            theads: ['种植场名称', '种植面积', '负责人', '热线电话', '地址', '种植场图片', '视频', '备注'],
-            protos: ['name', 'area_unit', 'director', 'phone', 'address', 'img', 'video', 'memo'],
-            widths: [50, 50, 50, 50, 50, 50, 50, 50],
+            theads: ['种植场名称', '有机种植面积', '热线电话', '负责人', '种植场图片', '视频', '备注'],
+            protos: ['name', 'area_unit', 'phone', 'director', 'img', 'video', 'memo'],
+            widths: [50, 50, 50, 50, 50, 50, 50],
             typeComponent: [{
                 component: output
             },
@@ -78,7 +79,7 @@ export default {
                     rule: { validator: validate2.phone, trigger: 'blur' }
                 },
                 {
-                    name: 'address',
+                    name: 'director',
                     type: 'text',
                     component: null,
                     isNull: false,
@@ -88,8 +89,8 @@ export default {
                 },
                 {
                     name: 'img',
-                    type: 'file',
-                    component: inputFile,
+                    type: 'files',
+                    component: inputFiles,
                     isNull: true,
                     label: '种植场图片',
                     placeholder: '',
@@ -172,7 +173,7 @@ export default {
                 {
                     name: 'img',
                     type: 'file',
-                    component: inputFile,
+                    component: inputFiles,
                     isNull: true,
                     label: '种植场图片',
                     placeholder: '',
@@ -407,14 +408,14 @@ export default {
             key: 'plant',
             roleName: ['plant/basic', 0],
             tab: '茶叶档案',
-            url: 'plant',
+            url: 'tea',
             selectSearch: ['plants.category_id'],
             selectValueId: [['category_id', 'category_name', true]],
             searchPlaceholder: '请输入茶叶品种名称进行搜索',
             selectDefault: [{value: '', label: '果蔬类别'}],
             theads: ['茶叶品种', '干茶', '汤色', '叶底', '香气', '滋味', '采摘周期', '品种图片', '备注'],
-            protos: ['category_name', 'name', 'growth_cycle', 'description', 'img', 'memo'],
-            widths: [50, 50, 50, 50, 50, 50, 50, 50, 50],
+            protos: ['name', 'dry_tea', 'liquor_color', 'leaf_bottom', 'taste', 'picking_cycle', 'img', 'memo'],
+            widths: [50, 50, 50, 50, 50, 50, 50, 50],
             typeComponent: [{
                 component: output
             },
@@ -618,7 +619,7 @@ export default {
             searchPlaceholder: '请输入肥料名称',
             selectDefault: [{value: '', label: '肥料类别'}],
             theads: ['肥料分类', '肥料名称', '包装规格', '经销商名称', '产地', '肥料图片', '备注'],
-            protos: ['category_name', 'name', 'usage', 'specification', 'origin', 'dealer', 'phone', 'img', 'memo'],
+            protos: ['category', 'name', 'specification', 'dealer', 'origin', 'img', 'memo'],
             widths: [50, 50, 50, 50, 50, 50, 50, 50, 50],
             typeComponent: [{
                 component: output
@@ -787,8 +788,8 @@ export default {
         selectDefault: [{value: '', label: '种植区选择'}, {value: '', label: '果蔬选择'}],
         searchPlaceholder: '请输入种植批次号进行搜索',
         theads: ['所属种植区', '茶叶品种名称', '种植日期', '种植面积', '备注'],
-        protos: ['plantation_name', 'serial', 'plant_name', 'date', 'area_unit', 'operate_name', 'user_name', 'state', 'memo'],
-        widths: [50, 50, 50, 50, 50, 50, 50, 50, 50],
+        protos: ['plantation_name', 'name', 'date', 'area', 'area_unit', 'memo'],
+        widths: [50, 50, 50, 50, 50],
         listComponent: [{
             components: [{
                 name: 'plantations.id',
@@ -977,8 +978,8 @@ export default {
         selectDefault: [{value: '', label: '种植区选择'}, {value: '', label: '果蔬选择'}],
         searchPlaceholder: '请输入种植批次号进行搜索',
         theads: ['种植批次详细信息', '茶叶品种名称', '种植日期', '种植面积', '备注'],
-        protos: ['plantation_name', 'serial', 'plant_name', 'date', 'area_unit', 'operate_name', 'user_name', 'state', 'memo'],
-        widths: [50, 50, 50, 50, 50, 50, 50, 50, 50],
+        protos: ['plantation_name', 'serial', 'plant_name', 'date', 'area_unit', 'memo'],
+        widths: [50, 50, 50, 50, 50],
         listComponent: [{
             components: [{
                 name: 'plantations.id',
@@ -1135,7 +1136,7 @@ export default {
             selectDefault: [{value: '', label: '肥料选择'}],
             searchPlaceholder: '请输入施肥批次号进行搜索',
             theads: ['肥料名称', '施肥时间', '天气', '使用量', '施肥方法', '备注'],
-            protos: ['serial', 'date', 'weather', 'manure_name', 'amount_unit', 'way', 'operate_name', 'expert_name', 'user_name', 'memo'],
+            protos: ['serial', 'date', 'weather', 'manure_name', 'amount_unit', 'way', 'memo'],
             widths: [50, 50, 50, 50, 50, 50],
             typeComponent: [{
                 component: output
@@ -1760,7 +1761,7 @@ export default {
         }
     ],
     // 采收加工管理--采制批次管理
-    plantHarvest: [{
+    vegetableSerial: [{
         settitle: '采制批次管理',
         key: 'harvest',
         roleName: ['plant/harvest', 0],
@@ -1773,7 +1774,7 @@ export default {
         changeDataArr: [{state: {0: '未完成', 1: '已完成'}}],
         searchPlaceholder: '请输入采制批次号进行搜索',
         theads: ['采收开始日期', '种植批次号', '入库部门', '存放仓库位置', '备注'],
-        protos: ['serial', 'date', 'plantation_name', 'cultivate_serial', 'amount', 'department', 'position', 'operate_name', 'user_name', 'state', 'memo'],
+        protos: ['date', 'serial', 'department', 'position', 'memo'],
         widths: [60, 50, 50, 60, 50],
         typeComponent: [{
             component: output
@@ -1924,7 +1925,7 @@ export default {
         url: 'product-count',
         searchPlaceholder: '请输入商品名称进行搜索',
         theads: ['产品代码', '产品名称', '规格型号', '单位', '库存数量', '产品图片', '备注'],
-        protos: ['product_name', 'storage_amount', 'sell_amount', 'pack_amount', 'money'],
+        protos: ['product_name', 'name', 'specification', 'unit', 'amount', 'img', 'memo'],
         widths: [50, 50, 50, 50, 50, 50, 50],
         typeComponent: [{
             component: output
@@ -1933,10 +1934,10 @@ export default {
     },
     {
         settitle: '基础信息管理',
-        key: 'storage0',
+        key: 'client',
         roleName: ['sell/storage', 0],
         tab: '客户信息管理',
-        url: 'storage',
+        url: 'client',
         batch: 'saleInput',
         selectSearch: ['products.id'],
         selectValueId: [['product_id', 'product_name', true]],
@@ -1945,7 +1946,7 @@ export default {
         changeDataArr: [{type: { 0: '平台', 1: '非平台' }}],
         searchPlaceholder: '请输入批次号进行搜索',
         theads: ['客户名称', '身份证编号(公司注册号)', '通讯地址', '所在区域', '联系人', '手机', '电话', '传真', '图片', '主办业务员', '手机', '合同签订日期', '品牌名称', '主要产品', '地区或城市', '年销售业绩(万元)', '备货情况(万元)', '经营情况'],
-        protos: ['serial', 'datetime', 'supplier_name', 'product_name', 'amount', 'operate_name', 'user_name', 'memo'],
+        protos: ['name', 'IDNumber', 'address', 'location', 'contact', 'phone', 'phone', 'fax', 'img'],
         widths: [30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30],
         typeComponent: [{
             component: output
@@ -3242,7 +3243,8 @@ export default {
                     component: null,
                     label: '送货人',
                     placeholder: '必填',
-                    rule: {required: true, trigger: 'blur', message: '请选择送货人'}
+                    rule: {required: true, trigger: 'blur', message: '请选择送货人'},
+                    options: []
                 },
                 {
                     name: 'date',
@@ -3336,7 +3338,8 @@ export default {
                     component: null,
                     label: '送货人',
                     placeholder: '必填',
-                    rule: {required: true, trigger: 'blur', message: '请选择送货人'}
+                    rule: {required: true, trigger: 'blur', message: '请选择送货人'},
+                    options: []
                 },
                 {
                     name: 'date',
@@ -3734,7 +3737,8 @@ export default {
                     component: null,
                     label: '规格型号',
                     placeholder: '',
-                    rule: {required: true, message: '请输入规格型号'}
+                    rule: {required: true, message: '请输入规格型号'},
+                    options: []
                 },
                 {
                     name: 'number',
@@ -3774,7 +3778,8 @@ export default {
                     component: null,
                     label: '单位',
                     placeholder: '',
-                    rule: {required: true, message: '请选择单位'}
+                    rule: {required: true, message: '请选择单位'},
+                    options: []
                 },
                 {
                     name: 'operate_id',
@@ -3883,7 +3888,8 @@ export default {
                     component: null,
                     label: '规格型号',
                     placeholder: '',
-                    rule: {required: true, message: '请输入规格型号'}
+                    rule: {required: true, message: '请输入规格型号'},
+                    options: []
                 },
                 {
                     name: 'number',
@@ -3923,7 +3929,8 @@ export default {
                     component: null,
                     label: '单位',
                     placeholder: '',
-                    rule: {required: true, message: '请选择单位'}
+                    rule: {required: true, message: '请选择单位'},
+                    options: []
                 },
                 {
                     name: 'operate_id',
@@ -4152,7 +4159,7 @@ export default {
                 },
                 {
                     name: 'operate_id',
-                    type: 'select',
+                    type: 'text',
                     component: null,
                     label: '送货地址',
                     placeholder: '',
@@ -4301,7 +4308,7 @@ export default {
                 },
                 {
                     name: 'operate_id',
-                    type: 'select',
+                    type: 'text',
                     component: null,
                     label: '送货地址',
                     placeholder: '',
@@ -4784,7 +4791,7 @@ export default {
                 },
                 {
                     name: 'operate_id',
-                    type: 'select',
+                    type: 'textarea',
                     component: null,
                     label: '备注',
                     placeholder: '',
@@ -4933,7 +4940,7 @@ export default {
                 },
                 {
                     name: 'operate_id',
-                    type: 'select',
+                    type: 'textarea',
                     component: null,
                     label: '备注',
                     placeholder: '',

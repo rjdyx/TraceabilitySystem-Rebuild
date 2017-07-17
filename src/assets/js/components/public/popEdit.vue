@@ -89,6 +89,7 @@
                                     :shuju="subItem"
                                     :editValue="editForm[subItem.name]"
                                     @return-shuju="returnShuju"
+                                    @setPicArr="getPicArr"
                                 ></component>
                             </el-form-item>
                         </td>
@@ -248,6 +249,12 @@ export default {
             this.$parent.closeEditShow()
             for (let key of Object.keys(this.editDefault)) {
                 this.editForm[key] = this.editDefault[key]
+            }
+        },
+        // 获取多图片数组
+        getPicArr (arr) {
+            for (let item of Object.keys(arr)) {
+                this.editForm[item] = arr[item]
             }
         },
         /**
