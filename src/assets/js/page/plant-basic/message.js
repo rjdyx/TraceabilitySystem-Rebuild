@@ -2445,15 +2445,14 @@ export default {
     storageBasic: [
         {
             settitle: '基础信息管理',
-            key: 'myuser',
-            roleName: ['system/user', 0],
             tab: '物流公司信息管理',
-            url: 'user',
+            key: 'logistic',
+            url: 'logistic',
+            hiddeRole: false,
+            roleName: ['delivery/logistic', 0],
             searchPlaceholder: '请输入物理公司名搜索',
-            hiddeRole: true,
-            changeDataArr: [{gender: {0: '男', 1: '女'}}],
             theads: ['物流公司名称', '联系人', '联系电话', '地址', '备注'],
-            protos: ['name', 'realname', 'number', 'email', 'gender'],
+            protos: ['name', 'contacts', 'phone', 'address', 'memo'],
             widths: [50, 50, 50, 50, 50],
             typeComponent: [{
                 component: output
@@ -2463,18 +2462,16 @@ export default {
             }],
             newComponent: [{
                 tab: '新建物流公司信息',
-                hiddenValue: {type: 0},
-                checkNumber: [0, 1, 5],
                 components: [{
                     name: 'name',
                     type: 'text',
                     component: null,
-                    label: '用户名',
+                    label: '物流公司名称',
                     placeholder: '请输入物流公司名称',
                     rule: {required: true, trigger: 'blur', message: '请输入物流公司名称'}
                 },
                 {
-                    name: 'email',
+                    name: 'contacts',
                     type: 'text',
                     component: null,
                     label: '联系人',
@@ -2482,7 +2479,7 @@ export default {
                     rule: {required: true, trigger: 'blur', message: '请输入联系人'}
                 },
                 {
-                    name: 'gender',
+                    name: 'phone',
                     type: 'text',
                     component: null,
                     label: '联系电话',
@@ -2509,18 +2506,16 @@ export default {
             }],
             editComponent: [{
                 tab: '编辑物流公司信息',
-                hiddenValue: {type: 0},
-                checkNumber: [0, 1],
                 components: [{
                     name: 'name',
                     type: 'text',
                     component: null,
-                    label: '用户名',
+                    label: '物流公司',
                     placeholder: '请输入物流公司名称',
                     rule: {required: true, trigger: 'blur', message: '请输入物流公司名称'}
                 },
                 {
-                    name: 'email',
+                    name: 'contacts',
                     type: 'text',
                     component: null,
                     label: '联系人',
@@ -2528,7 +2523,7 @@ export default {
                     rule: {required: true, trigger: 'blur', message: '请输入联系人'}
                 },
                 {
-                    name: 'gender',
+                    name: 'phone',
                     type: 'text',
                     component: null,
                     label: '联系电话',
@@ -2556,15 +2551,15 @@ export default {
         },
         {
             settitle: '基础信息管理',
-            key: 'myrole',
             tab: '车辆信息管理',
-            roleName: ['system/user', 0],
-            url: 'role',
-            hiddenValue: {'fixation': 1},
+            key: 'vehicle',
+            url: 'vehicle',
+            hiddeRole: false,
+            roleName: ['delivery/vehicle', 0],
             searchPlaceholder: '请输入车牌号进行搜索',
-            theads: ['车牌品牌', '车牌号码', '核载吨数', '货厢长度', '货厢宽度', '货厢高度', '货厢类型', '备注'],
-            protos: ['display_name', 'description', 'created_at', '', '', '', '', ''],
-            widths: [50, 50, 50, 50, 50, 50, 50, 50],
+            theads: ['车牌品牌', '车牌号码', '核载吨数', '备注'],
+            protos: ['brand', 'number', 'tonnage', 'memo'],
+            widths: [50, 50, 50, 50],
             typeComponent: [{
                 component: output
             },
@@ -2598,55 +2593,6 @@ export default {
                     label: '核载吨位',
                     placeholder: '单位为吨',
                     rule: {validator: validate2.reNumber}
-                },
-                {
-                    name: 'tonnage',
-                    type: 'text',
-                    component: null,
-                    label: '货厢长度',
-                    placeholder: '请输入货厢长度',
-                    rule: {validator: validate2.reNumber}
-                },
-                {
-                    name: 'tonnage',
-                    type: 'text',
-                    component: null,
-                    label: '货厢宽度',
-                    placeholder: '请输入货厢宽度（单位：m）',
-                    rule: {validator: validate2.reNumber}
-                },
-                {
-                    name: 'tonnage',
-                    type: 'text',
-                    component: null,
-                    label: '货厢高度',
-                    placeholder: '请输入货厢高度（单位：m）',
-                    rule: {validator: validate2.reNumber}
-                },
-                {
-                    name: 'tonnage',
-                    type: 'select',
-                    component: null,
-                    label: '货厢类型',
-                    placeholder: '单位为吨',
-                    rule: {validator: validate2.reNumber},
-                    options: [
-                        {
-                            value: '', label: '货厢类型'
-                        },
-                        {
-                            value: '常规', label: '常规'
-                        },
-                        {
-                            value: '冷藏', label: '冷藏'
-                        },
-                        {
-                            value: '灌装', label: '灌装'
-                        },
-                        {
-                            value: '其他', label: '其他'
-                        }
-                    ]
                 },
                 {
                     name: 'memo',
@@ -2687,55 +2633,6 @@ export default {
                     rule: {validator: validate2.reNumber}
                 },
                 {
-                    name: 'tonnage',
-                    type: 'text',
-                    component: null,
-                    label: '货厢长度',
-                    placeholder: '请输入货厢长度（单位：m）',
-                    rule: {validator: validate2.reNumber}
-                },
-                {
-                    name: 'tonnage',
-                    type: 'text',
-                    component: null,
-                    label: '货厢宽度',
-                    placeholder: '请输入货厢宽度（单位：m）',
-                    rule: {validator: validate2.reNumber}
-                },
-                {
-                    name: 'tonnage',
-                    type: 'text',
-                    component: null,
-                    label: '货厢高度',
-                    placeholder: '请输入货厢高度（单位：m）',
-                    rule: {validator: validate2.reNumber}
-                },
-                {
-                    name: 'tonnage',
-                    type: 'select',
-                    component: null,
-                    label: '货厢类型',
-                    placeholder: '单位为吨',
-                    rule: {validator: validate2.reNumber},
-                    options: [
-                        {
-                            value: '', label: '货厢类型'
-                        },
-                        {
-                            value: '常规', label: '常规'
-                        },
-                        {
-                            value: '冷藏', label: '冷藏'
-                        },
-                        {
-                            value: '灌装', label: '灌装'
-                        },
-                        {
-                            value: '其他', label: '其他'
-                        }
-                    ]
-                },
-                {
                     name: 'memo',
                     type: 'textarea',
                     component: null,
@@ -2746,25 +2643,19 @@ export default {
                 }]
             }],
             listComponent: [{
-                components: [{
-                    name: 'brand',
-                    value: '',
-                    type: 'select',
-                    component: selectSection,
-                    options: []
-                }]
             }]
         },
         {
             settitle: '基础信息管理',
-            key: 'myrole',
             tab: '驾驶员信息管理',
-            roleName: ['system/user', 0],
-            url: 'role',
-            hiddenValue: {'fixation': 1},
+            key: 'driver',
+            url: 'driver',
+            hiddeRole: false,
+            roleName: ['delivery/driver', 0],
+            changeDataArr: [{sex: {0: '男', 1: '女'}}],
             searchPlaceholder: '请输入司机名称进行搜索',
             theads: ['驾驶员姓名', '性别', '联系电话', '取得驾照日期', '出生日期', '驾照类型', '备注'],
-            protos: ['display_name', 'description', 'created_at', '', '', '', ''],
+            protos: ['name', 'sex', 'phone', 'driver', 'birth', 'storage', 'memo'],
             widths: [50, 50, 50, 50, 50, 50, 50],
             typeComponent: [{
                 component: output
@@ -2827,7 +2718,7 @@ export default {
                     rule: {validator: validate2.reDate, aa: '44'}
                 },
                 {
-                    name: 'type',
+                    name: 'storage',
                     type: 'select',
                     component: null,
                     isNull: true,
@@ -2908,7 +2799,7 @@ export default {
                     rule: {validator: validate2.reDate, aa: '44'}
                 },
                 {
-                    name: 'type',
+                    name: 'storage',
                     type: 'select',
                     component: null,
                     isNull: true,
@@ -2937,14 +2828,14 @@ export default {
         },
         {
             settitle: '基础信息管理',
-            key: 'myrole',
             tab: '仓库信息管理',
-            roleName: ['system/user', 0],
-            url: 'role',
+            key: 'storeroom',
+            url: 'storeroom',
+            roleName: ['delivery/storeroom', 0],
             hiddenValue: {'fixation': 1},
             searchPlaceholder: '请输入仓库名称进行搜索',
             theads: ['仓库名称', '仓库面积', '仓库地址', '图片', '备注'],
-            protos: ['display_name', 'description', 'created_at', '', ''],
+            protos: ['name', 'address', 'address', 'img', 'memo'],
             widths: [50, 50, 50, 50, 50],
             typeComponent: [{
                 component: output
@@ -2954,6 +2845,7 @@ export default {
             }],
             newComponent: [{
                 tab: '新建仓库信息',
+                checkNumber: [0],
                 components: [{
                     name: 'name',
                     type: 'text',
@@ -2964,25 +2856,33 @@ export default {
                     rule: [{required: true, trigger: 'blur', message: '请输入仓库名称'}, {validator: validate2.reCheck}]
                 },
                 {
-                    name: 'description',
-                    type: 'textarea',
-                    component: null,
+                    name: 'area',
+                    type: 'textSelect',
+                    component: inputTextSelect,
                     label: '仓库面积',
                     placeholder: '',
-                    rule: [{required: false, message: '请输入正确的数字'}, {validator: validate2.reNumber}]
+                    options: [{
+                        label: '平方米',
+                        value: '平方米'
+                    },
+                    {
+                        label: '亩',
+                        value: '亩'
+                    }],
+                    rule: [{required: true, message: '请输入正确的数字'}, {validator: validate2.reNumber}]
                 },
                 {
-                    name: 'video',
+                    name: 'address',
                     type: 'text',
                     component: null,
                     label: '仓库地址',
                     placeholder: '',
-                    rule: null
+                    rule: [{required: true, message: '请输入地址'}]
                 },
                 {
                     name: 'img',
-                    type: 'file',
-                    component: inputFile,
+                    type: 'files',
+                    component: inputFiles,
                     label: '图片',
                     placeholder: '',
                     rule: null
@@ -2998,6 +2898,7 @@ export default {
             }],
             editComponent: [{
                 tab: '编辑仓库信息',
+                checkNumber: [0],
                 components: [{
                     name: 'name',
                     type: 'text',
@@ -3008,25 +2909,33 @@ export default {
                     rule: [{required: true, trigger: 'blur', message: '请输入仓库名称'}, {validator: validate2.reCheck}]
                 },
                 {
-                    name: 'description',
-                    type: 'textarea',
-                    component: null,
+                    name: 'area',
+                    type: 'textSelect',
+                    component: inputTextSelect,
                     label: '仓库面积',
                     placeholder: '',
-                    rule: [{required: false, message: '请输入正确的数字'}, {validator: validate2.reNumber}]
+                    options: [{
+                        label: '平方米',
+                        value: '平方米'
+                    },
+                    {
+                        label: '亩',
+                        value: '亩'
+                    }],
+                    rule: [{required: true, message: '请输入正确的数字'}, {validator: validate2.reNumber}]
                 },
                 {
-                    name: 'video',
+                    name: 'address',
                     type: 'text',
                     component: null,
                     label: '仓库地址',
                     placeholder: '',
-                    rule: null
+                    rule: [{required: true, message: '请输入地址'}]
                 },
                 {
                     name: 'img',
-                    type: 'file',
-                    component: inputFile,
+                    type: 'files',
+                    component: inputFiles,
                     label: '图片',
                     placeholder: '',
                     rule: null
