@@ -2835,7 +2835,7 @@ export default {
             hiddenValue: {'fixation': 1},
             searchPlaceholder: '请输入仓库名称进行搜索',
             theads: ['仓库名称', '仓库面积', '仓库地址', '图片', '备注'],
-            protos: ['name', 'address', 'address', 'img', 'memo'],
+            protos: ['name', 'area_unit', 'address', 'img', 'memo'],
             widths: [50, 50, 50, 50, 50],
             typeComponent: [{
                 component: output
@@ -2846,6 +2846,7 @@ export default {
             newComponent: [{
                 tab: '新建仓库信息',
                 checkNumber: [0],
+                hasImg: true,
                 components: [{
                     name: 'name',
                     type: 'text',
@@ -2899,6 +2900,7 @@ export default {
             editComponent: [{
                 tab: '编辑仓库信息',
                 checkNumber: [0],
+                hasImg: true,
                 components: [{
                     name: 'name',
                     type: 'text',
