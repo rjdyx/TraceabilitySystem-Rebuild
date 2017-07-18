@@ -111,6 +111,7 @@
                                     :shuju="subItem"
                                     :range="subItem.range"
                                     @return-shuju="returnShuju"
+                                    @setPicArr="getPicArr"
                                 ></component>
                             </el-form-item>
                         </td>
@@ -255,7 +256,13 @@ export default {
         cancelClick () {
             this.$parent.closeNewShow()
         },
-      /**
+        // 获取多图片数组
+        getPicArr (arr) {
+            for (let item of Object.keys(arr)) {
+                this.tableForm[item] = arr[item]
+            }
+        },
+        /**
         * 提交表单
         */
         submitForm (formName) {
@@ -274,10 +281,10 @@ export default {
             }
             this.$refs[formName][0].validate((valid) => {
                 if (valid) {
-                    alert('submit')
-                    this.$parent.closeNewShow()
+                    this.$dataPost(this, this.url, this.tableForm, com.hasImg, com.hiddenValue, false).then((response) => {
+                        this.$emit('submitNew', response.data)
+                    })
                 } else {
-                    console.log('error submit!!')
                     return false
                 }
             })

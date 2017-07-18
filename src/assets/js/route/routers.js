@@ -37,7 +37,6 @@ const test1 = resolve => {
         resolve(require('../views/test1.vue'))
     }, 'test1')
 }
-
 // ---------------------------登录注册组件----------------------------------
 const protocol = resolve => {
     require.ensure(['../views/protocol.vue'], () => {

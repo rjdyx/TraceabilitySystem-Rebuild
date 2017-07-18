@@ -72,6 +72,7 @@ export default {
             }
             let reader = new FileReader()
             reader.readAsDataURL(file)
+            console.log(file)
             reader.onload = e => {
                 console.log(file)
                 this.imageUrl = e.target.result

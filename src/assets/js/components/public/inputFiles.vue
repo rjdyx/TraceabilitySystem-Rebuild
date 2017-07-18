@@ -7,8 +7,10 @@
               :on-remove="handleRemove"
               thumbnail-mode
               :before-upload="beforeUpload"
+              :file-list="imgList"
               :on-change="onChange"
-              :disabled='bol'>
+              :disabled='bol'
+              :on-success="handeSuccess">
           <i class="el-icon-plus"></i>
         </el-upload>
         <el-dialog v-model="dialogVisible" size="tiny">
@@ -19,7 +21,18 @@
 </template>
 <script>
 export default {
-    name: 'test1',
+    name: 'inputFiles',
+    props:
+    {
+        shuju: {
+            type: Object,
+            default () {
+                return {}
+            }
+        },
+        editValue: {
+        }
+    },
     data () {
         return {
             dialogImageUrl: '',
@@ -27,13 +40,18 @@ export default {
             importUrl: this.$adminUrl('/plantation/import'),
             data: {'_method': 'get'},
             inputList: [],
-            bol: false
+            bol: false,
+            picArr: {},
+            objImg: {},
+            imgList: []
         }
     },
     methods: {
         //  文件列表移除文件时的钩子
         handleRemove (file, fileList) {
             this.inputList = fileList
+            this.picArr = {}
+            this.setPicArr(fileList)
         },
         handlePictureCardPreview (file) {
             this.dialogImageUrl = file.url
@@ -44,7 +62,42 @@ export default {
         // 文件状态改变时的钩子，添加文件、上传成功和上传失败时都会被调用
         onChange (file, fileList) {
             this.inputList = fileList
+        },
+        handeSuccess (val, file, fileList) {
+            this.picArr = {}
+            this.setPicArr(fileList)
+        },
+        setPicArr (fileList) {
+            for (let i in fileList) {
+                if (fileList[i].raw !== undefined) {
+                    this.picArr['img' + i] = fileList[i].raw
+                } else {
+                    this.picArr['img' + i] = fileList[i].url
+                }
+            }
+            this.picArr['picLength'] = fileList.length
+            this.$emit('setPicArr', this.picArr)
+        },
+        // 编辑加载图片
+        loadEdit () {
+            if (this.editValue !== undefined && this.editValue !== null && this.editValue !== '') {
+                let arr = this.editValue.split(',')
+                for (let i in arr) {
+                    this.objImg = {}
+                    this.objImg['url'] = arr[i]
+                    this.imgList.push(this.objImg)
+                }
+                for (let j in this.imgList) {
+                    this.picArr['img' + j] = this.imgList[j].url
+                }
+                this.picArr['picLength'] = this.imgList.length
+                this.inputList = this.imgList
+                this.$emit('setPicArr', this.picArr)
+            }
         }
+    },
+    mounted () {
+        this.loadEdit()
     },
     watch: {
         inputList () {
