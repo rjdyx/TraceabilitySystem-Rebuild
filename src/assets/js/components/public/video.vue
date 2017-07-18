@@ -1,6 +1,8 @@
 <template>
     <div class="inputVideo">
         <button class="el-button el-button--default el-button--small">{{tip}}<input type="file" accept="audio/mp4, video/mp4" @change="changefn"></button>
+        <i v-if="tip==='请选择视频文件'" class="tipIcon el-icon-circle-close"></i>
+        <i v-else class="tipIcon el-icon-circle-check"></i>
         <el-button size="small" @click="delVideo($event.currentTarget)" class="btn_change fr delVideo">删除</el-button>
     </div>
 </template>
@@ -45,6 +47,9 @@ export default {
 	}
 	.delVideo{
 		margin-top:5px;
+	}
+	.tipIcon{
+		margin-left:20px;
 	}
 }
 </style>
