@@ -211,9 +211,9 @@ export default {
             selectValueId: [['pid', 'plantation_name', true]],
             searchPlaceholder: '请输入种植区进行搜索',
             selectDefault: [{value: '', label: '种植场选择'}],
-            theads: ['所属种植场', '种植区名称', '种植区面积', '海拔高度', '种植区图片', '宣传视频', '备注'],
-            protos: ['plantation_name', 'name', 'area_unit', 'altitude', 'img', 'video', 'memo'],
-            widths: [50, 50, 50, 50, 50, 50, 50],
+            theads: ['所属种植场', '种植区名称', '种植区面积', '海拔高度', '种植区图片', '备注'],
+            protos: ['plantation_name', 'name', 'area_unit', 'altitude', 'img', 'memo'],
+            widths: [50, 50, 50, 50, 50, 50],
             typeComponent: [{
                 component: output
             },
@@ -229,6 +229,7 @@ export default {
                     options: []
                 }]
             }],
+            moreComponent: [{value: '视频'}],
             newComponent: [{
                 tab: '新建种植区信息',
                 selectUrl: [['plantation', 'planta', 'pid', 'plantation_name', true]],
@@ -299,10 +300,10 @@ export default {
                 },
                 {
                     name: 'video',
-                    type: 'text',
-                    component: null,
+                    type: 'video',
+                    component: video,
                     isNull: false,
-                    label: '宣传视频',
+                    label: '视频',
                     placeholder: '',
                     rule: null
                 },
@@ -386,10 +387,10 @@ export default {
                 },
                 {
                     name: 'video',
-                    type: 'text',
-                    component: null,
+                    type: 'video',
+                    component: video,
                     isNull: false,
-                    label: '宣传视频',
+                    label: '视频',
                     placeholder: '',
                     rule: null
                 },
@@ -401,8 +402,7 @@ export default {
                     label: '备注',
                     placeholder: '',
                     rule: null
-                }
-                ]
+                }]
             }]
         },
         {
@@ -433,38 +433,58 @@ export default {
                     isNull: false,
                     label: '茶叶品种',
                     placeholder: '必填',
-                    rule: {required: true, message: '请选择果蔬类别', trigger: 'blur'},
-                    options: []
+                    rule: {required: true, message: '请选择茶叶品种', trigger: 'blur'},
+                    options: [{
+                        value: '八仙', label: '八仙'
+                    },
+                    {
+                        value: '黄枝香', label: '黄枝香'
+                    },
+                    {
+                        value: '水仙', label: '水仙'
+                    },
+                    {
+                        value: '芝兰', label: '芝兰'
+                    },
+                    {
+                        value: '杏仁', label: '杏仁'
+                    },
+                    {
+                        value: '鸭屎', label: '鸭屎'
+                    },
+                    {
+                        value: '其他', label: '其他'
+                    }]
                 },
                 {
-                    name: 'name',
-                    type: 'text',
-                    component: null,
+                    name: 'dry_tea',
+                    type: 'textFile',
+                    component: inputTextFile,
                     isNull: false,
                     label: '干茶',
-                    placeholder: '必填',
-                    rule: [{message: '请输入果蔬名称', trigger: 'blur'}, {validator: validate2.reCheck, trigger: 'blur', message: '果蔬名称重复'}]
+                    placeholder: '',
+                    rule: null
                 },
                 {
-                    name: 'description',
-                    type: 'text',
-                    component: null,
+                    name: 'liquor_color',
+                    type: 'textFile',
+                    component: inputTextFile,
                     isNull: false,
                     label: '汤色',
                     placeholder: '',
                     rule: null
                 },
                 {
-                    name: 'growth_cycle',
-                    type: 'text',
-                    component: null,
+                    name: 'leaf_bottom',
+                    type: 'textFile',
+                    component: inputTextFile,
                     isNull: false,
-                    label: '叶底',
+                    label: '页底',
                     placeholder: '',
-                    rule: {validator: validate2.reNumber}
+                    rule: null
                 },
                 {
-                    name: 'description',
+                    name: 'fragrance',
                     type: 'text',
                     component: null,
                     isNull: false,
@@ -473,22 +493,31 @@ export default {
                     rule: null
                 },
                 {
-                    name: 'growth_cycle',
+                    name: 'taste',
                     type: 'text',
                     component: null,
                     isNull: false,
                     label: '滋味',
                     placeholder: '',
-                    rule: {validator: validate2.reNumber}
+                    rule: null
                 },
                 {
-                    name: 'growth_cycle',
+                    name: 'picking_cycle',
                     type: 'text',
                     component: null,
                     isNull: false,
-                    label: '采收周期',
+                    label: '采摘周期（天）',
                     placeholder: '',
                     rule: {required: true, validator: validate2.reNumber}
+                },
+                {
+                    name: 'description',
+                    type: 'textarea',
+                    component: null,
+                    isNull: false,
+                    label: '特征描述',
+                    placeholder: '',
+                    rule: null
                 },
                 {
                     name: 'img',

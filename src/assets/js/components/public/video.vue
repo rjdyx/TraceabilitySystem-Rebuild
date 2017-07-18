@@ -3,6 +3,8 @@
         <button class="el-button el-button--default el-button--small">{{tip}}
             <input type="file" accept="audio/mp4, video/mp4" @change="changefn($event.currentTarget, $event)">
         </button>
+        <i v-if="value==''" class="tipIcon el-icon-circle-close"></i>
+        <i v-else class="tipIcon el-icon-circle-check"></i>
         <el-button size="small" @click="delVideo($event.currentTarget)" class="btn_change fr delVideo">删除</el-button>
     </div>
 </template>
@@ -23,28 +25,29 @@ export default {
     data () {
         return {
             value: '',
-            tip: '请选择视频文件'
+            tip: '视频上传',
+            flag: false
         }
     },
     methods: {
         changefn (srcPic, event) {
             this.value = $('.inputVideo input[type=file]').eq(0).val()
             let file = event.target.files[0]
-            this.$emit('return-shuju', {name: this.shuju.name, value: file})
+            this.$emit('return-shuju', {name: 'videos', value: file})
         },
         delVideo () {
-            $('.inputVideo input[type=file]').eq(0).val('')
             this.value = ''
+            this.$emit('return-shuju', {name: 'videos', value: this.value})
         }
     },
     mounted () {
         if (this.editValue !== undefined && this.editValue !== null && this.editValue !== '') {
-            console.log($('#video_file')[0].value)
+            this.value = this.editValue
+            this.$emit('return-shuju', {name: 'videos', value: this.editValue})
         }
     },
     watch: {
         value () {
-            this.tip = this.value === '' ? '请选择视频文件' : '已选择视频文件'
         }
     }
 }
@@ -64,6 +67,9 @@ export default {
 	}
 	.delVideo{
 		margin-top:5px;
+	}
+	.tipIcon{
+		margin-left:20px;
 	}
 }
 </style>
