@@ -27,7 +27,7 @@
     <!-- 视频弹出框 -->
     <div class="videoWrap" v-if="isShow">
         <div class="video">
-            <video></video>
+            <video :src="videoSrc" controls="controls"  height="400px"></video>
             <i class="closeIcon" @click="closeClick"></i>
         </div>  
     </div>
@@ -43,7 +43,8 @@
                 isNewShow: false,
                 isShow: false,
                 more: more,
-                checkeds: {}
+                checkeds: {},
+                videoSrc: require('projectRoot/env.js').app_ano_url + '/video/111.mp4'
             }
         },
         props: {

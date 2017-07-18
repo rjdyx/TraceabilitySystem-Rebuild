@@ -298,18 +298,44 @@ export default {
         },
         // 选择框关联
         getSelectId (subItem, val) {
-        },
-        setUnit (val) {
-            if (val === 'fertilize') {
-                this.tableForm['unit'] = 'kg/亩'
-            } else if (val === 'spray') {
-                this.tableForm['unit'] = 'ml/亩'
-            } else if (val === 'harvest') {
-                this.tableForm['unit'] = 'kg'
+            var assoc = subItem.assoc
+            var name = subItem.name
+            var com = this.newComponent[0].components
+            if (assoc !== undefined) {
+                this.$emit('setAssoc', [assoc, name, val])
+            } else if (name === 'pid' || name === 'plantation_id') {
+                if (val !== '') {
+                    let params = {id: val}
+                    axios.get(this.$adminUrl(this.url + '/getArea'), {params: params}).then((responce) => {
+                        if (responce.data['num'] === 0) {
+                            this.allowance = -1
+                        } else {
+                            this.allowance = responce.data['num']
+                        }
+                        this.tableForm['unit'] = responce.data['unit']
+                        let nc = this.newComponent[0]
+                        this.disabledV = false
+                        nc.components[nc.limit].rule[1]['getMax'] = responce.data['num']
+                        nc.components[nc.limit].rule[1]['getMessage'] = nc.getMessage
+                    })
+                } else {
+                    this.tableForm['unit'] = '亩'
+                    this.allowance = 0
+                    this.disabledV = true
+                }
             }
         },
         // 新增成功调用方法
         successCallback () {
+            this.$parent.closeNewShow()
+            var com = this.newComponent[0].components
+            if (com.type === 'assoc' || com.type === 'selectAssoc') {
+                for (let k in com.components) {
+                    if (com.components[k].hiddenSelect !== undefined) {
+                        com.components[k].hiddenSelect = true
+                    }
+                }
+            }
         }
     }
 }

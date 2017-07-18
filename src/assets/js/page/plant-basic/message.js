@@ -23,8 +23,8 @@ export default {
             tab: '种植场',
             url: 'plantation',
             searchPlaceholder: '请输入种植场进行搜索',
-            theads: ['种植场名称', '有机种植面积', '热线电话', '负责人', '种植场图片', '视频', '备注'],
-            protos: ['name', 'area_unit', 'phone', 'director', 'img', 'video', 'memo'],
+            theads: ['种植场名称', '有机种植面积', '热线电话', '负责人', '种植场图片', '备注'],
+            protos: ['name', 'area_unit', 'phone', 'director', 'img', 'memo'],
             widths: [50, 50, 50, 50, 50, 50, 50],
             typeComponent: [{
                 component: output
@@ -280,7 +280,7 @@ export default {
                 {
                     name: 'img',
                     type: 'file',
-                    component: inputFile,
+                    component: inputFiles,
                     isNull: true,
                     label: '种植区图片',
                     placeholder: '',
@@ -367,14 +367,14 @@ export default {
                 {
                     name: 'img',
                     type: 'file',
-                    component: inputFile,
+                    component: inputFiles,
                     isNull: true,
                     label: '种植区图片',
                     placeholder: '',
                     rule: null
                 },
                 {
-                    name: 'director',
+                    name: 'altitude',
                     type: 'text',
                     component: null,
                     isNull: true,
@@ -409,10 +409,7 @@ export default {
             roleName: ['plant/basic', 0],
             tab: '茶叶档案',
             url: 'tea',
-            selectSearch: ['plants.category_id'],
-            selectValueId: [['category_id', 'category_name', true]],
             searchPlaceholder: '请输入茶叶品种名称进行搜索',
-            selectDefault: [{value: '', label: '果蔬类别'}],
             theads: ['茶叶品种', '干茶', '汤色', '叶底', '香气', '滋味', '采摘周期', '品种图片', '备注'],
             protos: ['name', 'dry_tea', 'liquor_color', 'leaf_bottom', 'taste', 'picking_cycle', 'img', 'memo'],
             widths: [50, 50, 50, 50, 50, 50, 50, 50],
@@ -422,21 +419,10 @@ export default {
             {
                 component: newbuildBtn
             }],
-            listComponent: [{
-                components: [{
-                    name: 'plants.category_id',
-                    value: '',
-                    type: 'select',
-                    component: selectSection,
-                    options: []
-                }]
-            }],
+            listComponent: [],
             newComponent: [{
                 tab: '新建果蔬档案',
-                selectUrl: [['category', 'plant', 'category_id', 'category_name', true]],
-                selectInit: [{value: '', label: '选择果蔬分类'}],
                 checkNumber: [1],
-                popNumber: [0],
                 hasImg: true,
                 components: [{
                     name: 'category_id',
@@ -614,10 +600,7 @@ export default {
             tab: '肥料档案',
             roleName: ['plant/basic', 0],
             url: 'manure',
-            selectSearch: ['manures.category_id'],
-            selectValueId: [['category_id', 'category_name', true]],
             searchPlaceholder: '请输入肥料名称',
-            selectDefault: [{value: '', label: '肥料类别'}],
             theads: ['肥料分类', '肥料名称', '包装规格', '经销商名称', '产地', '肥料图片', '备注'],
             protos: ['category', 'name', 'specification', 'dealer', 'origin', 'img', 'memo'],
             widths: [50, 50, 50, 50, 50, 50, 50, 50, 50],
@@ -627,24 +610,13 @@ export default {
             {
                 component: newbuildBtn
             }],
-            listComponent: [{
-                components: [{
-                    name: 'manures.category_id',
-                    value: '',
-                    type: 'select',
-                    component: selectSection,
-                    options: []
-                }]
-            }],
             newComponent: [{
                 tab: '新建肥料档案',
-                selectUrl: [['category', 'manure', 'category_id', 'category_name', true]],
-                selectInit: [{value: '', label: '选择肥料分类'}],
                 checkNumber: [1],
                 popNumber: [0],
                 hasImg: true,
                 components: [{
-                    name: 'category_id',
+                    name: 'category',
                     type: 'select',
                     component: null,
                     isNull: false,
