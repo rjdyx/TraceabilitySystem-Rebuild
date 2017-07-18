@@ -65,7 +65,6 @@ export default {
 }
 </script>
 <style lang="sass">
-
 .inputFiles{
     width:300px;
     .el-upload{
@@ -74,12 +73,9 @@ export default {
        line-height:85px;
     }
 }
-.v-modal{
-    position:static;
-}
-.el-dialog__wrapper{
-    background:rgba(0,0,0,.3);
-}
+// .el-dialog__wrapper{
+//     background:rgba(0,0,0,.3);
+// }
 .el-upload-list--picture-card .el-upload-list__item {
     width:80px;
     height:80px;

@@ -8,6 +8,8 @@ import datePick from '../../components/public/datePick.vue'
 import inputDate from '../../components/public/inputDate.vue'
 import inputFile from '../../components/public/inputFile.vue'
 import inputFiles from '../../components/public/inputFiles.vue'
+import inputTextFile from '../../components/public/inputTextFile.vue'
+import video from '../../components/public/video.vue'
 import inputTextSelect from '../../components/public/inputTextSelect.vue'
 import Qrcode from '../../components/public/Qrcode.vue'
 
@@ -89,6 +91,15 @@ export default {
                 },
                 {
                     name: 'img',
+                    type: 'textFile',
+                    component: inputTextFile,
+                    isNull: true,
+                    label: '种植场图片',
+                    placeholder: '',
+                    rule: null
+                },
+                {
+                    name: 'img',
                     type: 'files',
                     component: inputFiles,
                     isNull: true,
@@ -98,8 +109,8 @@ export default {
                 },
                 {
                     name: 'video',
-                    type: 'text',
-                    component: null,
+                    type: 'video',
+                    component: video,
                     isNull: false,
                     label: '视频',
                     placeholder: '',
