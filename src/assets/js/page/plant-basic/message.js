@@ -91,15 +91,6 @@ export default {
                 },
                 {
                     name: 'img',
-                    type: 'textFile',
-                    component: inputTextFile,
-                    isNull: true,
-                    label: '种植场图片',
-                    placeholder: '',
-                    rule: null
-                },
-                {
-                    name: 'img',
                     type: 'files',
                     component: inputFiles,
                     isNull: true,
@@ -192,8 +183,8 @@ export default {
                 },
                 {
                     name: 'video',
-                    type: 'text',
-                    component: null,
+                    type: 'video',
+                    component: video,
                     isNull: false,
                     label: '视频',
                     placeholder: '',
