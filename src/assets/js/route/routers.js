@@ -37,11 +37,6 @@ const test1 = resolve => {
         resolve(require('../views/test1.vue'))
     }, 'test1')
 }
-const test2 = resolve => {
-    require.ensure(['../views/test2.vue'], () => {
-        resolve(require('../views/test2.vue'))
-    }, 'test2')
-}
 // ---------------------------登录注册组件----------------------------------
 const protocol = resolve => {
     require.ensure(['../views/protocol.vue'], () => {
@@ -226,11 +221,6 @@ var routes = [
         path: '/test1',
         name: 'test1',
         component: test1
-    },
-    {
-        path: '/test2',
-        name: 'test2',
-        component: test2
     },
     {
         path: '/403',
