@@ -427,13 +427,13 @@ export default {
                 checkNumber: [1],
                 hasImg: true,
                 components: [{
-                    name: 'category_id',
+                    name: 'name',
                     type: 'select',
                     component: null,
                     isNull: false,
                     label: '茶叶品种',
                     placeholder: '必填',
-                    rule: {required: true, message: '请选择果蔬类别', trigger: 'blur', type: 'number'},
+                    rule: {required: true, message: '请选择果蔬类别', trigger: 'blur'},
                     options: []
                 },
                 {

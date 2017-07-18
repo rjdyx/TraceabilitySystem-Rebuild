@@ -1,7 +1,8 @@
 <template>
 	<div class="inputTextFile">
 		<el-input v-model="input" placeholder="请输入内容" size="small"></el-input>
-		<el-button size="small" @click="inputTextDel($event.currentTarget)" class="inputTextDel">删除</el-button>
+		<!-- <el-button size="small" @click="inputTextDel($event.currentTarget)" class="inputTextDel">删除</el-button> -->
+		<el-button size="small" @click="inputTextFileDel($event.currentTarget)" class="btn_change inputTextFileDel">删除</el-button>
 		<el-upload
 		  class="avatar-uploader"
 		  :action="importUrl" :data="data" name="excel_file"
@@ -40,7 +41,7 @@ export default {
             return isJPG && isLt2M
         },
         // 删除图片
-        inputTextDel (src) {
+        inputTextFileDel (src) {
             this.imageUrl = ''
             src.parentNode.parentNode.getElementsByTagName('input')[0].value = ''
             // this.$emit('return-shuju', {name: this.shuju.name, value: ''})
@@ -95,7 +96,7 @@ export default {
 			}
 		}
 	}
-	.inputTextDel{
+	.inputTextFileDel{
 		float:right;
 		margin-top:5px;
 		margin-left:20px;
