@@ -14,7 +14,7 @@
             <img width="100%" :src="dialogImageUrl" alt="">
         </el-dialog>
         <button @click="imgSubmit">提交</button>
-        <!-- <input type="file" accept="audio/mp4, video/mp4" @change="changefn"> -->
+        <input type="file" accept="audio/mp4, video/mp4" @change="changefn">
     </div>
 </template>
 <script>
@@ -28,7 +28,6 @@ export default {
             data: {'_method': 'get'},
             picArr: {},
             apt: {},
-            // fileList2: [{url: 'images/upload/pla17031500256873.jpg'}, {url: 'images/upload/pla55451500256873.jpg'}]
             fileList2: []
         }
     },
@@ -67,14 +66,6 @@ export default {
         }
     },
     mounted () {
-        this.$dataGet(this, '/plantation/getImg').then((response) => {
-            let arr = response.data.split(',')
-            for (let i in arr) {
-                this.apt = {}
-                this.apt['url'] = arr[i]
-                this.fileList2.push(this.apt)
-            }
-        })
     }
 }
 </script>
