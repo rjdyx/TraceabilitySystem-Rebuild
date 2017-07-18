@@ -100,5 +100,31 @@ export default[{
         name: '系统日志管理'
     }
     ]
+},
+{
+    name: '运营管理',
+    role: roleData !== 'admin' ? 0 : 1,
+    src: '/public/images/system.png',
+    children: [{
+        role: roleData !== 'admin' ? 0 : 1,
+        path: '/index/message/adminRole',
+        name: '权限管理'
+    },
+    {
+        role: roleData !== 'admin' ? 0 : 1,
+        path: '/index/message/adminCompany',
+        name: '入驻公司管理'
+    },
+    {
+        role: roleData !== 'admin' ? 0 : 1,
+        path: '/index/message/adminFeedback',
+        name: '用户反馈管理'
+    },
+    {
+        role: roleData !== 'admin' ? 0 : 1,
+        path: '/index/message/adminLog',
+        name: '系统日志管理'
+    }
+    ]
 }
 ]
