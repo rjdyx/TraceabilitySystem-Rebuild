@@ -1,6 +1,6 @@
 exports.fn = (name, rule, value) => {
     if (value === null) value = ''
-    value = value + ''
+    value = $.trim(value + '')
     var length = value.length
     if (rule.required) {
         if (length || (length === undefined && name === 'img')) {

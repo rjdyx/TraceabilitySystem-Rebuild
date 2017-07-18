@@ -432,3 +432,4 @@ export default {
 <style lang="sass">
 @import "../../../sass/public/pop.scss"
 </style>
+
