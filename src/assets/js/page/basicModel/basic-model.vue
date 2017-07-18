@@ -120,9 +120,10 @@
         label="操作" v-if="checkOperate==null" width="180">
             <template scope="scope">
                 <template v-if="moreComponent!=null">
-                    <clickMore :companyId="companyId" :moreComponent="moreComponent" @showMore="moreShow(scope.$index,scope.row)"
-                    @showPermission="permissionShow(scope.$index,scope.row)" @showDetail="detailShow(scope.$index,scope.row)" class="clickMoreBtn"
-                    @return-permission="getPermission" @changeState="changeSerialState(scope.$index,scope.row)">
+                    <clickMore :companyId="companyId" :moreComponent="moreComponent" :row="scope.row" 
+                    @showMore="moreShow(scope.$index,scope.row)" @showPermission="permissionShow(scope.$index,scope.row)" 
+                    @showDetail="detailShow(scope.$index,scope.row)" class="clickMoreBtn"@return-permission="getPermission" 
+                    @changeState="changeSerialState(scope.$index,scope.row)">
                     </clickMore>
                 </template>
                 <template>

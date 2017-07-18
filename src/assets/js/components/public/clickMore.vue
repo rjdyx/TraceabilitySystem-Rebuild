@@ -38,19 +38,20 @@
     import more from '../../page/more/more.js'
     export default {
         name: 'clickMore',
+        props: {
+            moreComponent: {
+                type: Array,
+                default: []
+            },
+            row: {}
+        },
         data () {
             return {
                 isNewShow: false,
                 isShow: false,
                 more: more,
                 checkeds: {},
-                videoSrc: require('projectRoot/env.js').app_ano_url + '/video/111.mp4'
-            }
-        },
-        props: {
-            moreComponent: {
-                type: Array,
-                default: []
+                videoSrc: ''
             }
         },
         methods: {
@@ -58,7 +59,12 @@
                 if (command === '状态') {
                     this.$emit('changeState')
                 } else if (command === '视频') {
-                    this.isShow = !this.isShow
+                    if (this.row.video !== '' && this.row.video !== null) {
+                        this.videoSrc = require('projectRoot/env.js').app_ano_url + '/' + this.row.video
+                        this.isShow = !this.isShow
+                    } else {
+                        this.$message('该区域没有上传视频')
+                    }
                 } else if (command === '打印') {
                     this.$emit('showMore')
                 } else if (command === '权限') {
