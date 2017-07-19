@@ -109,22 +109,12 @@ export default {
                 },
                 {
                     name: 'memo',
-                    type: 'selectText',
+                    type: 'textarea',
                     component: null,
                     isNull: true,
                     label: '备注',
                     placeholder: '',
-                    rule: null,
-                    options: [{
-                        value: 'HTML',
-                        label: 'HTML'
-                    }, {
-                        value: 'CSS',
-                        label: 'CSS'
-                    }, {
-                        value: 'JavaScript',
-                        label: 'JavaScript'
-                    }]
+                    rule: null
                 }]
             }],
             editComponent: [{
@@ -422,9 +412,10 @@ export default {
             tab: '茶叶档案',
             url: 'tea',
             searchPlaceholder: '请输入茶叶品种名称进行搜索',
+            commaArr: ['dry_tea', 'liquor_color', 'leaf_bottom'],
             theads: ['茶叶品种', '干茶', '汤色', '叶底', '香气', '滋味', '采摘周期', '品种图片', '备注'],
-            protos: ['name', 'dry_tea', 'liquor_color', 'leaf_bottom', 'taste', 'picking_cycle', 'img', 'memo'],
-            widths: [50, 50, 50, 50, 50, 50, 50, 50],
+            protos: ['name', 'dry_tea', 'liquor_color', 'leaf_bottom', 'fragrance', 'taste', 'picking_cycle', 'img', 'memo'],
+            widths: [50, 50, 50, 50, 50, 50, 50, 50, 50],
             typeComponent: [{
                 component: output
             },
@@ -433,8 +424,7 @@ export default {
             }],
             listComponent: [],
             newComponent: [{
-                tab: '新建果蔬档案',
-                checkNumber: [1],
+                tab: '新建茶叶档案',
                 hasImg: true,
                 components: [{
                     name: 'name',
@@ -516,18 +506,9 @@ export default {
                     type: 'text',
                     component: null,
                     isNull: false,
-                    label: '采摘周期（天）',
+                    label: '采摘周期（年）',
                     placeholder: '',
-                    rule: {required: true, validator: validate2.reNumber}
-                },
-                {
-                    name: 'description',
-                    type: 'textarea',
-                    component: null,
-                    isNull: false,
-                    label: '特征描述',
-                    placeholder: '',
-                    rule: null
+                    rule: [{required: true, message: '请输入采摘周期'}, {validator: validate2.reNumber}]
                 },
                 {
                     name: 'img',
@@ -548,73 +529,91 @@ export default {
                 }]
             }],
             editComponent: [{
-                tab: '编辑果蔬档案',
-                selectUrl: [['category', 'plant', 'category_id', 'category_name', true]],
-                selectInit: [{value: '', label: '选择果蔬分类'}],
-                checkNumber: [1],
-                popNumber: [0],
+                tab: '编辑茶叶档案',
                 hasImg: true,
                 components: [{
-                    name: 'category_id',
+                    name: 'name',
                     type: 'select',
                     component: null,
                     isNull: false,
                     label: '茶叶品种',
                     placeholder: '必填',
-                    rule: {required: true, message: '请选择果蔬类别', trigger: 'blur', type: 'number'},
-                    options: []
+                    rule: {required: true, message: '请选择茶叶品种', trigger: 'blur'},
+                    options: [{
+                        value: '八仙', label: '八仙'
+                    },
+                    {
+                        value: '黄枝香', label: '黄枝香'
+                    },
+                    {
+                        value: '水仙', label: '水仙'
+                    },
+                    {
+                        value: '芝兰', label: '芝兰'
+                    },
+                    {
+                        value: '杏仁', label: '杏仁'
+                    },
+                    {
+                        value: '鸭屎', label: '鸭屎'
+                    },
+                    {
+                        value: '其他', label: '其他'
+                    }]
                 },
                 {
-                    name: 'name',
-                    type: 'text',
-                    component: null,
+                    name: 'dry_tea',
+                    type: 'textFile',
+                    component: inputTextFile,
                     isNull: false,
                     label: '干茶',
-                    placeholder: '必填',
-                    rule: [{message: '请选择果蔬类别', trigger: 'blur'}, {validator: validate2.reCheck, trigger: 'blur', message: '果蔬名称重复'}]
+                    placeholder: '',
+                    rule: null
                 },
                 {
-                    name: 'description',
-                    type: 'text',
-                    component: null,
+                    name: 'liquor_color',
+                    type: 'textFile',
+                    component: inputTextFile,
                     isNull: false,
                     label: '汤色',
-                    placeholder: ''
-                },
-                {
-                    name: 'growth_cycle',
-                    type: 'text',
-                    component: null,
-                    isNull: false,
-                    label: '叶底',
                     placeholder: '',
-                    rule: {validator: validate2.reNumber}
+                    rule: null
                 },
                 {
-                    name: 'name',
+                    name: 'leaf_bottom',
+                    type: 'textFile',
+                    component: inputTextFile,
+                    isNull: false,
+                    label: '页底',
+                    placeholder: '',
+                    rule: null
+                },
+                {
+                    name: 'fragrance',
                     type: 'text',
                     component: null,
                     isNull: false,
                     label: '香气',
-                    placeholder: '必填',
-                    rule: [{message: '请选择果蔬类别', trigger: 'blur'}, {validator: validate2.reCheck, trigger: 'blur', message: '果蔬名称重复'}]
+                    placeholder: '',
+                    rule: null
                 },
                 {
-                    name: 'description',
+                    name: 'taste',
                     type: 'text',
                     component: null,
                     isNull: false,
                     label: '滋味',
-                    placeholder: ''
+                    placeholder: '',
+                    rule: null
                 },
                 {
-                    name: 'growth_cycle',
+                    name: 'picking_cycle',
                     type: 'text',
                     component: null,
                     isNull: false,
-                    label: '采收周期',
+                    label: '采摘周期（年）',
                     placeholder: '',
-                    rule: {required: true, validator: validate2.reNumber}
+                    rule: [{required: true, message: '请输入采摘周期'}, {validator: validate2.reNumber}]
                 },
                 {
                     name: 'img',

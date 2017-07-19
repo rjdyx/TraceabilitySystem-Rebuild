@@ -224,7 +224,8 @@ export default {
                     checkOperate: null,
                     hiddeRole: false,
                     hiddeUser: false,
-                    selectDefault: {}
+                    selectDefault: {},
+                    commaArr: []
                 }]
             }
         }
@@ -315,15 +316,6 @@ export default {
                 id = row.pack_id
             } else if (row.harvest_change !== undefined) {
                 id = row.cultivate_id
-            }
-            if (this.key === 'plan-beast') {
-                if (['饲养', '检测'].indexOf(row.type) >= 0) {
-                    this.$router.push('/index/details/planBreedBatch/' + id)
-                    return
-                } else {
-                    this.$router.push('/index/details/planRfidBatch/' + id)
-                    return
-                }
             }
             this.$router.push('/index/details/' + this.batch + '/' + id)
         },
@@ -619,17 +611,6 @@ export default {
                 for (let key of Object.keys(row)) {
                     this.editDefault[key] = row[key]
                 }
-                if (this.url === 'category' || this.url === 'operate' || this.url === 'expert' || this.url === 'product') {
-                    let params = {id: row.id}
-                    axios.get(this.$adminUrl(this.url + '/changeEdit'), {params: params})
-                        .then((responce) => {
-                            if (responce.data === 'state') {
-                                com.components[com.editNumber].disabled = true
-                            } else {
-                                com.components[com.editNumber].disabled = false
-                            }
-                        })
-                }
             }
         },
         // 关闭新增弹窗
@@ -663,6 +644,9 @@ export default {
                         if (responce.data.data.length !== 0) {
                             var ret = this.$conversion(this.changeDataArr, responce.data.data, 1)
                             ret = this.$eltable(ret)
+                            if (this.commaArr !== undefined) {
+                                ret = this.$setComma(ret, this.commaArr)
+                            }
                             this.$set(this, 'tableData', ret)
                             this.total_num = responce.data.total
                             this.num = responce.data.last_page
@@ -936,22 +920,14 @@ export default {
         this.boxArr(this.dataArr, true)
         let change = $('.available')
         change.css('display', 'none')
-        if (this.theads.length > 8) {
-            this.expandMore = true
-        } else {
-            this.expandMore = false
-        }
+        this.theads.length > 8 ? this.expandMore = true : this.expandMore = false
     },
     watch: {
         models () {
             this.modelIndex = 0
             this.activeName = 'index0'
             localStorage.setItem('tab', this.modelIndex)
-            if (this.theads.length > 8) {
-                this.expandMore = true
-            } else {
-                this.expandMore = false
-            }
+            this.theads.length > 8 ? this.expandMore = true : this.expandMore = false
         },
         key () {
             this.tableData = []
@@ -962,6 +938,7 @@ export default {
             this.boxArr(this.dataArr, true)
             this.inputValue = ''
             this.paginator = 0
+            this.theads.length > 8 ? this.expandMore = true : this.expandMore = false
         }
     },
     components: {

@@ -399,6 +399,26 @@ default {
             }
             return arr
         }
+        /**
+         *
+         * 以逗号截断,区分字符对象
+         * @param ret(数据对象)
+         * @returns arr（数据数组）
+         */
+        Vue.prototype.$setComma = (ret, dataArr) => {
+            for (let item in ret) {
+                for (let i in ret[item]) {
+                    if (dataArr.indexOf(i) !== -1) {
+                        if (ret[item][i] !== '') {
+                            let t = ret[item][i].split(',')
+                            ret[item][i] = t[0]
+                            ret[item][i + 'imgs'] = t[1]
+                        }
+                    }
+                }
+            }
+            return ret
+        }
         Vue.prototype.Roles = {}
     }
 }
