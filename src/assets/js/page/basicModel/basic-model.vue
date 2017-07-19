@@ -883,22 +883,14 @@ export default {
         this.boxArr(this.dataArr, true)
         let change = $('.available')
         change.css('display', 'none')
-        if (this.theads.length > 8) {
-            this.expandMore = true
-        } else {
-            this.expandMore = false
-        }
+        this.theads.length > 8 ? this.expandMore = true : this.expandMore = false
     },
     watch: {
         models () {
             this.modelIndex = 0
             this.activeName = 'index0'
             localStorage.setItem('tab', this.modelIndex)
-            if (this.theads.length > 8) {
-                this.expandMore = true
-            } else {
-                this.expandMore = false
-            }
+            this.theads.length > 8 ? this.expandMore = true : this.expandMore = false
         },
         key () {
             this.tableData = []
@@ -909,6 +901,7 @@ export default {
             this.boxArr(this.dataArr, true)
             this.inputValue = ''
             this.paginator = 0
+            this.theads.length > 8 ? this.expandMore = true : this.expandMore = false
         }
     },
     components: {
