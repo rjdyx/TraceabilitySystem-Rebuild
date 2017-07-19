@@ -1,22 +1,32 @@
 <template>
 	<div class="inputTextFile">
-		<el-input v-model="input" placeholder="请输入内容" size="small"></el-input>
-		<!-- <el-button size="small" @click="inputTextDel($event.currentTarget)" class="inputTextDel">删除</el-button> -->
+		<el-input v-model="input" placeholder="" size="small" @change="imputChange"></el-input>
 		<el-button size="small" @click="inputTextFileDel($event.currentTarget)" class="btn_change inputTextFileDel">删除</el-button>
 		<el-upload
-		  class="avatar-uploader"
-		  :action="importUrl" :data="data" name="excel_file"
-		  :show-file-list="false"
-		  :on-success="handleAvatarSuccess"
-		  :before-upload="beforeAvatarUpload">
-		  <img v-if="imageUrl" :src="imageUrl" class="avatar">
-		  <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+    		class="avatar-uploader"
+		    :action="importUrl" :data="data"
+		    :show-file-list="false"
+		    :on-success="handleAvatarSuccess"
+		    :before-upload="beforeAvatarUpload">
+		    <img v-if="imageUrl" :src="imageUrl" class="avatar">
+		    <i v-else class="el-icon-plus avatar-uploader-icon"></i>
 		</el-upload>
 	</div>
 </template>
 <script>
 export default {
     name: 'inputTextFile',
+    props:
+    {
+        shuju: {
+            type: Object,
+            default () {
+                return {}
+            }
+        },
+        editValue: {},
+        editData: {}
+    },
     data () {
         return {
             input: '',
@@ -28,23 +38,35 @@ export default {
     methods: {
         handleAvatarSuccess (res, file) {
             this.imageUrl = URL.createObjectURL(file.raw)
+            this.$emit('return-shuju', {name: this.shuju.name + 'img', value: file.raw})
         },
         beforeAvatarUpload (file) {
-            const isJPG = file.type === 'image/jpeg'
-            const isLt2M = file.size / 1024 / 1024 < 2
-            if (!isJPG) {
+            let isPic = file.type === 'image/jpeg' || file.type === 'image/png'
+            let isLt2M = file.size / 1024 / 1024 < 2
+            if (!isPic) {
                 this.$message.error('上传头像图片只能是 JPG 格式!')
             }
             if (!isLt2M) {
                 this.$message.error('上传头像图片大小不能超过 2MB!')
             }
-            return isJPG && isLt2M
+            return isPic && isLt2M
         },
         // 删除图片
         inputTextFileDel (src) {
             this.imageUrl = ''
-            src.parentNode.parentNode.getElementsByTagName('input')[0].value = ''
-            // this.$emit('return-shuju', {name: this.shuju.name, value: ''})
+            this.$emit('return-shuju', {name: this.shuju.name + 'img', value: 'del'})
+        },
+        // 输入框发生变化
+        imputChange () {
+            this.$emit('return-shuju', {name: this.shuju.name, value: this.input})
+        }
+    },
+    mounted () {
+        if (this.editValue !== undefined && this.editValue !== null && this.editValue !== '') {
+            this.input = this.editValue
+        }
+        if (this.editData[this.shuju.name + 'imgs'] !== undefined) {
+            this.imageUrl = this.editData[this.shuju.name + 'imgs']
         }
     }
 }

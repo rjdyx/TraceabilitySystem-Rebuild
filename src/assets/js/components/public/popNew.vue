@@ -253,7 +253,7 @@ export default {
                     this.memuList = responce.data
                 })
         }
-        if (this.url === 'planta' || this.url === 'farmcd' || this.url === 'area' || this.url === 'cultivate') {
+        if (this.url === 'planta' || this.url === 'cultivate') {
             this.disabled = true
             this.disabledV = true
         }
@@ -291,7 +291,6 @@ export default {
         * 提交表单
         */
         submitForm (formName) {
-            console.log(this.tableForm)
             // 多选框 权限
             var com = this.newComponent[0]
             if (this.checkboxShow) {
@@ -307,6 +306,7 @@ export default {
             }
             this.$refs[formName][0].validate((valid) => {
                 if (valid) {
+                    // console.log(this.tableForm)
                     this.$dataPost(this, this.url, this.tableForm, com.hasImg, com.hiddenValue, false).then((response) => {
                         this.$emit('submitNew', response.data)
                     })
