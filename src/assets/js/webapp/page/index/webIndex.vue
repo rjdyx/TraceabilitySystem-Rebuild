@@ -50,6 +50,31 @@ export default{
     methods: {
         push () {
             this.$router.push('/appIndex')
+        },
+        getLoginTime (loginTime) {
+            var date = new Date(loginTime)
+            var year = date.getFullYear()
+            var month = date.getMonth() + 1
+            var day = date.getDate()
+            var h = date.getHours()
+            var m = date.getMinutes()
+            var s = date.getSeconds()
+            if (month < 10) {
+                month = '0' + month
+            }
+            if (day < 10) {
+                day = '0' + day
+            }
+            if (h < 10) {
+                h = '0' + h
+            }
+            if (m < 10) {
+                m = '0' + m
+            }
+            if (s < 10) {
+                s = '0' + s
+            }
+            return year + '年' + month + '月' + day + '日' + ' ' + h + ':' + m + ':' + s
         }
     },
     mounted () {
@@ -78,7 +103,7 @@ export default{
                 this.company = responce.data.company_name
                 this.user = responce.data.name
                 this.userType = responce.data.type
-                this.loginDate = localStorage.getItem('loginDate')
+                this.loginDate = this.getLoginTime(localStorage.getItem('loginDate'))
             })
     }
 }

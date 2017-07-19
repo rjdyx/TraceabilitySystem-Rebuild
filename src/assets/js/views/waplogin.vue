@@ -85,8 +85,7 @@ export default{
                             this.setToast('cancel', '用户名或密码错误', '13em')
                         } else {
                             this.$store.dispatch('switch_record', '')
-                            var myDate = new Date()
-                            localStorage.setItem('loginDate', myDate.toLocaleString())
+                            localStorage.setItem('loginDate', new Date())
                             if (this.recordeChecked) {
                                 localStorage.setItem('recordUser', this.ruleForm2.name)
                             } else {
