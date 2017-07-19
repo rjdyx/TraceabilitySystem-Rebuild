@@ -2954,6 +2954,100 @@ export default {
                     rule: null
                 }]
             }]
+        },
+        {
+            settitle: '基础信息管理',
+            tab: '产品信息管理',
+            key: 'product',
+            url: 'product',
+            roleName: ['delivery/product', 0],
+            hiddenValue: {'fixation': 1},
+            searchPlaceholder: '请输入产品名称进行搜索',
+            theads: ['图片', '产品名称', '产品描述', '备注'],
+            protos: ['img', 'name', 'desc', 'memo'],
+            widths: [50, 50, 50, 50],
+            typeComponent: [{
+                component: output
+            },
+            {
+                component: newbuildBtn
+            }],
+            newComponent: [{
+                tab: '新建产品信息',
+                checkNumber: [0],
+                hasImg: true,
+                components: [{
+                    name: 'name',
+                    type: 'text',
+                    component: null,
+                    isNull: false,
+                    label: '产品名称',
+                    placeholder: '请输入产品名称',
+                    rule: [{required: true, trigger: 'blur', message: '请输入仓库名称'}, {validator: validate2.reCheck}]
+                },
+                {
+                    name: 'desc',
+                    type: 'textarea',
+                    component: null,
+                    label: '产品描述',
+                    placeholder: '',
+                    rule: null
+                },
+                {
+                    name: 'img',
+                    type: 'files',
+                    component: inputFiles,
+                    label: '图片',
+                    placeholder: '',
+                    rule: null
+                },
+                {
+                    name: 'memo',
+                    type: 'textarea',
+                    component: null,
+                    label: '备注信息',
+                    placeholder: '',
+                    rule: null
+                }]
+            }],
+            editComponent: [{
+                tab: '编辑产品信息',
+                checkNumber: [0],
+                hasImg: true,
+                components: [{
+                    name: 'name',
+                    type: 'text',
+                    component: null,
+                    isNull: false,
+                    label: '产品名称',
+                    placeholder: '请输入产品名称',
+                    rule: [{required: true, trigger: 'blur', message: '请输入仓库名称'}, {validator: validate2.reCheck}]
+                },
+                {
+                    name: 'desc',
+                    type: 'textarea',
+                    component: null,
+                    label: '产品描述',
+                    placeholder: '',
+                    rule: null
+                },
+                {
+                    name: 'img',
+                    type: 'files',
+                    component: inputFiles,
+                    label: '图片',
+                    placeholder: '',
+                    rule: null
+                },
+                {
+                    name: 'memo',
+                    type: 'textarea',
+                    component: null,
+                    label: '备注信息',
+                    placeholder: '',
+                    rule: null
+                }]
+            }]
         }
     ],
     // 物流批次信息
@@ -4930,10 +5024,88 @@ export default {
     // 用户管理
     userOperate: [{
         settitle: '用户管理',
-        roleName: ['system/statement', 0],
-        key: 'planManage',
+        tab: '角色管理',
+        key: 'role',
+        url: 'role',
+        roleName: ['system/role', 0],
+        hiddenValue: {'fixation': 0},
+        searchPlaceholder: '请输入角色名称进行搜索',
+        theads: ['英文名称', '中文名称', '描述', '是否预设'],
+        protos: ['name', 'display_name', 'description', 'faxation'],
+        widths: [50, 50, 50, 50],
+        typeComponent: [{
+            component: output
+        },
+        {
+            component: newbuildBtn
+        }],
+        newComponent: [{
+            tab: '新建角色信息',
+            checkNumber: [0],
+            hasImg: true,
+            components: [{
+                name: 'name',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '英文名称',
+                placeholder: '请输入英文名称',
+                rule: [{required: true, trigger: 'blur', message: '请输入英文名称'}, {validator: validate2.reCheck}]
+            },
+            {
+                name: 'display_name',
+                type: 'text',
+                component: null,
+                label: '中文名称',
+                placeholder: '',
+                rule: [{required: true, trigger: 'blur', message: '请输入中文名称'}, {validator: validate2.reCheck}]
+            },
+            {
+                name: 'description',
+                type: 'textarea',
+                component: null,
+                label: '角色描述',
+                placeholder: '请输入描述',
+                rule: null
+            }]
+        }],
+        editComponent: [{
+            tab: '编辑角色信息',
+            checkNumber: [0],
+            hasImg: true,
+            components: [{
+                name: 'name',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '英文名称',
+                placeholder: '请输入英文名称',
+                rule: [{required: true, trigger: 'blur', message: '请输入英文名称'}, {validator: validate2.reCheck}]
+            },
+            {
+                name: 'display_name',
+                type: 'text',
+                component: null,
+                label: '中文名称',
+                placeholder: '',
+                rule: [{required: true, trigger: 'blur', message: '请输入中文名称'}, {validator: validate2.reCheck}]
+            },
+            {
+                name: 'description',
+                type: 'textarea',
+                component: null,
+                label: '角色描述',
+                placeholder: '请输入描述',
+                rule: null
+            }]
+        }]
+    },
+    {
+        settitle: '用户管理',
+        roleName: ['system/user', 0],
+        key: 'user',
         tab: '用户管理',
-        url: 'plan',
+        url: 'user',
         searchPlaceholder: '请输入用户名搜索',
         theads: ['用户名', '邮箱', '性别', '姓名', '出生日期', '手机号码', '所属部门', '入职日期', '工号', '头像'],
         protos: ['plan_type_name', 'name', 'content', 'plan_type_name', 'name', 'content', 'plan_type_name', 'name', 'content', 'content'],
@@ -5146,7 +5318,7 @@ export default {
             }]
         }]
     }],
-     // 系统日志
+    // 系统日志
     systemLog: [{
         settitle: '系统日志管理',
         key: 'mylog',
@@ -5199,5 +5371,389 @@ export default {
                 rule: null
             }]
         }]
-    }]
+    }],
+    // 权限管理-运营管理
+    adminRole: [
+        {
+            settitle: '运营管理',
+            tab: '权限分类管理',
+            key: 'permission_category',
+            url: 'permission_category',
+            hiddeRole: false,
+            roleName: ['admin/permission_category', 0],
+            searchPlaceholder: '请输入分类中文名称搜索',
+            theads: ['分类', '英文名称', '中文名称', '路由', '详情页路由', '描述', '备注'],
+            protos: ['category_name', 'name', 'display_name', 'resource', 'detail', 'description', 'memo'],
+            widths: [50, 50, 50, 50, 50, 50, 50],
+            typeComponent: [{
+                component: output
+            },
+            {
+                component: newbuildBtn
+            }],
+            newComponent: [{
+                tab: '新建权限分类信息',
+                components: [{
+                    name: 'name',
+                    type: 'text',
+                    component: null,
+                    label: '物流公司名称',
+                    placeholder: '请输入物流公司名称',
+                    rule: {required: true, trigger: 'blur', message: '请输入物流公司名称'}
+                },
+                {
+                    name: 'contacts',
+                    type: 'text',
+                    component: null,
+                    label: '联系人',
+                    placeholder: '请输入联系人',
+                    rule: {required: true, trigger: 'blur', message: '请输入联系人'}
+                },
+                {
+                    name: 'phone',
+                    type: 'text',
+                    component: null,
+                    label: '联系电话',
+                    placeholder: '请输入电话号码',
+                    rule: { validator: validate2.phone, trigger: 'blur' }
+                },
+                {
+                    name: 'address',
+                    type: 'text',
+                    component: null,
+                    label: '地址',
+                    placeholder: '',
+                    rule: null
+                },
+                {
+                    name: 'memo',
+                    type: 'textarea',
+                    component: null,
+                    label: '备注信息',
+                    placeholder: '',
+                    rule: null
+                }
+                ]
+            }]
+        },
+        {
+            settitle: '运营管理',
+            tab: '权限管理',
+            key: 'permission',
+            url: 'permission',
+            hiddeRole: false,
+            roleName: ['admin/permission_category', 0],
+            searchPlaceholder: '请输入分类中文名称搜索',
+            theads: ['分类', '英文名称', '中文名称', '路由', '详情页路由', '描述', '备注'],
+            protos: ['category_name', 'name', 'display_name', 'resource', 'detail', 'description', 'memo'],
+            widths: [50, 50, 50, 50, 50, 50, 50],
+            typeComponent: [{
+                component: output
+            },
+            {
+                component: newbuildBtn
+            }],
+            newComponent: [{
+                tab: '新建权限分类信息',
+                components: [{
+                    name: 'name',
+                    type: 'text',
+                    component: null,
+                    label: '物流公司名称',
+                    placeholder: '请输入物流公司名称',
+                    rule: {required: true, trigger: 'blur', message: '请输入物流公司名称'}
+                },
+                {
+                    name: 'contacts',
+                    type: 'text',
+                    component: null,
+                    label: '联系人',
+                    placeholder: '请输入联系人',
+                    rule: {required: true, trigger: 'blur', message: '请输入联系人'}
+                },
+                {
+                    name: 'phone',
+                    type: 'text',
+                    component: null,
+                    label: '联系电话',
+                    placeholder: '请输入电话号码',
+                    rule: { validator: validate2.phone, trigger: 'blur' }
+                },
+                {
+                    name: 'address',
+                    type: 'text',
+                    component: null,
+                    label: '地址',
+                    placeholder: '',
+                    rule: null
+                },
+                {
+                    name: 'memo',
+                    type: 'textarea',
+                    component: null,
+                    label: '备注信息',
+                    placeholder: '',
+                    rule: null
+                }
+                ]
+            }]
+        },
+        {
+            settitle: '运营管理',
+            tab: '权限角色管理',
+            key: 'role',
+            url: 'role',
+            hiddeRole: false,
+            roleName: ['admin/permission_category', 0],
+            searchPlaceholder: '请输入分类中文名称搜索',
+            theads: ['分类', '英文名称', '中文名称', '路由', '详情页路由', '描述', '备注'],
+            protos: ['category_name', 'name', 'display_name', 'resource', 'detail', 'description', 'memo'],
+            widths: [50, 50, 50, 50, 50, 50, 50],
+            typeComponent: [{
+                component: output
+            },
+            {
+                component: newbuildBtn
+            }],
+            newComponent: [{
+                tab: '新建权限分类信息',
+                components: [{
+                    name: 'name',
+                    type: 'text',
+                    component: null,
+                    label: '物流公司名称',
+                    placeholder: '请输入物流公司名称',
+                    rule: {required: true, trigger: 'blur', message: '请输入物流公司名称'}
+                },
+                {
+                    name: 'contacts',
+                    type: 'text',
+                    component: null,
+                    label: '联系人',
+                    placeholder: '请输入联系人',
+                    rule: {required: true, trigger: 'blur', message: '请输入联系人'}
+                },
+                {
+                    name: 'phone',
+                    type: 'text',
+                    component: null,
+                    label: '联系电话',
+                    placeholder: '请输入电话号码',
+                    rule: { validator: validate2.phone, trigger: 'blur' }
+                },
+                {
+                    name: 'address',
+                    type: 'text',
+                    component: null,
+                    label: '地址',
+                    placeholder: '',
+                    rule: null
+                },
+                {
+                    name: 'memo',
+                    type: 'textarea',
+                    component: null,
+                    label: '备注信息',
+                    placeholder: '',
+                    rule: null
+                }
+                ]
+            }]
+        }
+    ],
+    // 入驻单位管理-运营管理
+    adminCompany: [
+        {
+            settitle: '运营管理',
+            tab: '入驻单位管理',
+            key: 'company',
+            url: 'company',
+            hiddeRole: false,
+            roleName: ['admin/company', 0],
+            searchPlaceholder: '请输入分类中文名称搜索',
+            theads: ['分类', '英文名称', '中文名称', '路由', '详情页路由', '描述', '备注'],
+            protos: ['category_name', 'name', 'display_name', 'resource', 'detail', 'description', 'memo'],
+            widths: [50, 50, 50, 50, 50, 50, 50],
+            typeComponent: [{
+                component: output
+            },
+            {
+                component: newbuildBtn
+            }],
+            newComponent: [{
+                tab: '新建权限分类信息',
+                components: [{
+                    name: 'name',
+                    type: 'text',
+                    component: null,
+                    label: '物流公司名称',
+                    placeholder: '请输入物流公司名称',
+                    rule: {required: true, trigger: 'blur', message: '请输入物流公司名称'}
+                },
+                {
+                    name: 'contacts',
+                    type: 'text',
+                    component: null,
+                    label: '联系人',
+                    placeholder: '请输入联系人',
+                    rule: {required: true, trigger: 'blur', message: '请输入联系人'}
+                },
+                {
+                    name: 'phone',
+                    type: 'text',
+                    component: null,
+                    label: '联系电话',
+                    placeholder: '请输入电话号码',
+                    rule: { validator: validate2.phone, trigger: 'blur' }
+                },
+                {
+                    name: 'address',
+                    type: 'text',
+                    component: null,
+                    label: '地址',
+                    placeholder: '',
+                    rule: null
+                },
+                {
+                    name: 'memo',
+                    type: 'textarea',
+                    component: null,
+                    label: '备注信息',
+                    placeholder: '',
+                    rule: null
+                }
+                ]
+            }]
+        }
+    ],
+    // 用户反馈管理-运营管理
+    adminFeedback: [
+        {
+            settitle: '运营管理',
+            tab: '用户反馈管理',
+            key: 'feedback',
+            url: 'feedback',
+            hiddeRole: false,
+            roleName: ['admin/feedback', 0],
+            searchPlaceholder: '请输入分类中文名称搜索',
+            theads: ['分类', '英文名称', '中文名称', '路由', '详情页路由', '描述', '备注'],
+            protos: ['category_name', 'name', 'display_name', 'resource', 'detail', 'description', 'memo'],
+            widths: [50, 50, 50, 50, 50, 50, 50],
+            typeComponent: [{
+                component: output
+            },
+            {
+                component: newbuildBtn
+            }],
+            newComponent: [{
+                tab: '新建权限分类信息',
+                components: [{
+                    name: 'name',
+                    type: 'text',
+                    component: null,
+                    label: '物流公司名称',
+                    placeholder: '请输入物流公司名称',
+                    rule: {required: true, trigger: 'blur', message: '请输入物流公司名称'}
+                },
+                {
+                    name: 'contacts',
+                    type: 'text',
+                    component: null,
+                    label: '联系人',
+                    placeholder: '请输入联系人',
+                    rule: {required: true, trigger: 'blur', message: '请输入联系人'}
+                },
+                {
+                    name: 'phone',
+                    type: 'text',
+                    component: null,
+                    label: '联系电话',
+                    placeholder: '请输入电话号码',
+                    rule: { validator: validate2.phone, trigger: 'blur' }
+                },
+                {
+                    name: 'address',
+                    type: 'text',
+                    component: null,
+                    label: '地址',
+                    placeholder: '',
+                    rule: null
+                },
+                {
+                    name: 'memo',
+                    type: 'textarea',
+                    component: null,
+                    label: '备注信息',
+                    placeholder: '',
+                    rule: null
+                }
+                ]
+            }]
+        }
+    ],
+    // 日志管理-运营管理
+    adminLog: [
+        {
+            settitle: '运营管理',
+            tab: '日志管理',
+            key: 'log',
+            url: 'log',
+            hiddeRole: false,
+            roleName: ['admin/log', 0],
+            searchPlaceholder: '请输入分类中文名称搜索',
+            theads: ['分类', '英文名称', '中文名称', '路由', '详情页路由', '描述', '备注'],
+            protos: ['category_name', 'name', 'display_name', 'resource', 'detail', 'description', 'memo'],
+            widths: [50, 50, 50, 50, 50, 50, 50],
+            typeComponent: [{
+                component: output
+            },
+            {
+                component: newbuildBtn
+            }],
+            newComponent: [{
+                tab: '新建权限分类信息',
+                components: [{
+                    name: 'name',
+                    type: 'text',
+                    component: null,
+                    label: '物流公司名称',
+                    placeholder: '请输入物流公司名称',
+                    rule: {required: true, trigger: 'blur', message: '请输入物流公司名称'}
+                },
+                {
+                    name: 'contacts',
+                    type: 'text',
+                    component: null,
+                    label: '联系人',
+                    placeholder: '请输入联系人',
+                    rule: {required: true, trigger: 'blur', message: '请输入联系人'}
+                },
+                {
+                    name: 'phone',
+                    type: 'text',
+                    component: null,
+                    label: '联系电话',
+                    placeholder: '请输入电话号码',
+                    rule: { validator: validate2.phone, trigger: 'blur' }
+                },
+                {
+                    name: 'address',
+                    type: 'text',
+                    component: null,
+                    label: '地址',
+                    placeholder: '',
+                    rule: null
+                },
+                {
+                    name: 'memo',
+                    type: 'textarea',
+                    component: null,
+                    label: '备注信息',
+                    placeholder: '',
+                    rule: null
+                }
+                ]
+            }]
+        }
+    ]
 }
