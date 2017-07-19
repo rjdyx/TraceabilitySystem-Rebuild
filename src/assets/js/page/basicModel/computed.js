@@ -92,6 +92,9 @@ export default {
         },
         roleName () {
             return this.models[this.modelIndex].roleName
+        },
+        commaArr () {
+            return this.models[this.modelIndex].commaArr
         }
     }
 }

@@ -39,8 +39,7 @@
                     <tr class="tr1" v-else-if="subItem.type=='select'">
                         <td v-if="!subItem.hiddenSelect">
                             <el-form-item :label="subItem.label" :prop="subItem.name">
-                                <el-select v-model="tableForm[subItem.name]" :placeholder="subItem.placeholder" size="small"
-                                    @change="getSelectId(subItem,tableForm[subItem.name])">
+                                <el-select v-model="tableForm[subItem.name]" :placeholder="subItem.placeholder" size="small">
                                     <el-option 
                                         v-for="option in subItem.options" 
                                         :label="option.label" 
@@ -65,6 +64,31 @@
                             </el-form-item>
                         </td>
                     </tr>
+
+                    <!-- 下拉框中包含文本框 -->
+                    <tr class="tr1" v-else-if="subItem.type=='selectText'">
+                        <td>
+                            <el-form-item :label="subItem.label" :prop="subItem.name">
+                                <el-select
+                                    v-model="tableForm[subItem.name]"
+                                    multiple
+                                    :multiple-limit="num"
+                                    filterable
+                                    allow-create
+                                    placeholder="请选择或者输入内容"
+                                    size="small">
+                                    <el-option
+                                        v-for="option in subItem.options"
+                                        :key="option.value"
+                                        :label="option.label"
+                                        :value="option.value"
+                                        size="small">
+                                    </el-option>
+                                </el-select>
+                            </el-form-item>
+                        </td>
+                    </tr>
+
                     <!-- 表格  -->
                     <tr class="tr2" v-else-if="subItem.type=='table' && !subItem.hiddenSelect">
                         <td>
@@ -183,7 +207,7 @@ export default {
         this.newComponent[0].components.forEach(function (item) {
             if (item.type === 'text' || item.type === 'textarea' || item.type === 'file') {
                 form[item.name] = ''
-            } else if (item.type === 'select') {
+            } else if (item.type === 'select' || item.type === 'selectText') {
                 if (item.options[0] instanceof Object) {
                     form[item.name] = item.options[0].value
                 } else {
@@ -216,7 +240,8 @@ export default {
             memuList: {},
             checkeds: [],
             disabled: false,
-            disabledV: false
+            disabledV: false,
+            num: 1
         }
     },
     mixins: [move],
@@ -228,7 +253,7 @@ export default {
                     this.memuList = responce.data
                 })
         }
-        if (this.url === 'planta' || this.url === 'farmcd' || this.url === 'area' || this.url === 'cultivate') {
+        if (this.url === 'planta' || this.url === 'cultivate') {
             this.disabled = true
             this.disabledV = true
         }
@@ -281,6 +306,7 @@ export default {
             }
             this.$refs[formName][0].validate((valid) => {
                 if (valid) {
+                    // console.log(this.tableForm)
                     this.$dataPost(this, this.url, this.tableForm, com.hasImg, com.hiddenValue, false).then((response) => {
                         this.$emit('submitNew', response.data)
                     })
@@ -298,18 +324,44 @@ export default {
         },
         // 选择框关联
         getSelectId (subItem, val) {
-        },
-        setUnit (val) {
-            if (val === 'fertilize') {
-                this.tableForm['unit'] = 'kg/亩'
-            } else if (val === 'spray') {
-                this.tableForm['unit'] = 'ml/亩'
-            } else if (val === 'harvest') {
-                this.tableForm['unit'] = 'kg'
+            var assoc = subItem.assoc
+            var name = subItem.name
+            var com = this.newComponent[0].components
+            if (assoc !== undefined) {
+                this.$emit('setAssoc', [assoc, name, val])
+            } else if (name === 'pid' || name === 'plantation_id') {
+                if (val !== '') {
+                    let params = {id: val}
+                    axios.get(this.$adminUrl(this.url + '/getArea'), {params: params}).then((responce) => {
+                        if (responce.data['num'] === 0) {
+                            this.allowance = -1
+                        } else {
+                            this.allowance = responce.data['num']
+                        }
+                        this.tableForm['unit'] = responce.data['unit']
+                        let nc = this.newComponent[0]
+                        this.disabledV = false
+                        nc.components[nc.limit].rule[1]['getMax'] = responce.data['num']
+                        nc.components[nc.limit].rule[1]['getMessage'] = nc.getMessage
+                    })
+                } else {
+                    this.tableForm['unit'] = '亩'
+                    this.allowance = 0
+                    this.disabledV = true
+                }
             }
         },
         // 新增成功调用方法
         successCallback () {
+            this.$parent.closeNewShow()
+            var com = this.newComponent[0].components
+            if (com.type === 'assoc' || com.type === 'selectAssoc') {
+                for (let k in com.components) {
+                    if (com.components[k].hiddenSelect !== undefined) {
+                        com.components[k].hiddenSelect = true
+                    }
+                }
+            }
         }
     }
 }
