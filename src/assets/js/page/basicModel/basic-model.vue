@@ -446,8 +446,11 @@ export default {
                             for (let k in com.selectWhereArr2[key]) {
                                 arr[k] = [com.selectWhereArr2[key][k].n, com.selectWhereArr2[key][k].v]
                                 if (com.selectWhereArr2[key][k].s !== undefined) {
-                                    if (com.selectWhereArr2[key][k].s) {
-                                        arr[k].push(true)
+                                    if (com.selectWhereArr2[key][k].s !== undefined) {
+                                        arr[k].push(com.selectWhereArr2[key][k].s)
+                                    }
+                                    if (com.selectWhereArr2[key][k].f !== undefined) {
+                                        arr[k].push(com.selectWhereArr2[key][k].f)
                                     }
                                 }
                             }
@@ -470,12 +473,61 @@ export default {
                         })
                 }
             }
+            // 指定路由查询
+            if (com.selectUrl3) {
+                var lis = com.selectUrl3
+                for (let key in lis) {
+                    let newArr = this.$addAndEditSelectMethod(lis[key])
+                    this.$dataGet(this, newArr.selectUrl, {})
+                        .then((responce) => {
+                            if (responce.data.length !== 0) {
+                                this.selectNewEdit[key] = []
+                                this.selectNewEdit[key].push(com.selectInit3[key])
+                                let newOpt = this.$selectData(this.url, responce.data, newArr.selectArr)
+                                for (let item of Object.keys(newOpt)) {
+                                    this.selectNewEdit[key].push(newOpt[item])
+                                }
+                                com.components[com.popNumber3[key]].options = this.selectNewEdit[key]
+                            }
+                        })
+                }
+            }
+        },
+        // 编辑-默认隐藏显示下拉
+        sexa (com, number, val) {
+            for (let k in number) {
+                var state = true
+                var seed = 'seed'
+                var seed2 = ['seed']
+                if (k === val) {
+                    state = false
+                    seed = ''
+                    seed2 = []
+                }
+                for (let k2 in number[k]) {
+                    var newObj = com[number[k][k2]]
+                    newObj.hiddenSelect = state
+                    if (newObj.type === 'table') {
+                        newObj.valueId = seed2
+                    }
+                    if (newObj.type === 'text' || newObj.type === 'textSelect' || newObj.type === 'select') {
+                        newObj.value = seed
+                    }
+                }
+            }
         },
         // 显示编辑表单
         changeEditShow (index, row) {
+            var com = this.editComponent[0]
+            var scf = com.selectChangeField
+            var scp = com.selectChangePosition
+            // 隐藏或显示下拉
+            if (scf !== undefined && scp !== undefined) {
+                var newCom = com.components
+                this.sexa(newCom, newCom[scp]['selectNumber'], row.type)
+            }
             this.roleId = row.id
             this.isEditShow = true
-            var com = this.editComponent[0]
             if (com.checkboxShow !== undefined) {
                 this.checkboxShow = com.checkboxShow
             }

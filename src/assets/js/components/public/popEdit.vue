@@ -379,73 +379,27 @@ export default {
         },
         // 编辑下拉框选择事件
         getSelectId (subItem, val) {
-            var assoc = subItem.assoc
-            var name = subItem.name
             var number = subItem.selectNumber
             var changeTable = subItem.changeTable
             var com = this.editComponent[0].components
-            var state = false
-            var seed = ''
-            var seed2 = []
-            if (val !== '') {
-                if (name === 'pid' || name === 'farm_id' || name === 'plantation_id') {
-                    let com = this.editComponent[0]
-                    if (this.url !== 'farmcd' && this.url !== 'planta') {
-                        let params = {id: val}
-                        let sid = this.editDefault.pid !== undefined ? this.editDefault.pid : this.editDefault.farm_id !== undefined ? this.editDefault.farm_id : this.editDefault.plantation_id
-                        axios.get(this.$adminUrl(this.url + '/getArea'), {params: params}).then((responce) => {
-                            if (val === sid) {
-                                this.allowance = parseInt(responce.data['num']) + parseInt(this.editDefault.area)
-                            } else {
-                                this.allowance = responce.data['num']
-                            }
-                            this.editForm['unit'] = responce.data['unit']
-                            com.components[com.limit].rule[1]['getMax'] = this.allowance
-                            com.components[com.limit].rule[1]['getMessage'] = com.getMessage
-                        })
-                    } else {
-                        let params = {id: this.editForm.id, pid: val}
-                        axios.get(this.$adminUrl(this.url + '/getSetArea'), {params: params}).then((responce) => {
-                            if (val === this.editDefault.pid) {
-                                this.allowance = parseInt(responce.data['max_num']) + parseInt(this.editDefault.area)
-                            } else {
-                                this.allowance = parseInt(responce.data['max_num'])
-                            }
-                            this.editForm['unit'] = responce.data['unit']
-                            this.editAllowance = parseInt(responce.data['min_num'])
-                            com[com.limit].rule[1]['max'] = this.allowance
-                            com[com.limit].rule[1]['min'] = this.editAllowance
-                            com[com.limit].rule[1]['getMiddle'] = true
-                            com[com.limit].rule[1]['getMessage'] = '最大输入' + this.allowance + ', 最小输入' + this.editAllowance
-                        })
-                    }
-                }
-            } else {
-                if (name === 'pid' || name === 'farm_id' || name === 'plantation_id') {
-                    this.allowance = 0
-                }
-            }
             if (number !== undefined && number !== '') {
                 for (let k in number) {
+                    var state = false
+                    var seed = ''
+                    var seed2 = []
                     if (k !== val) {
                         state = true
                         seed = 'seed'
                         seed2 = ['seed']
-                    } else {
-                        state = false
-                        seed = ''
-                        seed2 = []
                     }
                     for (let k2 in number[k]) {
-                        com[number[k][k2]].hiddenSelect = state
-                        if (com[number[k][k2]].type === 'table') {
-                            this.editForm[com[number[k][k2]].valueId] = seed2
+                        var newObj = com[number[k][k2]]
+                        newObj.hiddenSelect = state
+                        if (newObj.type === 'table') {
+                            this.editForm[newObj.valueId] = seed2
                         }
-                        if (com[number[k][k2]].type === 'select') {
-                            this.editForm[com[number[k][k2]].value] = seed
-                        }
-                        if (com[number[k][k2]].type === 'text' || com[number[k][k2]].type === 'textSelect') {
-                            this.editForm[com[number[k][k2]].name] = seed
+                        if (newObj.type === 'text' || newObj.type === 'textSelect' || newObj.type === 'select') {
+                            this.editForm[newObj.name] = seed
                         }
                     }
                 }
