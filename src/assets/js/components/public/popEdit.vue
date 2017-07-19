@@ -88,6 +88,7 @@
                                     v-bind:is="subItem.component" 
                                     :shuju="subItem"
                                     :editValue="editForm[subItem.name]"
+                                    :editData="editForm"
                                     @return-shuju="returnShuju"
                                     @setPicArr="getPicArr"
                                 ></component>
