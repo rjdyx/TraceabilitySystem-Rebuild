@@ -109,22 +109,12 @@ export default {
                 },
                 {
                     name: 'memo',
-                    type: 'selectText',
+                    type: 'textarea',
                     component: null,
                     isNull: true,
                     label: '备注',
                     placeholder: '',
-                    rule: null,
-                    options: [{
-                        value: 'HTML',
-                        label: 'HTML'
-                    }, {
-                        value: 'CSS',
-                        label: 'CSS'
-                    }, {
-                        value: 'JavaScript',
-                        label: 'JavaScript'
-                    }]
+                    rule: null
                 }]
             }],
             editComponent: [{
