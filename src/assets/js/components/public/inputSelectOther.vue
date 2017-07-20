@@ -10,7 +10,7 @@
 	<el-select v-model="selectValue"  slot="append" placeholder="请选择" size="small" :disabled="disabled" @change="getSelectValue">
 	    <el-option v-for="option in shuju.options" :label="option.label" :value="option.value" size="small"></el-option>
 	</el-select>
-  	<el-input class="fr" v-if="selectValue === '其他'&&shuju.type === 'selectOther'" :placeholder="shuju.otherPlaceholder" v-model="inputValue" size="small"  @blur="getInputValue"></el-input>
+  	<el-input class="fr" v-if="selectValue === '其他' && shuju.type === 'selectOther'" :placeholder="shuju.otherPlaceholder" v-model="inputValue" size="small"  @change="getInputValue"></el-input>
 </div>
 </template>
 <script>
@@ -30,63 +30,50 @@ export default {
             }
         },
         disabled: false,
-        disabledV: false,
-        allowance: 0,
-        editAllowance: 0,
-        type: {
-            type: String,
-            default: ''
-        }
+        categoryBox: {
+            type: Array,
+            default () {
+                return []
+            }
+        },
+        type: ''
     },
     data () {
         return {
-            tableForm: {},
             inputValue: '',
-            selectValue: this.selectEditValue
+            selectValue: ''
         }
     },
     computed: {
     },
     watch: {
-        inputEditValue () {
-            this.inputValue = this.selectEditValue
-            this.$emit('return-shuju', {name: this.shuju.name, value: this.inputValue})
-        },
-        selectEditValue () {
-            this.selectValue = this.selectEditValue
-            this.$emit('return-shuju', {name: this.shuju.name, value: this.selectValue})
-        },
-        allowance () {
-            if (this.allowance === 0) {
-                this.inputValue = ''
-                this.shuju.placeholder = '请填写数字（必填）'
-            } else if (this.allowance === -1) {
-                this.shuju.placeholder = '当前场域无剩余面积'
-            } else {
-                this.shuju.placeholder = '还可以输入' + this.allowance
-            }
-        },
-        editAllowance () {
-            if (this.editAllowance !== 0) {
-                this.shuju.placeholder = '最小输入' + parseInt(this.editAllowance)
-            }
-        }
     },
     mounted () {
-        console.log(this.type)
-        this.shuju.placeholder = '请填写数字（必填）'
+        if (this.type === 'edit') {
+            if (this.categoryBox.indexOf(this.selectEditValue) === -1) {
+                this.selectValue = '其他'
+                this.inputValue = this.selectEditValue
+            } else {
+                this.selectValue = this.selectEditValue
+            }
+        } else {
+            this.selectValue = '八仙'
+        }
     },
     methods: {
         getInputValue () {
-            this.$emit('return-shuju', {name: this.shuju.name, value: this.inputValue})
+            this.$emit('returnOther', [{name: this.shuju.name, value: this.selectValue}, {name: 'other', value: this.inputValue}])
         },
         getSelectValue () {
-            if (this.selectValue === '其他') {
+            if (this.selectValue === '其他' && this.shuju.type === 'selectOther') {
                 if (this.inputValue !== '') {
-                    this.$emit('return-shuju', {name: this.shuju.name, value: this.inputValue})
+                    this.$emit('returnOther', [{name: this.shuju.name, value: this.selectValue}, {name: 'other', value: this.inputValue}])
+                } else {
+                    this.$emit('returnOther', [{name: this.shuju.name, value: this.selectValue}, {name: 'other', value: ''}])
+                    this.selectValue = '其他'
                 }
             } else {
-                this.$emit('return-shuju', {name: this.shuju.name, value: this.selectValue})
+                this.$emit('returnOther', [{name: this.shuju.name, value: this.selectValue}, {name: 'other', value: ''}])
             }
         }
     }

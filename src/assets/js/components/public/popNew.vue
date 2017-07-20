@@ -35,11 +35,29 @@
                         </td> 
                     </tr>
 
-                    <!-- 下拉框 -->
+                    <!-- 下拉框单选 -->
                     <tr class="tr1 trSelect" v-else-if="subItem.type=='select'">
                         <td v-if="!subItem.hiddenSelect">
                             <el-form-item :label="subItem.label" :prop="subItem.name">
                                 <el-select v-model="tableForm[subItem.name]" :placeholder="subItem.placeholder" size="small"
+                                    @change="getSelectId(subItem,tableForm[subItem.name])">
+                                    <el-option 
+                                        v-for="option in subItem.options" 
+                                        :label="option.label" 
+                                        :value="option.value" 
+                                        :key="option.label + option.value" 
+                                        size="small">
+                                    </el-option>
+                                </el-select>
+                            </el-form-item>
+                        </td>
+                    </tr>
+                    
+                    <!-- 下拉框多选 -->
+                    <tr class="tr1 trSelect" v-else-if="subItem.type=='selectMore'">
+                        <td v-if="!subItem.hiddenSelect">
+                            <el-form-item :label="subItem.label" :prop="subItem.name">
+                                <el-select multiple  v-model="tableForm[subItem.name]" :placeholder="subItem.placeholder" size="small"
                                     @change="getSelectId(subItem,tableForm[subItem.name])">
                                     <el-option 
                                         v-for="option in subItem.options" 
@@ -111,9 +129,9 @@
                                     v-bind:is="subItem.component" 
                                     :shuju="subItem"
                                     :selectEditValue="tableForm[subItem.name]"
-                                    type="new"
+                                    :type="news"
                                     :disabled="disabled"
-                                    @return-shuju="returnShuju"
+                                    @returnOther="getOther"
                                 ></component>
                                 <!-- 其他类型 file，files，data，selectOther-->
                                 <component 
@@ -205,6 +223,8 @@ export default {
             } else if (item.type === 'textSelect') {
                 form[item.name] = ''
                 form['unit'] = item.options[0].value
+            } else if (item.type === 'selectMore') {
+                form[item.name] = []
             }
         })
         let rules = {}
@@ -228,7 +248,8 @@ export default {
             checkeds: [],
             disabled: false,
             disabledV: false,
-            num: 1
+            num: 1,
+            news: 'new'
         }
     },
     mixins: [move],
@@ -262,6 +283,20 @@ export default {
             }
             this.tableForm[data.name] = data.value
         },
+        getOther (data) {
+            if (data[1].value !== '') {
+                this.tableForm[data[0].name] = data[0].value
+                this.tableForm[data[1].name] = data[1].value
+            } else {
+                if (data[0].value !== '其他') {
+                    this.tableForm[data[0].name] = data[0].value
+                    this.tableForm[data[1].name] = ''
+                } else {
+                    this.tableForm[data[0].name] = ''
+                    this.tableForm[data[1].name] = ''
+                }
+            }
+        },
         // 关闭表单事件
         closeClick () {
             this.$parent.closeNewShow()
@@ -280,7 +315,6 @@ export default {
         * 提交表单
         */
         submitForm (formName) {
-            console.log(this.tableForm)
             // 多选框 权限
             var com = this.newComponent[0]
             if (this.checkboxShow) {

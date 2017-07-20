@@ -36,10 +36,27 @@
                     </tr>
 
                     <!-- 下拉框 -->
-                    <tr class="tr1" v-else-if="subItem.type=='select' && !subItem.hiddenSelect"> 
+                    <tr class="tr1 trSelect" v-else-if="subItem.type=='select' && !subItem.hiddenSelect"> 
                         <td>
                             <el-form-item :label="subItem.label" :prop="subItem.name">
                               <el-select v-model="editForm[subItem.name]" :placeholder="subItem.placeholder" size="small" @change="getSelectId(subItem,editForm[subItem.name])" :disabled="subItem.disabled">
+                                <el-option 
+                                    v-for="option in subItem.options" 
+                                    :label="option.label" 
+                                    :value="option.value" 
+                                    :key="option.label + option.value"
+                                    size="small"
+                                    ></el-option>
+                              </el-select>
+                            </el-form-item>
+                        </td>
+                    </tr>
+
+                    <!-- 下拉框多选 -->
+                    <tr class="tr1 trSelect" v-else-if="subItem.type=='selectMore' && !subItem.hiddenSelect"> 
+                        <td>
+                            <el-form-item :label="subItem.label" :prop="subItem.name">
+                              <el-select multiple v-model="editForm[subItem.name]" :placeholder="subItem.placeholder" size="small" @change="getSelectId(subItem,editForm[subItem.name])" :disabled="subItem.disabled">
                                 <el-option 
                                     v-for="option in subItem.options" 
                                     :label="option.label" 
@@ -90,8 +107,9 @@
                                     v-bind:is="subItem.component" 
                                     :shuju="subItem"
                                     :selectEditValue="editForm[subItem.name]" 
-                                    type="edit"
-                                    @return-shuju="returnShuju"
+                                    :categoryBox="subItem.categoryBox"
+                                    :type="edit"
+                                    @returnOther="getOther"
                                 ></component>
                                 <!-- 其他类型 file，files，data，selectOther-->
                                 <component 
@@ -183,7 +201,8 @@ export default {
             editAllowance: 0,
             allowance: 0,
             cname: '',
-            cval: ''
+            cval: '',
+            edit: 'edit'
         }
     },
     mounted () {
@@ -246,14 +265,22 @@ export default {
                         this.editForm['img'] = ''
                     }
                 }
-            } else {
-                if (data.type && data.value === '其他') {
-                    this.editForm[data.name] = ''
-                } else {
-                    this.editForm[data.name] = data.value
-                }
             }
             this.editForm[data.name] = data.value
+        },
+        getOther (data) {
+            if (data[1].value !== '') {
+                this.editForm[data[0].name] = data[0].value
+                this.editForm[data[1].name] = data[1].value
+            } else {
+                if (data[0].value !== '其他') {
+                    this.editForm[data[0].name] = data[0].value
+                    this.editForm[data[1].name] = ''
+                } else {
+                    this.editForm[data[0].name] = ''
+                    this.editForm[data[1].name] = ''
+                }
+            }
         },
         // 关闭表单事件
         closeClick () {

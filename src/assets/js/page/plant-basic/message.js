@@ -535,10 +535,12 @@ export default {
                 components: [{
                     name: 'name',
                     type: 'selectOther',
+                    categoryBox: ['八仙', '黄枝香', '芝兰', '杏仁', '鸭屎'],
                     component: inputSelectOther,
                     isNull: false,
                     label: '茶叶品种',
                     placeholder: '必填',
+                    otherPlaceholder: '请输入其他茶叶品种',
                     rule: {required: true, message: '请选择茶叶品种', trigger: 'blur'},
                     options: [{
                         value: '八仙', label: '八仙'
@@ -662,7 +664,7 @@ export default {
                     isNull: false,
                     label: '肥料分类',
                     placeholder: '必填',
-                    rule: {required: true, message: '请选择肥料类别', trigger: 'blur'},
+                    rule: {type: 'array', required: true, message: '请选择肥料类别', trigger: 'blur'},
                     options: [{
                         value: '农家肥', label: '农家肥'
                     },
