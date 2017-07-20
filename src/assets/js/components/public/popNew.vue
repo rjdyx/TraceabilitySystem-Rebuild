@@ -111,6 +111,7 @@
                                     v-bind:is="subItem.component" 
                                     :shuju="subItem"
                                     :selectEditValue="tableForm[subItem.name]"
+                                    type="new"
                                     :disabled="disabled"
                                     @return-shuju="returnShuju"
                                 ></component>

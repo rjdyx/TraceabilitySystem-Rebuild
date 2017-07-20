@@ -86,10 +86,11 @@
                                 ></component>
                                  <!-- 控件类型是selectOther -->
                                 <component 
-                                    v-if="subItem.type=='selectOther'"
+                                    v-else-if="subItem.type=='selectOther'"
                                     v-bind:is="subItem.component" 
                                     :shuju="subItem"
                                     :selectEditValue="editForm[subItem.name]" 
+                                    type="edit"
                                     @return-shuju="returnShuju"
                                 ></component>
                                 <!-- 其他类型 file，files，data，selectOther-->
@@ -245,7 +246,11 @@ export default {
                     this.editForm['img'] = this.editDefault['img']
                 }
             } else {
-                this.editForm[data.name] = data.value
+                if (data.type && data.value === '其他') {
+                    this.editForm[data.name] = ''
+                } else {
+                    this.editForm[data.name] = data.value
+                }
             }
         },
         // 关闭表单事件
@@ -272,6 +277,7 @@ export default {
           * 提交表单
           */
         submitForm (formName) {
+            console.log(this.editForm)
             // 多选框 权限
             if (this.checkboxShow) {
                 let allIdArr = []
