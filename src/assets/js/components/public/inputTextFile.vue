@@ -1,18 +1,30 @@
+/**
+* inputTextFile组件
+* @description 
+* @author 吴燕萍
+* @date 2017/7/17
+*/
 <template>
-	<div class="inputTextFile">
-		<el-input v-model="input" placeholder="" size="small" @change="imputChange"></el-input>
-		<el-button size="small" @click="inputTextFileDel($event.currentTarget)" class="btn_change inputTextFileDel">删除</el-button>
-		<el-upload
-    		class="avatar-uploader"
-		    :action="importUrl" :data="data"
-		    :show-file-list="false"
-		    :on-success="handleAvatarSuccess"
-		    :before-upload="beforeAvatarUpload">
-		    <img v-if="imageUrl" :src="imageUrl" class="avatar">
-		    <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-		</el-upload>
-	</div>
+    <div class="inputTextFile">
+        <el-input v-model="input" placeholder="" size="small" @change="imputChange"></el-input>
+        <el-button size="small" @click="inputTextFileDel($event.currentTarget)" class="btn_change inputTextFileDel">删除</el-button>
+        <el-upload
+            class="avatar-uploader"
+            :action="importUrl" :data="data"
+            :show-file-list="false"
+            :on-success="handleAvatarSuccess"
+            :before-upload="beforeAvatarUpload"
+            slot="reference"
+            >
+            <el-tooltip placement="right" v-if="imageUrl" effect="light">
+              <img slot="content" :src="imageUrl" style="width:200px">
+              <img :src="imageUrl" class="avatar">
+            </el-tooltip>
+            <i v-else class="el-icon-plus avatar-uploader-icon" ></i>
+        </el-upload>
+    </div>
 </template>
+
 <script>
 export default {
     name: 'inputTextFile',

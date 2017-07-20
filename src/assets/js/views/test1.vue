@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
     <div>
         <el-upload
               :action="importUrl" :data="data"
@@ -68,4 +68,50 @@ export default {
     mounted () {
     }
 }
+</script>
+ -->
+
+<template>
+  <el-select
+    v-model="value10"
+    multiple
+    :multiple-limit=num
+    filterable
+    allow-create
+    placeholder="请选择文章标签"
+    @change="changefn">
+    <el-option
+      v-for="item in options5"
+      :key="item.value"
+      :label="item.label"
+      :value="item.value">
+    </el-option>
+  </el-select>
+</template>
+
+<script>
+    export default {
+        data () {
+            return {
+                options5: [{
+                    value: 'HTML',
+                    label: 'HTML'
+                }, {
+                    value: 'CSS',
+                    label: 'CSS'
+                }, {
+                    value: 'JavaScript',
+                    label: 'JavaScript'
+                }],
+                value10: [],
+                num: 1
+            }
+        },
+        methods: {
+            changefn () {
+                console.log(this)
+                $('.el-select-dropdown').css('display', 'none')
+            }
+        }
+    }
 </script>
