@@ -39,7 +39,8 @@
                     <tr class="tr1 trSelect" v-else-if="subItem.type=='select'">
                         <td v-if="!subItem.hiddenSelect">
                             <el-form-item :label="subItem.label" :prop="subItem.name">
-                                <el-select v-model="tableForm[subItem.name]" :placeholder="subItem.placeholder" size="small">
+                                <el-select v-model="tableForm[subItem.name]" :placeholder="subItem.placeholder" size="small"
+                                @change="getSelectId(subItem,tableForm[subItem.name])">
                                     <el-option 
                                         v-for="option in subItem.options" 
                                         :label="option.label" 
@@ -310,30 +311,40 @@ export default {
         },
         // 选择框关联
         getSelectId (subItem, val) {
-            var assoc = subItem.assoc
             var name = subItem.name
             var com = this.newComponent[0].components
-            if (assoc !== undefined) {
-                this.$emit('setAssoc', [assoc, name, val])
-            } else if (name === 'pid' || name === 'plantation_id') {
-                if (val !== '') {
-                    let params = {id: val}
-                    axios.get(this.$adminUrl(this.url + '/getArea'), {params: params}).then((responce) => {
-                        if (responce.data['num'] === 0) {
-                            this.allowance = -1
-                        } else {
-                            this.allowance = responce.data['num']
+            var number = subItem.selectNumber
+            if (number !== undefined && number !== '') {
+                var state = false
+                var seed = ''
+                var seed2 = ''
+                for (let k in number) {
+                    if (k !== val) {
+                        state = true
+                        seed = 'seed'
+                        seed2 = ['seed']
+                    } else {
+                        state = false
+                        seed = ''
+                        seed2 = []
+                    }
+                    for (let k2 in number[k]) {
+                        com[number[k][k2]].hiddenSelect = state
+                        if (com[number[k][k2]].type === 'table') {
+                            this.tableForm[com[number[k][k2]].valueId] = seed2
                         }
-                        this.tableForm['unit'] = responce.data['unit']
-                        let nc = this.newComponent[0]
-                        this.disabledV = false
-                        nc.components[nc.limit].rule[1]['getMax'] = responce.data['num']
-                        nc.components[nc.limit].rule[1]['getMessage'] = nc.getMessage
-                    })
-                } else {
-                    this.tableForm['unit'] = '亩'
-                    this.allowance = 0
-                    this.disabledV = true
+                        if (com[number[k][k2]].type === 'select') {
+                            this.tableForm[com[number[k][k2]].value] = seed
+                        }
+                        if (com[number[k][k2]].type === 'text' || com[number[k][k2]].type === 'textSelect') {
+                            this.tableForm[com[number[k][k2]].value] = seed
+                        }
+                    }
+                }
+                if (number[val] !== undefined) {
+                    for (let k3 in number[val]) {
+                        com[number[val][k3]].hiddenSelect = false
+                    }
                 }
             }
         },
