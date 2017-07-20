@@ -54,14 +54,14 @@ export default {
         },
         beforeAvatarUpload (file) {
             let isPic = file.type === 'image/jpeg' || file.type === 'image/png'
-            let isLt2M = file.size / 1024 / 1024 < 2
+            let isLt300K = file.size / 1024 < 300
             if (!isPic) {
-                this.$message.error('上传头像图片只能是JPG和PNG格式!')
+                this.$message.error('上传图片只能是JPG和PNG格式!')
             }
-            if (!isLt2M) {
-                this.$message.error('上传头像图片大小不能超过 2MB!')
+            if (!isLt300K) {
+                this.$message.error('上传图片大小不能超过300K!')
             }
-            return isPic && isLt2M
+            return isPic && isLt300K
         },
         // 删除图片
         inputTextFileDel (src) {

@@ -40,7 +40,11 @@
                         <td v-if="!subItem.hiddenSelect">
                             <el-form-item :label="subItem.label" :prop="subItem.name">
                                 <el-select v-model="tableForm[subItem.name]" :placeholder="subItem.placeholder" size="small"
+<<<<<<< HEAD
+                                    @change="getSelectId(subItem,tableForm[subItem.name])">
+=======
                                 @change="getSelectId(subItem,tableForm[subItem.name])">
+>>>>>>> 587547f563649fed2b58eb051ebb43d4b23d7a31
                                     <el-option 
                                         v-for="option in subItem.options" 
                                         :label="option.label" 
@@ -251,11 +255,13 @@ export default {
         },
         // 返回InputTextSelect组件的数据
         returnShuju (data) {
-            if (data.name === 'end_date') {
-                if (data.value !== undefined && data.value !== '') {
-                    this.newComponent[0].components[0].rule[1]['lastDate'] = false
-                } else {
-                    this.newComponent[0].components[0].rule[1]['lastDate'] = true
+            if (this.url.indexOf('grow') !== -1) {
+                if (data.name === 'imgs') {
+                    if (data.value !== 'del') {
+                        this.tableForm['img'] = '1'
+                    } else {
+                        this.tableForm['img'] = ''
+                    }
                 }
             }
             this.tableForm[data.name] = data.value
@@ -294,7 +300,6 @@ export default {
             }
             this.$refs[formName][0].validate((valid) => {
                 if (valid) {
-                    // console.log(this.tableForm)
                     this.$dataPost(this, this.url, this.tableForm, com.hasImg, com.hiddenValue, false).then((response) => {
                         this.$emit('submitNew', response.data)
                     })
@@ -313,6 +318,7 @@ export default {
         // 选择框关联
         getSelectId (subItem, val) {
             var name = subItem.name
+            var assoc = subItem.assoc
             var com = this.newComponent[0].components
             var number = subItem.selectNumber
             if (number !== undefined && number !== '') {
@@ -346,6 +352,29 @@ export default {
                     for (let k3 in number[val]) {
                         com[number[val][k3]].hiddenSelect = false
                     }
+                }
+            }
+            if (assoc !== undefined) {
+                this.$emit('setAssoc', [assoc, name, val])
+            } else if (name === 'pid' || name === 'plantation_id') {
+                if (val !== '') {
+                    let params = {id: val}
+                    axios.get(this.$adminUrl(this.url + '/getArea'), {params: params}).then((responce) => {
+                        if (responce.data['num'] === 0) {
+                            this.allowance = -1
+                        } else {
+                            this.allowance = responce.data['num']
+                        }
+                        this.tableForm['unit'] = responce.data['unit']
+                        let nc = this.newComponent[0]
+                        this.disabledV = false
+                        nc.components[nc.limit].rule[1]['getMax'] = responce.data['num']
+                        nc.components[nc.limit].rule[1]['getMessage'] = nc.getMessage
+                    })
+                } else {
+                    this.tableForm['unit'] = '亩'
+                    this.allowance = 0
+                    this.disabledV = true
                 }
             }
         },

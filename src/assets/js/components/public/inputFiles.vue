@@ -7,7 +7,7 @@
 <template>
     <div class="inputFiles">
         <el-upload
-              :action="importUrl" :data="data" name="excel_file"
+              :action="importUrl" :data="data"
               list-type="picture-card"
               :on-preview="handlePictureCardPreview"
               :on-remove="handleRemove"
@@ -49,7 +49,8 @@ export default {
             bol: false,
             picArr: {},
             objImg: {},
-            imgList: []
+            imgList: [],
+            pattern: ['image/png', 'image/jpeg']
         }
     },
     methods: {
@@ -63,7 +64,21 @@ export default {
             this.dialogImageUrl = file.url
             this.dialogVisible = true
         },
-        beforeUpload () {
+        beforeUpload (file) {
+            if (this.pattern.indexOf(file.type) === -1) {
+                this.$message('请上传文件格式为jpeg或png的图片')
+                setTimeout(function () {
+                    $('.el-upload-list').children('li:last-child').remove()
+                }, 500)
+                return false
+            }
+            if (file.size / 1024 >= 300) {
+                this.$message('图片过大，请输入小于300k图片')
+                setTimeout(function () {
+                    $('.el-upload-list').children('li:last-child').remove()
+                }, 500)
+                return false
+            }
         },
         // 文件状态改变时的钩子，添加文件、上传成功和上传失败时都会被调用
         onChange (file, fileList) {

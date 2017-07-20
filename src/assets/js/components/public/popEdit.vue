@@ -238,12 +238,13 @@ export default {
         },
         // 返回InputTextSelect组件的数据
         returnShuju (data) {
-            if (this.url.indexOf('course') >= 0 || this.url.indexOf('grow') >= 0) {
-                if (data.value === '') {
-                    this.editForm['img'] = ''
-                } else {
-                    this.editForm['img1'] = data.value
-                    this.editForm['img'] = this.editDefault['img']
+            if (this.url.indexOf('grow') !== -1) {
+                if (data.name === 'imgs') {
+                    if (data.value !== 'del') {
+                        this.editForm['img'] = this.editDefault['img']
+                    } else {
+                        this.editForm['img'] = ''
+                    }
                 }
             } else {
                 if (data.type && data.value === '其他') {
@@ -252,6 +253,7 @@ export default {
                     this.editForm[data.name] = data.value
                 }
             }
+            this.editForm[data.name] = data.value
         },
         // 关闭表单事件
         closeClick () {
