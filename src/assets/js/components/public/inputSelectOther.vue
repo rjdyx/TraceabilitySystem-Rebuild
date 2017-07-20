@@ -10,7 +10,7 @@
 	<el-select v-model="selectValue"  slot="append" placeholder="请选择" size="small" :disabled="disabled" @change="getSelectValue">
 	    <el-option v-for="option in shuju.options" :label="option.label" :value="option.value" size="small"></el-option>
 	</el-select>
-  	<el-input class="fr" v-if="selectValue === '其他'&&shuju.type === 'selectOther'" :placeholder="shuju.otherPlaceholder" v-model="inputValue" size="small"  @blur="getInputValue"></el-input>
+  	<el-input class="fr" v-if="selectValue === '其他' && shuju.type === 'selectOther'" :placeholder="shuju.otherPlaceholder" v-model="inputValue" size="small"  @blur="getInputValue"></el-input>
 </div>
 </template>
 <script>
@@ -42,21 +42,22 @@ export default {
         return {
             tableForm: {},
             inputValue: '',
-            selectValue: this.selectEditValue
+            selectValue: ''
+            // selectValue: this.selectEditValue
         }
     },
     computed: {
     },
     watch: {
-        inputEditValue () {
-            console.log(this.selectEditValue)
-            this.inputValue = this.selectEditValue
-            this.$emit('return-shuju', {name: this.shuju.name, value: this.inputValue})
-        },
-        selectEditValue () {
-            this.selectValue = this.selectEditValue
-            this.$emit('return-shuju', {name: this.shuju.name, value: this.selectValue})
-        },
+        // inputEditValue () {
+        //     console.log(this.selectEditValue)
+        //     this.inputValue = this.selectEditValue
+        //     this.$emit('return-shuju', {name: this.shuju.name, value: this.inputValue})
+        // },
+        // selectEditValue () {
+        //     this.selectValue = this.selectEditValue
+        //     this.$emit('return-shuju', {name: this.shuju.name, value: this.selectValue})
+        // },
         allowance () {
             if (this.allowance === 0) {
                 this.inputValue = ''
@@ -74,7 +75,7 @@ export default {
         }
     },
     mounted () {
-        console.log(this.type)
+        this.selectValue = this.selectEditValue
         this.shuju.placeholder = '请填写数字（必填）'
     },
     methods: {
@@ -82,13 +83,18 @@ export default {
             this.$emit('return-shuju', {name: this.shuju.name, value: this.inputValue})
         },
         getSelectValue () {
-            if (this.selectValue === '其他') {
+            if (this.selectValue === '其他' && this.shuju.type === 'selectOther') {
                 if (this.inputValue !== '') {
                     this.$emit('return-shuju', {name: this.shuju.name, value: this.inputValue})
+                } else {
+                    this.$emit('return-shuju', {name: this.shuju.name, value: ''})
+                    this.selectValue = '其他'
                 }
             } else {
                 this.$emit('return-shuju', {name: this.shuju.name, value: this.selectValue})
             }
+            console.log(this.selectValue)
+            console.log(this.shuju.type)
         }
     }
 }

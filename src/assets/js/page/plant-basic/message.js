@@ -539,6 +539,7 @@ export default {
                     isNull: false,
                     label: '茶叶品种',
                     placeholder: '必填',
+                    otherPlaceholder: '请输入其他茶叶品种',
                     rule: {required: true, message: '请选择茶叶品种', trigger: 'blur'},
                     options: [{
                         value: '八仙', label: '八仙'
