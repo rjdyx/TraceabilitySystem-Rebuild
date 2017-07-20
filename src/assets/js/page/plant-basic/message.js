@@ -10,6 +10,7 @@ import inputFile from '../../components/public/inputFile.vue'
 import inputFiles from '../../components/public/inputFiles.vue'
 import inputTextFile from '../../components/public/inputTextFile.vue'
 import video from '../../components/public/video.vue'
+import inputSelectOther from '../../components/public/inputSelectOther.vue'
 import inputTextSelect from '../../components/public/inputTextSelect.vue'
 import Qrcode from '../../components/public/Qrcode.vue'
 
@@ -428,11 +429,11 @@ export default {
                 hasImg: true,
                 components: [{
                     name: 'name',
-                    type: 'select',
-                    component: null,
-                    isNull: false,
+                    type: 'selectOther',
+                    component: inputSelectOther,
                     label: '茶叶品种',
                     placeholder: '必填',
+                    otherPlaceholder: '请输入其他茶叶品种',
                     rule: {required: true, message: '请选择茶叶品种', trigger: 'blur'},
                     options: [{
                         value: '八仙', label: '八仙'
@@ -533,8 +534,8 @@ export default {
                 hasImg: true,
                 components: [{
                     name: 'name',
-                    type: 'select',
-                    component: null,
+                    type: 'selectOther',
+                    component: inputSelectOther,
                     isNull: false,
                     label: '茶叶品种',
                     placeholder: '必填',

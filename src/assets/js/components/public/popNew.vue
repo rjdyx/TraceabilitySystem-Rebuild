@@ -36,7 +36,7 @@
                     </tr>
 
                     <!-- 下拉框 -->
-                    <tr class="tr1" v-else-if="subItem.type=='select'">
+                    <tr class="tr1 trSelect" v-else-if="subItem.type=='select'">
                         <td v-if="!subItem.hiddenSelect">
                             <el-form-item :label="subItem.label" :prop="subItem.name">
                                 <el-select v-model="tableForm[subItem.name]" :placeholder="subItem.placeholder" size="small">
@@ -61,30 +61,6 @@
                                     type="textarea" 
                                     v-model="tableForm[subItem.name]" size="small"
                                     @keyup.enter.native="submitForm('tableForm')"></el-input>
-                            </el-form-item>
-                        </td>
-                    </tr>
-
-                    <!-- 下拉框中包含文本框 -->
-                    <tr class="tr1" v-else-if="subItem.type=='selectText'">
-                        <td>
-                            <el-form-item :label="subItem.label" :prop="subItem.name">
-                                <el-select
-                                    v-model="tableForm[subItem.name]"
-                                    multiple
-                                    :multiple-limit="num"
-                                    filterable
-                                    allow-create
-                                    placeholder="请选择或者输入内容"
-                                    size="small">
-                                    <el-option
-                                        v-for="option in subItem.options"
-                                        :key="option.value"
-                                        :label="option.label"
-                                        :value="option.value"
-                                        size="small">
-                                    </el-option>
-                                </el-select>
                             </el-form-item>
                         </td>
                     </tr>
@@ -116,7 +92,7 @@
                     <tr class="tr1" v-else-if="subItem.component && !subItem.hiddenSelect">
                         <td>
                             <el-form-item :label="subItem.label" :prop="subItem.name">
-                                <!-- 控件类型是textelect -->
+                                <!-- 控件类型是textSelect -->
                                 <component 
                                     v-if="subItem.type=='textSelect'"
                                     v-bind:is="subItem.component" 
@@ -128,7 +104,16 @@
                                     :allowance="allowance"
                                     @return-shuju="returnShuju"
                                 ></component>
-                                <!-- 其他类型 -->
+                                <!-- 控件类型是selectOther -->
+                                <component 
+                                    v-else-if="subItem.type=='selectOther'"
+                                    v-bind:is="subItem.component" 
+                                    :shuju="subItem"
+                                    :selectEditValue="tableForm[subItem.name]"
+                                    :disabled="disabled"
+                                    @return-shuju="returnShuju"
+                                ></component>
+                                <!-- 其他类型 file，files，data，selectOther-->
                                 <component 
                                     v-else
                                     v-bind:is="subItem.component" 
@@ -207,7 +192,7 @@ export default {
         this.newComponent[0].components.forEach(function (item) {
             if (item.type === 'text' || item.type === 'textarea' || item.type === 'file') {
                 form[item.name] = ''
-            } else if (item.type === 'select' || item.type === 'selectText') {
+            } else if (item.type === 'select' || item.type === 'selectText' || item.type === 'selectOther') {
                 if (item.options[0] instanceof Object) {
                     form[item.name] = item.options[0].value
                 } else {
@@ -291,6 +276,7 @@ export default {
         * 提交表单
         */
         submitForm (formName) {
+            console.log(this.tableForm)
             // 多选框 权限
             var com = this.newComponent[0]
             if (this.checkboxShow) {

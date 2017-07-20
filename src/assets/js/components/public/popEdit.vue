@@ -71,6 +71,7 @@
                     <tr class="tr1" v-else-if="subItem.component && !subItem.hiddenSelect">
                         <td>
                             <el-form-item :label="subItem.label" :prop="subItem.name">
+                                <!-- 控件类型是textSelect -->
                                 <component 
                                     v-if="subItem.type=='textSelect'"
                                     v-bind:is="subItem.component" 
@@ -83,6 +84,15 @@
                                     :allowance="allowance"
                                     @return-shuju="returnShuju"
                                 ></component>
+                                 <!-- 控件类型是selectOther -->
+                                <component 
+                                    v-if="subItem.type=='selectOther'"
+                                    v-bind:is="subItem.component" 
+                                    :shuju="subItem"
+                                    :selectEditValue="editForm[subItem.name]" 
+                                    @return-shuju="returnShuju"
+                                ></component>
+                                <!-- 其他类型 file，files，data，selectOther-->
                                 <component 
                                     v-else
                                     v-bind:is="subItem.component" 

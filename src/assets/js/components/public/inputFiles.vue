@@ -1,3 +1,9 @@
+/**
+* inputFiles组件
+* @description 
+* @author 吴燕萍
+* @date 2017/7/14
+*/
 <template>
     <div class="inputFiles">
         <el-upload
