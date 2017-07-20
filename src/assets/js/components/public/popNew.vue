@@ -35,11 +35,29 @@
                         </td> 
                     </tr>
 
-                    <!-- 下拉框 -->
+                    <!-- 下拉框单选 -->
                     <tr class="tr1 trSelect" v-else-if="subItem.type=='select'">
                         <td v-if="!subItem.hiddenSelect">
                             <el-form-item :label="subItem.label" :prop="subItem.name">
                                 <el-select v-model="tableForm[subItem.name]" :placeholder="subItem.placeholder" size="small"
+                                    @change="getSelectId(subItem,tableForm[subItem.name])">
+                                    <el-option 
+                                        v-for="option in subItem.options" 
+                                        :label="option.label" 
+                                        :value="option.value" 
+                                        :key="option.label + option.value" 
+                                        size="small">
+                                    </el-option>
+                                </el-select>
+                            </el-form-item>
+                        </td>
+                    </tr>
+                    
+                    <!-- 下拉框多选 -->
+                    <tr class="tr1 trSelect" v-else-if="subItem.type=='selectMore'">
+                        <td v-if="!subItem.hiddenSelect">
+                            <el-form-item :label="subItem.label" :prop="subItem.name">
+                                <el-select multiple  v-model="tableForm[subItem.name]" :placeholder="subItem.placeholder" size="small"
                                     @change="getSelectId(subItem,tableForm[subItem.name])">
                                     <el-option 
                                         v-for="option in subItem.options" 
@@ -205,6 +223,8 @@ export default {
             } else if (item.type === 'textSelect') {
                 form[item.name] = ''
                 form['unit'] = item.options[0].value
+            } else if (item.type === 'selectMore') {
+                form[item.name] = []
             }
         })
         let rules = {}

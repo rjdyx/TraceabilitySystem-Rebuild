@@ -29,50 +29,17 @@ export default {
                 return ''
             }
         },
-        disabled: false,
-        disabledV: false,
-        allowance: 0,
-        editAllowance: 0,
-        type: {
-            type: String,
-            default: ''
-        }
+        disabled: false
     },
     data () {
         return {
-            tableForm: {},
             inputValue: '',
             selectValue: ''
-            // selectValue: this.selectEditValue
         }
     },
     computed: {
     },
     watch: {
-        // inputEditValue () {
-        //     console.log(this.selectEditValue)
-        //     this.inputValue = this.selectEditValue
-        //     this.$emit('return-shuju', {name: this.shuju.name, value: this.inputValue})
-        // },
-        // selectEditValue () {
-        //     this.selectValue = this.selectEditValue
-        //     this.$emit('return-shuju', {name: this.shuju.name, value: this.selectValue})
-        // },
-        allowance () {
-            if (this.allowance === 0) {
-                this.inputValue = ''
-                this.shuju.placeholder = '请填写数字（必填）'
-            } else if (this.allowance === -1) {
-                this.shuju.placeholder = '当前场域无剩余面积'
-            } else {
-                this.shuju.placeholder = '还可以输入' + this.allowance
-            }
-        },
-        editAllowance () {
-            if (this.editAllowance !== 0) {
-                this.shuju.placeholder = '最小输入' + parseInt(this.editAllowance)
-            }
-        }
     },
     mounted () {
         this.selectValue = this.selectEditValue

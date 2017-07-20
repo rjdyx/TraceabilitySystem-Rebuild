@@ -36,10 +36,27 @@
                     </tr>
 
                     <!-- 下拉框 -->
-                    <tr class="tr1" v-else-if="subItem.type=='select' && !subItem.hiddenSelect"> 
+                    <tr class="tr1 trSelect" v-else-if="subItem.type=='select' && !subItem.hiddenSelect"> 
                         <td>
                             <el-form-item :label="subItem.label" :prop="subItem.name">
                               <el-select v-model="editForm[subItem.name]" :placeholder="subItem.placeholder" size="small" @change="getSelectId(subItem,editForm[subItem.name])" :disabled="subItem.disabled">
+                                <el-option 
+                                    v-for="option in subItem.options" 
+                                    :label="option.label" 
+                                    :value="option.value" 
+                                    :key="option.label + option.value"
+                                    size="small"
+                                    ></el-option>
+                              </el-select>
+                            </el-form-item>
+                        </td>
+                    </tr>
+
+                    <!-- 下拉框多选 -->
+                    <tr class="tr1 trSelect" v-else-if="subItem.type=='selectMore' && !subItem.hiddenSelect"> 
+                        <td>
+                            <el-form-item :label="subItem.label" :prop="subItem.name">
+                              <el-select multiple v-model="editForm[subItem.name]" :placeholder="subItem.placeholder" size="small" @change="getSelectId(subItem,editForm[subItem.name])" :disabled="subItem.disabled">
                                 <el-option 
                                     v-for="option in subItem.options" 
                                     :label="option.label" 

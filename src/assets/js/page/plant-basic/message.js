@@ -657,13 +657,14 @@ export default {
                 checkNumber: [1],
                 hasImg: true,
                 components: [{
+                    // 测试selectMore的
                     name: 'category',
-                    type: 'select',
+                    type: 'selectMore',
                     component: null,
                     isNull: false,
                     label: '肥料分类',
                     placeholder: '必填',
-                    rule: {required: true, message: '请选择肥料类别', trigger: 'blur'},
+                    rule: {type: 'array', required: true, message: '请选择肥料类别', trigger: 'blur'},
                     options: [{
                         value: '农家肥', label: '农家肥'
                     },
