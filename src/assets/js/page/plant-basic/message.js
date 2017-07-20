@@ -1089,10 +1089,9 @@ export default {
             }],
             newComponent: [{
                 tab: '新建施肥信息',
-                selectUrl2: [['manures', 'id', 'name', true], ['operates', 'id', 'name', true], ['experts', 'id', 'name', true]],
-                selectInit2: [{value: '', label: '肥料选择'}, {value: '', label: '施肥人选择'}, {value: '', label: '专家选择'}],
-                popNumber2: [0, 4, 5],
-                selectWhereArr2: [[], [{n: 'domain', v: 'plant'}, {n: 'domain', v: 'all', s: true}], [{n: 'domain', v: 'plant'}, {n: 'domain', v: 'all', s: true}]],
+                selectUrl2: [['manures', 'id', 'name', true]],
+                selectInit2: [{value: '', label: '肥料选择'}],
+                popNumber2: [0],
                 components: [{
                     name: 'manure_id',
                     type: 'select',
