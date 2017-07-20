@@ -36,7 +36,8 @@ export default {
                 return []
             }
         },
-        type: ''
+        type: '',
+        categoryString: ''
     },
     data () {
         return {
@@ -57,7 +58,7 @@ export default {
                 this.selectValue = this.selectEditValue
             }
         } else {
-            this.selectValue = '八仙'
+            this.selectValue = this.categoryString
         }
     },
     methods: {

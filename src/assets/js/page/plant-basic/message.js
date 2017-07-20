@@ -433,6 +433,7 @@ export default {
                     component: inputSelectOther,
                     label: '茶叶品种',
                     placeholder: '必填',
+                    categoryString: '八仙',
                     otherPlaceholder: '请输入其他茶叶品种',
                     rule: {required: true, message: '请选择茶叶品种', trigger: 'blur'},
                     options: [{
@@ -644,9 +645,9 @@ export default {
             roleName: ['plant/basic', 0],
             url: 'manure',
             searchPlaceholder: '请输入肥料名称',
-            theads: ['肥料分类', '肥料名称', '包装规格', '经销商名称', '产地', '肥料图片', '备注'],
-            protos: ['category', 'name', 'specification', 'dealer', 'origin', 'img', 'memo'],
-            widths: [50, 50, 50, 50, 50, 50, 50, 50, 50],
+            theads: ['肥料分类', '肥料名称', '用途', '包装规格', '经销商名称', '产地', '肥料图片', '备注'],
+            protos: ['category', 'name', 'usage', 'specification', 'dealer', 'origin', 'img', 'memo'],
+            widths: [50, 50, 50, 50, 50, 50, 50, 50],
             typeComponent: [{
                 component: output
             },
@@ -659,12 +660,14 @@ export default {
                 hasImg: true,
                 components: [{
                     name: 'category',
-                    type: 'select',
-                    component: null,
+                    type: 'selectOther',
+                    component: inputSelectOther,
                     isNull: false,
                     label: '肥料分类',
                     placeholder: '必填',
-                    rule: {type: 'array', required: true, message: '请选择肥料类别', trigger: 'blur'},
+                    categoryString: '农家肥',
+                    otherPlaceholder: '请输入其他肥料分类',
+                    rule: {required: true, message: '请选择肥料类别', trigger: 'blur'},
                     options: [{
                         value: '农家肥', label: '农家肥'
                     },
@@ -755,11 +758,13 @@ export default {
                 hasImg: true,
                 components: [{
                     name: 'category',
-                    type: 'select',
-                    component: null,
+                    type: 'selectOther',
+                    component: inputSelectOther,
                     isNull: false,
                     label: '肥料分类',
                     placeholder: '必填',
+                    otherPlaceholder: '请输入其他肥料类别',
+                    categoryBox: ['农家肥', '氮肥', '磷肥', '钾肥', '微肥', '复合肥料', '生物肥料'],
                     rule: {required: true, message: '请选择肥料类别', trigger: 'blur'},
                     options: [{
                         value: '农家肥', label: '农家肥'

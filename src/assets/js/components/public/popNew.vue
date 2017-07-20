@@ -130,6 +130,7 @@
                                     :shuju="subItem"
                                     :selectEditValue="tableForm[subItem.name]"
                                     :type="news"
+                                    :categoryString="subItem.categoryString"
                                     :disabled="disabled"
                                     @returnOther="getOther"
                                 ></component>
