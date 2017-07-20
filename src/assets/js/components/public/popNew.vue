@@ -39,7 +39,8 @@
                     <tr class="tr1" v-else-if="subItem.type=='select'">
                         <td v-if="!subItem.hiddenSelect">
                             <el-form-item :label="subItem.label" :prop="subItem.name">
-                                <el-select v-model="tableForm[subItem.name]" :placeholder="subItem.placeholder" size="small">
+                                <el-select v-model="tableForm[subItem.name]" :placeholder="subItem.placeholder" size="small"
+                                    @change="getSelectId(subItem,tableForm[subItem.name])">
                                     <el-option 
                                         v-for="option in subItem.options" 
                                         :label="option.label" 
@@ -264,11 +265,13 @@ export default {
         },
         // 返回InputTextSelect组件的数据
         returnShuju (data) {
-            if (data.name === 'end_date') {
-                if (data.value !== undefined && data.value !== '') {
-                    this.newComponent[0].components[0].rule[1]['lastDate'] = false
-                } else {
-                    this.newComponent[0].components[0].rule[1]['lastDate'] = true
+            if (this.url.indexOf('grow') !== -1) {
+                if (data.name === 'imgs') {
+                    if (data.value !== 'del') {
+                        this.tableForm['img'] = '1'
+                    } else {
+                        this.tableForm['img'] = ''
+                    }
                 }
             }
             this.tableForm[data.name] = data.value
@@ -306,7 +309,6 @@ export default {
             }
             this.$refs[formName][0].validate((valid) => {
                 if (valid) {
-                    // console.log(this.tableForm)
                     this.$dataPost(this, this.url, this.tableForm, com.hasImg, com.hiddenValue, false).then((response) => {
                         this.$emit('submitNew', response.data)
                     })

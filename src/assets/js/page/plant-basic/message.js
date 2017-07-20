@@ -653,7 +653,6 @@ export default {
             newComponent: [{
                 tab: '新建肥料档案',
                 checkNumber: [1],
-                popNumber: [0],
                 hasImg: true,
                 components: [{
                     name: 'category',
@@ -662,8 +661,31 @@ export default {
                     isNull: false,
                     label: '肥料分类',
                     placeholder: '必填',
-                    rule: {required: true, message: '请选择肥料类别', trigger: 'blur', type: 'number'},
-                    options: []
+                    rule: {required: true, message: '请选择肥料类别', trigger: 'blur'},
+                    options: [{
+                        value: '农家肥', label: '农家肥'
+                    },
+                    {
+                        value: '氮肥', label: '氮肥'
+                    },
+                    {
+                        value: '磷肥', label: '磷肥'
+                    },
+                    {
+                        value: '钾肥', label: '钾肥'
+                    },
+                    {
+                        value: '微肥', label: '微肥'
+                    },
+                    {
+                        value: '复合肥料', label: '复合肥料'
+                    },
+                    {
+                        value: '生物肥料', label: '生物肥料'
+                    },
+                    {
+                        value: '其他', label: '其他'
+                    }]
                 },
                 {
                     name: 'name',
@@ -676,6 +698,14 @@ export default {
                 },
                 {
                     name: 'usage',
+                    type: 'text',
+                    component: null,
+                    isNull: false,
+                    label: '用途',
+                    placeholder: ''
+                },
+                {
+                    name: 'specification',
                     type: 'text',
                     component: null,
                     isNull: false,
@@ -718,20 +748,40 @@ export default {
             }],
             editComponent: [{
                 tab: '编辑肥料信息',
-                selectUrl: [['category', 'manure', 'category_id', 'category_name', true]],
-                selectInit: [{value: '', label: '选择肥料分类'}],
                 checkNumber: [1],
-                popNumber: [0],
                 hasImg: true,
                 components: [{
-                    name: 'category_id',
+                    name: 'category',
                     type: 'select',
                     component: null,
                     isNull: false,
-                    label: '分类',
+                    label: '肥料分类',
                     placeholder: '必填',
-                    rule: {required: true, message: '请选择肥料类别', trigger: 'blur', type: 'number'},
-                    options: []
+                    rule: {required: true, message: '请选择肥料类别', trigger: 'blur'},
+                    options: [{
+                        value: '农家肥', label: '农家肥'
+                    },
+                    {
+                        value: '氮肥', label: '氮肥'
+                    },
+                    {
+                        value: '磷肥', label: '磷肥'
+                    },
+                    {
+                        value: '钾肥', label: '钾肥'
+                    },
+                    {
+                        value: '微肥', label: '微肥'
+                    },
+                    {
+                        value: '复合肥料', label: '复合肥料'
+                    },
+                    {
+                        value: '生物肥料', label: '生物肥料'
+                    },
+                    {
+                        value: '其他', label: '其他'
+                    }]
                 },
                 {
                     name: 'name',
@@ -741,6 +791,14 @@ export default {
                     label: '肥料名称',
                     placeholder: '必填',
                     rule: [{required: true, message: '请输入肥料名称', trigger: 'blur'}, {validator: validate2.reCheck, trigger: 'blur', message: '肥料名称重复'}]
+                },
+                {
+                    name: 'usage',
+                    type: 'text',
+                    component: null,
+                    isNull: false,
+                    label: '用途',
+                    placeholder: ''
                 },
                 {
                     name: 'specification',
@@ -795,13 +853,13 @@ export default {
         url: 'cultivate',
         batch: 'plantSerial',
         changeDataArr: [{state: {0: '未完成', 1: '已完成'}}],
-        selectSearch: ['plantations.id', 'plants.id'],
-        selectValueId: [['plantation_id', 'plantation_name', true], ['plant_id', 'plant_name', true]],
-        selectDefault: [{value: '', label: '种植区选择'}, {value: '', label: '果蔬选择'}],
+        selectSearch: ['plantations.id', 'teas.id'],
+        selectValueId: [['plantation_id', 'plantation_name', true], ['tea_id', 'tea_name', true]],
+        selectDefault: [{value: '', label: '种植区选择'}, {value: '', label: '茶叶品种选择'}],
         searchPlaceholder: '请输入种植批次号进行搜索',
-        theads: ['所属种植区', '茶叶品种名称', '种植日期', '种植面积', '备注'],
-        protos: ['plantation_name', 'name', 'date', 'area', 'area_unit', 'memo'],
-        widths: [50, 50, 50, 50, 50],
+        theads: ['种植批次号', '所属种植区', '茶叶品种名称', '种植日期', '种植面积', '状态', '备注'],
+        protos: ['serial', 'plantation_name', 'tea_name', 'date', 'area_unit', 'state', 'memo'],
+        widths: [50, 50, 50, 50, 50, 50, 50],
         listComponent: [{
             components: [{
                 name: 'plantations.id',
@@ -811,7 +869,7 @@ export default {
                 options: []
             },
             {
-                name: 'plants.id',
+                name: 'teas.id',
                 value: '',
                 type: 'select',
                 component: selectSection,
@@ -825,12 +883,11 @@ export default {
         newComponent: [{
             tab: '新建种植批次',
             selectUrl: [['planta', 'cultivate', 'plantation_id', 'plantation_name', true]],
-            selectUrl2: [['plants', 'id', 'name', true], ['operates', 'id', 'name', true]],
+            selectUrl2: [['teas', 'id', 'name', true]],
             popNumber: [0],
-            popNumber2: [1, 4],
-            selectWhereArr2: [[], [{n: 'domain', v: 'plant'}, {n: 'domain', v: 'all', s: true}]],
+            popNumber2: [1],
             selectInit: [{value: '', label: '种植区选择'}],
-            selectInit2: [{value: '', label: '果蔬选择'}, {value: '', label: '种植人选择'}],
+            selectInit2: [{value: '', label: '茶叶品种选择'}],
             limit: 3,
             getMessage: '已超过种植区余留面积',
             components: [{
@@ -844,13 +901,13 @@ export default {
                 options: []
             },
             {
-                name: 'plant_id',
+                name: 'tea_id',
                 type: 'select',
                 component: null,
                 isNull: false,
                 label: '茶叶品种名称',
                 placeholder: '必填',
-                rule: {required: true, trigger: 'blur', message: '请选择果蔬', type: 'number'},
+                rule: {required: true, trigger: 'blur', message: '请选择茶叶品种', type: 'number'},
                 options: []
             },
             {
@@ -885,6 +942,15 @@ export default {
                 rule: [{required: true, message: '请输入种植面积', trigger: 'blur'}, {validator: validate2.reNumber}]
             },
             {
+                name: 'operate',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '种植人',
+                placeholder: '',
+                rule: null
+            },
+            {
                 name: 'memo',
                 type: 'textarea',
                 component: null,
@@ -898,15 +964,24 @@ export default {
         editComponent: [{
             tab: '编辑种植批次',
             selectUrl: [['planta', 'cultivate', 'plantation_id', 'plantation_name', true]],
-            selectUrl2: [['plants', 'id', 'name', true], ['operates', 'id', 'name', true]],
+            selectUrl2: [['teas', 'id', 'name', true]],
             selectInit: [{value: '', label: '种植区选择'}],
-            selectWhereArr2: [[], [{n: 'domain', v: 'plant'}, {n: 'domain', v: 'all', s: true}]],
-            selectInit2: [{value: '', label: '果蔬选择'}, {value: '', label: '种植人选择'}],
+            selectInit2: [{value: '', label: '茶叶品种选择'}],
             popNumber: [1],
-            popNumber2: [2, 5],
+            popNumber2: [2],
             limit: 4,
             getMessage: '已超过种植区余留面积',
             components: [{
+                name: 'serial',
+                type: 'text',
+                component: null,
+                isNull: false,
+                disabled: true,
+                label: '种植批次号',
+                placeholder: '必填',
+                rule: {required: true, trigger: 'blur'}
+            },
+            {
                 name: 'plantation_id',
                 type: 'select',
                 component: null,
@@ -917,7 +992,7 @@ export default {
                 options: []
             },
             {
-                name: 'plant_id',
+                name: 'tea_id',
                 type: 'select',
                 component: null,
                 isNull: false,
@@ -957,163 +1032,6 @@ export default {
                 }
                 ],
                 rule: [{required: true, message: '请输入种植面积', trigger: 'blur'}, {validator: validate2.reNumber}]
-            },
-            {
-                name: 'memo',
-                type: 'textarea',
-                component: null,
-                isNull: true,
-                label: '备注',
-                placeholder: '',
-                rule: null
-            }
-            ]
-        }],
-        typeComponent: [{
-            component: output
-        },
-        {
-            component: newbuildBtn
-        }],
-        moreComponent: [{value: '状态'}]
-    },
-    {
-        settitle: '种植批次管理',
-        key: 'cultivate',
-        roleName: ['plant/cultivate', 0],
-        tab: '生长过程管理',
-        url: 'cultivate',
-        batch: 'plantSerial',
-        changeDataArr: [{state: {0: '未完成', 1: '已完成'}}],
-        selectSearch: ['plantations.id', 'plants.id'],
-        selectValueId: [['plantation_id', 'plantation_name', true], ['plant_id', 'plant_name', true]],
-        selectDefault: [{value: '', label: '种植区选择'}, {value: '', label: '果蔬选择'}],
-        searchPlaceholder: '请输入种植批次号进行搜索',
-        theads: ['种植批次详细信息', '茶叶品种名称', '种植日期', '种植面积', '备注'],
-        protos: ['plantation_name', 'serial', 'plant_name', 'date', 'area_unit', 'memo'],
-        widths: [50, 50, 50, 50, 50],
-        listComponent: [{
-            components: [{
-                name: 'plantations.id',
-                value: '',
-                type: 'select',
-                component: selectSection,
-                options: []
-            },
-            {
-                name: 'plants.id',
-                value: '',
-                type: 'select',
-                component: selectSection,
-                options: []
-            },
-            {
-                type: 'date',
-                component: datePick
-            }]
-        }],
-        newComponent: [{
-            tab: '新建生长过程信息',
-            selectUrl: [['planta', 'cultivate', 'plantation_id', 'plantation_name', true]],
-            selectUrl2: [['plants', 'id', 'name', true], ['operates', 'id', 'name', true]],
-            popNumber: [0],
-            popNumber2: [1, 4],
-            selectWhereArr2: [[], [{n: 'domain', v: 'plant'}, {n: 'domain', v: 'all', s: true}]],
-            selectInit: [{value: '', label: '种植区选择'}],
-            selectInit2: [{value: '', label: '果蔬选择'}, {value: '', label: '种植人选择'}],
-            limit: 3,
-            getMessage: '已超过种植区余留面积',
-            components: [{
-                name: 'dealer',
-                type: 'text',
-                component: null,
-                isNull: false,
-                rule: {required: true, trigger: 'blur', message: '请输入图片标题'},
-                label: '图片标题',
-                placeholder: ''
-            },
-            {
-                name: 'dealer',
-                type: 'text',
-                component: null,
-                isNull: false,
-                rule: {required: true, trigger: 'blur', message: '请输入特征描述'},
-                label: '特征描述',
-                placeholder: ''
-            },
-            {
-                name: 'date',
-                type: 'date',
-                component: inputDate,
-                isNull: false,
-                label: '上传日期',
-                placeholder: '',
-                rule: [{required: true, message: '请输入种植日期'}, {validator: validate2.reDate, message: '请输入种植日期'}]
-            },
-            {
-                name: 'img',
-                type: 'file',
-                component: inputFile,
-                isNull: false,
-                label: '上传图片',
-                placeholder: ''
-            },
-            {
-                name: 'memo',
-                type: 'textarea',
-                component: null,
-                isNull: true,
-                label: '备注',
-                placeholder: '',
-                rule: null
-            }
-            ]
-        }],
-        editComponent: [{
-            tab: '编辑种植批次',
-            selectUrl: [['planta', 'cultivate', 'plantation_id', 'plantation_name', true]],
-            selectUrl2: [['plants', 'id', 'name', true], ['operates', 'id', 'name', true]],
-            selectInit: [{value: '', label: '种植区选择'}],
-            selectWhereArr2: [[], [{n: 'domain', v: 'plant'}, {n: 'domain', v: 'all', s: true}]],
-            selectInit2: [{value: '', label: '果蔬选择'}, {value: '', label: '种植人选择'}],
-            popNumber: [1],
-            popNumber2: [2, 5],
-            limit: 4,
-            getMessage: '已超过种植区余留面积',
-            components: [{
-                name: 'dealer',
-                type: 'text',
-                component: null,
-                isNull: false,
-                rule: {required: true, trigger: 'blur', message: '请输入图片标题'},
-                label: '图片标题',
-                placeholder: ''
-            },
-            {
-                name: 'dealer',
-                type: 'text',
-                component: null,
-                isNull: false,
-                rule: {required: true, trigger: 'blur', message: '请输入特征描述'},
-                label: '特征描述',
-                placeholder: ''
-            },
-            {
-                name: 'date',
-                type: 'date',
-                component: inputDate,
-                isNull: false,
-                label: '上传日期',
-                placeholder: '',
-                rule: [{required: true, message: '请输入种植日期'}, {validator: validate2.reDate, message: '请输入种植日期'}]
-            },
-            {
-                name: 'img',
-                type: 'file',
-                component: inputFile,
-                isNull: false,
-                label: '上传图片',
-                placeholder: ''
             },
             {
                 name: 'memo',
