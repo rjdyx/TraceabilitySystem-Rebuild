@@ -49,7 +49,6 @@ export default {
     },
     watch: {
         inputEditValue () {
-            console.log(this.selectEditValue)
             this.inputValue = this.selectEditValue
             this.$emit('return-shuju', {name: this.shuju.name, value: this.inputValue})
         },

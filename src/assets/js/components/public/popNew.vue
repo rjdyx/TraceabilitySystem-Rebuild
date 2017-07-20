@@ -40,11 +40,7 @@
                         <td v-if="!subItem.hiddenSelect">
                             <el-form-item :label="subItem.label" :prop="subItem.name">
                                 <el-select v-model="tableForm[subItem.name]" :placeholder="subItem.placeholder" size="small"
-<<<<<<< HEAD
                                     @change="getSelectId(subItem,tableForm[subItem.name])">
-=======
-                                @change="getSelectId(subItem,tableForm[subItem.name])">
->>>>>>> 587547f563649fed2b58eb051ebb43d4b23d7a31
                                     <el-option 
                                         v-for="option in subItem.options" 
                                         :label="option.label" 

@@ -399,8 +399,47 @@ export default {
         // 编辑下拉框选择事件
         getSelectId (subItem, val) {
             var number = subItem.selectNumber
+            var name = subItem.name
             var changeTable = subItem.changeTable
-            var com = this.editComponent[0].components
+            var com = this.editComponent[0]
+            if (val !== '') {
+                if (name === 'pid' || name === 'plantation_id') {
+                    let com = this.editComponent[0]
+                    if (this.url !== 'planta') {
+                        let params = {id: val}
+                        let sid = this.editDefault.pid !== undefined ? this.editDefault.pid : this.editDefault.farm_id !== undefined ? this.editDefault.farm_id : this.editDefault.plantation_id
+                        axios.get(this.$adminUrl(this.url + '/getArea'), {params: params}).then((responce) => {
+                            if (val === sid) {
+                                this.allowance = parseInt(responce.data['num']) + parseInt(this.editDefault.area)
+                            } else {
+                                this.allowance = responce.data['num']
+                            }
+                            this.editForm['unit'] = responce.data['unit']
+                            com.components[com.limit].rule[1]['getMax'] = this.allowance
+                            com.components[com.limit].rule[1]['getMessage'] = com.getMessage
+                        })
+                    } else {
+                        let params = {id: this.editForm.id, pid: val}
+                        axios.get(this.$adminUrl(this.url + '/getSetArea'), {params: params}).then((responce) => {
+                            if (val === this.editDefault.pid) {
+                                this.allowance = parseInt(responce.data['max_num']) + parseInt(this.editDefault.area)
+                            } else {
+                                this.allowance = parseInt(responce.data['max_num'])
+                            }
+                            this.editForm['unit'] = responce.data['unit']
+                            this.editAllowance = parseInt(responce.data['min_num'])
+                            com.components[com.limit].rule[1]['max'] = this.allowance
+                            com.components[com.limit].rule[1]['min'] = this.editAllowance
+                            com.components[com.limit].rule[1]['getMiddle'] = true
+                            com.components[com.limit].rule[1]['getMessage'] = '最大输入' + this.allowance + ', 最小输入' + this.editAllowance
+                        })
+                    }
+                }
+            } else {
+                if (name === 'pid' || name === 'plantation_id') {
+                    this.allowance = 0
+                }
+            }
             if (number !== undefined && number !== '') {
                 for (let k in number) {
                     var state = false
@@ -412,7 +451,7 @@ export default {
                         seed2 = ['seed']
                     }
                     for (let k2 in number[k]) {
-                        var newObj = com[number[k][k2]]
+                        var newObj = com.components[number[k][k2]]
                         newObj.hiddenSelect = state
                         if (newObj.type === 'table') {
                             this.editForm[newObj.valueId] = seed2
@@ -424,7 +463,7 @@ export default {
                 }
                 if (number[val] !== undefined) {
                     for (let k3 in number[val]) {
-                        com[number[val][k3]].hiddenSelect = false
+                        com.components[number[val][k3]].hiddenSelect = false
                     }
                 }
             }
