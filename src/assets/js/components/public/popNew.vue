@@ -58,7 +58,7 @@
                         <td v-if="!subItem.hiddenSelect">
                             <el-form-item :label="subItem.label" :prop="subItem.name">
                                 <el-select multiple  v-model="tableForm[subItem.name]" :placeholder="subItem.placeholder" size="small"
-                                    @change="getSelectId(subItem,tableForm[subItem.name])">
+                                    @change="getSelectMoreId(subItem,tableForm[subItem.name])">
                                     <el-option 
                                         v-for="option in subItem.options" 
                                         :label="option.label" 
@@ -386,7 +386,12 @@ export default {
                 }
             }
             if (assoc !== undefined) {
-                this.$emit('setAssoc', [assoc, name, val])
+                if (subItem.getType === 'array') {
+                    this.tableForm[subItem.arrName] = []
+                } else {
+                    this.tableForm[subItem.arrName] = ''
+                }
+                this.getAssoc({name: name, value: val, position: subItem.position, selectField: subItem.selectField, table: subItem.table})
             } else if (name === 'pid' || name === 'plantation_id') {
                 if (val !== '') {
                     let params = {id: val}
@@ -409,6 +414,9 @@ export default {
                 }
             }
         },
+        // 下拉框选择多数组关联
+        getSelectMoreId (subItem, val) {
+        },
         // 新增成功调用方法
         successCallback () {
             this.$parent.closeNewShow()
@@ -419,6 +427,29 @@ export default {
                         com.components[k].hiddenSelect = true
                     }
                 }
+            }
+        },
+        // 获取关联数据
+        getAssoc (data) {
+            var com = this.newComponent[0]
+            if (data.value !== '') {
+                let params = {'table': data.table, 'name': data.name, 'id': data.value}
+                this.$dataGet(this, '/util/assoc', params)
+                    .then((responce) => {
+                        if (responce.data !== '') {
+                            if (responce.data.length !== 0) {
+                                var com = this.newComponent[0]
+                                let arr = []
+                                let assocOpt = this.$selectData(this.url, responce.data, data.selectField)
+                                for (let item of Object.keys(assocOpt)) {
+                                    arr.push(assocOpt[item])
+                                }
+                                com.components[data.position].options = arr
+                            }
+                        }
+                    })
+            } else {
+                com.components[data.position].options = []
             }
         }
     }

@@ -48,7 +48,7 @@
 
         <!-- 新建模块 --> 
         <transition name="fade">
-            <popNew v-if="isNewShow" :newComponent="newComponent" :checkboxShow="checkboxShow" :url="url" @submitNew="changeNew" @setAssoc="getAssoc" @setTable="getTable" ></popNew>
+            <popNew v-if="isNewShow" :newComponent="newComponent" :checkboxShow="checkboxShow" :url="url" @submitNew="changeNew" @setTable="getTable"></popNew>
         </transition>
         <!-- 编辑模块 -->
         <transition name="fade">
@@ -303,7 +303,6 @@ export default {
             this.$set(this, 'multipleSelection', [])
         },
         handleRemove (file, fileList) {
-            console.log(file, fileList)
         },
         handlePictureCardPreview (file) {
             this.dialogImageUrl = file.url
@@ -864,29 +863,6 @@ export default {
         // 点击删除
         userRole (row, index) {
             this.isPermissionShow = !this.isPermissionShow
-        },
-        // 获取关联下拉框
-        getAssoc (val) {
-            if (val[2] !== '') {
-                var url = val[2] + '/' + val[0][0]
-                var getSelect = {'getSelect': '444'}
-                this.$dataGet(this, url, {getSelect})
-                    .then((responce) => {
-                        if (responce.status === 200) {
-                            if (responce.data.length !== 0) {
-                                let asr = []
-                                asr.push(val[0][4])
-                                let newOpt = this.$selectData(url, responce.data.data, [val[0][1], val[0][2], true])
-                                for (let item of Object.keys(newOpt)) {
-                                    asr.push(newOpt[item])
-                                }
-                                this.newComponent[0].components[val[0][3]].options = asr
-                            }
-                        }
-                    })
-            } else {
-                this.newComponent[0].components[val[0][3]].options = []
-            }
         },
         moreShow (index, row) {
             this.isPrintShow = !this.isPrintShow
