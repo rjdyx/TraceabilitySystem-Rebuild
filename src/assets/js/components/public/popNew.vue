@@ -436,16 +436,15 @@ export default {
                 let params = {'table': data.table, 'name': data.name, 'id': data.value}
                 this.$dataGet(this, '/util/assoc', params)
                     .then((responce) => {
-                        if (responce.data !== '') {
-                            if (responce.data.length !== 0) {
-                                var com = this.newComponent[0]
-                                let arr = []
-                                let assocOpt = this.$selectData(this.url, responce.data, data.selectField)
-                                for (let item of Object.keys(assocOpt)) {
-                                    arr.push(assocOpt[item])
-                                }
-                                com.components[data.position].options = arr
+                        let arr = []
+                        if (responce.data.length !== 0) {
+                            let assocOpt = this.$selectData(this.url, responce.data, data.selectField)
+                            for (let item of Object.keys(assocOpt)) {
+                                arr.push(assocOpt[item])
                             }
+                            com.components[data.position].options = arr
+                        } else {
+                            com.components[data.position].options = arr
                         }
                     })
             } else {

@@ -310,12 +310,6 @@ export default {
         },
         jumpDetails (row) {
             var id = row.id
-            var state = row.state
-            if (row.code !== undefined) {
-                id = row.pack_id
-            } else if (row.harvest_change !== undefined) {
-                id = row.cultivate_id
-            }
             this.$router.push('/index/details/' + this.batch + '/' + id)
         },
         /**

@@ -146,134 +146,51 @@ export default {
         key: 'fertilizeBatch',
         roleName: ['plant/farming', 0],
         tab: '施肥批次管理',
-        theads: ['施肥批次号', '肥料', '施肥人', '施肥日期', '施肥量（Kg）', '专家', '施肥方法', '备注'],
-        protos: ['serial', 'manure_name', 'operate_name', 'date', 'amount_unit', 'expert_name', 'way', 'memo'],
+        theads: ['施肥批次号', '肥料', '施肥人', '施肥日期', '施肥量（Kg）', '施肥方法', '备注'],
+        protos: ['serial', 'manure_name', 'operate', 'date', 'amount_unit', 'way', 'memo'],
         url: 'fertilize',
         tabList: [{
             url: 'cultivate-fertilize',
             tab: '种植批次施肥信息',
             searchPlaceholder: '请输入种植批次进行搜索',
-            headList: ['种植批次号', '种植区', '种植果蔬', '种植日期', '种植人', '备注信息'],
-            protos: ['serial', 'plantation_name', 'plant_name', 'date', 'operate_name', 'memo'],
+            headList: ['种植批次号', '种植区', '茶叶品种', '种植日期', '种植人', '备注信息'],
+            protos: ['serial', 'plantation_name', 'tea_name', 'date', 'operate', 'memo'],
             widths: [50, 50, 50, 50, 50, 50],
             hiddeEdit: false,
             typeComponent: [{
-                component: newbuildBtn
-            },
-            {
                 component: output
             }],
             listComponent: [{
                 components: [{
                     type: 'date',
                     component: datePick
-                }]
-            }],
-            newComponent: [{
-                tab: '新建批次施肥信息',
-                type: 'table',
-                assocNum: 0,
-                labUrl: 'cultivate',
-                components: [{
-                    name: 'name',
-                    type: 'table',
-                    theads: ['种植批次号', '种植果蔬', '种植日期'],
-                    protos: ['serial', 'plant_name', 'date'],
-                    valueId: 'cultivate_ids',
-                    errormsg: '请选择种植批次号',
-                    tableVal: []
-                }]
-            }]
-        }]
-    },
-    // 施药批次详情
-    sprayBatch: {
-        key: 'sprayBatch',
-        tab: '施药批次管理',
-        roleName: ['plant/farming', 0],
-        theads: ['施药批次号', '农药', '施药人', '施药日期', '施药量（Kg）', '专家', '施药方法', '备注'],
-        protos: ['serial', 'medicament_name', 'operate_name', 'date', 'amount_unit', 'expert_name', 'way', 'memo'],
-        url: 'spray',
-        tabList: [{
-            url: 'cultivate-spray',
-            tab: '种植批次施药信息',
-            searchPlaceholder: '请输入种植批次进行搜索',
-            headList: ['种植批次号', '种植区', '种植果蔬', '种植日期', '种植人', '备注信息'],
-            protos: ['serial', 'plantation_name', 'plant_name', 'date', 'operate_name', 'memo'],
-            widths: [50, 50, 50, 50, 50, 50],
-            hiddeEdit: false,
-            typeComponent: [{
-                component: newbuildBtn
-            },
-            {
-                component: output
-            }],
-            listComponent: [{
-                components: [{
-                    type: 'date',
-                    component: datePick
-                }]
-            }],
-            newComponent: [{
-                tab: '新建批次施药信息',
-                type: 'table',
-                assocNum: 0,
-                labUrl: 'cultivate',
-                components: [{
-                    name: 'name',
-                    type: 'table',
-                    theads: ['种植批次号', '种植果蔬', '种植日期'],
-                    protos: ['serial', 'plant_name', 'date'],
-                    valueId: 'cultivate_ids',
-                    errormsg: '请选择种植批次号',
-                    tableVal: []
                 }]
             }]
         }]
     },
     // 种植检验检测
-    plantDetectBatch: {
-        key: 'plantDetectBatch',
+    detectBatch: {
+        key: 'detectBatch',
         tab: '种植检测批次管理',
-        roleName: ['plant/farming', 0],
-        theads: ['检测批次号', '检测类型', '检测人', '检测日期', '检测部门', '检测内容', '检测结果', '专家'],
-        protos: ['serial', 'name', 'operate_name', 'date', 'department', 'content', 'result', 'expert_name'],
+        theads: ['检测批次号', '检测类型', '检测内容', '检测日期', '检测人', '检测部门', '检测结果', '备注'],
+        protos: ['serial', 'detect_type', 'content', 'date', 'operate', 'department', 'result', 'memo'],
         url: 'detect',
         changeDataArr: [{result: {'合格': 0, '不合格': 1}}],
         tabList: [{
             url: 'cultivate-detect',
             tab: '种植批次检测信息',
             searchPlaceholder: '请输入种植批次进行搜索',
-            headList: ['种植批次号', '种植区', '种植果蔬', '种植日期', '种植人', '备注信息'],
-            protos: ['serial', 'plantation_name', 'plant_name', 'date', 'operate_name', 'memo'],
+            headList: ['种植批次号', '种植区', '茶叶品种', '种植日期', '种植人', '备注'],
+            protos: ['serial', 'plantation_name', 'tea_name', 'date', 'operate', 'memo'],
             widths: [50, 50, 50, 50, 50, 50],
             hiddeEdit: false,
             typeComponent: [{
-                component: newbuildBtn
-            },
-            {
                 component: output
             }],
             listComponent: [{
                 components: [{
                     type: 'date',
                     component: datePick
-                }]
-            }],
-            newComponent: [{
-                tab: '新建批次施药信息',
-                type: 'table',
-                assocNum: 0,
-                labUrl: 'cultivate',
-                components: [{
-                    name: 'name',
-                    assocNum: 0,
-                    type: 'table',
-                    theads: ['种植批次号', '种植果蔬', '种植日期'],
-                    protos: ['serial', 'plant_name', 'date'],
-                    valueId: 'cultivate_ids',
-                    errormsg: '请选择种植批次号',
-                    tableVal: []
                 }]
             }]
         }]
@@ -282,22 +199,18 @@ export default {
     farmingBatch: {
         key: 'farmingBatch',
         tab: '种植田间批次管理',
-        roleName: ['plant/farming', 0],
-        theads: ['田间批次号', '操作内容', '操作方法', '操作日期', '操作人', '专家', '天气'],
-        protos: ['serial', 'content', 'method', 'date', 'operate_name', 'expert_name', 'weather'],
+        theads: ['田间批次号', '操作日期', '操作内容', '操作人', '操作方法', '天气', '备注'],
+        protos: ['serial', 'date', 'content', 'operate', 'method', 'weather', 'memo'],
         url: 'farming',
         tabList: [{
             url: 'cultivate-farming',
             tab: '种植批次农事信息',
             searchPlaceholder: '请输入种植批次进行搜索',
-            headList: ['种植批次号', '种植区', '种植果蔬', '种植日期', '种植人', '备注信息'],
-            protos: ['serial', 'plantation_name', 'plant_name', 'date', 'operate_name', 'memo'],
+            headList: ['种植批次号', '种植区', '茶叶品种', '种植日期', '种植人', '备注信息'],
+            protos: ['serial', 'plantation_name', 'tea_name', 'date', 'operate', 'memo'],
             widths: [50, 50, 50, 50, 50, 50],
             hiddeEdit: false,
             typeComponent: [{
-                component: newbuildBtn
-            },
-            {
                 component: output
             }],
             listComponent: [{
@@ -305,41 +218,24 @@ export default {
                     type: 'date',
                     component: datePick
                 }]
-            }],
-            newComponent: [{
-                tab: '新建批次农事信息',
-                type: 'table',
-                assocNum: 0,
-                labUrl: 'cultivate',
-                components: [{
-                    name: 'name',
-                    type: 'table',
-                    theads: ['种植批次号', '种植果蔬', '种植日期'],
-                    protos: ['serial', 'plant_name', 'date'],
-                    valueId: 'cultivate_ids',
-                    errormsg: '请选择种植批次号',
-                    tableVal: []
-                }]
             }]
         }]
     },
-    // 计划批次信息
-    planSerial: {
-        key: 'planSerial',
-        tab: '计划批次管理',
-        roleName: ['plant/plan', 0],
-        theads: ['计划批次号', '计划开始日期', '计划结束日期', '操作类型', '安排人员', '计划内容', '具体规划', '备注'],
-        protos: ['serial', 'date', 'end_date', 'type', 'operate_name', 'content', 'planing', 'memo'],
-        url: 'plan',
-        changeDataArr: [{type: {'施肥': 'fertilize', '施药': 'spray', '采收': 'harvest'}}],
+    // 采制批次详情
+    harvestBatch: {
+        key: 'harvestBatch',
+        tab: '采制批次管理',
+        changeDataArr: [{state: {'未完成': 0, '已完成': 1}}],
+        theads: ['采制批次号', '采制日期', '所属种植区', '种植批次号', '入库部门', '存放仓库位置', '状态', '备注'],
+        protos: ['serial', 'date', 'plantation_name', 'cultivate_serial', 'department', 'position', 'state', 'memo'],
+        url: 'harvest',
         tabList: [{
-            url: 'cultivate-plan',
-            tab: '种植批次计划信息',
+            url: 'colect-process',
+            tab: '采制信息',
             searchPlaceholder: '请输入种植批次进行搜索',
-            headList: ['种植批次号', '种植区', '种植果蔬', '种植日期', '种植人', '备注信息'],
-            protos: ['serial', 'plantation_name', 'plant_name', 'date', 'operate_name', 'memo'],
+            headList: ['采制日期', '采制人', '毛茶重量', '毛茶数量', '散茶重量', '散茶数量'],
+            protos: ['date', 'operate', 'raw_tea_weight', 'raw_tea_count', 'bulk_tea_weigh', 'bulk_tea_count'],
             widths: [50, 50, 50, 50, 50, 50],
-            hiddeEdit: false,
             typeComponent: [{
                 component: newbuildBtn
             },
@@ -353,169 +249,61 @@ export default {
                 }]
             }],
             newComponent: [{
-                tab: '新建批次计划信息',
-                type: 'table',
-                assocNum: 0,
-                labUrl: 'cultivate',
-                components: [{
-                    name: 'name',
-                    type: 'table',
-                    theads: ['种植批次号', '种植果蔬', '种植日期'],
-                    protos: ['serial', 'plant_name', 'date'],
-                    valueId: 'cultivate_ids',
-                    errormsg: '请选择种植批次号',
-                    tableVal: []
-                }]
-            }]
-        }]
-    },
-    // 生产加工批次信息
-    plantPackBatch: {
-        key: 'plantPackBatch',
-        tab: '果蔬加工批次管理',
-        roleName: ['packp/pack', 0],
-        theads: ['加工批次号', '加工日期', '数量', '产地', '加工人', '备注'],
-        protos: ['serial', 'date', 'amount', 'origin', 'operate_name', 'memo'],
-        batch: 'plantPackProduct',
-        url: 'pack',
-        tabList: [{
-            url: 'pack-product',
-            tab: '加工批次产品信息',
-            searchPlaceholder: '请输入产品名称进行搜索',
-            headList: ['产品名称', '执行标准', '商品型号', '包装规格', '保质期', '存储方法'],
-            protos: ['name', 'enforce_standard', 'marque', 'specification', 'expiration_date', 'storage_means'],
-            widths: [50, 50, 50, 50, 50, 50],
-            hiddeEdit: false,
-            typeComponent: [{
-                component: newbuildBtn
-            },
-            {
-                component: output
-            }],
-            listComponent: [],
-            newComponent: [{
-                tab: '新建加工产品信息',
-                type: 'table',
-                assocNum: 0,
-                labUrl: 'product',
-                whereArr: [['domain', 'packp'], ['domain', 'all', true]],
-                components: [{
-                    name: 'name',
-                    type: 'table',
-                    theads: ['产品名称', '商品型号', '包装规格'],
-                    protos: ['name', 'marque', 'specification'],
-                    valueId: 'product_ids',
-                    errormsg: '请选择产品',
-                    tableVal: []
-                }]
-            }]
-        }]
-    },
-    // 生产加工产品信息
-    plantPackProduct: {
-        key: 'plantPackProduct',
-        tab: '生产加工产品管理',
-        roleName: ['packp/pack', 0],
-        theads: ['产品名称', '执行标准', '商品型号', '包装规格', '保质期', '存储方法'],
-        protos: ['name', 'enforce_standard', 'marque', 'specification', 'expiration_date', 'storage_means'],
-        url: '{x}/pack-product',
-        tabList: [{
-            url: 'pack-product-harvest',
-            tab: '加工产品溯源码信息',
-            searchPlaceholder: '请输入溯源码进行搜索',
-            headList: ['产品溯源码', '生产日期', '溯源次数', '备注'],
-            protos: ['code', 'date', 'time', 'memo'],
-            widths: [50, 50, 50, 50],
-            hiddeEdit: true,
-            typeComponent: [{
-                component: newbuildBtn
-            }],
-            moreComponent: [{
-                value: '打印'
-            }],
-            listComponent: [{
-                components: [{
-                    type: 'date',
-                    component: datePick
-                }]
-            }],
-            newComponent: [{
-                tab: '新建溯源码信息',
-                selectUrl2: [['harvests', 'id', 'serial', true], ['storages', 'id', 'serial', true], ['storages', 'id', 'serial', true]],
-                selectWhereArr2: [[], [{n: 'type', v: 0}, {n: 'category', v: 'plant'}], [{n: 'type', v: 1}, {n: 'category', v: 'plant'}]],
-                selectInit2: [{value: '', label: '采收批次号选择'}, {value: '', label: '请选择入库批次(平台)'}, {value: '', label: '请选择入库批次(非平台)'}],
-                popNumber2: [2, 3, 4],
-                permissionSelectUrl: ['api/permission_domain'],
-                permissionSelectArr: [[{label: '请选择商品来源', value: ''}, {set: 'plant', label: '种植采收', value: 'harvest'}, {set: 'sell', label: '入库(平台)', value: 'st'}, {set: 'sell', label: '入库(非平台)', value: 'sf'}]],
-                permissionNumber: [1],
-                hiddenValue: {type: 'plant'},
-                labUrl: false,
-                labNewUrl: 'storage_code',
-                assocNum: 7,
-                type: 'assoc',
+                tab: '新建采制信息',
+                hasImg: true,
                 components: [{
                     name: 'date',
                     type: 'date',
                     component: inputDate,
                     isNull: false,
-                    label: '生产日期',
+                    label: '采制日期',
                     placeholder: '',
-                    rule: [{required: true, message: '请输入生产日期'}, {validator: validate2.reDate, message: '请输入生产日期'}]
+                    rule: [{required: true, message: '请输入采制日期'}, {validator: validate2.reDate, message: '请输入采制日期'}]
                 },
                 {
-                    name: 'category',
-                    type: 'select',
-                    component: null,
-                    isNull: false,
-                    label: '加工商品来源',
-                    placeholder: '',
-                    selectNumber: {harvest: [2], st: [3, 7], sf: [4]},
-                    rule: {required: true, trigger: 'blur', message: '请选择商品来源'},
-                    options: []
-                },
-                {
-                    name: 'harvest_id',
-                    type: 'select',
-                    component: null,
-                    isNull: false,
-                    label: '采收批次',
-                    hiddenSelect: true,
-                    placeholder: '',
-                    rule: {required: true, trigger: 'blur', message: '请选择采收批次', type: 'number'},
-                    options: []
-                },
-                {
-                    name: 'st_id',
-                    type: 'select',
-                    component: null,
-                    isNull: false,
-                    hiddenSelect: true,
-                    changeTable: true,
-                    label: '入库批次',
-                    placeholder: '',
-                    assocNum: 7,
-                    rule: {required: true, trigger: 'blur', type: 'number'},
-                    options: []
-                },
-                {
-                    name: 'sf_id',
-                    type: 'select',
-                    component: null,
-                    isNull: false,
-                    hiddenSelect: true,
-                    label: '入库批次',
-                    placeholder: '',
-                    rule: {required: true, trigger: 'blur', type: 'number'},
-                    options: []
-                },
-                {
-                    name: 'amount',
+                    name: 'operate',
                     type: 'text',
                     component: null,
-                    isNull: false,
-                    label: '溯源码数量',
-                    placeholder: '请输入溯源码数量（整数）',
-                    rule: [{required: true, message: '请输入溯源码数量', trigger: 'blur'}, {validator: validate2.reInteger}]
+                    isNull: true,
+                    label: '采制人',
+                    placeholder: '',
+                    rule: null
+                },
+                {
+                    name: 'raw_tea_weight',
+                    type: 'text',
+                    component: null,
+                    isNull: true,
+                    label: '毛茶重量',
+                    placeholder: '',
+                    rule: [{required: true, message: '请输入毛茶重量', trigger: 'blur'}, {validator: validate2.reNumber}]
+                },
+                {
+                    name: 'raw_tea_count',
+                    type: 'text',
+                    component: null,
+                    isNull: true,
+                    label: '毛茶数量',
+                    placeholder: '',
+                    rule: [{validator: validate2.reNumber}]
+                },
+                {
+                    name: 'bulk_tea_weigh',
+                    type: 'text',
+                    component: null,
+                    isNull: true,
+                    label: '散茶重量',
+                    placeholder: '',
+                    rule: [{required: true, message: '请输入毛茶重量', trigger: 'blur'}, {validator: validate2.reNumber}]
+                },
+                {
+                    name: 'bulk_tea_count',
+                    type: 'text',
+                    component: null,
+                    isNull: true,
+                    label: '散茶数量',
+                    placeholder: '',
+                    rule: [{validator: validate2.reNumber}]
                 },
                 {
                     name: 'memo',
@@ -527,145 +315,55 @@ export default {
                     rule: null
                 },
                 {
-                    name: 'code_ids',
-                    type: 'table',
-                    hiddenSelect: true,
-                    tableUrl: ['storage-code', true],
-                    theads: ['溯源码', '生产日期', '溯源次数'],
-                    protos: ['code', 'date', 'time'],
-                    valueId: 'code_ids',
-                    errormsg: '请选择入库溯源码',
-                    tableVal: []
-                }]
-            }],
-            editComponent: [{
-                tab: '编辑溯源码信息',
-                components: [{
-                    name: 'code',
-                    type: 'text',
+                    name: 'opera_id',
+                    type: 'select',
                     component: null,
                     isNull: false,
-                    label: '溯源码',
-                    placeholder: '',
-                    disabled: true,
-                    rule: {required: true}
+                    label: '操作模块',
+                    placeholder: '必填',
+                    selectNumber: {sunning: [8], cooling: [8], make_green: [9], kill_out: [10], knead_nori: [11], deblock: [12], dry: [13], filtrate: [14], refiring: [15]},
+                    rule: {required: true, trigger: 'blur', message: '请选择种植区', type: 'number'},
+                    options: [{
+                        value: '', label: '请选择操作模块'
+                    },
+                    {
+                        value: 'sunning', label: '晒青'
+                    },
+                    {
+                        value: 'cooling', label: '晾青'
+                    },
+                    {
+                        value: 'make_green', label: '做青'
+                    },
+                    {
+                        value: 'kill_out', label: '杀青'
+                    },
+                    {
+                        value: 'knead_nori', label: '揉稔'
+                    },
+                    {
+                        value: 'deblock', label: '解块'
+                    },
+                    {
+                        value: 'dry', label: '干燥'
+                    },
+                    {
+                        value: 'filtrate', label: '筛选'
+                    },
+                    {
+                        value: 'refiring', label: '复火'
+                    }]
                 },
                 {
-                    name: 'date',
+                    name: 'sunning_start_date',
                     type: 'date',
                     component: inputDate,
                     isNull: false,
-                    label: '生产日期',
+                    range: true,
+                    hiddenSelect: true,
+                    label: '晒青日期',
                     placeholder: '',
-                    rule: [{required: true, message: '请输入生产日期'}, {validator: validate2.reDate, message: '请输入生产日期'}]
-                },
-                {
-                    name: 'memo',
-                    type: 'textarea',
-                    component: null,
-                    isNull: true,
-                    label: '备注信息',
-                    placeholder: '',
-                    rule: null
-                }]
-            }],
-            printComponent: [{
-                tab: '打印溯源码信息',
-                components: [{
-                    name: 'product_name',
-                    type: 'text',
-                    component: null,
-                    isNull: false,
-                    label: '产品名称',
-                    placeholder: '',
-                    disabled: true,
-                    rule: {required: true}
-                },
-                {
-                    name: 'specification',
-                    type: 'text',
-                    component: null,
-                    isNull: false,
-                    label: '产品规格',
-                    placeholder: '',
-                    disabled: true,
-                    rule: {required: true}
-                },
-                {
-                    name: 'date',
-                    type: 'text',
-                    component: null,
-                    isNull: false,
-                    label: '生产日期',
-                    placeholder: '',
-                    disabled: true,
-                    rule: {required: true}
-                },
-                {
-                    name: 'origin',
-                    type: 'text',
-                    component: null,
-                    isNull: false,
-                    label: '产地',
-                    placeholder: '',
-                    disabled: true,
-                    rule: {required: true}
-                },
-                {
-                    name: 'code',
-                    component: Qrcode,
-                    isNull: false,
-                    label: '产品二维码',
-                    placeholder: '',
-                    rule: null
-                }]
-            }]
-        }]
-    },
-    // 加工检测详情信息
-    detectPackBatch: {
-        key: 'detectPackBatch',
-        tab: '加工检测管理',
-        roleName: ['packp/detect', 0],
-        theads: ['检测批次号', '检测名称', '检测内容', '检测日期', '检测结果', '检测机构', '负责人', '处理方法'],
-        protos: ['serial', 'name', 'content', 'date', 'result', 'organization', 'operate_name', 'method'],
-        batch: 'plantPackProduct',
-        url: 'detect_pk',
-        changeDataArr: [{result: {'不合格': 0, '合格': 1}}],
-        tabList: [{
-            url: 'pack-detect-pk',
-            tab: '加工批次产品信息',
-            searchPlaceholder: '请输入加工批次号进行搜索',
-            headList: ['加工批次号', '加工日期', '数量', '产地', '操作人', '备注'],
-            protos: ['serial', 'date', 'amount', 'origin', 'operate_name', 'memo'],
-            widths: [50, 50, 50, 50, 50, 50],
-            hiddeEdit: false,
-            typeComponent: [{
-                component: newbuildBtn
-            },
-            {
-                component: output
-            }],
-            listComponent: [{
-                components: [{
-                    type: 'date',
-                    component: datePick
-                }]
-            }],
-            newComponent: [{
-                tab: '新建加工批次检测信息',
-                type: 'table',
-                labUrl: 'pack',
-                assocNum: 0,
-                paramsIndex: 'plant',
-                components: [{
-                    name: 'name',
-                    type: 'table',
-                    theads: ['加工批次号', '加工日期', '产地'],
-                    protos: ['serial', 'date', 'origin'],
-                    valueId: 'pack_ids',
-                    errormsg: '请选择加工批次号',
-                    tableVal: []
+                    rule: [{required: true, message: '请选择晒青日期'}, {validator: validate2.reDate, message: '请输入晒青日期', lastDate: true}]
                 }]
             }]
         }]
