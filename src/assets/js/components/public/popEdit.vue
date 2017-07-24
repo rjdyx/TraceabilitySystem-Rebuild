@@ -253,7 +253,6 @@ export default {
             $('.newForm').css({left: divL, top: divT})
         },
         handleClick (tab, event) {
-            console.log(tab, event)
         },
         // 返回InputTextSelect组件的数据
         returnShuju (data) {
@@ -306,7 +305,6 @@ export default {
           * 提交表单
           */
         submitForm (formName) {
-            console.log(this.editForm)
             // 多选框 权限
             if (this.checkboxShow) {
                 let allIdArr = []
@@ -318,6 +316,14 @@ export default {
                     }
                 }
                 this.editForm['permission_ids'] = allIdArr
+            }
+            // 特殊处理
+            let check = this.$specialProcess(this.url, this.editForm)
+            if (check !== undefined) {
+                if (check['result'] === 'false') {
+                    this.$message(check['message'])
+                    return false
+                }
             }
             this.$refs[formName][0].validate((valid) => {
                 if (valid) {

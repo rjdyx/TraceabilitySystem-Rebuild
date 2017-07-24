@@ -424,6 +424,21 @@ export default {
         },
         // 下拉框选择多数组关联
         getSelectMoreId (subItem, val) {
+            var com = this.newComponent[0].components
+            var number = subItem.selectNumber
+            if (number !== undefined && number !== '') {
+                for (let k in number) {
+                    if (val.indexOf(k) !== -1) {
+                        for (let k2 in number[k]) {
+                            com[number[k][k2]].hiddenSelect = false
+                        }
+                    } else {
+                        for (let k2 in number[k]) {
+                            com[number[k][k2]].hiddenSelect = true
+                        }
+                    }
+                }
+            }
         },
         // 新增成功调用方法
         successCallback () {

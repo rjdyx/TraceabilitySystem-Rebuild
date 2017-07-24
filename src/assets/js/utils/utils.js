@@ -427,7 +427,7 @@ default {
          */
         Vue.prototype.$specialProcess = (url, ret) => {
             if (url.indexOf('colect-process') !== -1) {
-                if (parseInt(ret['bulk_tea_weigh']) > parseInt(ret['raw_tea_weight'])) {
+                if (parseInt(ret['bulk_tea_weight']) > parseInt(ret['raw_tea_weight'])) {
                     return {result: 'false', message: '散茶重量不能大于毛茶重量'}
                 }
             }
