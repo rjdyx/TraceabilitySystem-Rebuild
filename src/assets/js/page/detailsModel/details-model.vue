@@ -91,7 +91,7 @@
                             <span v-if="protos[index] == 'img'">
                                 <img :src="$img('images/ok.png')">
                             </span>
-                            <span v-else>{{ props.row[protos[index]] }}</span>
+                            <span v-else>{{ props.row[tabItem.protos[index]] }}</span>
                           </el-form-item>
                       </template>
                     </el-form>
