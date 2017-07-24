@@ -8,6 +8,7 @@ import categoryBtn from '../../components/public/categoryBtn.vue'
 import addRfidBtn from '../../components/public/addRfidBtn.vue'
 import inputFile from '../../components/public/inputFile.vue'
 import inputDate from '../../components/public/inputDate.vue'
+import inputDateTimes from '../../components/public/inputDateTimes.vue'
 import validate2 from '../../utils/validate2.js'
 import Qrcode from '../../components/public/Qrcode.vue'
 
@@ -29,6 +30,7 @@ export default {
             headList: ['图片', '图片标题', '图片描述', '图片', '图片标题', '图片描述', '上传日期', '图片标题', '图片描述', '上传日期', '备注信息'],
             protos: ['thumb', 'name', 'desc', 'thumb', 'name', 'desc', 'date', 'name', 'desc', 'date', 'memo'],
             hiddeEdit: true,
+            searchText: true,
             widths: [50, 50, 50, 50, 50],
             typeComponent: [{
                 component: newbuildBtn
@@ -158,6 +160,7 @@ export default {
             protos: ['serial', 'plantation_name', 'tea_name', 'date', 'operate', 'memo'],
             widths: [50, 50, 50, 50, 50, 50],
             hiddeEdit: false,
+            searchText: true,
             typeComponent: [{
                 component: output
             }],
@@ -185,6 +188,7 @@ export default {
             protos: ['serial', 'plantation_name', 'tea_name', 'date', 'operate', 'memo'],
             widths: [50, 50, 50, 50, 50, 50],
             hiddeEdit: false,
+            searchText: true,
             typeComponent: [{
                 component: output
             }],
@@ -211,6 +215,7 @@ export default {
             protos: ['serial', 'plantation_name', 'tea_name', 'date', 'operate', 'memo'],
             widths: [50, 50, 50, 50, 50, 50],
             hiddeEdit: false,
+            searchText: true,
             typeComponent: [{
                 component: output
             }],
@@ -233,10 +238,12 @@ export default {
         tabList: [{
             url: 'colect-process',
             tab: '采制信息',
-            searchPlaceholder: '请输入种植批次进行搜索',
-            headList: ['采制日期', '采制人', '毛茶重量', '毛茶数量', '散茶重量', '散茶数量'],
-            protos: ['date', 'operate', 'raw_tea_weight', 'raw_tea_count', 'bulk_tea_weigh', 'bulk_tea_count'],
-            widths: [50, 50, 50, 50, 50, 50],
+            searchPlaceholder: '',
+            headList: ['采制日期', '采制人', '毛茶重量', '毛茶数量', '散茶重量', '散茶数量', '损耗率', '备注'],
+            protos: ['date', 'operate', 'raw_tea_weight', 'raw_tea_count', 'bulk_tea_weight', 'bulk_tea_count', 'attrition_rate', 'memo'],
+            widths: [50, 50, 50, 50, 50, 50, 50, 50],
+            hiddeEdit: true,
+            searchText: false,
             typeComponent: [{
                 component: newbuildBtn
             },
@@ -252,7 +259,7 @@ export default {
             harvestMore: [{value: '梁青'}],
             newComponent: [{
                 tab: '新建采制信息',
-                hasImg: true,
+                type: 'assoc',
                 components: [{
                     name: 'date',
                     type: 'date',
@@ -290,7 +297,7 @@ export default {
                     rule: [{validator: validate2.reNumber}]
                 },
                 {
-                    name: 'bulk_tea_weigh',
+                    name: 'bulk_tea_weight',
                     type: 'text',
                     component: null,
                     isNull: true,
@@ -308,27 +315,15 @@ export default {
                     rule: [{validator: validate2.reNumber}]
                 },
                 {
-                    name: 'memo',
-                    type: 'textarea',
-                    component: null,
-                    isNull: true,
-                    label: '备注信息',
-                    placeholder: '',
-                    rule: null
-                },
-                {
                     name: 'opera_id',
-                    type: 'select',
+                    type: 'selectMore',
                     component: null,
                     isNull: false,
                     label: '操作模块',
                     placeholder: '必填',
-                    selectNumber: {sunning: [8], cooling: [8], make_green: [9], kill_out: [10], knead_nori: [11], deblock: [12], dry: [13], filtrate: [14], refiring: [15]},
-                    rule: {required: true, trigger: 'blur', message: '请选择种植区', type: 'number'},
+                    selectNumber: {sunning: [7], cooling: [8], make_green: [9], kill_out: [10], knead_nori: [11], deblock: [12], dry: [13], filtrate: [14], refiring: [15]},
+                    rule: {required: false, trigger: 'blur', type: 'array'},
                     options: [{
-                        value: '', label: '请选择操作模块'
-                    },
-                    {
                         value: 'sunning', label: '晒青'
                     },
                     {
@@ -357,15 +352,169 @@ export default {
                     }]
                 },
                 {
-                    name: 'sunning_start_date',
+                    name: 'sunning',
+                    type: 'datetimerange',
+                    component: inputDateTimes,
+                    isNull: false,
+                    hiddenSelect: true,
+                    label: '晒青时间',
+                    placeholder: '',
+                    rule: [{required: true, message: '请选择晒青时间'}, {validator: validate2.reDate, message: '请输入晒青时间'}]
+                },
+                {
+                    name: 'cooling',
+                    type: 'datetimerange',
+                    component: inputDateTimes,
+                    isNull: false,
+                    hiddenSelect: true,
+                    label: '晾青时间',
+                    placeholder: '',
+                    rule: [{required: true, message: '请选择晾青时间'}, {validator: validate2.reDate, message: '请输入晾青时间'}]
+                },
+                {
+                    name: 'make_green',
+                    type: 'datetime',
+                    component: inputDateTimes,
+                    isNull: false,
+                    hiddenSelect: true,
+                    label: '做青时间',
+                    placeholder: '',
+                    rule: [{required: true, message: '请选择做青时间'}, {validator: validate2.reDate, message: '请输入做青时间'}]
+                },
+                {
+                    name: 'kill_out',
+                    type: 'datetime',
+                    component: inputDateTimes,
+                    isNull: false,
+                    hiddenSelect: true,
+                    label: '杀青时间',
+                    placeholder: '',
+                    rule: [{required: true, message: '请选择杀青时间'}, {validator: validate2.reDate, message: '请输入杀青时间'}]
+                },
+                {
+                    name: 'knead_nori',
+                    type: 'datetime',
+                    component: inputDateTimes,
+                    isNull: false,
+                    hiddenSelect: true,
+                    label: '揉稔时间',
+                    placeholder: '',
+                    rule: [{required: true, message: '请选择揉稔时间'}, {validator: validate2.reDate, message: '请输入揉稔时间'}]
+                },
+                {
+                    name: 'deblock',
+                    type: 'datetime',
+                    component: inputDateTimes,
+                    isNull: false,
+                    hiddenSelect: true,
+                    label: '解块时间',
+                    placeholder: '',
+                    rule: [{required: true, message: '请选择解块时间'}, {validator: validate2.reDate, message: '请输入解块时间'}]
+                },
+                {
+                    name: 'dry',
+                    type: 'date',
+                    component: inputDateTimes,
+                    isNull: false,
+                    hiddenSelect: true,
+                    label: '干燥时间',
+                    placeholder: '',
+                    rule: [{required: true, message: '请选择干燥时间'}, {validator: validate2.reDate, message: '请输入干燥时间'}]
+                },
+                {
+                    name: 'filtrate',
+                    type: 'datetime',
+                    component: inputDateTimes,
+                    isNull: false,
+                    hiddenSelect: true,
+                    label: '筛选时间',
+                    placeholder: '',
+                    rule: [{required: true, message: '请选择筛选时间'}, {validator: validate2.reDate, message: '请输入筛选时间'}]
+                },
+                {
+                    name: 'refiring',
+                    type: 'datetime',
+                    component: inputDateTimes,
+                    isNull: false,
+                    hiddenSelect: true,
+                    label: '复火时间',
+                    placeholder: '',
+                    rule: [{required: true, message: '请选择复火时间'}, {validator: validate2.reDate, message: '请输入复火时间'}]
+                },
+                {
+                    name: 'memo',
+                    type: 'textarea',
+                    component: null,
+                    isNull: true,
+                    label: '备注信息',
+                    placeholder: '',
+                    rule: null
+                }]
+            }],
+            editComponent: [{
+                tab: '编辑采制信息',
+                components: [{
+                    name: 'date',
                     type: 'date',
                     component: inputDate,
                     isNull: false,
-                    range: true,
-                    hiddenSelect: true,
-                    label: '晒青日期',
+                    label: '采制日期',
                     placeholder: '',
-                    rule: [{required: true, message: '请选择晒青日期'}, {validator: validate2.reDate, message: '请输入晒青日期', lastDate: true}]
+                    rule: [{required: true, message: '请输入采制日期'}, {validator: validate2.reDate, message: '请输入采制日期'}]
+                },
+                {
+                    name: 'operate',
+                    type: 'text',
+                    component: null,
+                    isNull: true,
+                    label: '采制人',
+                    placeholder: '',
+                    rule: null
+                },
+                {
+                    name: 'raw_tea_weight',
+                    type: 'text',
+                    component: null,
+                    isNull: true,
+                    label: '毛茶重量',
+                    placeholder: '',
+                    rule: [{required: true, message: '请输入毛茶重量'}, {validator: validate2.reNumber}]
+                },
+                {
+                    name: 'raw_tea_count',
+                    type: 'text',
+                    component: null,
+                    isNull: true,
+                    label: '毛茶数量',
+                    placeholder: '',
+                    rule: [{validator: validate2.reNumber}]
+                },
+                {
+                    name: 'bulk_tea_weight',
+                    type: 'text',
+                    component: null,
+                    isNull: true,
+                    label: '散茶重量',
+                    placeholder: '',
+                    rule: [{required: true, message: '请输入毛茶重量'}, {validator: validate2.reNumber}]
+                },
+                {
+                    name: 'bulk_tea_count',
+                    type: 'text',
+                    component: null,
+                    isNull: true,
+                    label: '散茶数量',
+                    placeholder: '',
+                    rule: [{validator: validate2.reNumber}]
+                },
+                {
+                    name: 'memo',
+                    type: 'textarea',
+                    component: null,
+                    isNull: true,
+                    label: '备注信息',
+                    placeholder: '',
+                    rule: null
                 }]
             }]
         }]

@@ -35,6 +35,7 @@
                         <el-input
                             :placeholder="tabItem.searchPlaceholder"
                             v-model="inputValue"
+                            v-if="tabList[index].searchText"
                             :on-icon-click="search" class="searchInp" size="small" @keyup.enter.native="textAndDateFind">
                         </el-input>
                         <el-button size="small" class="searchBtn" @click="textAndDateFind">搜索</el-button>
@@ -434,16 +435,9 @@ export default {
                 }
             }
         },
-        // 新增弹窗切换
-        changeNewTab (val) {
-        },
         // 关闭新增弹窗
         closeNewShow (val) {
             this.isNewShow = false
-            var com = this.tabItem.newComponent[0]
-            if (com.components[com.assocNum] !== undefined) {
-                this.$set(com.components[com.assocNum], 'tableVal', [])
-            }
         },
         // 关闭编辑弹窗
         closeEditShow (val) {

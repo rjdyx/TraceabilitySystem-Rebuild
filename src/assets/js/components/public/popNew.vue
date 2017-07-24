@@ -107,6 +107,7 @@
                             </el-form-item>
                         </td>
                     </tr>
+
                      <!-- 传组件 -->
                     <tr class="tr1" v-else-if="subItem.component && !subItem.hiddenSelect">
                         <td>
@@ -139,6 +140,7 @@
                                     v-else
                                     v-bind:is="subItem.component" 
                                     :shuju="subItem"
+                                    :type="subItem.type"
                                     :range="subItem.range"
                                     @return-shuju="returnShuju"
                                     @setPicArr="getPicArr"
@@ -229,7 +231,7 @@ export default {
             }
         })
         let rules = {}
-        this.newComponent[0].components.forEach(function (item) {
+        this.newComponent[0].components.forEach((item) => {
             rules[item.name] = item.rule
         })
         return {
@@ -250,7 +252,9 @@ export default {
             disabled: false,
             disabledV: false,
             num: 1,
-            news: 'new'
+            news: 'new',
+            operateArr1: ['sunning', 'cooling'],
+            operateArr2: ['make_green', 'kill_out', 'knead_nori', 'deblock', 'dry', 'filtrate', 'refiring']
         }
     },
     mixins: [move],
@@ -282,6 +286,12 @@ export default {
                     }
                 }
             }
+            if (this.operateArr1.indexOf(data.name) !== -1) {
+                this.tableForm[data.name + '_start_date'] = this.$changeDateTime(data.value[0])
+                this.tableForm[data.name + '_end_date'] = this.$changeDateTime(data.value[1])
+            } else if (this.operateArr2.indexOf(data.name) !== -1) {
+                this.tableForm[data.name + '_date'] = this.$changeDateTime(data.value)
+            }
             this.tableForm[data.name] = data.value
         },
         getOther (data) {
@@ -300,11 +310,11 @@ export default {
         },
         // 关闭表单事件
         closeClick () {
-            this.$parent.closeNewShow()
+            this.successCallback()
         },
         // 取消事件
         cancelClick () {
-            this.$parent.closeNewShow()
+            this.successCallback()
         },
         // 获取多图片数组
         getPicArr (arr) {
@@ -329,9 +339,18 @@ export default {
                 }
                 this.tableForm['permission_ids'] = allIdArr
             }
+            // 特殊处理
+            let check = this.$specialProcess(this.url, this.tableForm)
+            if (check !== undefined) {
+                if (check['result'] === 'false') {
+                    this.$message(check['message'])
+                    return false
+                }
+            }
             this.$refs[formName][0].validate((valid) => {
                 if (valid) {
                     this.$dataPost(this, this.url, this.tableForm, com.hasImg, com.hiddenValue, false).then((response) => {
+                        this.successCallback()
                         this.$emit('submitNew', response.data)
                     })
                 } else {
@@ -416,11 +435,27 @@ export default {
         },
         // 下拉框选择多数组关联
         getSelectMoreId (subItem, val) {
+            var com = this.newComponent[0].components
+            var number = subItem.selectNumber
+            if (number !== undefined && number !== '') {
+                for (let k in number) {
+                    if (val.indexOf(k) !== -1) {
+                        for (let k2 in number[k]) {
+                            com[number[k][k2]].hiddenSelect = false
+                        }
+                    } else {
+                        for (let k2 in number[k]) {
+                            com[number[k][k2]].hiddenSelect = true
+                            this.tableForm[com[number[k][k2]].name] = ''
+                        }
+                    }
+                }
+            }
         },
         // 新增成功调用方法
         successCallback () {
             this.$parent.closeNewShow()
-            var com = this.newComponent[0].components
+            var com = this.newComponent[0]
             if (com.type === 'assoc' || com.type === 'selectAssoc') {
                 for (let k in com.components) {
                     if (com.components[k].hiddenSelect !== undefined) {

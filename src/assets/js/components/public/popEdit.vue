@@ -84,6 +84,20 @@
                         </td>
                     </tr>
 
+                    <!-- 选择两个日期-->
+                    <tr class="tr1" v-else-if="subItem.type=='dates'">
+                        <td>
+                            <el-form-item :label="subItem.label" :prop="subItem.name">
+                                <el-date-picker
+                                  v-model="tableForm[subItem.name]"
+                                  type="datetimerange"
+                                  placeholder="选择时间范围"
+                                  size="small">
+                                </el-date-picker>
+                            </el-form-item>
+                        </td>
+                    </tr>
+
                     <!-- 传组件 -->
                     <tr class="tr1" v-else-if="subItem.component && !subItem.hiddenSelect">
                         <td>
@@ -253,7 +267,6 @@ export default {
             $('.newForm').css({left: divL, top: divT})
         },
         handleClick (tab, event) {
-            console.log(tab, event)
         },
         // 返回InputTextSelect组件的数据
         returnShuju (data) {
@@ -306,7 +319,6 @@ export default {
           * 提交表单
           */
         submitForm (formName) {
-            console.log(this.editForm)
             // 多选框 权限
             if (this.checkboxShow) {
                 let allIdArr = []
@@ -318,6 +330,14 @@ export default {
                     }
                 }
                 this.editForm['permission_ids'] = allIdArr
+            }
+            // 特殊处理
+            let check = this.$specialProcess(this.url, this.editForm)
+            if (check !== undefined) {
+                if (check['result'] === 'false') {
+                    this.$message(check['message'])
+                    return false
+                }
             }
             this.$refs[formName][0].validate((valid) => {
                 if (valid) {
