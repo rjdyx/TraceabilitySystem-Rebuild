@@ -84,7 +84,7 @@ export default {
 .inputSelectOther{
 	overflow:hidden;
     >.el-select{
-        width: 186px;
+        width: 209px;
         display:inline-block;
     }
     >.el-input {

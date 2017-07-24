@@ -84,6 +84,20 @@
                         </td>
                     </tr>
 
+                    <!-- 选择两个日期-->
+                    <tr class="tr1" v-else-if="subItem.type=='dates'">
+                        <td>
+                            <el-form-item :label="subItem.label" :prop="subItem.name">
+                                <el-date-picker
+                                  v-model="tableForm[subItem.name]"
+                                  type="datetimerange"
+                                  placeholder="选择时间范围"
+                                  size="small">
+                                </el-date-picker>
+                            </el-form-item>
+                        </td>
+                    </tr>
+
                     <!-- 传组件 -->
                     <tr class="tr1" v-else-if="subItem.component && !subItem.hiddenSelect">
                         <td>

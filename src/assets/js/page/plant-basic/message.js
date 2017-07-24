@@ -1911,6 +1911,16 @@ export default {
                 placeholder: '必填',
                 rule: [{required: true, message: '请输入采制日期'}, {validator: validate2.reDate, message: '请输入采制日期'}]
             },
+            // cs
+            {
+                name: 'dates',
+                type: 'dates',
+                component: null,
+                isNull: true,
+                label: '采制开始日期到结束日期',
+                placeholder: '必填',
+                rule: [{required: true, message: '请输入采制日期'}, {validator: validate2.reDate, message: '请输入采制日期'}]
+            },
             {
                 name: 'department',
                 type: 'text',
