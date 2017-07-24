@@ -28,20 +28,14 @@ export default[{
     ]
 },
 {
-    name: '采收加工管理',
+    name: '采制加工管理',
     role: roleData.packp === undefined ? 0 : 1,
     src: '/public/images/product.png',
     children: [{
         role: roleData.packp === undefined ? 0 : roleData.packp.pack === undefined ? 0 : 1,
         path: '/index/message/vegetableSerial',
         name: '采制批次管理'
-    },
-    {
-        role: roleData.packp === undefined ? 0 : roleData.packp.detect === undefined ? 0 : 1,
-        path: '/index/message/vegetableDetect',
-        name: '加工批次管理'
-    }
-    ]
+    }]
 },
 {
     name: '销售管理',

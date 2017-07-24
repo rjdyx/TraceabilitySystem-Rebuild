@@ -48,7 +48,7 @@
 
         <!-- 新建模块 --> 
         <transition name="fade">
-            <popNew v-if="isNewShow" :newComponent="newComponent" :checkboxShow="checkboxShow" :url="url" @submitNew="changeNew" @setAssoc="getAssoc" @setTable="getTable" ></popNew>
+            <popNew v-if="isNewShow" :newComponent="newComponent" :checkboxShow="checkboxShow" :url="url" @submitNew="changeNew" @setTable="getTable"></popNew>
         </transition>
         <!-- 编辑模块 -->
         <transition name="fade">
@@ -306,7 +306,6 @@ export default {
             this.$set(this, 'multipleSelection', [])
         },
         handleRemove (file, fileList) {
-            console.log(file, fileList)
         },
         handlePictureCardPreview (file) {
             this.dialogImageUrl = file.url
@@ -314,12 +313,6 @@ export default {
         },
         jumpDetails (row) {
             var id = row.id
-            var state = row.state
-            if (row.code !== undefined) {
-                id = row.pack_id
-            } else if (row.harvest_change !== undefined) {
-                id = row.cultivate_id
-            }
             this.$router.push('/index/details/' + this.batch + '/' + id)
         },
         /**
@@ -441,8 +434,11 @@ export default {
                             for (let k in com.selectWhereArr2[key]) {
                                 arr[k] = [com.selectWhereArr2[key][k].n, com.selectWhereArr2[key][k].v]
                                 if (com.selectWhereArr2[key][k].s !== undefined) {
-                                    if (com.selectWhereArr2[key][k].s) {
-                                        arr[k].push(true)
+                                    if (com.selectWhereArr2[key][k].s !== undefined) {
+                                        arr[k].push(com.selectWhereArr2[key][k].s)
+                                    }
+                                    if (com.selectWhereArr2[key][k].f !== undefined) {
+                                        arr[k].push(com.selectWhereArr2[key][k].f)
                                     }
                                 }
                             }
@@ -465,12 +461,61 @@ export default {
                         })
                 }
             }
+            // 指定路由查询
+            if (com.selectUrl3) {
+                var lis = com.selectUrl3
+                for (let key in lis) {
+                    let newArr = this.$addAndEditSelectMethod(lis[key])
+                    this.$dataGet(this, newArr.selectUrl, {})
+                        .then((responce) => {
+                            if (responce.data.length !== 0) {
+                                this.selectNewEdit[key] = []
+                                this.selectNewEdit[key].push(com.selectInit3[key])
+                                let newOpt = this.$selectData(this.url, responce.data, newArr.selectArr)
+                                for (let item of Object.keys(newOpt)) {
+                                    this.selectNewEdit[key].push(newOpt[item])
+                                }
+                                com.components[com.popNumber3[key]].options = this.selectNewEdit[key]
+                            }
+                        })
+                }
+            }
+        },
+        // 编辑-默认隐藏显示下拉
+        sexa (com, number, val) {
+            for (let k in number) {
+                var state = true
+                var seed = 'seed'
+                var seed2 = ['seed']
+                if (k === val) {
+                    state = false
+                    seed = ''
+                    seed2 = []
+                }
+                for (let k2 in number[k]) {
+                    var newObj = com[number[k][k2]]
+                    newObj.hiddenSelect = state
+                    if (newObj.type === 'table') {
+                        newObj.valueId = seed2
+                    }
+                    if (newObj.type === 'text' || newObj.type === 'textSelect' || newObj.type === 'select') {
+                        newObj.value = seed
+                    }
+                }
+            }
         },
         // 显示编辑表单
         changeEditShow (index, row) {
+            var com = this.editComponent[0]
+            var scf = com.selectChangeField
+            var scp = com.selectChangePosition
+            // 隐藏或显示下拉
+            if (scf !== undefined && scp !== undefined) {
+                var newCom = com.components
+                this.sexa(newCom, newCom[scp]['selectNumber'], row.type)
+            }
             this.roleId = row.id
             this.isEditShow = true
-            var com = this.editComponent[0]
             if (com.checkboxShow !== undefined) {
                 this.checkboxShow = com.checkboxShow
             }
@@ -815,29 +860,6 @@ export default {
         // 点击删除
         userRole (row, index) {
             this.isPermissionShow = !this.isPermissionShow
-        },
-        // 获取关联下拉框
-        getAssoc (val) {
-            if (val[2] !== '') {
-                var url = val[2] + '/' + val[0][0]
-                var getSelect = {'getSelect': '444'}
-                this.$dataGet(this, url, {getSelect})
-                    .then((responce) => {
-                        if (responce.status === 200) {
-                            if (responce.data.length !== 0) {
-                                let asr = []
-                                asr.push(val[0][4])
-                                let newOpt = this.$selectData(url, responce.data.data, [val[0][1], val[0][2], true])
-                                for (let item of Object.keys(newOpt)) {
-                                    asr.push(newOpt[item])
-                                }
-                                this.newComponent[0].components[val[0][3]].options = asr
-                            }
-                        }
-                    })
-            } else {
-                this.newComponent[0].components[val[0][3]].options = []
-            }
         },
         moreShow (index, row) {
             this.isPrintShow = !this.isPrintShow
