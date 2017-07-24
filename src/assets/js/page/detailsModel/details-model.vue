@@ -35,6 +35,7 @@
                         <el-input
                             :placeholder="tabItem.searchPlaceholder"
                             v-model="inputValue"
+                            v-if="tabList[index].searchText"
                             :on-icon-click="search" class="searchInp" size="small" @keyup.enter.native="textAndDateFind">
                         </el-input>
                         <el-button size="small" class="searchBtn" @click="textAndDateFind">搜索</el-button>

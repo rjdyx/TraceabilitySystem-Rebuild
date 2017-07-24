@@ -419,6 +419,19 @@ default {
             }
             return ret
         }
+        /**
+         *
+         * 新增编辑提交前特殊处理
+         * @param url(地址)
+         * @returns ret（提交值）
+         */
+        Vue.prototype.$specialProcess = (url, ret) => {
+            if (url.indexOf('colect-process') !== -1) {
+                if (parseInt(ret['bulk_tea_weigh']) > parseInt(ret['raw_tea_weight'])) {
+                    return {result: 'false', message: '散茶重量不能大于毛茶重量'}
+                }
+            }
+        }
         Vue.prototype.Roles = {}
     }
 }

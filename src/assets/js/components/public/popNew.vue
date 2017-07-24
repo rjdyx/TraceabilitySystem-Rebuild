@@ -329,6 +329,14 @@ export default {
                 }
                 this.tableForm['permission_ids'] = allIdArr
             }
+            // 特殊处理
+            let check = this.$specialProcess(this.url, this.tableForm)
+            if (check !== undefined) {
+                if (check['result'] === 'false') {
+                    this.$message(check['message'])
+                    return false
+                }
+            }
             this.$refs[formName][0].validate((valid) => {
                 if (valid) {
                     this.$dataPost(this, this.url, this.tableForm, com.hasImg, com.hiddenValue, false).then((response) => {

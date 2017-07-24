@@ -29,6 +29,7 @@ export default {
             headList: ['图片', '图片标题', '图片描述', '上传日期', '备注信息'],
             protos: ['thumb', 'name', 'desc', 'date', 'memo'],
             hiddeEdit: true,
+            searchText: true,
             widths: [50, 50, 50, 50, 50],
             typeComponent: [{
                 component: newbuildBtn
@@ -157,6 +158,7 @@ export default {
             protos: ['serial', 'plantation_name', 'tea_name', 'date', 'operate', 'memo'],
             widths: [50, 50, 50, 50, 50, 50],
             hiddeEdit: false,
+            searchText: true,
             typeComponent: [{
                 component: output
             }],
@@ -184,6 +186,7 @@ export default {
             protos: ['serial', 'plantation_name', 'tea_name', 'date', 'operate', 'memo'],
             widths: [50, 50, 50, 50, 50, 50],
             hiddeEdit: false,
+            searchText: true,
             typeComponent: [{
                 component: output
             }],
@@ -210,6 +213,7 @@ export default {
             protos: ['serial', 'plantation_name', 'tea_name', 'date', 'operate', 'memo'],
             widths: [50, 50, 50, 50, 50, 50],
             hiddeEdit: false,
+            searchText: true,
             typeComponent: [{
                 component: output
             }],
@@ -232,10 +236,12 @@ export default {
         tabList: [{
             url: 'colect-process',
             tab: '采制信息',
-            searchPlaceholder: '请输入种植批次进行搜索',
-            headList: ['采制日期', '采制人', '毛茶重量', '毛茶数量', '散茶重量', '散茶数量'],
-            protos: ['date', 'operate', 'raw_tea_weight', 'raw_tea_count', 'bulk_tea_weigh', 'bulk_tea_count'],
-            widths: [50, 50, 50, 50, 50, 50],
+            searchPlaceholder: '',
+            headList: ['采制日期', '采制人', '毛茶重量', '毛茶数量', '散茶重量', '散茶数量', '损耗率', '备注'],
+            protos: ['date', 'operate', 'raw_tea_weight', 'raw_tea_count', 'bulk_tea_weight', 'bulk_tea_count', 'attrition_rate', 'memo'],
+            widths: [50, 50, 50, 50, 50, 50, 50, 50],
+            hiddeEdit: true,
+            searchText: false,
             typeComponent: [{
                 component: newbuildBtn
             },
@@ -288,7 +294,7 @@ export default {
                     rule: [{validator: validate2.reNumber}]
                 },
                 {
-                    name: 'bulk_tea_weigh',
+                    name: 'bulk_tea_weight',
                     type: 'text',
                     component: null,
                     isNull: true,
@@ -306,23 +312,14 @@ export default {
                     rule: [{validator: validate2.reNumber}]
                 },
                 {
-                    name: 'memo',
-                    type: 'textarea',
-                    component: null,
-                    isNull: true,
-                    label: '备注信息',
-                    placeholder: '',
-                    rule: null
-                },
-                {
                     name: 'opera_id',
                     type: 'select',
                     component: null,
                     isNull: false,
                     label: '操作模块',
                     placeholder: '必填',
-                    selectNumber: {sunning: [8], cooling: [8], make_green: [9], kill_out: [10], knead_nori: [11], deblock: [12], dry: [13], filtrate: [14], refiring: [15]},
-                    rule: {required: true, trigger: 'blur', message: '请选择种植区', type: 'number'},
+                    selectNumber: {sunning: [7], cooling: [8], make_green: [9], kill_out: [10], knead_nori: [11], deblock: [12], dry: [13], filtrate: [14], refiring: [15]},
+                    rule: {required: false, trigger: 'blur'},
                     options: [{
                         value: '', label: '请选择操作模块'
                     },
@@ -355,15 +352,103 @@ export default {
                     }]
                 },
                 {
-                    name: 'sunning_start_date',
+                    name: 'sunning',
                     type: 'date',
                     component: inputDate,
                     isNull: false,
-                    range: true,
                     hiddenSelect: true,
                     label: '晒青日期',
                     placeholder: '',
-                    rule: [{required: true, message: '请选择晒青日期'}, {validator: validate2.reDate, message: '请输入晒青日期', lastDate: true}]
+                    rule: [{required: true, message: '请选择晒青日期'}, {validator: validate2.reDate, message: '请输入晒青日期'}]
+                },
+                {
+                    name: 'cooling',
+                    type: 'date',
+                    component: inputDate,
+                    isNull: false,
+                    hiddenSelect: true,
+                    label: '晾青日期',
+                    placeholder: '',
+                    rule: [{required: true, message: '请选择晒青日期'}, {validator: validate2.reDate, message: '请输入晒青日期'}]
+                },
+                {
+                    name: 'make_green',
+                    type: 'date',
+                    component: inputDate,
+                    isNull: false,
+                    hiddenSelect: true,
+                    label: '做青日期',
+                    placeholder: '',
+                    rule: [{required: true, message: '请选择晒青日期'}, {validator: validate2.reDate, message: '请输入晒青日期'}]
+                },
+                {
+                    name: 'kill_out',
+                    type: 'date',
+                    component: inputDate,
+                    isNull: false,
+                    hiddenSelect: true,
+                    label: '杀青日期',
+                    placeholder: '',
+                    rule: [{required: true, message: '请选择晒青日期'}, {validator: validate2.reDate, message: '请输入晒青日期'}]
+                },
+                {
+                    name: 'knead_nori',
+                    type: 'date',
+                    component: inputDate,
+                    isNull: false,
+                    hiddenSelect: true,
+                    label: '揉稔日期',
+                    placeholder: '',
+                    rule: [{required: true, message: '请选择晒青日期'}, {validator: validate2.reDate, message: '请输入晒青日期'}]
+                },
+                {
+                    name: 'deblock',
+                    type: 'date',
+                    component: inputDate,
+                    isNull: false,
+                    hiddenSelect: true,
+                    label: '解块日期',
+                    placeholder: '',
+                    rule: [{required: true, message: '请选择晒青日期'}, {validator: validate2.reDate, message: '请输入晒青日期'}]
+                },
+                {
+                    name: 'dry',
+                    type: 'date',
+                    component: inputDate,
+                    isNull: false,
+                    hiddenSelect: true,
+                    label: '干燥日期',
+                    placeholder: '',
+                    rule: [{required: true, message: '请选择晒青日期'}, {validator: validate2.reDate, message: '请输入晒青日期'}]
+                },
+                {
+                    name: 'filtrate',
+                    type: 'date',
+                    component: inputDate,
+                    isNull: false,
+                    hiddenSelect: true,
+                    label: '筛选日期',
+                    placeholder: '',
+                    rule: [{required: true, message: '请选择晒青日期'}, {validator: validate2.reDate, message: '请输入晒青日期'}]
+                },
+                {
+                    name: 'refiring',
+                    type: 'date',
+                    component: inputDate,
+                    isNull: false,
+                    hiddenSelect: true,
+                    label: '复火日期',
+                    placeholder: '',
+                    rule: [{required: true, message: '请选择晒青日期'}, {validator: validate2.reDate, message: '请输入晒青日期'}]
+                },
+                {
+                    name: 'memo',
+                    type: 'textarea',
+                    component: null,
+                    isNull: true,
+                    label: '备注信息',
+                    placeholder: '',
+                    rule: null
                 }]
             }]
         }]
