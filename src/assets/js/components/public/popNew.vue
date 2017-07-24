@@ -84,21 +84,6 @@
                         </td>
                     </tr>
 
-                    <!-- 选择两个日期-->
-                    <tr class="tr1" v-else-if="subItem.type=='dates'">
-                        <td>
-                            <el-form-item :label="subItem.label" :prop="subItem.name">
-                            <!-- v-model="tableForm[subItem.name + 'dateStart']" -->
-                                <el-date-picker
-                                  v-model="tableForm[subItem.name]"
-                                  type="datetimerange"
-                                  placeholder="选择时间范围"
-                                  size="small">
-                                </el-date-picker>
-                            </el-form-item>
-                        </td>
-                    </tr>
-
                     <!-- 表格  -->
                     <tr class="tr2" v-else-if="subItem.type=='table' && !subItem.hiddenSelect">
                         <td>
@@ -155,6 +140,7 @@
                                     v-else
                                     v-bind:is="subItem.component" 
                                     :shuju="subItem"
+                                    :type="subItem.type"
                                     :range="subItem.range"
                                     @return-shuju="returnShuju"
                                     @setPicArr="getPicArr"
@@ -227,7 +213,7 @@ export default {
         let form = {}
         let _this = this
         this.newComponent[0].components.forEach(function (item) {
-            if (item.type === 'text' || item.type === 'textarea' || item.type === 'file' || item.type === 'dates') {
+            if (item.type === 'text' || item.type === 'textarea' || item.type === 'file') {
                 form[item.name] = ''
             } else if (item.type === 'select' || item.type === 'selectText' || item.type === 'selectOther') {
                 if (item.options[0] instanceof Object) {
@@ -243,10 +229,6 @@ export default {
             } else if (item.type === 'selectMore') {
                 form[item.name] = []
             }
-            //  else if (item.type === 'dates') {
-            //     form[item.name + 'dateStart'] = ''
-            //     form[item.name + 'dateEnd'] = ''
-            // }
         })
         let rules = {}
         this.newComponent[0].components.forEach((item) => {
@@ -270,7 +252,9 @@ export default {
             disabled: false,
             disabledV: false,
             num: 1,
-            news: 'new'
+            news: 'new',
+            operateArr1: ['sunning', 'cooling'],
+            operateArr2: ['make_green', 'kill_out', 'knead_nori', 'deblock', 'dry', 'filtrate', 'refiring']
         }
     },
     mixins: [move],
@@ -302,6 +286,12 @@ export default {
                     }
                 }
             }
+            if (this.operateArr1.indexOf(data.name) !== -1) {
+                this.tableForm[data.name + '_start_date'] = this.$changeDateTime(data.value[0])
+                this.tableForm[data.name + '_end_date'] = this.$changeDateTime(data.value[1])
+            } else if (this.operateArr2.indexOf(data.name) !== -1) {
+                this.tableForm[data.name + '_date'] = this.$changeDateTime(data.value)
+            }
             this.tableForm[data.name] = data.value
         },
         getOther (data) {
@@ -320,11 +310,11 @@ export default {
         },
         // 关闭表单事件
         closeClick () {
-            this.$parent.closeNewShow()
+            this.successCallback()
         },
         // 取消事件
         cancelClick () {
-            this.$parent.closeNewShow()
+            this.successCallback()
         },
         // 获取多图片数组
         getPicArr (arr) {
@@ -359,14 +349,8 @@ export default {
             }
             this.$refs[formName][0].validate((valid) => {
                 if (valid) {
-                    com.components.forEach((item) => {
-                        if (item.type === 'dates') {
-                            console.log(this.tableForm[item.name][0])
-                            this.tableForm[item.name + 'dateStart'] = this.tableForm[item.name][0]
-                            this.tableForm[item.name + 'dateEnd'] = this.tableForm[item.name][1]
-                        }
-                    })
                     this.$dataPost(this, this.url, this.tableForm, com.hasImg, com.hiddenValue, false).then((response) => {
+                        this.successCallback()
                         this.$emit('submitNew', response.data)
                     })
                 } else {
@@ -462,6 +446,7 @@ export default {
                     } else {
                         for (let k2 in number[k]) {
                             com[number[k][k2]].hiddenSelect = true
+                            this.tableForm[com[number[k][k2]].name] = ''
                         }
                     }
                 }
@@ -470,7 +455,7 @@ export default {
         // 新增成功调用方法
         successCallback () {
             this.$parent.closeNewShow()
-            var com = this.newComponent[0].components
+            var com = this.newComponent[0]
             if (com.type === 'assoc' || com.type === 'selectAssoc') {
                 for (let k in com.components) {
                     if (com.components[k].hiddenSelect !== undefined) {

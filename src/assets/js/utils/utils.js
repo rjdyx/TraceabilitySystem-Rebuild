@@ -423,7 +423,7 @@ default {
          *
          * 新增编辑提交前特殊处理
          * @param url(地址)
-         * @returns ret（提交值）
+         * @param ret（提交值）
          */
         Vue.prototype.$specialProcess = (url, ret) => {
             if (url.indexOf('colect-process') !== -1) {
@@ -431,6 +431,36 @@ default {
                     return {result: 'false', message: '散茶重量不能大于毛茶重量'}
                 }
             }
+        }
+        /**
+         *
+         * 转化中国标准时间
+         * @param date(中国标准时间)
+         *
+         */
+        Vue.prototype.$changeDateTime = (date) => {
+            var year = date.getFullYear()
+            var month = date.getMonth() + 1
+            var day = date.getDate()
+            var hour = date.getHours()
+            var minute = date.getMinutes()
+            var second = date.getSeconds()
+            if (month < 10) {
+                month = '0' + month
+            }
+            if (day < 10) {
+                day = '0' + day
+            }
+            if (hour < 10) {
+                hour = '0' + hour
+            }
+            if (minute < 10) {
+                minute = '0' + minute
+            }
+            if (second < 10) {
+                second = '0' + second
+            }
+            return year + '-' + month + '-' + day + ' ' + hour + ':' + minute + ':' + second
         }
         Vue.prototype.Roles = {}
     }

@@ -8,6 +8,7 @@ import categoryBtn from '../../components/public/categoryBtn.vue'
 import addRfidBtn from '../../components/public/addRfidBtn.vue'
 import inputFile from '../../components/public/inputFile.vue'
 import inputDate from '../../components/public/inputDate.vue'
+import inputDateTimes from '../../components/public/inputDateTimes.vue'
 import validate2 from '../../utils/validate2.js'
 import Qrcode from '../../components/public/Qrcode.vue'
 
@@ -256,6 +257,7 @@ export default {
             }],
             newComponent: [{
                 tab: '新建采制信息',
+                type: 'assoc',
                 components: [{
                     name: 'date',
                     type: 'date',
@@ -349,93 +351,93 @@ export default {
                 },
                 {
                     name: 'sunning',
-                    type: 'date',
-                    component: inputDate,
+                    type: 'datetimerange',
+                    component: inputDateTimes,
                     isNull: false,
                     hiddenSelect: true,
-                    label: '晒青日期',
+                    label: '晒青时间',
                     placeholder: '',
-                    rule: [{required: true, message: '请选择晒青日期'}, {validator: validate2.reDate, message: '请输入晒青日期'}]
+                    rule: [{required: true, message: '请选择晒青时间'}, {validator: validate2.reDate, message: '请输入晒青时间'}]
                 },
                 {
                     name: 'cooling',
-                    type: 'date',
-                    component: inputDate,
+                    type: 'datetimerange',
+                    component: inputDateTimes,
                     isNull: false,
                     hiddenSelect: true,
-                    label: '晾青日期',
+                    label: '晾青时间',
                     placeholder: '',
-                    rule: [{required: true, message: '请选择晒青日期'}, {validator: validate2.reDate, message: '请输入晒青日期'}]
+                    rule: [{required: true, message: '请选择晾青时间'}, {validator: validate2.reDate, message: '请输入晾青时间'}]
                 },
                 {
                     name: 'make_green',
-                    type: 'date',
-                    component: inputDate,
+                    type: 'datetime',
+                    component: inputDateTimes,
                     isNull: false,
                     hiddenSelect: true,
-                    label: '做青日期',
+                    label: '做青时间',
                     placeholder: '',
-                    rule: [{required: true, message: '请选择晒青日期'}, {validator: validate2.reDate, message: '请输入晒青日期'}]
+                    rule: [{required: true, message: '请选择做青时间'}, {validator: validate2.reDate, message: '请输入做青时间'}]
                 },
                 {
                     name: 'kill_out',
-                    type: 'date',
-                    component: inputDate,
+                    type: 'datetime',
+                    component: inputDateTimes,
                     isNull: false,
                     hiddenSelect: true,
-                    label: '杀青日期',
+                    label: '杀青时间',
                     placeholder: '',
-                    rule: [{required: true, message: '请选择晒青日期'}, {validator: validate2.reDate, message: '请输入晒青日期'}]
+                    rule: [{required: true, message: '请选择杀青时间'}, {validator: validate2.reDate, message: '请输入杀青时间'}]
                 },
                 {
                     name: 'knead_nori',
-                    type: 'date',
-                    component: inputDate,
+                    type: 'datetime',
+                    component: inputDateTimes,
                     isNull: false,
                     hiddenSelect: true,
-                    label: '揉稔日期',
+                    label: '揉稔时间',
                     placeholder: '',
-                    rule: [{required: true, message: '请选择晒青日期'}, {validator: validate2.reDate, message: '请输入晒青日期'}]
+                    rule: [{required: true, message: '请选择揉稔时间'}, {validator: validate2.reDate, message: '请输入揉稔时间'}]
                 },
                 {
                     name: 'deblock',
-                    type: 'date',
-                    component: inputDate,
+                    type: 'datetime',
+                    component: inputDateTimes,
                     isNull: false,
                     hiddenSelect: true,
-                    label: '解块日期',
+                    label: '解块时间',
                     placeholder: '',
-                    rule: [{required: true, message: '请选择晒青日期'}, {validator: validate2.reDate, message: '请输入晒青日期'}]
+                    rule: [{required: true, message: '请选择解块时间'}, {validator: validate2.reDate, message: '请输入解块时间'}]
                 },
                 {
                     name: 'dry',
                     type: 'date',
-                    component: inputDate,
+                    component: inputDateTimes,
                     isNull: false,
                     hiddenSelect: true,
-                    label: '干燥日期',
+                    label: '干燥时间',
                     placeholder: '',
-                    rule: [{required: true, message: '请选择晒青日期'}, {validator: validate2.reDate, message: '请输入晒青日期'}]
+                    rule: [{required: true, message: '请选择干燥时间'}, {validator: validate2.reDate, message: '请输入干燥时间'}]
                 },
                 {
                     name: 'filtrate',
-                    type: 'date',
-                    component: inputDate,
+                    type: 'datetime',
+                    component: inputDateTimes,
                     isNull: false,
                     hiddenSelect: true,
-                    label: '筛选日期',
+                    label: '筛选时间',
                     placeholder: '',
-                    rule: [{required: true, message: '请选择晒青日期'}, {validator: validate2.reDate, message: '请输入晒青日期'}]
+                    rule: [{required: true, message: '请选择筛选时间'}, {validator: validate2.reDate, message: '请输入筛选时间'}]
                 },
                 {
                     name: 'refiring',
-                    type: 'date',
-                    component: inputDate,
+                    type: 'datetime',
+                    component: inputDateTimes,
                     isNull: false,
                     hiddenSelect: true,
-                    label: '复火日期',
+                    label: '复火时间',
                     placeholder: '',
-                    rule: [{required: true, message: '请选择晒青日期'}, {validator: validate2.reDate, message: '请输入晒青日期'}]
+                    rule: [{required: true, message: '请选择复火时间'}, {validator: validate2.reDate, message: '请输入复火时间'}]
                 },
                 {
                     name: 'memo',
