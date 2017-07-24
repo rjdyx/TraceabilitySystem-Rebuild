@@ -80,8 +80,25 @@
             <el-table-column width="80" label="序号" type="index" id="test_id">
             </el-table-column>
 
+            <!-- 展开 -->
+            <el-table-column 
+                type="expand" class="expand" v-if="expandMore">
+                <template scope="props">
+                    <el-form label-position="left" inline class="demo-table-expand">
+                      <template v-for="(expand,index) in tabItem.headList">
+                          <el-form-item :label="expand">
+                            <span v-if="protos[index] == 'img'">
+                                <img :src="$img('images/ok.png')">
+                            </span>
+                            <span v-else>{{ props.row[protos[index]] }}</span>
+                          </el-form-item>
+                      </template>
+                    </el-form>
+                </template>
+            </el-table-column>
+
                     <!-- 中间列表模块 -->
-                    <template v-for="(item,index) in tabItem.headList"> 
+                    <template v-for="(item,index) in tabItem.headList.slice(0,8)"> 
                       <template>
                         <el-table-column 
                           :prop="tabItem.protos[index]"
@@ -210,7 +227,8 @@ export default {
             routeId: this.$route.params.id,
             isShow: true,
             listLoading: false,
-            tableListBollean: true
+            tableListBollean: true,
+            expandMore: false
         }
     },
     mixins: [computed],
@@ -749,6 +767,7 @@ export default {
         this.getApiUrl()
         this.getDetailSerial()
         this.boxArr(this.dataArr, true)
+        this.tabItem.headList.length > 8 ? this.expandMore = true : this.expandMore = false
     },
     watch: {
         tabItem () {
@@ -759,6 +778,7 @@ export default {
             this.boxArr(this.dataArr, true)
             this.inputValue = ''
             document.title = this.tab
+            this.tabItem.headList.length > 8 ? this.expandMore = true : this.expandMore = false
         },
         tab () {
             this.tabItem = this.tabList[0]
@@ -766,6 +786,7 @@ export default {
             this.getApiUrl()
             this.getDetailSerial()
             this.boxArr(this.dataArr, true)
+            this.tabItem.headList.length > 8 ? this.expandMore = true : this.expandMore = false
         }
     },
     components: {
@@ -882,5 +903,29 @@ export default {
     .el-row{
         margin:0!important;
     }
+    .el-table__expanded-cell{
+        .demo-table-expand {
+        font-size: 0;
+    }
+    .demo-table-expand label {
+        width: 90px;
+        color: #99a9bf;
+    }
+    .demo-table-expand .el-form-item {
+        margin-right: 0;
+        margin-bottom: 0;
+        width: 33%;
+        float: left;
+    }
+    .el-form-item__content{
+        width: 40%;
+        text-align: left;
+    }
+    .demo-table-expand label{
+        width: 30% !important;
+        margin-left: 16%;
+    }
 }
+}
+
 </style>

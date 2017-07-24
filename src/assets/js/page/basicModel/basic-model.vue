@@ -984,15 +984,6 @@ export default {
         .clickMoreBtn {
             display: inline-block;
         }
-        /*.el-table{
-            tr{
-                td{
-                    &:last-child{
-                        border-left:1px solid red;
-                    }
-                }
-            }
-        }*/
         .btn {
             span {
                 border-left: 1px solid #a7bad6;
