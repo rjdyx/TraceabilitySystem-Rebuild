@@ -160,6 +160,13 @@
                         </ul>
                     </td>
                 </tr>
+
+                <!-- 四级多选框组件 -->
+                <tr class="tr1" v-if="permissionShow">
+                    <td>
+                        <permissionCheckbox name="checkeds" @return-checkeds="allCheckeds"></permissionCheckbox>
+                    </td>
+                </tr>
             </tbody>
           </table>
          </el-form>
@@ -176,16 +183,16 @@
 </template>
 
 <script>
+import permissionCheckbox from './permissionCheckbox.vue'
 import AllCheck from './allCheck.vue'
 import vuexStore from '../../vuex/modules/isAllCheck.js'
 import move from '../../directive/move.js'
 export default {
     name: 'validator-example',
-    // validator: null,
     components: {
-        // ActiveBox,
         AllCheck,
-        vuexStore
+        vuexStore,
+        permissionCheckbox
     },
     props: {
         type: '',
@@ -242,7 +249,8 @@ export default {
             checkeds: [],
             disabled: false,
             disabledV: false,
-            num: 1
+            num: 1,
+            permissionShow: this.newComponent[0].permissionShow
         }
     },
     mixins: [move],
@@ -294,20 +302,9 @@ export default {
         submitForm (formName) {
             // 多选框 权限
             var com = this.newComponent[0]
-            if (this.checkboxShow) {
-                let allIdArr = []
-                for (let key in this.checkeds) {
-                    if (this.checkeds[key].length) {
-                        this.checkeds[key].forEach(function (item) {
-                            allIdArr.push(item)
-                        })
-                    }
-                }
-                this.tableForm['permission_ids'] = allIdArr
-            }
+            this.tableForm['checkeds'] = this.checkeds
             this.$refs[formName][0].validate((valid) => {
                 if (valid) {
-                    // console.log(this.tableForm)
                     this.$dataPost(this, this.url, this.tableForm, com.hasImg, com.hiddenValue, false).then((response) => {
                         this.$emit('submitNew', response.data)
                     })
@@ -317,6 +314,9 @@ export default {
             })
         },
         allChecked (data) {
+        },
+        allCheckeds (data) {
+            this.checkeds = data
         },
         allChange (data = []) {
         },
