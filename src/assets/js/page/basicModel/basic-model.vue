@@ -48,7 +48,7 @@
 
         <!-- 新建模块 --> 
         <transition name="fade">
-            <popNew v-if="isNewShow" :newComponent="newComponent" :checkboxShow="checkboxShow" :url="url" @submitNew="changeNew" @setAssoc="getAssoc" @setTable="getTable" ></popNew>
+            <popNew v-if="isNewShow" :newComponent="newComponent" :checkboxShow="checkboxShow" :url="url" @submitNew="changeNew" @setTable="getTable"></popNew>
         </transition>
         <!-- 编辑模块 -->
         <transition name="fade">
@@ -86,7 +86,10 @@
                 <el-form label-position="left" inline class="demo-table-expand">
                   <template v-for="(expand,index) in theads">
                       <el-form-item :label="expand">
-                        <span>{{ props.row[protos[index]] }}</span>
+                        <span v-if="protos[index] == 'img'">
+                            <img :src="$img('images/ok.png')">
+                        </span>
+                        <span v-else>{{ props.row[protos[index]] }}</span>
                       </el-form-item>
                   </template>
                 </el-form>
@@ -126,8 +129,8 @@
                     @changeState="changeSerialState(scope.$index,scope.row)">
                     </clickMore>
                 </template>
-                <template>
-
+            <template>
+            
                     <el-button type="text" size="small" @click="roleShow(scope.$index,scope.row)" v-if="hiddeRole">权限</el-button>
 
                     <el-button type="text" size="small" @click="changeEditShow(scope.$index,scope.row)" v-if="!hiddeEdit" v-bind:class="{'btn':hiddeRole}">编辑</el-button>
@@ -303,7 +306,6 @@ export default {
             this.$set(this, 'multipleSelection', [])
         },
         handleRemove (file, fileList) {
-            console.log(file, fileList)
         },
         handlePictureCardPreview (file) {
             this.dialogImageUrl = file.url
@@ -311,12 +313,6 @@ export default {
         },
         jumpDetails (row) {
             var id = row.id
-            var state = row.state
-            if (row.code !== undefined) {
-                id = row.pack_id
-            } else if (row.harvest_change !== undefined) {
-                id = row.cultivate_id
-            }
             this.$router.push('/index/details/' + this.batch + '/' + id)
         },
         /**
@@ -865,29 +861,6 @@ export default {
         userRole (row, index) {
             this.isPermissionShow = !this.isPermissionShow
         },
-        // 获取关联下拉框
-        getAssoc (val) {
-            if (val[2] !== '') {
-                var url = val[2] + '/' + val[0][0]
-                var getSelect = {'getSelect': '444'}
-                this.$dataGet(this, url, {getSelect})
-                    .then((responce) => {
-                        if (responce.status === 200) {
-                            if (responce.data.length !== 0) {
-                                let asr = []
-                                asr.push(val[0][4])
-                                let newOpt = this.$selectData(url, responce.data.data, [val[0][1], val[0][2], true])
-                                for (let item of Object.keys(newOpt)) {
-                                    asr.push(newOpt[item])
-                                }
-                                this.newComponent[0].components[val[0][3]].options = asr
-                            }
-                        }
-                    })
-            } else {
-                this.newComponent[0].components[val[0][3]].options = []
-            }
-        },
         moreShow (index, row) {
             this.isPrintShow = !this.isPrintShow
             this.printForm = row
@@ -921,6 +894,7 @@ export default {
         let change = $('.available')
         change.css('display', 'none')
         this.theads.length > 8 ? this.expandMore = true : this.expandMore = false
+        console.log(this.newComponent)
     },
     watch: {
         models () {
@@ -1011,15 +985,6 @@ export default {
         .clickMoreBtn {
             display: inline-block;
         }
-        /*.el-table{
-            tr{
-                td{
-                    &:last-child{
-                        border-left:1px solid red;
-                    }
-                }
-            }
-        }*/
         .btn {
             span {
                 border-left: 1px solid #a7bad6;
@@ -1030,7 +995,7 @@ export default {
             text-align: center;
         }
         #operate{
-            /*min-width: 1400px;*/
+            min-width: 1100px;
             /*margin-bottom: 10px;*/
         }
         .footer {

@@ -70,6 +70,7 @@
             }
         },
         mounted () {
+            console.log(this.inputEditValue)
             this.shuju.placeholder = '请填写数字（必填）'
         },
         methods: {
@@ -84,8 +85,12 @@
 </script>
 <style lang="sass">
 .inputTextSelect{
-    .el-select .el-input {
+    .el-select{
         width: 110px;
+        display:block;
+    }
+    .el-input {
+        width: 100%;
     }
 }
 

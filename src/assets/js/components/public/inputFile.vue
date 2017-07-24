@@ -49,7 +49,7 @@ export default {
         deleteImgFn (src) {
             this.imageUrl = ''
             src.parentNode.parentNode.getElementsByTagName('input')[0].value = ''
-            this.$emit('return-shuju', {name: this.shuju.name, value: ''})
+            this.$emit('return-shuju', {name: this.shuju.name + 's', value: 'del'})
         },
         previewPic (srcPic, event) {
             let file = event.target.files[0]
@@ -72,7 +72,7 @@ export default {
             reader.readAsDataURL(file)
             reader.onload = e => {
                 this.imageUrl = e.target.result
-                this.$emit('return-shuju', {name: this.shuju.name, value: file})
+                this.$emit('return-shuju', {name: this.shuju.name + 's', value: file})
             }
         },
         /**
@@ -93,7 +93,10 @@ export default {
         }
     },
     mounted () {
-        this.imageUrl = this.editValue
+        if (this.editValue !== undefined && this.editValue !== null && this.editValue !== '') {
+            this.imageUrl = this.editValue
+            this.$emit('return-shuju', {name: this.shuju.name, value: this.editValue})
+        }
     },
     watch: {
         imageUrl (curVal, oldVal) {

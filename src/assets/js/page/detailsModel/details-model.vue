@@ -35,6 +35,7 @@
                         <el-input
                             :placeholder="tabItem.searchPlaceholder"
                             v-model="inputValue"
+                            v-if="tabList[index].searchText"
                             :on-icon-click="search" class="searchInp" size="small" @keyup.enter.native="textAndDateFind">
                         </el-input>
                         <el-button size="small" class="searchBtn" @click="textAndDateFind">搜索</el-button>
@@ -80,8 +81,25 @@
             <el-table-column width="80" label="序号" type="index" id="test_id">
             </el-table-column>
 
+            <!-- 展开 -->
+            <el-table-column 
+                type="expand" class="expand" v-if="expandMore">
+                <template scope="props">
+                    <el-form label-position="left" inline class="demo-table-expand">
+                      <template v-for="(expand,index) in tabItem.headList">
+                          <el-form-item :label="expand">
+                            <span v-if="protos[index] == 'img'">
+                                <img :src="$img('images/ok.png')">
+                            </span>
+                            <span v-else>{{ props.row[tabItem.protos[index]] }}</span>
+                          </el-form-item>
+                      </template>
+                    </el-form>
+                </template>
+            </el-table-column>
+
                     <!-- 中间列表模块 -->
-                    <template v-for="(item,index) in tabItem.headList"> 
+                    <template v-for="(item,index) in more.slice(0,8)"> 
                       <template>
                         <el-table-column 
                           :prop="tabItem.protos[index]"
@@ -112,12 +130,18 @@
 
                     <!-- 列表操作模块 -->
                     <el-table-column 
-                    label="操作" v-if="checkOperate==null" width="175">
+                    label="操作" v-if="checkOperate==null" width="250">
                         <template scope="scope" class="operateBtn" >
                             <template v-if="tabItem.moreComponent!=null">
                                 <clickMore :moreComponent="tabItem.moreComponent" 
                                 @showMore="moreShow(scope.$index,scope.row)" class="clickMoreBtn"></clickMore>
                             </template>
+
+                        <template v-if="harvestMore!=null">
+                            <harvestMore :harvestMore="harvestMore" :row="scope.row">
+                            </harvestMore>
+                        </template>
+
                             <template>
                                 <el-button type="text" size="small" @click="changeEditShow(scope.$index,scope.row)" v-if="tabList[index].hiddeEdit">编辑</el-button>
                                 <el-button type="text" size="small" v-if="hiddeWatch">查看</el-button>
@@ -161,8 +185,8 @@ import ContainTitle from 'components/layout/contain-title.vue'
 import popEdit from '../../components/public/popEdit.vue'
 import operate from '../../components/public/operate.vue'
 import clickMore from '../../components/public/clickMore.vue'
+import harvestMore from '../../components/public/harvestMore.vue'
 import lotOpearte from '../../components/public/lotOpearte.vue'
-import newMessage from '../plant-details/newMessage.js'
 import printf from '../../components/public/printf.vue'
 import roleCheckbox from '../../components/public/roleCheckbox.vue'
 export default {
@@ -179,7 +203,9 @@ export default {
                     theads: [],
                     changeDataArr: [],
                     protos: [],
-                    tabList: []
+                    tabList: [],
+                    more: '',
+                    harvestMore: []
                 }
             }
         }
@@ -211,7 +237,8 @@ export default {
             routeId: this.$route.params.id,
             isShow: true,
             listLoading: false,
-            tableListBollean: true
+            tableListBollean: true,
+            expandMore: false
         }
     },
     mixins: [computed],
@@ -408,16 +435,9 @@ export default {
                 }
             }
         },
-        // 新增弹窗切换
-        changeNewTab (val) {
-        },
         // 关闭新增弹窗
         closeNewShow (val) {
             this.isNewShow = false
-            var com = this.tabItem.newComponent[0]
-            if (com.components[com.assocNum] !== undefined) {
-                this.$set(com.components[com.assocNum], 'tableVal', [])
-            }
         },
         // 关闭编辑弹窗
         closeEditShow (val) {
@@ -750,6 +770,8 @@ export default {
         this.getApiUrl()
         this.getDetailSerial()
         this.boxArr(this.dataArr, true)
+        this.tabItem.headList.length > 8 ? this.expandMore = true : this.expandMore = false
+        console.log(this.harvestMore)
     },
     watch: {
         tabItem () {
@@ -760,6 +782,7 @@ export default {
             this.boxArr(this.dataArr, true)
             this.inputValue = ''
             document.title = this.tab
+            this.tabItem.headList.length > 8 ? this.expandMore = true : this.expandMore = false
         },
         tab () {
             this.tabItem = this.tabList[0]
@@ -767,6 +790,7 @@ export default {
             this.getApiUrl()
             this.getDetailSerial()
             this.boxArr(this.dataArr, true)
+            this.tabItem.headList.length > 8 ? this.expandMore = true : this.expandMore = false
         }
     },
     components: {
@@ -777,7 +801,8 @@ export default {
         clickMore,
         lotOpearte,
         roleCheckbox,
-        printf
+        printf,
+        harvestMore
     }
 }
 </script>
@@ -883,5 +908,29 @@ export default {
     .el-row{
         margin:0!important;
     }
+    .el-table__expanded-cell{
+        .demo-table-expand {
+        font-size: 0;
+    }
+    .demo-table-expand label {
+        width: 90px;
+        color: #99a9bf;
+    }
+    .demo-table-expand .el-form-item {
+        margin-right: 0;
+        margin-bottom: 0;
+        width: 33%;
+        float: left;
+    }
+    .el-form-item__content{
+        width: 40%;
+        text-align: left;
+    }
+    .demo-table-expand label{
+        width: 30% !important;
+        margin-left: 16%;
+    }
 }
+}
+
 </style>

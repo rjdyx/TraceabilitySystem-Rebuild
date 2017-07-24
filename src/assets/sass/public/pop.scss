@@ -35,14 +35,12 @@
                         text-align: left;
                         .tr1{
                             display:block;
-                            width:70%;
+                            width:76.5%;
                             margin:0 auto;
                             >td{
                                 display:block;
                                 width:100%;
-                                .el-select{
-                                    display:block;
-                                }
+                                
                                 .el-textarea__inner{
                                     resize:none;
                                 }
@@ -51,6 +49,9 @@
                                 }
                             }  
 
+                        }
+                        .trSelect .el-select{
+                            display:block;
                         }
                         .tr2{
                             display:block;

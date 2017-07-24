@@ -26,6 +26,12 @@ export default {
         },
         roleName () {
             return this.models.roleName
+        },
+        more () {
+            return this.tabItem.headList
+        },
+        harvestMore () {
+            return this.tabItem.harvestMore
         }
     }
 }

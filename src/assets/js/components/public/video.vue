@@ -31,8 +31,13 @@ export default {
     },
     methods: {
         changefn (srcPic, event) {
-            this.value = $('.inputVideo input[type=file]').eq(0).val()
             let file = event.target.files[0]
+            if (file.size / 1024 >= 6144) {
+                this.$message('视频文件过大，请输入小于6M视频')
+                srcPic.value = ''
+                return
+            }
+            this.value = $('.inputVideo input[type=file]').eq(0).val()
             this.$emit('return-shuju', {name: 'videos', value: file})
         },
         delVideo () {
