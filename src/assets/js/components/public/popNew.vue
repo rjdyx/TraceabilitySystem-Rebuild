@@ -84,6 +84,21 @@
                         </td>
                     </tr>
 
+                    <!-- 选择两个日期-->
+                    <tr class="tr1" v-else-if="subItem.type=='dates'">
+                        <td>
+                            <el-form-item :label="subItem.label" :prop="subItem.name">
+                            <!-- v-model="tableForm[subItem.name + 'dateStart']" -->
+                                <el-date-picker
+                                  v-model="tableForm[subItem.name]"
+                                  type="datetimerange"
+                                  placeholder="选择时间范围"
+                                  size="small">
+                                </el-date-picker>
+                            </el-form-item>
+                        </td>
+                    </tr>
+
                     <!-- 表格  -->
                     <tr class="tr2" v-else-if="subItem.type=='table' && !subItem.hiddenSelect">
                         <td>
@@ -107,6 +122,7 @@
                             </el-form-item>
                         </td>
                     </tr>
+
                      <!-- 传组件 -->
                     <tr class="tr1" v-else-if="subItem.component && !subItem.hiddenSelect">
                         <td>
@@ -211,7 +227,7 @@ export default {
         let form = {}
         let _this = this
         this.newComponent[0].components.forEach(function (item) {
-            if (item.type === 'text' || item.type === 'textarea' || item.type === 'file') {
+            if (item.type === 'text' || item.type === 'textarea' || item.type === 'file' || item.type === 'dates') {
                 form[item.name] = ''
             } else if (item.type === 'select' || item.type === 'selectText' || item.type === 'selectOther') {
                 if (item.options[0] instanceof Object) {
@@ -227,9 +243,13 @@ export default {
             } else if (item.type === 'selectMore') {
                 form[item.name] = []
             }
+            //  else if (item.type === 'dates') {
+            //     form[item.name + 'dateStart'] = ''
+            //     form[item.name + 'dateEnd'] = ''
+            // }
         })
         let rules = {}
-        this.newComponent[0].components.forEach(function (item) {
+        this.newComponent[0].components.forEach((item) => {
             rules[item.name] = item.rule
         })
         return {
@@ -331,6 +351,13 @@ export default {
             }
             this.$refs[formName][0].validate((valid) => {
                 if (valid) {
+                    com.components.forEach((item) => {
+                        if (item.type === 'dates') {
+                            console.log(this.tableForm[item.name][0])
+                            this.tableForm[item.name + 'dateStart'] = this.tableForm[item.name][0]
+                            this.tableForm[item.name + 'dateEnd'] = this.tableForm[item.name][1]
+                        }
+                    })
                     this.$dataPost(this, this.url, this.tableForm, com.hasImg, com.hiddenValue, false).then((response) => {
                         this.$emit('submitNew', response.data)
                     })
