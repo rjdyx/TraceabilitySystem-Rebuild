@@ -256,7 +256,14 @@ export default {
                     component: datePick
                 }]
             }],
-            harvestMore: [{value: '梁青'}],
+            harvestMore: [{
+                value: '梁青',
+                components: [{
+                    component: inputDateTimes
+                }]
+            },
+            {value: '晒青'}
+            ],
             newComponent: [{
                 tab: '新建采制信息',
                 type: 'assoc',

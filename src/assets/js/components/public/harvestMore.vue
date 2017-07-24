@@ -14,7 +14,7 @@
             <i class="el-icon-caret-bottom el-icon--right"></i>
           </el-button>
           <el-dropdown-menu slot="dropdown">
-            <template v-for="items in harvestMore">
+            <template v-for="(items,index) in harvestMore">
                 <el-dropdown-item :command='items.value'>
                     {{items.value}}
                 </el-dropdown-item>
@@ -22,30 +22,10 @@
           </el-dropdown-menu>
         </el-dropdown>
         <div class="harvestTime" v-if="showHarvest">
-            <span>
-                <label>开始日期：</label>
-                <el-date-picker 
-                  size="small"
-                  v-model="value1"
-                  type="date"
-                  :editable="false"
-                  @change="getBeforeDate"
-                  format="yyyy-MM-dd"
-                  :picker-options="beforeOptions" :class="small">
-                </el-date-picker>
-            </span>
-            <span class="left">
-              <label>结束日期：</label>
-                <el-date-picker 
-                  size="small"
-                  v-model="value2"
-                  type="date"
-                  :editable="false"
-                  @change="getAfterDate"
-                  format="yyyy-MM-dd"
-                  :picker-options="afterOptions">
-                </el-date-picker>
-            </span>
+            <component
+                :is="items.components.component">
+                
+            </component>
         </div>
     </div>
 </template>
