@@ -26,8 +26,8 @@ export default {
             url: 'grow',
             tab: '生长过程信息',
             searchPlaceholder: '请输入标题进行搜索',
-            headList: ['图片', '图片标题', '图片描述', '上传日期', '备注信息'],
-            protos: ['thumb', 'name', 'desc', 'date', 'memo'],
+            headList: ['图片', '图片标题', '图片描述', '图片', '图片标题', '图片描述', '上传日期', '图片标题', '图片描述', '上传日期', '备注信息'],
+            protos: ['thumb', 'name', 'desc', 'thumb', 'name', 'desc', 'date', 'name', 'desc', 'date', 'memo'],
             hiddeEdit: true,
             widths: [50, 50, 50, 50, 50],
             typeComponent: [{
@@ -138,7 +138,8 @@ export default {
                     placeholder: '',
                     rule: null
                 }]
-            }]
+            }],
+            harvestMore: [{value: '梁青'}]
         }]
     },
     // 施肥批次详情
@@ -248,6 +249,7 @@ export default {
                     component: datePick
                 }]
             }],
+            harvestMore: [{value: '梁青'}],
             newComponent: [{
                 tab: '新建采制信息',
                 hasImg: true,

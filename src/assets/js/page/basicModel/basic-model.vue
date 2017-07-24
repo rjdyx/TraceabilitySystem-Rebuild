@@ -129,8 +129,8 @@
                     @changeState="changeSerialState(scope.$index,scope.row)">
                     </clickMore>
                 </template>
-                <template>
-
+            <template>
+            
                     <el-button type="text" size="small" @click="roleShow(scope.$index,scope.row)" v-if="hiddeRole">权限</el-button>
 
                     <el-button type="text" size="small" @click="changeEditShow(scope.$index,scope.row)" v-if="!hiddeEdit" v-bind:class="{'btn':hiddeRole}">编辑</el-button>
@@ -894,6 +894,7 @@ export default {
         let change = $('.available')
         change.css('display', 'none')
         this.theads.length > 8 ? this.expandMore = true : this.expandMore = false
+        console.log(this.newComponent)
     },
     watch: {
         models () {

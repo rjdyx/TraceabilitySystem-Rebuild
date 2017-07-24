@@ -98,7 +98,7 @@
             </el-table-column>
 
                     <!-- 中间列表模块 -->
-                    <template v-for="(item,index) in tabItem.headList.slice(0,8)"> 
+                    <template v-for="(item,index) in more.slice(0,8)"> 
                       <template>
                         <el-table-column 
                           :prop="tabItem.protos[index]"
@@ -129,12 +129,18 @@
 
                     <!-- 列表操作模块 -->
                     <el-table-column 
-                    label="操作" v-if="checkOperate==null" width="175">
+                    label="操作" v-if="checkOperate==null" width="250">
                         <template scope="scope" class="operateBtn" >
                             <template v-if="tabItem.moreComponent!=null">
                                 <clickMore :moreComponent="tabItem.moreComponent" 
                                 @showMore="moreShow(scope.$index,scope.row)" class="clickMoreBtn"></clickMore>
                             </template>
+
+                        <template v-if="harvestMore!=null">
+                            <harvestMore :harvestMore="harvestMore" :row="scope.row">
+                            </harvestMore>
+                        </template>
+
                             <template>
                                 <el-button type="text" size="small" @click="changeEditShow(scope.$index,scope.row)" v-if="tabList[index].hiddeEdit">编辑</el-button>
                                 <el-button type="text" size="small" v-if="hiddeWatch">查看</el-button>
@@ -178,6 +184,7 @@ import ContainTitle from 'components/layout/contain-title.vue'
 import popEdit from '../../components/public/popEdit.vue'
 import operate from '../../components/public/operate.vue'
 import clickMore from '../../components/public/clickMore.vue'
+import harvestMore from '../../components/public/harvestMore.vue'
 import lotOpearte from '../../components/public/lotOpearte.vue'
 import printf from '../../components/public/printf.vue'
 import roleCheckbox from '../../components/public/roleCheckbox.vue'
@@ -195,7 +202,9 @@ export default {
                     theads: [],
                     changeDataArr: [],
                     protos: [],
-                    tabList: []
+                    tabList: [],
+                    more: '',
+                    harvestMore: []
                 }
             }
         }
@@ -768,6 +777,7 @@ export default {
         this.getDetailSerial()
         this.boxArr(this.dataArr, true)
         this.tabItem.headList.length > 8 ? this.expandMore = true : this.expandMore = false
+        console.log(this.harvestMore)
     },
     watch: {
         tabItem () {
@@ -797,7 +807,8 @@ export default {
         clickMore,
         lotOpearte,
         roleCheckbox,
-        printf
+        printf,
+        harvestMore
     }
 }
 </script>
