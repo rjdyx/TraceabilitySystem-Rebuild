@@ -86,7 +86,10 @@
                 <el-form label-position="left" inline class="demo-table-expand">
                   <template v-for="(expand,index) in theads">
                       <el-form-item :label="expand">
-                        <span>{{ props.row[protos[index]] }}</span>
+                        <span v-if="protos[index] == 'img'">
+                            <img :src="$img('images/ok.png')">
+                        </span>
+                        <span v-else>{{ props.row[protos[index]] }}</span>
                       </el-form-item>
                   </template>
                 </el-form>
@@ -981,15 +984,6 @@ export default {
         .clickMoreBtn {
             display: inline-block;
         }
-        /*.el-table{
-            tr{
-                td{
-                    &:last-child{
-                        border-left:1px solid red;
-                    }
-                }
-            }
-        }*/
         .btn {
             span {
                 border-left: 1px solid #a7bad6;
@@ -1000,7 +994,7 @@ export default {
             text-align: center;
         }
         #operate{
-            /*min-width: 1400px;*/
+            min-width: 1100px;
             /*margin-bottom: 10px;*/
         }
         .footer {
