@@ -53,7 +53,8 @@ export default {
     components: {
     },
     props: {
-        id: ''
+        id: '',
+        type: ''
     },
     data () {
         let obj = {}
@@ -83,7 +84,11 @@ export default {
     },
     methods: {
         edit () {
-            axios.get('api/role/' + this.id + '/edit').then((responce) => {
+            var url = 'api/role/' + this.id + '/edit'
+            if (this.type !== undefined) {
+                url = 'api/permission/get/all?company_id=' + this.id
+            }
+            axios.get(url).then((responce) => {
                 this.returnDatas = responce.data.permissions
                 this.$emit('return-checkeds', this.returnDatas)
                 this.editData()
