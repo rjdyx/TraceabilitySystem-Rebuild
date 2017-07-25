@@ -87,11 +87,21 @@
                 <template scope="props">
                     <el-form label-position="left" inline class="demo-table-expand">
                       <template v-for="(expand,index) in tabItem.headList">
-                          <el-form-item :label="expand">
-                            <span v-if="protos[index] == 'img'">
+                          <el-form-item class="hruygu">
+                            <span @click="timedo" class="el-form-item__label">{{expand}}</span>
+                            <span v-if="expand.includes('时间')">
+                                <component
+                                    v-for="(subItem,index) in tabItem.harvestMore[index]"
+                                    :is="subItem.component"
+                                    :type="subItem.type"
+                                ></component>
+                            </span>
+                            <span v-else-if="expand=='图片'">
                                 <img :src="$img('images/ok.png')">
                             </span>
-                            <span v-else>{{ props.row[tabItem.protos[index]] }}</span>
+                            <span v-else>
+                                {{ props.row[tabItem.protos[index]] }}
+                            </span>
                           </el-form-item>
                       </template>
                     </el-form>
@@ -99,8 +109,7 @@
             </el-table-column>
 
                     <!-- 中间列表模块 -->
-                    <template v-for="(item,index) in more.slice(0,8)"> 
-                      <template>
+                    <template v-for="(item,index) in thead"> 
                         <el-table-column 
                           :prop="tabItem.protos[index]"
                           :label="item"
@@ -125,7 +134,6 @@
                                 </div>
                         </template>
                         </el-table-column>
-                      </template>
                     </template>
 
                     <!-- 列表操作模块 -->
@@ -238,7 +246,9 @@ export default {
             isShow: true,
             listLoading: false,
             tableListBollean: true,
-            expandMore: false
+            expandMore: false,
+            showHarvest: false,
+            thead: []
         }
     },
     mixins: [computed],
@@ -470,26 +480,8 @@ export default {
                 .then((responce) => {
                     var ret = this.$conversion(this.changeDataArr, responce.data, 0)
                     ret = this.$eltable(ret)
-                    if (this.url === 'plan') {
-                        ret = this.setPlaning(ret)
-                    }
                     this.$set(this, 'headData', ret)
                 })
-        },
-        setPlaning (ret) {
-            if (ret.type === '施肥') {
-                ret['planing'] = '使用肥料:' + ret.manure_name + ', 使用量:' + ret.amount_unit
-            } else if (ret.type === '施药') {
-                ret['planing'] = '使用肥料:' + ret.medicament_name + ', 使用量:' + ret.amount_unit
-            } else if (ret.type === '采收') {
-                this.tableListBollean = false
-                ret['planing'] = '针对批次' + ret.cultivate_serial + '采收, 采收量:' + ret.amount_unit
-            } else if (ret.type === '饲养') {
-                ret['planing'] = '使用饲料：' + ret.fodder_name + '，饲料添加剂：' + ret.addition_name + '， 使用量：' + ret.amount_unit
-            } else if (ret.type === '病疫') {
-                ret['planing'] = '使用兽药：' + ret.drug_name + '， 使用量：' + ret.amount_unit
-            }
-            return ret
         },
         // 获取列表信息
         getAllMsg (data = {}, flag = false) {
@@ -760,6 +752,9 @@ export default {
         importChange () {
             this.getDetailSerial()
             this.boxArr(this.dataArr, false)
+        },
+        timedo () {
+            this.showHarvest = !this.showHarvest
         }
     },
     mounted () {
@@ -770,8 +765,8 @@ export default {
         this.getApiUrl()
         this.getDetailSerial()
         this.boxArr(this.dataArr, true)
-        this.tabItem.headList.length > 8 ? this.expandMore = true : this.expandMore = false
-        console.log(this.harvestMore)
+        this.more.length > 8 ? this.expandMore = true : this.expandMore = false
+        this.thead = this.more.slice(0, 8)
     },
     watch: {
         tabItem () {
@@ -782,7 +777,8 @@ export default {
             this.boxArr(this.dataArr, true)
             this.inputValue = ''
             document.title = this.tab
-            this.tabItem.headList.length > 8 ? this.expandMore = true : this.expandMore = false
+            this.more.length > 8 ? this.expandMore = true : this.expandMore = false
+            this.thead = this.more.slice(0, 8)
         },
         tab () {
             this.tabItem = this.tabList[0]
@@ -790,7 +786,8 @@ export default {
             this.getApiUrl()
             this.getDetailSerial()
             this.boxArr(this.dataArr, true)
-            this.tabItem.headList.length > 8 ? this.expandMore = true : this.expandMore = false
+            this.more.length > 8 ? this.expandMore = true : this.expandMore = false
+            this.thead = this.more.slice(0, 8)
         }
     },
     components: {
@@ -923,14 +920,18 @@ export default {
         float: left;
     }
     .el-form-item__content{
-        width: 40%;
+        width: 68%;
         text-align: left;
     }
     .demo-table-expand label{
         width: 30% !important;
         margin-left: 16%;
     }
+    .el-form-item__label{
+        width: 30% !important;
+    }
 }
+
 }
 
 </style>
