@@ -109,8 +109,7 @@
             </el-table-column>
 
                     <!-- 中间列表模块 -->
-                    <template v-for="(item,index) in more.slice(0,8)"> 
-                      <template>
+                    <template v-for="(item,index) in thead"> 
                         <el-table-column 
                           :prop="tabItem.protos[index]"
                           :label="item"
@@ -135,7 +134,6 @@
                                 </div>
                         </template>
                         </el-table-column>
-                      </template>
                     </template>
 
                     <!-- 列表操作模块 -->
@@ -249,7 +247,8 @@ export default {
             listLoading: false,
             tableListBollean: true,
             expandMore: false,
-            showHarvest: false
+            showHarvest: false,
+            thead: []
         }
     },
     mixins: [computed],
@@ -481,26 +480,8 @@ export default {
                 .then((responce) => {
                     var ret = this.$conversion(this.changeDataArr, responce.data, 0)
                     ret = this.$eltable(ret)
-                    if (this.url === 'plan') {
-                        ret = this.setPlaning(ret)
-                    }
                     this.$set(this, 'headData', ret)
                 })
-        },
-        setPlaning (ret) {
-            if (ret.type === '施肥') {
-                ret['planing'] = '使用肥料:' + ret.manure_name + ', 使用量:' + ret.amount_unit
-            } else if (ret.type === '施药') {
-                ret['planing'] = '使用肥料:' + ret.medicament_name + ', 使用量:' + ret.amount_unit
-            } else if (ret.type === '采收') {
-                this.tableListBollean = false
-                ret['planing'] = '针对批次' + ret.cultivate_serial + '采收, 采收量:' + ret.amount_unit
-            } else if (ret.type === '饲养') {
-                ret['planing'] = '使用饲料：' + ret.fodder_name + '，饲料添加剂：' + ret.addition_name + '， 使用量：' + ret.amount_unit
-            } else if (ret.type === '病疫') {
-                ret['planing'] = '使用兽药：' + ret.drug_name + '， 使用量：' + ret.amount_unit
-            }
-            return ret
         },
         // 获取列表信息
         getAllMsg (data = {}, flag = false) {
@@ -784,7 +765,8 @@ export default {
         this.getApiUrl()
         this.getDetailSerial()
         this.boxArr(this.dataArr, true)
-        this.tabItem.headList.length > 8 ? this.expandMore = true : this.expandMore = false
+        this.more.length > 8 ? this.expandMore = true : this.expandMore = false
+        this.thead = this.more.slice(0, 8)
     },
     watch: {
         tabItem () {
@@ -795,7 +777,8 @@ export default {
             this.boxArr(this.dataArr, true)
             this.inputValue = ''
             document.title = this.tab
-            this.tabItem.headList.length > 8 ? this.expandMore = true : this.expandMore = false
+            this.more.length > 8 ? this.expandMore = true : this.expandMore = false
+            this.thead = this.more.slice(0, 8)
         },
         tab () {
             this.tabItem = this.tabList[0]
@@ -803,7 +786,8 @@ export default {
             this.getApiUrl()
             this.getDetailSerial()
             this.boxArr(this.dataArr, true)
-            this.tabItem.headList.length > 8 ? this.expandMore = true : this.expandMore = false
+            this.more.length > 8 ? this.expandMore = true : this.expandMore = false
+            this.thead = this.more.slice(0, 8)
         }
     },
     components: {

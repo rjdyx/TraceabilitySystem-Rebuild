@@ -2,248 +2,272 @@
  * 权限多选组件
  * @description 
  * @author 郭森林
- * @date 2017/5/04
+ * @date 2017/07/20
  * 
  */
 
 
 <template>
-<div class="newWrap">
-    <form class="newForm">
-        <i class="closeBtn" @click="closeClick" ></i>
-        <!-- tab选项卡 -->
-        <!-- <h4>{{editComponent[0].tab}}</h4> -->
-        <el-tabs v-model="activeName">
-            <el-tab-pane label="权限管理" name="first">
-              <!-- 表单 -->
-            <el-form ref="form" :model="form" label-width="110px" class="demo-editForm">
-                <table>
-                    <tr class="tr2">
-                        <!-- <el-checkbox v-model="checked" @change="allChange">全选</el-checkbox> -->
-                        <ul class="ul">
-                            <li><allCheck v-for="(itemList,key) in memuList" :checkeds="checkeds[key]" :lists="itemList" :name="key" @return-isAllcheck="allChange" @return-checked="allChecked"></allCheck></li>
-                        </ul>
-                    </tr>
-                </table>
-            </el-form>
-            </el-tab-pane>
-        </el-tabs>
-        <div class="form-footer">
-            <el-button class="btn_change"  @click="submitForm()">确定</el-button>
-            <el-button class="activecancel" @click="cancelClick">取消</el-button>
+<div class="allCheck">
+
+    <div class="wraps" >
+        <span class="span-checkbox" @click="boxClick">√</span>
+        <span class="span-check1">全选</span>
+        <div class="li one" v-for="(one,k1) in lists">
+            <span class="span-checkbox" @click="boxClick">√</span>
+            <span class="span-check1">{{k1}}</span>
+
+            <div class="li two" v-for="(two,k2) in one">
+
+                <span class="span-checkbox" @click="boxClick">√</span>
+                <span class="span-check2">{{k2}}</span>
+
+                <div class="li three" v-for="(three,k3) in two">
+
+                    <span class="span-checkbox" @click="boxClick"  :did="three">√</span>
+                    <input type="text" :value="three" :checked="checked" class="checkbox-input">
+                    <span class="span-check3">{{k3}}</span>
+
+                    <span class="hors" @click="threeClick" value="hidden">{{stateZ}}</span>
+
+                    <div class="li fore hidden">
+                        <span class="checkbox-Box" v-for="(val,k4) in operates">
+                            <span class="span-checkbox" @click="boxClick">√</span>
+                            <input type="text" :value="k4" :checked="checked" class="checkbox-input2">
+                            <span class="span-check3">{{val}}</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
         </div>
-    </form>
+    </div>
 </div>
 </template>
 
 <script>
 import move from '../../directive/move.js'
-import AllCheck from './allCheck.vue'
 import vuexStore from '../../vuex/modules/isAllCheck.js'
 export default {
     name: 'validator-example',
     store: vuexStore,
-    // validator: null,
     components: {
-      // ActiveBox,
-        AllCheck
     },
     props: {
-        permissions: {
-            type: Object,
-            default () {
-                return {}
-            }
-        },
-        companyId: ''
+        id: '',
+        type: ''
     },
     data () {
         let obj = {}
-        this.permissions.protos.forEach(function (item) {
-            obj[item] = false
-        })
         return {
-            activeName: 'first',
-            memu: this.permissions.memu,
-            protos: this.permissions.protos,
-            // memuList: this.permissions.memuList,
-            memuList: {},
+            lists: {},
+            edits: {
+                1: ['edit', 'create'],
+                4: ['create', 'delete']
+            },
+            operates: {create: '新建', edit: '编辑', delete: '删除', stamp: '打印', out: '导出', pack: '生成', state: '状态'},
+            stateThree: true,
+            stateZ: '展开',
+            stateS: '收起',
             checked: false,
-            allCheckObj: obj,
-            checkeds: {}
+            checkeds: {},
+            returnDatas: {}
         }
     },
     mixins: [move],
     mounted () {
         var _this = this
         // 全部数据
-        axios.get('api/permission/select')
-            .then((responce) => {
-                this.memuList = responce.data
-            })
-        // 默认选中数据
-        axios.get('api/permission/select' + '?company_id=' + this.companyId)
-            .then((responce) => {
-                if (responce.data) {
-                    this.checkeds = responce.data
-                    for (let key in responce.data) {
-                        let arr = []
-                        if (responce.data[key] !== null) {
-                            for (let i in responce.data[key]) {
-                                arr.push(responce.data[key][i].id)
-                            }
-                            this.checkeds[key] = arr
-                        } else {
-                            this.checkeds[key] = []
-                        }
-                    }
-                }
-            })
+        axios.get('api/permission/get/all').then((responce) => {
+            this.lists = responce.data
+            this.edit()
+        })
     },
     methods: {
-        // 关闭表单事件
-        closeClick () {
-            this.$parent.userRole()
-        },
-        // 取消事件
-        cancelClick () {
-            this.$parent.userRole()
-        },
-      /**
-        * 提交表单
-        */
-        submitForm (formName) {
-            let allIdArr = []
-            for (let key in this.checkeds) {
-                this.checkeds[key].forEach(function (item) {
-                    allIdArr.push(item)
-                })
+        edit () {
+            var url = 'api/role/' + this.id + '/edit'
+            if (this.type !== undefined) {
+                url = 'api/permission/get/all?company_id=' + this.id
             }
-            var arr = {permissions: allIdArr}
-            axios.post('api/company_permission/' + this.companyId, arr)
-                .then((responce) => {
-                    this.$parent.userRole()
-                    if (responce.data !== false) {
-                        alert('编辑权限成功')
-                    } else {
-                        alert('编辑权限失败')
+            axios.get(url).then((responce) => {
+                this.returnDatas = responce.data.permissions
+                this.$emit('return-checkeds', this.returnDatas)
+                this.editData()
+            })
+        },
+        editData () {
+            var lists = this.lists
+            var edits = this.returnDatas
+            var operates = this.operates
+            $('body').find('.checkbox-input').each(function (i) {
+                var val = $(this)[0]['_value']
+                var check = edits.hasOwnProperty(val)
+                if (check) {
+                    $(this).siblings('.span-checkbox').prop('class', 'span-checkbox span-checked')
+                    $(this).prop('checked', true)
+                    $(this).siblings('.span-checkbox').prop('state', true)
+                    var m = 0
+                    for (let j in operates) {
+                        if (edits[val].indexOf(j) >= 0) {
+                            $(this).siblings('div').find('.span-checkbox').eq(m).prop('class', 'span-checkbox span-checked')
+                            $(this).siblings('div').find('.span-checkbox').eq(m).prop('state', true)
+                            $(this).siblings('div').find('input').eq(m).prop('checked', true)
+                        }
+                        m++
                     }
-                })
-        },
-        allChecked (data) {
-            this.checkeds[data[0]] = data[1]
-            this.isChange = data[2]
-        },
-        allChange (data = []) {
-            if (data.length) {
-                this.allCheckObj[data[0]] = data[1]
-                var bol = true
-                for (let key in this.allCheckObj) {
-                    bol = this.allCheckObj[key] && bol
                 }
-                this.checked = bol
-            } else {
-                this.$store.commit('changeIsAllCheck', this.checked)
-                for (let key in this.allCheckObj) {
-                    this.allCheckObj[key] = this.checked
+            })
+        },
+        ses (ev) {
+            var cls = 'span-checkbox span-checked'
+            var state = $(ev.target).prop('state')
+            if (state === undefined) {
+                state = false
+            }
+            if (state) {
+                cls = 'span-checkbox'
+            }
+            $(ev.target).prop('state', !state)
+            $(ev.target).prop('class', cls)
+            return [state, cls]
+        },
+        boxClick: function (e) {
+            var arr = this.ses(e)
+            var op = []
+            var $this = this
+            if ($(e.target).next('input')[0] !== undefined) {
+                $(e.target).next('input').prop('checked', !arr[0])
+                // 最底层点击(第四级)
+                if ($(e.target).siblings('div').find('input')[0] === undefined) {
+                    var os = []
+                    $(e.target).parent('span').parent('div').find('input').each(function (k) {
+                        if ($(this).prop('checked')) {
+                            os[k] = $(this).val()
+                        }
+                    })
+                    var ke = $(e.target).parent('span').parent('div').siblings('input').val()
+                    $this.returnDatas[ke] = os
                 }
             }
+            // 出最底层
+            if ($(e.target).siblings('div').find('input')[0] !== undefined) {
+                // 判断是否为第三层
+                var cj = $(e.target).next('input').prop('class')
+                if (cj === 'checkbox-input') {
+                    $(e.target).next('input').prop('checked', !arr[0])
+                    if ($(e.target).siblings('div').find('input')[0] !== undefined) {
+                        var v = $(e.target).next('input').val()
+                        $(e.target).siblings('div').find('input').each(function (item) {
+                            op[item] = $(this).val()
+                        })
+                        if (arr[0]) {
+                            $this.returnDatas[v] = []
+                        } else {
+                            $this.returnDatas[v] = op
+                        }
+                    }
+                } else {
+                    $(e.target).siblings('div').find('input').each(function (item) {
+                        $(this).prop('checked', !arr[0])
+                        if ($(this).siblings('div').find('input')[0] !== undefined) {
+                            var v = $(this).val()
+                            $(this).siblings('div').find('input').each(function (item) {
+                                op[item] = $(this).val()
+                            })
+                            if (arr[0]) {
+                                $this.returnDatas[v] = []
+                            } else {
+                                $this.returnDatas[v] = op
+                            }
+                        }
+                    })
+                }
+            }
+            // 改变class样式
+            $(e.target).siblings('div').find('.span-checkbox').prop('class', arr[1])
+            $(e.target).siblings('div').find('.span-checkbox').each(function (item) {
+                $(this).prop('state', !arr[0])
+            })
+            this.$emit('return-checkeds', this.returnDatas)
+        },
+        threeClick (event) {
+            // 当前点击状态
+            var state = event.target.attributes.value.nodeValue
+            var strClass = 'li fore show'
+            var newState = 'show'
+            var htl = '收起'
+            if (state === 'show') {
+                strClass = 'li fore hidden'
+                newState = 'hidden'
+                htl = '展开'
+            }
+            $(event.target).html(htl)
+            // 点击状态重新赋值
+            event.target.attributes.value.nodeValue = newState
+            // 设置当前部分class
+            event.toElement.nextElementSibling.attributes.class.nodeValue = strClass
         }
     }
 }
 </script>
 <style lang="sass">
-@import "../../../sass/public/pop.scss"
-// .newWrap{
-//     position: fixed;
-//     width:100%;
-//     height: 100%;
-//     background:rgba(0,0,0,0.3);
-//     top:0;
-//     left:0;
-//     z-index:3;
-//     .newForm{
-//         width:618px;
-//         max-width:618px;
-//         left:50%;
-//         top:50%;
-//         position: absolute;
-//         background:white;
-//         box-shadow:1px 1px 50px rgba(0,0,0,.3);
-//         border-radius:2px;  
-//         height:618px;
-//         .el-tabs{
-//             height:80%;
-//             .el-tabs__content{
-//                 height:88%;
-//                 overflow:auto;
-//                 .el-tab-pane{
-//                     width:100%!important;
-//                     text-align: left;
-//                     display:block;
-//                     .tr1{
-//                         width:95%;
-//                         margin:0 auto;
-//                         .ul{
-//                             width:90%;
-//                             margin-left:5%;
-//                         }
-//                     }
-//                 }
-//             }
-                
-           
-//         }
-//         .form-footer{
-//             border-top: 1px solid #d1dbe5;
-//             text-align:-webkit-right;
-//             padding:20px 10px 50px 0;
-//                 .activecancel{
-//                     background-color:#cccccc;
-//                     color:white;
-//                 }
-//                 .batchNumDiv{
-//                     text-align:-webkit-left;
-//                     padding-left:10px;
-//                     // padding-top:20px;
-//                     .batchNum{
-//                         display:inline-block;
-//                         width:40px;
-//                         input{
-//                             text-align:center;
-//                             color:red;
-//                         }
-//                     }
-//                 }
-//             }   
-//         .el-icon-circle-close{
-//             font-size:24px;
-//             color:#8492a6;
-//             position: absolute;
-//             right:-12px;
-//             top:-10px;
-//             border:3px solid white;
-//             border-radius:50%;
-//             background:white;
-//             z-index:3;
-//         }
-//         .el-icon-circle-close:hover{
-//             color:#0087b5;
-//         } 
-//         .el-tabs__header{
-//             cursor: move;
-//         }
-//         .btn_change{
-//             color: #fff;
-//         }
-//         // .formHeaderMask{
-//         //     width:100%;
-//         //     height:41px;
-//         //     position:absolute;
-//         //     left:0;
-//         //     top:0;
-//         //     background:red;
-//         // }
-//     }
-// }
+
+.allCheck{
+
+    .wraps{
+        width: 100%;
+        height: auto;
+        .checkbox-Box{
+            cursor: pointer;
+            margin-right:5px;
+        }
+        .checkbox-input, .checkbox-input2{
+            display: none;
+        }
+        .span-check1{
+            color:black;
+            font-size:15px;
+        }
+        .span-check2{
+            color:#333;
+            font-size:13px;
+        }
+        .span-check3{
+            color:#555;
+            font-size:12px;
+        }
+        .span-checkbox{
+            display: inline-block;
+            position: relative;
+            border: 1px solid #bfcbd9;
+            border-radius: 4px;
+            box-sizing: border-box;
+            width: 18px;
+            height: 18px;
+            background-color: #fff;
+            z-index: 1;
+            transition: border-color .25s cubic-bezier(.71,-.46,.29,1.46),background-color .25s cubic-bezier(.71,-.46,.29,1.46);
+            color:white;
+            text-align: center;
+            line-height: 18px;
+            cursor: pointer;
+            margin-right:5px;
+        }
+        .span-checked{
+            background-color:#009acb;
+        }
+        .li{
+            height: auto;
+        }
+        .two,.three{
+            margin-left: 25px;
+            margin-top:10px;
+        }
+        .fore:first-child{
+            margin-left: 25px;
+        }
+    } 
+    .hors{margin-left: 10px;cursor: pointer;}
+}
+.hidden{display:none;}
+.show{display:block;}
 </style>

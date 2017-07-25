@@ -157,6 +157,14 @@
                         </ul>
                     </td>
                 </tr>
+
+                <!-- 四级多选框组件 -->
+                <tr class="tr1" v-if="permissionShow">
+                    <td>
+                        <permissionCheckbox name="checkeds" :id="editForm.id" @return-checkeds="allCheckeds"></permissionCheckbox>
+                    </td>
+                </tr>
+
             </tbody>
           </table>
          </el-form>
@@ -170,16 +178,16 @@
 </div>
 </template>
 <script>
+import permissionCheckbox from './permissionCheckbox.vue'
 import AllCheck from './allCheck.vue'
 import vuexStore from '../../vuex/modules/isAllCheck.js'
 import move from '../../directive/move.js'
 export default {
     name: 'validator-example',
-    // validator: null,
     components: {
-        // ActiveBox,
         AllCheck,
-        vuexStore
+        vuexStore,
+        permissionCheckbox
     },
     props: {
         type: '',
@@ -207,6 +215,7 @@ export default {
         return {
             // 当前选中的标签页
             activeName: this.editComponent[0].tab,
+            permissionShow: this.editComponent[0].permissionShow,
             rules: rules,
             memuList: {},
             checkeds: [],
@@ -241,26 +250,6 @@ export default {
     },
     mixins: [move],
     methods: {
-        // 角色权限默认选中数据
-        rolePermisstion (roleId = null) {
-            axios.get(this.$adminUrl('role/permission/') + this.roleId)
-                .then((responce) => {
-                    if (responce.data) {
-                        this.checkeds = responce.data
-                        for (let key in responce.data) {
-                            let arr = []
-                            if (responce.data[key] !== null) {
-                                for (let i in responce.data[key]) {
-                                    arr.push(responce.data[key][i].id)
-                                }
-                                this.checkeds[key] = arr
-                            } else {
-                                this.checkeds[key] = []
-                            }
-                        }
-                    }
-                })
-        },
         resizeFn () {
             var divL = ($(document).outerWidth() - $('.newForm').innerWidth()) / 2
             var divT = ($(document).outerHeight() - $('.newForm').innerHeight()) / 2
@@ -320,6 +309,7 @@ export default {
           */
         submitForm (formName) {
             // 多选框 权限
+            this.editForm['checkeds'] = this.checkeds
             if (this.checkboxShow) {
                 let allIdArr = []
                 for (let key in this.checkeds) {
@@ -353,6 +343,9 @@ export default {
         allChecked (data) {
             this.checkeds[data[0]] = data[1]
             this.isChange = data[2]
+        },
+        allCheckeds (data) {
+            this.checkeds = data
         },
         allChange (data = []) {
             if (data.length) {
