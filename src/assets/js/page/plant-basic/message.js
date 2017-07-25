@@ -3067,17 +3067,15 @@ export default {
     storageOperate: [
         {
             settitle: '仓库管理',
-            key: 'delivery',
-            roleName: ['delivery/order', 0],
+            key: 'tea-order',
             tab: '凤凰山茶库出库管理',
-            url: 'delivery',
-            batch: 'logisticBatch',
-            selectSearch: ['deliveries.transportable_type'],
-            changeDataArr: [{transportable_type: { 'self': '自运', 'consign': '托运', 'selve': '自提' }}, {state: {0: '未完成', 1: '已完成'}}],
+            url: 'tea-order',
+            batch: 'teaOrderBatch',
             searchPlaceholder: '请输入凤凰山茶出库批次号进行搜索',
-            theads: ['出库仓库名', '操作人（制票人）', '送货人', '出库日期', '编号', '成品名称', '单位', '规格', '数量', '备注', ''],
-            protos: ['serial', 'datetime', 'name', 'transportable_type', 'operate_name', 'serial', 'datetime', 'name', 'transportable_type', 'operate_name'],
-            widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
+            changeDataArr: [{state: {0: '未入库', 1: '已入库'}}],
+            theads: ['出库批次号', '出库仓库名', '操作人（制票人）', '送货人', '出库日期', '状态', '备注'],
+            protos: ['serial', 'storeroom_name', 'operate', 'deliveryman', 'date', 'state', 'memo'],
+            widths: [50, 50, 50, 50, 50, 50],
             typeComponent: [{
                 component: output
             },
@@ -3092,34 +3090,36 @@ export default {
                     }
                 ]
             }],
-            moreComponent: [{value: '状态'}],
             newComponent: [{
                 tab: '新建凤凰山茶库出库信息',
+                selectUrl2: [['storerooms', 'id', 'name', true]],
+                selectInit2: [{value: '', label: '仓库选择'}],
+                popNumber2: [0],
                 components: [{
-                    name: 'datetime',
+                    name: 'storeroom_id',
                     type: 'select',
                     component: null,
+                    isNull: false,
                     label: '出库仓库名',
-                    rule: {required: true, message: '请输入出库仓库名'},
+                    placeholder: '必填',
+                    rule: {required: true, message: '请选择出库仓库名', type: 'number'},
                     options: []
                 },
                 {
-                    name: 'name',
-                    type: 'select',
+                    name: 'operate',
+                    type: 'text',
                     component: null,
                     label: '操作人（制票人）',
-                    placeholder: '',
-                    rule: {required: true, message: '请输入操作人'},
-                    options: []
+                    placeholder: '必填',
+                    rule: {required: true, message: '请输入操作人'}
                 },
                 {
-                    name: 'transportable_type',
-                    type: 'select',
+                    name: 'deliveryman',
+                    type: 'text',
                     component: null,
                     label: '送货人',
                     placeholder: '必填',
-                    rule: {required: true, trigger: 'blur', message: '请选择送货人'},
-                    options: []
+                    rule: {required: true, message: '请输入送货人'}
                 },
                 {
                     name: 'date',
@@ -3127,94 +3127,56 @@ export default {
                     component: inputDate,
                     label: '出库日期',
                     placeholder: '',
-                    rule: [{required: true, message: '请输入物流日期'}, {validator: validate2.reDate, message: '请输入物流日期'}]
-                },
-                {
-                    name: 'driver_id',
-                    type: 'text',
-                    component: null,
-                    label: '编号',
-                    placeholder: '',
-                    rule: {required: false, type: 'number', message: '请输入正确的数字'}
-                },
-                {
-                    name: 'logistic_id',
-                    type: 'text',
-                    component: null,
-                    label: '成品名称',
-                    placeholder: '',
-                    rule: {required: true, trigger: 'blur', type: 'number', message: '请输入成品名称'}
-                },
-                {
-                    name: 'number',
-                    type: 'text',
-                    component: null,
-                    label: '单位',
-                    placeholder: '',
-                    rule: {required: true, message: '请输入物流订单号'}
-                },
-                {
-                    name: 'selve_name',
-                    type: 'select',
-                    component: null,
-                    label: '规格',
-                    placeholder: '',
-                    rule: null,
-                    options: []
-                },
-                {
-                    name: 'operate_id',
-                    type: 'text',
-                    component: null,
-                    label: '数量',
-                    placeholder: '',
-                    rule: {required: true, trigger: 'blur', type: 'number', message: '请输入数量'}
+                    rule: [{required: true, message: '请选择出库日期'}, {validator: validate2.reDate, message: '请选择出库日期'}]
                 },
                 {
                     name: 'memo',
                     type: 'textarea',
                     component: null,
-                    label: '备注信息',
+                    isNull: true,
+                    label: '备注',
                     placeholder: '',
                     rule: null
-                },
-                {
-                    name: 'memo',
-                    type: 'text',
-                    component: null,
-                    label: '合计',
-                    placeholder: '',
-                    rule: null
-                }
-                ]
+                }]
             }],
             editComponent: [{
-                tab: '编辑凤凰山茶库出库信息',
+                tab: '新建凤凰山茶库出库信息',
+                selectUrl2: [['storerooms', 'id', 'name', true]],
+                selectInit2: [{value: '', label: '仓库选择'}],
+                popNumber2: [1],
                 components: [{
-                    name: 'datetime',
+                    name: 'serial',
+                    type: 'text',
+                    component: null,
+                    label: '物流批次号',
+                    disabled: true,
+                    rule: {required: true}
+                },
+                {
+                    name: 'storeroom_id',
                     type: 'select',
                     component: null,
+                    isNull: false,
                     label: '出库仓库名',
-                    rule: {required: true, message: '请输入出库仓库名'},
+                    placeholder: '必填',
+                    rule: {required: true, message: '请选择出库仓库名', type: 'number'},
                     options: []
                 },
                 {
-                    name: 'name',
-                    type: 'select',
+                    name: 'operate',
+                    type: 'text',
                     component: null,
                     label: '操作人（制票人）',
-                    placeholder: '',
-                    rule: {required: true, message: '请输入操作人'},
-                    options: []
+                    placeholder: '必填',
+                    rule: {required: true, message: '请输入操作人'}
                 },
                 {
-                    name: 'transportable_type',
-                    type: 'select',
+                    name: 'deliveryman',
+                    type: 'text',
                     component: null,
                     label: '送货人',
                     placeholder: '必填',
-                    rule: {required: true, trigger: 'blur', message: '请选择送货人'},
-                    options: []
+                    rule: {required: true, message: '请输入送货人'}
                 },
                 {
                     name: 'date',
@@ -3222,66 +3184,17 @@ export default {
                     component: inputDate,
                     label: '出库日期',
                     placeholder: '',
-                    rule: [{required: true, message: '请输入物流日期'}, {validator: validate2.reDate, message: '请输入物流日期'}]
-                },
-                {
-                    name: 'driver_id',
-                    type: 'text',
-                    component: null,
-                    label: '编号',
-                    placeholder: '',
-                    rule: {required: false, type: 'number', message: '请输入正确的数字'}
-                },
-                {
-                    name: 'logistic_id',
-                    type: 'text',
-                    component: null,
-                    label: '成品名称',
-                    placeholder: '',
-                    rule: {required: true, trigger: 'blur', type: 'number', message: '请输入成品名称'}
-                },
-                {
-                    name: 'number',
-                    type: 'text',
-                    component: null,
-                    label: '单位',
-                    placeholder: '',
-                    rule: {required: true, message: '请输入物流订单号'}
-                },
-                {
-                    name: 'selve_name',
-                    type: 'select',
-                    component: null,
-                    label: '规格',
-                    placeholder: '',
-                    rule: null,
-                    options: []
-                },
-                {
-                    name: 'operate_id',
-                    type: 'text',
-                    component: null,
-                    label: '数量',
-                    placeholder: '',
-                    rule: {required: true, trigger: 'blur', type: 'number', message: '请输入数量'}
+                    rule: [{required: true, message: '请选择出库日期'}, {validator: validate2.reDate, message: '请选择出库日期'}]
                 },
                 {
                     name: 'memo',
                     type: 'textarea',
                     component: null,
-                    label: '备注信息',
+                    isNull: true,
+                    label: '备注',
                     placeholder: '',
                     rule: null
-                },
-                {
-                    name: 'memo',
-                    type: 'text',
-                    component: null,
-                    label: '合计',
-                    placeholder: '',
-                    rule: null
-                }
-                ]
+                }]
             }]
         },
         {
@@ -6111,70 +6024,269 @@ export default {
         }
     ],
     // 入驻单位管理-运营管理
-    adminCompany: [
+    adminCompany: [{
+        settitle: '入驻单位管理',
+        roleName: ['admin/company', 1],
+        key: 'company',
+        tab: '入驻单位信息',
+        url: 'company',
+        batch: 'companyUser',
+        hiddePermission: true,
+        searchPlaceholder: '请输入公司名称进行搜索',
+        theads: ['公司名称', '公司编码', '公司Logo', '负责人/法人', '公司简称', '统一码', '电话', '地址', '经营范围', '员工总数', '公司网站', '销售网站'],
+        protos: ['name', 'coding', 'logo', 'legal_person', 'short_name', 'USCC', 'phone', 'address', 'business_scope', 'total_staff', 'website', 'sell_website'],
+        widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
+        typeComponent: [{
+            component: output
+        },
         {
-            settitle: '运营管理',
-            tab: '入驻单位管理',
-            key: 'company',
-            url: 'company',
-            hiddeRole: false,
-            roleName: ['admin/company', 0],
-            searchPlaceholder: '请输入分类中文名称搜索',
-            theads: ['分类', '英文名称', '中文名称', '路由', '详情页路由', '描述', '备注'],
-            protos: ['category_name', 'name', 'display_name', 'resource', 'detail', 'description', 'memo'],
-            widths: [50, 50, 50, 50, 50, 50, 50],
-            typeComponent: [{
-                component: output
+            component: newbuildBtn
+        }],
+        moreComponent: [{value: '权限'}, {value: '用户'}],
+        listComponent: [],
+        newComponent: [{
+            tab: '新建入驻公司信息',
+            hasImg: true,
+            components: [{
+                name: 'name',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '公司名称',
+                placeholder: '请输入公司网站名称',
+                rule: {required: true, trigger: 'blur', message: '请输入公司名称'}
             },
             {
-                component: newbuildBtn
-            }],
-            newComponent: [{
-                tab: '新建权限分类信息',
-                components: [{
-                    name: 'name',
-                    type: 'text',
-                    component: null,
-                    label: '物流公司名称',
-                    placeholder: '请输入物流公司名称',
-                    rule: {required: true, trigger: 'blur', message: '请输入物流公司名称'}
-                },
-                {
-                    name: 'contacts',
-                    type: 'text',
-                    component: null,
-                    label: '联系人',
-                    placeholder: '请输入联系人',
-                    rule: {required: true, trigger: 'blur', message: '请输入联系人'}
-                },
-                {
-                    name: 'phone',
-                    type: 'text',
-                    component: null,
-                    label: '联系电话',
-                    placeholder: '请输入电话号码',
-                    rule: { validator: validate2.phone, trigger: 'blur' }
-                },
-                {
-                    name: 'address',
-                    type: 'text',
-                    component: null,
-                    label: '地址',
-                    placeholder: '',
-                    rule: null
-                },
-                {
-                    name: 'memo',
-                    type: 'textarea',
-                    component: null,
-                    label: '备注信息',
-                    placeholder: '',
-                    rule: null
-                }
-                ]
+                name: 'short_name',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '公司简称',
+                placeholder: '请输入公司简称',
+                rule: {required: true, trigger: 'blur', message: '请输入公司简称'}
+            },
+            {
+                name: 'legal_person',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '负责人/法人',
+                placeholder: '请输入负责人/法人',
+                rule: {required: true, trigger: 'blur', message: '请输入负责人'}
+            },
+            {
+                name: 'USCC',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '统一社会信用代码',
+                placeholder: '请输入统一社会信用代码',
+                rule: null
+            },
+            {
+                name: 'phone',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '电话',
+                placeholder: '请输入11位的手机号（固话用-隔开',
+                rule: {validator: validate2.phone, trigger: 'blur'}
+            },
+            {
+                name: 'fax',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '传真',
+                placeholder: '请输入传真',
+                rule: {required: false, trigger: 'blur'}
+            },
+            {
+                name: 'address',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '地址',
+                placeholder: '请输入地址',
+                rule: null
+            },
+            {
+                name: 'business_scope',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '经营范围',
+                placeholder: '请输入经营范围',
+                rule: null
+            },
+            {
+                name: 'total_staff',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '员工总数',
+                placeholder: '请输入员工总数',
+                rule: [{required: false}, {validator: validate2.reInteger}]
+            },
+            {
+                name: 'website',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '公司网站',
+                placeholder: '请输入公司网站',
+                rule: null
+            },
+            {
+                name: 'logo',
+                type: 'file',
+                component: inputFile,
+                isNull: false,
+                label: '公司logo',
+                placeholder: '',
+                rule: null
+            },
+            {
+                name: 'watermark',
+                type: 'file',
+                component: inputFile,
+                isNull: false,
+                label: '水印',
+                placeholder: '',
+                rule: null
+            },
+            {
+                name: 'memo',
+                type: 'textarea',
+                component: null,
+                isNull: true,
+                label: '备注信息',
+                placeholder: '',
+                rule: null
             }]
-        }
-    ],
+        }],
+        editComponent: [{
+            tab: '编辑入驻公司信息',
+            hasImg: true,
+            components: [{
+                name: 'name',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '公司名称',
+                placeholder: '请输入公司网站名称',
+                rule: {required: true, trigger: 'blur', message: '请输入公司名称'}
+            },
+            {
+                name: 'short_name',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '公司简称',
+                placeholder: '请输入公司简称',
+                rule: {required: true, trigger: 'blur', message: '请输入公司简称'}
+            },
+            {
+                name: 'legal_person',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '负责人/法人',
+                placeholder: '请输入负责人/法人',
+                rule: {required: true, trigger: 'blur', message: '请输入负责人'}
+            },
+            {
+                name: 'USCC',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '统一社会信用代码',
+                placeholder: '请输入统一社会信用代码',
+                rule: null
+            },
+            {
+                name: 'phone',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '电话',
+                placeholder: '请输入11位的手机号（固话用-隔开',
+                rule: {validator: validate2.phone, trigger: 'blur'}
+            },
+            {
+                name: 'fax',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '传真',
+                placeholder: '请输入传真',
+                rule: {required: false, trigger: 'blur'}
+            },
+            {
+                name: 'address',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '地址',
+                placeholder: '请输入地址',
+                rule: null
+            },
+            {
+                name: 'business_scope',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '经营范围',
+                placeholder: '请输入经营范围',
+                rule: null
+            },
+            {
+                name: 'total_staff',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '员工总数',
+                placeholder: '请输入员工总数',
+                rule: [{required: false}, {validator: validate2.reInteger}]
+            },
+            {
+                name: 'website',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '公司网站',
+                placeholder: '请输入公司网站',
+                rule: null
+            },
+            {
+                name: 'logo',
+                type: 'file',
+                component: inputFile,
+                isNull: false,
+                label: '公司logo',
+                placeholder: '',
+                rule: null
+            },
+            {
+                name: 'watermark',
+                type: 'file',
+                component: inputFile,
+                isNull: false,
+                label: '水印',
+                placeholder: '',
+                rule: null
+            },
+            {
+                name: 'memo',
+                type: 'textarea',
+                component: null,
+                isNull: true,
+                label: '备注信息',
+                placeholder: '',
+                rule: null
+            }]
+        }]
+    }],
     // 用户反馈管理-运营管理
     adminFeedback: [
         {

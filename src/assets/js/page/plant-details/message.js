@@ -255,127 +255,6 @@ export default {
                     component: datePick
                 }]
             }],
-            harvestMore: [{
-                components: {
-                    name: 'sunning',
-                    type: 'datetimerange',
-                    component: inputDateTimes,
-                    isNull: false,
-                    hiddenSelect: true,
-                    label: '晒青时间',
-                    placeholder: '',
-                    rule: [{required: true, message: '请选择晒青时间'}, {validator: validate2.reDate, message: '请输入晒青时间'}]
-                }
-            },
-            {
-                components: {
-                    name: 'cooling',
-                    type: 'datetimerange',
-                    component: inputDateTimes,
-                    isNull: false,
-                    hiddenSelect: true,
-                    label: '晾青时间',
-                    placeholder: '',
-                    rule: [{required: true, message: '请选择晾青时间'}, {validator: validate2.reDate, message: '请输入晾青时间'}]
-                }
-            },
-            {
-                components: {
-                    name: 'make_green',
-                    type: 'datetime',
-                    component: inputDateTimes,
-                    isNull: false,
-                    hiddenSelect: true,
-                    label: '做青时间',
-                    placeholder: '',
-                    rule: [{required: true, message: '请选择做青时间'}, {validator: validate2.reDate, message: '请输入做青时间'}]
-                }
-            },
-            {
-                components: {
-                    name: 'kill_out',
-                    type: 'datetime',
-                    component: inputDateTimes,
-                    isNull: false,
-                    hiddenSelect: true,
-                    label: '杀青时间',
-                    placeholder: '',
-                    rule: [{required: true, message: '请选择杀青时间'}, {validator: validate2.reDate, message: '请输入杀青时间'}]
-                }
-            },
-            {
-                components: {
-                    name: 'knead_nori',
-                    type: 'datetime',
-                    component: inputDateTimes,
-                    isNull: false,
-                    hiddenSelect: true,
-                    label: '揉稔时间',
-                    placeholder: '',
-                    rule: [{required: true, message: '请选择揉稔时间'}, {validator: validate2.reDate, message: '请输入揉稔时间'}]
-                }
-            },
-            {
-                components: {
-                    name: 'deblock',
-                    type: 'datetime',
-                    component: inputDateTimes,
-                    isNull: false,
-                    hiddenSelect: true,
-                    label: '解块时间',
-                    placeholder: '',
-                    rule: [{required: true, message: '请选择解块时间'}, {validator: validate2.reDate, message: '请输入解块时间'}]
-                }
-            },
-            {
-                components: {
-                    name: 'dry',
-                    type: 'date',
-                    component: inputDateTimes,
-                    isNull: false,
-                    hiddenSelect: true,
-                    label: '干燥时间',
-                    placeholder: '',
-                    rule: [{required: true, message: '请选择干燥时间'}, {validator: validate2.reDate, message: '请输入干燥时间'}]
-                }
-            },
-            {
-                components: {
-                    name: 'dry',
-                    type: 'date',
-                    component: inputDateTimes,
-                    isNull: false,
-                    hiddenSelect: true,
-                    label: '干燥时间',
-                    placeholder: '',
-                    rule: [{required: true, message: '请选择干燥时间'}, {validator: validate2.reDate, message: '请输入干燥时间'}]
-                }
-            },
-            {
-                components: {
-                    name: 'filtrate',
-                    type: 'datetime',
-                    component: inputDateTimes,
-                    isNull: false,
-                    hiddenSelect: true,
-                    label: '筛选时间',
-                    placeholder: '',
-                    rule: [{required: true, message: '请选择筛选时间'}, {validator: validate2.reDate, message: '请输入筛选时间'}]
-                }
-            },
-            {
-                components: {
-                    name: 'refiring',
-                    type: 'datetime',
-                    component: inputDateTimes,
-                    isNull: false,
-                    hiddenSelect: true,
-                    label: '复火时间',
-                    placeholder: '',
-                    rule: [{required: true, message: '请选择复火时间'}, {validator: validate2.reDate, message: '请输入复火时间'}]
-                }
-            }
-            ],
             newComponent: [{
                 tab: '新建采制信息',
                 type: 'assoc',
@@ -625,6 +504,132 @@ export default {
                     label: '散茶数量',
                     placeholder: '',
                     rule: [{validator: validate2.reNumber}]
+                },
+                {
+                    name: 'memo',
+                    type: 'textarea',
+                    component: null,
+                    isNull: true,
+                    label: '备注信息',
+                    placeholder: '',
+                    rule: null
+                }]
+            }]
+        }]
+    },
+    // 出库单产品
+    teaOrderBatch: {
+        key: 'teaOrderBatch',
+        tab: '凤凰山茶库出库管理',
+        theads: ['出库批次号', '出库仓库名', '操作人（制票人）', '送货人', '出库日期', '状态', '备注'],
+        protos: ['serial', 'storeroom_name', 'operate', 'deliveryman', 'date', 'state', 'memo'],
+        changeDataArr: [{state: {'未入库': 0, '已入库': 1}}],
+        url: 'tea-order',
+        tabList: [{
+            key: 'order-product',
+            url: 'order-product',
+            tab: '出库产品信息',
+            searchPlaceholder: '请输入产品进行搜索',
+            headList: ['成品名称', '数量', '单位', '规格', '备注信息'],
+            protos: ['product_name', 'amount', 'unit', 'specification', 'memo'],
+            hiddeEdit: true,
+            searchText: true,
+            widths: [50, 50, 50, 50, 50],
+            typeComponent: [{
+                component: newbuildBtn
+            }],
+            listComponent: [],
+            newComponent: [{
+                tab: '新建出库产品信息',
+                selectUrl2: [['products', 'id', 'name', true]],
+                selectInit2: [{value: '', label: '产品选择'}],
+                popNumber2: [0],
+                components: [{
+                    name: 'product_id',
+                    type: 'select',
+                    component: null,
+                    isNull: false,
+                    label: '产品名称',
+                    placeholder: '必填',
+                    rule: {required: true, message: '请选择产品名称', type: 'number'},
+                    options: []
+                },
+                {
+                    name: 'amount',
+                    type: 'text',
+                    component: null,
+                    isNull: true,
+                    label: '数量',
+                    placeholder: '必填',
+                    rule: [{required: true, message: '请输入产品数量'}, {validator: validate2.reInteger}]
+                },
+                {
+                    name: 'unit',
+                    type: 'text',
+                    component: null,
+                    isNull: true,
+                    label: '单位',
+                    placeholder: '',
+                    rule: {required: true, message: '请输入单位'}
+                },
+                {
+                    name: 'specification',
+                    type: 'text',
+                    component: null,
+                    isNull: true,
+                    label: '规格',
+                    placeholder: '',
+                    rule: null
+                },
+                {
+                    name: 'memo',
+                    type: 'textarea',
+                    component: null,
+                    isNull: true,
+                    label: '备注信息',
+                    placeholder: '',
+                    rule: null
+                }]
+            }],
+            editComponent: [{
+                tab: '编辑生长过程信息',
+                checkNumber: [0],
+                hasImg: true,
+                components: [{
+                    name: 'name',
+                    type: 'text',
+                    component: null,
+                    isNull: false,
+                    label: '图片标题',
+                    placeholder: '必填',
+                    rule: [{required: true, message: '请输入图片标题', trigger: 'blur'}, {validator: validate2.reCheck, trigger: 'blur', message: '生长图片标题重复'}]
+                },
+                {
+                    name: 'desc',
+                    type: 'text',
+                    component: null,
+                    isNull: true,
+                    label: '特征描述',
+                    placeholder: '',
+                    rule: {required: true, message: '请输入特征描述'}
+                },
+                {
+                    name: 'date',
+                    type: 'date',
+                    component: inputDate,
+                    isNull: false,
+                    label: '上传日期',
+                    placeholder: '',
+                    rule: [{required: true, message: '请输入上传日期'}, {validator: validate2.reDate, message: '请输入上传日期'}]
+                },
+                {
+                    name: 'img',
+                    type: 'file',
+                    component: inputFile,
+                    isNull: true,
+                    label: '上传图片',
+                    placeholder: '',
+                    rule: {required: true, message: '请上传图片'}
                 },
                 {
                     name: 'memo',
@@ -3271,7 +3276,7 @@ export default {
                     isNull: false,
                     label: '性别',
                     placeholder: '请选择性别',
-                    rule: null,
+                    rule: {required: true, trigger: 'blur', type: 'number'},
                     options: [{
                         value: 0,
                         label: '男'
@@ -3382,7 +3387,7 @@ export default {
                     isNull: false,
                     label: '性别',
                     placeholder: '请选择性别',
-                    rule: {required: true, trigger: 'blur'},
+                    rule: null,
                     options: [{
                         value: 0,
                         label: '男'

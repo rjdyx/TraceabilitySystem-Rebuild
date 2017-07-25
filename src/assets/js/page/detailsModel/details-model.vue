@@ -62,7 +62,8 @@
             <!-- 编辑模块 -->
             <transition name="fade">
                 <popEdit v-if="isEditShow" :editComponent="tabItem.editComponent" :url="apiUrlArr[tabList[index].url]" :editForm="editForm"
-                     @submitEdit="hangeEdit" :changeDataArr="changeDataArr" :editDefault="editDefault"></popEdit>
+                        @submitEdit="hangeEdit" :changeDataArr="changeData" :editDefault="editDefault">
+                </popEdit>
             </transition>
             <!-- 打印模块 -->
             <transition name="fade">
@@ -248,7 +249,8 @@ export default {
             tableListBollean: true,
             expandMore: false,
             showHarvest: false,
-            thead: []
+            thead: [],
+            changeData: []
         }
     },
     mixins: [computed],
@@ -767,6 +769,7 @@ export default {
         this.boxArr(this.dataArr, true)
         this.more.length > 8 ? this.expandMore = true : this.expandMore = false
         this.thead = this.more.slice(0, 8)
+        this.changeData = this.tabItem.changeDataArr
     },
     watch: {
         tabItem () {
