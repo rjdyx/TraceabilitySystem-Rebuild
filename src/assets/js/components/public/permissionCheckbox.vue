@@ -85,13 +85,20 @@ export default {
     methods: {
         edit () {
             var url = 'api/role/' + this.id + '/edit'
-            if (this.type !== undefined) {
-                url = 'api/permission/get/all?company_id=' + this.id
+            var type = this.type
+            if (type !== undefined) {
+                url = 'api/company/checked/permission/' + this.id
             }
             axios.get(url).then((responce) => {
-                this.returnDatas = responce.data.permissions
+                if (type !== undefined) {
+                    this.returnDatas = responce.data
+                } else {
+                    this.returnDatas = responce.data.permissions
+                }
                 this.$emit('return-checkeds', this.returnDatas)
-                this.editData()
+                if (this.returnDatas) {
+                    this.editData()
+                }
             })
         },
         editData () {
@@ -133,6 +140,7 @@ export default {
         boxClick: function (e) {
             var arr = this.ses(e)
             var op = []
+            var datas = []
             var $this = this
             if ($(e.target).next('input')[0] !== undefined) {
                 $(e.target).next('input').prop('checked', !arr[0])
@@ -173,13 +181,18 @@ export default {
                             $(this).siblings('div').find('input').each(function (item) {
                                 op[item] = $(this).val()
                             })
-                            if (arr[0]) {
-                                $this.returnDatas[v] = []
+                            if ($(this).prop('checked')) {
+                                if (arr[0] && v !== 0) {
+                                    $this.returnDatas[v] = []
+                                } else {
+                                    $this.returnDatas[v] = op
+                                }
                             } else {
-                                $this.returnDatas[v] = op
+                                $this.returnDatas[v] = null
                             }
                         }
                     })
+                    console.log($this.returnDatas)
                 }
             }
             // 改变class样式

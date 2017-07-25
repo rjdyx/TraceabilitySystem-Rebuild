@@ -87,11 +87,21 @@
                 <template scope="props">
                     <el-form label-position="left" inline class="demo-table-expand">
                       <template v-for="(expand,index) in tabItem.headList">
-                          <el-form-item :label="expand">
-                            <span v-if="protos[index] == 'img'">
+                          <el-form-item class="hruygu">
+                            <span @click="timedo" class="el-form-item__label">{{expand}}</span>
+                            <span v-if="expand.includes('时间')">
+                                <component
+                                    v-for="(subItem,index) in tabItem.harvestMore[index]"
+                                    :is="subItem.component"
+                                    :type="subItem.type"
+                                ></component>
+                            </span>
+                            <span v-else-if="expand=='图片'">
                                 <img :src="$img('images/ok.png')">
                             </span>
-                            <span v-else>{{ props.row[tabItem.protos[index]] }}</span>
+                            <span v-else>
+                                {{ props.row[tabItem.protos[index]] }}
+                            </span>
                           </el-form-item>
                       </template>
                     </el-form>
@@ -237,6 +247,7 @@ export default {
             listLoading: false,
             tableListBollean: true,
             expandMore: false,
+            showHarvest: false,
             thead: []
         }
     },
@@ -741,6 +752,9 @@ export default {
         importChange () {
             this.getDetailSerial()
             this.boxArr(this.dataArr, false)
+        },
+        timedo () {
+            this.showHarvest = !this.showHarvest
         }
     },
     mounted () {
@@ -906,14 +920,18 @@ export default {
         float: left;
     }
     .el-form-item__content{
-        width: 40%;
+        width: 68%;
         text-align: left;
     }
     .demo-table-expand label{
         width: 30% !important;
         margin-left: 16%;
     }
+    .el-form-item__label{
+        width: 30% !important;
+    }
 }
+
 }
 
 </style>
