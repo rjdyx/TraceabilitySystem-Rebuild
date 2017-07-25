@@ -77,7 +77,7 @@ export default[{
     src: '/public/images/system.png',
     children: [{
         role: roleData !== 'admin' ? 0 : 1,
-        path: '/index/message/company',
+        path: '/index/company',
         name: '公司信息管理'
     },
     {
