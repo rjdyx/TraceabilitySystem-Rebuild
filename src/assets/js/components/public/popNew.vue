@@ -300,7 +300,11 @@ export default {
             } else if (this.operateArr2.indexOf(data.name) !== -1) {
                 this.tableForm[data.name + '_date'] = this.$changeDateTime(data.value)
             }
-            this.tableForm[data.name] = data.value
+            if (data.name === 'datetime') {
+                this.tableForm[data.name] = this.$changeDateTime(data.value)
+            } else {
+                this.tableForm[data.name] = data.value
+            }
         },
         getOther (data) {
             if (data[1].value !== '') {
