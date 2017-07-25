@@ -30,11 +30,18 @@
 
                     <span class="hors" @click="threeClick" value="hidden">{{stateZ}}</span>
 
-                    <div class="li fore hidden">
+                    <div class="li fore hidden" v-if="!opsState">
                         <span class="checkbox-Box" v-for="(val,k4) in operates">
                             <span class="span-checkbox" @click="boxClick">√</span>
                             <input type="text" :value="k4" :checked="checked" class="checkbox-input2">
                             <span class="span-check3">{{val}}</span>
+                        </span>
+                    </div>
+                    <div class="li fore hidden" v-else>
+                        <span class="checkbox-Box" v-for="(val,k4) in ops[three]">
+                            <span class="span-checkbox" @click="boxClick">√</span>
+                            <input type="text" :value="k4" :checked="checked" class="checkbox-input2">
+                            <span class="span-check3">{{operates[val]}}</span>
                         </span>
                     </div>
                 </div>
@@ -54,7 +61,8 @@ export default {
     },
     props: {
         id: '',
-        type: ''
+        type: '',
+        permissionCompany: ''
     },
     data () {
         let obj = {}
@@ -70,19 +78,36 @@ export default {
             stateS: '收起',
             checked: false,
             checkeds: {},
-            returnDatas: {}
+            returnDatas: {},
+            ops: {},
+            opsState: false
         }
     },
     mixins: [move],
     mounted () {
-        var _this = this
-        // 全部数据
-        axios.get('api/permission/get/all').then((responce) => {
-            this.lists = responce.data
-            this.edit()
-        })
+        this.create()
     },
     methods: {
+        create () {
+            var _this = this
+            var url = 'api/permission/get/all'
+            var state = false
+            if (this.permissionCompany !== undefined && this.permissionCompany === 1) {
+                url = 'api/company/permission'
+                state = true
+            }
+            axios.get(url).then((responce) => {
+                _this.lists = responce.data
+                if (state) {
+                    _this.ops = responce.data.ops
+                    _this.lists = responce.data.data
+                    _this.opsState = true
+                }
+                if (_this.id !== undefined) {
+                    _this.edit()
+                }
+            })
+        },
         edit () {
             var url = 'api/role/' + this.id + '/edit'
             var type = this.type

@@ -153,9 +153,8 @@
                             <template>
                                 <el-button type="text" size="small" @click="changeEditShow(scope.$index,scope.row)" v-if="tabList[index].hiddeEdit">编辑</el-button>
                                 <el-button type="text" size="small" v-if="hiddeWatch">查看</el-button>
-
                                 <el-button size="small" type="text" @click="handelDel(scope.$index,scope.row)" class="btn">删除</el-button>  
-                                <el-button size="small" type="text" @click="permissionShow(scope.$index,scope.row)" class="btn" v-if="tabItem.hiddeRole">权限</el-button> 
+                                <el-button size="small" type="text" @click="permissionShow(scope.$index,scope.row)" class="btn" v-if="tabItem.hiddeRole">角色</el-button> 
                                 
                             </template>
                         </template>
