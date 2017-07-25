@@ -894,7 +894,6 @@ export default {
         let change = $('.available')
         change.css('display', 'none')
         this.theads.length > 8 ? this.expandMore = true : this.expandMore = false
-        console.log(this.newComponent)
     },
     watch: {
         models () {

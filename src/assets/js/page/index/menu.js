@@ -24,8 +24,7 @@ export default[{
         role: roleData.plant === undefined ? 0 : roleData.plant.farming === undefined ? 0 : 1,
         path: '/index/message/plantFarm',
         name: '农事管理'
-    }
-    ]
+    }]
 },
 {
     name: '采制加工管理',
@@ -36,22 +35,6 @@ export default[{
         path: '/index/message/vegetableSerial',
         name: '采制批次管理'
     }]
-},
-{
-    name: '销售管理',
-    role: roleData.sell === undefined ? 0 : 1,
-    src: '/public/images/sale.png',
-    children: [{
-        role: roleData.sell === undefined ? 0 : roleData.sell.repertory === undefined ? 0 : 1,
-        path: '/index/message/saleProduct',
-        name: '基础信息管理'
-    },
-    {
-        role: roleData.sell === undefined ? 0 : roleData.sell.order === undefined ? 0 : 1,
-        path: '/index/message/saleOrder',
-        name: '销售订单管理'
-    }
-    ]
 },
 {
     name: '仓库物流管理',
@@ -71,8 +54,22 @@ export default[{
         role: roleData.system === undefined ? 0 : roleData.system.log === undefined ? 0 : 1,
         path: '/index/message/storageOperate',
         name: '仓库管理'
-    }
-    ]
+    }]
+},
+{
+    name: '销售管理',
+    role: roleData.sell === undefined ? 0 : 1,
+    src: '/public/images/sale.png',
+    children: [{
+        role: roleData.sell === undefined ? 0 : roleData.sell.repertory === undefined ? 0 : 1,
+        path: '/index/message/saleProduct',
+        name: '基础信息管理'
+    },
+    {
+        role: roleData.sell === undefined ? 0 : roleData.sell.order === undefined ? 0 : 1,
+        path: '/index/message/saleOrder',
+        name: '销售订单管理'
+    }]
 },
 {
     name: '系统管理',
@@ -92,8 +89,7 @@ export default[{
         role: roleData !== 'admin' ? 0 : 1,
         path: '/index/message/systemLog',
         name: '系统日志管理'
-    }
-    ]
+    }]
 },
 {
     name: '运营管理',
@@ -118,7 +114,5 @@ export default[{
         role: roleData !== 'admin' ? 0 : 1,
         path: '/index/message/adminLog',
         name: '系统日志管理'
-    }
-    ]
-}
-]
+    }]
+}]
