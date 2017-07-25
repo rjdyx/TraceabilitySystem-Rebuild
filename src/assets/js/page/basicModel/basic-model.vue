@@ -61,7 +61,7 @@
         </transition>
         <!-- 权限模块 -->
         <transition name="fade">
-            <permissionCheckbox v-if="isPermissionShow" :permissions="permissions" :companyId="companyId"></permissionCheckbox>
+            <companyPermission v-if="isPermissionShow" :id="companyId"></companyPermission>
         </transition>
         <!-- 角色权限模块 -->
         <transition name="fade">
@@ -131,7 +131,7 @@
                 </template>
             <template>
             
-                    <el-button type="text" size="small" @click="roleShow(scope.$index,scope.row)" v-if="hiddeRole">权限</el-button>
+                    <el-button type="text" size="small" @click="roleShow(scope.$index,scope.row)" v-if="hiddeRole">角色</el-button>
 
                     <el-button type="text" size="small" @click="changeEditShow(scope.$index,scope.row)" v-if="!hiddeEdit" v-bind:class="{'btn':hiddeRole}">编辑</el-button>
 
@@ -181,6 +181,7 @@ import lotOpearte from '../../components/public/lotOpearte.vue'
 import printf from '../../components/public/printf.vue'
 import permissionCheckbox from '../../components/public/permissionCheckbox.vue'
 import company from '../../page/plant-basic/company.js'
+import companyPermission from '../../components/public/companyPermission.vue'
 import roleCheckbox from '../../components/public/roleCheckbox.vue'
 export default {
     name: 'BasicModel',
@@ -625,6 +626,10 @@ export default {
         closeEditShow () {
             this.isEditShow = false
         },
+        // 关闭编辑弹窗
+        closePermission () {
+            this.isPermissionShow = false
+        },
         // 获取数据
         getAllMsg (data = {}, flag = false) {
             if (this.paramsIndex !== undefined) {
@@ -924,7 +929,8 @@ export default {
         lotOpearte,
         printf,
         permissionCheckbox,
-        roleCheckbox
+        roleCheckbox,
+        companyPermission
     }
 }
 </script>

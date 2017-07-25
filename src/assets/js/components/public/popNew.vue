@@ -167,6 +167,13 @@
                         </ul>
                     </td>
                 </tr>
+
+                <!-- 四级多选框组件 -->
+                <tr class="tr1" v-if="permissionShow">
+                    <td>
+                        <permissionCheckbox name="checkeds" @return-checkeds="allCheckeds"></permissionCheckbox>
+                    </td>
+                </tr>
             </tbody>
           </table>
          </el-form>
@@ -183,16 +190,16 @@
 </template>
 
 <script>
+import permissionCheckbox from './permissionCheckbox.vue'
 import AllCheck from './allCheck.vue'
 import vuexStore from '../../vuex/modules/isAllCheck.js'
 import move from '../../directive/move.js'
 export default {
     name: 'validator-example',
-    // validator: null,
     components: {
-        // ActiveBox,
         AllCheck,
-        vuexStore
+        vuexStore,
+        permissionCheckbox
     },
     props: {
         type: '',
@@ -252,6 +259,7 @@ export default {
             disabled: false,
             disabledV: false,
             num: 1,
+            permissionShow: this.newComponent[0].permissionShow,
             news: 'new',
             operateArr1: ['sunning', 'cooling'],
             operateArr2: ['make_green', 'kill_out', 'knead_nori', 'deblock', 'dry', 'filtrate', 'refiring']
@@ -328,6 +336,7 @@ export default {
         submitForm (formName) {
             // 多选框 权限
             var com = this.newComponent[0]
+            this.tableForm['checkeds'] = this.checkeds
             if (this.checkboxShow) {
                 let allIdArr = []
                 for (let key in this.checkeds) {
@@ -359,6 +368,9 @@ export default {
             })
         },
         allChecked (data) {
+        },
+        allCheckeds (data) {
+            this.checkeds = data
         },
         allChange (data = []) {
         },
