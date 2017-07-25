@@ -14,18 +14,21 @@
             <i class="el-icon-caret-bottom el-icon--right"></i>
           </el-button>
           <el-dropdown-menu slot="dropdown">
-            <template v-for="(items,index) in harvestMore">
+            <template v-for="items in harvestMore">
                 <el-dropdown-item :command='items.value'>
                     {{items.value}}
                 </el-dropdown-item>
             </template>
           </el-dropdown-menu>
         </el-dropdown>
-        <div class="harvestTime" v-if="showHarvest">
-            <component
-                :is="items.components.component">
+        <div class="harvestTime" v-if="showHarvest" v-for="time in harvestMore">
+            <template v-for="dateitem in time.components">
+                <component
+                :is="dateitem.component" 
+                :class="time">
                 
             </component>
+            </template>
         </div>
     </div>
 </template>
@@ -49,7 +52,7 @@
         methods: {
             handleCommand (command) {
                 console.log(command)
-                this.showHarvest = true
+                this.showHarvest = !this.showHarvest
             }
         },
         components: {

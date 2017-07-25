@@ -995,7 +995,7 @@ export default {
             text-align: center;
         }
         #operate{
-            min-width: 1100px;
+            /*min-width: 1100px;*/
             /*margin-bottom: 10px;*/
         }
         .footer {
