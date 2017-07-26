@@ -105,7 +105,7 @@
                         <el-form-item v-for="(subItem,init) in tabItem.harvestMore">
                             <span class="timeEdit" @click="timeEdit(subItem,index)">
                                 <span class="timeLabel">{{subItem.label}}</span>
-                                <span>{{ tableData[props.$index][subItem.name] }}</span>
+                                <span v-if="subItem.nameHide">{{ tableData[props.$index][subItem.name] }}</span>
                                 <component
                                     v-if="subItem.showHarvest"
                                     :is="subItem.component"
@@ -266,7 +266,8 @@ export default {
             changeData: [],
             operateArr1: ['sunning', 'cooling'],
             operateArr2: ['make_green', 'kill_out', 'knead_nori', 'deblock', 'dry', 'filtrate', 'refiring'],
-            timeParams: {}
+            timeParams: {},
+            hide: true
         }
     },
     mixins: [computed],
@@ -750,8 +751,10 @@ export default {
             this.$nextTick(function () {
                 this.tabItem.harvestMore.forEach(function (subItem) {
                     Vue.set(subItem, 'showHarvest', false)
+                    Vue.set(subItem, 'nameHide', true)
                 })
                 Vue.set(subItem, 'showHarvest', true)
+                Vue.set(subItem, 'nameHide', false)
             })
         },
         // 列表时间插入
@@ -780,6 +783,9 @@ export default {
         this.more.length > 8 ? this.expandMore = true : this.expandMore = false
         this.thead = this.more.slice(0, 8)
         this.changeData = this.tabItem.changeDataArr
+        this.tabItem.harvestMore.forEach(function (subItem) {
+            Vue.set(subItem, 'nameHide', true)
+        })
     },
     watch: {
         tabItem () {
