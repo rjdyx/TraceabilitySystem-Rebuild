@@ -86,26 +86,36 @@
                 type="expand" class="expand" v-if="expandMore">
                 <template scope="props">
                     <el-form label-position="left" inline class="demo-table-expand">
-                      <template v-for="(expand,index) in tabItem.headList">
-                          <el-form-item class="hruygu">
-                            <span @click="timedo" class="el-form-item__label">{{expand}}</span>
-                            <span v-if="expand.includes('时间')">
-                                <component
-                                    v-for="(subItem,index) in tabItem.harvestMore[index]"
-                                    :is="subItem.component"
-                                    :type="subItem.type"
-                                ></component>
-                            </span>
-                            <span v-else-if="expand=='图片'">
+
+                      <template v-for="(expand,index) in tabItem.headList.slice(0,8)">
+                          <el-form-item>
+                            <span class="el-form-item__label">{{expand}}</span>
+
+                            <span v-if="expand=='图片'">
                                 <img :src="$img('images/ok.png')">
                             </span>
+
                             <span v-else>
                                 {{ props.row[tabItem.protos[index]] }}
                             </span>
                           </el-form-item>
-                      </template>
+                        </template>
+
+                        <el-form-item v-for="(subItem,init) in tabItem.harvestMore">
+                            <span class="timeEdit" @click="timeEdit(subItem,index)">
+                                <span class="timeLabel">{{subItem.label}}</span>
+                                <component
+                                    v-if="subItem.showHarvest"
+                                    :is="subItem.component"
+                                    :type="subItem.type"
+                                    :placeholder="subItem.placeholder"
+                                    class="dateEdit"
+                                ></component></span>
+                        </el-form-item>
+
                     </el-form>
-                </template>
+                      </template>
+               
             </el-table-column>
 
                     <!-- 中间列表模块 -->
@@ -753,8 +763,13 @@ export default {
             this.getDetailSerial()
             this.boxArr(this.dataArr, false)
         },
-        timedo () {
-            this.showHarvest = !this.showHarvest
+        timeEdit (subItem, index) {
+            this.$nextTick(function () {
+                this.tabItem.harvestMore.forEach(function (subItem) {
+                    Vue.set(subItem, 'showHarvest', false)
+                })
+                Vue.set(subItem, 'showHarvest', true)
+            })
         }
     },
     mounted () {
@@ -917,18 +932,32 @@ export default {
         margin-right: 0;
         margin-bottom: 0;
         width: 33%;
-        float: left;
+        /*float: left;*/
     }
     .el-form-item__content{
-        width: 68%;
+        width: 100%;
         text-align: left;
     }
     .demo-table-expand label{
         width: 30% !important;
         margin-left: 16%;
+        color: #99a9bf;
     }
     .el-form-item__label{
+        color: #99a9bf;
         width: 30% !important;
+    }
+}
+.timeEdit{
+    cursor: pointer;
+    .dateEdit{
+        /*padding-left: 50px;*/
+        display: inline-block;
+    }
+    .timeLabel{
+        width: 30%;
+        display: inline-block;  
+        color: #99a9bf;
     }
 }
 

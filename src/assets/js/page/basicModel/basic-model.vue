@@ -1046,10 +1046,9 @@ export default {
         margin-right: 0;
         margin-bottom: 0;
         width: 33%;
-        float: left;
-    }
+        }
     .el-form-item__content{
-        width: 40%;
+        width: 70%;
         text-align: left;
     }
     .demo-table-expand label{
