@@ -29,6 +29,9 @@ export default {
         },
         more () {
             return this.tabItem.headList
+        },
+        printShow () {
+            return this.models.printShow
         }
     }
 }

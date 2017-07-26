@@ -9,7 +9,7 @@
 <div class="detailsModel">
 
   <!-- 标题 -->
-    <contain-title :settitle="tab" :isShow="isShow">
+    <contain-title :settitle="tab" :isShow="isShow" :printShow="printShow">
     </contain-title>
     
   <!-- 信息列表 -->
@@ -105,6 +105,7 @@
                         <el-form-item v-for="(subItem,init) in tabItem.harvestMore">
                             <span class="timeEdit" @click="timeEdit(subItem,index)">
                                 <span class="timeLabel">{{subItem.label}}</span>
+                                <span>{{ props.row[subItem.name] }}</span>
                                 <component
                                     v-if="subItem.showHarvest"
                                     :is="subItem.component"
@@ -223,7 +224,8 @@ export default {
                     protos: [],
                     tabList: [],
                     more: '',
-                    harvestMore: []
+                    harvestMore: [],
+                    printShow: ''
                 }
             }
         }
