@@ -271,7 +271,7 @@ export default {
             },
             {
                 name: 'make_green_date',
-                type: 'datetimerange',
+                type: 'datetime',
                 component: inputDateTimes,
                 label: '做青时间'
             },
