@@ -22,18 +22,20 @@
                     return {}
                 }
             },
-            type: ''
+            type: '',
+            editValue: {},
+            rowid: ''
         },
         data () {
             return {
-                value: ''
+                value: this.editValue !== undefined ? this.editValue : ''
             }
         },
         methods: {
         },
         watch: {
             value () {
-                this.$emit('return-shuju', {name: this.shuju.name, value: this.value})
+                this.$emit('return-shuju', {name: this.shuju.name, value: this.value, id: this.rowid})
             }
         },
         mounted () {

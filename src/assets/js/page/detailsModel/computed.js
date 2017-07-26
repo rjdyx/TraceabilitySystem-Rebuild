@@ -30,8 +30,8 @@ export default {
         more () {
             return this.tabItem.headList
         },
-        harvestMore () {
-            return this.tabItem.harvestMore
+        printShow () {
+            return this.models.printShow
         }
     }
 }

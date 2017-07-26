@@ -96,11 +96,11 @@ export default {
             var arr = {role_id: this.form.value}
             axios.post('api/role/user/' + this.rowId, arr)
                 .then((responce) => {
-                    this.$parent.closeRoleShow()
-                    if (responce.data !== false) {
-                        alert('编辑权限成功')
+                    this.closeClick()
+                    if (responce.data !== 'false') {
+                        this.$message('修改权限角色成功')
                     } else {
-                        alert('编辑权限失败')
+                        this.$message('修改权限角色失败')
                     }
                 })
         }
