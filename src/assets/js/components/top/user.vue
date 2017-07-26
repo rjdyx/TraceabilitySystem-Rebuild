@@ -20,7 +20,7 @@
 			 	</el-row>
 				<el-button class="btn_change" @click="showEdit">编辑</el-button>
 			</div>
-			<div class="mainPic">s
+			<div class="mainPic">
 				<img src="/public/images/rfid.png">
 			</div>
 			<footer-top></footer-top>
