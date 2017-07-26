@@ -264,8 +264,8 @@ export default {
             showHarvest: false,
             thead: [],
             changeData: [],
-            operateArr1: ['sunning', 'cooling'],
-            operateArr2: ['make_green', 'kill_out', 'knead_nori', 'deblock', 'dry', 'filtrate', 'refiring'],
+            operateArr1: ['sunning_date', 'cooling_date'],
+            operateArr2: ['make_green_date', 'kill_out_date', 'knead_nori_date', 'deblock_date', 'dry_date', 'filtrate_date', 'refiring_date'],
             timeParams: {}
         }
     },
@@ -758,14 +758,23 @@ export default {
         insertTimes (data) {
             this.timeParams['id'] = data.id
             if (this.operateArr1.indexOf(data.name) !== -1) {
-                this.timeParams[data.name + '_start_date'] = this.$changeDateTime(data.value[0])
-                this.timeParams[data.name + '_end_date'] = this.$changeDateTime(data.value[1])
+                let a = this.$changeDateTime(data.value[0])
+                let b = this.$changeDateTime(data.value[1])
+                this.timeParams[data.name] = a + '至' + b
             } else if (this.operateArr2.indexOf(data.name) !== -1) {
-                this.timeParams[data.name + '_date'] = this.$changeDateTime(data.value)
+                this.timeParams[data.name] = this.$changeDateTime(data.value)
             }
             this.$dataGet(this, this.apiUrlArr[this.tabList[this.index].url] + '/setDateTime', this.timeParams)
                 .then((responce) => {
-                    console.log(responce.data)
+                    if (responce.data !== 'false') {
+                        this.$message({
+                            type: 'success',
+                            message: '修改时间数据成功'
+                        })
+                        this.boxArr(this.dataArr, true)
+                    } else {
+                        this.$message('修改时间数据失败')
+                    }
                 })
         }
     },
