@@ -49,12 +49,13 @@
 
         <!-- 新建模块 --> 
         <transition name="fade">
-            <popNew v-if="isNewShow" :newComponent="newComponent" :checkboxShow="checkboxShow" :url="url" @submitNew="changeNew" @setTable="getTable"></popNew>
+            <popNew v-if="isNewShow" :newComponent="newComponent" :checkboxShow="checkboxShow" :url="url" @submitNew="changeNew"></popNew>
         </transition>
         <!-- 编辑模块 -->
         <transition name="fade">
-            <pop-edit v-if="isEditShow" :editComponent="editComponent" :roleId="roleId" :checkboxShow="checkboxShow" :url="url" :editForm="editForm"
-             @submitEdit="hangeEdit" :changeDataArr="changeDataArr" :editDefault="editDefault"></pop-edit>
+            <pop-edit v-if="isEditShow" :editComponent="editComponent" :roleId="roleId" :checkboxShow="checkboxShow" :url="url" 
+                      :editForm="editForm" @submitEdit="hangeEdit" :changeDataArr="changeDataArr" :editDefault="editDefault">
+            </pop-edit>
         </transition>
         <!-- 打印模块 -->
         <transition name="fade">
@@ -73,7 +74,7 @@
     <el-table :data="tableData"  @selection-change="handleSelectionChange" v-loading="listLoading" element-loading-text="正在加载">
 
         <!-- checkbox -->
-        <el-table-column width="50" type="selection">
+        <el-table-column width="50" type="selection" :selectable="checkDisabled">
         </el-table-column> 
 
         <!-- 序号 --> 
@@ -87,7 +88,7 @@
                 <el-form label-position="left" inline class="demo-table-expand">
                   <template v-for="(expand,index) in theads">
                       <el-form-item :label="expand">
-                        <span v-if="protos[index] == 'img'">
+                        <span v-if="protos[index] == 'img' || protos[index] == 'logo'">
                             <img :src="$img('images/ok.png')">
                         </span>
                         <span v-else>{{ props.row[protos[index]] }}</span>
@@ -108,7 +109,7 @@
                             <div v-if="item.includes('批次号')" slot="reference" class="pcActive" @click="jumpDetails(scope.row)">
                                 {{ scope.row[protos[index]] }}
                             </div>
-                            <div v-else-if="protos[index]=='img'" slot="reference">
+                            <div v-else-if="protos[index]=='img' || protos[index]=='logo'" slot="reference">
                                 <img v-if="tableData[scope.$index][protos[index]]!=null && tableData[scope.$index][protos[index]]!=''" 
                                     :src="$img('images/ok.png')">
                             </div>
@@ -138,7 +139,9 @@
 
                     <el-button type="text" size="small" v-if="hiddeShow">查看</el-button>
                         
-                    <el-button size="small" type="text" @click="handelDel(scope.$index,scope.row)" v-bind:class="{'btn':!hiddeEdit}">删除</el-button>
+                    <el-button size="small" type="text" :disabled="stateDisabled(scope.row)" @click="handelDel(scope.$index,scope.row)" 
+                        v-bind:class="{'btn':!hiddeEdit}">删除
+                    </el-button>
                 </template>
             </template>
         </el-table-column>
@@ -304,6 +307,28 @@ export default {
         ...mapActions([
             'change_siderBar'
         ]),
+        // 状态样式验证
+        stateDisabled (row) {
+            if (row.state !== undefined) {
+                if (row.state === '已完成') {
+                    return true
+                } else {
+                    return false
+                }
+            }
+            return false
+        },
+        // 类别页复选框是否可选
+        checkDisabled (row, index) {
+            if (row.state !== undefined) {
+                if (row.state === '已完成') {
+                    return false
+                } else {
+                    return true
+                }
+            }
+            return true
+        },
         init (index = 0) {
             this.value = ''
             this.activeName = 0
@@ -740,7 +765,7 @@ export default {
         },
         // 更改批次状态
         changeSerialState (index, row) {
-            this.$confirm('你确定要修改此批次状态吗?', '信息', {
+            this.$confirm('你确定要修改此批次状态?,修改完后无法对该批次进行编辑删除操作,且无法逆转', '信息', {
                 confirmButtonText: '确定',
                 cancelButtonText: '取消',
                 type: 'error'
@@ -842,29 +867,6 @@ export default {
                         }
                     }
                 })
-        },
-        // 根据下拉框获取表格数据
-        getTable (val) {
-            var com = this.newComponent[0]
-            var table = com.components[val[2].assocNum]
-            if (val[1] !== '' && val[1] !== undefined) {
-                var getSelect = {'getSelect': '444'}
-                var curl = {'curl': com.curl}
-                var vs = table.tableUrl
-                var routeId = {'routeId': vs[0]}
-                var opqcurl = {'opqcurl': com.opqcurl}
-                let surl = table.tableUrl[0]
-                var id = val[1]
-                if (vs[1]) {
-                    surl = val[1] + '/' + surl
-                }
-                this.$dataGet(this, surl, {getSelect, curl, routeId, opqcurl, id})
-                    .then((responce) => {
-                        this.$set(table, 'tableVal', responce.data)
-                    })
-            } else {
-                this.$set(table, 'tableVal', [])
-            }
         },
         // 点击删除
         userRole (row, index) {
@@ -1050,10 +1052,9 @@ export default {
         margin-right: 0;
         margin-bottom: 0;
         width: 33%;
-        float: left;
-    }
+        }
     .el-form-item__content{
-        width: 40%;
+        width: 70%;
         text-align: left;
     }
     .demo-table-expand label{

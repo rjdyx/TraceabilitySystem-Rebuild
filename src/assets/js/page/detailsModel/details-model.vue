@@ -9,7 +9,7 @@
 <div class="detailsModel">
 
   <!-- 标题 -->
-    <contain-title :settitle="tab" :isShow="isShow">
+    <contain-title :settitle="tab" :isShow="isShow" :printShow="printShow">
     </contain-title>
     
   <!-- 信息列表 -->
@@ -50,6 +50,7 @@
                         :type="tabItem.whereArr"
                         :routeId="routeId"
                         :curl="url"
+                        :headData="headData"
                         class="fr"
                     ></component>
                 </div>
@@ -57,12 +58,13 @@
         
             <!-- 新建模块 --> 
             <transition name="fade">
-                <popNew v-if="isNewShow" :newComponent="tabItem.newComponent" :url="apiUrlArr[tabList[index].url]" @submitNew="changeNew" @setTable="getTable" :routeId="routeId"></popNew>
+                <popNew v-if="isNewShow" :newComponent="tabItem.newComponent" :url="apiUrlArr[tabList[index].url]" @submitNew="changeNew" :routeId="routeId"></popNew>
             </transition>
             <!-- 编辑模块 -->
             <transition name="fade">
                 <popEdit v-if="isEditShow" :editComponent="tabItem.editComponent" :url="apiUrlArr[tabList[index].url]" :editForm="editForm"
-                     @submitEdit="hangeEdit" :changeDataArr="changeDataArr" :editDefault="editDefault"></popEdit>
+                        @submitEdit="hangeEdit" :changeDataArr="changeData" :editDefault="editDefault">
+                </popEdit>
             </transition>
             <!-- 打印模块 -->
             <transition name="fade">
@@ -82,30 +84,43 @@
             </el-table-column>
 
             <!-- 展开 -->
-            <el-table-column 
+            <el-table-column
                 type="expand" class="expand" v-if="expandMore">
                 <template scope="props">
-                    <el-form label-position="left" inline class="demo-table-expand">
-                      <template v-for="(expand,index) in tabItem.headList">
-                          <el-form-item class="hruygu">
-                            <span @click="timedo" class="el-form-item__label">{{expand}}</span>
-                            <span v-if="expand.includes('时间')">
-                                <component
-                                    v-for="(subItem,index) in tabItem.harvestMore[index]"
-                                    :is="subItem.component"
-                                    :type="subItem.type"
-                                ></component>
-                            </span>
-                            <span v-else-if="expand=='图片'">
+                    <el-form label-position="left"  @click="expandDo" inline class="demo-table-expand">
+
+                      <template v-for="(expand,index) in tabItem.headList.slice(0,8)">
+                          <el-form-item>
+                            <span class="el-form-item__label">{{expand}}</span>
+
+                            <span v-if="expand=='图片'">
                                 <img :src="$img('images/ok.png')">
                             </span>
+
                             <span v-else>
                                 {{ props.row[tabItem.protos[index]] }}
                             </span>
                           </el-form-item>
-                      </template>
+                        </template>
+
+                        <el-form-item v-for="(subItem,init) in tabItem.harvestMore">
+                            <span class="timeEdit" @click="timeEdit(subItem,index)">
+                                <span class="timeLabel">{{subItem.label}}</span>
+                                <span v-if="subItem.nameHide">{{ tableData[props.$index][subItem.name] }}</span>
+                                <component
+                                    v-if="subItem.showHarvest"
+                                    :is="subItem.component"
+                                    :rowid="props.row.id"
+                                    :shuju="subItem"
+                                    :type="subItem.type"
+                                    @return-shuju="insertTimes"
+                                    class="dateEdit"
+                                ></component></span>
+                        </el-form-item>
+
                     </el-form>
-                </template>
+                      </template>
+               
             </el-table-column>
 
                     <!-- 中间列表模块 -->
@@ -212,7 +227,8 @@ export default {
                     protos: [],
                     tabList: [],
                     more: '',
-                    harvestMore: []
+                    harvestMore: [],
+                    printShow: ''
                 }
             }
         }
@@ -247,7 +263,11 @@ export default {
             tableListBollean: true,
             expandMore: false,
             showHarvest: false,
-            thead: []
+            thead: [],
+            changeData: [],
+            operateArr1: ['sunning_date', 'cooling_date'],
+            operateArr2: ['make_green_date', 'kill_out_date', 'knead_nori_date', 'deblock_date', 'dry_date', 'filtrate_date', 'refiring_date'],
+            timeParams: {}
         }
     },
     mixins: [computed],
@@ -692,32 +712,6 @@ export default {
                 this.$message('请选择序号')
             }
         },
-        // 根据下拉框获取表格数据
-        getTable (val) {
-            var com = this.tabItem.newComponent[0]
-            var table = com.components[val[2].assocNum]
-            if (val[1] !== '' && val[1] !== undefined) {
-                var getSelect = {'getSelect': '444'}
-                var curl = {'curl': this.tabItem.url}
-                var vs = table.tableUrl
-                var routeId = {'routeId': vs[0]}
-                var opqcurl = {'opqcurl': this.apiUrlArr[this.url]}
-                let surl = table.tableUrl[0]
-                var id = val[1]
-                if (vs[1]) {
-                    surl = val[1] + '/' + surl
-                }
-                if (com.paramsIndex !== undefined) {
-                    var type = com.paramsIndex
-                }
-                this.$dataGet(this, surl, {getSelect, curl, routeId, opqcurl, type, id})
-                    .then((responce) => {
-                        this.$set(table, 'tableVal', responce.data)
-                    })
-            } else {
-                this.$set(table, 'tableVal', [])
-            }
-        },
         // 扫描溯源码
         changeScanCode (codeVal) {
             let params = {code: codeVal}
@@ -752,8 +746,47 @@ export default {
             this.getDetailSerial()
             this.boxArr(this.dataArr, false)
         },
-        timedo () {
-            this.showHarvest = !this.showHarvest
+        // 列表时间便捷录入
+        timeEdit (subItem, index) {
+            this.$nextTick(function () {
+                this.tabItem.harvestMore.forEach(function (subItem) {
+                    Vue.set(subItem, 'showHarvest', false)
+                    Vue.set(subItem, 'nameHide', true)
+                })
+                Vue.set(subItem, 'showHarvest', true)
+                Vue.set(subItem, 'nameHide', false)
+            })
+        },
+        expandDo () {
+            console.log(13124242)
+        },
+        // 列表时间插入
+        insertTimes (data) {
+            this.timeParams['id'] = data.id
+            if (this.operateArr1.indexOf(data.name) !== -1) {
+                let a = this.$changeDateTime(data.value[0])
+                let b = this.$changeDateTime(data.value[1])
+                this.timeParams[data.name] = a + '至' + b
+            } else if (this.operateArr2.indexOf(data.name) !== -1) {
+                this.timeParams[data.name] = this.$changeDateTime(data.value)
+            }
+            this.$dataGet(this, this.apiUrlArr[this.tabList[this.index].url] + '/setDateTime', this.timeParams)
+                .then((responce) => {
+                    if (responce.data !== 'false') {
+                        this.$message({
+                            type: 'success',
+                            message: '修改时间数据成功'
+                        })
+                        this.boxArr(this.dataArr, true)
+                        this.timeParams = {}
+                        this.tabItem.harvestMore.forEach(function (subItem) {
+                            Vue.set(subItem, 'showHarvest', false)
+                            Vue.set(subItem, 'nameHide', true)
+                        })
+                    } else {
+                        this.$message('修改时间数据失败')
+                    }
+                })
         }
     },
     mounted () {
@@ -766,6 +799,17 @@ export default {
         this.boxArr(this.dataArr, true)
         this.more.length > 8 ? this.expandMore = true : this.expandMore = false
         this.thead = this.more.slice(0, 8)
+        this.changeData = this.tabItem.changeDataArr
+        this.tabItem.harvestMore.forEach(function (subItem) {
+            Vue.set(subItem, 'nameHide', true)
+        })
+        let expandicon = document.getElementsByClassName('el-table__expand-icon')
+        console.log(expandicon)
+        for (let j = 0; j < expandicon.length; j++) {
+            expandicon[j].onclick = function () {
+                console.log(123)
+            }
+        }
     },
     watch: {
         tabItem () {
@@ -916,18 +960,32 @@ export default {
         margin-right: 0;
         margin-bottom: 0;
         width: 33%;
-        float: left;
+        /*float: left;*/
     }
     .el-form-item__content{
-        width: 68%;
+        width: 100%;
         text-align: left;
     }
     .demo-table-expand label{
         width: 30% !important;
         margin-left: 16%;
+        color: #99a9bf;
     }
     .el-form-item__label{
+        color: #99a9bf;
         width: 30% !important;
+    }
+}
+.timeEdit{
+    cursor: pointer;
+    .dateEdit{
+        /*padding-left: 50px;*/
+        display: inline-block;
+    }
+    .timeLabel{
+        width: 30%;
+        display: inline-block;  
+        color: #99a9bf;
     }
 }
 

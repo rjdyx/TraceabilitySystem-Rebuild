@@ -296,12 +296,17 @@ export default {
                 }
             }
             if (this.operateArr1.indexOf(data.name) !== -1) {
-                this.tableForm[data.name + '_start_date'] = this.$changeDateTime(data.value[0])
-                this.tableForm[data.name + '_end_date'] = this.$changeDateTime(data.value[1])
+                let a = this.$changeDateTime(data.value[0])
+                let b = this.$changeDateTime(data.value[1])
+                this.tableForm[data.name + '_date'] = a + '至' + b
             } else if (this.operateArr2.indexOf(data.name) !== -1) {
                 this.tableForm[data.name + '_date'] = this.$changeDateTime(data.value)
             }
-            this.tableForm[data.name] = data.value
+            if (data.name === 'datetime') {
+                this.tableForm[data.name] = this.$changeDateTime(data.value)
+            } else {
+                this.tableForm[data.name] = data.value
+            }
         },
         getOther (data) {
             if (data[1].value !== '') {

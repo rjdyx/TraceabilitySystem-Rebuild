@@ -131,6 +131,7 @@
                                     v-bind:is="subItem.component" 
                                     :shuju="subItem"
                                     :editValue="editForm[subItem.name]"
+                                    :type="subItem.type"
                                     :editData="editForm"
                                     @return-shuju="returnShuju"
                                     @setPicArr="getPicArr"
@@ -171,7 +172,7 @@
         </el-tab-pane>
       </el-tabs>
         <div class="form-footer">
-            <el-button class="btn_change"  @click="submitForm('editForm')">确定</el-button>
+            <el-button class="btn_change"  @click="submitForm('editForm')" :disabled="stateDisabled()">确定</el-button>
             <el-button class="activecancel" @click="cancelClick">取消</el-button>
           </div>
     </form>
@@ -256,6 +257,17 @@ export default {
             var divT = ($(document).outerHeight() - $('.newForm').innerHeight()) / 2
             $('.newForm').css({left: divL, top: divT})
         },
+        // 状态样式验证
+        stateDisabled () {
+            if (this.editForm.state !== undefined) {
+                if (this.editForm.state === '已完成') {
+                    return true
+                } else {
+                    return false
+                }
+            }
+            return false
+        },
         handleClick (tab, event) {
         },
         // 返回InputTextSelect组件的数据
@@ -269,7 +281,11 @@ export default {
                     }
                 }
             }
-            this.editForm[data.name] = data.value
+            if (data.name === 'datetime') {
+                this.editForm[data.name] = this.$changeDateTime(data.value)
+            } else {
+                this.editForm[data.name] = data.value
+            }
         },
         getOther (data) {
             if (data[1].value !== '') {
@@ -368,25 +384,21 @@ export default {
             var type = this.editForm.transportable_type
             var com = this.editComponent[0].components
             if (type !== undefined) {
-                if (type === '自运') {
-                    com[4].hiddenSelect = false
-                    com[5].hiddenSelect = false
-                    com[6].hiddenSelect = true
-                    com[7].hiddenSelect = true
-                    com[8].hiddenSelect = true
-                } else if (type === '托运') {
-                    com[6].hiddenSelect = false
-                    com[7].hiddenSelect = false
-                    com[4].hiddenSelect = true
-                    com[5].hiddenSelect = true
-                    com[8].hiddenSelect = true
-                } else {
-                    com[4].hiddenSelect = true
-                    com[5].hiddenSelect = true
-                    com[6].hiddenSelect = true
-                    com[7].hiddenSelect = true
-                    com[8].hiddenSelect = false
-                }
+                com.forEach(function (item) {
+                    if (item.name === 'transportable_type') {
+                        for (let key of Object.keys(item.selectNumber)) {
+                            if (key === type) {
+                                for (let k in item.selectNumber[key]) {
+                                    com[item.selectNumber[key][k]].hiddenSelect = false
+                                }
+                            } else {
+                                for (let k in item.selectNumber[key]) {
+                                    com[item.selectNumber[key][k]].hiddenSelect = true
+                                }
+                            }
+                        }
+                    }
+                })
             }
             if (this.url === 'cultivate') {
                 if (this.editForm.state === '已完成') {
