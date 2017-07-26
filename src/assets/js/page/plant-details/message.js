@@ -467,7 +467,7 @@ export default {
                 },
                 {
                     name: 'dry',
-                    type: 'date',
+                    type: 'datetime',
                     component: inputDateTimes,
                     isNull: false,
                     hiddenSelect: true,

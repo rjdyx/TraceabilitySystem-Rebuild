@@ -50,6 +50,7 @@
                         :type="tabItem.whereArr"
                         :routeId="routeId"
                         :curl="url"
+                        :headData="headData"
                         class="fr"
                     ></component>
                 </div>

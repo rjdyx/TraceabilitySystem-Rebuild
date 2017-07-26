@@ -73,7 +73,7 @@
     <el-table :data="tableData"  @selection-change="handleSelectionChange" v-loading="listLoading" element-loading-text="正在加载">
 
         <!-- checkbox -->
-        <el-table-column width="50" type="selection">
+        <el-table-column width="50" type="selection" :selectable="checkDisabled">
         </el-table-column> 
 
         <!-- 序号 --> 
@@ -87,7 +87,7 @@
                 <el-form label-position="left" inline class="demo-table-expand">
                   <template v-for="(expand,index) in theads">
                       <el-form-item :label="expand">
-                        <span v-if="protos[index] == 'img'">
+                        <span v-if="protos[index] == 'img' || protos[index] == 'logo'">
                             <img :src="$img('images/ok.png')">
                         </span>
                         <span v-else>{{ props.row[protos[index]] }}</span>
@@ -108,7 +108,7 @@
                             <div v-if="item.includes('批次号')" slot="reference" class="pcActive" @click="jumpDetails(scope.row)">
                                 {{ scope.row[protos[index]] }}
                             </div>
-                            <div v-else-if="protos[index]=='img'" slot="reference">
+                            <div v-else-if="protos[index]=='img' || protos[index]=='logo'" slot="reference">
                                 <img v-if="tableData[scope.$index][protos[index]]!=null && tableData[scope.$index][protos[index]]!=''" 
                                     :src="$img('images/ok.png')">
                             </div>
@@ -138,7 +138,9 @@
 
                     <el-button type="text" size="small" v-if="hiddeShow">查看</el-button>
                         
-                    <el-button size="small" type="text" @click="handelDel(scope.$index,scope.row)" v-bind:class="{'btn':!hiddeEdit}">删除</el-button>
+                    <el-button size="small" type="text" :disabled="stateDisabled(scope.row)" @click="handelDel(scope.$index,scope.row)" 
+                        v-bind:class="{'btn':!hiddeEdit}">删除
+                    </el-button>
                 </template>
             </template>
         </el-table-column>
@@ -301,6 +303,28 @@ export default {
         ...mapActions([
             'change_siderBar'
         ]),
+        // 状态样式验证
+        stateDisabled (row) {
+            if (row.state !== undefined) {
+                if (row.state === '已完成') {
+                    return true
+                } else {
+                    return false
+                }
+            }
+            return false
+        },
+        // 类别页复选框是否可选
+        checkDisabled (row, index) {
+            if (row.state !== undefined) {
+                if (row.state === '已完成') {
+                    return false
+                } else {
+                    return true
+                }
+            }
+            return true
+        },
         init (index = 0) {
             this.value = ''
             this.activeName = 0
@@ -737,7 +761,7 @@ export default {
         },
         // 更改批次状态
         changeSerialState (index, row) {
-            this.$confirm('你确定要修改此批次状态吗?', '信息', {
+            this.$confirm('你确定要修改此批次状态?,修改完后无法对该批次进行编辑删除操作,且无法逆转', '信息', {
                 confirmButtonText: '确定',
                 cancelButtonText: '取消',
                 type: 'error'
