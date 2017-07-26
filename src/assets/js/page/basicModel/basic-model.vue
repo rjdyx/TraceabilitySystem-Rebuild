@@ -73,7 +73,7 @@
     <el-table :data="tableData"  @selection-change="handleSelectionChange" v-loading="listLoading" element-loading-text="正在加载">
 
         <!-- checkbox -->
-        <el-table-column width="50" type="selection">
+        <el-table-column width="50" type="selection" :selectable="checkDisabled">
         </el-table-column> 
 
         <!-- 序号 --> 
@@ -313,6 +313,17 @@ export default {
                 }
             }
             return false
+        },
+        // 类别页复选框是否可选
+        checkDisabled (row, index) {
+            if (row.state !== undefined) {
+                if (row.state === '已完成') {
+                    return false
+                } else {
+                    return true
+                }
+            }
+            return true
         },
         init (index = 0) {
             this.value = ''
@@ -650,11 +661,10 @@ export default {
                 var type = this.paramsIndex
             }
             if (flag) {
-                // this.listLoading = true
+                this.listLoading = true
             }
             this.$dataGet(this, this.url, {params: data, type: type})
                 .then((responce) => {
-                    console.log(responce)
                     // 数据转换
                     if (responce.status === 200) {
                         if (responce.data.data.length !== 0) {
