@@ -17,6 +17,8 @@ export default {
     plantSerial: {
         key: 'plantSerial',
         tab: '种植批次管理',
+        // 是否有打印按钮标志
+        printShow: true,
         roleName: ['plant/cultivate', 0],
         theads: ['种植批次号', '所属种植区', '种植人', '种植日期', '茶叶品种名称', '当前批次面积', '状态'],
         protos: ['serial', 'plantation_name', 'operate', 'date', 'tea_name', 'area_unit', 'state'],

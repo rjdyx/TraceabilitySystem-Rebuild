@@ -9,7 +9,7 @@
 <div class="detailsModel">
 
   <!-- 标题 -->
-    <contain-title :settitle="tab" :isShow="isShow">
+    <contain-title :settitle="tab" :isShow="isShow" :printShow="printShow">
     </contain-title>
     
   <!-- 信息列表 -->
@@ -226,7 +226,8 @@ export default {
                     protos: [],
                     tabList: [],
                     more: '',
-                    harvestMore: []
+                    harvestMore: [],
+                    printShow: ''
                 }
             }
         }
