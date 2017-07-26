@@ -172,7 +172,7 @@
         </el-tab-pane>
       </el-tabs>
         <div class="form-footer">
-            <el-button class="btn_change"  @click="submitForm('editForm')">确定</el-button>
+            <el-button class="btn_change"  @click="submitForm('editForm')" :disabled="stateDisabled()">确定</el-button>
             <el-button class="activecancel" @click="cancelClick">取消</el-button>
           </div>
     </form>
@@ -255,6 +255,17 @@ export default {
             var divL = ($(document).outerWidth() - $('.newForm').innerWidth()) / 2
             var divT = ($(document).outerHeight() - $('.newForm').innerHeight()) / 2
             $('.newForm').css({left: divL, top: divT})
+        },
+        // 状态样式验证
+        stateDisabled () {
+            if (this.editForm.state !== undefined) {
+                if (this.editForm.state === '已完成') {
+                    return true
+                } else {
+                    return false
+                }
+            }
+            return false
         },
         handleClick (tab, event) {
         },

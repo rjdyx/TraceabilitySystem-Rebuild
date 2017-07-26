@@ -138,7 +138,9 @@
 
                     <el-button type="text" size="small" v-if="hiddeShow">查看</el-button>
                         
-                    <el-button size="small" type="text" @click="handelDel(scope.$index,scope.row)" v-bind:class="{'btn':!hiddeEdit}">删除</el-button>
+                    <el-button size="small" type="text" :disabled="stateDisabled(scope.row)" @click="handelDel(scope.$index,scope.row)" 
+                        v-bind:class="{'btn':!hiddeEdit}">删除
+                    </el-button>
                 </template>
             </template>
         </el-table-column>
@@ -301,6 +303,17 @@ export default {
         ...mapActions([
             'change_siderBar'
         ]),
+        // 状态样式验证
+        stateDisabled (row) {
+            if (row.state !== undefined) {
+                if (row.state === '已完成') {
+                    return true
+                } else {
+                    return false
+                }
+            }
+            return false
+        },
         init (index = 0) {
             this.value = ''
             this.activeName = 0
@@ -737,7 +750,7 @@ export default {
         },
         // 更改批次状态
         changeSerialState (index, row) {
-            this.$confirm('你确定要修改此批次状态吗?', '信息', {
+            this.$confirm('你确定要修改此批次状态?,修改完后无法对该批次进行编辑删除操作,且无法逆转', '信息', {
                 confirmButtonText: '确定',
                 cancelButtonText: '取消',
                 type: 'error'
