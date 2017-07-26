@@ -238,9 +238,9 @@ export default {
             url: 'colect-process',
             tab: '采制信息',
             searchPlaceholder: '',
-            headList: ['采制日期', '采制人', '毛茶重量(kg)', '毛茶数量', '散茶重量(kg)', '散茶数量', '损耗率', '备注', '晒青开始时间', '晒青结束时间', '晾青开始时间', '晾青结束时间', '做青时间', '杀青时间', '揉稔时间', '解块时间', '干燥时间', '筛选时间', '复火时间'],
-            protos: ['date', 'operate', 'raw_tea_weight', 'raw_tea_count', 'bulk_tea_weight', 'bulk_tea_count', 'attrition_rate', 'memo', 'sunning_start_date', 'sunning_end_date', 'cooling_start_date', 'cooling_end_date', 'make_green_date', 'kill_out_date', 'knead_nori_date', 'deblock_date', 'dry_date', 'filtrate_date', 'refiring_date'],
-            widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
+            headList: ['采制日期', '采制人', '毛茶重量(kg)', '毛茶数量', '散茶重量(kg)', '散茶数量', '损耗率', '备注', '晒青时间', '晾青时间', '做青时间', '杀青时间', '揉稔时间', '解块时间', '干燥时间', '筛选时间', '复火时间'],
+            protos: ['date', 'operate', 'raw_tea_weight', 'raw_tea_count', 'bulk_tea_weight', 'bulk_tea_count', 'attrition_rate', 'memo', 'sunning_date', 'cooling_date', 'make_green_date', 'kill_out_date', 'knead_nori_date', 'deblock_date', 'dry_date', 'filtrate_date', 'refiring_date'],
+            widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
             hiddeEdit: true,
             searchText: false,
             typeComponent: [{
@@ -256,116 +256,59 @@ export default {
                 }]
             }],
             harvestMore: [{
-                name: 'sunning',
+                name: 'sunning_date',
                 type: 'datetimerange',
                 component: inputDateTimes,
-                isNull: false,
-                hiddenSelect: true,
-                label: '晒青开始时间',
-                placeholder: '晒青',
-                rule: [{required: true, message: '请选择晒青时间'}, {validator: validate2.reDate, message: '请输入晒青时间'}]
+                label: '晒青时间'
             },
             {
-                name: 'cooling',
+                name: 'cooling_date',
                 type: 'datetimerange',
                 component: inputDateTimes,
-                isNull: false,
-                hiddenSelect: true,
-                label: '晒青结束时间',
-                placeholder: '',
-                rule: [{required: true, message: '请选择晾青时间'}, {validator: validate2.reDate, message: '请输入晾青时间'}]
+                label: '晾青时间'
             },
             {
-                name: 'make_green',
+                name: 'make_green_date',
                 type: 'datetimerange',
                 component: inputDateTimes,
-                isNull: false,
-                hiddenSelect: true,
-                label: '晾青开始时间',
-                placeholder: '',
-                rule: [{required: true, message: '请选择做青时间'}, {validator: validate2.reDate, message: '请输入做青时间'}]
+                label: '做青时间'
             },
             {
-                name: 'kill_out',
-                type: 'datetimerange',
-                component: inputDateTimes,
-                isNull: false,
-                hiddenSelect: true,
-                label: '晾青结束时间',
-                placeholder: '',
-                rule: [{required: true, message: '请选择杀青时间'}, {validator: validate2.reDate, message: '请输入杀青时间'}]
-            },
-            {
-                name: 'knead_nori',
+                name: 'kill_out_date',
                 type: 'datetime',
                 component: inputDateTimes,
-                isNull: false,
-                hiddenSelect: true,
-                label: '做青时间',
-                placeholder: '',
-                rule: [{required: true, message: '请选择揉稔时间'}, {validator: validate2.reDate, message: '请输入揉稔时间'}]
+                label: '杀青时间'
             },
             {
-                name: 'deblock',
+                name: 'knead_nori_date',
                 type: 'datetime',
                 component: inputDateTimes,
-                isNull: false,
-                hiddenSelect: true,
-                label: '杀青时间',
-                placeholder: '',
-                rule: [{required: true, message: '请选择解块时间'}, {validator: validate2.reDate, message: '请输入解块时间'}]
+                label: '揉稔时间'
             },
             {
-                name: 'dry',
+                name: 'deblock_date',
                 type: 'datetime',
                 component: inputDateTimes,
-                isNull: false,
-                hiddenSelect: true,
-                label: '揉稔时间',
-                placeholder: '',
-                rule: [{required: true, message: '请选择干燥时间'}, {validator: validate2.reDate, message: '请输入干燥时间'}]
+                label: '解块时间'
             },
             {
-                name: 'dry',
+                name: 'dry_date',
                 type: 'datetime',
                 component: inputDateTimes,
-                isNull: false,
-                hiddenSelect: true,
-                label: '解块时间',
-                placeholder: '',
-                rule: [{required: true, message: '请选择干燥时间'}, {validator: validate2.reDate, message: '请输入干燥时间'}]
+                label: '干燥时间'
             },
             {
-                name: 'filtrate',
+                name: 'filtrate_date',
                 type: 'datetime',
                 component: inputDateTimes,
-                isNull: false,
-                hiddenSelect: true,
-                label: '干燥时间',
-                placeholder: '',
-                rule: [{required: true, message: '请选择筛选时间'}, {validator: validate2.reDate, message: '请输入筛选时间'}]
+                label: '筛选时间'
             },
             {
-                name: 'refiring',
+                name: 'refiring_date',
                 type: 'datetime',
                 component: inputDateTimes,
-                isNull: false,
-                hiddenSelect: true,
-                label: '筛选时间',
-                placeholder: '',
-                rule: [{required: true, message: '请选择复火时间'}, {validator: validate2.reDate, message: '请输入复火时间'}]
-            },
-            {
-                name: 'refiring',
-                type: 'datetime',
-                component: inputDateTimes,
-                isNull: false,
-                hiddenSelect: true,
-                label: '复火时间',
-                placeholder: '',
-                rule: [{required: true, message: '请选择复火时间'}, {validator: validate2.reDate, message: '请输入复火时间'}]
-            }
-            ],
+                label: '复火时间'
+            }],
             newComponent: [{
                 tab: '新建采制信息',
                 type: 'assoc',

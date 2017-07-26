@@ -296,8 +296,9 @@ export default {
                 }
             }
             if (this.operateArr1.indexOf(data.name) !== -1) {
-                this.tableForm[data.name + '_start_date'] = this.$changeDateTime(data.value[0])
-                this.tableForm[data.name + '_end_date'] = this.$changeDateTime(data.value[1])
+                let a = this.$changeDateTime(data.value[0])
+                let b = this.$changeDateTime(data.value[1])
+                this.tableForm[data.name + '_date'] = a + '至' + b
             } else if (this.operateArr2.indexOf(data.name) !== -1) {
                 this.tableForm[data.name + '_date'] = this.$changeDateTime(data.value)
             }

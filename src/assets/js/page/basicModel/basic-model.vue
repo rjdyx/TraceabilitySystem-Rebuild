@@ -48,7 +48,7 @@
 
         <!-- 新建模块 --> 
         <transition name="fade">
-            <popNew v-if="isNewShow" :newComponent="newComponent" :checkboxShow="checkboxShow" :url="url" @submitNew="changeNew" @setTable="getTable"></popNew>
+            <popNew v-if="isNewShow" :newComponent="newComponent" :checkboxShow="checkboxShow" :url="url" @submitNew="changeNew"></popNew>
         </transition>
         <!-- 编辑模块 -->
         <transition name="fade">
@@ -839,29 +839,6 @@ export default {
                         }
                     }
                 })
-        },
-        // 根据下拉框获取表格数据
-        getTable (val) {
-            var com = this.newComponent[0]
-            var table = com.components[val[2].assocNum]
-            if (val[1] !== '' && val[1] !== undefined) {
-                var getSelect = {'getSelect': '444'}
-                var curl = {'curl': com.curl}
-                var vs = table.tableUrl
-                var routeId = {'routeId': vs[0]}
-                var opqcurl = {'opqcurl': com.opqcurl}
-                let surl = table.tableUrl[0]
-                var id = val[1]
-                if (vs[1]) {
-                    surl = val[1] + '/' + surl
-                }
-                this.$dataGet(this, surl, {getSelect, curl, routeId, opqcurl, id})
-                    .then((responce) => {
-                        this.$set(table, 'tableVal', responce.data)
-                    })
-            } else {
-                this.$set(table, 'tableVal', [])
-            }
         },
         // 点击删除
         userRole (row, index) {

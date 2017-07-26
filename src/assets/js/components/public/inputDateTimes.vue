@@ -23,7 +23,8 @@
                 }
             },
             type: '',
-            editValue: {}
+            editValue: {},
+            rowid: ''
         },
         data () {
             return {
@@ -34,7 +35,7 @@
         },
         watch: {
             value () {
-                this.$emit('return-shuju', {name: this.shuju.name, value: this.value})
+                this.$emit('return-shuju', {name: this.shuju.name, value: this.value, id: this.rowid})
             }
         },
         mounted () {

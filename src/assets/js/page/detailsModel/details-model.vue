@@ -57,7 +57,7 @@
         
             <!-- 新建模块 --> 
             <transition name="fade">
-                <popNew v-if="isNewShow" :newComponent="tabItem.newComponent" :url="apiUrlArr[tabList[index].url]" @submitNew="changeNew" @setTable="getTable" :routeId="routeId"></popNew>
+                <popNew v-if="isNewShow" :newComponent="tabItem.newComponent" :url="apiUrlArr[tabList[index].url]" @submitNew="changeNew" :routeId="routeId"></popNew>
             </transition>
             <!-- 编辑模块 -->
             <transition name="fade">
@@ -105,11 +105,14 @@
                         <el-form-item v-for="(subItem,init) in tabItem.harvestMore">
                             <span class="timeEdit" @click="timeEdit(subItem,index)">
                                 <span class="timeLabel">{{subItem.label}}</span>
+                                <span>{{ tableData[props.$index][subItem.name] }}</span>
                                 <component
                                     v-if="subItem.showHarvest"
                                     :is="subItem.component"
+                                    :rowid="props.row.id"
+                                    :shuju="subItem"
                                     :type="subItem.type"
-                                    :placeholder="subItem.placeholder"
+                                    @return-shuju="insertTimes"
                                     class="dateEdit"
                                 ></component></span>
                         </el-form-item>
@@ -259,7 +262,10 @@ export default {
             expandMore: false,
             showHarvest: false,
             thead: [],
-            changeData: []
+            changeData: [],
+            operateArr1: ['sunning', 'cooling'],
+            operateArr2: ['make_green', 'kill_out', 'knead_nori', 'deblock', 'dry', 'filtrate', 'refiring'],
+            timeParams: {}
         }
     },
     mixins: [computed],
@@ -704,32 +710,6 @@ export default {
                 this.$message('请选择序号')
             }
         },
-        // 根据下拉框获取表格数据
-        getTable (val) {
-            var com = this.tabItem.newComponent[0]
-            var table = com.components[val[2].assocNum]
-            if (val[1] !== '' && val[1] !== undefined) {
-                var getSelect = {'getSelect': '444'}
-                var curl = {'curl': this.tabItem.url}
-                var vs = table.tableUrl
-                var routeId = {'routeId': vs[0]}
-                var opqcurl = {'opqcurl': this.apiUrlArr[this.url]}
-                let surl = table.tableUrl[0]
-                var id = val[1]
-                if (vs[1]) {
-                    surl = val[1] + '/' + surl
-                }
-                if (com.paramsIndex !== undefined) {
-                    var type = com.paramsIndex
-                }
-                this.$dataGet(this, surl, {getSelect, curl, routeId, opqcurl, type, id})
-                    .then((responce) => {
-                        this.$set(table, 'tableVal', responce.data)
-                    })
-            } else {
-                this.$set(table, 'tableVal', [])
-            }
-        },
         // 扫描溯源码
         changeScanCode (codeVal) {
             let params = {code: codeVal}
@@ -764,6 +744,7 @@ export default {
             this.getDetailSerial()
             this.boxArr(this.dataArr, false)
         },
+        // 列表时间便捷录入
         timeEdit (subItem, index) {
             this.$nextTick(function () {
                 this.tabItem.harvestMore.forEach(function (subItem) {
@@ -771,6 +752,20 @@ export default {
                 })
                 Vue.set(subItem, 'showHarvest', true)
             })
+        },
+        // 列表时间插入
+        insertTimes (data) {
+            this.timeParams['id'] = data.id
+            if (this.operateArr1.indexOf(data.name) !== -1) {
+                this.timeParams[data.name + '_start_date'] = this.$changeDateTime(data.value[0])
+                this.timeParams[data.name + '_end_date'] = this.$changeDateTime(data.value[1])
+            } else if (this.operateArr2.indexOf(data.name) !== -1) {
+                this.timeParams[data.name + '_date'] = this.$changeDateTime(data.value)
+            }
+            this.$dataGet(this, this.apiUrlArr[this.tabList[this.index].url] + '/setDateTime', this.timeParams)
+                .then((responce) => {
+                    console.log(responce.data)
+                })
         }
     },
     mounted () {
