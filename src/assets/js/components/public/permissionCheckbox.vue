@@ -30,11 +30,18 @@
 
                     <span class="hors" @click="threeClick" value="hidden">{{stateZ}}</span>
 
-                    <div class="li fore hidden">
+                    <div class="li fore hidden" v-if="!opsState">
                         <span class="checkbox-Box" v-for="(val,k4) in operates">
                             <span class="span-checkbox" @click="boxClick">√</span>
                             <input type="text" :value="k4" :checked="checked" class="checkbox-input2">
                             <span class="span-check3">{{val}}</span>
+                        </span>
+                    </div>
+                    <div class="li fore hidden" v-else>
+                        <span class="checkbox-Box" v-for="(val,k4) in ops[three]">
+                            <span class="span-checkbox" @click="boxClick">√</span>
+                            <input type="text" :value="k4" :checked="checked" class="checkbox-input2">
+                            <span class="span-check3">{{operates[val]}}</span>
                         </span>
                     </div>
                 </div>
@@ -54,7 +61,8 @@ export default {
     },
     props: {
         id: '',
-        type: ''
+        type: '',
+        permissionCompany: ''
     },
     data () {
         let obj = {}
@@ -70,28 +78,52 @@ export default {
             stateS: '收起',
             checked: false,
             checkeds: {},
-            returnDatas: {}
+            returnDatas: {},
+            ops: {},
+            opsState: false
         }
     },
     mixins: [move],
     mounted () {
-        var _this = this
-        // 全部数据
-        axios.get('api/permission/get/all').then((responce) => {
-            this.lists = responce.data
-            this.edit()
-        })
+        this.create()
     },
     methods: {
-        edit () {
-            var url = 'api/role/' + this.id + '/edit'
-            if (this.type !== undefined) {
-                url = 'api/permission/get/all?company_id=' + this.id
+        create () {
+            var _this = this
+            var url = 'api/permission/get/all'
+            var state = false
+            if (this.permissionCompany !== undefined && this.permissionCompany === 1) {
+                url = 'api/company/permission'
+                state = true
             }
             axios.get(url).then((responce) => {
-                this.returnDatas = responce.data.permissions
+                _this.lists = responce.data
+                if (state) {
+                    _this.ops = responce.data.ops
+                    _this.lists = responce.data.data
+                    _this.opsState = true
+                }
+                if (_this.id !== undefined) {
+                    _this.edit()
+                }
+            })
+        },
+        edit () {
+            var url = 'api/role/' + this.id + '/edit'
+            var type = this.type
+            if (type !== undefined) {
+                url = 'api/company/checked/permission/' + this.id
+            }
+            axios.get(url).then((responce) => {
+                if (type !== undefined) {
+                    this.returnDatas = responce.data
+                } else {
+                    this.returnDatas = responce.data.permissions
+                }
                 this.$emit('return-checkeds', this.returnDatas)
-                this.editData()
+                if (this.returnDatas) {
+                    this.editData()
+                }
             })
         },
         editData () {
@@ -133,6 +165,7 @@ export default {
         boxClick: function (e) {
             var arr = this.ses(e)
             var op = []
+            var datas = []
             var $this = this
             if ($(e.target).next('input')[0] !== undefined) {
                 $(e.target).next('input').prop('checked', !arr[0])
@@ -173,13 +206,18 @@ export default {
                             $(this).siblings('div').find('input').each(function (item) {
                                 op[item] = $(this).val()
                             })
-                            if (arr[0]) {
-                                $this.returnDatas[v] = []
+                            if ($(this).prop('checked')) {
+                                if (arr[0] && v !== 0) {
+                                    $this.returnDatas[v] = []
+                                } else {
+                                    $this.returnDatas[v] = op
+                                }
                             } else {
-                                $this.returnDatas[v] = op
+                                $this.returnDatas[v] = null
                             }
                         }
                     })
+                    console.log($this.returnDatas)
                 }
             }
             // 改变class样式

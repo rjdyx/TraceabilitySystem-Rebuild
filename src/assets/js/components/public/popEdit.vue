@@ -131,6 +131,7 @@
                                     v-bind:is="subItem.component" 
                                     :shuju="subItem"
                                     :editValue="editForm[subItem.name]"
+                                    :type="subItem.type"
                                     :editData="editForm"
                                     @return-shuju="returnShuju"
                                     @setPicArr="getPicArr"
@@ -268,7 +269,11 @@ export default {
                     }
                 }
             }
-            this.editForm[data.name] = data.value
+            if (data.name === 'datetime') {
+                this.editForm[data.name] = this.$changeDateTime(data.value)
+            } else {
+                this.editForm[data.name] = data.value
+            }
         },
         getOther (data) {
             if (data[1].value !== '') {
@@ -367,25 +372,21 @@ export default {
             var type = this.editForm.transportable_type
             var com = this.editComponent[0].components
             if (type !== undefined) {
-                if (type === '自运') {
-                    com[4].hiddenSelect = false
-                    com[5].hiddenSelect = false
-                    com[6].hiddenSelect = true
-                    com[7].hiddenSelect = true
-                    com[8].hiddenSelect = true
-                } else if (type === '托运') {
-                    com[6].hiddenSelect = false
-                    com[7].hiddenSelect = false
-                    com[4].hiddenSelect = true
-                    com[5].hiddenSelect = true
-                    com[8].hiddenSelect = true
-                } else {
-                    com[4].hiddenSelect = true
-                    com[5].hiddenSelect = true
-                    com[6].hiddenSelect = true
-                    com[7].hiddenSelect = true
-                    com[8].hiddenSelect = false
-                }
+                com.forEach(function (item) {
+                    if (item.name === 'transportable_type') {
+                        for (let key of Object.keys(item.selectNumber)) {
+                            if (key === type) {
+                                for (let k in item.selectNumber[key]) {
+                                    com[item.selectNumber[key][k]].hiddenSelect = false
+                                }
+                            } else {
+                                for (let k in item.selectNumber[key]) {
+                                    com[item.selectNumber[key][k]].hiddenSelect = true
+                                }
+                            }
+                        }
+                    }
+                })
             }
             if (this.url === 'cultivate') {
                 if (this.editForm.state === '已完成') {

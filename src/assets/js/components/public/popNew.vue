@@ -171,7 +171,7 @@
                 <!-- 四级多选框组件 -->
                 <tr class="tr1" v-if="permissionShow">
                     <td>
-                        <permissionCheckbox name="checkeds" @return-checkeds="allCheckeds"></permissionCheckbox>
+                        <permissionCheckbox name="checkeds" :permissionCompany="permissionCompany" @return-checkeds="allCheckeds"></permissionCheckbox>
                     </td>
                 </tr>
             </tbody>
@@ -259,6 +259,7 @@ export default {
             disabled: false,
             disabledV: false,
             num: 1,
+            permissionCompany: this.newComponent[0].permissionCompany,
             permissionShow: this.newComponent[0].permissionShow,
             news: 'new',
             operateArr1: ['sunning', 'cooling'],
@@ -300,7 +301,11 @@ export default {
             } else if (this.operateArr2.indexOf(data.name) !== -1) {
                 this.tableForm[data.name + '_date'] = this.$changeDateTime(data.value)
             }
-            this.tableForm[data.name] = data.value
+            if (data.name === 'datetime') {
+                this.tableForm[data.name] = this.$changeDateTime(data.value)
+            } else {
+                this.tableForm[data.name] = data.value
+            }
         },
         getOther (data) {
             if (data[1].value !== '') {
@@ -334,8 +339,12 @@ export default {
         * 提交表单
         */
         submitForm (formName) {
-            // 多选框 权限
             var com = this.newComponent[0]
+            // 判断是否须添加公司id
+            if (com.urlid !== undefined) {
+                this.tableForm[com.urlid] = this.routeId
+            }
+            // 多选框 权限
             this.tableForm['checkeds'] = this.checkeds
             if (this.checkboxShow) {
                 let allIdArr = []

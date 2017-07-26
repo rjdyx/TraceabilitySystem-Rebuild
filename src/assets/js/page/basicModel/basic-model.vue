@@ -52,8 +52,9 @@
         </transition>
         <!-- 编辑模块 -->
         <transition name="fade">
-            <pop-edit v-if="isEditShow" :editComponent="editComponent" :roleId="roleId" :checkboxShow="checkboxShow" :url="url" :editForm="editForm"
-             @submitEdit="hangeEdit" :changeDataArr="changeDataArr" :editDefault="editDefault"></pop-edit>
+            <pop-edit v-if="isEditShow" :editComponent="editComponent" :roleId="roleId" :checkboxShow="checkboxShow" :url="url" 
+                      :editForm="editForm" @submitEdit="hangeEdit" :changeDataArr="changeDataArr" :editDefault="editDefault">
+            </pop-edit>
         </transition>
         <!-- 打印模块 -->
         <transition name="fade">

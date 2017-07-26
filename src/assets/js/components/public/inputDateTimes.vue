@@ -22,11 +22,12 @@
                     return {}
                 }
             },
-            type: ''
+            type: '',
+            editValue: {}
         },
         data () {
             return {
-                value: ''
+                value: this.editValue !== undefined ? this.editValue : ''
             }
         },
         methods: {

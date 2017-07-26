@@ -1,5 +1,5 @@
 /**
- * 权限按钮组件
+ * 公司权限按钮组件
  * @description 
  * @author 郭森林
  * @date 2017/07/24
@@ -60,7 +60,8 @@ export default {
         return {
             // 当前选中的标签页
             checkeds: [],
-            type: 'company'
+            type: 'company',
+            tableForm: {}
         }
     },
     mixins: [move],
@@ -79,36 +80,21 @@ export default {
         * 提交表单
         */
         submitForm (formName) {
-            // 多选框 权限
-            var com = this.newComponent[0]
             this.tableForm['checkeds'] = this.checkeds
-            if (this.checkboxShow) {
-                let allIdArr = []
-                for (let key in this.checkeds) {
-                    if (this.checkeds[key].length) {
-                        this.checkeds[key].forEach(function (item) {
-                            allIdArr.push(item)
-                        })
-                    }
-                }
-                this.tableForm['permission_ids'] = allIdArr
-            }
-            this.$refs[formName][0].validate((valid) => {
-                if (valid) {
-                    this.$dataPost(this, this.url, this.tableForm, com.hasImg, com.hiddenValue, false).then((response) => {
-                        this.successCallback()
-                        this.$emit('submitNew', response.data)
-                    })
+            this.$dataPost(this, 'company_permission/' + this.id, this.tableForm).then((response) => {
+                if (response.data !== 'false') {
+                    this.$message('编辑权限成功')
                 } else {
-                    return false
+                    this.$message('编辑权限失败')
                 }
+                this.popClose()
             })
         },
         allCheckeds (data) {
             this.checkeds = data
         },
-        // 新增成功调用方法
-        successCallback () {
+        // 关闭弹窗方法
+        popClose () {
             this.$parent.closePermission()
         }
     }
