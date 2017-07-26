@@ -40,7 +40,7 @@
                     <div class="li fore hidden" v-else>
                         <span class="checkbox-Box" v-for="(val,k4) in ops[three]">
                             <span class="span-checkbox" @click="boxClick">√</span>
-                            <input type="text" :value="k4" :checked="checked" class="checkbox-input2">
+                            <input type="text" :value="val" :checked="checked" class="checkbox-input2">
                             <span class="span-check3">{{operates[val]}}</span>
                         </span>
                     </div>
@@ -110,20 +110,19 @@ export default {
         },
         edit () {
             var url = 'api/role/' + this.id + '/edit'
-            var type = this.type
-            if (type !== undefined) {
+            if (this.type !== undefined) {
                 url = 'api/company/checked/permission/' + this.id
             }
             axios.get(url).then((responce) => {
-                if (type !== undefined) {
+                if (this.type !== undefined) {
                     this.returnDatas = responce.data
                 } else {
                     this.returnDatas = responce.data.permissions
                 }
-                this.$emit('return-checkeds', this.returnDatas)
                 if (this.returnDatas) {
                     this.editData()
                 }
+                this.$emit('return-checkeds', this.returnDatas)
             })
         },
         editData () {

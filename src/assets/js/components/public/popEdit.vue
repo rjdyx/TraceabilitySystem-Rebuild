@@ -161,7 +161,7 @@
                 <!-- 四级多选框组件 -->
                 <tr class="tr1" v-if="permissionShow">
                     <td>
-                        <permissionCheckbox name="checkeds" :id="editForm.id" @return-checkeds="allCheckeds"></permissionCheckbox>
+                        <permissionCheckbox name="checkeds" :id="editForm.id" :permissionCompany="permissionCompany" @return-checkeds="allCheckeds"></permissionCheckbox>
                     </td>
                 </tr>
 
@@ -216,6 +216,7 @@ export default {
             // 当前选中的标签页
             activeName: this.editComponent[0].tab,
             permissionShow: this.editComponent[0].permissionShow,
+            permissionCompany: this.editComponent[0].permissionCompany,
             rules: rules,
             memuList: {},
             checkeds: [],

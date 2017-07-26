@@ -13,8 +13,9 @@
     </contain-title>
   <!-- tab栏 --> 
     <el-tabs v-model="activeName" id="tabs" @tab-click="tabClick" type="card">
+<!--         <el-tab-pane v-for="(model,index) in models" v-if="show[index]"  :label="model.tab" :name="'index'+index">
+        </el-tab-pane> -->
         <el-tab-pane v-for="(model,index) in models" :label="model.tab" :name="'index'+index">
-
         </el-tab-pane>
     </el-tabs>  
 
@@ -232,6 +233,9 @@ export default {
                     commaArr: []
                 }]
             }
+        },
+        show: {
+            type: Array
         }
     },
     data () {

@@ -7,7 +7,7 @@
 
 <template>
 	<div class="content">
-        <basic-model :models="models[type]"></basic-model>
+        <basic-model :models="models[type]" :show="md"></basic-model>
     </div> 
 </template>
   
@@ -23,6 +23,7 @@ export default {
         return {
             checked: [],
             activeName: 'first',
+            md: [],
             models: modelObj
         }
     },
@@ -37,6 +38,26 @@ export default {
         }
     },
     mounted () {
+        var roleData = {}
+        if (window.Roles.permissions !== undefined) {
+            roleData = window.Roles.permissions.two
+        }
+        for (let k in this.models) {
+            if (roleData[this.type].hasOwnProperty(this.models[k].key)) {
+                // var fs = mds[k].key
+                // var arr = []
+                // mds[k].typeComponent = []
+                // if (roleData[this.type][fs] !== undefined) {
+                //     if (roleData[this.type][fs].indexOf('create') !== -1) {
+                //         arr.push({component: 'output'})
+                //     }
+                // }
+                // mds[k].typeComponent = arr
+                this.md[k] = true
+            } else {
+                this.md[k] = false
+            }
+        }
     }
 }
 </script>

@@ -5332,61 +5332,6 @@ export default {
             ]
         }]
     }],
-    // 系统管理
-    // 公司信息管理
-    company: [{
-        settitle: '公司信息管理',
-        key: 'mylog',
-        tab: '公司信息管理',
-        url: 'log',
-        roleName: ['system/log', 0],
-        selectSearch: ['operate'],
-        searchPlaceholder: '请输入内容进行搜索',
-        theads: ['公司图片', '公司名称', '公司简称', '公司编码', '公司地址', '公司网站', '统一码', '经营范围', '负责人/法人', '电话', '员工总数'],
-        protos: ['module', 'operate', 'content', 'datetime', 'ip', 'user_name', 'memo'],
-        widths: [50, 50, 50, 50, 50, 50, 50],
-        listComponent: [{
-            components: [{
-                value: '',
-                type: 'select',
-                name: 'operate',
-                component: selectSection,
-                options: [{
-                    value: '',
-                    label: '请选择操作'
-                },
-                {
-                    value: '新建',
-                    label: '新建'
-                },
-                {
-                    value: '编辑',
-                    label: '编辑'
-                },
-                {
-                    value: '删除',
-                    label: '删除'
-                }]
-            },
-            {
-                type: 'date',
-                components: 'datePick'
-            }
-            ]
-        }],
-        editComponent: [{
-            tab: '编辑备注信息',
-            components: [{
-                name: 'memo',
-                type: 'textarea',
-                component: null,
-                isNull: true,
-                label: '备注信息',
-                placeholder: '',
-                rule: null
-            }]
-        }]
-    }],
     // 用户管理
     userOperate: [{
         settitle: '用户管理',
@@ -5395,10 +5340,11 @@ export default {
         url: 'role',
         roleName: ['system/role', 0],
         hiddenValue: {'fixation': 0},
+        // changeDataArr: [{fixation: {0: '否', 1: '是'}}],
         searchPlaceholder: '请输入角色名称进行搜索',
-        theads: ['英文名称', '中文名称', '描述', '是否预设'],
-        protos: ['name', 'display_name', 'description', 'faxation'],
-        widths: [50, 50, 50, 50],
+        theads: ['英文名称', '中文名称', '描述'],
+        protos: ['name', 'display_name', 'description'],
+        widths: [50, 50, 50],
         typeComponent: [{
             component: output
         },
@@ -5440,6 +5386,7 @@ export default {
             tab: '编辑角色信息',
             checkNumber: [0, 1],
             permissionShow: true,
+            permissionCompany: 1,
             components: [{
                 name: 'name',
                 type: 'text',
@@ -5473,15 +5420,24 @@ export default {
         key: 'user',
         tab: '用户管理',
         url: 'user',
+        hiddeRole: true,
+        changeDataArr: [{gender: {0: '男', 1: '女'}}],
         searchPlaceholder: '请输入用户名搜索',
-        theads: ['用户名', '邮箱', '性别', '姓名', '出生日期', '手机号码', '所属部门', '入职日期', '工号', '头像'],
-        protos: ['plan_type_name', 'name', 'content', 'plan_type_name', 'name', 'content', 'plan_type_name', 'name', 'content', 'content'],
+        theads: ['用户名', '邮箱', '手机号码', '性别', '姓名', '出生日期', '所属部门', '入职日期', '工号', '头像'],
+        protos: ['name', 'email', 'phone', 'gender', 'realname', 'birth_date', 'department', 'hiredate', 'number', 'img'],
         widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
+        typeComponent: [{
+            component: output
+        },
+        {
+            component: newbuildBtn
+        }],
         listComponent: [],
         newComponent: [{
             tab: '新建用户信息',
             hiddenValue: {type: 0},
-            checkNumber: [0, 1, 5],
+            checkNumber: [0, 1, 2],
+            hasImg: true,
             components: [{
                 name: 'name',
                 type: 'text',
@@ -5501,13 +5457,22 @@ export default {
                 rule: [{required: true, trigger: 'blur', message: '请输入正确邮箱格式', type: 'email'}, {validator: validate2.reCheck, trigger: 'blur', message: '邮箱已存在'}]
             },
             {
+                name: 'phone',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '手机号码',
+                placeholder: '请输入手机号码',
+                rule: [{required: true, trigger: 'blur', message: '请输入手机号码'}, {validator: validate2.reCheck, trigger: 'blur', message: '手机号码已存在'}, {validator: validate2.phone}]
+            },
+            {
                 name: 'gender',
                 type: 'select',
                 component: null,
                 isNull: false,
                 label: '性别',
                 placeholder: '请选择性别',
-                rule: {required: true, trigger: 'blur', type: 'number'},
+                rule: null,
                 options: [{
                     value: 0,
                     label: '男'
@@ -5532,17 +5497,8 @@ export default {
                 isNull: false,
                 label: '出生日期',
                 placeholder: '请选择日期',
-                rule: [{required: true, message: '请输入出生日期'}, {validator: validate2.reDate, message: '请输入出生日期'}]
+                rule: [{required: false, message: '请选择出生日期'}, {validator: validate2.reDate, message: '请选择出生日期'}]
 
-            },
-            {
-                name: 'phone',
-                type: 'text',
-                component: null,
-                isNull: false,
-                label: '手机号码',
-                placeholder: '请输入手机号码',
-                rule: [{required: true, trigger: 'blur', message: '请输入手机号码'}, {validator: validate2.reCheck, trigger: 'blur', message: '手机号码已存在'}, {validator: validate2.phone}]
             },
             {
                 name: 'department',
@@ -5584,7 +5540,8 @@ export default {
         editComponent: [{
             tab: '编辑用户信息',
             hiddenValue: {type: 0},
-            checkNumber: [0, 1, 5],
+            checkNumber: [0, 1, 2],
+            hasImg: true,
             components: [{
                 name: 'name',
                 type: 'text',
@@ -5604,13 +5561,22 @@ export default {
                 rule: [{required: true, trigger: 'blur', message: '请输入正确邮箱格式', type: 'email'}, {validator: validate2.reCheck, trigger: 'blur', message: '邮箱已存在'}]
             },
             {
+                name: 'phone',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '手机号码',
+                placeholder: '请输入手机号码',
+                rule: [{required: true, trigger: 'blur', message: '请输入手机号码'}, {validator: validate2.reCheck, trigger: 'blur', message: '手机号码已存在'}, {validator: validate2.phone}]
+            },
+            {
                 name: 'gender',
                 type: 'select',
                 component: null,
                 isNull: false,
                 label: '性别',
                 placeholder: '请选择性别',
-                rule: {required: true, trigger: 'blur', type: 'number'},
+                rule: {required: true, trigger: 'blur'},
                 options: [{
                     value: 0,
                     label: '男'
@@ -5635,17 +5601,7 @@ export default {
                 isNull: false,
                 label: '出生日期',
                 placeholder: '请选择日期',
-                rule: [{required: true, message: '请输入出生日期'}, {validator: validate2.reDate, message: '请输入出生日期'}]
-
-            },
-            {
-                name: 'phone',
-                type: 'text',
-                component: null,
-                isNull: false,
-                label: '手机号码',
-                placeholder: '请输入手机号码',
-                rule: [{required: true, trigger: 'blur', message: '请输入手机号码'}, {validator: validate2.reCheck, trigger: 'blur', message: '手机号码已存在'}, {validator: validate2.phone}]
+                rule: [{required: false, message: '请选择出生日期'}, {validator: validate2.reDate, message: '请选择出生日期'}]
             },
             {
                 name: 'department',
