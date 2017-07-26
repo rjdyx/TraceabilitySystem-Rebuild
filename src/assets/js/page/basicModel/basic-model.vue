@@ -86,7 +86,7 @@
                 <el-form label-position="left" inline class="demo-table-expand">
                   <template v-for="(expand,index) in theads">
                       <el-form-item :label="expand">
-                        <span v-if="protos[index] == 'img'">
+                        <span v-if="protos[index] == 'img' || protos[index] == 'logo'">
                             <img :src="$img('images/ok.png')">
                         </span>
                         <span v-else>{{ props.row[protos[index]] }}</span>
@@ -107,7 +107,7 @@
                             <div v-if="item.includes('批次号')" slot="reference" class="pcActive" @click="jumpDetails(scope.row)">
                                 {{ scope.row[protos[index]] }}
                             </div>
-                            <div v-else-if="protos[index]=='img'" slot="reference">
+                            <div v-else-if="protos[index]=='img' || protos[index]=='logo'" slot="reference">
                                 <img v-if="tableData[scope.$index][protos[index]]!=null && tableData[scope.$index][protos[index]]!=''" 
                                     :src="$img('images/ok.png')">
                             </div>
@@ -636,10 +636,11 @@ export default {
                 var type = this.paramsIndex
             }
             if (flag) {
-                this.listLoading = true
+                // this.listLoading = true
             }
             this.$dataGet(this, this.url, {params: data, type: type})
                 .then((responce) => {
+                    console.log(responce)
                     // 数据转换
                     if (responce.status === 200) {
                         if (responce.data.data.length !== 0) {
