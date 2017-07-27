@@ -95,6 +95,15 @@ export default {
         },
         commaArr () {
             return this.models[this.modelIndex].commaArr
+        },
+        delState () {
+            return this.models[this.modelIndex].delState
+        },
+        outState () {
+            return this.models[this.modelIndex].outState
+        },
+        editState () {
+            return this.models[this.modelIndex].editState
         }
     }
 }

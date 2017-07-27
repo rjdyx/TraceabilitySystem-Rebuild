@@ -13,8 +13,6 @@
     </contain-title>
   <!-- tab栏 --> 
     <el-tabs v-model="activeName" id="tabs" @tab-click="tabClick" type="card">
-<!--         <el-tab-pane v-for="(model,index) in models" v-if="show[index]"  :label="model.tab" :name="'index'+index">
-        </el-tab-pane> -->
         <el-tab-pane v-for="(model,index) in models" :label="model.tab" :name="'index'+index">
         </el-tab-pane>
     </el-tabs>  
@@ -43,8 +41,7 @@
                 :url="url"
                 :checkObject="checkObject"
                 :type="paramsIndex"
-            ></component>
-            
+            ></component>   
         </div>
 
         <!-- 新建模块 --> 
@@ -131,16 +128,15 @@
                     @changeState="changeSerialState(scope.$index,scope.row)">
                     </clickMore>
                 </template>
-            <template>
-            
+                <template>
                     <el-button type="text" size="small" @click="roleShow(scope.$index,scope.row)" v-if="hiddeRole">角色</el-button>
 
-                    <el-button type="text" size="small" @click="changeEditShow(scope.$index,scope.row)" v-if="!hiddeEdit" v-bind:class="{'btn':hiddeRole}">编辑</el-button>
+                    <el-button type="text" size="small" @click="changeEditShow(scope.$index,scope.row)" v-if="!hiddeEdit && !editState" v-bind:class="{'btn':hiddeRole}">编辑</el-button>
 
                     <el-button type="text" size="small" v-if="hiddeShow">查看</el-button>
                         
                     <el-button size="small" type="text" :disabled="stateDisabled(scope.row)" @click="handelDel(scope.$index,scope.row)" 
-                        v-bind:class="{'btn':!hiddeEdit}">删除
+                        v-bind:class="{'btn':!hiddeEdit}" v-if="!delStat">删除
                     </el-button>
                 </template>
             </template>
@@ -149,11 +145,11 @@
 
     <div class="footer">
         <div class="operate-foot">
-            <el-button @click="delAll" v-if="checkOperate==null">删除</el-button>
+            <el-button @click="delAll" v-if="checkOperate==null && !delState">删除</el-button>
             <template v-if="lotComponent!=null">
                 <lotOpearte :lotComponent="lotComponent"></lotOpearte>
             </template>
-            <el-button @click="excel">导出表格</el-button>
+            <el-button @click="excel" v-if="!outState">导出表格</el-button>
         </div>
 
         <p class="record">共有<span class="record_num">{{num}}</span>页，<span class="record_num">{{total_num}}</span>条记录</p>
@@ -194,6 +190,9 @@ export default {
             type: Array,
             default () {
                 return [{
+                    delState: true,
+                    outState: true,
+                    editState: true,
                     key: '',
                     tab: '',
                     tablePager: Object,
@@ -236,9 +235,6 @@ export default {
                     commaArr: []
                 }]
             }
-        },
-        show: {
-            type: Array
         }
     },
     data () {
