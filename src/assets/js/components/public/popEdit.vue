@@ -259,8 +259,9 @@ export default {
         },
         // 状态样式验证
         stateDisabled () {
+            let stateArr = ['已完成', '已入库']
             if (this.editForm.state !== undefined) {
-                if (this.editForm.state === '已完成') {
+                if (stateArr.indexOf(this.editForm.state) !== -1) {
                     return true
                 } else {
                     return false
