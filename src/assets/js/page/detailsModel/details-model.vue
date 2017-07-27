@@ -84,10 +84,10 @@
             </el-table-column>
 
             <!-- 展开 -->
-            <el-table-column 
+            <el-table-column
                 type="expand" class="expand" v-if="expandMore">
                 <template scope="props">
-                    <el-form label-position="left" inline class="demo-table-expand">
+                    <el-form label-position="left"  @click="expandDo" inline class="demo-table-expand">
                       <template v-for="(expand,index) in tabItem.headList.slice(0,8)">
                           <el-form-item>
                             <span class="el-form-item__label">{{expand}}</span>
@@ -105,7 +105,7 @@
                         <el-form-item v-for="(subItem,init) in tabItem.harvestMore">
                             <span class="timeEdit" @click="timeEdit(subItem,index)">
                                 <span class="timeLabel">{{subItem.label}}</span>
-                                <span>{{ tableData[props.$index][subItem.name] }}</span>
+                                <span v-if="subItem.nameHide">{{ tableData[props.$index][subItem.name] }}</span>
                                 <component
                                     v-if="subItem.showHarvest"
                                     :is="subItem.component"
@@ -750,9 +750,14 @@ export default {
             this.$nextTick(function () {
                 this.tabItem.harvestMore.forEach(function (subItem) {
                     Vue.set(subItem, 'showHarvest', false)
+                    Vue.set(subItem, 'nameHide', true)
                 })
                 Vue.set(subItem, 'showHarvest', true)
+                Vue.set(subItem, 'nameHide', false)
             })
+        },
+        expandDo () {
+            console.log(13124242)
         },
         // 列表时间插入
         insertTimes (data) {
@@ -772,6 +777,11 @@ export default {
                             message: '修改时间数据成功'
                         })
                         this.boxArr(this.dataArr, true)
+                        this.timeParams = {}
+                        this.tabItem.harvestMore.forEach(function (subItem) {
+                            Vue.set(subItem, 'showHarvest', false)
+                            Vue.set(subItem, 'nameHide', true)
+                        })
                     } else {
                         this.$message('修改时间数据失败')
                     }
@@ -789,6 +799,16 @@ export default {
         this.more.length > 8 ? this.expandMore = true : this.expandMore = false
         this.thead = this.more.slice(0, 8)
         this.changeData = this.tabItem.changeDataArr
+        this.tabItem.harvestMore.forEach(function (subItem) {
+            Vue.set(subItem, 'nameHide', true)
+        })
+        let expandicon = document.getElementsByClassName('el-table__expand-icon')
+        console.log(expandicon)
+        for (let j = 0; j < expandicon.length; j++) {
+            expandicon[j].onclick = function () {
+                console.log(123)
+            }
+        }
     },
     watch: {
         tabItem () {

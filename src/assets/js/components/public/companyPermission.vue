@@ -81,13 +81,13 @@ export default {
         */
         submitForm (formName) {
             this.tableForm['checkeds'] = this.checkeds
+            this.popClose()
             this.$dataPost(this, 'company_permission/' + this.id, this.tableForm).then((response) => {
                 if (response.data !== 'false') {
                     this.$message('编辑权限成功')
                 } else {
-                    this.$message('编辑权限失败')
+                    this.$message.error('编辑权限失败')
                 }
-                this.popClose()
             })
         },
         allCheckeds (data) {

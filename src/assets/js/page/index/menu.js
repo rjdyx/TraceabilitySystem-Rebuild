@@ -16,7 +16,7 @@ export default[{
         name: '基础信息管理'
     },
     {
-        role: roleData.plant === undefined ? 0 : roleData.plant.cultivate === undefined ? 0 : 1,
+        role: roleData.planta === undefined ? 0 : roleData.plant.cultivate === undefined ? 0 : 1,
         path: '/index/message/plantSerial',
         name: '种植批次管理'
     },
@@ -28,30 +28,30 @@ export default[{
 },
 {
     name: '采制加工管理',
-    role: roleData.packp === undefined ? 0 : 1,
+    role: roleData.harvest === undefined ? 0 : 1,
     src: '/public/images/product.png',
     children: [{
-        role: roleData.packp === undefined ? 0 : roleData.packp.pack === undefined ? 0 : 1,
+        role: roleData.harvest === undefined ? 0 : roleData.harvest.batch === undefined ? 0 : 1,
         path: '/index/message/vegetableSerial',
         name: '采制批次管理'
     }]
 },
 {
     name: '仓库物流管理',
-    role: roleData.system === undefined ? 0 : 1,
+    role: roleData.delivery === undefined ? 0 : 1,
     src: '/public/images/system.png',
     children: [{
-        role: roleData.system === undefined ? 0 : roleData.system.company === undefined ? 0 : 1,
+        role: roleData.delivery === undefined ? 0 : roleData.delivery.basic === undefined ? 0 : 1,
         path: '/index/message/storageBasic',
         name: '基础信息管理'
     },
     {
-        role: roleData.system === undefined ? 0 : roleData.system.user === undefined ? 0 : 1,
+        role: roleData.delivery === undefined ? 0 : roleData.delivery.order === undefined ? 0 : 1,
         path: '/index/message/logisticsBatch',
         name: '物流批次管理'
     },
     {
-        role: roleData.system === undefined ? 0 : roleData.system.log === undefined ? 0 : 1,
+        role: roleData.delivery === undefined ? 0 : roleData.delivery.store === undefined ? 0 : 1,
         path: '/index/message/storageOperate',
         name: '仓库管理'
     }]
@@ -61,7 +61,7 @@ export default[{
     role: roleData.sell === undefined ? 0 : 1,
     src: '/public/images/sale.png',
     children: [{
-        role: roleData.sell === undefined ? 0 : roleData.sell.repertory === undefined ? 0 : 1,
+        role: roleData.sell === undefined ? 0 : roleData.sell.basic === undefined ? 0 : 1,
         path: '/index/message/saleProduct',
         name: '基础信息管理'
     },
@@ -73,20 +73,20 @@ export default[{
 },
 {
     name: '系统管理',
-    role: roleData !== 'admin' ? 0 : 1,
+    role: roleData.system === undefined ? 0 : 1,
     src: '/public/images/system.png',
     children: [{
-        role: roleData !== 'admin' ? 0 : 1,
+        role: roleData.system === undefined ? 0 : roleData.system.comapny === undefined ? 0 : 1,
         path: '/index/company',
         name: '公司信息管理'
     },
     {
-        role: roleData !== 'admin' ? 0 : 1,
+        role: roleData.system === undefined ? 0 : roleData.system.user === undefined ? 0 : 1,
         path: '/index/message/userOperate',
         name: '用户管理'
     },
     {
-        role: roleData !== 'admin' ? 0 : 1,
+        role: roleData.system === undefined ? 0 : roleData.system.log === undefined ? 0 : 1,
         path: '/index/message/systemLog',
         name: '系统日志管理'
     }]
