@@ -93,7 +93,7 @@
                                     :placeholder="subItem.placeholder"
                                     v-model="tableForm[subItem.name]" 
                                     size="small"
-                                    @blur="textScan(tableForm[subItem.name])"
+                                    @blur="textScan(tableForm[subItem.name], $event.currentTarget)"
                                 ></el-input>
                             </el-form-item>
                         </td>
@@ -497,14 +497,40 @@ export default {
             }
         },
         // 新建扫描溯源码
-        textScan (val) {
-            let params = {'order_number': val}
-            this.$dataGet(this, this.url + '/getNumber', params)
-                    .then((responce) => {
-                        this.tableForm['product_count'] = responce.data['product_count']
-                        this.tableForm['store_name'] = responce.data['res'].store_name
-                        this.tableForm['deliveryman'] = responce.data['res'].deliveryman
-                    })
+        textScan (val, input) {
+            if (val !== '' && val !== undefined) {
+                if (val.indexOf('TO') !== -1) {
+                    let params = {'order_number': val}
+                    this.$dataGet(this, this.url + '/getNumber', params)
+                            .then((responce) => {
+                                if (responce.data !== 'error') {
+                                    if (responce.data['product_count'] !== 0) {
+                                        this.tableForm['product_amount'] = responce.data['product_count']
+                                        this.tableForm['store_name'] = responce.data['res'].store_name
+                                        this.tableForm['deliveryman'] = responce.data['res'].deliveryman
+                                        this.tableForm['tea_order_id'] = responce.data['res'].id
+                                        this.tableForm['tea_order_product_ids'] = responce.data['tea_order_product_ids']
+                                    } else {
+                                        this.seedAndMessage('请确定出库单号已存在产品')
+                                    }
+                                } else {
+                                    this.seedAndMessage('出库单号不存在或出库单已入库')
+                                }
+                            })
+                } else {
+                    this.seedAndMessage('请扫描正确的出库单号')
+                }
+            }
+        },
+        // 扫描后数据填充与提示
+        seedAndMessage (message) {
+            this.tableForm['tea_order_product_ids'] = ''
+            this.tableForm['tea_order_id'] = ''
+            this.tableForm['orderNumber'] = ''
+            this.tableForm['product_amount'] = ''
+            this.tableForm['store_name'] = ''
+            this.tableForm['deliveryman'] = ''
+            this.$message(message)
         }
     }
 }

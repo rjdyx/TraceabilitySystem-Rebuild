@@ -42,8 +42,8 @@ export default {
         if (window.Roles.permissions !== undefined) {
             roleData = window.Roles.permissions.two
         }
-        for (let k in this.models) {
-            if (roleData[this.type].hasOwnProperty(this.models[k].key)) {
+        // for (let k in this.models) {
+        //     if (roleData[this.type].hasOwnProperty(this.models[k].key)) {
                 // var fs = mds[k].key
                 // var arr = []
                 // mds[k].typeComponent = []
@@ -53,11 +53,11 @@ export default {
                 //     }
                 // }
                 // mds[k].typeComponent = arr
-                this.md[k] = true
-            } else {
-                this.md[k] = false
-            }
-        }
+            //     this.md[k] = true
+            // } else {
+            //     this.md[k] = false
+            // }
+        // }
     }
 }
 </script>

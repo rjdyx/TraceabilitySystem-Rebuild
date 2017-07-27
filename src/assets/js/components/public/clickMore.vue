@@ -57,7 +57,6 @@
         methods: {
             handleCommand (command) {
                 if (command === '状态') {
-                    // console.log(this.row)
                     this.$emit('changeState')
                 } else if (command === '视频') {
                     if (this.row.video !== '' && this.row.video !== null) {
