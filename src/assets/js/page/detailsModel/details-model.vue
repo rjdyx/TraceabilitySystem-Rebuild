@@ -88,7 +88,6 @@
                 type="expand" class="expand" v-if="expandMore">
                 <template scope="props">
                     <el-form label-position="left" inline class="demo-table-expand">
-
                       <template v-for="(expand,index) in tabItem.headList.slice(0,8)">
                           <el-form-item>
                             <span class="el-form-item__label">{{expand}}</span>

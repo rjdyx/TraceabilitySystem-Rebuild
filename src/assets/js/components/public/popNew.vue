@@ -26,7 +26,8 @@
                         <td v-if="!subItem.consignHidden">
                             <el-form-item :label="subItem.label" :prop="subItem.name">
                                 <el-input 
-                                    :placeholder="subItem.placeholder" 
+                                    :placeholder="subItem.placeholder"
+                                    :disabled="subItem.disabled"
                                     v-model="tableForm[subItem.name]" 
                                     size="small"
                                     @keyup.enter.native="submitForm('tableForm')"
@@ -84,26 +85,16 @@
                         </td>
                     </tr>
 
-                    <!-- 表格  -->
-                    <tr class="tr2" v-else-if="subItem.type=='table' && !subItem.hiddenSelect">
+                    <!-- 扫描框  -->
+                    <tr class="tr1" v-else-if="subItem.type=='textScan'">
                         <td>
-                            <el-form-item :label="subItem.label" :prop="subItem.name" style="margin-left:-110px">
-                                <el-table :data="subItem.tableVal" class="table2"  @selection-change="handleSelectionChange">
-                                    <!-- checkbox -->
-                                    <el-table-column width="50" type="selection">
-                                    </el-table-column> 
-                                    <el-table-column width="60" label="序号" type="index" id="test_id">
-                                    </el-table-column>
-                                    <template v-for="(item,index) in subItem.theads"> 
-                                        <template>
-                                            <el-table-column 
-                                                :label="item" 
-                                                :prop="subItem.protos[index]"
-                                                show-overflow-tooltip>
-                                            </el-table-column>
-                                        </template>
-                                    </template>
-                                </el-table>
+                            <el-form-item :label="subItem.label" :prop="subItem.name">
+                                <el-input 
+                                    :placeholder="subItem.placeholder"
+                                    v-model="tableForm[subItem.name]" 
+                                    size="small"
+                                    @blur="textScan(tableForm[subItem.name])"
+                                ></el-input>
                             </el-form-item>
                         </td>
                     </tr>
@@ -384,9 +375,6 @@ export default {
         },
         allChange (data = []) {
         },
-        // 选择框
-        handleSelectionChange (val) {
-        },
         // 选择框关联
         getSelectId (subItem, val) {
             var name = subItem.name
@@ -507,6 +495,16 @@ export default {
             } else {
                 com.components[data.position].options = []
             }
+        },
+        // 新建扫描溯源码
+        textScan (val) {
+            let params = {'order_number': val}
+            this.$dataGet(this, this.url + '/getNumber', params)
+                    .then((responce) => {
+                        this.tableForm['product_count'] = responce.data['product_count']
+                        this.tableForm['store_name'] = responce.data['res'].store_name
+                        this.tableForm['deliveryman'] = responce.data['res'].deliveryman
+                    })
         }
     }
 }

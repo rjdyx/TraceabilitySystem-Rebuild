@@ -3199,17 +3199,15 @@ export default {
         },
         {
             settitle: '仓库管理',
-            key: 'delivery',
-            roleName: ['delivery/order', 0],
+            key: 'invoices-order',
             tab: '毛茶入库管理',
-            url: 'delivery',
-            batch: 'logisticBatch',
-            selectSearch: ['deliveries.transportable_type'],
-            changeDataArr: [{transportable_type: { 'self': '自运', 'consign': '托运', 'selve': '自提' }}, {state: {0: '未完成', 1: '已完成'}}],
-            searchPlaceholder: '请输入调拨单号进行搜索',
-            theads: ['出库仓库名', '入库仓库名', '操作人（制票人）', '送货人', '提货人', '入库日期', '列表项包含编号', '成品名称', '单位', '规格', '数量', '备注', ''],
-            protos: ['serial', 'datetime', 'name', 'transportable_type', 'operate_name', 'serial', 'datetime', 'name', 'transportable_type', 'operate_name', 'transportable_type', 'operate_name'],
-            widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
+            url: 'invoices-order',
+            batch: 'invoicesOrderBatch',
+            changeDataArr: [{state: {0: '未完成', 1: '已完成'}}],
+            searchPlaceholder: '请输入调拨批次号号进行搜索',
+            theads: ['入库单批次号', '入库日期', '出库仓库名', '入库仓库名', '操作人（制票人）', '送货人', '提货人', '备注'],
+            protos: ['serial', 'date', 'store_name', 'storeroom_name', 'operate', 'deliveryman', 'consignee', 'memo'],
+            widths: [50, 50, 50, 50, 50, 50, 50, 50],
             typeComponent: [{
                 component: output
             },
@@ -3226,112 +3224,81 @@ export default {
             }],
             newComponent: [{
                 tab: '新建毛茶入库信息',
+                selectUrl2: [['storerooms', 'id', 'name', true]],
+                selectInit2: [{value: '', label: '仓库选择'}],
+                popNumber2: [4],
                 components: [{
-                    name: 'datetime',
-                    type: 'select',
+                    name: 'orderNumber',
+                    type: 'textScan',
                     component: null,
-                    label: '出库仓库名',
-                    rule: {required: true, message: '请输入出库仓库名'},
-                    options: []
+                    label: '扫描出库单',
+                    rule: {required: true, message: '请扫描出库单'}
                 },
                 {
-                    name: 'name',
+                    name: 'store_name',
+                    type: 'text',
+                    component: null,
+                    label: '出库仓库名',
+                    placeholder: '',
+                    disabled: true,
+                    rule: null
+                },
+                {
+                    name: 'deliveryman',
+                    type: 'text',
+                    component: null,
+                    label: '送货人',
+                    placeholder: '',
+                    disabled: true,
+                    rule: null
+                },
+                {
+                    name: 'product_amount',
+                    type: 'text',
+                    component: null,
+                    label: '产品数量',
+                    placeholder: '',
+                    disabled: true,
+                    rule: null
+                },
+                {
+                    name: 'storeroom_id',
                     type: 'select',
                     component: null,
                     label: '入库仓库名',
                     placeholder: '',
-                    rule: {required: true, message: '请输入入库仓库名'},
+                    rule: {required: true, message: '请输入入库仓库名', type: 'number'},
                     options: []
                 },
                 {
-                    name: 'transportable_type',
-                    type: 'select',
+                    name: 'operate',
+                    type: 'text',
                     component: null,
                     label: '操作人（制票人）',
                     placeholder: '必填',
-                    rule: {required: true, trigger: 'blur', message: '请选择操作人（制票人）'},
-                    options: []
+                    rule: {required: true, message: '请输入操作人'}
                 },
                 {
-                    name: 'vehicle_id',
-                    type: 'select',
-                    component: null,
-                    label: '送货人',
-                    placeholder: '',
-                    rule: {required: true, trigger: 'blur', type: 'number', message: '请选择送货人'},
-                    options: []
-                },
-                {
-                    name: 'driver_id',
-                    type: 'select',
+                    name: 'consignee',
+                    type: 'text',
                     component: null,
                     label: '提货人',
-                    placeholder: '',
-                    rule: {required: true, trigger: 'blur', type: 'number', message: '请选择提货人'},
-                    options: []
+                    placeholder: '必填',
+                    rule: {required: true, message: '请输入提货人'}
                 },
                 {
-                    name: 'logistic_id',
+                    name: 'date',
                     type: 'date',
                     component: inputDate,
-                    label: '入库日期',
+                    label: '入库库日期',
                     placeholder: '',
-                    rule: [{required: true, message: '请输入物流日期'}, {validator: validate2.reDate, message: '请输入物流日期'}]
-                },
-                {
-                    name: 'number',
-                    type: 'text',
-                    component: null,
-                    label: '编号',
-                    placeholder: '',
-                    rule: null
-                },
-                {
-                    name: 'selve_name',
-                    type: 'text',
-                    component: null,
-                    label: '成品名称',
-                    placeholder: '',
-                    rule: {required: true, message: '请输入成品名称'}
-                },
-                {
-                    name: 'operate_id',
-                    type: 'select',
-                    component: null,
-                    label: '单位',
-                    placeholder: '',
-                    rule: {required: true, trigger: 'blur', message: '请选择单位'},
-                    options: []
+                    rule: [{required: true, message: '请选择入库日期'}, {validator: validate2.reDate, message: '请选择入库日期'}]
                 },
                 {
                     name: 'memo',
-                    type: 'textarea',
-                    component: null,
-                    label: '规格',
-                    placeholder: '',
-                    rule: null
-                },
-                {
-                    name: 'selve_name',
-                    type: 'text',
-                    component: null,
-                    label: '数量',
-                    placeholder: '',
-                    rule: {required: true, message: '请输入提货人姓名', type: 'number'}
-                },
-                {
-                    name: 'operate_id',
                     type: 'textarea',
                     component: null,
                     label: '备注',
-                    placeholder: '',
-                    rule: null
-                },
-                {
-                    name: 'memo',
-                    type: 'text',
-                    component: null,
-                    label: '合计',
                     placeholder: '',
                     rule: null
                 }]
