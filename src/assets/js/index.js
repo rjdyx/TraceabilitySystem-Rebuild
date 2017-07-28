@@ -15,14 +15,14 @@ Vue.use(VueRouter)
 require('./config/init')
 const pre = '/index/'
 const pre2 = '/index/message/'
-const Excepts = ['/', '/index', pre + 'set', pre + 'test', pre + 'help', pre + 'question', pre + '404', pre + 'ondone']
-const Admins = [pre2 + 'rightsOperate', pre2 + 'settleOperate', pre2 + 'usersOperate', pre2 + 'logOperate']
-const any = ['/protocol', '/forget']
-// 处理刷新的时候vuex被清空但是用户已经登录的情况
-// if (sessionStorage.user) {
-//     store.dispatch('setUserInfo', JSON.parse(sessionStorage.user))
-// }
+// 权限外路由(需登录)
+const Excepts = ['/', '/index/home', pre + 'set', pre + 'test', pre + 'help', pre + 'question', pre + '404', pre + 'ondone']
+// 管理员路由
+const Admins = [pre2 + 'adminRole', pre2 + 'adminCompany', pre2 + 'adminFeedback', pre2 + 'adminLog']
+// 登录后不能访问的路由
+const any = ['/protocol', '/forget', '/login', 'waplogin']
 
+// 权限控制路由
 router.beforeEach(async (to, from, next) => {
     var check = false
     if (to.path.indexOf('run') === -1) {
@@ -30,7 +30,7 @@ router.beforeEach(async (to, from, next) => {
             try {
                 await axios.get('/login/state').then(responce => {
                     let except = to.matched.some((item, index, array) => {
-                        if (item.path !== '/login' && item.path !== '/waplogin' && any.indexOf(to.path) === -1) return true
+                        if (any.indexOf(to.path) === -1) return true
                     })
                     if (responce.data.name === undefined) {
                         window.Roles = {}
@@ -57,7 +57,7 @@ router.beforeEach(async (to, from, next) => {
             }
         } else {
             var data2 = window.Roles.permissions
-            if (to.path === '/login' || to.path === '/waplogin') {
+            if (any.indexOf(to.path) !== -1) {
                 check = true
             }
             if (to.path.indexOf('details') === -1 && to.path.indexOf('run') === -1) {
@@ -69,7 +69,7 @@ router.beforeEach(async (to, from, next) => {
             }
         }
     }
-    // if (check) next({path: '/index'})
+    // if (check) next({path: '/'})
     next()
 })
 
