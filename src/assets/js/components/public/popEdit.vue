@@ -162,7 +162,7 @@
                 <!-- 四级多选框组件 -->
                 <tr class="tr1" v-if="permissionShow">
                     <td>
-                        <permissionCheckbox name="checkeds" :id="editForm.id" @return-checkeds="allCheckeds"></permissionCheckbox>
+                        <permissionCheckbox name="checkeds" :id="editForm.id" :permissionCompany="permissionCompany" @return-checkeds="allCheckeds"></permissionCheckbox>
                     </td>
                 </tr>
 
@@ -218,6 +218,7 @@ export default {
             // 当前选中的标签页
             activeName: this.editComponent[0].tab,
             permissionShow: this.editComponent[0].permissionShow,
+            permissionCompany: this.editComponent[0].permissionCompany,
             rules: rules,
             memuList: {},
             checkeds: [],
@@ -259,8 +260,9 @@ export default {
         },
         // 状态样式验证
         stateDisabled () {
+            let stateArr = ['已完成', '已入库']
             if (this.editForm.state !== undefined) {
-                if (this.editForm.state === '已完成') {
+                if (stateArr.indexOf(this.editForm.state) !== -1) {
                     return true
                 } else {
                     return false

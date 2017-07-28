@@ -77,7 +77,7 @@
         <!-- 列表模块 -->
         <el-table :data="tableData"  @selection-change="handleSelectionChange" v-loading="listLoading" @expand="expandDo">
             <!-- checkbox -->
-            <el-table-column width="50" type="selection">
+            <el-table-column width="50" type="selection" :selectable="checkDisabled">
             </el-table-column> 
             <!-- 序号 --> 
             <el-table-column width="80" label="序号" type="index" id="test_id">
@@ -166,9 +166,12 @@
                         </template>
 
                             <template>
-                                <el-button type="text" size="small" @click="changeEditShow(scope.$index,scope.row)" v-if="tabList[index].hiddeEdit">编辑</el-button>
+                                <el-button type="text" size="small" @click="changeEditShow(scope.$index,scope.row)"
+                                :disabled="stateDisabled()" v-if="tabList[index].hiddeEdit">
+                                编辑</el-button>
                                 <el-button type="text" size="small" v-if="hiddeWatch">查看</el-button>
-                                <el-button size="small" type="text" @click="handelDel(scope.$index,scope.row)" class="btn">删除</el-button>  
+                                <el-button size="small" type="text" @click="handelDel(scope.$index,scope.row)"
+                                :disabled="stateDisabled()" class="btn">删除</el-button>  
                                 <el-button size="small" type="text" @click="permissionShow(scope.$index,scope.row)" class="btn" v-if="tabItem.hiddeRole">角色</el-button> 
                             </template>
 
@@ -275,6 +278,30 @@ export default {
         ...mapActions([
             'change_siderBar'
         ]),
+        // 状态样式验证
+        stateDisabled () {
+            let stateArr = ['已完成', '已入库']
+            if (this.headData.state !== undefined) {
+                if (stateArr.indexOf(this.headData.state) !== -1) {
+                    return true
+                } else {
+                    return false
+                }
+            }
+            return false
+        },
+        // 列表页复选框是否可选
+        checkDisabled () {
+            let stateArr = ['已完成', '已入库']
+            if (this.headData.state !== undefined) {
+                if (stateArr.indexOf(this.headData.state) !== -1) {
+                    return false
+                } else {
+                    return true
+                }
+            }
+            return true
+        },
         // tab点击事件
         tabClick (tab, event) {
             this.index = tab.$data.index

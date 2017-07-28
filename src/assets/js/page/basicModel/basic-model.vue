@@ -14,7 +14,6 @@
   <!-- tab栏 --> 
     <el-tabs v-model="activeName" id="tabs" @tab-click="tabClick" type="card">
         <el-tab-pane v-for="(model,index) in models" :label="model.tab" :name="'index'+index">
-
         </el-tab-pane>
     </el-tabs>  
 
@@ -42,8 +41,7 @@
                 :url="url"
                 :checkObject="checkObject"
                 :type="paramsIndex"
-            ></component>
-            
+            ></component>   
         </div>
 
         <!-- 新建模块 --> 
@@ -130,8 +128,7 @@
                     @changeState="changeSerialState(scope.$index,scope.row)">
                     </clickMore>
                 </template>
-            <template>
-            
+                <template>
                     <el-button type="text" size="small" @click="roleShow(scope.$index,scope.row)" v-if="hiddeRole">角色</el-button>
 
                     <el-button type="text" size="small" @click="changeEditShow(scope.$index,scope.row)" v-if="!hiddeEdit" v-bind:class="{'btn':hiddeRole}" class="editBtn">编辑</el-button>
@@ -151,11 +148,11 @@
 
     <div class="footer">
         <div class="operate-foot">
-            <el-button @click="delAll" v-if="checkOperate==null">删除</el-button>
+            <el-button @click="delAll" v-if="checkOperate==null && !delState">删除</el-button>
             <template v-if="lotComponent!=null">
                 <lotOpearte :lotComponent="lotComponent"></lotOpearte>
             </template>
-            <el-button @click="excel">导出表格</el-button>
+            <el-button @click="excel" v-if="!outState">导出表格</el-button>
         </div>
 
         <p class="record">共有<span class="record_num">{{num}}</span>页，<span class="record_num">{{total_num}}</span>条记录</p>
@@ -196,6 +193,9 @@ export default {
             type: Array,
             default () {
                 return [{
+                    delState: true,
+                    outState: true,
+                    editState: true,
                     key: '',
                     tab: '',
                     tablePager: Object,
@@ -309,8 +309,9 @@ export default {
         ]),
         // 状态样式验证
         stateDisabled (row) {
+            let stateArr = ['已完成', '已入库']
             if (row.state !== undefined) {
-                if (row.state === '已完成') {
+                if (stateArr.indexOf(row.state) !== -1) {
                     return true
                 } else {
                     return false
@@ -318,10 +319,11 @@ export default {
             }
             return false
         },
-        // 类别页复选框是否可选
+        // 列表页复选框是否可选
         checkDisabled (row, index) {
+            let stateArr = ['已完成', '已入库']
             if (row.state !== undefined) {
-                if (row.state === '已完成') {
+                if (stateArr.indexOf(row.state) !== -1) {
                     return false
                 } else {
                     return true

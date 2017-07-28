@@ -26,7 +26,8 @@
                         <td v-if="!subItem.consignHidden">
                             <el-form-item :label="subItem.label" :prop="subItem.name">
                                 <el-input 
-                                    :placeholder="subItem.placeholder" 
+                                    :placeholder="subItem.placeholder"
+                                    :disabled="subItem.disabled"
                                     v-model="tableForm[subItem.name]" 
                                     size="small"
                                     @keyup.enter.native="submitForm('tableForm')"
@@ -84,26 +85,16 @@
                         </td>
                     </tr>
 
-                    <!-- 表格  -->
-                    <tr class="tr2" v-else-if="subItem.type=='table' && !subItem.hiddenSelect">
+                    <!-- 扫描框  -->
+                    <tr class="tr1" v-else-if="subItem.type=='textScan'">
                         <td>
-                            <el-form-item :label="subItem.label" :prop="subItem.name" style="margin-left:-110px">
-                                <el-table :data="subItem.tableVal" class="table2"  @selection-change="handleSelectionChange">
-                                    <!-- checkbox -->
-                                    <el-table-column width="50" type="selection">
-                                    </el-table-column> 
-                                    <el-table-column width="60" label="序号" type="index" id="test_id">
-                                    </el-table-column>
-                                    <template v-for="(item,index) in subItem.theads"> 
-                                        <template>
-                                            <el-table-column 
-                                                :label="item" 
-                                                :prop="subItem.protos[index]"
-                                                show-overflow-tooltip>
-                                            </el-table-column>
-                                        </template>
-                                    </template>
-                                </el-table>
+                            <el-form-item :label="subItem.label" :prop="subItem.name">
+                                <el-input 
+                                    :placeholder="subItem.placeholder"
+                                    v-model="tableForm[subItem.name]" 
+                                    size="small"
+                                    @blur="textScan(tableForm[subItem.name], $event.currentTarget)"
+                                ></el-input>
                             </el-form-item>
                         </td>
                     </tr>
@@ -384,9 +375,6 @@ export default {
         },
         allChange (data = []) {
         },
-        // 选择框
-        handleSelectionChange (val) {
-        },
         // 选择框关联
         getSelectId (subItem, val) {
             var name = subItem.name
@@ -507,6 +495,42 @@ export default {
             } else {
                 com.components[data.position].options = []
             }
+        },
+        // 新建扫描溯源码
+        textScan (val, input) {
+            if (val !== '' && val !== undefined) {
+                if (val.indexOf('TO') !== -1) {
+                    let params = {'order_number': val}
+                    this.$dataGet(this, this.url + '/getNumber', params)
+                            .then((responce) => {
+                                if (responce.data !== 'error') {
+                                    if (responce.data['product_count'] !== 0) {
+                                        this.tableForm['product_amount'] = responce.data['product_count']
+                                        this.tableForm['store_name'] = responce.data['res'].store_name
+                                        this.tableForm['deliveryman'] = responce.data['res'].deliveryman
+                                        this.tableForm['tea_order_id'] = responce.data['res'].id
+                                        this.tableForm['tea_order_product_ids'] = responce.data['tea_order_product_ids']
+                                    } else {
+                                        this.seedAndMessage('请确定出库单号已存在产品')
+                                    }
+                                } else {
+                                    this.seedAndMessage('出库单号不存在或出库单已入库')
+                                }
+                            })
+                } else {
+                    this.seedAndMessage('请扫描正确的出库单号')
+                }
+            }
+        },
+        // 扫描后数据填充与提示
+        seedAndMessage (message) {
+            this.tableForm['tea_order_product_ids'] = ''
+            this.tableForm['tea_order_id'] = ''
+            this.tableForm['orderNumber'] = ''
+            this.tableForm['product_amount'] = ''
+            this.tableForm['store_name'] = ''
+            this.tableForm['deliveryman'] = ''
+            this.$message(message)
         }
     }
 }

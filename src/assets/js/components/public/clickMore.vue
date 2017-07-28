@@ -17,7 +17,7 @@
 			</span>
 			<el-dropdown-menu slot="dropdown">
 				<template v-for="btn in moreComponent">
-					<el-dropdown-item :command="btn.value" :disabled="stateDisabled(btn.value)">{{btn.value}}</el-dropdown-item>
+					<el-dropdown-item :command="btn.value" v-if="btn.value" :disabled="stateDisabled(btn.value)">{{btn.value}}</el-dropdown-item>
 				</template>
 			</el-dropdown-menu>  
 		</el-dropdown>
@@ -57,7 +57,6 @@
         methods: {
             handleCommand (command) {
                 if (command === '状态') {
-                    // console.log(this.row)
                     this.$emit('changeState')
                 } else if (command === '视频') {
                     if (this.row.video !== '' && this.row.video !== null) {
