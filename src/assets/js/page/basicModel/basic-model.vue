@@ -21,7 +21,7 @@
     <div id="operate">
         <div id="inputs">
             <operate :listComponent="listComponent" @selectVal="selectFind" @dateVal="dateFind"></operate>
-            
+
             <!-- 搜索框 -->
             <div class="searchOp"> 
                 <el-input   
@@ -131,12 +131,15 @@
                 <template>
                     <el-button type="text" size="small" @click="roleShow(scope.$index,scope.row)" v-if="hiddeRole">角色</el-button>
 
-                    <el-button type="text" size="small" @click="changeEditShow(scope.$index,scope.row)" v-if="!hiddeEdit && !editState" v-bind:class="{'btn':hiddeRole}">编辑</el-button>
+                    <el-button type="text" size="small" @click="changeEditShow(scope.$index,scope.row)" v-if="!hiddeEdit" v-bind:class="{'btn':hiddeRole}" class="editBtn">编辑</el-button>
 
                     <el-button type="text" size="small" v-if="hiddeShow">查看</el-button>
-                        
-                    <el-button size="small" type="text" :disabled="stateDisabled(scope.row)" @click="handelDel(scope.$index,scope.row)" 
-                        v-bind:class="{'btn':!hiddeEdit}" v-if="!delStat">删除
+            
+                    <el-button size="small" type="text" :disabled="stateDisabled(scope.row)" @click="handelDel(scope.$index,scope.row)" v-if="stateDisabled(scope.row)==false" class="del">
+                        删除
+                    </el-button>
+                    <el-button size="small" type="text" :disabled="stateDisabled(scope.row)" v-else-if="stateDisabled(scope.row)==true">
+                        删除
                     </el-button>
                 </template>
             </template>
@@ -294,7 +297,8 @@ export default {
             listLoading: false,
             expandMore: false,
             dialogImageUrl: '',
-            dialogVisible: false
+            dialogVisible: false,
+            stateColor: false
         }
     },
     // 混合
