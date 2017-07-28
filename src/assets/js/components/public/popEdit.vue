@@ -172,7 +172,8 @@
         </el-tab-pane>
       </el-tabs>
         <div class="form-footer">
-            <el-button class="btn_change"  @click="submitForm('editForm')" :disabled="stateDisabled()">确定</el-button>
+            <el-button class="btn_change"  @click="submitForm('editForm')" :disabled="stateDisabled()" v-if="stateDisabled()==false">确定</el-button>
+            <el-button  :disabled="stateDisabled()" v-else-if="stateDisabled()==true">确定</el-button>
             <el-button class="activecancel" @click="cancelClick">取消</el-button>
           </div>
     </form>

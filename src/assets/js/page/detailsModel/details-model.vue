@@ -75,7 +75,7 @@
                 <roleCheckbox v-if="isRoleShow" :rowId="rowId"></roleCheckbox>
             </transition>
         <!-- 列表模块 -->
-        <el-table :data="tableData"  @selection-change="handleSelectionChange" v-loading="listLoading">
+        <el-table :data="tableData"  @selection-change="handleSelectionChange" v-loading="listLoading" @expand="expandDo">
             <!-- checkbox -->
             <el-table-column width="50" type="selection">
             </el-table-column> 
@@ -87,7 +87,7 @@
             <el-table-column
                 type="expand" class="expand" v-if="expandMore">
                 <template scope="props">
-                    <el-form label-position="left"  @click="expandDo" inline class="demo-table-expand">
+                    <el-form label-position="left" inline class="demo-table-expand">
 
                       <template v-for="(expand,index) in tabItem.headList.slice(0,8)">
                           <el-form-item>
@@ -170,8 +170,8 @@
                                 <el-button type="text" size="small" v-if="hiddeWatch">查看</el-button>
                                 <el-button size="small" type="text" @click="handelDel(scope.$index,scope.row)" class="btn">删除</el-button>  
                                 <el-button size="small" type="text" @click="permissionShow(scope.$index,scope.row)" class="btn" v-if="tabItem.hiddeRole">角色</el-button> 
-                                
                             </template>
+
                         </template>
                     </el-table-column>
                 </el-table>
@@ -757,9 +757,6 @@ export default {
                 Vue.set(subItem, 'nameHide', false)
             })
         },
-        expandDo () {
-            console.log(13124242)
-        },
         // 列表时间插入
         insertTimes (data) {
             this.timeParams['id'] = data.id
@@ -787,6 +784,19 @@ export default {
                         this.$message('修改时间数据失败')
                     }
                 })
+        },
+        // 展开事件
+        expandDo () {
+            this.tabItem.harvestMore.forEach(function (subItem) {
+                Vue.set(subItem, 'showHarvest', false)
+            })
+            let expandicon = document.getElementsByClassName('el-table__expand-icon')
+            for (let j = 0; j < expandicon.length; j++) {
+                // console.log(expandicon[j].className)
+                if (expandicon[j].className.indexOf('el-table__expand-icon--expanded') > 0) {
+                    $(this).removeClass('el-table__expand-icon--expanded')
+                }
+            }
         }
     },
     mounted () {
@@ -800,15 +810,10 @@ export default {
         this.more.length > 8 ? this.expandMore = true : this.expandMore = false
         this.thead = this.more.slice(0, 8)
         this.changeData = this.tabItem.changeDataArr
-        this.tabItem.harvestMore.forEach(function (subItem) {
-            Vue.set(subItem, 'nameHide', true)
-        })
-        let expandicon = document.getElementsByClassName('el-table__expand-icon')
-        console.log(expandicon)
-        for (let j = 0; j < expandicon.length; j++) {
-            expandicon[j].onclick = function () {
-                console.log(123)
-            }
+        if (this.tabItem.harvestMore !== null && this.tabItem.harvestMore !== undefined) {
+            this.tabItem.harvestMore.forEach(function (subItem) {
+                Vue.set(subItem, 'nameHide', true)
+            })
         }
     },
     watch: {
