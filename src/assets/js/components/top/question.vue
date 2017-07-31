@@ -121,7 +121,7 @@ export default {
         footerTop
     },
     mounted () {
-        this.change_siderBar(true)
+        this.change_siderBar(false)
         localStorage.setItem('tab', 0)
     },
     created () {
@@ -133,12 +133,14 @@ export default {
 <style lang="sass">
 .question {
 	height: 100%;
-	overflow: hidden;
-	padding-left: 10px;
+    overflow:hidden;
+    padding-bottom:66px;
+    box-sizing:border-box;
 	.question_content {
-	  	margin-top: 15px;
-	  	overflow: scroll;
-        padding-right: 10px;
+	  	overflow-y:scroll;
+    	height: 100%;
+        box-sizing:border-box;
+        padding:15px 10px 0px 10px;
 	  	.fonts{
 	  		font-size: 20px;
 	  	}
@@ -190,9 +192,6 @@ export default {
 		}
 	}
 
-.copyright {
-  	margin-top: 66px;
-}
 
 .changeImg{
   	display: inline-block;

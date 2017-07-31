@@ -5,7 +5,7 @@
  *  
  */ 
 <template>
-	<div class="user">
+	<div class="ondone">
         <img :src="$img(image)" alt="">
 	</div>
 </template>
@@ -14,6 +14,7 @@
 <script>
 import footerTop from './topComponent/footer.vue'
 import ContainTitle from '../layout/contain-title.vue'
+import {mapActions} from 'vuex'
 export default {
     name: 'user',
     data () {
@@ -22,26 +23,28 @@ export default {
         }
     },
     methods: {
+        ...mapActions([
+            'change_siderBar'
+        ])
     },
     components: {
         ContainTitle,
         footerTop
     },
     mounted () {
+        this.change_siderBar(false)
         localStorage.setItem('tab', 0)
     }
 }
 </script>
 
 <style lang="sass">
-.user{
+.ondone{
 	height: 100%;
     overflow:hidden;
-    /*padding-left:10px;*/
-    .user_content{
-    	/*margin-top: 15px;*/
-    	overflow:scroll;
-    	height: 100%;
+    img{
+        width:100%;
+        min-width:1500px;
     }
 }
 </style>
