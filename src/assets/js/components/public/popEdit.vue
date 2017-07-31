@@ -260,7 +260,7 @@ export default {
         },
         // 状态样式验证
         stateDisabled () {
-            let stateArr = ['已完成', '已入库']
+            let stateArr = ['已完成', '已入库', '已通过']
             if (this.editForm.state !== undefined) {
                 if (stateArr.indexOf(this.editForm.state) !== -1) {
                     return true
@@ -383,11 +383,11 @@ export default {
         },
         // 编辑表单预加载
         setDefaultTable () {
-            var type = this.editForm.transportable_type
+            var type = this.editForm.transportable_type !== undefined ? this.editForm.transportable_type : this.editForm.task_type
             var com = this.editComponent[0].components
             if (type !== undefined) {
                 com.forEach(function (item) {
-                    if (item.name === 'transportable_type') {
+                    if (item.name === 'transportable_type' || item.name === 'task_type') {
                         for (let key of Object.keys(item.selectNumber)) {
                             if (key === type) {
                                 for (let k in item.selectNumber[key]) {

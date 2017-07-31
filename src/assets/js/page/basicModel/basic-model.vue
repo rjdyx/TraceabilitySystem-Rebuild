@@ -309,7 +309,7 @@ export default {
         ]),
         // 状态样式验证
         stateDisabled (row) {
-            let stateArr = ['已完成', '已入库']
+            let stateArr = ['已完成', '已入库', '已通过']
             if (row.state !== undefined) {
                 if (stateArr.indexOf(row.state) !== -1) {
                     return true
@@ -321,7 +321,7 @@ export default {
         },
         // 列表页复选框是否可选
         checkDisabled (row, index) {
-            let stateArr = ['已完成', '已入库']
+            let stateArr = ['已完成', '已入库', '已通过']
             if (row.state !== undefined) {
                 if (stateArr.indexOf(row.state) !== -1) {
                     return false

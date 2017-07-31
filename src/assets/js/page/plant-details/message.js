@@ -711,17 +711,17 @@ export default {
             }]
         }]
     },
-    // 入库单产品
+    // 凤凰山毛茶入库入库
     invoicesOrderBatch: {
         key: 'invoicesOrderBatch',
-        tab: '凤凰山茶库出库管理',
+        tab: '毛茶入库管理',
         theads: ['入库单批次号', '入库日期', '出库仓库名', '入库仓库名', '操作人（制票人）', '送货人', '提货人', '备注'],
         protos: ['serial', 'date', 'store_name', 'storeroom_name', 'operate', 'deliveryman', 'consignee', 'memo'],
         url: 'invoices-order',
         tabList: [{
             key: 'invoices-order-product',
             url: 'invoices-order-product',
-            tab: '入库产品信息',
+            tab: '毛茶入库信息',
             searchPlaceholder: '请输入产品进行搜索',
             headList: ['成品名称', '数量', '单位', '规格', '备注信息'],
             protos: ['product_name', 'amount', 'unit', 'specification', 'memo'],
@@ -730,6 +730,152 @@ export default {
             widths: [50, 50, 50, 50, 50],
             typeComponent: [],
             listComponent: []
+        }]
+    },
+    // 生产任务单
+    productiveTaskBatch: {
+        key: 'productiveTaskBatch',
+        tab: '生产任务管理',
+        theads: ['生产任务批次号', '制单日期', '制单人', '任务类型', '审核状态', '客户名称', '客户电话', '交接员', '出货日期', '发货地址', '备注'],
+        protos: ['serial', 'date', 'operate', 'task_type', 'state', 'client_name', 'client_phone', 'transfer_member', 'out_date', 'ship_address', 'memo'],
+        url: 'productive-task',
+        changeDataArr: [{task_type: {'周计划': 'week_plan', '客户下单': 'client_order'}}, {state: {'未通过': 1, '已通过': 0}}],
+        tabList: [{
+            key: 'productive-task-product',
+            url: 'productive-task-product',
+            tab: '生产任务产品信息',
+            searchPlaceholder: '请输入产品进行搜索',
+            headList: ['成品名称', '数量', '单位', '包装', '规格', '备注信息'],
+            protos: ['product_name', 'amount', 'unit', 'package', 'specification', 'memo'],
+            hiddeEdit: true,
+            searchText: true,
+            widths: [50, 50, 50, 50, 50, 50],
+            typeComponent: [{
+                component: newbuildBtn
+            }],
+            listComponent: [],
+            newComponent: [{
+                tab: '新建生产任务产品信息',
+                selectUrl2: [['products', 'id', 'name', true]],
+                selectInit2: [{value: '', label: '产品选择'}],
+                popNumber2: [0],
+                components: [{
+                    name: 'product_id',
+                    type: 'select',
+                    component: null,
+                    isNull: false,
+                    label: '产品名称',
+                    placeholder: '必填',
+                    rule: {required: true, message: '请选择产品名称', type: 'number'},
+                    options: []
+                },
+                {
+                    name: 'amount',
+                    type: 'text',
+                    component: null,
+                    isNull: true,
+                    label: '数量',
+                    placeholder: '必填',
+                    rule: [{required: true, message: '请输入产品数量'}, {validator: validate2.reInteger}]
+                },
+                {
+                    name: 'unit',
+                    type: 'text',
+                    component: null,
+                    isNull: true,
+                    label: '单位',
+                    placeholder: '',
+                    rule: {required: true, message: '请输入单位'}
+                },
+                {
+                    name: 'package',
+                    type: 'text',
+                    component: null,
+                    isNull: true,
+                    label: '包装',
+                    placeholder: '',
+                    rule: null
+                },
+                {
+                    name: 'specification',
+                    type: 'text',
+                    component: null,
+                    isNull: true,
+                    label: '规格',
+                    placeholder: '',
+                    rule: {required: true, message: '请输入规格'}
+                },
+                {
+                    name: 'memo',
+                    type: 'textarea',
+                    component: null,
+                    isNull: true,
+                    label: '备注信息',
+                    placeholder: '',
+                    rule: null
+                }]
+            }],
+            editComponent: [{
+                tab: '编辑生产任务产品信息',
+                selectUrl2: [['products', 'id', 'name', true]],
+                selectInit2: [{value: '', label: '产品选择'}],
+                popNumber2: [0],
+                components: [{
+                    name: 'product_id',
+                    type: 'select',
+                    component: null,
+                    isNull: false,
+                    label: '产品名称',
+                    placeholder: '必填',
+                    rule: {required: true, message: '请选择产品名称', type: 'number'},
+                    options: []
+                },
+                {
+                    name: 'amount',
+                    type: 'text',
+                    component: null,
+                    isNull: true,
+                    label: '数量',
+                    placeholder: '必填',
+                    rule: [{required: true, message: '请输入产品数量'}, {validator: validate2.reInteger}]
+                },
+                {
+                    name: 'unit',
+                    type: 'text',
+                    component: null,
+                    isNull: true,
+                    label: '单位',
+                    placeholder: '',
+                    rule: {required: true, message: '请输入单位'}
+                },
+                {
+                    name: 'package',
+                    type: 'text',
+                    component: null,
+                    isNull: true,
+                    label: '包装',
+                    placeholder: '',
+                    rule: null
+                },
+                {
+                    name: 'specification',
+                    type: 'text',
+                    component: null,
+                    isNull: true,
+                    label: '规格',
+                    placeholder: '',
+                    rule: {required: true, message: '请输入规格'}
+                },
+                {
+                    name: 'memo',
+                    type: 'textarea',
+                    component: null,
+                    isNull: true,
+                    label: '备注信息',
+                    placeholder: '',
+                    rule: null
+                }]
+            }]
         }]
     },
     // 产品入库
@@ -744,11 +890,11 @@ export default {
             url: 'invoices-order-product',
             tab: '入库产品信息',
             searchPlaceholder: '请输入产品进行搜索',
-            headList: ['成品名称', '数量', '单位', '规格', '备注信息'],
-            protos: ['product_name', 'amount', 'unit', 'specification', 'memo'],
-            hiddeEdit: false,
+            headList: ['产品名称', '规格型号', '任务单号', '单位', '实收数量', '生产/采购日期', '基本单位名称', '基本单位应收数量', '基本单位实收数量', '保质期（天）', '有效期至', '仓位', '备注信息'],
+            protos: ['product_name', 'specification', 'task_list_no', 'unit', 'real_number', 'date', 'basic_unit', 'basic_recei_number', 'basic_real_number', 'expiration_date', 'validity', 'store_no', 'memo'],
+            hiddeEdit: true,
             searchText: true,
-            widths: [50, 50, 50, 50, 50],
+            widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
             typeComponent: [],
             listComponent: []
         }]

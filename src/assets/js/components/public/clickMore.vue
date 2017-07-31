@@ -56,7 +56,7 @@
         },
         methods: {
             handleCommand (command) {
-                if (command === '状态') {
+                if (command === '状态' || command === '审核状态') {
                     this.$emit('changeState')
                 } else if (command === '视频') {
                     if (this.row.video !== '' && this.row.video !== null) {
@@ -78,8 +78,9 @@
             },
             // 状态样式验证
             stateDisabled (val) {
-                if (val === '状态') {
-                    if (this.row.state === '已完成') {
+                let stateArr = ['已完成', '已入库', '已通过']
+                if (val === '状态' || val === '审核状态') {
+                    if (stateArr.indexOf(this.row.state) !== -1) {
                         return true
                     } else {
                         return false
