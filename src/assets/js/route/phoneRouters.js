@@ -2,8 +2,8 @@
 // ----------------------------种植模块------------------------------------
 // ---------------------------手机版首页----------------------------------
 const plantIndex = resolve => {
-    require.ensure(['../page/phone/plant/index.vue'], () => {
-        resolve(require('../page/phone/plant/index.vue'))
+    require.ensure(['../page/phoneTrace/views/index.vue'], () => {
+        resolve(require('../page/phoneTrace/views/index.vue'))
     }, 'plantIndex')
 }
 

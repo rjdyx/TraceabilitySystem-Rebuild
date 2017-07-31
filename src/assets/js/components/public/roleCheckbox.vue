@@ -100,7 +100,7 @@ export default {
                     if (responce.data !== 'false') {
                         this.$message('修改权限角色成功')
                     } else {
-                        this.$message('修改权限角色失败')
+                        this.$message.error('修改权限角色失败')
                     }
                 })
         }

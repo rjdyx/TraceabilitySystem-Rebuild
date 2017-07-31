@@ -7,13 +7,21 @@
  */
 <template>
 	<div class="NewBuild">
-		<el-button size="small" @click="handleAdd" class="btn_change">新建</el-button>
+		<el-button size="small" @click="handleAdd" :disabled="stateDisabled()" class="btn_change">新建</el-button>
 	</div>
 </template>
 
 <script>
 export default {
     name: 'NewBuild',
+    props: {
+        headData: {
+            type: Object,
+            default () {
+                return {}
+            }
+        }
+    },
     data () {
         return {
             count: 0
@@ -22,6 +30,17 @@ export default {
     methods: {
         handleAdd () {
             this.$parent.changeNewShow()
+        },
+        stateDisabled () {
+            let stateArr = ['已完成', '已入库', '已通过']
+            if (this.headData.state !== undefined) {
+                if (stateArr.indexOf(this.headData.state) !== -1) {
+                    return true
+                } else {
+                    return false
+                }
+            }
+            return false
         }
     }
 }

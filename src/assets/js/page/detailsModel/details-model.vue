@@ -50,6 +50,7 @@
                         :type="tabItem.whereArr"
                         :routeId="routeId"
                         :curl="url"
+                        :headData="headData"
                         class="fr"
                     ></component>
                 </div>
@@ -74,16 +75,16 @@
                 <roleCheckbox v-if="isRoleShow" :rowId="rowId"></roleCheckbox>
             </transition>
         <!-- 列表模块 -->
-        <el-table :data="tableData"  @selection-change="handleSelectionChange" v-loading="listLoading">
+        <el-table :data="tableData"  @selection-change="handleSelectionChange" v-loading="listLoading" @expand="expandDo">
             <!-- checkbox -->
-            <el-table-column width="50" type="selection">
+            <el-table-column width="50" type="selection" :selectable="checkDisabled">
             </el-table-column> 
             <!-- 序号 --> 
             <el-table-column width="80" label="序号" type="index" id="test_id">
             </el-table-column>
 
             <!-- 展开 -->
-            <el-table-column 
+            <el-table-column
                 type="expand" class="expand" v-if="expandMore">
                 <template scope="props">
                     <el-form label-position="left" inline class="demo-table-expand">
@@ -105,7 +106,7 @@
                         <el-form-item v-for="(subItem,init) in tabItem.harvestMore">
                             <span class="timeEdit" @click="timeEdit(subItem,index)">
                                 <span class="timeLabel">{{subItem.label}}</span>
-                                <span>{{ tableData[props.$index][subItem.name] }}</span>
+                                <span v-if="subItem.nameHide">{{ tableData[props.$index][subItem.name] }}</span>
                                 <component
                                     v-if="subItem.showHarvest"
                                     :is="subItem.component"
@@ -165,12 +166,15 @@
                         </template>
 
                             <template>
-                                <el-button type="text" size="small" @click="changeEditShow(scope.$index,scope.row)" v-if="tabList[index].hiddeEdit">编辑</el-button>
+                                <el-button type="text" size="small" @click="changeEditShow(scope.$index,scope.row)"
+                                :disabled="stateDisabled()" v-if="tabList[index].hiddeEdit">
+                                编辑</el-button>
                                 <el-button type="text" size="small" v-if="hiddeWatch">查看</el-button>
-                                <el-button size="small" type="text" @click="handelDel(scope.$index,scope.row)" class="btn">删除</el-button>  
+                                <el-button size="small" type="text" @click="handelDel(scope.$index,scope.row)"
+                                :disabled="stateDisabled()" class="btn">删除</el-button>  
                                 <el-button size="small" type="text" @click="permissionShow(scope.$index,scope.row)" class="btn" v-if="tabItem.hiddeRole">角色</el-button> 
-                                
                             </template>
+
                         </template>
                     </el-table-column>
                 </el-table>
@@ -355,6 +359,30 @@ export default {
                     }
                 })
             })
+        },
+        // 状态样式验证
+        stateDisabled () {
+            let stateArr = ['已完成', '已入库', '已通过']
+            if (this.headData.state !== undefined) {
+                if (stateArr.indexOf(this.headData.state) !== -1) {
+                    return true
+                } else {
+                    return false
+                }
+            }
+            return false
+        },
+        // 列表页复选框是否可选
+        checkDisabled () {
+            let stateArr = ['已完成', '已入库', '已通过']
+            if (this.headData.state !== undefined) {
+                if (stateArr.indexOf(this.headData.state) !== -1) {
+                    return false
+                } else {
+                    return true
+                }
+            }
+            return true
         },
         // tab点击事件
         tabClick (tab, event) {
@@ -832,8 +860,10 @@ export default {
             this.$nextTick(function () {
                 this.tabItem.harvestMore.forEach(function (subItem) {
                     Vue.set(subItem, 'showHarvest', false)
+                    Vue.set(subItem, 'nameHide', true)
                 })
                 Vue.set(subItem, 'showHarvest', true)
+                Vue.set(subItem, 'nameHide', false)
             })
         },
         // 列表时间插入
@@ -854,10 +884,28 @@ export default {
                             message: '修改时间数据成功'
                         })
                         this.boxArr(this.dataArr, true)
+                        this.timeParams = {}
+                        this.tabItem.harvestMore.forEach(function (subItem) {
+                            Vue.set(subItem, 'showHarvest', false)
+                            Vue.set(subItem, 'nameHide', true)
+                        })
                     } else {
                         this.$message('修改时间数据失败')
                     }
                 })
+        },
+        // 展开事件
+        expandDo () {
+            this.tabItem.harvestMore.forEach(function (subItem) {
+                Vue.set(subItem, 'showHarvest', false)
+            })
+            let expandicon = document.getElementsByClassName('el-table__expand-icon')
+            for (let j = 0; j < expandicon.length; j++) {
+                // console.log(expandicon[j].className)
+                if (expandicon[j].className.indexOf('el-table__expand-icon--expanded') > 0) {
+                    $(this).removeClass('el-table__expand-icon--expanded')
+                }
+            }
         }
     },
     mounted () {
@@ -871,6 +919,11 @@ export default {
         this.more.length > 8 ? this.expandMore = true : this.expandMore = false
         this.thead = this.more.slice(0, 8)
         this.changeData = this.tabItem.changeDataArr
+        if (this.tabItem.harvestMore !== null && this.tabItem.harvestMore !== undefined) {
+            this.tabItem.harvestMore.forEach(function (subItem) {
+                Vue.set(subItem, 'nameHide', true)
+            })
+        }
     },
     watch: {
         tabItem () {

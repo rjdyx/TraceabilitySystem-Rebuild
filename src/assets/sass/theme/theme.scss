@@ -154,7 +154,10 @@ $b_small: 18px;
 	.el-radio__inner:hover{
 		border-color: $bg;
 	}
-	.el-pager li:hover,.el-button--text{
+	// .el-pager li:hover,.el-button--text{
+	// 	color: $border;
+	// }
+	.del,.editBtn{
 		color: $border;
 	}
 	.el-select-dropdown__item.selected.hover{

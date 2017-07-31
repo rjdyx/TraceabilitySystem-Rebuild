@@ -162,7 +162,7 @@
                 <!-- 四级多选框组件 -->
                 <tr class="tr1" v-if="permissionShow">
                     <td>
-                        <permissionCheckbox name="checkeds" :id="editForm.id" @return-checkeds="allCheckeds"></permissionCheckbox>
+                        <permissionCheckbox name="checkeds" :id="editForm.id" :permissionCompany="permissionCompany" @return-checkeds="allCheckeds"></permissionCheckbox>
                     </td>
                 </tr>
 
@@ -172,7 +172,8 @@
         </el-tab-pane>
       </el-tabs>
         <div class="form-footer">
-            <el-button class="btn_change"  @click="submitForm('editForm')">确定</el-button>
+            <el-button class="btn_change"  @click="submitForm('editForm')" :disabled="stateDisabled()" v-if="stateDisabled()==false">确定</el-button>
+            <el-button  :disabled="stateDisabled()" v-else-if="stateDisabled()==true">确定</el-button>
             <el-button class="activecancel" @click="cancelClick">取消</el-button>
           </div>
     </form>
@@ -217,6 +218,7 @@ export default {
             // 当前选中的标签页
             activeName: this.editComponent[0].tab,
             permissionShow: this.editComponent[0].permissionShow,
+            permissionCompany: this.editComponent[0].permissionCompany,
             rules: rules,
             memuList: {},
             checkeds: [],
@@ -255,6 +257,18 @@ export default {
             var divL = ($(document).outerWidth() - $('.newForm').innerWidth()) / 2
             var divT = ($(document).outerHeight() - $('.newForm').innerHeight()) / 2
             $('.newForm').css({left: divL, top: divT})
+        },
+        // 状态样式验证
+        stateDisabled () {
+            let stateArr = ['已完成', '已入库', '已通过']
+            if (this.editForm.state !== undefined) {
+                if (stateArr.indexOf(this.editForm.state) !== -1) {
+                    return true
+                } else {
+                    return false
+                }
+            }
+            return false
         },
         handleClick (tab, event) {
         },
@@ -369,11 +383,11 @@ export default {
         },
         // 编辑表单预加载
         setDefaultTable () {
-            var type = this.editForm.transportable_type
+            var type = this.editForm.transportable_type !== undefined ? this.editForm.transportable_type : this.editForm.task_type
             var com = this.editComponent[0].components
             if (type !== undefined) {
                 com.forEach(function (item) {
-                    if (item.name === 'transportable_type') {
+                    if (item.name === 'transportable_type' || item.name === 'task_type') {
                         for (let key of Object.keys(item.selectNumber)) {
                             if (key === type) {
                                 for (let k in item.selectNumber[key]) {
