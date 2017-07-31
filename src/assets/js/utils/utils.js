@@ -367,6 +367,9 @@ default {
             var month = (new Date(dateStr)).getMonth() + 1
             var year = (new Date(dateStr)).getFullYear()
             var date = (new Date(dateStr)).getDate()
+            var hour = (new Date()).getHours()
+            var minute = (new Date()).getMinutes()
+            var second = (new Date()).getSeconds()
             if (month < 10) {
                 month = '0' + month
             }
