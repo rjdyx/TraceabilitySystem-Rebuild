@@ -12,7 +12,7 @@
           <span class="back_icon"></span>
           <span class="back_text">返回</span>
         </a>
-        <span class="print" v-if="printShow">
+        <span class="print" v-if="printShow" @click="printFn">
           <i class="iconfont">&#xe8e3;</i>
           <span class="back_text">打印</span>
         </span> 
@@ -39,6 +39,9 @@
         methods: {
             back () {
                 this.$router.go(-1)
+            },
+            printFn () {
+                this.$emit('printShow')
             }
         }
     }

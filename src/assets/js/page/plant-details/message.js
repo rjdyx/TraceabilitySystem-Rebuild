@@ -577,6 +577,8 @@ export default {
     teaOrderBatch: {
         key: 'teaOrderBatch',
         tab: '凤凰山茶库出库管理',
+        // 是否有打印按钮标志
+        printShow: true,
         theads: ['出库批次号', '出库仓库名', '操作人（制票人）', '送货人', '出库日期', '状态', '备注'],
         protos: ['serial', 'storeroom_name', 'operate', 'deliveryman', 'date', 'state', 'memo'],
         changeDataArr: [{state: {'未入库': 0, '已入库': 1}}],

@@ -5,7 +5,7 @@
  *  
  */ 
 <template>
-	<div class="user">
+	<div class="help">
 		<iframe :src="src" frameborder="0"></iframe>
 	</div>
 </template>
@@ -37,13 +37,14 @@ export default {
 </script>
 
 <style lang="sass">
-.user{
+.help{
 	height: 100%;
-	background: white;
     overflow:hidden;
+    padding-bottom:66px;
+    box-sizing:border-box;
 	iframe{
 		width:100%;
-		height:96%;
+		height:100%;
 	}
 }
 </style>

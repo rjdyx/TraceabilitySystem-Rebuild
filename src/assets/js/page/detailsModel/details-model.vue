@@ -9,7 +9,7 @@
 <div class="detailsModel">
 
   <!-- 标题 -->
-    <contain-title :settitle="tab" :isShow="isShow" :printShow="printShow">
+    <contain-title :settitle="tab" :isShow="isShow" :printShow="printShow" @printShow="printShowFn">
     </contain-title>
     
   <!-- 信息列表 -->
@@ -196,6 +196,49 @@
                 </el-pagination>
         </div>
     </div>
+    
+    <!-- 打印表单的东西 -->
+    <el-dialog class="printfDialog" title="打印展示" v-model="dialogTableVisible" size="null" @close="closePrintfDialog">
+        <p>可在虚线里点击鼠标右键保存图片</p>
+        <div class="printfTable">
+            <h2 class="printf_h2">广东天池茶叶股份有限公司（根据合同签署选择对应公司名称）</h2>
+            <h3 class="printf_h3">xxx单</h3>
+            <el-row :gutter="20">
+                <el-col :span="12" v-for="(item,i) in theads" class="text-small">
+                    <strong>{{item}}:</strong><em class="margin-left_10">{{headData[protos[i]]}}</em>
+                </el-col>
+            </el-row>
+            <el-table :data="tableData" style="width:100%" border>
+                <!-- 序号 --> 
+                <el-table-column width="50" label="序号" type="index" id="test_id">
+                </el-table-column>
+                <template v-for="(item,index) in thead"> 
+                    <el-table-column 
+                        :prop="tabItem.protos[index]"
+                        :label="item"
+                        :min-width="tabItem.widths[index]"
+                        show-overflow-tooltip>
+                        <template  scope="scope">
+                            <div v-if="item.includes('产品名称')" slot="reference" class="name-wrapper pcActive" @click="jumpDetails(scope.row)">
+                                {{ tableData[scope.$index][tabItem.protos[index]] }}
+                            </div>
+                            <div class="imgTipDiv" v-else-if="tabItem.protos[index]=='thumb'" slot="reference">
+                                <!-- 小图片 -->
+                                <img v-if="tableData[scope.$index][tabItem.protos[index]]!=null && tableData[scope.$index][tabItem.protos[index]]!=''" :src="tableData[scope.$index][tabItem.protos[index]]" width="50px" height="auto">
+                            </div>
+                            <div v-else slot="reference">
+                                {{ tableData[scope.$index][tabItem.protos[index]] }}
+                            </div>
+                    </template>
+                    </el-table-column>
+                </template>
+            </el-table>
+        </div>
+        <div slot="footer" class="dialog-footer">
+    <el-button @click="dialogTableVisible = false">取 消</el-button>
+    <el-button type="primary" @click="confirmPrintf">确 定</el-button>
+  </div>
+    </el-dialog>
 </div> 
 </template>
 <script>
@@ -266,7 +309,8 @@ export default {
             changeData: [],
             operateArr1: ['sunning_date', 'cooling_date'],
             operateArr2: ['make_green_date', 'kill_out_date', 'knead_nori_date', 'deblock_date', 'dry_date', 'filtrate_date', 'refiring_date'],
-            timeParams: {}
+            timeParams: {},
+            dialogTableVisible: false
         }
     },
     mixins: [computed],
@@ -274,6 +318,44 @@ export default {
         ...mapActions([
             'change_siderBar'
         ]),
+        // 打印
+        printShowFn () {
+            this.dialogTableVisible = true
+            // this.$nextTick(() => {
+            //     this.$html2canvas($('.printfTable').get(0), {
+            //         allowTaint: true,
+            //         taintTest: false,
+            //         onrendered: function (canvas) {
+            //             var $canvas = $(canvas)
+            //             // $('.printfTable').replaceWith($canvas)
+            //             var p = $('.printfTable').parent()
+            //             $('.printfTable').hide()
+            //             p.append($canvas)
+            //         }
+            //     })
+            // })
+        },
+        closePrintfDialog () {
+            $('.printfDialog canvas').remove()
+            $('.printfTable').show()
+        },
+        confirmPrintf () {
+            // this.dialogTableVisible = false
+            this.$nextTick(() => {
+                this.$html2canvas($('.printfTable').get(0), {
+                    allowTaint: true,
+                    taintTest: false,
+                    height: $('printfTable').outerHeight(),
+                    onrendered: function (canvas) {
+                        var $canvas = $(canvas)
+                        // $('.printfTable').replaceWith($canvas)
+                        var p = $('.printfTable').parent()
+                        $('.printfTable').hide()
+                        p.append($canvas)
+                    }
+                })
+            })
+        },
         // tab点击事件
         tabClick (tab, event) {
             this.index = tab.$data.index
@@ -967,7 +1049,36 @@ export default {
         color: #99a9bf;
     }
 }
-
+    .printfTable{
+        min-width: 600px;
+        min-height:800px;
+        background: white;
+        padding: 20px; 
+        border:1px dashed #bfcbd9;
+        .el-table .el-tooltip.cell, .el-table th, .el-table th>div{
+            white-space: normal;
+        }
+        .el-table__fixed-header-wrapper thead div, .el-table__header-wrapper thead div{
+            background-color: white;
+        }
+        .el-table th{
+            background-color: white;
+        }
+        .printf_h2{
+            text-align: center;
+            font-size: 16px;
+        }
+        .printf_h3{
+            text-align: center;
+            font-size: 20px;
+            padding-top: 10px;
+        }
+    }
+    .printfDialog{
+        canvas{
+            /*border:1px dashed #bfcbd9;*/
+        }
+    }
 }
 
 </style>

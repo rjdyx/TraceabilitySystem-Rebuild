@@ -5,7 +5,7 @@
  *  
  */ 
 <template>
-	<div class="user">
+	<div class="ondone">
         <img :src="$img(image)" alt="">
 	</div>
 </template>
@@ -33,15 +33,17 @@ export default {
 }
 </script>
 
-<style lang="sass">
-.user{
+<style lang="sass" scope>
+.ondone{
 	height: 100%;
     overflow:hidden;
-    /*padding-left:10px;*/
+    padding-bottom:66px;
+    box-sizing:border-box;
     .user_content{
-    	/*margin-top: 15px;*/
-    	overflow:scroll;
-    	height: 100%;
+    	overflow-y:scroll;
+        height: 100%;
+        box-sizing:border-box;
+        padding:15px 10px 0px 10px;
     }
 }
 </style>
