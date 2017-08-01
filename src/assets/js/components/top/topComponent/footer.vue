@@ -29,7 +29,7 @@ export default {
     height: 80px;
     text-align: center;
     color: #919191;
-    padding:30px 0px;
+    padding:50px 0px 0px 0px;
 }
 .copyright a{
     text-decoration: underline;
