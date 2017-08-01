@@ -85,6 +85,7 @@
             }
         },
         mounted () {
+            console.log(this.value)
             this.$emit('return-shuju', {name: this.shuju.name, value: this.value})
         }
     }

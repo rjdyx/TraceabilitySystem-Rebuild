@@ -24,7 +24,6 @@ const any = ['/protocol', '/forget', '/login', 'waplogin']
 
 // 权限控制路由
 router.beforeEach(async (to, from, next) => {
-    console.log(to)
     var check = false
     if (to.path.indexOf('run') === -1) {
         if (window.Roles.name === undefined) {
@@ -71,9 +70,9 @@ router.beforeEach(async (to, from, next) => {
                     if ((Excepts.indexOf(to.path) === -1 && data2.one.indexOf(to.path) === -1) || Admins.indexOf(to.path) !== -1) check = true
                 }
             }
-            if (to.path.indexOf('details') !== -1 && data2.details.indexOf(to.params.model) === -1) {
-                check = true
-            }
+            // if (to.path.indexOf('details') !== -1 && data2.details.indexOf(to.params.model) === -1) {
+            //     check = true
+            // }
         }
     }
     // if (check) next({path: '/'})

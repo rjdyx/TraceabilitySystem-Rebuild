@@ -438,7 +438,7 @@ default {
          * @param date(中国标准时间)
          *
          */
-        Vue.prototype.$changeDateTime = (date) => {
+        Vue.prototype.$changeDateTime = (date, sto = 1) => {
             var year = date.getFullYear()
             var month = date.getMonth() + 1
             var day = date.getDate()
@@ -459,6 +459,9 @@ default {
             }
             if (second < 10) {
                 second = '0' + second
+            }
+            if (sto === 0) {
+                return year + '-' + month + '-' + day
             }
             return year + '-' + month + '-' + day + ' ' + hour + ':' + minute + ':' + second
         }

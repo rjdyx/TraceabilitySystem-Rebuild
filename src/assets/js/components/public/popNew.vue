@@ -296,7 +296,11 @@ export default {
             if (data.name === 'datetime') {
                 this.tableForm[data.name] = this.$changeDateTime(data.value)
             } else {
-                this.tableForm[data.name] = data.value
+                if (typeof (data.value) === 'string') {
+                    this.tableForm[data.name] = data.value
+                } else {
+                    this.tableForm[data.name] = this.$changeDateTime(data.value, 0)
+                }
             }
         },
         getOther (data) {
@@ -442,6 +446,22 @@ export default {
                     this.disabledV = true
                 }
             }
+            if (name === 'picking_list_product_id') {
+                let params = {'id': val}
+                this.$dataGet(this, this.url + '/getTaskNo', params)
+                    .then((responce) => {
+                        this.tableForm['task_list_no'] = responce.data['task_list_no']
+                    })
+            }
+            if (name === 'storage_order_product_id') {
+                let params = {'id': val}
+                this.$dataGet(this, this.url + '/getStorageInfo', params)
+                    .then((responce) => {
+                        this.tableForm['specification'] = responce.data['specification']
+                        this.tableForm['storage_number'] = responce.data['real_number']
+                        this.tableForm['unit'] = responce.data['unit']
+                    })
+            }
         },
         // 下拉框选择多数组关联
         getSelectMoreId (subItem, val) {
@@ -472,6 +492,9 @@ export default {
                         com.components[k].hiddenSelect = true
                     }
                 }
+            }
+            if (com.assocPosition !== undefined) {
+                com.components[com.assocPosition].options = []
             }
         },
         // 获取关联数据
