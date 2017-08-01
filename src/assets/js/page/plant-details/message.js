@@ -645,7 +645,7 @@ export default {
                     isNull: true,
                     label: '规格',
                     placeholder: '',
-                    rule: null
+                    rule: {required: true, message: '请输入规格'}
                 },
                 {
                     name: 'memo',
@@ -878,25 +878,720 @@ export default {
             }]
         }]
     },
+    // 领料单
+    pickingListBatch: {
+        key: 'pickingListBatch',
+        tab: '领料单管理',
+        theads: ['领料批次号', '领料类型', '领料部门', '领料用途', '领料日期', '发料仓库', '审核状态', '备注'],
+        protos: ['serial', 'pick_type', 'pick_department', 'pick_use', 'date', 'storeroom_name', 'state', 'memo'],
+        changeDataArr: [{state: {'未通过': 1, '已通过': 0}}],
+        url: 'picking-list',
+        tabList: [{
+            key: 'picking-list-product',
+            url: 'picking-list-product',
+            tab: '领料单产品信息',
+            searchPlaceholder: '请输入产品进行搜索',
+            headList: ['成品名称', '规格型号', '任务单号', '基本单位名称', '基本单位应发数量', '基本单位实发数量', '对象成本组', '单位', '实发数量', '库存数量', '备注'],
+            protos: ['product_name', 'specification', 'productive_task_serial', 'basic_unit', 'basic_recei_number', 'basic_real_number', 'object_arr', 'unit', 'real_number', 'store_number', 'memo'],
+            hiddeEdit: true,
+            searchText: true,
+            widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
+            typeComponent: [{
+                component: newbuildBtn
+            }],
+            listComponent: [],
+            newComponent: [{
+                tab: '新建领料单产品信息',
+                selectUrl2: [['invoices_orders', 'id', 'serial', true], ['productive_tasks', 'id', 'serial', true]],
+                selectInit2: [{value: '', label: '毛茶入库单选择'}, {value: '', label: '任务单选择'}],
+                popNumber2: [0, 3],
+                assocPosition: 1,
+                components: [{
+                    name: 'invoices_order_id',
+                    type: 'select',
+                    component: null,
+                    isNull: false,
+                    label: '毛茶入库单',
+                    placeholder: '必填',
+                    assoc: true,
+                    position: 1,
+                    selectField: ['id', 'name', true],
+                    getType: 'string',
+                    arrName: 'invoices_order_product_id',
+                    table: 'invoices_order_products',
+                    rule: {required: true, trigger: 'blur', message: '请选择毛茶入库单', type: 'number'},
+                    options: []
+                },
+                {
+                    name: 'invoices_order_product_id',
+                    type: 'select',
+                    component: null,
+                    isNull: false,
+                    label: '产品名称',
+                    placeholder: '必填',
+                    rule: {required: true, message: '请选择产品名称', type: 'number'},
+                    options: []
+                },
+                {
+                    name: 'specification',
+                    type: 'text',
+                    component: null,
+                    isNull: true,
+                    label: '规格型号',
+                    placeholder: '',
+                    rule: {required: true, message: '请输入规格型号'}
+                },
+                {
+                    name: 'productive_task_id',
+                    type: 'select',
+                    component: null,
+                    isNull: false,
+                    label: '任务单号',
+                    placeholder: '必填',
+                    rule: {required: true, message: '请选择任务单号', type: 'number'},
+                    options: []
+                },
+                {
+                    name: 'basic_unit',
+                    type: 'text',
+                    component: null,
+                    isNull: true,
+                    label: '基本单位名称',
+                    placeholder: '',
+                    rule: null
+                },
+                {
+                    name: 'basic_recei_number',
+                    type: 'text',
+                    component: null,
+                    isNull: true,
+                    label: '基本单位应发数量',
+                    placeholder: '',
+                    rule: {validator: validate2.reInteger}
+                },
+                {
+                    name: 'basic_real_number',
+                    type: 'text',
+                    component: null,
+                    isNull: true,
+                    label: '基本单位实发数量',
+                    placeholder: '',
+                    rule: {validator: validate2.reInteger}
+                },
+                {
+                    name: 'object_arr',
+                    type: 'text',
+                    component: null,
+                    isNull: true,
+                    label: '对象成本组',
+                    placeholder: '',
+                    rule: {required: true, message: '请输入对象成本组'}
+                },
+                {
+                    name: 'unit',
+                    type: 'text',
+                    component: null,
+                    isNull: true,
+                    label: '单位',
+                    placeholder: '',
+                    rule: {required: true, message: '请输入单位'}
+                },
+                {
+                    name: 'real_number',
+                    type: 'text',
+                    component: null,
+                    isNull: true,
+                    label: '实发数量',
+                    placeholder: '',
+                    rule: [{required: true, message: '请输入实发数量'}, {validator: validate2.reInteger}]
+                },
+                {
+                    name: 'store_number',
+                    type: 'text',
+                    component: null,
+                    isNull: true,
+                    label: '库存数量',
+                    placeholder: '',
+                    rule: null
+                },
+                {
+                    name: 'memo',
+                    type: 'textarea',
+                    component: null,
+                    isNull: true,
+                    label: '备注信息',
+                    placeholder: '',
+                    rule: null
+                }]
+            }],
+            editComponent: [{
+                tab: '编辑领料单产品信息',
+                selectUrl2: [['productive_tasks', 'id', 'serial', true]],
+                selectInit2: [{value: '', label: '任务单选择'}],
+                popNumber2: [2],
+                components: [{
+                    name: 'product_name',
+                    type: 'text',
+                    component: null,
+                    isNull: false,
+                    label: '产品名称',
+                    placeholder: '必填',
+                    disabled: true,
+                    rule: null
+                },
+                {
+                    name: 'specification',
+                    type: 'text',
+                    component: null,
+                    isNull: true,
+                    label: '规格型号',
+                    placeholder: '',
+                    rule: {required: true, message: '请输入规格型号'}
+                },
+                {
+                    name: 'productive_task_id',
+                    type: 'select',
+                    component: null,
+                    isNull: false,
+                    label: '任务单号',
+                    placeholder: '必填',
+                    rule: {required: true, message: '请选择任务单号', type: 'number'},
+                    options: []
+                },
+                {
+                    name: 'basic_unit',
+                    type: 'text',
+                    component: null,
+                    isNull: true,
+                    label: '基本单位名称',
+                    placeholder: '',
+                    rule: null
+                },
+                {
+                    name: 'basic_recei_number',
+                    type: 'text',
+                    component: null,
+                    isNull: true,
+                    label: '基本单位应发数量',
+                    placeholder: '',
+                    rule: {validator: validate2.reInteger}
+                },
+                {
+                    name: 'basic_real_number',
+                    type: 'text',
+                    component: null,
+                    isNull: true,
+                    label: '基本单位实发数量',
+                    placeholder: '',
+                    rule: {validator: validate2.reInteger}
+                },
+                {
+                    name: 'object_arr',
+                    type: 'text',
+                    component: null,
+                    isNull: true,
+                    label: '对象成本组',
+                    placeholder: '',
+                    rule: {required: true, message: '请输入对象成本组'}
+                },
+                {
+                    name: 'unit',
+                    type: 'text',
+                    component: null,
+                    isNull: true,
+                    label: '单位',
+                    placeholder: '',
+                    rule: {required: true, message: '请输入单位'}
+                },
+                {
+                    name: 'real_number',
+                    type: 'text',
+                    component: null,
+                    isNull: true,
+                    label: '实发数量',
+                    placeholder: '',
+                    rule: [{required: true, message: '请输入实发数量'}, {validator: validate2.reInteger}]
+                },
+                {
+                    name: 'store_number',
+                    type: 'text',
+                    component: null,
+                    isNull: true,
+                    label: '库存数量',
+                    placeholder: '',
+                    rule: {validator: validate2.reInteger}
+                },
+                {
+                    name: 'memo',
+                    type: 'textarea',
+                    component: null,
+                    isNull: true,
+                    label: '备注信息',
+                    placeholder: '',
+                    rule: null
+                }]
+            }]
+        }]
+    },
     // 产品入库
     storageOrderBatch: {
         key: 'storageOrderBatch',
         tab: '产品入库管理',
-        theads: ['产品入库批次号', '发货单位', '入库日期', '收货仓库', '备注'],
-        protos: ['serial', 'forwarding_unit', 'date', 'storeroom_name', 'memo'],
+        theads: ['产品入库批次号', '发货单位', '入库日期', '收货仓库', '审核状态', '备注'],
+        protos: ['serial', 'forwarding_unit', 'date', 'storeroom_name', 'state', 'memo'],
+        changeDataArr: [{state: {'未通过': 1, '已通过': 0}}],
         url: 'storage-order',
+        batch: 'storageProductCodeBatch',
         tabList: [{
-            key: 'invoices-order-product',
-            url: 'invoices-order-product',
+            key: 'storage-order-product',
+            url: 'storage-order-product',
             tab: '入库产品信息',
             searchPlaceholder: '请输入产品进行搜索',
-            headList: ['产品名称', '规格型号', '任务单号', '单位', '实收数量', '生产/采购日期', '基本单位名称', '基本单位应收数量', '基本单位实收数量', '保质期（天）', '有效期至', '仓位', '备注信息'],
-            protos: ['product_name', 'specification', 'task_list_no', 'unit', 'real_number', 'date', 'basic_unit', 'basic_recei_number', 'basic_real_number', 'expiration_date', 'validity', 'store_no', 'memo'],
+            headList: ['产品名称', '规格型号', '任务单号', '生产/采购日期', '实收数量', '单位', '状态', '基本单位名称', '基本单位应收数量', '基本单位实收数量', '保质期（天）', '有效期至', '仓位', '备注信息'],
+            protos: ['product_name', 'specification', 'task_list_no', 'date', 'real_number', 'state', 'unit', 'basic_unit', 'basic_recei_number', 'basic_real_number', 'expiration_date', 'validity', 'store_no', 'memo'],
             hiddeEdit: true,
             searchText: true,
-            widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
-            typeComponent: [],
-            listComponent: []
+            widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
+            typeComponent: [{
+                component: newbuildBtn
+            }],
+            listComponent: [],
+            newComponent: [{
+                tab: '新建入库产品信息',
+                selectUrl2: [['picking_lists', 'id', 'serial', true]],
+                selectInit2: [{value: '', label: '领料单选择'}],
+                popNumber2: [0],
+                assocPosition: 1,
+                components: [{
+                    name: 'picking_list_id',
+                    type: 'select',
+                    component: null,
+                    isNull: false,
+                    label: '领料单',
+                    placeholder: '必填',
+                    assoc: true,
+                    position: 1,
+                    selectField: ['id', 'name', true],
+                    getType: 'string',
+                    arrName: 'picking_list_product_id',
+                    table: 'picking_list_products',
+                    rule: {required: true, trigger: 'blur', message: '请选择配料单', type: 'number'},
+                    options: []
+                },
+                {
+                    name: 'picking_list_product_id',
+                    type: 'select',
+                    component: null,
+                    isNull: false,
+                    label: '产品名称',
+                    placeholder: '必填',
+                    rule: {required: true, message: '请选择产品名称', type: 'number'},
+                    options: []
+                },
+                {
+                    name: 'specification',
+                    type: 'text',
+                    component: null,
+                    isNull: true,
+                    label: '规格型号',
+                    placeholder: '',
+                    rule: {required: true, message: '请输入规格型号'}
+                },
+                {
+                    name: 'task_list_no',
+                    type: 'text',
+                    component: null,
+                    isNull: false,
+                    label: '任务单号',
+                    placeholder: '必填',
+                    disabled: true,
+                    rule: {required: true, message: '请选择任务单号'}
+                },
+                {
+                    name: 'date',
+                    type: 'date',
+                    component: inputDate,
+                    isNull: true,
+                    label: '生产日期',
+                    placeholder: '必填',
+                    rule: [{required: true, message: '请输入生产日期'}, {validator: validate2.reDate, message: '请输入生产日期'}]
+                },
+                {
+                    name: 'real_number',
+                    type: 'text',
+                    component: null,
+                    isNull: true,
+                    label: '实收数量',
+                    placeholder: '',
+                    rule: [{required: true, message: '请输入实收数量'}, {validator: validate2.reInteger}]
+                },
+                {
+                    name: 'unit',
+                    type: 'text',
+                    component: null,
+                    isNull: true,
+                    label: '单位',
+                    placeholder: '',
+                    rule: {required: true, message: '请输入单位'}
+                },
+                {
+                    name: 'basic_unit',
+                    type: 'text',
+                    component: null,
+                    isNull: true,
+                    label: '基本单位名称',
+                    placeholder: '',
+                    rule: null
+                },
+                {
+                    name: 'basic_recei_number',
+                    type: 'text',
+                    component: null,
+                    isNull: true,
+                    label: '基本单位应收数量',
+                    placeholder: '',
+                    rule: {validator: validate2.reInteger}
+                },
+                {
+                    name: 'basic_real_number',
+                    type: 'text',
+                    component: null,
+                    isNull: true,
+                    label: '基本单位实收数量',
+                    placeholder: '',
+                    rule: {validator: validate2.reInteger}
+                },
+                {
+                    name: 'expiration_date',
+                    type: 'text',
+                    component: null,
+                    isNull: true,
+                    label: '保质期（天）',
+                    placeholder: '',
+                    rule: null
+                },
+                {
+                    name: 'validity',
+                    type: 'text',
+                    component: null,
+                    isNull: true,
+                    label: '有效期至',
+                    placeholder: '',
+                    rule: null
+                },
+                {
+                    name: 'store_no',
+                    type: 'text',
+                    component: null,
+                    isNull: true,
+                    label: '仓位',
+                    placeholder: '',
+                    rule: null
+                },
+                {
+                    name: 'memo',
+                    type: 'textarea',
+                    component: null,
+                    isNull: true,
+                    label: '备注信息',
+                    placeholder: '',
+                    rule: null
+                }]
+            }],
+            editComponent: [{
+                tab: '编辑领料单产品信息',
+                selectUrl2: [['productive_tasks', 'id', 'serial', true]],
+                selectInit2: [{value: '', label: '任务单选择'}],
+                popNumber2: [2],
+                components: [{
+                    name: 'product_name',
+                    type: 'text',
+                    component: null,
+                    isNull: false,
+                    label: '产品名称',
+                    placeholder: '必填',
+                    disabled: true,
+                    rule: null
+                },
+                {
+                    name: 'specification',
+                    type: 'text',
+                    component: null,
+                    isNull: true,
+                    label: '规格型号',
+                    placeholder: '',
+                    rule: {required: true, message: '请输入规格型号'}
+                },
+                {
+                    name: 'task_list_no',
+                    type: 'text',
+                    component: null,
+                    isNull: false,
+                    label: '任务单号',
+                    placeholder: '必填',
+                    disabled: true,
+                    rule: {required: true, message: '请选择任务单号'}
+                },
+                {
+                    name: 'date',
+                    type: 'date',
+                    component: inputDate,
+                    isNull: true,
+                    label: '生产日期',
+                    placeholder: '必填',
+                    rule: [{required: true, message: '请输入生产日期'}, {validator: validate2.reDate, message: '请输入生产日期'}]
+                },
+                {
+                    name: 'real_number',
+                    type: 'text',
+                    component: null,
+                    isNull: true,
+                    label: '实收数量',
+                    placeholder: '',
+                    rule: [{required: true, message: '请输入实收数量'}, {validator: validate2.reInteger}]
+                },
+                {
+                    name: 'unit',
+                    type: 'text',
+                    component: null,
+                    isNull: true,
+                    label: '单位',
+                    placeholder: '',
+                    rule: {required: true, message: '请输入单位'}
+                },
+                {
+                    name: 'basic_unit',
+                    type: 'text',
+                    component: null,
+                    isNull: true,
+                    label: '基本单位名称',
+                    placeholder: '',
+                    rule: null
+                },
+                {
+                    name: 'basic_recei_number',
+                    type: 'text',
+                    component: null,
+                    isNull: true,
+                    label: '基本单位应收数量',
+                    placeholder: '',
+                    rule: {validator: validate2.reInteger}
+                },
+                {
+                    name: 'basic_real_number',
+                    type: 'text',
+                    component: null,
+                    isNull: true,
+                    label: '基本单位实收数量',
+                    placeholder: '',
+                    rule: {validator: validate2.reInteger}
+                },
+                {
+                    name: 'expiration_date',
+                    type: 'text',
+                    component: null,
+                    isNull: true,
+                    label: '保质期（天）',
+                    placeholder: '',
+                    rule: null
+                },
+                {
+                    name: 'validity',
+                    type: 'text',
+                    component: null,
+                    isNull: true,
+                    label: '有效期至',
+                    placeholder: '',
+                    rule: null
+                },
+                {
+                    name: 'store_no',
+                    type: 'text',
+                    component: null,
+                    isNull: true,
+                    label: '仓位',
+                    placeholder: '',
+                    rule: null
+                },
+                {
+                    name: 'memo',
+                    type: 'textarea',
+                    component: null,
+                    isNull: true,
+                    label: '备注信息',
+                    placeholder: '',
+                    rule: null
+                }]
+            }]
+        }]
+    },
+    // 入库产品溯源码
+    storageProductCodeBatch: {
+        key: 'storageProductCodeBatch',
+        tab: '入库产品溯源码管理',
+        theads: ['产品名称', '规格型号', '任务单号', '生产/采购日期', '实收数量', '单位', '保质期（天）', '有效期至', '备注信息'],
+        protos: ['product_name', 'specification', 'task_list_no', 'date', 'real_number', 'unit', 'expiration_date', 'validity', 'memo'],
+        url: '1/storage-order-product',
+        tabList: [{
+            key: 'storage-product-code',
+            url: 'storage-product-code',
+            tab: '入库产品信息',
+            searchPlaceholder: '请输入溯源码进行搜索',
+            headList: ['产品溯源码', '生成时间', '溯源次数', '备注信息'],
+            protos: ['code', 'date', 'time', 'memo'],
+            hiddeEdit: true,
+            searchText: true,
+            widths: [50, 50, 50, 50],
+            typeComponent: [{
+                component: newbuildBtn
+            }],
+            listComponent: [],
+            newComponent: [{
+                tab: '新建产品溯源码信息',
+                components: [{
+                    name: 'date',
+                    type: 'date',
+                    component: inputDate,
+                    isNull: true,
+                    label: '生成日期',
+                    placeholder: '必填',
+                    rule: [{required: true, message: '请输入生成日期'}, {validator: validate2.reDate, message: '请输入生成日期'}]
+                },
+                {
+                    name: 'memo',
+                    type: 'textarea',
+                    component: null,
+                    isNull: true,
+                    label: '备注信息',
+                    placeholder: '',
+                    rule: null
+                }]
+            }],
+            editComponent: [{
+                tab: '编辑领料单产品信息',
+                selectUrl2: [['productive_tasks', 'id', 'serial', true]],
+                selectInit2: [{value: '', label: '任务单选择'}],
+                popNumber2: [2],
+                components: [{
+                    name: 'product_name',
+                    type: 'text',
+                    component: null,
+                    isNull: false,
+                    label: '产品名称',
+                    placeholder: '必填',
+                    disabled: true,
+                    rule: null
+                },
+                {
+                    name: 'specification',
+                    type: 'text',
+                    component: null,
+                    isNull: true,
+                    label: '规格型号',
+                    placeholder: '',
+                    rule: {required: true, message: '请输入规格型号'}
+                },
+                {
+                    name: 'task_list_no',
+                    type: 'text',
+                    component: null,
+                    isNull: false,
+                    label: '任务单号',
+                    placeholder: '必填',
+                    disabled: true,
+                    rule: {required: true, message: '请选择任务单号'}
+                },
+                {
+                    name: 'date',
+                    type: 'date',
+                    component: inputDate,
+                    isNull: true,
+                    label: '生产日期',
+                    placeholder: '必填',
+                    rule: [{required: true, message: '请输入生产日期'}, {validator: validate2.reDate, message: '请输入生产日期'}]
+                },
+                {
+                    name: 'real_number',
+                    type: 'text',
+                    component: null,
+                    isNull: true,
+                    label: '实收数量',
+                    placeholder: '',
+                    rule: [{required: true, message: '请输入实收数量'}, {validator: validate2.reInteger}]
+                },
+                {
+                    name: 'unit',
+                    type: 'text',
+                    component: null,
+                    isNull: true,
+                    label: '单位',
+                    placeholder: '',
+                    rule: {required: true, message: '请输入单位'}
+                },
+                {
+                    name: 'basic_unit',
+                    type: 'text',
+                    component: null,
+                    isNull: true,
+                    label: '基本单位名称',
+                    placeholder: '',
+                    rule: null
+                },
+                {
+                    name: 'basic_recei_number',
+                    type: 'text',
+                    component: null,
+                    isNull: true,
+                    label: '基本单位应收数量',
+                    placeholder: '',
+                    rule: {validator: validate2.reInteger}
+                },
+                {
+                    name: 'basic_real_number',
+                    type: 'text',
+                    component: null,
+                    isNull: true,
+                    label: '基本单位实收数量',
+                    placeholder: '',
+                    rule: {validator: validate2.reInteger}
+                },
+                {
+                    name: 'expiration_date',
+                    type: 'text',
+                    component: null,
+                    isNull: true,
+                    label: '保质期（天）',
+                    placeholder: '',
+                    rule: null
+                },
+                {
+                    name: 'validity',
+                    type: 'text',
+                    component: null,
+                    isNull: true,
+                    label: '有效期至',
+                    placeholder: '',
+                    rule: null
+                },
+                {
+                    name: 'store_no',
+                    type: 'text',
+                    component: null,
+                    isNull: true,
+                    label: '仓位',
+                    placeholder: '',
+                    rule: null
+                },
+                {
+                    name: 'memo',
+                    type: 'textarea',
+                    component: null,
+                    isNull: true,
+                    label: '备注信息',
+                    placeholder: '',
+                    rule: null
+                }]
+            }]
         }]
     },
     // 销售入库详情
@@ -922,9 +1617,6 @@ export default {
             typeComponent: [{
                 component: output
             }],
-            // {
-            //     component: scanCode
-            // }],
             listComponent: [{
                 components: [{
                     type: 'date',

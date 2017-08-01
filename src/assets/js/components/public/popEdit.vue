@@ -286,7 +286,11 @@ export default {
             if (data.name === 'datetime') {
                 this.editForm[data.name] = this.$changeDateTime(data.value)
             } else {
-                this.editForm[data.name] = data.value
+                if (typeof (data.value) === 'string') {
+                    this.editForm[data.name] = data.value
+                } else {
+                    this.editForm[data.name] = this.$changeDateTime(data.value, 0)
+                }
             }
         },
         getOther (data) {

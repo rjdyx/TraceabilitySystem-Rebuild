@@ -321,33 +321,6 @@ export default {
                     com.components[com.checkNumber[index]].rule[1].url = this.tabItem.url
                 }
             }
-            // 获取新建表格数据
-            if (com.type === 'table') {
-                var data = {}
-                data.getSelect = {'getSelect': '444'}
-                data.curl = {'curl': this.tabItem.url}
-                data.routeId = {'routeId': com.labUrl}
-                data.opqcurl = {'opqcurl': this.apiUrlArr[this.url]}
-                data.type = ''
-                data.wheres = []
-                if (com.paramsIndex !== undefined) {
-                    type = com.paramsIndex
-                }
-                if (com.whereArr !== undefined) {
-                    for (let ka in com.whereArr) {
-                        let strs = com.whereArr[ka][0] + '-' + com.whereArr[ka][1]
-                        if (com.whereArr[ka][2] !== undefined) {
-                            strs = strs + '-' + com.whereArr[ka][2]
-                        }
-                        data.wheres[ka] = strs
-                    }
-                }
-                this.$dataGet(this, com.labUrl, data)
-                    .then((responce) => {
-                        let ret = this.$eltable(responce.data)
-                        this.$set(com.components[0], 'tableVal', ret)
-                    })
-            }
             if (com.selectUrl) {
                 for (let key in com.selectUrl) {
                     let newArr = this.$addAndEditSelectMethod(com.selectUrl[key])
@@ -814,14 +787,16 @@ export default {
         },
         // 展开事件
         expandDo () {
-            this.tabItem.harvestMore.forEach(function (subItem) {
-                Vue.set(subItem, 'showHarvest', false)
-            })
-            let expandicon = document.getElementsByClassName('el-table__expand-icon')
-            for (let j = 0; j < expandicon.length; j++) {
-                // console.log(expandicon[j].className)
-                if (expandicon[j].className.indexOf('el-table__expand-icon--expanded') > 0) {
-                    $(this).removeClass('el-table__expand-icon--expanded')
+            if (this.tabItem.harvestMore !== undefined) {
+                this.tabItem.harvestMore.forEach(function (subItem) {
+                    Vue.set(subItem, 'showHarvest', false)
+                })
+                let expandicon = document.getElementsByClassName('el-table__expand-icon')
+                for (let j = 0; j < expandicon.length; j++) {
+                    // console.log(expandicon[j].className)
+                    if (expandicon[j].className.indexOf('el-table__expand-icon--expanded') > 0) {
+                        $(this).removeClass('el-table__expand-icon--expanded')
+                    }
                 }
             }
         }
