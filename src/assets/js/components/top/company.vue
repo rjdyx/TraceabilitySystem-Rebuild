@@ -42,6 +42,7 @@
 import footerTop from './topComponent/footer.vue'
 import ContainTitle from '../layout/contain-title.vue'
 import companyEdit from './topComponent/companyEdit.vue'
+import {mapActions} from 'vuex'
 export default {
     name: 'company',
     data () {
@@ -58,6 +59,9 @@ export default {
         }
     },
     methods: {
+        ...mapActions([
+            'change_siderBar'
+        ]),
         showEdit (val) {
             this.isShow = !this.isShow
             if (val === 'false') {
@@ -79,6 +83,7 @@ export default {
     },
     mounted () {
         // 查询编辑数据
+        this.change_siderBar(false)
         localStorage.setItem('tab', 0)
         axios.get('api/company/info')
             .then((responce) => {

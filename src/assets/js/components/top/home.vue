@@ -24,7 +24,6 @@
 			<div class="main">
 				<img src="public/images/aHome.png" alt="">
 			</div>
-            <footerTop></footerTop>
 		</div>
 
 	</div>
@@ -35,7 +34,6 @@
 import ContainTitle from '../layout/contain-title.vue'
 import chart from './topComponent/echarts.vue'
 import {mapActions} from 'vuex'
-import footerTop from './topComponent/footer.vue'
 export default{
     name: 'home',
     data () {
@@ -52,8 +50,7 @@ export default{
     },
     components: {
         ContainTitle,
-        chart,
-        footerTop
+        chart
     },
     methods: {
         ...mapActions([

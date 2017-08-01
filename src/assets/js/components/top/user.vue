@@ -116,13 +116,13 @@ $display: inline-block;
 			.picture{
                 float:left;
 				width: 140px;
-				height: 124px;
-				margin:0 10px 0 30px;
+				height: 140px;
+				margin:0 10px 0 0px;
 			}
 			.text{
 				width: 100%;
                 box-sizing:border-box;
-                padding-left:200px;
+                padding-left:160px;
 			}
 			.btn_change{
 				position: absolute;
