@@ -84,7 +84,19 @@ exports.reNumber = (rule, value, callback, source, options) => {
 exports.reInteger = (rule, value, callback, source, options) => {
     if (value !== '' && value !== undefined && value !== null) {
         if (/^\d+$/.test(value)) {
-            callback()
+            if (value === '0') {
+                callback(new Error('请输入大于0整数'))
+            } else {
+                if (rule.getMax !== undefined) {
+                    if (parseInt(value) > parseInt(rule.getMax)) {
+                        callback(new Error(rule.getMessage))
+                    } else {
+                        callback()
+                    }
+                } else {
+                    callback()
+                }
+            }
         } else {
             callback(new Error('请输入整数'))
         }

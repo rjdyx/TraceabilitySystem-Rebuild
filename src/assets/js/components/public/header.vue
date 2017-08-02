@@ -103,7 +103,6 @@ export default {
     mounted () {
         this.initData()
         this.checkTime()
-        console.log(this.navbars)
     }
 }
 </script>
