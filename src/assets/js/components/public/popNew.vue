@@ -254,7 +254,8 @@ export default {
             permissionShow: this.newComponent[0].permissionShow,
             news: 'new',
             operateArr1: ['sunning', 'cooling'],
-            operateArr2: ['make_green', 'kill_out', 'knead_nori', 'deblock', 'dry', 'filtrate', 'refiring']
+            operateArr2: ['make_green', 'kill_out', 'knead_nori', 'deblock', 'dry', 'filtrate', 'refiring'],
+            selectIdArr: ['picking_list_product_id', 'storage_order_product_id', 'client_id', 'delivery_id', 'sell_store_id']
         }
     },
     mixins: [move],
@@ -296,10 +297,14 @@ export default {
             if (data.name === 'datetime') {
                 this.tableForm[data.name] = this.$changeDateTime(data.value)
             } else {
-                if (typeof (data.value) === 'string') {
-                    this.tableForm[data.name] = data.value
+                if (data.name === 'date') {
+                    if (typeof (data.value) === 'string') {
+                        this.tableForm[data.name] = data.value
+                    } else {
+                        this.tableForm[data.name] = this.$changeDateTime(data.value, 0)
+                    }
                 } else {
-                    this.tableForm[data.name] = this.$changeDateTime(data.value, 0)
+                    this.tableForm[data.name] = data.value
                 }
             }
         },
@@ -446,20 +451,25 @@ export default {
                     this.disabledV = true
                 }
             }
-            if (name === 'picking_list_product_id') {
-                let params = {'id': val}
-                this.$dataGet(this, this.url + '/getTaskNo', params)
+            if (this.selectIdArr.indexOf(name) !== -1) {
+                let params = {'id': val, 'value': name}
+                this.$dataGet(this, this.url + '/getDataInfo', params)
                     .then((responce) => {
-                        this.tableForm['task_list_no'] = responce.data['task_list_no']
-                    })
-            }
-            if (name === 'storage_order_product_id') {
-                let params = {'id': val}
-                this.$dataGet(this, this.url + '/getStorageInfo', params)
-                    .then((responce) => {
-                        this.tableForm['specification'] = responce.data['specification']
-                        this.tableForm['storage_number'] = responce.data['real_number']
-                        this.tableForm['unit'] = responce.data['unit']
+                        if (name === 'storage_order_product_id') {
+                            this.tableForm['product_name'] = subItem.options[0].label
+                            this.tableForm['storage_number'] = responce.data['real_number']
+                        } else if (name === 'sell_store_id') {
+                            if (responce.data !== '') {
+                                com[subItem.placeholderMsg].rule[1]['getMax'] = responce.data['storage_number']
+                                com[subItem.placeholderMsg].placeholder = '库存数量' + responce.data['storage_number']
+                            } else {
+                                com[subItem.placeholderMsg].rule[1]['getMax'] = undefined
+                                com[subItem.placeholderMsg].placeholder = ''
+                            }
+                        }
+                        for (let i in subItem.arrOption) {
+                            this.tableForm[subItem.arrOption[i]] = responce.data[subItem.arrOption[i]]
+                        }
                     })
             }
         },

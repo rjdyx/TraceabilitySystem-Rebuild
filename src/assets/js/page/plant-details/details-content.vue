@@ -14,6 +14,7 @@
  
 <script>
 import detailsModel from '../detailsModel/details-model.vue'
+import footerTop from '../../components/top/topComponent/footer.vue'
 import message from './message.js'
 export default {
     name: 'BasicContent',

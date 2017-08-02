@@ -228,7 +228,8 @@ export default {
             allowance: 0,
             cname: '',
             cval: '',
-            edit: 'edit'
+            edit: 'edit',
+            selectIdArr: ['picking_list_product_id', 'storage_order_product_id', 'client_id', 'delivery_id', 'sell_store_id']
         }
     },
     mounted () {
@@ -286,10 +287,14 @@ export default {
             if (data.name === 'datetime') {
                 this.editForm[data.name] = this.$changeDateTime(data.value)
             } else {
-                if (typeof (data.value) === 'string') {
-                    this.editForm[data.name] = data.value
+                if (data.name === 'date') {
+                    if (typeof (data.value) === 'string') {
+                        this.editForm[data.name] = data.value
+                    } else {
+                        this.editForm[data.name] = this.$changeDateTime(data.value, 0)
+                    }
                 } else {
-                    this.editForm[data.name] = this.$changeDateTime(data.value, 0)
+                    this.editForm[data.name] = data.value
                 }
             }
         },
@@ -389,22 +394,24 @@ export default {
         setDefaultTable () {
             var type = this.editForm.transportable_type !== undefined ? this.editForm.transportable_type : this.editForm.task_type
             var com = this.editComponent[0].components
-            if (type !== undefined) {
-                com.forEach(function (item) {
-                    if (item.name === 'transportable_type' || item.name === 'task_type') {
-                        for (let key of Object.keys(item.selectNumber)) {
-                            if (key === type) {
-                                for (let k in item.selectNumber[key]) {
-                                    com[item.selectNumber[key][k]].hiddenSelect = false
-                                }
-                            } else {
-                                for (let k in item.selectNumber[key]) {
-                                    com[item.selectNumber[key][k]].hiddenSelect = true
+            if (this.url === 'delivery') {
+                if (type !== undefined) {
+                    com.forEach(function (item) {
+                        if (item.name === 'transportable_type' || item.name === 'task_type') {
+                            for (let key of Object.keys(item.selectNumber)) {
+                                if (key === type) {
+                                    for (let k in item.selectNumber[key]) {
+                                        com[item.selectNumber[key][k]].hiddenSelect = false
+                                    }
+                                } else {
+                                    for (let k in item.selectNumber[key]) {
+                                        com[item.selectNumber[key][k]].hiddenSelect = true
+                                    }
                                 }
                             }
                         }
-                    }
-                })
+                    })
+                }
             }
             if (this.url === 'cultivate') {
                 if (this.editForm.state === '已完成') {
@@ -420,7 +427,7 @@ export default {
         routeApi () {
             var com = this.editComponent[0]
             if (com.limit !== undefined) {
-                if (this.url === 'plantation' || this.url === 'farm') {
+                if (this.url === 'plantation') {
                     let id = {id: this.editForm.id}
                     axios.get(this.$adminUrl(this.url + '/getMinArea'), {params: id}).then((responce) => {
                         if (responce.data !== 'false') {
@@ -432,16 +439,15 @@ export default {
                             this.disabled = false
                         }
                     })
-                } else if (this.url === 'area' || this.url === 'cultivate') {
+                } else if (this.url === 'cultivate') {
                     this.disabled = true
-                    // let pid = {id: this.editForm.pid !== undefined ? this.editForm.pid : this.editForm.farm_id}
-                    let pid = {id: this.editForm.farm_id !== undefined ? this.editForm.farm_id : this.editForm.plantation_id}
+                    let pid = {id: this.editForm.plantation_id}
                     axios.get(this.$adminUrl(this.url + '/getArea'), {params: pid}).then((responce) => {
                         this.allowance = parseInt(responce.data['num']) + parseInt(this.editForm.area)
                         com.components[com.limit].rule[1]['getMax'] = this.allowance
                         com.components[com.limit].rule[1]['getMessage'] = com.getMessage
                     })
-                } else if (this.url === 'farmcd' || this.url === 'planta') {
+                } else if (this.url === 'planta') {
                     this.disabled = true
                     let params = {id: this.editForm.id, pid: this.editForm.pid}
                     axios.get(this.$adminUrl(this.url + '/getSetArea'), {params: params}).then((responce) => {
@@ -451,6 +457,13 @@ export default {
                         com.components[com.limit].rule[1]['min'] = this.editAllowance
                         com.components[com.limit].rule[1]['getMiddle'] = true
                         com.components[com.limit].rule[1]['getMessage'] = '最大输入' + this.allowance + ', 最小输入' + this.editAllowance
+                    })
+                } else if (this.url.indexOf('sell-product') !== -1) {
+                    let params = {id: this.editForm.sell_store_id}
+                    axios.get(this.$adminUrl(this.url + '/getDataInfo'), {params: params}).then((responce) => {
+                        let num = responce.data['storage_number'] - responce.data['reserve_number'] + parseInt(this.editForm.amount)
+                        com.components[com.limit].rule[1]['getMax'] = num
+                        com.components[com.limit].placeholder = '库存数量' + num
                     })
                 }
             }
@@ -466,7 +479,7 @@ export default {
                     let com = this.editComponent[0]
                     if (this.url !== 'planta') {
                         let params = {id: val}
-                        let sid = this.editDefault.pid !== undefined ? this.editDefault.pid : this.editDefault.farm_id !== undefined ? this.editDefault.farm_id : this.editDefault.plantation_id
+                        let sid = this.editDefault.pid !== undefined ? this.editDefault.pid : this.editDefault.plantation_id
                         axios.get(this.$adminUrl(this.url + '/getArea'), {params: params}).then((responce) => {
                             if (val === sid) {
                                 this.allowance = parseInt(responce.data['num']) + parseInt(this.editDefault.area)
@@ -525,6 +538,27 @@ export default {
                         com.components[number[val][k3]].hiddenSelect = false
                     }
                 }
+            }
+            if (this.selectIdArr.indexOf(name) !== -1) {
+                let params = {'id': val, 'value': name}
+                this.$dataGet(this, this.url + '/getDataInfo', params)
+                    .then((responce) => {
+                        if (name === 'storage_order_product_id') {
+                            this.editForm['product_name'] = subItem.options[0].label
+                            this.editForm['storage_number'] = responce.data['real_number']
+                        } else if (name === 'sell_store_id') {
+                            if (responce.data !== '') {
+                                com.components[subItem.placeholderMsg].rule[1]['getMax'] = responce.data['storage_number']
+                                com.components[subItem.placeholderMsg].placeholder = '库存数量' + responce.data['storage_number']
+                            } else {
+                                com.components[subItem.placeholderMsg].rule[1]['getMax'] = undefined
+                                com.components[subItem.placeholderMsg].placeholder = ''
+                            }
+                        }
+                        for (let i in subItem.arrOption) {
+                            this.editForm[subItem.arrOption[i]] = responce.data[subItem.arrOption[i]]
+                        }
+                    })
             }
         }
     }

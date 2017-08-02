@@ -2046,13 +2046,14 @@ export default {
             }],
             newComponent: [{
                 tab: '新建物流公司信息',
+                checkNumber: [0],
                 components: [{
                     name: 'name',
                     type: 'text',
                     component: null,
                     label: '物流公司名称',
                     placeholder: '请输入物流公司名称',
-                    rule: {required: true, trigger: 'blur', message: '请输入物流公司名称'}
+                    rule: [{required: true, message: '请输入物流公司名称', trigger: 'blur'}, {validator: validate2.reCheck, trigger: 'blur', message: '物流公司名称重复'}]
                 },
                 {
                     name: 'contacts',
@@ -2090,13 +2091,14 @@ export default {
             }],
             editComponent: [{
                 tab: '编辑物流公司信息',
+                checkNumber: [0],
                 components: [{
                     name: 'name',
                     type: 'text',
                     component: null,
                     label: '物流公司',
                     placeholder: '请输入物流公司名称',
-                    rule: {required: true, trigger: 'blur', message: '请输入物流公司名称'}
+                    rule: [{required: true, message: '请输入物流公司名称', trigger: 'blur'}, {validator: validate2.reCheck, trigger: 'blur', message: '物流公司名称重复'}]
                 },
                 {
                     name: 'contacts',
@@ -2527,7 +2529,7 @@ export default {
                     isNull: false,
                     label: '仓库名称',
                     placeholder: '请输入仓库名称',
-                    rule: [{required: true, trigger: 'blur', message: '请输入仓库名称'}, {validator: validate2.reCheck}]
+                    rule: [{required: true, trigger: 'blur', message: '请输入仓库名称'}, {validator: validate2.reCheck, message: '仓库名称重复'}]
                 },
                 {
                     name: 'area',
@@ -4280,6 +4282,7 @@ export default {
                 isNull: false,
                 label: '产品名称',
                 placeholder: '必填',
+                arrOption: ['specification', 'unit'],
                 rule: {required: true, message: '请选择产品名称', type: 'number'},
                 options: []
             },
@@ -4322,38 +4325,50 @@ export default {
             }]
         }],
         editComponent: [{
-            tab: '编辑物流公司信息',
+            tab: '编辑商品库信息',
             components: [{
-                name: 'name',
+                name: 'product_number',
                 type: 'text',
                 component: null,
-                label: '物流公司',
-                placeholder: '请输入物流公司名称',
-                rule: {required: true, trigger: 'blur', message: '请输入物流公司名称'}
-            },
-            {
-                name: 'contacts',
-                type: 'text',
-                component: null,
-                label: '联系人',
-                placeholder: '请输入联系人',
-                rule: {required: true, trigger: 'blur', message: '请输入联系人'}
-            },
-            {
-                name: 'phone',
-                type: 'text',
-                component: null,
-                label: '联系电话',
-                placeholder: '请输入电话号码',
-                rule: { validator: validate2.phone, trigger: 'blur' }
-            },
-            {
-                name: 'address',
-                type: 'text',
-                component: null,
-                label: '地址',
+                isNull: true,
+                label: '产品代号',
                 placeholder: '',
-                rule: null
+                rule: {required: true, message: '请输入产品代号'}
+            },
+            {
+                name: 'product_name',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '产品名称',
+                placeholder: '必填',
+                rule: {required: true, message: '请输入产品名称'}
+            },
+            {
+                name: 'specification',
+                type: 'text',
+                component: null,
+                isNull: true,
+                label: '规格型号',
+                placeholder: '',
+                rule: {required: true, message: '请输入规格型号'}
+            },
+            {
+                name: 'storage_number',
+                type: 'text',
+                component: null,
+                isNull: true,
+                label: '库存数量',
+                placeholder: '',
+                rule: {required: true, message: '请输入库存数量'}
+            },
+            {
+                name: 'unit',
+                type: 'text',
+                component: null,
+                label: '单位',
+                placeholder: '',
+                rule: {required: true, message: '请输入单位'}
             },
             {
                 name: 'memo',
@@ -4362,27 +4377,18 @@ export default {
                 label: '备注信息',
                 placeholder: '',
                 rule: null
-            }
-            ]
+            }]
         }]
     },
     {
         settitle: '基础信息管理',
         key: 'client',
-        roleKey: 'client',
-        roleName: ['sell/storage', 0],
         tab: '客户信息管理',
         url: 'client',
-        batch: 'saleInput',
-        selectSearch: ['products.id'],
-        selectValueId: [['product_id', 'product_name', true]],
-        selectDefault: [{value: '', label: '请选择商品'}],
-        paramsIndex: 0,
-        changeDataArr: [{type: { 0: '平台', 1: '非平台' }}],
         searchPlaceholder: '请输入批次号进行搜索',
-        theads: ['客户名称', '身份证编号(公司注册号)', '通讯地址', '所在区域', '联系人', '手机', '电话', '传真', '图片', '主办业务员', '手机', '合同签订日期', '品牌名称', '主要产品', '地区或城市', '年销售业绩(万元)', '备货情况(万元)', '经营情况'],
-        protos: ['name', 'IDNumber', 'address', 'location', 'contact', 'phone', 'phone', 'fax', 'img'],
-        widths: [30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30],
+        theads: ['客户名称', '公司名称', '身份证编号(公司注册号)', '汇款账号', '通讯地址', '所在区域', '联系人', '联系方式', '传真', '图片', '备注'],
+        protos: ['name', 'company_name', 'IDNumber', 'bank_account', 'address', 'location', 'contact', 'phone', 'fax', 'img', 'memo'],
+        widths: [30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30],
         typeComponent: [{
             component: output
         },
@@ -4390,59 +4396,97 @@ export default {
             component: newbuildBtn
         }],
         newComponent: [{
-            tab: '新建入库信息',
-            hiddenValue: {type: 0},
-            selectUrl2: [['products', 'id', 'name', true], ['suppliers', 'id', 'name', true], ['operates', 'id', 'name', true]],
-            selectInit2: [{value: '', label: '请选择商品'}, {value: '', label: '请选择供货商'}, {value: '', label: '请选择入库人员'}],
-            popNumber2: [1, 2, 3],
-            selectWhereArr2: [[{n: 'domain', v: 'sell'}, {n: 'domain', v: 'all', s: true}], [], [{n: 'domain', v: 'sell'}, {n: 'domain', v: 'all', s: true}]],
+            tab: '新建客户信息',
+            checkNumber: [0],
+            hasImg: true,
             components: [{
-                name: 'datetime',
-                type: 'date',
-                component: inputDate,
-                isNull: false,
-                label: '入库日期时间',
-                placeholder: '',
-                rule: [{required: true, message: '请输入入库时间'}, {validator: validate2.reDate, message: '请输入入库时间'}]
-            },
-            {
-                name: 'product_id',
-                type: 'select',
-                component: null,
-                isNull: false,
-                label: '入库商品',
-                placeholder: '',
-                rule: {required: true, trigger: 'blur', type: 'number', message: '请选择入库商品'},
-                options: []
-            },
-            {
-                name: 'supplier_id',
-                type: 'select',
-                component: null,
-                isNull: false,
-                label: '供货商',
-                placeholder: '',
-                rule: {required: true, trigger: 'blur', type: 'number', message: '请选择供货商'},
-                options: []
-            },
-            {
-                name: 'operate_id',
-                type: 'select',
-                component: null,
-                isNull: false,
-                label: '入库人员',
-                placeholder: '',
-                rule: {required: true, trigger: 'blur', type: 'number', message: '请选择入库人员'},
-                options: []
-            },
-            {
-                name: 'sell_serial',
+                name: 'name',
                 type: 'text',
                 component: null,
                 isNull: false,
-                label: '订单号',
-                placeholder: '请输入订单号',
-                rule: {required: true, trigger: 'blur', message: '请输入订单号'}
+                label: '客户名称',
+                placeholder: '',
+                rule: [{required: true, message: '请输入客户名称', trigger: 'blur'}, {validator: validate2.reCheck, trigger: 'blur', message: '客户名称重复'}]
+            },
+            {
+                name: 'company_name',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '公司名称',
+                placeholder: '',
+                rule: {required: true, message: '请输入公司名称', trigger: 'blur'}
+            },
+            {
+                name: 'IDNumber',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '身份证编号(公司注册号)',
+                placeholder: '请输入编号',
+                rule: {required: true, trigger: 'blur', message: '请输入编号号'}
+            },
+            {
+                name: 'bank_account',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '汇款账号',
+                placeholder: '',
+                rule: {required: true, message: '请输入汇款账号', trigger: 'blur'}
+            },
+            {
+                name: 'address',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '通讯地址',
+                placeholder: '',
+                rule: null
+            },
+            {
+                name: 'location',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '所在区域',
+                placeholder: '',
+                rule: null
+            },
+            {
+                name: 'contact',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '联系人',
+                placeholder: '请输入联系人',
+                rule: {required: true, trigger: 'blur', message: '请输入联系人'}
+            },
+            {
+                name: 'phone',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '联系方式',
+                placeholder: '请输入方式',
+                rule: {required: true, trigger: 'blur', message: '请输入联系方式', validator: validate2.phone}
+            },
+            {
+                name: 'fax',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '客户传真',
+                placeholder: '',
+                rule: null
+            },
+            {
+                name: 'img',
+                type: 'file',
+                component: inputFile,
+                isNull: false,
+                label: '客户图片',
+                placeholder: ''
             },
             {
                 name: 'memo',
@@ -4455,60 +4499,97 @@ export default {
             }]
         }],
         editComponent: [{
-            tab: '编辑入库信息',
-            hiddenValue: {type: 0},
-            selectUrl2: [['products', 'id', 'name', true], ['suppliers', 'id', 'name', true], ['operates', 'id', 'name', true]],
-            selectInit2: [{value: '', label: '请选择商品'}, {value: '', label: '请选择供货商'}, {value: '', label: '请选择入库人员'}],
-            selectWhereArr2: [[{n: 'domain', v: 'sell'}, {n: 'domain', v: 'all', s: true}], [], [{n: 'domain', v: 'sell'}, {n: 'domain', v: 'all', s: true}]],
-            popNumber2: [2, 3, 4],
+            tab: '编辑客户信息',
+            checkNumber: [0],
+            hasImg: true,
             components: [{
-                name: 'serial',
+                name: 'name',
                 type: 'text',
                 component: null,
-                isNull: true,
-                label: '入库批次号',
+                isNull: false,
+                label: '客户名称',
                 placeholder: '',
-                disabled: true,
+                rule: [{required: true, message: '请输入客户名称', trigger: 'blur'}, {validator: validate2.reCheck, trigger: 'blur', message: '客户名称重复'}]
+            },
+            {
+                name: 'company_name',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '公司名称',
+                placeholder: '',
+                rule: {required: true, message: '请输入公司名称', trigger: 'blur'}
+            },
+            {
+                name: 'IDNumber',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '身份证编号(公司注册号)',
+                placeholder: '请输入编号',
+                rule: {required: true, trigger: 'blur', message: '请输入编号号'}
+            },
+            {
+                name: 'bank_account',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '汇款账号',
+                placeholder: '',
+                rule: {required: true, message: '请输入汇款账号', trigger: 'blur'}
+            },
+            {
+                name: 'address',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '通讯地址',
+                placeholder: '',
                 rule: null
             },
             {
-                name: 'datetime',
-                type: 'date',
-                component: inputDate,
-                isNull: false,
-                label: '入库时间',
-                placeholder: '',
-                rule: [{required: true, trigger: 'blur', message: '请输入入库时间'}, {validator: validate2.reDate, message: '请输入入库时间'}]
-            },
-            {
-                name: 'product_id',
-                type: 'select',
+                name: 'location',
+                type: 'text',
                 component: null,
                 isNull: false,
-                label: '入库商品',
+                label: '所在区域',
                 placeholder: '',
-                rule: {required: true, trigger: 'blur', type: 'number', message: '请选择入库商品'},
-                options: []
+                rule: null
             },
             {
-                name: 'supplier_id',
-                type: 'select',
+                name: 'contact',
+                type: 'text',
                 component: null,
                 isNull: false,
-                label: '供货商',
-                placeholder: '',
-                rule: {required: true, trigger: 'blur', type: 'number', message: '请选择供货商'},
-                options: []
+                label: '联系人',
+                placeholder: '请输入联系人',
+                rule: {required: true, trigger: 'blur', message: '请输入联系人'}
             },
             {
-                name: 'operate_id',
-                type: 'select',
+                name: 'phone',
+                type: 'text',
                 component: null,
                 isNull: false,
-                label: '入库人员',
+                label: '联系方式',
+                placeholder: '请输入方式',
+                rule: {required: true, trigger: 'blur', message: '请输入联系方式', validator: validate2.phone}
+            },
+            {
+                name: 'fax',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '客户传真',
                 placeholder: '',
-                rule: {required: true, trigger: 'blur', type: 'number', message: '请选择入库人员'},
-                options: []
+                rule: null
+            },
+            {
+                name: 'img',
+                type: 'file',
+                component: inputFile,
+                isNull: false,
+                label: '客户图片',
+                placeholder: ''
             },
             {
                 name: 'memo',
@@ -4520,57 +4601,91 @@ export default {
                 rule: null
             }]
         }],
-        listComponent: [{
-            components: [{
-                type: 'select',
-                name: 'products.id',
-                value: '',
-                component: selectSection,
-                options: []
-            },
-            {
-                type: 'date',
-                component: datePick
-            }]
-        }]
+        listComponent: []
     }],
     // 销售管理-销售订单管理
     saleOrder: [{
         settitle: '销售订单管理',
         key: 'sell',
-        roleKey: 'batch',
-        tab: '订单管理',
+        tab: '销售订单管理',
         url: 'sell',
-        roleName: ['sell/order', 0],
-        batch: 'saleOrder',
+        batch: 'saleOrderBatch',
         searchPlaceholder: '请输入订货单号',
-        changeDataArr: [{state: {0: '未完成', 1: '已完成'}}],
-        theads: ['标题', '公司名称', '联系人', '联系电话', '地址', '业务员', '下单日期', '列表项包含序号', '产品名称', '规格', '单价', '数量', '金额', '备注'],
-        protos: ['serial', 'datetime', 'delivery_serial', 'client_name', 'money', 'amount', 'operate_name', 'user_name', 'state', 'memo'],
-        widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
+        changeDataArr: [{state: {0: '未完成', 1: '已完成'}}, {transportable_type: {'self': '自运', 'consign': '托运'}}],
+        theads: ['订单批次号', '订购公司', '联系人', '联系电话', '送货地址', '业务员', '制单人', '下单日期', '运输方式', '汇款账户', '物流单号', '状态', '备注'],
+        protos: ['serial', 'company_name', 'contact', 'phone', 'address', 'sale_person', 'operate', 'date', 'transportable_type', 'bank_account', 'transportable_type', 'state', 'memo'],
+        widths: [50, 50, 50, 50, 50, 50, 50, 50, 50],
         typeComponent: [{
             component: output
         },
         {
             component: newbuildBtn
         }],
-        moreComponent: [{value: '状态'}],
         newComponent: [{
             tab: '新建订单信息',
-            hiddenValue: {type: 1},
-            selectUrl2: [['deliveries', 'id', 'serial', true], ['clients', 'id', 'name', true], ['operates', 'id', 'name', true]],
-            selectInit2: [{value: '', label: '请选择物流批次号'}, {value: '', label: '请选择销售客户'}, {value: '', label: '请选择销售人员'}],
-            popNumber2: [1, 2, 3],
-            selectWhereArr2: [[], [], [{n: 'domain', v: 'sell'}, {n: 'domain', v: 'all', s: true}]],
+            selectUrl2: [['clients', 'id', 'name', true], ['deliveries', 'id', 'serial', true]],
+            selectInit2: [{value: '', label: '订单客户选择'}, {value: '', label: '物流订单选择'}],
+            popNumber2: [0, 6],
             components: [{
-                name: 'datetime',
-                type: 'date',
-                component: inputDate,
+                name: 'client_id',
+                type: 'select',
+                component: null,
                 isNull: false,
-                label: '订单日期时间',
+                label: '订单客户',
+                placeholder: '',
+                arrOption: ['company_name', 'contact', 'phone', 'address', 'bank_account'],
+                rule: {required: true, trigger: 'blur', type: 'number', message: '请选择订单客户'},
+                options: []
+            },
+            {
+                name: 'company_name',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '订货公司',
                 placeholder: '',
                 disabled: true,
-                rule: [{required: true, message: '请输入订单日期时间'}, {validator: validate2.reDate, message: '请输入订单日期时间'}]
+                rule: {required: true, trigger: 'blur', message: '请输入订货公司'}
+            },
+            {
+                name: 'contact',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '联系人',
+                placeholder: '',
+                disabled: true,
+                rule: {required: true, trigger: 'blur', message: '请输入联系人'}
+            },
+            {
+                name: 'phone',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '联系电话',
+                placeholder: '',
+                disabled: true,
+                rule: {required: true, trigger: 'blur', message: '请输入联系电话'}
+            },
+            {
+                name: 'address',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '送货地址',
+                placeholder: '',
+                disabled: true,
+                rule: {required: true, trigger: 'blur', message: '请输入送货地址'}
+            },
+            {
+                name: 'bank_account',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '汇款账户',
+                placeholder: '',
+                disabled: true,
+                rule: {required: true, trigger: 'blur', message: '请输入汇款账户'}
             },
             {
                 name: 'delivery_id',
@@ -4579,37 +4694,45 @@ export default {
                 isNull: false,
                 label: '物流订单',
                 placeholder: '',
+                arrOption: ['transportable_type'],
                 rule: {required: true, trigger: 'blur', type: 'number', message: '请选择物流订单'},
                 options: []
             },
             {
-                name: 'client_id',
-                type: 'select',
-                component: null,
-                isNull: false,
-                label: '客户',
-                placeholder: '',
-                rule: {required: true, trigger: 'blur', type: 'number', message: '请选择销售客户'},
-                options: []
-            },
-            {
-                name: 'operate_id',
-                type: 'select',
-                component: null,
-                isNull: false,
-                label: '销售员',
-                placeholder: '',
-                rule: {required: true, trigger: 'blur', type: 'number', message: '请选择销售人员'},
-                options: []
-            },
-            {
-                name: 'money',
+                name: 'transportable_type',
                 type: 'text',
                 component: null,
                 isNull: false,
-                label: '销售金额',
+                label: '运输方式',
                 placeholder: '',
-                rule: [{required: true, trigger: 'blur', message: '请输入销售金额'}, {validator: validate2.reNumber}]
+                disabled: true,
+                rule: {required: true, trigger: 'blur', message: '请输入运输方式'}
+            },
+            {
+                name: 'date',
+                type: 'date',
+                component: inputDate,
+                label: '下单日期',
+                placeholder: '',
+                rule: [{required: true, message: '请选择下单日期'}, {validator: validate2.reDate, message: '请选择下单日期'}]
+            },
+            {
+                name: 'sale_person',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '业务员',
+                placeholder: '',
+                rule: {required: true, trigger: 'blur', message: '请输入业务员'}
+            },
+            {
+                name: 'operate',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '制单人',
+                placeholder: '',
+                rule: {required: true, trigger: 'blur', message: '请输入制单人'}
             },
             {
                 name: 'memo',
@@ -4623,30 +4746,79 @@ export default {
         }],
         editComponent: [{
             tab: '编辑订单信息',
-            hiddenValue: {type: 1},
-            selectUrl2: [['deliveries', 'id', 'serial', true], ['clients', 'id', 'name', true], ['operates', 'id', 'name', true]],
-            selectInit2: [{value: '', label: '请选择物流批次号'}, {value: '', label: '请选择销售客户'}, {value: '', label: '请选择销售人员'}],
-            popNumber2: [2, 3, 4],
-            selectWhereArr2: [[], [], [{n: 'domain', v: 'sell'}, {n: 'domain', v: 'all', s: true}]],
+            selectUrl2: [['clients', 'id', 'name', true], ['deliveries', 'id', 'serial', true]],
+            selectInit2: [{value: '', label: '订单客户选择'}, {value: '', label: '物流订单选择'}],
+            popNumber2: [1, 7],
             components: [{
                 name: 'serial',
                 type: 'text',
                 component: null,
                 isNull: false,
-                label: '销售批次号',
+                label: '订单批次号',
                 placeholder: '',
                 disabled: true,
                 rule: {required: true}
             },
             {
-                name: 'datetime',
-                type: 'date',
-                component: inputDate,
+                name: 'client_id',
+                type: 'select',
+                component: null,
                 isNull: false,
-                label: '订单日期时间',
+                label: '订单客户',
+                placeholder: '',
+                arrOption: ['company_name', 'contact', 'phone', 'address', 'bank_account'],
+                rule: {required: true, trigger: 'blur', type: 'number', message: '请选择订单客户'},
+                options: []
+            },
+            {
+                name: 'company_name',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '订货公司',
                 placeholder: '',
                 disabled: true,
-                rule: [{required: true, trigger: 'blur', message: '请输入订单日期时间'}, {validator: validate2.reDate, message: '请输入订单日期时间'}]
+                rule: {required: true, trigger: 'blur', message: '请输入订货公司'}
+            },
+            {
+                name: 'contact',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '联系人',
+                placeholder: '',
+                disabled: true,
+                rule: {required: true, trigger: 'blur', message: '请输入联系人'}
+            },
+            {
+                name: 'phone',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '联系电话',
+                placeholder: '',
+                disabled: true,
+                rule: {required: true, trigger: 'blur', message: '请输入联系电话'}
+            },
+            {
+                name: 'address',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '送货地址',
+                placeholder: '',
+                disabled: true,
+                rule: {required: true, trigger: 'blur', message: '请输入送货地址'}
+            },
+            {
+                name: 'bank_account',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '汇款账户',
+                placeholder: '',
+                disabled: true,
+                rule: {required: true, trigger: 'blur', message: '请输入汇款账户'}
             },
             {
                 name: 'delivery_id',
@@ -4655,37 +4827,45 @@ export default {
                 isNull: false,
                 label: '物流订单',
                 placeholder: '',
+                arrOption: ['transportable_type'],
                 rule: {required: true, trigger: 'blur', type: 'number', message: '请选择物流订单'},
                 options: []
             },
             {
-                name: 'client_id',
-                type: 'select',
-                component: null,
-                isNull: false,
-                label: '客户',
-                placeholder: '',
-                rule: {required: true, trigger: 'blur', type: 'number', message: '请选择销售客户'},
-                options: []
-            },
-            {
-                name: 'operate_id',
-                type: 'select',
-                component: null,
-                isNull: false,
-                label: '销售员',
-                placeholder: '',
-                rule: {required: true, trigger: 'blur', type: 'number', message: '请选择销售人员'},
-                options: []
-            },
-            {
-                name: 'money',
+                name: 'transportable_type',
                 type: 'text',
                 component: null,
                 isNull: false,
-                label: '销售金额',
+                label: '运输方式',
                 placeholder: '',
-                rule: [{required: true, trigger: 'blur', message: '请输入销售金额'}, {validator: validate2.reNumber}]
+                disabled: true,
+                rule: {required: true, trigger: 'blur', message: '请输入运输方式'}
+            },
+            {
+                name: 'date',
+                type: 'date',
+                component: inputDate,
+                label: '下单日期',
+                placeholder: '',
+                rule: [{required: true, message: '请选择下单日期'}, {validator: validate2.reDate, message: '请选择下单日期'}]
+            },
+            {
+                name: 'sale_person',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '业务员',
+                placeholder: '',
+                rule: {required: true, trigger: 'blur', message: '请输入业务员'}
+            },
+            {
+                name: 'operate',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '制单人',
+                placeholder: '',
+                rule: {required: true, trigger: 'blur', message: '请输入制单人'}
             },
             {
                 name: 'memo',
