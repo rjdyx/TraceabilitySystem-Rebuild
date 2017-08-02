@@ -548,8 +548,9 @@ export default {
                             this.editForm['storage_number'] = responce.data['real_number']
                         } else if (name === 'sell_store_id') {
                             if (responce.data !== '') {
-                                com.components[subItem.placeholderMsg].rule[1]['getMax'] = responce.data['storage_number']
-                                com.components[subItem.placeholderMsg].placeholder = '库存数量' + responce.data['storage_number']
+                                let num = responce.data['storage_number'] - responce.data['reserve_number']
+                                com.components[subItem.placeholderMsg].rule[1]['getMax'] = num
+                                com.components[subItem.placeholderMsg].placeholder = '库存数量' + num
                             } else {
                                 com.components[subItem.placeholderMsg].rule[1]['getMax'] = undefined
                                 com.components[subItem.placeholderMsg].placeholder = ''

@@ -1602,9 +1602,9 @@ export default {
     saleOrderBatch: {
         key: 'saleOrderBatch',
         tab: '销售订单产品管理',
-        changeDataArr: [{state: {'未完成': 0, '已完成': 1}}, {transportable_type: {'自运': 'self', '托运': 'consign'}}],
-        theads: ['订单批次号', '订购公司', '联系人', '联系电话', '送货地址', '业务员', '制单人', '下单日期', '运输方式', '汇款账户', '物流单号', '状态', '备注'],
-        protos: ['serial', 'company_name', 'contact', 'phone', 'address', 'sale_person', 'operate', 'date', 'transportable_type', 'bank_account', 'transportable_type', 'state', 'memo'],
+        changeDataArr: [{transportable_type: {'自运': 'self', '托运': 'consign'}}],
+        theads: ['订单批次号', '订购公司', '联系人', '联系电话', '送货地址', '业务员', '制单人', '下单日期', '运输方式', '汇款账户', '物流单号', '备注'],
+        protos: ['serial', 'company_name', 'contact', 'phone', 'address', 'sale_person', 'operate', 'date', 'transportable_type', 'bank_account', 'delivery_serial', 'memo'],
         url: 'sell',
         tabList: [{
             key: 'sell-product',
@@ -1710,7 +1710,7 @@ export default {
                     isNull: false,
                     label: '产品数量',
                     placeholder: '',
-                    rule: [{required: true, trigger: 'blur', message: '请输入产品数量'}, {validator: validate2.reInteger, getMessage: '产品数量不能大于库存数'}]
+                    rule: [{required: true, message: '请输入产品数量'}, {validator: validate2.reInteger, getMessage: '产品数量不能大于库存数'}]
                 },
                 {
                     name: 'unit_price',
@@ -1719,7 +1719,7 @@ export default {
                     isNull: false,
                     label: '单价(元/件)',
                     placeholder: '',
-                    rule: [{required: true, trigger: 'blur', message: '请输入产品单价'}, {validator: validate2.reNumber}]
+                    rule: [{required: true, message: '请输入产品单价'}, {validator: validate2.reNumber}]
                 },
                 {
                     name: 'memo',
@@ -1731,6 +1731,29 @@ export default {
                     rule: null
                 }]
             }]
+        }]
+    },
+    // 发货单详情
+    deliverOrderBatch: {
+        key: 'deliverOrderBatch',
+        tab: '销售订单产品管理',
+        changeDataArr: [{state: {'未完成': 0, '已完成': 1}}],
+        theads: ['发货批次号', '客户名称', '客户电话', '交接员', '制单人', '下单日期', '出货日期', '状态', '备注'],
+        protos: ['deliver_serial', 'client_name', 'phone', 'contact', 'operate', 'date', 'out_date', 'state', 'memo'],
+        url: 'sell',
+        tabList: [{
+            key: 'sell-product',
+            url: 'sell-product',
+            tab: '销售订单产品信息',
+            searchPlaceholder: '请输入溯源码进行搜索',
+            headList: ['订单产品', '规格型号', '数量', '单价(元/件)', '金额（元）', '备注信息'],
+            protos: ['product_name', 'specification', 'amount', 'unit_price', 'total', 'memo'],
+            hiddeOperate: false,
+            hiddeEdit: true,
+            searchText: true,
+            widths: [50, 50, 50, 50, 50, 50],
+            typeComponent: [],
+            listComponent: []
         }]
     },
     // 入驻单位详情

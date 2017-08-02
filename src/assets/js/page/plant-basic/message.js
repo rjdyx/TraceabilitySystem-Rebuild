@@ -28,8 +28,8 @@ export default {
             tab: '种植场',
             url: 'plantation',
             searchPlaceholder: '请输入种植场进行搜索',
-            theads: ['种植场名称', '有机种植面积', '热线电话', '负责人', '种植场图片', '备注'],
-            protos: ['name', 'area_unit', 'phone', 'director', 'img', 'memo'],
+            theads: ['种植场名称', '有机种植面积', '热线电话', '负责人', '地址', '种植场图片', '备注'],
+            protos: ['name', 'area_unit', 'phone', 'director', 'address', 'img', 'memo'],
             widths: [50, 50, 50, 50, 50, 50, 50],
             typeComponent: [{
                 component: output
@@ -89,6 +89,15 @@ export default {
                     component: null,
                     isNull: false,
                     label: '负责人',
+                    placeholder: '',
+                    rule: null
+                },
+                {
+                    name: 'address',
+                    type: 'text',
+                    component: null,
+                    isNull: false,
+                    label: '地址',
                     placeholder: '',
                     rule: null
                 },
@@ -172,6 +181,15 @@ export default {
                     component: null,
                     isNull: false,
                     label: '负责人',
+                    placeholder: '',
+                    rule: null
+                },
+                {
+                    name: 'address',
+                    type: 'text',
+                    component: null,
+                    isNull: false,
+                    label: '地址',
                     placeholder: '',
                     rule: null
                 },
@@ -418,7 +436,7 @@ export default {
             url: 'tea',
             searchPlaceholder: '请输入茶叶品种名称进行搜索',
             commaArr: ['dry_tea', 'liquor_color', 'leaf_bottom'],
-            theads: ['茶叶品种', '干茶', '汤色', '叶底', '香气', '滋味', '采摘周期', '品种图片', '备注'],
+            theads: ['茶叶品种', '干茶', '汤色', '叶底', '香气', '滋味', '采摘周期（年）', '品种图片', '备注'],
             protos: ['name', 'dry_tea', 'liquor_color', 'leaf_bottom', 'fragrance', 'taste', 'picking_cycle', 'img', 'memo'],
             widths: [50, 50, 50, 50, 50, 50, 50, 50, 50],
             typeComponent: [{
@@ -1861,7 +1879,7 @@ export default {
         selectDefault: [{value: '', label: '种植区选择'}],
         changeDataArr: [{state: {0: '未完成', 1: '已完成'}}],
         searchPlaceholder: '请输入采制批次号进行搜索',
-        theads: ['采制批次号', '采制开始日期', '所属种植区', '种植批次', '入库部门', '存放仓库位置', '状态', '备注'],
+        theads: ['采制批次号', '采制日期', '所属种植区', '种植批次', '入库部门', '存放仓库位置', '状态', '备注'],
         protos: ['serial', 'date', 'plantation_name', 'cultivate_serial', 'department', 'position', 'state', 'memo'],
         widths: [60, 50, 50, 60, 50, 50, 50, 50],
         typeComponent: [{
@@ -3246,11 +3264,11 @@ export default {
             key: 'invoices-order',
             url: 'invoices-order',
             batch: 'invoicesOrderBatch',
-            changeDataArr: [{state: {0: '未完成', 1: '已完成'}}],
+            changeDataArr: [{state: {0: '已通过', 1: '未通过'}}],
             searchPlaceholder: '请输入调拨批次号号进行搜索',
-            theads: ['入库单批次号', '入库日期', '出库仓库名', '入库仓库名', '操作人（制票人）', '送货人', '提货人', '备注'],
-            protos: ['serial', 'date', 'store_name', 'storeroom_name', 'operate', 'deliveryman', 'consignee', 'memo'],
-            widths: [50, 50, 50, 50, 50, 50, 50, 50],
+            theads: ['入库单批次号', '入库日期', '出库仓库名', '入库仓库名', '操作人（制票人）', '送货人', '提货人', '审核状态', '备注'],
+            protos: ['serial', 'date', 'store_name', 'storeroom_name', 'operate', 'deliveryman', 'consignee', 'state', 'memo'],
+            widths: [50, 50, 50, 50, 50, 50, 50, 50, 50],
             typeComponent: [{
                 component: output
             },
@@ -3265,6 +3283,7 @@ export default {
                     }
                 ]
             }],
+            moreComponent: [{value: '审核状态'}],
             newComponent: [{
                 tab: '新建毛茶入库信息',
                 selectUrl2: [['storerooms', 'id', 'name', true]],
@@ -3899,332 +3918,6 @@ export default {
                     rule: null
                 }]
             }]
-        },
-        {
-            settitle: '仓库管理',
-            tab: '产品出库管理',
-            key: 'delivery',
-            roleKey: 'pinto',
-            roleName: ['delivery/order', 0],
-            url: 'delivery',
-            batch: 'logisticBatch',
-            selectSearch: ['deliveries.transportable_type'],
-            changeDataArr: [{transportable_type: { 'self': '自运', 'consign': '托运', 'selve': '自提' }}, {state: {0: '未完成', 1: '已完成'}}],
-            searchPlaceholder: '请输入出库单号进行搜索',
-            theads: ['收款日期', '销售方式', '摘要', '购货单位', '日期', '编号', '产品代号', '规格型号', '单位', '实发数量', '库存数量', '销售单价', '销售金额', '基本单位名称', '基本单位实发数量', '备注', '发料仓库'],
-            protos: ['serial', 'datetime', 'name', 'transportable_type', 'operate_name', 'serial', 'datetime', 'name', 'transportable_type', 'operate_name', 'transportable_type', 'operate_name', 'serial', 'datetime', 'name', 'transportable_type', 'operate_name', 'serial', 'datetime'],
-            widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
-            typeComponent: [{
-                component: output
-            },
-            {
-                component: newbuildBtn
-            }],
-            listComponent: [{
-                components: [
-                    {
-                        type: 'date',
-                        components: 'datePick'
-                    }
-                ]
-            }],
-            newComponent: [{
-                tab: '新建领料单信息',
-                components: [{
-                    name: 'datetime',
-                    type: 'date',
-                    component: inputDate,
-                    label: '收款日期',
-                    placeholder: '',
-                    rule: [{required: true, message: '请选择收款日期'}, {validator: validate2.reDate, message: '请选择收款日期'}]
-                },
-                {
-                    name: 'name',
-                    type: 'text',
-                    component: null,
-                    label: '销售方式',
-                    placeholder: '',
-                    rule: {required: true, message: '请输入销售方式'}
-                },
-                {
-                    name: 'transportable_type',
-                    type: 'text',
-                    component: null,
-                    label: '摘要',
-                    placeholder: '必选',
-                    rule: null
-                },
-                {
-                    name: 'vehicle_id',
-                    type: 'text',
-                    component: null,
-                    label: '购货单位',
-                    placeholder: '',
-                    rule: null
-                },
-                {
-                    name: 'driver_id',
-                    type: 'text',
-                    component: inputDate,
-                    label: '日期',
-                    placeholder: '',
-                    rule: [{required: true, message: '请选择日期'}, {validator: validate2.reDate, message: '请选择日期'}]
-                },
-                {
-                    name: 'logistic_id',
-                    type: 'text',
-                    component: null,
-                    label: '编号',
-                    placeholder: '',
-                    rule: null
-                },
-                {
-                    name: 'number',
-                    type: 'text',
-                    component: null,
-                    label: '产品代号',
-                    placeholder: '',
-                    rule: null
-                },
-                {
-                    name: 'selve_name',
-                    type: 'text',
-                    component: null,
-                    label: '产品名称',
-                    placeholder: '',
-                    rule: null
-                },
-                {
-                    name: 'operate_id',
-                    type: 'text',
-                    component: null,
-                    label: '规格型号',
-                    placeholder: '',
-                    rule: null
-                },
-                {
-                    name: 'memo',
-                    type: 'text',
-                    component: null,
-                    label: '单位',
-                    placeholder: '',
-                    rule: null
-                },
-                {
-                    name: 'memo',
-                    type: 'text',
-                    component: null,
-                    label: '实发数量',
-                    placeholder: '',
-                    rule: {required: true, trigger: 'blur', type: 'number', message: '请输入正确的数字'}
-                },
-                {
-                    name: 'vehicle_id',
-                    type: 'text',
-                    component: null,
-                    label: '库存数量',
-                    placeholder: '',
-                    rule: {required: false, trigger: 'blur', type: 'number', message: '请输入正确的数字'}
-                },
-                {
-                    name: 'driver_id',
-                    type: 'text',
-                    component: null,
-                    label: '销售单价',
-                    placeholder: '',
-                    rule: {required: true, trigger: 'blur', type: 'number', message: '请输入销售单价(数字)'}
-                },
-                {
-                    name: 'logistic_id',
-                    type: 'text',
-                    component: null,
-                    label: '销售金额',
-                    placeholder: '',
-                    rule: {required: false, trigger: 'blur', type: 'number', message: '请输入销售金额(数字)'}
-                },
-                {
-                    name: 'number',
-                    type: 'text',
-                    component: null,
-                    label: '基本单位名称',
-                    placeholder: '',
-                    rule: null
-                },
-                {
-                    name: 'selve_name',
-                    type: 'text',
-                    component: null,
-                    label: '基本单位实发数量',
-                    placeholder: '',
-                    rule: {required: false, trigger: 'blur', type: 'number', message: '请输入销售金额(数字)'}
-                },
-                {
-                    name: 'operate_id',
-                    type: 'textarea',
-                    component: null,
-                    label: '备注',
-                    placeholder: '',
-                    rule: null
-                },
-                {
-                    name: 'operate_id',
-                    type: 'select',
-                    component: null,
-                    label: '发货仓库',
-                    placeholder: '',
-                    rule: null,
-                    options: []
-                }]
-            }],
-            moreComponent: [{value: '审核状态'}],
-            editComponent: [{
-                tab: '编辑领料单信息',
-                components: [{
-                    name: 'datetime',
-                    type: 'date',
-                    component: inputDate,
-                    label: '收款日期',
-                    placeholder: '',
-                    rule: [{required: true, message: '请选择收款日期'}, {validator: validate2.reDate, message: '请选择收款日期'}]
-                },
-                {
-                    name: 'name',
-                    type: 'text',
-                    component: null,
-                    label: '销售方式',
-                    placeholder: '',
-                    rule: {required: true, message: '请输入销售方式'}
-                },
-                {
-                    name: 'transportable_type',
-                    type: 'text',
-                    component: null,
-                    label: '摘要',
-                    placeholder: '必选',
-                    rule: null
-                },
-                {
-                    name: 'vehicle_id',
-                    type: 'text',
-                    component: null,
-                    label: '购货单位',
-                    placeholder: '',
-                    rule: null
-                },
-                {
-                    name: 'driver_id',
-                    type: 'text',
-                    component: inputDate,
-                    label: '日期',
-                    placeholder: '',
-                    rule: [{required: true, message: '请选择日期'}, {validator: validate2.reDate, message: '请选择日期'}]
-                },
-                {
-                    name: 'logistic_id',
-                    type: 'text',
-                    component: null,
-                    label: '编号',
-                    placeholder: '',
-                    rule: null
-                },
-                {
-                    name: 'number',
-                    type: 'text',
-                    component: null,
-                    label: '产品代号',
-                    placeholder: '',
-                    rule: null
-                },
-                {
-                    name: 'selve_name',
-                    type: 'text',
-                    component: null,
-                    label: '产品名称',
-                    placeholder: '',
-                    rule: null
-                },
-                {
-                    name: 'operate_id',
-                    type: 'text',
-                    component: null,
-                    label: '规格型号',
-                    placeholder: '',
-                    rule: null
-                },
-                {
-                    name: 'memo',
-                    type: 'text',
-                    component: null,
-                    label: '单位',
-                    placeholder: '',
-                    rule: null
-                },
-                {
-                    name: 'memo',
-                    type: 'text',
-                    component: null,
-                    label: '实发数量',
-                    placeholder: '',
-                    rule: {required: true, trigger: 'blur', type: 'number', message: '请输入正确的数字'}
-                },
-                {
-                    name: 'vehicle_id',
-                    type: 'text',
-                    component: null,
-                    label: '库存数量',
-                    placeholder: '',
-                    rule: {required: false, trigger: 'blur', type: 'number', message: '请输入正确的数字'}
-                },
-                {
-                    name: 'driver_id',
-                    type: 'text',
-                    component: null,
-                    label: '销售单价',
-                    placeholder: '',
-                    rule: {required: true, trigger: 'blur', type: 'number', message: '请输入销售单价(数字)'}
-                },
-                {
-                    name: 'logistic_id',
-                    type: 'text',
-                    component: null,
-                    label: '销售金额',
-                    placeholder: '',
-                    rule: {required: false, trigger: 'blur', type: 'number', message: '请输入销售金额(数字)'}
-                },
-                {
-                    name: 'number',
-                    type: 'text',
-                    component: null,
-                    label: '基本单位名称',
-                    placeholder: '',
-                    rule: null
-                },
-                {
-                    name: 'selve_name',
-                    type: 'text',
-                    component: null,
-                    label: '基本单位实发数量',
-                    placeholder: '',
-                    rule: {required: false, trigger: 'blur', type: 'number', message: '请输入销售金额(数字)'}
-                },
-                {
-                    name: 'operate_id',
-                    type: 'textarea',
-                    component: null,
-                    label: '备注',
-                    placeholder: '',
-                    rule: null
-                },
-                {
-                    name: 'operate_id',
-                    type: 'select',
-                    component: null,
-                    label: '发货仓库',
-                    placeholder: '',
-                    rule: null,
-                    options: []
-                }]
-            }]
         }
     ],
     // 销售管理--基础信息管理
@@ -4611,9 +4304,9 @@ export default {
         url: 'sell',
         batch: 'saleOrderBatch',
         searchPlaceholder: '请输入订货单号',
-        changeDataArr: [{state: {0: '未完成', 1: '已完成'}}, {transportable_type: {'self': '自运', 'consign': '托运'}}],
-        theads: ['订单批次号', '订购公司', '联系人', '联系电话', '送货地址', '业务员', '制单人', '下单日期', '运输方式', '汇款账户', '物流单号', '状态', '备注'],
-        protos: ['serial', 'company_name', 'contact', 'phone', 'address', 'sale_person', 'operate', 'date', 'transportable_type', 'bank_account', 'transportable_type', 'state', 'memo'],
+        changeDataArr: [{transportable_type: {'self': '自运', 'consign': '托运'}}],
+        theads: ['订单批次号', '订购公司', '联系人', '联系电话', '送货地址', '业务员', '制单人', '下单日期', '运输方式', '汇款账户', '物流单号', '备注'],
+        protos: ['serial', 'company_name', 'contact', 'phone', 'address', 'sale_person', 'operate', 'date', 'transportable_type', 'bank_account', 'delivery_serial', 'memo'],
         widths: [50, 50, 50, 50, 50, 50, 50, 50, 50],
         typeComponent: [{
             component: output
@@ -4884,170 +4577,25 @@ export default {
                     components: 'datePick'
                 }
             ]
-        }]
+        }],
+        moreComponent: [{value: '发货'}]
     },
     {
         settitle: '销售订单管理',
-        key: 'sell',
-        roleKey: 'send',
+        key: 'sale',
         tab: '发货单管理',
-        url: 'sell',
-        roleName: ['sell/order', 0],
-        batch: 'saleOrder',
-        searchPlaceholder: '请输入订货单号',
+        url: 'sale',
+        batch: 'deliverOrderBatch',
+        searchPlaceholder: '请输入发货单号',
         changeDataArr: [{state: {0: '未完成', 1: '已完成'}}],
-        theads: ['标题', '公司名称', '联系人', '联系电话', '地址', '业务员', '下单日期', '列表项包含序号', '产品名称', '规格', '单价', '数量', '金额', '备注'],
-        protos: ['serial', 'datetime', 'delivery_serial', 'client_name', 'money', 'amount', 'operate_name', 'user_name', 'state', 'memo'],
-        widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
+        theads: ['发货批次号', '客户名称', '客户电话', '交接员', '制单人', '下单日期', '出货日期', '状态', '备注'],
+        protos: ['deliver_serial', 'client_name', 'phone', 'contact', 'operate', 'date', 'out_date', 'state', 'memo'],
+        widths: [50, 50, 50, 50, 50, 50, 50, 50, 50],
+        hiddeEdit: true,
         typeComponent: [{
             component: output
-        },
-        {
-            component: newbuildBtn
         }],
         moreComponent: [{value: '状态'}],
-        newComponent: [{
-            tab: '新建订单信息',
-            hiddenValue: {type: 1},
-            selectUrl2: [['deliveries', 'id', 'serial', true], ['clients', 'id', 'name', true], ['operates', 'id', 'name', true]],
-            selectInit2: [{value: '', label: '请选择物流批次号'}, {value: '', label: '请选择销售客户'}, {value: '', label: '请选择销售人员'}],
-            popNumber2: [1, 2, 3],
-            selectWhereArr2: [[], [], [{n: 'domain', v: 'sell'}, {n: 'domain', v: 'all', s: true}]],
-            components: [{
-                name: 'datetime',
-                type: 'date',
-                component: inputDate,
-                isNull: false,
-                label: '订单日期时间',
-                placeholder: '',
-                disabled: true,
-                rule: [{required: true, message: '请输入订单日期时间'}, {validator: validate2.reDate, message: '请输入订单日期时间'}]
-            },
-            {
-                name: 'delivery_id',
-                type: 'select',
-                component: null,
-                isNull: false,
-                label: '物流订单',
-                placeholder: '',
-                rule: {required: true, trigger: 'blur', type: 'number', message: '请选择物流订单'},
-                options: []
-            },
-            {
-                name: 'client_id',
-                type: 'select',
-                component: null,
-                isNull: false,
-                label: '客户',
-                placeholder: '',
-                rule: {required: true, trigger: 'blur', type: 'number', message: '请选择销售客户'},
-                options: []
-            },
-            {
-                name: 'operate_id',
-                type: 'select',
-                component: null,
-                isNull: false,
-                label: '销售员',
-                placeholder: '',
-                rule: {required: true, trigger: 'blur', type: 'number', message: '请选择销售人员'},
-                options: []
-            },
-            {
-                name: 'money',
-                type: 'text',
-                component: null,
-                isNull: false,
-                label: '销售金额',
-                placeholder: '',
-                rule: [{required: true, trigger: 'blur', message: '请输入销售金额'}, {validator: validate2.reNumber}]
-            },
-            {
-                name: 'memo',
-                type: 'textarea',
-                component: null,
-                isNull: true,
-                label: '备注信息',
-                placeholder: '',
-                rule: null
-            }]
-        }],
-        editComponent: [{
-            tab: '编辑订单信息',
-            hiddenValue: {type: 1},
-            selectUrl2: [['deliveries', 'id', 'serial', true], ['clients', 'id', 'name', true], ['operates', 'id', 'name', true]],
-            selectInit2: [{value: '', label: '请选择物流批次号'}, {value: '', label: '请选择销售客户'}, {value: '', label: '请选择销售人员'}],
-            popNumber2: [2, 3, 4],
-            selectWhereArr2: [[], [], [{n: 'domain', v: 'sell'}, {n: 'domain', v: 'all', s: true}]],
-            components: [{
-                name: 'serial',
-                type: 'text',
-                component: null,
-                isNull: false,
-                label: '销售批次号',
-                placeholder: '',
-                disabled: true,
-                rule: {required: true}
-            },
-            {
-                name: 'datetime',
-                type: 'date',
-                component: inputDate,
-                isNull: false,
-                label: '订单日期时间',
-                placeholder: '',
-                disabled: true,
-                rule: [{required: true, trigger: 'blur', message: '请输入订单日期时间'}, {validator: validate2.reDate, message: '请输入订单日期时间'}]
-            },
-            {
-                name: 'delivery_id',
-                type: 'select',
-                component: null,
-                isNull: false,
-                label: '物流订单',
-                placeholder: '',
-                rule: {required: true, trigger: 'blur', type: 'number', message: '请选择物流订单'},
-                options: []
-            },
-            {
-                name: 'client_id',
-                type: 'select',
-                component: null,
-                isNull: false,
-                label: '客户',
-                placeholder: '',
-                rule: {required: true, trigger: 'blur', type: 'number', message: '请选择销售客户'},
-                options: []
-            },
-            {
-                name: 'operate_id',
-                type: 'select',
-                component: null,
-                isNull: false,
-                label: '销售员',
-                placeholder: '',
-                rule: {required: true, trigger: 'blur', type: 'number', message: '请选择销售人员'},
-                options: []
-            },
-            {
-                name: 'money',
-                type: 'text',
-                component: null,
-                isNull: false,
-                label: '销售金额',
-                placeholder: '',
-                rule: [{required: true, trigger: 'blur', message: '请输入销售金额'}, {validator: validate2.reNumber}]
-            },
-            {
-                name: 'memo',
-                type: 'textarea',
-                component: null,
-                isNull: true,
-                label: '备注信息',
-                placeholder: '',
-                rule: null
-            }]
-        }],
         listComponent: [{
             components: [
                 {

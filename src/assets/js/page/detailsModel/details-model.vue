@@ -165,7 +165,7 @@
                             </harvestMore>
                         </template>
 
-                            <template>
+                            <template v-if="hiddeOperate">
                                 <el-button type="text" size="small" @click="changeEditShow(scope.$index,scope.row)"
                                 :disabled="stateDisabled()" v-if="tabList[index].hiddeEdit">
                                 编辑</el-button>
@@ -179,7 +179,7 @@
                     </el-table-column>
                 </el-table>
         <div class="footer">
-            <div class="operate-foot">
+            <div class="operate-foot" v-if="hiddeOperate">
                 <el-button @click="delAll" v-if="checkOperate==null">删除</el-button>
                 <template v-if="lotComponent!=null">
                     <lotOpearte :lotComponent="lotComponent"></lotOpearte>
@@ -307,6 +307,7 @@ export default {
             isShow: true,
             listLoading: false,
             tableListBollean: true,
+            hiddeOperate: true,
             expandMore: false,
             showHarvest: false,
             thead: [],
@@ -875,7 +876,6 @@ export default {
                 })
                 let expandicon = document.getElementsByClassName('el-table__expand-icon')
                 for (let j = 0; j < expandicon.length; j++) {
-                    // console.log(expandicon[j].className)
                     if (expandicon[j].className.indexOf('el-table__expand-icon--expanded') > 0) {
                         $(this).removeClass('el-table__expand-icon--expanded')
                     }
@@ -898,6 +898,9 @@ export default {
             this.tabItem.harvestMore.forEach(function (subItem) {
                 Vue.set(subItem, 'nameHide', true)
             })
+        }
+        if (this.tabItem.hiddeOperate !== undefined) {
+            this.hiddeOperate = this.tabItem.hiddeOperate
         }
     },
     watch: {

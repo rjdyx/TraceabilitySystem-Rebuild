@@ -71,6 +71,8 @@
                     this.$emit('showPermission')
                 } else if (command === '用户') {
                     this.$emit('showDetail')
+                } else if (command === '发货') {
+                    this.$emit('shipGoods')
                 }
             },
             closeClick () {

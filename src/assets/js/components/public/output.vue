@@ -21,7 +21,16 @@
                         str += '&' + k + '=' + this.type[k]
                     }
                 }
-                window.location.href = this.$adminUrl(this.url) + str
+                axios.get(this.$adminUrl(this.url) + str)
+                    .then((responce) => {
+                        if (typeof (responce.data) === 'object') {
+                            if (responce.data.data.length === 0) {
+                                this.$message('列表页为空')
+                            }
+                        } else {
+                            window.location.href = this.$adminUrl(this.url) + str
+                        }
+                    })
             }
         }
     }
