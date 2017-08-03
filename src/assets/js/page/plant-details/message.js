@@ -17,8 +17,6 @@ export default {
     plantSerial: {
         key: 'plantSerial',
         tab: '种植批次管理',
-        // 是否有打印按钮标志
-        printShow: true,
         roleName: ['plant/cultivate', 0],
         theads: ['种植批次号', '所属种植区', '种植人', '种植日期', '茶叶品种名称', '当前批次面积', '状态'],
         protos: ['serial', 'plantation_name', 'operate', 'date', 'tea_name', 'area_unit', 'state'],
@@ -577,7 +575,6 @@ export default {
     teaOrderBatch: {
         key: 'teaOrderBatch',
         tab: '凤凰山茶库出库管理',
-        // 是否有打印按钮标志
         printShow: true,
         theads: ['出库批次号', '出库仓库名', '操作人（制票人）', '送货人', '出库日期', '状态', '备注'],
         protos: ['serial', 'storeroom_name', 'operate', 'deliveryman', 'date', 'state', 'memo'],
@@ -717,6 +714,7 @@ export default {
     invoicesOrderBatch: {
         key: 'invoicesOrderBatch',
         tab: '毛茶入库管理',
+        printShow: true,
         theads: ['入库单批次号', '入库日期', '出库仓库名', '入库仓库名', '操作人（制票人）', '送货人', '提货人', '备注'],
         protos: ['serial', 'date', 'store_name', 'storeroom_name', 'operate', 'deliveryman', 'consignee', 'memo'],
         url: 'invoices-order',
@@ -738,6 +736,7 @@ export default {
     productiveTaskBatch: {
         key: 'productiveTaskBatch',
         tab: '生产任务管理',
+        printShow: true,
         theads: ['生产任务批次号', '制单日期', '制单人', '任务类型', '审核状态', '客户名称', '客户电话', '交接员', '出货日期', '发货地址', '备注'],
         protos: ['serial', 'date', 'operate', 'task_type', 'state', 'client_name', 'client_phone', 'transfer_member', 'out_date', 'ship_address', 'memo'],
         url: 'productive-task',
@@ -884,6 +883,7 @@ export default {
     pickingListBatch: {
         key: 'pickingListBatch',
         tab: '领料单管理',
+        printShow: true,
         theads: ['领料批次号', '领料类型', '领料部门', '领料用途', '领料日期', '发料仓库', '审核状态', '备注'],
         protos: ['serial', 'pick_type', 'pick_department', 'pick_use', 'date', 'storeroom_name', 'state', 'memo'],
         changeDataArr: [{state: {'未通过': 1, '已通过': 0}}],
@@ -1139,6 +1139,7 @@ export default {
     storageOrderBatch: {
         key: 'storageOrderBatch',
         tab: '产品入库管理',
+        printShow: true,
         theads: ['产品入库批次号', '发货单位', '入库日期', '收货仓库', '审核状态', '备注'],
         protos: ['serial', 'forwarding_unit', 'date', 'storeroom_name', 'state', 'memo'],
         changeDataArr: [{state: {'未通过': 1, '已通过': 0}}],
@@ -1520,6 +1521,7 @@ export default {
     saleOrderBatch: {
         key: 'saleOrderBatch',
         tab: '销售订单产品管理',
+        printShow: true,
         changeDataArr: [{transportable_type: {'自运': 'self', '托运': 'consign'}}],
         theads: ['订单批次号', '订购公司', '联系人', '联系电话', '送货地址', '业务员', '制单人', '下单日期', '运输方式', '汇款账户', '物流单号', '备注'],
         protos: ['serial', 'company_name', 'contact', 'phone', 'address', 'sale_person', 'operate', 'date', 'transportable_type', 'bank_account', 'delivery_serial', 'memo'],
@@ -1655,6 +1657,7 @@ export default {
     deliverOrderBatch: {
         key: 'deliverOrderBatch',
         tab: '销售订单产品管理',
+        printShow: true,
         changeDataArr: [{state: {'未完成': 0, '已完成': 1}}],
         theads: ['发货批次号', '客户名称', '客户电话', '交接员', '制单人', '下单日期', '出货日期', '状态', '备注'],
         protos: ['deliver_serial', 'client_name', 'phone', 'contact', 'operate', 'date', 'out_date', 'state', 'memo'],
