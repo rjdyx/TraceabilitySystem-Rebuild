@@ -27,7 +27,6 @@ const shop = resolve => {
         resolve(require('../page/phone/plant/shop.vue'))
     }, 'shop')
 }
-
 // ---------------------------手机版首页__生长图片----------------------------------
 const grow = resolve => {
     require.ensure(['../page/phone/plant/grow.vue'], () => {
@@ -84,6 +83,12 @@ export default {
             meta: {key: 'basicInfor', runName: 'plant'},
             component: pBasic,
             alias: '/run/plant/basicInfor/:id'
+        },
+        {
+            path: '/saleInfor/:id',
+            meta: {key: 'saleInfor', runName: 'plant'},
+            component: pBasic,
+            alias: '/run/plant/saleInfor/:id'
         },
         {
             path: '/shop/:id',

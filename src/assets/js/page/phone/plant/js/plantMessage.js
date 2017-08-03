@@ -11,6 +11,14 @@ export default{
         tableProtos: ['parent_name', 'director', 'address', 'area', 'phone', 'name', 'operate_name', 'cultivate_date', 'harvest_date'],
         tableName2: '实时监控'
     },
+    // 销售信息
+    saleInfor: {
+        title: '销售信息',
+        tableName: '销售信息',
+        tableTheads: ['种植场', '负责人', '地址', '面积', '联系方式', '种植区', '种植人', '种植日期', '采收日期'],
+        tableProtos: ['parent_name', 'director', 'address', 'area', 'phone', 'name', 'operate_name', 'cultivate_date', 'harvest_date'],
+        tableName2: '实时监控'
+    },
     // 购物链接
     shop: {
         title: '购物链接'
@@ -19,15 +27,15 @@ export default{
     growImg: {
         title: '生长图片'
     },
-    // 采收信息
+    // 采制信息
     harvest: {
-        title: '采收信息',
-        tableName: '采收记录',
+        title: '采制信息',
+        tableName: '采制记录',
         tableTheads: ['批次号', '操作人', '日期', '图片'],
         tableProtos: [],
         details: {
             tableList: {
-                tableName: '采收记录详情',
+                tableName: '采制记录详情',
                 tableTheads: ['批次号', '农药名称', '施药日期', '平均施药', '施药方式', '天气', '施药人', '指导专家'],
                 tableProtos: ['serial', 'medicament_name', 'date', 'amount', 'way', 'weather', 'operate_name', 'expert_name']
             },

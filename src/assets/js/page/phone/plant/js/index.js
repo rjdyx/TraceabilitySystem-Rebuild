@@ -37,7 +37,7 @@ export default{
         },
         {
             icon: 'icon-caishouguanli',
-            iconLabel: '采收信息',
+            iconLabel: '采制信息',
             iconPosition: 'iconquoteF',
             src: '/run/plant/harvest/',
             active: 'activeF'
