@@ -1,7 +1,7 @@
 
 // ----------------------------种植模块------------------------------------
 // ---------------------------手机版首页----------------------------------
-const plantIndex = resolve => {
+const teaIndex = resolve => {
     require.ensure(['../page/phone/plant/index.vue'], () => {
         resolve(require('../page/phone/plant/index.vue'))
     }, 'plantIndex')
@@ -15,7 +15,7 @@ const video = resolve => {
 }
 
 // ---------------------------手机版首页__基础信息----------------------------------
-const pBasic = resolve => {
+const teaBasic = resolve => {
     require.ensure(['../page/phone/plant/basic.vue'], () => {
         resolve(require('../page/phone/plant/basic.vue'))
     }, 'basic')
@@ -67,11 +67,10 @@ const breedIndex = resolve => {
 export default {
     router: [
         {
-            path: '/plantIndex/:code',
-            // name: '/run/plant/index/:code',
-            meta: {key: 'plantIndex'},
-            component: plantIndex,
-            alias: '/run/plant/index/:code'
+            path: '/teaIndex/:code',
+            meta: {key: 'teaIndex'},
+            component: teaIndex,
+            alias: '/teaTrace/tea/index/:code'
         },
         {
             path: '/video/:id',
@@ -82,8 +81,8 @@ export default {
         {
             path: '/basicInfor/:id',
             meta: {key: 'basicInfor', runName: 'plant'},
-            component: pBasic,
-            alias: '/run/plant/basicInfor/:id'
+            component: teaBasic,
+            alias: '/teaTrace/tea/basicInfor/:id'
         },
         {
             path: '/shop/:id',

@@ -6,26 +6,25 @@
  * 
  */
 <template>
-
 	<div class="phoneIndex">
 		<div class="phoneHeader">
 			<h2>天池茶叶</h2>
 		</div>
 		<div class="phoneMain">
 			<div class="logo"></div>
-				<template v-for="(item,index) in indexData.circle">
-					<div :class="item.iconPosition" class="quote">
-						<div :class="{'active':item.isTrue}" @touchend="jumpto(item,index)">
-							<li class="iconfont iconcircle" :class="item.icon">
-							</li>
-							<span>{{item.iconLabel}}</span>
-						</div>
+			<template v-for="(item,index) in indexData.circle">
+				<div :class="item.iconPosition" class="quote">
+					<div :class="{'active':item.isTrue}" @touchend="jumpto(item,index)">
+						<li class="iconfont iconcircle" :class="item.icon">
+						</li>
+						<span>{{item.iconLabel}}</span>
 					</div>
-				</template>
+				</div>
+			</template>
 		</div>
 		<div class="info">
 			<p class="subscription">天池茶叶</p>
-			<p class="description">茶叶绿茶正宗雨前西湖龙井</p>
+			<p class="description">{{product_name}}</p>
 		</div>
 		<div class="menuWrap">
 			<div class="indexMenu">
@@ -35,7 +34,7 @@
 				</router-link>
 			</div>
 			<div class="indexMenu">
-				<router-link :to="'/run/plant/basicInfor/'+code">
+				<router-link :to="'/teaTrace/tea/basicInfor/'+code">
 					<span class="iconfont iconmenu icon-shu"></span>
 					<span>基础信息</span>
 				</router-link>
@@ -64,39 +63,20 @@ export default{
             isTrue: false,
             code: '',
             indexData: indexData,
-            video: 'video'
+            video: 'video',
+            product_name: '',
+            product_image: '',
+            tea_png: 'images/tea_default.png'
         }
     },
     mounted () {
         this.code = this.$route.params.code
         // 查询首页产品数据
         var params = {code: this.code}
-        axios.get('run/plant/index', {params: params})
+        axios.get('teaTrace/tea/index', {params: params})
             .then((responce) => {
-                var lists = responce.data
-                if (lists !== 404 && lists !== 403 && lists !== 400) {
-                    this.code_id = lists.id
-                    this.cultivate_id = lists.cultivate_id
-                    this.plantation_id = lists.plantation_id
-                    this.product_name = lists.name
-                    this.product_id = lists.product_id
-                    this.product_desc = lists.description
-                    this.img = lists.thumb
-                    this.video = lists.video
-                } else {
-                    if (lists === 404) {
-                        alert('溯源码无效！')
-                        this.$router.go('-1')
-                    }
-                    if (lists === 403) {
-                        alert('商家已关闭溯源码追溯！')
-                        this.$router.go('-1')
-                    }
-                    if (lists === 400) {
-                        alert('该溯源码无相关信息！')
-                        this.$router.go('-1')
-                    }
-                }
+                this.product_name = responce.data.product_name
+                this.product_image = responce.data.img
             })
     },
     methods: {

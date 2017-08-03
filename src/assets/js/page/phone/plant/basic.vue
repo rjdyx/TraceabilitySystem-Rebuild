@@ -58,29 +58,26 @@ export default {
             e.stopPropagation()
         })
         var params = {code: this.$route.params.id}
-        var url = 'run/plant/plantation'
-        if (this.$route.meta.runName === 'breed') {
-            url = 'run/beast/farm'
-        }
-        axios.post(url, params)
+        axios.get('teaTrace/tea/plantation', params)
             .then((responce) => {
                 var lists = responce.data
-                if (lists !== 404 && lists !== 403 && lists !== 400) {
-                    this.datas = lists
-                } else {
-                    if (lists === 404) {
-                        alert('溯源码无效！')
-                        this.$router.go('-1')
-                    }
-                    if (lists === 403) {
-                        alert('商家已关闭溯源码追溯！')
-                        this.$router.go('-1')
-                    }
-                    if (lists === 400) {
-                        alert('该溯源码无相关信息！')
-                        this.$router.go('-1')
-                    }
-                }
+                console.log(lists)
+                // if (lists !== 404 && lists !== 403 && lists !== 400) {
+                //     this.datas = lists
+                // } else {
+                //     if (lists === 404) {
+                //         alert('溯源码无效！')
+                //         this.$router.go('-1')
+                //     }
+                //     if (lists === 403) {
+                //         alert('商家已关闭溯源码追溯！')
+                //         this.$router.go('-1')
+                //     }
+                //     if (lists === 400) {
+                //         alert('该溯源码无相关信息！')
+                //         this.$router.go('-1')
+                //     }
+                // }
             })
     },
     components: {
