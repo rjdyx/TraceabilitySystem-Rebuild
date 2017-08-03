@@ -7,7 +7,11 @@
  */
 <template>
 <transition name="fade2">
+
     <div id="home_grow">
+
+    <canvas id="canvas" v-if="canvasShow"></canvas>
+
         <header1 title="生长图片" :isbreed="isbreed"></header1>
         <div class="hg_content">
             <ul :class="{breedBorder:isbreed}">
@@ -26,10 +30,19 @@
                 </li>
             </ul>
         </div>
+
+ </div>
+
     </div>
 </transition>
 </template>
 <style type="text/css" lang="sass">
+    canvas{
+        position: absolute;
+        left: 0;
+        top: 0.9rem;
+        z-index: 54548;
+    }
     .breedBorder{
         // border-left:2px solid #93bf46!important;
         border-color:#93bf46!important;
@@ -42,6 +55,7 @@
     }
     #home_grow{
         width: 100%;
+        height: 100%;
         padding-bottom: .5rem;
         .hg_content{
             width: 100%;
@@ -101,17 +115,21 @@
                 }
             }
         }
-    } 
+    }
 </style>
 <script >
+import canvas from './js/ripple.js'
 import Header1 from './component/header.vue'
 export default {
     name: 'pGrow',
     data () {
         return {
-            grows: {}
+            grows: {},
+            x: 10,
+            canvasShow: true
         }
     },
+    mixins: [canvas],
     mounted () {
         $(document).on('touchmove', function (e) {
             // e.preventDefault()
@@ -143,12 +161,18 @@ export default {
                 }
             })
     },
+    methods: {
+    },
     components: {
         Header1
     },
     computed: {
         isbreed () {
             return this.isbreed = this.$route.meta.runName === 'breed'
+        }
+    },
+    watch: {
+        $route () {
         }
     }
 }

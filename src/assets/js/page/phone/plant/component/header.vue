@@ -1,14 +1,14 @@
 <template>
 	<div id="header1" :class="{breedCol:isbreed}">
 	<!-- <div id="header1" class="plantCol"> -->
-		<img class="goBack" @click="goBack" src="../images/goback.png"  alt="返回">
+		<img class="goBack" @touchend="goBack" src="../images/goback.png"  alt="返回">
 		{{title}}
 	</div>
 </template>
 <style lang="sass">
 @import "../css/plant.scss";
 .breedCol{
-	background:#93bf46!important;
+	background: #93bf46!important;
 }
 #header1{
 	width:100%;
@@ -52,7 +52,6 @@ export default {
     },
     methods: {
         goBack () {
-            // console.log(this.title)
             history.back()
         }
     }

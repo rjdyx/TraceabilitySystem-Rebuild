@@ -88,8 +88,21 @@
                 type="expand" class="expand" v-if="expandMore">
                 <template scope="props">
                     <el-form label-position="left" inline class="demo-table-expand">
+                        <template v-for="(expand,index) in tabItem.headList.slice(0,8)" v-if="detailsExpand">
+                          <el-form-item>
+                            <span class="el-form-item__label">{{expand}}</span>
 
-                      <template v-for="(expand,index) in tabItem.headList.slice(0,8)">
+                            <span v-if="expand=='图片'">
+                                <img :src="$img('images/ok.png')">
+                            </span>
+
+                            <span v-else>
+                                {{ props.row[tabItem.protos[index]] }}
+                            </span>
+                          </el-form-item>
+                        </template>
+
+                      <template v-for="(expand,index) in tabItem.headList" v-if="detailsExpandyo">
                           <el-form-item>
                             <span class="el-form-item__label">{{expand}}</span>
 
@@ -270,7 +283,9 @@ export default {
             changeData: [],
             operateArr1: ['sunning_date', 'cooling_date'],
             operateArr2: ['make_green_date', 'kill_out_date', 'knead_nori_date', 'deblock_date', 'dry_date', 'filtrate_date', 'refiring_date'],
-            timeParams: {}
+            timeParams: {},
+            detailsExpand: false,
+            detailsExpandyo: true
         }
     },
     mixins: [computed],
@@ -814,9 +829,11 @@ export default {
         },
         // 展开事件
         expandDo () {
-            this.tabItem.harvestMore.forEach(function (subItem) {
-                Vue.set(subItem, 'showHarvest', false)
-            })
+            if (this.tabItem.harvestMore !== null && this.tabItem.harvestMore !== undefined) {
+                this.tabItem.harvestMore.forEach(function (subItem) {
+                    Vue.set(subItem, 'showHarvest', false)
+                })
+            }
             let expandicon = document.getElementsByClassName('el-table__expand-icon')
             for (let j = 0; j < expandicon.length; j++) {
                 // console.log(expandicon[j].className)
@@ -842,6 +859,11 @@ export default {
                 Vue.set(subItem, 'nameHide', true)
             })
         }
+        let path = this.$route.path
+        if (path.indexOf('harvestBatch') !== -1) {
+            this.detailsExpand = true
+            this.detailsExpandyo = false
+        }
     },
     watch: {
         tabItem () {
@@ -863,6 +885,13 @@ export default {
             this.boxArr(this.dataArr, true)
             this.more.length > 8 ? this.expandMore = true : this.expandMore = false
             this.thead = this.more.slice(0, 8)
+        },
+        $route () {
+            let path = this.$route.path
+            if (path.indexOf('harvestBatch') !== -1) {
+                this.detailsExpand = true
+                this.detailsExpandyo = false
+            }
         }
     },
     components: {
