@@ -284,12 +284,13 @@ export default {
 .set{
 	height: 100%;
     overflow:hidden;
-    padding-left:10px;
+    padding-bottom:66px;
+    box-sizing:border-box;
     .set_content{
-    	margin-top: 15px;
-    	overflow:scroll;
-    	height: 100%;
-        padding-right: 10px;
+        overflow-y:scroll;
+        height: 100%;
+        box-sizing:border-box;
+        padding:15px 10px 0px 10px;
 		.switch{
 			width: 500px;
 			margin: 22px 94px;
@@ -347,9 +348,6 @@ export default {
 }
 .edition{
 	padding-left: 13px;
-}
-.copyright{
-	margin-top: 260px;
 }
 .save{
 	text-align: center;

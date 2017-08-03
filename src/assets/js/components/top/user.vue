@@ -20,7 +20,7 @@
 			 	</el-row>
 				<el-button class="btn_change" @click="showEdit">编辑</el-button>
 			</div>
-			<div class="mainPic">s
+			<div class="mainPic">
 				<img src="/public/images/rfid.png">
 			</div>
 			<footer-top></footer-top>
@@ -100,47 +100,45 @@ export default {
 $line: 1px solid;
 $display: inline-block;
 .user{
-	height: 100%;
+    height: 100%;
     overflow:hidden;
-    padding-left:10px;
+    padding-bottom:66px;
+    box-sizing:border-box;
     .user_content{
-    	margin-top: 15px;
-    	overflow:scroll;
-    	height: 100%;
-        padding-right: 10px;
-    	.titleUser{
-			border-bottom: $line #dcdcdc;
-			padding-bottom: 10px;
-			position: relative;
-			.picture{
-				display: $display;
-				width: 140px;
-				height: 124px;
-				border: $line #ccc;
-				margin:0 10px 0 30px;
-				overflow: hidden;
-			}
-			.text{
-				display: $display;
-				vertical-align: top;
-				margin-bottom: 10px;
-				width: 80%;
-			}
-			.btn_change{
-				position: absolute;
-				right: 2%;
-				bottom: 10%;
-				color: #fff;
-			}
-			.coltext{
-				font-size:14px;
-				color: #898989;
-				padding: 10px;
-			}
-		}
-		.mainPic{
-			text-align: center;
-		}
+        overflow-y:scroll;
+        height: 100%;
+        box-sizing:border-box;
+        padding:15px 10px 0px 10px;
+        .titleUser{
+            border-bottom: $line #dcdcdc;
+            padding-bottom: 10px;
+            position: relative;
+            .picture{
+                float:left;
+                width: 140px;
+                height: 140px;
+                margin:0 10px 0 0px;
+            }
+            .text{
+                width: 100%;
+                box-sizing:border-box;
+                padding-left:160px;
+            }
+            .btn_change{
+                position: absolute;
+                right: 0%;
+                bottom: 10%;
+                color: #fff;
+            }
+            .coltext{
+                font-size:14px;
+                color: #898989;
+                padding: 10px;
+            }
+        }
+        .mainPic{
+            text-align: center;
+        }
     }
 }
 </style>

@@ -11,8 +11,8 @@
 			<contain-title :settitle="settitle">
 			</contain-title>
 			<div class="titleHome">
-				<span :class="{'picture': isClass}">
-					<img :src="listV.logo" class="homeImg" />
+				<span :class="[{'picture': isClass},{homeImg: true}]">
+					<img :src="listV.logo"/>
 				</span>
 				<el-row :gutter="20" class="text homeInfo">
 					<el-col :span='12' v-for="(item,index) in listN" class="coltext">
@@ -211,25 +211,34 @@ $absolute: absolute;
 .home{
 	height: 100%;
     overflow:hidden;
-    padding-left:10px;
+    padding-bottom:66px;
+    box-sizing:border-box;
     .home_content{
-    	margin-top: 15px;
-    	overflow:scroll;
+    	overflow-y:scroll;
     	height: 100%;
-        padding-right: 10px;
+        box-sizing:border-box;
+        padding:15px 10px 0px 10px;
     	.titleHome{
 			border-bottom: 1px solid #dcdcdc;
 			position: relative;
 			margin-bottom: 20px;
+			padding-bottom:30px;
 			.text{
 				display: $inline;
 				vertical-align: top;
 				margin-bottom: 10px;
-				width: 80%;
+				width: 100%;
+				margin-left:220px!important;
 			}
 			.homeImg{
 				width: 200px;
 				height: 175px;
+				position:absolute;
+				left:0;
+				img{
+					width: 200px;
+					height: 175px;
+				}
 			}
 			.homeInfo{
 				margin-top: 25px;
