@@ -8,13 +8,14 @@
 <template>
 	<div class="content">
         <basic-model :models="models[type]"></basic-model>
-        <!-- <basic-model :models="mds()"></basic-model> -->
+        <footer-top></footer-top>
     </div> 
 </template>
   
 <script>
 import BasicModel from '../basicModel/basic-model.vue'
 import message from './message.js'
+import footerTop from '../../components/top/topComponent/footer.vue'
 import create from '../../components/public/newbuild-btn.vue'
 import out from '../../components/public/output.vue'
 import stamp from '../../components/public/Qrcode.vue'
@@ -105,6 +106,7 @@ export default {
     },
     components: {
         BasicModel,
+        footerTop,
         create,
         out,
         stamp
@@ -122,6 +124,9 @@ export default {
 <style lang="sass" scoped>
     @import "../../../sass/function";
     .content{
-        margin-top: 15px;
+        height:100%;
+        padding:15px 10px 0px 10px;
+        box-sizing:border-box;
+        overflow-y: scroll;
     }
 </style>

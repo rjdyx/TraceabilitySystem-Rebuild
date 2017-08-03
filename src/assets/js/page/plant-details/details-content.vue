@@ -8,13 +8,14 @@
 <template>
 	<div class="content">
         <details-model :models="models[type]"></details-model>
+        <footer-top></footer-top>
     </div> 
 </template>
  
 <script>
 import detailsModel from '../detailsModel/details-model.vue'
+import footerTop from '../../components/top/topComponent/footer.vue'
 import message from './message.js'
-
 export default {
     name: 'BasicContent',
     data () {
@@ -29,7 +30,8 @@ export default {
     methods: {
     },
     components: {
-        detailsModel
+        detailsModel,
+        footerTop
     },
     computed: {
         type () {
@@ -44,6 +46,9 @@ export default {
 <style lang="sass" scoped>
     @import "../../../sass/function";
 .content{
-    	margin-top: 15px;
+    	height:100%;
+        padding:15px 10px 0px 10px;
+        box-sizing:border-box;
+        overflow-y: scroll;
     }
 </style>

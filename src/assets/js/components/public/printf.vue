@@ -49,6 +49,7 @@
                                     v-bind:is="subItem.component" 
                                     :shuju="subItem"
                                     :editValue="printForm[subItem.name]"
+                                    :url="url"
                                     @return-shuju="returnShuju"
                                 ></component>
                             </el-form-item>

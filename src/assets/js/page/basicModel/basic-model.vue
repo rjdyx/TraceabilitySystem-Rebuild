@@ -125,7 +125,8 @@
                     <clickMore :companyId="companyId" :moreComponent="moreComponent" :row="scope.row" 
                     @showMore="moreShow(scope.$index,scope.row)" @showPermission="permissionShow(scope.$index,scope.row)" 
                     @showDetail="detailShow(scope.$index,scope.row)" class="clickMoreBtn"@return-permission="getPermission" 
-                    @changeState="changeSerialState(scope.$index,scope.row)">
+                    @changeState="changeSerialState(scope.$index,scope.row)"
+                    @shipGoods="shipGood(scope.$index,scope.row)">
                     </clickMore>
                 </template>
                 <template>
@@ -309,7 +310,7 @@ export default {
         ]),
         // 状态样式验证
         stateDisabled (row) {
-            let stateArr = ['已完成', '已入库']
+            let stateArr = ['已完成', '已入库', '已通过']
             if (row.state !== undefined) {
                 if (stateArr.indexOf(row.state) !== -1) {
                     return true
@@ -321,7 +322,7 @@ export default {
         },
         // 列表页复选框是否可选
         checkDisabled (row, index) {
-            let stateArr = ['已完成', '已入库']
+            let stateArr = ['已完成', '已入库', '已通过']
             if (row.state !== undefined) {
                 if (stateArr.indexOf(row.state) !== -1) {
                     return false
@@ -790,7 +791,7 @@ export default {
             }).catch(() => {
                 this.$message({
                     type: 'info',
-                    message: '已取消删除'
+                    message: '已取消更改状态'
                 })
             })
         },
@@ -877,6 +878,32 @@ export default {
         moreShow (index, row) {
             this.isPrintShow = !this.isPrintShow
             this.printForm = row
+        },
+        // 发货操作
+        shipGood (index, row) {
+            this.$confirm('你确定要进行发货操作', '信息', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                type: 'error'
+            }).then(() => {
+                let params = {id: row.id}
+                this.$dataGet(this, this.url + '/changeShip', params)
+                    .then((responce) => {
+                        if (responce.data !== 'false') {
+                            this.getSelect()
+                            this.boxArr(this.dataArr, false)
+                            this.$message({
+                                type: 'success',
+                                message: '发货成功'
+                            })
+                        }
+                    })
+            }).catch(() => {
+                this.$message({
+                    type: 'info',
+                    message: '已取消'
+                })
+            })
         },
         permissionShow (index, row) {
             this.companyId = row.id

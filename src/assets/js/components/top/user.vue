@@ -102,33 +102,31 @@ $display: inline-block;
 .user{
 	height: 100%;
     overflow:hidden;
-    padding-left:10px;
+    padding-bottom:66px;
+    box-sizing:border-box;
     .user_content{
-    	margin-top: 15px;
-    	overflow:scroll;
-    	height: 100%;
-        padding-right: 10px;
+    	overflow-y:scroll;
+        height: 100%;
+        box-sizing:border-box;
+        padding:15px 10px 0px 10px;
     	.titleUser{
 			border-bottom: $line #dcdcdc;
 			padding-bottom: 10px;
 			position: relative;
 			.picture{
-				display: $display;
+                float:left;
 				width: 140px;
-				height: 124px;
-				border: $line #ccc;
-				margin:0 10px 0 30px;
-				overflow: hidden;
+				height: 140px;
+				margin:0 10px 0 0px;
 			}
 			.text{
-				display: $display;
-				vertical-align: top;
-				margin-bottom: 10px;
-				width: 80%;
+				width: 100%;
+                box-sizing:border-box;
+                padding-left:160px;
 			}
 			.btn_change{
 				position: absolute;
-				right: 2%;
+				right: 0%;
 				bottom: 10%;
 				color: #fff;
 			}

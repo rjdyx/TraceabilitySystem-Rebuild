@@ -14,7 +14,8 @@
     export default {
         name: 'QrcodeModel',
         props: {
-            editValue: {}
+            editValue: {},
+            url: ''
         },
         data () {
             return {
@@ -30,15 +31,12 @@
             Qrcode
         },
         mounted () {
-            this.qrText = this.editValue
-            // var per = this.editValue.substring(0, 1)
-            // var url = require('projectRoot/env.js').app_ano_url + '/#/run/'
-            // if (per === 'P') {
-            //     url += 'plant'
-            // } else {
-            //     url += 'breed'
-            // }
-            // this.qrText = url + '/index/' + this.editValue
+            if (this.url.indexOf('storage-order-product') !== -1) {
+                var url = require('projectRoot/env.js').app_ano_url + '/#/run/tea'
+                this.qrText = url + '/index/' + this.editValue
+            } else {
+                this.qrText = this.editValue
+            }
         }
     }
 </script>

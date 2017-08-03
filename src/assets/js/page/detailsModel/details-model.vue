@@ -9,7 +9,7 @@
 <div class="detailsModel">
 
   <!-- 标题 -->
-    <contain-title :settitle="tab" :isShow="isShow" :printShow="printShow">
+    <contain-title :settitle="tab" :isShow="isShow" :printShow="printShow" @printShow="printShowFn">
     </contain-title>
     
   <!-- 信息列表 -->
@@ -51,6 +51,7 @@
                         :routeId="routeId"
                         :curl="url"
                         :headData="headData"
+                        :tabItem = 'tabItem'
                         class="fr"
                     ></component>
                 </div>
@@ -74,6 +75,18 @@
             <transition name="fade">
                 <roleCheckbox v-if="isRoleShow" :rowId="rowId"></roleCheckbox>
             </transition>
+            <!-- 打印单据模块 -->
+            <printfPreview 
+                ref='printfPreview'
+                :theads="theads"
+                :headData="headData"
+                :tableData="tableData"
+                :thead="thead"
+                :tabItem="tabItem"
+                :protos="protos"
+                :tableProtos="tabItem.protos"
+                >
+            </printfPreview>
         <!-- 列表模块 -->
         <el-table :data="tableData"  @selection-change="handleSelectionChange" v-loading="listLoading" @expand="expandDo">
             <!-- checkbox -->
@@ -178,7 +191,7 @@
                             </harvestMore>
                         </template>
 
-                            <template>
+                            <template v-if="hiddeOperate">
                                 <el-button type="text" size="small" @click="changeEditShow(scope.$index,scope.row)"
                                 :disabled="stateDisabled()" v-if="tabList[index].hiddeEdit">
                                 编辑</el-button>
@@ -192,7 +205,7 @@
                     </el-table-column>
                 </el-table>
         <div class="footer">
-            <div class="operate-foot">
+            <div class="operate-foot" v-if="hiddeOperate">
                 <el-button @click="delAll" v-if="checkOperate==null">删除</el-button>
                 <template v-if="lotComponent!=null">
                     <lotOpearte :lotComponent="lotComponent"></lotOpearte>
@@ -226,6 +239,7 @@ import clickMore from '../../components/public/clickMore.vue'
 import harvestMore from '../../components/public/harvestMore.vue'
 import lotOpearte from '../../components/public/lotOpearte.vue'
 import printf from '../../components/public/printf.vue'
+import printfPreview from '../../components/public/printfPreview.vue'
 import roleCheckbox from '../../components/public/roleCheckbox.vue'
 export default {
     name: 'BasicModel',
@@ -277,6 +291,7 @@ export default {
             isShow: true,
             listLoading: false,
             tableListBollean: true,
+            hiddeOperate: true,
             expandMore: false,
             showHarvest: false,
             thead: [],
@@ -293,9 +308,34 @@ export default {
         ...mapActions([
             'change_siderBar'
         ]),
+        // 打印内容的展示
+        printShowFn () {
+            // this.dialogTableVisible = true
+            this.$refs.printfPreview.dialogTableVisible = true
+            // this.dialogTableVisible = false
+            // this.$nextTick(() => {
+            //     this.$html2canvas($('.printfTable').get(0), {
+            //         allowTaint: true,
+            //         taintTest: false,
+            //         height: $('printfTable').outerHeight(),
+            //         onrendered: function (canvas) {
+            //             var $canvas = $(canvas)
+            //             // $('.printfTable').replaceWith($canvas)
+            //             var p = $('.printfTable').parent()
+            //             $('.printfTable').hide(0, () => {
+            //                 p.append($canvas)
+            //             })
+            //         }
+            //     })
+            // })
+        },
+        // 关闭打印内容的展示
+        closePrintfDialog () {
+            this.dialogTableVisible = false
+        },
         // 状态样式验证
         stateDisabled () {
-            let stateArr = ['已完成', '已入库']
+            let stateArr = ['已完成', '已入库', '已通过']
             if (this.headData.state !== undefined) {
                 if (stateArr.indexOf(this.headData.state) !== -1) {
                     return true
@@ -307,7 +347,7 @@ export default {
         },
         // 列表页复选框是否可选
         checkDisabled () {
-            let stateArr = ['已完成', '已入库']
+            let stateArr = ['已完成', '已入库', '已通过']
             if (this.headData.state !== undefined) {
                 if (stateArr.indexOf(this.headData.state) !== -1) {
                     return false
@@ -335,33 +375,6 @@ export default {
                 for (let index in com.checkNumber) {
                     com.components[com.checkNumber[index]].rule[1].url = this.tabItem.url
                 }
-            }
-            // 获取新建表格数据
-            if (com.type === 'table') {
-                var data = {}
-                data.getSelect = {'getSelect': '444'}
-                data.curl = {'curl': this.tabItem.url}
-                data.routeId = {'routeId': com.labUrl}
-                data.opqcurl = {'opqcurl': this.apiUrlArr[this.url]}
-                data.type = ''
-                data.wheres = []
-                if (com.paramsIndex !== undefined) {
-                    type = com.paramsIndex
-                }
-                if (com.whereArr !== undefined) {
-                    for (let ka in com.whereArr) {
-                        let strs = com.whereArr[ka][0] + '-' + com.whereArr[ka][1]
-                        if (com.whereArr[ka][2] !== undefined) {
-                            strs = strs + '-' + com.whereArr[ka][2]
-                        }
-                        data.wheres[ka] = strs
-                    }
-                }
-                this.$dataGet(this, com.labUrl, data)
-                    .then((responce) => {
-                        let ret = this.$eltable(responce.data)
-                        this.$set(com.components[0], 'tableVal', ret)
-                    })
             }
             if (com.selectUrl) {
                 for (let key in com.selectUrl) {
@@ -834,13 +847,6 @@ export default {
                     Vue.set(subItem, 'showHarvest', false)
                 })
             }
-            let expandicon = document.getElementsByClassName('el-table__expand-icon')
-            for (let j = 0; j < expandicon.length; j++) {
-                // console.log(expandicon[j].className)
-                if (expandicon[j].className.indexOf('el-table__expand-icon--expanded') > 0) {
-                    $(this).removeClass('el-table__expand-icon--expanded')
-                }
-            }
         }
     },
     mounted () {
@@ -863,6 +869,9 @@ export default {
         if (path.indexOf('harvestBatch') !== -1) {
             this.detailsExpand = true
             this.detailsExpandyo = false
+        }
+        if (this.tabItem.hiddeOperate !== undefined) {
+            this.hiddeOperate = this.tabItem.hiddeOperate
         }
     },
     watch: {
@@ -903,7 +912,8 @@ export default {
         lotOpearte,
         roleCheckbox,
         printf,
-        harvestMore
+        harvestMore,
+        printfPreview
     }
 }
 </script>
@@ -1049,7 +1059,7 @@ export default {
         color: #99a9bf;
     }
 }
-
+    
 }
 
 </style>
