@@ -376,13 +376,12 @@ export default {
             var name = subItem.name
             var number = subItem.selectNumber
             var changeTable = subItem.changeTable
-            var com = this.editComponent[0].components
+            var com = this.editComponent[0]
             var state = false
             var seed = ''
             var seed2 = []
             if (val !== '') {
                 if (name === 'pid' || name === 'farm_id' || name === 'plantation_id') {
-                    let com = this.editComponent[0]
                     if (this.url !== 'farmcd' && this.url !== 'planta') {
                         let params = {id: val}
                         let sid = this.editDefault.pid !== undefined ? this.editDefault.pid : this.editDefault.farm_id !== undefined ? this.editDefault.farm_id : this.editDefault.plantation_id
@@ -406,10 +405,10 @@ export default {
                             }
                             this.editForm['unit'] = responce.data['unit']
                             this.editAllowance = parseInt(responce.data['min_num'])
-                            com[com.limit].rule[1]['max'] = this.allowance
-                            com[com.limit].rule[1]['min'] = this.editAllowance
-                            com[com.limit].rule[1]['getMiddle'] = true
-                            com[com.limit].rule[1]['getMessage'] = '最大输入' + this.allowance + ', 最小输入' + this.editAllowance
+                            com.components[com.limit].rule[1]['max'] = this.allowance
+                            com.components[com.limit].rule[1]['min'] = this.editAllowance
+                            com.components[com.limit].rule[1]['getMiddle'] = true
+                            com.components[com.limit].rule[1]['getMessage'] = '最大输入' + this.allowance + ', 最小输入' + this.editAllowance
                         })
                     }
                 }
@@ -430,21 +429,21 @@ export default {
                         seed2 = []
                     }
                     for (let k2 in number[k]) {
-                        com[number[k][k2]].hiddenSelect = state
-                        if (com[number[k][k2]].type === 'table') {
-                            this.editForm[com[number[k][k2]].valueId] = seed2
+                        com.components[number[k][k2]].hiddenSelect = state
+                        if (com.components[number[k][k2]].type === 'table') {
+                            this.editForm[com.components[number[k][k2]].valueId] = seed2
                         }
-                        if (com[number[k][k2]].type === 'select') {
-                            this.editForm[com[number[k][k2]].value] = seed
+                        if (com.components[number[k][k2]].type === 'select') {
+                            this.editForm[com.components[number[k][k2]].value] = seed
                         }
-                        if (com[number[k][k2]].type === 'text' || com[number[k][k2]].type === 'textSelect') {
-                            this.editForm[com[number[k][k2]].name] = seed
+                        if (com.components[number[k][k2]].type === 'text' || com.components[number[k][k2]].type === 'textSelect') {
+                            this.editForm[com.components[number[k][k2]].name] = seed
                         }
                     }
                 }
                 if (number[val] !== undefined) {
                     for (let k3 in number[val]) {
-                        com[number[val][k3]].hiddenSelect = false
+                        com.components[number[val][k3]].hiddenSelect = false
                     }
                 }
             }

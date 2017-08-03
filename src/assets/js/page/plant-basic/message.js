@@ -6178,6 +6178,14 @@ export default {
                     type: 'text',
                     component: null,
                     isNull: false,
+                    label: '用途',
+                    placeholder: ''
+                },
+                {
+                    name: 'specification',
+                    type: 'text',
+                    component: null,
+                    isNull: false,
                     label: '包装规格',
                     placeholder: ''
                 },
@@ -6249,6 +6257,14 @@ export default {
                     label: '肥料名称',
                     placeholder: '必填',
                     rule: [{required: true, message: '请输入肥料名称', trigger: 'blur'}, {validator: validate2.reCheck, trigger: 'blur', message: '肥料名称重复'}]
+                },
+                {
+                    name: 'usage',
+                    type: 'text',
+                    component: null,
+                    isNull: false,
+                    label: '用途',
+                    placeholder: ''
                 },
                 {
                     name: 'specification',
