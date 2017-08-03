@@ -1879,9 +1879,9 @@ export default {
         selectDefault: [{value: '', label: '种植区选择'}],
         changeDataArr: [{state: {0: '未完成', 1: '已完成'}}],
         searchPlaceholder: '请输入采制批次号进行搜索',
-        theads: ['采制批次号', '采制日期', '所属种植区', '种植批次', '入库部门', '存放仓库位置', '状态', '备注'],
-        protos: ['serial', 'date', 'plantation_name', 'cultivate_serial', 'department', 'position', 'state', 'memo'],
-        widths: [60, 50, 50, 60, 50, 50, 50, 50],
+        theads: ['采制批次号', '采制日期', '所属种植区', '种植批次', '采制人', '入库部门', '存放仓库位置', '状态', '备注'],
+        protos: ['serial', 'date', 'plantation_name', 'cultivate_serial', 'operate', 'department', 'position', 'state', 'memo'],
+        widths: [60, 50, 50, 60, 50, 50, 50, 50, 50],
         typeComponent: [{
             component: output
         },
@@ -1939,9 +1939,18 @@ export default {
                 type: 'date',
                 component: inputDate,
                 isNull: true,
-                label: '采制开始日期',
+                label: '采制日期',
                 placeholder: '必填',
                 rule: [{required: true, message: '请输入采制日期'}, {validator: validate2.reDate, message: '请输入采制日期'}]
+            },
+            {
+                name: 'operate',
+                type: 'text',
+                component: null,
+                isNull: true,
+                label: '采制人',
+                placeholder: '',
+                rule: null
             },
             {
                 name: 'department',
@@ -2011,6 +2020,15 @@ export default {
                 placeholder: '必填',
                 disabled: true,
                 rule: {required: true}
+            },
+            {
+                name: 'operate',
+                type: 'text',
+                component: null,
+                isNull: true,
+                label: '采制人',
+                placeholder: '',
+                rule: null
             },
             {
                 name: 'department',
@@ -3927,9 +3945,9 @@ export default {
         tab: '销售商品库管理',
         url: 'sell-store',
         searchPlaceholder: '请输入商品名称进行搜索',
-        theads: ['产品代号', '产品名称', '规格型号', '库存数量', '单位', '备注'],
-        protos: ['product_number', 'product_name', 'specification', 'storage_number', 'unit', 'memo'],
-        widths: [50, 50, 50, 50, 50, 50],
+        theads: ['产品代号', '产品名称', '规格型号', '库存数量', '单位', '图片', '产品简介', '备注'],
+        protos: ['product_number', 'product_name', 'specification', 'storage_number', 'unit', 'img', 'desc', 'memo'],
+        widths: [50, 50, 50, 50, 50, 50, 50, 50],
         typeComponent: [{
             component: output
         },
@@ -3943,6 +3961,7 @@ export default {
             selectInit2: [{value: '', label: '产品入库单选择'}],
             popNumber2: [1],
             assocPosition: 2,
+            hasImg: true,
             components: [{
                 name: 'product_number',
                 type: 'text',
@@ -4009,6 +4028,23 @@ export default {
                 rule: null
             },
             {
+                name: 'img',
+                type: 'file',
+                component: inputFile,
+                isNull: true,
+                label: '上传图片',
+                placeholder: '',
+                rule: null
+            },
+            {
+                name: 'desc',
+                type: 'textarea',
+                component: null,
+                label: '产品简介',
+                placeholder: '',
+                rule: null
+            },
+            {
                 name: 'memo',
                 type: 'textarea',
                 component: null,
@@ -4019,6 +4055,7 @@ export default {
         }],
         editComponent: [{
             tab: '编辑商品库信息',
+            hasImg: true,
             components: [{
                 name: 'product_number',
                 type: 'text',
@@ -4062,6 +4099,23 @@ export default {
                 label: '单位',
                 placeholder: '',
                 rule: {required: true, message: '请输入单位'}
+            },
+            {
+                name: 'img',
+                type: 'file',
+                component: inputFile,
+                isNull: true,
+                label: '上传图片',
+                placeholder: '',
+                rule: null
+            },
+            {
+                name: 'desc',
+                type: 'textarea',
+                component: null,
+                label: '产品简介',
+                placeholder: '',
+                rule: null
             },
             {
                 name: 'memo',

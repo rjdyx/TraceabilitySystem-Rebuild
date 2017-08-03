@@ -1450,6 +1450,7 @@ export default {
                 component: newbuildBtn
             }],
             listComponent: [],
+            moreComponent: [{value: '打印'}],
             newComponent: [{
                 tab: '新建产品溯源码信息',
                 components: [{
@@ -1472,119 +1473,15 @@ export default {
                 }]
             }],
             editComponent: [{
-                tab: '编辑领料单产品信息',
-                selectUrl2: [['productive_tasks', 'id', 'serial', true]],
-                selectInit2: [{value: '', label: '任务单选择'}],
-                popNumber2: [2],
+                tab: '编辑产品溯源码信息',
                 components: [{
-                    name: 'product_name',
-                    type: 'text',
-                    component: null,
-                    isNull: false,
-                    label: '产品名称',
-                    placeholder: '必填',
-                    disabled: true,
-                    rule: null
-                },
-                {
-                    name: 'specification',
-                    type: 'text',
-                    component: null,
-                    isNull: true,
-                    label: '规格型号',
-                    placeholder: '',
-                    rule: {required: true, message: '请输入规格型号'}
-                },
-                {
-                    name: 'task_list_no',
-                    type: 'text',
-                    component: null,
-                    isNull: false,
-                    label: '任务单号',
-                    placeholder: '必填',
-                    disabled: true,
-                    rule: {required: true, message: '请选择任务单号'}
-                },
-                {
                     name: 'date',
                     type: 'date',
                     component: inputDate,
                     isNull: true,
-                    label: '生产日期',
+                    label: '生成日期',
                     placeholder: '必填',
-                    rule: [{required: true, message: '请输入生产日期'}, {validator: validate2.reDate, message: '请输入生产日期'}]
-                },
-                {
-                    name: 'real_number',
-                    type: 'text',
-                    component: null,
-                    isNull: true,
-                    label: '实收数量',
-                    placeholder: '',
-                    rule: [{required: true, message: '请输入实收数量'}, {validator: validate2.reInteger}]
-                },
-                {
-                    name: 'unit',
-                    type: 'text',
-                    component: null,
-                    isNull: true,
-                    label: '单位',
-                    placeholder: '',
-                    rule: {required: true, message: '请输入单位'}
-                },
-                {
-                    name: 'basic_unit',
-                    type: 'text',
-                    component: null,
-                    isNull: true,
-                    label: '基本单位名称',
-                    placeholder: '',
-                    rule: null
-                },
-                {
-                    name: 'basic_recei_number',
-                    type: 'text',
-                    component: null,
-                    isNull: true,
-                    label: '基本单位应收数量',
-                    placeholder: '',
-                    rule: {validator: validate2.reInteger}
-                },
-                {
-                    name: 'basic_real_number',
-                    type: 'text',
-                    component: null,
-                    isNull: true,
-                    label: '基本单位实收数量',
-                    placeholder: '',
-                    rule: {validator: validate2.reInteger}
-                },
-                {
-                    name: 'expiration_date',
-                    type: 'text',
-                    component: null,
-                    isNull: true,
-                    label: '保质期（天）',
-                    placeholder: '',
-                    rule: null
-                },
-                {
-                    name: 'validity',
-                    type: 'text',
-                    component: null,
-                    isNull: true,
-                    label: '有效期至',
-                    placeholder: '',
-                    rule: null
-                },
-                {
-                    name: 'store_no',
-                    type: 'text',
-                    component: null,
-                    isNull: true,
-                    label: '仓位',
-                    placeholder: '',
-                    rule: null
+                    rule: [{required: true, message: '请输入生成日期'}, {validator: validate2.reDate, message: '请输入生成日期'}]
                 },
                 {
                     name: 'memo',
@@ -1592,6 +1489,27 @@ export default {
                     component: null,
                     isNull: true,
                     label: '备注信息',
+                    placeholder: '',
+                    rule: null
+                }]
+            }],
+            printComponent: [{
+                tab: '打印溯源码信息',
+                components: [{
+                    name: 'code',
+                    type: 'text',
+                    component: null,
+                    isNull: false,
+                    label: '产品溯源码：',
+                    placeholder: '',
+                    disabled: true,
+                    rule: {required: true}
+                },
+                {
+                    name: 'code',
+                    component: Qrcode,
+                    isNull: false,
+                    label: '二维码：',
                     placeholder: '',
                     rule: null
                 }]
