@@ -1,5 +1,5 @@
 <template>
-	<div id="header1" :class="{breedCol:isbreed}">
+	<div id="header1">
 		<img class="goBack" @touchend="goBack" src="../images/goback.png"  alt="返回">
 		{{title}}
 	</div>
@@ -37,10 +37,6 @@ export default {
         title: {
             type: String,
             default: ''
-        },
-        isbreed: {
-            type: Boolean,
-            default: false
         }
     },
     data () {
