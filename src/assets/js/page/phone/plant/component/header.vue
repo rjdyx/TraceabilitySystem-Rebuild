@@ -36,7 +36,7 @@ export default {
     props: {
         title: {
             type: String,
-            default: ''
+            default: '销售信息'
         }
     },
     data () {
