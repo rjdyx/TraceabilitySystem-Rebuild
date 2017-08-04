@@ -15,11 +15,20 @@
       		<img :src="item">
       	</swiper-item>
     </swiper>
+
   </div>
 </template>
 
 <script>
 import { Swiper, SwiperItem } from 'vux'
+
+const imgList = [
+    'https://static.vux.li/demo/1.jpg',
+    'https://static.vux.li/demo/2.jpg',
+    'https://static.vux.li/demo/3.jpg',
+    'https://static.vux.li/demo/3.jpg',
+    'https://static.vux.li/demo/3.jpg'
+]
 export default {
     name: 'swiperp',
     props: {
