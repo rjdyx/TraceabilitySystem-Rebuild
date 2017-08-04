@@ -58,24 +58,7 @@ export default{
     commodityInfor: {
         title: '商品信息',
         tableName: '商品信息',
-        tableProtos: ['serial', 'name', 'content', 'department', 'genre', 'result', 'operate_name'],
-        tableTheads: ['商品名称', '溯源码', '商品规格', '商品品牌', '产地', '生产单位', '执行标准'],
-        tableList: [
-            {
-                tableName: '商品信息',
-                tableTheads: ['商品名称', '溯源码', '商品规格', '商品品牌', '产地', '生产单位', '执行标准'],
-                tableProtos: []
-            },
-            {
-                tableName: '加工包装',
-                tableTheads: ['包装批次号', '包装加工产品', '包装加工日期', '包装产品重量', '包装加工人'],
-                tableProtos: []
-            },
-            {
-                tableName: '运输信息',
-                tableTheads: ['物流单位', '物流单号', '运输日期'],
-                tableProtos: []
-            }
-        ]
+        tableTheads: ['商品名称', '溯源码', '成品名称', '商品规格', '商品品牌', '执行标准'],
+        tableProtos: ['product_name', 'code', 'products_name', 'specification', 'marque', 'enforce_standard']
     }
 }

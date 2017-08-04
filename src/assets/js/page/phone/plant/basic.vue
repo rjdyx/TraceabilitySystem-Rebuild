@@ -68,18 +68,29 @@ export default {
             e.stopPropagation()
         })
         var params = {code: this.$route.params.id}
-        axios.get('teaTrace/tea/plantation', {params: params})
-            .then((responce) => {
-                var lists = responce.data
-                if (lists !== '403' && lists !== '404') {
-                    this.datas = lists
-                }
-                this.video = lists.video
-                if (lists.planta_img !== null && lists.planta_img !== '') {
-                    this.imgArr = lists.planta_img.split(',')
-                }
-                this.videoSrc = require('projectRoot/env.js').app_ano_url + '/' + lists.video
-            })
+        if (localStorage.getItem('teaTrace_basic') === null) {
+            axios.get('teaTrace/tea/plantation', {params: params})
+                .then((responce) => {
+                    var lists = responce.data
+                    if (lists !== '403' && lists !== '404') {
+                        this.datas = lists
+                        localStorage.setItem('teaTrace_basic', JSON.stringify(lists))
+                        this.video = lists.video
+                        if (lists.planta_img !== null && lists.planta_img !== '') {
+                            this.imgArr = lists.planta_img.split(',')
+                        }
+                        this.videoSrc = require('projectRoot/env.js').app_ano_url + '/' + lists.video
+                    }
+                })
+        } else {
+            var tabLocalBasic = JSON.parse(localStorage.getItem('teaTrace_basic'))
+            this.datas = tabLocalBasic
+            this.video = tabLocalBasic.video
+            if (tabLocalBasic.planta_img !== null && tabLocalBasic.planta_img !== '') {
+                this.imgArr = tabLocalBasic.planta_img.split(',')
+            }
+            this.videoSrc = require('projectRoot/env.js').app_ano_url + '/' + tabLocalBasic.video
+        }
     },
     components: {
         Header1,

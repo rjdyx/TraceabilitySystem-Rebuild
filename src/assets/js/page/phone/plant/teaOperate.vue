@@ -65,16 +65,22 @@ export default {
         })
         let urlName = this.$route.name
         var params = {code: this.$route.params.id}
-        axios.get('teaTrace/tea/' + urlName, {params: params})
-            .then((responce) => {
-                if (responce.data.length !== 0) {
-                    var ret = this.$conversion(this.dataArr, responce.data, 1)
-                    ret = this.$eltable(ret)
-                    this.datas = ret
-                } else {
-                    this.flag = true
-                }
-            })
+        if (localStorage.getItem('teaTrace_operate_' + urlName) === null) {
+            axios.get('teaTrace/tea/' + urlName, {params: params})
+                .then((responce) => {
+                    if (responce.data.length !== 0) {
+                        var ret = this.$conversion(this.dataArr, responce.data, 1)
+                        ret = this.$eltable(ret)
+                        this.datas = ret
+                        localStorage.setItem('teaTrace_operate_' + urlName, JSON.stringify(ret))
+                    } else {
+                        this.flag = true
+                    }
+                })
+        } else {
+            var tabLocalOperate = JSON.parse(localStorage.getItem('teaTrace_operate_' + urlName))
+            this.datas = tabLocalOperate
+        }
     },
     methods: {
     },

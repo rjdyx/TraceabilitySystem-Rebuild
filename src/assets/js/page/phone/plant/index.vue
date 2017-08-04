@@ -78,7 +78,7 @@ export default{
     mounted () {
         this.code = this.$route.params.code
         // 查询首页产品数据
-        if (localStorage.getItem('teaTrace_product_name') === null) {
+        if (localStorage.getItem('teaTrace') === null) {
             var params = {code: this.code}
             axios.get('teaTrace/tea/index', {params: params})
                 .then((responce) => {
@@ -86,22 +86,21 @@ export default{
                         this.setToast('text', '当前溯源码无效', '12em')
                         this.$router.push('/404')
                     } else {
-                        localStorage.setItem('teaTrace_product_name', responce.data.product_name)
+                        localStorage.setItem('teaTrace', JSON.stringify(responce.data))
                         this.product_name = responce.data.product_name
                         if (responce.data.img !== '' && responce.data.img !== null) {
                             this.tea_img = responce.data.img
-                            localStorage.setItem('teaTrace_img', responce.data.img)
                         }
                         this.website = responce.data.website
-                        localStorage.setItem('teaTrace_website', responce.data.website)
                     }
                 })
         } else {
-            this.product_name = localStorage.getItem('teaTrace_product_name')
-            if (localStorage.getItem('teaTrace_img') !== '' && localStorage.getItem('teaTrace_img') !== null) {
-                this.tea_img = localStorage.getItem('teaTrace_img')
+            var tabLocal = JSON.parse(localStorage.getItem('teaTrace'))
+            this.product_name = tabLocal.product_name
+            if (tabLocal.img !== '' && tabLocal.img !== null) {
+                this.tea_img = tabLocal.img
             }
-            this.website = localStorage.getItem('teaTrace_website')
+            this.website = tabLocal.website
         }
     },
     methods: {
@@ -120,7 +119,7 @@ export default{
         },
         // 获取购买地址
         getBuyUrl () {
-            if (this.website !== null && this.website !== '') {
+            if (this.website !== 'null' && this.website !== '' && this.website !== null) {
                 window.location.href = this.website
             } else {
                 this.setToast('text', '商户没有上传购买地址', '20em')
