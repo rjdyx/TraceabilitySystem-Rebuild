@@ -13,7 +13,7 @@ export default {
                 basic.append(canvas)
                 canvas.width = document.body.clientWidth
                 canvas.height = document.body.clientHeight
-                setInterval(() => {
+                let timer = setInterval(() => {
                     this.x += 10
                     var cxt = canvas.getContext('2d')
                     cxt.save()
@@ -26,6 +26,11 @@ export default {
                     cxt.restore()
                     cxt.beginPath()
                     cxt.closePath()
+                    console.log(55)
+                    if (this.x > canvas.width) {
+                        clearInterval(timer)
+                        $(canvas).css('z-index', -2)
+                    }
                 }, 20)
                 i++
                 return true

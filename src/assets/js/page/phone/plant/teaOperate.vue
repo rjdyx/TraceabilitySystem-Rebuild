@@ -25,13 +25,24 @@
                             <tr v-for="(v,k) in models.tableProtos">
                                 <td style="width: 28%">{{models.tableTheads[k] }}</td>
                                 <td style="width: 72%" v-if="v!='img'">{{item[v]}}</td>
-                                <td style="width: 72%" v-else><img :src="item[v]" height="30"></td>
+                                <td style="width: 72%" v-else><img :src="item[v]" height="30" @click="enlargeImgFn(item[v])"></td>
                             </tr>
                         </tbody>
                     </table>
                     <div v-if="flag">{{lack}}</div>
                 </div>
             </div>
+        </div>
+        <!-- 二维码提示框  -->
+        <div v-transfer-dom>
+            <x-dialog v-model="showHideOnBlur" class="dialogImg" hide-on-blur>
+                <div class="img-box">
+                    <img :src="enlargeImg" alt="">
+                </div>
+                <div @click="showHideOnBlur=false">
+                    <span class="vux-close"></span>
+                </div>
+            </x-dialog>
         </div>
     </div>
  </transition>
@@ -40,8 +51,12 @@
 import Header1 from './component/header.vue'
 import plantMessage from './js/plantMessage.js'
 import canvas from './js/ripple.js'
+import { XDialog, TransferDomDirective as TransferDom, Qrcode } from 'vux'
 export default {
     name: 'pBasicModel1',
+    directives: {
+        TransferDom
+    },
     data () {
         let modelObj = {}
         Object.assign(modelObj, plantMessage)
@@ -55,7 +70,9 @@ export default {
             i: 0,
             canvasShow: true,
             dataArr: [{result: {'0': '合格', '1': '不合格'}}],
-            flag: false
+            flag: false,
+            showHideOnBlur: false,
+            enlargeImg: ''
         }
     },
     mixins: [canvas],
@@ -77,13 +94,32 @@ export default {
             })
     },
     methods: {
+        enlargeImgFn (imgSrc) {
+            if (imgSrc) {
+                this.enlargeImg = imgSrc
+                this.showHideOnBlur = true
+            }
+        }
     },
     components: {
-        Header1
+        Header1,
+        XDialog,
+        Qrcode
     }
 }
 </script>
 <style type="text/css" lang="sass">
+.dialogImg{
+    .weui-dialog{
+        background:none;
+        img{
+            width: 100%;
+            height:100%;
+            box-sizing: border-box;
+        }
+    }
+}
+    
     canvas{
         position: absolute;
         left: 0;
