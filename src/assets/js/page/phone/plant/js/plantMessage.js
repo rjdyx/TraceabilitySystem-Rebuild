@@ -12,13 +12,32 @@ export default{
         tableName2: '宣传视频'
     },
     // 销售信息
-    sale: {
-        title: '销售信息',
-        tableName: '销售信息',
-        tableTheads: ['种植场', '负责人', '地址', '面积', '联系方式', '种植区', '种植人', '种植日期', '采收日期'],
-        tableProtos: ['parent_name', 'director', 'address', 'area', 'phone', 'name', 'operate_name', 'cultivate_date', 'harvest_date'],
-        tableName2: '实时监控'
-    },
+    sale: [
+        {
+            saleTheads: [{
+                saleTitle: '销售信息',
+                tableTheads: ['种植场', '负责人', '地址', '面积', '联系方式', '种植区', '种植人', '种植日期', '采收日期'],
+                tableProtos: ['parent_name', 'director', 'address', 'area', 'phone', 'name', 'operate_name', 'cultivate_date', 'harvest_date']
+            }],
+            expressTheads: [{
+                saleTitle: '物流信息',
+                tableTheads: ['物流', '负责人', '地址', '面积', '联系方式', '种植区', '种植人', '种植日期', '采收日期'],
+                tableProtos: ['parent_name', 'director', 'address', 'area', 'phone', 'name', 'operate_name', 'cultivate_date', 'harvest_date']
+            }]
+        },
+        {
+            saleTheads: [{
+                saleTitle: '销售信息',
+                tableTheads: ['种植场', '负责人', '地址', '面积', '联系方式', '种植区', '种植人', '种植日期', '采收日期'],
+                tableProtos: ['parent_name', 'director', 'address', 'area', 'phone', 'name', 'operate_name', 'cultivate_date', 'harvest_date']
+            }],
+            expressTheads: [{
+                saleTitle: '物流信息',
+                tableTheads: ['物流', '负责人', '地址', '面积', '联系方式', '种植区', '种植人', '种植日期', '采收日期'],
+                tableProtos: ['parent_name', 'director', 'address', 'area', 'phone', 'name', 'operate_name', 'cultivate_date', 'harvest_date']
+            }]
+        }
+    ],
     // 购物链接
     shop: {
         title: '购物链接'

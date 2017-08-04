@@ -7,44 +7,53 @@
  */
 <template>
 <transition name="fade2">
-    <div id="pBasic">
+    <div id="pSale">
 
-        <header1 :title="models.title" :isbreed="isbreed"></header1>
-
-        <swiper></swiper>
+        <header1 :title="models.title" ></header1>
         
-        <div class="pBasic_content">
-            <div class="pBasic_content_planInfo">
-                 <h3 :class="{breedFontCol:isbreed}">{{models.tableName}}</h3>
+        <div class="pBasic_content" v-for="(c,d) in models">
+        <h3>{{c.saleLabel}}</h3>
+
+            <div class="pBasic_content_planInfo" v-for="(a,index) in c.saleTheads">
+
+                 <h3>{{a.saleTitle}}</h3>
+
                  <table border="1" bordercolor="#fbfbfb">
                     <col style="width: 28%" />
                     <col style="width: 72%" />
                     <tbody>
-                     <tr v-for="(v,k) in models.tableProtos">
-                        <td style="width: 28%">{{models.tableTheads[k] }}</td>
-                        <td style="width: 72%" v-if="v=='area'">{{datas[v]}}{{datas.unit}}</td>
-                        <td style="width: 72%" v-else>{{datas[v]}}</td>
+                     <tr v-for="(item,index) in a.tableProtos">
+                        <td style="width: 28%">{{ a.tableTheads[index]}}</td>
+                        <td style="width: 72%" v-if="v=='area'">{{datas[item]}}{{datas.unit}}</td>
+                        <td style="width: 72%" v-else>{{datas[item]}}</td>
+                     </tr>
+                     </tbody>
+                 </table>
+            </div>
+            
+            <div class="pBasic_content_planInfo" v-for="(a,index) in c.expressTheads">
+
+                 <h3>{{a.saleTitle}}</h3>
+
+                 <table border="1" bordercolor="#fbfbfb">
+                    <col style="width: 28%" />
+                    <col style="width: 72%" />
+                    <tbody>
+                     <tr v-for="(item,index) in a.tableProtos">
+                        <td style="width: 28%">{{ a.tableTheads[index]}}</td>
+                        <td style="width: 72%" v-if="v=='area'">{{datas[item]}}{{datas.unit}}</td>
+                        <td style="width: 72%" v-else>{{datas[item]}}</td>
                      </tr>
                      </tbody>
                  </table>
             </div>
 
-            
-            <div class="pBasic_content_control">
-                <h4 :class="{breedFontCol:isbreed}">{{models.tableName2}}</h4>
-                <div v-for="i in 2">
-                     <p>2017-04-11</p>
-                    <img src="./images/img.png" height="322" width="670" alt="">
-                </div>
-            </div> 
          </div>
     </div>
 </transition>
 </template>
 <script>
 import Header1 from './component/header.vue'
-import HeaderImg from './component/headImg.vue'
-import swiper from './component/swiper.vue'
 import plantMessage from './js/plantMessage.js'
 export default {
     name: 'pBasic',
@@ -88,11 +97,10 @@ export default {
                     }
                 }
             })
+        console.log(this.models)
     },
     components: {
-        Header1,
-        swiper,
-        HeaderImg
+        Header1
     },
     computed: {
         isbreed () {
@@ -105,14 +113,17 @@ export default {
 .breedFontCol{
     color:#93bf46!important;
 }
-#pBasic{
+#pSale{
     width:100%;
     padding-bottom: .5rem;
     // height:100%;
     // overflow: hidden;
     .pBasic_content{
-        width: 100%;
+        width: 95%;
         background: #fbfbfb;
+        margin-top: 1.5rem;
+        margin-left: 2%;
+        border: 2px solid #fbfbfb;
         .pBasic_content_planInfo{
             width: 100%;
             padding-bottom: 5%;
@@ -146,30 +157,6 @@ export default {
                         padding:3% 0% 3% 5%;
                     }
                 }
-            }
-        }
-        .pBasic_content_control{
-            border-top: .4rem solid #f2f2f2;
-            font-size: .3rem;
-            padding-bottom: 2%;
-            h4{
-                font-weight:normal;
-                padding: 4% 0% 0% 4%;
-                color:#76cfbd;
-            }
-            div{
-                width: 92%;
-                margin: 0 auto;
-                padding-bottom: 20px;
-                p{
-                    color: #a8a9a9;
-                    font-size:.3rem;
-                    padding:0% 0% 1% 0%;
-                }
-                img{
-                    width: 100%;
-                    height: auto;
-                } 
             }
         }
     }
