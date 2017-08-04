@@ -12,7 +12,7 @@
 		</div>
 		<div class="phoneMain">
 			<div class="logo">
-				<img :src="$img(tea_img)">
+				<img :src="tea_img">
 			</div>
 				<template v-for="(item,index) in indexData.circle">
 				<div>
@@ -75,7 +75,7 @@ export default{
             indexData: indexData,
             video: 'video',
             product_name: '',
-            tea_img: '/images/tea_default.jpg'
+            tea_img: this.$img('/images/tea_default.jpg')
         }
     },
     mounted () {

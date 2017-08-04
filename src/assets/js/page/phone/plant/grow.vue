@@ -8,20 +8,19 @@
 <template>
 <transition name="fade2">
     <div id="home_grow">
-        <header1 title="生长图片" :isbreed="isbreed"></header1>
+        <header1 title="生长图片"></header1>
         <div class="hg_content">
-            <ul :class="{breedBorder:isbreed}">
+            <ul>
                 <li class="hg_content_li" v-for="grow in grows">
                     <!-- 时间 -->
-                    <div :class="[{ breedFontCol: isbreed }, {hg_content_li_top: true}]">
-                        <img v-if="isbreed" src="./images/b_grow_icon.png" height="30" width="31" alt="">
-                        <img v-else src="./images/grow_icon.png" height="30" width="31" alt="">
+                    <div :class="{hg_content_li_top: true}">
+                        <img src="./images/grow_icon.png" height="30" width="31" alt="">
                         <span>{{grow.date}}</span><span>{{grow.name}}</span>
                     </div>
                     <!-- 图片 -->
                     <div class="hg_content_li_bottom">
-                        <img :src="grow.thumb" height="322" width="670" alt="">
-                        <p :class="{breedCol:isbreed}">{{grow.desc}}</p>
+                        <img :src="grow.img" height="322" width="670" alt="">
+                        <p>{{grow.desc}}</p>
                     </div>
                 </li>
             </ul>
@@ -127,11 +126,6 @@ export default {
     },
     components: {
         Header1
-    },
-    computed: {
-        isbreed () {
-            return this.isbreed = this.$route.meta.runName === 'breed'
-        }
     }
 }
 </script>
