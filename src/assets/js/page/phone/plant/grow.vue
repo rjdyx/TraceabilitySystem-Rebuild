@@ -28,6 +28,33 @@
     </div>
 </transition>
 </template>
+<script >
+import Header1 from './component/header.vue'
+export default {
+    name: 'pGrow',
+    data () {
+        return {
+            grows: {}
+        }
+    },
+    mounted () {
+        $(document).on('touchmove', function (e) {
+            e.stopPropagation()
+        })
+        var params = {code: this.$route.params.id}
+        axios.get('/teaTrace/tea/grow', {params: params})
+            .then((responce) => {
+                var lists = responce.data
+                if (lists !== 404 && lists !== 403 && lists !== 400) {
+                    this.grows = lists
+                }
+            })
+    },
+    components: {
+        Header1
+    }
+}
+</script>
 <style type="text/css" lang="sass">
     .breedBorder{
         // border-left:2px solid #93bf46!important;
@@ -102,30 +129,3 @@
         }
     } 
 </style>
-<script >
-import Header1 from './component/header.vue'
-export default {
-    name: 'pGrow',
-    data () {
-        return {
-            grows: {}
-        }
-    },
-    mounted () {
-        $(document).on('touchmove', function (e) {
-            e.stopPropagation()
-        })
-        var params = {code: this.$route.params.id}
-        axios.get('/teaTrace/tea/grow', {params: params})
-            .then((responce) => {
-                var lists = responce.data
-                if (lists !== 404 && lists !== 403 && lists !== 400) {
-                    this.grows = lists
-                }
-            })
-    },
-    components: {
-        Header1
-    }
-}
-</script>

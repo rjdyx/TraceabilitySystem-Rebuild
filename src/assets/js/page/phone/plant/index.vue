@@ -78,20 +78,31 @@ export default{
     mounted () {
         this.code = this.$route.params.code
         // 查询首页产品数据
-        var params = {code: this.code}
-        axios.get('teaTrace/tea/index', {params: params})
-            .then((responce) => {
-                if (responce.data === 404) {
-                    this.setToast('text', '当前溯源码无效', '12em')
-                    this.$router.push('/404')
-                } else {
-                    this.product_name = responce.data.product_name
-                    if (responce.data.img !== '' && responce.data.img !== null) {
-                        this.tea_img = responce.data.img
+        if (localStorage.getItem('teaTrace_product_name') === null) {
+            var params = {code: this.code}
+            axios.get('teaTrace/tea/index', {params: params})
+                .then((responce) => {
+                    if (responce.data === 404) {
+                        this.setToast('text', '当前溯源码无效', '12em')
+                        this.$router.push('/404')
+                    } else {
+                        localStorage.setItem('teaTrace_product_name', responce.data.product_name)
+                        this.product_name = responce.data.product_name
+                        if (responce.data.img !== '' && responce.data.img !== null) {
+                            this.tea_img = responce.data.img
+                            localStorage.setItem('teaTrace_img', responce.data.img)
+                        }
+                        this.website = responce.data.website
+                        localStorage.setItem('teaTrace_website', responce.data.website)
                     }
-                    this.website = responce.data.website
-                }
-            })
+                })
+        } else {
+            this.product_name = localStorage.getItem('teaTrace_product_name')
+            if (localStorage.getItem('teaTrace_img') !== '' && localStorage.getItem('teaTrace_img') !== null) {
+                this.tea_img = localStorage.getItem('teaTrace_img')
+            }
+            this.website = localStorage.getItem('teaTrace_website')
+        }
     },
     methods: {
         // 提示弹窗
