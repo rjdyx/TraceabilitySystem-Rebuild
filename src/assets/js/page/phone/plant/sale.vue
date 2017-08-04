@@ -98,7 +98,6 @@ export default {
                     }
                 }
             })
-        console.log(this.models)
     },
     components: {
         Header1

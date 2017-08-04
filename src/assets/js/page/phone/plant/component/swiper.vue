@@ -8,7 +8,7 @@
 <template>
 	<div class="swiper">
 
-    <swiper :aspect-ratio="500/800" dots-position="center" loop auto>
+    <swiper :aspect-ratio="500/800" loop auto>
       	<swiper-item 
       		class="swiper-demo-img" 
       		v-for="(item, index) in demo04_list" 
@@ -16,6 +16,7 @@
       		<img :src="item">
       	</swiper-item>
     </swiper>
+
   </div>
 </template>
 
@@ -25,6 +26,8 @@ import { Swiper, SwiperItem } from 'vux'
 const imgList = [
     'https://static.vux.li/demo/1.jpg',
     'https://static.vux.li/demo/2.jpg',
+    'https://static.vux.li/demo/3.jpg',
+    'https://static.vux.li/demo/3.jpg',
     'https://static.vux.li/demo/3.jpg'
 ]
 
