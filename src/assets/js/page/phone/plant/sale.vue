@@ -12,8 +12,8 @@
         <header1 :title="models.title" ></header1>
         
         <div class="pBasic_content" v-for="(c,d) in models">
-        <h3>{{c.saleLabel}}</h3>
-
+            
+            <!-- 销售信息 -->
             <div class="pBasic_content_planInfo" v-for="(a,index) in c.saleTheads">
 
                  <h3>{{a.saleTitle}}</h3>
@@ -31,10 +31,11 @@
                  </table>
             </div>
             
+            <!-- 物流信息 -->
             <div class="pBasic_content_planInfo" v-for="(a,index) in c.expressTheads">
 
                  <h3>{{a.saleTitle}}</h3>
-
+                    
                  <table border="1" bordercolor="#fbfbfb">
                     <col style="width: 28%" />
                     <col style="width: 72%" />
