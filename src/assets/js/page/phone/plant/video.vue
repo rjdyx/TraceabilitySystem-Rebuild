@@ -8,7 +8,7 @@
 <template>
 <transition name="fade2">
 	<div>
-		<header1 :title="models.title" :isbreed="isbreed"></header1>
+		<header1 :title="models.title"></header1>
 	</div>
 </transition>
 </template>
@@ -26,20 +26,13 @@ export default {
     },
     mounted () {
         $(document).on('touchmove', function (e) {
-            // e.preventDefault()
             e.stopPropagation()
         })
-        if (this.$route.meta.runName === 'breed') {
-            this.isbreed = true
-        }
     },
     components: {
         Header1
     },
     computed: {
-        isbreed () {
-            return this.isbreed = this.$route.meta.runName === 'breed'
-        }
     }
 }
 </script>

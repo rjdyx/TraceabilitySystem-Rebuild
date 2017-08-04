@@ -31,11 +31,9 @@
 			<p class="description">{{product_name}}</p>
 		</div>
 		<div class="menuWrap">
-			<div class="indexMenu">
-				<router-link :to="'/teaTrace/tea/video/'+id">
-					<span class="iconfont iconmenu icon-shipin"></span>
-					<span>实时视频</span>
-				</router-link>
+			<div class="indexMenu" @click="getVideo">
+				<span class="iconfont iconmenu icon-shipin"></span>
+				<span>实时视频</span>
 			</div>
 			<div class="indexMenu">
 				<router-link :to="'/teaTrace/tea/basicInfor/'+code">
@@ -49,11 +47,9 @@
 					<span>销售信息</span>
 				</router-link>
 			</div>
-			<div class="indexMenu">
-				<router-link :to="'/run/plant/shop/'+video">
-					<span class="iconfont iconmenu icon-gouwuche"></span>
-					<span>购物链接</span>
-				</router-link>
+			<div class="indexMenu"  @click="getBuyUrl">
+				<span class="iconfont iconmenu icon-gouwuche"></span>
+				<span>购物链接</span>
 			</div>
 		</div>
 	</div>
@@ -62,7 +58,7 @@
 <script>
 import plantMessage from './js/plantMessage.js'
 import indexData from './js/index.js'
-
+import { Toast } from 'vux'
 export default{
     name: 'phoneIndex',
     data () {
@@ -75,7 +71,8 @@ export default{
             indexData: indexData,
             video: 'video',
             product_name: '',
-            tea_img: this.$img('/images/tea_default.jpg')
+            tea_img: this.$img('/images/tea_default.jpg'),
+            website: ''
         }
     },
     mounted () {
@@ -84,13 +81,40 @@ export default{
         var params = {code: this.code}
         axios.get('teaTrace/tea/index', {params: params})
             .then((responce) => {
-                this.product_name = responce.data.product_name
-                if (responce.data.img !== '' && responce.data.img !== null) {
-                    this.tea_img = responce.data.img
+                if (responce.data === 404) {
+                    this.setToast('text', '当前溯源码无效', '12em')
+                    this.$router.push('/404')
+                } else {
+                    this.product_name = responce.data.product_name
+                    if (responce.data.img !== '' && responce.data.img !== null) {
+                        this.tea_img = responce.data.img
+                    }
+                    this.website = responce.data.website
                 }
             })
     },
     methods: {
+        // 提示弹窗
+        setToast (type, text, width = '7.6em') {
+            this.$vux.toast.show({
+                type: type,
+                text: text,
+                width: width,
+                position: 'middle'
+            })
+        },
+        // 获取视频
+        getVideo () {
+            this.setToast('text', '该功能尚在完善中', '14em')
+        },
+        // 获取购买地址
+        getBuyUrl () {
+            if (this.website !== null && this.website !== '') {
+                window.location.href = this.website
+            } else {
+                this.setToast('text', '商户没有上传购买地址', '20em')
+            }
+        },
         // 带动画的路径跳转
         jumpto (item, index) {
             let quote = $('.quote')
@@ -109,6 +133,9 @@ export default{
                 this.$router.push(item.src + this.code)
             }, 500)
         }
+    },
+    components: {
+        Toast
     }
 }
 </script>

@@ -29,7 +29,7 @@
                             </tr>
                         </tbody>
                     </table>
-                    <div v-else>{{lack}}</div>
+                    <div v-if="flag">{{lack}}</div>
                 </div>
             </div>
         </div>
@@ -53,7 +53,8 @@ export default {
             lack: '无相关记录',
             x: 10,
             canvasShow: true,
-            dataArr: [{result: {'0': '合格', '1': '不合格'}}]
+            dataArr: [{result: {'0': '合格', '1': '不合格'}}],
+            flag: false
         }
     },
     mixins: [canvas],
@@ -65,9 +66,13 @@ export default {
         var params = {code: this.$route.params.id}
         axios.get('teaTrace/tea/' + urlName, {params: params})
             .then((responce) => {
-                var ret = this.$conversion(this.dataArr, responce.data, 1)
-                ret = this.$eltable(ret)
-                this.datas = ret
+                if (responce.data.length !== 0) {
+                    var ret = this.$conversion(this.dataArr, responce.data, 1)
+                    ret = this.$eltable(ret)
+                    this.datas = ret
+                } else {
+                    this.flag = true
+                }
             })
     },
     methods: {
