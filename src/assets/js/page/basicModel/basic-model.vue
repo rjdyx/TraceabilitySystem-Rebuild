@@ -937,7 +937,7 @@ export default {
     },
     watch: {
         models () {
-            this.modelIndex = 0
+            this.modelIndex = localStorage.getItem('tab') || 0
             this.activeName = 'index0'
             localStorage.setItem('tab', this.modelIndex)
             this.theads.length > 8 ? this.expandMore = true : this.expandMore = false

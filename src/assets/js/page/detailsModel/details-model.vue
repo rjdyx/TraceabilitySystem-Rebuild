@@ -66,7 +66,7 @@
                         @submitEdit="hangeEdit" :changeDataArr="changeData" :editDefault="editDefault">
                 </popEdit>
             </transition>
-            <!-- 打印模块 -->
+            <!-- 打印溯源码模块 -->
             <transition name="fade">
                 <printf v-if="isPrintShow" :printComponent="tabItem.printComponent" :url="url" :printForm="printForm"></printf>
             </transition>
@@ -309,24 +309,7 @@ export default {
         ]),
         // 打印内容的展示
         printShowFn () {
-            // this.dialogTableVisible = true
             this.$refs.printfPreview.dialogTableVisible = true
-            // this.dialogTableVisible = false
-            // this.$nextTick(() => {
-            //     this.$html2canvas($('.printfTable').get(0), {
-            //         allowTaint: true,
-            //         taintTest: false,
-            //         height: $('printfTable').outerHeight(),
-            //         onrendered: function (canvas) {
-            //             var $canvas = $(canvas)
-            //             // $('.printfTable').replaceWith($canvas)
-            //             var p = $('.printfTable').parent()
-            //             $('.printfTable').hide(0, () => {
-            //                 p.append($canvas)
-            //             })
-            //         }
-            //     })
-            // })
         },
         // 关闭打印内容的展示
         closePrintfDialog () {
@@ -788,7 +771,15 @@ export default {
         },
         moreShow (index, row) {
             this.isPrintShow = !this.isPrintShow
+            let obj = row
             this.printForm = row
+            let obj2 = {
+                product_name: this.headData['product_name'],
+                specification: this.headData['specification']
+            }
+            if (this.printForm !== undefined) {
+                this.printForm = Object.assign(this.printForm, obj2)
+            }
         },
         permissionShow (index, row) {
             this.isRoleShow = true
@@ -851,7 +842,7 @@ export default {
         this.change_siderBar(false)
         this.tabItem = this.tabList[localStorage.getItem('tabL') !== null ? localStorage.getItem('tabL') : 0]
         this.activeName = this.tabList[localStorage.getItem('tabL') !== null ? localStorage.getItem('tabL') : 0].tab
-        localStorage.setItem('tab', 0)
+        // localStorage.setItem('tab', 0)
         this.getApiUrl()
         this.getDetailSerial()
         this.boxArr(this.dataArr, true)
@@ -936,7 +927,7 @@ export default {
         text-decoration: underline;
         cursor:pointer;
     }
-    .el-row {
+    >.el-row {
         padding:0px 0px 20px 10px;
         border-bottom: 2px solid #e5e5e5;
         &:last-child {

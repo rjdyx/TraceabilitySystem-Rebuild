@@ -140,7 +140,6 @@ export default {
             font-size: 14px;
             font-weight:bold;
         }
-        
     }
     .grid-content {
         min-height: 36px;
