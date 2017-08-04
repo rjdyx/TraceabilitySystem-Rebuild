@@ -8,10 +8,10 @@ export default{
             src: '/teaTrace/tea/growImg/'
         },
         {
-            icon: 'icon-goods',
-            iconLabel: '商品信息',
-            iconPosition: 'iconquoteB',
-            src: '/teaTrace/tea/commodityInfor/',
+            icon: 'icon-feiliao',
+            iconLabel: '施肥信息',
+            iconPosition: 'iconquoteD',
+            src: '/teaTrace/tea/fertilize/',
             active: 'activeB'
         },
         {
@@ -22,24 +22,24 @@ export default{
             active: 'activeC'
         },
         {
-            icon: 'icon-feiliao',
-            iconLabel: '施肥信息',
-            iconPosition: 'iconquoteD',
-            src: '/teaTrace/tea/fertilize/',
-            active: 'activeD'
-        },
-        {
             icon: 'icon-nongshiguanli',
             iconLabel: '农事信息',
             iconPosition: 'iconquoteE',
             src: '/teaTrace/tea/farming/',
-            active: 'activeE'
+            active: 'activeD'
         },
         {
             icon: 'icon-caishouguanli',
             iconLabel: '采制信息',
             iconPosition: 'iconquoteF',
             src: '/teaTrace/tea/harvest/',
+            active: 'activeE'
+        },
+        {
+            icon: 'icon-goods',
+            iconLabel: '商品信息',
+            iconPosition: 'iconquoteB',
+            src: '/teaTrace/tea/commodityInfor/',
             active: 'activeF'
         }
     ]

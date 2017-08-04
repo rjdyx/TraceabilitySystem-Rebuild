@@ -12,11 +12,8 @@
     <canvas id="canvas" v-if="canvasShow"></canvas>  
     
     <header1 :title="models.title"></header1>
-    
     <swiper></swiper>
-
     <div class="pCom_content">
-        
         <div class="pCom_content_introduce">
             <div>
                 <ul>
@@ -38,7 +35,7 @@
                             <td style="width: 28%">{{models.tableTheads[k] }}</td>
                             <td style="width: 72%" v-if="v=='area'">{{datas[v]}}{{datas.unit}}</td>
                             <td style="width: 72%" v-else>{{datas[v]}}</td>
-                    </tr>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -50,6 +47,53 @@
     </div>
 </transition>
 </template>
+<script>
+import Header1 from './component/header.vue'
+import HeaderImg from './component/headImg.vue'
+import TwoColList from './component/twoColList.vue'
+import plantMessage from './js/plantMessage.js'
+import swiper from './component/swiper.vue'
+import canvas from './js/ripple.js'
+export default {
+    name: 'pBasicModel1',
+    data () {
+        let modelObj = {}
+        Object.assign(modelObj, plantMessage)
+        return {
+            models: modelObj[this.$route.meta.key],
+            datas: {},
+            product: {},
+            sells: false,
+            lack: '无相关记录',
+            x: 10,
+            canvasShow: true
+        }
+    },
+    mixins: [canvas],
+    mounted () {
+        $(document).on('touchmove', function (e) {
+            e.stopPropagation()
+        })
+        var params = {code: this.$route.params.id}
+        axios.get('teaTrace/tea/product', params)
+            .then((responce) => {
+                var lists = responce.data
+                if (lists !== 400 && lists !== 404 && lists !== 403) {
+                    this.datas = lists
+                    this.product = responce.data
+                }
+            })
+    },
+    methods: {
+    },
+    components: {
+        Header1,
+        HeaderImg,
+        TwoColList,
+        swiper
+    }
+}
+</script>
 <style type="text/css" lang="sass">
     .pBasic_content {
         width: 100%;
@@ -155,50 +199,3 @@
         z-index: 2378758;
     }
 </style>
-<script>
-import Header1 from './component/header.vue'
-import HeaderImg from './component/headImg.vue'
-import TwoColList from './component/twoColList.vue'
-import plantMessage from './js/plantMessage.js'
-import swiper from './component/swiper.vue'
-import canvas from './js/ripple.js'
-export default {
-    name: 'pBasicModel1',
-    data () {
-        let modelObj = {}
-        Object.assign(modelObj, plantMessage)
-        return {
-            models: modelObj[this.$route.meta.key],
-            datas: {},
-            product: {},
-            sells: false,
-            lack: '无相关记录',
-            x: 10,
-            canvasShow: true
-        }
-    },
-    mixins: [canvas],
-    mounted () {
-        $(document).on('touchmove', function (e) {
-            e.stopPropagation()
-        })
-        var params = {code: this.$route.params.id}
-        axios.get('teaTrace/tea/product', params)
-            .then((responce) => {
-                var lists = responce.data
-                if (lists !== 400 && lists !== 404 && lists !== 403) {
-                    this.datas = lists
-                    this.product = responce.data
-                }
-            })
-    },
-    methods: {
-    },
-    components: {
-        Header1,
-        HeaderImg,
-        TwoColList,
-        swiper
-    }
-}
-</script>

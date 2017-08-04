@@ -39,33 +39,13 @@ export default{
         tableTheads: ['采制日期', '采制人', '毛茶重量', '散茶重量', '损耗率', '晒青时间', '晾青时间', '做青时间', '杀青时间', '揉稔时间', '解块时间', '干燥时间', '筛选时间', '复火时间'],
         tableProtos: ['date', 'operate', 'raw_tea_weight', 'bulk_tea_weight', 'attrition_rate', 'sunning_date', 'cooling_date', 'make_green_date', 'kill_out_date', 'knead_nori_date', 'deblock_date', 'dry_date', 'filtrate_date', 'refiring_date']
     },
-    // 销售信息
-    sale: [
-        {
-            saleTheads: [{
-                saleTitle: '销售信息',
-                tableTheads: ['种植场', '负责人', '地址', '面积', '联系方式', '种植区', '种植人', '种植日期', '采收日期'],
-                tableProtos: ['parent_name', 'director', 'address', 'area', 'phone', 'name', 'operate_name', 'cultivate_date', 'harvest_date']
-            }],
-            expressTheads: [{
-                saleTitle: '物流信息',
-                tableTheads: ['物流', '负责人', '地址', '面积', '联系方式', '种植区', '种植人', '种植日期', '采收日期'],
-                tableProtos: ['parent_name', 'director', 'address', 'area', 'phone', 'name', 'operate_name', 'cultivate_date', 'harvest_date']
-            }]
-        },
-        {
-            saleTheads: [{
-                saleTitle: '销售信息',
-                tableTheads: ['种植场', '负责人', '地址', '面积', '联系方式', '种植区', '种植人', '种植日期', '采收日期'],
-                tableProtos: ['parent_name', 'director', 'address', 'area', 'phone', 'name', 'operate_name', 'cultivate_date', 'harvest_date']
-            }],
-            expressTheads: [{
-                saleTitle: '物流信息',
-                tableTheads: ['物流', '负责人', '地址', '面积', '联系方式', '种植区', '种植人', '种植日期', '采收日期'],
-                tableProtos: ['parent_name', 'director', 'address', 'area', 'phone', 'name', 'operate_name', 'cultivate_date', 'harvest_date']
-            }]
-        }
-    ],
+    // 物流销售信息
+    sale: {
+        title: '物流销售信息',
+        tableName: '物流销售记录',
+        tableTheads: ['客户名称', '订购公司', '联系人', '下单日期', '出货日期', '送货地址', '花费总额(元)', '运输方式'],
+        tableProtos: ['client_name', 'company_name', 'contact', 'date', 'out_date', 'address', 'total', 'transportable_type']
+    },
     // 购物链接
     shop: {
         title: '购物链接'
