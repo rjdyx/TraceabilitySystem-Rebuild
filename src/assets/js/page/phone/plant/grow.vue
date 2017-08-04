@@ -8,20 +8,22 @@
 <template>
 <transition name="fade2">
     <div id="home_grow">
-        <header1 title="生长图片" :isbreed="isbreed"></header1>
+
+      <canvas id="canvas" v-if="canvasShow"></canvas>
+
+        <header1 title="生长图片"></header1>
         <div class="hg_content">
-            <ul :class="{breedBorder:isbreed}">
+            <ul>
                 <li class="hg_content_li" v-for="grow in grows">
                     <!-- 时间 -->
-                    <div :class="[{ breedFontCol: isbreed }, {hg_content_li_top: true}]">
-                        <img v-if="isbreed" src="./images/b_grow_icon.png" height="30" width="31" alt="">
-                        <img v-else src="./images/grow_icon.png" height="30" width="31" alt="">
+                    <div :class="{hg_content_li_top: true}">
+                        <img src="./images/grow_icon.png" height="30" width="31" alt="">
                         <span>{{grow.date}}</span><span>{{grow.name}}</span>
                     </div>
                     <!-- 图片 -->
                     <div class="hg_content_li_bottom">
-                        <img :src="grow.thumb" height="322" width="670" alt="">
-                        <p :class="{breedCol:isbreed}">{{grow.desc}}</p>
+                        <img :src="grow.img" height="322" width="670" alt="">
+                        <p>{{grow.desc}}</p>
                     </div>
                 </li>
             </ul>
@@ -29,7 +31,44 @@
     </div>
 </transition>
 </template>
+<script >
+import canvas from './js/ripple.js'
+import Header1 from './component/header.vue'
+export default {
+    name: 'pGrow',
+    data () {
+        return {
+            grows: {},
+            canvasShow: true,
+            x: 10
+        }
+    },
+    mixins: [canvas],
+    mounted () {
+        $(document).on('touchmove', function (e) {
+            e.stopPropagation()
+        })
+        var params = {code: this.$route.params.id}
+        axios.get('/teaTrace/tea/grow', {params: params})
+            .then((responce) => {
+                var lists = responce.data
+                if (lists !== 404 && lists !== 403 && lists !== 400) {
+                    this.grows = lists
+                }
+            })
+    },
+    components: {
+        Header1
+    }
+}
+</script>
 <style type="text/css" lang="sass">
+    canvas{
+        position: absolute;
+        left: 0;
+        top: 0.9rem;
+        z-index: 54548;
+    }
     .breedBorder{
         // border-left:2px solid #93bf46!important;
         border-color:#93bf46!important;
@@ -103,35 +142,3 @@
         }
     } 
 </style>
-<script >
-import Header1 from './component/header.vue'
-export default {
-    name: 'pGrow',
-    data () {
-        return {
-            grows: {}
-        }
-    },
-    mounted () {
-        $(document).on('touchmove', function (e) {
-            e.stopPropagation()
-        })
-        var params = {code: this.$route.params.id}
-        axios.get('/teaTrace/tea/grow', {params: params})
-            .then((responce) => {
-                var lists = responce.data
-                if (lists !== 404 && lists !== 403 && lists !== 400) {
-                    this.grows = lists
-                }
-            })
-    },
-    components: {
-        Header1
-    },
-    computed: {
-        isbreed () {
-            return this.isbreed = this.$route.meta.runName === 'breed'
-        }
-    }
-}
-</script>

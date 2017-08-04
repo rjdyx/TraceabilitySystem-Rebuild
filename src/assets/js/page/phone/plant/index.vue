@@ -12,12 +12,12 @@
 		</div>
 		<div class="phoneMain">
 			<div class="logo">
-				<img :src="$img(tea_img)">
+				<img :src="tea_img">
 			</div>
 				<template v-for="(item,index) in indexData.circle">
 				<div>
 					<div :class="item.iconPosition" class="quote">
-						<div :class="{'active':item.isTrue}" @touchend="jumpto(item,index)">
+						<div :class="{'active':item.isTrue}" @click="jumpto(item,index)">
 							<li class="iconfont iconcircle" :class="item.icon">
 							</li>
 							<span>{{item.iconLabel}}</span>
@@ -31,11 +31,9 @@
 			<p class="description">{{product_name}}</p>
 		</div>
 		<div class="menuWrap">
-			<div class="indexMenu">
-				<router-link :to="'/run/plant/video/'+id">
-					<span class="iconfont iconmenu icon-shipin"></span>
-					<span>实时视频</span>
-				</router-link>
+			<div class="indexMenu" @click="getVideo">
+				<span class="iconfont iconmenu icon-shipin"></span>
+				<span>实时视频</span>
 			</div>
 			<div class="indexMenu">
 				<router-link :to="'/teaTrace/tea/basicInfor/'+code">
@@ -44,16 +42,14 @@
 				</router-link>
 			</div>
 			<div class="indexMenu">
-				<router-link :to="'/run/plant/saleInfor/'+video">
+				<router-link :to="'/teaTrace/tea/sale/'+code">
 					<span class="iconsale iconmenu icon-xiaoshouxinxi"></span>
 					<span>销售信息</span>
 				</router-link>
 			</div>
-			<div class="indexMenu">
-				<router-link :to="'/run/plant/shop/'+video">
-					<span class="iconfont iconmenu icon-gouwuche"></span>
-					<span>购物链接</span>
-				</router-link>
+			<div class="indexMenu"  @click="getBuyUrl">
+				<span class="iconfont iconmenu icon-gouwuche"></span>
+				<span>购物链接</span>
 			</div>
 		</div>
 	</div>
@@ -62,7 +58,7 @@
 <script>
 import plantMessage from './js/plantMessage.js'
 import indexData from './js/index.js'
-
+import { Toast } from 'vux'
 export default{
     name: 'phoneIndex',
     data () {
@@ -75,22 +71,61 @@ export default{
             indexData: indexData,
             video: 'video',
             product_name: '',
-            tea_img: '/images/tea_default.jpg'
+            tea_img: this.$img('/images/tea_default.jpg'),
+            website: ''
         }
     },
     mounted () {
         this.code = this.$route.params.code
         // 查询首页产品数据
-        var params = {code: this.code}
-        axios.get('teaTrace/tea/index', {params: params})
-            .then((responce) => {
-                this.product_name = responce.data.product_name
-                if (responce.data.img !== '' && responce.data.img !== null) {
-                    this.tea_img = responce.data.img
-                }
-            })
+        if (localStorage.getItem('teaTrace_product_name') === null) {
+            var params = {code: this.code}
+            axios.get('teaTrace/tea/index', {params: params})
+                .then((responce) => {
+                    if (responce.data === 404) {
+                        this.setToast('text', '当前溯源码无效', '12em')
+                        this.$router.push('/404')
+                    } else {
+                        localStorage.setItem('teaTrace_product_name', responce.data.product_name)
+                        this.product_name = responce.data.product_name
+                        if (responce.data.img !== '' && responce.data.img !== null) {
+                            this.tea_img = responce.data.img
+                            localStorage.setItem('teaTrace_img', responce.data.img)
+                        }
+                        this.website = responce.data.website
+                        localStorage.setItem('teaTrace_website', responce.data.website)
+                    }
+                })
+        } else {
+            this.product_name = localStorage.getItem('teaTrace_product_name')
+            if (localStorage.getItem('teaTrace_img') !== '' && localStorage.getItem('teaTrace_img') !== null) {
+                this.tea_img = localStorage.getItem('teaTrace_img')
+            }
+            this.website = localStorage.getItem('teaTrace_website')
+        }
     },
     methods: {
+        // 提示弹窗
+        setToast (type, text, width = '7.6em') {
+            this.$vux.toast.show({
+                type: type,
+                text: text,
+                width: width,
+                position: 'middle'
+            })
+        },
+        // 获取视频
+        getVideo () {
+            this.setToast('text', '该功能尚在完善中', '14em')
+        },
+        // 获取购买地址
+        getBuyUrl () {
+            if (this.website !== null && this.website !== '') {
+                window.location.href = this.website
+            } else {
+                this.setToast('text', '商户没有上传购买地址', '20em')
+            }
+        },
         // 带动画的路径跳转
         jumpto (item, index) {
             let quote = $('.quote')
@@ -109,6 +144,9 @@ export default{
                 this.$router.push(item.src + this.code)
             }, 500)
         }
+    },
+    components: {
+        Toast
     }
 }
 </script>
@@ -153,6 +191,13 @@ export default{
 				position: absolute;
 				top: 2rem;
 				left: 2rem;
+				span{
+					width: 4.2rem;
+					height: 4.2rem;
+					border-radius: 50%;
+					border: 2px solid #fff;
+					display: inline-block;
+				}
 				img{
 					width: 4.2rem;
 					height: 4.2rem;

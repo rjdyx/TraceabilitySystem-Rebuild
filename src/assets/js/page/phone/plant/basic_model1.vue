@@ -9,37 +9,39 @@
 <transition name="fade2">
     <div class="pBasicModel1">
        
-      <canvas id="canvas" v-if="canvasShow"></canvas>
+      <!-- <canvas id="canvas" v-if="canvasShow"></canvas> -->
 
         <header1 :title="models.title" :isbreed="isbreed"></header1>
-        <headerImg :productName='productName' :isbreed="isbreed"></headerImg>
-        <div class="pBM1_list">
-            <div>
-                <h3 :class="{breedFontCol:isbreed}">{{models.tableName}}</h3>
-                <table>
-                    <col style="width: 25%" />
-                    <col style="width: 25%" />
-                    <col style="width: 25%" />
-                    <col style="width: 25%" />
-                    <tbody>
-                        <tr>
-                            <th style="width: 25%" v-for="item in models.tableTheads">{{item}}</th>
+        
+        <div class="pCom_content">
+        
+            <div class="pCom_content_introduce">
+                <div>
+                    <ul :class="{breedFontCol:isbreed}">
+                        <li>{{product.name}}</li>
+                        <li ><em>溯源次数：</em>{{product.time}}</li>
+                    </ul>
+                    <p>{{product.description}}</p>
+                </div>
+            </div>
+        
+            <div  class="pBasic_content">
+                <div class="pBasic_content_planInfo">
+                    <h3 :class="{breedFontCol:isbreed}">{{models.tableName}}</h3>
+                    <table border="1" bordercolor="#fbfbfb">
+                        <col style="width: 28%" />
+                        <col style="width: 72%" />
+                        <tbody>
+                            <tr v-for="(v,k) in models.tableProtos">
+                                <td style="width: 28%">{{models.tableTheads[k] }}</td>
+                                <td style="width: 72%" v-if="v=='area'">{{datas[v]}}{{datas.unit}}</td>
+                                <td style="width: 72%" v-else>{{datas[v]}}</td>
                         </tr>
-                        <tr v-for="list in lists" @touchend="goListDetails(list.id,list.custom_id)">
-                            <td v-if="list.serial!==null">{{list.serial}}</td>
-                            <td v-else>{{lack}}</td>
-                            <td v-if="list.operate!==null">{{list.operate_name}}</td>
-                            <td v-else>{{lack}}</td>
-                            <td v-if="list.date!==null">{{list.date}}</td>
-                            <td v-else>{{lack}}</td>
-                            <td v-if="list.thumb!==null">
-                                <img class="tdImg" src="list.thumb" alt="">
-                            </td>
-                            <td v-else>{{lack}}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div> 
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
         </div>
 
     </div>
@@ -58,58 +60,94 @@
     .breedFontCol{
         color:#93bf46!important;
     }
+    .pBasic_content {
+        width: 100%;
+        background: #fbfbfb;
+        .pBasic_content_planInfo{
+            width: 100%;
+            padding-bottom: 5%;
+            color:#3ccfb5;
+            >h3{
+                font-weight:normal;
+                font-size: .42rem;
+                padding: 4% 0% 4% 4%;
+            }
+            >table{
+                width: 92%;
+                margin:0 auto;
+                font-size:.4rem;
+                border-collapse: collapse;
+                border-color:#e6e6e6;
+                table-layout:fixed;
+                tr{
+                    width: 100%;
+                    td:first-child{
+                        width:28%;
+                        max-width:28%;
+                        color:#333;
+                        text-align: left;
+                        padding:3% 0% 3% 5%;
+                        box-sizing: border-box;
+                    }
+                    td:last-child{
+                        width: 72%;
+                        max-width:72%;
+                        color:#989898;
+                        padding:3% 0% 3% 5%;
+                    }
+                }
+            }
+        }
+    }
     .pBasicModel1{
         width: 100%;
         height: 100%;
         padding-bottom: 1rem;
-        .pBM1_list{
-            background: #fbfbfb;
-            >div{
-                >h3{
-                    font-weight:normal;
-                    color:#3ccfb5;
-                    font-size: .42rem;
-                    padding: 2% 0% 0% 7%;
-                    // font-weight:none;
-                }
-                >table{
-                    width:92%;
+            .pCom_content{
+                width: 100%;
+                background: #fbfbfb;
+                margin-top: 1rem;
+            .pCom_content_introduce{
+                width: 100%;
+                padding-bottom:4%;
+                border-bottom: .4rem solid #f2f2f2;
+                >div{ 
+                    width: 92%;
                     margin: 0 auto;
-                    table-layout:fixed;
-                    tr{
+                    ul{
                         width:100%;
-                        font-size: .37rem;
-                        border-bottom: 1px solid #e6e6e6;
-                        text-align: center;
-                        th{
-                            font-weight:normal;
-                            color:#333;
-                            width: 25%;
-                            box-sizing: border-box;
-                            padding: 3% 0%;
-                            text-align: left;
-                            padding-left: 4%;
+                        color:#3ccfb5;
+                        display:flex;
+                        justify-content: space-between;
+                        padding: 4% 0% 3% 0%;
+                        border-bottom: 1px solid #e6e6e6; 
+                        li:first-child{
+                            width:60%;
+                            font-size: .42rem;
+                            white-space: nowrap;
+                            overflow: hidden;
+                            text-overflow:ellipsis;
                         }
-                        td{
-                            color:#989898;
-                            padding: 1% 0%;
-                            width: 25%;
-                            box-sizing: border-box;
-                            word-wrap: break-word;
-                            >img{
-                                width: 80%;
-                                height: auto;
+                        li:last-child{
+                            font-size:.32rem;
+                            width:35%;
+                            text-align:right;
+                            em{
+                                color:#999;
                             }
                         }
                     }
-                }
-            }      
+                    >p{
+                        font-size:.4rem;
+                        color:#666;
+                    }
+                } 
+            }
         }
     }
 </style>
 <script>
 import Header1 from './component/header.vue'
-import HeaderImg from './component/headImg.vue'
 import plantMessage from './js/plantMessage.js'
 import canvas from './js/ripple.js'
 export default {
@@ -119,64 +157,33 @@ export default {
         Object.assign(modelObj, plantMessage)
         return {
             models: modelObj[this.$route.meta.key],
-            // title: '农事信息',
-            // productName: '新疆苹果',
-            // 要传给pBM2的数据
-            imgListName: '农事记录详情',
-            id: 555,
-            lack: '信息缺失',
-            // imgListName: '农事记录详情',
-            lists: '',
+            datas: {},
+            product: {},
+            sells: false,
+            lack: '无相关记录',
             x: 10,
             canvasShow: true
-        }
-    },
-    methods: {
-        goListDetails (id, type) {
-            var url = '/run/' + this.$route.meta.runName + '/' + this.$route.meta.key + '/datails/' + id
-            var t = 1
-            if (type !== undefined && type) {
-                t = 0
-            }
-            sessionStorage.setItem('customDont', t)
-            this.$router.push(url)
         }
     },
     mixins: [canvas],
     mounted () {
         $(document).on('touchmove', function (e) {
-            // e.preventDefault()
             e.stopPropagation()
         })
         var params = {code: this.$route.params.id}
-        var url = 'run/plant/'
-        if (this.$route.meta.runName === 'breed') {
-            url = 'run/beast/'
-        }
-        axios.post(url + this.$route.meta.key, params)
+        axios.post('run/product', params)
             .then((responce) => {
                 var lists = responce.data
-                if (lists !== 404 && lists !== 403 && lists !== 400) {
-                    this.lists = lists
-                } else {
-                    if (lists === 404) {
-                        alert('溯源码无效！')
-                        this.$router.go('-1')
-                    }
-                    if (lists === 403) {
-                        alert('商家已关闭溯源码追溯！')
-                        this.$router.go('-1')
-                    }
-                    if (lists === 400) {
-                        alert('该溯源码无相关信息！')
-                        this.$router.go('-1')
-                    }
+                if (lists !== 400 && lists !== 404 && lists !== 403) {
+                    this.datas = lists
+                    this.product = responce.data
                 }
             })
     },
+    methods: {
+    },
     components: {
-        Header1,
-        HeaderImg
+        Header1
     },
     computed: {
         isbreed () {

@@ -34,18 +34,12 @@ const grow = resolve => {
     }, 'grow')
 }
 
-// ---------------------------手机版首页__农事信息、肥料信息__记录页----------------------------------
-const bM1 = resolve => {
-    require.ensure(['../page/phone/plant/basic_model1.vue'], () => {
-        resolve(require('../page/phone/plant/basic_model1.vue'))
-    }, 'bM1')
-}
+// ---------------------------手机版首页__施肥、检测、农事、采制、物流销售信息__记录页----------------------------------
 
-// ---------------------------手机版首页__农事信息、肥料信息__记录详情页----------------------------------
-const bM2 = resolve => {
-    require.ensure(['../page/phone/plant/basic_model2.vue'], () => {
-        resolve(require('../page/phone/plant/basic_model2.vue'))
-    }, 'bM2')
+const teaOperate = resolve => {
+    require.ensure(['../page/phone/plant/teaOperate.vue'], () => {
+        resolve(require('../page/phone/plant/teaOperate.vue'))
+    }, 'teaOperate')
 }
 
 // ---------------------------手机版首页__商品信息----------------------------------
@@ -56,11 +50,6 @@ const commodity = resolve => {
 }
 
 // ---------------------------   种植首页  ----------------------------------
-const breedIndex = resolve => {
-    require.ensure(['../page/phone/plant/breedIndex.vue'], () => {
-        resolve(require('../page/phone/plant/breedIndex.vue'))
-    }, 'breedIndex')
-}
 
 // ---------------- 手机端路由  种植-----------------
 export default {
@@ -75,7 +64,7 @@ export default {
             path: '/video/:id',
             meta: {key: 'video', runName: 'plant'},
             component: video,
-            alias: '/run/plant/video/:id'
+            alias: '/teaTrace/tea/video/:id'
         },
         {
             path: '/basicInfor/:id',
@@ -84,16 +73,10 @@ export default {
             alias: '/teaTrace/tea/basicInfor/:id'
         },
         {
-            path: '/saleInfor/:id',
-            meta: {key: 'saleInfor', runName: 'plant'},
-            component: teaBasic,
-            alias: '/run/plant/saleInfor/:id'
-        },
-        {
             path: '/shop/:id',
             meta: {key: 'shop', runName: 'plant'},
             component: shop,
-            alias: '/run/plant/shop/:id'
+            alias: '/teaTrace/tea/shop/:id'
         },
         {
             path: '/growImg/:id',
@@ -104,50 +87,43 @@ export default {
         {
             path: '/pesticideInfor/:id',
             meta: {key: 'harvest', runName: 'plant'},
-            component: bM1,
-            alias: '/run/plant/harvest/:id'
-        },
-        {
-            path: '/pesticideDetails/:id',
-            component: bM2,
-            meta: {key: 'harvest', runName: 'plant'},
-            alias: '/run/plant/harvest/datails/:id'
+            component: teaOperate,
+            name: 'harvest',
+            alias: '/teaTrace/tea/harvest/:id'
         },
         {
             path: '/farmWorkInfor/:id',
             meta: {key: 'farming', runName: 'plant'},
-            component: bM1,
-            alias: '/run/plant/farming/:id'
-        },
-        {
-            path: '/farmWorkDetails/:id',
-            meta: {key: 'farming', runName: 'plant'},
-            component: bM2,
-            alias: '/run/plant/farming/datails/:id'
+            component: teaOperate,
+            name: 'farming',
+            alias: '/teaTrace/tea/farming/:id'
         },
         {
             path: '/fertilizerInfor/:id',
             meta: {key: 'fertilize', runName: 'plant'},
-            component: bM1,
+            component: teaOperate,
+            name: 'fertilize',
             alias: '/teaTrace/tea/fertilize/:id'
         },
         {
             path: '/detectionInfor/:id',
             meta: {key: 'detect', runName: 'plant'},
-            component: bM1,
-            alias: '/run/plant/detect/:id'
-        },
-        {
-            path: '/detectionDetails/:id',
-            meta: {key: 'detect', runName: 'plant'},
-            component: bM2,
-            alias: '/run/plant/detect/datails/:id'
+            component: teaOperate,
+            name: 'detect',
+            alias: '/teaTrace/tea/detect/:id'
         },
         {
             path: '/commodityInfor/:id',
             meta: {key: 'commodityInfor', runName: 'plant'},
             component: commodity,
-            alias: '/run/plant/commodityInfor/:id'
+            alias: '/teaTrace/tea/commodityInfor/:id'
+        },
+        {
+            path: '/sale/:id',
+            meta: {key: 'sale', runName: 'plant'},
+            component: teaOperate,
+            name: 'sell',
+            alias: '/teaTrace/tea/sale/:id'
         }
     ]
 }

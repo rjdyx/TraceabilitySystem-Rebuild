@@ -8,8 +8,11 @@
 <template>
 <transition name="fade2">
     <div id="pBasic">
-        <header1 :title="models.title" :isbreed="isbreed"></header1>
-        <headerImg :isbreed="isbreed"></headerImg>
+
+        <header1 :title="models.title"></header1>
+
+        <swiper :imgArr="imgArr"></swiper>
+        
         <div class="pBasic_content">
             <div class="pBasic_content_planInfo">
                  <h3>{{models.tableName}}</h3>
@@ -25,10 +28,12 @@
                      </tbody>
                  </table>
             </div>
+
+            
             <div class="pBasic_content_control">
                 <h4>{{models.tableName2}}</h4>
                 <div class="video" v-if="video != null && video != ''">
-                    <video :src="videoSrc" controls="controls"  height="200"></video>
+                    <video :src="videoSrc" controls="controls"  height="200" width="100%"></video>
                 </div>
                 <div class="video" v-else>
                     该种植区没有上传视频
@@ -41,6 +46,7 @@
 <script>
 import Header1 from './component/header.vue'
 import HeaderImg from './component/headImg.vue'
+import swiper from './component/swiper.vue'
 import plantMessage from './js/plantMessage.js'
 export default {
     name: 'pBasic',
@@ -51,7 +57,8 @@ export default {
             models: modelObj[this.$route.meta.key],
             datas: {},
             video: '',
-            videoSrc: ''
+            videoSrc: '',
+            imgArr: []
         }
     },
     props: {
@@ -68,17 +75,16 @@ export default {
                     this.datas = lists
                 }
                 this.video = lists.video
+                if (lists.planta_img !== null && lists.planta_img !== '') {
+                    this.imgArr = lists.planta_img.split(',')
+                }
                 this.videoSrc = require('projectRoot/env.js').app_ano_url + '/' + lists.video
             })
     },
     components: {
         Header1,
+        swiper,
         HeaderImg
-    },
-    computed: {
-        isbreed () {
-            return this.isbreed = this.$route.meta.runName === 'breed'
-        }
     }
 }
 </script>

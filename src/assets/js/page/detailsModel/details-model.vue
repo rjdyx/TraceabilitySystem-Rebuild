@@ -640,7 +640,6 @@ export default {
                 this.isNewShow = false
                 this.boxArr(this.dataArr, false)
                 this.getDetailSerial()
-                // this.getSelect()
                 this.$message({
                     type: 'success',
                     message: '新增数据成功'
