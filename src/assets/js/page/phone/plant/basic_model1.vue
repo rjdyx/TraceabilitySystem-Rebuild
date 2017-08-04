@@ -9,7 +9,7 @@
 <transition name="fade2">
     <div class="pBasicModel1">
        
-      <canvas id="canvas" v-if="canvasShow"></canvas>
+      <!-- <canvas id="canvas" v-if="canvasShow"></canvas> -->
 
         <header1 :title="models.title" :isbreed="isbreed"></header1>
         

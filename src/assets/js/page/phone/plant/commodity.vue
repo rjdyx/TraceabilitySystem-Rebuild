@@ -140,7 +140,7 @@ export default {
     .pCommodity{
         width: 100%;
         height: 100%;
-    
+        margin-top: 1rem;
         .pCom_content{
             width: 100%;
             background: #fbfbfb;

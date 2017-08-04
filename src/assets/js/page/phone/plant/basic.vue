@@ -33,7 +33,7 @@
             <div class="pBasic_content_control">
                 <h4>{{models.tableName2}}</h4>
                 <div class="video" v-if="video != null && video != ''">
-                    <video :src="videoSrc" controls="controls"  height="200"></video>
+                    <video :src="videoSrc" controls="controls"  height="200" width="100%"></video>
                 </div>
                 <div class="video" v-else>
                     该种植区没有上传视频
