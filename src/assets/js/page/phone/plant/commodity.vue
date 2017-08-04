@@ -12,8 +12,11 @@
     <canvas id="canvas" v-if="canvasShow"></canvas>  
     
     <header1 :title="models.title" :isbreed="isbreed"></header1>
-    <headerImg :isbreed="isbreed"></headerImg>
+    
+    <swiper></swiper>
+
     <div class="pCom_content">
+        
         <div class="pCom_content_introduce">
             <div>
                 <ul :class="{breedFontCol:isbreed}">
@@ -23,93 +26,68 @@
                 <p>{{product.description}}</p>
             </div>
         </div>
-        <div class="sell">
-            <div :class="{breedFontCol:isbreed,title:true}">销售与物流</div>
-            <div v-if="sells">
-                <div class="content" v-for="sell in sells">
-                    <div class="title2"><b>|</b> 交易日期：{{sell.start_date}} 至 {{sell.end_date}}</div>
-                    <div>
-                        <li>运输商品：</li>
-                        <li>{{sell.delivery_name}}</li>
-                    </div>
-                    <div>
-                        <li>供货商：</li>
-                        <li>{{sell.supplier_name}}</li>
-                    </div>
-                    <div>
-                        <li>经销商：</li>
-                        <li>{{sell.client_name}}</li>
-                    </div>
-                    <div v-if="sell.type!==undefined">
-                        <li>运输方式：</li>
-                        <li>{{sell.type_name}}</li>
-                    </div>
-                    <div v-if="sell.type==='self'">
-                        <li>车牌号：</li>
-                        <li>{{sell.vehicle_number}}</li>
-                    </div>
-                    <div v-if="sell.type==='consign'">
-                        <li>物流公司：</li>
-                        <li>{{sell.logistic_name}}</li>
-                    </div>
-                    <div v-if="sell.type==='consign'">
-                        <li>物流订单号：</li>
-                        <li>{{sell.consign_number}}</li>
-                    </div>
-                    <div v-if="sell.type==='selve'">
-                        <li>提货人：</li>
-                        <li>{{sell.selve_name}}</li>
-                    </div>
-                    <div v-if="sell.type==='selve'">
-                        <li>提货日期：</li>
-                        <li>{{sell.selve_date}}</li>
-                    </div>
-                </div>
+        
+        <div  class="pBasic_content">
+            <div class="pBasic_content_planInfo">
+                <h3 :class="{breedFontCol:isbreed}">{{models.tableName}}</h3>
+                <table border="1" bordercolor="#fbfbfb">
+                    <col style="width: 28%" />
+                    <col style="width: 72%" />
+                    <tbody>
+                        <tr v-for="(v,k) in models.tableProtos">
+                            <td style="width: 28%">{{models.tableTheads[k] }}</td>
+                            <td style="width: 72%" v-if="v=='area'">{{datas[v]}}{{datas.unit}}</td>
+                            <td style="width: 72%" v-else>{{datas[v]}}</td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
-            <div class="content" v-else>{{lack}}</div>
         </div>
+
     </div>
+
 
     </div>
 </transition>
 </template>
 <style type="text/css" lang="sass">
-    .sell{
-        width:100%;
-        .title{
-            width:92%;
-            margin-left: 4%;
-            padding: 15px 0px;
+    .pBasic_content {
+        width: 100%;
+        background: #fbfbfb;
+        .pBasic_content_planInfo{
+            width: 100%;
+            padding-bottom: 5%;
             color:#3ccfb5;
-            line-height: 100px;
-            font-size: .42rem;
-            border-bottom: 1px solid #e6e6e6;
-        }
-        .content{
-            width:92%;
-            margin-left: 4%;
-            padding: 10px 0px;
-            color:#666;
-            font-size: 18px;
-            font-size: .4rem;
-        div{
-            height:60px;
-        }
-        li{
-            list-style-type: none;
-            float: left;
-            text-align: center;
-            width: 50%;
-            height:60px;
-            line-height: 60px;
-        }
-        .title2{
-            width:92%;
-            padding: 10px 0px;
-            color:#666;
-            line-height: 100px;
-            font-size: .4rem;
-        }
+            >h3{
+                font-weight:normal;
+                font-size: .42rem;
+                padding: 4% 0% 4% 4%;
+            }
+            >table{
+                width: 92%;
+                margin:0 auto;
+                font-size:.4rem;
+                border-collapse: collapse;
+                border-color:#e6e6e6;
+                table-layout:fixed;
+                tr{
+                    width: 100%;
+                    td:first-child{
+                        width:28%;
+                        max-width:28%;
+                        color:#333;
+                        text-align: left;
+                        padding:3% 0% 3% 5%;
+                        box-sizing: border-box;
+                    }
+                    td:last-child{
+                        width: 72%;
+                        max-width:72%;
+                        color:#989898;
+                        padding:3% 0% 3% 5%;
+                    }
+                }
+            }
         }
     }
     .breedFontCol{
@@ -118,82 +96,57 @@
     .pCommodity{
         width: 100%;
         height: 100%;
-        .wraping {
-            width: 100%;
-            height: 100%;
-            // background: #3dd0b6;
-            // background:-webkit-radial-gradient(circle,rgba(255,255,255,0) 2%, #3dd0b6 95%);
-            z-index: 89898;
-            position: relative;
-            clip:rect(0px 50px 200px 0px);
-            -webkit-background-clip: content-box;
-            // mask-image: rgba(0, 0, 0, 1.0);
-            -webkit-mask-image: -webkit-linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,0));
-            // -webkit-background-clip: context-box;
-        .yard {
-            width: 30%;
-            height:15%;
-            border-radius: 100%;
-            border: 1px solid #3dd0b6;
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            // background: #fff;
-            // opacity: 0.3;
-            transform: translate(-50%, -50%);
-        }
-    }
     
-    .pCom_content{
-        width: 100%;
-        background: #fbfbfb;
-        .pCom_content_introduce{
+        .pCom_content{
             width: 100%;
-            padding-bottom:4%;
-            border-bottom: .4rem solid #f2f2f2;
-            >div{ 
-                width: 92%;
-                margin: 0 auto;
-                ul{
-                    width:100%;
-                    color:#3ccfb5;
-                    display:flex;
-                    justify-content: space-between;
-                    padding: 4% 0% 3% 0%;
-                    border-bottom: 1px solid #e6e6e6; 
-                    li:first-child{
-                        width:60%;
-                        font-size: .42rem;
-                        white-space: nowrap;
-                        overflow: hidden;
-                        text-overflow:ellipsis;
-                    }
-                    li:last-child{
-                        font-size:.32rem;
-                        width:35%;
-                        text-align:right;
-                        em{
-                            color:#999;
-                        }
-                    }
-                }
-                >p{
-                    font-size:.4rem;
-                    color:#666;
-                }
-            } 
-        }
-        .pCom_content_list{
-            padding-bottom:1rem;
-            >div{
+            background: #fbfbfb;
+            .pCom_content_introduce{
+                width: 100%;
                 padding-bottom:4%;
                 border-bottom: .4rem solid #f2f2f2;
+                >div{ 
+                    width: 92%;
+                    margin: 0 auto;
+                    ul{
+                        width:100%;
+                        color:#3ccfb5;
+                        display:flex;
+                        justify-content: space-between;
+                        padding: 4% 0% 3% 0%;
+                        border-bottom: 1px solid #e6e6e6; 
+                        li:first-child{
+                            width:60%;
+                            font-size: .42rem;
+                            white-space: nowrap;
+                            overflow: hidden;
+                            text-overflow:ellipsis;
+                        }
+                        li:last-child{
+                            font-size:.32rem;
+                            width:35%;
+                            text-align:right;
+                            em{
+                                color:#999;
+                            }
+                        }
+                    }
+                    >p{
+                        font-size:.4rem;
+                        color:#666;
+                    }
+                } 
             }
-            >div:last-child{
-                 border-bottom: 0rem solid #f2f2f2;
+            .pCom_content_list{
+                padding-bottom:1rem;
+                >div{
+                    padding-bottom:4%;
+                    border-bottom: .4rem solid #f2f2f2;
+                }
+                >div:last-child{
+                     border-bottom: 0rem solid #f2f2f2;
+                }
             }
         }
-    }
     }
     canvas{
         position: absolute;
@@ -207,6 +160,7 @@ import Header1 from './component/header.vue'
 import HeaderImg from './component/headImg.vue'
 import TwoColList from './component/twoColList.vue'
 import plantMessage from './js/plantMessage.js'
+import swiper from './component/swiper.vue'
 import canvas from './js/ripple.js'
 export default {
     name: 'pBasicModel1',
@@ -215,6 +169,7 @@ export default {
         Object.assign(modelObj, plantMessage)
         return {
             models: modelObj[this.$route.meta.key],
+            datas: {},
             product: {},
             sells: false,
             lack: '无相关记录',
@@ -233,6 +188,7 @@ export default {
             .then((responce) => {
                 var lists = responce.data
                 if (lists !== 400 && lists !== 404 && lists !== 403) {
+                    this.datas = lists
                     this.product = responce.data
                 } else {
                     if (lists === 404) {
@@ -260,7 +216,8 @@ export default {
     components: {
         Header1,
         HeaderImg,
-        TwoColList
+        TwoColList,
+        swiper
     },
     computed: {
         isbreed () {

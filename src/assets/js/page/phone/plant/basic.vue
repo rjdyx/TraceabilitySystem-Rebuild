@@ -8,8 +8,11 @@
 <template>
 <transition name="fade2">
     <div id="pBasic">
+
         <header1 :title="models.title" :isbreed="isbreed"></header1>
-        <headerImg :isbreed="isbreed"></headerImg>
+
+        <swiper></swiper>
+        
         <div class="pBasic_content">
             <div class="pBasic_content_planInfo">
                  <h3>{{models.tableName}}</h3>
@@ -25,6 +28,8 @@
                      </tbody>
                  </table>
             </div>
+
+            
             <div class="pBasic_content_control">
                 <h4>{{models.tableName2}}</h4>
                 <div class="video" v-if="video != null && video != ''">
@@ -41,6 +46,7 @@
 <script>
 import Header1 from './component/header.vue'
 import HeaderImg from './component/headImg.vue'
+import swiper from './component/swiper.vue'
 import plantMessage from './js/plantMessage.js'
 export default {
     name: 'pBasic',
@@ -73,6 +79,7 @@ export default {
     },
     components: {
         Header1,
+        swiper,
         HeaderImg
     },
     computed: {

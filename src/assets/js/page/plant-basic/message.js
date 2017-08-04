@@ -3231,17 +3231,43 @@ export default {
                     name: 'serial',
                     type: 'text',
                     component: null,
-                    isNull: false,
-                    label: '出库单号：',
+                    label: '出库单号',
                     placeholder: '',
                     disabled: true,
                     rule: {required: true}
                 },
                 {
+                    name: 'storeroom_id',
+                    type: 'text',
+                    component: null,
+                    label: '出库仓库名',
+                    placeholder: '必填',
+                    disabled: true,
+                    rule: {required: true, message: '请选择出库仓库名', type: 'number'},
+                    options: []
+                },
+                {
+                    name: 'deliveryman',
+                    type: 'text',
+                    component: null,
+                    label: '送货人',
+                    placeholder: '必填',
+                    disabled: true,
+                    rule: {required: true, message: '请输入送货人'}
+                },
+                {
+                    name: 'date',
+                    type: 'date',
+                    component: inputDate,
+                    label: '出库日期',
+                    placeholder: '',
+                    disabled: true,
+                    rule: [{required: true, message: '请选择出库日期'}, {validator: validate2.reDate, message: '请选择出库日期'}]
+                },
+                {
                     name: 'serial',
                     component: Qrcode,
-                    isNull: false,
-                    label: '二维码：',
+                    label: '二维码',
                     placeholder: '',
                     rule: null
                 }]

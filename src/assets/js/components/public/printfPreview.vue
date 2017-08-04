@@ -47,8 +47,6 @@
 </template>
 
 <script>
-import JSZip from '../../../../../public/lib/jszip.js'
-import DDoc from '../../../../../public/lib/DDoc.js'
 export default {
     name: 'printfPreview2',
     props: {
@@ -123,8 +121,6 @@ export default {
         }
     },
     mounted () {
-        console.log('---this.headData  mounted--')
-        console.log(this.headData)
     },
     methods: {
         // 关闭弹窗
@@ -137,7 +133,6 @@ export default {
         },
         // 把[{}，{}]转换为[[],[]]的方法
         gsh (arr, protos) {
-            console.log('----gsh----')
             console.log(arr)
             console.log(protos)
             let dArr = []
@@ -174,9 +169,11 @@ export default {
                 bold: true,
                 textAlign: doc.AlignType.Center
             })
-            doc.addTable(tableArr, {
-                textAlign: doc.AlignType.Center
-            })
+            if (tableArr.length) {
+                doc.addTable(tableArr, {
+                    textAlign: doc.AlignType.Center
+                })
+            }
             doc.generate()
         }
     },

@@ -8,10 +8,10 @@
 <template>
     <div>
     	<el-date-picker size="small" class="inputData" v-model="value" @change="getDate" type="date"
-            :editable="false" format="yyyy-MM-dd" placeholder="选择日期" :picker-options="beforeOptions">
+            :editable="false" format="yyyy-MM-dd" placeholder="选择日期" :picker-options="beforeOptions" :disabled="shuju.disabled">
     	</el-date-picker>
         <el-date-picker v-if="range" size="small" class="inputData" v-model="value1" @change="getAfterDate" type="date"
-            :editable="false" format="yyyy-MM-dd" placeholder="选择日期" :picker-options="afterOptions">
+            :editable="false" format="yyyy-MM-dd" placeholder="选择日期" :picker-options="afterOptions" :disabled="shuju.disabled">
         </el-date-picker>
     </div>
 </template>

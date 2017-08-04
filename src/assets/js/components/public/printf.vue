@@ -16,52 +16,32 @@
       <el-tabs v-model="activeName" @tab-click="handleClick" class="tab">
         <el-tab-pane :label="item.tab" :name="item.tab" v-for="(item,i) in printComponent">
           <!-- 表单 -->
-        <el-form :model="printForm" :rules="rules" ref="printForm" label-width="110px" class="demo-printForm">
-            <table>
-                <template v-for="subItem in item.components">
-                    <!-- 文本框 -->
-                    <tr class="tr1" v-if="subItem.type=='text'">
-                        <td>
-                            <el-form-item :label="subItem.label" :prop="subItem.name">
-                                <el-input 
-                                    :placeholder="subItem.placeholder" 
-                                    v-model="printForm[subItem.name]" 
-                                    size="small"
-                                    :disabled="subItem.disabled"></el-input>
-                            </el-form-item>
-                        </td> 
-                    </tr>
-
-                    <!-- 传组件 -->
-                    <tr class="tr1" v-else-if="subItem.component">
-                        <td>
-                            <el-form-item :label="subItem.label" :prop="subItem.name">
-                                <component 
-                                    v-if="subItem.type=='textSelect'"
-                                    v-bind:is="subItem.component" 
-                                    :shuju="subItem"
-                                    :inputEditValue="printForm[subItem.name]"
-                                    :selectEditValue="printForm['unit']"
-                                    @return-shuju="returnShuju"
-                                ></component>
-                                <component 
-                                    v-else
-                                    v-bind:is="subItem.component" 
-                                    :shuju="subItem"
-                                    :editValue="printForm[subItem.name]"
-                                    :url="url"
-                                    @return-shuju="returnShuju"
-                                ></component>
-                            </el-form-item>
-                        </td>
-                    </tr>
-                </template>
-          </table>
+        <el-form :model="printForm" :rules="rules" ref="printForm" label-width="110px" class="printForm">
+            <div class="printfImg">
+                <el-row :gutter="20">
+                    <el-col class="grid-content" :span="12" v-for="subItem in item.components">
+                        <div v-if="subItem.label !=='二维码'">
+                            <em>{{subItem.label}}:</em> {{printForm[subItem.name]}}
+                        </div>
+                        <div v-else>
+                            <component 
+                                v-bind:is="subItem.component" 
+                                :shuju="subItem"
+                                :editValue="printForm[subItem.name]"
+                                :url="url"
+                                @return-shuju="returnShuju"
+                                @return-qrcode="returnQrcode"
+                            ></component>
+                        </div>
+                    </el-col>
+                </el-row>
+            </div>
+                
          </el-form>
         </el-tab-pane>
       </el-tabs>
       <div class="form-footer">
-            <el-button class="btn_change">打印</el-button>
+            <el-button class="btn_change" @click="printfFromFn">打印</el-button>
             <el-button class="activecancel" @click="closeClick">取消</el-button>
           </div>
     </form>
@@ -69,6 +49,7 @@
 </template>
 <script>
 import move from '../../directive/move.js'
+import Canvas2Image from '../../../../../public/lib/canvas2image.js'
 export default {
     name: 'validator-example',
     // validator: null,
@@ -98,7 +79,8 @@ export default {
         return {
             // 当前选中的标签页
             activeName: this.printComponent[0].tab,
-            rules: rules
+            rules: rules,
+            qrcode: ''
         }
     },
     mounted () {
@@ -123,10 +105,45 @@ export default {
             for (let key of Object.keys(this.editDefault)) {
                 this.printForm[key] = this.editDefault[key]
             }
+        },
+        // 获取二维码base64位地址
+        returnQrcode (value) {
+            this.qrcode = value
+        },
+        // 点击打印按钮
+        printfFromFn () {
+            this.$html2canvas($('.el-tabs__content').has('.printfImg').get(0), {
+                allowTaint: true,
+                taintTest: false,
+                height: $('printfTable').outerHeight(),
+                onrendered: function (canvas) {
+                    let w = $('.el-tabs__content').has('.printfImg').width()
+                    let h = $('.el-tabs__content').has('.printfImg').height()
+                    Canvas2Image.saveAsJPEG(canvas, w, h)
+                }
+            })
         }
     }
 }
 </script>
 <style lang="sass">
-@import "../../../sass/public/pop.scss"
+@import "../../../sass/public/pop.scss";
+.el-tabs__content{
+    background:white;
+}
+.printfImg{
+    color: #333;
+        width:90%;
+        margin: 0 auto;
+    .el-row{
+        em{
+            font-size: 14px;
+            font-weight:bold;
+        }
+        
+    }
+    .grid-content {
+        min-height: 36px;
+    }   
+}
 </style>

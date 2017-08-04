@@ -44,7 +44,7 @@
 				</router-link>
 			</div>
 			<div class="indexMenu">
-				<router-link :to="'/run/plant/saleInfor/'+video">
+				<router-link :to="'/run/plant/sale/'+video">
 					<span class="iconsale iconmenu icon-xiaoshouxinxi"></span>
 					<span>销售信息</span>
 				</router-link>
@@ -153,6 +153,13 @@ export default{
 				position: absolute;
 				top: 2rem;
 				left: 2rem;
+				span{
+					width: 4.2rem;
+					height: 4.2rem;
+					border-radius: 50%;
+					border: 2px solid #fff;
+					display: inline-block;
+				}
 				img{
 					width: 4.2rem;
 					height: 4.2rem;

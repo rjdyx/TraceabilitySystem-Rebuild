@@ -12,7 +12,7 @@ export default{
         tableName2: '宣传视频'
     },
     // 销售信息
-    saleInfor: {
+    sale: {
         title: '销售信息',
         tableName: '销售信息',
         tableTheads: ['种植场', '负责人', '地址', '面积', '联系方式', '种植区', '种植人', '种植日期', '采收日期'],
@@ -31,8 +31,8 @@ export default{
     harvest: {
         title: '采制信息',
         tableName: '采制记录',
-        tableTheads: ['批次号', '操作人', '日期', '图片'],
-        tableProtos: [],
+        tableTheads: ['批次号', '农药名称', '施药日期', '平均施药', '施药方式', '天气', '施药人', '指导专家'],
+        tableProtos: ['serial', 'medicament_name', 'date', 'amount', 'way', 'weather', 'operate_name', 'expert_name'],
         details: {
             tableList: {
                 tableName: '采制记录详情',
@@ -46,8 +46,8 @@ export default{
     farming: {
         title: '农事信息',
         tableName: '农事记录',
-        tableTheads: ['操作类型', '操作人', '日期', '图片'],
-        tableProtos: [],
+        tableTheads: ['操作类型', '操作内容', '操作人', '操作日期', '天气', '指导单位', '指导专家'],
+        tableProtos: ['serial', 'date', 'content', 'method', 'weather', 'operate_name', 'expert_name'],
         details: {
             tableList: {
                 tableName: '农事记录详情',
@@ -61,8 +61,8 @@ export default{
     fertilize: {
         title: '肥料信息',
         tableName: '肥料记录',
-        tableTheads: ['肥料名称', '平均施肥', '日期', '图片'],
-        tableProtos: [],
+        tableTheads: ['肥料名称', '施肥日期', '平均施肥', '施肥方式', '天气', '施肥人', '指导单位', '指导专家'],
+        tableProtos: ['serial', 'manure_name', 'date', 'amount', 'way', 'weather', 'operate_name', 'expert_name'],
         details: {
             tableList: {
                 tableName: '肥料记录详情',
@@ -76,8 +76,8 @@ export default{
     detect: {
         title: '检测信息',
         tableName: '检测记录',
-        tableTheads: ['检测名称', '检测机构', '日期', '图片'],
-        tableProtos: [],
+        tableTheads: ['检测名称', '检测机构', '检测类型', '检测人', '天气', '指导单位', '指导专家'],
+        tableProtos: ['serial', 'name', 'content', 'department', 'genre', 'result', 'operate_name'],
         details: {
             tableList: {
                 tableName: '检测记录详情',
@@ -89,6 +89,9 @@ export default{
     // 商品信息
     commodityInfor: {
         title: '商品信息',
+        tableName: '商品信息',
+        tableProtos: ['serial', 'name', 'content', 'department', 'genre', 'result', 'operate_name'],
+        tableTheads: ['商品名称', '溯源码', '商品规格', '商品品牌', '产地', '生产单位', '执行标准'],
         tableList: [
             {
                 tableName: '商品信息',

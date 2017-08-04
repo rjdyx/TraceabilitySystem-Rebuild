@@ -19,6 +19,8 @@ import footerTop from '../../components/top/topComponent/footer.vue'
 import create from '../../components/public/newbuild-btn.vue'
 import out from '../../components/public/output.vue'
 import stamp from '../../components/public/Qrcode.vue'
+import JSZip from '../../../../../public/lib/jszip.js'
+import DDoc from '../../../../../public/lib/DDoc.js'
 export default {
     name: 'BasicContent',
     data () {

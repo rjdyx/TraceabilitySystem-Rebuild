@@ -20,7 +20,12 @@ const teaBasic = resolve => {
         resolve(require('../page/phone/plant/basic.vue'))
     }, 'basic')
 }
-
+// ---------------------------手机版首页__销售信息----------------------------------
+const pSale = resolve => {
+    require.ensure(['../page/phone/plant/sale.vue'], () => {
+        resolve(require('../page/phone/plant/sale.vue'))
+    }, 'sale')
+}
 // ---------------------------手机版首页__购物链接----------------------------------
 const shop = resolve => {
     require.ensure(['../page/phone/plant/shop.vue'], () => {
@@ -84,10 +89,10 @@ export default {
             alias: '/teaTrace/tea/basicInfor/:id'
         },
         {
-            path: '/saleInfor/:id',
-            meta: {key: 'saleInfor', runName: 'plant'},
-            component: teaBasic,
-            alias: '/run/plant/saleInfor/:id'
+            path: '/sale/:id',
+            meta: {key: 'sale', runName: 'plant'},
+            component: pSale,
+            alias: '/run/plant/sale/:id'
         },
         {
             path: '/shop/:id',
