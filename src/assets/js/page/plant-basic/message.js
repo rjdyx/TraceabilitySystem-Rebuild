@@ -28,9 +28,9 @@ export default {
             tab: '种植场',
             url: 'plantation',
             searchPlaceholder: '请输入种植场进行搜索',
-            theads: ['种植场名称', '有机种植面积', '热线电话', '负责人', '地址', '种植场图片', '备注'],
-            protos: ['name', 'area_unit', 'phone', 'director', 'address', 'img', 'memo'],
-            widths: [50, 50, 50, 50, 50, 50, 50],
+            theads: ['种植场名称', '有机种植面积', '热线电话', '负责人', '地址', '备注'],
+            protos: ['name', 'area_unit', 'phone', 'director', 'address', 'memo'],
+            widths: [50, 50, 50, 50, 50, 50],
             typeComponent: [{
                 component: output
             },
@@ -38,7 +38,6 @@ export default {
                 component: newbuildBtn
             }],
             listComponent: [],
-            moreComponent: [{value: '视频'}],
             newComponent: [{
                 tab: '新建种植场信息',
                 checkNumber: [0],
@@ -98,24 +97,6 @@ export default {
                     component: null,
                     isNull: false,
                     label: '地址',
-                    placeholder: '',
-                    rule: null
-                },
-                {
-                    name: 'img',
-                    type: 'files',
-                    component: inputFiles,
-                    isNull: true,
-                    label: '种植场图片',
-                    placeholder: '',
-                    rule: null
-                },
-                {
-                    name: 'video',
-                    type: 'video',
-                    component: video,
-                    isNull: false,
-                    label: '视频',
                     placeholder: '',
                     rule: null
                 },
@@ -190,24 +171,6 @@ export default {
                     component: null,
                     isNull: false,
                     label: '地址',
-                    placeholder: '',
-                    rule: null
-                },
-                {
-                    name: 'img',
-                    type: 'file',
-                    component: inputFiles,
-                    isNull: true,
-                    label: '种植场图片',
-                    placeholder: '',
-                    rule: null
-                },
-                {
-                    name: 'video',
-                    type: 'video',
-                    component: video,
-                    isNull: false,
-                    label: '视频',
                     placeholder: '',
                     rule: null
                 },
@@ -889,9 +852,9 @@ export default {
         selectValueId: [['plantation_id', 'plantation_name', true], ['tea_id', 'tea_name', true]],
         selectDefault: [{value: '', label: '种植区选择'}, {value: '', label: '茶叶品种选择'}],
         searchPlaceholder: '请输入种植批次号进行搜索',
-        theads: ['种植批次号', '所属种植区', '茶叶品种名称', '种植日期', '种植面积', '状态', '备注'],
-        protos: ['serial', 'plantation_name', 'tea_name', 'date', 'area_unit', 'state', 'memo'],
-        widths: [50, 50, 50, 50, 50, 50, 50],
+        theads: ['种植批次号', '所属种植区', '茶叶品种名称', '种植日期', '种植面积', '种植人', '状态', '备注'],
+        protos: ['serial', 'plantation_name', 'tea_name', 'date', 'area_unit', 'operate', 'state', 'memo'],
+        widths: [50, 50, 50, 50, 50, 50, 50, 50],
         listComponent: [{
             components: [{
                 name: 'plantations.id',
@@ -1064,6 +1027,15 @@ export default {
                 }
                 ],
                 rule: [{required: true, message: '请输入种植面积', trigger: 'blur'}, {validator: validate2.reNumber}]
+            },
+            {
+                name: 'operate',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '种植人',
+                placeholder: '',
+                rule: null
             },
             {
                 name: 'memo',

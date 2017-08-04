@@ -12,7 +12,7 @@
         <headerImg :isbreed="isbreed"></headerImg>
         <div class="pBasic_content">
             <div class="pBasic_content_planInfo">
-                 <h3 :class="{breedFontCol:isbreed}">{{models.tableName}}</h3>
+                 <h3>{{models.tableName}}</h3>
                  <table border="1" bordercolor="#fbfbfb">
                     <col style="width: 28%" />
                     <col style="width: 72%" />
@@ -26,11 +26,13 @@
                  </table>
             </div>
             <div class="pBasic_content_control">
-                <h4 :class="{breedFontCol:isbreed}">{{models.tableName2}}</h4>
-                <div v-for="i in 2">
-                     <p>2017-04-11</p>
-                    <img src="./images/img.png" height="322" width="670" alt="">
+                <h4>{{models.tableName2}}</h4>
+                <div class="video" v-if="video != null && video != ''">
+                    <video :src="videoSrc" controls="controls"  height="200"></video>
                 </div>
+                <div class="video" v-else>
+                    该种植区没有上传视频
+                </div>    
             </div> 
          </div>
     </div>
@@ -47,37 +49,26 @@ export default {
         Object.assign(modelObj, plantMessage)
         return {
             models: modelObj[this.$route.meta.key],
-            datas: {}
+            datas: {},
+            video: '',
+            videoSrc: ''
         }
     },
     props: {
     },
     mounted () {
         $(document).on('touchmove', function (e) {
-            // e.preventDefault()
             e.stopPropagation()
         })
         var params = {code: this.$route.params.id}
-        axios.get('teaTrace/tea/plantation', params)
+        axios.get('teaTrace/tea/plantation', {params: params})
             .then((responce) => {
                 var lists = responce.data
-                console.log(lists)
-                // if (lists !== 404 && lists !== 403 && lists !== 400) {
-                //     this.datas = lists
-                // } else {
-                //     if (lists === 404) {
-                //         alert('溯源码无效！')
-                //         this.$router.go('-1')
-                //     }
-                //     if (lists === 403) {
-                //         alert('商家已关闭溯源码追溯！')
-                //         this.$router.go('-1')
-                //     }
-                //     if (lists === 400) {
-                //         alert('该溯源码无相关信息！')
-                //         this.$router.go('-1')
-                //     }
-                // }
+                if (lists !== '403' && lists !== '404') {
+                    this.datas = lists
+                }
+                this.video = lists.video
+                this.videoSrc = require('projectRoot/env.js').app_ano_url + '/' + lists.video
             })
     },
     components: {
@@ -98,8 +89,6 @@ export default {
 #pBasic{
     width:100%;
     padding-bottom: .5rem;
-    // height:100%;
-    // overflow: hidden;
     .pBasic_content{
         width: 100%;
         background: #fbfbfb;

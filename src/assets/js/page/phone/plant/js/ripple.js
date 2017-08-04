@@ -18,7 +18,7 @@ export default {
                 cxt.restore()
                 cxt.beginPath()
                 cxt.closePath()
-            }, 30)
+            }, 20)
             console.log(this.canvasShow)
             clearInterval()
         }

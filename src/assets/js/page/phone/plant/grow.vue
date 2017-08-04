@@ -7,11 +7,7 @@
  */
 <template>
 <transition name="fade2">
-
     <div id="home_grow">
-
-    <canvas id="canvas" v-if="canvasShow"></canvas>
-
         <header1 title="生长图片" :isbreed="isbreed"></header1>
         <div class="hg_content">
             <ul :class="{breedBorder:isbreed}">
@@ -30,19 +26,10 @@
                 </li>
             </ul>
         </div>
-
- </div>
-
     </div>
 </transition>
 </template>
 <style type="text/css" lang="sass">
-    canvas{
-        position: absolute;
-        left: 0;
-        top: 0.9rem;
-        z-index: 54548;
-    }
     .breedBorder{
         // border-left:2px solid #93bf46!important;
         border-color:#93bf46!important;
@@ -55,7 +42,6 @@
     }
     #home_grow{
         width: 100%;
-        height: 100%;
         padding-bottom: .5rem;
         .hg_content{
             width: 100%;
@@ -115,53 +101,29 @@
                 }
             }
         }
-    }
+    } 
 </style>
 <script >
-import canvas from './js/ripple.js'
 import Header1 from './component/header.vue'
 export default {
     name: 'pGrow',
     data () {
         return {
-            grows: {},
-            x: 10,
-            canvasShow: true
+            grows: {}
         }
     },
-    mixins: [canvas],
     mounted () {
         $(document).on('touchmove', function (e) {
-            // e.preventDefault()
             e.stopPropagation()
         })
         var params = {code: this.$route.params.id}
-        var url = 'run/plant/grow'
-        if (this.$route.meta.runName === 'breed') {
-            url = 'run/beast/course'
-        }
-        axios.post(url, params)
+        axios.get('/teaTrace/tea/grow', {params: params})
             .then((responce) => {
                 var lists = responce.data
                 if (lists !== 404 && lists !== 403 && lists !== 400) {
                     this.grows = lists
-                } else {
-                    if (lists === 404) {
-                        alert('溯源码无效！')
-                        this.$router.go('-1')
-                    }
-                    if (lists === 403) {
-                        alert('商家已关闭溯源码追溯！')
-                        this.$router.go('-1')
-                    }
-                    if (lists === 400) {
-                        alert('该溯源码无相关信息！')
-                        this.$router.go('-1')
-                    }
                 }
             })
-    },
-    methods: {
     },
     components: {
         Header1
@@ -169,10 +131,6 @@ export default {
     computed: {
         isbreed () {
             return this.isbreed = this.$route.meta.runName === 'breed'
-        }
-    },
-    watch: {
-        $route () {
         }
     }
 }

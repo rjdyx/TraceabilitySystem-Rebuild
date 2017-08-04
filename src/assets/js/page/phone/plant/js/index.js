@@ -5,7 +5,7 @@ export default{
             iconLabel: '生长过程',
             iconPosition: 'iconquoteA',
             active: 'activeA',
-            src: '/run/plant/growImg/'
+            src: '/teaTrace/tea/growImg/'
         },
         {
             icon: 'icon-goods',
@@ -23,9 +23,9 @@ export default{
         },
         {
             icon: 'icon-feiliao',
-            iconLabel: '肥料信息',
+            iconLabel: '施肥信息',
             iconPosition: 'iconquoteD',
-            src: '/run/plant/fertilize/',
+            src: '/teaTrace/tea/fertilize/',
             active: 'activeD'
         },
         {
@@ -37,7 +37,7 @@ export default{
         },
         {
             icon: 'icon-caishouguanli',
-            iconLabel: '采收信息',
+            iconLabel: '采制信息',
             iconPosition: 'iconquoteF',
             src: '/run/plant/harvest/',
             active: 'activeF'

@@ -11,13 +11,17 @@
 			<h2>天池茶叶</h2>
 		</div>
 		<div class="phoneMain">
-			<div class="logo"></div>
-			<template v-for="(item,index) in indexData.circle">
-				<div :class="item.iconPosition" class="quote">
-					<div :class="{'active':item.isTrue}" @touchend="jumpto(item,index)">
-						<li class="iconfont iconcircle" :class="item.icon">
-						</li>
-						<span>{{item.iconLabel}}</span>
+			<div class="logo">
+				<img :src="$img(tea_img)">
+			</div>
+				<template v-for="(item,index) in indexData.circle">
+				<div>
+					<div :class="item.iconPosition" class="quote">
+						<div :class="{'active':item.isTrue}" @touchend="jumpto(item,index)">
+							<li class="iconfont iconcircle" :class="item.icon">
+							</li>
+							<span>{{item.iconLabel}}</span>
+						</div>
 					</div>
 				</div>
 			</template>
@@ -37,6 +41,12 @@
 				<router-link :to="'/teaTrace/tea/basicInfor/'+code">
 					<span class="iconfont iconmenu icon-shu"></span>
 					<span>基础信息</span>
+				</router-link>
+			</div>
+			<div class="indexMenu">
+				<router-link :to="'/run/plant/saleInfor/'+video">
+					<span class="iconsale iconmenu icon-xiaoshouxinxi"></span>
+					<span>销售信息</span>
 				</router-link>
 			</div>
 			<div class="indexMenu">
@@ -65,8 +75,7 @@ export default{
             indexData: indexData,
             video: 'video',
             product_name: '',
-            product_image: '',
-            tea_png: 'images/tea_default.png'
+            tea_img: '/images/tea_default.jpg'
         }
     },
     mounted () {
@@ -76,7 +85,9 @@ export default{
         axios.get('teaTrace/tea/index', {params: params})
             .then((responce) => {
                 this.product_name = responce.data.product_name
-                this.product_image = responce.data.img
+                if (responce.data.img !== '' && responce.data.img !== null) {
+                    this.tea_img = responce.data.img
+                }
             })
     },
     methods: {
@@ -103,6 +114,7 @@ export default{
 </script>
 <style lang='sass'>
 @import './iconfont/iconfont.css';
+@import './iconfont/sale/iconfont.css';
 	.phoneIndex{
 		.phoneHeader{
         width: 100%;
@@ -137,12 +149,16 @@ export default{
 			.logo{
 				width: 4.2rem;
 				height: 4.2rem;
-				background: url('/public/images/circle.png') no-repeat;
-				background-size: 100% 100%;
-				background-position: 100%;
+				border-radius: 50%;
 				position: absolute;
 				top: 2rem;
 				left: 2rem;
+				img{
+					width: 4.2rem;
+					height: 4.2rem;
+					border-radius: 50%;
+					border: 2px solid #fff;
+				}
 			}
 			.quote{
 				width: 2rem;
@@ -209,7 +225,7 @@ export default{
 			color: #fff;
 			.indexMenu{
 				display: inline-block;
-				width: 33.3%;
+				width: 25%;
 				height: 100%;
 				text-align: center;
 				font-size: 0.373rem;
@@ -261,6 +277,22 @@ export default{
 	.iconfont{
 		display: block;
 	    font-family:"iconfont" !important;
+	    font-style:normal;
+	    -webkit-font-smoothing: antialiased;
+	    -webkit-text-stroke-width: 0.2px;
+	    -moz-osx-font-smoothing: grayscale;
+	}
+	@font-face {
+	  	font-family: 'iconsale';
+	  	src: url('./iconfont/sale/iconfont.eot');
+	  	src: url('./iconfont/sale/iconfont.eot?#iefix') format('embedded-opentype'),
+	  	url('./iconfont/sale/iconfont.woff') format('woff'),
+	  	url('./iconfont/sale/iconfont.ttf') format('truetype'),
+	  	url('./iconfont/sale/iconfont.svg#iconfont') format('svg');
+	}
+	.iconsale{
+		display: block;
+	    font-family:"iconsale" !important;
 	    font-style:normal;
 	    -webkit-font-smoothing: antialiased;
 	    -webkit-text-stroke-width: 0.2px;

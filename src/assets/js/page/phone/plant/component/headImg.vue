@@ -27,14 +27,6 @@ export default {
         }
     },
     mounted () {
-        console.log(this.isbreed)
-        this.runName = this.$route.meta.runName
-        axios.post('run/product', {code: this.$route.params.id})
-            .then((responce) => {
-                if (responce.data !== 'false') {
-                    this.data = responce.data
-                }
-            })
     }
 }
 </script>

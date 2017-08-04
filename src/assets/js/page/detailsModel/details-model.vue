@@ -24,7 +24,6 @@
             tabItem in tabList">
             </el-tab-pane>
         </el-tabs> 
-
                 <!-- 操作模块 -->
             <div id="operate">              
                 <div id="inputs">

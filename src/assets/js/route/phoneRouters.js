@@ -27,7 +27,6 @@ const shop = resolve => {
         resolve(require('../page/phone/plant/shop.vue'))
     }, 'shop')
 }
-
 // ---------------------------手机版首页__生长图片----------------------------------
 const grow = resolve => {
     require.ensure(['../page/phone/plant/grow.vue'], () => {
@@ -85,6 +84,12 @@ export default {
             alias: '/teaTrace/tea/basicInfor/:id'
         },
         {
+            path: '/saleInfor/:id',
+            meta: {key: 'saleInfor', runName: 'plant'},
+            component: teaBasic,
+            alias: '/run/plant/saleInfor/:id'
+        },
+        {
             path: '/shop/:id',
             meta: {key: 'shop', runName: 'plant'},
             component: shop,
@@ -94,7 +99,7 @@ export default {
             path: '/growImg/:id',
             meta: {key: 'growImg', runName: 'plant'},
             component: grow,
-            alias: '/run/plant/growImg/:id'
+            alias: '/teaTrace/tea/growImg/:id'
         },
         {
             path: '/pesticideInfor/:id',
@@ -124,13 +129,7 @@ export default {
             path: '/fertilizerInfor/:id',
             meta: {key: 'fertilize', runName: 'plant'},
             component: bM1,
-            alias: '/run/plant/fertilize/:id'
-        },
-        {
-            path: '/fertilizerDetails/:id',
-            meta: {key: 'fertilize', runName: 'plant'},
-            component: bM2,
-            alias: '/run/plant/fertilize/datails/:id'
+            alias: '/teaTrace/tea/fertilize/:id'
         },
         {
             path: '/detectionInfor/:id',
