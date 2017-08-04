@@ -12,15 +12,15 @@
     <canvas id="canvas" v-if="canvasShow"></canvas>  
     
     <header1 :title="models.title"></header1>
-    <swiper></swiper>
+    <swiper :imgArr="imgArr"></swiper>
     <div class="pCom_content">
         <div class="pCom_content_introduce">
             <div>
                 <ul>
                     <li>{{product.name}}</li>
-                    <li ><em>溯源次数：</em>{{product.time}}</li>
+                    <li ><em>溯源次数：</em>{{datas.time}}</li>
                 </ul>
-                <p>{{product.description}}</p>
+                <p>{{datas.desc}}</p>
             </div>
         </div>
         
@@ -33,17 +33,13 @@
                     <tbody>
                         <tr v-for="(v,k) in models.tableProtos">
                             <td style="width: 28%">{{models.tableTheads[k] }}</td>
-                            <td style="width: 72%" v-if="v=='area'">{{datas[v]}}{{datas.unit}}</td>
-                            <td style="width: 72%" v-else>{{datas[v]}}</td>
+                            <td style="width: 72%">{{datas[v]}}</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </div>
-
     </div>
-
-
     </div>
 </transition>
 </template>
@@ -66,7 +62,8 @@ export default {
             sells: false,
             lack: '无相关记录',
             x: 10,
-            canvasShow: true
+            canvasShow: true,
+            imgArr: []
         }
     },
     mixins: [canvas],
@@ -75,14 +72,25 @@ export default {
             e.stopPropagation()
         })
         var params = {code: this.$route.params.id}
-        axios.get('teaTrace/tea/product', params)
-            .then((responce) => {
-                var lists = responce.data
-                if (lists !== 400 && lists !== 404 && lists !== 403) {
-                    this.datas = lists
-                    this.product = responce.data
-                }
-            })
+        if (localStorage.getItem('teaTrace_product') === null) {
+            axios.get('teaTrace/tea/product', {params: params})
+                .then((responce) => {
+                    var lists = responce.data
+                    if (lists !== 400 && lists !== 404 && lists !== 403) {
+                        this.datas = lists
+                        localStorage.setItem('teaTrace_product', JSON.stringify(lists))
+                        if (lists.product_img !== null && lists.product_img !== '') {
+                            this.imgArr = lists.product_img.split(',')
+                        }
+                    }
+                })
+        } else {
+            var tabLocalProduct = JSON.parse(localStorage.getItem('teaTrace_product'))
+            this.datas = tabLocalProduct
+            if (tabLocalProduct.product_img !== null && tabLocalProduct.product_img !== '') {
+                this.imgArr = tabLocalProduct.product_img.split(',')
+            }
+        }
     },
     methods: {
     },
