@@ -7,9 +7,9 @@ export default{
     basicInfor: {
         title: '基础信息',
         tableName: '种植信息',
-        tableTheads: ['种植场', '负责人', '地址', '面积', '联系方式', '种植区', '种植人', '种植日期', '采收日期'],
-        tableProtos: ['parent_name', 'director', 'address', 'area', 'phone', 'name', 'operate_name', 'cultivate_date', 'harvest_date'],
-        tableName2: '实时监控'
+        tableTheads: ['种植场', '负责人', '地址', '联系方式', '种植区', '面积', '种植人', '种植日期', '采制人', '采制日期'],
+        tableProtos: ['plantation_name', 'director', 'address', 'phone', 'planta_name', 'area', 'cultivate_operate', 'cultivate_date', 'harvest_operate', 'harvest_date'],
+        tableName2: '宣传视频'
     },
     // 销售信息
     sale: {

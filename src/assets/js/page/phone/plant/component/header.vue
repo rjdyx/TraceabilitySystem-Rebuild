@@ -1,6 +1,5 @@
 <template>
 	<div id="header1" :class="{breedCol:isbreed}">
-	<!-- <div id="header1" class="plantCol"> -->
 		<img class="goBack" @touchend="goBack" src="../images/goback.png"  alt="返回">
 		{{title}}
 	</div>

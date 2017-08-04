@@ -37,6 +37,7 @@
             } else {
                 this.qrText = this.editValue
             }
+            this.$emit('return-qrcode', this.qrText)
         }
     }
 </script>
