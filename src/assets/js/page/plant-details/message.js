@@ -1497,11 +1497,41 @@ export default {
             printComponent: [{
                 tab: '打印溯源码信息',
                 components: [{
+                    name: 'product_name',
+                    type: 'text',
+                    component: null,
+                    isNull: false,
+                    label: '产品名称',
+                    placeholder: '',
+                    disabled: true,
+                    rule: {required: true}
+                },
+                {
+                    name: 'specification',
+                    type: 'text',
+                    component: null,
+                    isNull: false,
+                    label: '规格型号',
+                    placeholder: '',
+                    disabled: true,
+                    rule: {required: true}
+                },
+                {
                     name: 'code',
                     type: 'text',
                     component: null,
                     isNull: false,
-                    label: '产品溯源码：',
+                    label: '产品溯源码',
+                    placeholder: '',
+                    disabled: true,
+                    rule: {required: true}
+                },
+                {
+                    name: 'date',
+                    type: 'text',
+                    component: null,
+                    isNull: false,
+                    label: '生成时间',
                     placeholder: '',
                     disabled: true,
                     rule: {required: true}
@@ -1510,7 +1540,7 @@ export default {
                     name: 'code',
                     component: Qrcode,
                     isNull: false,
-                    label: '二维码：',
+                    label: '二维码',
                     placeholder: '',
                     rule: null
                 }]

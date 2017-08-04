@@ -59,6 +59,7 @@ export default {
         },
         toggle (subMenu, subIndex) {
             document.title = subIndex
+            localStorage.setItem('tab', 0)
         }
     },
     watch: {
