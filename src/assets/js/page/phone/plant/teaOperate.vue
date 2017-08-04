@@ -1,5 +1,5 @@
 /**
- * 商品信息组件
+ * 信息组件
  * @description 
  * @author 吴燕萍
  * @date 2017/4/24
@@ -7,52 +7,38 @@
  */
 <template>
 <transition name="fade2">
-    <div class="pCommodity">
+    <div class="pBasicModel1">
+       
+      <canvas id="canvas" v-if="canvasShow"></canvas>
 
-    <canvas id="canvas" v-if="canvasShow"></canvas>  
-    
-    <header1 :title="models.title"></header1>
-    <swiper></swiper>
-    <div class="pCom_content">
-        <div class="pCom_content_introduce">
-            <div>
-                <ul>
-                    <li>{{product.name}}</li>
-                    <li ><em>溯源次数：</em>{{product.time}}</li>
-                </ul>
-                <p>{{product.description}}</p>
-            </div>
-        </div>
+        <header1 :title="models.title"></header1>
         
-        <div  class="pBasic_content">
-            <div class="pBasic_content_planInfo">
-                <h3>{{models.tableName}}</h3>
-                <table border="1" bordercolor="#fbfbfb">
-                    <col style="width: 28%" />
-                    <col style="width: 72%" />
-                    <tbody>
-                        <tr v-for="(v,k) in models.tableProtos">
-                            <td style="width: 28%">{{models.tableTheads[k] }}</td>
-                            <td style="width: 72%" v-if="v=='area'">{{datas[v]}}{{datas.unit}}</td>
-                            <td style="width: 72%" v-else>{{datas[v]}}</td>
-                        </tr>
-                    </tbody>
-                </table>
+        <div class="pCom_content">
+        
+            <div  class="pBasic_content">
+                <div class="pBasic_content_planInfo">
+                    <h3>{{models.tableName}}</h3>
+                    <table border="1" bordercolor="#fbfbfb" v-if="datas.length>0" v-for="(item,key) in datas">
+                        <col style="width: 28%" />
+                        <col style="width: 72%" />
+                        <tbody>
+                            <tr v-for="(v,k) in models.tableProtos">
+                                <td style="width: 28%">{{models.tableTheads[k] }}</td>
+                                <td style="width: 72%" v-if="v!='img'">{{item[v]}}</td>
+                                <td style="width: 72%" v-else><img :src="item[v]" height="30"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div v-else>{{lack}}</div>
+                </div>
             </div>
         </div>
-
     </div>
-
-
-    </div>
-</transition>
+ </transition>
 </template>
 <script>
 import Header1 from './component/header.vue'
-import HeaderImg from './component/headImg.vue'
-import TwoColList from './component/twoColList.vue'
 import plantMessage from './js/plantMessage.js'
-import swiper from './component/swiper.vue'
 import canvas from './js/ripple.js'
 export default {
     name: 'pBasicModel1',
@@ -61,12 +47,13 @@ export default {
         Object.assign(modelObj, plantMessage)
         return {
             models: modelObj[this.$route.meta.key],
-            datas: {},
+            datas: [],
             product: {},
             sells: false,
             lack: '无相关记录',
             x: 10,
-            canvasShow: true
+            canvasShow: true,
+            dataArr: [{result: {'0': '合格', '1': '不合格'}}]
         }
     },
     mixins: [canvas],
@@ -74,27 +61,35 @@ export default {
         $(document).on('touchmove', function (e) {
             e.stopPropagation()
         })
+        let urlName = this.$route.name
         var params = {code: this.$route.params.id}
-        axios.get('teaTrace/tea/product', params)
+        axios.get('teaTrace/tea/' + urlName, {params: params})
             .then((responce) => {
-                var lists = responce.data
-                if (lists !== 400 && lists !== 404 && lists !== 403) {
-                    this.datas = lists
-                    this.product = responce.data
-                }
+                var ret = this.$conversion(this.dataArr, responce.data, 1)
+                ret = this.$eltable(ret)
+                this.datas = ret
             })
     },
     methods: {
     },
     components: {
-        Header1,
-        HeaderImg,
-        TwoColList,
-        swiper
+        Header1
     }
 }
 </script>
 <style type="text/css" lang="sass">
+        canvas{
+            position: absolute;
+            left: 0;
+            top: 0.9rem;
+            z-index: 54548;
+        }
+    .breedCol{
+        background:#93bf46!important;
+    }
+    .breedFontCol{
+        color:#93bf46!important;
+    }
     .pBasic_content {
         width: 100%;
         background: #fbfbfb;
@@ -134,16 +129,14 @@ export default {
             }
         }
     }
-    .breedFontCol{
-        color:#93bf46!important;
-    }
-    .pCommodity{
+    .pBasicModel1{
         width: 100%;
         height: 100%;
-    
-        .pCom_content{
-            width: 100%;
-            background: #fbfbfb;
+        padding-bottom: 1rem;
+            .pCom_content{
+                width: 100%;
+                background: #fbfbfb;
+                margin-top: 1rem;
             .pCom_content_introduce{
                 width: 100%;
                 padding-bottom:4%;
@@ -180,22 +173,6 @@ export default {
                     }
                 } 
             }
-            .pCom_content_list{
-                padding-bottom:1rem;
-                >div{
-                    padding-bottom:4%;
-                    border-bottom: .4rem solid #f2f2f2;
-                }
-                >div:last-child{
-                     border-bottom: 0rem solid #f2f2f2;
-                }
-            }
         }
-    }
-    canvas{
-        position: absolute;
-        left: 0;
-        top: 0.9rem;
-        z-index: 2378758;
     }
 </style>

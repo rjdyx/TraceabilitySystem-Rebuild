@@ -168,7 +168,6 @@ export default {
     mixins: [canvas],
     mounted () {
         $(document).on('touchmove', function (e) {
-            // e.preventDefault()
             e.stopPropagation()
         })
         var params = {code: this.$route.params.id}
@@ -178,24 +177,6 @@ export default {
                 if (lists !== 400 && lists !== 404 && lists !== 403) {
                     this.datas = lists
                     this.product = responce.data
-                } else {
-                    if (lists === 404) {
-                        alert('溯源码无效！')
-                    }
-                    if (lists === 403) {
-                        alert('商家已关闭溯源码追溯！')
-                    }
-                    if (lists === 400) {
-                        alert('该溯源码无相关信息！')
-                    }
-                    this.$router.go('-1')
-                }
-            })
-        axios.post('run/sell', params)
-            .then((responce) => {
-                var lists = responce.data[0]
-                if ((lists !== 404) && (lists !== 403) && (lists !== 400)) {
-                    this.sells = lists
                 }
             })
     },

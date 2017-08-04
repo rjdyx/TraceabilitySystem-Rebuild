@@ -32,7 +32,7 @@
 		</div>
 		<div class="menuWrap">
 			<div class="indexMenu">
-				<router-link :to="'/run/plant/video/'+id">
+				<router-link :to="'/teaTrace/tea/video/'+id">
 					<span class="iconfont iconmenu icon-shipin"></span>
 					<span>实时视频</span>
 				</router-link>
@@ -44,7 +44,7 @@
 				</router-link>
 			</div>
 			<div class="indexMenu">
-				<router-link :to="'/run/plant/sale/'+video">
+				<router-link :to="'/teaTrace/tea/sale/'+code">
 					<span class="iconsale iconmenu icon-xiaoshouxinxi"></span>
 					<span>销售信息</span>
 				</router-link>
