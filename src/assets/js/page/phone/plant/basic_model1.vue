@@ -8,6 +8,9 @@
 <template>
 <transition name="fade2">
     <div class="pBasicModel1">
+       
+      <canvas id="canvas" v-if="canvasShow"></canvas>
+
         <header1 :title="models.title" :isbreed="isbreed"></header1>
         <headerImg :productName='productName' :isbreed="isbreed"></headerImg>
         <div class="pBM1_list">
@@ -38,11 +41,17 @@
                 </table>
             </div> 
         </div>
-        <!-- <router-view :title="models.title" :imgListName="imgListName" :details="models.details"></router-view> -->
+
     </div>
  </transition>
 </template>
 <style type="text/css" lang="sass">
+        canvas{
+            position: absolute;
+            left: 0;
+            top: 0.9rem;
+            z-index: 54548;
+        }
     .breedCol{
         background:#93bf46!important;
     }
@@ -51,6 +60,7 @@
     }
     .pBasicModel1{
         width: 100%;
+        height: 100%;
         padding-bottom: 1rem;
         .pBM1_list{
             background: #fbfbfb;
@@ -77,6 +87,8 @@
                             width: 25%;
                             box-sizing: border-box;
                             padding: 3% 0%;
+                            text-align: left;
+                            padding-left: 4%;
                         }
                         td{
                             color:#989898;
@@ -99,6 +111,7 @@
 import Header1 from './component/header.vue'
 import HeaderImg from './component/headImg.vue'
 import plantMessage from './js/plantMessage.js'
+import canvas from './js/ripple.js'
 export default {
     name: 'pBasicModel1',
     data () {
@@ -113,7 +126,9 @@ export default {
             id: 555,
             lack: '信息缺失',
             // imgListName: '农事记录详情',
-            lists: ''
+            lists: '',
+            x: 10,
+            canvasShow: true
         }
     },
     methods: {
@@ -127,6 +142,7 @@ export default {
             this.$router.push(url)
         }
     },
+    mixins: [canvas],
     mounted () {
         $(document).on('touchmove', function (e) {
             // e.preventDefault()

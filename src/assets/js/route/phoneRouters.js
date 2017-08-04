@@ -1,9 +1,9 @@
 
 // ----------------------------种植模块------------------------------------
 // ---------------------------手机版首页----------------------------------
-const plantIndex = resolve => {
-    require.ensure(['../page/phoneTrace/views/index.vue'], () => {
-        resolve(require('../page/phoneTrace/views/index.vue'))
+const teaIndex = resolve => {
+    require.ensure(['../page/phone/plant/index.vue'], () => {
+        resolve(require('../page/phone/plant/index.vue'))
     }, 'plantIndex')
 }
 
@@ -15,7 +15,7 @@ const video = resolve => {
 }
 
 // ---------------------------手机版首页__基础信息----------------------------------
-const pBasic = resolve => {
+const teaBasic = resolve => {
     require.ensure(['../page/phone/plant/basic.vue'], () => {
         resolve(require('../page/phone/plant/basic.vue'))
     }, 'basic')
@@ -27,7 +27,6 @@ const shop = resolve => {
         resolve(require('../page/phone/plant/shop.vue'))
     }, 'shop')
 }
-
 // ---------------------------手机版首页__生长图片----------------------------------
 const grow = resolve => {
     require.ensure(['../page/phone/plant/grow.vue'], () => {
@@ -37,11 +36,8 @@ const grow = resolve => {
 
 // ---------------------------手机版首页__农事信息、肥料信息__记录页----------------------------------
 const bM1 = resolve => {
-    // # 加载前显示动画
-    $('.pBasicModel1').show()
     require.ensure(['../page/phone/plant/basic_model1.vue'], () => {
         resolve(require('../page/phone/plant/basic_model1.vue'))
-        $('.pBasicModel1').hide()
     }, 'bM1')
 }
 
@@ -70,11 +66,10 @@ const breedIndex = resolve => {
 export default {
     router: [
         {
-            path: '/plantIndex/:code',
-            // name: '/run/plant/index/:code',
-            meta: {key: 'plantIndex'},
-            component: plantIndex,
-            alias: '/run/plant/index/:code'
+            path: '/teaIndex/:code',
+            meta: {key: 'teaIndex'},
+            component: teaIndex,
+            alias: '/teaTrace/tea/index/:code'
         },
         {
             path: '/video/:id',
@@ -85,8 +80,14 @@ export default {
         {
             path: '/basicInfor/:id',
             meta: {key: 'basicInfor', runName: 'plant'},
-            component: pBasic,
-            alias: '/run/plant/basicInfor/:id'
+            component: teaBasic,
+            alias: '/teaTrace/tea/basicInfor/:id'
+        },
+        {
+            path: '/saleInfor/:id',
+            meta: {key: 'saleInfor', runName: 'plant'},
+            component: teaBasic,
+            alias: '/run/plant/saleInfor/:id'
         },
         {
             path: '/shop/:id',
@@ -98,19 +99,19 @@ export default {
             path: '/growImg/:id',
             meta: {key: 'growImg', runName: 'plant'},
             component: grow,
-            alias: '/run/plant/growImg/:id'
+            alias: '/teaTrace/tea/growImg/:id'
         },
         {
             path: '/pesticideInfor/:id',
-            meta: {key: 'spray', runName: 'plant'},
+            meta: {key: 'harvest', runName: 'plant'},
             component: bM1,
-            alias: '/run/plant/spray/:id'
+            alias: '/run/plant/harvest/:id'
         },
         {
             path: '/pesticideDetails/:id',
             component: bM2,
-            meta: {key: 'spray', runName: 'plant'},
-            alias: '/run/plant/spray/datails/:id'
+            meta: {key: 'harvest', runName: 'plant'},
+            alias: '/run/plant/harvest/datails/:id'
         },
         {
             path: '/farmWorkInfor/:id',
@@ -128,13 +129,7 @@ export default {
             path: '/fertilizerInfor/:id',
             meta: {key: 'fertilize', runName: 'plant'},
             component: bM1,
-            alias: '/run/plant/fertilize/:id'
-        },
-        {
-            path: '/fertilizerDetails/:id',
-            meta: {key: 'fertilize', runName: 'plant'},
-            component: bM2,
-            alias: '/run/plant/fertilize/datails/:id'
+            alias: '/teaTrace/tea/fertilize/:id'
         },
         {
             path: '/detectionInfor/:id',
@@ -153,91 +148,6 @@ export default {
             meta: {key: 'commodityInfor', runName: 'plant'},
             component: commodity,
             alias: '/run/plant/commodityInfor/:id'
-        },
-// ------------------------- 手机端路由   养殖---------------------------------
-        {
-            path: '/breedIndex/:code',
-            meta: {key: 'breedIndex', runName: 'breed'},
-            component: breedIndex,
-            alias: '/run/breed/index/:code'
-        },
-        {
-            path: '/b_video/:id',
-            meta: {key: 'b_video', runName: 'breed'},
-            component: video,
-            alias: '/run/breed/video/:id'
-        },
-        {
-            path: '/b_basicInfor/:id',
-            meta: {key: 'b_basicInfor', runName: 'breed'},
-            component: pBasic,
-            alias: '/run/breed/basicInfor/:id'
-        },
-        {
-            path: '/b_shop/:id',
-            meta: {key: 'b_shop', runName: 'breed'},
-            component: shop,
-            alias: '/run/breed/shop/:id'
-        },
-        {
-            path: '/growProcess/:id',
-            meta: {key: 'growProcess', runName: 'breed'},
-            component: grow,
-            alias: '/run/breed/growProcess/:id'
-        },
-        {
-            path: '/commodity/:id',
-            meta: {key: 'commodity', runName: 'breed'},
-            component: commodity,
-            alias: '/run/breed/commodity/:id'
-        },
-        {
-            path: '/fodderuse/:id',
-            meta: {key: 'fodderuse', runName: 'breed'},
-            component: bM1,
-            alias: '/run/breed/fodderuse/:id'
-        },
-        {
-            path: '/feedDetails/:id',
-            component: bM2,
-            meta: {key: 'fodderuse', runName: 'breed'},
-            alias: '/run/breed/fodderuse/datails/:id'
-        },
-        {
-            path: '/disease/:id',
-            meta: {key: 'disease', runName: 'breed'},
-            component: bM1,
-            alias: '/run/breed/disease/:id'
-        },
-        {
-            path: '/diseaseDetails/:id',
-            meta: {key: 'disease', runName: 'breed'},
-            component: bM2,
-            alias: '/run/breed/disease/datails/:id'
-        },
-        {
-            path: '/detection/:id',
-            meta: {key: 'detection', runName: 'breed'},
-            component: bM1,
-            alias: '/run/breed/detection/:id'
-        },
-        {
-            path: '/b_detectionDetails/:id',
-            meta: {key: 'detection', runName: 'breed'},
-            component: bM2,
-            alias: '/run/breed/detection/datails/:id'
-        },
-        {
-            path: '/detect/:id',
-            meta: {key: 'detect', runName: 'breed'},
-            component: bM1,
-            alias: '/run/breed/detect/:id'
-        },
-        {
-            path: '/detectDatails/:id',
-            meta: {key: 'detect', runName: 'breed'},
-            component: bM2,
-            alias: '/run/breed/detect/datails/:id'
         }
     ]
 }

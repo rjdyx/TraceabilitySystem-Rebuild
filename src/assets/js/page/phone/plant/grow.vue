@@ -114,32 +114,14 @@ export default {
     },
     mounted () {
         $(document).on('touchmove', function (e) {
-            // e.preventDefault()
             e.stopPropagation()
         })
         var params = {code: this.$route.params.id}
-        var url = 'run/plant/grow'
-        if (this.$route.meta.runName === 'breed') {
-            url = 'run/beast/course'
-        }
-        axios.post(url, params)
+        axios.get('/teaTrace/tea/grow', {params: params})
             .then((responce) => {
                 var lists = responce.data
                 if (lists !== 404 && lists !== 403 && lists !== 400) {
                     this.grows = lists
-                } else {
-                    if (lists === 404) {
-                        alert('溯源码无效！')
-                        this.$router.go('-1')
-                    }
-                    if (lists === 403) {
-                        alert('商家已关闭溯源码追溯！')
-                        this.$router.go('-1')
-                    }
-                    if (lists === 400) {
-                        alert('该溯源码无相关信息！')
-                        this.$router.go('-1')
-                    }
                 }
             })
     },

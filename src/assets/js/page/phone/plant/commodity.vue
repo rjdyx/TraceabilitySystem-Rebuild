@@ -8,64 +8,68 @@
 <template>
 <transition name="fade2">
     <div class="pCommodity">
-        <header1 :title="models.title" :isbreed="isbreed"></header1>
-        <headerImg :isbreed="isbreed"></headerImg>
-        <div class="pCom_content">
-            <div class="pCom_content_introduce">
-                <div>
-                    <ul :class="{breedFontCol:isbreed}">
-                        <li>{{product.name}}</li>
-                        <li ><em>溯源次数：</em>{{product.time}}</li>
-                    </ul>
-                    <p>{{product.description}}</p>
-                </div>
+
+    <canvas id="canvas" v-if="canvasShow"></canvas>  
+    
+    <header1 :title="models.title" :isbreed="isbreed"></header1>
+    <headerImg :isbreed="isbreed"></headerImg>
+    <div class="pCom_content">
+        <div class="pCom_content_introduce">
+            <div>
+                <ul :class="{breedFontCol:isbreed}">
+                    <li>{{product.name}}</li>
+                    <li ><em>溯源次数：</em>{{product.time}}</li>
+                </ul>
+                <p>{{product.description}}</p>
             </div>
-            <div class="sell">
-                <div :class="{breedFontCol:isbreed,title:true}">销售与物流</div>
-                <div v-if="sells">
-                    <div class="content" v-for="sell in sells">
-                        <div class="title2"><b>|</b> 交易日期：{{sell.start_date}} 至 {{sell.end_date}}</div>
-                        <div>
-                            <li>运输商品：</li>
-                            <li>{{sell.delivery_name}}</li>
-                        </div>
-                        <div>
-                            <li>供货商：</li>
-                            <li>{{sell.supplier_name}}</li>
-                        </div>
-                        <div>
-                            <li>经销商：</li>
-                            <li>{{sell.client_name}}</li>
-                        </div>
-                        <div v-if="sell.type!==undefined">
-                            <li>运输方式：</li>
-                            <li>{{sell.type_name}}</li>
-                        </div>
-                        <div v-if="sell.type==='self'">
-                            <li>车牌号：</li>
-                            <li>{{sell.vehicle_number}}</li>
-                        </div>
-                        <div v-if="sell.type==='consign'">
-                            <li>物流公司：</li>
-                            <li>{{sell.logistic_name}}</li>
-                        </div>
-                        <div v-if="sell.type==='consign'">
-                            <li>物流订单号：</li>
-                            <li>{{sell.consign_number}}</li>
-                        </div>
-                        <div v-if="sell.type==='selve'">
-                            <li>提货人：</li>
-                            <li>{{sell.selve_name}}</li>
-                        </div>
-                        <div v-if="sell.type==='selve'">
-                            <li>提货日期：</li>
-                            <li>{{sell.selve_date}}</li>
-                        </div>
+        </div>
+        <div class="sell">
+            <div :class="{breedFontCol:isbreed,title:true}">销售与物流</div>
+            <div v-if="sells">
+                <div class="content" v-for="sell in sells">
+                    <div class="title2"><b>|</b> 交易日期：{{sell.start_date}} 至 {{sell.end_date}}</div>
+                    <div>
+                        <li>运输商品：</li>
+                        <li>{{sell.delivery_name}}</li>
+                    </div>
+                    <div>
+                        <li>供货商：</li>
+                        <li>{{sell.supplier_name}}</li>
+                    </div>
+                    <div>
+                        <li>经销商：</li>
+                        <li>{{sell.client_name}}</li>
+                    </div>
+                    <div v-if="sell.type!==undefined">
+                        <li>运输方式：</li>
+                        <li>{{sell.type_name}}</li>
+                    </div>
+                    <div v-if="sell.type==='self'">
+                        <li>车牌号：</li>
+                        <li>{{sell.vehicle_number}}</li>
+                    </div>
+                    <div v-if="sell.type==='consign'">
+                        <li>物流公司：</li>
+                        <li>{{sell.logistic_name}}</li>
+                    </div>
+                    <div v-if="sell.type==='consign'">
+                        <li>物流订单号：</li>
+                        <li>{{sell.consign_number}}</li>
+                    </div>
+                    <div v-if="sell.type==='selve'">
+                        <li>提货人：</li>
+                        <li>{{sell.selve_name}}</li>
+                    </div>
+                    <div v-if="sell.type==='selve'">
+                        <li>提货日期：</li>
+                        <li>{{sell.selve_date}}</li>
                     </div>
                 </div>
-                <div class="content" v-else>{{lack}}</div>
             </div>
-        </div>   
+            <div class="content" v-else>{{lack}}</div>
+        </div>
+    </div>
+
     </div>
 </transition>
 </template>
@@ -113,56 +117,89 @@
     }
     .pCommodity{
         width: 100%;
-        .pCom_content{
+        height: 100%;
+        .wraping {
             width: 100%;
-            background: #fbfbfb;
-            .pCom_content_introduce{
-                width: 100%;
+            height: 100%;
+            // background: #3dd0b6;
+            // background:-webkit-radial-gradient(circle,rgba(255,255,255,0) 2%, #3dd0b6 95%);
+            z-index: 89898;
+            position: relative;
+            clip:rect(0px 50px 200px 0px);
+            -webkit-background-clip: content-box;
+            // mask-image: rgba(0, 0, 0, 1.0);
+            -webkit-mask-image: -webkit-linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,0));
+            // -webkit-background-clip: context-box;
+        .yard {
+            width: 30%;
+            height:15%;
+            border-radius: 100%;
+            border: 1px solid #3dd0b6;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            // background: #fff;
+            // opacity: 0.3;
+            transform: translate(-50%, -50%);
+        }
+    }
+    
+    .pCom_content{
+        width: 100%;
+        background: #fbfbfb;
+        .pCom_content_introduce{
+            width: 100%;
+            padding-bottom:4%;
+            border-bottom: .4rem solid #f2f2f2;
+            >div{ 
+                width: 92%;
+                margin: 0 auto;
+                ul{
+                    width:100%;
+                    color:#3ccfb5;
+                    display:flex;
+                    justify-content: space-between;
+                    padding: 4% 0% 3% 0%;
+                    border-bottom: 1px solid #e6e6e6; 
+                    li:first-child{
+                        width:60%;
+                        font-size: .42rem;
+                        white-space: nowrap;
+                        overflow: hidden;
+                        text-overflow:ellipsis;
+                    }
+                    li:last-child{
+                        font-size:.32rem;
+                        width:35%;
+                        text-align:right;
+                        em{
+                            color:#999;
+                        }
+                    }
+                }
+                >p{
+                    font-size:.4rem;
+                    color:#666;
+                }
+            } 
+        }
+        .pCom_content_list{
+            padding-bottom:1rem;
+            >div{
                 padding-bottom:4%;
                 border-bottom: .4rem solid #f2f2f2;
-                >div{ 
-                    width: 92%;
-                    margin: 0 auto;
-                    ul{
-                        width:100%;
-                        color:#3ccfb5;
-                        display:flex;
-                        justify-content: space-between;
-                        padding: 4% 0% 3% 0%;
-                        border-bottom: 1px solid #e6e6e6; 
-                        li:first-child{
-                            width:60%;
-                            font-size: .42rem;
-                            white-space: nowrap;
-                            overflow: hidden;
-                            text-overflow:ellipsis;
-                        }
-                        li:last-child{
-                            font-size:.32rem;
-                            width:35%;
-                            text-align:right;
-                            em{
-                                color:#999;
-                            }
-                        }
-                    }
-                    >p{
-                        font-size:.4rem;
-                        color:#666;
-                    }
-                } 
             }
-            .pCom_content_list{
-                padding-bottom:1rem;
-                >div{
-                    padding-bottom:4%;
-                    border-bottom: .4rem solid #f2f2f2;
-                }
-                >div:last-child{
-                     border-bottom: 0rem solid #f2f2f2;
-                }
+            >div:last-child{
+                 border-bottom: 0rem solid #f2f2f2;
             }
         }
+    }
+    }
+    canvas{
+        position: absolute;
+        left: 0;
+        top: 0.9rem;
+        z-index: 2378758;
     }
 </style>
 <script>
@@ -170,6 +207,7 @@ import Header1 from './component/header.vue'
 import HeaderImg from './component/headImg.vue'
 import TwoColList from './component/twoColList.vue'
 import plantMessage from './js/plantMessage.js'
+import canvas from './js/ripple.js'
 export default {
     name: 'pBasicModel1',
     data () {
@@ -179,9 +217,12 @@ export default {
             models: modelObj[this.$route.meta.key],
             product: {},
             sells: false,
-            lack: '无相关记录'
+            lack: '无相关记录',
+            x: 10,
+            canvasShow: true
         }
     },
+    mixins: [canvas],
     mounted () {
         $(document).on('touchmove', function (e) {
             // e.preventDefault()
@@ -213,6 +254,8 @@ export default {
                     this.sells = lists
                 }
             })
+    },
+    methods: {
     },
     components: {
         Header1,
