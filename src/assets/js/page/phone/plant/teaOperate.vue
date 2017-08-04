@@ -9,7 +9,7 @@
 <transition name="fade2">
     <div class="pBasicModel1">
        
-      <canvas id="canvas" v-if="canvasShow"></canvas>
+      <!-- <canvas id="canvas"></canvas> -->
 
         <header1 :title="models.title"></header1>
         
@@ -52,6 +52,7 @@ export default {
             sells: false,
             lack: '无相关记录',
             x: 10,
+            i: 0,
             canvasShow: true,
             dataArr: [{result: {'0': '合格', '1': '不合格'}}],
             flag: false
@@ -83,12 +84,12 @@ export default {
 }
 </script>
 <style type="text/css" lang="sass">
-        canvas{
-            position: absolute;
-            left: 0;
-            top: 0.9rem;
-            z-index: 54548;
-        }
+    canvas{
+        position: absolute;
+        left: 0;
+        top: 0.9rem;
+        z-index: 54548;
+    }
     .breedCol{
         background:#93bf46!important;
     }
@@ -113,6 +114,7 @@ export default {
                 font-size:.4rem;
                 border-collapse: collapse;
                 border-color:#e6e6e6;
+                margin-bottom: 1rem;
                 table-layout:fixed;
                 tr{
                     width: 100%;

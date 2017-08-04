@@ -8,6 +8,9 @@
 <template>
 <transition name="fade2">
     <div id="home_grow">
+
+      <canvas id="canvas" v-if="canvasShow"></canvas>
+
         <header1 title="生长图片"></header1>
         <div class="hg_content">
             <ul>
@@ -29,14 +32,18 @@
 </transition>
 </template>
 <script >
+import canvas from './js/ripple.js'
 import Header1 from './component/header.vue'
 export default {
     name: 'pGrow',
     data () {
         return {
-            grows: {}
+            grows: {},
+            canvasShow: true,
+            x: 10
         }
     },
+    mixins: [canvas],
     mounted () {
         $(document).on('touchmove', function (e) {
             e.stopPropagation()
@@ -56,6 +63,12 @@ export default {
 }
 </script>
 <style type="text/css" lang="sass">
+    canvas{
+        position: absolute;
+        left: 0;
+        top: 0.9rem;
+        z-index: 54548;
+    }
     .breedBorder{
         // border-left:2px solid #93bf46!important;
         border-color:#93bf46!important;

@@ -17,7 +17,7 @@
 				<template v-for="(item,index) in indexData.circle">
 				<div>
 					<div :class="item.iconPosition" class="quote">
-						<div :class="{'active':item.isTrue}" @touchend="jumpto(item,index)">
+						<div :class="{'active':item.isTrue}" @click="jumpto(item,index)">
 							<li class="iconfont iconcircle" :class="item.icon">
 							</li>
 							<span>{{item.iconLabel}}</span>
