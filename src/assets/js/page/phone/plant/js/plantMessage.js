@@ -11,6 +11,34 @@ export default{
         tableProtos: ['plantation_name', 'director', 'address', 'phone', 'planta_name', 'area', 'cultivate_operate', 'cultivate_date', 'harvest_operate', 'harvest_date'],
         tableName2: '宣传视频'
     },
+    // 肥料信息
+    fertilize: {
+        title: '施肥信息',
+        tableName: '施肥记录',
+        tableTheads: ['肥料名称', '施肥日期', '平均施肥量', '施肥方式', '天气', '施肥人', '肥料图片'],
+        tableProtos: ['manure_name', 'date', 'amount_unit', 'way', 'weather', 'operate', 'img']
+    },
+    // 检测信息
+    detect: {
+        title: '检测信息',
+        tableName: '检测记录',
+        tableTheads: ['检测类型', '检测内容', '检测日期', '检测人', '检测部门', '检测结果', '检测图片'],
+        tableProtos: ['detect_type', 'content', 'date', 'operate', 'department', 'result', 'img']
+    },
+     // 农事信息
+    farming: {
+        title: '农事信息',
+        tableName: '农事记录',
+        tableTheads: ['操作日期', '操作内容', '操作人', '天气', '操作方法'],
+        tableProtos: ['date', 'content', 'operate', 'weather', 'method']
+    },
+    // 采制信息
+    harvest: {
+        title: '采制信息',
+        tableName: '采制记录',
+        tableTheads: ['采制日期', '采制人', '毛茶重量', '散茶重量', '损耗率', '晒青时间', '晾青时间', '做青时间', '杀青时间', '揉稔时间', '解块时间', '干燥时间', '筛选时间', '复火时间'],
+        tableProtos: ['date', 'operate', 'raw_tea_weight', 'bulk_tea_weight', 'attrition_rate', 'sunning_date', 'cooling_date', 'make_green_date', 'kill_out_date', 'knead_nori_date', 'deblock_date', 'dry_date', 'filtrate_date', 'refiring_date']
+    },
     // 销售信息
     sale: {
         title: '销售信息',
@@ -27,65 +55,6 @@ export default{
     growImg: {
         title: '生长图片'
     },
-    // 采制信息
-    harvest: {
-        title: '采制信息',
-        tableName: '采制记录',
-        tableTheads: ['批次号', '农药名称', '施药日期', '平均施药', '施药方式', '天气', '施药人', '指导专家'],
-        tableProtos: ['serial', 'medicament_name', 'date', 'amount', 'way', 'weather', 'operate_name', 'expert_name'],
-        details: {
-            tableList: {
-                tableName: '采制记录详情',
-                tableTheads: ['批次号', '农药名称', '施药日期', '平均施药', '施药方式', '天气', '施药人', '指导专家'],
-                tableProtos: ['serial', 'medicament_name', 'date', 'amount', 'way', 'weather', 'operate_name', 'expert_name']
-            },
-            tableName2: '施药图片'
-        }
-    },
-    // 农事信息
-    farming: {
-        title: '农事信息',
-        tableName: '农事记录',
-        tableTheads: ['操作类型', '操作内容', '操作人', '操作日期', '天气', '指导单位', '指导专家'],
-        tableProtos: ['serial', 'date', 'content', 'method', 'weather', 'operate_name', 'expert_name'],
-        details: {
-            tableList: {
-                tableName: '农事记录详情',
-                tableTheads: ['操作类型', '操作内容', '操作人', '操作日期', '天气', '指导单位', '指导专家'],
-                tableProtos: ['serial', 'date', 'content', 'method', 'weather', 'operate_name', 'expert_name']
-            },
-            tableName2: '农事图片'
-        }
-    },
-    // 肥料信息
-    fertilize: {
-        title: '肥料信息',
-        tableName: '肥料记录',
-        tableTheads: ['肥料名称', '施肥日期', '平均施肥', '施肥方式', '天气', '施肥人', '指导单位', '指导专家'],
-        tableProtos: ['serial', 'manure_name', 'date', 'amount', 'way', 'weather', 'operate_name', 'expert_name'],
-        details: {
-            tableList: {
-                tableName: '肥料记录详情',
-                tableTheads: ['肥料名称', '施肥日期', '平均施肥', '施肥方式', '天气', '施肥人', '指导单位', '指导专家'],
-                tableProtos: ['serial', 'manure_name', 'date', 'amount', 'way', 'weather', 'operate_name', 'expert_name']
-            },
-            tableName2: '施肥图片'
-        }
-    },
-    // 检测信息
-    detect: {
-        title: '检测信息',
-        tableName: '检测记录',
-        tableTheads: ['检测名称', '检测机构', '检测类型', '检测人', '天气', '指导单位', '指导专家'],
-        tableProtos: ['serial', 'name', 'content', 'department', 'genre', 'result', 'operate_name'],
-        details: {
-            tableList: {
-                tableName: '检测记录详情',
-                tableTheads: ['检测名称', '检测机构', '检测类型', '检测人', '天气', '指导单位', '指导专家'],
-                tableProtos: ['serial', 'name', 'content', 'department', 'genre', 'result', 'operate_name']
-            },
-            tableName2: '检测图片'
-        }},
     // 商品信息
     commodityInfor: {
         title: '商品信息',

@@ -11,42 +11,72 @@
        
       <canvas id="canvas" v-if="canvasShow"></canvas>
 
-        <header1 :title="models.title" :isbreed="isbreed"></header1>
+        <header1 :title="models.title"></header1>
         
         <div class="pCom_content">
         
-            <div class="pCom_content_introduce">
-                <div>
-                    <ul :class="{breedFontCol:isbreed}">
-                        <li>{{product.name}}</li>
-                        <li ><em>溯源次数：</em>{{product.time}}</li>
-                    </ul>
-                    <p>{{product.description}}</p>
-                </div>
-            </div>
-        
             <div  class="pBasic_content">
                 <div class="pBasic_content_planInfo">
-                    <h3 :class="{breedFontCol:isbreed}">{{models.tableName}}</h3>
-                    <table border="1" bordercolor="#fbfbfb">
+                    <h3>{{models.tableName}}</h3>
+                    <table border="1" bordercolor="#fbfbfb" v-if="datas.length>0" v-for="(item,key) in datas">
                         <col style="width: 28%" />
                         <col style="width: 72%" />
                         <tbody>
                             <tr v-for="(v,k) in models.tableProtos">
                                 <td style="width: 28%">{{models.tableTheads[k] }}</td>
-                                <td style="width: 72%" v-if="v=='area'">{{datas[v]}}{{datas.unit}}</td>
-                                <td style="width: 72%" v-else>{{datas[v]}}</td>
-                        </tr>
+                                <td style="width: 72%" v-if="v!='img'">{{item[v]}}</td>
+                                <td style="width: 72%" v-else><img :src="item[v]" height="30"></td>
+                            </tr>
                         </tbody>
                     </table>
+                    <div v-else>{{lack}}</div>
                 </div>
             </div>
-
         </div>
-
     </div>
  </transition>
 </template>
+<script>
+import Header1 from './component/header.vue'
+import plantMessage from './js/plantMessage.js'
+import canvas from './js/ripple.js'
+export default {
+    name: 'pBasicModel1',
+    data () {
+        let modelObj = {}
+        Object.assign(modelObj, plantMessage)
+        return {
+            models: modelObj[this.$route.meta.key],
+            datas: [],
+            product: {},
+            sells: false,
+            lack: '无相关记录',
+            x: 10,
+            canvasShow: true,
+            dataArr: [{result: {'0': '合格', '1': '不合格'}}]
+        }
+    },
+    mixins: [canvas],
+    mounted () {
+        $(document).on('touchmove', function (e) {
+            e.stopPropagation()
+        })
+        let urlName = this.$route.name
+        var params = {code: this.$route.params.id}
+        axios.get('teaTrace/tea/' + urlName, {params: params})
+            .then((responce) => {
+                var ret = this.$conversion(this.dataArr, responce.data, 1)
+                ret = this.$eltable(ret)
+                this.datas = ret
+            })
+    },
+    methods: {
+    },
+    components: {
+        Header1
+    }
+}
+</script>
 <style type="text/css" lang="sass">
         canvas{
             position: absolute;
@@ -146,49 +176,3 @@
         }
     }
 </style>
-<script>
-import Header1 from './component/header.vue'
-import plantMessage from './js/plantMessage.js'
-import canvas from './js/ripple.js'
-export default {
-    name: 'pBasicModel1',
-    data () {
-        let modelObj = {}
-        Object.assign(modelObj, plantMessage)
-        return {
-            models: modelObj[this.$route.meta.key],
-            datas: {},
-            product: {},
-            sells: false,
-            lack: '无相关记录',
-            x: 10,
-            canvasShow: true
-        }
-    },
-    mixins: [canvas],
-    mounted () {
-        $(document).on('touchmove', function (e) {
-            e.stopPropagation()
-        })
-        var params = {code: this.$route.params.id}
-        axios.post('run/product', params)
-            .then((responce) => {
-                var lists = responce.data
-                if (lists !== 400 && lists !== 404 && lists !== 403) {
-                    this.datas = lists
-                    this.product = responce.data
-                }
-            })
-    },
-    methods: {
-    },
-    components: {
-        Header1
-    },
-    computed: {
-        isbreed () {
-            return this.isbreed = this.$route.meta.runName === 'breed'
-        }
-    }
-}
-</script>

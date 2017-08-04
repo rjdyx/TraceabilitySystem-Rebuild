@@ -11,7 +11,7 @@
 
     <canvas id="canvas" v-if="canvasShow"></canvas>  
     
-    <header1 :title="models.title" :isbreed="isbreed"></header1>
+    <header1 :title="models.title"></header1>
     
     <swiper></swiper>
 
@@ -19,7 +19,7 @@
         
         <div class="pCom_content_introduce">
             <div>
-                <ul :class="{breedFontCol:isbreed}">
+                <ul>
                     <li>{{product.name}}</li>
                     <li ><em>溯源次数：</em>{{product.time}}</li>
                 </ul>
@@ -29,7 +29,7 @@
         
         <div  class="pBasic_content">
             <div class="pBasic_content_planInfo">
-                <h3 :class="{breedFontCol:isbreed}">{{models.tableName}}</h3>
+                <h3>{{models.tableName}}</h3>
                 <table border="1" bordercolor="#fbfbfb">
                     <col style="width: 28%" />
                     <col style="width: 72%" />
@@ -180,34 +180,15 @@ export default {
     mixins: [canvas],
     mounted () {
         $(document).on('touchmove', function (e) {
-            // e.preventDefault()
             e.stopPropagation()
         })
         var params = {code: this.$route.params.id}
-        axios.post('run/product', params)
+        axios.get('teaTrace/tea/product', params)
             .then((responce) => {
                 var lists = responce.data
                 if (lists !== 400 && lists !== 404 && lists !== 403) {
                     this.datas = lists
                     this.product = responce.data
-                } else {
-                    if (lists === 404) {
-                        alert('溯源码无效！')
-                    }
-                    if (lists === 403) {
-                        alert('商家已关闭溯源码追溯！')
-                    }
-                    if (lists === 400) {
-                        alert('该溯源码无相关信息！')
-                    }
-                    this.$router.go('-1')
-                }
-            })
-        axios.post('run/sell', params)
-            .then((responce) => {
-                var lists = responce.data[0]
-                if ((lists !== 404) && (lists !== 403) && (lists !== 400)) {
-                    this.sells = lists
                 }
             })
     },
@@ -218,11 +199,6 @@ export default {
         HeaderImg,
         TwoColList,
         swiper
-    },
-    computed: {
-        isbreed () {
-            return this.isbreed = this.$route.meta.runName === 'breed'
-        }
     }
 }
 </script>

@@ -11,14 +11,14 @@ export default{
             icon: 'icon-goods',
             iconLabel: '商品信息',
             iconPosition: 'iconquoteB',
-            src: '/run/plant/commodityInfor/',
+            src: '/teaTrace/tea/commodityInfor/',
             active: 'activeB'
         },
         {
             icon: 'icon-huaxue',
             iconLabel: '检测信息',
             iconPosition: 'iconquoteC',
-            src: '/run/plant/detect/',
+            src: '/teaTrace/tea/detect/',
             active: 'activeC'
         },
         {
@@ -32,14 +32,14 @@ export default{
             icon: 'icon-nongshiguanli',
             iconLabel: '农事信息',
             iconPosition: 'iconquoteE',
-            src: '/run/plant/farming/',
+            src: '/teaTrace/tea/farming/',
             active: 'activeE'
         },
         {
             icon: 'icon-caishouguanli',
             iconLabel: '采制信息',
             iconPosition: 'iconquoteF',
-            src: '/run/plant/harvest/',
+            src: '/teaTrace/tea/harvest/',
             active: 'activeF'
         }
     ]

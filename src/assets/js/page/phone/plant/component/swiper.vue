@@ -7,11 +7,10 @@
  */
 <template>
 	<div class="swiper">
-
-    <swiper :aspect-ratio="500/800" dots-position="center" loop auto>
+    <swiper :aspect-ratio="500/800" dots-position="center" loop auto v-if="imgArr.length > 0">
       	<swiper-item 
       		class="swiper-demo-img" 
-      		v-for="(item, index) in demo04_list" 
+      		v-for="(item, index) in imgArr" 
       		:key="index">
       		<img :src="item">
       	</swiper-item>
@@ -21,24 +20,23 @@
 
 <script>
 import { Swiper, SwiperItem } from 'vux'
-
-const imgList = [
-    'https://static.vux.li/demo/1.jpg',
-    'https://static.vux.li/demo/2.jpg',
-    'https://static.vux.li/demo/3.jpg'
-]
-
 export default {
-    components: {
-        Swiper,
-        SwiperItem
-    },
-    methods: {
+    name: 'swiperp',
+    props: {
+        imgArr: {
+            type: Array,
+            default: []
+        }
     },
     data () {
         return {
-            demo04_list: imgList
         }
+    },
+    methods: {
+    },
+    components: {
+        Swiper,
+        SwiperItem
     }
 }
 </script>

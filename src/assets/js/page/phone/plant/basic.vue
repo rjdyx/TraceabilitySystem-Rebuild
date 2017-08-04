@@ -9,9 +9,9 @@
 <transition name="fade2">
     <div id="pBasic">
 
-        <header1 :title="models.title" :isbreed="isbreed"></header1>
+        <header1 :title="models.title"></header1>
 
-        <swiper></swiper>
+        <swiper :imgArr="imgArr"></swiper>
         
         <div class="pBasic_content">
             <div class="pBasic_content_planInfo">
@@ -57,7 +57,8 @@ export default {
             models: modelObj[this.$route.meta.key],
             datas: {},
             video: '',
-            videoSrc: ''
+            videoSrc: '',
+            imgArr: []
         }
     },
     props: {
@@ -74,6 +75,9 @@ export default {
                     this.datas = lists
                 }
                 this.video = lists.video
+                if (lists.planta_img !== null && lists.planta_img !== '') {
+                    this.imgArr = lists.planta_img.split(',')
+                }
                 this.videoSrc = require('projectRoot/env.js').app_ano_url + '/' + lists.video
             })
     },
@@ -81,11 +85,6 @@ export default {
         Header1,
         swiper,
         HeaderImg
-    },
-    computed: {
-        isbreed () {
-            return this.isbreed = this.$route.meta.runName === 'breed'
-        }
     }
 }
 </script>
