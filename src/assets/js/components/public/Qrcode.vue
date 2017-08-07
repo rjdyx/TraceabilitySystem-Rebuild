@@ -9,8 +9,8 @@
     <div id="QrcodeModel">
         <div>
             <qrcode :background="background" :size="size" :cls="qrCls" :value="qrText"></qrcode>
-            <div class="QMLogo">
-                <img src="public/images/new-logo.png" alt="logo">
+            <div class="QMLogo" v-if="printForm.watermark!=''&&printForm.watermark!=null">
+                <img :src="printForm.watermark" alt="logo">
             </div>
         </div> 
     </div>
@@ -21,7 +21,7 @@
     export default {
         name: 'QrcodeModel',
         props: {
-            editValue: {},
+            printForm: {},
             url: ''
         },
         data () {
@@ -40,9 +40,9 @@
         mounted () {
             if (this.url.indexOf('storage-order-product') !== -1) {
                 var url = require('projectRoot/env.js').app_ano_url + '/#/teaTrace/tea'
-                this.qrText = url + '/index/' + this.editValue
+                this.qrText = url + '/index/' + this.printForm.code
             } else {
-                this.qrText = this.editValue
+                this.qrText = this.printForm.serial
             }
             this.$emit('return-qrcode', this.qrText)
         }
