@@ -10,7 +10,11 @@ export default {
             if (i === 0) {
                 var canvas = document.createElement('canvas')
                 var basic = $('.pBasicModel1')
+                var grow = $('#home_grow')
+                var product = $('.pCommodity')
                 basic.append(canvas)
+                grow.append(canvas)
+                product.append(canvas)
                 canvas.width = document.body.clientWidth
                 canvas.height = document.body.clientHeight
                 let timer = setInterval(() => {

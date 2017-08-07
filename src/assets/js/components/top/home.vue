@@ -60,6 +60,11 @@ export default{
     mounted () {
         this.change_siderBar(true)
         localStorage.setItem('tab', 0)
+        axios.get('api/index')
+            .then((responce) => {
+                this.listV = responce.data
+                this.listV.date = localStorage.getItem('loginDate')
+            })
     },
     created () {
         document.title = '首页'

@@ -9,8 +9,6 @@
 <transition name="fade2">
     <div id="home_grow">
 
-      <canvas id="canvas" v-if="canvasShow"></canvas>
-
         <header1 title="生长图片"></header1>
         <div class="hg_content">
             <ul>
@@ -40,7 +38,8 @@ export default {
         return {
             grows: {},
             canvasShow: true,
-            x: 10
+            x: 10,
+            i: 0
         }
     },
     mixins: [canvas],

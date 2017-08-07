@@ -9,15 +9,15 @@
 <transition name="fade2">
     <div class="pCommodity">
 
-    <canvas id="canvas" v-if="canvasShow"></canvas>  
-    
     <header1 :title="models.title"></header1>
+
     <swiper :imgArr="imgArr"></swiper>
+
     <div class="pCom_content">
         <div class="pCom_content_introduce">
             <div>
                 <ul>
-                    <li>{{product.name}}</li>
+                    <li>{{datas.product_name}}</li>
                     <li ><em>溯源次数：</em>{{datas.time}}</li>
                 </ul>
                 <p>{{datas.desc}}</p>
@@ -62,7 +62,7 @@ export default {
             sells: false,
             lack: '无相关记录',
             x: 10,
-            canvasShow: true,
+            i: 0,
             imgArr: []
         }
     },
@@ -87,7 +87,7 @@ export default {
         } else {
             var tabLocalProduct = JSON.parse(localStorage.getItem('teaTrace_product'))
             this.datas = tabLocalProduct
-            if (tabLocalProduct.product_img !== null && tabLocalProduct.product_img !== '') {
+            if (tabLocalProduct.product_img !== 'null' && tabLocalProduct.product_img !== '') {
                 this.imgArr = tabLocalProduct.product_img.split(',')
             }
         }
