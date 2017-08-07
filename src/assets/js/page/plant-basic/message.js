@@ -1699,9 +1699,9 @@ export default {
                     type: 'text',
                     component: null,
                     isNull: true,
-                    label: '操作方法',
+                    label: '操作内容',
                     placeholder: '',
-                    rule: null
+                    rule: {required: true, message: '请输入操做内容'}
                 },
                 {
                     name: 'operate',
@@ -1760,16 +1760,10 @@ export default {
                     label: '备注',
                     placeholder: '',
                     rule: null
-                }
-                ]
+                }]
             }],
             editComponent: [{
-                tab: '编辑种植检测信息',
-                selectUrl2: [['operates', 'id', 'name', true], ['experts', 'id', 'name', true]],
-                selectInit2: [{value: '', label: '检测人选择'}, {value: '', label: '专家选择'}],
-                popNumber2: [7, 8],
-                selectWhereArr2: [[{n: 'domain', v: 'plant'}, {n: 'domain', v: 'all', s: true}], [{n: 'domain', v: 'plant'}, {n: 'domain', v: 'all', s: true}]],
-                hiddenValue: {type: 'plant'},
+                tab: '编辑田间信息',
                 components: [{
                     name: 'date',
                     type: 'date',
@@ -1777,15 +1771,36 @@ export default {
                     isNull: false,
                     label: '操作日期',
                     placeholder: '',
-                    rule: [{required: true, message: '请输入检测日期'}, {validator: validate2.reDate, message: '请输入检测日期'}]
+                    rule: [{required: true, message: '请输入操作日期'}, {validator: validate2.reDate, message: '请输入操作日期'}]
+                },
+                {
+                    name: 'content',
+                    type: 'text',
+                    component: null,
+                    isNull: true,
+                    label: '操作内容',
+                    placeholder: '',
+                    rule: {required: true, message: '请输入操做内容'}
+                },
+                {
+                    name: 'operate',
+                    type: 'text',
+                    component: null,
+                    isNull: true,
+                    label: '操作人',
+                    placeholder: '',
+                    rule: null
                 },
                 {
                     name: 'weather',
-                    type: 'select',
-                    component: null,
+                    type: 'selectOther',
+                    component: inputSelectOther,
                     isNull: false,
                     label: '天气',
                     placeholder: '',
+                    categoryString: '晴',
+                    otherPlaceholder: '请输入天气',
+                    rule: {required: true, message: '请选择天气', trigger: 'blur'},
                     options: [{
                         value: '晴',
                         label: '晴'
@@ -1808,16 +1823,7 @@ export default {
                     }]
                 },
                 {
-                    name: 'department',
-                    type: 'text',
-                    component: inputTextSelect,
-                    isNull: false,
-                    rule: [{required: true, message: '请输入操作内容'}],
-                    label: '操作内容',
-                    placeholder: ''
-                },
-                {
-                    name: 'content',
+                    name: 'method',
                     type: 'text',
                     component: null,
                     isNull: true,
@@ -1833,8 +1839,7 @@ export default {
                     label: '备注',
                     placeholder: '',
                     rule: null
-                }
-                ]
+                }]
             }]
         }
     ],
