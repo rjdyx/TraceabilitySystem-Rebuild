@@ -32,7 +32,7 @@
         },
         mounted () {
             if (this.url.indexOf('storage-order-product') !== -1) {
-                var url = require('projectRoot/env.js').app_ano_url + '/#/run/tea'
+                var url = require('projectRoot/env.js').app_ano_url + '/#/teaTrace/tea'
                 this.qrText = url + '/index/' + this.editValue
             } else {
                 this.qrText = this.editValue
