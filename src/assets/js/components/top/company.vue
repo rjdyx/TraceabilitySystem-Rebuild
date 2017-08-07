@@ -27,12 +27,12 @@
 				<img src="/public/images/rfid.png">
 			</div>
 			<footer-top></footer-top>
-           <!--  <transition name="fade">
-			    <companyEdit v-if="isShow" :editValue="listV" @updateValue="updateVal"></companyEdit>
-            </transition> -->
             <transition name="fade">
-                <userEdit v-if="isShow" :editValue="listV" @updateValue="updateVal" :changeDataArr="changeDataArr"></userEdit>
+			    <companyEdit v-if="isShow" :editValue="listV" @updateValue="updateVal"></companyEdit>
             </transition>
+            <!-- <transition name="fade">
+                <userEdit v-if="isShow" :editValue="listV" @updateValue="updateVal"></userEdit>
+            </transition> -->
 		</div>
 	</div>
 </template>

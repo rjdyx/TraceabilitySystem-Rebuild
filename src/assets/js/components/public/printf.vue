@@ -23,18 +23,15 @@
                         <div v-if="subItem.label !=='二维码'">
                             <em>{{subItem.label}}:</em> {{printForm[subItem.name]}}
                         </div>
-                        <div v-else>
-                            <component 
-                                v-bind:is="subItem.component" 
-                                :shuju="subItem"
-                                :editValue="printForm[subItem.name]"
-                                :url="url"
-                                @return-shuju="returnShuju"
-                                @return-qrcode="returnQrcode"
-                            ></component>
-                        </div>
                     </el-col>
                 </el-row>
+                <qrcode 
+                    :shuju="subItem"
+                    :editValue="printForm[serial]"
+                    :url="url"
+                    @return-shuju="returnShuju"
+                    @return-qrcode="returnQrcode"
+                ></qrcode>
             </div>
                 
          </el-form>
@@ -50,11 +47,13 @@
 <script>
 import move from '../../directive/move.js'
 import Canvas2Image from '../../../../../public/lib/canvas2image.js'
+import Qrcode from '../../../js/components/public/Qrcode.vue'
 export default {
     name: 'validator-example',
     // validator: null,
     components: {
       // ActiveBox,
+        Qrcode
     },
     props: {
         type: '',
