@@ -30,7 +30,7 @@
                             <td v-if="list.date!==null">{{list.date}}</td>
                             <td v-else>{{lack}}</td>
                             <td v-if="list.img!==null">
-                                <img class="tdImg" src="list.img" alt="">
+                                <img class="tdImg" :src="list.img" alt="">
                             </td>
                             <td v-else>{{lack}}</td>
                         </tr>
