@@ -27,11 +27,8 @@
 				<img src="/public/images/rfid.png">
 			</div>
 			<footer-top></footer-top>
-           <!--  <transition name="fade">
-			    <companyEdit v-if="isShow" :editValue="listV" @updateValue="updateVal"></companyEdit>
-            </transition> -->
             <transition name="fade">
-                <userEdit v-if="isShow" :editValue="listV" @updateValue="updateVal" :changeDataArr="changeDataArr"></userEdit>
+                <companyEdit v-if="isShow" :editValue="listV" @updateValue="updateVal" :changeDataArr="changeDataArr"></companyEdit>
             </transition>
 		</div>
 	</div>
@@ -48,7 +45,7 @@ export default {
     data () {
         return {
             settitle: '公司信息管理',
-            listN: {'name': '公司名称 :', 'coding': '公司编码 :', 'legal_person': '负责人/法人 :', 'short_name': '公司简称 :', 'USCC': '统一码 :', 'phone': '电话 :', 'address': '地址 :', 'business_scope': '经营范围 :', 'total_staff': '员工总数 :', 'website': '公司网站 :'},
+            listN: {'name': '公司名称 :', 'coding': '公司编码 :', 'legal_person': '负责人/法人 :', 'short_name': '公司简称 :', 'USCC': '统一码 :', 'phone': '电话 :', 'address': '地址 :', 'business_scope': '经营范围 :', 'total_staff': '员工总数 :', 'website': '公司网站 :', 'sell_network': '销售网址 :'},
             listV: {},
             editDefault: {},
             logo: '',

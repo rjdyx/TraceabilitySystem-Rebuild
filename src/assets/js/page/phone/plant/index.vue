@@ -72,7 +72,7 @@ export default{
             video: 'video',
             product_name: '',
             tea_img: this.$img('/images/tea_default.jpg'),
-            website: ''
+            sell_network: ''
         }
     },
     mounted () {
@@ -91,7 +91,7 @@ export default{
                         if (responce.data.img !== '' && responce.data.img !== null) {
                             this.tea_img = responce.data.img
                         }
-                        this.website = responce.data.website
+                        this.sell_network = responce.data.sell_network
                     }
                 })
         } else {
@@ -100,7 +100,7 @@ export default{
             if (tabLocal.img !== '' && tabLocal.img !== null) {
                 this.tea_img = tabLocal.img
             }
-            this.website = tabLocal.website
+            this.sell_network = tabLocal.sell_network
         }
     },
     methods: {
@@ -119,8 +119,8 @@ export default{
         },
         // 获取购买地址
         getBuyUrl () {
-            if (this.website !== 'null' && this.website !== '' && this.website !== null) {
-                window.location.href = this.website
+            if (this.sell_network !== 'null' && this.sell_network !== '' && this.sell_network !== null) {
+                window.location.href = this.sell_network
             } else {
                 this.setToast('text', '商户没有上传购买地址', '20em')
             }

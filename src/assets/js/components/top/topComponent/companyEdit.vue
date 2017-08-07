@@ -65,6 +65,7 @@ export default {
                 business_scope: ['经营范围', 'text', ''],
                 total_staff: ['员工总数', 'text', ''],
                 website: ['公司网站', 'text', ''],
+                sell_network: ['销售网址', 'text', '请输入以http://开头网址'],
                 logo: ['公司Logo', 'file', '', {name: 'logo'}],
                 watermark: ['水印', 'file', '', {name: 'watermark'}],
                 memo: ['备注', 'text', '']
