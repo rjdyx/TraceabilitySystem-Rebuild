@@ -29,7 +29,7 @@
                             </tr>
                         </tbody>
                     </table>
-                    <div v-if="flag">{{lack}}</div>
+                    <div v-if="flag" class="lack">{{lack}}</div>
                 </div>
             </div>
         </div>
@@ -175,6 +175,9 @@ export default {
                         padding:3% 0% 3% 5%;
                     }
                 }
+            }
+            .lack{
+                padding: 4% 0% 4% 4%;
             }
         }
     }

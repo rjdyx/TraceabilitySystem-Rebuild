@@ -97,7 +97,7 @@ export default{
         } else {
             var tabLocal = JSON.parse(localStorage.getItem('teaTrace'))
             this.product_name = tabLocal.product_name
-            if (tabLocal.img !== '' && tabLocal.img !== null) {
+            if (tabLocal.img !== '' && tabLocal.img !== 'null') {
                 this.tea_img = tabLocal.img
             }
             this.website = tabLocal.website
