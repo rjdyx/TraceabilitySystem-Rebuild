@@ -92,7 +92,7 @@ export default{
                     this.product_name = lists.name
                     this.product_id = lists.product_id
                     this.product_desc = lists.description
-                    this.img = lists.thumb
+                    this.img = lists.img
                     this.video = lists.video
                 } else {
                     if (lists === 404) {

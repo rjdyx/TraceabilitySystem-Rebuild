@@ -15,7 +15,7 @@
                 <div class="pBM2_content_imgList">
                     <h3 :class="{breedFontCol:isbreed}">{{models.details.tableName2}}</h3>
                     <ul>
-                        <li v-if="values.thumb"><img  :src="values.thumb" alt=""></li>
+                        <li v-if="values.img"><img  :src="values.img" alt=""></li>
                         <li v-else>信息缺失</li>
                     </ul>
                 </div> 

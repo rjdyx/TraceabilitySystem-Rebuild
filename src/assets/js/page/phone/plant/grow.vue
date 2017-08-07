@@ -20,7 +20,7 @@
                     </div>
                     <!-- 图片 -->
                     <div class="hg_content_li_bottom">
-                        <img :src="grow.thumb" height="322" width="670" alt="">
+                        <img :src="grow.img" height="322" width="670" alt="">
                         <p :class="{breedCol:isbreed}">{{grow.desc}}</p>
                     </div>
                 </li>

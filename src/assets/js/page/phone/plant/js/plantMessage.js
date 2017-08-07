@@ -8,7 +8,7 @@ export default{
         title: '基础信息',
         tableName: '种植信息',
         tableTheads: ['种植场', '负责人', '地址', '面积', '联系方式', '种植区', '种植人', '种植日期', '采收日期'],
-        tableProtos: ['parent_name', 'director', 'address', 'area', 'phone', 'name', 'operate_name', 'cultivate_date', 'harvest_date'],
+        tableProtos: ['parent_name', 'director', 'address', 'area', 'phone', 'plantation_name', 'operate_name', 'cultivate_date', 'harvest_date'],
         tableName2: '实时监控'
     },
     // 购物链接
@@ -23,7 +23,7 @@ export default{
     spray: {
         title: '农药信息',
         tableName: '用药记录',
-        tableTheads: ['批次号', '操作人', '日期', '图片'],
+        tableTheads: ['批次号', '操作人', '日期', '农药图片'],
         tableProtos: [],
         details: {
             tableList: {
