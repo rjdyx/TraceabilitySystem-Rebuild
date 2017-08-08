@@ -105,7 +105,7 @@
                             <span class="el-form-item__label">{{expand}}</span>
 
                             <span v-if="expand=='图片'">
-                                <img :src="$img('images/ok.png')">
+                                <img  v-if="tableData[props.$index][tabItem.protos[index]]!=null && tableData[props.$index][tabItem.protos[index]]!=''" :src="$img('images/ok.png')">
                             </span>
 
                             <span v-else>
@@ -119,7 +119,7 @@
                             <span class="el-form-item__label">{{expand}}</span>
 
                             <span v-if="expand=='图片'">
-                                <img :src="$img('images/ok.png')">
+                                <img v-if="tableData[props.$index][tabItem.protos[index]]!=null && tableData[props.$index][tabItem.protos[index]]!=''" :src="$img('images/ok.png')" >
                             </span>
 
                             <span v-else>

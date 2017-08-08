@@ -85,9 +85,9 @@
             <template scope="props">
                 <el-form label-position="left" inline class="demo-table-expand">
                   <template v-for="(expand,index) in theads">
-                      <el-form-item :label="expand">
+                      <el-form-item :label="expand" :prop="protos[index]">
                         <span v-if="protos[index] == 'img' || protos[index] == 'logo'">
-                            <img :src="$img('images/ok.png')">
+                            <img v-if="tableData[props.$index][protos[index]]!=null && tableData[props.$index][protos[index]]!=''" :src="$img('images/ok.png')">
                         </span>
                         <span v-else>{{ props.row[protos[index]] }}</span>
                       </el-form-item>
@@ -1070,6 +1070,9 @@ export default {
         text-overflow: ellipsis;
         white-space: nowrap;
     }*/ 
+    .el-form-item {
+        float: left;
+    }
 } 
 .el-table__expanded-cell{
     .demo-table-expand {

@@ -132,6 +132,9 @@ $b_small: 18px;
 	.btn_change:focus{
 		color: $border;
 	}
+	.btn{
+		color: $bg;
+	}
 	.upload-demo .btn_change:hover{
 		color: $border;
 	}
