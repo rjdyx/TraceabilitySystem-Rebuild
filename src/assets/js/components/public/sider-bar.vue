@@ -17,7 +17,7 @@
                     <img :src="menu.src" class="menu-img">
                         {{menu.name}}
                     </template>
-                    <el-menu-item v-for="(subMenu, subIndex) in menu.children" :index="subMenu.path" exact @click="toggle(subIndex, subMenu.name)"> 
+                    <el-menu-item v-for="(subMenu, subIndex) in menu.children" :index="subMenu.path" exact @click="toggle(subIndex, subMenu.name)">
                         {{subMenu.name}}
                     </el-menu-item>
                 </el-submenu>

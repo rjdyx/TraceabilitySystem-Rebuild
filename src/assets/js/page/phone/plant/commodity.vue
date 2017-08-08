@@ -142,9 +142,6 @@ export default {
             }
         }
     }
-    .breedFontCol{
-        color:#93bf46!important;
-    }
     .pCommodity{
         width: 100%;
         height: 100%;
