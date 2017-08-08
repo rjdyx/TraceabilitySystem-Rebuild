@@ -164,10 +164,6 @@ export default {
                             this.$router.push('/index/home')
                         }
                     })
-                } else {
-                    this.$Progress.fail()
-                    this.$message.error('请输入信息，再登录')
-                    return false
                 }
             })
         },
