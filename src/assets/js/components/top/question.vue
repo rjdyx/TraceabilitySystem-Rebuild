@@ -29,7 +29,7 @@
 								</el-checkbox-group>
 							</div>
 							<span>评分</span>
-							<el-rate v-model="form.grade" ></el-rate>
+							<el-rate v-model="form.grade"></el-rate>
 						</el-form-item>
 
 						<h2 class="titleQu">我们还有哪些方面的不足</h2>
@@ -37,8 +37,7 @@
 						    <el-input type="textarea" v-model="form.content"></el-input>
 						</el-form-item>
 						<el-form-item prop="contact" class="contact">
-
-							<span class="email">请您留下QQ或邮箱，便于寻真溯源与您联系</span>
+							<span class="email">请您留下邮箱，便于寻真溯源与您联系</span>
 						    <el-input v-model="form.contact" class="phone" size="small"></el-input>
 						    <span class="enter">是否进入论坛讨论？</span>
 						    <span class="enterTo">立即进入论坛</span>
@@ -62,6 +61,7 @@
 import ContainTitle from '../layout/contain-title.vue'
 import footerTop from './topComponent/footer.vue'
 import {mapActions} from 'vuex'
+import validate2 from '../../utils/validate2.js'
 export default {
     name: 'question',
     data () {
@@ -77,10 +77,13 @@ export default {
             ],
             rules: {
                 grade: [
-                    {message: '请输入评分星级', trigger: 'blur', type: 'number'}
+                    {required: true, message: '请输入评分星级', trigger: 'blur', type: 'number', validator: validate2.reInteger}
                 ],
                 contact: [
-                    {message: '请输入联系方式', trigger: 'blur'}
+                    {required: true, message: '请输入正确邮箱格式', trigger: 'blur', type: 'email'}
+                ],
+                content: [
+                    {required: true, message: '请输入不足之处', trigger: 'blur'}
                 ]
             }
         }
@@ -90,6 +93,10 @@ export default {
             'change_siderBar'
         ]),
         submitForm (formName) {
+            if (this.form.grade === 0) {
+                this.$message('请输入评分')
+                return false
+            }
             this.$refs[formName].validate((valid) => {
                 if (valid) {
                     axios.post('api/feedback', this.form).then((response) => {
@@ -97,7 +104,7 @@ export default {
                         this.form.contact = ''
                         this.form.grade = 0
                         this.form.content = ''
-                        if (response.data !== false) {
+                        if (response.data !== 'false') {
                             this.$message({
                                 type: 'success',
                                 message: '反馈成功'
