@@ -17,9 +17,9 @@
     </swiper>
     <swiper :aspect-ratio="500/800" dots-position="center" loop auto v-else>
         <swiper-item
-          class="swiper-demo-img default" 
-          v-for="(it, iee) in imgList" 
-          :key="index">
+           class="swiper-demo-img default" 
+           v-for="(it, iee) in imgList" 
+           :key="index">
           <img :src="it">
         </swiper-item>
     </swiper>

@@ -7,7 +7,7 @@
  */
 <template>
 <transition name="fade2">
-    <div class="pBasicModel1">
+    <div class="pBasicModel">
        
       <!-- <canvas id="canvas"></canvas> -->
 
@@ -181,7 +181,7 @@ export default {
             }
         }
     }
-    .pBasicModel1{
+    .pBasicModel{
         width: 100%;
         height: 100%;
         padding-bottom: 1rem;

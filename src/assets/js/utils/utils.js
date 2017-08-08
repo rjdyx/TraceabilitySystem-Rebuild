@@ -2,8 +2,7 @@ import Vue from 'vue'
 /**
 * 全局注册通用方法
 */
-export
-default {
+export default {
     install () {
         const env = require('../../../../env')
         // let host = env.app_url;

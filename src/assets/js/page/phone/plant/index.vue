@@ -102,6 +102,7 @@ export default{
             }
             this.sell_network = tabLocal.sell_network
         }
+        console.log(this.$img)
     },
     methods: {
         // 提示弹窗

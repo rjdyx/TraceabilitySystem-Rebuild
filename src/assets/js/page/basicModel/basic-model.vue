@@ -11,6 +11,7 @@
       <!-- 标题 -->
     <contain-title :settitle="settitle">
     </contain-title>
+    
   <!-- tab栏 --> 
     <el-tabs v-model="activeName" id="tabs" @tab-click="tabClick" type="card">
         <el-tab-pane v-for="(model,index) in models" :label="model.tab" :name="'index'+index">
@@ -299,7 +300,8 @@ export default {
             expandMore: false,
             dialogImageUrl: '',
             dialogVisible: false,
-            stateColor: false
+            stateColor: false,
+            list: []
         }
     },
     // 混合
