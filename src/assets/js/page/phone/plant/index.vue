@@ -15,7 +15,6 @@
 				<img :src="tea_img">
 			</div>
 				<template v-for="(item,index) in indexData.circle">
-				<div>
 					<div :class="item.iconPosition" class="quote">
 						<div :class="{'active':item.isTrue}" @click="jumpto(item,index)">
 							<li class="iconfont iconcircle" :class="item.icon">
@@ -23,7 +22,6 @@
 							<span>{{item.iconLabel}}</span>
 						</div>
 					</div>
-				</div>
 			</template>
 		</div>
 		<div class="info">
@@ -102,7 +100,6 @@ export default{
             }
             this.sell_network = tabLocal.sell_network
         }
-        console.log(this.$img)
     },
     methods: {
         // 提示弹窗
@@ -184,6 +181,9 @@ export default{
 			margin: 1.76rem auto 0;
 			text-align: center;
 			position: relative;
+			transform: rotate(0deg);
+			animation: rond 20s linear infinite 0s;
+			-webkit-animation: rond 20s linear infinite 0s;
 			.logo{
 				width: 4.2rem;
 				height: 4.2rem;
@@ -211,7 +211,18 @@ export default{
 				position: absolute;
 				color: #fff;
 				font-size: 0.373rem;
+				/*animation: plan_1 16s 0s ease-in-out infinite;*/
+				/*-webkit-animation: plan_1 16s 0s ease-in-out infinite;*/
 			}
+		}
+		@keyframes rond {
+		  0% {transform : rotate(0deg);}
+		  100% {transform : rotate(360deg);}
+		}
+
+		@-webkit-keyframes rond {
+		    0%{-webkit-transform : rotate(0deg);}
+		  100%{-webkit-transform : rotate(360deg);}
 		}
 		.iconquoteA{
 			position: absolute;
