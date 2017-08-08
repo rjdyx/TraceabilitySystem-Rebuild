@@ -10,10 +10,11 @@
 		<div class="phoneHeader">
 			<h2>天池茶叶</h2>
 		</div>
-		<div class="phoneMain">
+		<div class="mainWrap">
 			<div class="logo">
 				<img :src="tea_img">
 			</div>
+			<div class="phoneMain">
 				<template v-for="(item,index) in indexData.circle">
 					<div :class="item.iconPosition" class="quote">
 						<div :class="{'active':item.isTrue}" @click="jumpto(item,index)">
@@ -23,6 +24,7 @@
 						</div>
 					</div>
 			</template>
+		</div>
 		</div>
 		<div class="info">
 			<p class="subscription">天池茶叶</p>
@@ -172,6 +174,25 @@ export default{
 			width: 100%;
 			height: 25px;
 		}
+		.mainWrap{
+			width: 8.2rem;
+			height: 8.2rem;
+			margin: 1.76rem auto 0;
+			.logo{
+				width: 4.2rem;
+				height: 4.2rem;
+				border-radius: 50%;
+				position: absolute;
+				top: 5rem;
+				left: 2.9rem;
+				img{
+					width: 4.2rem;
+					height: 4.2rem;
+					border-radius: 50%;
+					border: 2px solid #fff;
+				}
+			}
+		}
 		.phoneMain{
 			width: 8.2rem;
 			height: 8.2rem;
@@ -184,35 +205,12 @@ export default{
 			transform: rotate(0deg);
 			animation: rond 20s linear infinite 0s;
 			-webkit-animation: rond 20s linear infinite 0s;
-			.logo{
-				width: 4.2rem;
-				height: 4.2rem;
-				border-radius: 50%;
-				position: absolute;
-				top: 2rem;
-				left: 2rem;
-				span{
-					width: 4.2rem;
-					height: 4.2rem;
-					border-radius: 50%;
-					border: 2px solid #fff;
-					display: inline-block;
-				}
-				img{
-					width: 4.2rem;
-					height: 4.2rem;
-					border-radius: 50%;
-					border: 2px solid #fff;
-				}
-			}
 			.quote{
 				width: 2rem;
 				height: 70px;
 				position: absolute;
 				color: #fff;
 				font-size: 0.373rem;
-				/*animation: plan_1 16s 0s ease-in-out infinite;*/
-				/*-webkit-animation: plan_1 16s 0s ease-in-out infinite;*/
 			}
 		}
 		@keyframes rond {
