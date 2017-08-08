@@ -9,7 +9,7 @@ export default {
             var i = 0
             if (i === 0) {
                 var canvas = document.createElement('canvas')
-                var basic = $('.pBasicModel1')
+                var basic = $('.pBasicModel')
                 var grow = $('#home_grow')
                 var product = $('.pCommodity')
                 basic.append(canvas)

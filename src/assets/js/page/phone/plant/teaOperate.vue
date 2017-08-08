@@ -7,7 +7,8 @@
  */
 <template>
 <transition name="fade2">
-    <div class="pBasicModel">
+    <div :class="{'pBasicModel':models.isTrue,'pbasic':!models.isTrue}">
+
        
       <!-- <canvas id="canvas"></canvas> -->
 
@@ -194,11 +195,12 @@ export default {
             }
         }
     }
-    .pBasicModel{
+    .pBasicModel,.pBasic{
         width: 100%;
         height: 100%;
         padding-bottom: 1rem;
-            .pCom_content{
+    }
+    .pCom_content{
                 width: 100%;
                 background: #fbfbfb;
                 margin-top: 1rem;
@@ -239,5 +241,4 @@ export default {
                 } 
             }
         }
-    }
 </style>

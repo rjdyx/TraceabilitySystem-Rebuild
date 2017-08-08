@@ -1070,9 +1070,6 @@ export default {
         text-overflow: ellipsis;
         white-space: nowrap;
     }*/ 
-    .el-form-item {
-        float: left;
-    }
 } 
 .el-table__expanded-cell{
     .demo-table-expand {
@@ -1086,6 +1083,7 @@ export default {
         margin-right: 0;
         margin-bottom: 0;
         width: 33%;
+        float: left;
         }
     .el-form-item__content{
         width: 70%;

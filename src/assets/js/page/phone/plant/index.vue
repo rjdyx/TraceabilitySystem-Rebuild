@@ -10,12 +10,12 @@
 		<div class="phoneHeader">
 			<h2>天池茶叶</h2>
 		</div>
-		<div class="phoneMain">
+		<div class="mainWrap">
 			<div class="logo">
 				<img :src="tea_img">
 			</div>
+			<div class="phoneMain">
 				<template v-for="(item,index) in indexData.circle">
-				<div>
 					<div :class="item.iconPosition" class="quote">
 						<div :class="{'active':item.isTrue}" @click="jumpto(item,index)">
 							<li class="iconfont iconcircle" :class="item.icon">
@@ -23,8 +23,8 @@
 							<span>{{item.iconLabel}}</span>
 						</div>
 					</div>
-				</div>
 			</template>
+		</div>
 		</div>
 		<div class="info">
 			<p class="subscription">天池茶叶</p>
@@ -102,7 +102,6 @@ export default{
             }
             this.sell_network = tabLocal.sell_network
         }
-        console.log(this.$img)
     },
     methods: {
         // 提示弹窗
@@ -175,6 +174,25 @@ export default{
 			width: 100%;
 			height: 25px;
 		}
+		.mainWrap{
+			width: 8.2rem;
+			height: 8.2rem;
+			margin: 1.76rem auto 0;
+			.logo{
+				width: 4.2rem;
+				height: 4.2rem;
+				border-radius: 50%;
+				position: absolute;
+				top: 5rem;
+				left: 2.9rem;
+				img{
+					width: 4.2rem;
+					height: 4.2rem;
+					border-radius: 50%;
+					border: 2px solid #fff;
+				}
+			}
+		}
 		.phoneMain{
 			width: 8.2rem;
 			height: 8.2rem;
@@ -184,27 +202,9 @@ export default{
 			margin: 1.76rem auto 0;
 			text-align: center;
 			position: relative;
-			.logo{
-				width: 4.2rem;
-				height: 4.2rem;
-				border-radius: 50%;
-				position: absolute;
-				top: 2rem;
-				left: 2rem;
-				span{
-					width: 4.2rem;
-					height: 4.2rem;
-					border-radius: 50%;
-					border: 2px solid #fff;
-					display: inline-block;
-				}
-				img{
-					width: 4.2rem;
-					height: 4.2rem;
-					border-radius: 50%;
-					border: 2px solid #fff;
-				}
-			}
+			transform: rotate(0deg);
+			animation: rond 20s linear infinite 0s;
+			-webkit-animation: rond 20s linear infinite 0s;
 			.quote{
 				width: 2rem;
 				height: 70px;
@@ -212,6 +212,15 @@ export default{
 				color: #fff;
 				font-size: 0.373rem;
 			}
+		}
+		@keyframes rond {
+		  0% {transform : rotate(0deg);}
+		  100% {transform : rotate(360deg);}
+		}
+
+		@-webkit-keyframes rond {
+		    0%{-webkit-transform : rotate(0deg);}
+		  100%{-webkit-transform : rotate(360deg);}
 		}
 		.iconquoteA{
 			position: absolute;
