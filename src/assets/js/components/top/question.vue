@@ -98,13 +98,15 @@ export default {
                         this.form.grade = 0
                         this.form.content = ''
                         if (response.data !== false) {
-                            alert('反馈成功')
+                            this.$message({
+                                type: 'success',
+                                message: '反馈成功'
+                            })
                         } else {
-                            alert('反馈失败')
+                            this.$message('反馈失败')
                         }
                     })
                 } else {
-                    console.log('验证不通过')
                     return false
                 }
             })
@@ -113,7 +115,6 @@ export default {
             this.$refs[formName].resetFields()
         },
         checkedChange (value) {
-            // console.log(value)
         }
     },
     components: {
