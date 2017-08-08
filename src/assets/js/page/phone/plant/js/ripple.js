@@ -30,7 +30,6 @@ export default {
                     cxt.restore()
                     cxt.beginPath()
                     cxt.closePath()
-                    console.log(55)
                     if (this.x > canvas.width) {
                         clearInterval(timer)
                         $(canvas).css('z-index', -2)

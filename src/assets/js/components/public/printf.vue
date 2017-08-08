@@ -12,7 +12,6 @@
   <form class="newForm">
     <i class="closeBtn" @click="closeClick" ></i>
       <!-- tab选项卡 -->
-      <!-- <h4>{{printComponent[0].tab}}</h4> -->
       <el-tabs v-model="activeName" @tab-click="handleClick" class="tab">
         <el-tab-pane :label="item.tab" :name="item.tab" v-for="(item,i) in printComponent">
           <!-- 表单 -->
@@ -23,38 +22,37 @@
                         <div v-if="subItem.label !=='二维码'">
                             <em>{{subItem.label}}:</em> {{printForm[subItem.name]}}
                         </div>
-                        <div v-else>
-                            <component 
-                                v-bind:is="subItem.component" 
-                                :shuju="subItem"
-                                :editValue="printForm[subItem.name]"
-                                :url="url"
-                                @return-shuju="returnShuju"
-                                @return-qrcode="returnQrcode"
-                            ></component>
-                        </div>
                     </el-col>
                 </el-row>
+                <qrcode 
+                    :shuju="subItem"
+                    :printForm="printForm"
+                    :url="url"
+                    @return-shuju="returnShuju"
+                    @return-qrcode="returnQrcode"
+                ></qrcode>
             </div>
                 
          </el-form>
         </el-tab-pane>
       </el-tabs>
-      <div class="form-footer">
+        <div class="form-footer">
             <el-button class="btn_change" @click="printfFromFn">打印</el-button>
             <el-button class="activecancel" @click="closeClick">取消</el-button>
-          </div>
+        </div>
     </form>
 </div>
 </template>
 <script>
 import move from '../../directive/move.js'
 import Canvas2Image from '../../../../../public/lib/canvas2image.js'
+import Qrcode from '../../../js/components/public/Qrcode.vue'
 export default {
     name: 'validator-example',
     // validator: null,
     components: {
       // ActiveBox,
+        Qrcode
     },
     props: {
         type: '',

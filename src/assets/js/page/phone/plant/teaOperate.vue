@@ -69,7 +69,7 @@ export default {
             x: 10,
             i: 0,
             canvasShow: true,
-            dataArr: [{result: {'0': '合格', '1': '不合格'}}],
+            dataArr: [{result: {'0': '合格', '1': '不合格'}}, {transportable_type: {'self': '自运', 'consign': '托运'}}],
             flag: false,
             showHideOnBlur: false,
             enlargeImg: ''
@@ -96,6 +96,9 @@ export default {
                 })
         } else {
             var tabLocalOperate = JSON.parse(localStorage.getItem('teaTrace_operate_' + urlName))
+            if (urlName === 'sell') {
+                this.getRet(tabLocalOperate)
+            }
             this.datas = tabLocalOperate
         }
     },
@@ -104,6 +107,23 @@ export default {
             if (imgSrc) {
                 this.enlargeImg = imgSrc
                 this.showHideOnBlur = true
+            }
+        },
+        getRet (ret) {
+            // let boxArrTheads = this.models.tableTheads
+            // let boxArrProtos = this.models.tableProtos
+            // let consignArrTheads = ['物流公司', '物流单号']
+            // let consignArrProtos = ['logistic_name', 'number']
+            // let selfArrTheads = ['货运司机', '货运车牌号']
+            // let selfArrProtos = ['driver_name', 'vehicle_number']
+            for (let item in ret) {
+                if (ret[item].transportable_type === '托运') {
+                    this.models['tableTheads'] = this.models.tableTheads2
+                    this.models['tableProtos'] = this.models.tableProtos2
+                } else {
+                    this.models['tableTheads'] = this.models.tableTheads1
+                    this.models['tableProtos'] = this.models.tableProtos1
+                }
             }
         }
     },

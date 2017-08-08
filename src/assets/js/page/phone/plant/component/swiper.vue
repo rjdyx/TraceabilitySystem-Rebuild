@@ -30,11 +30,6 @@
 <script>
 import { Swiper, SwiperItem } from 'vux'
 
-const imgList = [
-    'https://static.vux.li/demo/1.jpg',
-    'https://static.vux.li/demo/2.jpg',
-    'https://static.vux.li/demo/3.jpg'
-]
 export default {
     name: 'swiperp',
     props: {
@@ -45,7 +40,11 @@ export default {
     },
     data () {
         return {
-            imgList: imgList
+            imgList: [
+                this.$img('images/test1.png'),
+                this.$img('images/test2.png'),
+                this.$img('images/test3.png')
+            ]
         }
     },
     methods: {

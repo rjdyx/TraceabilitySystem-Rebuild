@@ -117,7 +117,6 @@ export default {
                                 type: 'success'
                             })
                             this.$parent.showEdit('true')
-                            this.$emit('updateValue', response.data)
                         } else {
                             this.$parent.showEdit('false')
                             this.$message.error('修改数据失败')

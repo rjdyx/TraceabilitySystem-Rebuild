@@ -25,7 +25,7 @@
 			</div>
 			<footer-top></footer-top>
             <transition name="fade">
-			    <userEdit v-if="isShow" :editValue="listV" @updateValue="updateVal" :changeDataArr="changeDataArr"></userEdit>
+			    <userEdit v-if="isShow" :editValue="listV" :changeDataArr="changeDataArr"></userEdit>
             </transition>
 		</div>
 	</div>
@@ -48,7 +48,7 @@ export default {
             img: '',
             isShow: false,
             isClass: true,
-            changeDataArr: [{gender: {'0': '男', '1': '女'}}, {type: {0: '高级管理员', 1: '管理员'}}]
+            changeDataArr: [{gender: {0: '男', 1: '女'}}, {type: {0: '高级管理员', 1: '管理员'}}]
         }
     },
     methods: {
@@ -61,14 +61,21 @@ export default {
                 for (let key of Object.keys(this.editDefault)) {
                     this.listV[key] = this.editDefault[key]
                 }
+            } else {
+                this.getUserData()
             }
         },
-        updateVal (val) {
-            let arr = []
-            arr[0] = val
-            var ret = this.$conversion(this.changeDataArr, arr, 1)
-            this.listV = ret[0]
-            this.img = ret[0].img
+        getUserData () {
+            // 查询编辑数据
+            axios.get('api/system/1/edit')
+                .then((responce) => {
+                    var ret = this.$conversion(this.changeDataArr, responce.data, 1)
+                    this.listV = ret.user
+                    for (let key of Object.keys(ret.user)) {
+                        this.editDefault[key] = ret.user[key]
+                    }
+                    this.img = ret.user.img
+                })
         }
     },
     components: {
@@ -79,16 +86,7 @@ export default {
     mounted () {
         this.change_siderBar(true)
         localStorage.setItem('tab', 0)
-        // 查询编辑数据
-        axios.get('api/system/1/edit')
-            .then((responce) => {
-                var ret = this.$conversion(this.changeDataArr, responce.data, 1)
-                this.listV = ret.user
-                for (let key of Object.keys(ret.user)) {
-                    this.editDefault[key] = ret.user[key]
-                }
-                this.img = ret.user.img
-            })
+        this.getUserData()
     },
     created () {
         document.title = '用户信息管理'

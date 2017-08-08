@@ -17,7 +17,7 @@
         <div class="pCom_content_introduce">
             <div>
                 <ul>
-                    <li>{{product.name}}</li>
+                    <li>{{datas.product_name}}</li>
                     <li ><em>溯源次数：</em>{{datas.time}}</li>
                 </ul>
                 <p>{{datas.desc}}</p>

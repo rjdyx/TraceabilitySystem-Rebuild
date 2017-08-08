@@ -43,8 +43,10 @@ export default{
     sale: {
         title: '物流销售信息',
         tableName: '物流销售记录',
-        tableTheads: ['客户名称', '订购公司', '联系人', '下单日期', '出货日期', '送货地址', '花费总额(元)', '运输方式'],
-        tableProtos: ['client_name', 'company_name', 'contact', 'date', 'out_date', 'address', 'total', 'transportable_type']
+        tableTheads1: ['客户名称', '订购公司', '联系人', '下单日期', '出货日期', '送货地址', '花费总额(元)', '运输方式', '货运司机', '货运车牌号'],
+        tableProtos1: ['client_name', 'company_name', 'contact', 'date', 'out_date', 'address', 'total', 'transportable_type', 'driver_name', 'vehicle_number'],
+        tableTheads2: ['客户名称', '订购公司', '联系人', '下单日期', '出货日期', '送货地址', '花费总额(元)', '运输方式', '物流公司', '物流单号'],
+        tableProtos2: ['client_name', 'company_name', 'contact', 'date', 'out_date', 'address', 'total', 'transportable_type', 'logistic_name', 'number']
     },
     // 购物链接
     shop: {

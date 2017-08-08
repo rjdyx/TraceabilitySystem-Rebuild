@@ -1699,9 +1699,9 @@ export default {
                     type: 'text',
                     component: null,
                     isNull: true,
-                    label: '操作方法',
+                    label: '操作内容',
                     placeholder: '',
-                    rule: null
+                    rule: {required: true, message: '请输入操做内容'}
                 },
                 {
                     name: 'operate',
@@ -1750,7 +1750,7 @@ export default {
                     isNull: true,
                     label: '操作方法',
                     placeholder: '',
-                    rule: null
+                    rule: [{required: true, message: '请输入操作方法'}]
                 },
                 {
                     name: 'memo',
@@ -1760,16 +1760,10 @@ export default {
                     label: '备注',
                     placeholder: '',
                     rule: null
-                }
-                ]
+                }]
             }],
             editComponent: [{
-                tab: '编辑种植检测信息',
-                selectUrl2: [['operates', 'id', 'name', true], ['experts', 'id', 'name', true]],
-                selectInit2: [{value: '', label: '检测人选择'}, {value: '', label: '专家选择'}],
-                popNumber2: [7, 8],
-                selectWhereArr2: [[{n: 'domain', v: 'plant'}, {n: 'domain', v: 'all', s: true}], [{n: 'domain', v: 'plant'}, {n: 'domain', v: 'all', s: true}]],
-                hiddenValue: {type: 'plant'},
+                tab: '编辑田间信息',
                 components: [{
                     name: 'date',
                     type: 'date',
@@ -1777,15 +1771,36 @@ export default {
                     isNull: false,
                     label: '操作日期',
                     placeholder: '',
-                    rule: [{required: true, message: '请输入检测日期'}, {validator: validate2.reDate, message: '请输入检测日期'}]
+                    rule: [{required: true, message: '请输入操作日期'}, {validator: validate2.reDate, message: '请输入操作日期'}]
+                },
+                {
+                    name: 'content',
+                    type: 'text',
+                    component: null,
+                    isNull: true,
+                    label: '操作内容',
+                    placeholder: '',
+                    rule: {required: true, message: '请输入操做内容'}
+                },
+                {
+                    name: 'operate',
+                    type: 'text',
+                    component: null,
+                    isNull: true,
+                    label: '操作人',
+                    placeholder: '',
+                    rule: null
                 },
                 {
                     name: 'weather',
-                    type: 'select',
-                    component: null,
+                    type: 'selectOther',
+                    component: inputSelectOther,
                     isNull: false,
                     label: '天气',
                     placeholder: '',
+                    categoryString: '晴',
+                    otherPlaceholder: '请输入天气',
+                    rule: {required: true, message: '请选择天气', trigger: 'blur'},
                     options: [{
                         value: '晴',
                         label: '晴'
@@ -1808,12 +1823,12 @@ export default {
                     }]
                 },
                 {
-                    name: 'department',
+                    name: 'method',
                     type: 'text',
-                    component: inputTextSelect,
+                    component: null,
                     isNull: false,
-                    rule: [{required: true, message: '请输入操作内容'}],
-                    label: '操作内容',
+                    rule: [{required: true, message: '请输入操作方法'}],
+                    label: '操作方法',
                     placeholder: ''
                 },
                 {
@@ -1821,7 +1836,7 @@ export default {
                     type: 'text',
                     component: null,
                     isNull: true,
-                    label: '操作方法',
+                    label: '操作内容',
                     placeholder: '',
                     rule: null
                 },
@@ -1833,8 +1848,7 @@ export default {
                     label: '备注',
                     placeholder: '',
                     rule: null
-                }
-                ]
+                }]
             }]
         }
     ],
@@ -3942,7 +3956,7 @@ export default {
         key: 'sell-store',
         tab: '销售商品库管理',
         url: 'sell-store',
-        searchPlaceholder: '请输入商品名称进行搜索',
+        searchPlaceholder: '请输入产品名称进行搜索',
         theads: ['产品代号', '产品名称', '规格型号', '库存数量', '单位', '图片', '产品简介', '备注'],
         protos: ['product_number', 'product_name', 'specification', 'storage_number', 'unit', 'img', 'desc', 'memo'],
         widths: [50, 50, 50, 50, 50, 50, 50, 50],
@@ -4130,7 +4144,7 @@ export default {
         key: 'client',
         tab: '客户信息管理',
         url: 'client',
-        searchPlaceholder: '请输入批次号进行搜索',
+        searchPlaceholder: '请输入客户名称进行搜索',
         theads: ['客户名称', '公司名称', '身份证编号(公司注册号)', '汇款账号', '通讯地址', '所在区域', '联系人', '联系方式', '传真', '图片', '备注'],
         protos: ['name', 'company_name', 'IDNumber', 'bank_account', 'address', 'location', 'contact', 'phone', 'fax', 'img', 'memo'],
         widths: [30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30],
@@ -4187,7 +4201,7 @@ export default {
                 isNull: false,
                 label: '通讯地址',
                 placeholder: '',
-                rule: null
+                rule: {required: true, message: '请输入通讯地址', trigger: 'blur'}
             },
             {
                 name: 'location',
@@ -4213,8 +4227,8 @@ export default {
                 component: null,
                 isNull: false,
                 label: '联系方式',
-                placeholder: '请输入方式',
-                rule: {required: true, trigger: 'blur', message: '请输入联系方式', validator: validate2.phone}
+                placeholder: '请输入11位的手机号（固话用-隔开）',
+                rule: {required: true, trigger: 'blur', message: '请输入正确的联系方式', validator: validate2.phone}
             },
             {
                 name: 'fax',
@@ -4290,7 +4304,7 @@ export default {
                 isNull: false,
                 label: '通讯地址',
                 placeholder: '',
-                rule: null
+                rule: {required: true, message: '请输入通讯地址', trigger: 'blur'}
             },
             {
                 name: 'location',
@@ -4316,8 +4330,8 @@ export default {
                 component: null,
                 isNull: false,
                 label: '联系方式',
-                placeholder: '请输入方式',
-                rule: {required: true, trigger: 'blur', message: '请输入联系方式', validator: validate2.phone}
+                placeholder: '请输入11位的手机号（固话用-隔开）',
+                rule: {required: true, trigger: 'blur', message: '请输入正确的联系方式', validator: validate2.phone}
             },
             {
                 name: 'fax',
