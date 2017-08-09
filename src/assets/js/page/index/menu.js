@@ -16,7 +16,7 @@ export default[{
         name: '基础信息管理'
     },
     {
-        role: roleData.planta === undefined ? 0 : roleData.plant.cultivate === undefined ? 0 : 1,
+        role: roleData.plant === undefined ? 0 : roleData.plant.cultivate === undefined ? 0 : 1,
         path: '/index/message/plantSerial',
         name: '种植批次管理'
     },

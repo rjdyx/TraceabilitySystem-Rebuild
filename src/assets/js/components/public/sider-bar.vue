@@ -12,12 +12,12 @@
                 :router="true" 
                 :unique-opened="true"
                 class="list" theme="dark" :default-active="record" @select="handle" @close="handleClose">
-                <el-submenu v-for="(menu, index) in menus" :index="menu.name" >
+                <el-submenu v-for="(menu, index) in menus" :index="menu.name" v-if="menu.role">
                     <template slot="title" >
                     <img :src="menu.src" class="menu-img">
                         {{menu.name}}
                     </template>
-                    <el-menu-item v-for="(subMenu, subIndex) in menu.children" :index="subMenu.path" exact @click="toggle(subIndex, subMenu.name)">
+                    <el-menu-item v-for="(subMenu, subIndex) in menu.children" :index="subMenu.path" v-if="subMenu.role" exact @click="toggle(subIndex, subMenu.name)">
                         {{subMenu.name}}
                     </el-menu-item>
                 </el-submenu>

@@ -117,5 +117,7 @@ export default {
         }
     }
 }
-    
+.form-footer{
+    margin: 30px 0;
+}    
 </style>
