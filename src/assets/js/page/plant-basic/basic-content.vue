@@ -28,7 +28,8 @@ export default {
         return {
             checked: [],
             activeName: 'first',
-            models: modelObj
+            models: modelObj,
+            notCreate: ['send']
         }
     },
     methods: {
@@ -60,7 +61,9 @@ export default {
                         if (operates !== undefined) {
                             // 新建权限
                             if (operates.indexOf('create') !== -1) {
-                                arr.push({component: create})
+                                if (this.notCreate.indexOf(fs) === -1) {
+                                    arr.push({component: create})
+                                }
                             }
                             // 打印权限
                             if (operates.indexOf('out') !== -1) {
