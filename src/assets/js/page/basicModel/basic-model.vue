@@ -131,7 +131,7 @@
                     </clickMore>
                 </template>
                 <template>
-                    <el-button type="text" size="small" @click="roleShow(scope.$index,scope.row)" v-if="hiddeRole">角色</el-button>
+                    <el-button type="text" size="small" @click="roleShow(scope.$index,scope.row)" v-if="hiddeRole" class="editBtn">角色</el-button>
 
                     <el-button type="text" size="small" @click="changeEditShow(scope.$index,scope.row)" v-if="!hiddeEdit" v-bind:class="{'btn':hiddeRole}" class="editBtn">编辑</el-button>
 
