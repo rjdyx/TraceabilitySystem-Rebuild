@@ -105,7 +105,7 @@
                             <span class="el-form-item__label">{{expand}}</span>
 
                             <span v-if="expand=='图片'">
-                                <img :src="$img('images/ok.png')">
+                                <img  v-if="tableData[props.$index][tabItem.protos[index]]!=null && tableData[props.$index][tabItem.protos[index]]!=''" :src="$img('images/ok.png')">
                             </span>
 
                             <span v-else>
@@ -119,7 +119,7 @@
                             <span class="el-form-item__label">{{expand}}</span>
 
                             <span v-if="expand=='图片'">
-                                <img :src="$img('images/ok.png')">
+                                <img v-if="tableData[props.$index][tabItem.protos[index]]!=null && tableData[props.$index][tabItem.protos[index]]!=''" :src="$img('images/ok.png')" >
                             </span>
 
                             <span v-else>
@@ -128,7 +128,7 @@
                           </el-form-item>
                         </template>
 
-                        <el-form-item v-for="(subItem,init) in tabItem.harvestMore">
+                        <el-form-item v-for="(subItem,init) in tabItem.harvestMore" class="left">
                             <span class="timeEdit" @click="timeEdit(subItem,index)">
                                 <span class="timeLabel">{{subItem.label}}</span>
                                 <span v-if="subItem.nameHide">{{ tableData[props.$index][subItem.name] }}</span>
@@ -1022,7 +1022,6 @@ export default {
         margin-right: 0;
         margin-bottom: 0;
         width: 33%;
-        /*float: left;*/
     }
     .el-form-item__content{
         width: 100%;

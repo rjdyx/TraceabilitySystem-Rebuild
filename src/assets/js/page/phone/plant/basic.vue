@@ -23,6 +23,7 @@
                      <tr v-for="(v,k) in models.tableProtos">
                         <td style="width: 28%">{{models.tableTheads[k] }}</td>
                         <td style="width: 72%" v-if="v=='area'">{{datas[v]}}{{datas.unit}}</td>
+                        <td style="width: 72%" v-else-if="v=='tea_img'"><img :src="datas[v]" height="30" @click="enlargeImgFn(datas[v])"></td>
                         <td style="width: 72%" v-else>{{datas[v]}}</td>
                      </tr>
                      </tbody>
@@ -38,18 +39,33 @@
                 <div class="video" v-else>
                     该种植区没有上传视频
                 </div>    
-            </div> 
+            </div>
+            <!-- 图片弹出框  -->
+            <div v-transfer-dom>
+                <x-dialog v-model="showHideOnBlur" class="dialogImg" hide-on-blur>
+                    <div class="img-box">
+                        <img :src="enlargeImg" alt="">
+                    </div>
+                    <div @click="showHideOnBlur=false">
+                        <span class="vux-close"></span>
+                    </div>
+                </x-dialog>
+            </div>
          </div>
     </div>
 </transition>
 </template>
 <script>
+import { XDialog, TransferDomDirective as TransferDom } from 'vux'
 import Header1 from './component/header.vue'
 import HeaderImg from './component/headImg.vue'
 import swiper from './component/swiper.vue'
 import plantMessage from './js/plantMessage.js'
 export default {
     name: 'pBasic',
+    directives: {
+        TransferDom
+    },
     data () {
         let modelObj = {}
         Object.assign(modelObj, plantMessage)
@@ -58,10 +74,20 @@ export default {
             datas: {},
             video: '',
             videoSrc: '',
-            imgArr: []
+            imgArr: [],
+            showHideOnBlur: false,
+            enlargeImg: ''
         }
     },
     props: {
+    },
+    methods: {
+        enlargeImgFn (imgSrc) {
+            if (imgSrc) {
+                this.enlargeImg = imgSrc
+                this.showHideOnBlur = true
+            }
+        }
     },
     mounted () {
         $(document).on('touchmove', function (e) {
@@ -95,7 +121,8 @@ export default {
     components: {
         Header1,
         swiper,
-        HeaderImg
+        HeaderImg,
+        XDialog
     }
 }
 </script>

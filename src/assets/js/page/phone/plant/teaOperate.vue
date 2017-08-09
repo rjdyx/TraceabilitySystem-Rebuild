@@ -7,7 +7,8 @@
  */
 <template>
 <transition name="fade2">
-    <div class="pBasicModel1">
+    <div :class="{'pBasicModel':models.isTrue,'pbasic':!models.isTrue}">
+
        
       <!-- <canvas id="canvas"></canvas> -->
 
@@ -33,7 +34,7 @@
                 </div>
             </div>
         </div>
-        <!-- 二维码提示框  -->
+        <!-- 图片弹出框  -->
         <div v-transfer-dom>
             <x-dialog v-model="showHideOnBlur" class="dialogImg" hide-on-blur>
                 <div class="img-box">
@@ -51,7 +52,7 @@
 import Header1 from './component/header.vue'
 import plantMessage from './js/plantMessage.js'
 import canvas from './js/ripple.js'
-import { XDialog, TransferDomDirective as TransferDom, Qrcode } from 'vux'
+import { XDialog, TransferDomDirective as TransferDom } from 'vux'
 export default {
     name: 'pBasicModel1',
     directives: {
@@ -110,12 +111,6 @@ export default {
             }
         },
         getRet (ret) {
-            // let boxArrTheads = this.models.tableTheads
-            // let boxArrProtos = this.models.tableProtos
-            // let consignArrTheads = ['物流公司', '物流单号']
-            // let consignArrProtos = ['logistic_name', 'number']
-            // let selfArrTheads = ['货运司机', '货运车牌号']
-            // let selfArrProtos = ['driver_name', 'vehicle_number']
             for (let item in ret) {
                 if (ret[item].transportable_type === '托运') {
                     this.models['tableTheads'] = this.models.tableTheads2
@@ -129,8 +124,7 @@ export default {
     },
     components: {
         Header1,
-        XDialog,
-        Qrcode
+        XDialog
     }
 }
 </script>
@@ -201,11 +195,12 @@ export default {
             }
         }
     }
-    .pBasicModel1{
+    .pBasicModel,.pBasic{
         width: 100%;
         height: 100%;
         padding-bottom: 1rem;
-            .pCom_content{
+    }
+    .pCom_content{
                 width: 100%;
                 background: #fbfbfb;
                 margin-top: 1rem;
@@ -246,5 +241,4 @@ export default {
                 } 
             }
         }
-    }
 </style>
