@@ -7,9 +7,11 @@
  */
 <template>
 	<div class="phoneIndex">
+		<!-- 头部 -->
 		<div class="phoneHeader">
 			<h2>天池茶叶</h2>
 		</div>
+		<!-- 中间 -->
 		<div class="mainWrap">
 			<div class="logo">
 				<img :src="tea_img">
@@ -23,13 +25,15 @@
 							<span>{{item.iconLabel}}</span>
 						</div>
 					</div>
-			</template>
+				</template>
+			</div>
 		</div>
-		</div>
+		<!-- 信息 -->
 		<div class="info">
 			<p class="subscription">天池茶叶</p>
 			<p class="description">{{product_name}}</p>
 		</div>
+		<!-- 底部菜单 -->
 		<div class="menuWrap">
 			<div class="indexMenu" @click="getVideo">
 				<span class="iconfont iconmenu icon-shipin"></span>
@@ -178,13 +182,14 @@ export default{
 			width: 8.2rem;
 			height: 8.2rem;
 			margin: 1.76rem auto 0;
+			position: relative;
 			.logo{
 				width: 4.2rem;
 				height: 4.2rem;
 				border-radius: 50%;
 				position: absolute;
-				top: 5rem;
-				left: 2.9rem;
+				top: 2rem;
+				left: 2rem;
 				img{
 					width: 4.2rem;
 					height: 4.2rem;
@@ -199,12 +204,10 @@ export default{
 			background: url('/public/images/circle.png') no-repeat;
 			background-position: 100%;
 			background-size: 100% 100%;
-			margin: 1.76rem auto 0;
 			text-align: center;
 			position: relative;
-			transform: rotate(0deg);
-			animation: rond 20s linear infinite 0s;
-			-webkit-animation: rond 20s linear infinite 0s;
+			animation: rond 20s linear infinite;
+			-webkit-animation: rond 20s linear infinite;
 			.quote{
 				width: 2rem;
 				height: 70px;
