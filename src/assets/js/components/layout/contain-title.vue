@@ -13,7 +13,7 @@
           <span class="back_text">返回</span>
         </a>
         <span class="print" v-if="printShow" @click="printFn">
-          <i class="iconfont">&#xe8e3;</i>
+          <i class="iconfont iconColor">&#xe8e3;</i>
           <span class="back_text">打印</span>
         </span> 
     </div>
@@ -103,6 +103,5 @@
         -webkit-text-stroke-width: 0.2px;
         -moz-osx-font-smoothing: grayscale;
         padding: 0 8px 0 12px;
-        color: #009acb;
       }
 </style>

@@ -128,7 +128,7 @@
                           </el-form-item>
                         </template>
 
-                        <el-form-item v-for="(subItem,init) in tabItem.harvestMore">
+                        <el-form-item v-for="(subItem,init) in tabItem.harvestMore" class="left">
                             <span class="timeEdit" @click="timeEdit(subItem,index)">
                                 <span class="timeLabel">{{subItem.label}}</span>
                                 <span v-if="subItem.nameHide">{{ tableData[props.$index][subItem.name] }}</span>
@@ -1020,7 +1020,6 @@ export default {
         margin-right: 0;
         margin-bottom: 0;
         width: 33%;
-        /*float: left;*/
     }
     .el-form-item__content{
         width: 100%;

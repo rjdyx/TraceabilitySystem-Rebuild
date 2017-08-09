@@ -1070,11 +1070,10 @@ export default {
         text-overflow: ellipsis;
         white-space: nowrap;
     }*/ 
-} 
-.el-table__expanded-cell{
-    .demo-table-expand {
-        font-size: 0;
-    }
+    .el-table__expanded-cell{
+        .demo-table-expand {
+            font-size: 0;
+        }
     .demo-table-expand label {
         width: 90px;
         color: #99a9bf;
@@ -1093,5 +1092,7 @@ export default {
         width: 30% !important;
     }
 }
+} 
+
 
 </style>
