@@ -7,7 +7,8 @@
 
 <template>
 	<div class="content">
-        <basic-model :models="models[type]"></basic-model>
+        <!-- <basic-model :models="models[type]"></basic-model> -->
+        <basic-model :models="mds()"></basic-model>
         <footer-top></footer-top>
     </div> 
 </template>
@@ -53,54 +54,58 @@ export default {
             for (let k in lists) {
                 var fs = lists[k].roleKey
                 var arr = []
-                var operates = roleData[type][fs].ops
-                lists[k].typeComponent = []
-                lists[k].tab = roleData[type][fs].name
-                if (roleData[type].hasOwnProperty(fs)) {
-                    if (operates !== undefined) {
-                        // 新建权限
-                        if (operates.indexOf('create') !== -1) {
-                            arr.push({component: create})
-                        }
-                        // 打印权限
-                        if (operates.indexOf('out') !== -1) {
-                            arr.push({component: out})
-                            lists[k].outState = false
-                        } else {
-                            lists[k].outState = true
-                        }
-                        // 删除权限
-                        if (operates.indexOf('delete') !== -1) {
-                            lists[k].delState = false
-                        } else {
-                            lists[k].delState = true
-                        }
-                        // 编辑权限
-                        if (operates.indexOf('edit') === -1) {
-                            lists[k].editState = true
-                        } else {
-                            lists[k].editState = false
-                        }
-                        // 状态权限
-                        if (lists[k].moreComponent !== undefined) {
-                            var m = 0
-                            if (operates.indexOf('state') === -1) {
-                                for (let j in lists[k].moreComponent) {
-                                    if (lists[k].moreComponent[j].value !== '状态') {
-                                        lists[k].moreComponent[j].value = ''
-                                        m = 1
+                if (roleData[type][fs] !== undefined) {
+                    var operates = roleData[type][fs].ops
+                    lists[k].typeComponent = []
+                    lists[k].tab = roleData[type][fs].name
+                    if (roleData[type].hasOwnProperty(fs)) {
+                        if (operates !== undefined) {
+                            // 新建权限
+                            if (operates.indexOf('create') !== -1) {
+                                arr.push({component: create})
+                            }
+                            // 打印权限
+                            if (operates.indexOf('out') !== -1) {
+                                arr.push({component: out})
+                                lists[k].outState = false
+                            } else {
+                                lists[k].outState = true
+                            }
+                            // 删除权限
+                            if (operates.indexOf('delete') !== -1) {
+                                lists[k].delState = false
+                            } else {
+                                lists[k].delState = true
+                            }
+                            // 编辑权限
+                            if (operates.indexOf('edit') === -1) {
+                                lists[k].editState = true
+                            } else {
+                                lists[k].editState = false
+                            }
+                            // 状态权限
+                            if (lists[k].moreComponent !== undefined) {
+                                var m = 0
+                                if (operates.indexOf('state') === -1) {
+                                    for (let j in lists[k].moreComponent) {
+                                        if (lists[k].moreComponent[j].value !== '状态') {
+                                            lists[k].moreComponent[j].value = ''
+                                            m = 1
+                                        }
                                     }
                                 }
-                            }
-                            if (lists[k].moreComponent.length - m < 1) {
+                                if (lists[k].moreComponent !== undefined && lists[k].moreComponent !== null) {
+                                    if (lists[k].moreComponent.length - m < 1) {
+                                        lists[k].moreComponent = null
+                                    }
+                                }
+                            } else {
                                 lists[k].moreComponent = null
                             }
-                        } else {
-                            lists[k].moreComponent = null
                         }
+                        lists[k].typeComponent = arr
+                        datas.push(lists[k])
                     }
-                    lists[k].typeComponent = arr
-                    datas.push(lists[k])
                 }
             }
             return datas

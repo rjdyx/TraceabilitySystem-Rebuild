@@ -70,11 +70,11 @@ export default {
     methods: {
         // 关闭表单事件
         closeClick () {
-            this.successCallback()
+            this.popClose()
         },
         // 取消事件
         cancelClick () {
-            this.successCallback()
+            this.popClose()
         },
         /**
         * 提交表单

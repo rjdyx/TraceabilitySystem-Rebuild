@@ -842,8 +842,7 @@ export default {
     plantSerial: [{
         settitle: '种植批次管理',
         key: 'cultivate',
-        roleKey: 'cultivate',
-        roleName: ['plant/cultivate', 0],
+        roleKey: 'batch',
         tab: '批次管理',
         url: 'cultivate',
         batch: 'plantSerial',
@@ -3471,6 +3470,7 @@ export default {
         {
             settitle: '仓库管理',
             tab: '生产任务管理',
+            roleKey: 'plan',
             key: 'productive-task',
             url: 'productive-task',
             batch: 'productiveTaskBatch',
@@ -3693,6 +3693,7 @@ export default {
             tab: '领料单管理',
             key: 'picking-list',
             url: 'picking-list',
+            roleKey: 'stuff',
             batch: 'pickingListBatch',
             searchPlaceholder: '请输入领料单号进行搜索',
             changeDataArr: [{state: {1: '未通过', 0: '已通过'}}],
@@ -3956,6 +3957,7 @@ export default {
         key: 'sell-store',
         tab: '销售商品库管理',
         url: 'sell-store',
+        roleKey: 'product',
         searchPlaceholder: '请输入产品名称进行搜索',
         theads: ['产品代号', '产品名称', '规格型号', '库存数量', '单位', '图片', '产品简介', '备注'],
         protos: ['product_number', 'product_name', 'specification', 'storage_number', 'unit', 'img', 'desc', 'memo'],
@@ -4144,6 +4146,7 @@ export default {
         key: 'client',
         tab: '客户信息管理',
         url: 'client',
+        roleKey: 'client',
         searchPlaceholder: '请输入客户名称进行搜索',
         theads: ['客户名称', '公司名称', '身份证编号(公司注册号)', '汇款账号', '通讯地址', '所在区域', '联系人', '联系方式', '传真', '图片', '备注'],
         protos: ['name', 'company_name', 'IDNumber', 'bank_account', 'address', 'location', 'contact', 'phone', 'fax', 'img', 'memo'],
@@ -4368,6 +4371,7 @@ export default {
         key: 'sell',
         tab: '销售订单管理',
         url: 'sell',
+        roleKey: 'batch',
         batch: 'saleOrderBatch',
         searchPlaceholder: '请输入订货单号',
         changeDataArr: [{transportable_type: {'self': '自运', 'consign': '托运'}}],
@@ -4651,6 +4655,7 @@ export default {
         key: 'sale',
         tab: '发货单管理',
         url: 'sale',
+        roleKey: 'send',
         batch: 'deliverOrderBatch',
         searchPlaceholder: '请输入发货单号',
         changeDataArr: [{state: {0: '未完成', 1: '已完成'}}],
@@ -5354,6 +5359,37 @@ export default {
             }],
             newComponent: [{
                 tab: '新建权限角色信息',
+                permissionShow: true,
+                checkNumber: [0, 1],
+                components: [{
+                    name: 'name',
+                    type: 'text',
+                    component: null,
+                    label: '英文名称',
+                    placeholder: '请输入英文名称',
+                    rule: [{required: true, trigger: 'blur', message: '请输入英文名称'}, {validator: validate2.reCheck}]
+                },
+                {
+                    name: 'display_name',
+                    type: 'text',
+                    component: null,
+                    label: '中文名称',
+                    placeholder: '请输入中文名称',
+                    rule: [{required: true, trigger: 'blur', message: '请输入中文名称'}, {validator: validate2.reCheck}]
+                },
+                {
+                    name: 'description',
+                    type: 'textarea',
+                    component: null,
+                    label: '描述',
+                    placeholder: '',
+                    rule: null
+                }
+                ]
+            }],
+            editComponent: [{
+                tab: '编辑权限角色信息',
+                permissionShow: true,
                 checkNumber: [0, 1],
                 components: [{
                     name: 'name',

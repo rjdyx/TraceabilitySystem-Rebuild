@@ -260,6 +260,7 @@ export default {
     },
     mixins: [move],
     mounted () {
+        console.log(this.permissionShow)
         if (this.checkboxShow) {
             // 全部数据
             axios.get(this.$adminUrl('company/permission'))
