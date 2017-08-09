@@ -43,8 +43,16 @@ var Canvas2Image = function () {
 		return canvas.toDataURL(type);
 	}
 
-	function saveFile (strData) {
-		document.location.href = strData;
+	function saveFile (strData, name) {
+		// var name = 'ww.jpeg'
+		// document.download = name
+		// var strData = strData.replace(/^data:image\/[^;]/, 'data:application/octet-stream');
+        var a = document.createElement('a');
+        var url = strData;
+        var filename = name
+        a.href = url;
+        a.download = filename + '.jpeg';
+        a.click();
 	}
 
 	function genImage(strData) {
@@ -197,7 +205,7 @@ var Canvas2Image = function () {
 	 * @param {Number} [optional] png width
 	 * @param {Number} [optional] png height
 	 */
-	var saveAsImage = function (canvas, width, height, type) {
+	var saveAsImage = function (canvas, width, height, type, name) {
 		if ($support.canvas && $support.dataURL) {
 			if (typeof canvas == "string") { canvas = document.getElementById(canvas); }
 			if (type == undefined) { type = 'png'; }
@@ -205,10 +213,10 @@ var Canvas2Image = function () {
 			if (/bmp/.test(type)) {
 				var data = getImageData(scaleCanvas(canvas, width, height));
 				var strData = genBitmapImage(data);
-				saveFile(makeURI(strData, downloadMime));
+				saveFile(makeURI(strData, downloadMime),name);
 			} else {
 				var strData = getDataURL(canvas, type, width, height);
-				saveFile(strData.replace(type, downloadMime));
+				saveFile(strData.replace(type, downloadMime),name);
 			}
 		}
 	};
@@ -237,8 +245,8 @@ var Canvas2Image = function () {
 		saveAsPNG: function (canvas, width, height) {
 			return saveAsImage(canvas, width, height, 'png');
 		},
-		saveAsJPEG: function (canvas, width, height) {
-			return saveAsImage(canvas, width, height, 'jpeg');
+		saveAsJPEG: function (canvas, width, height, name) {
+			return saveAsImage(canvas, width, height, 'jpeg', name);
 		},
 		saveAsGIF: function (canvas, width, height) {
 			return saveAsImage(canvas, width, height, 'gif');

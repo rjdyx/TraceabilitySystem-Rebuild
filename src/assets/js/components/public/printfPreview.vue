@@ -5,23 +5,24 @@
         <div class="printfDiv">
             <div class="printfTable">
                 <h2 class="printf_h2">广东天池茶叶股份有限公司（根据合同签署选择对应公司名称）</h2>
-                <h3 class="printf_h3">xxx单</h3>
+                <h3 class="printf_h3">{{odd}}</h3>
                 <el-row :gutter="20">
-                    <el-col :span="12" v-for="(item,i) in theads" class="text-small">
+                    <el-col :span="12" v-for="(item,i) in filterTheads" class="text-small">
                         <strong>{{item}}:</strong>
-                        <em class="margin-left_10">{{headData[protos[i]]}}</em>
+                        <em class="margin-left_10">{{headData[filterProtos[i]]}}</em>
                     </el-col>
                 </el-row>
-                <el-table :data="tableData" style="width:100%" border>
+                <el-table :data="tableData" style="width:100%">
                     <!-- 序号 --> 
                     <el-table-column width="50" label="序号" type="index" id="test_id">
                     </el-table-column>
-                    <template v-for="(item,index) in thead">
+                    <template v-for="(item,index) in tabItem.headList">
                         <el-table-column 
                             :prop="tabItem.protos[index]"
                             :label="item"
-                            :min-width="tabItem.widths[index]"
-                            show-overflow-tooltip>
+                            show-overflow-tooltip
+                            align="center"
+                            min-width="50">
                             <template  scope="scope">
                                 <div v-if="item.includes('产品名称')" slot="reference" class="name-wrapper pcActive" @click="jumpDetails(scope.row)">
                                     {{ tableData[scope.$index][tabItem.protos[index]] }}
@@ -36,6 +37,13 @@
                         </el-table-column>
                     </template>
                 </el-table>
+                <el-row :gutter="20">
+                    <el-col :span="12" v-for="(item,i) in tabItem.prinftBottom" class="text-small">
+                        <strong>{{item}}:</strong>
+                        <em v-if="item === '合计'" class="margin-left_10">{{allAmount}}</em>
+                        <em v-else class="margin-left_10">{{headData[tabItem.prinftBottomProtos[i]]}}</em>
+                    </el-col>
+                </el-row>
             </div>     
         </div>
         <div slot="footer" class="dialog-footer">
@@ -47,6 +55,8 @@
 </template>
 
 <script>
+import JSZip from '../../../../../public/lib/jszip.js'
+import DDoc from '../../../../../public/lib/DDoc.js'
 export default {
     name: 'printfPreview2',
     props: {
@@ -56,13 +66,7 @@ export default {
                 return []
             }
         },
-        thead: {
-            type: Array,
-            default () {
-                return []
-            }
-        },
-        tableData: {
+        protos: {
             type: Array,
             default () {
                 return []
@@ -80,13 +84,17 @@ export default {
                 return {}
             }
         },
-        protos: {
+        tableData: {
             type: Array,
             default () {
                 return []
             }
         },
-        tableProtos: {
+        odd: {
+            type: String,
+            default: ''
+        },
+        filter: {
             type: Array,
             default () {
                 return []
@@ -96,31 +104,11 @@ export default {
     data () {
         return {
             dialogTableVisible: false,
-            msg: 'Welcome to Your Vue.js App',
-            list: ['种植批次号', '所属种植区', '种植人', '种植日期', '茶叶品种名称', '当前批次面积', '状态'],
-            listProtos: ['serial', 'plantation_name', 'operate', 'date', 'tea_name', 'area_unit', 'state'],
-            tableheadList: ['图片但是嘎都给啊但是嘎嘎啊个', '图片标题', '图片描述'],
-            tableheadListProtos: ['thumb', 'name', 'desc', 'date', 'memo'],
-            arr: [
-                {
-                    name: 'wyp',
-                    age: '22',
-                    sex: 'girl'
-                },
-                {
-                    name: 'yoko',
-                    age: '21',
-                    sex: 'girl'
-                },
-                {
-                    name: 'hb',
-                    age: '23',
-                    sex: 'boy'
-                }
-            ]
+            allAmount: 0 // 合计
         }
     },
     mounted () {
+        console.log(this.tableData)
     },
     methods: {
         // 关闭弹窗
@@ -129,20 +117,23 @@ export default {
         },
         // 打印word文档
         confirmPrintf () {
-            this.generate(this.theads, this.protos, this.headData, this.thead, this.tableProtos, this.tableData)
+            this.generate(this.filterTheads, this.filterProtos, this.headData, this.tabItem['headList'], this.tabItem['protos'], this.tableData)
         },
         // 把[{}，{}]转换为[[],[]]的方法
         gsh (arr, protos) {
-            console.log(arr)
-            console.log(protos)
             let dArr = []
             for (let i = 0; i < arr.length; i++) {
                 dArr[i] = []
+                dArr[i].push(i + 1)
                 protos.forEach((item) => {
                     let value = arr[i][item]
                     value === null ? dArr[i].push('') : dArr[i].push(arr[i][item])
                 })
             }
+            let tableTheads = []
+            tableTheads = $.extend(true, tableTheads, this.tabItem['headList'])
+            tableTheads.unshift('序号')
+            dArr.unshift(tableTheads)
             return dArr
         },
         // 添加word文档的内容(顶部文字列表，顶部属性列表，顶部数据列表，表单表头列表，表单表头列表，表单数据列表，)
@@ -153,31 +144,70 @@ export default {
                 fontSize: 30,
                 bold: true
             })
-            doc.addParagraph('xxx单', {
+            doc.addParagraph(this.odd, {
                 textAlign: doc.AlignType.Center,
                 fontSize: 40,
                 bold: true
             })
             let string = ''
-            for (let i = 0; i < theads.length; i++) {
-                let value = headData[protos[i]] !== null ? headData[protos[i]] : ''
-                doc.addParagraph(theads[i] + ':' + value)
+            if (theads.length) {
+                for (let i = 0; i < theads.length; i++) {
+                    let value = headData[protos[i]] !== null ? headData[protos[i]] : ''
+                    doc.addParagraph(theads[i] + ':' + value)
+                }
             }
             let tableArr = this.gsh(tableData, tableProtos)
             doc.newLine()
-            doc.addTable([this.thead], {
+            doc.addTable(tableArr, {
                 bold: true,
                 textAlign: doc.AlignType.Center
             })
-            if (tableArr.length) {
-                doc.addTable(tableArr, {
-                    textAlign: doc.AlignType.Center
-                })
+            doc.newLine()
+            let tableBottomArr = this.tabItem.prinftBottom
+            let prinftBottomProtos = this.tabItem.prinftBottomProtos
+            if (tableBottomArr) {
+                for (let i = 0; i < tableBottomArr.length; i++) {
+                    let value = ''
+                    if (tableBottomArr[i] === '合计') {
+                        value = this.allAmount
+                    } else {
+                        value = prinftBottomProtos[i] !== '' ? this.headData[prinftBottomProtos[i]] : ''
+                    }
+                    doc.addParagraph(tableBottomArr[i] + ':' + value)
+                }
             }
             doc.generate()
+        },
+        filterFn (item, index, array) {
+            var bol = this.filter.indexOf(index)
+            if (bol === -1) {
+                return true
+            } else {
+                return false
+            }
         }
     },
     watch: {
+        tableData () {
+            if (this.tableData.length) {
+                this.allAmount = 0
+                this.tableData.forEach((obj) => {
+                    for (let key in obj) {
+                        if (key === 'amount') this.allAmount += obj[key]
+                    }
+                })
+            }
+        }
+    },
+    computed: {
+        filterTheads () {
+            let arr = this.theads.filter(this.filterFn)
+            return arr
+        },
+        filterProtos () {
+            let arr = this.protos.filter(this.filterFn)
+            return arr
+        }
     }
 }
 </script>
@@ -187,18 +217,9 @@ export default {
         border:1px dashed #bfcbd9;
         .printfTable{
             min-width: 600px;
-            min-height:800px;
+            min-height:600px;
             background: white;
             padding: 20px;
-            .el-table .el-tooltip.cell, .el-table th, .el-table th>div{
-                white-space: normal;
-            }
-            .el-table__fixed-header-wrapper thead div, .el-table__header-wrapper thead div{
-                background-color: white;
-            }
-            .el-table th{
-                background-color: white;
-            }
             .printf_h2{
                 text-align: center;
                 font-size: 16px;
@@ -207,6 +228,10 @@ export default {
                 text-align: center;
                 font-size: 20px;
                 padding-top: 10px;
+                padding-bottom: 10px;
+            }
+            .el-table{
+                margin-top: 30px;
             }
         }
     }

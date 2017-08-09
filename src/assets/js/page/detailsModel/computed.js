@@ -32,6 +32,12 @@ export default {
         },
         printShow () {
             return this.models.printShow
+        },
+        odd () {
+            return this.models.odd
+        },
+        filter () {
+            return this.models.filter
         }
     }
 }

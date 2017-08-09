@@ -80,10 +80,10 @@
                 :theads="theads"
                 :headData="headData"
                 :tableData="tableData"
-                :thead="thead"
                 :tabItem="tabItem"
                 :protos="protos"
-                :tableProtos="tabItem.protos"
+                :odd="odd"
+                :filter="filter"
                 >
             </printfPreview>
         <!-- 列表模块 -->
@@ -257,7 +257,9 @@ export default {
                     tabList: [],
                     more: '',
                     harvestMore: [],
-                    printShow: ''
+                    printShow: '',
+                    odd: '',
+                    fillter: []
                 }
             }
         }

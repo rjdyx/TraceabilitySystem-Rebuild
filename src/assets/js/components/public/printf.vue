@@ -110,6 +110,7 @@ export default {
         },
         // 点击打印按钮
         printfFromFn () {
+            var name = '出库单'
             this.$html2canvas($('.el-tabs__content').has('.printfImg').get(0), {
                 allowTaint: true,
                 taintTest: false,
@@ -117,7 +118,7 @@ export default {
                 onrendered: function (canvas) {
                     let w = $('.el-tabs__content').has('.printfImg').width()
                     let h = $('.el-tabs__content').has('.printfImg').height()
-                    Canvas2Image.saveAsJPEG(canvas, w, h)
+                    Canvas2Image.saveAsJPEG(canvas, w, h, name)
                 }
             })
         }

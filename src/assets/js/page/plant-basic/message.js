@@ -3251,7 +3251,7 @@ export default {
                     rule: {required: true}
                 },
                 {
-                    name: 'storeroom_id',
+                    name: 'storeroom_name',
                     type: 'text',
                     component: null,
                     label: '出库仓库名',
