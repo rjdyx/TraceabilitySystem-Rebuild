@@ -114,10 +114,10 @@ export default {
         height:318px;
         .el-tabs{
             height:60%;
+            .el-tabs__content{
+                height:62%;
+            }
         }
     }
-}
-.form-footer{
-    margin: 30px 0;
-}    
+}  
 </style>

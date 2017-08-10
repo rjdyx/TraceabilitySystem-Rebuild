@@ -131,7 +131,7 @@
                     </clickMore>
                 </template>
                 <template>
-                    <el-button type="text" size="small" @click="roleShow(scope.$index,scope.row)" v-if="hiddeRole">角色</el-button>
+                    <el-button type="text" size="small" @click="roleShow(scope.$index,scope.row)" v-if="hiddeRole" class="editBtn">角色</el-button>
 
                     <el-button type="text" size="small" @click="changeEditShow(scope.$index,scope.row)" v-if="!hiddeEdit" v-bind:class="{'btn':hiddeRole}" class="editBtn">编辑</el-button>
 
@@ -348,7 +348,10 @@ export default {
         },
         jumpDetails (row) {
             var id = row.id
-            this.$router.push('/index/details/' + this.batch + '/' + id)
+            this.$router.push('/index/details/' + this.batch)
+            if (id) {
+                localStorage.setItem('detailsId', id)
+            }
         },
         /**
          * 列表选择事件

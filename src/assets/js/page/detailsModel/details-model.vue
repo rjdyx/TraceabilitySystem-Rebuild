@@ -14,7 +14,7 @@
     
   <!-- 信息列表 -->
     <el-row :gutter="20">
-         <el-col :span="6" v-for="(item,i) in theads" class="text-small">{{item}}:<em class="margin-left_10">{{headData[protos[i]]}}</em>
+         <el-col :xs="12" :sm="8" :md="8" :lg="6" v-for="(item,i) in theads" class="text-small">{{item}}:<em class="margin-left_10">{{headData[protos[i]]}}</em>
          </el-col>
     </el-row>
     <div v-if="tableListBollean">
@@ -288,7 +288,8 @@ export default {
             selectNewEdit: [],
             index: localStorage.getItem('tabL') !== null ? localStorage.getItem('tabL') : 0,
             rowId: null,
-            routeId: this.$route.params.id,
+            // routeId: this.$route.params.id,
+            routeId: localStorage.getItem('detailsId'),
             isShow: true,
             listLoading: false,
             tableListBollean: true,
@@ -521,10 +522,10 @@ export default {
         },
         // 获取Api接口数据
         getApiUrl () {
-            this.apiUrlArr[this.url] = this.url + '/' + this.$route.params.id
+            this.apiUrlArr[this.url] = this.url + '/' + this.routeId
             for (var i in this.tabList) {
                 if (this.tabList[i].split === undefined || this.tabList[i].split === false) {
-                    this.apiUrlArr[this.tabList[i].url] = this.$route.params.id + '/' + this.tabList[i].url
+                    this.apiUrlArr[this.tabList[i].url] = this.routeId + '/' + this.tabList[i].url
                 } else {
                     this.apiUrlArr[this.tabList[i].url] = this.tabList[i].url
                 }
@@ -551,7 +552,7 @@ export default {
                 }
             }
             if (names !== undefined && names !== null) {
-                data[names] = this.$route.params.id
+                data[names] = this.routeId
             }
             if (flag) {
                 this.listLoading = true
@@ -841,6 +842,7 @@ export default {
         }
     },
     mounted () {
+        console.log(this.routeId)
         this.change_siderBar(false)
         this.tabItem = this.tabList[localStorage.getItem('tabL') !== null ? localStorage.getItem('tabL') : 0]
         this.activeName = this.tabList[localStorage.getItem('tabL') !== null ? localStorage.getItem('tabL') : 0].tab

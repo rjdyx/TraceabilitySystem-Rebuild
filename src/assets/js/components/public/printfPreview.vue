@@ -171,7 +171,7 @@ export default {
                     if (tableBottomArr[i] === '合计') {
                         value = this.allAmount
                     } else {
-                        value = prinftBottomProtos[i] !== '' ? this.headData[prinftBottomProtos[i]] : ''
+                        value = prinftBottomProtos[i] !== '' ? (this.headData[prinftBottomProtos[i]] !== null ? this.headData[prinftBottomProtos[i]] : '') : ''
                     }
                     doc.addParagraph(tableBottomArr[i] + ':' + value)
                 }
