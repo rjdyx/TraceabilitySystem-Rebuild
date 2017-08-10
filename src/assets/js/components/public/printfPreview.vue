@@ -108,7 +108,6 @@ export default {
         }
     },
     mounted () {
-        console.log(this.tableData)
     },
     methods: {
         // 关闭弹窗

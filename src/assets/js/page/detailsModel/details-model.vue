@@ -842,7 +842,6 @@ export default {
         }
     },
     mounted () {
-        console.log(this.routeId)
         this.change_siderBar(false)
         this.tabItem = this.tabList[localStorage.getItem('tabL') !== null ? localStorage.getItem('tabL') : 0]
         this.activeName = this.tabList[localStorage.getItem('tabL') !== null ? localStorage.getItem('tabL') : 0].tab

@@ -35,7 +35,6 @@ export default {
     },
     computed: {
         type () {
-            console.log(this.$route.params.model)
             return this.$route.params.model
         }
     },
