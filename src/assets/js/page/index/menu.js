@@ -77,7 +77,7 @@ export default[{
 {
     name: '系统管理',
     key: 'system',
-    childrenKey: ['comapny', 'user', 'log'],
+    childrenKey: ['company', 'user', 'log'],
     role: 0,
     src: '/public/images/system.png',
     children: [{

@@ -23,66 +23,9 @@ const admins = [pre2 + 'adminRole', pre2 + 'adminCompany', pre2 + 'adminFeedback
 const aDetails = [pre3 + 'companyUser']
 // 非管理员路由
 const persons = [pre2 + 'plantBase', pre2 + 'plantSerial', pre2 + 'plantFarm', pre2 + 'vegetableSerial', pre2 + 'storageBasic', pre2 + 'logisticsBatch', pre2 + 'storageOperate', pre2 + 'saleProduct', pre2 + 'saleOrder', pre2 + 'userOperate', pre2 + 'systemLog']
-// 非管理员详情页路由
 const pDetails = [pre3 + 'plantSerial', pre3 + 'fertilizeBatch', pre3 + 'detectBatch', pre3 + 'farmingBatch', pre3 + 'harvestBatch', pre3 + 'teaOrderBatch', pre3 + 'invoicesOrderBatch', pre3 + 'productiveTaskBatch', pre3 + 'pickingListBatch', pre3 + 'storageOrderBatch', pre3 + 'storageProductCodeBatch', pre3 + 'saleOrderBatch', pre3 + 'deliverOrderBatch']
 // 登录后不能访问的路由
 const any = ['/', '/protocol', '/forget', '/login', '/waplogin']
-
-// 权限控制路由
-// router.beforeEach(async (to, from, next) => {
-//     if (to.path.indexOf('teaTrace') === -1) {
-//         if (window.flag) {
-//             await axios.get('/login/state').then(responce => {
-//                 if (responce.data.name === undefined) {
-//                     if (to.path === '/') {
-//                         next('/login')
-//                     } else {
-//                         if (to.path.indexOf('/index') !== -1) {
-//                             next('/login')
-//                         } else {
-//                             window.flag = true
-//                             next()
-//                         }
-//                     }
-//                 } else {
-//                     for (let i in any) {
-//                         if (to.path.indexOf(any[i]) !== -1) {
-//                             next('/index/home')
-//                             return false
-//                         }
-//                     }
-//                     window.Roles = responce.data
-//                     let data = window.Roles.permissions
-//                     if (data.one !== 'admin') {
-//                         for (let a in admins) {
-//                             if (to.path.indexOf(admins[a]) !== -1) {
-//                                 next('/index/home')
-//                                 return false
-//                             }
-//                         }
-//                     } else {
-//                         for (let p in persons) {
-//                             if (to.path.indexOf(persons[p]) !== -1) {
-//                                 next('/index/home')
-//                                 return false
-//                             }
-//                         }
-//                     }
-//                     next()
-//                 }
-//             })
-//         } else {
-//             if (to.path === '/login') {
-//                 window.flag = true
-//                 next()
-//             } else {
-//                 next('/login')
-//             }
-//         }
-//     } else {
-//         next()
-//     }
-// })
 
 router.beforeEach(async (to, from, next) => {
     if (to.path.indexOf('teaTrace') === -1) {
