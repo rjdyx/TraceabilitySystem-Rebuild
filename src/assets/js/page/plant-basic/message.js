@@ -2236,7 +2236,7 @@ export default {
                         value: '常规', label: '常规'
                     },
                     {
-                        value: '冷藏', label: '冷藏'
+                        value: '冷冻', label: '冷冻'
                     },
                     {
                         value: '灌装', label: '灌装'
@@ -2318,7 +2318,7 @@ export default {
                         value: '常规', label: '常规'
                     },
                     {
-                        value: '冷藏', label: '冷藏'
+                        value: '冷冻', label: '冷冻'
                     },
                     {
                         value: '灌装', label: '灌装'

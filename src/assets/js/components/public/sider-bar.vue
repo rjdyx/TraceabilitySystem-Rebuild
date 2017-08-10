@@ -32,6 +32,7 @@ export default {
     name: 'SiderBar',
     data () {
         return {
+            record: ''
         }
     },
     props: {
@@ -44,16 +45,22 @@ export default {
     },
     computed: {
         ...mapGetters({
-            record: 'getRecord',
+            record1: 'getRecord',
+            // ture/关闭侧边栏 false/开启侧边栏
             isShowSiderBar: 'getSiderBar'
         })
     },
     mounted () {
-        this.record = this.$store.getters.getRecord
+        this.$nextTick(() => {
+            this.record = this.record1
+        })
     },
     methods: {
+        ...mapActions([
+            'switch_record'
+        ]),
         handle (index) {
-            this.$store.dispatch('switch_record', index)
+            this.switch_record(index)
         },
         handleClose (key, keyPath) {
         },
@@ -64,11 +71,15 @@ export default {
     },
     watch: {
         isShowSiderBar () {
+            console.log('----------isShowSiderBar')
             if (this.isShowSiderBar) {
                 this.$children[0].$children[0].closeMenu()
                 this.$children[0].$children[0].activedIndex = ''
                 this.$store.dispatch('switch_record', '')
             }
+        },
+        record () {
+            console.log('更改record了，快来看看')
         }
     }
 }

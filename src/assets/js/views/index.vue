@@ -42,7 +42,8 @@ export default {
                 }
             ],
             menus: menu,
-            show: true
+            show: true,
+            arr: []
         }
     },
     components: {
@@ -55,6 +56,7 @@ export default {
             if (window.Roles.permissions !== undefined) {
                 roleData = window.Roles.permissions.two
             }
+            console.log(111)
             for (let i in datas) {
                 if (datas[i].key !== 'admin') {
                     datas[i].role = roleData[datas[i].key] === undefined ? 0 : 1

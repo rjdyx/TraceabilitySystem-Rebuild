@@ -6,7 +6,7 @@ const state = {
     theme: func.themeLocal.get() || {theme: 'blue'},
     font: func.fontLocal.get() || {font: 'middle'},
     record: func.modelLocal.get() || {record: ''},
-    siderBar: func.siderBarLocal.get() || {siderBar: false}
+    siderBar: func.siderBarLocal.get() || {siderBar: true}
 }
 export default{
     state,
