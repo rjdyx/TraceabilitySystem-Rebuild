@@ -945,6 +945,7 @@ export default {
                     isNull: false,
                     label: '产品名称',
                     placeholder: '必填',
+                    arrOption: ['specification'],
                     rule: {required: true, message: '请选择产品名称', type: 'number'},
                     options: []
                 },
@@ -955,6 +956,7 @@ export default {
                     isNull: true,
                     label: '规格型号',
                     placeholder: '',
+                    disabled: true,
                     rule: {required: true, message: '请输入规格型号'}
                 },
                 {

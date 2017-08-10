@@ -920,7 +920,10 @@ export default {
         },
         detailShow (index, row) {
             var id = row.id
-            this.$router.push('/index/details/' + this.batch + '/' + id)
+            this.$router.push('/index/details/' + this.batch)
+            if (id) {
+                localStorage.setItem('detailsId', id)
+            }
         },
         getPermission (data) {
             this.checkeds = data
