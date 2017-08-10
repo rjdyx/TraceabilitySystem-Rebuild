@@ -255,12 +255,11 @@ export default {
             news: 'new',
             operateArr1: ['sunning', 'cooling'],
             operateArr2: ['make_green', 'kill_out', 'knead_nori', 'deblock', 'dry', 'filtrate', 'refiring'],
-            selectIdArr: ['picking_list_product_id', 'storage_order_product_id', 'client_id', 'delivery_id', 'sell_store_id']
+            selectIdArr: ['picking_list_product_id', 'storage_order_product_id', 'client_id', 'delivery_id', 'sell_store_id', 'invoices_order_product_id']
         }
     },
     mixins: [move],
     mounted () {
-        console.log(this.permissionShow)
         if (this.checkboxShow) {
             // 全部数据
             axios.get(this.$adminUrl('company/permission'))
