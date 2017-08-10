@@ -84,7 +84,10 @@ export default {
             this.popClose()
             this.$dataPost(this, 'company_permission/' + this.id, this.tableForm).then((response) => {
                 if (response.data !== 'false') {
-                    this.$message('编辑权限成功')
+                    this.$message({
+                        type: 'success',
+                        message: '编辑权限成功'
+                    })
                 } else {
                     this.$message.error('编辑权限失败')
                 }

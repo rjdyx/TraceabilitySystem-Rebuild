@@ -98,7 +98,10 @@ export default {
                 .then((responce) => {
                     this.closeClick()
                     if (responce.data !== 'false') {
-                        this.$message('修改权限角色成功')
+                        this.$message({
+                            type: 'success',
+                            message: '修改权限角色成功'
+                        })
                     } else {
                         this.$message.error('修改权限角色失败')
                     }

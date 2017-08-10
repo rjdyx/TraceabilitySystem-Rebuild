@@ -21,11 +21,8 @@ const excepts = ['/index/home', pre + 'set', pre + 'test', pre + 'help', pre + '
 // 管理员路由
 const admins = [pre2 + 'adminRole', pre2 + 'adminCompany', pre2 + 'adminFeedback', pre2 + 'adminLog']
 const aDetails = [pre3 + 'companyUser']
-// 非管理员路由
-const persons = [pre2 + 'plantBase', pre2 + 'plantSerial', pre2 + 'plantFarm', pre2 + 'vegetableSerial', pre2 + 'storageBasic', pre2 + 'logisticsBatch', pre2 + 'storageOperate', pre2 + 'saleProduct', pre2 + 'saleOrder', pre2 + 'userOperate', pre2 + 'systemLog']
-const pDetails = [pre3 + 'plantSerial', pre3 + 'fertilizeBatch', pre3 + 'detectBatch', pre3 + 'farmingBatch', pre3 + 'harvestBatch', pre3 + 'teaOrderBatch', pre3 + 'invoicesOrderBatch', pre3 + 'productiveTaskBatch', pre3 + 'pickingListBatch', pre3 + 'storageOrderBatch', pre3 + 'storageProductCodeBatch', pre3 + 'saleOrderBatch', pre3 + 'deliverOrderBatch']
 // 登录后不能访问的路由
-const any = ['/', '/protocol', '/forget', '/login', '/waplogin']
+const any = ['/protocol', '/forget', '/login', '/waplogin']
 
 router.beforeEach(async (to, from, next) => {
     if (to.path.indexOf('teaTrace') === -1) {
@@ -43,8 +40,8 @@ router.beforeEach(async (to, from, next) => {
                     window.Roles = responce.data
                     let data = window.Roles.permissions
                     if (data.one !== 'admin') {
-                        var pArr = excepts.concat(persons)
-                        pArr = pArr.concat(pDetails)
+                        var pArr = data.one.concat(data.details)
+                        pArr = pArr.concat(excepts)
                         for (let p in pArr) {
                             if (to.path === pArr[p]) {
                                 next()
