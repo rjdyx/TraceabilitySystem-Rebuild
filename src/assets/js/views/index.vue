@@ -50,13 +50,29 @@ export default {
         SiderBar
     },
     methods: {
-        // changeSub () {
-        //     this.$refs.siderBar.$children[0].$children[0].closeMenu()
-        //     this.$refs.siderBar.$children[0].$children[0].activedIndex = ''
-        //     this.$store.dispatch('switch_record', '')
-        // }
+        getForeach (datas) {
+            var roleData = {}
+            if (window.Roles.permissions !== undefined) {
+                roleData = window.Roles.permissions.two
+            }
+            for (let i in datas) {
+                if (datas[i].key !== 'admin') {
+                    datas[i].role = roleData[datas[i].key] === undefined ? 0 : 1
+                    for (let j in datas[i].childrenKey) {
+                        datas[i].children[j].role = roleData[datas[i].key] === undefined ? 0 : roleData[datas[i].key][datas[i].childrenKey[j]] === undefined ? 0 : 1
+                    }
+                } else {
+                    datas[i].role = roleData !== 'admin' ? 0 : 1
+                    for (let j in datas[i].childrenKey) {
+                        datas[i].children[j].role = roleData !== 'admin' ? 0 : 1
+                    }
+                }
+            }
+            return datas
+        }
     },
     mounted () {
+        this.menus = this.getForeach(this.menus)
         if (!window.isPC) {
             this.$router.push('/appIndex')
         }

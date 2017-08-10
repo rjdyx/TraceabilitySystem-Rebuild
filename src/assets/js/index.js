@@ -15,62 +15,124 @@ Vue.use(VueRouter)
 require('./config/init')
 const pre = '/index/'
 const pre2 = '/index/message/'
+const pre3 = '/index/details/'
 // 权限外路由(需登录)
-const Excepts = ['/', '/index/home', pre + 'set', pre + 'test', pre + 'help', pre + 'question', pre + '404', pre + 'ondone']
+const excepts = ['/index/home', pre + 'set', pre + 'test', pre + 'help', pre + 'question', pre + '404', pre + 'ondone']
 // 管理员路由
-const Admins = [pre2 + 'adminRole', pre2 + 'adminCompany', pre2 + 'adminFeedback', pre2 + 'adminLog']
+const admins = [pre2 + 'adminRole', pre2 + 'adminCompany', pre2 + 'adminFeedback', pre2 + 'adminLog']
+const aDetails = [pre3 + 'companyUser']
+// 非管理员路由
+const persons = [pre2 + 'plantBase', pre2 + 'plantSerial', pre2 + 'plantFarm', pre2 + 'vegetableSerial', pre2 + 'storageBasic', pre2 + 'logisticsBatch', pre2 + 'storageOperate', pre2 + 'saleProduct', pre2 + 'saleOrder', pre2 + 'userOperate', pre2 + 'systemLog']
+// 非管理员详情页路由
+const pDetails = [pre3 + 'plantSerial', pre3 + 'fertilizeBatch', pre3 + 'detectBatch', pre3 + 'farmingBatch', pre3 + 'harvestBatch', pre3 + 'teaOrderBatch', pre3 + 'invoicesOrderBatch', pre3 + 'productiveTaskBatch', pre3 + 'pickingListBatch', pre3 + 'storageOrderBatch', pre3 + 'storageProductCodeBatch', pre3 + 'saleOrderBatch', pre3 + 'deliverOrderBatch']
 // 登录后不能访问的路由
-const any = ['/protocol', '/forget', '/login', 'waplogin']
+const any = ['/', '/protocol', '/forget', '/login', '/waplogin']
 
 // 权限控制路由
+// router.beforeEach(async (to, from, next) => {
+//     if (to.path.indexOf('teaTrace') === -1) {
+//         if (window.flag) {
+//             await axios.get('/login/state').then(responce => {
+//                 if (responce.data.name === undefined) {
+//                     if (to.path === '/') {
+//                         next('/login')
+//                     } else {
+//                         if (to.path.indexOf('/index') !== -1) {
+//                             next('/login')
+//                         } else {
+//                             window.flag = true
+//                             next()
+//                         }
+//                     }
+//                 } else {
+//                     for (let i in any) {
+//                         if (to.path.indexOf(any[i]) !== -1) {
+//                             next('/index/home')
+//                             return false
+//                         }
+//                     }
+//                     window.Roles = responce.data
+//                     let data = window.Roles.permissions
+//                     if (data.one !== 'admin') {
+//                         for (let a in admins) {
+//                             if (to.path.indexOf(admins[a]) !== -1) {
+//                                 next('/index/home')
+//                                 return false
+//                             }
+//                         }
+//                     } else {
+//                         for (let p in persons) {
+//                             if (to.path.indexOf(persons[p]) !== -1) {
+//                                 next('/index/home')
+//                                 return false
+//                             }
+//                         }
+//                     }
+//                     next()
+//                 }
+//             })
+//         } else {
+//             if (to.path === '/login') {
+//                 window.flag = true
+//                 next()
+//             } else {
+//                 next('/login')
+//             }
+//         }
+//     } else {
+//         next()
+//     }
+// })
+
 router.beforeEach(async (to, from, next) => {
-    var check = false
     if (to.path.indexOf('teaTrace') === -1) {
-        if (window.Roles.name === undefined) {
-            try {
-                await axios.get('/login/state').then(responce => {
-                    let except = to.matched.some((item, index, array) => {
-                        if (any.indexOf(to.path) === -1) return true
-                    })
-                    if (responce.data.name === undefined) {
-                        window.Roles = {}
-                        if (window.isPC) {
-                            if (except) next({path: '/login'})
-                        } else {
-                            if (except) next({path: '/waplogin'})
-                        }
-                    } else {
-                        if (!except) check = true
-                        window.Roles = responce.data
-                        let data = window.Roles.permissions
-                        if (to.path.indexOf('details') === -1 && to.path.indexOf('teaTrace') === -1) {
-                            if (data.one === 'admin') {
-                                if (Excepts.indexOf(to.path) === -1 && Admins.indexOf(to.path) === -1) check = true
-                            } else {
-                                if ((Excepts.indexOf(to.path) === -1 && data.one.indexOf(to.path) === -1) || Admins.indexOf(to.path) !== -1) check = true
-                            }
+        if (window.flag) {
+            await axios.get('/login/state').then(responce => {
+                if (responce.data.name === undefined) {
+                    for (let l in any) {
+                        if (to.path === any[l]) {
+                            next()
+                            return false
                         }
                     }
-                })
-            } catch (e) {
-                console.log(e)
-            }
-        } else {
-            var data2 = window.Roles.permissions
-            if (any.indexOf(to.path) !== -1) {
-                check = true
-            }
-            if (to.path.indexOf('details') === -1 && to.path.indexOf('teaTrace') === -1) {
-                if (data2.one === 'admin') {
-                    if (Excepts.indexOf(to.path) === -1 && Admins.indexOf(to.path) === -1) check = true
+                    next('/login')
                 } else {
-                    if ((Excepts.indexOf(to.path) === -1 && data2.one.indexOf(to.path) === -1) || Admins.indexOf(to.path) !== -1) check = true
+                    window.Roles = responce.data
+                    let data = window.Roles.permissions
+                    if (data.one !== 'admin') {
+                        var pArr = excepts.concat(persons)
+                        pArr = pArr.concat(pDetails)
+                        for (let p in pArr) {
+                            if (to.path === pArr[p]) {
+                                next()
+                                return false
+                            }
+                        }
+                        next('/index/home')
+                    } else {
+                        var aArr = excepts.concat(admins)
+                        aArr = aArr.concat(aDetails)
+                        for (let a in aArr) {
+                            if (to.path === aArr[a]) {
+                                next()
+                                return false
+                            }
+                        }
+                        next('/index/home')
+                    }
                 }
+            })
+        } else {
+            if (to.path === '/login') {
+                window.flag = true
+                next()
+            } else {
+                next('/login')
             }
         }
+    } else {
+        next()
     }
-    if (check) next({path: '/'})
-    next()
 })
 
 const app = new Vue({

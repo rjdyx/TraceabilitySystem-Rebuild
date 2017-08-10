@@ -29,7 +29,7 @@ export default {
             checked: [],
             activeName: 'first',
             models: modelObj,
-            notCreate: ['send']
+            notCreate: ['send', 'log']
         }
     },
     methods: {

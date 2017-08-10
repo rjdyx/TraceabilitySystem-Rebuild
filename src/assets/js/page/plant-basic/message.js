@@ -4685,7 +4685,6 @@ export default {
         url: 'role',
         roleName: ['system/role', 0],
         hiddenValue: {'fixation': 0},
-        // changeDataArr: [{fixation: {0: '否', 1: '是'}}],
         searchPlaceholder: '请输入角色名称进行搜索',
         theads: ['英文名称', '中文名称', '描述'],
         protos: ['name', 'display_name', 'description'],
