@@ -32,7 +32,7 @@ export default {
                     cxt.closePath()
                     if (this.x > canvas.width) {
                         clearInterval(timer)
-                        $(canvas).css('z-index', -2)
+                        $(canvas).css('display', 'none')
                     }
                 }, 20)
                 i++
