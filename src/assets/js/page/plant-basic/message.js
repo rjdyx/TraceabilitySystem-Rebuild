@@ -4686,8 +4686,8 @@ export default {
         roleName: ['system/role', 0],
         hiddenValue: {'fixation': 0},
         // changeDataArr: [{fixation: {0: '否', 1: '是'}}],
-        searchPlaceholder: '请输入角色名称进行搜索',
-        theads: ['英文名称', '中文名称', '描述'],
+        searchPlaceholder: '请输入中文名称进行搜索',
+        theads: ['英文名称', '中文名称', '角色描述'],
         protos: ['name', 'display_name', 'description'],
         widths: [50, 50, 50],
         typeComponent: [{
@@ -4857,12 +4857,12 @@ export default {
             },
             {
                 name: 'hiredate',
-                type: 'text',
-                component: null,
+                type: 'date',
+                component: inputDate,
                 isNull: false,
                 label: '入职日期',
-                placeholder: '请输入日期',
-                rule: null
+                placeholder: '请输入入职日期',
+                rule: [{required: false, message: '请选择入职日期'}, {validator: validate2.reDate, message: '请选择入职日期'}]
             },
             {
                 name: 'number',
@@ -4960,12 +4960,12 @@ export default {
             },
             {
                 name: 'hiredate',
-                type: 'text',
-                component: null,
+                type: 'date',
+                component: inputDate,
                 isNull: false,
                 label: '入职日期',
-                placeholder: '请输入日期',
-                rule: null
+                placeholder: '请输入入职日期',
+                rule: [{required: false, message: '请选择入职日期'}, {validator: validate2.reDate, message: '请选择入职日期'}]
             },
             {
                 name: 'number',

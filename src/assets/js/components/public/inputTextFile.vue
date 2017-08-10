@@ -17,7 +17,7 @@
             slot="reference"
             >
             <el-tooltip placement="right" v-if="imageUrl" effect="light">
-              <img slot="content" :src="imageUrl" style="width:200px">
+              <img slot="content" :src="imageUrl" style="width:350px">
               <img :src="imageUrl" class="avatar">
             </el-tooltip>
             <i v-else class="el-icon-plus avatar-uploader-icon" ></i>

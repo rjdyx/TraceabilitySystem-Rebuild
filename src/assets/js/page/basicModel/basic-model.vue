@@ -348,7 +348,10 @@ export default {
         },
         jumpDetails (row) {
             var id = row.id
-            this.$router.push('/index/details/' + this.batch + '/' + id)
+            this.$router.push('/index/details/' + this.batch)
+            if (id) {
+                localStorage.setItem('detailsId', id)
+            }
         },
         /**
          * 列表选择事件

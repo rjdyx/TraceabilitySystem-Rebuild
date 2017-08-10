@@ -208,7 +208,7 @@ var routes = [
                 component: ondone
             },
             {
-                path: 'details/:model/:id',
+                path: 'details/:model',
                 component: details
             }]
     },

@@ -136,6 +136,7 @@ $display: inline-block;
 		}
 		.mainPic{
 			text-align: center;
+            padding-top:30px;
 		}
     }
 }

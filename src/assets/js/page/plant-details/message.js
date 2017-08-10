@@ -759,7 +759,7 @@ export default {
             headList: ['成品名称', '数量', '单位', '包装', '规格', '备注信息'],
             protos: ['product_name', 'amount', 'unit', 'package', 'specification', 'memo'],
             prinftBottom: ['合计', '送货地址', '制单人', '部门经理审核'],
-            prinftBottomProtos: ['', 'ship_address', 'operate', ''],
+            prinftBottomProtos: ['', 'ship_address', 'operate', 'state'],
             hiddeEdit: true,
             searchText: true,
             widths: [50, 50, 50, 50, 50, 50],
