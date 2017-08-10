@@ -172,6 +172,9 @@ $b_small: 18px;
 	.avatar-uploader .el-upload:hover,.el-pagination__editor:focus{
 		border-color: $bg;
 	}
+	.allCheck .wraps .span-checked{
+		background-color: $bg;
+	}
 	.allCheck{
 		.el-checkbox__input.is-checked .el-checkbox__inner{
 		background-color: $bg;
