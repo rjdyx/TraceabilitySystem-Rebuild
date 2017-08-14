@@ -1043,6 +1043,7 @@ export default {
             text-align: center;
         }
         #operate{
+            overflow: hidden;
             /*min-width: 1100px;*/
             /*margin-bottom: 10px;*/
         }
@@ -1098,7 +1099,5 @@ export default {
         width: 30% !important;
     }
 }
-} 
-
-
+}
 </style>

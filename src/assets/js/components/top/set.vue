@@ -226,6 +226,8 @@ export default {
         }
     },
     mounted () {
+        // true/关闭侧边栏
+        // false/打开侧边栏
         this.change_siderBar(true)
         localStorage.setItem('tab', 0)
         let theme = this.$store.getters.getTheme

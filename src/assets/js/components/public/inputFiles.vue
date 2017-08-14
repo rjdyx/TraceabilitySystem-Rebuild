@@ -19,9 +19,12 @@
               :on-success="handeSuccess">
           <i class="el-icon-plus"></i>
         </el-upload>
-        <el-dialog v-model="dialogVisible" size="tiny">
-            <img width="100%" :src="dialogImageUrl" alt="">
-        </el-dialog>
+        <transition name="fade">
+            <div class="inputFilesDialogImg" v-if="dialogVisible">
+                <i class="el-icon-close" @click="dialogVisible = false"></i>
+                <img width="100%" :src="dialogImageUrl" alt="">
+            </div>
+        </transition>
         <p>最多只能上传6张图片</p>
     </div>
 </template>
@@ -61,8 +64,12 @@ export default {
             this.setPicArr(fileList)
         },
         handlePictureCardPreview (file) {
+            console.log(888)
             this.dialogImageUrl = file.url
             this.dialogVisible = true
+            this.$nextTick(() => {
+                console.log($('.v-model'))
+            })
         },
         beforeUpload (file) {
             if (this.pattern.indexOf(file.type) === -1) {
@@ -119,6 +126,9 @@ export default {
     },
     mounted () {
         this.loadEdit()
+        this.$nextTick(() => {
+            $('.v-modal').css('display', 'none')
+        })
     },
     watch: {
         inputList () {
@@ -146,10 +156,20 @@ export default {
        height:80px; 
        line-height:85px;
     }
+    .inputFilesDialogImg{
+        width:30%;
+        position:fixed;
+        top: 50%;
+        left: 50%;
+        transform:translateX(-50%) translateY(-50%);
+        padding:10px; 
+        background: white;
+        z-index:20000;
+        text-align:right;
+        box-shadow: 1px 1px 50px rgba(0, 0, 0, 0.3);
+        border-radius: 2px;
+    }
 }
-// .el-dialog__wrapper{
-//     background:rgba(0,0,0,.3);
-// }
 .el-upload-list--picture-card .el-upload-list__item {
     width:80px;
     height:80px;
