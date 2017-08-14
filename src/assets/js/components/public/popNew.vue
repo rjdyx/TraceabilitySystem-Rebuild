@@ -13,7 +13,7 @@
     <i class="closeBtn" @click="closeClick"></i>
       <!-- tab选项卡 -->
       <!-- <h4>{{newComponent[0].tab}}</h4> -->
-      <el-tabs v-model="activeName" @tab-click="handleClick" class="tab">
+    <el-tabs v-model="activeName" @tab-click="handleClick" class="tab">
         <el-tab-pane :label="item.tab" :name="item.tab" v-for="(item,i) in newComponent" :key="i">
           <!-- 表单 -->
         <el-form :model="tableForm" :rules="rules" ref="tableForm" label-width="110px" class="demo-tableForm">
@@ -166,11 +166,10 @@
                     </td>
                 </tr>
             </tbody>
-          </table>
-         </el-form>
+            </table>
+            </el-form>
         </el-tab-pane>
-        
-      </el-tabs>
+    </el-tabs>
         <div class="form-footer">
             <el-button class="btn_change" @click="submitForm('tableForm')">确定</el-button>
             <el-button class="activecancel" @click="cancelClick">取消</el-button>
@@ -568,5 +567,5 @@ export default {
 }
 </script>
 <style lang="sass">
-@import "../../../sass/public/pop.scss"
+@import "../../../sass/public/pop.scss";
 </style>

@@ -28,11 +28,7 @@
 			</div>
 			<footer-top></footer-top>
             <transition name="fade">
-<<<<<<< HEAD
 			    <companyEdit v-if="isShow" :editValue="listV" @updateValue="updateVal"></companyEdit>
-=======
-                <companyEdit v-if="isShow" :editValue="listV" @updateValue="updateVal" :changeDataArr="changeDataArr"></companyEdit>
->>>>>>> 47207d4376fa9091118238cdf9353fb7c644d45d
             </transition>
             <!-- <transition name="fade">
                 <userEdit v-if="isShow" :editValue="listV" @updateValue="updateVal"></userEdit>
