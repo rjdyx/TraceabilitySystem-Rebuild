@@ -87,7 +87,7 @@ export default {
         } else {
             var tabLocalProduct = JSON.parse(localStorage.getItem('teaTrace_product'))
             this.datas = tabLocalProduct
-            if (tabLocalProduct.product_img !== 'null' && tabLocalProduct.product_img !== '') {
+            if (tabLocalProduct.product_img !== 'null' && tabLocalProduct.product_img !== '' && tabLocalProduct.product_img !== null) {
                 this.imgArr = tabLocalProduct.product_img.split(',')
             }
         }

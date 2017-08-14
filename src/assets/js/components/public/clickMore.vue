@@ -80,7 +80,7 @@
             },
             // 状态样式验证
             stateDisabled (val) {
-                let stateArr = ['已完成', '已入库', '已通过']
+                let stateArr = ['已完成', '已通过']
                 if (val === '状态' || val === '审核状态') {
                     if (stateArr.indexOf(this.row.state) !== -1) {
                         return true

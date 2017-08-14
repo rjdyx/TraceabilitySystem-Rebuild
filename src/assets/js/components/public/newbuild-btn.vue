@@ -32,7 +32,7 @@ export default {
             this.$parent.changeNewShow()
         },
         stateDisabled () {
-            let stateArr = ['已完成', '已入库', '已通过']
+            let stateArr = ['已完成', '已通过']
             if (this.headData.state !== undefined) {
                 if (stateArr.indexOf(this.headData.state) !== -1) {
                     return true

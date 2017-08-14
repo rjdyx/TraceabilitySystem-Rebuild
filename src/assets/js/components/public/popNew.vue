@@ -255,7 +255,7 @@ export default {
             news: 'new',
             operateArr1: ['sunning', 'cooling'],
             operateArr2: ['make_green', 'kill_out', 'knead_nori', 'deblock', 'dry', 'filtrate', 'refiring'],
-            selectIdArr: ['picking_list_product_id', 'storage_order_product_id', 'client_id', 'delivery_id', 'sell_store_id', 'invoices_order_product_id']
+            selectIdArr: ['picking_list_product_id', 'storage_order_product_id', 'client_id', 'delivery_id', 'sell_store_id', 'tea_order_product_id', 'harvest_id']
         }
     },
     mixins: [move],
@@ -543,7 +543,6 @@ export default {
                                         this.tableForm['store_name'] = responce.data['res'].store_name
                                         this.tableForm['deliveryman'] = responce.data['res'].deliveryman
                                         this.tableForm['tea_order_id'] = responce.data['res'].id
-                                        this.tableForm['tea_order_product_ids'] = responce.data['tea_order_product_ids']
                                     } else {
                                         this.seedAndMessage('请确定出库单号已存在产品')
                                     }
@@ -558,7 +557,6 @@ export default {
         },
         // 扫描后数据填充与提示
         seedAndMessage (message) {
-            this.tableForm['tea_order_product_ids'] = ''
             this.tableForm['tea_order_id'] = ''
             this.tableForm['orderNumber'] = ''
             this.tableForm['product_amount'] = ''

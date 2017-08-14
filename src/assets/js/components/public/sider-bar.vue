@@ -71,15 +71,11 @@ export default {
     },
     watch: {
         isShowSiderBar () {
-            console.log('----------isShowSiderBar')
             if (this.isShowSiderBar) {
                 this.$children[0].$children[0].closeMenu()
                 this.$children[0].$children[0].activedIndex = ''
                 this.$store.dispatch('switch_record', '')
             }
-        },
-        record () {
-            console.log('更改record了，快来看看')
         }
     }
 }

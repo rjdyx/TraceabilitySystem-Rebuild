@@ -229,7 +229,7 @@ export default {
             cname: '',
             cval: '',
             edit: 'edit',
-            selectIdArr: ['picking_list_product_id', 'storage_order_product_id', 'client_id', 'delivery_id', 'sell_store_id']
+            selectIdArr: ['picking_list_product_id', 'storage_order_product_id', 'client_id', 'delivery_id', 'sell_store_id', 'harvest_id']
         }
     },
     mounted () {
@@ -261,7 +261,7 @@ export default {
         },
         // 状态样式验证
         stateDisabled () {
-            let stateArr = ['已完成', '已入库', '已通过']
+            let stateArr = ['已完成', '已通过']
             if (this.editForm.state !== undefined) {
                 if (stateArr.indexOf(this.editForm.state) !== -1) {
                     return true

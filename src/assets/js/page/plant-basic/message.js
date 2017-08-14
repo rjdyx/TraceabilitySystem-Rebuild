@@ -3113,9 +3113,9 @@ export default {
             url: 'tea-order',
             batch: 'teaOrderBatch',
             searchPlaceholder: '请输入凤凰山茶出库批次号进行搜索',
-            changeDataArr: [{state: {0: '未入库', 1: '已入库'}}],
-            theads: ['出库批次号', '出库仓库名', '操作人（制票人）', '送货人', '出库日期', '状态', '备注'],
-            protos: ['serial', 'storeroom_name', 'operate', 'deliveryman', 'date', 'state', 'memo'],
+            changeDataArr: [{state: {0: '未完成', 1: '已完成'}}],
+            theads: ['出库批次号', '出库仓库名', '操作人（制票人）', '送货人', '出库日期', '入库', '备注'],
+            protos: ['serial', 'storeroom_name', 'operate', 'deliveryman', 'date', 'flag', 'memo'],
             widths: [50, 50, 50, 50, 50, 50],
             typeComponent: [{
                 component: output

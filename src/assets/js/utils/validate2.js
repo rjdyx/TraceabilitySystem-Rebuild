@@ -82,7 +82,6 @@ exports.reNumber = (rule, value, callback, source, options) => {
 }
 // 验证整数
 exports.reInteger = (rule, value, callback, source, options) => {
-    console.log(6666)
     if (value !== '' && value !== undefined && value !== null) {
         if (/^\d+$/.test(value)) {
             if (value === '0') {

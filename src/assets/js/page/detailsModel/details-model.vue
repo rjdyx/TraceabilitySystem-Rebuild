@@ -320,7 +320,7 @@ export default {
         },
         // 状态样式验证
         stateDisabled () {
-            let stateArr = ['已完成', '已入库', '已通过']
+            let stateArr = ['已完成', '已通过']
             if (this.headData.state !== undefined) {
                 if (stateArr.indexOf(this.headData.state) !== -1) {
                     return true
@@ -332,7 +332,7 @@ export default {
         },
         // 列表页复选框是否可选
         checkDisabled () {
-            let stateArr = ['已完成', '已入库', '已通过']
+            let stateArr = ['已完成', '已通过']
             if (this.headData.state !== undefined) {
                 if (stateArr.indexOf(this.headData.state) !== -1) {
                     return false
@@ -350,7 +350,10 @@ export default {
         },
         jumpDetails (row, cid) {
             var id = row.id
-            this.$router.push('/index/details/' + this.batch + '/' + id)
+            this.$router.push('/index/details/' + this.batch)
+            if (id) {
+                localStorage.setItem('detailsId', id)
+            }
         },
         // 显示新建表单
         changeNewShow () {

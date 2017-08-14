@@ -22,10 +22,30 @@ const excepts = ['/index/home', pre + 'set', pre + 'test', pre + 'help', pre + '
 const admins = [pre2 + 'adminRole', pre2 + 'adminCompany', pre2 + 'adminFeedback', pre2 + 'adminLog']
 const aDetails = [pre3 + 'companyUser']
 // 登录后不能访问的路由
-const any = ['/protocol', '/forget', '/login', '/waplogin']
+const any = ['/protocol', '/forget', '/login']
+// 追溯页面路由
+const teaTrace = [
+    '/teaTrace/tea/index/',
+    '/teaTrace/tea/basicInfor/',
+    '/teaTrace/tea/growImg/',
+    '/teaTrace/tea/fertilize/',
+    '/teaTrace/tea/detect/',
+    '/teaTrace/tea/farming/',
+    '/teaTrace/tea/harvest/',
+    '/teaTrace/tea/commodityInfor/',
+    '/teaTrace/tea/sale/'
+]
 
 router.beforeEach(async (to, from, next) => {
-    if (to.path.indexOf('teaTrace') === -1) {
+    var str = to.path.substring(0, to.path.length - 18)
+    var check = false
+    for (let t in teaTrace) {
+        if (str === teaTrace[t]) {
+            next()
+            check = true
+        }
+    }
+    if (!check) {
         if (window.flag) {
             await axios.get('/login/state').then(responce => {
                 if (responce.data.name === undefined) {
@@ -70,8 +90,6 @@ router.beforeEach(async (to, from, next) => {
                 next('/login')
             }
         }
-    } else {
-        next()
     }
 })
 
