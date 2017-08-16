@@ -73,6 +73,8 @@
                     this.$emit('showDetail')
                 } else if (command === '发货') {
                     this.$emit('shipGoods')
+                } else if (command === '交流') {
+                    this.$emit('communkation')
                 }
             },
             closeClick () {

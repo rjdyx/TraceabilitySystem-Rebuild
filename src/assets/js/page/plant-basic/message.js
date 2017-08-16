@@ -4365,6 +4365,35 @@ export default {
                 rule: null
             }]
         }],
+        moreComponent: [
+            {
+                value: '交流',
+                components: [{
+                    name: 'comPerson',
+                    type: 'text',
+                    component: null,
+                    label: '交流人员',
+                    placeholder: '',
+                    rule: null
+                },
+                {
+                    name: 'comInfo',
+                    type: 'text',
+                    component: null,
+                    label: '交流信息',
+                    placeholder: '',
+                    rule: null
+                },
+                {
+                    name: 'date',
+                    type: 'date',
+                    component: inputDate,
+                    label: '交流时间',
+                    placeholder: '',
+                    rule: [{required: false, message: '请输入采制日期'}, {validator: validate2.reDate, message: '请输入采制日期'}]
+                }]
+            }
+        ],
         listComponent: []
     }],
     // 销售管理-销售订单管理

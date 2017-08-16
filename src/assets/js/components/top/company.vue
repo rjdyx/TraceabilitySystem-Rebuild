@@ -11,7 +11,7 @@
 			</contain-title>
 			<div class="titleUser">
                     <div class="picture">
-                        <img  :src="logo" width="100%" height="100%"/>
+                        <img v-if="logo" :src="logo" width="100%" height="100%"/>
                     </div>
                     <el-row :gutter="20" class="text">
                         <el-col :xs="12" :sm="12" :md="12" :lg="8" v-for="(v,k) in listN"  class="coltext">
@@ -19,7 +19,7 @@
                         </el-col>
                     </el-row>
                     <div class="picture">
-                        <img  :src="watermark" width="100%" height="100%"/>
+                        <img v-if="watermark" :src="watermark" width="100%" height="100%"/>
                     </div>
                     <el-button class="edit" @click="showEdit">编辑</el-button> 
 			</div>
@@ -131,6 +131,7 @@ export default {
             position:absolute;
             top:50%;
             margin-top:-75px;
+            border:1px solid rgb(229, 229, 229);
             img{
                 width:100%;
                 height:100%;

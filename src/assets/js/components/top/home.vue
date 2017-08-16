@@ -12,7 +12,7 @@
 			</contain-title>
 			<div class="titleHome">
 				<span class="headerImg">
-					<img :src="listV.logo"/>
+					<img v-if="listV.logo" :src="listV.logo"/>
 				</span>
 				<ul  class="text homeInfo">
 					<li v-for="(item,index) in listN" class="coltext">
@@ -104,6 +104,7 @@ $absolute: absolute;
                 height:150px;
                 border:1px solid #dcdcdc;
                 margin-left:-200px;
+                border:1px solid rgb(229, 229, 229);
                 img{
                     width:100%;
                 }
