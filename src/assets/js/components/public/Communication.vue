@@ -71,7 +71,8 @@ export default {
         moreComponent: {
             type: Array,
             default: []
-        }
+        },
+        rowInfoId: ''
     },
     data () {
         let form = {}
@@ -102,7 +103,6 @@ export default {
     },
     methods: {
         handleClick (tab, event) {
-            // this.$parent.changeNewTab(tab.$data.index)
         },
         // 关闭表单事件
         closeClick () {
@@ -132,12 +132,20 @@ export default {
         * 提交表单
         */
         submitForm (formName) {
-            console.log(this.tableForm)
+            var url = this.rowInfoId + '/' + this.moreComponent[0].url
             this.$refs[formName][0].validate((valid) => {
                 if (valid) {
-                    console.log('chenggong')
+                    this.$dataPost(this, url, this.tableForm, false, false, false).then((response) => {
+                        if (response.data !== 'false') {
+                            this.$message({
+                                type: 'success',
+                                message: '操作成功'
+                            })
+                        } else {
+                            this.$message('操作失败')
+                        }
+                    })
                 } else {
-                    console.log('shibai')
                     return false
                 }
                 this.$parent.closeComShow()

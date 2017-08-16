@@ -4368,29 +4368,30 @@ export default {
         moreComponent: [
             {
                 value: '交流',
+                url: 'client-record',
                 components: [{
-                    name: 'comPerson',
+                    name: 'datetime',
+                    type: 'datetime',
+                    component: inputDateTimes,
+                    label: '交流时间',
+                    placeholder: '',
+                    rule: [{required: true, message: '请输入交流时间'}, {validator: validate2.reDate, message: '请输入交流时间'}]
+                },
+                {
+                    name: 'contact_name',
                     type: 'text',
                     component: null,
                     label: '交流人员',
                     placeholder: '',
-                    rule: null
+                    rule: {required: true, message: '请输入交流人员'}
                 },
                 {
-                    name: 'comInfo',
+                    name: 'info',
                     type: 'text',
                     component: null,
                     label: '交流信息',
                     placeholder: '',
-                    rule: null
-                },
-                {
-                    name: 'date',
-                    type: 'date',
-                    component: inputDate,
-                    label: '交流时间',
-                    placeholder: '',
-                    rule: [{required: false, message: '请输入采制日期'}, {validator: validate2.reDate, message: '请输入采制日期'}]
+                    rule: {required: true, message: '请输入交流信息'}
                 }]
             }
         ],

@@ -1590,142 +1590,26 @@ export default {
     },
     // 客户交流记录
     clientRecordBatch: {
-        key: 'saleOrderBatch',
-        tab: '销售订单产品管理',
-        printShow: true,
-        changeDataArr: [{transportable_type: {'自运': 'self', '托运': 'consign'}}],
-        theads: ['订单批次号', '订购公司', '联系人', '联系电话', '送货地址', '业务员', '制单人', '下单日期', '运输方式', '汇款账户', '物流单号', '备注'],
-        protos: ['serial', 'company_name', 'contact', 'phone', 'address', 'sale_person', 'operate', 'date', 'transportable_type', 'bank_account', 'delivery_serial', 'memo'],
-        filter: [0, 6, 8, 9, 10, 11],
-        url: 'sell',
-        odd: '销售订单',
+        key: 'clientRecordBatch',
+        tab: '客户交流记录',
+        theads: ['客户名称', '客户所属公司', '通讯地址', '所在区域', '联系人', '联系方式', '传真'],
+        protos: ['name', 'company_name', 'address', 'location', 'contact', 'phone', 'fax'],
+        url: 'client',
+        odd: '交流记录',
         tabList: [{
-            key: 'sell-product',
-            url: 'sell-product',
-            tab: '销售订单产品信息',
-            searchPlaceholder: '请输入溯源码进行搜索',
-            headList: ['订单产品', '规格型号', '数量', '单价(元/件)', '金额（元）', '备注信息'],
-            protos: ['product_name', 'specification', 'amount', 'unit_price', 'total', 'memo'],
-            prinftBottom: ['合计', '送货地址', '制单人', '部门经理审核', '运输方式', '汇款账户', '物流单号'],
-            prinftBottomProtos: ['', 'address', 'operate', '', 'transportable_type', 'bank_account', 'delivery_serial'],
-            hiddeEdit: true,
+            key: 'client-record',
+            url: 'client-record',
+            tab: '客户交流记录',
+            searchPlaceholder: '请输入交流人员进行搜索',
+            headList: ['交流日期', '交流人员', '交流信息'],
+            protos: ['datetime', 'contact_name', 'info'],
+            widths: [50, 50, 50],
+            hiddeEdit: false,
             searchText: true,
-            widths: [50, 50, 50, 50, 50, 50],
             typeComponent: [{
-                component: newbuildBtn
+                component: output
             }],
-            listComponent: [],
-            newComponent: [{
-                tab: '新建销售订单产品信息',
-                selectUrl2: [['sell_stores', 'id', 'product_name', true]],
-                selectInit2: [{value: '', label: '产品选择'}],
-                popNumber2: [0],
-                components: [{
-                    name: 'sell_store_id',
-                    type: 'select',
-                    component: null,
-                    isNull: false,
-                    label: '订单产品',
-                    placeholder: '',
-                    arrOption: ['specification'],
-                    placeholderMsg: 2,
-                    rule: {required: true, trigger: 'blur', type: 'number', message: '请选择产品'},
-                    options: []
-                },
-                {
-                    name: 'specification',
-                    type: 'text',
-                    component: null,
-                    isNull: false,
-                    label: '规格型号',
-                    placeholder: '',
-                    disabled: true,
-                    rule: {required: true, trigger: 'blur', message: '请输入规格型号'}
-                },
-                {
-                    name: 'amount',
-                    type: 'text',
-                    component: null,
-                    isNull: false,
-                    label: '产品数量',
-                    placeholder: '',
-                    rule: [{required: true, trigger: 'blur', message: '请输入产品数量'}, {validator: validate2.reInteger, getMessage: '产品数量不能大于库存数'}]
-                },
-                {
-                    name: 'unit_price',
-                    type: 'text',
-                    component: null,
-                    isNull: false,
-                    label: '单价(元/件)',
-                    placeholder: '',
-                    rule: [{required: true, trigger: 'blur', message: '请输入产品单价'}, {validator: validate2.reNumber}]
-                },
-                {
-                    name: 'memo',
-                    type: 'textarea',
-                    component: null,
-                    isNull: true,
-                    label: '备注信息',
-                    placeholder: '',
-                    rule: null
-                }]
-            }],
-            editComponent: [{
-                tab: '编辑销售订单产品信息',
-                selectUrl2: [['sell_stores', 'id', 'product_name', true]],
-                selectInit2: [{value: '', label: '产品选择'}],
-                popNumber2: [0],
-                limit: 2,
-                components: [{
-                    name: 'sell_store_id',
-                    type: 'select',
-                    component: null,
-                    isNull: false,
-                    label: '产品选择',
-                    placeholder: '',
-                    arrOption: ['specification'],
-                    placeholderMsg: 2,
-                    rule: {required: true, trigger: 'blur', type: 'number', message: '请选择产品'},
-                    options: []
-                },
-                {
-                    name: 'specification',
-                    type: 'text',
-                    component: null,
-                    isNull: false,
-                    label: '规格型号',
-                    placeholder: '',
-                    disabled: true,
-                    rule: {required: true, trigger: 'blur', message: '请输入规格型号'}
-                },
-                {
-                    name: 'amount',
-                    type: 'text',
-                    component: null,
-                    isNull: false,
-                    label: '产品数量',
-                    placeholder: '',
-                    rule: [{required: true, message: '请输入产品数量'}, {validator: validate2.reInteger, getMessage: '产品数量不能大于库存数'}]
-                },
-                {
-                    name: 'unit_price',
-                    type: 'text',
-                    component: null,
-                    isNull: false,
-                    label: '单价(元/件)',
-                    placeholder: '',
-                    rule: [{required: true, message: '请输入产品单价'}, {validator: validate2.reNumber}]
-                },
-                {
-                    name: 'memo',
-                    type: 'textarea',
-                    component: null,
-                    isNull: true,
-                    label: '备注信息',
-                    placeholder: '',
-                    rule: null
-                }]
-            }]
+            listComponent: []
         }]
     },
     // 销售订单详情
