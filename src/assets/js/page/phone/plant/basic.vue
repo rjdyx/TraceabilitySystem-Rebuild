@@ -23,7 +23,9 @@
                      <tr v-for="(v,k) in models.tableProtos">
                         <td style="width: 28%">{{models.tableTheads[k] }}</td>
                         <td style="width: 72%" v-if="v=='area'">{{datas[v]}}{{datas.unit}}</td>
-                        <td style="width: 72%" v-else-if="v=='tea_img'"><img :src="datas[v]" height="30" @click="enlargeImgFn(datas[v])"></td>
+                        <td style="width: 72%" v-else-if="v=='tea_img'">
+                            <img v-if="datas[v]" :src="datas[v]" height="30" @click="enlargeImgFn(datas[v])">
+                        </td>
                         <td style="width: 72%" v-else>{{datas[v]}}</td>
                      </tr>
                      </tbody>

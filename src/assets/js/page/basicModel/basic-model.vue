@@ -67,6 +67,10 @@
         <transition name="fade">
             <roleCheckbox v-if="isRoleShow" :rowId="rowId"></roleCheckbox>
         </transition>
+         <!-- 交流模块 --> 
+        <transition name="fade">
+            <Communication v-if="isComShow" :moreComponent="moreComponent"></Communication>
+        </transition>
     </div>
     <!-- 列表模块 -->
     <el-table :data="tableData"  @selection-change="handleSelectionChange" v-loading="listLoading" element-loading-text="正在加载">
@@ -127,7 +131,8 @@
                     @showMore="moreShow(scope.$index,scope.row)" @showPermission="permissionShow(scope.$index,scope.row)" 
                     @showDetail="detailShow(scope.$index,scope.row)" class="clickMoreBtn"@return-permission="getPermission" 
                     @changeState="changeSerialState(scope.$index,scope.row)"
-                    @shipGoods="shipGood(scope.$index,scope.row)">
+                    @shipGoods="shipGood(scope.$index,scope.row)"
+                    @communkation="communkationFn">
                     </clickMore>
                 </template>
                 <template>
@@ -187,6 +192,7 @@ import printf from '../../components/public/printf.vue'
 import permissionCheckbox from '../../components/public/permissionCheckbox.vue'
 import company from '../../page/plant-basic/company.js'
 import companyPermission from '../../components/public/companyPermission.vue'
+import Communication from '../../components/public/Communication.vue'
 import roleCheckbox from '../../components/public/roleCheckbox.vue'
 export default {
     name: 'BasicModel',
@@ -268,6 +274,8 @@ export default {
             isPrintShow: false,
             isPermissionShow: false,
             checkboxShow: false,
+            // 是否显示交流
+            isComShow: false,
             // msg: 1,
             editBol: false,
             editForm: {},
@@ -310,6 +318,14 @@ export default {
         ...mapActions([
             'change_siderBar'
         ]),
+        // 更多--交流
+        communkationFn () {
+            this.isComShow = true
+        },
+        // 关闭交流
+        closeComShow () {
+            this.isComShow = false
+        },
         // 状态样式验证
         stateDisabled (row) {
             let stateArr = ['已完成', '已通过']
@@ -973,7 +989,8 @@ export default {
         printf,
         permissionCheckbox,
         roleCheckbox,
-        companyPermission
+        companyPermission,
+        Communication
     }
 }
 </script>

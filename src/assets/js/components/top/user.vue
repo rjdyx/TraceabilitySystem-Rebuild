@@ -11,7 +11,7 @@
 			</contain-title>
 			<div class="titleUser">
 				<span class="picture">
-					<img :src="img" width="100%" height="100%"/>
+					<img v-if='img' :src="img" width="100%" height="100%"/>
 				</span>
 				<el-row :gutter="20" class="text">
 					<el-col :span='8' v-for="(v,k) in listN"  class="coltext">
@@ -116,6 +116,7 @@ $display: inline-block;
 				width: 140px;
 				height: 140px;
 				margin:0 10px 0 0px;
+                border:1px solid rgb(229, 229, 229);
 			}
 			.text{
 				width: 100%;
