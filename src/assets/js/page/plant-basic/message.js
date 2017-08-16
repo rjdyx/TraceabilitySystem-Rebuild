@@ -4147,6 +4147,8 @@ export default {
         tab: '客户信息管理',
         url: 'client',
         roleKey: 'client',
+        hiddeShow: true,
+        batch: 'clientRecordBatch',
         searchPlaceholder: '请输入客户名称进行搜索',
         theads: ['客户名称', '公司名称', '身份证编号(公司注册号)', '汇款账号', '通讯地址', '所在区域', '联系人', '联系方式', '传真', '图片', '备注'],
         protos: ['name', 'company_name', 'IDNumber', 'bank_account', 'address', 'location', 'contact', 'phone', 'fax', 'img', 'memo'],
