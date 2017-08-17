@@ -110,7 +110,6 @@ export default {
 			background: rgba(255,255,255,0.0);
 			z-index: 6487984545;
     .app-menu {
-        // float: left;
         width: 180px;
         height: 100%;
         background-color: #324157;
@@ -118,6 +117,7 @@ export default {
         top: 0;
         left: 0;
         overflow: scroll;
+        box-shadow: 3px 0px 12px rgba(0,0,0,0.44);
     		.sider-arrow{
     			display: inline-block;
     			width: 20px;
@@ -139,10 +139,10 @@ export default {
         }
         .logout{
             width: 100%;
-            height: 7%;
+            height: 67px;
             border-top: 1px solid #1f2d3d;
-            position: relative;
-            bottom: -19%;
+            position: absolute;
+            bottom: 0px;
             span{
                 color: #fff;
                 width: 50%;

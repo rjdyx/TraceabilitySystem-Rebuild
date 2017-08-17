@@ -7,31 +7,17 @@
  */
 <template>
 	<div class="webIndex">
-		<div class="indexImg">
-			<img src="/public/images/cloud-s.png" class="cloud-s">
-			<img src="/public/images/cloud-b.png" class="cloud-b" @click="push">
-			<img src="/public/images/cloud-b.png" class="cloud-bb" @click="push">
-			<img src="/public/images/cloud-b.png" class="cloud-ss" @click="push">
-			<img src="/public/images/taiyang.png" class="taiyang">
-			<img src="/public/images/yueliang.png" class="yueliang">
-			<div class="clockDiv">
-				<img src="/public/images/clockbg.png" class="clockbg">
-				<img src="/public/images/cloud2.png" alt="" class="logo">
-				<div class="timeDiv">
-					<img class="quan" src="/public/images/quan.png" alt="">
-					<div>
-						<img src="/public/images/s.png" alt="" class="s">
-						<img src="/public/images/m.png" alt="" class="m">
-						<img src="/public/images/h.png" alt="" class="h">
-					</div>
-				</div>
-			</div>
-		</div>
 		<div class="indexlist">
 			<h1 class="company">所属公司：{{company}}</h1>
-			<p>用户名：{{user}}</p>
-			<p>登录时间：{{loginDate}}</p>
 			<p>用户类型：{{userType}}</p>
+			<p>用户名：{{user}}</p>
+			
+		</div>
+		<div class="indexImg">
+			<img src="/public/images/teaAppIndex.png">
+		</div>
+		<div class="loginTime">
+			<p>登录时间：{{loginDate}}</p>
 		</div>
 	</div>
 </template>
@@ -85,147 +71,22 @@ export default{
 </script>
 
 <style lang='sass'>
-@mixin clockImg($h, $mt, $ml){
-	height: $h;
-	margin-top: $mt;
-	margin-left: $ml;
-}
-@mixin cloud($w, $h, $p, $t, $l, $zI){
-	width: $w;
-	height: $h;
-	position: $p;
-	top: $t;
-	left:$l;
-	z-index: $zI;
-	
-}
 	.webIndex{
 		width: 100%;
 		height: 100%;
-		padding-top: 50px;
+		padding-top: 1rem;
 		position: relative;
 		z-index: -5;
 		overflow: hidden;
+		background: #8dcf87 !important;
 		.indexImg{
 			width: 100%;
+			height: 50%;
 			position: relative;
 			text-align: center;
-			.clockDiv{
-				display:inline-block;
-				width: 74%;
-				margin-top: .8rem;
-				position: relative;
-				padding-bottom: 12%;
-				text-align: center;
-				.clockbg{
-					width: 100%;
-					margin-left: -10%;
-				}
-				.logo{
-					width: 76%;
-					position: absolute;
-					bottom: -0%;
-					left: 13%;
-					/*display: none;*/
-					z-index: 2;
-				}
-				.timeDiv{
-					width: 69%;
-					position: absolute;
-					bottom: 2%;
-					right:5%;
-					margin-right: 10%;
-					margin-bottom: 22%;
-					.quan{
-						width: 100%;
-						opacity: 0;
-					}
-					>div{
-						img{
-							position: absolute;
-							top: 48%;
-							left: 50%;
-							transform-origin: bottom;
-							/*z-index: 3;*/
-						}
-						.s{
-							@include clockImg(45%, -45%, -.399%);
-						}
-						.m{
-							@include clockImg(37%, -37%, -2%);
-						}
-						.h{
-							@include clockImg(28%, -28%, -2%);
-						}
-					}
-				}
-			}
-			.cloud-s{
-				animation: cloud-s 30s linear 0s forwards;
-				@include cloud(15%, 7%, absolute, 2%, 0%, -1);
-			}
-			.cloud-b{
-				animation: cloud-b 8s linear forwards 0s;
-				@include cloud(24%, auto, absolute, 2%, 76%, -1);
-			}
-			.cloud-bb{
-				animation: cloud-bb 30s linear infinite 4s;
-				@include cloud(24%, auto, absolute, 4%, -24%, -1);
-			}
-			.cloud-ss{
-				animation: cloud-ss 30s linear infinite 20s;
-				@include cloud(15%, 7%, absolute, 3%, -15%, -1);
-			}
-			.taiyang{
-				@include cloud(15%, auto, absolute, 2%, 80%, -2);
-				transform: rotate(0deg);
-				animation: taiyang 20s linear infinite 0s;
-				display: none;
-			}
-			.yueliang{
-				@include cloud(15%, auto, absolute, 3%, 20%, -2);
-				/*animation: yueliang 20s linear infinite 0s;*/
-				display: none;
-			}
-			@keyframes cloud-s{
-				0%{
-					left: 0%;
-				}
-				100%{
-					left: 100%;
-				}
-			}
-			@keyframes cloud-b{
-				0%{
-					left: 76%;
-				}
-				100%{
-					left:100%;
-				}
-			}
-			@keyframes cloud-bb{
-				0%{
-					left: -24%;
-				}
-				100%{
-					left:100%;
-				}
-			}
-			@keyframes cloud-ss{
-				0%{
-					left: -15%;
-				}
-				100%{
-					left:100%;
-				}
-			}
-			@keyframes taiyang{
-				0%{
-					transform: rotate(0deg);
-				}
-				100%{
-					transform: rotate(360deg);
-				}
+			margin-top: 0.7rem;
+			img{
+				width: 92%;
 			}
 		}
 		.indexlist{
@@ -233,15 +94,26 @@ export default{
 			text-align: center;
 			padding-top:1rem;
 			.company{
-				font-size: .55rem;
-				color: #595957;
+				font-size: .6rem;
+				color: #fff;
+				font-family: fashionBlack;
 			}
 			p{
-				font-size: .4rem;
+				font-size: .5rem;
 				padding-top: 10px;
-				color: #50504e;
+				color: #fff;
 			}
 		}
+		.loginTime{
+			width: 100%;
+			text-align: center;
+			color: #fff;
+			font-size: .4rem;
+			margin-top: 1rem;
+		}
 	}
-
+	@font-face{
+		font-family: fashionBlack;
+		src: url('../../../../sass/function/font.ttf');
+	}
 </style>
