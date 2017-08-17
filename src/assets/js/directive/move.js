@@ -5,16 +5,26 @@ export default{
         let _this = this
         this.resizeFn()
         $('.newWrap').find($('.el-tabs__header')).on('mousedown', (e) => {
-            e.preventDefault()
+            let Event = window.event || e
+            if (e && e.preventDefault) {
+                e.preventDefault()
+            } else {
+                Event.returnValue = false
+            }
             // console.log('mousedown')
             // 鼠标与newForm块的距离
-            this.dmL = e.clientX - $('.newForm').position().left
-            this.dmT = e.clientY - $('.newForm').position().top
+            this.dmL = Event.clientX - $('.newForm').position().left
+            this.dmT = Event.clientY - $('.newForm').position().top
             $(document).on('mousemove', (e) => {
-                e.preventDefault()
+                let Event = window.event || e
+                if (e && e.preventDefault) {
+                    Event.preventDefault()
+                } else {
+                    Event.returnValue = false
+                }
                 // console.log('mousemove')
-                var L = e.clientX - _this.dmL
-                var T = e.clientY - _this.dmT
+                var L = Event.clientX - _this.dmL
+                var T = Event.clientY - _this.dmT
                 var maxL = $(document).outerWidth() - $('.newForm').innerWidth()
                 var maxT = $(document).outerHeight() - $('.newForm').innerHeight()
                 if (L > maxL) {
