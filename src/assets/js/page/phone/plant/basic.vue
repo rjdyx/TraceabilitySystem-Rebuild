@@ -96,13 +96,13 @@ export default {
             e.stopPropagation()
         })
         var params = {code: this.$route.params.id}
-        if (localStorage.getItem('teaTrace_basic') === null) {
+        if (sessionStorage.getItem('teaTrace_basic') === null) {
             axios.get('teaTrace/tea/plantation', {params: params})
                 .then((responce) => {
                     var lists = responce.data
                     if (lists !== '403' && lists !== '404') {
                         this.datas = lists
-                        localStorage.setItem('teaTrace_basic', JSON.stringify(lists))
+                        sessionStorage.setItem('teaTrace_basic', JSON.stringify(lists))
                         this.video = lists.video
                         if (lists.planta_img !== null && lists.planta_img !== '') {
                             this.imgArr = lists.planta_img.split(',')
@@ -111,7 +111,7 @@ export default {
                     }
                 })
         } else {
-            var tabLocalBasic = JSON.parse(localStorage.getItem('teaTrace_basic'))
+            var tabLocalBasic = JSON.parse(sessionStorage.getItem('teaTrace_basic'))
             this.datas = tabLocalBasic
             this.video = tabLocalBasic.video
             if (tabLocalBasic.planta_img !== 'null' && tabLocalBasic.planta_img !== '') {

@@ -82,7 +82,7 @@ export default{
     mounted () {
         this.code = this.$route.params.code
         // 查询首页产品数据
-        if (localStorage.getItem('teaTrace') === null) {
+        if (sessionStorage.getItem('teaTrace') === null) {
             var params = {code: this.code}
             axios.get('teaTrace/tea/index', {params: params})
                 .then((responce) => {
@@ -90,7 +90,7 @@ export default{
                         this.setToast('text', '当前溯源码无效', '12em')
                         this.$router.push('/404')
                     } else {
-                        localStorage.setItem('teaTrace', JSON.stringify(responce.data))
+                        sessionStorage.setItem('teaTrace', JSON.stringify(responce.data))
                         this.product_name = responce.data.product_name
                         if (responce.data.img !== '' && responce.data.img !== null) {
                             this.tea_img = responce.data.img
@@ -99,7 +99,7 @@ export default{
                     }
                 })
         } else {
-            var tabLocal = JSON.parse(localStorage.getItem('teaTrace'))
+            var tabLocal = JSON.parse(sessionStorage.getItem('teaTrace'))
             this.product_name = tabLocal.product_name
             if (tabLocal.img !== '' && tabLocal.img !== 'null') {
                 this.tea_img = tabLocal.img
