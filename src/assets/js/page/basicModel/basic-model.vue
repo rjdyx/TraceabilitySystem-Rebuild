@@ -69,7 +69,7 @@
         </transition>
          <!-- 交流模块 --> 
         <transition name="fade">
-            <Communication v-if="isComShow" :moreComponent="moreComponent"></Communication>
+            <Communication v-if="isComShow" :moreComponent="moreComponent" :rowInfoId="rowInfoId"></Communication>
         </transition>
     </div>
     <!-- 列表模块 -->
@@ -132,7 +132,7 @@
                     @showDetail="detailShow(scope.$index,scope.row)" class="clickMoreBtn"@return-permission="getPermission" 
                     @changeState="changeSerialState(scope.$index,scope.row)"
                     @shipGoods="shipGood(scope.$index,scope.row)"
-                    @communkation="communkationFn">
+                    @communkation="communkationFn(scope.$index,scope.row)">
                     </clickMore>
                 </template>
                 <template>
@@ -140,7 +140,7 @@
 
                     <el-button type="text" size="small" @click="changeEditShow(scope.$index,scope.row)" v-if="!hiddeEdit" v-bind:class="{'btn':hiddeRole}" class="editBtn">编辑</el-button>
 
-                    <el-button type="text" size="small" v-if="hiddeShow">查看</el-button>
+                    <el-button type="text" size="small" v-if="hiddeShow" @click="jumpDetails(scope.row)">查看</el-button>
             
                     <el-button size="small" type="text" :disabled="stateDisabled(scope.row)" @click="handelDel(scope.$index,scope.row)" v-if="stateDisabled(scope.row)==false" class="del">
                         删除
@@ -276,8 +276,6 @@ export default {
             checkboxShow: false,
             // 是否显示交流
             isComShow: false,
-            // msg: 1,
-            editBol: false,
             editForm: {},
             printForm: {},
             editDefault: {},
@@ -285,9 +283,6 @@ export default {
             // 切换点击更多按钮的状态
             active: true,
             total: '',
-            isIndeterminate: true,
-            // 组合查询
-            par: {},
             // 数组拼装
             dataArr: {},
             // 复选框选中返回对象
@@ -296,8 +291,6 @@ export default {
             selectArrSet: [],
             // 新增编辑下拉框数据
             selectNewEdit: [],
-            // 批次号
-            isPcActive: true,
             permissions: company,
             // 已选择的权限
             checkeds: {},
@@ -309,7 +302,8 @@ export default {
             dialogImageUrl: '',
             dialogVisible: false,
             stateColor: false,
-            list: []
+            list: [],
+            rowInfoId: ''
         }
     },
     // 混合
@@ -319,8 +313,9 @@ export default {
             'change_siderBar'
         ]),
         // 更多--交流
-        communkationFn () {
+        communkationFn (index, row) {
             this.isComShow = true
+            this.rowInfoId = row.id
         },
         // 关闭交流
         closeComShow () {

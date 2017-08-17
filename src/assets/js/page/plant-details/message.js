@@ -1588,6 +1588,30 @@ export default {
             }]
         }]
     },
+    // 客户交流记录
+    clientRecordBatch: {
+        key: 'clientRecordBatch',
+        tab: '客户交流记录',
+        theads: ['客户名称', '客户所属公司', '通讯地址', '所在区域', '联系人', '联系方式', '传真'],
+        protos: ['name', 'company_name', 'address', 'location', 'contact', 'phone', 'fax'],
+        url: 'client',
+        odd: '交流记录',
+        tabList: [{
+            key: 'client-record',
+            url: 'client-record',
+            tab: '客户交流记录',
+            searchPlaceholder: '请输入交流人员进行搜索',
+            headList: ['交流日期', '交流人员', '交流信息'],
+            protos: ['datetime', 'contact_name', 'info'],
+            widths: [50, 50, 50],
+            hiddeEdit: false,
+            searchText: true,
+            typeComponent: [{
+                component: output
+            }],
+            listComponent: []
+        }]
+    },
     // 销售订单详情
     saleOrderBatch: {
         key: 'saleOrderBatch',

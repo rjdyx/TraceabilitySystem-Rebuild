@@ -4147,6 +4147,8 @@ export default {
         tab: '客户信息管理',
         url: 'client',
         roleKey: 'client',
+        hiddeShow: true,
+        batch: 'clientRecordBatch',
         searchPlaceholder: '请输入客户名称进行搜索',
         theads: ['客户名称', '公司名称', '身份证编号(公司注册号)', '汇款账号', '通讯地址', '所在区域', '联系人', '联系方式', '传真', '图片', '备注'],
         protos: ['name', 'company_name', 'IDNumber', 'bank_account', 'address', 'location', 'contact', 'phone', 'fax', 'img', 'memo'],
@@ -4366,29 +4368,30 @@ export default {
         moreComponent: [
             {
                 value: '交流',
+                url: 'client-record',
                 components: [{
-                    name: 'comPerson',
+                    name: 'datetime',
+                    type: 'datetime',
+                    component: inputDateTimes,
+                    label: '交流时间',
+                    placeholder: '',
+                    rule: [{required: true, message: '请输入交流时间'}, {validator: validate2.reDate, message: '请输入交流时间'}]
+                },
+                {
+                    name: 'contact_name',
                     type: 'text',
                     component: null,
                     label: '交流人员',
                     placeholder: '',
-                    rule: null
+                    rule: {required: true, message: '请输入交流人员'}
                 },
                 {
-                    name: 'comInfo',
+                    name: 'info',
                     type: 'text',
                     component: null,
                     label: '交流信息',
                     placeholder: '',
-                    rule: null
-                },
-                {
-                    name: 'date',
-                    type: 'date',
-                    component: inputDate,
-                    label: '交流时间',
-                    placeholder: '',
-                    rule: [{required: false, message: '请输入采制日期'}, {validator: validate2.reDate, message: '请输入采制日期'}]
+                    rule: {required: true, message: '请输入交流信息'}
                 }]
             }
         ],
