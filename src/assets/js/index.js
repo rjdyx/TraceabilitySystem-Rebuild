@@ -9,71 +9,64 @@ import store from './vuex/index'
 
 // 将axios挂载到prototype上，在组件就可以直接使用this.axios访问
 Vue.prototype.$http = axios
-
 Vue.use(VueRouter)
 
 require('./config/init')
 const pre = '/index/'
 const pre2 = '/index/message/'
-const Excepts = ['/', '/index', pre + 'set', pre + 'test', pre + 'help', pre + 'question', pre + '404', pre + 'ondone']
-const Admins = [pre2 + 'rightsOperate', pre2 + 'settleOperate', pre2 + 'usersOperate', pre2 + 'logOperate']
-const any = ['/protocol', '/forget']
-// 处理刷新的时候vuex被清空但是用户已经登录的情况
-// if (sessionStorage.user) {
-//     store.dispatch('setUserInfo', JSON.parse(sessionStorage.user))
-// }
+const pre3 = '/index/details/'
+// 权限外路由(需登录)
+const excepts = ['/index/home', pre + 'set', pre + 'test', pre + 'help', pre + 'question', pre + '404', pre + 'ondone', '/appIndex']
+// 管理员路由
+const admins = [pre2 + 'rightsOperate', pre2 + 'settleOperate', pre2 + 'usersOperate', pre2 + 'logOperate']
+const aDetails = [pre3 + 'companyUser']
+// 登录后不能访问的路由
+const any = ['/protocol', '/forget', '/login', '/waplogin']
 
 router.beforeEach(async (to, from, next) => {
     var check = false
-    if (to.path.indexOf('run') === -1) {
-        if (window.Roles.name === undefined) {
-            try {
-                await axios.get('/login/state').then(responce => {
-                    let except = to.matched.some((item, index, array) => {
-                        if (item.path !== '/login' && item.path !== '/waplogin' && any.indexOf(to.path) === -1) return true
-                    })
-                    if (responce.data.name === undefined) {
-                        window.Roles = {}
-                        if (window.isPC) {
-                            if (except) next({path: '/login'})
-                        } else {
-                            if (except) next({path: '/waplogin'})
-                        }
-                    } else {
-                        if (!except) check = true
-                        window.Roles = responce.data
-                        let data = window.Roles.permissions
-                        if (to.path.indexOf('details') === -1 && to.path.indexOf('run') === -1) {
-                            if (data.one === 'admin') {
-                                if (Excepts.indexOf(to.path) === -1 && Admins.indexOf(to.path) === -1) check = true
-                            } else {
-                                if ((Excepts.indexOf(to.path) === -1 && data.one.indexOf(to.path) === -1) || Admins.indexOf(to.path) !== -1) check = true
-                            }
+    if (to.path.indexOf('details') !== -1) {
+        next()
+        check = true
+    }
+    if (!check) {
+        await axios.get('/login/state').then(responce => {
+            if (responce.data.name === undefined) {
+                for (let l in any) {
+                    if (to.path === any[l]) {
+                        next()
+                        return false
+                    }
+                }
+                next('/login')
+            } else {
+                window.Roles = responce.data
+                let data = window.Roles.permissions
+                if (data.one !== 'admin') {
+                    var pArr = data.one.concat(data.details)
+                    pArr = pArr.concat(excepts)
+                    for (let p in pArr) {
+                        if (to.path === pArr[p]) {
+                            next()
+                            return false
                         }
                     }
-                })
-            } catch (e) {
-                console.log(e)
-            }
-        } else {
-            var data2 = window.Roles.permissions
-            if (to.path === '/login' || to.path === '/waplogin') {
-                check = true
-            }
-            if (to.path.indexOf('details') === -1 && to.path.indexOf('run') === -1) {
-                if (data2.one === 'admin') {
-                    if (Excepts.indexOf(to.path) === -1 && Admins.indexOf(to.path) === -1) check = true
+                    next('/index/home')
                 } else {
-                    if ((Excepts.indexOf(to.path) === -1 && data2.one.indexOf(to.path) === -1) || Admins.indexOf(to.path) !== -1) check = true
+                    var aArr = excepts.concat(admins)
+                    aArr = aArr.concat(aDetails)
+                    for (let a in aArr) {
+                        if (to.path === aArr[a]) {
+                            next()
+                            return false
+                        }
+                    }
+                    next('/index/home')
                 }
             }
-        }
+        })
     }
-    // if (check) next({path: '/index'})
-    next()
 })
-
-router.afterEach(route => {})
 
 const app = new Vue({
     router,

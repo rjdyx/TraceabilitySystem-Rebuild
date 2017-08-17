@@ -1,7 +1,7 @@
 <template>
 	<div class="wrap">
 		<my-header :navbars="navbars"></my-header>
-		<sider-bar :menus='menus' :show="show" ></sider-bar>
+		<sider-bar :menus='getForeach(menus)' :show="show" ></sider-bar>
 		<router-view></router-view>
 	</div>
 </template> 
@@ -50,11 +50,33 @@ export default {
         SiderBar
     },
     methods: {
-        // changeSub () {
-        //     this.$refs.siderBar.$children[0].$children[0].closeMenu()
-        //     this.$refs.siderBar.$children[0].$children[0].activedIndex = ''
-        //     this.$store.dispatch('switch_record', '')
-        // }
+        getForeach (datas) {
+            var roleData = {}
+            if (window.Roles.permissions !== undefined) {
+                roleData = window.Roles.permissions.two
+            }
+            for (let i in datas) {
+                if (datas[i].key !== 'admin') {
+                    var res = roleData[datas[i].key] === undefined ? 0 : 1
+                    datas[i].role = res
+                    if (res) {
+                        for (let j in datas[i].childrenKey) {
+                            var res2 = roleData[datas[i].key][datas[i].childrenKey[j]] === undefined ? 0 : 1
+                            datas[i].children[j].role = res2
+                        }
+                    }
+                } else {
+                    var res3 = roleData !== 'admin' ? 0 : 1
+                    datas[i].role = res3
+                    if (res3) {
+                        for (let j in datas[i].childrenKey) {
+                            datas[i].children[j].role = 1
+                        }
+                    }
+                }
+            }
+            return datas
+        }
     },
     mounted () {
         if (!window.isPC) {
