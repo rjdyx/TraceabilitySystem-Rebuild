@@ -137,7 +137,7 @@ export default{
         }
         let timer = setTimeout(() => {
             $('.mainImg').css({backgroundImage: 'url(/public/images/hascolor.png)'})
-        }, 200)
+        }, 300)
     }
 }
 </script>
@@ -243,7 +243,7 @@ export default{
             font-family: fz !important;
 			font-size: 0.9rem;
 			font-weight: 600;
-            letter-spacing: 0.5rem;
+            letter-spacing: 0.2rem;
     	}
     	.el-button:focus{
     		border-color: #fff;

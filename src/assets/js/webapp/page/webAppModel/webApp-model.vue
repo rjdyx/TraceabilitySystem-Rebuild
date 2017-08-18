@@ -463,7 +463,7 @@ export default {
 <style lang='sass'>
 .dp-header{
     .dp-item.dp-left,.dp-item,.dp-item.dp-right {
-        color: #009acb!important;
+        color: #74b66e!important;
     }
 }
 .weui-dialog{
@@ -612,8 +612,8 @@ export default {
         margin-left: 18%;
     }
     .el-button--primary{
-        background: #009acb;
-        border-color: #009acb;
+        background: #74b66e;
+        border-color: #74b66e;
     }
     .apptab{
         width: 100%;
@@ -663,6 +663,17 @@ export default {
     .appOperate{
         /*height: 132px;*/
         margin-top: 1%;
+        .el-button:active{
+            border-color: #74b66e;
+            color: #74b66e;
+        }
+        .el-button:hover{
+            border-color: #74b66e;
+            color: #74b66e;
+        }
+        .el-input__inner:focus{
+            border-color: #74b66e;
+        }
     }
     .closeOperate{
         width: 100%;
