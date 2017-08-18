@@ -16,7 +16,8 @@ const pre = '/index/'
 const pre2 = '/index/message/'
 const pre3 = '/index/details/'
 // 权限外路由(需登录)
-const excepts = ['/index/home', pre + 'set', pre + 'test', pre + 'help', pre + 'question', pre + '404', pre + 'ondone', '/appIndex']
+const excepts = ['/index/home', pre + 'set', pre + 'test', pre + 'help', pre + 'question', pre + 'ondone', '/appIndex']
+const all = ['/404']
 // 管理员路由
 const admins = [pre2 + 'rightsOperate', pre2 + 'settleOperate', pre2 + 'usersOperate', pre2 + 'logOperate']
 const aDetails = [pre3 + 'companyUser']
@@ -25,7 +26,7 @@ const any = ['/protocol', '/forget', '/login', '/waplogin']
 
 router.beforeEach(async (to, from, next) => {
     var check = true
-    if (to.path.indexOf('run') !== -1) {
+    if (to.path.indexOf('run') !== -1 || all.indexOf(to.path) !== -1) {
         next()
         check = false
     }
