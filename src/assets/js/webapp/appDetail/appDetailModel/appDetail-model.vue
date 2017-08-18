@@ -38,7 +38,6 @@
 
             <!-- 列表底部 -->
             <div class="tableFooter">
-                <!-- <input type="checkbox" class="allcheckbox" v-model="checkAll" @click="checkedAll"> -->
                 <el-button type="primary" class="allcheck" @click="checkedAll">全选</el-button>
                 <el-button type="danger" class="appDelete" @click="listDelete">删除</el-button>
             </div>
@@ -150,10 +149,7 @@ export default {
         },
         // 获取Api接口数据
         getApiUrl () {
-            var id = this.$route.params.id
-            if (id.indexOf('plantTo') !== -1) {
-                id = id.replace('plantTo', '')
-            }
+            var id = localStorage.getItem('appDetailsId')
             this.wapUrl = id + '/' + this.url
         },
         // 分页跳转

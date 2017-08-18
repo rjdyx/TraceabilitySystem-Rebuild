@@ -262,14 +262,14 @@ var routes = [
                 // 需要登录才能进入此路由
             },
             {
-                path: 'appdetailbasic/:model/:id',
+                path: 'appdetailbasic/:model',
                 component: appdetailbasic
                 // 需要登录才能进入此路由
             }
         ]
     },
     {
-        path: '/webAppForm/:model/:modelIndex/:type',
+        path: '/webAppForm/:model/:type',
         name: 'webAppForm',
         component: webAppForm
     }

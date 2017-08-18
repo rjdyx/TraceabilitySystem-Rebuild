@@ -17,7 +17,9 @@ const pre = '/index/'
 const pre2 = '/index/message/'
 const pre3 = '/index/details/'
 // 权限外路由(需登录)
-const excepts = ['/index/home', pre + 'set', pre + 'test', pre + 'help', pre + 'question', pre + '404', pre + 'ondone', '/appIndex', '/appIndex/message/plantThing', '/appIndex/message/fertilize', '/appIndex/message/detect', '/appIndex/message/farming', '/appIndex/message/harvest', '/appIndex/message/growImg']
+    // 采制管理
+    // 采制管理
+const excepts = ['/index/home', pre + 'set', pre + 'test', pre + 'help', pre + 'question', pre + '404', pre + 'ondone', '/appIndex', '/appIndex/message/plantThing', '/appIndex/message/fertilize', '/appIndex/message/detect', '/appIndex/message/farming', '/appIndex/message/harvest', '/appIndex/message/growImg', '/webAppForm/fertilize/new', '/webAppForm/fertilize/edit', '/appIndex/appdetailbasic/fertilizeBatch', '/webAppForm/detect/new', '/webAppForm/detect/edit', '/appIndex/appdetailbasic/detectBatch', '/webAppForm/farming/new', '/webAppForm/farming/edit', '/appIndex/appdetailbasic/farmingBatch', '/webAppForm/growImg/new', '/webAppForm/growImg/edit', '/webAppForm/harvest/new', '/webAppForm/harvest/edit', '/appIndex/appdetailbasic/harvestBatch']
 // 管理员路由
 const admins = [pre2 + 'adminRole', pre2 + 'adminCompany', pre2 + 'adminFeedback', pre2 + 'adminLog']
 const aDetails = [pre3 + 'companyUser']
@@ -55,7 +57,11 @@ router.beforeEach(async (to, from, next) => {
                             return false
                         }
                     }
-                    next('/login')
+                    if (!window.isPC) {
+                        next('/waplogin')
+                    } else {
+                        next('/login')
+                    }
                 } else {
                     window.Roles = responce.data
                     let data = window.Roles.permissions
