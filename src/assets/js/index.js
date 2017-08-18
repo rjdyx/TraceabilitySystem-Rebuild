@@ -24,12 +24,16 @@ const aDetails = [pre3 + 'companyUser']
 const any = ['/protocol', '/forget', '/login', '/waplogin']
 
 router.beforeEach(async (to, from, next) => {
-    var check = false
-    if (to.path.indexOf('details') !== -1) {
+    var check = true
+    if (to.path.indexOf('run') !== -1) {
         next()
-        check = true
+        check = false
     }
-    if (!check) {
+    var rt = '/'
+    if (!window.isPC) {
+        rt = '/appIndex'
+    }
+    if (check) {
         await axios.get('/login/state').then(responce => {
             if (responce.data.name === undefined) {
                 for (let l in any) {
@@ -41,27 +45,52 @@ router.beforeEach(async (to, from, next) => {
                 next('/login')
             } else {
                 window.Roles = responce.data
-                let data = window.Roles.permissions
-                if (data.one !== 'admin') {
-                    var pArr = data.one.concat(data.details)
-                    pArr = pArr.concat(excepts)
-                    for (let p in pArr) {
-                        if (to.path === pArr[p]) {
-                            next()
-                            return false
-                        }
+                let data = window.Roles.permissions.one
+                var state = data.indexOf(to.path.split('/')[3])
+                var state2 = data.indexOf(to.path.split('/')[2])
+                // 详情页
+                if (to.path.indexOf('details') !== -1) {
+                    if (state !== -1) {
+                        next()
+                        return false
                     }
-                    next('/index/home')
+                    next(rt)
+                // 手机app模块
+                } else if (to.path.indexOf('appIndex') !== -1) {
+                    if (state !== -1 || to.path.split('/')[2] === undefined) {
+                        next()
+                        return false
+                    }
+                    next(rt)
+                // 手机app操作
+                } else if (to.path.indexOf('webAppForm') !== -1) {
+                    if (state2 !== -1) {
+                        next()
+                        return false
+                    }
+                    next(rt)
                 } else {
-                    var aArr = excepts.concat(admins)
-                    aArr = aArr.concat(aDetails)
-                    for (let a in aArr) {
-                        if (to.path === aArr[a]) {
-                            next()
-                            return false
+                    if (data !== 'admin') {
+                        var pArr = data.concat(data.details)
+                        pArr = pArr.concat(excepts)
+                        for (let p in pArr) {
+                            if (to.path === pArr[p]) {
+                                next()
+                                return false
+                            }
                         }
+                        next(rt)
+                    } else {
+                        var aArr = excepts.concat(admins)
+                        aArr = aArr.concat(aDetails)
+                        for (let a in aArr) {
+                            if (to.path === aArr[a]) {
+                                next()
+                                return false
+                            }
+                        }
+                        next(rt)
                     }
-                    next('/index/home')
                 }
             }
         })
