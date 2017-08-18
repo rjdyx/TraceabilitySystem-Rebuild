@@ -8,13 +8,7 @@
 <template>
     <div id="p_popNew">
         <header1 :settitle="settitle" :homeShow="false" :back="true" @setClassClear="goBackClear">
-            <span slot="plan" class="newplan iconfont" v-if="planShow" @click="newPlanFn">&#xe72d;</span>
-            <erweima slot="upImg" v-if="uploadShow" @qrcodeCode="changeCodeImage"></erweima>
         </header1>
-        <group>
-          <popup-radio class="newPlanRadio" title="options" :options="options2" v-model="option2" v-if="planShow"
-                @on-change="getPlanInfo"></popup-radio>
-        </group>
         <div class="ppN_content">
             <group label-width="4.5em" label-margin-right="2em" label-align="right">
                 <div class="formItem" v-for="comItem in typeComponent.components" v-if="comItem.type !== 'file' && !comItem.hiddenSelect">
@@ -199,10 +193,10 @@ export default {
         Object.assign(modelObj, message)
         let form = {} // 装内容
         let ruleTableForm = {} // 装内容是否符合规则，boolean类型
-        let url = modelObj[this.$route.params.model][this.$route.params.modelIndex].url
-        let changeDataArr = modelObj[this.$route.params.model][this.$route.params.modelIndex].changeDataArr
+        let url = modelObj[this.$route.params.model][0].url
+        let changeDataArr = modelObj[this.$route.params.model][0].changeDataArr
         if (type === 'new') {
-            typeComponent = modelObj[this.$route.params.model][this.$route.params.modelIndex].newComponent
+            typeComponent = modelObj[this.$route.params.model][0].newComponent
             typeComponent[0].components.forEach(function (item) {
                 if (item.type === 'textSelect') {
                     form[item.name] = ''
@@ -221,7 +215,7 @@ export default {
                 }
             })
         } else {
-            typeComponent = modelObj[this.$route.params.model][this.$route.params.modelIndex].editComponent
+            typeComponent = modelObj[this.$route.params.model][0].editComponent
             typeComponent[0].components.forEach(function (item) {
                 if (item.type === 'textSelect') {
                     ruleTableForm['unit'] = {bol: false, rule: {required: item.rule.required}}
@@ -506,9 +500,7 @@ export default {
         // 获取编辑数据
         getEditInfo () {
             var type = this.type
-            if (type.indexOf('edit') !== -1) {
-                this.editId = type.replace('edit', '')
-            }
+            this.editId = localStorage.getItem('editId')
             this.$dataWapGet(this, this.url + '/' + this.editId + '/edit', {})
                 .then((responce) => {
                     // 编辑触发回调
@@ -553,8 +545,15 @@ export default {
             } else if (obj === 'size') {
                 this.setToast('text', '请输入小于300k图片', '15em')
             } else {
+                if (obj.name === 'imgs') {
+                    if (obj.value !== 'del') {
+                        this.tableForm['img'] = '1'
+                    } else {
+                        this.tableForm['img'] = ''
+                    }
+                }
                 this.tableForm[obj.name] = obj.value
-                this.validateFn({name: obj.name, rule: this.ruleTableForm[obj.name], value: this.tableForm[obj.name]})
+                this.validateFn({name: 'img', rule: this.ruleTableForm['img'], value: this.tableForm['img']})
             }
         },
         resetScroller () {
@@ -607,105 +606,6 @@ export default {
                 }
                 this.typeComponent['hiddenValue'] = ''
             }
-            if (this.typeComponent.planIds === 'rfid_ids') {
-                this.typeComponent.components[this.typeComponent.planSelectArrPosition].options = []
-            }
-            if (this.typeComponent.codeIds === 'code_ids') {
-                this.typeComponent.components[this.typeComponent.codeSelectArrPosition].options = []
-            }
-        },
-        // 获取计划
-        newPlanFn () {
-            let params = {type: this.url}
-            this.$dataGet(this, 'plan/getPlanInfo', params)
-                .then((responce) => {
-                    if (responce.data.length !== 0) {
-                        let arr = this.$selectDataArr(responce.data, this.typeComponent.planArr, this.typeComponent.planString)
-                        this.options2 = arr
-                        $('.newPlanRadio').click()
-                    } else {
-                        this.setToast('text', '当前日期无计划', '13em')
-                    }
-                })
-        },
-        // 填充计划
-        getPlanInfo (val) {
-            if (val !== '') {
-                let params = {type: this.url, id: val}
-                this.$dataGet(this, 'plan/selectPlan', params)
-                    .then((responce) => {
-                        let arrId = []
-                        let initVal = this.$changeArrBox(responce.data.planData, this.typeComponent.planBox)
-                        for (let key of Object.keys(initVal[0])) {
-                            this.tableForm[key] = initVal[0][key]
-                        }
-                        if (this.typeComponent.planIds !== undefined) {
-                            if (this.typeComponent.planIds === 'rfid_ids') {
-                                let dataOpt = this.$getCheckSelect(responce.data.planList, this.typeComponent.planSelectArr)
-                                if (dataOpt[0] === 'check') {
-                                    this.typeComponent.components[this.typeComponent.planSelectArrPosition].options = dataOpt[1]
-                                }
-                            }
-                            for (let item in responce.data.planList) {
-                                arrId.push(responce.data.planList[item].id)
-                            }
-                            this.tableForm[this.typeComponent.planIds] = arrId
-                        }
-                        if (this.typeComponent.planPosition !== undefined) {
-                            for (let index in this.typeComponent.planPosition) {
-                                this.typeComponent.components[this.typeComponent.planPosition[index]]['disabled'] = true
-                            }
-                        }
-                        this.selectHideId = initVal[1]
-                        this.typeComponent['hiddenValue'] = {'plan_id': val}
-                    })
-            } else {
-                for (let key of Object.keys(this.defaultInit)) {
-                    this.tableForm[key] = this.defaultInit[key]
-                }
-                this.clearClass()
-            }
-        },
-        // 图片上传解析二维码
-        changeCodeImage (codeUrl) {
-            var _this = this
-            setTimeout(function () {
-                _this.getCodeString($('#resultQrcode').text(), codeUrl)
-            }, 500)
-        },
-        // 获取溯源码
-        getCodeString (str, codeUrl) {
-            if (str === 'typeError') {
-                this.setToast('text', '请选择正确的图片格式!', '18em')
-            } else if (str === 'error decoding QR Code') {
-                this.setToast('text', '不是二维码图片或图片不清晰', '21em')
-            } else {
-                let code = str.slice(-18)
-                let params = {code: code}
-                this.$dataWapGet(this, this.url + '/getCodeString', params)
-                    .then((responce) => {
-                        if (responce.data === 'error') {
-                            this.setToast('text', '溯源码不存在', '13em')
-                        } else if (responce.data === 'sale') {
-                            this.setToast('text', '当前产品已出售', '14em')
-                        } else {
-                            this.setToast('text', '溯源码添加成功', '14em')
-                            let codeArr = []
-                            codeArr.push(responce.data)
-                            let dataOpt = this.$getCheckSelect(codeArr, this.typeComponent.codeSelectArr)
-                            if (this.codeArrId.indexOf(responce.data.id) === -1) {
-                                if (dataOpt[0] === 'check') {
-                                    this.typeComponent.components[this.typeComponent.codeSelectArrPosition].options.push(dataOpt[1][0])
-                                }
-                                this.codeArrId.push(responce.data.id)
-                            } else {
-                                this.setToast('text', '溯源码已存在于订单列表', '18em')
-                            }
-                            this.tableForm[this.typeComponent.codeIds] = this.codeArrId
-                        }
-                    })
-            }
-            codeUrl.value = ''
         }
     },
     created () {

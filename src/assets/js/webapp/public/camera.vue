@@ -67,7 +67,8 @@ export default {
         delImgFn (src) {
             this.imageUrl = ''
             src.parentNode.lastChild.getElementsByTagName('input')[0].value = ''
-            this.$emit('return-shuju', {name: this.name, value: ''})
+            // this.$emit('return-shuju', {name: this.name, value: ''})
+            this.$emit('return-shuju', {name: this.name + 's', value: 'del'})
         },
         selectPic (event) {
             // 取出空格
@@ -97,7 +98,8 @@ export default {
             reader.onload = e => {
                 this.imageUrl = e.target.result
                 this.flag = true
-                this.$emit('return-shuju', {name: this.name, value: file})
+                // this.$emit('return-shuju', {name: this.name, value: file})
+                this.$emit('return-shuju', {name: this.name + 's', value: file})
             }
         }
     },
@@ -106,6 +108,7 @@ export default {
             if (this.editValue !== undefined && this.editValue !== '' && this.editValue !== null) {
                 if (!this.flag) {
                     this.imageUrl = this.editValue
+                    this.$emit('return-shuju', {name: this.name, value: this.editValue})
                 }
             }
         }
