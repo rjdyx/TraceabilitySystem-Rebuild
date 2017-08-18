@@ -149,8 +149,6 @@ export default {
                         } else {
                             // history.go(0) // 刷新更新权限数据
                             this.$store.dispatch('switch_record', '')
-                            var myDate = new Date()
-                            localStorage.setItem('loginDate', myDate.toLocaleString())
                             if (this.recordeChecked) {
                                 localStorage.setItem('recordUser', this.ruleForm2.name)
                             } else {
@@ -161,7 +159,12 @@ export default {
                             json.record = ''
                             let jsonStr = JSON.stringify(json)
                             localStorage.setItem('record', jsonStr)
-                            this.$router.push('/index/home')
+                            localStorage.setItem('loginDate', new Date())
+                            if (window.isPC) {
+                                this.$router.push('/index/home')
+                            } else {
+                                this.$router.push('/appIndex')
+                            }
                         }
                     })
                 } else {
