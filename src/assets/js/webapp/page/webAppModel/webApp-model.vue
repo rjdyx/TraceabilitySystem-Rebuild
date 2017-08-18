@@ -84,7 +84,7 @@
                     <div slot="right-menu">
                       <swipeout-button class="lookOver" type="primary" @click.native="showDetail(pers.id, pers)" v-if="rightMenu">
                       {{operateOn}}</swipeout-button>
-                      <swipeout-button class="appedit" @click.native="webAppOperateType('edit'+pers.id)">编辑</swipeout-button>
+                      <swipeout-button class="appedit" @click.native="webAppOperateType('edit', pers.id)">编辑</swipeout-button>
                     </div>
                 </swipeout-item>
             </swipeout>
@@ -198,10 +198,13 @@ export default {
             this.$set(this, 'tableData', [])
         },
         /*
-        新建
+        新建编辑
          */
-        webAppOperateType (operateType) {
-            this.$router.push('/webAppForm' + '/' + this.$route.params.model + '/' + this.modelIndex + '/' + operateType)
+        webAppOperateType (operateType, id) {
+            if (id !== undefined) {
+                localStorage.setItem('editId', id)
+            }
+            this.$router.push('/webAppForm' + '/' + this.$route.params.model + '/' + operateType)
         },
         // 获取数据
         getAllMsg (data = {}, flag = false) {
@@ -235,7 +238,6 @@ export default {
                 })
             }
             this.ischeckdate = ischeckdate
-            console.log(e)
         },
         tabClick (subindex, modelName) {
             this.modelIndex = subindex
@@ -252,11 +254,10 @@ export default {
         // 点击进入详情页
         showDetail (id, ret) {
             if (!this.isCode) {
-                if (this.unite === 'plantTo') {
-                    this.$router.push('/appIndex/appdetailbasic/' + this.batch + '/plantTo' + id)
-                } else {
-                    this.$router.push('/appIndex/appdetailbasic/' + this.batch + '/' + id)
+                if (id) {
+                    localStorage.setItem('appDetailsId', id)
                 }
+                this.$router.push('/appIndex/appdetailbasic/' + this.batch)
             } else {
                 this.setCodeUrl(ret.code)
                 this.tracingCode = ret.code
@@ -462,7 +463,7 @@ export default {
 <style lang='sass'>
 .dp-header{
     .dp-item.dp-left,.dp-item,.dp-item.dp-right {
-        color: #009acb!important;
+        color: #74b66e!important;
     }
 }
 .weui-dialog{
@@ -611,8 +612,8 @@ export default {
         margin-left: 18%;
     }
     .el-button--primary{
-        background: #009acb;
-        border-color: #009acb;
+        background: #74b66e;
+        border-color: #74b66e;
     }
     .apptab{
         width: 100%;
@@ -662,6 +663,17 @@ export default {
     .appOperate{
         /*height: 132px;*/
         margin-top: 1%;
+        .el-button:active{
+            border-color: #74b66e;
+            color: #74b66e;
+        }
+        .el-button:hover{
+            border-color: #74b66e;
+            color: #74b66e;
+        }
+        .el-input__inner:focus{
+            border-color: #74b66e;
+        }
     }
     .closeOperate{
         width: 100%;

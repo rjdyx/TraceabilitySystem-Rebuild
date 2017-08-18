@@ -65,7 +65,7 @@ export default {
 	.app-header{
 		height: 50px;
 		width: 100%;
-		background:  #009acb;
+		background:  #74b66e;
 		position: fixed;
 		top: 0;
 		left: 0;
@@ -103,14 +103,14 @@ export default {
 				top: 24%;
 			}
 			.right-btn{
-				@include font(#fff, 30px, 23px);
+				@include font(#fff, 0.8rem, 23px);
 				width: 28px;
 				height: 23px;
 			}
 			.back{
 				width: 34px;
 				height: 23px;
-				@include font(#fff,35px,23px);
+				@include font(#fff, 0.9rem, 23px);
 				/*font-size: 35px;*/
 				/*line-height: 23px;*/
 			}
@@ -118,7 +118,7 @@ export default {
 		        width: 9%;
 		        height: 36px;
 		        display: inline-block;
-		        @include font(#fff,30px,36px);
+		        @include font(#fff, 0.8rem, 36px);
 		        left: 5%;
 		        top: 13%;
 		    }

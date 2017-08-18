@@ -72,20 +72,20 @@ export default {
             e.stopPropagation()
         })
         var params = {code: this.$route.params.id}
-        if (localStorage.getItem('teaTrace_product') === null) {
+        if (sessionStorage.getItem('teaTrace_product') === null) {
             axios.get('teaTrace/tea/product', {params: params})
                 .then((responce) => {
                     var lists = responce.data
                     if (lists !== 400 && lists !== 404 && lists !== 403) {
                         this.datas = lists
-                        localStorage.setItem('teaTrace_product', JSON.stringify(lists))
+                        sessionStorage.setItem('teaTrace_product', JSON.stringify(lists))
                         if (lists.product_img !== null && lists.product_img !== '') {
                             this.imgArr = lists.product_img.split(',')
                         }
                     }
                 })
         } else {
-            var tabLocalProduct = JSON.parse(localStorage.getItem('teaTrace_product'))
+            var tabLocalProduct = JSON.parse(sessionStorage.getItem('teaTrace_product'))
             this.datas = tabLocalProduct
             if (tabLocalProduct.product_img !== 'null' && tabLocalProduct.product_img !== '' && tabLocalProduct.product_img !== null) {
                 this.imgArr = tabLocalProduct.product_img.split(',')

@@ -48,17 +48,17 @@ export default {
             e.stopPropagation()
         })
         var params = {code: this.$route.params.id}
-        if (localStorage.getItem('teaTrace_grow') === null) {
+        if (sessionStorage.getItem('teaTrace_grow') === null) {
             axios.get('/teaTrace/tea/grow', {params: params})
                 .then((responce) => {
                     var lists = responce.data
                     if (lists !== 404 && lists !== 403 && lists !== 400) {
                         this.grows = lists
-                        localStorage.setItem('teaTrace_grow', JSON.stringify(lists))
+                        sessionStorage.setItem('teaTrace_grow', JSON.stringify(lists))
                     }
                 })
         } else {
-            var tabLocalGrow = JSON.parse(localStorage.getItem('teaTrace_grow'))
+            var tabLocalGrow = JSON.parse(sessionStorage.getItem('teaTrace_grow'))
             this.grows = tabLocalGrow
         }
     },

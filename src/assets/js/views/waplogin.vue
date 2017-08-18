@@ -6,13 +6,13 @@
 <template>
     <div class="webLogin">
     	<div class="webloginImg">
-            <img src="/public/images/logintop.png" class="topImg">
-            <div class="bottomImg" @click="submitForm('ruleForm2')">
-                <!-- <img src="/public/images/loginbottom.png" ref="btn"> -->
-                <!-- <img src="/public/images/" alt=""> -->
+            <div class="mainImg">
+                <img src="/public/images/tea-tit.png" class="tit">
+                <img src="/public/images/tea-sideOne.png" class="sideLeft side">
+                <img src="/public/images/tea-sideTwo.png" class="sideRight side">
+                <img src="/public/images/tea-seal.png" class="seal">
             </div>
         </div>
-
     	<div class="form">
     			<el-form :model="ruleForm2" :rules="rules2" ref="ruleForm2" class="demo-ruleForm">
     				<el-form-item prop="name" class="item">
@@ -33,6 +33,11 @@
     				        @keyup.enter.native="passTo">
     				    </el-input>
     				</el-form-item>
+                    <el-form-item>
+                            <el-button
+                                @click="submitForm('ruleForm2')"
+                                >登录</el-button>
+                        </el-form-item>
     			</el-form>
     		</div>
     </div>
@@ -130,6 +135,7 @@ export default{
                 this.$router.push('/login')
             }
         }
+        setTimeout(() => $('.mainImg').css({backgroundImage: 'url(/public/images/hascolor.png)'}), 300)
     }
 }
 </script>
@@ -142,60 +148,77 @@ export default{
     .webLogin{
     	width: 100%;
     	height: 100%;
+        background: url(/public/images/tea-bg.png);
 		/*overflow: hidden;*/
         .webloginImg{
             width: 100%;
-            margin-bottom: 20px;
-        .topImg{
-            width: 92%;
-            height: 20%;
-            margin-top: 12%;
-            margin-left: 4%;
+            height: 48%;
+            margin-bottom: -3px;
+            padding-top: 1.3rem;
+            margin: 0 auto;
+            .mainImg{
+                width: 84%;
+                height: 100%;
+                background-image: url('/public/images/nocolor.png');
+                background-repeat: no-repeat;
+                background-size: 100%;
+                background-position: 100% 100%;
+                position: relative;
+                margin: 0 auto;
+            }
+        .tit{
+            width: 2rem;
+            height: 4.5rem;
+            position: absolute;
+            bottom: 3.5rem;
+            left: 3.2rem;
+        }
+        .side{
             display: inline-block;
+            position: absolute;
+            width: 3rem;
         }
-        .bottomImg{
-            width: 2.5rem;
-            height: 2.5rem;
-            margin:0 auto;
-            margin-top: -13px;
-            -webkit-mask-image: url(/public/images/loginbottom.png);
-            -webkit-mask-size:100% 100%;
-            -webkit-mask-repeat: no-repeat;
-            /*background: url(/public/images/new-logo.png) no-repeat;*/
-            background-image: -webkit-linear-gradient(top, #d4f1ff,#929292);
-            /*background-image: -webkit-linear-gradient(top,#c4c2c2, #929292);*/
-            /*background-image: -webkit-linear-gradient(bottom, #929292,#c4c2c2);*/
-            background-position: 0% 0rem;
-            animation:mask 3s infinite 0s;
+        .sideLeft{
+            left: -7%;
+            bottom: 2%;
         }
-        @keyframes mask{
-            0%{
-                background-position: 0% 0rem;
-            }
-            100%{
-                background-position: 0% 2.5rem;
-            }
+        .sideRight{
+            bottom: 5rem;
+            right: -0.2rem;
+        }
+        .seal{
+            position: absolute;
+            bottom: 2%;
+            right: -3%;
+            width: 0.8rem;
+            height: 0.8rem;
         }
     }
+
     	.form{
     		width: 80%;
     		margin: 0 auto;
     	}
     	.el-input__inner{
-    		padding: 30px 50px;
+    		padding: 0.8rem 1.5rem;
     		border-radius: 0px;
-            background: #f6f6f6;
+            background: url('/public/images/formBg.png');
+            border: 1px solid #a5733e;
     	}
+        .el-form-item__content{
+            width: 8rem;
+            height: 1rem;
+        }
     	.item{
     		position: relative;
     		span{
 	    		position: absolute;
-	    		left: 4%;
-	    		top: 18px;
+	    		left: 0.5rem;
+	    		top: 0.5rem;
 	    		bottom: 0;
 	    		display: inline-block;
-	    		width: 25px;
-	    		height: 25px;
+	    		width: 0.7rem;
+	    		height: 0.8rem;
 	    		background-size: 100%;
 	    		background-repeat: no-repeat;
                 z-index: 9999998;
@@ -203,32 +226,40 @@ export default{
     	}
     	
     	.item:nth-child(1) span{
-    		background-image: url(/public/images/appuser.png);
+    		background-image: url(/public/images/tea-user.png);
     	}
     	.item:nth-child(2) span{
-    		background-image: url(/public/images/apppassword.png);
+    		background-image: url(/public/images/tea-clock.png);
     	}
     	.el-button{
     		width:100%;
-			padding: 15px 5px;
+			padding: 0.38rem 0.41rem;
 			border-radius: 0;
-			background: #009acb;
-			border-color: #fff;
+			background: url('/public/images/form-bg.png');
+            border: 1px solid #a5733e;
 			color: #fff;
-			font-size: 20px;
+            font-family: fz !important;
+			font-size: 0.9rem;
 			font-weight: 600;
+            letter-spacing: 0.2rem;
     	}
     	.el-button:focus{
     		border-color: #fff;
     		color: #fff;
     	}
         .el-input__inner:focus{
-            border-color: #f3f3f3;
+            border-color: #a5733e;
+        }
+        .el-form-item:first-child{
+            margin-bottom: 1rem;
         }
         .el-form-item{
-            margin-bottom: 7%;
+            margin-bottom: 1.1rem;
         }
-        @media (max-height: 480px) {
+        .el-form-item__error{
+            top: 1.55rem;
+        }
+ /*       @media (max-height: 480px) {
             .el-input__inner{
                 padding: 9% 20%;
             }
@@ -272,6 +303,10 @@ export default{
             .webLogin .el-form-item{
                 margin-bottom: 5%;
             }
-        }
+        }*/
     }
+     @font-face{
+            font-family: fz;
+            src:url('../../sass/function/font.ttf');
+        }
 </style>
