@@ -13,26 +13,26 @@ export default[{
     children: [{
         role: roleData.plant === undefined ? 0 : roleData.plant.farming === undefined ? 0 : 1,
         path: '/appIndex/message/fertilize',
-        name: '施药管理',
-        detail: '种植事物管理详情'
+        name: '施肥管理',
+        detail: '施肥信息详情'
     },
     {
         role: roleData.plant === undefined ? 0 : roleData.plant.farming === undefined ? 0 : 1,
         path: '/appIndex/message/detect',
         name: '检测管理',
-        detail: '种植事物管理详情'
+        detail: '检测信息详情'
     },
     {
         role: roleData.plant === undefined ? 0 : roleData.plant.farming === undefined ? 0 : 1,
         path: '/appIndex/message/farming',
         name: '农事管理',
-        detail: '种植事物管理详情'
+        detail: '农事信息详情'
     },
     {
         role: roleData.plant === undefined ? 0 : roleData.plant.farming === undefined ? 0 : 1,
         path: '/appIndex/message/growImg',
         name: '生长图片',
-        detail: '种植事物管理详情'
+        detail: '生长图片详情'
     }]
 },
 {
@@ -44,6 +44,6 @@ export default[{
         path: '/appIndex/message/harvest',
         name: '采收管理',
         flag: false,
-        detail: '物流批次管理详情'
+        detail: '采收信息详情'
     }]
 }]
