@@ -135,9 +135,7 @@ export default{
                 this.$router.push('/login')
             }
         }
-        let timer = setTimeout(() => {
-            $('.mainImg').css({backgroundImage: 'url(/public/images/hascolor.png)'})
-        }, 300)
+        setTimeout(() => $('.mainImg').css({backgroundImage: 'url(/public/images/hascolor.png)'}), 300)
     }
 }
 </script>
