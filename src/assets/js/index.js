@@ -30,7 +30,7 @@ router.beforeEach(async (to, from, next) => {
         next()
         check = false
     }
-    var rt = '/'
+    var rt = '/index/home'
     if (!window.isPC) {
         rt = '/appIndex'
     }

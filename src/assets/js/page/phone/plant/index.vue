@@ -82,7 +82,6 @@ export default{
         this.code = this.$route.params.code
         // 查询首页产品数据
         var params = {code: this.code, teaTrace: 0}
-        console.log(sessionStorage.getItem('teaTrace'))
         // 追溯次数判断、操作
         if (sessionStorage.getItem('teaTrace') === null) {
             params['teaTrace'] = 1
