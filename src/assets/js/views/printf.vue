@@ -1,9 +1,5 @@
 <template>
  <div id="printfPreview">
-    <div class="operate">
-        <i @click="confirmPrintf" class="el-icon-document"></i>
-        <i @click="cancelPrintf" class="el-icon-circle-cross"></i>
-    </div>
     <div class="printfDiv">
             <div class="printfTable">
                 <h2 class="printf_h2">广东天池茶叶股份有限公司（根据合同签署选择对应公司名称）</h2>
@@ -49,10 +45,6 @@
                 </el-row>
             </div>     
     </div>
-<!--     <div class="footer">
-        <el-button @click="cancelPrintf">取 消</el-button>
-        <el-button class="btn_change" type="primary" @click="confirmPrintf">确 定</el-button>
-    </div> -->
 </div>
 </template>
 
@@ -70,7 +62,6 @@ export default {
     },
     mounted () {
         this.models = localStorage.getItem('detailsBatch') ? JSON.parse(localStorage.getItem('detailsBatch')) : {}
-        console.log(this.models)
         this.$nextTick(() => {
             this.tabItem = this.models.tabList[0]
             this.filterTheads = this.models.theads.filter(this.filterFn)
@@ -96,16 +87,6 @@ export default {
             }
         }
     },
-    // computed: {
-    //     filterTheads () {
-    //         let arr = this.models.theads.filter(this.filterFn)
-    //         return arr
-    //     },
-    //     filterProtos () {
-    //         let arr = this.models.protos.filter(this.filterFn)
-    //         return arr
-    //     }
-    // },
     watch: {
         tableData () {
             if (this.tableData.length) {
@@ -121,24 +102,13 @@ export default {
 }
 </script>
 <style lang=sass>
+html,body{
+	/*overflow: auto;*/
+}
 #printfPreview{
     padding: 50px 0;
     width: 800px;
     margin:0 auto;
-    .operate{
-        position: fixed;
-        padding: 0 10px;
-        right:10px;
-        top: 10px;
-        border: 1px solid #ccc;
-        border-radius: 10px;
-        font-size: 30px;
-        background: rgba(250, 250, 250, 0.75);
-        z-index: 10;
-        >i:last-child{
-            margin-left:30px;
-        };
-    }
     .printfDiv{
         .printfTable{
             min-width: 600px;

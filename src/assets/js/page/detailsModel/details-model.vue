@@ -75,7 +75,7 @@
                 <roleCheckbox v-if="isRoleShow" :rowId="rowId"></roleCheckbox>
             </transition>
             <!-- 打印单据模块 -->
-            <printfPreview 
+            <!-- <printfPreview 
                 ref='printfPreview'
                 :theads="theads"
                 :headData="headData"
@@ -85,7 +85,7 @@
                 :odd="odd"
                 :filter="filter"
                 >
-            </printfPreview>
+            </printfPreview> -->
         <!-- 列表模块 -->
         <el-table :data="tableData"  @selection-change="handleSelectionChange" v-loading="listLoading" @expand="expandDo">
             <!-- checkbox -->
@@ -238,7 +238,7 @@ import clickMore from '../../components/public/clickMore.vue'
 import harvestMore from '../../components/public/harvestMore.vue'
 import lotOpearte from '../../components/public/lotOpearte.vue'
 import printf from '../../components/public/printf.vue'
-import printfPreview from '../../components/public/printfPreview.vue'
+// import printfPreview from '../../components/public/printfPreview.vue'
 import roleCheckbox from '../../components/public/roleCheckbox.vue'
 export default {
     name: 'BasicModel',
@@ -312,7 +312,8 @@ export default {
         ]),
         // 打印内容的展示
         printShowFn () {
-            this.$refs.printfPreview.dialogTableVisible = true
+            // this.$refs.printfPreview.dialogTableVisible = true
+            this.$router.push('/printf')
         },
         // 关闭打印内容的展示
         closePrintfDialog () {
@@ -543,6 +544,8 @@ export default {
                     var ret = this.$conversion(this.changeDataArr, responce.data, 0)
                     ret = this.$eltable(ret)
                     this.$set(this, 'headData', ret)
+                    localStorage.setItem('headData', '{}')
+                    localStorage.setItem('headData', JSON.stringify(this.headData))
                 })
         },
         // 获取列表信息
@@ -563,12 +566,14 @@ export default {
             this.$dataGet(this, this.apiUrlArr[this.tabList[this.index].url], {params: data})
                 .then((responce) => {
                     this.listLoading = false
+                    localStorage.setItem('tableData', '[]')
                     if (responce.data.data !== undefined) {
                         if (responce.data.data.length !== 0) {
                             var ret = this.$conversion(this.tabItem.changeDataArr, responce.data.data, 1)
                             ret = this.$eltable(ret)
                             ret = this.$getProductInfo(ret)
                             this.$set(this, 'tableData', ret)
+                            localStorage.setItem('tableData', JSON.stringify(this.tableData))
                             this.total_num = responce.data.total
                             this.num = responce.data.last_page
                             this.paginator = responce.data
@@ -868,6 +873,7 @@ export default {
         if (this.tabItem.hiddeOperate !== undefined) {
             this.hiddeOperate = this.tabItem.hiddeOperate
         }
+        localStorage.setItem('detailsBatch', JSON.stringify(this.models))
     },
     watch: {
         tabItem () {
@@ -907,8 +913,9 @@ export default {
         lotOpearte,
         roleCheckbox,
         printf,
-        harvestMore,
-        printfPreview
+        harvestMore
+        // ,
+        // printfPreview
     }
 }
 </script>
