@@ -176,6 +176,7 @@
 </template>
 <script>
 import message from '../webAppBasic/appmessage.js'
+import detailmsg from '../../appDetail/appDetailBasic/appdetailmsg.js'
 import Camera from '../../public/camera.vue'
 import validate from '../../../utils/appValidate.js'
 import Header1 from '../../public/header.vue'
@@ -187,10 +188,15 @@ export default {
         TransferDom
     },
     data () {
+        let mad = this.$route.params.model
         let type = this.$route.params.type
         let typeComponent = []
         let modelObj = {}
-        Object.assign(modelObj, message)
+        if (mad.indexOf('Batch') !== -1) {
+            Object.assign(modelObj, detailmsg)
+        } else {
+            Object.assign(modelObj, message)
+        }
         let form = {} // 装内容
         let ruleTableForm = {} // 装内容是否符合规则，boolean类型
         let url = modelObj[this.$route.params.model][0].url
