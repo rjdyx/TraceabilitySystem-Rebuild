@@ -670,7 +670,7 @@ export default {
 <style lang="sass">
 @import '../../../../sass/mixins/_absoluteCenter.scss';
     $labelCol:#5a5a5a;
-    $labelBgCol:#edfcf9;
+    $labelBgCol:#74b66e;
     $placeholderCol:#b7b7b7;
     @mixin label {
         text-align:left!important;
@@ -772,6 +772,7 @@ export default {
             @include label;
             background:$labelBgCol;
             border-right: 1px solid #D9D9D9;
+            color: #fff;
         }
         .weui-cell__bd{
             margin-left:10px;
@@ -785,6 +786,7 @@ export default {
     }
     .vux-x-textarea{
         background:$labelBgCol;
+        color: #fff;
         .weui-label{
             text-align:left!important;
             padding: 10px 15px;
@@ -816,6 +818,7 @@ export default {
             @include label;
             background:$labelBgCol;
             border-right: 1px solid #D9D9D9;
+            color: #fff;
         }
         .weui-cell__ft{
             margin:0px 15px 0px 10px;
@@ -827,11 +830,11 @@ export default {
     .weui-cell{
         padding: 0rem!important;
         >div>p{
-            background:$labelBgCol;
             box-sizing: content-box;
             text-align:left!important;
             @include label;
             border-right: 1px solid #D9D9D9;
+            color: #fff;
         }
         .weui-cell__ft a,.weui-cell__ft input{
             box-sizing: content-box;

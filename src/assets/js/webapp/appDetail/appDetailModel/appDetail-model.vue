@@ -15,24 +15,17 @@
                     <div @touchstart="closeOperate" class="closeOperate">
                         <i class="el-icon-arrow-up"></i>
                     </div>
-                    <div class="operation">
-                        <el-button type="primary" class="newbuilt" @click="webAppOperateType('new')">新建</el-button>
-                        <div class="searchOp">
-                            <el-input 
-                                :placeholder="searchPlaceholder"
-                                v-model="inputValue"
-                                :on-icon-click="search" class="searchInp">
-                            </el-input>
-                            <el-button class="searchBtn" @click="textAndDateFind">搜索</el-button>
-                        </div>
+                    <div class="opMore">
+                        <el-button type="primary" class="opnewbuilt" @click="webAppOperateType('new')">新建</el-button>
+                        <!-- 时间操作 -->
+                        <group :title="time">
+                            <datetime v-model="value1" :title="'开始日期'" placeholder="请选择" confirm-text="确认" cancel-text="取消" 
+                                clear-text="清空" @on-change="beforeDate" start-date="2000-1-1" :end-date="endDate"></datetime>
+                            <datetime v-model="value2" :title="'结束日期'" placeholder="请选择" confirm-text="确认" cancel-text="取消" 
+                                clear-text="清空" @on-change="afterDate" :start-date="startDate"></datetime>
+                        </group>
+                        <el-button class="opsearchBtn" @click="textAndDateFind">搜索</el-button>
                     </div>
-                    <!-- 时间操作 -->
-                    <group :title="time">
-                        <datetime v-model="value1" :title="'开始日期'" placeholder="请选择" confirm-text="确认" cancel-text="取消" 
-                            clear-text="清空" @on-change="beforeDate" start-date="2000-1-1" :end-date="endDate"></datetime>
-                        <datetime v-model="value2" :title="'结束日期'" placeholder="请选择" confirm-text="确认" cancel-text="取消" 
-                            clear-text="清空" @on-change="afterDate" :start-date="startDate"></datetime>
-                    </group>
                 </div>
 
                 <!-- 列表头部 -->
@@ -152,7 +145,7 @@ export default {
             this.$set(this, 'tableData', [])
         },
         closeOperate () {
-            $('.applist').animate({top: '-142px'})
+            $('.applist').animate({top: '-91px'})
         },
          /*
         新建编辑
@@ -349,16 +342,35 @@ export default {
     color: #74b66e;
 }
 .appdetail_model{
-    .weui-loadmore_line{
-        border-top: none;
-    }
-    .weui-loadmore{
-        margin: 0 auto !important;
-    }
-    .weui-loadmore_line .weui-loadmore__tips{
-        position: relative !important;
-        top: 0 !important;
-        padding: 11px .55rem !important;
+    .weui-cell:before{
+            border-top: 1px solid transparent !important;
+        }
+        .weui-cell{
+            padding: 2px 15px;
+        }
+        .weui-cells:after{
+            border-bottom: none;
+        }
+        .opMore{
+            /*margin-bottom: 10px;*/
+            height: 65px; 
+            position: relative;
+        }
+        .clickHide{
+            margin-top: 5px;
+            width: 100%;
+            height: 30px;
+            border: 1px solid transparent; 
+            margin-bottom: 15px;
+        }
+        .weui-cells {
+            margin-bottom: 2px;
+        }
+    .has{
+        top: 0px;
+        }
+    .hasno{
+        top: -91px;
     }
     padding-top: 50px;
     .webApp-wrap{ 
@@ -367,17 +379,22 @@ export default {
             margin: 0 3% 10px;
             /*margin-right: 10px;*/
         }
-        .searchBtn {
-            float: right;
+        .opsearchBtn {
+            /*float: right;*/
             width: 17%;
+            position: absolute;
+            right: 0;
+            top: 15px;
         }
         .searchOp {
             display: inline;
+            width: 80%;
         }  
     } 
-    .newbuilt{
+    .opnewbuilt{
         width: 17%;
         float: left;
+        margin-top: 15px;
         /*margin-right: 10px;*/
     }
     .appTime{
@@ -444,7 +461,14 @@ export default {
         opacity: 0;
     }
     .weui-cells{
-        font-size: 14px;
+        font-size: 14px;    
+        margin-bottom: 2px;
+        width: 66%;
+        margin-right: 0 !important;
+        display: inline-block;
+        &:before{
+            border-top: none;
+        }
     }
     table{
         border-color: none;
@@ -526,9 +550,9 @@ export default {
         }
         .closeOperate{
             width: 100%;
-            height: 23px;
+            height: 21px;
             /*border: 1px solid;*/
-            margin-bottom: 5px;
+            /*margin-bottom: 5px;*/
             .el-icon-arrow-up{
                 display: block;
                 margin: 0 auto;
@@ -537,29 +561,7 @@ export default {
                 animation: start 2s infinite ease-in-out;
             }
         }
-        .weui-cell:before{
-            border-top: 1px solid transparent !important;
-        }
-        .weui-cell{
-            padding: 6px 15px;
-        }
-        .weui-cells:after{
-            border-bottom: none;
-        }
-        .operation{
-            /*margin-bottom: 10px;*/
-            height: 36px; 
-        }
-        .clickHide{
-            margin-top: 5px;
-            width: 100%;
-            height: 30px;
-            border: 1px solid transparent; 
-            margin-bottom: 15px;
-        }
-        .weui-cells {
-            margin-bottom: 2px;
-        }
+        
         
     }
     @keyframes start {
@@ -576,10 +578,5 @@ export default {
             transform: translateY(-8px);
         }
     }
-    .has{
-        top: 0px;
-        }
-    .hasno{
-        top: -142px;
-    }
+    
 </style>

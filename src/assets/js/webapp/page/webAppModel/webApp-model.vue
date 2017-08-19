@@ -40,6 +40,7 @@
                         <el-button class="searchBtn" @click="textAndDateFind">搜索</el-button>
                     </div>
                 </div>
+
                 <!-- 时间操作 -->
                 <group :title="time" v-if="timeshow">
                     <datetime v-model="value1" :title="'开始日期'" placeholder="请选择" confirm-text="确认" cancel-text="取消" 
@@ -57,7 +58,7 @@
                     {{theads[index]}}
                 </span>
             </div>   
-            
+
             <!-- 提示 -->
             <load-more :show-loading="listLoading" v-if="listLoading" tip="正在加载"></load-more>
             <load-more :show-loading="listLoading" v-if="noLoading" tip="暂无数据"></load-more>
@@ -286,11 +287,7 @@ export default {
         },
         // 关闭新建和时间组件
         closeOperate () {
-            if (this.ishas === true) {
-                $('.applist').animate({top: '-141px'})
-            } else {
-                $('.applist').animate({top: '-57px'})
-            }
+            $('.applist').animate({top: '-141px'})
         },
         // 文本与时间按钮查询
         textAndDateFind () {
@@ -487,22 +484,10 @@ export default {
     }
 }
 .webApp_model{
-    .weui-loadmore_line{
-        border-top: none;
-    }
-    .weui-loadmore{
-        margin: 0 auto !important;
-    }
-    .weui-loadmore_line .weui-loadmore__tips{
-        position: relative !important;
-        top: 0 !important;
-        padding: 11px .55rem !important;
-    }
     width: 100%;
     height: 100%;
     overflow: hidden;
     padding-top: 50px;
-    
     .webApp-wrap{ 
         width: 100%;
         height: 100%;
@@ -737,7 +722,7 @@ export default {
         top:-141px;
     }
     .hasno{
-        top: -57px;
+        top: 0px;
     }
     
     .el-tooltip__popper{

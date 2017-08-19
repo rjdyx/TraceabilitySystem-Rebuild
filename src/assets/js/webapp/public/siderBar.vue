@@ -133,8 +133,8 @@ export default {
                 padding-bottom: 80px;
             }
         	.animated {
-              -webkit-animation-duration: .6s;
-              animation-duration: .6s;
+              -webkit-animation-duration: .2s;
+              animation-duration: .2s;
             }
         }
         .logout{
