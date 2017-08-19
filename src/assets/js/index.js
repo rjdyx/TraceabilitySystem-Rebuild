@@ -51,7 +51,7 @@ router.beforeEach(async (to, from, next) => {
                 var state2 = data.indexOf(to.path.split('/')[2])
                 // 详情页
                 if (to.path.indexOf('details') !== -1) {
-                    if (state !== -1) {
+                    if (state !== -1 || data === 'admin') {
                         next()
                         return false
                     }
@@ -82,15 +82,11 @@ router.beforeEach(async (to, from, next) => {
                         }
                         next(rt)
                     } else {
-                        var aArr = excepts.concat(admins)
-                        aArr = aArr.concat(aDetails)
-                        for (let a in aArr) {
-                            if (to.path === aArr[a]) {
-                                next()
-                                return false
-                            }
+                        if (excepts.indexOf(to.path) === -1 && admins.indexOf(to.path) === -1) {
+                            next(rt)
+                            return false
                         }
-                        next(rt)
+                        next()
                     }
                 }
             }
