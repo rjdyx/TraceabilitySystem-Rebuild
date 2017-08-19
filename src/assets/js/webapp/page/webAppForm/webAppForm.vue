@@ -690,12 +690,24 @@ export default {
         margin-right:0px!important;
         width:6em!important;
     }
+.el-button--primary{
+    background-color: #74b66e;
+    border-color: #74b66e;
+    &:active{
+        background-color: #74b66e;
+        border-color: #74b66e;
+    }
+    &:focus{
+        background-color: #74b66e;
+        border-color: #74b66e;
+    }
+}
 .vux-popup-picker-header{
-    color: #009acb!important;
+    color: #74b66e!important;
 }
 .dp-header{
     .dp-item.dp-left,.dp-item,.dp-item.dp-right {
-        color: #009acb!important;
+        color: #74b66e!important;
     }
 }
 .pcDiv{
@@ -722,11 +734,11 @@ export default {
 }
 .weui-cells_checkbox .weui-check:checked + .vux-checklist-icon-checked:before
 {
-    color: #20a0ff!important;
+    color: #74b66e!important;
 }
 .weui-btn_plain-primary{
-    color: #20a0ff!important;
-    border: 1px solid #20a0ff!important;
+    color: #74b66e!important;
+    border: 1px solid #74b66e!important;
 }
 .bggray{
     background:#eef1f6;
@@ -844,7 +856,7 @@ export default {
     .vux-flexbox{
         margin:5px auto;
         .submitForm{
-            background-color:#0099cb;
+            background-color:#74b66e;
             color:white;
         }
         .cancelForm{

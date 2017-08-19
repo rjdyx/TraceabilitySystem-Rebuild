@@ -57,7 +57,11 @@
                     {{theads[index]}}
                 </span>
             </div>   
+            
+            <!-- 提示 -->
             <load-more :show-loading="listLoading" v-if="listLoading" tip="正在加载"></load-more>
+            <load-more :show-loading="listLoading" v-if="noLoading" tip="暂无数据"></load-more>
+
             <!-- 列表中间 -->
             <swipeout class="swipeout">
                 <swipeout-item transition-mode="follow" v-for="(pers,index) in tableData">
@@ -188,7 +192,8 @@ export default {
             showHideOnBlur: false,
             // 二维码跳转地址
             qrcodeUrl: '',
-            tracingCode: ''
+            tracingCode: '',
+            noLoading: false
         }
     },
     // 混合
@@ -223,9 +228,11 @@ export default {
                         if (responce.data.data.length !== 0) {
                             this.$set(this, 'tableData', responce.data.data)
                             this.total = responce.data.last_page
+                            this.noLoading = false
                         } else {
                             this.$set(this, 'tableData', responce.data.data)
                             this.total = 1
+                            this.noLoading = true
                         }
                         this.listLoading = false
                     }
@@ -480,6 +487,17 @@ export default {
     }
 }
 .webApp_model{
+    .weui-loadmore_line{
+        border-top: none;
+    }
+    .weui-loadmore{
+        margin: 0 auto !important;
+    }
+    .weui-loadmore_line .weui-loadmore__tips{
+        position: relative !important;
+        top: 0 !important;
+        padding: 11px .55rem !important;
+    }
     width: 100%;
     height: 100%;
     overflow: hidden;
