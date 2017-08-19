@@ -37,6 +37,17 @@ const test1 = resolve => {
         resolve(require('../views/test1.vue'))
     }, 'test1')
 }
+
+const printf = resolve => {
+    require.ensure(['../views/printf.vue'], () => {
+        resolve(require('../views/printf.vue'))
+    }, 'printf')
+}
+const qrcodePrintf = resolve => {
+    require.ensure(['../views/qrcodePrintf.vue'], () => {
+        resolve(require('../views/qrcodePrintf.vue'))
+    }, 'qrcodePrintf')
+}
 // ---------------------------登录注册组件----------------------------------
 const protocol = resolve => {
     require.ensure(['../views/protocol.vue'], () => {
@@ -221,6 +232,16 @@ var routes = [
         path: '/test1',
         name: 'test1',
         component: test1
+    },
+    {
+        path: '/printf',
+        name: 'printf',
+        component: printf
+    },
+    {
+        path: '/qrcodePrintf',
+        name: 'qrcodePrintf',
+        component: qrcodePrintf
     },
     {
         path: '/403',

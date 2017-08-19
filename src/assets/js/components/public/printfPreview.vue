@@ -1,7 +1,7 @@
 <template>
 <div id="printfPreview">
       <!-- 打印表单的东西 -->
-    <el-dialog class="printfDialog" title="打印预览效果" v-model="dialogTableVisible" size="null" @close="closePrintfDialog">
+    <el-dialog class="printfDialog" title="打印预览效果" v-model="dialogTableVisible" size="full" @close="closePrintfDialog" >
         <div class="printfDiv">
             <div class="printfTable">
                 <h2 class="printf_h2">广东天池茶叶股份有限公司（根据合同签署选择对应公司名称）</h2>
@@ -22,7 +22,8 @@
                             :label="item"
                             show-overflow-tooltip
                             align="center"
-                            min-width="50">
+                            min-width="50" 
+                            >
                             <template  scope="scope">
                                 <div v-if="item.includes('产品名称')" slot="reference" class="name-wrapper pcActive" @click="jumpDetails(scope.row)">
                                     {{ tableData[scope.$index][tabItem.protos[index]] }}
@@ -116,7 +117,7 @@ export default {
         },
         // 打印word文档
         confirmPrintf () {
-            this.generate(this.filterTheads, this.filterProtos, this.headData, this.tabItem['headList'], this.tabItem['protos'], this.tableData)
+            // this.generate(this.filterTheads, this.filterProtos, this.headData, this.tabItem['headList'], this.tabItem['protos'], this.tableData)
         },
         // 把[{}，{}]转换为[[],[]]的方法
         gsh (arr, protos) {
@@ -214,6 +215,8 @@ export default {
 #printfPreview{
     .printfDiv{
         border:1px dashed #bfcbd9;
+        width: 800px;
+        margin:0 auto;
         .printfTable{
             min-width: 600px;
             min-height:600px;

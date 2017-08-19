@@ -892,8 +892,11 @@ export default {
             this.isPermissionShow = !this.isPermissionShow
         },
         moreShow (index, row) {
-            this.isPrintShow = !this.isPrintShow
+            // this.isPrintShow = !this.isPrintShow
             this.printForm = row
+            localStorage.setItem('printForm', '{}')
+            localStorage.setItem('printForm', JSON.stringify(this.printForm))
+            this.$router.push('/qrcodePrintf')
         },
         // 发货操作
         shipGood (index, row) {
@@ -953,6 +956,10 @@ export default {
         let change = $('.available')
         change.css('display', 'none')
         this.theads.length > 8 ? this.expandMore = true : this.expandMore = false
+        localStorage.setItem('url', '')
+        localStorage.setItem('url', this.url)
+        localStorage.setItem('printComponent', '[]')
+        localStorage.setItem('printComponent', JSON.stringify(this.printComponent))
     },
     watch: {
         models () {
