@@ -17,13 +17,13 @@ const pre = '/index/'
 const pre2 = '/index/message/'
 const pre3 = '/index/details/'
 // 权限外路由(需登录)
-    // 采制管理
-const excepts = ['/index/home', pre + 'set', pre + 'test', pre + 'help', pre + 'question', pre + '404', pre + 'ondone', '/appIndex', '/appIndex/message/plantThing', '/appIndex/message/fertilize', '/appIndex/message/detect', '/appIndex/message/farming', '/appIndex/message/harvest', '/appIndex/message/growImg', '/webAppForm/fertilize/new', '/webAppForm/fertilize/edit', '/appIndex/appdetailbasic/fertilizeBatch', '/webAppForm/detect/new', '/webAppForm/detect/edit', '/appIndex/appdetailbasic/detectBatch', '/webAppForm/farming/new', '/webAppForm/farming/edit', '/appIndex/appdetailbasic/farmingBatch', '/webAppForm/growImg/new', '/webAppForm/growImg/edit', '/webAppForm/harvest/new', '/webAppForm/harvest/edit', '/appIndex/appdetailbasic/harvestBatch', '/test1', '/printf', '/qrcodePrintf', '/webAppForm/harvestBatch/new', '/webAppForm/harvestBatch/edit']
+const excepts = ['/index/home', pre + 'set', pre + 'test', pre + 'help', pre + 'question', pre + '404', pre + 'ondone', '/test1', '/printf', '/qrcodePrintf']
+const pxcepts = ['/appIndex', pre + '404']
 // 管理员路由
 const admins = [pre2 + 'adminRole', pre2 + 'adminCompany', pre2 + 'adminFeedback', pre2 + 'adminLog']
 const aDetails = [pre3 + 'companyUser']
 // 登录后不能访问的路由
-const any = ['/protocol', '/forget', '/login', '/waplogin']
+const any = ['/protocol', '/forget', '/login']
 // 追溯页面路由
 const teaTrace = [
     '/teaTrace/tea/index/',
@@ -50,40 +50,64 @@ router.beforeEach(async (to, from, next) => {
         if (window.flag) {
             await axios.get('/login/state').then(responce => {
                 if (responce.data.name === undefined) {
-                    for (let l in any) {
-                        if (to.path === any[l]) {
+                    if (!window.isPC) {
+                        if (to.path === '/waplogin') {
                             next()
                             return false
                         }
-                    }
-                    if (!window.isPC) {
                         next('/waplogin')
                     } else {
+                        for (let l in any) {
+                            if (to.path === any[l]) {
+                                next()
+                                return false
+                            }
+                        }
                         next('/login')
                     }
                 } else {
                     window.Roles = responce.data
                     let data = window.Roles.permissions
-                    if (data.one !== 'admin') {
-                        var pArr = data.one.concat(data.details)
-                        pArr = pArr.concat(excepts)
-                        for (let p in pArr) {
-                            if (to.path === pArr[p]) {
+                    // 手机端路由
+                    if (!window.isPC) {
+                        var uArr = data.phone_url.concat(data.phone_new_url)
+                        uArr = uArr.concat(data.phone_edit_url)
+                        uArr = uArr.concat(data.phone_detail_url)
+                        uArr = uArr.concat(pxcepts)
+                        if (uArr.indexOf('/appIndex/appdetailbasic/harvestBatch') !== -1) {
+                            uArr.push('/webAppForm/harvestBatch/new')
+                            uArr.push('/webAppForm/harvestBatch/edit')
+                        }
+                        for (let u in uArr) {
+                            if (to.path === uArr[u]) {
                                 next()
                                 return false
                             }
                         }
-                        next('/index/home')
+                        next('/appIndex')
                     } else {
-                        var aArr = excepts.concat(admins)
-                        aArr = aArr.concat(aDetails)
-                        for (let a in aArr) {
-                            if (to.path === aArr[a]) {
-                                next()
-                                return false
+                        // pc端路由
+                        if (data.one !== 'admin') {
+                            var pArr = data.one.concat(data.details)
+                            pArr = pArr.concat(excepts)
+                            for (let p in pArr) {
+                                if (to.path === pArr[p]) {
+                                    next()
+                                    return false
+                                }
                             }
+                            next('/index/home')
+                        } else {
+                            var aArr = excepts.concat(admins)
+                            aArr = aArr.concat(aDetails)
+                            for (let a in aArr) {
+                                if (to.path === aArr[a]) {
+                                    next()
+                                    return false
+                                }
+                            }
+                            next('/index/home')
                         }
-                        next('/index/home')
                     }
                 }
             })
