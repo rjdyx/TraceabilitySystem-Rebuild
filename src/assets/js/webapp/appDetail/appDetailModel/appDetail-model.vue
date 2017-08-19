@@ -41,6 +41,9 @@
                     <span v-for="(item,index) in theads" :style="{width: widths[index] + '%'}" class="appth">{{theads[index]}}</span>
                 </div>   
 
+                <load-more :show-loading="listLoading" v-if="listLoading" tip="正在加载"></load-more>
+                <load-more :show-loading="listLoading" v-if="noLoading" tip="暂无数据"></load-more>
+
                 <!-- 列表中间 -->
                 <div class="listContent" v-for="(pers,index) in tableData">
                     <span class="choice">
@@ -77,7 +80,7 @@
 </template> 
  
 <script>
-import { XTable, Datetime, Group, Tab, TabItem, Swipeout, SwipeoutItem, SwipeoutButton } from 'vux'
+import { XTable, Datetime, Group, Tab, TabItem, Swipeout, SwipeoutItem, SwipeoutButton, LoadMore } from 'vux'
 import {mapActions, mapMutations} from 'vuex'
 import paginator from '../../public/paginator.vue'
 import computed from '../appDetailModel/appdetailComputed.js'
@@ -123,6 +126,7 @@ export default {
             // 列表数据
             tableData: [],
             listLoading: false,
+            noLoading: false,
             ischeckdate: [],
             show: false,
             wapUrl: '',
@@ -173,6 +177,9 @@ export default {
             if (this.paramsIndex !== undefined && this.paramsIndex !== '') {
                 var type = this.paramsIndex
             }
+            if (flag) {
+                this.listLoading = true
+            }
             this.$dataWapGet(this, this.wapUrl, {params: data, type: type})
                 .then((responce) => {
                     // 数据转换
@@ -180,10 +187,13 @@ export default {
                         if (responce.data.data.length !== 0) {
                             this.$set(this, 'tableData', responce.data.data)
                             this.total = responce.data.last_page
+                            this.noLoading = false
                         } else {
                             this.$set(this, 'tableData', responce.data.data)
                             this.total = 1
+                            this.noLoading = true
                         }
+                        this.listLoading = false
                     }
                 })
         },
@@ -320,16 +330,29 @@ export default {
         TabItem,
         Swipeout,
         SwipeoutItem,
-        SwipeoutButton
+        SwipeoutButton,
+        LoadMore
     }
 }
 </script>
 
 <style lang='sass'>
+
 .dp-header .dp-item.dp-left, .dp-header .dp-item, .dp-header .dp-item.dp-right{
     color: #74b66e;
 }
 .appdetail_model{
+    .weui-loadmore_line{
+    border-top: none;
+}
+.weui-loadmore{
+    margin: 0 auto !important;
+}
+.weui-loadmore_line .weui-loadmore__tips{
+    position: relative !important;
+    top: 0 !important;
+    padding: 11px .55rem !important;
+}
     padding-top: 50px;
     .webApp-wrap{ 
         .searchInp {

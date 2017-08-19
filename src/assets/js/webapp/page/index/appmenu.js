@@ -42,8 +42,8 @@ export default[{
     children: [{
         role: roleData.delivery === undefined ? 0 : roleData.delivery.order === undefined ? 0 : 1,
         path: '/appIndex/message/harvest',
-        name: '采收管理',
+        name: '采制管理',
         flag: false,
-        detail: '采收信息详情'
+        detail: '采制详情'
     }]
 }]
