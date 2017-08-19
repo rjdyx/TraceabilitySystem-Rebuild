@@ -32,11 +32,6 @@ const login = resolve => {
         resolve(require('../views/login.vue'))
     }, 'login')
 }
-const test1 = resolve => {
-    require.ensure(['../views/test1.vue'], () => {
-        resolve(require('../views/test1.vue'))
-    }, 'test1')
-}
 
 const printf = resolve => {
     require.ensure(['../views/printf.vue'], () => {
@@ -227,11 +222,6 @@ var routes = [
         path: '/404',
         name: 'notFound',
         component: notFound
-    },
-    {
-        path: '/test1',
-        name: 'test1',
-        component: test1
     },
     {
         path: '/printf',
