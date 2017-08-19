@@ -457,6 +457,13 @@ export default {
             if (allValBol) {
                 let submitVal = this.$changeSubmit(this.tableForm, this.selectHideId)
                 let beforeS = this.$changeMutual(submitVal, this.changeDataArr, 1)
+                let check = this.$specialProcess(this.url, beforeS)
+                if (check !== undefined) {
+                    if (check['result'] === 'false') {
+                        this.setToast('text', check['message'], '18em')
+                        return false
+                    }
+                }
                 var _this = this
                 this.$dataPost(this, this.submitUrl, beforeS, this.hasImg, this.typeComponent.hiddenValue, this.isEdit).then((response) => {
                     if (response.data !== 'false') {
@@ -634,7 +641,12 @@ export default {
             this.isEdit = false
             this.successMsg = '新增数据成功'
             this.errorMsg = '新增数据失败'
-            this.submitUrl = this.url
+            if (this.$route.params.model.indexOf('Batch') !== -1) {
+                let id = localStorage.getItem('appDetailsId')
+                this.submitUrl = id + '/' + this.url
+            } else {
+                this.submitUrl = this.url
+            }
         }
     },
     watch: {
