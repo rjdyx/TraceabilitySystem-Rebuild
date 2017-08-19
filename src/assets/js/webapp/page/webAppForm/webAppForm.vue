@@ -176,7 +176,6 @@
 </template>
 <script>
 import message from '../webAppBasic/appmessage.js'
-import detailmsg from '../../appDetail/appDetailBasic/appdetailmsg.js'
 import Camera from '../../public/camera.vue'
 import validate from '../../../utils/appValidate.js'
 import Header1 from '../../public/header.vue'
@@ -188,15 +187,10 @@ export default {
         TransferDom
     },
     data () {
-        let mad = this.$route.params.model
         let type = this.$route.params.type
         let typeComponent = []
         let modelObj = {}
-        if (mad.indexOf('Batch') !== -1) {
-            Object.assign(modelObj, detailmsg)
-        } else {
-            Object.assign(modelObj, message)
-        }
+        Object.assign(modelObj, message)
         let form = {} // 装内容
         let ruleTableForm = {} // 装内容是否符合规则，boolean类型
         let url = modelObj[this.$route.params.model][0].url
@@ -457,13 +451,6 @@ export default {
             if (allValBol) {
                 let submitVal = this.$changeSubmit(this.tableForm, this.selectHideId)
                 let beforeS = this.$changeMutual(submitVal, this.changeDataArr, 1)
-                let check = this.$specialProcess(this.url, beforeS)
-                if (check !== undefined) {
-                    if (check['result'] === 'false') {
-                        this.setToast('text', check['message'], '18em')
-                        return false
-                    }
-                }
                 var _this = this
                 this.$dataPost(this, this.submitUrl, beforeS, this.hasImg, this.typeComponent.hiddenValue, this.isEdit).then((response) => {
                     if (response.data !== 'false') {
@@ -513,15 +500,8 @@ export default {
         // 获取编辑数据
         getEditInfo () {
             var type = this.type
-            var url
             this.editId = localStorage.getItem('editId')
-            if (this.$route.params.model.indexOf('Batch') !== -1) {
-                let id = localStorage.getItem('appDetailsId')
-                url = id + '/' + this.url + '/' + this.editId + '/edit'
-            } else {
-                url = this.url + '/' + this.editId + '/edit'
-            }
-            this.$dataWapGet(this, url, {})
+            this.$dataWapGet(this, this.url + '/' + this.editId + '/edit', {})
                 .then((responce) => {
                     // 编辑触发回调
                     if (this.typeComponent.editState) {
@@ -640,12 +620,7 @@ export default {
             this.isEdit = true
             this.successMsg = '编辑数据成功'
             this.errorMsg = '编辑数据失败'
-            if (this.$route.params.model.indexOf('Batch') !== -1) {
-                let id = localStorage.getItem('appDetailsId')
-                this.submitUrl = id + '/' + this.url + '/' + this.editId
-            } else {
-                this.submitUrl = this.url + '/' + this.editId
-            }
+            this.submitUrl = this.url + '/' + this.editId
         // 新增
         } else {
             this.defaultHide()
@@ -653,12 +628,7 @@ export default {
             this.isEdit = false
             this.successMsg = '新增数据成功'
             this.errorMsg = '新增数据失败'
-            if (this.$route.params.model.indexOf('Batch') !== -1) {
-                let id = localStorage.getItem('appDetailsId')
-                this.submitUrl = id + '/' + this.url
-            } else {
-                this.submitUrl = this.url
-            }
+            this.submitUrl = this.url
         }
     },
     watch: {
@@ -702,24 +672,24 @@ export default {
         margin-right:0px!important;
         width:6em!important;
     }
-.el-button--primary{
-    background-color: #74b66e;
-    border-color: #74b66e;
-    &:active{
+    .el-button--primary{
         background-color: #74b66e;
         border-color: #74b66e;
+        &:active{
+            background-color: #74b66e;
+            border-color: #74b66e;
+        }
+        &:focus{
+            background-color: #74b66e;
+            border-color: #74b66e;
+        }
     }
-    &:focus{
-        background-color: #74b66e;
-        border-color: #74b66e;
-    }
-}
 .vux-popup-picker-header{
-    color: #74b66e!important;
+    color:#74b66e!important;
 }
 .dp-header{
     .dp-item.dp-left,.dp-item,.dp-item.dp-right {
-        color: #74b66e!important;
+        color: #009acb!important;
     }
 }
 .pcDiv{
@@ -746,11 +716,11 @@ export default {
 }
 .weui-cells_checkbox .weui-check:checked + .vux-checklist-icon-checked:before
 {
-    color: #74b66e!important;
+    color: #74b66e !important;
 }
 .weui-btn_plain-primary{
-    color: #74b66e!important;
-    border: 1px solid #74b66e!important;
+    color: #74b66e !important;
+    border: 1px solid #74b66e !important;
 }
 .bggray{
     background:#eef1f6;
@@ -810,12 +780,12 @@ export default {
     }
     .vux-x-textarea{
         background:$labelBgCol;
-        color: #fff;
         .weui-label{
             text-align:left!important;
             padding: 10px 15px;
             margin-right: 0em!important;
             width:6em!important;
+            color: #fff;
         }
         .weui-textarea{ 
             padding: 10px 15px 10px 10px;
@@ -854,11 +824,12 @@ export default {
     .weui-cell{
         padding: 0rem!important;
         >div>p{
+            background:$labelBgCol;
             box-sizing: content-box;
             text-align:left!important;
+            color: #fff;
             @include label;
             border-right: 1px solid #D9D9D9;
-            color: #fff;
         }
         .weui-cell__ft a,.weui-cell__ft input{
             box-sizing: content-box;
@@ -871,7 +842,7 @@ export default {
     .vux-flexbox{
         margin:5px auto;
         .submitForm{
-            background-color:#74b66e;
+            background-color:$labelBgCol;
             color:white;
         }
         .cancelForm{
@@ -896,6 +867,7 @@ export default {
         width: 8%;
         height: 31px;
     }
+
 }
     @font-face {
       font-family: 'iconfont';
