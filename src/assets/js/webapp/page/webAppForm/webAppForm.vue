@@ -176,6 +176,7 @@
 </template>
 <script>
 import message from '../webAppBasic/appmessage.js'
+import detailmsg from '../../appDetail/appDetailBasic/appdetailmsg.js'
 import Camera from '../../public/camera.vue'
 import validate from '../../../utils/appValidate.js'
 import Header1 from '../../public/header.vue'
@@ -187,10 +188,16 @@ export default {
         TransferDom
     },
     data () {
+        let abc = ''
+        let mad = this.$route.params.model
         let type = this.$route.params.type
         let typeComponent = []
         let modelObj = {}
-        Object.assign(modelObj, message)
+        if (mad.indexOf('Batch') !== -1) {
+            Object.assign(modelObj, detailmsg)
+        } else {
+            Object.assign(modelObj, message)
+        }
         let form = {} // 装内容
         let ruleTableForm = {} // 装内容是否符合规则，boolean类型
         let url = modelObj[this.$route.params.model][0].url
@@ -451,6 +458,13 @@ export default {
             if (allValBol) {
                 let submitVal = this.$changeSubmit(this.tableForm, this.selectHideId)
                 let beforeS = this.$changeMutual(submitVal, this.changeDataArr, 1)
+                let check = this.$specialProcess(this.url, beforeS)
+                if (check !== undefined) {
+                    if (check['result'] === 'false') {
+                        this.setToast('text', check['message'], '18em')
+                        return false
+                    }
+                }
                 var _this = this
                 this.$dataPost(this, this.submitUrl, beforeS, this.hasImg, this.typeComponent.hiddenValue, this.isEdit).then((response) => {
                     if (response.data !== 'false') {
@@ -500,8 +514,15 @@ export default {
         // 获取编辑数据
         getEditInfo () {
             var type = this.type
+            var url
             this.editId = localStorage.getItem('editId')
-            this.$dataWapGet(this, this.url + '/' + this.editId + '/edit', {})
+            if (this.$route.params.model.indexOf('Batch') !== -1) {
+                let id = localStorage.getItem('appDetailsId')
+                url = id + '/' + this.url + '/' + this.editId + '/edit'
+            } else {
+                url = this.url + '/' + this.editId + '/edit'
+            }
+            this.$dataWapGet(this, url, {})
                 .then((responce) => {
                     // 编辑触发回调
                     if (this.typeComponent.editState) {
@@ -620,7 +641,12 @@ export default {
             this.isEdit = true
             this.successMsg = '编辑数据成功'
             this.errorMsg = '编辑数据失败'
-            this.submitUrl = this.url + '/' + this.editId
+            if (this.$route.params.model.indexOf('Batch') !== -1) {
+                let id = localStorage.getItem('appDetailsId')
+                this.submitUrl = id + '/' + this.url + '/' + this.editId
+            } else {
+                this.submitUrl = this.url + '/' + this.editId
+            }
         // 新增
         } else {
             this.defaultHide()
@@ -628,7 +654,12 @@ export default {
             this.isEdit = false
             this.successMsg = '新增数据成功'
             this.errorMsg = '新增数据失败'
-            this.submitUrl = this.url
+            if (this.$route.params.model.indexOf('Batch') !== -1) {
+                let id = localStorage.getItem('appDetailsId')
+                this.submitUrl = id + '/' + this.url
+            } else {
+                this.submitUrl = this.url
+            }
         }
     },
     watch: {
