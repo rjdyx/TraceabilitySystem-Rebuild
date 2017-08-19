@@ -188,7 +188,6 @@ export default {
         TransferDom
     },
     data () {
-        let abc = ''
         let mad = this.$route.params.model
         let type = this.$route.params.type
         let typeComponent = []
