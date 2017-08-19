@@ -91,7 +91,7 @@ export default {
             }]
         }],
         editComponent: [{
-            tab: '编辑施肥信息',
+            tab: '编辑采制信息',
             arrBox: {'manure_id': 'manure_name', 'unit': 'unit'},
             checkBoxUrl: [['manures', 'id', 'name', 'radio']],
             checkBoxPosition: [0],

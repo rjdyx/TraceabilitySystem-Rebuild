@@ -45,23 +45,30 @@
                 <load-more :show-loading="listLoading" v-if="noLoading" tip="暂无数据"></load-more>
 
                 <!-- 列表中间 -->
-                <div class="listContent" v-for="(pers,index) in tableData">
-                    <span class="choice">
-                        <input type="checkbox" 
-                        :value="pers.id" 
-                        v-model="ischeckdate">
-                        <span class="order">{{index+1}}</span>
-                    </span>
-                    <el-tooltip effect="dark" placement="top" v-for="(item,index) in protos">
-                        <div slot="content">{{pers[protos[index]]}}</div>
-                        <div slot="content" v-if="pers[protos[index]] == null">null</div>
-                        <span 
-                            :name="theads[index]"  
-                            :style="{width: widths[index] + '%'}" @click="checkDom($event.currentTarget)">
-                                {{pers[protos[index]]}}
-                        </span>
-                    </el-tooltip>
-                </div>
+                <swipeout class="swipeout">
+                    <swipeout-item transition-mode="follow" v-for="(pers,index) in tableData">
+                        <div class="listContent  demo-content vux-1px-t" slot="content">
+                            <span class="choice">
+                                <input type="checkbox" 
+                                :value="pers.id" 
+                                v-model="ischeckdate">
+                                <span class="order">{{index+1}}</span>
+                            </span>
+                            <el-tooltip effect="dark" placement="top" v-for="(item,index) in protos">
+                                <div slot="content">{{pers[protos[index]]}}</div>
+                                <div slot="content" v-if="pers[protos[index]] == null">null</div>
+                                <span 
+                                    :name="theads[index]"  
+                                    :style="{width: widths[index] + '%'}" @click="checkDom($event.currentTarget)">
+                                        {{pers[protos[index]]}}
+                                </span>
+                            </el-tooltip>
+                        </div>
+                        <div slot="right-menu" v-if="timeshow">
+                            <swipeout-button class="appedit" @click.native="webAppOperateType('edit', pers.id)">编辑</swipeout-button>
+                    </div>
+                    </swipeout-item>
+                </swipeout>
 
                 <!-- 列表底部 -->
                 <div class="tableFooter">
@@ -343,16 +350,16 @@ export default {
 }
 .appdetail_model{
     .weui-loadmore_line{
-    border-top: none;
-}
-.weui-loadmore{
-    margin: 0 auto !important;
-}
-.weui-loadmore_line .weui-loadmore__tips{
-    position: relative !important;
-    top: 0 !important;
-    padding: 11px .55rem !important;
-}
+        border-top: none;
+    }
+    .weui-loadmore{
+        margin: 0 auto !important;
+    }
+    .weui-loadmore_line .weui-loadmore__tips{
+        position: relative !important;
+        top: 0 !important;
+        padding: 11px .55rem !important;
+    }
     padding-top: 50px;
     .webApp-wrap{ 
         .searchInp {

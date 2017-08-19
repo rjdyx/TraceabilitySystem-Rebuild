@@ -57,8 +57,11 @@
                     {{theads[index]}}
                 </span>
             </div>   
+            
+            <!-- 提示 -->
             <load-more :show-loading="listLoading" v-if="listLoading" tip="正在加载"></load-more>
             <load-more :show-loading="listLoading" v-if="noLoading" tip="暂无数据"></load-more>
+
             <!-- 列表中间 -->
             <swipeout class="swipeout">
                 <swipeout-item transition-mode="follow" v-for="(pers,index) in tableData">
