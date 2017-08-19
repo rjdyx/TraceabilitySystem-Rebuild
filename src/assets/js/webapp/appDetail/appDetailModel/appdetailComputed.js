@@ -33,6 +33,9 @@ export default {
         },
         delType () {
             return this.models[this.modelIndex].delType
+        },
+        timeshow () {
+            return this.models[this.modelIndex].timeshow
         }
     }
 }

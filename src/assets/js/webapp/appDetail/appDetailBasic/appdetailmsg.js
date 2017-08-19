@@ -4,6 +4,7 @@ export default {
         settitle: '施肥详情',
         key: 'cultivate-fertilize',
         url: 'cultivate-fertilize',
+        timeshow: false,
         theads: ['种植批次号', '种植日期', '茶叶品种'],
         protos: ['serial', 'date', 'tea_name'],
         widths: [26, 26, 26]
@@ -14,6 +15,7 @@ export default {
         delType: 'plant',
         paramsIndex: 'plant',
         url: 'cultivate-detect',
+        timeshow: false,
         theads: ['种植批次号', '种植日期', '茶叶品种'],
         protos: ['serial', 'date', 'tea_name'],
         widths: [26, 26, 26]
@@ -22,6 +24,7 @@ export default {
     farmingBatch: [{
         key: 'cultivate-farming',
         url: 'cultivate-farming',
+        timeshow: false,
         theads: ['种植批次号', '种植日期', '茶叶品种'],
         protos: ['serial', 'date', 'tea_name'],
         widths: [26, 26, 26]
@@ -30,6 +33,8 @@ export default {
     harvestBatch: [{
         key: 'colect-process',
         url: 'colect-process',
+        timeshow: true,
+        searchPlaceholder: '请输入种植批次号进行搜索',
         theads: ['种植批次号', '种植日期', '茶叶品种'],
         protos: ['serial', 'date', 'tea_name'],
         widths: [26, 26, 26]
@@ -38,6 +43,7 @@ export default {
     saleBatch: [{
         key: 'sell-code',
         url: 'sell-code',
+        timeshow: false,
         theads: ['产品溯源码', '销售产品', '销售日期'],
         protos: ['code', 'product_name', 'date'],
         widths: [26, 26, 26]

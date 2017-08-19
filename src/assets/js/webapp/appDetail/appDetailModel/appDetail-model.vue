@@ -10,41 +10,68 @@
     <div class="webApp-wrap">
 
         <div class="appmain">
+            <div class="applist" :class="{'has':!timeshow,'hasno':timeshow}">
+                <div class="appOperate" v-if="timeshow">
+                    <div @touchstart="closeOperate" class="closeOperate">
+                        <i class="el-icon-arrow-up"></i>
+                    </div>
+                    <div class="operation">
+                        <el-button type="primary" class="newbuilt" @click="webAppOperateType('new')">新建</el-button>
+                        <div class="searchOp">
+                            <el-input 
+                                :placeholder="searchPlaceholder"
+                                v-model="inputValue"
+                                :on-icon-click="search" class="searchInp">
+                            </el-input>
+                            <el-button class="searchBtn" @click="textAndDateFind">搜索</el-button>
+                        </div>
+                    </div>
+                    <!-- 时间操作 -->
+                    <group :title="time">
+                        <datetime v-model="value1" :title="'开始日期'" placeholder="请选择" confirm-text="确认" cancel-text="取消" 
+                            clear-text="清空" @on-change="beforeDate" start-date="2000-1-1" :end-date="endDate"></datetime>
+                        <datetime v-model="value2" :title="'结束日期'" placeholder="请选择" confirm-text="确认" cancel-text="取消" 
+                            clear-text="清空" @on-change="afterDate" :start-date="startDate"></datetime>
+                    </group>
+                </div>
 
-            <!-- 列表头部 -->
-            <div class="list">
-                <span class="choice">序号</span>
-                <span v-for="(item,index) in theads" :style="{width: widths[index] + '%'}" class="appth">{{theads[index]}}</span>
-            </div>   
+                <!-- 列表头部 -->
+                <div :class="{'list': timeshow, 'noList': !timeshow}">
+                    <span class="choice">序号</span>
+                    <span v-for="(item,index) in theads" :style="{width: widths[index] + '%'}" class="appth">{{theads[index]}}</span>
+                </div>   
 
-            <!-- 列表中间 -->
-            <div class="listContent" v-for="(pers,index) in tableData">
-                <span class="choice">
-                    <input type="checkbox" 
-                    :value="pers.id" 
-                    v-model="ischeckdate">
-                    <span class="order">{{index+1}}</span>
-                </span>
-                <el-tooltip effect="dark" placement="top" v-for="(item,index) in protos">
-                    <div slot="content">{{pers[protos[index]]}}</div>
-                    <div slot="content" v-if="pers[protos[index]] == null">null</div>
-                    <span 
-                        :name="theads[index]"  
-                        :style="{width: widths[index] + '%'}" @click="checkDom($event.currentTarget)">
-                            {{pers[protos[index]]}}
+                <!-- 列表中间 -->
+                <div class="listContent" v-for="(pers,index) in tableData">
+                    <span class="choice">
+                        <input type="checkbox" 
+                        :value="pers.id" 
+                        v-model="ischeckdate">
+                        <span class="order">{{index+1}}</span>
                     </span>
-                </el-tooltip>
-            </div>
+                    <el-tooltip effect="dark" placement="top" v-for="(item,index) in protos">
+                        <div slot="content">{{pers[protos[index]]}}</div>
+                        <div slot="content" v-if="pers[protos[index]] == null">null</div>
+                        <span 
+                            :name="theads[index]"  
+                            :style="{width: widths[index] + '%'}" @click="checkDom($event.currentTarget)">
+                                {{pers[protos[index]]}}
+                        </span>
+                    </el-tooltip>
+                </div>
 
-            <!-- 列表底部 -->
-            <div class="tableFooter">
-                <el-button type="primary" class="allcheck" @click="checkedAll">全选</el-button>
-                <el-button type="danger" class="appDelete" @click="listDelete">删除</el-button>
+                <!-- 列表底部 -->
+                <div class="tableFooter">
+                    <el-button type="primary" class="allcheck" @click="checkedAll">全选</el-button>
+                    <el-button type="danger" class="appDelete" @click="listDelete">删除</el-button>
+                </div>
+                
+                <!-- 分页 -->
+                <paginator :total="total" @pageEvent="pageChange"></paginator>
             </div>
-            
-            <!-- 分页 -->
-            <paginator :total="total" @pageEvent="pageChange"></paginator>
         </div>
+
+
   </div>
 </div>
 </template> 
@@ -54,6 +81,7 @@ import { XTable, Datetime, Group, Tab, TabItem, Swipeout, SwipeoutItem, Swipeout
 import {mapActions, mapMutations} from 'vuex'
 import paginator from '../../public/paginator.vue'
 import computed from '../appDetailModel/appdetailComputed.js'
+import appfunction from '../../directive/appfunction.js'
 export default {
     name: 'BasicModel',
     props: {
@@ -76,7 +104,8 @@ export default {
                     typeComponent: [],
                     tabComponent: [],
                     paramsIndex: '',
-                    delType: ''
+                    delType: '',
+                    timeshow: ''
                 }]
             }
         }
@@ -97,16 +126,47 @@ export default {
             ischeckdate: [],
             show: false,
             wapUrl: '',
-            lastDom: ''
+            startDate: '',
+            endDate: '',
+            lastDom: '',
+            ishas: false
         }
     },
     // 混合
-    mixins: [computed],
+    mixins: [computed, appfunction],
     methods: {
         init (index = 0) {
             this.inputValue = ''
             this.value = ''
             this.$set(this, 'tableData', [])
+        },
+        closeOperate () {
+            $('.applist').animate({top: '-142px'})
+        },
+         /*
+        新建编辑
+         */
+        webAppOperateType (operateType, id) {
+            if (id !== undefined) {
+                localStorage.setItem('editId', id)
+            }
+            this.$router.push('/webAppForm' + '/' + this.$route.params.model + '/' + operateType)
+        },
+        // 文本与时间按钮查询
+        textAndDateFind () {
+            this.dataArr['query_text'] = this.inputValue
+            this.dataArr['page'] = 1
+            this.boxArr(this.dataArr, true)
+        },
+        // 开始日期
+        beforeDate (val) {
+            this.startDate = val
+            this.dataArr['beforeDate'] = val
+        },
+        // 结束日期
+        afterDate (val) {
+            this.endDate = val
+            this.dataArr['afterDate'] = val
         },
         // 获取数据
         getAllMsg (data = {}, flag = false) {
@@ -266,6 +326,9 @@ export default {
 </script>
 
 <style lang='sass'>
+.dp-header .dp-item.dp-left, .dp-header .dp-item, .dp-header .dp-item.dp-right{
+    color: #74b66e;
+}
 .appdetail_model{
     padding-top: 50px;
     .webApp-wrap{ 
@@ -332,10 +395,6 @@ export default {
         background: url(/public/images/list.png) no-repeat;
         background-size: 100%;
     }
-    .clickHide{
-        margin-top: 5px;
-        width: 100%;
-    }
     .uphide{
         background: url(/public/images/arrowBottom.png) no-repeat;
         background-size: 100%;   
@@ -343,19 +402,6 @@ export default {
     .downhide{
         background: url(/public/images/arrowTop.png) no-repeat;
         background-size: 100%;
-    }
-    .clickHide{
-        height: 30px;
-        border: 1px solid transparent; 
-        margin-bottom: 15px;
-    }
-    .hide{
-        width: 5%;
-        height: 15px;
-        display: block;
-        margin: 0 auto;
-        margin-top: 10px; 
-        border: 1px solid transparent; 
     }
     .slide-fade-enter-active {
         transition: all .3s ease;
@@ -373,7 +419,7 @@ export default {
     table{
         border-color: none;
     }
-    .list{
+    .list,.noList{
         width: 100%;
         background: #eaeaea;
         height: 54px;
@@ -411,51 +457,99 @@ export default {
         padding-left: 10px;
     }
     .el-button--primary{
-        background: #009acb;
-        border-color: #009acb;
+        background: #74b66e;
+        border-color: #74b66e;
     }
-    .apptab{
-        width: 100%;
-        margin-bottom: 50px;
-        .vux-tab{
-            display: block;
-            .vux-tab-item{
-                width: 33.3%;
-                display: inline-block;
-                background: #eef0ef;
-                border: 1px solid #dddfde !important;
-                border-right: none !important;
-                margin-bottom: 3px;
-            }
-            .vux-tab-item:nth-child(3n+0){
-                border-right: 1px solid #dddfde !important;
-            }
-            .vux-tab-item.vux-tab-selected{
-                color: #666;
-                border-bottom: none;
-                background: #009acb;
-                color: #fff;
-            }
-        }
-        .vux-tab-ink-bar{
-            background-color: transparent;
-        }
-    }
-    .appHeader{
+    /*.appHeader{
         margin-bottom: 5px;
-    }
+    }*/
     .appmain{
         margin: 0 5px;
         margin-top: 5px;
+        /*overflow: scroll;*/
+        position: relative;
     }
-    /*.swipeout{
+    .applist{
         width: 100%;
-    }*/
+        height: 100%;
+        position: absolute;
+        /*top: -141px;*/
+        left: 0;
+    }
     .appedit{
         background: #009acb;
     }
-    /*.lookOver{
-        background: #eaeaea;
-    }*/
 }  
+       .appOperate{
+        /*height: 132px;*/
+        margin-top: 1%;
+        .el-button:active{
+            border-color: #74b66e;
+            color: #74b66e;
+        }
+        .el-button:hover{
+            border-color: #74b66e;
+            color: #74b66e;
+        }
+        .el-input__inner:focus{
+            border-color: #74b66e;
+        }
+        .closeOperate{
+            width: 100%;
+            height: 23px;
+            /*border: 1px solid;*/
+            margin-bottom: 5px;
+            .el-icon-arrow-up{
+                display: block;
+                margin: 0 auto;
+                width: 3%;
+                height: 100%;
+                animation: start 2s infinite ease-in-out;
+            }
+        }
+        .weui-cell:before{
+            border-top: 1px solid transparent !important;
+        }
+        .weui-cell{
+            padding: 6px 15px;
+        }
+        .weui-cells:after{
+            border-bottom: none;
+        }
+        .operation{
+            /*margin-bottom: 10px;*/
+            height: 36px; 
+        }
+        .clickHide{
+            margin-top: 5px;
+            width: 100%;
+            height: 30px;
+            border: 1px solid transparent; 
+            margin-bottom: 15px;
+        }
+        .weui-cells {
+            margin-bottom: 2px;
+        }
+        
+    }
+    @keyframes start {
+        0%, 30%{
+            opacity: 0.3;
+            transform: translateY(27px);
+        }
+        60%{
+            opacity: 1;
+            transform: translate(0);
+        }
+        100%{
+            opacity: 0.5;
+            transform: translateY(-8px);
+        }
+    }
+    .has{
+        top: 0px;
+        }
+    .hasno{
+        top: -142px;
+    }
 </style>

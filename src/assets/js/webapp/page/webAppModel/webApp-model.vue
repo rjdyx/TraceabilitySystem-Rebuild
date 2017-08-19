@@ -111,6 +111,8 @@
             <paginator :total="total" @pageEvent="pageChange"></paginator>
         </div>
     </div>
+
+
   </div>
 </div>
 </template> 
@@ -537,23 +539,6 @@ export default {
         background: url(/public/images/list.png) no-repeat;
         background-size: 100%;
     }
-    .clickHide{
-        margin-top: 5px;
-        width: 100%;
-    }
-    .clickHide{
-        height: 30px;
-        border: 1px solid transparent; 
-        margin-bottom: 15px;
-    }
-    .hide{
-        width: 5%;
-        height: 15px;
-        display: block;
-        margin: 0 auto;
-        margin-top: 10px; 
-        border: 1px solid transparent; 
-    }
     .slide-fade-enter-active {
         transition: all .3s ease;
     }
@@ -674,19 +659,38 @@ export default {
         .el-input__inner:focus{
             border-color: #74b66e;
         }
-    }
-    .closeOperate{
-        width: 100%;
-        height: 23px;
-        /*border: 1px solid;*/
-        margin-bottom: 5px;
-    }
-    .el-icon-arrow-up{
-        display: block;
-        margin: 0 auto;
-        width: 3%;
-        height: 100%;
-        animation: start 2s infinite ease-in-out;
+        .closeOperate{
+            width: 100%;
+            height: 23px;
+            /*border: 1px solid;*/
+            margin-bottom: 5px;
+            .el-icon-arrow-up{
+                display: block;
+                margin: 0 auto;
+                width: 3%;
+                height: 100%;
+                animation: start 2s infinite ease-in-out;
+            }
+        }
+        .weui-cell:before{
+            border-top: 1px solid transparent !important;
+        }
+        .weui-cell{
+            padding: 6px 15px;
+        }
+        .weui-cells:after{
+            border-bottom: none;
+        }
+        .operation{
+            margin-bottom: 10px;
+        }
+        .clickHide{
+            margin-top: 5px;
+            width: 100%;
+            height: 30px;
+            border: 1px solid transparent; 
+            margin-bottom: 15px;
+        }
     }
     @keyframes start {
         0%, 30%{
@@ -707,12 +711,6 @@ export default {
         bottom: 10%;*/
         margin-bottom: 2%;
     }
-    .active{
-        background: red !important;
-    }
-    .unavtive{
-        background: green !important;
-    }
     .img{
         display: inline-block;
         background: red;
@@ -723,18 +721,7 @@ export default {
     .hasno{
         top: -57px;
     }
-    .operation{
-        margin-bottom: 10px;
-    }
-    .weui-cell:before{
-        border-top: 1px solid transparent !important;
-    }
-    .weui-cell{
-        padding: 6px 15px;
-    }
-    .weui-cells:after{
-        border-bottom: none;
-    }
+    
     .el-tooltip__popper{
         left: 90px !important;
         top: 230px !important;
