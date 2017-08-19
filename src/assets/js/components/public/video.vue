@@ -5,7 +5,7 @@
         </button>
         <i v-if="value==''" class="tipIcon el-icon-circle-close"></i>
         <i v-else class="tipIcon el-icon-circle-check"></i>
-        <el-button size="small" @click="delVideo($event.currentTarget)" class="btn_change fr delVideo">删除</el-button>
+        <el-button size="small" @click="delVideo($event.currentTarget)" class="btn_change delVideo">删除</el-button>
     </div>
 </template>
 <script>
@@ -39,6 +39,7 @@ export default {
             }
             this.value = $('.inputVideo input[type=file]').eq(0).val()
             this.$emit('return-shuju', {name: 'videos', value: file})
+            this.$emit('loadFile')
         },
         delVideo () {
             this.value = ''

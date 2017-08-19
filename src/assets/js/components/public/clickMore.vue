@@ -27,7 +27,17 @@
     <!-- 视频弹出框 -->
     <div class="videoWrap" v-if="isShow">
         <div class="video">
-            <video :src="videoSrc" controls="controls"  height="400px"></video>
+            <div class="uploadVideo">
+                
+                <div class="uploading">
+                    <span class="tip" v-if="tipShow">您还没有上传视频</span>
+                    <video :src="videoSrc" controls="controls"  height="200px" width="200px" v-if="videoShow"></video>
+                    <div class="pro" v-if="progressShow">
+                        <el-progress type="circle" :percentage="progress"></el-progress>
+                    </div>
+                    <videoCo @loadFile="loadFile"></videoCo>
+                </div>
+            </div>
             <i class="closeIcon" @click="closeClick"></i>
         </div>  
     </div>
@@ -35,6 +45,7 @@
 </template>
 
 <script>
+    import videoCo from './video.vue'
     import more from '../../page/more/more.js'
     export default {
         name: 'clickMore',
@@ -51,10 +62,20 @@
                 isShow: false,
                 more: more,
                 checkeds: {},
-                videoSrc: ''
+                videoSrc: '',
+                videoShow: false,
+                progress: 0,
+                progressShow: false,
+                tipShow: true
             }
         },
         methods: {
+            handleRemove (file, fileList) {
+                console.log(file, fileList)
+            },
+            handlePreview (file) {
+                console.log(file)
+            },
             handleCommand (command) {
                 if (command === '状态' || command === '审核状态') {
                     this.$emit('changeState')
@@ -92,9 +113,22 @@
                 } else {
                     return false
                 }
+            },
+            loadFile () {
+                this.progressShow = true
+                this.tipShow = false
+                let timer = setInterval(() => {
+                    this.progress ++
+                    if (this.progress === 100) {
+                        clearInterval(timer)
+                        this.videoShow = true
+                        this.progressShow = false
+                    }
+                }, 200)
             }
         },
         components: {
+            videoCo
         },
         mounted () {
         }
@@ -118,11 +152,34 @@
         text-align: center;
         overflow: hidden;
     }
+    .uploading{
+        width: 250px;
+        height: 250px;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform:translateX(-50%) translateY(-50%);
+        border: 1px solid #000;
+        .tip{
+            width: 200px;
+            height: 200px;
+            margin: 0 auto;
+            line-height: 200px;
+        }
+        .pro{
+            width: 200px;
+            height: 200px;
+            margin: 0 auto;
+        }
+        .el-progress--circle{
+            margin-top: 17px;
+        }
+    }
     .video{
-        width: 700px;
+        width: 500px;
         height: 393px;
         position: absolute;
-        background: #000;
+        background: #fff;
         left: 50%;
         top: 50%;
         transform:translateX(-50%) translateY(-50%);

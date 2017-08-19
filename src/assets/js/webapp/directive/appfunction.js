@@ -65,7 +65,7 @@ export default {
         $route () {
             let path = this.$route.path
             if (path === '/appIndex') {
-                this.settitle = '生之园溯源系统'
+                this.settitle = '天池茶叶溯源系统'
                 this.homeShow = false
                 this.back = false
             } else if (path.indexOf('appdetailbasic') !== -1) {
