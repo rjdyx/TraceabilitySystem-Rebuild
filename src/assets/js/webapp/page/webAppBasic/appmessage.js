@@ -186,7 +186,7 @@ export default {
                 name: 'detect_type',
                 type: 'select',
                 label: '检测类型',
-                placeholder: '（必填）',
+                placeholder: '（必选）',
                 rule: {required: true},
                 options: [['土壤检测', '水质检测', '大气污染检测', '农药残留检测', '其他检测']],
                 optionskeys: [['土壤检测', '水质检测', '大气污染检测', '农药残留检测', '其他检测']],
@@ -205,7 +205,7 @@ export default {
                 name: 'content',
                 type: 'text',
                 label: '检测内容',
-                placeholder: '（可选）',
+                placeholder: '（必选）',
                 rule: {required: true}
             },
             {

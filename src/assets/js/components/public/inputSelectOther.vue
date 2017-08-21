@@ -7,10 +7,28 @@
  */
 <template>
 <div class="inputSelectOther">
-	<el-select v-model="selectValue"  slot="append" placeholder="请选择" size="small" :disabled="disabled" @change="getSelectValue">
-	    <el-option v-for="option in shuju.options" :label="option.label" :value="option.value" size="small"></el-option>
+	<el-select 
+        v-model="selectValue"  
+        slot="append" 
+        placeholder="请选择" 
+        size="small" 
+        :disabled="disabled" 
+        @change="getSelectValue">
+    	    <el-option 
+                v-for="option in shuju.options" 
+                :label="option.label" 
+                :value="option.value" 
+                size="small">
+            </el-option>
 	</el-select>
-  	<el-input class="fr" v-if="selectValue === '其他' && shuju.type === 'selectOther'" :placeholder="shuju.otherPlaceholder" v-model="inputValue" size="small"  @change="getInputValue"></el-input>
+  	<el-input 
+        class="fr" 
+        v-if="selectValue === '其他' && shuju.type === 'selectOther'" 
+        :placeholder="shuju.otherPlaceholder" 
+        v-model="inputValue" 
+        size="small"  
+        @change="getInputValue">
+    </el-input>
 </div>
 </template>
 <script>
