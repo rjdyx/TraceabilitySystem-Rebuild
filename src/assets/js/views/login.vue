@@ -35,9 +35,10 @@
 						</el-form-item>
 						<el-form-item label="" prop="code">
 							<el-input 
-								v-model.number="ruleForm2.code" 
+								v-model="ruleForm2.code" 
 								placeholder="请输入验证码" 
-								class="code" @keyup.enter.native="passTo">
+								class="code" @keyup.enter.native="passTo"
+								type="number">
 							</el-input>
 							<img :src="kit_url" alt="" class="kit" @click="Kit">
 							<span class="loading">
