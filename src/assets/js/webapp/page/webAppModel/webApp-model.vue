@@ -22,7 +22,7 @@
         </div>
 
     <div class="appmain">
-        <div class="applist" :class="{'has':ishas,'hasno':!ishas}">
+        <div class="applist" :class="{'has':timeshow,'hasno':!timeshow}">
                 
             <!-- 操作 -->
             <div class="appOperate">
@@ -183,7 +183,6 @@ export default {
             startDate: '',
             endDate: '',
             active: true,
-            ishas: true,
             activeindex: '',
             tabSelected: '',
             checkAll: false,
@@ -287,7 +286,7 @@ export default {
         },
         // 关闭新建和时间组件
         closeOperate () {
-            $('.applist').animate({top: '-141px'})
+            $('.applist').animate({top: '-133px'})
         },
         // 文本与时间按钮查询
         textAndDateFind () {
@@ -398,9 +397,6 @@ export default {
     },
     mounted () {
         this.boxArr(this.dataArr, true)
-        if (this.$route.path.indexOf('plantTrace') !== -1) {
-            this.ishas = false
-        }
         let tabTxt = localStorage.getItem('appTab')
         this.tabSelected = tabTxt
         this.getMenu()
@@ -432,14 +428,6 @@ export default {
         // 全选
         checkAll (check) {
             this.checkAll = check
-        },
-        // 检测路由变化
-        $route () {
-            if (this.$route.path.indexOf('plantTrace') !== -1) {
-                this.ishas = false
-            } else {
-                this.ishas = true
-            }
         }
     },
     components: {
@@ -484,6 +472,10 @@ export default {
     }
 }
 .webApp_model{
+    .el-button--danger{
+        background: #f26a4b;
+        border-color: #f26a4b;
+    }
     width: 100%;
     height: 100%;
     overflow: hidden;
@@ -562,7 +554,7 @@ export default {
         width: 100%;
         background: #eaeaea;
         height: 54px;
-        margin-top:5px;
+        /*margin-top:5px;*/
         -webkit-overflow-scrolling: touch;
         li,span{
             display: inline-block;
@@ -642,7 +634,6 @@ export default {
         width: 100%;
         height: 100%;
         position: absolute;
-        /*top: -132px;*/
         left: 0;
     }
     .appedit{
@@ -650,7 +641,7 @@ export default {
     }
     .appOperate{
         /*height: 132px;*/
-        margin-top: 1%;
+        /*margin-top: 1%;*/
         .el-button:active{
             border-color: #74b66e;
             color: #74b66e;
@@ -719,7 +710,7 @@ export default {
         background: red;
     }
     .has{
-        top:-141px;
+        top:-133px;
     }
     .hasno{
         top: 0px;

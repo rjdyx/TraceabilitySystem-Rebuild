@@ -702,24 +702,24 @@ export default {
         margin-right:0px!important;
         width:6em!important;
     }
-.el-button--primary{
-    background-color: #74b66e;
-    border-color: #74b66e;
-    &:active{
+    .el-button--primary{
         background-color: #74b66e;
         border-color: #74b66e;
+        &:active{
+            background-color: #74b66e;
+            border-color: #74b66e;
+        }
+        &:focus{
+            background-color: #74b66e;
+            border-color: #74b66e;
+        }
     }
-    &:focus{
-        background-color: #74b66e;
-        border-color: #74b66e;
-    }
-}
 .vux-popup-picker-header{
-    color: #74b66e!important;
+    color:#74b66e!important;
 }
 .dp-header{
     .dp-item.dp-left,.dp-item,.dp-item.dp-right {
-        color: #74b66e!important;
+        color: #009acb!important;
     }
 }
 .pcDiv{
@@ -746,11 +746,11 @@ export default {
 }
 .weui-cells_checkbox .weui-check:checked + .vux-checklist-icon-checked:before
 {
-    color: #74b66e!important;
+    color: #74b66e !important;
 }
 .weui-btn_plain-primary{
-    color: #74b66e!important;
-    border: 1px solid #74b66e!important;
+    color: #74b66e !important;
+    border: 1px solid #74b66e !important;
 }
 .bggray{
     background:#eef1f6;
@@ -810,12 +810,12 @@ export default {
     }
     .vux-x-textarea{
         background:$labelBgCol;
-        color: #fff;
         .weui-label{
             text-align:left!important;
             padding: 10px 15px;
             margin-right: 0em!important;
             width:6em!important;
+            color: #fff;
         }
         .weui-textarea{ 
             padding: 10px 15px 10px 10px;
@@ -854,11 +854,12 @@ export default {
     .weui-cell{
         padding: 0rem!important;
         >div>p{
+            background:$labelBgCol;
             box-sizing: content-box;
             text-align:left!important;
+            color: #fff;
             @include label;
             border-right: 1px solid #D9D9D9;
-            color: #fff;
         }
         .weui-cell__ft a,.weui-cell__ft input{
             box-sizing: content-box;
@@ -871,7 +872,7 @@ export default {
     .vux-flexbox{
         margin:5px auto;
         .submitForm{
-            background-color:#74b66e;
+            background-color:$labelBgCol;
             color:white;
         }
         .cancelForm{
@@ -896,6 +897,7 @@ export default {
         width: 8%;
         height: 31px;
     }
+
 }
     @font-face {
       font-family: 'iconfont';

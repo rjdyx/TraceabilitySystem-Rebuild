@@ -145,7 +145,7 @@ export default {
             this.$set(this, 'tableData', [])
         },
         closeOperate () {
-            $('.applist').animate({top: '-91px'})
+            $('.applist').animate({top: '-87px'})
         },
          /*
         新建编辑
@@ -370,7 +370,7 @@ export default {
         top: 0px;
         }
     .hasno{
-        top: -91px;
+        top: -87px;
     }
     padding-top: 50px;
     .webApp-wrap{ 
@@ -536,7 +536,7 @@ export default {
 }  
        .appOperate{
         /*height: 132px;*/
-        margin-top: 1%;
+        /*margin-top: 1%;*/
         .el-button:active{
             border-color: #74b66e;
             color: #74b66e;
