@@ -17,7 +17,7 @@ const pre = '/index/'
 const pre2 = '/index/message/'
 const pre3 = '/index/details/'
 // 权限外路由(需登录)
-const excepts = ['/index/home', pre + 'set', pre + 'test', pre + 'help', pre + 'question', pre + '404', pre + 'ondone', '/test1', '/printf', '/qrcodePrintf']
+const excepts = ['/index/home', '/index/plays', pre + 'set', pre + 'test', pre + 'help', pre + 'question', pre + '404', pre + 'ondone', '/test1', '/printf', '/qrcodePrintf']
 const pxcepts = ['/appIndex', pre + '404']
 // 管理员路由
 const admins = [pre2 + 'adminRole', pre2 + 'adminCompany', pre2 + 'adminFeedback', pre2 + 'adminLog']
