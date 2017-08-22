@@ -308,6 +308,7 @@ export default {
         popup-picker组件还需要传多一个：name的属性
         */
         onHide (obj) {
+            // console.log(obj)
             // (name, rule, value)
             var _this = this
             if (obj.closeType) {

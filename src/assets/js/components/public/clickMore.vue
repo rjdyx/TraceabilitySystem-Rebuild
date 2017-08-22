@@ -28,10 +28,21 @@
     <div class="videoWrap" v-if="isShow">
         <div class="video">
             <div class="uploadVideo">
-                
                 <div class="uploading">
                     <span class="tip" v-if="tipShow">您还没有上传视频</span>
-                    <video :src="videoSrc" controls="controls"  height="200px" width="200px" v-if="videoShow"></video>
+                    <!-- <video :src="videoSrc" controls="controls" height="200px" width="200px"></video> -->
+                    <video-player 
+                        v-if="videoShow" 
+                        class="video-player-box"
+                        ref="videoPlayer"
+                        :options="playerOptions"
+                        :playsinline="true"
+                        customEventName="customstatechangedeventname"
+                        @play="onPlayerPlay($event)"
+                        @pause="onPlayerPause($event)"
+                        @statechanged="playerStateChanged($event)"
+                        @ready="playerReadied">
+                    </video-player>
                     <div class="pro" v-if="progressShow">
                         <el-progress type="circle" :percentage="progress"></el-progress>
                     </div>
@@ -43,10 +54,12 @@
     </div>
 </div>
 </template>
-
 <script>
+    import videoJs from 'video.js'
     import videoCo from './video.vue'
     import more from '../../page/more/more.js'
+    // 引入vue-video-player插件
+    import { videoPlayer } from 'vue-video-player'
     export default {
         name: 'clickMore',
         props: {
@@ -66,10 +79,26 @@
                 videoShow: false,
                 progress: 0,
                 progressShow: false,
-                tipShow: true
+                tipShow: true,
+                playerOptions: {
+                    // videojs options
+                    muted: true,
+                    language: 'en',
+                    playbackRates: [0.7, 1.0, 1.5, 2.0],
+                    sources: [{
+                        type: 'video/mp4',
+                        src: ''
+                    }]
+                }
             }
         },
         methods: {
+            toggleVideo (e) {
+                // 当前播放时间
+                var curTime = e.currentTime
+                $('#media').attr('src', 'video/exo.mp4').attr('autoplay', 'true')
+                e.currentTime = curTime
+            },
             handleRemove (file, fileList) {
                 console.log(file, fileList)
             },
@@ -118,19 +147,35 @@
                 this.progressShow = true
                 this.tipShow = false
                 let timer = setInterval(() => {
-                    this.progress ++
+                    this.progress += 5
                     if (this.progress === 100) {
                         clearInterval(timer)
                         this.videoShow = true
                         this.progressShow = false
                     }
-                }, 200)
+                }, 100)
+            },
+            onPlayerPlay (player) {
+            },
+            onPlayerPause (player) {
+            },
+            playerStateChanged (playerCurrentState) {
+            },
+            playerReadied (player) {
+                console.log('the player is readied', player)
             }
         },
         components: {
-            videoCo
+            videoCo,
+            videoPlayer
         },
         mounted () {
+            this.playerOptions.sources[0].src = this.videoSrc
+        },
+        computed: {
+            player () {
+                return this.$refs.videoPlayer.player
+            }
         }
     }
 </script>
@@ -206,5 +251,17 @@
     .el-dropdown-menu__item{
         padding: 0 15px;
     }
-    
+    .vjs_video_3-dimensions{
+        width: 200px;
+        height: 200px;
+    }
+    .video-js .vjs-big-play-button{
+        width: 1rem;
+        left: 72px;
+        top: 72px;
+    }
+    .video-js{
+        margin: 0 auto;
+        margin-top: 10px;
+    }
 </style>

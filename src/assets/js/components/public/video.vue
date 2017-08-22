@@ -8,6 +8,7 @@
         <el-button size="small" @click="delVideo($event.currentTarget)" class="btn_change delVideo">删除</el-button>
     </div>
 </template>
+<script type="text/javascript"></script>
 <script>
 export default {
     name: 'video',
