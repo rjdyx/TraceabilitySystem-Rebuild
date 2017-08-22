@@ -77,7 +77,7 @@ export default[{
 {
     name: '系统管理',
     key: 'system',
-    childrenKey: ['company', 'user', 'log'],
+    childrenKey: ['company', 'user', 'play', 'log'],
     role: 0,
     src: '/public/images/system.png',
     children: [{
@@ -89,6 +89,11 @@ export default[{
         role: 0,
         path: '/index/message/userOperate',
         name: '用户管理'
+    },
+    {
+        role: 0,
+        path: '/index/message/companyPlay',
+        name: '实时视频管理'
     },
     {
         role: 0,

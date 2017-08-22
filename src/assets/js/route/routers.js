@@ -32,11 +32,6 @@ const login = resolve => {
         resolve(require('../views/login.vue'))
     }, 'login')
 }
-const test1 = resolve => {
-    require.ensure(['../views/test1.vue'], () => {
-        resolve(require('../views/test1.vue'))
-    }, 'test1')
-}
 
 const printf = resolve => {
     require.ensure(['../views/printf.vue'], () => {
@@ -80,6 +75,12 @@ const home = resolve => {
     require.ensure(['../components/top/home.vue'], () => {
         resolve(require('../components/top/home.vue'))
     }, 'home')
+}
+// -------------------------------实时视频页------------------------------
+const plays = resolve => {
+    require.ensure(['../components/top/plays.vue'], () => {
+        resolve(require('../components/top/plays.vue'))
+    }, 'plays')
 }
 // -------------------------------设置------------------------------
 const set = resolve => {
@@ -183,6 +184,10 @@ var routes = [
                 // redirect: 'home'
             },
             {
+                path: 'plays',
+                component: plays
+            },
+            {
                 path: 'message/:model',
                 component: basic,
                 // 需要登录才能进入此路由
@@ -227,11 +232,6 @@ var routes = [
         path: '/404',
         name: 'notFound',
         component: notFound
-    },
-    {
-        path: '/test1',
-        name: 'test1',
-        component: test1
     },
     {
         path: '/printf',
