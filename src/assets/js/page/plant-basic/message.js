@@ -10,7 +10,6 @@ import inputDateTimes from '../../components/public/inputDateTimes.vue'
 import inputFile from '../../components/public/inputFile.vue'
 import inputFiles from '../../components/public/inputFiles.vue'
 import inputTextFile from '../../components/public/inputTextFile.vue'
-import video from '../../components/public/video.vue'
 import inputSelectOther from '../../components/public/inputSelectOther.vue'
 import inputTextSelect from '../../components/public/inputTextSelect.vue'
 import Qrcode from '../../components/public/Qrcode.vue'
@@ -284,15 +283,6 @@ export default {
                     rule: null
                 },
                 {
-                    name: 'video',
-                    type: 'video',
-                    component: video,
-                    isNull: false,
-                    label: '视频',
-                    placeholder: '',
-                    rule: null
-                },
-                {
                     name: 'memo',
                     type: 'textarea',
                     component: null,
@@ -367,15 +357,6 @@ export default {
                     component: null,
                     isNull: true,
                     label: '海拔高度',
-                    placeholder: '',
-                    rule: null
-                },
-                {
-                    name: 'video',
-                    type: 'video',
-                    component: video,
-                    isNull: false,
-                    label: '视频',
                     placeholder: '',
                     rule: null
                 },

@@ -35,7 +35,7 @@
 						</el-form-item>
 						<el-form-item label="" prop="code">
 							<el-input 
-								v-model.number="ruleForm2.code" 
+								v-model="ruleForm2.code" 
 								placeholder="请输入验证码" 
 								class="code" @keyup.enter.native="passTo">
 							</el-input>
@@ -103,7 +103,7 @@ export default {
             if (value === '') {
                 callback(new Error('验证码不能为空'))
             } else {
-                axios.get('/kit-check', { params: { kit: this.ruleForm2.code } })
+                axios.get('/kit-check', { params: { kit: value } })
                     .then((responce) => {
                         if (responce.data === 422) {
                             callback(new Error('验证码错误'))

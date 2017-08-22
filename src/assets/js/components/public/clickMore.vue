@@ -35,7 +35,7 @@
                     <div class="pro" v-if="progressShow">
                         <el-progress type="circle" :percentage="progress"></el-progress>
                     </div>
-                    <videoCo @loadFile="loadFile"></videoCo>
+                    <videoCo @loadFile="loadFile" :rowId="rowId"></videoCo>
                 </div>
             </div>
             <i class="closeIcon" @click="closeClick"></i>
@@ -66,7 +66,8 @@
                 videoShow: false,
                 progress: 0,
                 progressShow: false,
-                tipShow: true
+                tipShow: true,
+                rowId: this.row.id
             }
         },
         methods: {
