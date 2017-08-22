@@ -8,6 +8,7 @@
         <el-button size="small" @click="upVideo()" class="btn_change delVideo">上传</el-button>
     </div>
 </template>
+<script type="text/javascript"></script>
 <script>
 export default {
     name: 'video',

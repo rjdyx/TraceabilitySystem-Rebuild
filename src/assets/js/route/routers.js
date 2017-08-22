@@ -76,6 +76,12 @@ const home = resolve => {
         resolve(require('../components/top/home.vue'))
     }, 'home')
 }
+// -------------------------------实时视频页------------------------------
+const plays = resolve => {
+    require.ensure(['../components/top/plays.vue'], () => {
+        resolve(require('../components/top/plays.vue'))
+    }, 'plays')
+}
 // -------------------------------设置------------------------------
 const set = resolve => {
     require.ensure(['../components/top/set.vue'], () => {
@@ -176,6 +182,10 @@ var routes = [
                 path: 'home',
                 component: home
                 // redirect: 'home'
+            },
+            {
+                path: 'plays',
+                component: plays
             },
             {
                 path: 'message/:model',

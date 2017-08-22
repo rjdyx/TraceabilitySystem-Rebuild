@@ -87,3 +87,13 @@ require('sass/index.scss')
 // const vuxLoader = require('vux-loader')
 // const webpackConfig = originalConfig
 // module.exports = vuxLoader.merge(webpackConfig, {plugins: ['vux-ui']})
+
+// video
+require('video.js/dist/video-js.css')
+require('vue-video-player/src/custom-theme.css')
+var VueVideoPlayer = require('vue-video-player')
+Vue.use(VueVideoPlayer)
+// if (process.browser) {
+//     const VueVideoPlayer = require('vue-video-player/ssr')
+//     Vue.use(VueVideoPlayer)
+// }

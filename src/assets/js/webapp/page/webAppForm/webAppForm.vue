@@ -46,20 +46,47 @@
                     </datetime>
 
                     <!-- 滑动选择框 -->
-                    <popup-picker
-                        :name = "comItem.name"
-                        v-if="comItem.type === 'select'"
-                        :title="comItem.label" 
-                        :data="comItem.options" 
-                        :datakeys="comItem.optionskeys"
-                        :placeholder="comItem.placeholder"
-                        v-model="tableForm[comItem.name]"
-                        @on-hide="onHide"
-                        value-text-align="left"
-                        :class="[{ inputErrors: ruleTableForm[comItem.name].bol},{bggray: comItem.disabled}]"
-                        :disabled="comItem.disabled"
-                        >
-                    </popup-picker>
+                    <div >
+                        <!-- <popup-picker
+                            :name = "comItem.name"
+                            :title="comItem.label" 
+                            :data="comItem.options" 
+                            :datakeys="comItem.optionskeys"
+                            :placeholder="comItem.placeholder"
+                            v-model="tableForm[comItem.name]"
+                            @on-hide="onHide"
+                            value-text-align="left"
+                            :class="[{ inputErrors: ruleTableForm[comItem.name].bol},{bggray: comItem.disabled}]"
+                            :disabled="comItem.disabled"
+                            >
+                        </popup-picker>
+                        <x-input 
+                            v-if="tableForm[comItem.name].includes('其他')"
+                            :inputName="comItem.name"
+                            :title="comItem.label" 
+                            :placeholder="comItem.placeholder" 
+                            v-model="tableForm[comItem.name]"
+                            @on-change="inputOnChange"
+                            @on-blur="onBlur"
+                            :disabled="comItem.disabled"
+                            :class="[{ inputErrors: ruleTableForm[comItem.name].bol},{bggray: comItem.disabled}]">
+                        </x-input> -->
+                        <popupPickeOrderText 
+                            v-if="comItem.type === 'select'"
+                            :name = "comItem.name"
+                            :title="comItem.label" 
+                            :data="comItem.options" 
+                            :datakeys="comItem.optionskeys"
+                            :placeholder="comItem.placeholder"
+                            v-model="tableForm[comItem.name]"
+                            :editValue="tableForm[comItem.name]"
+                            :ruleTableFormBol="ruleTableForm[comItem.name].bol"
+                            :disabled= "comItem.disabled"
+                            @on-hide="onHide"
+                            @on-change="inputOnChange"
+                            @on-blur="onBlur"
+                        ></popupPickeOrderText>
+                    </div>
 
                     <!-- 多行文本框 -->
                     <x-textarea
@@ -76,7 +103,7 @@
                         >
                     </x-textarea>
                     
-                    <!-- 文本与滑动选择框 -->
+                    <!-- 文本与滑动选择框 eg: xxx:单位 -->
                     <div v-if="comItem.type === 'textSelect'">
                         <x-input 
                             :inputName="comItem.name"
@@ -180,6 +207,7 @@ import detailmsg from '../../appDetail/appDetailBasic/appdetailmsg.js'
 import Camera from '../../public/camera.vue'
 import validate from '../../../utils/appValidate.js'
 import Header1 from '../../public/header.vue'
+import popupPickeOrderText from '../../public/popupPicke-orderText.vue'
 import erweima from './webAppInputFile.vue'
 import { XHeader, Actionsheet, TransferDom, Group, XInput, Selector, PopupPicker, Datetime, ChinaAddressData, XTextarea, Icon, XButton, Flexbox, FlexboxItem, PopupRadio, Popup, XSwitch, Cell, Checklist, Divider, Radio, Toast } from 'vux'
 export default {
@@ -306,8 +334,9 @@ export default {
         修改了vex里面popup-pickert组件的onHide, 原参数只有type，现在是{closeType: this.closeType, name: this.name, index: 选择的数组下标}。
         popup-picker组件还需要传多一个：name的属性
         */
-        onHide (obj) {
-            // (name, rule, value)
+        onHide (obj, value) {
+            // (name, rule, index)
+            this.tableForm[obj.name] = value
             var _this = this
             if (obj.closeType) {
                 this.typeComponent.components.forEach(function (item) {
@@ -687,7 +716,8 @@ export default {
         Radio,
         Toast,
         Header1,
-        erweima
+        erweima,
+        popupPickeOrderText
     }
 }
 </script>

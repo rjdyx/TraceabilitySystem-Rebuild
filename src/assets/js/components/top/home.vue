@@ -14,6 +14,12 @@
 				<span class="headerImg">
 					<img v-if="listV.logo" :src="listV.logo"/>
 				</span>
+
+                <div class="plays">
+                    <router-link :to="{path:'/index/plays'}">
+                       查看实时视频
+                    </router-link>
+                </div>
 				<ul  class="text homeInfo">
 					<li v-for="(item,index) in listN" class="coltext">
 						{{item}} {{listV[index]}} {{plans.come}}
@@ -111,7 +117,7 @@ $absolute: absolute;
             }
 			.text{
                 float:right;
-                width: 100%; 
+                width: 90%; 
                 font-size: 14px;
                 color: #898989;
                 li{
@@ -127,5 +133,21 @@ $absolute: absolute;
             }
 		}
 	}
+    .plays {
+        float: right;
+        width:10%;
+        height: 100%;
+        a {
+            border: 1px solid #4D95E8;
+            border-radius: 5px;
+            line-height: 30px;
+            text-align: center;
+            cursor: pointer;
+            color: #4D95E8;
+            display: block;
+            width: 100px;
+            margin-top: 40%;
+        }
+    }
 }
 </style>

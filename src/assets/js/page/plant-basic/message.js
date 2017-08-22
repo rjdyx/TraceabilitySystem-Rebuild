@@ -5756,5 +5756,83 @@ export default {
             }
             ]
         }]
+    }],
+    // 实时视频管理
+    companyPlay: [{
+        settitle: '实时视频管理',
+        key: 'compayPlay',
+        roleKey: 'play',
+        tab: '实时视频信息',
+        url: 'play',
+        selectSearch: ['name'],
+        searchPlaceholder: '请输入名称进行搜索',
+        theads: ['视频名称', '视频设备号', '备注'],
+        protos: ['name', 'play', 'memo'],
+        widths: [50, 50, 50],
+        listComponent: [],
+        typeComponent: [{
+            component: output
+        },
+        {
+            component: newbuildBtn
+        }],
+        newComponent: [{
+            tab: '新建实时视频信息',
+            checkNumber: [0],
+            components: [{
+                name: 'name',
+                type: 'text',
+                component: null,
+                label: '视频名称',
+                placeholder: '请输视频名称',
+                rule: [{required: true, trigger: 'blur', message: '请输入视频名称'}, {validator: validate2.reCheck}]
+            },
+            {
+                name: 'play',
+                type: 'text',
+                component: null,
+                label: '视频设备号',
+                placeholder: '请输视频设备号',
+                rule: [{required: true, trigger: 'blur', message: '请输入视频设备号'}]
+            },
+            {
+                name: 'memo',
+                type: 'textarea',
+                component: null,
+                label: '备注信息',
+                placeholder: '',
+                rule: null
+            }
+            ]
+        }],
+        editComponent: [{
+            tab: '编辑实时视频信息',
+            checkNumber: [0],
+            components: [{
+                name: 'name',
+                type: 'text',
+                component: null,
+                label: '视频名称',
+                placeholder: '请输视频名称',
+                rule: [{required: true, trigger: 'blur', message: '请输入视频名称'}, {validator: validate2.reCheck}]
+            },
+            {
+                name: 'play',
+                type: 'text',
+                component: null,
+                label: '视频设备号',
+                placeholder: '请输视频设备号',
+                rule: [{required: true, trigger: 'blur', message: '请输入视频设备号'}]
+            },
+            {
+                name: 'memo',
+                type: 'textarea',
+                component: null,
+                label: '备注信息',
+                placeholder: '',
+                rule: null
+            }
+            ]
+        }]
     }]
 }

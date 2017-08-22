@@ -42,23 +42,27 @@ export default {
             this.settitle = '天池茶叶溯源系统'
             this.homeShow = false
             this.back = false
+            this.growPicture = true
         } else if (path.indexOf('appdetailbasic') !== -1) {
             if (path.indexOf('/plantTo') !== -1) {
                 let detect = localStorage.getItem('appTab')
                 this.settitle = detect
                 this.back = true
                 this.homeShow = false
+                this.growPicture = false
             } else {
                 let detit = localStorage.getItem('dename')
                 this.settitle = detit
                 this.back = true
                 this.homeShow = false
+                this.growPicture = false
             }
         } else {
             let apptitle = localStorage.getItem('tit')
             this.settitle = apptitle
             this.homeShow = true
             this.back = false
+            this.growPicture = false
         }
     },
     watch: {
@@ -68,23 +72,27 @@ export default {
                 this.settitle = '天池茶叶溯源系统'
                 this.homeShow = false
                 this.back = false
+                this.growPicture = true
             } else if (path.indexOf('appdetailbasic') !== -1) {
                 if (path.indexOf('/plantTo') !== -1) {
                     let detect = localStorage.getItem('appTab')
                     this.settitle = detect
                     this.back = true
                     this.homeShow = false
+                    this.growPicture = false
                 } else {
                     let detit = localStorage.getItem('dename')
                     this.settitle = detit
                     this.back = true
                     this.homeShow = false
+                    this.growPicture = false
                 }
             } else {
                 let apptitle = localStorage.getItem('tit')
                 this.settitle = apptitle
                 this.homeShow = true
                 this.back = false
+                this.growPicture = false
             }
         }
     }

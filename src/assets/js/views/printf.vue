@@ -22,7 +22,7 @@
                             align="center"
                             min-width="50" 
                             >
-                            <template  scope="scope">
+                            <template scope="scope">
                                 <div v-if="item.includes('产品名称')" slot="reference" class="name-wrapper pcActive" @click="jumpDetails(scope.row)">
                                     {{ tableData[scope.$index][tabItem.protos[index]] }}
                                 </div>
