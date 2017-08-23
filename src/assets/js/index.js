@@ -38,6 +38,23 @@ const teaTrace = [
 ]
 
 router.beforeEach(async (to, from, next) => {
+    // WebSocket (未完成...)
+    if (!window.socketData) {
+        if ('WebSocket' in window) {
+            var socket = new WebSocket('ws://www.cysyadmin.com/api/socket')
+            window.socketData = socket
+            socket.onopen = function () {
+                // socket.send('发送数据')
+                alert('数据发送中...')
+            }
+            socket.onmessage = function (event) {
+                let data = JSON.parse(event.data)
+                console.log(data)
+            }
+        } else {
+            console.log('浏览器不支持')
+        }
+    }
     var str = to.path.substring(0, to.path.length - 18)
     var check = false
     for (let t in teaTrace) {

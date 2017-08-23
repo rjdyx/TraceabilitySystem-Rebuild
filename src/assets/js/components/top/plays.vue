@@ -81,7 +81,8 @@ export default{
             var live = ''
             if (responce.data) {
                 this.lives = responce.data
-                live = this.lives[0].play
+                live = responce.data[0].play
+                this.desc = responce.data[0].memo
             } else {
                 this.setToast('text', '当前无信息可加载...', '12em')
             }
@@ -89,7 +90,7 @@ export default{
         })
     },
     created () {
-        document.title = '首页'
+        document.title = this.settitle
     }
 }
 </script>
