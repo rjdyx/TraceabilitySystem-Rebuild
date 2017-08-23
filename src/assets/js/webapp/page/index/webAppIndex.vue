@@ -7,7 +7,7 @@
 
 <template>
 	<div class="appWrap">
-		<app-header @parentClick="showsider" :settitle="settitle" :homeShow="homeShow" :back="back">
+		<app-header @parentClick="showsider" :settitle="settitle" :homeShow="homeShow" :back="back" :growPicture="growPicture">
             <span class="left-btn" @click="showmenu" slot="menu"></span>
         </app-header>
 		<sider-bar :menus='menus' :show="show" @hidetoggle="hidesider" @children-info="getinfo"></sider-bar>
@@ -30,6 +30,7 @@ export default {
             settitle: '',
             homeShow: false,
             back: false,
+            growPicture: false,
             trends: localStorage.getItem('trends')
         }
     },
@@ -70,5 +71,7 @@ export default {
 		width: 100%;
 		height: 100%;
 		overflow: hidden;
+
 	}
+
 </style>
