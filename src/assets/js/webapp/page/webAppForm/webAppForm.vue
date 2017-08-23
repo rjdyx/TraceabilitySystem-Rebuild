@@ -749,7 +749,7 @@ export default {
 }
 .dp-header{
     .dp-item.dp-left,.dp-item,.dp-item.dp-right {
-        color: #009acb!important;
+        color: #74b66e!important;
     }
 }
 .pcDiv{
