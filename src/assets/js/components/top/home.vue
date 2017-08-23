@@ -28,7 +28,9 @@
 			</div>
 			<!-- 中间内容地图 -->
 			<div class="main">
-				<img src="public/images/aHome.png" alt="">
+				<!-- <img src="public/images/aHome.png" alt=""> -->
+                <!-- <chart></chart> -->
+                <homeCanvas></homeCanvas>
 			</div>
 		</div>
 
@@ -39,6 +41,7 @@
 <script>
 import ContainTitle from '../layout/contain-title.vue'
 import chart from './topComponent/echarts.vue'
+import homeCanvas from './topComponent/canvas.vue'
 import {mapActions} from 'vuex'
 export default{
     name: 'home',
@@ -56,7 +59,8 @@ export default{
     },
     components: {
         ContainTitle,
-        chart
+        chart,
+        homeCanvas
     },
     methods: {
         ...mapActions([
@@ -127,9 +131,11 @@ $absolute: absolute;
 			}
 		}
 		.main{
+            padding-top:50px;
+            width: 100%;
+            text-align:center;
             >img{
                 width: 100%;
-                min-width: 1500px;
             }
 		}
 	}

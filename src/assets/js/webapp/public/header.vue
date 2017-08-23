@@ -9,9 +9,11 @@
 		<slot name="menu"></slot>
 		<slot name="plan"></slot>
 		<slot name="upImg"></slot>
+		<slot name="growPicture"></slot>
 		<h1>{{settitle}}</h1>
 		<span v-show="back" class="back iconfont" @click="backTo">&#xe64e;</span>
 		<span class="right-btn iconfont" @click="goBack" v-show="homeShow">&#xe60d;</span>
+		<span class="growPicture growIcon" v-show="growPicture" @click="growPic">&#xe6c3;</span>
 	</div>
 </template>
 
@@ -34,6 +36,10 @@ export default {
         back: {
             type: Boolean,
             default: false
+        },
+        growPicture: {
+            type: Boolean,
+            default: false
         }
     },
     methods: {
@@ -43,6 +49,10 @@ export default {
         backTo () {
             this.$emit('setClassClear')
             history.go(-1)
+        },
+        growPic () {
+            console.log(368589)
+            this.$router.push('/appIndex/message/growImg')
         }
     },
     mounted () {
@@ -146,4 +156,29 @@ export default {
 	    -webkit-text-stroke-width: 0.2px;
 	    -moz-osx-font-smoothing: grayscale;
 	}
+	.growPicture{
+        width: 28px;
+        height: 23px;
+        display: inline-block;  
+        position: absolute;
+        right: 6%;
+        top: 4%;
+        color: #fff;
+    }
+    @font-face {
+        font-family: 'growPicture';
+        src: url('../../iconfont/icon_growPicture/iconfont.eot');
+        src: url('../../iconfont/icon_growPicture/iconfont.eot?#iefix') format('embedded-opentype'),
+        url('../../iconfont/icon_growPicture/iconfont.woff') format('woff'),
+        url('../../iconfont/icon_growPicture/iconfont.ttf') format('truetype'),
+        url('../../iconfont/icon_growPicture/iconfont.svg#iconfont') format('svg');
+    }
+    .growIcon{
+        font-family:"growPicture" !important;
+        font-size:29px;
+        font-style:normal;
+        -webkit-font-smoothing: antialiased;
+        -webkit-text-stroke-width: 0.2px;
+        -moz-osx-font-smoothing: grayscale;
+    }
 </style>

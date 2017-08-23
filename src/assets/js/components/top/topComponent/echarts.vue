@@ -1,17 +1,17 @@
 <template>
     <section class="chart-container">
         <el-row :gutter="20">
-            <el-col :span="12">
-                <div id="chartColumn"></div>
+            <el-col :span="6">
+                <div id="humidity"></div>
             </el-col>
-            <el-col :span="12">
-                <div id="chartBar"></div>
+            <el-col :span="6">
+                <div id="numberKPa"></div>
             </el-col>
-            <el-col :span="12">
-                <div id="chartLine"></div>
+            <el-col :span="6">
+                <div id="windDirection"></div>
             </el-col>
-            <el-col :span="12">
-                <div id="chartPie"></div>
+            <el-col :span="6">
+                <div id="videoDetection"></div>
             </el-col>
         </el-row>
     </section>
@@ -19,22 +19,21 @@
 
 <script>
     import echarts from 'echarts'
-
     export default {
         data () {
             return {
-                chartColumn: null,
-                chartBar: null,
-                chartLine: null,
-                chartPie: null
+                humidity: null,
+                numberKPa: null,
+                windDirection: null,
+                videoDetection: null
             }
         },
         mounted: function () {
             let _this = this
-            this.chartColumn = echarts.init(document.getElementById('chartColumn'))
-            this.chartBar = echarts.init(document.getElementById('chartBar'))
-            this.chartLine = echarts.init(document.getElementById('chartLine'))
-            this.chartPie = echarts.init(document.getElementById('chartPie'))
+            this.humidity = echarts.init(document.getElementById('humidity'))
+            this.numberKPa = echarts.init(document.getElementById('numberKPa'))
+            this.windDirection = echarts.init(document.getElementById('windDirection'))
+            this.videoDetection = echarts.init(document.getElementById('videoDetection'))
 
             axios.get('api/index/echarts')
                 .then((responce) => {
@@ -69,7 +68,7 @@
                                 harvestY[h] = parseInt(harvest[h].amount)
                             }
                         }
-                        this.chartLine.setOption({
+                        this.windDirection.setOption({
                             title: {text: '采收报表', x: 'center'},
                             xAxis: {
                                 data: harvestX
@@ -89,7 +88,7 @@
                                 comeY[c] = parseInt(come[c].amount)
                             }
                         }
-                        this.chartLine.setOption({
+                        this.windDirection.setOption({
                             title: {text: '出栏报表', x: 'center'},
                             xAxis: {
                                 data: comeX
@@ -124,70 +123,45 @@
                             deliveryY.push({value: delivery[k], name: '自提'})
                         }
                     }
-                    this.chartColumn.setOption({
-                        title: {text: type + '面积(单位：亩)', x: 'center'},
-                        xAxis: {
-                            data: areaX
+                    this.humidity.setOption({
+                        tooltip: {
+                            formatter: '{a} <br/>{b} : {c}%'
                         },
-                        yAxis: {
-                            type: 'value'
-                        },
-                        series: [{
-                            name: '',
-                            type: 'bar',
-                            data: areaY
-                        }]
-                    })
-                    this.chartBar.setOption({
-                        title: { text: '销售订单', x: 'center' },
                         toolbox: {
-                            show: true,
                             feature: {
-                                dataView: {show: true, readOnly: false},
-                                restore: {show: true},
-                                saveAsImage: {show: true}
+                                restore: {},
+                                saveAsImage: {}
                             }
                         },
-                        calculable: true,
-                        grid: {
-                            borderWidth: 0,
-                            y: 80,
-                            y2: 60
-                        },
-                        xAxis: {
-                            type: 'category',
-                            show: false,
-                            data: sellX
-                        },
-                        yAxis: [
-                            {
-                                type: 'value',
-                                show: false
-                            }
-                        ],
                         series: [
                             {
-                                type: 'bar',
-                                itemStyle: {
-                                    normal: {
-                                        color: function (params) {
-                                            // build a color map as your need.
-                                            var colorList = ['#C1232B', '#B5C334', '#FCCE10', '#E87C25', '#27727B', '#FE8463', '#9BCA63', '#FAD860', '#F3A43B', '#60C0DD', '#D7504B', '#C6E579', '#F4E001', '#F0805A', '#26C0C0'
-                                            ]
-                                            return colorList[params.dataIndex]
-                                        },
-                                        label: {
-                                            show: true,
-                                            position: 'top',
-                                            formatter: '{b}\n{c}'
-                                        }
-                                    }
-                                },
-                                data: sellY
+                                name: '业务指标',
+                                type: 'gauge',
+                                detail: {formatter: '{value}%'},
+                                data: [{value: 50, name: '完成率'}]
                             }
                         ]
                     })
-                    this.chartPie.setOption({
+                    this.numberKPa.setOption({
+                        tooltip: {
+                            formatter: '{a} <br/>{b} : {c}%'
+                        },
+                        toolbox: {
+                            feature: {
+                                restore: {},
+                                saveAsImage: {}
+                            }
+                        },
+                        series: [
+                            {
+                                name: '业务指标',
+                                type: 'gauge',
+                                detail: {formatter: '{value}%'},
+                                data: [{value: 50, name: '完成率'}]
+                            }
+                        ]
+                    })
+                    this.videoDetection.setOption({
                         title: {text: '物流统计', x: 'center'},
                         legend: {
                             orient: 'vertical',
@@ -203,10 +177,10 @@
                         }]
                     })
                 })
-            window.onresize = this.chartColumn.resize
-            window.onresize = this.chartBar.resize
-            window.onresize = this.chartLine.resize
-            window.onresize = this.chartPie.resize
+            window.onresize = this.humidity.resize
+            window.onresize = this.numberKPa.resize
+            window.onresize = this.windDirection.resize
+            window.onresize = this.videoDetection.resize
         }
     }
 
@@ -214,9 +188,21 @@
 
 <style lang="sass">
 .chart-container{
-	.el-col div{
-        height: 350px;
-        padding-left: 70px;
+	height:100%;
+    .el-row {
+        margin-bottom: 20px;
+        height:30%;
+        &:last-child {
+          margin-bottom: 0;
+        }
+        .el-col {
+            height: 100%;
+            div{
+                border:1px solid #dcdcdc;
+                border-radius:10px;
+                height: 100%;
+            }
+        }
     }
 }
 </style>
