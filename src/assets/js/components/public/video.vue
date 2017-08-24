@@ -7,7 +7,9 @@
         <i v-else class="tipIcon el-icon-circle-check"></i>
         <el-button size="small" @click="upVideo()" class="btn_change delVideo">上传</el-button>
     </div> -->
-    <div id="uploader">
+    <div id="videoFile">
+        <!-- 进度条 -->
+        <el-progress type="circle" :percentage="percentage"></el-progress>
         <ul id="theList"></ul>
         <div id="picker">选择文件</div>
     </div>
@@ -15,7 +17,7 @@
 <script type="text/javascript"></script>
 <script>
 export default {
-    name: 'video',
+    name: 'videoFile',
     props:
     {
         shuju: {
@@ -33,11 +35,13 @@ export default {
             value: '',
             tip: '视频上传',
             flag: false,
-            val: ''
+            val: '',
+            percentage: 0
         }
     },
     methods: {
         abc () {
+            var _this = this
             var userInfo = {userId: 'kazaff666', md5: ''}
             var chunkSize = 5000 * 1024
             var uniqueFileName = null
@@ -163,7 +167,7 @@ export default {
             })
             uploader.on('fileQueued', function (file) {
                 $('#theList').append('<li id=' + file.id + '>' +
-                    '<img /><span>' + file.name + '</span><span class=itemUpload>上传</span><span class=itemStop>暂停</span><span class=itemDel>删除</span>' +
+                    '<img /><span class="fileName">' + file.name + '</span><span class=itemUpload>上传</span><span class=itemStop>暂停</span><span class=itemDel>删除</span>' +
                     '<div class=percentage></div>' +
                 '</li>')
                 var $img = $('#' + file.id).find('img')
@@ -194,7 +198,9 @@ export default {
                 $(this).parent().remove()
             })
             uploader.on('uploadProgress', function (file, percentage) {
-                $('#' + file.id + ' .percentage').text(percentage * 100 + '%')
+                _this.percentage = percentage * 100
+                console.log(_this.percentage)
+                // $('#' + file.id + ' .percentage').text(percentage * 100 + '%')
             })
             function UploadComlate (file) {
                 $('#' + file.id + ' .percentage').text('上传完毕')
@@ -204,14 +210,6 @@ export default {
             }
         },
         changefn (srcPic, event) {
-            // let file = event.target.files[0]
-            // if (file.size / 1024 >= 614400) {
-            //     this.$message('视频文件过大，请输入小于600M视频')
-            //     srcPic.value = ''
-            //     return
-            // }
-            // this.value = $('.inputVideo input[type=file]').eq(0).val()
-            // this.val = file
         },
         upVideo () {
             if (this.val !== '') {
@@ -237,36 +235,70 @@ export default {
 <link rel="stylesheet" href="webuploader.css" />
 <style lang="sass">
 @import '../../../../../public/webuploader/webuploader.css';
-.inputVideo{
-	overflow:hidden;
-	button:first-child{
-		position:relative;
-		input[type=file]{
-			width:54px;
-			position:absolute;
-			opacity:0;
-			left:0;
-			top: 0;
-		}
-	}
-	.delVideo{
-		margin-top:5px;
-	}
-	.tipIcon{
-		margin-left:20px;
-	}
+// .inputVideo{
+// 	overflow:hidden;
+// 	button:first-child{
+// 		position:relative;
+// 		input[type=file]{
+// 			width:54px;
+// 			position:absolute;
+// 			opacity:0;
+// 			left:0;
+// 			top: 0;
+// 		}
+// 	}
+// 	.delVideo{
+// 		margin-top:5px;
+// 	}
+// 	.tipIcon{
+// 		margin-left:20px;
+// 	}
+//     .itemDel, .itemStop, .itemUpload{
+//         margin-left: 15px;
+//         color: blue;
+//         cursor: pointer;
+//     }
+//     #theList{
+//         width: 80%;
+//         min-height: 100px;
+//         border: 1px solid red;
+//     }
+//     #theList .itemStop{
+//         display: none;
+//     }
+// }
+#videoFile{
+    width: 100%;
+    position:absolute;
+    left:0px;
+    bottom:-64px;
     .itemDel, .itemStop, .itemUpload{
-        margin-left: 15px;
-        color: blue;
         cursor: pointer;
     }
     #theList{
-        width: 80%;
-        min-height: 100px;
         border: 1px solid red;
     }
-    #theList .itemStop{
-        display: none;
+    #theList {
+        span.fileName{
+            display:block;
+            width:100%;
+            white-space:nowrap;
+            overflow:hidden;
+            text-overflow:ellipsis;
+        }
+        span.itemUpload, span.itemDel, span.itemStop{
+            padding:5px 10px;
+            color: #fff;
+            background-color: #20a0ff;
+            margin:0px 10px;
+            font-size:12px;
+        }
+        .itemStop{
+            display: none;
+        }
+    }
+    #picker{
+        margin-top:20px;
     }
 }
 </style>
