@@ -114,7 +114,8 @@
                         this.videoSrc = require('projectRoot/env.js').app_ano_url + '/' + this.row.video
                         this.isShow = !this.isShow
                     } else {
-                        this.$message('该区域没有上传视频')
+                        this.isShow = !this.isShow
+                        // this.$message('该区域没有上传视频')
                     }
                 } else if (command === '打印') {
                     this.$emit('showMore')
