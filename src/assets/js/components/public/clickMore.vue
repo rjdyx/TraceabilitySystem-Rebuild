@@ -29,7 +29,7 @@
         <div class="video">
             <div class="uploadVideo">
                 <div class="uploading">
-                    <span class="tip" v-if="tipShow">您还没有上传视频</span>
+                    <span class="tip">{{tipShow === true ? '您未上传视频' : '您已上传视频'}}</span>
                     <!-- <video :src="videoSrc" controls="controls" height="200px" width="200px"></video> -->
                     <video-player 
                         v-if="videoShow" 

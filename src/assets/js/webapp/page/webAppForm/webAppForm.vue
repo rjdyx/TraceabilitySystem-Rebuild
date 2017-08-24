@@ -46,8 +46,9 @@
                     </datetime>
 
                     <!-- 滑动选择框 -->
-                    <div >
-                        <!-- <popup-picker
+                    
+                        <popup-picker
+                            v-if="comItem.type === 'select'"
                             :name = "comItem.name"
                             :title="comItem.label" 
                             :data="comItem.options" 
@@ -60,33 +61,23 @@
                             :disabled="comItem.disabled"
                             >
                         </popup-picker>
-                        <x-input 
-                            v-if="tableForm[comItem.name].includes('其他')"
-                            :inputName="comItem.name"
-                            :title="comItem.label" 
-                            :placeholder="comItem.placeholder" 
-                            v-model="tableForm[comItem.name]"
-                            @on-change="inputOnChange"
-                            @on-blur="onBlur"
-                            :disabled="comItem.disabled"
-                            :class="[{ inputErrors: ruleTableForm[comItem.name].bol},{bggray: comItem.disabled}]">
-                        </x-input> -->
-                        <popupPickeOrderText 
-                            v-if="comItem.type === 'select'"
-                            :name = "comItem.name"
-                            :title="comItem.label" 
-                            :data="comItem.options" 
-                            :datakeys="comItem.optionskeys"
-                            :placeholder="comItem.placeholder"
-                            v-model="tableForm[comItem.name]"
-                            :editValue="tableForm[comItem.name]"
-                            :ruleTableFormBol="ruleTableForm[comItem.name].bol"
-                            :disabled= "comItem.disabled"
-                            @on-hide="onHide"
-                            @on-change="inputOnChange"
-                            @on-blur="onBlur"
-                        ></popupPickeOrderText>
-                    </div>
+                       <!--  <div >
+                            <popupPickeOrderText 
+                                v-if="comItem.type === 'select'"
+                                :name = "comItem.name"
+                                :title="comItem.label" 
+                                :data="comItem.options" 
+                                :datakeys="comItem.optionskeys"
+                                :placeholder="comItem.placeholder"
+                                v-model="tableForm[comItem.name]"
+                                :editValue="tableForm[comItem.name]"
+                                :ruleTableFormBol="ruleTableForm[comItem.name].bol"
+                                :disabled= "comItem.disabled"
+                                @on-hide="onHide"
+                                @on-change="inputOnChange"
+                                @on-blur="onBlur"
+                            ></popupPickeOrderText>
+                        </div> -->
 
                     <!-- 多行文本框 -->
                     <x-textarea
@@ -336,7 +327,7 @@ export default {
         */
         onHide (obj, value) {
             // (name, rule, index)
-            this.tableForm[obj.name] = value
+            // this.tableForm[obj.name] = value
             var _this = this
             if (obj.closeType) {
                 this.typeComponent.components.forEach(function (item) {
