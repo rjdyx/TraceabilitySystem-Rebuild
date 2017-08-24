@@ -59,8 +59,8 @@
                             :class="[{ inputErrors: ruleTableForm[comItem.name].bol},{bggray: comItem.disabled}]"
                             :disabled="comItem.disabled"
                             >
-                        </popup-picker>
-                        <x-input 
+                        </popup-picker> -->
+                        <!-- <x-input 
                             v-if="tableForm[comItem.name].includes('其他')"
                             :inputName="comItem.name"
                             :title="comItem.label" 
@@ -79,7 +79,6 @@
                             :datakeys="comItem.optionskeys"
                             :placeholder="comItem.placeholder"
                             v-model="tableForm[comItem.name]"
-                            :editValue="tableForm[comItem.name]"
                             :ruleTableFormBol="ruleTableForm[comItem.name].bol"
                             :disabled= "comItem.disabled"
                             @on-hide="onHide"
@@ -337,6 +336,9 @@ export default {
         onHide (obj, value) {
             // (name, rule, index)
             this.tableForm[obj.name] = value
+            // if (obj.value !== undefined) {
+            //     this.tableForm['other'] = obj.value
+            // }
             var _this = this
             if (obj.closeType) {
                 this.typeComponent.components.forEach(function (item) {
@@ -494,15 +496,16 @@ export default {
                     }
                 }
                 var _this = this
-                this.$dataPost(this, this.submitUrl, beforeS, this.hasImg, this.typeComponent.hiddenValue, this.isEdit).then((response) => {
-                    if (response.data !== 'false') {
-                        _this.setToast('success', _this.successMsg, '12em')
-                    } else {
-                        _this.setToast('cancel', _this.errorMsg, '12em')
-                    }
-                    this.clearClass()
-                    this.$router.go(-1)
-                })
+                console.log(beforeS)
+                // this.$dataPost(this, this.submitUrl, beforeS, this.hasImg, this.typeComponent.hiddenValue, this.isEdit).then((response) => {
+                //     if (response.data !== 'false') {
+                //         _this.setToast('success', _this.successMsg, '12em')
+                //     } else {
+                //         _this.setToast('cancel', _this.errorMsg, '12em')
+                //     }
+                //     this.clearClass()
+                //     this.$router.go(-1)
+                // })
             } else {
                 this.setToast('text', '请输入完整正确信息', '14em')
             }

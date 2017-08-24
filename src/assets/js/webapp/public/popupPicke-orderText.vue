@@ -25,7 +25,6 @@
         :title="'其他'+title" 
         :placeholder="'请输入其他'+title"
         v-model="inputValue"
-        @on-change="inputOnChange"
         @on-blur="onBlur"
         :disabled="disabled"
         :class="[{ inputErrors: ruleTableFormBol},{bggray: disabled}]">
@@ -89,11 +88,11 @@ export default{
                 this.$emit('on-hide', obj, [])
             }
         },
-        inputOnChange (obj) {
-            if (this.popupPValue.length && this.popupPValue[0].includes('其他')) {
-                this.$emit('on-hide', obj, [this.inputValue])
-            }
-        },
+        // inputOnChange (obj) {
+        //     if (this.popupPValue.length && this.popupPValue[0].includes('其他')) {
+        //         this.$emit('on-hide', obj, [this.inputValue])
+        //     }
+        // },
         onBlur (obj) {
             if (this.popupPValue.length && this.popupPValue[0].includes('其他')) {
                 this.$emit('on-hide', obj, [this.inputValue])
