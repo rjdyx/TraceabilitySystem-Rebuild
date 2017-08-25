@@ -50,7 +50,7 @@ app.get(['/webapp', '/webapp/**', '/'], (req, res) => {
     console.log(`whole request: ${Date.now() - s}ms`)
 })
 
-const port = process.env.PORT || 8080
+const port = process.env.PORT || env.app_port
 app.listen(port, () => {
     console.log(`server started at localhost:${port}`)
 })
