@@ -11,7 +11,7 @@ import store from './vuex/index'
 Vue.prototype.$http = axios
 
 Vue.use(VueRouter)
-
+const env = require('../../../env')
 require('./config/init')
 const pre = '/index/'
 const pre2 = '/index/message/'
@@ -39,17 +39,26 @@ const teaTrace = [
 
 router.beforeEach(async (to, from, next) => {
     // WebSocket (未完成...)
-    if (!window.socketData) {
+    // var socketState = window.socketData
+    var socketState = false
+    if (socketState) {
         if ('WebSocket' in window) {
-            var socket = new WebSocket('ws://www.cysyadmin.com/api/socket')
+            var url = 'ws://' + env.app_url.replace('http://', '') + '/api/socket'
+            var socket = new WebSocket(url)
             window.socketData = socket
+            // 握手成功成功
             socket.onopen = function () {
                 // socket.send('发送数据')
-                alert('数据发送中...')
+                console.log('数据发送中...')
             }
+            // 后台返回数据时
             socket.onmessage = function (event) {
                 let data = JSON.parse(event.data)
                 console.log(data)
+            }
+            // 错误时
+            socket.onerror = function (ev) {
+                console.log(ev)
             }
         } else {
             console.log('浏览器不支持')

@@ -7,7 +7,6 @@
 
 <template>
 	<div class="content">
-        <!-- <basic-model :models="models[type]"></basic-model> -->
         <basic-model :models="mds()"></basic-model>
         <footer-top></footer-top>
     </div> 

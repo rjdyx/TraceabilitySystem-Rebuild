@@ -254,39 +254,10 @@ export default {
         },
         upVideo () {
             if (this.val !== '') {
-                uploader.on('fileQueued', function (file) {
-                    console.log(777)
-                })
+
             } else {
                 this.$message('请上传MP4视频文件')
             }
-        },
-        getProcess () {
-            return new Promise(resolve => {
-                var _this = this
-                let params = {'key': 'file1'}
-                axios.get(this.$adminUrl('planta/getProcess'), {params: params})
-                    .then((responce) => {
-                        var progress = parseInt(responce.data)
-                        if (progress < 100) {
-                            setTimeout(_this.getProcess(), 100)
-                        } else {
-                            console.log('完成')
-                        }
-                        resolve(responce)
-                    })
-            })
-        },
-        ps () {
-            return new Promise(resolve => {
-                let submit = {}
-                submit['id'] = this.rowId
-                submit['file'] = this.val
-                submit['PHP_SESSION_UPLOAD_PROGRESS'] = 'file1'
-                this.$dataPost(this, '/planta/upVideo', submit, true, false, false).then((response) => {
-                })
-                resolve('6666')
-            })
         }
     },
     mounted () {
