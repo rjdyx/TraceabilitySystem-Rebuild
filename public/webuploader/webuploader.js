@@ -4883,7 +4883,7 @@
                 input.attr( 'type', 'file' );
                 input.attr( 'name', opts.name );
                 input.addClass('webuploader-element-invisible');
-    
+				input.attr('accept', 'audio/mp4, video/mp4' );
                 label.on( 'click', function() {
                     input.trigger('click');
                 });
