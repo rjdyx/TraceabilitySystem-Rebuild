@@ -263,6 +263,7 @@ export default {
     mounted () {
         console.log(this.file)
         this.abc()
+        $('.webuploader-element-invisible').attr('accept', 'audio/mp4, video/mp4')
         if (this.editValue !== undefined && this.editValue !== null && this.editValue !== '') {
             this.value = this.editValue
             this.$emit('return-shuju', {name: 'videos', value: this.editValue})
