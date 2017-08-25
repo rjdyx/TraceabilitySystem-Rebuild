@@ -10,9 +10,11 @@
 		<div class="home_content">
 			<contain-title :settitle="settitle">
 			</contain-title>
-            <div id="videoPlay" class="videoPlay"></div>
+            <div id="videoPlay" class="videoPlay" > 
+                <div class="noneData" v-if="playState">@抱歉！还没有视频信息！请前去实时视频管理添加...</div>
+            </div>
             <div class="kplay">
-                <span>视频集序列 <em>(共{{this.lives.length}}个实时视频)</em></span>
+                <span>视频集序列 <em>(共{{lives.length}}个实时视频)</em></span>
                 <div v-for="(item,index) in lives" class="playks play_active" :play="item.play" :memo="item.memo" @click="videoPlay" v-if="!index">
                     {{item.name}}
                 </div>
@@ -40,7 +42,8 @@ export default{
         return {
             settitle: '实时视频',
             lives: [],
-            desc: ''
+            desc: '',
+            playState: false
         }
     },
     components: {
@@ -77,16 +80,15 @@ export default{
         }
     },
     mounted () {
-        axios.get('api/get/play').then((responce) => {
-            var live = ''
-            if (responce.data) {
-                this.lives = responce.data
-                live = responce.data[0].play
-                this.desc = responce.data[0].memo
+        axios.get('api/get/play').then((res) => {
+            if (res.data.length) {
+                this.lives = res.data
+                var live = res.data[0].play
+                this.desc = res.data[0].memo
+                this.plays(live)
             } else {
-                this.setToast('text', '当前无信息可加载...', '12em')
+                this.playState = true
             }
-            this.plays(live)
         })
     },
     created () {
@@ -100,6 +102,15 @@ $inline: inline-block;
 $absolute: absolute;
 .playDesc {
     height: 10%;
+}
+.noneData{
+    width:100%;
+    height:20%;
+    position: relative;
+    top: 40%;
+    color: #555;
+    font-size: 30px;
+    text-align: center;
 }
 .home{
 	height: 100%;
@@ -115,6 +126,7 @@ $absolute: absolute;
     .videoPlay{
         width: 100%;
         height: 65%;
+        background: black;
     }
 }
 .kplay {

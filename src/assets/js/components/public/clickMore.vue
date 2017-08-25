@@ -29,8 +29,6 @@
         <div class="video">
             <div class="uploadVideo">
                 <div class="uploading">
-                    <span class="tip">{{tipShow === true ? '您未上传视频' : '您已上传视频'}}</span>
-                    <!-- <video :src="videoSrc" controls="controls" height="200px" width="200px"></video> -->
                     <video-player 
                         v-if="videoShow" 
                         class="video-player-box"
@@ -43,10 +41,14 @@
                         @statechanged="playerStateChanged($event)"
                         @ready="playerReadied">
                     </video-player>
-                    <div class="pro" v-if="progressShow">
-                        <el-progress type="circle" :percentage="progress"></el-progress>
+                    <span class="tip" v-if="!videoSrc && progressShow===false">您未上传视频</span>
+                    <div class="videoSrc" v-if="progress===100">
+                        <video :src="videoSrc" controls="controls" height="200px" width="200px"></video>
                     </div>
-                    <videoCo @loadFile="loadFile" :rowId="rowId"></videoCo>
+                    <div class="pro" v-if="progressShow">
+                        <el-progress  type="circle" :percentage="progress"></el-progress>
+                    </div>
+                    <videoCo ref="videoCo" @loadFile="loadFile" :rowId="rowId" @return-progress="returnProgress" @delVideoSrc='delVideoSrcFn'></videoCo>
                 </div>
             </div>
             <i class="closeIcon" @click="closeClick"></i>
@@ -55,11 +57,11 @@
 </div>
 </template>
 <script>
-    // import videoJs from 'video.js'
+    import videoJs from 'video.js'
     import videoCo from './video.vue'
     import more from '../../page/more/more.js'
     // 引入vue-video-player插件
-    // import { videoPlayer } from 'vue-video-player'
+    import { videoPlayer } from 'vue-video-player'
     export default {
         name: 'clickMore',
         props: {
@@ -112,6 +114,7 @@
                 } else if (command === '视频') {
                     if (this.row.video !== '' && this.row.video !== null) {
                         this.videoSrc = require('projectRoot/env.js').app_ano_url + '/' + this.row.video
+                        console.log(this.videoSrc)
                         this.isShow = !this.isShow
                     } else {
                         this.isShow = !this.isShow
@@ -165,18 +168,38 @@
             },
             playerReadied (player) {
                 console.log('the player is readied', player)
+            },
+            returnProgress (progress) {
+                let pro = parseInt(progress * 100)
+                console.log(pro)
+                if (pro >= 100) {
+                    let timer = setTimeout(() => {
+                        this.progressShow = false
+                        clearTimeout(timer)
+                    }, 1000)
+                    this.videoSrc = 'dsfsdf'
+                    console.log(this.$refs)
+                } else {
+                    this.progressShow = true
+                }
+                this.progress = pro
+            },
+            delVideoSrcFn () {
+                this.progressShow = false
+                this.progress = 0
+                this.videoSrc = ''
             }
         },
         components: {
-            videoCo
-            // videoPlayer
+            videoCo,
+            videoPlayer
         },
         mounted () {
             this.playerOptions.sources[0].src = this.videoSrc
         },
         computed: {
             player () {
-                // return this.$refs.videoPlayer.player
+                return this.$refs.videoPlayer.player
             }
         }
     }
@@ -214,9 +237,17 @@
             line-height: 200px;
         }
         .pro{
-            width: 200px;
-            height: 200px;
+            width: 100%;
             margin: 0 auto;
+            position:absolute;
+            left:0px;
+            top:0px;
+        }
+        .videoSrc{
+            width:100%;
+            position:absolute;
+            left:0px;
+            top: 0px;
         }
         .el-progress--circle{
             margin-top: 17px;
