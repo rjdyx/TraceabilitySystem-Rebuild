@@ -7,7 +7,8 @@ require('babel-polyfill') // 解决手机端uc浏览器、qq浏览器和微信�
 require('animate.css') // 动画css插件
 require('./echarts.js')
 require('./vux.js')
-
+require('video.js/dist/video-js.css')
+require('vue-video-player/src/custom-theme.css')
 // 滚动条
 import ScrollBar from 'vue2-scrollbar'
 Vue.component('vue-scrollbar', ScrollBar)
