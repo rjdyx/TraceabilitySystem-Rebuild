@@ -57,11 +57,11 @@
 </div>
 </template>
 <script>
-    // import videoJs from 'video.js'
+    import videoJs from 'video.js'
     import videoCo from './video.vue'
     import more from '../../page/more/more.js'
     // 引入vue-video-player插件
-    // import { videoPlayer } from 'vue-video-player'
+    import { videoPlayer } from 'vue-video-player'
     export default {
         name: 'clickMore',
         props: {
@@ -191,15 +191,15 @@
             }
         },
         components: {
-            videoCo
-            // videoPlayer
+            videoCo,
+            videoPlayer
         },
         mounted () {
             this.playerOptions.sources[0].src = this.videoSrc
         },
         computed: {
             player () {
-                // return this.$refs.videoPlayer.player
+                return this.$refs.videoPlayer.player
             }
         }
     }
