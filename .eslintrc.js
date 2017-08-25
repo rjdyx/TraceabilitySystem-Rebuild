@@ -33,6 +33,7 @@ module.exports = {
         // 允许混用tab和空格
         "no-mixed-spaces-and-tabs": [2, false],
         // Disallow camelcase naming convention
-        'camelcase': ['error', {properties: 'never'}]
+        'camelcase': ['error', {properties: 'never'}],
+        'no-sequences': 0
     }
 }

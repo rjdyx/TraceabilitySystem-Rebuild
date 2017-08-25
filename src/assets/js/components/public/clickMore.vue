@@ -29,7 +29,7 @@
         <div class="video">
             <div class="uploadVideo">
                 <div class="uploading">
-                    <span class="tip" v-if="tipShow">您还没有上传视频</span>
+                    <span class="tip">{{tipShow === true ? '您未上传视频' : '您已上传视频'}}</span>
                     <!-- <video :src="videoSrc" controls="controls" height="200px" width="200px"></video> -->
                     <video-player 
                         v-if="videoShow" 
@@ -46,7 +46,7 @@
                     <div class="pro" v-if="progressShow">
                         <el-progress type="circle" :percentage="progress"></el-progress>
                     </div>
-                    <videoCo @loadFile="loadFile"></videoCo>
+                    <videoCo @loadFile="loadFile" :rowId="rowId"></videoCo>
                 </div>
             </div>
             <i class="closeIcon" @click="closeClick"></i>
@@ -55,11 +55,11 @@
 </div>
 </template>
 <script>
-    import videoJs from 'video.js'
+    // import videoJs from 'video.js'
     import videoCo from './video.vue'
     import more from '../../page/more/more.js'
     // 引入vue-video-player插件
-    import { videoPlayer } from 'vue-video-player'
+    // import { videoPlayer } from 'vue-video-player'
     export default {
         name: 'clickMore',
         props: {
@@ -80,6 +80,7 @@
                 progress: 0,
                 progressShow: false,
                 tipShow: true,
+                rowId: this.row.id,
                 playerOptions: {
                     // videojs options
                     muted: true,
@@ -113,7 +114,8 @@
                         this.videoSrc = require('projectRoot/env.js').app_ano_url + '/' + this.row.video
                         this.isShow = !this.isShow
                     } else {
-                        this.$message('该区域没有上传视频')
+                        this.isShow = !this.isShow
+                        // this.$message('该区域没有上传视频')
                     }
                 } else if (command === '打印') {
                     this.$emit('showMore')
@@ -166,15 +168,15 @@
             }
         },
         components: {
-            videoCo,
-            videoPlayer
+            videoCo
+            // videoPlayer
         },
         mounted () {
             this.playerOptions.sources[0].src = this.videoSrc
         },
         computed: {
             player () {
-                return this.$refs.videoPlayer.player
+                // return this.$refs.videoPlayer.player
             }
         }
     }

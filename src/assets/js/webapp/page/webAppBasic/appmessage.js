@@ -150,7 +150,7 @@ export default {
         url: 'detect',
         batch: 'detectBatch',
         searchPlaceholder: '请输入检测项目名称搜索',
-        changeDataArr: [{result: {0: '不合格', 1: '合格'}}],
+        changeDataArr: [{result: {0: '合格', 1: '不合格'}}],
         theads: ['检测类型', '检测日期', '检测人'],
         protos: ['detect_type', 'date', 'operate'],
         widths: [26, 26, 26],
@@ -188,8 +188,8 @@ export default {
                 label: '检测类型',
                 placeholder: '（必选）',
                 rule: {required: true},
-                options: [['土壤检测', '水质检测', '大气污染检测', '农药残留检测', '其他检测']],
-                optionskeys: [['土壤检测', '水质检测', '大气污染检测', '农药残留检测', '其他检测']],
+                options: [['土壤检测', '水质检测', '大气污染检测', '农药残留检测', '其他']],
+                optionskeys: [['土壤检测', '水质检测', '大气污染检测', '农药残留检测', '其他']],
                 show: false
             },
             {
@@ -199,7 +199,7 @@ export default {
                 placeholder: '（必选）',
                 rule: {required: true},
                 options: [['合格', '不合格']],
-                optionskeys: [[1, 0]]
+                optionskeys: [[0, 1]]
             },
             {
                 name: 'content',
@@ -254,8 +254,8 @@ export default {
                 label: '检测类型',
                 placeholder: '（必填）',
                 rule: {required: true},
-                options: [['土壤检测', '水质检测', '大气污染检测', '农药残留检测', '其他检测']],
-                optionskeys: [['土壤检测', '水质检测', '大气污染检测', '农药残留检测', '其他检测']],
+                options: [['土壤检测', '水质检测', '大气污染检测', '农药残留检测', '其他']],
+                optionskeys: [['土壤检测', '水质检测', '大气污染检测', '农药残留检测', '其他']],
                 show: false
             },
             {
@@ -265,7 +265,7 @@ export default {
                 placeholder: '（必选）',
                 rule: {required: true},
                 options: [['合格', '不合格']],
-                optionskeys: [[1, 0]]
+                optionskeys: [[0, 1]]
             },
             {
                 name: 'content',
