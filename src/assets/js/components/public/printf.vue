@@ -45,7 +45,6 @@
 </template>
 <script>
 import move from '../../directive/move.js'
-import Canvas2Image from '../../../../../public/lib/canvas2image.js'
 import Qrcode from '../../../js/components/public/Qrcode.vue'
 export default {
     name: 'validator-example',
