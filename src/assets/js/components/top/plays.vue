@@ -150,7 +150,7 @@ $absolute: absolute;
         }
     }
     .playks {
-        width: 80px;
+        width: 7.5%;
         height:30px;
         border-radius: 5px;
         line-height: 30px;
@@ -159,10 +159,11 @@ $absolute: absolute;
         border: 1px solid #555;  
         color: #555;
         float: left; 
-        width: 80px;
-        height:30px;
         margin-top: 10px;
-        margin-right: 10px;
+        margin-right: 0.8%;
+        overflow:hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
     }
     .play_active {
         color: #4D95E8; 
