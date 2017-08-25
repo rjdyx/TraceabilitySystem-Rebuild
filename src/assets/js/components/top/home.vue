@@ -26,10 +26,8 @@
 					</li>
 				</ul>
 			</div>
-			<!-- 中间内容地图 -->
+			<!-- canvas -->
 			<div class="main">
-				<!-- <img src="public/images/aHome.png" alt=""> -->
-                <!-- <chart></chart> -->
                 <homeCanvas></homeCanvas>
 			</div>
 		</div>
@@ -40,7 +38,6 @@
 
 <script>
 import ContainTitle from '../layout/contain-title.vue'
-import chart from './topComponent/echarts.vue'
 import homeCanvas from './topComponent/canvas.vue'
 import {mapActions} from 'vuex'
 export default{
@@ -59,7 +56,6 @@ export default{
     },
     components: {
         ContainTitle,
-        chart,
         homeCanvas
     },
     methods: {

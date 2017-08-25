@@ -1466,11 +1466,11 @@ export default {
                     placeholder: '',
                     rule: [{required: true}],
                     options: [{
-                        value: '合格',
+                        value: 0,
                         label: '合格'
                     },
                     {
-                        value: '不合格',
+                        value: 1,
                         label: '不合格'
                     }]
                 },
@@ -1582,11 +1582,11 @@ export default {
                     placeholder: '',
                     rule: [{required: true}],
                     options: [{
-                        value: '合格',
+                        value: 0,
                         label: '合格'
                     },
                     {
-                        value: '不合格',
+                        value: 1,
                         label: '不合格'
                     }]
                 },

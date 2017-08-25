@@ -46,8 +46,8 @@
                     </datetime>
 
                     <!-- 滑动选择框 -->
-                    <div >
-                        <!-- <popup-picker
+                        <popup-picker
+                            v-if="comItem.type === 'select'"
                             :name = "comItem.name"
                             :title="comItem.label" 
                             :data="comItem.options" 
@@ -58,36 +58,16 @@
                             value-text-align="left"
                             :class="[{ inputErrors: ruleTableForm[comItem.name].bol},{bggray: comItem.disabled}]"
                             :disabled="comItem.disabled"
-                            >
+                        >
                         </popup-picker>
                         <x-input 
-                            v-if="tableForm[comItem.name].includes('其他')"
-                            :inputName="comItem.name"
-                            :title="comItem.label" 
-                            :placeholder="comItem.placeholder" 
-                            v-model="tableForm[comItem.name]"
-                            @on-change="inputOnChange"
-                            @on-blur="onBlur"
-                            :disabled="comItem.disabled"
-                            :class="[{ inputErrors: ruleTableForm[comItem.name].bol},{bggray: comItem.disabled}]">
-                        </x-input> -->
-                        <popupPickeOrderText 
-                            v-if="comItem.type === 'select'"
-                            :name = "comItem.name"
-                            :title="comItem.label" 
-                            :data="comItem.options" 
-                            :datakeys="comItem.optionskeys"
-                            :placeholder="comItem.placeholder"
-                            v-model="tableForm[comItem.name]"
-                            :editValue="tableForm[comItem.name]"
-                            :ruleTableFormBol="ruleTableForm[comItem.name].bol"
-                            :disabled= "comItem.disabled"
-                            @on-hide="onHide"
-                            @on-change="inputOnChange"
-                            @on-blur="onBlur"
-                        ></popupPickeOrderText>
-                    </div>
-
+                            v-if="bing && comItem.name == 'detect_type'"
+                            inputName="other"
+                            title="其他检测类型" 
+                            placeholder="请输入其他检测类型(必填)" 
+                            v-model="tableForm['other']"
+                            >
+                        </x-input>
                     <!-- 多行文本框 -->
                     <x-textarea
                         :name = 'comItem.name'
@@ -127,7 +107,6 @@
                             >
                         </popup-picker>
                     </div>
-
                     <!-- 选择框（可选择多个） -->
                     <div v-if="comItem.type === 'pcSelect'">
                         <div :class="[{pcDiv:true},{bggray: comItem.disabled}]" >
@@ -277,7 +256,6 @@ export default {
             tableForm: form,
             ruleTableForm: ruleTableForm,
             show13: false,
-            objectListValue: ['15', '2'],
             selectHideId: {},
             defaultInit: {},
             isEdit: false,
@@ -294,11 +272,7 @@ export default {
             toDate: '',
             // 默认日期格式
             format: 'YYYY-MM-DD',
-            option2: '',
-            options2: [],
-            codeUrl: this.$wapUrl(url + '/getCodeImage'),
-            codeMethod: {'_method': 'get'},
-            codeArrId: []
+            bing: false
         }
     },
     methods: {
@@ -336,12 +310,22 @@ export default {
         */
         onHide (obj, value) {
             // (name, rule, index)
-            this.tableForm[obj.name] = value
             var _this = this
             if (obj.closeType) {
                 this.typeComponent.components.forEach(function (item) {
                     if (item.name === obj.name) {
                         if (item.name !== 'amount') {
+                            if (item.name === 'detect_type') {
+                                if (item.optionskeys[0][obj.index] === '其他') {
+                                    _this.bing = true
+                                    _this.tableForm['other'] = ''
+                                } else {
+                                    if (_this.tableForm.other !== undefined) {
+                                        delete _this.tableForm.other
+                                    }
+                                    _this.bing = false
+                                }
+                            }
                             _this.selectHideId[item.name] = item.optionskeys[0][obj.index]
                         } else {
                             _this.selectHideId['unit'] = item.optionskeys[0][obj.index]
@@ -494,6 +478,12 @@ export default {
                     }
                 }
                 var _this = this
+                if (beforeS.other !== undefined) {
+                    if (beforeS.other === '') {
+                        this.setToast('text', '请输入完整正确信息', '14em')
+                        return false
+                    }
+                }
                 this.$dataPost(this, this.submitUrl, beforeS, this.hasImg, this.typeComponent.hiddenValue, this.isEdit).then((response) => {
                     if (response.data !== 'false') {
                         _this.setToast('success', _this.successMsg, '12em')
@@ -749,7 +739,7 @@ export default {
 }
 .dp-header{
     .dp-item.dp-left,.dp-item,.dp-item.dp-right {
-        color: #009acb!important;
+        color: #74b66e!important;
     }
 }
 .pcDiv{

@@ -180,7 +180,6 @@
  
 <script>
 import {mapActions} from 'vuex'
-import WebSocket from 'vue-websocket'
 import computed from './computed.js'
 import popNew from '../../components/public/popNew.vue'
 import ContainTitle from 'components/layout/contain-title.vue'
@@ -993,8 +992,7 @@ export default {
         permissionCheckbox,
         roleCheckbox,
         companyPermission,
-        Communication,
-        WebSocket
+        Communication
     }
 }
 </script>
