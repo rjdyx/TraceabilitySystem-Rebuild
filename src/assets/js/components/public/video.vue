@@ -8,13 +8,11 @@
         <el-button size="small" @click="upVideo()" class="btn_change delVideo">上传</el-button>
     </div> -->
     <div id="videoFile">
-        
         <!-- 进度条 -->
         <!-- <el-progress type="circle" :percentage="percentage"></el-progress> -->
         <ul id="theList">
         <div>{{progress}}</div>
             <li :id='file.id'>
-                <img />
                 <span class="fileName"> {{file.name}} </span>
                 <el-button 
                     class="itemUpload" 
@@ -198,56 +196,35 @@ export default {
                 duplicate: true
             })
             uploader.on('fileQueued', function (file) {
-                console.log(file)
-                // $('#theList').append('<li id=' + file.id + '>' +
-                //     '<img /><span class="fileName">' + file.name + '</span><span class=itemUpload>上传</span><span class=itemStop>暂停</span><span class=itemDel>删除</span>' +
-                //     '<div class=percentage></div>' +
-                // '</li>')
                 _this.file = file
-                var $img = $('#' + file.id).find('img')
-                // $('.itemStop').hide()
                 uploader.makeThumb(file, function (error, src) {
                     if (error) {
-                        $img.replaceWith('<span>不能预览</span>')
                     }
-                    $img.attr('src', src)
                 })
             })
             $('#theList').on('click', '.itemUpload', function () {
                 uploader.upload()
-                // "上传"-->"暂停"
                 _this.isUpLoad = false
-                // $(this).hide()
-                // $('.itemStop').show()
             })
             $('#theList').on('click', '.itemStop', function () {
                 uploader.stop(true)
-                // "暂停"-->"上传"
                 _this.isUpLoad = true
-                // $(this).hide()
-                // $('.itemUpload').show()
             })
             // todo 如果要删除的文件正在上传（包括暂停），则需要发送给后端一个请求用来清除服务器端的缓存文件
             $('#theList').on('click', '.itemDel', function () {
                 uploader.removeFile($(this).parent().attr('id'))
-                // 从上传列表dom中删除
-                // $(this).parent().remove()
                 _this.file = {}
                 _this.$emit('delVideoSrc')
             })
             uploader.on('uploadProgress', function (file, percentage) {
-                // _this.percentage = percentage * 100
                 _this.$emit('return-progress', percentage)
-                // console.log(_this.percentage)
-                // $('#' + file.id + ' .percentage').text(percentage * 100 + '%')
             })
             function UploadComlate (file) {
-                // $('#' + file.id + ' .percentage').text('上传完毕')
-                _this.$message('上传完毕')
-                _this.isUpLoad = true
-                // $('.itemStop').hide()
-                // $('.itemUpload').hide()
-                // $('.itemDel').hide()
+                if (file.status !== '0') {
+                    _this.$message('上传完毕')
+                    _this.isUpLoad = true
+                    _this.$emit('return-videoUrl', file.path)
+                }
             }
         },
         changefn (srcPic, event) {
@@ -261,7 +238,6 @@ export default {
         }
     },
     mounted () {
-        console.log(this.file)
         this.abc()
         if (this.editValue !== undefined && this.editValue !== null && this.editValue !== '') {
             this.value = this.editValue
