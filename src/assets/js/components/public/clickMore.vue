@@ -42,13 +42,14 @@
                         @ready="playerReadied">
                     </video-player>
                     <span class="tip" v-if="!videoSrc && progressShow===false">您未上传视频</span>
-                    <div class="videoSrc" v-if="progress===100">
+                    <div class="videoSrc" v-if="aaa">
                         <video :src="videoSrc" controls="controls" height="200px" width="200px"></video>
                     </div>
                     <div class="pro" v-if="progressShow">
                         <el-progress  type="circle" :percentage="progress"></el-progress>
                     </div>
-                    <videoCo ref="videoCo" @loadFile="loadFile" :rowId="rowId" @return-progress="returnProgress" @delVideoSrc='delVideoSrcFn'></videoCo>
+                    <videoCo ref="videoCo" :rowId="rowId" @return-progress="returnProgress"
+                             @delVideoSrc='delVideoSrcFn' @return-videoUrl="returnVideoUrl"></videoCo>
                 </div>
             </div>
             <i class="closeIcon" @click="closeClick"></i>
@@ -92,7 +93,8 @@
                         type: 'video/mp4',
                         src: ''
                     }]
-                }
+                },
+                aaa: false
             }
         },
         methods: {
@@ -112,14 +114,7 @@
                 if (command === '状态' || command === '审核状态') {
                     this.$emit('changeState')
                 } else if (command === '视频') {
-                    if (this.row.video !== '' && this.row.video !== null) {
-                        this.videoSrc = require('projectRoot/env.js').app_ano_url + '/' + this.row.video
-                        console.log(this.videoSrc)
-                        this.isShow = !this.isShow
-                    } else {
-                        this.isShow = !this.isShow
-                        // this.$message('该区域没有上传视频')
-                    }
+                    this.isShow = !this.isShow
                 } else if (command === '打印') {
                     this.$emit('showMore')
                 } else if (command === '权限') {
@@ -148,18 +143,6 @@
                     return false
                 }
             },
-            loadFile () {
-                this.progressShow = true
-                this.tipShow = false
-                let timer = setInterval(() => {
-                    this.progress += 5
-                    if (this.progress === 100) {
-                        clearInterval(timer)
-                        this.videoShow = true
-                        this.progressShow = false
-                    }
-                }, 100)
-            },
             onPlayerPlay (player) {
             },
             onPlayerPause (player) {
@@ -170,24 +153,28 @@
                 console.log('the player is readied', player)
             },
             returnProgress (progress) {
-                let pro = parseInt(progress * 100)
-                console.log(pro)
+                var pro = parseInt(progress * 100)
+                this.progress = pro
                 if (pro >= 100) {
-                    let timer = setTimeout(() => {
-                        this.progressShow = false
-                        clearTimeout(timer)
-                    }, 1000)
-                    this.videoSrc = 'dsfsdf'
-                    console.log(this.$refs)
+                    this.timeDeal()
                 } else {
                     this.progressShow = true
                 }
-                this.progress = pro
             },
             delVideoSrcFn () {
                 this.progressShow = false
                 this.progress = 0
                 this.videoSrc = ''
+            },
+            returnVideoUrl (val) {
+                this.videoSrc = require('projectRoot/env.js').app_ano_url + '/video/' + val
+            },
+            timeDeal () {
+                var _this = this
+                setTimeout(function () {
+                    _this.aaa = true
+                    _this.progressShow = false
+                }, 1000)
             }
         },
         components: {
