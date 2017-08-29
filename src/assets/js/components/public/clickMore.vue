@@ -58,7 +58,8 @@
         </div>  
     </div>
     <div class="bigshow" v-if="bigShow">
-        <video :src="videoSrc" controls="controls" height="400px" width="800px"></video>
+        <video :src="videoSrc" controls="controls" height="450px" width="800px"></video>
+        <i class="closeIcon1" @click="closeClick1"></i>
     </div>
 </div>
 </template>
@@ -140,6 +141,9 @@
             },
             closeClick () {
                 this.isShow = !this.isShow
+            },
+            closeClick1 () {
+                this.bigShow = !this.bigShow
             },
             // 状态样式验证
             stateDisabled (val) {
@@ -234,12 +238,14 @@
     .bigshow {
         position: fixed;
         width: 800px;
-        height: 400px;
+        height: 500px;
         background: white;
         top: 0;
         left: 0;
+        right: 0px;
+        bottom: 0px;
+        margin: auto;
         z-index: 2;
-        text-align: center;
         overflow: hidden;
     }
     .uploading{
@@ -291,6 +297,16 @@
         position: absolute;
         right: -14px;
         top: -12px;
+    }
+    .closeIcon1{
+        background: url(/public/images/close.png) no-repeat;
+        background-position: -149px -31px;
+        width: 30px;
+        height: 30px;
+        display: inline-block;
+        position: absolute;
+        right: -7px;
+        top: -4px;
     }
     .closeIcon:hover{
         background-position: -180px -31px;
