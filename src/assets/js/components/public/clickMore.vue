@@ -29,8 +29,9 @@
         <div class="video">
             <div class="uploadVideo">
                 <div class="uploading">
+                    <!-- <span class="tip" v-if="!videoSrc && progressShow===false">您未上传视频</span>
                     <video-player 
-                        v-if="videoShow" 
+                        v-if="aaa" 
                         class="video-player-box"
                         ref="videoPlayer"
                         :options="playerOptions"
@@ -40,20 +41,24 @@
                         @pause="onPlayerPause($event)"
                         @statechanged="playerStateChanged($event)"
                         @ready="playerReadied">
-                    </video-player>
+                    </video-player> -->
                     <span class="tip" v-if="!videoSrc && progressShow===false">您未上传视频</span>
                     <div class="videoSrc" v-if="aaa">
-                        <video :src="videoSrc" controls="controls" height="200px" width="200px"></video>
+                        <video :src="videoSrc" id="vidopid" controls="controls" height="200px" width="200px" @click="changeBig()"></video>
                     </div>
                     <div class="pro" v-if="progressShow">
                         <el-progress  type="circle" :percentage="progress"></el-progress>
                     </div>
-                    <videoCo ref="videoCo" :rowId="rowId" @return-progress="returnProgress"
-                             @delVideoSrc='delVideoSrcFn' @return-videoUrl="returnVideoUrl"></videoCo>
+                    <videoCo ref="videoCo" :row="row" @return-progress="returnProgress"
+                        @delVideoSrc='delVideoSrcFn' @return-videoUrl="returnVideoUrl">
+                    </videoCo>
                 </div>
             </div>
             <i class="closeIcon" @click="closeClick"></i>
         </div>  
+    </div>
+    <div class="bigshow" v-if="bigShow">
+        <video :src="videoSrc" controls="controls" height="400px" width="800px"></video>
     </div>
 </div>
 </template>
@@ -76,14 +81,14 @@
             return {
                 isNewShow: false,
                 isShow: false,
+                isShow1: false,
                 more: more,
                 checkeds: {},
                 videoSrc: '',
-                videoShow: false,
+                videoShow: true,
                 progress: 0,
                 progressShow: false,
                 tipShow: true,
-                rowId: this.row.id,
                 playerOptions: {
                     // videojs options
                     muted: true,
@@ -94,16 +99,17 @@
                         src: ''
                     }]
                 },
-                aaa: false
+                aaa: false,
+                bigShow: false
             }
         },
         methods: {
-            toggleVideo (e) {
-                // 当前播放时间
-                var curTime = e.currentTime
-                $('#media').attr('src', 'video/exo.mp4').attr('autoplay', 'true')
-                e.currentTime = curTime
-            },
+            // toggleVideo (e) {
+            //     // 当前播放时间
+            //     var curTime = e.currentTime
+            //     $('#media').attr('src', 'video/exo.mp4').attr('autoplay', 'true')
+            //     e.currentTime = curTime
+            // },
             handleRemove (file, fileList) {
                 console.log(file, fileList)
             },
@@ -114,6 +120,11 @@
                 if (command === '状态' || command === '审核状态') {
                     this.$emit('changeState')
                 } else if (command === '视频') {
+                    if (this.row.video !== '' && this.row.video !== null) {
+                        this.videoSrc = require('projectRoot/env.js').app_ano_url + '/' + this.row.video
+                        this.aaa = true
+                        // this.playerOptions.sources[0].src = this.videoSrc
+                    }
                     this.isShow = !this.isShow
                 } else if (command === '打印') {
                     this.$emit('showMore')
@@ -143,15 +154,15 @@
                     return false
                 }
             },
-            onPlayerPlay (player) {
-            },
-            onPlayerPause (player) {
-            },
-            playerStateChanged (playerCurrentState) {
-            },
-            playerReadied (player) {
-                console.log('the player is readied', player)
-            },
+            // onPlayerPlay (player) {
+            // },
+            // onPlayerPause (player) {
+            // },
+            // playerStateChanged (playerCurrentState) {
+            // },
+            // playerReadied (player) {
+            //     console.log('the player is readied', player)
+            // },
             returnProgress (progress) {
                 var pro = parseInt(progress * 100)
                 this.progress = pro
@@ -167,7 +178,15 @@
                 this.videoSrc = ''
             },
             returnVideoUrl (val) {
-                this.videoSrc = require('projectRoot/env.js').app_ano_url + '/video/' + val
+                this.isShow = !this.isShow
+                this.$emit('showlist')
+                if (val !== '') {
+                    this.videoSrc = require('projectRoot/env.js').app_ano_url + '/video/' + val
+                    // this.playerOptions.sources[0].src = this.videoSrc
+                } else {
+                    this.videoSrc = ''
+                    this.aaa = false
+                }
             },
             timeDeal () {
                 var _this = this
@@ -175,6 +194,11 @@
                     _this.aaa = true
                     _this.progressShow = false
                 }, 1000)
+            },
+            changeBig () {
+                this.isShow = !this.isShow
+                this.bigShow = !this.bigShow
+                // this.bigShow = true
             }
         },
         components: {
@@ -182,18 +206,16 @@
             videoPlayer
         },
         mounted () {
-            this.playerOptions.sources[0].src = this.videoSrc
-        },
-        computed: {
-            player () {
-                return this.$refs.videoPlayer.player
-            }
         }
+        // computed: {
+        //     player () {
+        //         return this.$refs.videoPlayer.player
+        //     }
+        // }
     }
 </script>
 <style lang="sass">
 .clickmore{
-
 	.more{
 		cursor: pointer;
 		margin-right: 10px;
@@ -203,6 +225,17 @@
         width: 100%;
         height: 100%;
         background: rgba(0,0,0,0.3);
+        top: 0;
+        left: 0;
+        z-index: 2;
+        text-align: center;
+        overflow: hidden;
+    }
+    .bigshow {
+        position: fixed;
+        width: 800px;
+        height: 400px;
+        background: white;
         top: 0;
         left: 0;
         z-index: 2;
