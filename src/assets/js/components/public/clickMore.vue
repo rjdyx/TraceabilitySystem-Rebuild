@@ -46,7 +46,7 @@
                         <video :src="videoSrc" controls="controls" height="200px" width="200px"></video>
                     </div>
                     <div class="pro" v-if="progressShow">
-                        <el-progress  type="circle" :percentage="progress"></el-progress>
+                        <el-progress type="circle" :percentage="progress"></el-progress>
                     </div>
                     <videoCo ref="videoCo" :rowId="rowId" @return-progress="returnProgress"
                              @delVideoSrc='delVideoSrcFn' @return-videoUrl="returnVideoUrl"></videoCo>
