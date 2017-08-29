@@ -16,9 +16,9 @@
 				</span>
 
                 <div class="plays">
-                    <router-link :to="{path:'/index/plays'}">
+   <!--                  <router-link :to="{path:'/index/plays'}">
                        查看实时视频
-                    </router-link>
+                    </router-link> -->
                 </div>
 				<ul  class="text homeInfo">
 					<li v-for="(item,index) in listN" class="coltext">
@@ -66,11 +66,10 @@ export default{
     mounted () {
         this.change_siderBar(true)
         localStorage.setItem('tab', 0)
-        axios.get('api/index')
-            .then((responce) => {
-                this.listV = responce.data
-                this.listV.date = localStorage.getItem('loginDate')
-            })
+        axios.get('api/index').then((responce) => {
+            this.listV = responce.data
+            this.listV.date = localStorage.getItem('loginDate')
+        })
     },
     created () {
         document.title = '首页'
