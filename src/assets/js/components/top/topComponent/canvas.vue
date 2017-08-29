@@ -9,7 +9,7 @@
 		<canvas width="350" height="280"></canvas>
 		<canvas width="350" height="280"></canvas>
 		<canvas width="350" height="280"></canvas>
-		<canvas width="350" height="280"></canvas>
+		<canvas width="350" height="280" class="video-bg" @click="videos" @mousemove="styleover" @mouseout="styleout"></canvas>
 		<canvas width="1588" height="185"></canvas>
 	</div>
 </template>
@@ -18,25 +18,102 @@ export default {
     name: 'homeCanvas',
     data () {
         return {
+            e1: '0',
+            e2: '0',
+            e3: '',
+            e4: '0',
+            e5: '0',
+            e6: '0',
+            arr: ['北风', '东北风', '东风', '东南风', '南风', '西南风', '西风', '西北风']
         }
     },
     mounted () {
-        let canvas = $('canvas')
-        let pen1 = canvas.eq(0).get(0).getContext('2d')
-        this.arcCanvasFn(pen1, '湿度', '0%', '100%', '65%')
-
-        let pen2 = canvas.eq(1).get(0).getContext('2d')
-        this.arcCanvasFn(pen2, '数字气压', '0pa', '100pa', '90pa')
-
-        let pen3 = canvas.eq(2).get(0).getContext('2d')
-        this.drawWindFn(pen3, '风向', '东北风')
-
-        let pen5 = canvas.eq(4).get(0).getContext('2d')
-        this.drawMore(pen5)
+        // 数据初始化
+        this.canvasInit()
+        this.plantationDatas()
+        var _this = this
+        // 10分钟更新一次
+        window.setInterval(function () {
+            _this.plantationDatas()
+        }, 60000)
     },
     methods: {
+        videos () {
+            this.$router.push('/index/plays')
+        },
+        styleover () {
+            $('.video-bg').css('background-size', '102% 102%')
+        },
+        styleout () {
+            $('.video-bg').css('background-size', '100% 100%')
+        },
+        plantationDatas () {
+            var _this = this
+            axios.get('api/maxdata').then((res) => {
+                if (res.data.status !== undefined && res.data.status === 200) {
+                    _this.plantations = res.data.content
+                    _this.e1 = Math.round(res.data.content[0].e4 * 100) / 100
+                    _this.e2 = Math.round(res.data.content[0].e5 * 100) / 100
+                    _this.e4 = Math.round(res.data.content[0].e2 * 100) / 100
+                    _this.e5 = res.data.content[0].e3
+                    _this.e6 = res.data.content[0].e1
+                    var e3 = res.data.content[0].e12
+                    if (e3 === 0 || e3 === 360) {
+                        _this.e3 = this.arr[0]
+                    }
+                    if (e3 < 90 && e3 > 0) {
+                        _this.e3 = this.arr[1]
+                    }
+                    if (e3 === 90) {
+                        _this.e3 = this.arr[2]
+                    }
+                    if (e3 > 90 && e3 < 180) {
+                        _this.e3 = this.arr[3]
+                    }
+                    if (e3 === 180) {
+                        _this.e3 = this.arr[4]
+                    }
+                    if (e3 > 180 && e3 < 270) {
+                        _this.e3 = this.arr[5]
+                    }
+                    if (e3 === 270) {
+                        _this.e3 = this.arr[6]
+                    }
+                    if (e3 > 270 && e3 < 360) {
+                        _this.e3 = this.arr[7]
+                    }
+                    _this.clearCanvas()
+                    _this.canvasInit()
+                }
+            })
+        },
+        canvasInit () {
+            let canvas = $('canvas')
+            let pen1 = canvas.eq(0).get(0).getContext('2d')
+            this.arcCanvasFn(pen1, '湿度', '0%', '100%', this.e1 + '%')
+
+            let pen2 = canvas.eq(1).get(0).getContext('2d')
+            this.arcCanvasFn(pen2, '数字气压', '0pa', '10000pa', this.e2 + 'pa')
+
+            let pen3 = canvas.eq(2).get(0).getContext('2d')
+            this.drawWindFn(pen3, '风向', this.e3)
+
+            let pen5 = canvas.eq(4).get(0).getContext('2d')
+            this.drawMore(pen5)
+        },
+        clearCanvas () {
+            var canvas = $('canvas')
+            canvas.eq(0).get(0).getContext('2d').clearRect(0, 0, 350, 280)
+            canvas.eq(1).get(0).getContext('2d').clearRect(0, 0, 350, 280)
+            canvas.eq(2).get(0).getContext('2d').clearRect(0, 0, 350, 280)
+            canvas.eq(4).get(0).getContext('2d').clearRect(0, 0, 1588, 185)
+        },
         // 绘制温度和数字气压 参数(画笔，标题，坐标开始度数1，坐标结束度数2，目标度数)
         arcCanvasFn (pen, title, deg1, deg2, targetDeg) {
+            var ber = 10000
+            if (deg2 === '100%') {
+                ber = 100
+            }
             let num = parseInt(targetDeg)
             pen.save()
             // 灰色底圆
@@ -53,7 +130,7 @@ export default {
             pen.fillStyle = grd
             pen.beginPath()
             pen.moveTo(175, 230)
-            pen.arc(175, 230, 125, Math.PI, Math.PI * ((num / 100) + 1), false)
+            pen.arc(175, 230, 125, Math.PI, Math.PI * ((num / ber) + 1), false)
             pen.closePath()
             pen.fill()
             // 剪切圆
@@ -84,7 +161,7 @@ export default {
             // 指针 这里也变 角度变
             pen.translate(175, 230)
             // pen.rotate(Math.PI * 0.65)
-            pen.rotate(Math.PI * (num / 100))
+            pen.rotate(Math.PI * (num / ber))
             pen.beginPath()
             pen.fillStyle = '#273234'
             pen.moveTo(0, -5)
@@ -100,7 +177,8 @@ export default {
         },
         // 绘制风向 参数(画笔，标题，目标风向)
         drawWindFn (pen, title, targetWind) {
-            let arr = ['东风', '东南风', '南风', '西南风', '西风', '西北风', '北风', '东北风']
+            pen.width = pen.width
+            let arr = this.arr
             let targetIndex = arr.indexOf(targetWind)
             pen.beginPath()
             pen.font = '20px Arial'
@@ -152,6 +230,7 @@ export default {
                 pen.fillText(arr[i], x - len.width / 2, y + len.width / 2)
                 pen.closePath()
             }
+            pen.translate(-175, -150)
         },
         // 绘制 雨量，温度，风速
         drawMore (pen) {
@@ -159,17 +238,17 @@ export default {
                 rain: {
                     imgAddress: ['public/images/rain.png', [20, 35, 30, 22]],
                     title: '雨量',
-                    target: '23mm'
+                    target: this.e4 + 'mm'
                 },
                 temp: {
                     imgAddress: ['public/images/temp.png', [23, 85, 21, 28]],
                     title: '温度',
-                    target: '28℃'
+                    target: this.e5 + '℃'
                 },
                 wind: {
                     imgAddress: ['public/images/wind.png', [20, 135, 25, 22]],
                     title: '风速',
-                    target: '22m/s'
+                    target: this.e6 + 'm/s'
                 }
             }
             Object.keys(obj).forEach((item, index) => {
@@ -224,5 +303,10 @@ export default {
 			margin-right:0px;
         }
 	}
+    .video-bg {
+       background: url('/public/images/video-bg.png');
+       background-size:100% 100%; 
+       cursor: pointer;
+    }
 }
 </style>
