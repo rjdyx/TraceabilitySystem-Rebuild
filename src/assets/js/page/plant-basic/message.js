@@ -274,7 +274,7 @@ export default {
                     rule: null
                 },
                 {
-                    name: 'director',
+                    name: 'altitude',
                     type: 'text',
                     component: null,
                     isNull: true,
