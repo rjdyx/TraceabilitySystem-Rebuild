@@ -32,7 +32,7 @@ export default {
         var cid = window.Roles.company_id
         // WebSocket
         var socketState = window.socketData
-        if (!socketState) {
+        if (socketState) {
             if ('WebSocket' in window) {
                 var url = 'ws://' + env.websocket_url
                 var socket = new WebSocket(url)
