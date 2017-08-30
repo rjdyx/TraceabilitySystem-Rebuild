@@ -6,7 +6,7 @@
  */ 
 <template>
 	<div class="homeCanvas">
-		<canvas width="350" height="280"></canvas>
+		<canvas width="350" height="280" @click="go"></canvas>
 		<canvas width="350" height="280"></canvas>
 		<canvas width="350" height="280"></canvas>
 		<canvas width="350" height="280"></canvas>
@@ -29,7 +29,7 @@ export default {
         this.arcCanvasFn(pen2, '数字气压', '0pa', '100pa', '90pa')
 
         let pen3 = canvas.eq(2).get(0).getContext('2d')
-        this.drawWindFn(pen3, '风向', '东北风')
+        this.drawWindFn(pen3, '风向', '北风')
 
         let pen5 = canvas.eq(4).get(0).getContext('2d')
         this.drawMore(pen5)
@@ -205,6 +205,10 @@ export default {
                 pen.closePath()
                 pen.restore()
             })
+        },
+        go () {
+            console.log('goggogog')
+            this.$router.push('/index/home/echarts')
         }
     }
 }
