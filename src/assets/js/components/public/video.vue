@@ -1,45 +1,36 @@
 <template>
-    <!-- <div class="inputVideo" id="picker">
-        <button class="el-button el-button--default el-button--small">{{tip}}
-            <input type="file" accept="audio/mp4, video/mp4" @change="changefn($event.currentTarget, $event)">
-        </button>
-        <i v-if="value==''" class="tipIcon el-icon-circle-close"></i>
-        <i v-else class="tipIcon el-icon-circle-check"></i>
-        <el-button size="small" @click="upVideo()" class="btn_change delVideo">上传</el-button>
-    </div> -->
     <div id="videoFile">
         <!-- 进度条 -->
-        <!-- <el-progress type="circle" :percentage="percentage"></el-progress> -->
         <ul id="theList">
-        <div>{{progress}}</div>
+            <div>{{progress}}</div>
             <li :id='file.id'>
-                <span class="fileName"> {{file.name}} </span>
-                <el-button 
-                    class="itemUpload" 
-                    v-if="isUpLoad" 
-                    :disabled="isDisabled" 
-                    type="primary">
-                    上传
-                </el-button>
-                <el-button 
-                    class="itemStop" 
-                    v-else 
-                    :disabled="isDisabled"
-                    type="primary">
-                    暂停
-                </el-button>
-                <el-button 
-                    class="itemDel" 
-                    :disabled="isDisabled" 
-                    type="primary">
-                    删除
-                </el-button>
-<!--                 <button >上传</button>
-                <button >暂停</button>
-                <button >删除</button> -->
+                <span class="fileName" id='fileName'></span>
+                <div v-if="!vidUrl">
+                    <el-button 
+                        class="itemUpload" 
+                        v-if="isUpLoad" 
+                        :disabled="isDisabled" 
+                        type="primary">
+                        上传
+                    </el-button>
+                    <el-button 
+                        class="itemStop" 
+                        v-else 
+                        :disabled="isDisabled"
+                        type="primary">
+                        暂停
+                    </el-button>
+                    <el-button 
+                        class="itemDel" 
+                        :disabled="isDisabled"
+                        type="primary">
+                        删除
+                    </el-button>
+                </div>
             </li>
         </ul>
-        <div id="picker">选择文件</div>
+        <div id="delPick" @click='delVideo'>删除视频</div>
+        <div id="picker">选择视频</div>
     </div>
 </template>
 <script type="text/javascript"></script>
@@ -48,17 +39,15 @@ export default {
     name: 'videoFile',
     props:
     {
-        shuju: {
-            type: Object,
-            default () {
-                return {}
-            }
-        },
-        editValue: {
-        },
-        rowId: ''
+        row: {}
     },
     data () {
+        var re
+        if (this.row.video !== '' && this.row.video !== null) {
+            re = true
+        } else {
+            re = false
+        }
         return {
             value: '',
             tip: '视频上传',
@@ -66,17 +55,18 @@ export default {
             val: '',
             file: {},
             isUpLoad: true,
-            isDisabled: true
+            isDisabled: true,
+            vidUrl: re
         }
     },
     methods: {
-        abc () {
+        fileUpload () {
             var _this = this
             var userInfo = {userId: 'kazaff666', md5: ''}
             var chunkSize = 5000 * 1024
             var uniqueFileName = null
             var md5Mark = null
-            var backEndUrl = '/php/fileUpload.php'
+            var backEndUrl = '/api/planta/upVideo'
             WebUploader.Uploader.register({
                 'before-send-file': 'beforeSendFile',
                 'before-send': 'beforeSend',
@@ -94,12 +84,15 @@ export default {
                             url: backEndUrl,
                             data: {
                                 status: 'md5Check',
-                                md5: val
+                                md5: val,
+                                _token: JSON.parse(Laravel.csrfToken),
+                                pid: JSON.parse(_this.row.id)
                             },
                             cache: false,
                             // todo 超时的话，只能认为该文件不曾上传过
                             timeout: 1000,
                             dataType: 'json'
+                            // contentType: 'application/json'
                         }).then(function (data, textStatus, jqXHR) {
                             // 若存在，这返回失败给WebUploader，表明该文件不需要上传
                             if (data.ifExist) {
@@ -131,11 +124,14 @@ export default {
                             status: 'chunkCheck',
                             name: uniqueFileName,
                             chunkIndex: block.chunk,
-                            size: block.end - block.start
+                            size: block.end - block.start,
+                            _token: JSON.parse(Laravel.csrfToken),
+                            pid: JSON.parse(_this.row.id)
                         },
                         cache: false,
                         timeout: 1000,
                         dataType: 'json'
+                        // contentType: 'application/json'
                     }).then(function (data, textStatus, jqXHR) {
                         if (data.ifExist) {
                             task.reject()
@@ -160,10 +156,13 @@ export default {
                                 name: uniqueFileName,
                                 chunks: chunksTotal,
                                 ext: file.ext,
-                                md5: md5Mark
+                                md5: md5Mark,
+                                _token: JSON.parse(Laravel.csrfToken),
+                                pid: JSON.parse(_this.row.id)
                             },
                             cache: false,
                             dataType: 'json'
+                            // contentType: 'application/json'
                         }).then(function (data, textStatus, jqXHR) {
                             // todo 检查响应是否正常
                             task.resolve()
@@ -189,7 +188,7 @@ export default {
                 chunkSize: chunkSize,
                 threads: true,
                 formData: function () {
-                    return $.extend(true, {}, userInfo)
+                    return $.extend(true, {_token: JSON.parse(Laravel.csrfToken), pid: JSON.parse(_this.row.id)}, userInfo)
                 },
                 fileNumLimit: 1,
                 fileSingleSizeLimit: 1000 * 1024 * 1024,
@@ -197,6 +196,7 @@ export default {
             })
             uploader.on('fileQueued', function (file) {
                 _this.file = file
+                $('#fileName').html(file.name)
                 uploader.makeThumb(file, function (error, src) {
                     if (error) {
                     }
@@ -212,7 +212,8 @@ export default {
             })
             // todo 如果要删除的文件正在上传（包括暂停），则需要发送给后端一个请求用来清除服务器端的缓存文件
             $('#theList').on('click', '.itemDel', function () {
-                uploader.removeFile($(this).parent().attr('id'))
+                $('#fileName').html('')
+                uploader.removeFile($('#theList li').attr('id'))
                 _this.file = {}
                 _this.$emit('delVideoSrc')
             })
@@ -221,27 +222,61 @@ export default {
             })
             function UploadComlate (file) {
                 if (file.status !== '0') {
-                    _this.$message('上传完毕')
+                    _this.$message({
+                        type: 'success',
+                        message: '上传视频成功'
+                    })
                     _this.isUpLoad = true
+                    // _this.vidUrl = true
+                    // $('#delPick').show()
+                    // $('#picker').hide()
+                    // _this.isDisabled = false
+                    // $('#fileName').html('')
+                    // uploader.reset()
                     _this.$emit('return-videoUrl', file.path)
                 }
             }
         },
         changefn (srcPic, event) {
         },
-        upVideo () {
-            if (this.val !== '') {
-
-            } else {
-                this.$message('请上传MP4视频文件')
-            }
+        delVideo () {
+            this.$confirm('你是否要删除视频', '信息', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                type: 'error'
+            }).then(() => {
+                let params = {pid: this.row.id}
+                axios.get(this.$adminUrl('/planta/delVideo'), {params: params})
+                    .then((responce) => {
+                        if (responce.data !== 'false') {
+                            this.$message({
+                                type: 'success',
+                                message: '删除视频成功'
+                            })
+                            // this.vidUrl = false
+                            // $('#delPick').hide()
+                            // $('#picker').show()
+                            this.$emit('return-videoUrl', '')
+                        } else {
+                            this.$message.error('删除视频失败')
+                        }
+                    })
+            }).catch(() => {
+                this.$message({
+                    type: 'info',
+                    message: '已取消删除视频'
+                })
+            })
         }
     },
     mounted () {
-        this.abc()
-        if (this.editValue !== undefined && this.editValue !== null && this.editValue !== '') {
-            this.value = this.editValue
-            this.$emit('return-shuju', {name: 'videos', value: this.editValue})
+        this.fileUpload()
+        if (this.row.video !== '' && this.row.video !== null) {
+            $('#delPick').show()
+            $('#picker').hide()
+        } else {
+            $('#delPick').hide()
+            $('#picker').show()
         }
     },
     watch: {
@@ -258,38 +293,6 @@ export default {
 <link rel="stylesheet" href="webuploader.css" />
 <style lang="sass">
 @import '../../../../../public/webuploader/webuploader.css';
-// .inputVideo{
-// 	overflow:hidden;
-// 	button:first-child{
-// 		position:relative;
-// 		input[type=file]{
-// 			width:54px;
-// 			position:absolute;
-// 			opacity:0;
-// 			left:0;
-// 			top: 0;
-// 		}
-// 	}
-// 	.delVideo{
-// 		margin-top:5px;
-// 	}
-// 	.tipIcon{
-// 		margin-left:20px;
-// 	}
-//     .itemDel, .itemStop, .itemUpload{
-//         margin-left: 15px;
-//         color: blue;
-//         cursor: pointer;
-//     }
-//     #theList{
-//         width: 80%;
-//         min-height: 100px;
-//         border: 1px solid red;
-//     }
-//     #theList .itemStop{
-//         display: none;
-//     }
-// }
 #videoFile{
     width: 100%;
     position:absolute;

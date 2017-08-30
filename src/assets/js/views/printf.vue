@@ -103,7 +103,7 @@ export default {
 </script>
 <style lang=sass>
 html,body{
-	/*overflow: auto;*/
+	overflow: auto;
 }
 #printfPreview{
     padding: 50px 0;

@@ -22,7 +22,8 @@
 			</div>
 			<!-- canvas -->
 			<div class="main">
-                <homeCanvas></homeCanvas>
+                <!-- <homeCanvas></homeCanvas> -->
+                <router-view></router-view>
 			</div>
 		</div>
 
@@ -132,6 +133,7 @@ $absolute: absolute;
             padding-top:50px;
             width: 100%;
             text-align:center;
+            height:100%;
             >img{
                 width: 100%;
             }

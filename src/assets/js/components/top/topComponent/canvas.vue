@@ -6,7 +6,7 @@
  */ 
 <template>
 	<div class="homeCanvas">
-		<canvas width="350" height="280"></canvas>
+		<canvas width="350" height="280" @click="go"></canvas>
 		<canvas width="350" height="280"></canvas>
 		<canvas width="350" height="280"></canvas>
 		<canvas width="350" height="280" class="video-bg" @click="videos" @mousemove="styleover" @mouseout="styleout"></canvas>
@@ -284,6 +284,10 @@ export default {
                 pen.closePath()
                 pen.restore()
             })
+        },
+        go () {
+            console.log('goggogog')
+            this.$router.push('/index/home/echarts')
         }
     }
 }

@@ -622,7 +622,7 @@ export default {
                     label: '茶叶品种',
                     placeholder: '必填',
                     disabled: true,
-                    rule: {required: true}
+                    rule: {required: true, message: '请输入茶叶品种'}
                 },
                 {
                     name: 'amount',

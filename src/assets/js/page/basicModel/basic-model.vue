@@ -132,7 +132,8 @@
                     @showDetail="detailShow(scope.$index,scope.row)" class="clickMoreBtn"@return-permission="getPermission" 
                     @changeState="changeSerialState(scope.$index,scope.row)"
                     @shipGoods="shipGood(scope.$index,scope.row)"
-                    @communkation="communkationFn(scope.$index,scope.row)">
+                    @communkation="communkationFn(scope.$index,scope.row)"
+                    @showlist="getListFlash()">
                     </clickMore>
                 </template>
                 <template>
@@ -945,6 +946,9 @@ export default {
         },
         getPermission (data) {
             this.checkeds = data
+        },
+        getListFlash () {
+            this.boxArr(this.dataArr, true)
         }
     },
     mounted () {
