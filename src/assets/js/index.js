@@ -38,32 +38,6 @@ const teaTrace = [
 ]
 
 router.beforeEach(async (to, from, next) => {
-    // WebSocket (未完成...)
-    // var socketState = window.socketData
-    var socketState = false
-    if (socketState) {
-        if ('WebSocket' in window) {
-            var url = 'ws://' + env.app_url.replace('http://', '') + '/api/socket'
-            var socket = new WebSocket(url)
-            window.socketData = socket
-            // 握手成功成功
-            socket.onopen = function () {
-                // socket.send('发送数据')
-                console.log('数据发送中...')
-            }
-            // 后台返回数据时
-            socket.onmessage = function (event) {
-                let data = JSON.parse(event.data)
-                console.log(data)
-            }
-            // 错误时
-            socket.onerror = function (ev) {
-                console.log(ev)
-            }
-        } else {
-            console.log('浏览器不支持')
-        }
-    }
     var str = to.path.substring(0, to.path.length - 18)
     var check = false
     for (let t in teaTrace) {

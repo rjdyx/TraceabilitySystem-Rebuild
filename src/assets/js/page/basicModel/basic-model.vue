@@ -173,6 +173,9 @@
           class="pager"
           @current-change="pageChange">
         </el-pagination>
+        
+        <!-- websocket组件 -->
+        <webSocket :rt="$route.path"></webSocket>
     </div>
   </div>
 </div>
@@ -194,6 +197,7 @@ import company from '../../page/plant-basic/company.js'
 import companyPermission from '../../components/public/companyPermission.vue'
 import Communication from '../../components/public/Communication.vue'
 import roleCheckbox from '../../components/public/roleCheckbox.vue'
+import webSocket from '../../components/public/webSocket.vue'
 export default {
     name: 'BasicModel',
     props: {
@@ -992,7 +996,8 @@ export default {
         permissionCheckbox,
         roleCheckbox,
         companyPermission,
-        Communication
+        Communication,
+        webSocket
     }
 }
 </script>
