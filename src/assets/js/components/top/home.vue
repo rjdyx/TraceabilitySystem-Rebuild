@@ -14,7 +14,7 @@
 				<span class="headerImg">
 					<img v-if="listV.logo" :src="listV.logo"/>
 				</span>
-				<ul  class="text homeInfo">
+				<ul class="text homeInfo">
 					<li v-for="(item,index) in listN" class="coltext">
 						<span>{{item}}</span> : {{listV[index]}}
 					</li>
@@ -110,18 +110,17 @@ $absolute: absolute;
                 border:1px solid #dcdcdc;
                 border:1px solid rgb(229, 229, 229);
                 float:left;
-                margin-left: 3%;
+                margin-left: 5px;
                 border-radius: 10px;
                 img{
                     width:100%;
                 }
             }
-			.text{
-                float:left;
+			.homeInfo{
                 width: 80%; 
                 font-size: 15px;
                 color: #898989;
-                margin-left:5%;
+                margin-left:200px;
                 li{
                     line-height:(150px/2);
                     width: 49%;
