@@ -25,42 +25,48 @@
     <!-- 弹出框 -->
 	<moreNew v-if="isNewShow" :more="more"></moreNew>
     <!-- 视频弹出框 -->
-    <div class="videoWrap" v-if="isShow">
-        <div class="video">
-            <div class="uploadVideo">
-                <div class="uploading">
-                    <!-- <span class="tip" v-if="!videoSrc && progressShow===false">您未上传视频</span>
-                    <video-player 
-                        v-if="aaa" 
-                        class="video-player-box"
-                        ref="videoPlayer"
-                        :options="playerOptions"
-                        :playsinline="true"
-                        customEventName="customstatechangedeventname"
-                        @play="onPlayerPlay($event)"
-                        @pause="onPlayerPause($event)"
-                        @statechanged="playerStateChanged($event)"
-                        @ready="playerReadied">
-                    </video-player> -->
-                    <span class="tip" v-if="!videoSrc && progressShow===false">您未上传视频</span>
-                    <div class="videoSrc" v-if="aaa">
-                        <video :src="videoSrc" id="vidopid" controls="controls" height="200px" width="200px" @click="changeBig()"></video>
+    <transition name="fade">
+        <div class="videoWrap" v-if="isShow">
+            <div class="video">
+                <div class="uploadVideo">
+                    <div class="uploading">
+                        <!-- <span class="tip" v-if="!videoSrc && progressShow===false">您未上传视频</span>
+                        <video-player 
+                            v-if="aaa" 
+                            class="video-player-box"
+                            ref="videoPlayer"
+                            :options="playerOptions"
+                            :playsinline="true"
+                            customEventName="customstatechangedeventname"
+                            @play="onPlayerPlay($event)"
+                            @pause="onPlayerPause($event)"
+                            @statechanged="playerStateChanged($event)"
+                            @ready="playerReadied">
+                        </video-player> -->
+                        <span class="tip" v-if="!videoSrc && progressShow===false">您未上传视频</span>
+                        <div class="videoSrc" v-if="aaa">
+                            <video :src="videoSrc" id="vidopid" controls="controls" height="200px" width="200px" @click="changeBig()"></video>
+                        </div>
+                        <div class="pro" v-if="progressShow">
+                            <el-progress type="circle" :percentage="progress"></el-progress>
+                        </div>
+                        <videoCo ref="videoCo" :row="row" @return-progress="returnProgress"
+                            @delVideoSrc='delVideoSrcFn' @return-videoUrl="returnVideoUrl">
+                        </videoCo>
                     </div>
-                    <div class="pro" v-if="progressShow">
-                        <el-progress type="circle" :percentage="progress"></el-progress>
-                    </div>
-                    <videoCo ref="videoCo" :row="row" @return-progress="returnProgress"
-                        @delVideoSrc='delVideoSrcFn' @return-videoUrl="returnVideoUrl">
-                    </videoCo>
                 </div>
+                <i class="closeIcon" @click="closeClick"></i>
+            </div>  
+        </div>
+    </transition>
+    <transition name="fade">
+        <div class="bigshow" v-if="bigShow">
+            <div>
+                <video :src="videoSrc" controls="controls" height="450px" width="800px"></video>
+                <i class="closeIcon" @click="closeClick1"></i>  
             </div>
-            <i class="closeIcon" @click="closeClick"></i>
-        </div>  
-    </div>
-    <div class="bigshow" v-if="bigShow">
-        <video :src="videoSrc" controls="controls" height="450px" width="800px"></video>
-        <i class="closeIcon1" @click="closeClick1"></i>
-    </div>
+        </div>
+    </transition>
 </div>
 </template>
 <script>
@@ -236,17 +242,25 @@
         overflow: hidden;
     }
     .bigshow {
+        width:100%;
+        height:100%;
         position: fixed;
-        width: 800px;
-        height: 500px;
-        background: white;
+        background: rgba(0, 0, 0, 0.5);
         top: 0;
         left: 0;
-        right: 0px;
-        bottom: 0px;
-        margin: auto;
-        z-index: 2;
-        overflow: hidden;
+        z-index: 10;
+        >div{
+            position:absolute;
+            width: 800px;
+            height: 500px;
+            left: 50%;
+            top: 50%;
+            margin-left:-400px;
+            margin-top:-250px;
+            background: white;
+            box-shadow: 1px 1px 50px rgba(0, 0, 0, 0.3);
+            border-radius: 2px;
+        }
     }
     .uploading{
         width: 250px;
@@ -287,6 +301,7 @@
         left: 50%;
         top: 50%;
         transform:translateX(-50%) translateY(-50%);
+        box-shadow: 1px 1px 50px rgba(0, 0, 0, 0.3);
     }
     .closeIcon{
         background: url(/public/images/close.png) no-repeat;
@@ -297,16 +312,6 @@
         position: absolute;
         right: -14px;
         top: -12px;
-    }
-    .closeIcon1{
-        background: url(/public/images/close.png) no-repeat;
-        background-position: -149px -31px;
-        width: 30px;
-        height: 30px;
-        display: inline-block;
-        position: absolute;
-        right: -7px;
-        top: -4px;
     }
     .closeIcon:hover{
         background-position: -180px -31px;
