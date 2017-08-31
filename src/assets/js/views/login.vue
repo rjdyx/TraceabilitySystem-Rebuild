@@ -61,7 +61,7 @@
 								:disabled="this.checked!==true"
 								class="loginBtn"
 								>登录</el-button>
-							<a href="http://www.gzlgit.com/about" target="_blank" class="apply">
+							<a href="http://www.tianchitea.com/" target="_blank" class="apply">
 								<el-button type="primary" size="small" class="loginBtn">申请入驻</el-button>
 							</a>
 						</el-form-item>
