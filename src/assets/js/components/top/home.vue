@@ -14,21 +14,16 @@
 				<span class="headerImg">
 					<img v-if="listV.logo" :src="listV.logo"/>
 				</span>
-
-                <div class="plays">
-   <!--                  <router-link :to="{path:'/index/plays'}">
-                       查看实时视频
-                    </router-link> -->
-                </div>
 				<ul  class="text homeInfo">
 					<li v-for="(item,index) in listN" class="coltext">
-						{{item}} {{listV[index]}} {{plans.come}}
+						<span>{{item}}</span> : {{listV[index]}}
 					</li>
 				</ul>
 			</div>
 			<!-- canvas -->
 			<div class="main">
-                <homeCanvas></homeCanvas>
+                <!-- <homeCanvas></homeCanvas> -->
+                <router-view></router-view>
 			</div>
 		</div>
 
@@ -46,7 +41,7 @@ export default{
         return {
             settitle: '首页',
             isClass: false,
-            listN: {'company_name': '所属公司:', 'name': '用户名:', 'date': '登录时间:', 'type': '用户类型:'},
+            listN: {'company_name': '所属公司', 'name': '用户名', 'date': '登录时间', 'type': '用户类型'},
             listV: {},
             state: 'plant',
             plans: {},
@@ -93,6 +88,9 @@ $absolute: absolute;
     overflow:hidden;
     padding-bottom:66px;
     box-sizing:border-box;
+    .coltext span {
+        font-weight: 700;
+    }
     .home_content{
     	overflow-y:scroll;
     	height: 100%;
@@ -101,27 +99,33 @@ $absolute: absolute;
     	.titleHome{
             padding-bottom:10px;
 			border-bottom: 1px solid #dcdcdc;
-            padding-left:200px;
             box-sizing:border-box;  
+            float:left;
+            width: 100%;
+            margin-bottom: 20px;
             .headerImg{
                 display: $inline;
                 width:150px;
                 height:150px;
                 border:1px solid #dcdcdc;
-                margin-left:-200px;
                 border:1px solid rgb(229, 229, 229);
+                float:left;
+                margin-left: 3%;
+                border-radius: 10px;
                 img{
                     width:100%;
                 }
             }
 			.text{
-                float:right;
-                width: 90%; 
-                font-size: 14px;
+                float:left;
+                width: 80%; 
+                font-size: 15px;
                 color: #898989;
+                margin-left:5%;
                 li{
-                    line-height:(150px/4);
-                    
+                    line-height:(150px/2);
+                    width: 49%;
+                    float: left;
                 }
 			}
 		}
@@ -129,26 +133,11 @@ $absolute: absolute;
             padding-top:50px;
             width: 100%;
             text-align:center;
+            height:100%;
             >img{
                 width: 100%;
             }
 		}
 	}
-    .plays {
-        float: right;
-        width:10%;
-        height: 100%;
-        a {
-            border: 1px solid #4D95E8;
-            border-radius: 5px;
-            line-height: 30px;
-            text-align: center;
-            cursor: pointer;
-            color: #4D95E8;
-            display: block;
-            width: 100px;
-            margin-top: 40%;
-        }
-    }
 }
 </style>

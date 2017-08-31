@@ -274,7 +274,7 @@ export default {
                     rule: null
                 },
                 {
-                    name: 'director',
+                    name: 'altitude',
                     type: 'text',
                     component: null,
                     isNull: true,
@@ -502,7 +502,7 @@ export default {
                 components: [{
                     name: 'name',
                     type: 'selectOther',
-                    categoryBox: ['八仙', '黄枝香', '芝兰', '杏仁', '鸭屎'],
+                    categoryBox: ['八仙', '黄枝香', '水仙', '芝兰', '杏仁', '鸭屎'],
                     component: inputSelectOther,
                     isNull: false,
                     label: '茶叶品种',
@@ -1780,6 +1780,7 @@ export default {
                     placeholder: '',
                     categoryString: '晴',
                     otherPlaceholder: '请输入天气',
+                    categoryBox: ['晴', '雨', '雪', '阴'],
                     rule: {required: true, message: '请选择天气', trigger: 'blur'},
                     options: [{
                         value: '晴',

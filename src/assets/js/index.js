@@ -17,7 +17,7 @@ const pre = '/index/'
 const pre2 = '/index/message/'
 const pre3 = '/index/details/'
 // 权限外路由(需登录)
-const excepts = ['/index/home', '/index/plays', pre + 'set', pre + 'test', pre + 'help', pre + 'question', pre + '404', pre + 'ondone', '/test1', '/printf', '/qrcodePrintf']
+const excepts = ['/index/home/canvas', '/index/home/echarts', '/index/plays', pre + 'set', pre + 'test', pre + 'help', pre + 'question', pre + '404', pre + 'ondone', '/test1', '/printf', '/qrcodePrintf']
 const pxcepts = ['/appIndex', pre + '404']
 // 管理员路由
 const admins = [pre2 + 'adminRole', pre2 + 'adminCompany', pre2 + 'adminFeedback', pre2 + 'adminLog']
@@ -38,32 +38,6 @@ const teaTrace = [
 ]
 
 router.beforeEach(async (to, from, next) => {
-    // WebSocket (未完成...)
-    // var socketState = window.socketData
-    var socketState = false
-    if (socketState) {
-        if ('WebSocket' in window) {
-            var url = 'ws://' + env.app_url.replace('http://', '') + '/api/socket'
-            var socket = new WebSocket(url)
-            window.socketData = socket
-            // 握手成功成功
-            socket.onopen = function () {
-                // socket.send('发送数据')
-                console.log('数据发送中...')
-            }
-            // 后台返回数据时
-            socket.onmessage = function (event) {
-                let data = JSON.parse(event.data)
-                console.log(data)
-            }
-            // 错误时
-            socket.onerror = function (ev) {
-                console.log(ev)
-            }
-        } else {
-            console.log('浏览器不支持')
-        }
-    }
     var str = to.path.substring(0, to.path.length - 18)
     var check = false
     for (let t in teaTrace) {
@@ -122,7 +96,7 @@ router.beforeEach(async (to, from, next) => {
                                     return false
                                 }
                             }
-                            next('/index/home')
+                            next('/index/home/canvas')
                         } else {
                             var aArr = excepts.concat(admins)
                             aArr = aArr.concat(aDetails)
@@ -132,7 +106,7 @@ router.beforeEach(async (to, from, next) => {
                                     return false
                                 }
                             }
-                            next('/index/home')
+                            next('/index/home/canvas')
                         }
                     }
                 }

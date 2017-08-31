@@ -76,6 +76,16 @@ const home = resolve => {
         resolve(require('../components/top/home.vue'))
     }, 'home')
 }
+const homeCanvas = resolve => {
+    require.ensure(['../components/top/topComponent/canvas.vue'], () => {
+        resolve(require('../components/top/topComponent/canvas.vue'))
+    }, 'homeCanvas')
+}
+const echarts = resolve => {
+    require.ensure(['../components/top/topComponent/echarts.vue'], () => {
+        resolve(require('../components/top/topComponent/echarts.vue'))
+    }, 'echarts')
+}
 // -------------------------------实时视频页------------------------------
 const plays = resolve => {
     require.ensure(['../components/top/plays.vue'], () => {
@@ -197,7 +207,17 @@ var routes = [
             },
             {
                 path: 'home',
-                component: home
+                component: home,
+                children: [
+                    {
+                        path: 'canvas',
+                        component: homeCanvas
+                    },
+                    {
+                        path: 'echarts',
+                        component: echarts
+                    }
+                ]
             },
             {
                 path: 'company',

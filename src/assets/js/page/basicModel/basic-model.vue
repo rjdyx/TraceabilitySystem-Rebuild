@@ -132,7 +132,8 @@
                     @showDetail="detailShow(scope.$index,scope.row)" class="clickMoreBtn"@return-permission="getPermission" 
                     @changeState="changeSerialState(scope.$index,scope.row)"
                     @shipGoods="shipGood(scope.$index,scope.row)"
-                    @communkation="communkationFn(scope.$index,scope.row)">
+                    @communkation="communkationFn(scope.$index,scope.row)"
+                    @showlist="getListFlash()">
                     </clickMore>
                 </template>
                 <template>
@@ -173,6 +174,9 @@
           class="pager"
           @current-change="pageChange">
         </el-pagination>
+        
+        <!-- websocket组件 -->
+        <webSocket :rt="$route.path"></webSocket>
     </div>
   </div>
 </div>
@@ -194,6 +198,7 @@ import company from '../../page/plant-basic/company.js'
 import companyPermission from '../../components/public/companyPermission.vue'
 import Communication from '../../components/public/Communication.vue'
 import roleCheckbox from '../../components/public/roleCheckbox.vue'
+import webSocket from '../../components/public/webSocket.vue'
 export default {
     name: 'BasicModel',
     props: {
@@ -941,6 +946,9 @@ export default {
         },
         getPermission (data) {
             this.checkeds = data
+        },
+        getListFlash () {
+            this.boxArr(this.dataArr, true)
         }
     },
     mounted () {
@@ -992,7 +1000,8 @@ export default {
         permissionCheckbox,
         roleCheckbox,
         companyPermission,
-        Communication
+        Communication,
+        webSocket
     }
 }
 </script>
