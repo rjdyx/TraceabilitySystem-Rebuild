@@ -33,8 +33,12 @@ export default {
         this.plantationDatas()
         var _this = this
         // 10分钟更新一次
-        window.setInterval(function () {
-            _this.plantationDatas()
+        var timer = window.setInterval(function () {
+            if (_this.$route.path === '/index/home/canvas') {
+                _this.plantationDatas()
+            } else {
+                clearInterval(timer)
+            }
         }, 60000)
     },
     methods: {
