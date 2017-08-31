@@ -11,7 +11,7 @@
 		<div class="phoneHeader">
 			<h2>天池茶叶</h2>
 		</div>
-		<!-- 中间 -->
+		<!-- 中间 <--></-->
 		<div class="mainWrap">
 			<div class="logo">
 				<img :src="tea_img">

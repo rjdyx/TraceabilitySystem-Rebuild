@@ -39,25 +39,6 @@ export default{
         }
     },
     mounted () {
-        this.timer = setInterval(() => {
-            let date = new Date()
-            let s = date.getSeconds()
-            let m = date.getMinutes()
-            let h = date.getHours()
-            $('.s').css('transform', 'rotate(' + s * 360 / 60 + 'deg)')
-            $('.m').css('transform', 'rotate(' + (m * 6 + s / 60 * 6) + 'deg)')
-            $('.h').css('transform', 'rotate(' + (h * 30 + m / 60 * 30) + 'deg)')
-            if (h > 6 && h < 18) {
-            // if (s > 30) {
-                $('.taiyang').fadeIn('slow')
-                $('.yueliang').fadeOut('slow')
-                $('.webIndex').css('background', 'white')
-            } else {
-                $('.yueliang').fadeIn('slow')
-                $('.taiyang').fadeOut('slow')
-                $('.webIndex').css('background', '#cccccc')
-            }
-        }, 1000)
         localStorage.setItem('trends', 0)
         axios.get('/api/index')
             .then((responce) => {

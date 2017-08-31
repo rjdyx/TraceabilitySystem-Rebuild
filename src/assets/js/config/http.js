@@ -1,5 +1,5 @@
 /**
-* httpÇëÇó¹ýÂË
+* http.js
 */
 
 require('./require')
