@@ -312,9 +312,10 @@ export default {
         }
 	}
     .video-bg {
-       background: url('/public/images/video-bg.png');
+       background: url('/public/images/video-bg.png') no-repeat center center;
        background-size:100% 100%; 
        cursor: pointer;
+       transition: all 0.3s linear;
     }
 }
 </style>
