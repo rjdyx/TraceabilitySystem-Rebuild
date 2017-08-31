@@ -62,7 +62,7 @@
     <transition name="fade">
         <div class="bigshow" v-if="bigShow">
             <div>
-                <video :src="videoSrc" controls="controls" height="450px" width="800px"></video>
+                <video :src="videoSrc" controls="controls" height="600px"></video>
                 <i class="closeIcon" @click="closeClick1"></i>  
             </div>
         </div>
@@ -251,8 +251,8 @@
         z-index: 10;
         >div{
             position:absolute;
-            width: 800px;
-            height: 500px;
+            // width: 800px;
+            height: 600px;
             left: 50%;
             top: 50%;
             margin-left:-400px;
