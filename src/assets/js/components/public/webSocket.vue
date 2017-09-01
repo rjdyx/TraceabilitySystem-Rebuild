@@ -39,7 +39,6 @@ export default {
         // WebSocket
         var socketState = window.socketData
         // 当前模块后台请求的url
-        var dataUrl = this.md[this.num].url
         var _this = this
         if (!socketState) {
             if ('WebSocket' in window && env.websocket_url !== undefined) {
@@ -53,6 +52,7 @@ export default {
                 }
                 // 后台返回数据时
                 socket.onmessage = function (ev) {
+                    let dataUrl = _this.md[_this.num].url
                     let data = JSON.parse(ev.data)
                     // 当前token
                     let token = document.cookie.replace(/XSRF-TOKEN=/, '')
