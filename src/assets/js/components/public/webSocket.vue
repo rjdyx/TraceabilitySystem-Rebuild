@@ -95,6 +95,7 @@ export default {
                             _this.updateData()
                         }
                     }
+                    console.log(token)
                     console.log(data)
                     console.log('数据接收中...')
                 }
