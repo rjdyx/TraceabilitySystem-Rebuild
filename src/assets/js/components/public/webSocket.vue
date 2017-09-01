@@ -6,7 +6,10 @@
  * 
  */
 <template>
-    <div class="websocket_pop">@{{modelName}}模块数据发生变化，已做更新操作！</div>
+    <div class="websocket_pop">
+        <div class="pop_p1">@</div>
+        <div class="pop_p2">{{modelName}} 模块数据发生变化，已做更新操作！</div>
+    </div>
 </template>
 
 <script>
@@ -18,7 +21,8 @@ export default {
     props: {
         rt: '',
         md: null,
-        num: ''
+        num: '',
+        mds: {cultivate: ['fertilize', 'detect', 'farming', 'harvest', 'grow'], harvest: ['tea-order-product', 'colect-process'], invoices_order: ['tea-order', 'tea-order-product'], productive_task: ['picking-list-product', 'productive-task-product'], picking_list: ['storage-order-product', 'picking-list-product'], storage_order: ['sell-store', 'storage-order-product'], sale: ['sell-store', 'delivery'], sell: ['sale']}
     },
     data () {
         return {
@@ -52,47 +56,52 @@ export default {
                     let data = JSON.parse(ev.data)
                     // 当前token
                     let token = document.cookie.replace(/XSRF-TOKEN=/, '')
-                    let mds = {cultivate: ['cultivate', 'fertilize', 'detect', 'farming', 'harvest', 'grow'], harvest: ['harvest', 'tea-order-product', 'colect-process'], invoices_order: ['invoices_order', 'tea-order', 'tea-order-product'], productive_task: ['picking-list-product', 'productive-task', 'productive-task-product'], picking_list: ['picking-list', 'storage-order-product', 'picking-list-product'], storage_order: ['storage-order', 'sell-store', 'storage-order-product'], sale: ['sale', 'sell-store', 'delivery'], sell: ['sell', 'sale']}
+                    let mds = _this.mds
                     if (data.content !== 'done' && cid === data.cid && token !== data.token) {
-                        // 种植批次
-                        if (data.content === 'cultivate' && mds.cultivate.indexOf(dataUrl) !== -1) {
-                            _this.modelName = '种植批次'
+                        if (data.content === dataUrl) {
+                            _this.modelName = '当前'
                             _this.updateData()
-                        }
-                        // 采制批次
-                        if (data.content === 'harvest' && mds.harvest.indexOf(dataUrl) !== -1) {
-                            _this.modelName = '采制批次'
-                            _this.updateData()
-                        }
-                        // 毛茶入库
-                        if (data.content === 'invoices_order' && mds.invoices_order.indexOf(dataUrl) !== -1) {
-                            _this.modelName = '毛茶入库'
-                            _this.updateData()
-                        }
-                        // 生产任务
-                        if (data.content === 'productive-task' && mds.productive_task.indexOf(dataUrl) !== -1) {
-                            _this.modelName = '生产任务'
-                            _this.updateData()
-                        }
-                        // 领料单
-                        if (data.content === 'picking-list' && mds.picking_list.indexOf(dataUrl) !== -1) {
-                            _this.modelName = '领料单'
-                            _this.updateData()
-                        }
-                        // 产品入库
-                        if (data.content === 'storage-order' && mds.storage_order.indexOf(dataUrl) !== -1) {
-                            _this.modelName = '产品入库'
-                            _this.updateData()
-                        }
-                        // 发货单
-                        if (data.content === 'sale' && mds.sale.indexOf(dataUrl) !== -1) {
-                            _this.modelName = '发货单'
-                            _this.updateData()
-                        }
-                        // 销售订单
-                        if (data.content === 'sell' && mds.sell.indexOf(dataUrl) !== -1) {
-                            _this.modelName = '销售订单'
-                            _this.updateData()
+                        } else {
+                            // 种植批次
+                            if (data.content === 'cultivate' && mds.cultivate.indexOf(dataUrl) !== -1) {
+                                _this.modelName = '种植批次'
+                                _this.updateData()
+                            }
+                            // 采制批次
+                            if (data.content === 'harvest' && mds.harvest.indexOf(dataUrl) !== -1) {
+                                _this.modelName = '采制批次'
+                                _this.updateData()
+                            }
+                            // 毛茶入库
+                            if (data.content === 'invoices-order' && mds.invoices_order.indexOf(dataUrl) !== -1) {
+                                _this.modelName = '毛茶入库'
+                                _this.updateData()
+                            }
+                            // 生产任务
+                            if (data.content === 'productive-task' && mds.productive_task.indexOf(dataUrl) !== -1) {
+                                _this.modelName = '生产任务'
+                                _this.updateData()
+                            }
+                            // 领料单
+                            if (data.content === 'picking-list' && mds.picking_list.indexOf(dataUrl) !== -1) {
+                                _this.modelName = '领料单'
+                                _this.updateData()
+                            }
+                            // 产品入库
+                            if (data.content === 'storage-order' && mds.storage_order.indexOf(dataUrl) !== -1) {
+                                _this.modelName = '产品入库'
+                                _this.updateData()
+                            }
+                            // 发货单
+                            if (data.content === 'sale' && mds.sale.indexOf(dataUrl) !== -1) {
+                                _this.modelName = '发货单'
+                                _this.updateData()
+                            }
+                            // 销售订单
+                            if (data.content === 'sell' && mds.sell.indexOf(dataUrl) !== -1) {
+                                _this.modelName = '销售订单'
+                                _this.updateData()
+                            }
                         }
                     }
                     console.log(token)
@@ -121,7 +130,7 @@ export default {
         websocket_pop () {
             setTimeout(function () {
                 $('.websocket_pop').fadeIn()
-            }, 800)
+            }, 1000)
             setTimeout(function () {
                 $('.websocket_pop').fadeOut(1000)
             }, 5000)
@@ -131,7 +140,7 @@ export default {
 </script>
 <style lang="sass">
 .websocket_pop{
-    width: 50%;
+    width: 400px;
     height: 40px;
     line-height: 40px;
     /*border: 1px solid #009acb;*/
@@ -142,7 +151,21 @@ export default {
     border-radius: 5px;
     z-index: 999;
     float: right;
-    margin-right: 30%;
+    margin-right: 43%;
     display: none;
+    .pop_p1{
+        width: 50px;
+        height: 100%;
+        background: #009acb;
+        float: left;
+        color: white;
+        line-height: 40px;
+        text-align: center;
+    }
+    .pop_p2{
+        min-width: 380px;
+        height: 100%;
+        background: #E8EDF2;
+    }
 }
 </style>

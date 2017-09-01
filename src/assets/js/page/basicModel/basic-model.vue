@@ -840,6 +840,7 @@ export default {
         },
         // 新建数据
         changeNew (val) {
+            console.log(val)
             if (val !== 'false') {
                 this.isNewShow = false
                 this.boxArr(this.dataArr, false)
