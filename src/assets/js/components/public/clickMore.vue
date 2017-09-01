@@ -32,7 +32,7 @@
                     <div class="uploading">
                         <span class="tip" v-if="!videoSrc && progressShow===false">您未上传视频</span>
                         <div class="videoSrc" v-if="aaa">
-                            <video :src="videoSrc" id="vidopid" controls="controls" height="200px" width="200px" @click="changeBig()"></video>
+                            <video :src="videoSrc" id="vidopid" controls="controls" height="220px" width="200px" @click="changeBig()"></video>
                         </div>
                         <div class="pro" v-if="progressShow">
                             <el-progress type="circle" :percentage="progress"></el-progress>
@@ -250,7 +250,7 @@
         }
     }
     .uploading{
-        width: 250px;
+        width: 300px;
         height: 250px;
         position: absolute;
         left: 50%;
