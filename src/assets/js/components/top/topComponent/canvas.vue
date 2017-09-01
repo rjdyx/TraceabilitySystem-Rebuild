@@ -6,8 +6,8 @@
  */ 
 <template>
 	<div class="homeCanvas">
-		<canvas width="350" height="280" @click="go"></canvas>
-		<canvas width="350" height="280"></canvas>
+		<canvas width="350" height="280" @click="go('shidu')"></canvas>
+		<canvas width="350" height="280" @click="go('qiya')"></canvas>
 		<canvas width="350" height="280"></canvas>
 		<canvas width="350" height="280" class="video-bg" @click="videos" @mousemove="styleover" @mouseout="styleout"></canvas>
 		<canvas width="1588" height="185"></canvas>
@@ -289,8 +289,8 @@ export default {
                 pen.restore()
             })
         },
-        go () {
-            console.log('goggogog')
+        go (val) {
+            localStorage.getItem('chart', val)
             this.$router.push('/index/home/echarts')
         }
     }
