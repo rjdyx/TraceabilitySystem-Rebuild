@@ -196,6 +196,7 @@ export default {
             })
             uploader.on('fileQueued', function (file) {
                 _this.file = file
+                console.log(file)
                 $('#fileName').html(file.name)
                 uploader.makeThumb(file, function (error, src) {
                     if (error) {
