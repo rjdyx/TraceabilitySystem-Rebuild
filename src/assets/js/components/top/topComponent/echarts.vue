@@ -31,7 +31,7 @@
                 options: [{
                     value: 'sd',
                     label: '湿度',
-                    symbol: '℃'
+                    symbol: '%'
                 }, {
                     value: 'sz',
                     label: '数字气压',
@@ -230,7 +230,7 @@
                     },
                     // y轴
                     yAxis: {
-                        // name: '℃'
+                        // name: '%'
                         name: this.options[selectIndex].symbol
                     },
                     // 系列列表
