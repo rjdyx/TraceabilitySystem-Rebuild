@@ -13,7 +13,7 @@
 		<el-dropdown class="more" @command="handleCommand">
 			<span class="el-dropdown-link">
 				更多
-				<i class="el-icon-caret-bottom el-icon--right"></i>
+				<i class="el-icon-caret-bottom e-icon--right"></i>
 			</span>
 			<el-dropdown-menu slot="dropdown">
 				<template v-for="btn in moreComponent">
@@ -32,7 +32,7 @@
                     <div class="uploading">
                         <span class="tip" v-if="!videoSrc && progressShow===false">您未上传视频</span>
                         <div class="videoSrc" v-if="aaa">
-                            <video :src="videoSrc" id="vidopid" controls="controls" height="200px" width="200px" @click="changeBig()"></video>
+                            <video :src="videoSrc" id="vidopid" controls="controls" height="220px" width="200px" @click="changeBig()"></video>
                         </div>
                         <div class="pro" v-if="progressShow">
                             <el-progress type="circle" :percentage="progress"></el-progress>
@@ -250,7 +250,7 @@
         }
     }
     .uploading{
-        width: 250px;
+        width: 300px;
         height: 250px;
         position: absolute;
         left: 50%;

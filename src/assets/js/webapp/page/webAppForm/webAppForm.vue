@@ -840,6 +840,8 @@ export default {
         .weui-textarea{ 
             padding: 10px 15px 10px 10px;
             border-left: 1px solid #D9D9D9;
+             -webkit-appearance: none;
+            border-radius: 0;
         }
         textarea::-webkit-input-placeholder{
             color:$placeholderCol;

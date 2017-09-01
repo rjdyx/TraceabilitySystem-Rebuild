@@ -6,11 +6,20 @@
  */ 
 <template>
 	<div class="homeCanvas">
-		<canvas width="350" height="280" @click="go('shidu')"></canvas>
-		<canvas width="350" height="280" @click="go('qiya')"></canvas>
-		<canvas width="350" height="280"></canvas>
-		<canvas width="350" height="280" class="video-bg" @click="videos" @mousemove="styleover" @mouseout="styleout"></canvas>
-		<canvas width="1588" height="185"></canvas>
+        <div class="topCanvas">
+            <canvas width="350" height="280" @click="goEcharts('humidity')"></canvas>
+            <canvas width="350" height="280" @click="goEcharts('KPa')"></canvas>
+            <canvas width="350" height="280"></canvas>
+            <canvas width="350" height="280" class="video-bg" @click="videos" @mousemove="styleover" @mouseout="styleout"></canvas>
+        </div>
+        <div class="moreDate">
+            <div>
+                <canvas width="1588" height="185"></canvas>
+                <span @click="goEcharts('rainfall')"></span>
+                <span @click="goEcharts('temp')"></span>
+                <span @click="goEcharts('windSpeed')"></span>
+            </div>
+        </div>
 	</div>
 </template>
 <script>
@@ -280,17 +289,20 @@ export default {
                 pen.closePath()
                 pen.beginPath()
                 pen.fillStyle = '#f4f4f4'
-                pen.fillRect(120, 35 + (52 * index), 900, 20)
+                pen.rect(120, 35 + (52 * index), 900, 20)
+                pen.fill()
                 pen.closePath()
                 pen.beginPath()
                 pen.fillStyle = grd
-                pen.fillRect(120, 35 + (52 * index), targetNum / 100 * 900, 20)
+                pen.rect(120, 35 + (52 * index), targetNum / 100 * 900, 20)
+                pen.fill()
                 pen.closePath()
                 pen.restore()
             })
         },
-        go (val) {
-            localStorage.getItem('chart', val)
+        goEcharts (value) {
+            console.log(value)
+            localStorage.setItem('echartsSelectValue', value)
             this.$router.push('/index/home/echarts')
         }
     }
@@ -300,17 +312,45 @@ export default {
 .homeCanvas{
 	min-width: 1648px;
 	display:inline-block;
-	canvas{
-		border:1px solid #dcdcdc;
-        border-radius:10px;
-        margin:0px 60px 20px 0px;
-        &:nth-child(4){
-			margin-right:0px;
+    .topCanvas{
+        >canvas{
+            border:1px solid #dcdcdc;
+            border-radius:10px;
+            margin:0px 60px 20px 0px;
+            cursor:pointer;
+            &:nth-child(3){
+                cursor:default; 
+            }
+            &:nth-child(4){
+                margin-right:0px;
+            }
+            &:last-child{
+                margin-right:0px;
+            }
         }
-        &:last-child{
-			margin-right:0px;
+    }	
+    .moreDate {
+        text-align:center;
+        >div{
+            position:relative;
+            display:inline-block;
+            canvas {
+                border:1px solid #dcdcdc;
+                border-radius:10px;
+            }
+            @for $i from 1 through 3{
+                span:nth-of-type(#{$i}) {
+                    position: absolute;
+                    width: 960px;
+                    height: 20px;
+                    left: 60px;
+                    top: 35px + (52px * ($i - 1));
+                    cursor:pointer;
+                    // border:1px solid red;
+                }   
+            }
         }
-	}
+    }
     .video-bg {
        background: url('/public/images/video-bg.png') no-repeat center center;
        background-size:100% 100%; 
