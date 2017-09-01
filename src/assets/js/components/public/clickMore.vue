@@ -30,19 +30,6 @@
             <div class="video">
                 <div class="uploadVideo">
                     <div class="uploading">
-                        <!-- <span class="tip" v-if="!videoSrc && progressShow===false">您未上传视频</span>
-                        <video-player 
-                            v-if="aaa" 
-                            class="video-player-box"
-                            ref="videoPlayer"
-                            :options="playerOptions"
-                            :playsinline="true"
-                            customEventName="customstatechangedeventname"
-                            @play="onPlayerPlay($event)"
-                            @pause="onPlayerPause($event)"
-                            @statechanged="playerStateChanged($event)"
-                            @ready="playerReadied">
-                        </video-player> -->
                         <span class="tip" v-if="!videoSrc && progressShow===false">您未上传视频</span>
                         <div class="videoSrc" v-if="aaa">
                             <video :src="videoSrc" id="vidopid" controls="controls" height="200px" width="200px" @click="changeBig()"></video>
@@ -267,9 +254,10 @@
         height: 250px;
         position: absolute;
         left: 50%;
-        top: 50%;
+        top: 44%;
         transform:translateX(-50%) translateY(-50%);
-        border: 1px solid #000;
+        // border: 1px solid #000;
+        box-shadow: 0px 0px 15px 2px #ccc;
         .tip{
             width: 200px;
             height: 200px;

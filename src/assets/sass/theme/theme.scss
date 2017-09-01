@@ -189,6 +189,21 @@ $b_small: 18px;
 	}
 }
 }
+.itemUpload,.itemDel,.itemStop{
+	background: $bg;
+	&:hover{
+		background: $border;
+	}
+}
+.webuploader-pick{
+	background: $bg;
+	&:hover{
+		background: $border;
+	}
+}
+.webuploader-pick-hover{
+	background: $border;
+}
 }
 
 //大号字体
