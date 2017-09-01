@@ -10,7 +10,7 @@
 		<slot name="plan"></slot>
 		<slot name="upImg"></slot>
 		<slot name="growPicture"></slot>
-		<h1>{{settitle}}</h1>
+		<h1>{{headline}}</h1>
 		<span v-show="back" class="back iconfont" @click="backTo">&#xe64e;</span>
 		<span class="right-btn iconfont" @click="goBack" v-show="homeShow">&#xe60d;</span>
 		<span class="growPicture growIcon" v-show="growPicture" @click="growPic">&#xe6c3;</span>
@@ -20,10 +20,6 @@
 <script>
 export default {
     name: 'appHeader',
-    data () {
-        return {
-        }
-    },
     props: {
         settitle: {
             type: String,
@@ -42,6 +38,11 @@ export default {
             default: false
         }
     },
+    data () {
+        return {
+            headline: ''
+        }
+    },
     methods: {
         goBack () {
             this.$router.push('/appIndex')
@@ -51,14 +52,23 @@ export default {
             history.go(-1)
         },
         growPic () {
-            console.log(368589)
             this.$router.push('/appIndex/message/growImg')
         }
     },
     mounted () {
+        this.headline = this.settitle
         if (window.isPC) {
             if (this.$route.path.indexOf('appIndex') !== -1 || this.$route.path.indexOf('webAppNew') !== -1) {
                 this.$router.push('/index/home')
+            }
+        }
+    },
+    watch: {
+        settitle () {
+            if (this.$route.path.indexOf('growImg') !== -1) {
+                this.headline = '生长图片'
+            } else {
+                this.headline = this.settitle
             }
         }
     }

@@ -8,10 +8,13 @@
 <template>
 <div class="basic_model">   
   <div class="basic-wrap">
+      <!-- websocket组件 -->
+    <webSocket :rt="$route.path" @aaa="websocketrelf" :md="models" :num="modelIndex"></webSocket>
+
       <!-- 标题 -->
     <contain-title :settitle="settitle">
     </contain-title>
-    
+
   <!-- tab栏 --> 
     <el-tabs v-model="activeName" id="tabs" @tab-click="tabClick" type="card">
         <el-tab-pane v-for="(model,index) in models" :label="model.tab" :name="'index'+index">
@@ -174,9 +177,6 @@
           class="pager"
           @current-change="pageChange">
         </el-pagination>
-        
-        <!-- websocket组件 -->
-        <webSocket :rt="$route.path"></webSocket>
     </div>
   </div>
 </div>
@@ -407,6 +407,11 @@ export default {
                     message: '已取消删除'
                 })
             })
+        },
+        websocketrelf () {
+            this.closeNewShow()
+            this.closeEditShow()
+            this.boxArr(this.dataArr, false)
         },
         // 点击展开更多操作按钮
         showMore () {
