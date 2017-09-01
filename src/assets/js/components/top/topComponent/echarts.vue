@@ -18,7 +18,7 @@
                 </el-option>
             </el-select>
         </div>
-        <div id='humidity'></div>
+        <div id='echartsId'></div>
     </section>
 </template>
 
@@ -27,25 +27,25 @@
     export default {
         data () {
             return {
-                humidity: null,
+                echartsId: null,
                 options: [{
-                    value: 'sd',
+                    value: 'humidity',
                     label: '湿度',
                     symbol: '℃'
                 }, {
-                    value: 'sz',
+                    value: 'KPa',
                     label: '数字气压',
                     symbol: 'pa'
                 }, {
-                    value: 'yl',
+                    value: 'rainfall',
                     label: '雨量',
                     symbol: 'mm'
                 }, {
-                    value: 'wd',
+                    value: 'temp',
                     label: '温度',
                     symbol: '℃'
                 }, {
-                    value: 'fs',
+                    value: 'windSpeed',
                     label: '风速',
                     symbol: 'm/s'
                 }],
@@ -55,7 +55,7 @@
                     }
                 },
                 dateValue: '2017-08-25',
-                selectValue: 'sd',
+                selectValue: localStorage.getItem('echartsSelectValues') || 'humidity',
                 echartsOptions: [],
                 // xList: [ // 数据格式
                 //     ['2017-8-25 1:00', 116], ['2017-8-25 2:00', 300], ['2017-8-25 3:00', 150], ['2017-8-25 4:00', 85], ['2017-8-26 1:00', 129], ['2017-8-26 2:00', 190], ['2017-8-26 3:00', 200], ['2017-8-26 4:00', 180], ['2017-8-27 1:00', 321], ['2017-8-27 2:00', 250], ['2017-8-27 3:00', 213], ['2017-8-27 4:00', 160], ['2017-8-28 1:00', 200], ['2017-8-28 2:00', 215], ['2017-8-28 3:00', 159], ['2017-8-28 4:00', 189]
@@ -66,7 +66,7 @@
         },
         mounted () {
             // 1.基于准备好的dom，初始化echarts实例
-            this.humidity = echarts.init(document.getElementById('humidity'))
+            this.echartsId = echarts.init(document.getElementById('echartsId'))
             var colors = ['#62cded', '#b3b3b3', '#d8681d']
             // 2.指定图表的配置项和数据
             var options = {
@@ -162,26 +162,26 @@
                 ]
             }
             // 3.使用刚指定的配置项和数据显示图表。先画xy轴
-            this.humidity.setOption(options)
+            this.echartsId.setOption(options)
             setTimeout(() => {
                 // 4。在添加数据
                 var op = this.changeEOption()
-                this.humidity.setOption(op)
+                this.echartsId.setOption(op)
             }, 1000)
-            window.onresize = this.humidity.resize
+            window.onresize = this.echartsId.resize
         },
         methods: {
             // 时间改变事件
             changeDateValueFn (value) {
                 var op = this.changeEOption()
-                this.humidity.setOption(op)
+                this.echartsId.setOption(op)
             },
             // 下拉框改变事件
             changeTypeValueFn (value) {
                 var op = this.changeEOption()
-                this.humidity.setOption(op)
+                this.echartsId.setOption(op)
             },
-            // 重新返回一个echarts的options 参数()
+            // 重新返回一个echarts的options
             changeEOption () {
                 var arr = this.options.map((item) => {
                     return item.value
@@ -251,7 +251,7 @@
 <style lang='sass'>
 .chart-container{
     height:100%;
-    #humidity{
+    #echartsId{
         height: 100%;
     }
     .chartSearch{

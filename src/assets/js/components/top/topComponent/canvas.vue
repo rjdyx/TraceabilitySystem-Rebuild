@@ -6,11 +6,16 @@
  */ 
 <template>
 	<div class="homeCanvas">
-		<canvas width="350" height="280" @click="go"></canvas>
-		<canvas width="350" height="280"></canvas>
+		<canvas width="350" height="280" @click="goEcharts('humidity')"></canvas>
+		<canvas width="350" height="280" @click="goEcharts('KPa')"></canvas>
 		<canvas width="350" height="280"></canvas>
 		<canvas width="350" height="280" class="video-bg" @click="videos" @mousemove="styleover" @mouseout="styleout"></canvas>
-		<canvas width="1588" height="185"></canvas>
+        <div class="moreDate">
+            <canvas width="1588" height="185" @click="goMore($event)"></canvas>
+            <span @click="goEcharts('rainfall')"></span>
+            <span @click="goEcharts('temp')"></span>
+            <span @click="goEcharts('windSpeed')"></span>
+        </div>
 	</div>
 </template>
 <script>
@@ -280,17 +285,19 @@ export default {
                 pen.closePath()
                 pen.beginPath()
                 pen.fillStyle = '#f4f4f4'
-                pen.fillRect(120, 35 + (52 * index), 900, 20)
+                pen.rect(120, 35 + (52 * index), 900, 20)
+                pen.fill()
                 pen.closePath()
                 pen.beginPath()
                 pen.fillStyle = grd
-                pen.fillRect(120, 35 + (52 * index), targetNum / 100 * 900, 20)
+                pen.rect(120, 35 + (52 * index), targetNum / 100 * 900, 20)
+                pen.fill()
                 pen.closePath()
                 pen.restore()
             })
         },
-        go () {
-            console.log('goggogog')
+        goEcharts (value) {
+            localStorage.setItem('echartsSelectValue', value)
             this.$router.push('/index/home/echarts')
         }
     }
@@ -300,10 +307,14 @@ export default {
 .homeCanvas{
 	min-width: 1648px;
 	display:inline-block;
-	canvas{
+	>canvas{
 		border:1px solid #dcdcdc;
         border-radius:10px;
         margin:0px 60px 20px 0px;
+        cursor:pointer;
+        &:nth-child(3){
+            cursor:default; 
+        }
         &:nth-child(4){
 			margin-right:0px;
         }
@@ -311,6 +322,24 @@ export default {
 			margin-right:0px;
         }
 	}
+    .moreDate {
+        position:relative;
+        margin:0px 60px 20px 0px;
+        canvas {
+            border:1px solid #dcdcdc;
+            border-radius:10px;
+        }
+        @for $i from 1 through 3{
+            span:nth-of-type(#{$i}) {
+                position: absolute;
+                width: 960px;
+                height: 20px;
+                left: 60px;
+                top: 35px + (52px * ($i - 1));
+                cursor:pointer;
+            }   
+        }
+    }
     .video-bg {
        background: url('/public/images/video-bg.png') no-repeat center center;
        background-size:100% 100%; 
