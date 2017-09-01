@@ -31,7 +31,7 @@
                 options: [{
                     value: 'humidity',
                     label: '湿度',
-                    symbol: '℃'
+                    symbol: '%'
                 }, {
                     value: 'KPa',
                     label: '数字气压',
@@ -55,7 +55,7 @@
                     }
                 },
                 dateValue: '2017-08-25',
-                selectValue: localStorage.getItem('echartsSelectValues') || 'humidity',
+                selectValue: localStorage.getItem('echartsSelectValue') || 'humidity',
                 echartsOptions: [],
                 // xList: [ // 数据格式
                 //     ['2017-8-25 1:00', 116], ['2017-8-25 2:00', 300], ['2017-8-25 3:00', 150], ['2017-8-25 4:00', 85], ['2017-8-26 1:00', 129], ['2017-8-26 2:00', 190], ['2017-8-26 3:00', 200], ['2017-8-26 4:00', 180], ['2017-8-27 1:00', 321], ['2017-8-27 2:00', 250], ['2017-8-27 3:00', 213], ['2017-8-27 4:00', 160], ['2017-8-28 1:00', 200], ['2017-8-28 2:00', 215], ['2017-8-28 3:00', 159], ['2017-8-28 4:00', 189]
@@ -217,8 +217,6 @@
                 //         return item[1]
                 //     })
                 // }
-                console.log(xList)
-                console.log(yDate)
                 return {
                     // 图例
                     legend: {
@@ -232,7 +230,7 @@
                     },
                     // y轴
                     yAxis: {
-                        // name: '℃'
+                        // name: '%'
                         name: this.options[selectIndex].symbol
                     },
                     // 系列列表

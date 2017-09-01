@@ -6,15 +6,19 @@
  */ 
 <template>
 	<div class="homeCanvas">
-		<canvas width="350" height="280" @click="goEcharts('humidity')"></canvas>
-		<canvas width="350" height="280" @click="goEcharts('KPa')"></canvas>
-		<canvas width="350" height="280"></canvas>
-		<canvas width="350" height="280" class="video-bg" @click="videos" @mousemove="styleover" @mouseout="styleout"></canvas>
+        <div class="topCanvas">
+            <canvas width="350" height="280" @click="goEcharts('humidity')"></canvas>
+            <canvas width="350" height="280" @click="goEcharts('KPa')"></canvas>
+            <canvas width="350" height="280"></canvas>
+            <canvas width="350" height="280" class="video-bg" @click="videos" @mousemove="styleover" @mouseout="styleout"></canvas>
+        </div>
         <div class="moreDate">
-            <canvas width="1588" height="185" @click="goMore($event)"></canvas>
-            <span @click="goEcharts('rainfall')"></span>
-            <span @click="goEcharts('temp')"></span>
-            <span @click="goEcharts('windSpeed')"></span>
+            <div>
+                <canvas width="1588" height="185"></canvas>
+                <span @click="goEcharts('rainfall')"></span>
+                <span @click="goEcharts('temp')"></span>
+                <span @click="goEcharts('windSpeed')"></span>
+            </div>
         </div>
 	</div>
 </template>
@@ -297,6 +301,7 @@ export default {
             })
         },
         goEcharts (value) {
+            console.log(value)
             localStorage.setItem('echartsSelectValue', value)
             this.$router.push('/index/home/echarts')
         }
@@ -307,37 +312,43 @@ export default {
 .homeCanvas{
 	min-width: 1648px;
 	display:inline-block;
-	>canvas{
-		border:1px solid #dcdcdc;
-        border-radius:10px;
-        margin:0px 60px 20px 0px;
-        cursor:pointer;
-        &:nth-child(3){
-            cursor:default; 
-        }
-        &:nth-child(4){
-			margin-right:0px;
-        }
-        &:last-child{
-			margin-right:0px;
-        }
-	}
-    .moreDate {
-        position:relative;
-        margin:0px 60px 20px 0px;
-        canvas {
+    .topCanvas{
+        >canvas{
             border:1px solid #dcdcdc;
             border-radius:10px;
+            margin:0px 60px 20px 0px;
+            cursor:pointer;
+            &:nth-child(3){
+                cursor:default; 
+            }
+            &:nth-child(4){
+                margin-right:0px;
+            }
+            &:last-child{
+                margin-right:0px;
+            }
         }
-        @for $i from 1 through 3{
-            span:nth-of-type(#{$i}) {
-                position: absolute;
-                width: 960px;
-                height: 20px;
-                left: 60px;
-                top: 35px + (52px * ($i - 1));
-                cursor:pointer;
-            }   
+    }	
+    .moreDate {
+        text-align:center;
+        >div{
+            position:relative;
+            display:inline-block;
+            canvas {
+                border:1px solid #dcdcdc;
+                border-radius:10px;
+            }
+            @for $i from 1 through 3{
+                span:nth-of-type(#{$i}) {
+                    position: absolute;
+                    width: 960px;
+                    height: 20px;
+                    left: 60px;
+                    top: 35px + (52px * ($i - 1));
+                    cursor:pointer;
+                    // border:1px solid red;
+                }   
+            }
         }
     }
     .video-bg {
