@@ -26,7 +26,6 @@ export default {
         }
     },
     mounted () {
-        console.log(this.md[this.num].url)
         // 当前路由
         var path = this.rt
         // 用户id
@@ -39,14 +38,9 @@ export default {
         var dataUrl = this.md[this.num].url
         var _this = this
         if (!socketState) {
-            if ('WebSocket' in window) {
-                var url = ''
-                if (env.websocket_url === undefined) {
-                    url = 'ws://websocket.find360.cn:1314'
-                } else {
-                    url = 'ws://' + env.websocket_url
-                }
-                var socket = new WebSocket(url)
+            if ('WebSocket' in window && env.websocket_url !== undefined) {
+                let url = 'ws://' + env.websocket_url
+                let socket = new WebSocket(url)
                 window.socketData = socket
                 // 握手成功成功
                 socket.onopen = function () {
@@ -56,8 +50,10 @@ export default {
                 // 后台返回数据时
                 socket.onmessage = function (ev) {
                     let data = JSON.parse(ev.data)
+                    // 当前token
+                    let token = document.cookie.replace(/XSRF-TOKEN=/, '')
                     let mds = {cultivate: ['cultivate', 'fertilize', 'detect', 'farming', 'harvest', 'grow'], harvest: ['harvest', 'tea-order-product', 'colect-process'], invoices_order: ['invoices_order', 'tea-order', 'tea-order-product'], productive_task: ['picking-list-product', 'productive-task', 'productive-task-product'], picking_list: ['picking-list', 'storage-order-product', 'picking-list-product'], storage_order: ['storage-order', 'sell-store', 'storage-order-product'], sale: ['sale', 'sell-store', 'delivery'], sell: ['sell', 'sale']}
-                    if (data.content !== 'done' && uid !== data.uid && cid === data.cid) {
+                    if (data.content !== 'done' && uid !== data.uid && token !== data.token) {
                         // 种植批次
                         if (data.content === 'cultivate' && mds.cultivate.indexOf(dataUrl) !== -1) {
                             _this.modelName = '种植批次'
@@ -100,8 +96,6 @@ export default {
                         }
                     }
                     console.log(data)
-                    console.log(cid)
-                    console.log(data.cid)
                     console.log('数据接收中...')
                 }
                 // 错误时
