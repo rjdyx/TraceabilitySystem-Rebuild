@@ -53,7 +53,7 @@ export default {
                     // 当前token
                     let token = document.cookie.replace(/XSRF-TOKEN=/, '')
                     let mds = {cultivate: ['cultivate', 'fertilize', 'detect', 'farming', 'harvest', 'grow'], harvest: ['harvest', 'tea-order-product', 'colect-process'], invoices_order: ['invoices_order', 'tea-order', 'tea-order-product'], productive_task: ['picking-list-product', 'productive-task', 'productive-task-product'], picking_list: ['picking-list', 'storage-order-product', 'picking-list-product'], storage_order: ['storage-order', 'sell-store', 'storage-order-product'], sale: ['sale', 'sell-store', 'delivery'], sell: ['sell', 'sale']}
-                    if (data.content !== 'done' && uid !== data.uid && token !== data.token) {
+                    if (data.content !== 'done' && cid === data.cid && token !== data.token) {
                         // 种植批次
                         if (data.content === 'cultivate' && mds.cultivate.indexOf(dataUrl) !== -1) {
                             _this.modelName = '种植批次'
