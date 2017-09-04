@@ -15,7 +15,7 @@
 					<img v-if="listV.logo" :src="listV.logo"/>
 				</span>
 				<ul class="text homeInfo">
-					<li v-for="(item,index) in listN" class="coltext">
+					<li v-for="(item,index) in listN">
 						<span>{{item}}</span> : {{listV[index]}}
 					</li>
 				</ul>
@@ -88,9 +88,6 @@ $absolute: absolute;
     overflow:hidden;
     padding-bottom:66px;
     box-sizing:border-box;
-    .coltext span {
-        font-weight: 700;
-    }
     .home_content{
     	overflow-y:scroll;
     	height: 100%;
@@ -119,12 +116,14 @@ $absolute: absolute;
 			.homeInfo{
                 width: 80%; 
                 font-size: 15px;
-                color: #898989;
-                margin-left:200px;
+                color: #8e8e8e;
+                margin-left:160px;
+                overflow:hidden;
                 li{
-                    line-height:(150px/2);
-                    width: 49%;
+                    // line-height:(150px/2);
+                    width: 45%;
                     float: left;
+                    padding: 20px 0px 20px 5%;
                 }
 			}
 		}
