@@ -69,7 +69,7 @@ export default {
                 name: 'operate',
                 type: 'text',
                 label: '施肥人',
-                placeholder: '（必选）',
+                placeholder: '（可选）',
                 rule: {required: false}
             },
             {
@@ -123,7 +123,7 @@ export default {
                 name: 'operate',
                 type: 'text',
                 label: '施肥人',
-                placeholder: '（必选）',
+                placeholder: '（可选）',
                 rule: {required: false}
             },
             {
@@ -333,22 +333,22 @@ export default {
                 name: 'operate',
                 type: 'text',
                 label: '操作人',
-                placeholder: '（必选）',
-                rule: {required: true}
+                placeholder: '（可选）',
+                rule: {required: false}
             },
             {
                 name: 'content',
                 type: 'text',
                 label: '操作内容',
-                placeholder: '可填',
+                placeholder: '必填',
                 rule: {required: true}
             },
             {
                 name: 'method',
                 type: 'text',
                 label: '操作方法',
-                placeholder: '可填',
-                rule: {required: false}
+                placeholder: '必填',
+                rule: {required: true}
             },
             {
                 name: 'memo',
@@ -371,22 +371,22 @@ export default {
                 name: 'operate',
                 type: 'text',
                 label: '操作人',
-                placeholder: '（必选）',
-                rule: {required: true}
+                placeholder: '（可选）',
+                rule: {required: false}
             },
             {
                 name: 'content',
                 type: 'text',
                 label: '操作内容',
-                placeholder: '可填',
+                placeholder: '必填',
                 rule: {required: true}
             },
             {
                 name: 'method',
                 type: 'text',
                 label: '操作方法',
-                placeholder: '可填',
-                rule: {required: false}
+                placeholder: '必填',
+                rule: {required: true}
             },
             {
                 name: 'memo',
