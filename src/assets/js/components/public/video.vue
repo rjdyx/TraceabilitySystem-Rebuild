@@ -63,7 +63,7 @@ export default {
         fileUpload () {
             var _this = this
             var userInfo = {userId: 'kazaff666', md5: ''}
-            var chunkSize = 5000 * 1024
+            var chunkSize = 1000000 * 1024
             var uniqueFileName = null
             var md5Mark = null
             var backEndUrl = '/api/planta/upVideo'
