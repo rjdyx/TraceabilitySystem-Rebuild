@@ -317,6 +317,19 @@ export default {
         ...mapActions([
             'change_siderBar'
         ]),
+        websocketrelf () {
+            this.isNewShow = false
+            this.isEditShow = false
+            this.boxArr(this.dataArr, false)
+        },
+        // websocket消息推送方法
+        websocketInfo () {
+            // var token = document.cookie.replace(/XSRF-TOKEN=/, '')
+            var token = Math.random()
+            var params = 'content=' + this.models[this.modelIndex].url + '&webtoken=' + token
+            localStorage.setItem('webToken', token)
+            axios.get('api/websocket?' + params).then((responce) => {})
+        },
         // 更多--交流
         communkationFn (index, row) {
             this.isComShow = true
@@ -397,6 +410,7 @@ export default {
                                 type: 'success',
                                 message: '删除成功'
                             })
+                            this.websocketInfo()
                         } else if (responce.data === 'state') {
                             this.$message('该数据已被使用，无法删除')
                         }
@@ -407,11 +421,6 @@ export default {
                     message: '已取消删除'
                 })
             })
-        },
-        websocketrelf () {
-            this.closeNewShow()
-            this.closeEditShow()
-            this.boxArr(this.dataArr, false)
         },
         // 点击展开更多操作按钮
         showMore () {
@@ -776,6 +785,7 @@ export default {
                                 type: 'success',
                                 message: '批量删除成功'
                             })
+                            this.websocketInfo()
                         } else if (responce.data === 'state') {
                             this.$message('有数据已被使用，无法完成批量删除操作')
                         } else {
@@ -840,7 +850,6 @@ export default {
         },
         // 新建数据
         changeNew (val) {
-            console.log(val)
             if (val !== 'false') {
                 this.isNewShow = false
                 this.boxArr(this.dataArr, false)
@@ -849,6 +858,7 @@ export default {
                     type: 'success',
                     message: '新增数据成功'
                 })
+                this.websocketInfo()
             } else {
                 this.$message.error('新增数据失败')
             }
@@ -927,6 +937,7 @@ export default {
                                 message: '发货成功'
                             })
                         }
+                        this.websocketInfo()
                     })
             }).catch(() => {
                 this.$message({
@@ -1011,7 +1022,6 @@ export default {
     }
 }
 </script>
-
 
 <style lang='sass'>
 .basic_model{

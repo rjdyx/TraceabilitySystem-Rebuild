@@ -11,14 +11,16 @@
   <!-- 标题 -->
     <contain-title :settitle="tab" :isShow="isShow" :printShow="printShow" @printShow="printShowFn">
     </contain-title>
-    
-  <!-- 信息列表 -->
+    <!-- websocket组件 -->
+    <webSocket :rt="$route.path" @aaa="websocketrelf" :md="tabList" :num="index"></webSocket>
+
+    <!-- 信息列表 -->
     <el-row :gutter="20">
          <el-col :xs="12" :sm="8" :md="8" :lg="6" v-for="(item,i) in theads" class="text-small">{{item}}:<em class="margin-left_10">{{headData[protos[i]]}}</em>
          </el-col>
     </el-row>
     <div v-if="tableListBollean">
-  <!-- tab栏 --> 
+        <!-- tab栏 --> 
         <el-tabs v-model="activeName" type="card" id="tabs" @tab-click="tabClick">
             <el-tab-pane :label='tabItem.tab' :name='tabItem.tab' v-for="
             tabItem in tabList">
@@ -240,6 +242,7 @@ import lotOpearte from '../../components/public/lotOpearte.vue'
 import printf from '../../components/public/printf.vue'
 // import printfPreview from '../../components/public/printfPreview.vue'
 import roleCheckbox from '../../components/public/roleCheckbox.vue'
+import webSocket from '../../components/public/webSocket.vue'
 export default {
     name: 'BasicModel',
     props: {
@@ -310,6 +313,18 @@ export default {
         ...mapActions([
             'change_siderBar'
         ]),
+        websocketrelf () {
+            this.isNewShow = false
+            this.isEditShow = false
+            this.boxArr(this.dataArr, false)
+        },
+        // websocket消息推送方法
+        websocketInfo () {
+            var token = Math.random()
+            var params = 'content=' + this.tabList[this.index].url + '&webtoken=' + token
+            localStorage.setItem('webToken', token)
+            axios.get('api/websocket?' + params).then((responce) => {})
+        },
         // 打印内容的展示
         printShowFn () {
             // this.$refs.printfPreview.dialogTableVisible = true
@@ -655,6 +670,7 @@ export default {
                     type: 'success',
                     message: '新增数据成功'
                 })
+                this.websocketInfo()
             } else {
                 this.$message.error('新增数据失败')
             }
@@ -675,6 +691,7 @@ export default {
                                 type: 'success',
                                 message: '删除成功'
                             })
+                            this.websocketInfo()
                         } else if (responce.data === 'state') {
                             this.$message('该数据已被使用，无法删除')
                         }
@@ -722,6 +739,7 @@ export default {
                                 type: 'success',
                                 message: '批量删除成功'
                             })
+                            this.websocketInfo()
                         } else if (responce.data === 'state') {
                             this.$message('有数据已被使用，无法完成批量删除操作')
                         } else {
@@ -913,7 +931,8 @@ export default {
         lotOpearte,
         roleCheckbox,
         printf,
-        harvestMore
+        harvestMore,
+        webSocket
         // ,
         // printfPreview
     }
