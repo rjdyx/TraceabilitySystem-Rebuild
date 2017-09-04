@@ -760,6 +760,13 @@ export default {
 }
 .inputErrors{
     color:red!important;
+    // 文本框的
+    .weui-label{
+        color:red!important;
+    }
+    >div>p{
+        color:red!important;
+    }
 }
 .cameraErrors{
     border-color:red!important;
