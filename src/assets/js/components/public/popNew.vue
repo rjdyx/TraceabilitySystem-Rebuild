@@ -367,6 +367,7 @@ export default {
             }
             this.$refs[formName][0].validate((valid) => {
                 if (valid) {
+                    $('#newWeb').hide()
                     this.$dataPost(this, this.url, this.tableForm, com.hasImg, com.hiddenValue, false).then((response) => {
                         this.successCallback()
                         this.$emit('submitNew', response.data)
