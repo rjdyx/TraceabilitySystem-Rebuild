@@ -32,7 +32,7 @@
                     <div class="uploading">
                         <span class="tip" v-if="!videoSrc && progressShow===false">您未上传视频</span>
                         <div class="videoSrc" v-if="aaa">
-                            <video :src="videoSrc" id="vidopid" controls="controls" height="200px" width="200px" @click="changeBig()"></video>
+                            <video :src="videoSrc" id="vidopid" controls="controls" height="220px" width="200px" @click="changeBig()"></video>
                         </div>
                         <div class="pro" v-if="progressShow">
                             <el-progress type="circle" :percentage="progress"></el-progress>
@@ -83,27 +83,11 @@
                 progress: 0,
                 progressShow: false,
                 tipShow: true,
-                playerOptions: {
-                    // videojs options
-                    muted: true,
-                    language: 'en',
-                    playbackRates: [0.7, 1.0, 1.5, 2.0],
-                    sources: [{
-                        type: 'video/mp4',
-                        src: ''
-                    }]
-                },
                 aaa: false,
                 bigShow: false
             }
         },
         methods: {
-            // toggleVideo (e) {
-            //     // 当前播放时间
-            //     var curTime = e.currentTime
-            //     $('#media').attr('src', 'video/exo.mp4').attr('autoplay', 'true')
-            //     e.currentTime = curTime
-            // },
             handleRemove (file, fileList) {
                 console.log(file, fileList)
             },
@@ -117,7 +101,9 @@
                     if (this.row.video !== '' && this.row.video !== null) {
                         this.videoSrc = require('projectRoot/env.js').app_url + '/' + this.row.video
                         this.aaa = true
-                        // this.playerOptions.sources[0].src = this.videoSrc
+                    } else {
+                        this.aaa = false
+                        this.videoSrc = ''
                     }
                     this.isShow = !this.isShow
                 } else if (command === '打印') {
@@ -151,22 +137,13 @@
                     return false
                 }
             },
-            // onPlayerPlay (player) {
-            // },
-            // onPlayerPause (player) {
-            // },
-            // playerStateChanged (playerCurrentState) {
-            // },
-            // playerReadied (player) {
-            //     console.log('the player is readied', player)
-            // },
             returnProgress (progress) {
                 var pro = parseInt(progress * 100)
                 this.progress = pro
-                if (pro >= 100) {
-                    this.timeDeal()
-                } else {
+                if (pro < 100) {
                     this.progressShow = true
+                } else {
+                    this.timeDeal()
                 }
             },
             delVideoSrcFn () {
@@ -177,25 +154,16 @@
             returnVideoUrl (val) {
                 this.isShow = !this.isShow
                 this.$emit('showlist')
-                if (val !== '') {
-                    this.videoSrc = require('projectRoot/env.js').app_url + '/video/' + val
-                    // this.playerOptions.sources[0].src = this.videoSrc
-                } else {
-                    this.videoSrc = ''
-                    this.aaa = false
-                }
             },
             timeDeal () {
                 var _this = this
                 setTimeout(function () {
-                    _this.aaa = true
                     _this.progressShow = false
                 }, 1000)
             },
             changeBig () {
                 this.isShow = !this.isShow
                 this.bigShow = !this.bigShow
-                // this.bigShow = true
             }
         },
         components: {
@@ -204,11 +172,6 @@
         },
         mounted () {
         }
-        // computed: {
-        //     player () {
-        //         return this.$refs.videoPlayer.player
-        //     }
-        // }
     }
 </script>
 <style lang="sass">
@@ -250,7 +213,7 @@
         }
     }
     .uploading{
-        width: 250px;
+        width: 300px;
         height: 250px;
         position: absolute;
         left: 50%;

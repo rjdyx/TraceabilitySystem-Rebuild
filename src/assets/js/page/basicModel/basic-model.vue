@@ -50,7 +50,7 @@
 
         <!-- 新建模块 --> 
         <transition name="fade">
-            <popNew v-if="isNewShow" :newComponent="newComponent" :checkboxShow="checkboxShow" :url="url" @submitNew="changeNew"></popNew>
+            <popNew v-if="isNewShow" :newComponent="newComponent" :checkboxShow="checkboxShow" :url="url" @submitNew="changeNew" id="newWeb"></popNew>
         </transition>
         <!-- 编辑模块 -->
         <transition name="fade">
@@ -840,6 +840,7 @@ export default {
         },
         // 新建数据
         changeNew (val) {
+            console.log(val)
             if (val !== 'false') {
                 this.isNewShow = false
                 this.boxArr(this.dataArr, false)
