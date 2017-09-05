@@ -1627,7 +1627,7 @@ export default {
             key: 'sell-product',
             url: 'sell-product',
             tab: '销售订单产品信息',
-            searchPlaceholder: '请输入溯源码进行搜索',
+            searchPlaceholder: '请输入订单产品进行搜索',
             headList: ['订单产品', '规格型号', '数量', '单价(元/件)', '金额（元）', '备注信息'],
             protos: ['product_name', 'specification', 'amount', 'unit_price', 'total', 'memo'],
             prinftBottom: ['合计', '送货地址', '制单人', '部门经理审核', '运输方式', '汇款账户', '物流单号'],

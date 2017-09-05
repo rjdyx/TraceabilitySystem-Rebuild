@@ -53,33 +53,17 @@
 					<el-form-item label="网站关键字" prop="keywords" v-if="role">
 						<el-input placeholder="请输入关键字 多个请‘|’隔开" v-model="editForm.keywords" ></el-input>
 					</el-form-item>
-	
-				<!-- <file></file> -->
-					<el-form-item label="验证码开关"  prop='verify_state' v-if="role">
+<!-- 					<el-form-item label="验证码开关"  prop='verify_state' v-if="role">
 						<el-radio-group v-model="editForm.verify_state" >
 						    <el-radio :label="1">开启</el-radio>
 						    <el-radio :label="0">关闭</el-radio>
 						</el-radio-group>
-					</el-form-item>
-
-					<el-form-item label="网站开关" prop="web_state" v-if="role">
-						<el-radio-group v-model="editForm.web_state" >
-						    <el-radio :label="1">开启</el-radio>
-						    <el-radio :label="0">关闭</el-radio>
-						</el-radio-group>
-					</el-form-item>
-
-					<el-form-item label="操作说明" v-if="role">
-						<el-radio-group v-model="radio5">
-						    <el-radio :label="0">显示操作说明</el-radio>
-						    <el-radio :label="1">关闭操作说明</el-radio>
-						</el-radio-group>
-					</el-form-item>
-            
-                   <!--  <el-form-item label="帮助文档" prop="help" v-if="role">
-                        <el-input type="file" v-model="editForm.help" name="help"></el-input>
-                    </el-form-item> -->
-
+					</el-form-item> -->
+                    <el-form-item label="帮助文档" prop="help" v-if="role" >
+                        <div class="uploadpdf" @click="fileClick">上传文件</div><span class="uploadpdf_span">{{pdfName}}</span>
+                        <input type="file" @change="fileChange" name="help" class="hidden_file">
+                    </el-form-item>
+                
 				<el-form-item class="save" >
 					<el-button @click="submitForm('editForm')" class="btn_change">保存</el-button>
 				</el-form-item>
@@ -119,6 +103,7 @@ export default {
             radio5: 0,
             settitle: '系统设置',
             role: false,
+            pdfName: '',
             editForm: {
                 id: '',
                 name: '',
@@ -164,6 +149,17 @@ export default {
                 this.switchTheme('yellow')
             }
         },
+        fileClick () {
+            $("input[name='help']").click()
+        },
+        fileChange (event) {
+            var name = event.target.files[0].name
+            if (name.length > 15) {
+                name = name.substr(0, 8) + '...' + name.substr(-7, name.length)
+            }
+            this.pdfName = name
+            this.editForm.help = event.target.files[0]
+        },
         switchSize (label) {
             if (label === 1) {
                 this.switchFont('small')
@@ -203,6 +199,27 @@ export default {
                 this.editForm.old_password = null
             }
         },
+        editDatas () {
+            var _this = this
+            // 查询编辑数据
+            axios.get('api/system/1/edit').then((responce) => {
+                if (responce.data.user.company_id === null) {
+                    _this.role = true
+                } else {
+                    _this.editForm['id'] = responce.data.user.id
+                }
+                var data = responce.data.system
+                if (data !== null && data !== undefined) {
+                    _this.editForm['id'] = data.id
+                    _this.editForm['name'] = data.name
+                    _this.editForm['keywords'] = data.keywords
+                    _this.editForm['verify_state'] = data.verify_state
+                    _this.editForm['web_state'] = data.web_state
+                    _this.editForm['record_number'] = data.record_number
+                    _this.pdfName = data.help
+                }
+            })
+        },
         /**
           * 提交表单
           */
@@ -210,15 +227,13 @@ export default {
             this.$refs[formName].validate((valid) => {
                 if (valid) {
                     var ret = this.editForm
+                    var url = 'system'
                     if (ret.id !== '') {
-                        axios.put('api/system/1', ret).then((response) => {
-                            this.callbackMethed(response.data)
-                        })
-                    } else {
-                        axios.post('api/system', ret).then((response) => {
-                            this.callbackMethed(response.data)
-                        })
+                        url = 'system/1'
                     }
+                    this.$dataPost(this, url, ret, true, false, true).then((response) => {
+                        this.callbackMethed(response.data)
+                    })
                 } else {
                     return false
                 }
@@ -230,6 +245,7 @@ export default {
         // false/打开侧边栏
         this.change_siderBar(true)
         localStorage.setItem('tab', 0)
+        this.editDatas()
         let theme = this.$store.getters.getTheme
         switch (theme) {
         case 'blue':
@@ -257,23 +273,6 @@ export default {
             this.radio2 = 3
             break
         }
-        // 查询编辑数据
-        axios.get('api/system/1/edit')
-            .then((responce) => {
-                if (responce.data.user.company_id === null) {
-                    this.role = true
-                } else {
-                    this.editForm['id'] = responce.data.user.id
-                }
-                if (responce.data.system !== null && responce.data.system !== undefined) {
-                    this.editForm['id'] = responce.data.system.id
-                    this.editForm['name'] = responce.data.system.name
-                    this.editForm['keywords'] = responce.data.system.keywords
-                    this.editForm['verify_state'] = responce.data.system.verify_state
-                    this.editForm['web_state'] = responce.data.system.web_state
-                    this.editForm['record_number'] = responce.data.system.record_number
-                }
-            })
     },
     created () {
         document.title = '系统设置'
@@ -282,7 +281,25 @@ export default {
 </script>
 
 <style lang="sass">
-
+.hidden_file{
+    display: none;
+}
+.uploadpdf{
+    width:100px;
+    height: 30px;
+    background:#009acb;
+    color: white;
+    font-size:13px;
+    text-align: center;
+    line-height: 30px;
+    cursor: pointer;
+    float: left;
+}
+.uploadpdf_span{
+    color: #009acb;
+    font-size:15px;
+    margin-left: 15px;
+}
 .set{
 	height: 100%;
     overflow:hidden;
