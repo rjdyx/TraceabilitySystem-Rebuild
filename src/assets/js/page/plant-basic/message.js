@@ -2904,6 +2904,8 @@ export default {
             selectUrl2: [['vehicles', 'id', 'number', true], ['drivers', 'id', 'name', true], ['logistics', 'id', 'name', true]],
             selectInit2: [{value: '', label: '请选择车辆'}, {value: '', label: '请选择司机'}, {value: '', label: '请选择物流公司'}],
             popNumber2: [2, 3, 4],
+            totalNum: [2, 3, 4, 5],
+            showNum: [2, 3],
             components: [{
                 name: 'datetime',
                 type: 'datetime',
@@ -3477,6 +3479,7 @@ export default {
             }],
             newComponent: [{
                 tab: '新建生产任务信息',
+                type: 'assoc',
                 components: [{
                     name: 'date',
                     type: 'date',
