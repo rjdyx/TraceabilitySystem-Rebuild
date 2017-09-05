@@ -35,42 +35,43 @@
             return {
                 echartsId: null,
                 options: [{
-                    value: 'humidity',
+                    value: 'e1',
                     label: '湿度',
                     symbol: '%'
                 }, {
-                    value: 'KPa',
+                    value: 'e2',
                     label: '数字气压',
                     symbol: 'pa'
                 }, {
-                    value: 'rainfall',
+                    value: 'e3',
                     label: '雨量',
                     symbol: 'mm'
                 }, {
-                    value: 'temp',
+                    value: 'e4',
                     label: '温度',
                     symbol: '℃'
                 }, {
-                    value: 'windSpeed',
+                    value: 'e5',
                     label: '风速',
                     symbol: 'm/s'
                 }],
                 pickerOptions0: {
                     disabledDate (time) {
-                        return time.getTime() > Date.now() - 8.64e7
+                        return time.getTime() > Date.now()
                     }
                 },
-                dateValue: '2017-08-25',
-                selectValue: localStorage.getItem('echartsSelectValue') || 'humidity',
+                dateValue: (new Date()).toLocaleDateString(),
+                selectValue: 'e1',
                 echartsOptions: [],
-                // xList: [ // 数据格式
-                //     ['2017-8-25 1:00', 116], ['2017-8-25 2:00', 300], ['2017-8-25 3:00', 150], ['2017-8-25 4:00', 85], ['2017-8-26 1:00', 129], ['2017-8-26 2:00', 190], ['2017-8-26 3:00', 200], ['2017-8-26 4:00', 180], ['2017-8-27 1:00', 321], ['2017-8-27 2:00', 250], ['2017-8-27 3:00', 213], ['2017-8-27 4:00', 160], ['2017-8-28 1:00', 200], ['2017-8-28 2:00', 215], ['2017-8-28 3:00', 159], ['2017-8-28 4:00', 189]
-                // ]
-                xList: ['0.00', '1:00', '2:00', '3:00', '4:00', '5:00', '6:00', '7:00', '8:00', '9:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00', '23:00'],
-                yDate: [116, 300, 150, 85, 129, 190, 200, 180, 321, 250, 213, 160, 200, 215, 159, 189, 150, 210, 142, 222, 256, 213, 324, 149]
+                xList: [],
+                yDate: [],
+                type: 'e1',
+                date: ''
             }
         },
         mounted () {
+            // 初始化接口数据
+            this.getData()
             $('.titleHome').hide()
             this.$parent.settitle = '数据统计'
             // 1.基于准备好的dom，初始化echarts实例
@@ -171,21 +172,36 @@
             }
             // 3.使用刚指定的配置项和数据显示图表。先画xy轴
             this.echartsId.setOption(options)
-            setTimeout(() => {
-                // 4。在添加数据
-                var op = this.changeEOption()
-                this.echartsId.setOption(op)
-            }, 1000)
             window.onresize = this.echartsId.resize
         },
         methods: {
+            // 数据请求
+            getData () {
+                let params = 'type=' + this.type
+                if (this.date !== '') {
+                    params += '&date=' + this.date
+                }
+                axios.get('api/maxdata/history?' + params).then((res) => {
+                    if (res.data.xs.length && res.data.xs !== undefined) {
+                        this.xList = res.data.xs
+                        this.yDate = res.data.ys
+                        this.echartsId.setOption(this.changeEOption())
+                    } else {
+                        this.$message('数据获取失败')
+                    }
+                })
+            },
             // 时间改变事件
             changeDateValueFn (value) {
+                this.date = value
+                this.getData()
                 var op = this.changeEOption()
                 this.echartsId.setOption(op)
             },
             // 下拉框改变事件
             changeTypeValueFn (value) {
+                this.type = value
+                this.getData()
                 var op = this.changeEOption()
                 this.echartsId.setOption(op)
             },
