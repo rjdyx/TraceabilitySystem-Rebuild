@@ -29,7 +29,7 @@
                 </div>
             </li>
         </ul>
-        <div id="delPick" @click='delVideo'>删除视频</div>
+        <div id="delPick" @click='delVideo' class="webuploader-pick">删除视频</div>
         <div id="picker">选择视频</div>
     </div>
 </template>
@@ -62,7 +62,7 @@ export default {
     methods: {
         fileUpload () {
             var _this = this
-            var userInfo = {userId: 'kazaff666', md5: ''}
+            var userInfo = {userId: 'kazaff', md5: ''}
             var chunkSize = 5000 * 1024
             var uniqueFileName = null
             var md5Mark = null
@@ -75,8 +75,12 @@ export default {
                 beforeSendFile: function (file) {
                     var task = new $.Deferred()
                     var start = new Date().getTime()
-                    new WebUploader.Uploader().md5File(file, 0, 10 * 1024 * 1024).progress(function (percentage) {
+                    var ap = new WebUploader.Uploader()
+                    ap.md5File(file, 0, 10 * 1024 * 1024).progress(function (percentage) {
+                        console.log(percentage)
                     }).then(function (val) {
+                    // (new WebUploader.Uploader()).md5File(file, 0, 10 * 1024 * 1024).progress(function (percentage) {
+                    // }).then(function (val) {
                         md5Mark = val
                         userInfo.md5 = val
                         $.ajax({
