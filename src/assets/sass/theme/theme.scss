@@ -190,9 +190,9 @@ $b_small: 18px;
 }
 }
 .itemUpload,.itemDel,.itemStop{
-	background: $bg;
+	background: $bg !important;
 	&:hover{
-		background: $border;
+		background: $border !important;
 	}
 }
 .webuploader-pick{

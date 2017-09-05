@@ -29,7 +29,7 @@
                 </div>
             </li>
         </ul>
-        <div id="delPick" @click='delVideo'>删除视频</div>
+        <div id="delPick" @click='delVideo' class="webuploader-pick">删除视频</div>
         <div id="picker">选择视频</div>
     </div>
 </template>
