@@ -1,3 +1,9 @@
+/**
+ * @description:首页echarts
+ * @author 吴燕萍
+ * @date 2017/8/25 
+ *  
+ */ 
 <template>
     <section class='chart-container'>
         <div class="chartSearch">
@@ -65,6 +71,8 @@
             }
         },
         mounted () {
+            $('.titleHome').hide()
+            this.$parent.settitle = '数据统计'
             // 1.基于准备好的dom，初始化echarts实例
             this.echartsId = echarts.init(document.getElementById('echartsId'))
             var colors = ['#62cded', '#b3b3b3', '#d8681d']
@@ -241,6 +249,10 @@
                     }]
                 }
             }
+        },
+        destroyed () {
+            $('.titleHome').show()
+            this.$parent.settitle = '首页'
         }
     }
 

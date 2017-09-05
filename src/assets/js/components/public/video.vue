@@ -29,7 +29,7 @@
                 </div>
             </li>
         </ul>
-        <div id="delPick" class="webuploader-pick" @click='delVideo'>删除视频</div>
+        <div id="delPick" @click='delVideo'>删除视频</div>
         <div id="picker">选择视频</div>
     </div>
 </template>
@@ -63,7 +63,7 @@ export default {
         fileUpload () {
             var _this = this
             var userInfo = {userId: 'kazaff666', md5: ''}
-            var chunkSize = 5000 * 1024
+            var chunkSize = 5 * 1024 * 1024
             var uniqueFileName = null
             var md5Mark = null
             var backEndUrl = '/api/planta/upVideo'
@@ -196,7 +196,6 @@ export default {
             })
             uploader.on('fileQueued', function (file) {
                 _this.file = file
-                console.log(file)
                 $('#fileName').html(file.name)
                 uploader.makeThumb(file, function (error, src) {
                     if (error) {
@@ -316,7 +315,7 @@ export default {
         button.itemUpload, button.itemDel, button.itemStop{
             padding:5px 10px;
             color: #fff;
-            // background-color: #20a0ff;
+            background-color: #20a0ff;
             margin:0px 10px;
             font-size:12px;
             border:none;
