@@ -190,10 +190,16 @@ $b_small: 18px;
 }
 }
 .itemUpload,.itemDel,.itemStop{
-	background: $bg;
+	background: $bg !important;
 	&:hover{
-		background: $border;
+		background: $border !important;
 	}
+}
+.el-loading-spinner .el-loading-text{
+	color: $bg;
+}
+.el-loading-spinner .path{
+	stroke:$bg;
 }
 .webuploader-pick{
 	background: $bg;
