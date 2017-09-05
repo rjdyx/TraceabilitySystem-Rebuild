@@ -30,7 +30,7 @@
             <div class="video">
                 <div class="uploadVideo">
                     <div class="uploading">
-                        <span class="tip" v-if="!videoSrc && progressShow===false">您未上传视频</span>
+                        <span class="tip" v-if="!videoSrc && progressShow===false">您未上传视频<br>(视频为MP4格式，大小不能大于60M)</span>
                         <div class="videoSrc" v-if="aaa">
                             <video :src="videoSrc" id="vidopid" controls="controls" height="220px" width="200px" @click="changeBig()"></video>
                         </div>
@@ -222,10 +222,11 @@
         // border: 1px solid #000;
         box-shadow: 0px 0px 15px 2px #ccc;
         .tip{
-            width: 200px;
-            height: 200px;
-            margin: 0 auto;
-            line-height: 200px;
+            width: 300px;
+            padding-top: 80px;
+            display: inline-block;
+            font-weight: 700;
+            font-size: 16px;
         }
         .pro{
             width: 100%;
