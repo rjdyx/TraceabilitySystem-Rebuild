@@ -26,7 +26,7 @@ export default {
     data () {
         return {
             modelName: '种植批次',
-            models: {cultivate: ['fertilize', 'detect', 'farming', 'harvest', 'grow'], harvest: ['tea-order-product', 'colect-process'], invoices_order: ['tea-order', 'tea-order-product'], productive_task: ['picking-list-product', 'productive-task-product'], picking_list: ['storage-order-product', 'picking-list-product'], storage_order: ['sell-store', 'storage-order-product'], sale: ['sell-store', 'delivery'], sell: ['sale'], storeroom: ['tea-order', 'invoices-order', 'picking-list', 'storage-order'], product: ['productive-task-product', 'storage-order-product']}
+            models: {cultivate: ['fertilize', 'detect', 'farming', 'harvest', 'grow'], harvest: ['tea-order-product', 'colect-process'], invoices_order: ['tea-order', 'tea-order-product'], productive_task: ['picking-list-product', 'productive-task-product'], picking_list: ['storage-order-product', 'picking-list-product'], storage_order: ['sell-store', 'storage-order-product'], sale: ['sell-store', 'delivery'], storeroom: ['tea-order', 'invoices-order', 'picking-list', 'storage-order'], product: ['productive-task-product', 'storage-order-product']}
         }
     },
     mounted () {
@@ -176,7 +176,7 @@ export default {
                         this.updateData()
                     }
                     // 销售订单
-                    if (data.content === 'sell' && mds.sell.indexOf(dataUrl) !== -1) {
+                    if (data.content === 'sell' && dataUrl === 'sale' && data.type === 'send') {
                         this.modelName = '销售订单'
                         this.updateData()
                     }

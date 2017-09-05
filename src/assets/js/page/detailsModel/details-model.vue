@@ -319,9 +319,9 @@ export default {
             this.boxArr(this.dataArr, false)
         },
         // websocket消息推送方法
-        websocketInfo () {
+        websocketInfo (type) {
             var token = Math.random()
-            var params = 'content=' + this.tabList[this.index].url + '&webtoken=' + token
+            var params = 'content=' + this.tabList[this.index].url + '&webtoken=' + token + '&type=' + type
             localStorage.setItem('webToken', token)
             axios.get('api/websocket?' + params).then((responce) => {})
         },
@@ -670,7 +670,7 @@ export default {
                     type: 'success',
                     message: '新增数据成功'
                 })
-                this.websocketInfo()
+                this.websocketInfo('add')
             } else {
                 this.$message.error('新增数据失败')
             }
@@ -691,7 +691,7 @@ export default {
                                 type: 'success',
                                 message: '删除成功'
                             })
-                            this.websocketInfo()
+                            this.websocketInfo('del')
                         } else if (responce.data === 'state') {
                             this.$message('该数据已被使用，无法删除')
                         }
@@ -739,7 +739,7 @@ export default {
                                 type: 'success',
                                 message: '批量删除成功'
                             })
-                            this.websocketInfo()
+                            this.websocketInfo('dels')
                         } else if (responce.data === 'state') {
                             this.$message('有数据已被使用，无法完成批量删除操作')
                         } else {
