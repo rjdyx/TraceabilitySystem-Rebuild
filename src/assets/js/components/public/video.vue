@@ -5,24 +5,21 @@
             <div>{{progress}}</div>
             <li :id='file.id'>
                 <span class="fileName" id='fileName'></span>
-                <div v-if="!vidUrl">
+                <div v-if="btnFlag">
                     <el-button 
                         class="itemUpload" 
                         v-if="isUpLoad" 
-                        :disabled="isDisabled" 
                         type="primary">
                         上传
                     </el-button>
                     <el-button 
                         class="itemStop" 
                         v-else 
-                        :disabled="isDisabled"
                         type="primary">
                         暂停
                     </el-button>
                     <el-button 
                         class="itemDel" 
-                        :disabled="isDisabled"
                         type="primary">
                         删除
                     </el-button>
@@ -56,7 +53,8 @@ export default {
             file: {},
             isUpLoad: true,
             isDisabled: true,
-            vidUrl: re
+            vidUrl: re,
+            btnFlag: false
         }
     },
     methods: {
@@ -199,6 +197,11 @@ export default {
                 duplicate: true
             })
             uploader.on('fileQueued', function (file) {
+                if (file.size > 60 * 1024 * 1024) {
+                    uploader.removeFile(file)
+                    _this.$message('请上传小于60M视频文件')
+                    return false
+                }
                 _this.file = file
                 $('#fileName').html(file.name)
                 uploader.makeThumb(file, function (error, src) {
@@ -231,12 +234,6 @@ export default {
                         message: '上传视频成功'
                     })
                     _this.isUpLoad = true
-                    // _this.vidUrl = true
-                    // $('#delPick').show()
-                    // $('#picker').hide()
-                    // _this.isDisabled = false
-                    // $('#fileName').html('')
-                    // uploader.reset()
                     _this.$emit('return-videoUrl', file.path)
                 }
             }
@@ -257,9 +254,6 @@ export default {
                                 type: 'success',
                                 message: '删除视频成功'
                             })
-                            // this.vidUrl = false
-                            // $('#delPick').hide()
-                            // $('#picker').show()
                             this.$emit('return-videoUrl', '')
                         } else {
                             this.$message.error('删除视频失败')
@@ -286,9 +280,9 @@ export default {
     watch: {
         file () {
             if (this.file.name) {
-                this.isDisabled = false
+                this.btnFlag = true
             } else {
-                this.isDisabled = true
+                this.btnFlag = false
             }
         }
     }

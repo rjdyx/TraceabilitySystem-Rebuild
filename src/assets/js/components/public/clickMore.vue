@@ -30,7 +30,7 @@
             <div class="video">
                 <div class="uploadVideo">
                     <div class="uploading">
-                        <span class="tip" v-if="!videoSrc && progressShow===false">您未上传视频</span>
+                        <span class="tip" v-if="!videoSrc && progressShow===false">您未上传视频(视频为MP4格式，大小不能大于60M)</span>
                         <div class="videoSrc" v-if="aaa">
                             <video :src="videoSrc" id="vidopid" controls="controls" height="220px" width="200px" @click="changeBig()"></video>
                         </div>
