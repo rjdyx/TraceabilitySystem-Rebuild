@@ -195,6 +195,12 @@ $b_small: 18px;
 		background: $border !important;
 	}
 }
+.el-loading-spinner .el-loading-text{
+	color: $bg;
+}
+.el-loading-spinner .path{
+	stroke:$bg;
+}
 .webuploader-pick{
 	background: $bg;
 	&:hover{
