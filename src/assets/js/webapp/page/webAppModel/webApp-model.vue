@@ -592,7 +592,8 @@ export default {
         /*margin-left: 18%;*/
     }
     .choices{
-        width: 20%;
+        /*width: 20%;*/
+        padding: 0 0.5rem;
     }
     .el-button--primary{
         background: #74b66e;
@@ -722,6 +723,16 @@ export default {
     .el-tooltip__popper{
         left: 90px !important;
         top: 230px !important;
+    }
+    @media only screen and (min-width: 768px){
+        .choices{
+            padding: 0 1rem;
+        }
+    }
+    @media only screen and (min-width: 1024px){
+        .choices{
+            padding: 0 1.3rem;
+        }
     }
 }  
 </style>

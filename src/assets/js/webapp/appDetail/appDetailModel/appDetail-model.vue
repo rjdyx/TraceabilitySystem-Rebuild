@@ -407,6 +407,7 @@ export default {
     .appDelete{
         float: right;
         margin-right: 4px;
+        background: #f26a4b;  
     }
     .appDelete,.allcheck{
         display: inline-block;
