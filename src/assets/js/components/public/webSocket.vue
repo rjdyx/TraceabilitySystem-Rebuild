@@ -48,6 +48,7 @@ export default {
                 // 握手成功成功
                 socket.onopen = function () {
                     // socket.send('test')
+                    console.log('数据发送中...')
                 }
                 // 后台返回数据时
                 socket.onmessage = function (ev) {
@@ -181,6 +182,9 @@ export default {
                     }
                 }
             }
+            console.log(token)
+            console.log(data)
+            console.log('数据接收中...')
             localStorage.setItem('webToken', '')
         },
         updateData () {

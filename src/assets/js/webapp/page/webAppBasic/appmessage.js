@@ -149,7 +149,7 @@ export default {
         key: 'detect',
         url: 'detect',
         batch: 'detectBatch',
-        searchPlaceholder: '请输入检测项目名称搜索',
+        searchPlaceholder: '请输入检测类型搜索',
         changeDataArr: [{result: {0: '合格', 1: '不合格'}}],
         theads: ['检测类型', '检测日期', '检测人'],
         protos: ['detect_type', 'date', 'operate'],
