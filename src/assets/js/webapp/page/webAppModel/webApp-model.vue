@@ -724,5 +724,15 @@ export default {
         left: 90px !important;
         top: 230px !important;
     }
+    @media only screen and (min-width: 768px){
+        .choices{
+            padding: 0 1rem;
+        }
+    }
+    @media only screen and (min-width: 1024px){
+        .choices{
+            padding: 0 1.3rem;
+        }
+    }
 }  
 </style>
