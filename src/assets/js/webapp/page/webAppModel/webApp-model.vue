@@ -592,7 +592,8 @@ export default {
         /*margin-left: 18%;*/
     }
     .choices{
-        width: 20%;
+        /*width: 20%;*/
+        padding: 0 0.5rem;
     }
     .el-button--primary{
         background: #74b66e;
