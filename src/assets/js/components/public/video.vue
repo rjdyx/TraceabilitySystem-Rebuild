@@ -74,7 +74,6 @@ export default {
                 'after-send-file': 'afterSendFile'
             }, {
                 beforeSendFile: function (file) {
-                    console.log(888)
                     var task = new $.Deferred()
                     var start = new Date().getTime()
                     var ap = new WebUploader.Uploader()
@@ -220,14 +219,21 @@ export default {
             // todo 如果要删除的文件正在上传（包括暂停），则需要发送给后端一个请求用来清除服务器端的缓存文件
             $('#theList').on('click', '.itemDel', function () {
                 let flag = _this.delTmp(_this, uniqueFileName)
-                flag.then(function (res) {
-                    if (res !== 'false') {
-                        $('#fileName').html('')
-                        uploader.removeFile($('#theList li').attr('id'))
-                        _this.file = {}
-                        _this.$emit('delVideoSrc')
-                    }
-                })
+                if (flag !== undefined) {
+                    flag.then(function (res) {
+                        if (res !== 'false') {
+                            $('#fileName').html('')
+                            uploader.removeFile($('#theList li').attr('id'))
+                            _this.file = {}
+                            _this.$emit('delVideoSrc')
+                        }
+                    })
+                } else {
+                    $('#fileName').html('')
+                    uploader.removeFile($('#theList li').attr('id'))
+                    _this.file = {}
+                    _this.$emit('delVideoSrc')
+                }
             })
             uploader.on('uploadProgress', function (file, percentage) {
                 _this.$emit('return-progress', {percentage: percentage, name: uniqueFileName})
