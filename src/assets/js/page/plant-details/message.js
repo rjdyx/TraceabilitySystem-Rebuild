@@ -312,6 +312,7 @@ export default {
             newComponent: [{
                 tab: '新建采制信息',
                 type: 'assoc',
+                // selectMore: ['sunning', 'cooling', 'make_green', 'kill_out', 'knead_nori', 'deblock', 'dry', 'filtrate', 'refiring'],
                 components: [{
                     name: 'date',
                     type: 'date',
