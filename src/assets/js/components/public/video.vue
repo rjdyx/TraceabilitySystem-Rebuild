@@ -54,7 +54,8 @@ export default {
             isUpLoad: true,
             isDisabled: true,
             vidUrl: re,
-            btnFlag: false
+            btnFlag: false,
+            setFlag: false
         }
     },
     methods: {
@@ -71,14 +72,12 @@ export default {
                 'after-send-file': 'afterSendFile'
             }, {
                 beforeSendFile: function (file) {
+                    console.log(888)
                     var task = new $.Deferred()
                     var start = new Date().getTime()
                     var ap = new WebUploader.Uploader()
                     ap.md5File(file, 0, 10 * 1024 * 1024).progress(function (percentage) {
-                        console.log(percentage)
                     }).then(function (val) {
-                    // (new WebUploader.Uploader()).md5File(file, 0, 10 * 1024 * 1024).progress(function (percentage) {
-                    // }).then(function (val) {
                         md5Mark = val
                         userInfo.md5 = val
                         $.ajax({
@@ -119,6 +118,7 @@ export default {
                 beforeSend: function (block) {
                     // 分片验证是否已传过，用于断点续传
                     var task = new $.Deferred()
+                    _this.setFlag = false
                     $.ajax({
                         type: 'POST',
                         url: backEndUrl,
@@ -133,8 +133,8 @@ export default {
                         cache: false,
                         timeout: 1000,
                         dataType: 'json'
-                        // contentType: 'application/json'
                     }).then(function (data, textStatus, jqXHR) {
+                        _this.setFlag = true
                         if (data.ifExist) {
                             task.reject()
                         } else {
@@ -190,6 +190,7 @@ export default {
                 chunkSize: chunkSize,
                 threads: true,
                 formData: function () {
+                    _this.setFlag = true
                     return $.extend(true, {_token: JSON.parse(Laravel.csrfToken), pid: JSON.parse(_this.row.id)}, userInfo)
                 },
                 fileNumLimit: 1,
@@ -204,18 +205,24 @@ export default {
                 }
                 _this.file = file
                 $('#fileName').html(file.name)
-                uploader.makeThumb(file, function (error, src) {
-                    if (error) {
-                    }
-                })
             })
             $('#theList').on('click', '.itemUpload', function () {
                 uploader.upload()
                 _this.isUpLoad = false
             })
             $('#theList').on('click', '.itemStop', function () {
-                uploader.stop(true)
-                _this.isUpLoad = true
+                if (_this.setFlag) {
+                    uploader.stop(true)
+                    _this.isUpLoad = true
+                } else {
+                    // 如果不是就延迟250ms触发
+                    setTimeout(function () {
+                        if (_this.setFlag) {
+                            uploader.stop(true)
+                            _this.isUpLoad = true
+                        }
+                    }, 250)
+                }
             })
             // todo 如果要删除的文件正在上传（包括暂停），则需要发送给后端一个请求用来清除服务器端的缓存文件
             $('#theList').on('click', '.itemDel', function () {
@@ -226,6 +233,8 @@ export default {
             })
             uploader.on('uploadProgress', function (file, percentage) {
                 _this.$emit('return-progress', percentage)
+            })
+            uploader.on('stopUpload', function () {
             })
             function UploadComlate (file) {
                 if (file.status !== '0') {
@@ -268,6 +277,7 @@ export default {
         }
     },
     mounted () {
+        console.log(777)
         this.fileUpload()
         if (this.row.video !== '' && this.row.video !== null) {
             $('#delPick').show()

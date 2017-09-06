@@ -35,7 +35,9 @@
         },
         watch: {
             value () {
-                this.$emit('return-shuju', {name: this.shuju.name, value: this.value, id: this.rowid})
+                if (this.value[0] !== null) {
+                    this.$emit('return-shuju', {name: this.shuju.name, value: this.value, id: this.rowid})
+                }
             }
         },
         mounted () {
