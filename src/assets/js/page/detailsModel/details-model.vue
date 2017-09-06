@@ -194,7 +194,7 @@
 
                             <template v-if="hiddeOperate">
                                 <el-button type="text" size="small" @click="changeEditShow(scope.$index,scope.row)"
-                                :disabled="stateDisabled()" v-if="tabList[index].hiddeEdit">
+                                :disabled="stateDisabled()" v-if="tabList[index].hiddeEdit" class="detailBtn">
                                 编辑</el-button>
                                 <el-button type="text" size="small" v-if="hiddeWatch">查看</el-button>
                                 <el-button size="small" type="text" @click="handelDel(scope.$index,scope.row)"
