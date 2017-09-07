@@ -30,7 +30,7 @@
             <div class="video">
                 <div class="uploadVideo">
                     <div class="uploading">
-                        <span class="tip" v-if="!videoSrc && progressShow===false">您未上传视频</span>
+                        <span class="tip" v-if="!videoSrc && progressShow===false">您未上传视频<br>(视频为MP4格式，大小不能大于60M)</span>
                         <div class="videoSrc" v-if="aaa">
                             <video :src="videoSrc" id="vidopid" controls="controls" height="220px" width="200px" @click="changeBig()"></video>
                         </div>
@@ -84,7 +84,8 @@
                 progressShow: false,
                 tipShow: true,
                 aaa: false,
-                bigShow: false
+                bigShow: false,
+                uniqueFileName: ''
             }
         },
         methods: {
@@ -119,7 +120,30 @@
                 }
             },
             closeClick () {
-                this.isShow = !this.isShow
+                if (this.progressShow) {
+                    this.$refs.videoCo.uploadStop()
+                    this.$confirm('有文件正在上传，是否要终止并清除上传文件', '信息', {
+                        confirmButtonText: '确定',
+                        cancelButtonText: '取消',
+                        type: 'error'
+                    }).then(() => {
+                        let params = {pName: this.uniqueFileName}
+                        axios.get(this.$adminUrl('/planta/delTmp'), {params: params})
+                            .then((responce) => {
+                                this.isShow = !this.isShow
+                                $('#fileName').html('')
+                                this.delVideoSrcFn()
+                                this.$emit('showlist')
+                            })
+                    }).catch(() => {
+                        this.$message({
+                            type: 'info',
+                            message: '已取消关闭窗口'
+                        })
+                    })
+                } else {
+                    this.isShow = !this.isShow
+                }
             },
             closeClick1 () {
                 this.bigShow = !this.bigShow
@@ -137,8 +161,9 @@
                     return false
                 }
             },
-            returnProgress (progress) {
-                var pro = parseInt(progress * 100)
+            returnProgress (data) {
+                var pro = parseInt(data.percentage * 100)
+                this.uniqueFileName = data.name
                 this.progress = pro
                 if (pro < 100) {
                     this.progressShow = true
@@ -222,10 +247,11 @@
         // border: 1px solid #000;
         box-shadow: 0px 0px 15px 2px #ccc;
         .tip{
-            width: 200px;
-            height: 200px;
-            margin: 0 auto;
-            line-height: 200px;
+            width: 300px;
+            padding-top: 80px;
+            display: inline-block;
+            font-weight: 700;
+            font-size: 16px;
         }
         .pro{
             width: 100%;

@@ -5,31 +5,28 @@
             <div>{{progress}}</div>
             <li :id='file.id'>
                 <span class="fileName" id='fileName'></span>
-                <div v-if="!vidUrl">
+                <div v-if="btnFlag">
                     <el-button 
                         class="itemUpload" 
                         v-if="isUpLoad" 
-                        :disabled="isDisabled" 
                         type="primary">
                         上传
                     </el-button>
                     <el-button 
                         class="itemStop" 
                         v-else 
-                        :disabled="isDisabled"
                         type="primary">
                         暂停
                     </el-button>
                     <el-button 
                         class="itemDel" 
-                        :disabled="isDisabled"
                         type="primary">
                         删除
                     </el-button>
                 </div>
             </li>
         </ul>
-        <div id="delPick" @click='delVideo'>删除视频</div>
+        <div id="delPick" @click='delVideo' class="webuploader-pick">删除视频</div>
         <div id="picker">选择视频</div>
     </div>
 </template>
@@ -56,13 +53,17 @@ export default {
             file: {},
             isUpLoad: true,
             isDisabled: true,
-            vidUrl: re
+            vidUrl: re,
+            btnFlag: false,
+            setFlag: false,
+            obqFlag: false,
+            upLoadObj: {}
         }
     },
     methods: {
         fileUpload () {
             var _this = this
-            var userInfo = {userId: 'kazaff666', md5: ''}
+            var userInfo = {userId: 'kazaff', md5: ''}
             var chunkSize = 5000 * 1024
             var uniqueFileName = null
             var md5Mark = null
@@ -75,7 +76,8 @@ export default {
                 beforeSendFile: function (file) {
                     var task = new $.Deferred()
                     var start = new Date().getTime()
-                    new WebUploader.Uploader().md5File(file, 0, 10 * 1024 * 1024).progress(function (percentage) {
+                    var ap = new WebUploader.Uploader()
+                    ap.md5File(file, 0, 10 * 1024 * 1024).progress(function (percentage) {
                     }).then(function (val) {
                         md5Mark = val
                         userInfo.md5 = val
@@ -117,6 +119,7 @@ export default {
                 beforeSend: function (block) {
                     // 分片验证是否已传过，用于断点续传
                     var task = new $.Deferred()
+                    _this.setFlag = false
                     $.ajax({
                         type: 'POST',
                         url: backEndUrl,
@@ -131,8 +134,8 @@ export default {
                         cache: false,
                         timeout: 1000,
                         dataType: 'json'
-                        // contentType: 'application/json'
                     }).then(function (data, textStatus, jqXHR) {
+                        _this.setFlag = true
                         if (data.ifExist) {
                             task.reject()
                         } else {
@@ -188,37 +191,52 @@ export default {
                 chunkSize: chunkSize,
                 threads: true,
                 formData: function () {
+                    _this.setFlag = true
                     return $.extend(true, {_token: JSON.parse(Laravel.csrfToken), pid: JSON.parse(_this.row.id)}, userInfo)
                 },
                 fileNumLimit: 1,
                 fileSingleSizeLimit: 1000 * 1024 * 1024,
                 duplicate: true
             })
+            this.upLoadObj = uploader
             uploader.on('fileQueued', function (file) {
+                if (file.size > 60 * 1024 * 1024) {
+                    uploader.removeFile(file)
+                    _this.$message('请上传小于60M视频文件')
+                    return false
+                }
                 _this.file = file
                 $('#fileName').html(file.name)
-                uploader.makeThumb(file, function (error, src) {
-                    if (error) {
-                    }
-                })
             })
             $('#theList').on('click', '.itemUpload', function () {
                 uploader.upload()
                 _this.isUpLoad = false
             })
             $('#theList').on('click', '.itemStop', function () {
-                uploader.stop(true)
-                _this.isUpLoad = true
+                // 暂停方法
+                _this.uploadStop()
             })
             // todo 如果要删除的文件正在上传（包括暂停），则需要发送给后端一个请求用来清除服务器端的缓存文件
             $('#theList').on('click', '.itemDel', function () {
-                $('#fileName').html('')
-                uploader.removeFile($('#theList li').attr('id'))
-                _this.file = {}
-                _this.$emit('delVideoSrc')
+                let flag = _this.delTmp(_this, uniqueFileName)
+                if (flag !== undefined) {
+                    flag.then(function (res) {
+                        if (res !== 'false') {
+                            $('#fileName').html('')
+                            uploader.removeFile($('#theList li').attr('id'))
+                            _this.file = {}
+                            _this.$emit('delVideoSrc')
+                        }
+                    })
+                } else {
+                    $('#fileName').html('')
+                    uploader.removeFile($('#theList li').attr('id'))
+                    _this.file = {}
+                    _this.$emit('delVideoSrc')
+                }
             })
             uploader.on('uploadProgress', function (file, percentage) {
-                _this.$emit('return-progress', percentage)
+                _this.$emit('return-progress', {percentage: percentage, name: uniqueFileName})
             })
             function UploadComlate (file) {
                 if (file.status !== '0') {
@@ -227,12 +245,6 @@ export default {
                         message: '上传视频成功'
                     })
                     _this.isUpLoad = true
-                    // _this.vidUrl = true
-                    // $('#delPick').show()
-                    // $('#picker').hide()
-                    // _this.isDisabled = false
-                    // $('#fileName').html('')
-                    // uploader.reset()
                     _this.$emit('return-videoUrl', file.path)
                 }
             }
@@ -253,9 +265,6 @@ export default {
                                 type: 'success',
                                 message: '删除视频成功'
                             })
-                            // this.vidUrl = false
-                            // $('#delPick').hide()
-                            // $('#picker').show()
                             this.$emit('return-videoUrl', '')
                         } else {
                             this.$message.error('删除视频失败')
@@ -267,6 +276,32 @@ export default {
                     message: '已取消删除视频'
                 })
             })
+        },
+        delTmp (vm, name) {
+            if (name !== null) {
+                let params = {pName: name}
+                return new Promise(function (resolve, reject) {
+                    axios.get(vm.$adminUrl('/planta/delTmp'), {params: params})
+                        .then((responce) => {
+                            resolve(responce.data)
+                        })
+                })
+            }
+        },
+        uploadStop () {
+            var _this = this
+            if (this.setFlag) {
+                this.upLoadObj.stop(true)
+                this.isUpLoad = true
+            } else {
+                // 如果不是就延迟250ms触发
+                setTimeout(function () {
+                    if (_this.setFlag) {
+                        _this.upLoadObj.stop(true)
+                        _this.isUpLoad = true
+                    }
+                }, 250)
+            }
         }
     },
     mounted () {
@@ -282,9 +317,9 @@ export default {
     watch: {
         file () {
             if (this.file.name) {
-                this.isDisabled = false
+                this.btnFlag = true
             } else {
-                this.isDisabled = true
+                this.btnFlag = false
             }
         }
     }

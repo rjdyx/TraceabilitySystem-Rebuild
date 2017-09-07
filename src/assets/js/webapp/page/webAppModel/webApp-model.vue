@@ -67,10 +67,10 @@
             <swipeout class="swipeout">
                 <swipeout-item transition-mode="follow" v-for="(pers,index) in tableData">
                     <div class="listContent demo-content vux-1px-t" slot="content">
-                        <span class="choice">
-                            <input type="checkbox" :value="pers.id" v-model="ischeckdate">
+                        <label class="choices" for="choice">
+                            <input type="checkbox" :value="pers.id" v-model="ischeckdate" id="choice">
                             <span class="order">{{index+1}}</span>
-                         </span>
+                         </label>
                         <span v-for="(item,index) in protos" 
                               v-if="protos[index]=='img'"
                               :style="{width: widths[index] + '%'}">
@@ -589,7 +589,11 @@ export default {
         background: #eaeaea !important;
     }*/
     .order{
-        margin-left: 18%;
+        /*margin-left: 18%;*/
+    }
+    .choices{
+        /*width: 20%;*/
+        padding: 0 0.5rem;
     }
     .el-button--primary{
         background: #74b66e;
@@ -719,6 +723,16 @@ export default {
     .el-tooltip__popper{
         left: 90px !important;
         top: 230px !important;
+    }
+    @media only screen and (min-width: 768px){
+        .choices{
+            padding: 0 1rem;
+        }
+    }
+    @media only screen and (min-width: 1024px){
+        .choices{
+            padding: 0 1.3rem;
+        }
     }
 }  
 </style>

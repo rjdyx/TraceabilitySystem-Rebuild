@@ -507,6 +507,15 @@ export default {
             if (com.assocPosition !== undefined) {
                 com.components[com.assocPosition].options = []
             }
+            if (com.totalNum !== undefined) {
+                for (let t in com.totalNum) {
+                    if (com.showNum.indexOf(com.totalNum[t]) !== -1) {
+                        com.components[com.totalNum[t]].hiddenSelect = false
+                    } else {
+                        com.components[com.totalNum[t]].hiddenSelect = true
+                    }
+                }
+            }
         },
         // 获取关联数据
         getAssoc (data) {
