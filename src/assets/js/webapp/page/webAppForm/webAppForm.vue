@@ -66,6 +66,9 @@
                             title="其他检测类型" 
                             placeholder="请输入其他检测类型(必填)" 
                             v-model="tableForm['other']"
+                            @on-change="inputOnChange"
+                            @on-blur="onBlur"
+                            :class="[{ inputErrors: ruleTableForm[comItem.name].bol},{bggray: comItem.disabled}]"
                             >
                         </x-input>
                     <!-- 多行文本框 -->
@@ -408,14 +411,22 @@ export default {
         */
         validateFn (obj) {
             // (name, rule, value)
-            let result = validate.fn(obj.name, this.ruleTableForm[obj.name].rule, this.tableForm[obj.name])
-            if (result.valid) { // true验证成功
-                this.ruleTableForm[obj.name].bol = false
-                return result
-            } else { // 验证失败
-                this.ruleTableForm[obj.name].bol = true
-                return result
+            let result = null
+            if (obj.name === 'other') {
+                result = validate.fn(obj.name, this.ruleTableForm['detect_type'].rule, this.tableForm[obj.name])
+            } else {
+                result = validate.fn(obj.name, this.ruleTableForm[obj.name].rule, this.tableForm[obj.name])
             }
+            if (obj.name === 'detect_type' && this.tableForm['detect_type'].includes('其他') && this.tableForm['other'] === '') {
+                result.valid = false // 验证失败
+            }
+            if (result.valid) { // true验证成功
+                obj.name === 'other' ? this.ruleTableForm['detect_type'].bol = false : this.ruleTableForm[obj.name].bol = false
+            } else { // 验证失败
+                obj.name === 'other' ? this.ruleTableForm['detect_type'].bol = true : this.ruleTableForm[obj.name].bol = true
+            }
+
+            return result
         },
         inputOnChange (obj) {
             this.validateFn(obj)
@@ -759,17 +770,17 @@ export default {
     }
 }
 .inputErrors{
-    color:red!important;
+    color:#f26a4b!important;
     // 文本框的
     .weui-label{
-        color:red!important;
+        color:#f26a4b!important;
     }
     >div>p{
-        color:red!important;
+        color:#f26a4b!important;
     }
 }
 .cameraErrors{
-    border-color:red!important;
+    border-color:#f26a4b!important;
 }
 .weui-cells_checkbox .weui-check:checked + .vux-checklist-icon-checked:before
 {

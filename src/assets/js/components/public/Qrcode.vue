@@ -8,16 +8,16 @@
 <template>
     <div id="QrcodeModel">
         <div>
-            <qrcode :background="background" :size="size" :cls="qrCls" :value="qrText"></qrcode>
+            <qrcode :background="background" :size="size" :cls="qrCls" :value="qrText" type="img"></qrcode>
             <div class="QMLogo" v-if="printForm.watermark!=''&&printForm.watermark!=null">
                 <img :src="printForm.watermark" alt="logo">
             </div>
-        </div> 
+        </div>
     </div>
 </template>
 
 <script>
-    import Qrcode from 'v-qrcode/src/index'
+    import { Qrcode } from 'vux'
     export default {
         name: 'QrcodeModel',
         props: {

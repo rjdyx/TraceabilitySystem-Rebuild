@@ -107,7 +107,7 @@ html,body{
 }
 #printfPreview{
     padding: 50px 0;
-    width: 800px;
+    width: 1024px;
     margin:0 auto;
     .printfDiv{
         .printfTable{
