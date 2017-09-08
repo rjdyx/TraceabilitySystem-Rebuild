@@ -322,7 +322,8 @@ export default {
         },
         // 打印内容的展示
         printShowFn () {
-            localStorage.setItem('printf', {})
+            this.printf.detailsBatch = this.models
+            localStorage.setItem('printf', '{}')
             localStorage.setItem('printf', JSON.stringify(this.printf))
             this.$router.push('/printf')
         },
@@ -550,16 +551,11 @@ export default {
         getDetailSerial () {
             // 头部列表信息
             var url = this.apiUrlArr[this.url]
-            console.log('url:' + url)
             this.$dataGet(this, url, {})
                 .then((responce) => {
-                    console.log('responce:----')
-                    console.log(responce)
                     var ret = this.$conversion(this.changeDataArr, responce.data, 0)
                     ret = this.$eltable(ret)
                     this.$set(this, 'headData', ret)
-                    console.log('ret----')
-                    console.log(ret)
                     this.printf.headData = this.headData
                 })
         },
@@ -581,7 +577,7 @@ export default {
             this.$dataGet(this, this.apiUrlArr[this.tabList[this.index].url], {params: data})
                 .then((responce) => {
                     this.listLoading = false
-                    localStorage.setItem('tableData', '[]')
+                    // localStorage.setItem('tableData', '[]')
                     if (responce.data.data !== undefined) {
                         if (responce.data.data.length !== 0) {
                             var ret = this.$conversion(this.tabItem.changeDataArr, responce.data.data, 1)
@@ -813,7 +809,7 @@ export default {
                 printComponent: this.tabItem.printComponent,
                 printForm: allObj
             }
-            localStorage.setItem('qrcodePrintf', '[]')
+            localStorage.setItem('qrcodePrintf', '{}')
             localStorage.setItem('qrcodePrintf', JSON.stringify(qrcodePrintf))
             this.$router.push('/qrcodePrintf')
         },
