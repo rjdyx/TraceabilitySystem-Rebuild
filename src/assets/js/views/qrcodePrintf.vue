@@ -1,20 +1,20 @@
 <template>
 <div class="qrcodePrintf">
     <!-- 表单 -->
-    <div v-for="(item,i) in printComponent">
-        <el-form :model="printForm"  ref="printForm" label-width="110px" class="printForm">
+    <div v-for="(item,i) in qrcodePrintf.printComponent">
+        <el-form :model="qrcodePrintf.printForm"  ref="printForm" label-width="110px" class="printForm">
             <div class="printfImg">
                 <el-row :gutter="20">
-                    <el-col class="grid-content" :span="12" v-for="subItem in printComponent[0].components">
+                    <el-col class="grid-content" :span="12" v-for="subItem in qrcodePrintf.printComponent[0].components">
                         <div v-if="subItem.label !=='二维码'">
-                            <em>{{subItem.label}}:</em> {{printForm[subItem.name]}}
+                            <em>{{subItem.label}}:</em> {{qrcodePrintf.printForm[subItem.name]}}
                         </div>
                     </el-col>
                 </el-row>
                 <qrcode 
                     :shuju="subItem"
-                    :printForm="printForm"
-                    :url="url"
+                    :printForm="qrcodePrintf.printForm"
+                    :url="qrcodePrintf.url"
                     @return-shuju="returnShuju"
                     @return-qrcode="returnQrcode"
                 ></qrcode>
@@ -35,29 +35,19 @@ export default {
     },
     data () {
         return {
-            // 当前选中的标签页
-            activeName: '',
             qrcode: '',
-            printComponent: [],
-            printForm: {},
-            url: ''
+            qrcodePrintf: {}
         }
     },
     mounted () {
-        console.log('2222-------------------')
-        console.log(window.printf)
-        console.log(window.printForm)
-        this.printComponent = localStorage.getItem('printComponent') ? JSON.parse(localStorage.getItem('printComponent')) : {}
-        this.printForm = localStorage.getItem('printForm') ? JSON.parse(localStorage.getItem('printForm')) : []
-        this.url = localStorage.getItem('url') ? localStorage.getItem('url') : []
-        this.activeName = this.printComponent[0].tab
+        this.qrcodePrintf = localStorage.getItem('qrcodePrintf') ? JSON.parse(localStorage.getItem('qrcodePrintf')) : {}
     },
     watch: {
     },
     methods: {
         // 返回InputTextSelect组件的数据
         returnShuju ({name, value}) {
-            this.printForm[name] = value
+            this.qrcodePrintf.printForm[name] = value
         },
         // 获取二维码base64位地址
         returnQrcode (value) {

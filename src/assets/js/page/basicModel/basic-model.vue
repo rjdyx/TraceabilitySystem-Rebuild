@@ -907,14 +907,14 @@ export default {
             this.isPermissionShow = !this.isPermissionShow
         },
         moreShow (index, row) {
-            window.printf = this.models[this.modelIndex]
-            window.printForm = row
-            console.log('1111-------------------')
-            console.log(window.printf)
-            console.log(window.printForm)
             this.printForm = row
-            localStorage.setItem('printForm', '{}')
-            localStorage.setItem('printForm', JSON.stringify(this.printForm))
+            var qrcodePrintf = {
+                url: this.url,
+                printComponent: this.printComponent,
+                printForm: this.printForm
+            }
+            localStorage.setItem('qrcodePrintf', '[]')
+            localStorage.setItem('qrcodePrintf', JSON.stringify(qrcodePrintf))
             this.$router.push('/qrcodePrintf')
         },
         // 发货操作
@@ -979,10 +979,6 @@ export default {
         let change = $('.available')
         change.css('display', 'none')
         this.theads.length > 8 ? this.expandMore = true : this.expandMore = false
-        localStorage.setItem('url', '')
-        localStorage.setItem('url', this.url)
-        localStorage.setItem('printComponent', '[]')
-        localStorage.setItem('printComponent', JSON.stringify(this.printComponent))
     },
     watch: {
         models () {
