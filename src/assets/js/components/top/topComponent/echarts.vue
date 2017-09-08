@@ -35,23 +35,23 @@
             return {
                 echartsId: null,
                 options: [{
-                    value: 'e1',
+                    value: 'e4',
                     label: '湿度',
                     symbol: '%'
                 }, {
-                    value: 'e2',
+                    value: 'e5',
                     label: '数字气压',
                     symbol: 'pa'
                 }, {
-                    value: 'e3',
+                    value: 'e2',
                     label: '雨量',
                     symbol: 'mm'
                 }, {
-                    value: 'e4',
+                    value: 'e3',
                     label: '温度',
                     symbol: '℃'
                 }, {
-                    value: 'e5',
+                    value: 'e1',
                     label: '风速',
                     symbol: 'm/s'
                 }],
@@ -61,11 +61,11 @@
                     }
                 },
                 dateValue: (new Date()).toLocaleDateString(),
-                selectValue: 'e1',
+                selectValue: 'e4',
                 echartsOptions: [],
                 xList: [],
                 yDate: [],
-                type: 'e1',
+                type: 'e4',
                 date: ''
             }
         },
@@ -182,12 +182,19 @@
                     params += '&date=' + this.date
                 }
                 axios.get('api/maxdata/history?' + params).then((res) => {
-                    if (res.data.xs.length && res.data.xs !== undefined) {
-                        this.xList = res.data.xs
-                        this.yDate = res.data.ys
-                        this.echartsId.setOption(this.changeEOption())
+                    if (res.data !== 'none') {
+                        if (res.data.xs.length && res.data.xs !== undefined) {
+                            this.xList = res.data.xs
+                            this.yDate = res.data.ys
+                            this.echartsId.setOption(this.changeEOption())
+                        } else {
+                            this.$message('数据获取失败')
+                        }
                     } else {
-                        this.$message('数据获取失败')
+                        this.$message('该时间段无监测数据')
+                        this.xList = 0
+                        this.yDate = 0
+                        this.echartsId.setOption(this.changeEOption())
                     }
                 })
             },
