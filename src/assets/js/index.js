@@ -88,8 +88,13 @@ router.beforeEach(async (to, from, next) => {
                     } else {
                         // pc端路由
                         if (data.one !== 'admin') {
-                            var pArr = data.one.concat(data.details)
-                            pArr = pArr.concat(excepts)
+                            var pArr
+                            if (data.one === '') {
+                                pArr = excepts
+                            } else {
+                                pArr = data.one.concat(data.details)
+                                pArr = pArr.concat(excepts)
+                            }
                             for (let p in pArr) {
                                 if (to.path === pArr[p]) {
                                     next()
