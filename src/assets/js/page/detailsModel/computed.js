@@ -38,6 +38,9 @@ export default {
         },
         filter () {
             return this.models.filter
+        },
+        obt () {
+            return this.models.obt
         }
     }
 }

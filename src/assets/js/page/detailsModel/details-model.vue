@@ -51,7 +51,6 @@
                         :type="tabItem.whereArr"
                         :routeId="routeId"
                         :curl="url"
-                        :headData="headData"
                         :tabItem = 'tabItem'
                         class="fr"
                     ></component>
@@ -256,7 +255,8 @@ export default {
                     harvestMore: [],
                     printShow: '',
                     odd: '',
-                    fillter: []
+                    fillter: [],
+                    obt: ''
                 }
             }
         }
@@ -361,7 +361,7 @@ export default {
             var id = row.id
             this.$router.push('/index/details/' + this.batch)
             if (id) {
-                localStorage.setItem('detailsId', id)
+                localStorage.setItem('detailSecondId', id)
             }
         },
         // 显示新建表单
@@ -858,13 +858,23 @@ export default {
                     Vue.set(subItem, 'showHarvest', false)
                 })
             }
+        },
+        // 判断第二还是第三级
+        secondOrThird () {
+            if (this.obt !== undefined) {
+                if (this.obt === 2) {
+                    this.routeId = localStorage.getItem('detailsId')
+                } else {
+                    this.routeId = localStorage.getItem('detailSecondId')
+                }
+            }
         }
     },
     mounted () {
         this.change_siderBar(false)
+        this.secondOrThird()
         this.tabItem = this.tabList[localStorage.getItem('tabL') !== null ? localStorage.getItem('tabL') : 0]
         this.activeName = this.tabList[localStorage.getItem('tabL') !== null ? localStorage.getItem('tabL') : 0].tab
-        // localStorage.setItem('tab', 0)
         this.getApiUrl()
         this.getDetailSerial()
         this.boxArr(this.dataArr, true)
@@ -899,6 +909,7 @@ export default {
             this.thead = this.more.slice(0, 8)
         },
         tab () {
+            this.secondOrThird()
             this.tabItem = this.tabList[0]
             this.activeName = this.tabList[0].tab
             this.getApiUrl()
