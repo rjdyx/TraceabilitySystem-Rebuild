@@ -44,6 +44,9 @@ export default {
         }
     },
     mounted () {
+        console.log('2222-------------------')
+        console.log(window.printf)
+        console.log(window.printForm)
         this.printComponent = localStorage.getItem('printComponent') ? JSON.parse(localStorage.getItem('printComponent')) : {}
         this.printForm = localStorage.getItem('printForm') ? JSON.parse(localStorage.getItem('printForm')) : []
         this.url = localStorage.getItem('url') ? localStorage.getItem('url') : []

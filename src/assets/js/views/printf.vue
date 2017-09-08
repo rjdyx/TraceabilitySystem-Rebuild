@@ -57,7 +57,8 @@ export default {
             tableData: [],
             tabItem: {},
             filterTheads: [],
-            filterProtos: []
+            filterProtos: [],
+            odd: ''
         }
     },
     mounted () {

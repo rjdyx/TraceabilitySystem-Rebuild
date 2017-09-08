@@ -58,10 +58,6 @@
                       :editForm="editForm" @submitEdit="hangeEdit" :changeDataArr="changeDataArr" :editDefault="editDefault">
             </pop-edit>
         </transition>
-        <!-- 打印模块 -->
-        <transition name="fade">
-            <printf v-if="isPrintShow" :printComponent="printComponent" :url="url" :printForm="printForm"></printf>
-        </transition>
         <!-- 权限模块 -->
         <transition name="fade">
             <companyPermission v-if="isPermissionShow" :id="companyId"></companyPermission>
@@ -192,7 +188,6 @@ import operate from '../../components/public/operate.vue'
 import popEdit from '../../components/public/popEdit.vue'
 import clickMore from '../../components/public/clickMore.vue'
 import lotOpearte from '../../components/public/lotOpearte.vue'
-import printf from '../../components/public/printf.vue'
 import permissionCheckbox from '../../components/public/permissionCheckbox.vue'
 import company from '../../page/plant-basic/company.js'
 import companyPermission from '../../components/public/companyPermission.vue'
@@ -275,8 +270,6 @@ export default {
             isNewShow: false,
             // 是否编辑
             isEditShow: false,
-            // 是否打印
-            isPrintShow: false,
             isPermissionShow: false,
             checkboxShow: false,
             // 是否显示交流
@@ -914,7 +907,11 @@ export default {
             this.isPermissionShow = !this.isPermissionShow
         },
         moreShow (index, row) {
-            // this.isPrintShow = !this.isPrintShow
+            window.printf = this.models[this.modelIndex]
+            window.printForm = row
+            console.log('1111-------------------')
+            console.log(window.printf)
+            console.log(window.printForm)
             this.printForm = row
             localStorage.setItem('printForm', '{}')
             localStorage.setItem('printForm', JSON.stringify(this.printForm))
@@ -1014,7 +1011,6 @@ export default {
         popEdit,
         clickMore,
         lotOpearte,
-        printf,
         permissionCheckbox,
         roleCheckbox,
         companyPermission,

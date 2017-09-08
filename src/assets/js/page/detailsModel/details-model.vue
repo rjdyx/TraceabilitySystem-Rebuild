@@ -68,10 +68,6 @@
                         @submitEdit="hangeEdit" :changeDataArr="changeData" :editDefault="editDefault">
                 </popEdit>
             </transition>
-            <!-- 打印溯源码模块 -->
-            <transition name="fade">
-                <printf v-if="isPrintShow" :printComponent="tabItem.printComponent" :url="url" :printForm="printForm"></printf>
-            </transition>
             <!-- 权限模块 -->
             <transition name="fade">
                 <roleCheckbox v-if="isRoleShow" :rowId="rowId"></roleCheckbox>
@@ -239,8 +235,6 @@ import operate from '../../components/public/operate.vue'
 import clickMore from '../../components/public/clickMore.vue'
 import harvestMore from '../../components/public/harvestMore.vue'
 import lotOpearte from '../../components/public/lotOpearte.vue'
-import printf from '../../components/public/printf.vue'
-// import printfPreview from '../../components/public/printfPreview.vue'
 import roleCheckbox from '../../components/public/roleCheckbox.vue'
 import webSocket from '../../components/public/webSocket.vue'
 export default {
@@ -327,7 +321,6 @@ export default {
         },
         // 打印内容的展示
         printShowFn () {
-            // this.$refs.printfPreview.dialogTableVisible = true
             this.$router.push('/printf')
         },
         // 关闭打印内容的展示
@@ -930,7 +923,6 @@ export default {
         clickMore,
         lotOpearte,
         roleCheckbox,
-        printf,
         harvestMore,
         webSocket
         // ,
