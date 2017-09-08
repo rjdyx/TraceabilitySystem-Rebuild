@@ -58,18 +58,21 @@ export default {
             tabItem: {},
             filterTheads: [],
             filterProtos: [],
-            odd: ''
+            odd: '',
+            printf: {}
         }
     },
     mounted () {
-        this.models = localStorage.getItem('detailsBatch') ? JSON.parse(localStorage.getItem('detailsBatch')) : {}
+        this.printf = localStorage.getItem('printf') ? JSON.parse(localStorage.getItem('printf')) : {}
+        this.models = this.printf.detailsBatch
+        this.odd = this.models.odd
         this.$nextTick(() => {
             this.tabItem = this.models.tabList[0]
             this.filterTheads = this.models.theads.filter(this.filterFn)
             this.filterProtos = this.models.protos.filter(this.filterFn)
         })
-        this.headData = localStorage.getItem('headData') ? JSON.parse(localStorage.getItem('headData')) : {}
-        this.tableData = localStorage.getItem('tableData') ? JSON.parse(localStorage.getItem('tableData')) : []
+        this.headData = this.printf.headData
+        this.tableData = this.printf.tableData
     },
     methods: {
         confirmPrintf () {
