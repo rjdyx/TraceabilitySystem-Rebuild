@@ -24,7 +24,7 @@
                 </el-option>
             </el-select>
         </div>
-        <div id='echartsId'></div>
+        <div id='echartsId' v-loading.body="loading"></div>
     </section>
 </template>
 
@@ -61,12 +61,13 @@
                     }
                 },
                 dateValue: (new Date()).toLocaleDateString(),
-                selectValue: 'e4',
+                selectValue: localStorage.getItem('echartsSelectValue') ? localStorage.getItem('echartsSelectValue') : 'e4',
                 echartsOptions: [],
                 xList: [],
                 yDate: [],
                 type: 'e4',
-                date: ''
+                date: '',
+                loading: true
             }
         },
         mounted () {
@@ -196,11 +197,13 @@
                         this.yDate = 0
                         this.echartsId.setOption(this.changeEOption())
                     }
+                    this.loading = false
                 })
             },
             // 时间改变事件
             changeDateValueFn (value) {
                 this.date = value
+                this.loading = true
                 this.getData()
                 var op = this.changeEOption()
                 this.echartsId.setOption(op)
@@ -208,6 +211,7 @@
             // 下拉框改变事件
             changeTypeValueFn (value) {
                 this.type = value
+                this.loading = true
                 this.getData()
                 var op = this.changeEOption()
                 this.echartsId.setOption(op)
