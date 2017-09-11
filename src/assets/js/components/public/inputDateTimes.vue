@@ -31,8 +31,6 @@
         },
         data () {
             return {
-                // startDate: '2017/09/02 10:23:12',
-                // endDate: '2017/09/06 10:23:12',
                 value: this.editValue !== undefined ? this.editValue : ''
             }
         },
@@ -65,39 +63,6 @@
                     return '选择日期时间'
                 }
             }
-            // dataTimeUpdate () {
-            //     let sub = this.subItem
-            //     let com = this.allData.components
-            //     let com2 = this.allData.selectMore
-            //     if ((sub.type !== 'datetime' && sub.type !== 'datetimerange') || com2 === undefined) return ''
-            //     let start = ''
-            //     let end = ''
-            //     let pt = com2.indexOf(sub.name)
-            //     if (pt !== -1) {
-            //         if (pt > 0) {
-            //             for (let i = (pt - 1); i > -1; i--) {
-            //                 if (this.tableForm[i] !== undefined && this.tableForm[i] !== '') {
-            //                     start = this.tableForm[i]
-            //                     break
-            //                 }
-            //             }
-            //         }
-            //         for (let j = (pt + 1); j < (com2.length + 2); j++) {
-            //             if (this.tableForm[j] !== undefined && this.tableForm[j] !== '') {
-            //                 end = this.tableForm[j]
-            //                 break
-            //             }
-            //         }
-            //     }
-            //     console.log(this.tableForm)
-            //     console.log(pt)
-            //     console.log(start)
-            //     console.log(end)
-            //     let resObj = {'start': start, 'end': end}
-            //     // com.selectMore[0]
-            //     // return resObj
-            //     return resObj
-            // }
         },
         watch: {
             value () {
