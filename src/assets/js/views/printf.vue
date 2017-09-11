@@ -63,6 +63,7 @@ export default {
         }
     },
     mounted () {
+        $('#app').removeClass('bodyofxh')
         this.printf = localStorage.getItem('printf') ? JSON.parse(localStorage.getItem('printf')) : {}
         this.models = this.printf.detailsBatch
         this.odd = this.models.odd
@@ -102,13 +103,14 @@ export default {
                 })
             }
         }
+    },
+    destroyed () {
+        $('#app').addClass('bodyofxh')
     }
+
 }
 </script>
 <style lang=sass>
-html,body{
-	overflow: auto;
-}
 #printfPreview{
     padding: 50px 0;
     width: 1024px;

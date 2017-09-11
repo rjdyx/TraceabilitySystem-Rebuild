@@ -18,6 +18,7 @@ export default {
     methods: {
     },
     mounted () {
+        $('#app').addClass('bodyofxh')
         let overscroll = function (el) {
             el.addEventListener('touchstart', function () {
                 let top = el.scrollTop
@@ -51,4 +52,7 @@ export default {
 	#app {
 		height: 100%;
 	}
+    .bodyofxh{
+        overflow-x: hidden;
+    }
 </style>
