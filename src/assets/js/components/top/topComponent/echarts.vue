@@ -24,7 +24,7 @@
                 </el-option>
             </el-select>
         </div>
-        <div id='echartsId' v-loading.body="loading"></div>
+        <div id='echartsId' v-loading="loading" element-loading-text="拼命加载中"></div>
     </section>
 </template>
 
@@ -72,7 +72,6 @@
         },
         mounted () {
             // 初始化接口数据
-            this.getData()
             $('.titleHome').hide()
             this.$parent.settitle = '数据统计'
             // 1.基于准备好的dom，初始化echarts实例
@@ -174,6 +173,9 @@
             // 3.使用刚指定的配置项和数据显示图表。先画xy轴
             this.echartsId.setOption(options)
             window.onresize = this.echartsId.resize
+            this.getData()
+            var op = this.changeEOption()
+            this.echartsId.setOption(op)
         },
         methods: {
             // 数据请求
@@ -198,6 +200,9 @@
                         this.echartsId.setOption(this.changeEOption())
                     }
                     this.loading = false
+                }).catch(() => {
+                    this.loading = false
+                    this.$message('接口访问失败')
                 })
             },
             // 时间改变事件
@@ -225,33 +230,6 @@
                 var selectIndex = arr.indexOf(this.selectValue)
                 var xList = this.xList
                 var yDate = this.yDate
-                // if (!this.dateValue) {
-                //     // 没有日期时的x轴刻度, y轴数据
-                //     xList = this.xList.map((item) => {
-                //         var emptyI = item[0].indexOf(' ')
-                //         return item[0].substring(0, emptyI)
-                //     })
-                //     xList = Array.from(new Set(xList))
-                //     yDate = this.xList.filter((item, index) => {
-                //         return index % xList.length === 0
-                //     }).map((item) => {
-                //         return item[1]
-                //     })
-                // } else {
-                //     // 有日期时的x轴刻度, y轴数据
-                //     xList = this.xList.map((item) => {
-                //         var emptyI = item[0].indexOf(' ')
-                //         return item[0].substring(emptyI + 1)
-                //     })
-                //     xList = Array.from(new Set(xList))
-                //     var dateValue = this.dateValue.toLocaleDateString().replace(/\//g, '-')
-                //     var reg = new RegExp(dateValue, 'i')
-                //     yDate = this.xList.filter((item, index) => {
-                //         return reg.test(item[0])
-                //     }).map((item) => {
-                //         return item[1]
-                //     })
-                // }
                 return {
                     // 图例
                     legend: {
@@ -290,6 +268,9 @@
     height:100%;
     #echartsId{
         height: 100%;
+        .el-loading-mask{
+            z-index:1000;
+        }
     }
     .chartSearch{
         text-align:right;
