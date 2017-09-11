@@ -128,7 +128,7 @@
                 <template v-if="moreComponent!=null">
                     <clickMore :companyId="companyId" :moreComponent="moreComponent" :row="scope.row" 
                     @showMore="moreShow(scope.$index,scope.row)" @showPermission="permissionShow(scope.$index,scope.row)" 
-                    @showDetail="detailShow(scope.$index,scope.row)" class="clickMoreBtn"@return-permission="getPermission" 
+                    @showDetail="detailShow(scope.$index,scope.row)" class="clickMoreBtn" @return-permission="getPermission" 
                     @changeState="changeSerialState(scope.$index,scope.row)"
                     @shipGoods="shipGood(scope.$index,scope.row)"
                     @communkation="communkationFn(scope.$index,scope.row)"
