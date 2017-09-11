@@ -50,9 +50,36 @@ export default {
         },
         showmenu () {
             this.showsider()
+        },
+        getForeach (datas) {
+            var roleData = {}
+            if (window.Roles.permissions !== undefined) {
+                roleData = window.Roles.permissions.phone_url
+            }
+            if (roleData !== undefined) {
+                for (let i in datas) {
+                    for (let p in datas[i].parentUrl) {
+                        if (roleData.indexOf(datas[i].parentUrl[p]) !== -1) {
+                            datas[i].role = 1
+                            datas[i].children[p].role = 1
+                        } else {
+                            datas[i].children[p].role = 0
+                        }
+                    }
+                }
+            } else {
+                for (let i in datas) {
+                    for (let p in datas[i].parentUrl) {
+                        datas[i].role = 0
+                        datas[i].children[p].role = 0
+                    }
+                }
+            }
+            return datas
         }
     },
     mounted () {
+        this.menus = this.getForeach(this.menus)
     },
     computed: {
     },
