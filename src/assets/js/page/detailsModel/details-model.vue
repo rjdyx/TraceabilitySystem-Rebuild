@@ -51,7 +51,6 @@
                         :type="tabItem.whereArr"
                         :routeId="routeId"
                         :curl="url"
-                        :headData="headData"
                         :tabItem = 'tabItem'
                         class="fr"
                     ></component>
@@ -256,7 +255,8 @@ export default {
                     harvestMore: [],
                     printShow: '',
                     odd: '',
-                    fillter: []
+                    fillter: [],
+                    obt: ''
                 }
             }
         }
@@ -299,7 +299,8 @@ export default {
             operateArr2: ['make_green_date', 'kill_out_date', 'knead_nori_date', 'deblock_date', 'dry_date', 'filtrate_date', 'refiring_date'],
             timeParams: {},
             detailsExpand: false,
-            detailsExpandyo: true
+            detailsExpandyo: true,
+            printf: {}
         }
     },
     mixins: [computed],
@@ -321,6 +322,9 @@ export default {
         },
         // 打印内容的展示
         printShowFn () {
+            this.printf.detailsBatch = this.models
+            localStorage.setItem('printf', '{}')
+            localStorage.setItem('printf', JSON.stringify(this.printf))
             this.$router.push('/printf')
         },
         // 关闭打印内容的展示
@@ -361,7 +365,7 @@ export default {
             var id = row.id
             this.$router.push('/index/details/' + this.batch)
             if (id) {
-                localStorage.setItem('detailsId', id)
+                localStorage.setItem('detailSecondId', id)
             }
         },
         // 显示新建表单
@@ -552,8 +556,7 @@ export default {
                     var ret = this.$conversion(this.changeDataArr, responce.data, 0)
                     ret = this.$eltable(ret)
                     this.$set(this, 'headData', ret)
-                    localStorage.setItem('headData', '{}')
-                    localStorage.setItem('headData', JSON.stringify(this.headData))
+                    this.printf.headData = this.headData
                 })
         },
         // 获取列表信息
@@ -574,14 +577,14 @@ export default {
             this.$dataGet(this, this.apiUrlArr[this.tabList[this.index].url], {params: data})
                 .then((responce) => {
                     this.listLoading = false
-                    localStorage.setItem('tableData', '[]')
+                    // localStorage.setItem('tableData', '[]')
                     if (responce.data.data !== undefined) {
                         if (responce.data.data.length !== 0) {
                             var ret = this.$conversion(this.tabItem.changeDataArr, responce.data.data, 1)
                             ret = this.$eltable(ret)
                             ret = this.$getProductInfo(ret)
                             this.$set(this, 'tableData', ret)
-                            localStorage.setItem('tableData', JSON.stringify(this.tableData))
+                            this.printf.tableData = this.tableData
                             this.total_num = responce.data.total
                             this.num = responce.data.last_page
                             this.paginator = responce.data
@@ -793,15 +796,22 @@ export default {
         },
         moreShow (index, row) {
             this.isPrintShow = !this.isPrintShow
-            let obj = row
-            this.printForm = row
-            let obj2 = {
+            let obj = {
                 product_name: this.headData['product_name'],
                 specification: this.headData['specification']
             }
-            if (this.printForm !== undefined) {
-                this.printForm = Object.assign(this.printForm, obj2)
+            let allObj = {}
+            if (row !== undefined) {
+                allObj = Object.assign(allObj, row, obj)
             }
+            var qrcodePrintf = {
+                url: this.url,
+                printComponent: this.tabItem.printComponent,
+                printForm: allObj
+            }
+            localStorage.setItem('qrcodePrintf', '{}')
+            localStorage.setItem('qrcodePrintf', JSON.stringify(qrcodePrintf))
+            this.$router.push('/qrcodePrintf')
         },
         permissionShow (index, row) {
             this.isRoleShow = true
@@ -858,13 +868,23 @@ export default {
                     Vue.set(subItem, 'showHarvest', false)
                 })
             }
+        },
+        // 判断第二还是第三级
+        secondOrThird () {
+            if (this.obt !== undefined) {
+                if (this.obt === 2) {
+                    this.routeId = localStorage.getItem('detailsId')
+                } else {
+                    this.routeId = localStorage.getItem('detailSecondId')
+                }
+            }
         }
     },
     mounted () {
         this.change_siderBar(false)
+        this.secondOrThird()
         this.tabItem = this.tabList[localStorage.getItem('tabL') !== null ? localStorage.getItem('tabL') : 0]
         this.activeName = this.tabList[localStorage.getItem('tabL') !== null ? localStorage.getItem('tabL') : 0].tab
-        // localStorage.setItem('tab', 0)
         this.getApiUrl()
         this.getDetailSerial()
         this.boxArr(this.dataArr, true)
@@ -884,7 +904,7 @@ export default {
         if (this.tabItem.hiddeOperate !== undefined) {
             this.hiddeOperate = this.tabItem.hiddeOperate
         }
-        localStorage.setItem('detailsBatch', JSON.stringify(this.models))
+        this.printf.detailsBatch = this.models
     },
     watch: {
         tabItem () {
@@ -899,6 +919,7 @@ export default {
             this.thead = this.more.slice(0, 8)
         },
         tab () {
+            this.secondOrThird()
             this.tabItem = this.tabList[0]
             this.activeName = this.tabList[0].tab
             this.getApiUrl()
@@ -925,8 +946,6 @@ export default {
         roleCheckbox,
         harvestMore,
         webSocket
-        // ,
-        // printfPreview
     }
 }
 </script>

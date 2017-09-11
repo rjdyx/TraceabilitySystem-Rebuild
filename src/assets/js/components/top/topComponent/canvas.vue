@@ -33,7 +33,8 @@ export default {
             e4: '0',
             e5: '0',
             e6: '0',
-            arr: ['北风', '东北风', '东风', '东南风', '南风', '西南风', '西风', '西北风']
+            arr: ['北风', '东北风', '东风', '东南风', '南风', '西南风', '西风', '西北风'],
+            map: new Map([['humidity', 'e4'], ['KPa', 'e5'], ['rainfall', 'e2'], ['temp', 'e3'], ['windSpeed', 'e1']])
         }
     },
     mounted () {
@@ -301,8 +302,8 @@ export default {
             })
         },
         goEcharts (value) {
-            console.log(value)
-            localStorage.setItem('echartsSelectValue', value)
+            var val = this.map.get(value)
+            localStorage.setItem('echartsSelectValue', val)
             this.$router.push('/index/home/echarts')
         }
     }

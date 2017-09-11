@@ -1177,6 +1177,7 @@ export default {
         url: 'storage-order',
         batch: 'storageProductCodeBatch',
         odd: '产品入库单',
+        obt: 2,
         tabList: [{
             key: 'storage-order-product',
             url: 'storage-order-product',
@@ -1479,6 +1480,7 @@ export default {
         theads: ['产品名称', '茶叶品种', '规格型号', '任务单号', '生产/采购日期', '实收数量', '单位', '保质期（天）', '有效期至', '备注信息'],
         protos: ['product_name', 'tea_name', 'specification', 'task_list_no', 'date', 'real_number', 'unit', 'expiration_date', 'validity', 'memo'],
         url: '1/storage-order-product',
+        obt: 3,
         tabList: [{
             key: 'storage-product-code',
             url: 'storage-product-code',
