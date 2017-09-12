@@ -300,7 +300,11 @@ export default {
                     if (typeof (data.value) === 'string') {
                         this.tableForm[data.name] = data.value
                     } else {
-                        this.tableForm[data.name] = this.$changeDateTime(data.value, 0)
+                        if (data.value !== undefined && data.value !== '') {
+                            this.tableForm[data.name] = this.$changeDateTime(data.value, 0)
+                        } else {
+                            this.tableForm[data.name] = ''
+                        }
                     }
                 } else {
                     this.tableForm[data.name] = data.value

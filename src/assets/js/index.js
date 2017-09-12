@@ -70,13 +70,18 @@ router.beforeEach(async (to, from, next) => {
                     let data = window.Roles.permissions
                     // 手机端路由
                     if (!window.isPC) {
-                        var uArr = data.phone_url.concat(data.phone_new_url)
-                        uArr = uArr.concat(data.phone_edit_url)
-                        uArr = uArr.concat(data.phone_detail_url)
-                        uArr = uArr.concat(pxcepts)
-                        if (uArr.indexOf('/appIndex/appdetailbasic/harvestBatch') !== -1) {
-                            uArr.push('/webAppForm/harvestBatch/new')
-                            uArr.push('/webAppForm/harvestBatch/edit')
+                        var uArr
+                        if (data.one === '') {
+                            uArr = pxcepts
+                        } else {
+                            uArr = data.phone_url.concat(data.phone_new_url)
+                            uArr = uArr.concat(data.phone_edit_url)
+                            uArr = uArr.concat(data.phone_detail_url)
+                            uArr = uArr.concat(pxcepts)
+                            if (uArr.indexOf('/appIndex/appdetailbasic/harvestBatch') !== -1) {
+                                uArr.push('/webAppForm/harvestBatch/new')
+                                uArr.push('/webAppForm/harvestBatch/edit')
+                            }
                         }
                         for (let u in uArr) {
                             if (to.path === uArr[u]) {
