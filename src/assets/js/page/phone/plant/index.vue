@@ -110,7 +110,7 @@ export default{
         this.code = this.$route.params.code
         var tabLocal = JSON.parse(sessionStorage.getItem(this.code + '/index'))
         this.product_name = tabLocal.product_name
-        if (tabLocal.img !== '' && tabLocal.img !== 'null') {
+        if (tabLocal.img !== '' && tabLocal.img !== 'null' && tabLocal.img !== null) {
             this.tea_img = tabLocal.img
         }
         this.sell_network = tabLocal.sell_network
