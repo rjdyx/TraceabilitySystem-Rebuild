@@ -50,8 +50,7 @@
 </script>
 
 <style lang="sass" scoped>
-
-    @import "../../../sass/function";
+ @import "../../../sass/function";
 .import{
     width: 57px;
     height: 26px;

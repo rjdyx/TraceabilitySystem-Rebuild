@@ -35,6 +35,9 @@ export default {
                         $(canvas).css('display', 'none')
                     }
                 }, 20)
+                basic.remove(canvas)
+                grow.remove(canvas)
+                product.remove(canvas)
                 i++
                 return true
             }
