@@ -253,7 +253,9 @@ export default {
 					.login-logo{
 					width: 46%;
 					float: left;
-					margin-top: 30px;
+					/*margin-top: 30px;*/
+					position: relative;
+					top: 0.1rem;
 							img{
 						width: 54%;
 						margin: 12% auto;
@@ -263,6 +265,7 @@ export default {
 				.form{
 				float: left;
 				width: 54%;
+				/*margin-top: 13px;*/
 					.el-form-item{
 						margin-top: 5px;
 						/*margin-bottom: 17px;*/
@@ -316,12 +319,13 @@ export default {
 			}
 			@media screen and(min-width:500px) and(max-width:1720px) {
 				.form .el-form-item{
-					margin-bottom: 13px;
+					margin-bottom: 20px;
 				}
 				.el-form-item__content{
 					line-height: 28px;
 				}
 			}
+				
 			.el-form-item__content{
 				/*line-height: 32px;*/
 				font-size: 12px;
@@ -349,5 +353,15 @@ export default {
 				color: #fff !important;
 				border-color: transparent !important;
             }
+			@media screen and (max-width:1376px) {
+				.login-logo {
+					top: 1rem !important;
+				}
+			}
+			@media screen and (min-width:1376px) and(max-width: 1676px) {
+				.login-logo {
+					top: 0.6rem !important;
+				}
+			}
 		}
 </style>

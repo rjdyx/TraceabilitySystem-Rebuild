@@ -214,8 +214,8 @@ export default{
 			background-size: 100% 100%;
 			text-align: center;
 			position: relative;
-			animation: rond 20s linear infinite;
-			-webkit-animation: rond 20s linear infinite;
+			animation: rond 1000s infinite linear;
+			-webkit-animation: rond 1000s linear infinite;
 			.quote{
 				width: 2rem;
 				height: 70px;
@@ -224,42 +224,57 @@ export default{
 				font-size: 0.373rem;
 			}
 		}
+		@keyframes son {
+		  from {transform : rotate(0deg);}
+		  to {transform : rotate(-36000deg);}
+		}
+
+		@-webkit-keyframes son {
+		    from{-webkit-transform : rotate(0deg);}
+		  to{-webkit-transform : rotate(-36000deg);}
+		}
 		@keyframes rond {
-		  0% {transform : rotate(0deg);}
-		  100% {transform : rotate(360deg);}
+		  from {transform : rotate(0deg);}
+		  to {transform : rotate(36000deg);}
 		}
 
 		@-webkit-keyframes rond {
-		    0%{-webkit-transform : rotate(0deg);}
-		  100%{-webkit-transform : rotate(360deg);}
+		    from {-webkit-transform : rotate(0deg);}
+		  to{-webkit-transform : rotate(36000deg);}
 		}
 		.iconquoteA{
 			position: absolute;
 			left: 1rem;
+			animation: son 1000s infinite linear;
 		}
 		.iconquoteB{
 			position: absolute;
 			top: 3.5rem;
 			left: -1rem;
+			animation:son 1000s infinite linear;
 		}
 		.iconquoteC{
 			position: absolute;
 			top: 6.5rem;
 			left: 1rem;
+			animation: son 1000s infinite linear;
 		}
 		.iconquoteD{
 			position: absolute;
 			top: 6.5rem;
 			left: 5rem;
+			animation:son 1000s infinite linear;
 		}
 		.iconquoteE{
 			position: absolute;
 			top: 3.5rem;
 			left: 7rem;
+			animation: son 1000s infinite linear;
 		}
 		.iconquoteF{
 			position: absolute;
 			left: 5rem;
+			animation: son 1000s infinite linear;
 		}
 		.info{
 			width: 100%;

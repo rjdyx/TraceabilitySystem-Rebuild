@@ -140,7 +140,7 @@
 
                     <el-button type="text" size="small" @click="changeEditShow(scope.$index,scope.row)" v-if="!hiddeEdit" v-bind:class="{'btn':hiddeRole}" class="editBtn">编辑</el-button>
 
-                    <el-button type="text" size="small" v-if="hiddeShow" @click="jumpDetails(scope.row)">查看</el-button>
+                    <el-button type="text" size="small" v-if="hiddeShow" @click="jumpDetails(scope.row)" class="lookfor">查看</el-button>
             
                     <el-button size="small" type="text" :disabled="stateDisabled(scope.row)" @click="handelDel(scope.$index,scope.row)" v-if="stateDisabled(scope.row)==false" class="del">
                         删除
@@ -1135,6 +1135,9 @@ export default {
     .demo-table-expand label{
         width: 30% !important;
     }
+}
+.el-message{
+    background: red;
 }
 }
 </style>

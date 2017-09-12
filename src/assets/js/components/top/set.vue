@@ -20,7 +20,7 @@
 						    <el-radio :label="3">高贵丁香紫<span class="bg purple-bg"></span></el-radio>
 						    <el-radio :label="4">狂热活泼黄<span class="bg yellow-bg"></span></el-radio>
 						</el-radio-group>
-					</el-form-item>
+					</el-form-item> 
 
 					<el-form-item label="网站字体">
 						<el-radio-group v-model="radio2"  @change="switchSize">
