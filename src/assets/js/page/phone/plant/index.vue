@@ -278,11 +278,12 @@ export default{
 		}
 		.info{
 			width: 100%;
-			height: 20px;
+			/*height: 20px;*/
 			margin-top: 1.5rem;
 			text-align: center;
 			color: #fff;
 			font-size: 0.373rem;
+			padding-bottom: 1.9rem;
 			p{
 				margin-bottom: 0.1rem;
 				letter-spacing: 0.02rem;
@@ -300,9 +301,10 @@ export default{
 		.menuWrap{
 			width: 100%;
 			height: 1.9rem;
-			position: absolute;
+			position: fixed;
 			bottom: 0;
 			color: #fff;
+			background: #3dd0b6;
 			.indexMenu{
 				display: inline-block;
 				width: 25%;
