@@ -8,8 +8,8 @@
 <template>
 	<div class="phoneIndex">
 		<!-- 头部 -->
-		<div class="phoneHeader">
-			<h2>天池茶叶</h2>
+			<div class="phoneHeader">
+				<h2>天池茶叶</h2>
 		</div>
 		<!-- 中间 <-->
 		<div class="mainWrap">
@@ -189,7 +189,7 @@ export default{
 		.mainWrap{
 			width: 8.2rem;
 			height: 8.2rem;
-			margin: 1.76rem auto 0;
+			margin: 1.3rem auto 0;
 			position: relative;
 			.logo{
 				width: 4.2rem;
@@ -278,11 +278,12 @@ export default{
 		}
 		.info{
 			width: 100%;
-			height: 20px;
-			margin-top: 2rem;
+			/*height: 20px;*/
+			margin-top: 1.5rem;
 			text-align: center;
 			color: #fff;
 			font-size: 0.373rem;
+			padding-bottom: 1.9rem;
 			p{
 				margin-bottom: 0.1rem;
 				letter-spacing: 0.02rem;
@@ -300,9 +301,10 @@ export default{
 		.menuWrap{
 			width: 100%;
 			height: 1.9rem;
-			position: absolute;
+			position: fixed;
 			bottom: 0;
 			color: #fff;
+			background: #3dd0b6;
 			.indexMenu{
 				display: inline-block;
 				width: 25%;
