@@ -77,31 +77,43 @@ export default {
         }
     },
     mixins: [canvas],
+    // 路由进入前
+    beforeRouteEnter (to, from, next) {
+        var str = to.path.substring(to.path.length - 18)
+        var urlName = to.name
+        var params = {code: str}
+        if (sessionStorage.getItem(str + '/' + urlName) === null) {
+            axios.get('teaTrace/tea/' + urlName, {params: params})
+                .then((responce) => {
+                    if (responce.data === 404) {
+                        alert('溯源码无效')
+                        sessionStorage.setItem(str + '/' + urlName, '404')
+                        next('/404')
+                        return false
+                    } else {
+                        sessionStorage.setItem(str + '/' + urlName, JSON.stringify(responce.data))
+                        next()
+                        return false
+                    }
+                })
+        } else if (sessionStorage.getItem(str + '/' + urlName) === '404') {
+            alert('溯源码无效')
+            next('/404')
+            return false
+        } else {
+            next()
+        }
+    },
     mounted () {
         $(document).on('touchmove', function (e) {
             e.stopPropagation()
         })
         let urlName = this.$route.name
-        var params = {code: this.$route.params.id}
-        if (sessionStorage.getItem('teaTrace_operate_' + urlName) === null) {
-            axios.get('teaTrace/tea/' + urlName, {params: params})
-                .then((responce) => {
-                    if (responce.data.length !== 0) {
-                        var ret = this.$conversion(this.dataArr, responce.data, 1)
-                        ret = this.$eltable(ret)
-                        this.datas = ret
-                        sessionStorage.setItem('teaTrace_operate_' + urlName, JSON.stringify(ret))
-                    } else {
-                        this.flag = true
-                    }
-                })
-        } else {
-            var tabLocalOperate = JSON.parse(sessionStorage.getItem('teaTrace_operate_' + urlName))
-            if (urlName === 'sell') {
-                this.getRet(tabLocalOperate)
-            }
-            this.datas = tabLocalOperate
+        var tabLocalOperate = JSON.parse(sessionStorage.getItem(this.$route.params.id + '/' + urlName))
+        if (urlName === 'sell') {
+            this.getRet(tabLocalOperate)
         }
+        this.datas = tabLocalOperate
     },
     methods: {
         enlargeImgFn (imgSrc) {

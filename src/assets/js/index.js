@@ -22,8 +22,10 @@ const pxcepts = ['/appIndex', pre + '404']
 // 管理员路由
 const admins = [pre2 + 'adminRole', pre2 + 'adminCompany', pre2 + 'adminFeedback', pre2 + 'adminLog']
 const aDetails = [pre3 + 'companyUser']
-// 登录后不能访问的路由
-const any = ['/protocol', '/forget', '/login']
+// pc端登录后不能访问的路由
+const any = ['/protocol', '/forget', '/login', '/404']
+// 手机端登录后不能访问的路由
+const pny = ['/waplogin', '/404']
 // 追溯页面路由
 const teaTrace = [
     '/teaTrace/tea/index/',
@@ -51,9 +53,11 @@ router.beforeEach(async (to, from, next) => {
             await axios.get('/login/state').then(responce => {
                 if (responce.data.name === undefined) {
                     if (!window.isPC) {
-                        if (to.path === '/waplogin') {
-                            next()
-                            return false
+                        for (let p in pny) {
+                            if (to.path === pny[p]) {
+                                next()
+                                return false
+                            }
                         }
                         next('/waplogin')
                     } else {
