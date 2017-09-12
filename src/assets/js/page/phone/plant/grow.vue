@@ -8,7 +8,6 @@
 <template>
 <transition name="fade2">
     <div id="home_grow">
-
         <header1 title="生长图片"></header1>
         <div class="hg_content">
             <ul>

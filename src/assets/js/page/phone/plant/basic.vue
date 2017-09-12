@@ -125,7 +125,7 @@ export default {
         this.datas = tabLocalBasic
         this.video = tabLocalBasic.video
         if (tabLocalBasic.planta_img !== 'null' && tabLocalBasic.planta_img !== '') {
-            this.imgArr = tabLocalBasic.planta_img.split(',')
+            // this.imgArr = tabLocalBasic.planta_img.split(',')
         }
         this.videoSrc = require('projectRoot/env.js').app_ano_url + '/' + tabLocalBasic.video
     },
