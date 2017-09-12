@@ -17,6 +17,10 @@ export default {
                 product.append(canvas)
                 canvas.width = document.body.clientWidth
                 canvas.height = document.body.clientHeight
+                canvas.style.position = 'absolute'
+                canvas.style.left = 0
+                canvas.style.top = '0.9rem'
+                canvas.style.zIndex = 89789
                 let timer = setInterval(() => {
                     this.x += 10
                     var cxt = canvas.getContext('2d')
@@ -35,9 +39,6 @@ export default {
                         $(canvas).css('display', 'none')
                     }
                 }, 20)
-                basic.remove(canvas)
-                grow.remove(canvas)
-                product.remove(canvas)
                 i++
                 return true
             }
