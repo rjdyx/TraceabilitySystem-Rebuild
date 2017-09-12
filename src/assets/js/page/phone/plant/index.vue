@@ -79,33 +79,41 @@ export default{
             sell_network: ''
         }
     },
-    mounted () {
-        this.code = this.$route.params.code
-        // 查询首页产品数据
-        if (sessionStorage.getItem('teaTrace') === null) {
-            var params = {code: this.code}
+    // 路由进入前
+    beforeRouteEnter (to, from, next) {
+        var str = to.path.substring(to.path.length - 18)
+        var params = {code: str}
+        if (sessionStorage.getItem(str + '/index') === null) {
             axios.get('teaTrace/tea/index', {params: params})
                 .then((responce) => {
                     if (responce.data === 404) {
-                        this.setToast('text', '当前溯源码无效', '12em')
-                        this.$router.push('/404')
+                        alert('溯源码无效')
+                        sessionStorage.setItem(str + '/index', '404')
+                        next('/404')
+                        return false
                     } else {
-                        sessionStorage.setItem('teaTrace', JSON.stringify(responce.data))
-                        this.product_name = responce.data.product_name
-                        if (responce.data.img !== '' && responce.data.img !== null) {
-                            this.tea_img = responce.data.img
-                        }
-                        this.sell_network = responce.data.sell_network
+                        sessionStorage.setItem(str + '/index', JSON.stringify(responce.data))
+                        next()
+                        return false
                     }
                 })
+        } else if (sessionStorage.getItem(str + '/index') === '404') {
+            alert('溯源码无效')
+            next('/404')
+            return false
         } else {
-            var tabLocal = JSON.parse(sessionStorage.getItem('teaTrace'))
-            this.product_name = tabLocal.product_name
-            if (tabLocal.img !== '' && tabLocal.img !== 'null') {
-                this.tea_img = tabLocal.img
-            }
-            this.sell_network = tabLocal.sell_network
+            next()
         }
+    },
+    mounted () {
+        // 查询首页产品数据
+        this.code = this.$route.params.code
+        var tabLocal = JSON.parse(sessionStorage.getItem(this.code + '/index'))
+        this.product_name = tabLocal.product_name
+        if (tabLocal.img !== '' && tabLocal.img !== 'null') {
+            this.tea_img = tabLocal.img
+        }
+        this.sell_network = tabLocal.sell_network
     },
     methods: {
         // 提示弹窗
