@@ -124,8 +124,12 @@ export default {
         var tabLocalBasic = JSON.parse(sessionStorage.getItem(this.$route.params.id + '/basic'))
         this.datas = tabLocalBasic
         this.video = tabLocalBasic.video
+        console.log(tabLocalBasic.planta_img)
         if (tabLocalBasic.planta_img !== 'null' && tabLocalBasic.planta_img !== '') {
+            console.log(7777)
             // this.imgArr = tabLocalBasic.planta_img.split(',')
+        } else {
+            console.log(8888)
         }
         this.videoSrc = require('projectRoot/env.js').app_ano_url + '/' + tabLocalBasic.video
     },
