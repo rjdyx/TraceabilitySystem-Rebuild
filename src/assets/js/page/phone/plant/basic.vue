@@ -91,34 +91,44 @@ export default {
             }
         }
     },
+    // 路由进入前
+    beforeRouteEnter (to, from, next) {
+        var str = to.path.substring(to.path.length - 18)
+        var params = {code: str}
+        if (sessionStorage.getItem(str + '/basic') === null) {
+            axios.get('teaTrace/tea/plantation', {params: params})
+                .then((responce) => {
+                    if (responce.data === 404) {
+                        alert('溯源码无效')
+                        sessionStorage.setItem(str + '/basic', '404')
+                        next('/404')
+                        return false
+                    } else {
+                        sessionStorage.setItem(str + '/basic', JSON.stringify(responce.data))
+                        next()
+                        return false
+                    }
+                })
+        } else if (sessionStorage.getItem(str + '/basic') === '404') {
+            alert('溯源码无效')
+            next('/404')
+            return false
+        } else {
+            next()
+        }
+    },
     mounted () {
         $(document).on('touchmove', function (e) {
             e.stopPropagation()
         })
-        var params = {code: this.$route.params.id}
-        if (sessionStorage.getItem('teaTrace_basic') === null) {
-            axios.get('teaTrace/tea/plantation', {params: params})
-                .then((responce) => {
-                    var lists = responce.data
-                    if (lists !== '403' && lists !== '404') {
-                        this.datas = lists
-                        sessionStorage.setItem('teaTrace_basic', JSON.stringify(lists))
-                        this.video = lists.video
-                        if (lists.planta_img !== null && lists.planta_img !== '') {
-                            this.imgArr = lists.planta_img.split(',')
-                        }
-                        this.videoSrc = require('projectRoot/env.js').app_ano_url + '/' + lists.video
-                    }
-                })
-        } else {
-            var tabLocalBasic = JSON.parse(sessionStorage.getItem('teaTrace_basic'))
-            this.datas = tabLocalBasic
-            this.video = tabLocalBasic.video
-            if (tabLocalBasic.planta_img !== 'null' && tabLocalBasic.planta_img !== '') {
-                this.imgArr = tabLocalBasic.planta_img.split(',')
-            }
-            this.videoSrc = require('projectRoot/env.js').app_ano_url + '/' + tabLocalBasic.video
+        var tabLocalBasic = JSON.parse(sessionStorage.getItem(this.$route.params.id + '/basic'))
+        this.datas = tabLocalBasic
+        this.video = tabLocalBasic.video
+        console.log(tabLocalBasic.planta_img)
+        if (tabLocalBasic.planta_img !== 'null' && tabLocalBasic.planta_img !== '' && tabLocalBasic.planta_img !== null) {
+            this.imgArr = tabLocalBasic.planta_img.split(',')
         }
+        this.videoSrc = require('projectRoot/env.js').app_ano_url + '/' + tabLocalBasic.video
     },
     components: {
         Header1,

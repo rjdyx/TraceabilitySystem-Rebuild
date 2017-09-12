@@ -8,7 +8,6 @@
 <template>
 <transition name="fade2">
     <div id="home_grow">
-
         <header1 title="生长图片"></header1>
         <div class="hg_content">
             <ul>
@@ -43,24 +42,38 @@ export default {
         }
     },
     mixins: [canvas],
+    // 路由进入前
+    beforeRouteEnter (to, from, next) {
+        var str = to.path.substring(to.path.length - 18)
+        var params = {code: str}
+        if (sessionStorage.getItem(str + '/grow') === null) {
+            axios.get('/teaTrace/tea/grow', {params: params})
+                .then((responce) => {
+                    if (responce.data === 404) {
+                        alert('溯源码无效')
+                        sessionStorage.setItem(str + '/grow', '404')
+                        next('/404')
+                        return false
+                    } else {
+                        sessionStorage.setItem(str + '/grow', JSON.stringify(responce.data))
+                        next()
+                        return false
+                    }
+                })
+        } else if (sessionStorage.getItem(str + '/grow') === '404') {
+            alert('溯源码无效')
+            next('/404')
+            return false
+        } else {
+            next()
+        }
+    },
     mounted () {
         $(document).on('touchmove', function (e) {
             e.stopPropagation()
         })
-        var params = {code: this.$route.params.id}
-        if (sessionStorage.getItem('teaTrace_grow') === null) {
-            axios.get('/teaTrace/tea/grow', {params: params})
-                .then((responce) => {
-                    var lists = responce.data
-                    if (lists !== 404 && lists !== 403 && lists !== 400) {
-                        this.grows = lists
-                        sessionStorage.setItem('teaTrace_grow', JSON.stringify(lists))
-                    }
-                })
-        } else {
-            var tabLocalGrow = JSON.parse(sessionStorage.getItem('teaTrace_grow'))
-            this.grows = tabLocalGrow
-        }
+        var tabLocalGrow = JSON.parse(sessionStorage.getItem(this.$route.params.id + '/grow'))
+        this.grows = tabLocalGrow
     },
     components: {
         Header1
@@ -68,12 +81,12 @@ export default {
 }
 </script>
 <style type="text/css" lang="sass">
-    canvas{
-        position: absolute;
-        left: 0;
-        top: 0.9rem;
-        z-index: 54548;
-    }
+    // canvas{
+    //     position: absolute;
+    //     left: 0;
+    //     top: 0.9rem;
+    //     z-index: 54548;
+    // }
     .breedBorder{
         // border-left:2px solid #93bf46!important;
         border-color:#93bf46!important;

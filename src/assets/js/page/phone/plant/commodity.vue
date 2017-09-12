@@ -67,29 +67,40 @@ export default {
         }
     },
     mixins: [canvas],
+    // 路由进入前
+    beforeRouteEnter (to, from, next) {
+        var str = to.path.substring(to.path.length - 18)
+        var params = {code: str}
+        if (sessionStorage.getItem(str + '/commodity') === null) {
+            axios.get('teaTrace/tea/product', {params: params})
+                .then((responce) => {
+                    if (responce.data === 404) {
+                        alert('溯源码无效')
+                        sessionStorage.setItem(str + '/commodity', '404')
+                        next('/404')
+                        return false
+                    } else {
+                        sessionStorage.setItem(str + '/commodity', JSON.stringify(responce.data))
+                        next()
+                        return false
+                    }
+                })
+        } else if (sessionStorage.getItem(str + '/commodity') === '404') {
+            alert('溯源码无效')
+            next('/404')
+            return false
+        } else {
+            next()
+        }
+    },
     mounted () {
         $(document).on('touchmove', function (e) {
             e.stopPropagation()
         })
-        var params = {code: this.$route.params.id}
-        if (sessionStorage.getItem('teaTrace_product') === null) {
-            axios.get('teaTrace/tea/product', {params: params})
-                .then((responce) => {
-                    var lists = responce.data
-                    if (lists !== 400 && lists !== 404 && lists !== 403) {
-                        this.datas = lists
-                        sessionStorage.setItem('teaTrace_product', JSON.stringify(lists))
-                        if (lists.product_img !== null && lists.product_img !== '') {
-                            this.imgArr = lists.product_img.split(',')
-                        }
-                    }
-                })
-        } else {
-            var tabLocalProduct = JSON.parse(sessionStorage.getItem('teaTrace_product'))
-            this.datas = tabLocalProduct
-            if (tabLocalProduct.product_img !== 'null' && tabLocalProduct.product_img !== '' && tabLocalProduct.product_img !== null) {
-                this.imgArr = tabLocalProduct.product_img.split(',')
-            }
+        var tabLocalProduct = JSON.parse(sessionStorage.getItem(this.$route.params.id + '/commodity'))
+        this.datas = tabLocalProduct
+        if (tabLocalProduct.product_img !== 'null' && tabLocalProduct.product_img !== '' && tabLocalProduct.product_img !== null) {
+            this.imgArr = tabLocalProduct.product_img.split(',')
         }
     },
     methods: {
@@ -197,10 +208,10 @@ export default {
             }
         }
     }
-    canvas{
-        position: absolute;
-        left: 0;
-        top: 0.9rem;
-        z-index: 2378758;
-    }
+    // canvas{
+    //     position: absolute;
+    //     left: 0;
+    //     top: 0.9rem;
+    //     z-index: 2378758;
+    // }
 </style>
