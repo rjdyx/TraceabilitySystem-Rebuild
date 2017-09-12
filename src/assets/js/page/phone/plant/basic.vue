@@ -124,7 +124,6 @@ export default {
         var tabLocalBasic = JSON.parse(sessionStorage.getItem(this.$route.params.id + '/basic'))
         this.datas = tabLocalBasic
         this.video = tabLocalBasic.video
-        console.log(tabLocalBasic.planta_img)
         if (tabLocalBasic.planta_img !== 'null' && tabLocalBasic.planta_img !== '' && tabLocalBasic.planta_img !== null) {
             this.imgArr = tabLocalBasic.planta_img.split(',')
         }
