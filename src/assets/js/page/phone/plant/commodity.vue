@@ -197,10 +197,10 @@ export default {
             }
         }
     }
-    canvas{
-        position: absolute;
-        left: 0;
-        top: 0.9rem;
-        z-index: 2378758;
-    }
+    // canvas{
+    //     position: absolute;
+    //     left: 0;
+    //     top: 0.9rem;
+    //     z-index: 2378758;
+    // }
 </style>

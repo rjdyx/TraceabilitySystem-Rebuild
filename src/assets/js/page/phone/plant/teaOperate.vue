@@ -139,13 +139,6 @@ export default {
         }
     }
 }
-    
-    canvas{
-        position: absolute;
-        left: 0;
-        top: 0.9rem;
-        z-index: 54548;
-    }
     .breedCol{
         background:#93bf46!important;
     }

@@ -68,12 +68,12 @@ export default {
 }
 </script>
 <style type="text/css" lang="sass">
-    canvas{
-        position: absolute;
-        left: 0;
-        top: 0.9rem;
-        z-index: 54548;
-    }
+    // canvas{
+    //     position: absolute;
+    //     left: 0;
+    //     top: 0.9rem;
+    //     z-index: 54548;
+    // }
     .breedBorder{
         // border-left:2px solid #93bf46!important;
         border-color:#93bf46!important;
