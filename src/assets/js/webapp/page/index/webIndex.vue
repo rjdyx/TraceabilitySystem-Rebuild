@@ -73,7 +73,7 @@ export default{
 		.indexlist{
 			width: 100%;
 			text-align: center;
-			padding-top:1rem;
+			padding-top:0.8rem;
 			.company{
 				font-size: .6rem;
 				color: #fff;
@@ -91,6 +91,7 @@ export default{
 			color: #fff;
 			font-size: .4rem;
 			margin-top: 1rem;
+			padding-bottom: 1rem;
 		}
 	}
 	@font-face{
