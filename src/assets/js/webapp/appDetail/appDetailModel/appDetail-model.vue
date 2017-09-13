@@ -367,7 +367,7 @@ export default {
             margin-bottom: 2px;
         }
     .has{
-        top: 0px;
+        top: -1px;
         }
     .hasno{
         top: -87px;
