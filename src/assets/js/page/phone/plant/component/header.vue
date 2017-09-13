@@ -34,6 +34,7 @@
 	}
 	.goBack{
 		width:.3rem;
+		padding-top: 0.25rem;
 	}
 }
 </style>
