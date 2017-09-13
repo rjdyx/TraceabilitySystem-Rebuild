@@ -112,6 +112,8 @@ export default {
         var tabLocalOperate = JSON.parse(sessionStorage.getItem(this.$route.params.id + '/' + urlName))
         if (urlName === 'sell') {
             this.getRet(tabLocalOperate)
+        } else if (urlName === 'fertilize') {
+            tabLocalOperate = this.$eltable(tabLocalOperate)
         }
         this.datas = tabLocalOperate
     },
