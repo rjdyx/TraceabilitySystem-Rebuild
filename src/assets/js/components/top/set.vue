@@ -371,5 +371,8 @@ export default {
 .save{
 	text-align: center;
 }
+.copyright{
+    padding-top: 187px;
+}
 }
 </style>

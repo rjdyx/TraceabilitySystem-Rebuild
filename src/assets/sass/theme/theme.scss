@@ -216,6 +216,10 @@ $b_small: 18px;
 .lookfor{
 	color:$bg;
 }
+.el-message-box .el-button--primary{
+	background:$bg !important;
+	border-color: $bg;
+}
 }
 
 //大号字体

@@ -1,6 +1,8 @@
 <template>
 	<div id="header1">
-		<img class="goBack" @touchend="goBack" src="../images/goback.png"  alt="返回">
+		<span class="backWrap" @touchend="goBack">
+			<img class="goBack" src="../images/goback.png" alt="返回">
+		</span>
 		{{title}}
 	</div>
 </template>
@@ -21,12 +23,18 @@
 	line-height: 1rem;
 	font-size:.45rem;
 	z-index: 100;
-	.goBack{
-		width:.3rem;
+	.backWrap{
+		display: inline-block;
+		width: 1.4rem;
+		height: 1rem;
 		position:absolute;
-		left:2%;
+		left:0%;
 		top:50%;
 		transform:translateY(-50%);
+	}
+	.goBack{
+		width:.3rem;
+		padding-top: 0.25rem;
 	}
 }
 </style>

@@ -66,7 +66,7 @@ export default {
             imgArr: []
         }
     },
-    // mixins: [canvas],
+    mixins: [canvas],
     // 路由进入前
     beforeRouteEnter (to, from, next) {
         var str = to.path.substring(to.path.length - 18)
