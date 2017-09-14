@@ -23,7 +23,7 @@
 				<div class="tempInner">
 					<div class="tempCanvas">
 						<div></div>
-					    <canvas></canvas>
+					    <canvas width="436"height="254"></canvas>
 					</div>
 					<p @touchend="goCanvasFn">进入数据监测</p>
 				</div>
@@ -76,63 +76,49 @@ export default{
             // 白色底圆
             pen.fillStyle = '#fff'
             pen.beginPath()
-            // 求原心
-            var oX = Math.round(w / 2)
-            var oY = Math.round(h * 0.8)
-            var r = Math.round(oX - w * 0.159)
-            pen.arc(oX, oY, r, 0, Math.PI, true)
+            pen.arc(216, 197, 140, 0, Math.PI, true)
             pen.fill()
             pen.closePath()
             // 可变arc 彩色圆
             pen.fillStyle = '#fa8564'
             pen.beginPath()
-            pen.moveTo(oX, oY)
-            pen.arc(oX, oY, r, Math.PI, Math.PI * ((num / ber) + 1), false)
+            pen.moveTo(216, 197)
+            pen.arc(216, 197, 140, Math.PI, Math.PI * ((num / ber) + 1), false)
             pen.closePath()
             pen.fill()
             // 湿度
             pen.beginPath()
-            var ts = Math.round(0.0454 * w)
-            pen.font = ts + 'px ' + 'Arial'
-            var tX = Math.round(0.140 * w)
-            var tY = Math.round(0.1 * h)
-            pen.fillText(title, tX, tY)
+            pen.font = '24px Arial'
+            pen.fillText(title, 70, 30)
             // 可变65%
-            var tts = Math.round(0.0818 * w)
-            pen.font = tts + 'px ' + 'Arial'
-            var ttX = Math.round(0.140 * w)
-            var ttY = Math.round(0.28 * h)
-            pen.fillText(targetDeg, ttX, ttY)
-            var ttts = Math.round(0.06363 * w)
-            pen.font = ttts + 'px ' + 'Arial'
+            pen.font = '36px Arial'
+            pen.fillText(targetDeg, 70, 70)
+            pen.font = '30px Arial'
             pen.fillStyle = '#a0a0a0'
-            var tttY = Math.round(0.95 * h)
             pen.textAlign = 'center'
-            pen.fillText('时间：2017-9-9 10:30', oX, tttY)
+            pen.fillText('时间：2017-9-9 10:30', 216, 230)
             pen.closePath()
             // 剪切圆
             pen.globalCompositeOperation = 'destination-out'
             pen.beginPath()
-            var r2 = Math.round(0.18 * h)
-            pen.arc(oX, oY, r2, 0, Math.PI, true)
+            pen.arc(216, 197, 55, 0, Math.PI, true)
             pen.fill()
             pen.closePath()
             pen.restore()
             pen.save()
             // 指针 这里也变 角度变
-            pen.translate(oX, oY)
+            pen.translate(216, 197)
             // pen.rotate(Math.PI * 0.65)
             pen.rotate(Math.PI * (num / ber))
             pen.beginPath()
             pen.fillStyle = '#2c3638'
-            var r3 = Math.round(0.0227 * w) / 2
-            pen.moveTo(0, -r3)
-            pen.lineTo(-r, 0)
-            pen.lineTo(0, r3)
+            pen.moveTo(0, -5)
+            pen.lineTo(-140, 0)
+            pen.lineTo(0, 5)
             pen.fill()
             pen.closePath()
             pen.beginPath()
-            pen.arc(0, 0, r3 + 1, 0, Math.PI * 2, false)
+            pen.arc(0, 0, 7, 0, Math.PI * 2, false)
             pen.closePath()
             pen.fill()
             pen.restore()
@@ -141,21 +127,17 @@ export default{
             var w = $('.tempCanvas>div').width()
             var h = $('.tempCanvas>div').height()
             var canvas = $('.tempCanvas canvas').get(0)
-            if (w > 460) {
-                w = 460
-            }
-            if (h > 214) {
-                h = 214
-            }
             canvas.setAttribute('width', w)
             canvas.setAttribute('height', h)
-            // $('.tempCanvas').append($(canvas))
             var pen = canvas.getContext('2d')
+            var s1 = (w / 436).toFixed(1)
+            var s2 = (h / 254).toFixed(1)
+            pen.scale(s1, s2)
             this.drawFn(w, h, pen, '温度', '65%')
         },
         goCanvasFn () {
-            console.log(55)
             this.$router.push('/appIndex/appCanvas')
+            $(window).off('resize') /// ???
         }
     },
     mounted () {
@@ -172,6 +154,7 @@ export default{
             this.drawInit()
         })
     }
+
 }
 </script>
 
@@ -181,26 +164,7 @@ export default{
 		height: 100%;
 		padding-top: 50px;
 		position: relative;
-		/*z-index: -5;*/
 		overflow: hidden;
-		/*background: #8dcf87 !important;*/
-/*		.indexImg{
-			width: 100%;
-			height: 50%;
-			position: relative;
-			text-align: center;
-			margin-top: 0.7rem;
-			img{
-				width: 92%;
-			}
-		}*/
-/*		.loginTime{
-			width: 100%;
-			text-align: center;
-			color: #fff;
-			font-size: .4rem;
-			margin-top: 1rem;
-		}*/
 		.userInfo{
 			width: 100%;
 			text-align: center;
@@ -238,7 +202,7 @@ export default{
 							right: 0;
 							bottom: 0;
 							margin:auto;
-
+							/*background:#f1f1f1;*/
 						}
 					}
 					>p{

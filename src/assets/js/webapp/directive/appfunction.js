@@ -43,6 +43,11 @@ export default {
             this.homeShow = false
             this.back = false
             this.growPicture = true
+        } else if (path === '/appIndex/appCanvas') {
+            this.settitle = '天池茶叶溯源系统'
+            this.homeShow = false
+            this.back = true
+            this.growPicture = false
         } else if (path.indexOf('appdetailbasic') !== -1) {
             if (path.indexOf('/plantTo') !== -1) {
                 let detect = localStorage.getItem('appTab')
@@ -73,6 +78,11 @@ export default {
                 this.homeShow = false
                 this.back = false
                 this.growPicture = true
+            } else if (path === '/appIndex/appCanvas') {
+                this.settitle = '天池茶叶溯源系统'
+                this.homeShow = false
+                this.back = true
+                this.growPicture = false
             } else if (path.indexOf('appdetailbasic') !== -1) {
                 if (path.indexOf('/plantTo') !== -1) {
                     let detect = localStorage.getItem('appTab')
