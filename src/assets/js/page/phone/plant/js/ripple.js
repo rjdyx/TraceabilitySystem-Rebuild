@@ -38,7 +38,7 @@ export default {
                         clearInterval(timer)
                         $(canvas).css('display', 'none')
                     }
-                }, 20)
+                }, 50)
                 i++
                 return true
             }

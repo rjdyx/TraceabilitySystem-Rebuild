@@ -214,8 +214,8 @@ export default{
 			background-size: 100% 100%;
 			text-align: center;
 			position: relative;
-			animation: rond 1000s infinite linear;
-			-webkit-animation: rond 1000s linear infinite;
+			animation: rond 2000s infinite linear;
+			-webkit-animation: rond 2000s linear infinite;
 			.quote{
 				width: 2rem;
 				height: 70px;
@@ -245,44 +245,47 @@ export default{
 		.iconquoteA{
 			position: absolute;
 			left: 1rem;
-			animation: son 1000s infinite linear;
+			top: -0.3rem;
+			animation: son 2000s infinite linear;
+			transform-origin: center;
 		}
 		.iconquoteB{
 			position: absolute;
 			top: 3.5rem;
 			left: -1rem;
-			animation:son 1000s infinite linear;
+			animation:son 2000s infinite linear;
 		}
 		.iconquoteC{
 			position: absolute;
 			top: 6.5rem;
 			left: 1rem;
-			animation: son 1000s infinite linear;
+			animation: son 2000s infinite linear;
 		}
 		.iconquoteD{
 			position: absolute;
 			top: 6.5rem;
 			left: 5rem;
-			animation:son 1000s infinite linear;
+			animation:son 2000s infinite linear;
 		}
 		.iconquoteE{
 			position: absolute;
 			top: 3.5rem;
 			left: 7rem;
-			animation: son 1000s infinite linear;
+			animation: son 2000s infinite linear;
 		}
 		.iconquoteF{
 			position: absolute;
 			left: 5rem;
-			animation: son 1000s infinite linear;
+			top: -0.3rem;
+			animation: son 2000s infinite linear;
 		}
 		.info{
 			width: 100%;
-			height: 20px;
 			margin-top: 1.5rem;
 			text-align: center;
 			color: #fff;
 			font-size: 0.373rem;
+			padding-bottom: 1.9rem;
 			p{
 				margin-bottom: 0.1rem;
 				letter-spacing: 0.02rem;
@@ -300,9 +303,10 @@ export default{
 		.menuWrap{
 			width: 100%;
 			height: 1.9rem;
-			position: absolute;
+			position: fixed;
 			bottom: 0;
 			color: #fff;
+			background: #3dd0b6;
 			.indexMenu{
 				display: inline-block;
 				width: 25%;

@@ -103,23 +103,18 @@
         }
         return flag;
     }
-    function state_Change()
-    {
-    if (xmlhttp.readyState==4)
-      {// 4 = "loaded"
-      if (xmlhttp.status==200)
-        {// 200 = OK
-            window.Laravel = {csrfToken:xmlhttp.responseText};
-            document.getElementsByTagName("meta")[0]["content"] = window.Laravel.csrfToken;
+    function state_Change() {
+        if (xmlhttp.readyState==4) {// 4 = "loaded"
+            if (xmlhttp.status==200) {// 200 = OK
+                window.Laravel = {csrfToken:xmlhttp.responseText};
+                document.getElementsByTagName("meta")[0]["content"] = window.Laravel.csrfToken;
+            } else {
+                loadXMLDoc('/token');
+                // alert("token获取失败");
+                // document.write(404);
+            }
         }
-      else
-        {
-            alert("token获取失败");
-            document.write(404);
-        }
-      }
     }
-
     window.onload = function() {
         loadXMLDoc('/token');
     }

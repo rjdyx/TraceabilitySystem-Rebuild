@@ -108,7 +108,7 @@ export default {
 			
 			span{
 				display: inline-block;
-				width: 20px;
+				/*width: 20px;*/
 				position: absolute;
 			}
 			.left-btn{
@@ -116,23 +116,24 @@ export default {
 				background-size: 100%;
 				left: 6%;
 				height: 20px;
+				width: 20px;
 				top:28%;
 			}
 			.right-btn,.back{
-				right: 5%;
-				top: 24%;
+				right: 0%;
+				top: 0%;
 			}
 			.right-btn{
-				@include font(#fff, 0.8rem, 23px);
-				width: 28px;
-				height: 23px;
+				@include font(#fff, 0.8rem, 50px);
+				width: 56px;
+				height: 50px;
+				text-align: center;
 			}
 			.back{
-				width: 34px;
-				height: 23px;
-				@include font(#fff, 0.9rem, 23px);
-				/*font-size: 35px;*/
-				/*line-height: 23px;*/
+				width: 56px;
+				height: 50px;
+				text-align: center;
+				@include font(#fff, 0.9rem, 50px);
 			}
 			.newplan{
 		        width: 9%;
@@ -167,13 +168,15 @@ export default {
 	    -moz-osx-font-smoothing: grayscale;
 	}
 	.growPicture{
-        width: 28px;
-        height: 23px;
+        width: 52px;
+        height: 50px;
         display: inline-block;  
         position: absolute;
-        right: 6%;
+        right: 0%;
         top: 4%;
+        text-align: center;
         color: #fff;
+        /*border: 1px solid;*/
     }
     @font-face {
         font-family: 'growPicture';
