@@ -67,7 +67,6 @@ export default {
             product: {},
             sells: false,
             lack: '无相关记录',
-            x: 10,
             i: 0,
             canvasShow: true,
             dataArr: [{result: {'0': '合格', '1': '不合格'}}, {transportable_type: {'self': '自运', 'consign': '托运'}}],
@@ -143,6 +142,12 @@ export default {
 }
 </script>
 <style type="text/css" lang="sass">
+canvas{
+        position: absolute;
+        left: 0;
+        top: 0.9rem;
+        z-index: 54548;
+    }
 .dialogImg{
     .weui-dialog{
         background:none;
