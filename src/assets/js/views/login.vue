@@ -6,7 +6,7 @@
 <template>
 	<div class="login">
 		<img src="/public/images/rfid-bg.png" class="bg">
-		<h1 class="logintitle">天池茶业溯源安全预警系统</h1>
+		<h1 class="logintitle">{{head_short_name}}溯源安全预警系统</h1>
 		<img src="/public/images/rfid-main.png" class="main-bg">
 
 		<div class="logincontent">
@@ -134,7 +134,8 @@ export default {
             },
             checked: true,
             loading: false,
-            codeLoading: false
+            codeLoading: false,
+            head_short_name: '茶叶'
         }
     },
     methods: {
@@ -182,9 +183,19 @@ export default {
         },
         handle () {
             console.log('iwgufewgfyefheufeuf')
+        },
+        getHeadTitle (urlBefore) {
+            let params = {urlBefore: urlBefore}
+            axios.get('/kit/head-title', {params: params}).then((responce) => {
+                this.head_short_name = responce.data
+            })
         }
     },
     mounted () {
+        if (window.location.host !== 'localhost:8080') {
+            var urlBefore = window.location.host.split('.find')[0]
+            this.getHeadTitle(urlBefore)
+        }
         this.Kit()
         // 记住账号
         if (localStorage.getItem('recordUser') === '' || localStorage.getItem('recordUser') === undefined) {

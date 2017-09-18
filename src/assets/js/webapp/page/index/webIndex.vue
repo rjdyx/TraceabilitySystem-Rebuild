@@ -20,12 +20,12 @@
 		</div> -->
 		<div class='canvasInfo'>
 			<div class="tempWrap">
-				<div class="tempInner">
+				<div class="tempInner" @touchend="goCanvasFn">
 					<div class="tempCanvas">
 						<div></div>
 					    <canvas width="436"height="254"></canvas>
 					</div>
-					<p @touchend="goCanvasFn">进入数据监测</p>
+					<p>进入数据监测</p>
 				</div>
 			</div>
 			<div class="videoWrap">
