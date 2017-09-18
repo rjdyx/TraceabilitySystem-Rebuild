@@ -43,7 +43,7 @@ export default {
             this.homeShow = false
             this.back = false
             this.growPicture = true
-        } else if (path === '/appIndex/appCanvas') {
+        } else if (path === '/appIndex/appCanvas' || path === '/appIndex/appVideo') {
             this.settitle = '天池茶叶溯源系统'
             this.homeShow = false
             this.back = true
@@ -78,7 +78,7 @@ export default {
                 this.homeShow = false
                 this.back = false
                 this.growPicture = true
-            } else if (path === '/appIndex/appCanvas') {
+            } else if (path === '/appIndex/appCanvas' || path === '/appIndex/appVideo') {
                 this.settitle = '天池茶叶溯源系统'
                 this.homeShow = false
                 this.back = true

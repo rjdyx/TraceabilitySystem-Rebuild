@@ -20,16 +20,16 @@
 		</div> -->
 		<div class='canvasInfo'>
 			<div class="tempWrap">
-				<div class="tempInner">
+				<div @touchend="goCanvasFn" class="tempInner">
 					<div class="tempCanvas">
 						<div></div>
 					    <canvas width="436"height="254"></canvas>
 					</div>
-					<p @touchend="goCanvasFn">进入数据监测</p>
+					<p>进入数据监测</p>
 				</div>
 			</div>
 			<div class="videoWrap">
-				<div class="videoInner">
+				<div @touchend="goVideoFn" class="videoInner">
 					<div class="videoCanvas">
 						<canvas></canvas>
 					</div>
@@ -138,6 +138,11 @@ export default{
         goCanvasFn () {
             this.$router.push('/appIndex/appCanvas')
             $(window).off('resize') /// ???
+        },
+        goVideoFn () {
+            console.log(11)
+            this.$router.push('/appIndex/appVideo')
+            $(window).off('resize') /// ???
         }
     },
     mounted () {
@@ -154,7 +159,6 @@ export default{
             this.drawInit()
         })
     }
-
 }
 </script>
 
