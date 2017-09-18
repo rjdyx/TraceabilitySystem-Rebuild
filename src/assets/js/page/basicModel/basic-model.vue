@@ -1040,9 +1040,10 @@ export default {
             opacity: 0;
         }
         .operate_wrap{
-            /*display: inline-block;*/
             float: left;
-            margin-bottom: 10px;
+            .el-select, .dateBtn{
+                margin-bottom: 10px;
+            }
         }
         .searchInp {
             width: 161px;

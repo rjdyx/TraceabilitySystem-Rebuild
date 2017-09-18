@@ -7,17 +7,35 @@
  */
 <template>
 	<div class="webIndex">
-		<div class="indexlist">
+		<div class="userInfo">
 			<h1 class="company">所属公司：{{company}}</h1>
 			<p>用户类型：{{userType}}</p>
 			<p>用户名：{{user}}</p>
-			
 		</div>
-		<div class="indexImg">
+		<!-- <div class="indexImg">
 			<img src="/public/images/teaAppIndex.png">
 		</div>
 		<div class="loginTime">
 			<p>登录时间：{{loginDate}}</p>
+		</div> -->
+		<div class='canvasInfo'>
+			<div class="tempWrap">
+				<div class="tempInner">
+					<div class="tempCanvas">
+						<div></div>
+					    <canvas width="436"height="254"></canvas>
+					</div>
+					<p @touchend="goCanvasFn">进入数据监测</p>
+				</div>
+			</div>
+			<div class="videoWrap">
+				<div class="videoInner">
+					<div class="videoCanvas">
+						<canvas></canvas>
+					</div>
+					<p>进入视频监测</p>
+				</div>
+			</div>
 		</div>
 	</div>
 </template>
@@ -36,6 +54,90 @@ export default{
     methods: {
         push () {
             this.$router.push('/appIndex')
+        },
+        // 获取canvas宽度，高度
+        getCanvasW () {
+            var canW = $('canvas').width()
+            return canW
+        },
+        getCanvasH () {
+            var canH = $('canvas').height()
+            return canH
+        },
+        drawFn (w, h, pen, title, targetDeg) {
+            pen.clearRect(0, 0, w, h)
+            // 绘制一个矩形
+            var ber = 10000
+            if (targetDeg.indexOf('%') > 1) {
+                ber = 100
+            }
+            let num = parseInt(targetDeg)
+            pen.save()
+            // 白色底圆
+            pen.fillStyle = '#fff'
+            pen.beginPath()
+            pen.arc(216, 197, 140, 0, Math.PI, true)
+            pen.fill()
+            pen.closePath()
+            // 可变arc 彩色圆
+            pen.fillStyle = '#fa8564'
+            pen.beginPath()
+            pen.moveTo(216, 197)
+            pen.arc(216, 197, 140, Math.PI, Math.PI * ((num / ber) + 1), false)
+            pen.closePath()
+            pen.fill()
+            // 湿度
+            pen.beginPath()
+            pen.font = '24px Arial'
+            pen.fillText(title, 70, 30)
+            // 可变65%
+            pen.font = '36px Arial'
+            pen.fillText(targetDeg, 70, 70)
+            pen.font = '30px Arial'
+            pen.fillStyle = '#a0a0a0'
+            pen.textAlign = 'center'
+            pen.fillText('时间：2017-9-9 10:30', 216, 230)
+            pen.closePath()
+            // 剪切圆
+            pen.globalCompositeOperation = 'destination-out'
+            pen.beginPath()
+            pen.arc(216, 197, 55, 0, Math.PI, true)
+            pen.fill()
+            pen.closePath()
+            pen.restore()
+            pen.save()
+            // 指针 这里也变 角度变
+            pen.translate(216, 197)
+            // pen.rotate(Math.PI * 0.65)
+            pen.rotate(Math.PI * (num / ber))
+            pen.beginPath()
+            pen.fillStyle = '#2c3638'
+            pen.moveTo(0, -5)
+            pen.lineTo(-140, 0)
+            pen.lineTo(0, 5)
+            pen.fill()
+            pen.closePath()
+            pen.beginPath()
+            pen.arc(0, 0, 7, 0, Math.PI * 2, false)
+            pen.closePath()
+            pen.fill()
+            pen.restore()
+        },
+        drawInit () {
+            var w = $('.tempCanvas>div').width()
+            var h = $('.tempCanvas>div').height()
+            var canvas = $('.tempCanvas canvas').get(0)
+            canvas.setAttribute('width', w)
+            canvas.setAttribute('height', h)
+            var pen = canvas.getContext('2d')
+            var s1 = (w / 436).toFixed(1)
+            var s2 = (h / 254).toFixed(1)
+            pen.scale(s1, s2)
+            this.drawFn(w, h, pen, '温度', '65%')
+        },
+        goCanvasFn () {
+            this.$router.push('/appIndex/appCanvas')
+            $(window).off('resize') /// ???
         }
     },
     mounted () {
@@ -47,7 +149,12 @@ export default{
                 this.userType = responce.data.type
                 this.loginDate = localStorage.getItem('loginDate')
             })
+        this.drawInit()
+        $(window).on('resize', () => {
+            this.drawInit()
+        })
     }
+
 }
 </script>
 
@@ -55,43 +162,80 @@ export default{
 	.webIndex{
 		width: 100%;
 		height: 100%;
-		padding-top: 1rem;
+		padding-top: 50px;
 		position: relative;
-		z-index: -5;
 		overflow: hidden;
-		background: #8dcf87 !important;
-		.indexImg{
-			width: 100%;
-			height: 50%;
-			position: relative;
-			text-align: center;
-			margin-top: 0.7rem;
-			img{
-				width: 92%;
-			}
-		}
-		.indexlist{
+		.userInfo{
 			width: 100%;
 			text-align: center;
-			padding-top:0.8rem;
+			padding-top:.7rem;
+			color:#8dcf87;
 			.company{
-				font-size: .6rem;
-				color: #fff;
+				font-size: .7rem;
 				font-family: fashionBlack;
 			}
 			p{
 				font-size: .5rem;
-				padding-top: 10px;
-				color: #fff;
 			}
 		}
-		.loginTime{
-			width: 100%;
+		.canvasInfo{
+			padding-top: .5rem;
 			text-align: center;
-			color: #fff;
-			font-size: .4rem;
-			margin-top: 1rem;
-			padding-bottom: 1rem;
+			.tempWrap{
+				.tempInner{
+					width: 70%;
+					border:1px solid #dcdcdc;
+					border-radius:10px;
+					display: inline-block;
+					padding: .2rem .2rem  0rem .2rem;
+					.tempCanvas{
+						position: relative;
+						>div{
+							height: 4rem;
+							background:#f1f1f1;
+						}
+						canvas{
+							border-radius:5px;
+							position: absolute;
+							left: 0;
+							top: 0;
+							right: 0;
+							bottom: 0;
+							margin:auto;
+							/*background:#f1f1f1;*/
+						}
+					}
+					>p{
+						font-size: .5rem;
+						text-align: center;
+						line-height: 200%;
+					}
+				}
+			}
+			.videoWrap{
+				margin-top: .4rem;
+				.videoInner{
+					width: 70%;
+					border:1px solid #dcdcdc;
+					border-radius:10px;
+					display: inline-block;
+					padding: .2rem .2rem  0rem .2rem;
+					.videoCanvas{
+						canvas{
+							width: 100%;
+							height: 4rem;
+							border-radius:5px;
+							background: url('/public/images/video-bg.png') no-repeat center center;
+					        background-size:cover; 
+						}
+					}
+					>p{
+						font-size: .5rem;
+						text-align: center;
+						line-height: 200%;
+					}
+				}
+			}
 		}
 	}
 	@font-face{
