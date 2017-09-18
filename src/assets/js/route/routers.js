@@ -153,6 +153,12 @@ const appCanvas = resolve => {
         resolve(require('../webapp/page/index/canvas.vue'))
     }, 'appCanvas')
 }
+// ---------------------------首页的数据的详情页----------------------------------
+const appVideo = resolve => {
+    require.ensure(['../webapp/page/index/video.vue'], () => {
+        resolve(require('../webapp/page/index/video.vue'))
+    }, 'appVideo')
+}
 // ---------------------------详情页基础信息管理----------------------------------
 const appdetailbasic = resolve => {
     require.ensure(['../webapp/appDetail/appDetailBasic/app-detail-basic.vue'], () => {
@@ -315,6 +321,11 @@ var routes = [
             {
                 path: 'appCanvas',
                 component: appCanvas
+                // 需要登录才能进入此路由
+            },
+            {
+                path: 'appVideo',
+                component: appVideo
                 // 需要登录才能进入此路由
             }
         ]

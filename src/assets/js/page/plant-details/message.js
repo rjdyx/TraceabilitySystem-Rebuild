@@ -1186,6 +1186,7 @@ export default {
             searchPlaceholder: '请输入产品进行搜索',
             headList: ['产品名称', '茶叶品种', '规格型号', '任务单号', '生产/采购日期', '实收数量', '单位', '状态', '基本单位名称', '基本单位应收数量', '基本单位实收数量', '保质期（天）', '有效期至', '仓位', '备注信息'],
             protos: ['product_name', 'tea_name', 'specification', 'task_list_no', 'date', 'real_number', 'unit', 'state', 'basic_unit', 'basic_recei_number', 'basic_real_number', 'expiration_date', 'validity', 'store_no', 'memo'],
+            filter: [3, 4, 7, 8, 9, 10, 11, 12, 13],
             hiddeEdit: true,
             searchText: true,
             widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50],

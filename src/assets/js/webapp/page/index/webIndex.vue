@@ -29,7 +29,7 @@
 				</div>
 			</div>
 			<div class="videoWrap">
-				<div class="videoInner">
+				<div @touchend="goVideoFn" class="videoInner">
 					<div class="videoCanvas">
 						<canvas></canvas>
 					</div>
@@ -138,6 +138,11 @@ export default{
         goCanvasFn () {
             this.$router.push('/appIndex/appCanvas')
             $(window).off('resize') /// ???
+        },
+        goVideoFn () {
+            console.log(11)
+            this.$router.push('/appIndex/appVideo')
+            $(window).off('resize') /// ???
         }
     },
     mounted () {
@@ -154,7 +159,6 @@ export default{
             this.drawInit()
         })
     }
-
 }
 </script>
 

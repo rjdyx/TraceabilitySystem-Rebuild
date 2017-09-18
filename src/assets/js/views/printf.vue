@@ -14,9 +14,9 @@
                     <!-- 序号 --> 
                     <el-table-column width="50" label="序号" type="index" id="test_id">
                     </el-table-column>
-                    <template v-for="(item,index) in tabItem.headList">
+                    <template v-for="(item,index) in filterTableTheads">
                         <el-table-column 
-                            :prop="tabItem.protos[index]"
+                            :prop="filterTableProtos[index]"
                             :label="item"
                             show-overflow-tooltip
                             align="center"
@@ -24,13 +24,13 @@
                             >
                             <template scope="scope">
                                 <div v-if="item.includes('产品名称')" slot="reference" class="name-wrapper pcActive" @click="jumpDetails(scope.row)">
-                                    {{ tableData[scope.$index][tabItem.protos[index]] }}
+                                    {{ tableData[scope.$index][filterTableProtos[index]] }}
                                 </div>
-                                <div class="imgTipDiv" v-else-if="tabItem.protos[index]=='thumb'" slot="reference">
-                                    <img v-if="tableData[scope.$index][tabItem.protos[index]]!=null && tableData[scope.$index][tabItem.protos[index]]!=''" :src="tableData[scope.$index][tabItem.protos[index]]" width="50px" height="auto">
+                                <div class="imgTipDiv" v-else-if="filterTableProtos[index]=='thumb'" slot="reference">
+                                    <img v-if="tableData[scope.$index][filterTableProtos[index]]!=null && tableData[scope.$index][filterTableProtos[index]]!=''" :src="tableData[scope.$index][filterTableProtos[index]]" width="50px" height="auto">
                                 </div>
                                 <div v-else slot="reference">
-                                    {{ tableData[scope.$index][tabItem.protos[index]] }}
+                                    {{ tableData[scope.$index][filterTableProtos[index]] }}
                                 </div>
                             </template>
                         </el-table-column>
@@ -59,7 +59,9 @@ export default {
             filterTheads: [],
             filterProtos: [],
             odd: '',
-            printf: {}
+            printf: {},
+            filterTableTheads: [],
+            filterTableProtos: []
         }
     },
     mounted () {
@@ -67,17 +69,26 @@ export default {
         this.printf = localStorage.getItem('printf') ? JSON.parse(localStorage.getItem('printf')) : {}
         this.models = this.printf.detailsBatch
         this.odd = this.models.odd
-        this.$nextTick(() => {
-            this.tabItem = this.models.tabList[0]
+        this.tabItem = this.models.tabList[0]
+        if (this.models.filter) {
             this.filterTheads = this.models.theads.filter(this.filterFn)
             this.filterProtos = this.models.protos.filter(this.filterFn)
-        })
+        } else {
+            this.filterTheads = this.models.theads
+            this.filterProtos = this.models.protos
+        }
+        if (this.tabItem.filter) {
+            this.filterTableTheads = this.tabItem.headList.filter(this.filterFn2)
+            this.filterTableProtos = this.tabItem.protos.filter(this.filterFn2)
+        } else {
+            this.filterTableTheads = this.tabItem.headList
+            this.filterTableProtos = this.tabItem.protos
+        }
         this.headData = this.printf.headData
         this.tableData = this.printf.tableData
     },
     methods: {
         confirmPrintf () {
-            // $('#printfPreview .footer').hide()
             window.print()
         },
         cancelPrintf () {
@@ -85,6 +96,14 @@ export default {
         },
         filterFn (item, index, array) {
             var bol = this.models.filter.indexOf(index)
+            if (bol === -1) {
+                return true
+            } else {
+                return false
+            }
+        },
+        filterFn2 (item, index, array) {
+            var bol = this.tabItem.filter.indexOf(index)
             if (bol === -1) {
                 return true
             } else {

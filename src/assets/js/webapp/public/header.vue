@@ -77,11 +77,11 @@ export default {
  
 
 <style lang='sass'>
-@mixin font($fontcolor,$fontSize,$lineHeight){
-	color: $fontcolor;
-	line-height: $lineHeight;
-	font-size: $fontSize;
-}
+	@mixin font($fontcolor,$fontSize,$lineHeight){
+		color: $fontcolor;
+		line-height: $lineHeight;
+		font-size: $fontSize;
+	}
 	.app-header{
 		height: 50px;
 		width: 100%;
