@@ -205,7 +205,7 @@ export default {
         }
     },
     mounted () {
-        if (window.location.host !== 'localhost:8080') {
+        if (this.urlBefore !== 'szy' && window.location.host !== 'localhost:8080') {
             this.urlBefore = window.location.host.split('.find')[0]
             this.getHeadTitle(this.urlBefore)
         }
