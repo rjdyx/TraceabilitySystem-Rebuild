@@ -193,7 +193,7 @@ export default {
             })
         },
         getChangeUser (val) {
-            if (this.urlBefore !== 'szy') {
+            if (this.urlBefore !== 'szy' && window.location.host !== 'localhost:8080') {
                 let params = {urlBefore: this.urlBefore, val: val}
                 axios.get('/kit/get-user', {params: params}).then((responce) => {
                     if (responce.data === 'false') {
@@ -205,7 +205,7 @@ export default {
         }
     },
     mounted () {
-        if (this.urlBefore !== 'szy') {
+        if (window.location.host !== 'localhost:8080') {
             this.urlBefore = window.location.host.split('.find')[0]
             this.getHeadTitle(this.urlBefore)
         }
