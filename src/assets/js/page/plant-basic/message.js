@@ -5454,7 +5454,7 @@ export default {
         {
             component: newbuildBtn
         }],
-        moreComponent: [{value: '权限'}, {value: '用户'}],
+        moreComponent: [{value: '权限'}, {value: '用户'}, {value: '赋值'}],
         listComponent: [],
         newComponent: [{
             tab: '新建入驻公司信息',

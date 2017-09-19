@@ -42,6 +42,8 @@ exports.reCheck = (rule, value, callback, source, options) => {
                 callback()
             }
         })
+    } else {
+        callback()
     }
 }
 // 验证数字（包含小数）
