@@ -353,12 +353,12 @@ export default {
                 this.tipshow = false
             }
             console.log(this.i)
-            let params = {'flag': 'wap'}
-            axios.get('/api/index/seton', {params: params}).then((responce) => {
-                if (responce.data !== 'false') {
-                    localStorage.setItem('stepsBol', '0')
-                }
-            })
+            // let params = {'flag': 'wap'}
+            // axios.get('/api/index/seton', {params: params}).then((responce) => {
+            //     if (responce.data !== 'false') {
+            //         localStorage.setItem('stepsBol', '0')
+            //     }
+            // })
         },
         preview () {
             this.i--
