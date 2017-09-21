@@ -47,6 +47,31 @@
                 :type="paramsIndex"
             ></component>   
         </div>
+        
+        <!-- 步骤提示 -->
+        <div class="tipMask" v-if="tipshow">
+            <template v-for="tip in tips">
+                <div class="tipblock" :class="tip.pos">
+                    <span class="tip">{{tip.text}}</span>
+                    <span class="arrow" :class="tip.arrow"></span>
+                </div>
+            </template>
+            <template v-for="light in hightlight">
+                <div :class="light.class" class="hightlight"></div>
+            </template>
+            <div class="nextBtn">
+                <span @click="preview" class="preview">< Previous</span>
+                <span @click="next" class="next">Next ></span>
+            </div>
+            <template v-for="totalBlock in totals">
+                <transition name= "fold">
+                    <div class="totalBlock">
+                        <p>{{totalBlock.text}}</p>
+                    </div>
+                </transition>
+            </template>
+        </div>
+        
 
         <!-- 新建模块 --> 
         <transition name="fade">
@@ -107,7 +132,7 @@
                     :prop="protos[index]"
                     :min-width="widths[index]" show-overflow-tooltip>
                     <template scope="scope">
-                            <div v-if="item.includes('批次号')" slot="reference" class="pcActive" @click="jumpDetails(scope.row)">
+                            <div v-if="item.includes('批次号')" slot="reference" class="pcActive" @click="jumpDetails(scope.row)" ref="abs">
                                 {{ scope.row[protos[index]] }}
                             </div>
                             <div v-else-if="protos[index]=='img' || protos[index]=='logo'" slot="reference">
@@ -258,6 +283,8 @@ export default {
             selectVal: [],
             // 分页
             pageVal: 1,
+            tipshow: true,
+            i: 0,
             // tab模块选择标志
             modelIndex: localStorage.getItem('tab') !== null ? localStorage.getItem('tab') : 0,
             activeName: 'index0',
@@ -307,6 +334,46 @@ export default {
     // 混合
     mixins: [computed],
     methods: {
+        next () {
+            this.i++
+            if (this.i > 11) {
+                this.i = 11
+            }
+            let ui = $('.el-menu-item').eq(this.i)
+            ui.click()
+            let siderTitle = $('.el-submenu__title')
+            if (this.i === 3) {
+                siderTitle.eq(1).click()
+            } else if (this.i === 4) {
+                siderTitle.eq(2).click()
+            } else if (this.i === 7) {
+                siderTitle.eq(3).click()
+            } else if (this.i === 9) {
+                siderTitle.eq(4).click()
+            } else if (this.i === 11) {
+                this.tipshow = false
+            }
+            console.log(this.i)
+        },
+        preview () {
+            this.i--
+            if (this.i < 0) {
+                this.i = 0
+            }
+            let ui = $('.el-menu-item').eq(this.i)
+            console.log(this.i)
+            let siderTitle = $('.el-submenu__title')
+            if (this.i === 2) {
+                siderTitle.eq(0).click()
+            } else if (this.i === 3) {
+                siderTitle.eq(1).click()
+            } else if (this.i === 6) {
+                siderTitle.eq(2).click()
+            } else if (this.i === 8) {
+                siderTitle.eq(3).click()
+            }
+            ui.click()
+        },
         ...mapActions([
             'change_siderBar'
         ]),
@@ -979,6 +1046,24 @@ export default {
         let change = $('.available')
         change.css('display', 'none')
         this.theads.length > 8 ? this.expandMore = true : this.expandMore = false
+        // 判断第一次登录时是否是提示的时候的样式
+        // let eltab = $('.el-tabs__nav')
+        // if (this.tipshow) {
+        //     eltab.css('position', 'relative')
+        //     eltab.css('zIndex', '9999999999')
+        // }
+        // let pactive = $('.pcActive')
+        // if (this.tipshow) {
+        //     pactive.css('position', 'relative')
+        //     pactive.css('zIndex', '9999999999')
+        // }
+        // let climore = $('.clickmore')
+        // if (this.tipshow) {
+        //     climore.css('position', 'relative')
+        //     climore.css('zIndex', '9999999999')
+        // }
+        // 判断第一次登录时提示遮罩显示
+        // this.tipshow = false
     },
     watch: {
         models () {
@@ -1017,10 +1102,22 @@ export default {
 </script>
 
 <style lang='sass'>
+@mixin tipblock($left, $top){
+    left: $left;
+    top: $top;
+}
+@mixin hightlight($width, $height, $left, $top){
+    width: $width;
+    height: $height;
+    left: $left;
+    top: $top;
+}
 .basic_model{
     min-height: 790px;
     .basic-wrap{
         .pcActive{
+                width: 123px;
+                height: 24px;
                 text-decoration: underline;
                 cursor:pointer;
             }
@@ -1140,5 +1237,226 @@ export default {
 .el-message{
     background: red;
 }
+.tipMask{
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    top: 0;
+    left: 0;
+    z-index: 2000;
+    position: absolute;
+    .tipblock{
+        position: absolute;
+        z-index: 999999;
+    }
+    .tip{
+        display: block;
+        max-width: 180px;
+        padding: 10px;
+        font-size: 13px;
+        border-radius: 5px;
+        background: rgb(0,0,0);
+        color: #fff;
+        font-style: italic;
+    }
+    
+    .arrow{
+        display: block;
+        position: absolute;
+        width: 0;
+        height: 0;
+        border-left: 8px solid transparent;
+        border-right: 8px solid transparent;
+    }
+    .first{
+        @include tipblock(206px,194px);
+    }
+    .second{
+        @include tipblock(280px,67px);
+    }
+    .third{
+        @include tipblock(388px,194px);
+    }
+    .fourth{
+        @include tipblock(480px,67px);
+    }
+    .tianjian{
+        @include tipblock(460px,197px);
+    }
+    .driver{
+        @include tipblock(426px,197px);
+    }
+    .save{
+        @include tipblock(534px,72px);
+    }
+    .goods{
+        @include tipblock(623px,197px);
+    }
+    .one{
+        border-bottom: 8px solid rgb(0,0,0);
+        top: -8px;
+        left: 36px;
+    }
+    .two{
+        border-top: 8px solid rgb(0,0,0);
+        top: 58px;
+        left: 36px;
+    }
+    .three{
+        border-bottom: 8px solid rgb(0,0,0);
+        top: -8px;
+        left: 36px;
+    }
+    .four{
+        border-top: 8px solid rgb(0,0,0);
+        top: 58px;
+        left: 36px;
+    }
+    .serial{
+        @include tipblock(414px,181px);
+    }
+    .state{
+        right: 23px;
+        top: 207px;
+    }
+    .detect{
+        @include tipblock(338px,66px);
+    }
+    .car{
+        @include tipblock(326px,72px);
+    }
+    .enterOrigin{
+        @include tipblock(379px,72px);
+    }
+    .plan{
+        @include tipblock(492px,199px);
+    }
+    .take{
+        @include tipblock(620px,72px);
+    }
+    .enterLast{
+        @include tipblock(730px,199px);
+    }
+}
+.hightlight{
+    background: rgb(255,255,255);
+    position: fixed;
+    box-shadow: 0 2px 15px rgba(0,0,0,.5);
+    border-radius: 4px;
+}
+.cultivatelight{
+    @include hightlight(118px,42px,210px,138px)
+}
+.warehouselight{
+    @include hightlight(620px,42px,210px,138px);
+}
+.salelight{
+    @include hightlight(196px,43px,210px,138px);
+
+}
+.base{
+    @include hightlight(346px,43px,210px,138px);
+}
+.cultivate{
+    @include hightlight(90px,42px,210px,138px);
+}
+.serialight{
+    @include hightlight(120px,42px,363px,273px);
+}
+.storagelight{
+    @include hightlight(490px,42px,210px,138px);
+}
+.statelight{
+    width: 61px;
+    height: 42px;
+    top: 275px;
+    right: 126px;
+}
+.farm{
+    @include hightlight(350px,43px,210px,138px);
+}
+.el-tabs__nav,.pcActive,.clickmore {
+    position: relative;
+    z-index: 9999999999;
+}
+.nextBtn{
+    width: 182px;
+    height: 53px;
+    border: none;
+    background:rgb(0,0,0);
+    color: #fff;
+    font-size: 14px;
+    border-radius: 5px;
+    position: absolute;
+    bottom: 100px;
+    right: 180px;
+    cursor: pointer;
+    &:hover{
+        background: -webkit-linear-gradient(top, rgb(0,0,0) 0%,#232222 100%);
+    }
+    span{
+        display: inline-block;
+        background: -webkit-gradient(linear, 0 0, 0 100%, color-stop(0, #ee432e), color-stop(0.5, #c63929), color-stop(0.5, #b51700), color-stop(1, #891100));
+        border-radius: 5px;
+        color: #fff;
+        font-weight: bold;
+        letter-spacing: 1;
+        padding: 6px 7px;
+        text-align: center;
+        text-shadow: 0px -1px 1px rgba(0, 0, 0, .8);
+        margin: 10px 0px 10px 10px;
+        line-height: 1.5;
+        &:hover{
+            background: -webkit-gradient(linear, 0 0, 0 100%, color-stop(0, #f37873), color-stop(0.5, #db504d), color-stop(0.5, #cb0500), color-stop(1, #a20601));
+        }
+    }
+}
+@media screen and (max-width: 1581px){
+    .serialight {
+        left: 343px;
+        top: 315px;
+    }
+    .statelight{
+        top: 315px;
+        right: 124px;
+    }
+}
+@media screen and (max-width: 1210px){
+    .serialight {
+        left: 335px;
+        top: 354px;
+    }
+    .statelight{
+        top: 355px;
+    }
+}
+@media screen and (max-width: 1169px){
+    .serialight {
+        left: 335px;
+        top: 376px;
+    }
+    .statelight{
+        top: 374px;
+    }
+}
+.totalBlock{
+        width: 400px;
+        min-height: 100px;
+        top: 50%;
+        left: 50%;
+        margin-left: -200px;
+        margin-top: -50px;
+        background: #fff;
+        box-shadow: 0 2px 15px rgba(0,0,0,.4);
+        position: absolute;
+        border-radius: 5px;
+        padding: 10px;
+        text-align: left;
+        font-weight: bold;
+        font-size: 16px;
+        text-indent: 32px;
+        line-height: 36px;
+        z-index: 99999;
+    }
 }
 </style>

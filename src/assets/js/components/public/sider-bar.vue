@@ -7,17 +7,26 @@
  */ 
  <template>
     <div id="menu-content">
+        <div v-if="tipShow" class="tipMask"> 
+            <template v-for="tip in tips" >
+                <div class="tipblock" :class="tip.pos">
+                    <span class="tip">{{tip.text}}</span>
+                    <span class="arrow" :class="tip.arrow"></span>
+                    <span class="next" @click="next(tip,index)">Enter ></span>
+                </div>
+            </template>
+        </div>
         <vue-scrollbar id="menu">
             <el-menu
                 :router="true" 
                 :unique-opened="true"
-                class="list" theme="dark" :default-active="record" @select="handle" @close="handleClose">
+                class="list" theme="dark" :default-active="record" @select="handle" @open="ko">
                 <el-submenu v-for="(menu, index) in menus" :index="menu.name" v-if="menu.role">
-                    <template slot="title" >
+                    <template slot="title">
                     <img :src="menu.src" class="menu-img">
                         {{menu.name}}
                     </template>
-                    <el-menu-item v-for="(subMenu, subIndex) in menu.children" :index="subMenu.path" v-if="subMenu.role" exact @click="toggle(subIndex, subMenu.name)">
+                    <el-menu-item v-for="(subMenu, subIndex) in menu.children" :index="subMenu.path" v-if="subMenu.role" exact @click="toggle(subIndex, subMenu.name)"> 
                         {{subMenu.name}}
                     </el-menu-item>
                 </el-submenu>
@@ -28,11 +37,20 @@
 
 <script>
 import {mapGetters, mapMutation, mapActions} from 'vuex'
+
 export default {
     name: 'SiderBar',
     data () {
         return {
-            record: ''
+            record: '',
+            tips: [
+                {
+                    text: '展开显示溯源系统的一系列流程',
+                    pos: 'first',
+                    arrow: 'one',
+                    path: '/index/message/plantBase'
+                }
+            ]
         }
     },
     props: {
@@ -54,6 +72,13 @@ export default {
         this.$nextTick(() => {
             this.record = this.record1
         })
+        // 判断第一次登录时侧边栏选中的会高亮
+        // let at = $('.is-active')
+        // console.log(at)
+        // at.css('position', 'relative')
+        // at.css('zIndex', '99999999')
+        // 判断第一次登录时提示遮罩显示
+        // this.tipShow = false
     },
     methods: {
         ...mapActions([
@@ -62,11 +87,17 @@ export default {
         handle (index) {
             this.switch_record(index)
         },
-        handleClose (key, keyPath) {
+        ko (key, keyPath) {
+            console.log(keyPath)
         },
         toggle (subMenu, subIndex) {
             document.title = subIndex
             localStorage.setItem('tab', 0)
+        },
+        next (tip, index) {
+            this.$router.push(tip.path)
+            this.tipShow = false
+            this.record = tip.path
         }
     },
     watch: {
@@ -77,6 +108,8 @@ export default {
                 this.$store.dispatch('switch_record', '')
             }
         }
+    },
+    components: {
     }
 }
 </script>
@@ -103,6 +136,71 @@ export default {
         display: inline-block;
         vertical-align: middle;
         padding-right: 5px;
+    }
+    .is-active{
+        position: relative;
+        z-index: 8989898;
+    }
+    .next{
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        border: none;
+        color: #fff;
+        padding: 5px;
+        border-radius: 3px;
+        font-weight: bold;
+        line-height: 18px;
+        cursor: pointer;
+        margin-top: 5px;
+        text-shadow: 0px -1px 1px rgba(0, 0, 0, .8);
+        background: -webkit-gradient(linear, 0 0, 0 100%, color-stop(0, #ee432e), color-stop(0.5, #c63929), color-stop(0.5, #b51700), color-stop(1, #891100));
+        &:hover{
+            background: -webkit-gradient(linear, 0 0, 0 100%, color-stop(0, #f37873), color-stop(0.5, #db504d), color-stop(0.5, #cb0500), color-stop(1, #a20601));
+        }
+    }
+    .tipMask{
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.3);
+        top: 0;
+        left: 0;
+        z-index: 2000;
+        position: absolute;
+        .tipblock{
+            position: absolute;
+            z-index: 999999;
+            // padding-right: 20px;
+        }
+    }
+    .tip{
+        display: block;
+        // width: 100px;
+        height: 74px;
+        padding: 10px;
+        font-size: 13px;
+        border-radius: 5px;
+        background: rgb(0,0,0);
+        color: #fff;
+        display: block;
+        font-style: italic;
+    }
+    .arrow{
+        display: block;
+        position: absolute;
+        width: 0;
+        height: 0;
+    }
+    .first{
+        left: 220px;
+        top: 64px;
+    }
+    .one{
+        border-top: 10px solid transparent;
+        border-bottom: 10px solid transparent;
+        border-right: 10px solid rgb(0,0,0);
+        top: 13px;
+        left: -10px;
     }
    }
 </style>

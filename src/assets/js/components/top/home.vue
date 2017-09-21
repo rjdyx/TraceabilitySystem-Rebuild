@@ -46,7 +46,16 @@ export default{
             state: 'plant',
             plans: {},
             // 是否合起侧边栏
-            isCloseSiderBar: false
+            isCloseSiderBar: false,
+            nextBtnShow: true,
+            tipShow: true,
+            tip: [
+                {
+                    text: '点击可查看湿度等数据图表',
+                    blockPos: 'first',
+                    arrowPos: 'one'
+                }
+            ]
         }
     },
     components: {
@@ -56,7 +65,12 @@ export default{
     methods: {
         ...mapActions([
             'change_siderBar'
-        ])
+        ]),
+        next () {
+            // this.$router.push('/index/message/plantBase')
+            // this.tipShow = false
+            // localStorage.setItem('this.tipShow', tipShow)
+        }
     },
     mounted () {
         this.change_siderBar(true)
@@ -88,6 +102,7 @@ $absolute: absolute;
     overflow:hidden;
     padding-bottom:66px;
     box-sizing:border-box;
+    position: relative;
     .home_content{
     	overflow-y:scroll;
     	height: 100%;

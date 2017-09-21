@@ -107,6 +107,15 @@ export default {
         },
         editState () {
             return this.models[this.modelIndex].editState
+        },
+        tips () {
+            return this.models[this.modelIndex].tips
+        },
+        hightlight () {
+            return this.models[this.modelIndex].hightlight
+        },
+        totals () {
+            return this.models[this.modelIndex].totals
         }
     }
 }
