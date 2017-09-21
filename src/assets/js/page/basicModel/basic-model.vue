@@ -355,6 +355,13 @@ export default {
                 this.tipshow = false
             }
             console.log(this.i)
+            let params = {'flag': 'wap'}
+            axios.get('/api/index/seton', {params: params})
+                .then((responce) => {
+                    if (responce.data !== 'false') {
+                        localStorage.setItem('stepsBol', '0')
+                    }
+                })
         },
         preview () {
             this.i--
@@ -1071,24 +1078,14 @@ export default {
         let change = $('.available')
         change.css('display', 'none')
         this.theads.length > 8 ? this.expandMore = true : this.expandMore = false
-        // 判断第一次登录时是否是提示的时候的样式
-        // let eltab = $('.el-tabs__nav')
-        // if (this.tipshow) {
-        //     eltab.css('position', 'relative')
-        //     eltab.css('zIndex', '9999999999')
-        // }
-        // let pactive = $('.pcActive')
-        // if (this.tipshow) {
-        //     pactive.css('position', 'relative')
-        //     pactive.css('zIndex', '9999999999')
-        // }
-        // let climore = $('.clickmore')
-        // if (this.tipshow) {
-        //     climore.css('position', 'relative')
-        //     climore.css('zIndex', '9999999999')
-        // }
         // 判断第一次登录时提示遮罩显示
         // this.tipshow = false
+        axios.get('/api/index').then((responce) => {
+            localStorage.setItem('stepsBol', responce.data.wap_on)
+            if (Number(localStorage.getItem('stepsBol'))) {
+                this.tipShow = true
+            }
+        })
     },
     watch: {
         models () {

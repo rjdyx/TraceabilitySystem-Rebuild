@@ -78,7 +78,12 @@ export default {
         // at.css('position', 'relative')
         // at.css('zIndex', '99999999')
         // 判断第一次登录时提示遮罩显示
-        // this.tipShow = false
+        axios.get('/api/index').then((responce) => {
+            localStorage.setItem('stepsBol', responce.data.wap_on)
+            if (Number(localStorage.getItem('stepsBol'))) {
+                this.tipShow = true
+            }
+        })
     },
     methods: {
         ...mapActions([
@@ -98,6 +103,13 @@ export default {
             this.$router.push(tip.path)
             this.tipShow = false
             this.record = tip.path
+            let params = {'flag': 'wap'}
+            axios.get('/api/index/seton', {params: params})
+                .then((responce) => {
+                    if (responce.data !== 'false') {
+                        localStorage.setItem('stepsBol', '0')
+                    }
+                })
         }
     },
     watch: {

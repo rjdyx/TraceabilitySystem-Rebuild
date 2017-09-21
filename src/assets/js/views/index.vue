@@ -105,10 +105,15 @@ export default {
             this.$router.push('/appIndex')
         }
         // 判断是否是第一次登录时的状态
-        this.tipShow = false
         if (this.$route.path.indexOf('company') !== -1) {
             this.tipShow = true
         }
+        axios.get('/api/index').then((responce) => {
+            localStorage.setItem('stepsBol', responce.data.wap_on)
+            if (Number(localStorage.getItem('stepsBol'))) {
+                this.tipShow = true
+            }
+        })
     },
     watch: {
     },
