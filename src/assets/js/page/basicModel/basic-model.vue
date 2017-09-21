@@ -349,19 +349,16 @@ export default {
                 siderTitle.eq(2).click()
             } else if (this.i === 7) {
                 siderTitle.eq(3).click()
-            } else if (this.i === 9) {
-                siderTitle.eq(4).click()
-            } else if (this.i === 11) {
+            } else if (this.i === 8) {
                 this.tipshow = false
             }
             console.log(this.i)
             let params = {'flag': 'wap'}
-            axios.get('/api/index/seton', {params: params})
-                .then((responce) => {
-                    if (responce.data !== 'false') {
-                        localStorage.setItem('stepsBol', '0')
-                    }
-                })
+            axios.get('/api/index/seton', {params: params}).then((responce) => {
+                if (responce.data !== 'false') {
+                    localStorage.setItem('stepsBol', '0')
+                }
+            })
         },
         preview () {
             this.i--
@@ -377,8 +374,6 @@ export default {
                 siderTitle.eq(1).click()
             } else if (this.i === 6) {
                 siderTitle.eq(2).click()
-            } else if (this.i === 8) {
-                siderTitle.eq(3).click()
             }
             ui.click()
         },

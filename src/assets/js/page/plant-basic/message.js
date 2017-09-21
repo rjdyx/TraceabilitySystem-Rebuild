@@ -4906,22 +4906,6 @@ export default {
         theads: ['英文名称', '中文名称', '角色描述'],
         protos: ['name', 'display_name', 'description'],
         widths: [50, 50, 50],
-        hightlight: [{
-            class: 'salelight'
-        }],
-        totals: [{
-            text: '角色的增删改查，以及新建编辑新用户老用户信息。'
-        }],
-        tips: [{
-            text: '角色的增删改查',
-            pos: 'first',
-            arrow: 'one'
-        },
-        {
-            text: '可新建编辑用户信息，选择权限',
-            pos: 'detect',
-            arrow: 'two'
-        }],
         typeComponent: [{
             component: output
         },
@@ -5232,17 +5216,6 @@ export default {
         theads: ['模块名称', '操作', '内容', '日期', '客户端ip', '用户', '备注'],
         protos: ['module', 'operate', 'content', 'datetime', 'ip', 'user_name', 'memo'],
         widths: [50, 50, 50, 50, 50, 50, 50],
-        hightlight: [{
-            class: 'cultivate'
-        }],
-        totals: [{
-            text: '对溯源系统整体的信息记录和管理。'
-        }],
-        tips: [{
-            text: '系统日志管理',
-            pos: 'first',
-            arrow: 'one'
-        }],
         listComponent: [{
             components: [{
                 value: '',

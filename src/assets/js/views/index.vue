@@ -3,16 +3,7 @@
 		<my-header :navbars="navbars"></my-header>
 		<sider-bar :menus='menus' :show="show" ></sider-bar>
 		<router-view></router-view>
-        <div class="tipmark" v-if="tipShow">
-            <div class="tiplump">
-                录入公司的基本信息，可进行新建编辑
-            </div>
-            <div class="nextcompany">
-                <span @click="preview">< Previous</span>
-                <span @click="next">Next ></span>
-            </div>
-        </div>
-	</div>
+    </div>
 </template> 
 
 <script>
@@ -81,22 +72,6 @@ export default {
                 }
             }
             return datas
-        },
-        preview () {
-            this.i--
-            if (this.i === 8) {
-                let siderTitle = $('.el-submenu__title')
-                siderTitle.eq(3).click()
-            }
-            let ui = $('.el-menu-item').eq(this.i)
-            ui.click()
-            this.tipShow = false
-        },
-        next () {
-            this.i++
-            let ui = $('.el-menu-item').eq(this.i)
-            ui.click()
-            this.tipShow = false
         }
     },
     mounted () {
@@ -104,16 +79,6 @@ export default {
         if (!window.isPC) {
             this.$router.push('/appIndex')
         }
-        // 判断是否是第一次登录时的状态
-        if (this.$route.path.indexOf('company') !== -1) {
-            this.tipShow = true
-        }
-        axios.get('/api/index').then((responce) => {
-            localStorage.setItem('stepsBol', responce.data.wap_on)
-            if (Number(localStorage.getItem('stepsBol'))) {
-                this.tipShow = true
-            }
-        })
     },
     watch: {
     },
