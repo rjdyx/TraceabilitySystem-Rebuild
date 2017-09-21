@@ -15,6 +15,7 @@
 	            <el-menu
 	                :router="true" 
 	                :unique-opened="true"
+                    :default-openeds="defaultOpeneds"
 	                class="menulist" theme="dark" @close="handleClose">
                     <div class="el-submenu__title" @click="hidemenu">
                         <span class="sider-arrow"></span>
@@ -52,7 +53,25 @@ export default {
     data () {
         return {
             children: '',
-            data: []
+            data: [],
+            steps: [
+                {
+                    element: '.app-menu .el-menu-item',
+                    intro: '施肥管理',
+                    class: 'siderBarTip1_1'
+                },
+                {
+                    element: '.app-menu .el-menu-item',
+                    intro: '检测管理',
+                    class: 'siderBarTip1_2'
+                },
+                {
+                    element: '.app-menu .el-menu-item',
+                    intro: '农事管理',
+                    class: 'siderBarTip1_3'
+                }
+            ],
+            defaultOpeneds: []
         }
     },
     props: {
@@ -83,7 +102,9 @@ export default {
         },
         initTouch (event) {
             if (event.target.className.indexOf('el-submenu') && event.target.className.indexOf('el-menu-item') === -1) {
-                this.hidemenu()
+                if (!localStorage.getItem('tipNum') === '1') {
+                    this.hidemenu()
+                }
             }
         },
         logout () {

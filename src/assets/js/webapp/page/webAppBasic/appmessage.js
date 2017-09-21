@@ -140,7 +140,46 @@ export default {
                 placeholder: '（可填）',
                 rule: {required: false}
             }]
-        }]
+        }],
+        steps: [
+            [
+                {
+                    element: '.app-basic .applist .list',
+                    intro: '1.向下拉动可出现新建、搜索,',
+                    class: 'siderBarTip1_1_1',
+                    animationName: 'goDown'
+                }
+            ],
+            [
+                {
+                    element: '.webApp_model .newbuilt',
+                    intro: '2.新建施肥信息',
+                    class: 'newTip'
+                }
+            ],
+            [
+                {
+                    element: '.app-basic .applist .vux-swipeout .vux-swipeout-item',
+                    intro: '3.向左划可对新建的施肥信息进行查看，编辑',
+                    class: 'siderBarTip1_1_2',
+                    animationName: 'goLeft'
+                }
+            ],
+            [
+                {
+                    element: '.tableFooter button:eq(0)',
+                    intro: '可全选',
+                    class: 'siderBarTip1_1_3'
+                }
+            ],
+            [
+                {
+                    element: '.tableFooter button:eq(1)',
+                    intro: '可删除（注意如果该饲料批次已被选择，删除失败）',
+                    class: 'siderBarTip1_1_4'
+                }
+            ]
+        ]
     }],
     // 检测信息
     detect: [{
@@ -295,7 +334,46 @@ export default {
                 placeholder: '（可选）',
                 rule: {required: false}
             }]
-        }]
+        }],
+        steps: [
+            [
+                {
+                    element: '.app-basic .applist .list',
+                    intro: '新建、搜索放在这里啦，向下拉动可出现',
+                    class: 'siderBarTip1_1_1',
+                    animationName: 'goDown'
+                }
+            ],
+            [
+                {
+                    element: '.webApp_model .newbuilt',
+                    intro: '2.新建检测信息',
+                    class: 'newTip'
+                }
+            ],
+            [
+                {
+                    element: '.app-basic .applist .vux-swipeout .vux-swipeout-item',
+                    intro: '向左划可对该条检测信息进行查看，编辑',
+                    class: 'siderBarTip1_1_2',
+                    animationName: 'goLeft'
+                }
+            ],
+            [
+                {
+                    element: '.tableFooter button:eq(0)',
+                    intro: '可全选',
+                    class: 'siderBarTip1_1_3'
+                }
+            ],
+            [
+                {
+                    element: '.tableFooter button:eq(1)',
+                    intro: '可删除（注意如果该饲料批次已被选择，删除失败）',
+                    class: 'siderBarTip1_1_4'
+                }
+            ]
+        ]
     }],
     // 农事管理
     farming: [{
@@ -395,7 +473,46 @@ export default {
                 placeholder: '（可填）',
                 rule: {required: false}
             }]
-        }]
+        }],
+        steps: [
+            [
+                {
+                    element: '.app-basic .applist .list',
+                    intro: '新建、搜索放在这里啦，向下拉动可出现',
+                    class: 'siderBarTip1_1_1',
+                    animationName: 'goDown'
+                }
+            ],
+            [
+                {
+                    element: '.webApp_model .newbuilt',
+                    intro: '2.新建检测信息',
+                    class: 'newTip'
+                }
+            ],
+            [
+                {
+                    element: '.app-basic .applist .vux-swipeout .vux-swipeout-item',
+                    intro: '向左划可对该条农事信息进行查看，编辑',
+                    class: 'siderBarTip1_1_2',
+                    animationName: 'goLeft'
+                }
+            ],
+            [
+                {
+                    element: '.tableFooter button:eq(0)',
+                    intro: '可全选',
+                    class: 'siderBarTip1_1_3'
+                }
+            ],
+            [
+                {
+                    element: '.tableFooter button:eq(1)',
+                    intro: '可删除（注意如果该饲料批次已被选择，删除失败）',
+                    class: 'siderBarTip1_1_4'
+                }
+            ]
+        ]
     }],
     // 生长图片
     growImg: [{
@@ -611,6 +728,45 @@ export default {
                 placeholder: '可填',
                 rule: {required: false}
             }]
-        }]
+        }],
+        steps: [
+            [
+                {
+                    element: '.app-basic .applist .list',
+                    intro: '新建、搜索放在这里啦，向下拉动可出现',
+                    class: 'siderBarTip1_1_1',
+                    animationName: 'goDown'
+                }
+            ],
+            [
+                {
+                    element: '.webApp_model .newbuilt',
+                    intro: '2.新建检测信息',
+                    class: 'newTip'
+                }
+            ],
+            [
+                {
+                    element: '.app-basic .applist .vux-swipeout .vux-swipeout-item',
+                    intro: '向左划可对该条采制信息进行查看，编辑',
+                    class: 'siderBarTip1_1_2',
+                    animationName: 'goLeft'
+                }
+            ],
+            [
+                {
+                    element: '.tableFooter button:eq(0)',
+                    intro: '可全选',
+                    class: 'siderBarTip1_1_3'
+                }
+            ],
+            [
+                {
+                    element: '.tableFooter button:eq(1)',
+                    intro: '可删除（注意如果该饲料批次已被选择，删除失败）',
+                    class: 'siderBarTip1_1_4'
+                }
+            ]
+        ]
     }]
 }

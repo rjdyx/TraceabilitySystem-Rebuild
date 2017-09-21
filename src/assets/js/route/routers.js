@@ -6,7 +6,6 @@ import Vue from 'vue'
 import phoneRouters from './phoneRouters.js'
 // import webAppRouters from './webAppRouters.js'
 Vue.use(Router)
-
 // =============================顶层组件====================================
 // ---------------------------最顶层组件----------------------------------
 const index = resolve => {
@@ -153,6 +152,12 @@ const appCanvas = resolve => {
     require.ensure(['../webapp/page/index/canvas.vue'], () => {
         resolve(require('../webapp/page/index/canvas.vue'))
     }, 'appCanvas')
+}
+// ---------------------------首页的数据的详情页----------------------------------
+const appVideo = resolve => {
+    require.ensure(['../webapp/page/index/video.vue'], () => {
+        resolve(require('../webapp/page/index/video.vue'))
+    }, 'appVideo')
 }
 // ---------------------------详情页基础信息管理----------------------------------
 const appdetailbasic = resolve => {
@@ -316,6 +321,11 @@ var routes = [
             {
                 path: 'appCanvas',
                 component: appCanvas
+                // 需要登录才能进入此路由
+            },
+            {
+                path: 'appVideo',
+                component: appVideo
                 // 需要登录才能进入此路由
             }
         ]

@@ -184,7 +184,7 @@
                 if (this.date !== '') {
                     params += '&date=' + this.date
                 }
-                axios.get('api/maxdata/history?' + params).then((res) => {
+                axios.get('/api/maxdata/history?' + params).then((res) => {
                     if (res.data !== 'none') {
                         if (res.data.xs.length && res.data.xs !== undefined) {
                             this.xList = res.data.xs

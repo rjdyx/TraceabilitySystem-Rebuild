@@ -40,7 +40,20 @@ export default {
     },
     data () {
         return {
-            headline: ''
+            headline: '',
+            steps: [
+                {
+                    element: '.app-header .left-btn',
+                    intro: '种植管理，采制管理的操作目录',
+                    class: 'tip1'
+                },
+                {
+                    element: '.app-header .growPicture',
+                    intro: '添加种植批次的生长图片',
+                    class: 'tip2'
+                }
+            ],
+            guideBol: false
         }
     },
     methods: {
@@ -77,11 +90,11 @@ export default {
  
 
 <style lang='sass'>
-@mixin font($fontcolor,$fontSize,$lineHeight){
-	color: $fontcolor;
-	line-height: $lineHeight;
-	font-size: $fontSize;
-}
+	@mixin font($fontcolor,$fontSize,$lineHeight){
+		color: $fontcolor;
+		line-height: $lineHeight;
+		font-size: $fontSize;
+	}
 	.app-header{
 		height: 50px;
 		width: 100%;
@@ -168,11 +181,11 @@ export default {
 	    -moz-osx-font-smoothing: grayscale;
 	}
 	.growPicture{
-        width: 52px;
-        height: 50px;
+        width: 30px;
+        height: 30px;
         display: inline-block;  
         position: absolute;
-        right: 0%;
+        right: 5%;
         top: 4%;
         text-align: center;
         color: #fff;

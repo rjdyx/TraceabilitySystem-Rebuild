@@ -63,7 +63,7 @@ export default {
         },
         plantationDatas () {
             var _this = this
-            axios.get('api/maxdata').then((res) => {
+            axios.get('/api/maxdata').then((res) => {
                 if (res.data.status !== undefined && res.data.status === 200) {
                     _this.plantations = res.data.content
                     _this.e1 = Math.round(res.data.content[0].e4 * 100) / 100
