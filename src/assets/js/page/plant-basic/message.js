@@ -5445,20 +5445,21 @@ export default {
         batch: 'companyUser',
         hiddePermission: true,
         searchPlaceholder: '请输入公司名称进行搜索',
-        theads: ['公司名称', '公司编码', '公司Logo', '负责人/法人', '公司简称', '统一码', '电话', '地址', '经营范围', '员工总数', '公司网站', '销售网站'],
-        protos: ['name', 'coding', 'logo', 'legal_person', 'short_name', 'USCC', 'phone', 'address', 'business_scope', 'total_staff', 'website', 'sell_website'],
-        widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
+        theads: ['公司名称', '公司编码', '公司Logo', '负责人/法人', '公司简称', '域名前缀', '统一码', '电话', '地址', '经营范围', '员工总数', '公司网站', '销售网站'],
+        protos: ['name', 'coding', 'logo', 'legal_person', 'short_name', 'pre_routes', 'USCC', 'phone', 'address', 'business_scope', 'total_staff', 'website', 'sell_website'],
+        widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
         typeComponent: [{
             component: output
         },
         {
             component: newbuildBtn
         }],
-        moreComponent: [{value: '权限'}, {value: '用户'}],
+        moreComponent: [{value: '权限'}, {value: '用户'}, {value: '赋值'}],
         listComponent: [],
         newComponent: [{
             tab: '新建入驻公司信息',
             hasImg: true,
+            checkNumber: [0, 2],
             components: [{
                 name: 'name',
                 type: 'text',
@@ -5466,7 +5467,7 @@ export default {
                 isNull: false,
                 label: '公司名称',
                 placeholder: '请输入公司网站名称',
-                rule: {required: true, trigger: 'blur', message: '请输入公司名称'}
+                rule: [{required: true, trigger: 'blur', message: '请输入公司名称'}, {validator: validate2.reCheck, trigger: 'blur', message: '公司名称重复'}]
             },
             {
                 name: 'short_name',
@@ -5476,6 +5477,15 @@ export default {
                 label: '公司简称',
                 placeholder: '请输入公司简称',
                 rule: {required: true, trigger: 'blur', message: '请输入公司简称'}
+            },
+            {
+                name: 'pre_routes',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '域名前缀',
+                placeholder: '域名前缀不输默认为szy',
+                rule: [{required: false}, {validator: validate2.reCheck, trigger: 'blur', message: '域名前缀已存在'}]
             },
             {
                 name: 'legal_person',
@@ -5580,6 +5590,7 @@ export default {
         editComponent: [{
             tab: '编辑入驻公司信息',
             hasImg: true,
+            checkNumber: [0, 2],
             components: [{
                 name: 'name',
                 type: 'text',
@@ -5587,7 +5598,7 @@ export default {
                 isNull: false,
                 label: '公司名称',
                 placeholder: '请输入公司网站名称',
-                rule: {required: true, trigger: 'blur', message: '请输入公司名称'}
+                rule: [{required: true, trigger: 'blur', message: '请输入公司名称'}, {validator: validate2.reCheck, trigger: 'blur', message: '公司名称重复'}]
             },
             {
                 name: 'short_name',
@@ -5597,6 +5608,15 @@ export default {
                 label: '公司简称',
                 placeholder: '请输入公司简称',
                 rule: {required: true, trigger: 'blur', message: '请输入公司简称'}
+            },
+            {
+                name: 'pre_routes',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '域名前缀',
+                placeholder: '域名前缀不输默认为szy',
+                rule: [{required: false}, {validator: validate2.reCheck, trigger: 'blur', message: '域名前缀已存在'}]
             },
             {
                 name: 'legal_person',

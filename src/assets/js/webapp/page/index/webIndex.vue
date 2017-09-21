@@ -20,7 +20,7 @@
 		</div> -->
 		<div class='canvasInfo'>
 			<div class="tempWrap">
-				<div @touchend="goCanvasFn" class="tempInner">
+				<div class="tempInner" @touchend="goCanvasFn">
 					<div class="tempCanvas">
 						<div></div>
 					    <canvas width="436"height="254"></canvas>

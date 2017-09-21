@@ -9,7 +9,6 @@ axios.defaults.headers.common = {
     'X-CSRF-TOKEN': Laravel.csrfToken,
     'X-Requested-With': 'XMLHttpRequest'
 }
-
 // axios
 axios.interceptors.request.use(function (config) {
     return config

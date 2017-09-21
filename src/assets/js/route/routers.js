@@ -6,7 +6,6 @@ import Vue from 'vue'
 import phoneRouters from './phoneRouters.js'
 // import webAppRouters from './webAppRouters.js'
 Vue.use(Router)
-
 // =============================顶层组件====================================
 // ---------------------------最顶层组件----------------------------------
 const index = resolve => {

@@ -117,6 +117,8 @@
                     this.$emit('shipGoods')
                 } else if (command === '交流') {
                     this.$emit('communkation')
+                } else if (command === '赋值') {
+                    this.$emit('create-demo')
                 }
             },
             closeClick () {

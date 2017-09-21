@@ -132,7 +132,8 @@
                     @changeState="changeSerialState(scope.$index,scope.row)"
                     @shipGoods="shipGood(scope.$index,scope.row)"
                     @communkation="communkationFn(scope.$index,scope.row)"
-                    @showlist="getListFlash()">
+                    @showlist="getListFlash()"
+                    @create-demo="createDemo(scope.$index,scope.row)">
                     </clickMore>
                 </template>
                 <template>
@@ -796,7 +797,31 @@ export default {
             }
         },
         // 更改批次状态
-        changeSerialState (index, row) {
+        createDemo (index, row) {
+            this.$confirm('你是否要给当前公司默认添加一些基础信息', '信息', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                type: 'error'
+            }).then(() => {
+                let params = {id: row.id}
+                axios.get(this.$adminUrl('create-demo'), {params: params})
+                    .then((responce) => {
+                        if (responce.data === 'true') {
+                            this.$message({
+                                type: 'success',
+                                message: '添加初始数据成功'
+                            })
+                        }
+                    })
+            }).catch(() => {
+                this.$message({
+                    type: 'info',
+                    message: '已取消添加'
+                })
+            })
+        },
+        // 赋初值
+        changeSerialState () {
             this.$confirm('你确定要修改此批次状态?,修改完后无法对该批次进行编辑删除操作,且无法逆转', '信息', {
                 confirmButtonText: '确定',
                 cancelButtonText: '取消',
