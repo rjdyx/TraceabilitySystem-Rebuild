@@ -221,18 +221,17 @@ export default{
         }
     },
     mounted () {
-        localStorage.setItem('trends', 0)
-        localStorage.setItem('stepsBol', '1')
-        if (Number(localStorage.getItem('stepsBol'))) {
-            this.stepsBol = true
-        }
-        console.log(' this.stepsIndex:' + this.stepsIndex)
         axios.get('/api/index')
             .then((responce) => {
                 this.company = responce.data.company_name
                 this.user = responce.data.name
                 this.userType = responce.data.type
                 this.loginDate = localStorage.getItem('loginDate')
+                localStorage.setItem('trends', 0)
+                localStorage.setItem('stepsBol', responce.data.wap_on)
+                if (Number(localStorage.getItem('stepsBol'))) {
+                    this.stepsBol = true
+                }
             })
         this.drawInit()
         $(window).on('resize', () => {

@@ -221,7 +221,13 @@ export default {
                         this.stepsIndex = this.steps.length - 1
                         this.stepsBol = false
                         $('.guide_relativePosition').removeClass('guide_relativePosition guide_showElement')
-                        localStorage.setItem('stepsBol', '0')
+                        let params = {'flag': 'wap'}
+                        axios.get('/api/index/seton', {params: params})
+                            .then((responce) => {
+                                if (responce.data !== 'false') {
+                                    localStorage.setItem('stepsBol', '0')
+                                }
+                            })
                     }
                 }
             }
