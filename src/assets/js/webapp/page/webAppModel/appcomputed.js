@@ -45,6 +45,9 @@ export default {
         },
         isCode () {
             return this.models[this.modelIndex].isCode
+        },
+        steps () {
+            return this.models[this.modelIndex].steps
         }
     }
 }

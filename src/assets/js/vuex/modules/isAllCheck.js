@@ -3,27 +3,26 @@
 // // Vue.use(Vuex)
 
 const state = {
-    isTrue: false
+    stepsIndex: 0
 }
 // getters
 const getters = {
-    isTrue: (state) => {
-        return state.isTrue
+    getStepsIndex: (state) => {
+        return state.stepsIndex
     }
 }
 
 // actions
 const actions = {
-    changeIsTrue ({ commit }, bol) {
-        commit('changeIsTrue', b)
+    changeMutations ({ commit }, num) {
+        commit('changeStepsIndex', num)
     }
 }
 
 // mutations
 const mutations = {
-    changeIsTrue (state, bol) {
-        state.isTrue = bol
-        console.log('2--vuex--isTrue:' + state.isTrue)
+    changeStepsIndex (state, num) {
+        state.stepsIndex = num
     }
 }
 export default {

@@ -26,7 +26,7 @@
                 
             <!-- 操作 -->
             <div class="appOperate">
-                <div @touchstart="closeOperate" class="closeOperate">
+                <div @click="closeOperate" class="closeOperate">
                     <i class="el-icon-arrow-up"></i>
                 </div>
                 <div class="operation">
@@ -116,8 +116,7 @@
             <paginator :total="total" @pageEvent="pageChange"></paginator>
         </div>
     </div>
-
-
+    <guide2 v-if="stepsBol" :steps="steps[stepsIndex]" @return-nextFn="nextFn" @return-prevFn="prevFn"></guide2>
   </div>
 </div>
 </template> 
@@ -130,6 +129,7 @@ import siderBar from '../../public/siderBar.vue'
 import paginator from '../../public/paginator.vue'
 import computed from '../webAppModel/appcomputed.js'
 import appfunction from '../../directive/appfunction.js'
+import Guide2 from '../../public/guide2.vue'
 export default {
     name: 'BasicModel',
     directives: {
@@ -159,7 +159,8 @@ export default {
                     batch: '',
                     rightMenu: '',
                     paramsIndex: '',
-                    isCode: false
+                    isCode: false,
+                    steps: []
                 }]
             }
         }
@@ -193,12 +194,55 @@ export default {
             // 二维码跳转地址
             qrcodeUrl: '',
             tracingCode: '',
-            noLoading: false
+            noLoading: false,
+            stepsIndex: 0,
+            stepsBol: false
         }
     },
     // 混合
     mixins: [computed, appfunction],
     methods: {
+        nextFn () {
+            if (this.tableData.length) {
+                if (this.stepsIndex <= this.steps.length - 1) {
+                    this.stepsIndex ++
+                    if (this.stepsIndex === 1) {
+                        $('.applist').animate({top: '7px'})
+                    }
+                    if (this.stepsIndex === 2) {
+                        $('.closeOperate').click()
+                    }
+                    if (this.stepsIndex === 4) {
+                        if (this.checkAll) {
+                            $('.webApp_model .allcheck').click()
+                        }
+                    }
+                    if (this.stepsIndex === this.steps.length) {
+                        this.stepsIndex = this.steps.length - 1
+                        this.stepsBol = false
+                        $('.guide_relativePosition').removeClass('guide_relativePosition guide_showElement')
+                        localStorage.setItem('stepsBol', '0')
+                    }
+                }
+            }
+        },
+        prevFn () {
+            if (this.tableData.length) {
+                if (this.stepsIndex < this.steps.length) {
+                    this.stepsIndex --
+                    if (this.stepsIndex < 0) {
+                        this.stepsIndex = 0
+                        $('.right-btn').click()
+                    }
+                    if (this.stepsIndex === 0) {
+                        $('.closeOperate').click()
+                    }
+                    if (this.stepsIndex === 1) {
+                        $('.applist').animate({top: '7px'})
+                    }
+                }
+            }
+        },
         init (index = 0) {
             this.inputValue = ''
             this.value = ''
@@ -208,10 +252,12 @@ export default {
         新建编辑
          */
         webAppOperateType (operateType, id) {
-            if (id !== undefined) {
-                localStorage.setItem('editId', id)
+            if (!this.stepsBol) {
+                if (id !== undefined) {
+                    localStorage.setItem('editId', id)
+                }
+                this.$router.push('/webAppForm' + '/' + this.$route.params.model + '/' + operateType)
             }
-            this.$router.push('/webAppForm' + '/' + this.$route.params.model + '/' + operateType)
         },
         // 获取数据
         getAllMsg (data = {}, flag = false) {
@@ -262,15 +308,17 @@ export default {
         },
         // 点击进入详情页
         showDetail (id, ret) {
-            if (!this.isCode) {
-                if (id) {
-                    localStorage.setItem('appDetailsId', id)
+            if (!this.stepsBol) {
+                if (!this.isCode) {
+                    if (id) {
+                        localStorage.setItem('appDetailsId', id)
+                    }
+                    this.$router.push('/appIndex/appdetailbasic/' + this.batch)
+                } else {
+                    this.setCodeUrl(ret.code)
+                    this.tracingCode = ret.code
+                    this.showHideOnBlur = true
                 }
-                this.$router.push('/appIndex/appdetailbasic/' + this.batch)
-            } else {
-                this.setCodeUrl(ret.code)
-                this.tracingCode = ret.code
-                this.showHideOnBlur = true
             }
         },
         // 生产二维码地址
@@ -396,6 +444,10 @@ export default {
         }
     },
     mounted () {
+        this.stepsIndex = 0
+        if (Number(localStorage.getItem('stepsBol'))) {
+            this.stepsBol = true
+        }
         this.boxArr(this.dataArr, true)
         let tabTxt = localStorage.getItem('appTab')
         this.tabSelected = tabTxt
@@ -449,7 +501,8 @@ export default {
         Popover,
         XDialog,
         XSwitch,
-        Qrcode
+        Qrcode,
+        Guide2
     }
 }
 </script>

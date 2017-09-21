@@ -35,10 +35,6 @@ Vue.use(VueProgressBar, {
     height: '2px'
 })
 
-import html2canvas from 'html2canvas'
-// import html2canvas from '../plugin/html2canvas.js'
-Vue.prototype.$html2canvas = html2canvas
-
 // 注册element-ui全局组件
 import enLocale from 'element-ui/lib/locale/lang/en'
 import zhLocale from 'element-ui/lib/locale/lang/zh-CH'
