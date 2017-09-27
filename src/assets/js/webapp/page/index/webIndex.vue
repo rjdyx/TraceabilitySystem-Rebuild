@@ -136,7 +136,7 @@ export default{
             pen.fill()
             pen.closePath()
             // 可变arc 彩色圆
-            pen.fillStyle = '#fa8564'
+            pen.fillStyle = '#5dafe1'
             pen.beginPath()
             pen.moveTo(216, 197)
             pen.arc(216, 197, 140, Math.PI, Math.PI * ((num / ber) + 1), false)
@@ -214,6 +214,15 @@ export default{
             if (min < 10) min = '0' + min
             var time = year + '-' + month + '-' + date + ' ' + hour + ':' + min
             return time
+        },
+        // 提示弹窗
+        setToast (type, text, width = '7.6em') {
+            this.$vux.toast.show({
+                type: type,
+                text: text,
+                width: width,
+                position: 'middle'
+            })
         }
     },
     mounted () {
@@ -231,8 +240,12 @@ export default{
             })
         axios.get('/api/maxdata')
             .then((responce) => {
-                let s = responce.data.content[0].e4
-                this.drawInit(s)
+                if (responce.data) {
+                    let s = responce.data.content[0].e4
+                    this.drawInit(s)
+                } else {
+                    this.setToast('text', '获取数据超时', '10em')
+                }
             })
         // $(window).on('resize', () => {
         this.drawInit('0')

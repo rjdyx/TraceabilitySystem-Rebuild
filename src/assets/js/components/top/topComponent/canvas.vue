@@ -70,8 +70,8 @@ export default {
                     _this.e1 = Math.round(res.data.content[0].e4 * 100) / 100
                     _this.e2 = Math.round(res.data.content[0].e9 * 100) / 100
                     _this.e4 = Math.round(res.data.content[0].e2 * 100) / 100
-                    _this.e5 = res.data.content[0].e6
-                    _this.e6 = res.data.content[0].e1
+                    _this.e5 = Math.round(res.data.content[0].e6 * 100) / 100
+                    _this.e6 = Math.round(res.data.content[0].e1 * 100) / 100
                     var e3 = res.data.content[0].e3
                     if (e3 === 0 || e3 === 360) {
                         _this.e3 = this.arr[0]

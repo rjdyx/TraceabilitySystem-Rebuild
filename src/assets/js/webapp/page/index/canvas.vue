@@ -195,7 +195,7 @@ export default{
             pen.fill()
             pen.closePath()
             // 彩色圆
-            pen.fillStyle = '#f78561'
+            pen.fillStyle = '#5DAFE1'
             pen.beginPath()
             pen.moveTo(290, 290)
             pen.arc(290, 290, 190, Math.PI, Math.PI * ((num / ber) + 1), false)
@@ -213,7 +213,7 @@ export default{
             pen.save()
             // 湿度
             pen.beginPath()
-            pen.fillStyle = '#f78561'
+            pen.fillStyle = '#5DAFE1'
             pen.font = '26px Arial'
             pen.fillText(title, 110, 30)
             // 可变65%
@@ -256,7 +256,7 @@ export default{
             pen.fill()
             pen.closePath()
             // 彩色圆
-            pen.fillStyle = '#5dafe1'
+            pen.fillStyle = '#55CBBD'
             pen.beginPath()
             pen.fillRect(50, 115, 490 * (num / ber), 150)
             pen.closePath()
@@ -291,7 +291,7 @@ export default{
             pen.closePath()
             pen.fill()
             pen.beginPath()
-            pen.fillStyle = '#55cbbd'
+            pen.fillStyle = '#f78561'
             pen.arc(115, 220, 65, Math.PI / 4, Math.PI / 4 * 7, false)
             pen.closePath()
             pen.fill()
@@ -396,7 +396,7 @@ export default{
             pen.fill()
             pen.closePath()
             // 彩色圆
-            pen.fillStyle = '#5dafe1'
+            pen.fillStyle = '#273234'
             pen.beginPath()
             var y = 260 * (num / 32)
             pen.globalCompositeOperation = 'source-atop'
@@ -406,7 +406,7 @@ export default{
             pen.save()
             // 湿度
             pen.beginPath()
-            pen.fillStyle = '#5dafe1'
+            pen.fillStyle = '#273234'
             pen.font = '26px Arial'
             pen.fillText(title, 110, 30)
             // 可变65%
