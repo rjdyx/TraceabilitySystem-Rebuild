@@ -1,7 +1,7 @@
 <template>
 	<div id="webAppVideo">
 		<span class="headLT">实时视频监测</span>
-        <video id="myPlayer" poster="" controls playsInline webkit-playsinline autoplay width="100%">
+        <video  id="myPlayer" poster="" controls playsInline webkit-playsinline autoplay width="100%">
             <source src="http://hls.open.ys7.com/openlive/f01018a141094b7fa138b9d0b856507b.m3u8" type="application/x-mpegURL"/>
         </video>
         <div v-for="(item,index) in lives" class="playks" :play="item.play" :class="{play_active:(index==0?true:false)}" @click="videoPlay">
@@ -54,16 +54,16 @@ export default{
     },
     mounted () {
         // this.videoUrl = 'http://hls.open.ys7.com/openlive/f01018a141094b7fa138b9d0b856507b.m3u8'
-        // axios.get('api/get/play').then((res) => {
-        //     if (res.data.length) {
-        //         this.lives = res.data
-        //         var live = res.data[0].play
-        //         live = 'f01018a141094b7fa138b9d0b856507b'
-        //         this.getVideoLive(live)
-        //     } else {
-        //         this.setToast('text', '监测视频无数值', '12em')
-        //     }
-        // })
+        axios.get('api/get/play').then((res) => {
+            if (res.data.length) {
+                this.lives = res.data
+                var live = res.data[0].play
+                live = 'f01018a141094b7fa138b9d0b856507b'
+                this.getVideoLive(live)
+            } else {
+                this.setToast('text', '监测视频无数值', '12em')
+            }
+        })
     }
 }
 </script>
