@@ -6,7 +6,7 @@
 <template>
 	<div class="login">
 		<img src="/public/images/rfid-bg.png" class="bg">
-		<h1 class="logintitle">{{head_short_name}}溯源安全预警系统</h1>
+		<h1 class="logintitle">茶叶质量安全溯源预警系统</h1>
 		<img src="/public/images/rfid-main.png" class="main-bg">
 
 		<div class="logincontent">
