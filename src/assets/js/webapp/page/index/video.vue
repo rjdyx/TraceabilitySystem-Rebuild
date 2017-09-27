@@ -1,12 +1,26 @@
 <template>
 	<div id="webAppVideo">
 		<span class="headLT">实时视频监测</span>
-		<video id="video" width="100%"></video>
+        <video id="myPlayer" poster="" controls playsInline webkit-playsinline autoplay width="100%">
+            <source :src="videoUrl" type="application/x-mpegURL"/>
+        </video>
         <div v-for="(item,index) in lives" class="playks" :play="item.play" :class="{play_active:(index==0?true:false)}" @click="videoPlay">
             {{item.name}}
         </div>
 	</div>
 </template>
+<script>
+    var player = new EZUIPlayer('myPlayer')
+    player.on('error', function () {
+        console.log('error')
+    })
+    player.on('play', function () {
+        console.log('play')
+    })
+    player.on('pause', function () {
+        console.log('pause')
+    })
+</script>
 <script>
 export default{
     name: 'webAppVideo',
@@ -14,13 +28,15 @@ export default{
         return {
             settitle: '实时视频',
             lives: {},
-            videoShow: true
+            videoShow: true,
+            videoUrl: ''
         }
     },
     methods: {
         videoPlay: function (e) {
             $(e.target).addClass('play_active').siblings('div').removeClass('play_active')
             var live = $(e.target).attr('play')
+            live = 'f01018a141094b7fa138b9d0b856507b'
             this.getVideoLive(live)
         },
         // 提示弹窗
@@ -33,22 +49,16 @@ export default{
             })
         },
         getVideoLive (live) {
-            if (Hls.isSupported()) {
-                var video = document.getElementById('video')
-                var hls = new Hls()
-                hls.loadSource('http://hls.open.ys7.com/openlive/' + live + '.m3u8')
-                hls.attachMedia(video)
-                hls.on(Hls.Events.MANIFEST_PARSED, function () {
-                    video.play()
-                })
-            }
+            this.videoUrl = 'http://hls.open.ys7.com/openlive/' + live + '.m3u8'
         }
     },
     mounted () {
+        // this.videoUrl = 'http://hls.open.ys7.com/openlive/f01018a141094b7fa138b9d0b856507b.m3u8'
         axios.get('api/get/play').then((res) => {
             if (res.data.length) {
                 this.lives = res.data
                 var live = res.data[0].play
+                live = 'f01018a141094b7fa138b9d0b856507b'
                 this.getVideoLive(live)
             } else {
                 this.setToast('text', '监测视频无数值', '12em')
