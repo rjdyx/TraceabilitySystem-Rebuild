@@ -5645,8 +5645,8 @@ export default {
         batch: 'companyUser',
         hiddePermission: true,
         searchPlaceholder: '请输入公司名称进行搜索',
-        theads: ['公司名称', '公司编码', '公司Logo', '负责人/法人', '公司简称', '域名前缀', '统一码', '电话', '地址', '经营范围', '员工总数', '公司网站', '销售网站'],
-        protos: ['name', 'coding', 'logo', 'legal_person', 'short_name', 'pre_routes', 'USCC', 'phone', 'address', 'business_scope', 'total_staff', 'website', 'sell_website'],
+        theads: ['公司名称', '公司编码', '公司Logo', '负责人/法人', '公司简称', '域名前缀', '统一码', '电话', '地址', '经营范围', '员工总数', '公司网站', '传感器编号', '销售网站'],
+        protos: ['name', 'coding', 'logo', 'legal_person', 'short_name', 'pre_routes', 'USCC', 'phone', 'address', 'business_scope', 'total_staff', 'website', 'sensor', 'sell_website'],
         widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
         typeComponent: [{
             component: output
@@ -5757,6 +5757,15 @@ export default {
                 isNull: false,
                 label: '公司网站',
                 placeholder: '请输入公司网站',
+                rule: null
+            },
+            {
+                name: 'sensor',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '传感器编号',
+                placeholder: '',
                 rule: null
             },
             {
@@ -5888,6 +5897,15 @@ export default {
                 isNull: false,
                 label: '公司网站',
                 placeholder: '请输入公司网站',
+                rule: null
+            },
+            {
+                name: 'sensor',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '传感器编号',
+                placeholder: '',
                 rule: null
             },
             {

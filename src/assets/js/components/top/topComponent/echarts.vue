@@ -47,7 +47,7 @@
                     label: '雨量',
                     symbol: 'mm/min'
                 }, {
-                    value: 'e4',
+                    value: 'e6',
                     label: '土壤温度',
                     symbol: '℃'
                 }, {
@@ -69,7 +69,7 @@
                 echartsOptions: [],
                 xList: [],
                 yDate: [],
-                type: 'e4',
+                type: localStorage.getItem('echartsSelectValue') ? localStorage.getItem('echartsSelectValue') : 'e4',
                 date: '',
                 loading: true
             }
@@ -191,23 +191,30 @@
                 axios.get('/api/maxdata/history?' + params).then((res) => {
                     if (res.data !== 'none') {
                         if (res.data.xs.length && res.data.xs !== undefined) {
-                            this.xList = res.data.xs
-                            this.yDate = res.data.ys
-                            this.echartsId.setOption(this.changeEOption())
+                            this.changeGetData(res.data.xs, res.data.ys)
+                            this.$message({
+                                type: 'success',
+                                message: '数据更新成功'
+                            })
                         } else {
+                            this.changeGetData(0, 0)
                             this.$message('数据获取失败')
                         }
                     } else {
+                        this.changeGetData(0, 0)
                         this.$message('该时间段无监测数据')
-                        this.xList = 0
-                        this.yDate = 0
-                        this.echartsId.setOption(this.changeEOption())
                     }
                     this.loading = false
                 }).catch(() => {
                     this.loading = false
+                    this.changeGetData(0, 0)
                     this.$message('接口访问失败')
                 })
+            },
+            changeGetData (x, y) {
+                this.xList = x
+                this.yDate = y
+                this.echartsId.setOption(this.changeEOption())
             },
             // 时间改变事件
             changeDateValueFn (value) {
@@ -220,6 +227,7 @@
             // 下拉框改变事件
             changeTypeValueFn (value) {
                 this.type = value
+                localStorage.setItem('echartsSelectValue', value)
                 this.loading = true
                 this.getData()
                 var op = this.changeEOption()

@@ -108,7 +108,7 @@ export default {
             this.arcCanvasFn(pen1, '土壤湿度', '0%', '100%', this.e1 + '%RH')
 
             let pen2 = canvas.eq(1).get(0).getContext('2d')
-            this.arcCanvasFn(pen2, '数字气压', '0pa', '10000pa', this.e2 + 'hpa')
+            this.arcCanvasFn(pen2, '数字气压', '0pa', '10000hpa', this.e2 + 'hpa')
 
             let pen3 = canvas.eq(2).get(0).getContext('2d')
             this.drawWindFn(pen3, '风向', this.e3)
