@@ -2,7 +2,7 @@
 	<div id="webAppVideo">
 		<span class="headLT">实时视频监测</span>
         <video  id="myPlayer" poster="" controls playsInline webkit-playsinline autoplay width="100%">
-            <source src="http://hls.open.ys7.com/openlive/f01018a141094b7fa138b9d0b856507b.m3u8" type="application/x-mpegURL"/>
+            <source v-if="videoShow" :src="videoUrl" type="application/x-mpegURL"/>
         </video>
         <div v-for="(item,index) in lives" class="playks" :play="item.play" :class="{play_active:(index==0?true:false)}" @click="videoPlay">
             {{item.name}}
@@ -28,7 +28,7 @@ export default{
         return {
             settitle: '实时视频',
             lives: {},
-            videoShow: true,
+            videoShow: false,
             videoUrl: ''
         }
     },
@@ -37,6 +37,7 @@ export default{
             $(e.target).addClass('play_active').siblings('div').removeClass('play_active')
             var live = $(e.target).attr('play')
             live = 'f01018a141094b7fa138b9d0b856507b'
+            this.videoShow = false
             this.getVideoLive(live)
         },
         // 提示弹窗
@@ -50,6 +51,7 @@ export default{
         },
         getVideoLive (live) {
             this.videoUrl = 'http://hls.open.ys7.com/openlive/' + live + '.m3u8'
+            this.videoShow = true
         }
     },
     mounted () {
