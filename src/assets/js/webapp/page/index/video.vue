@@ -36,7 +36,6 @@ export default{
         videoPlay: function (e) {
             $(e.target).addClass('play_active').siblings('div').removeClass('play_active')
             var live = $(e.target).attr('play')
-            live = 'f01018a141094b7fa138b9d0b856507b'
             this.videoShow = false
             this.getVideoLive(live)
         },
@@ -55,12 +54,10 @@ export default{
         }
     },
     mounted () {
-        // this.videoUrl = 'http://hls.open.ys7.com/openlive/f01018a141094b7fa138b9d0b856507b.m3u8'
         axios.get('api/get/play').then((res) => {
             if (res.data.length) {
                 this.lives = res.data
                 var live = res.data[0].play
-                live = 'f01018a141094b7fa138b9d0b856507b'
                 this.getVideoLive(live)
             } else {
                 this.setToast('text', '监测视频无数值', '12em')
