@@ -49,7 +49,7 @@
         </div>
         
         <!-- 步骤提示 -->
-        <div class="tipMask" v-if="tipshow">
+        <!-- <div class="tipMask" v-if="tipshow">
             <template v-for="tip in tips">
                 <div class="tipblock" :class="tip.pos">
                     <span class="tip">{{tip.text}}</span>
@@ -70,7 +70,7 @@
                     </div>
                 </transition>
             </template>
-        </div>
+        </div> -->
         
 
         <!-- 新建模块 --> 

@@ -36,24 +36,28 @@
                 echartsId: null,
                 options: [{
                     value: 'e4',
-                    label: '湿度',
-                    symbol: '%'
+                    label: '土壤湿度',
+                    symbol: '%RH'
                 }, {
-                    value: 'e5',
+                    value: 'e9',
                     label: '数字气压',
-                    symbol: 'pa'
+                    symbol: 'hpa'
                 }, {
                     value: 'e2',
                     label: '雨量',
-                    symbol: 'mm'
+                    symbol: 'mm/min'
                 }, {
-                    value: 'e3',
-                    label: '温度',
+                    value: 'e4',
+                    label: '土壤温度',
                     symbol: '℃'
                 }, {
                     value: 'e1',
                     label: '风速',
                     symbol: 'm/s'
+                }, {
+                    value: 'e10',
+                    label: '照度',
+                    symbol: 'LUX'
                 }],
                 pickerOptions0: {
                     disabledDate (time) {
@@ -238,7 +242,6 @@
                     },
                     // x轴
                     xAxis: {
-                        // data: ['2000-6-5', '2000-6-6', '2000-6-7', '2000-6-8']
                         data: xList
                     },
                     // y轴

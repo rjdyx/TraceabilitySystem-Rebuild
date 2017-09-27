@@ -26,6 +26,7 @@
 export default {
     name: 'homeCanvas',
     data () {
+        // e1土壤湿度，e2数字气压，e3风向，e4雨量，e5土壤温度，e6风速
         return {
             e1: '0',
             e2: '0',
@@ -34,7 +35,7 @@ export default {
             e5: '0',
             e6: '0',
             arr: ['北风', '东北风', '东风', '东南风', '南风', '西南风', '西风', '西北风'],
-            map: new Map([['humidity', 'e4'], ['KPa', 'e5'], ['rainfall', 'e2'], ['temp', 'e3'], ['windSpeed', 'e1']])
+            map: new Map([['humidity', 'e4'], ['KPa', 'e9'], ['rainfall', 'e2'], ['temp', 'e6'], ['windSpeed', 'e1']])
         }
     },
     mounted () {
@@ -67,11 +68,11 @@ export default {
                 if (res.data.status !== undefined && res.data.status === 200) {
                     _this.plantations = res.data.content
                     _this.e1 = Math.round(res.data.content[0].e4 * 100) / 100
-                    _this.e2 = Math.round(res.data.content[0].e5 * 100) / 100
+                    _this.e2 = Math.round(res.data.content[0].e9 * 100) / 100
                     _this.e4 = Math.round(res.data.content[0].e2 * 100) / 100
-                    _this.e5 = res.data.content[0].e3
+                    _this.e5 = res.data.content[0].e6
                     _this.e6 = res.data.content[0].e1
-                    var e3 = res.data.content[0].e12
+                    var e3 = res.data.content[0].e3
                     if (e3 === 0 || e3 === 360) {
                         _this.e3 = this.arr[0]
                     }
@@ -104,10 +105,10 @@ export default {
         canvasInit () {
             let canvas = $('canvas')
             let pen1 = canvas.eq(0).get(0).getContext('2d')
-            this.arcCanvasFn(pen1, '湿度', '0%', '100%', this.e1 + '%')
+            this.arcCanvasFn(pen1, '土壤湿度', '0%', '100%', this.e1 + '%RH')
 
             let pen2 = canvas.eq(1).get(0).getContext('2d')
-            this.arcCanvasFn(pen2, '数字气压', '0pa', '10000pa', this.e2 + 'pa')
+            this.arcCanvasFn(pen2, '数字气压', '0pa', '10000pa', this.e2 + 'hpa')
 
             let pen3 = canvas.eq(2).get(0).getContext('2d')
             this.drawWindFn(pen3, '风向', this.e3)
@@ -252,7 +253,7 @@ export default {
                 rain: {
                     imgAddress: ['public/images/rain.png', [20, 35, 30, 22]],
                     title: '雨量',
-                    target: this.e4 + 'mm'
+                    target: this.e4 + 'mm/min'
                 },
                 temp: {
                     imgAddress: ['public/images/temp.png', [23, 85, 21, 28]],

@@ -7,7 +7,7 @@
  */ 
  <template>
     <div id="menu-content">
-        <div v-if="tipShow" class="tipMask"> 
+        <!-- <div v-if="tipShow" class="tipMask"> 
             <template v-for="tip in tips" >
                 <div class="tipblock" :class="tip.pos">
                     <span class="tip">{{tip.text}}</span>
@@ -15,7 +15,7 @@
                     <span class="next" @click="next(tip,index)">Enter ></span>
                 </div>
             </template>
-        </div>
+        </div> -->
         <vue-scrollbar id="menu">
             <el-menu
                 :router="true" 
@@ -78,12 +78,12 @@ export default {
         // at.css('position', 'relative')
         // at.css('zIndex', '99999999')
         // 判断第一次登录时提示遮罩显示
-        axios.get('/api/index').then((responce) => {
-            localStorage.setItem('stepsBol', responce.data.wap_on)
-            if (Number(localStorage.getItem('stepsBol'))) {
-                this.tipShow = true
-            }
-        })
+        // axios.get('/api/index').then((responce) => {
+        //     localStorage.setItem('stepsBol', responce.data.wap_on)
+        //     if (Number(localStorage.getItem('stepsBol'))) {
+        //         this.tipShow = true
+        //     }
+        // })
     },
     methods: {
         ...mapActions([
@@ -98,19 +98,19 @@ export default {
         toggle (subMenu, subIndex) {
             document.title = subIndex
             localStorage.setItem('tab', 0)
-        },
-        next (tip, index) {
-            this.$router.push(tip.path)
-            this.tipShow = false
-            this.record = tip.path
-            let params = {'flag': 'wap'}
-            axios.get('/api/index/seton', {params: params})
-                .then((responce) => {
-                    if (responce.data !== 'false') {
-                        localStorage.setItem('stepsBol', '0')
-                    }
-                })
         }
+        // next (tip, index) {
+        //     this.$router.push(tip.path)
+        //     this.tipShow = false
+        //     this.record = tip.path
+        //     let params = {'flag': 'wap'}
+        //     axios.get('/api/index/seton', {params: params})
+        //         .then((responce) => {
+        //             if (responce.data !== 'false') {
+        //                 localStorage.setItem('stepsBol', '0')
+        //             }
+        //         })
+        // }
     },
     watch: {
         isShowSiderBar () {
