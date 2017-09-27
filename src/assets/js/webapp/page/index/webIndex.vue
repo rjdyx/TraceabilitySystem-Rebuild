@@ -224,7 +224,7 @@ export default{
                 this.userType = responce.data.type
                 this.loginDate = localStorage.getItem('loginDate')
                 localStorage.setItem('trends', 0)
-                localStorage.setItem('stepsBol', responce.data.wap_on)
+                localStorage.setItem('stepsBol', 0)
                 if (Number(localStorage.getItem('stepsBol'))) {
                     this.stepsBol = true
                 }

@@ -42,15 +42,15 @@ export default {
     name: 'SiderBar',
     data () {
         return {
-            record: '',
-            tips: [
-                {
-                    text: '展开显示溯源系统的一系列流程',
-                    pos: 'first',
-                    arrow: 'one',
-                    path: '/index/message/plantBase'
-                }
-            ]
+            record: ''
+            // tips: [
+            //     {
+            //         text: '展开显示溯源系统的一系列流程',
+            //         pos: 'first',
+            //         arrow: 'one',
+            //         path: '/index/message/plantBase'
+            //     }
+            // ]
         }
     },
     props: {
@@ -149,70 +149,70 @@ export default {
         vertical-align: middle;
         padding-right: 5px;
     }
-    .is-active{
-        position: relative;
-        z-index: 8989898;
-    }
-    .next{
-        position: absolute;
-        bottom: 10px;
-        right: 10px;
-        border: none;
-        color: #fff;
-        padding: 5px;
-        border-radius: 3px;
-        font-weight: bold;
-        line-height: 18px;
-        cursor: pointer;
-        margin-top: 5px;
-        text-shadow: 0px -1px 1px rgba(0, 0, 0, .8);
-        background: -webkit-gradient(linear, 0 0, 0 100%, color-stop(0, #ee432e), color-stop(0.5, #c63929), color-stop(0.5, #b51700), color-stop(1, #891100));
-        &:hover{
-            background: -webkit-gradient(linear, 0 0, 0 100%, color-stop(0, #f37873), color-stop(0.5, #db504d), color-stop(0.5, #cb0500), color-stop(1, #a20601));
-        }
-    }
-    .tipMask{
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.3);
-        top: 0;
-        left: 0;
-        z-index: 2000;
-        position: absolute;
-        .tipblock{
-            position: absolute;
-            z-index: 999999;
-            // padding-right: 20px;
-        }
-    }
-    .tip{
-        display: block;
-        // width: 100px;
-        height: 74px;
-        padding: 10px;
-        font-size: 13px;
-        border-radius: 5px;
-        background: rgb(0,0,0);
-        color: #fff;
-        display: block;
-        font-style: italic;
-    }
-    .arrow{
-        display: block;
-        position: absolute;
-        width: 0;
-        height: 0;
-    }
-    .first{
-        left: 220px;
-        top: 64px;
-    }
-    .one{
-        border-top: 10px solid transparent;
-        border-bottom: 10px solid transparent;
-        border-right: 10px solid rgb(0,0,0);
-        top: 13px;
-        left: -10px;
-    }
+    // .is-active{
+    //     position: relative;
+    //     z-index: 8989898;
+    // }
+    // .next{
+    //     position: absolute;
+    //     bottom: 10px;
+    //     right: 10px;
+    //     border: none;
+    //     color: #fff;
+    //     padding: 5px;
+    //     border-radius: 3px;
+    //     font-weight: bold;
+    //     line-height: 18px;
+    //     cursor: pointer;
+    //     margin-top: 5px;
+    //     text-shadow: 0px -1px 1px rgba(0, 0, 0, .8);
+    //     background: -webkit-gradient(linear, 0 0, 0 100%, color-stop(0, #ee432e), color-stop(0.5, #c63929), color-stop(0.5, #b51700), color-stop(1, #891100));
+    //     &:hover{
+    //         background: -webkit-gradient(linear, 0 0, 0 100%, color-stop(0, #f37873), color-stop(0.5, #db504d), color-stop(0.5, #cb0500), color-stop(1, #a20601));
+    //     }
+    // }
+    // .tipMask{
+    //     width: 100%;
+    //     height: 100%;
+    //     background: rgba(0, 0, 0, 0.3);
+    //     top: 0;
+    //     left: 0;
+    //     z-index: 2000;
+    //     position: absolute;
+    //     .tipblock{
+    //         position: absolute;
+    //         z-index: 999999;
+    //         // padding-right: 20px;
+    //     }
+    // }
+    // .tip{
+    //     display: block;
+    //     // width: 100px;
+    //     height: 74px;
+    //     padding: 10px;
+    //     font-size: 13px;
+    //     border-radius: 5px;
+    //     background: rgb(0,0,0);
+    //     color: #fff;
+    //     display: block;
+    //     font-style: italic;
+    // }
+    // .arrow{
+    //     display: block;
+    //     position: absolute;
+    //     width: 0;
+    //     height: 0;
+    // }
+    // .first{
+    //     left: 220px;
+    //     top: 64px;
+    // }
+    // .one{
+    //     border-top: 10px solid transparent;
+    //     border-bottom: 10px solid transparent;
+    //     border-right: 10px solid rgb(0,0,0);
+    //     top: 13px;
+    //     left: -10px;
+    // }
    }
 </style>
