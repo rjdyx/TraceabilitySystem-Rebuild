@@ -241,7 +241,7 @@ export default{
         axios.get('/api/maxdata')
             .then((responce) => {
                 if (responce.data) {
-                    let s = responce.data.content[0].e4
+                    let s = parseFloat(responce.data.content[0].e4).toFixed(1) + '%RH'
                     this.drawInit(s)
                 } else {
                     this.setToast('text', '获取数据超时', '10em')
