@@ -83,27 +83,6 @@ export default{
                         index: 1
                     }
                 ]
-                // ,
-                // [
-                //     {
-                //         element: '.app-menu .el-submenu',
-                //         intro: '种植管理-->施肥管理',
-                //         class: 'siderBarTip1_1',
-                //         index: 0
-                //     },
-                //     {
-                //         element: '.app-menu .el-menu-item',
-                //         intro: '种植管理-->检测管理',
-                //         class: 'siderBarTip1_2',
-                //         index: 1
-                //     },
-                //     {
-                //         element: '.app-menu .el-menu-item',
-                //         intro: '种植管理-->农事管理',
-                //         class: 'siderBarTip1_3',
-                //         index: 2
-                //     }
-                // ]
             ],
             stepsIndex: 0,
             stepsBol: false
@@ -147,6 +126,7 @@ export default{
             if (targetDeg.indexOf('%') > 1) {
                 ber = 100
             }
+            var dateTime = this.getNewDate()
             let num = parseInt(targetDeg)
             pen.save()
             // 白色底圆
@@ -156,7 +136,7 @@ export default{
             pen.fill()
             pen.closePath()
             // 可变arc 彩色圆
-            pen.fillStyle = '#fa8564'
+            pen.fillStyle = '#5dafe1'
             pen.beginPath()
             pen.moveTo(216, 197)
             pen.arc(216, 197, 140, Math.PI, Math.PI * ((num / ber) + 1), false)
@@ -172,7 +152,7 @@ export default{
             pen.font = '30px Arial'
             pen.fillStyle = '#a0a0a0'
             pen.textAlign = 'center'
-            pen.fillText('时间：2017-9-9 10:30', 216, 230)
+            pen.fillText('时间：' + dateTime, 216, 230)
             pen.closePath()
             // 剪切圆
             pen.globalCompositeOperation = 'destination-out'
@@ -199,7 +179,7 @@ export default{
             pen.fill()
             pen.restore()
         },
-        drawInit () {
+        drawInit (s) {
             var w = $('.tempCanvas>div').width()
             var h = $('.tempCanvas>div').height()
             var canvas = $('.tempCanvas canvas').get(0)
@@ -209,7 +189,7 @@ export default{
             var s1 = (w / 436).toFixed(1)
             var s2 = (h / 254).toFixed(1)
             pen.scale(s1, s2)
-            this.drawFn(w, h, pen, '温度', '65%')
+            this.drawFn(w, h, pen, '湿度', s + '%')
         },
         goCanvasFn () {
             this.$router.push('/appIndex/appCanvas')
@@ -218,6 +198,31 @@ export default{
         goVideoFn () {
             this.$router.push('/appIndex/appVideo')
             $(window).off('resize') /// ???
+        },
+        // 获取最新时间
+        getNewDate () {
+            var now = new Date()
+            var year = now.getFullYear()
+            var month = now.getMonth()
+            var date = now.getDate()
+            var hour = now.getHours()
+            var min = now.getMinutes()
+            month = month + 1
+            if (month < 10) month = '0' + month
+            if (date < 10) date = '0' + date
+            if (hour < 10) hour = '0' + hour
+            if (min < 10) min = '0' + min
+            var time = year + '-' + month + '-' + date + ' ' + hour + ':' + min
+            return time
+        },
+        // 提示弹窗
+        setToast (type, text, width = '7.6em') {
+            this.$vux.toast.show({
+                type: type,
+                text: text,
+                width: width,
+                position: 'middle'
+            })
         }
     },
     mounted () {
@@ -228,15 +233,23 @@ export default{
                 this.userType = responce.data.type
                 this.loginDate = localStorage.getItem('loginDate')
                 localStorage.setItem('trends', 0)
-                localStorage.setItem('stepsBol', responce.data.wap_on)
+                localStorage.setItem('stepsBol', 0)
                 if (Number(localStorage.getItem('stepsBol'))) {
                     this.stepsBol = true
                 }
             })
-        this.drawInit()
-        $(window).on('resize', () => {
-            this.drawInit()
-        })
+        axios.get('/api/maxdata')
+            .then((responce) => {
+                if (responce.data) {
+                    let s = parseFloat(responce.data.content[0].e4).toFixed(1) + '%RH'
+                    this.drawInit(s)
+                } else {
+                    this.setToast('text', '获取数据超时', '10em')
+                }
+            })
+        // $(window).on('resize', () => {
+        this.drawInit('0')
+        // })
     }
 }
 </script>

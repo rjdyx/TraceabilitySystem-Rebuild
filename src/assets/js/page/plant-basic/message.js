@@ -31,32 +31,32 @@ export default {
             theads: ['种植场名称', '有机种植面积', '热线电话', '负责人', '地址', '备注'],
             protos: ['name', 'area_unit', 'phone', 'director', 'address', 'memo'],
             widths: [50, 50, 50, 50, 50, 50],
-            hightlight: [{
-                class: 'base'
-            }],
-            totals: [{
-                text: '基础信息管理模块包含种植场管理、种植区管理、茶叶档案管理和肥料档案管理四个功能模块。'
-            }],
-            tips: [{
-                text: '新建种植场地的名称、面积等基础信息',
-                pos: 'first',
-                arrow: 'one'
-            },
-            {
-                text: '新建种植区的基础信息，可进行增删改查',
-                pos: 'second',
-                arrow: 'two'
-            },
-            {
-                text: '对茶叶的品种等出货信息进行简单的录入',
-                pos: 'third',
-                arrow: 'three'
-            },
-            {
-                text: '对肥料的分类、用途等进行录入',
-                pos: 'fourth',
-                arrow: 'four'
-            }],
+            // hightlight: [{
+            //     class: 'base'
+            // }],
+            // totals: [{
+            //     text: '基础信息管理模块包含种植场管理、种植区管理、茶叶档案管理和肥料档案管理四个功能模块。'
+            // }],
+            // tips: [{
+            //     text: '新建种植场地的名称、面积等基础信息',
+            //     pos: 'first',
+            //     arrow: 'one'
+            // },
+            // {
+            //     text: '新建种植区的基础信息，可进行增删改查',
+            //     pos: 'second',
+            //     arrow: 'two'
+            // },
+            // {
+            //     text: '对茶叶的品种等出货信息进行简单的录入',
+            //     pos: 'third',
+            //     arrow: 'three'
+            // },
+            // {
+            //     text: '对肥料的分类、用途等进行录入',
+            //     pos: 'fourth',
+            //     arrow: 'four'
+            // }],
             typeComponent: [{
                 component: output
             },
@@ -863,33 +863,33 @@ export default {
         theads: ['种植批次号', '所属种植区', '茶叶品种名称', '种植日期', '种植面积', '种植人', '状态', '备注'],
         protos: ['serial', 'plantation_name', 'tea_name', 'date', 'area_unit', 'operate', 'state', 'memo'],
         widths: [50, 50, 50, 50, 50, 50, 50, 50],
-        hightlight: [{
-            class: 'cultivate'
-        },
-        {
-            class: 'serialight'
-        },
-        {
-            class: 'statelight'
-        }],
-        totals: [{
-            text: '种植批次管理有批次管理，对已选择种植的信息进行有次序的批次管理。'
-        }],
-        tips: [{
-            text: '对已种植的茶叶的批次进行管理',
-            pos: 'first',
-            arrow: 'one'
-        },
-        {
-            text: '点击进去可以查看批次的详细信息',
-            pos: 'serial',
-            arrow: 'two'
-        },
-        {
-            text: '点击更多按钮有勾选状态、视频、打印等功能',
-            pos: 'state',
-            arrow: 'two'
-        }],
+        // hightlight: [{
+        //     class: 'cultivate'
+        // },
+        // {
+        //     class: 'serialight'
+        // },
+        // {
+        //     class: 'statelight'
+        // }],
+        // totals: [{
+        //     text: '种植批次管理有批次管理，对已选择种植的信息进行有次序的批次管理。'
+        // }],
+        // tips: [{
+        //     text: '对已种植的茶叶的批次进行管理',
+        //     pos: 'first',
+        //     arrow: 'one'
+        // },
+        // {
+        //     text: '点击进去可以查看批次的详细信息',
+        //     pos: 'serial',
+        //     arrow: 'two'
+        // },
+        // {
+        //     text: '点击更多按钮有勾选状态、视频、打印等功能',
+        //     pos: 'state',
+        //     arrow: 'two'
+        // }],
         listComponent: [{
             components: [{
                 name: 'plantations.id',
@@ -1108,27 +1108,27 @@ export default {
             theads: ['施肥批次号', '肥料名称', '施肥日期', '施肥人', '天气', '使用量', '施肥方法', '备注'],
             protos: ['serial', 'manure_name', 'date', 'operate', 'weather', 'amount_unit', 'way', 'memo'],
             widths: [50, 50, 50, 50, 50, 50, 50, 50],
-            hightlight: [{
-                class: 'farm'
-            }],
-            totals: [{
-                text: '农事管理有施肥信息管理、检测信息管理、田间信息管理，对种植过程中的施肥类型、如何检测种植物、地理天地情况进行数据的录入方便后期管理。'
-            }],
-            tips: [{
-                text: '对肥料的基本信息进行录入',
-                pos: 'first',
-                arrow: 'one'
-            },
-            {
-                text: '通过哪种检测类型来检测产品',
-                pos: 'detect',
-                arrow: 'two'
-            },
-            {
-                text: '关于田地的基础信息',
-                pos: 'tianjian',
-                arrow: 'three'
-            }],
+            // hightlight: [{
+            //     class: 'farm'
+            // }],
+            // totals: [{
+            //     text: '农事管理有施肥信息管理、检测信息管理、田间信息管理，对种植过程中的施肥类型、如何检测种植物、地理天地情况进行数据的录入方便后期管理。'
+            // }],
+            // tips: [{
+            //     text: '对肥料的基本信息进行录入',
+            //     pos: 'first',
+            //     arrow: 'one'
+            // },
+            // {
+            //     text: '通过哪种检测类型来检测产品',
+            //     pos: 'detect',
+            //     arrow: 'two'
+            // },
+            // {
+            //     text: '关于田地的基础信息',
+            //     pos: 'tianjian',
+            //     arrow: 'three'
+            // }],
             typeComponent: [{
                 component: output
             },
@@ -1927,17 +1927,17 @@ export default {
         theads: ['采制批次号', '采制日期', '所属种植区', '种植批次', '采制人', '入库部门', '存放仓库位置', '状态', '备注'],
         protos: ['serial', 'date', 'plantation_name', 'cultivate_serial', 'operate', 'department', 'position', 'state', 'memo'],
         widths: [60, 50, 50, 60, 50, 50, 50, 50, 50],
-        hightlight: [{
-            class: 'cultivatelight'
-        }],
-        totals: [{
-            text: '采制批次管理有采制批次信息，是对完成种植的产品进行采收，录入采制时间、所属的种植区等可生成批次号。'
-        }],
-        tips: [{
-            text: '对采收的批次、采制人等进行管理',
-            pos: 'first',
-            arrow: 'one'
-        }],
+        // hightlight: [{
+        //     class: 'cultivatelight'
+        // }],
+        // totals: [{
+        //     text: '采制批次管理有采制批次信息，是对完成种植的产品进行采收，录入采制时间、所属的种植区等可生成批次号。'
+        // }],
+        // tips: [{
+        //     text: '对采收的批次、采制人等进行管理',
+        //     pos: 'first',
+        //     arrow: 'one'
+        // }],
         typeComponent: [{
             component: output
         },
@@ -2131,37 +2131,37 @@ export default {
             theads: ['物流公司名称', '联系人', '联系电话', '地址', '备注'],
             protos: ['name', 'contacts', 'phone', 'address', 'memo'],
             widths: [50, 50, 50, 50, 50],
-            hightlight: [{
-                class: 'storagelight'
-            }],
-            totals: [{
-                text: '基础信息管理包含物流公司信息、车辆信息、驾驶员信息、仓库信息、产品信息。'
-            }],
-            tips: [{
-                text: '对物流公司信息进行增删查改的操作',
-                pos: 'first',
-                arrow: 'one'
-            },
-            {
-                text: '对载货车辆信息进行增删查改',
-                pos: 'car',
-                arrow: 'two'
-            },
-            {
-                text: '对驾驶员进行增删查改',
-                pos: 'driver',
-                arrow: 'three'
-            },
-            {
-                text: '选择仓库，并进行仓库基本信息的完善',
-                pos: 'save',
-                arrow: 'four'
-            },
-            {
-                text: '产品信息的增删查改',
-                pos: 'goods',
-                arrow: 'three'
-            }],
+            // hightlight: [{
+            //     class: 'storagelight'
+            // }],
+            // totals: [{
+            //     text: '基础信息管理包含物流公司信息、车辆信息、驾驶员信息、仓库信息、产品信息。'
+            // }],
+            // tips: [{
+            //     text: '对物流公司信息进行增删查改的操作',
+            //     pos: 'first',
+            //     arrow: 'one'
+            // },
+            // {
+            //     text: '对载货车辆信息进行增删查改',
+            //     pos: 'car',
+            //     arrow: 'two'
+            // },
+            // {
+            //     text: '对驾驶员进行增删查改',
+            //     pos: 'driver',
+            //     arrow: 'three'
+            // },
+            // {
+            //     text: '选择仓库，并进行仓库基本信息的完善',
+            //     pos: 'save',
+            //     arrow: 'four'
+            // },
+            // {
+            //     text: '产品信息的增删查改',
+            //     pos: 'goods',
+            //     arrow: 'three'
+            // }],
             typeComponent: [{
                 component: output
             },
@@ -2983,7 +2983,7 @@ export default {
         settitle: '物流批次管理',
         key: 'delivery',
         roleKey: 'order',
-        jumpTo: 'storageOperate',
+        // jumpTo: 'storageOperate',
         roleName: ['delivery/order', 0],
         tab: '物流批次信息',
         url: 'delivery',
@@ -2994,17 +2994,17 @@ export default {
         theads: ['物流批次', '物流日期', '运输方式', '操作人员', '状态', '备注'],
         protos: ['serial', 'datetime', 'transportable_type', 'operate', 'state', 'memo'],
         widths: [50, 50, 50, 50, 50, 50],
-        hightlight: [{
-            class: 'cultivatelight'
-        }],
-        totals: [{
-            text: '物流批次管理有物流订单信息，可选择物流方式等，新建信息之后生成物流批次号。'
-        }],
-        tips: [{
-            text: '对物流批次信息进行增删改查',
-            pos: 'first',
-            arrow: 'one'
-        }],
+        // hightlight: [{
+        //     class: 'cultivatelight'
+        // }],
+        // totals: [{
+        //     text: '物流批次管理有物流订单信息，可选择物流方式等，新建信息之后生成物流批次号。'
+        // }],
+        // tips: [{
+        //     text: '对物流批次信息进行增删改查',
+        //     pos: 'first',
+        //     arrow: 'one'
+        // }],
         typeComponent: [{
             component: output
         },
@@ -3228,44 +3228,44 @@ export default {
             key: 'tea-order',
             roleKey: 'out',
             url: 'tea-order',
-            jumpTo: 'saleProduct',
+            // jumpTo: 'saleProduct',
             batch: 'teaOrderBatch',
             searchPlaceholder: '请输入凤凰山茶出库批次号进行搜索',
             changeDataArr: [{state: {0: '未完成', 1: '已完成'}}],
             theads: ['出库批次号', '出库仓库名', '操作人（制票人）', '送货人', '出库日期', '入库', '备注'],
             protos: ['serial', 'storeroom_name', 'operate', 'deliveryman', 'date', 'flag', 'memo'],
             widths: [50, 50, 50, 50, 50, 50],
-            hightlight: [{
-                class: 'warehouselight'
-            }],
-            totals: [{
-                text: '在凤凰山茶库，新建该出库的批次，还没进行包装等的毛茶入库，制定生产任务即计划，制定领取毛茶的领料单，完成一系列的包装等工序之后进入仓库。'
-            }],
-            tips: [{
-                text: '可对凤凰山茶库出库信息进行管理，订单状态可以选择，可以生成二维码',
-                pos: 'first',
-                arrow: 'one'
-            },
-            {
-                text: '扫描出库单二维码生成调拨单，审批后生成出库单号',
-                pos: 'enterOrigin',
-                arrow: 'two'
-            },
-            {
-                text: '生产任务单号的增删改查',
-                pos: 'plan',
-                arrow: 'three'
-            },
-            {
-                text: '领料单生成后自动生成领料单号',
-                pos: 'take',
-                arrow: 'four'
-            },
-            {
-                text: '产品进入仓库包装等工序',
-                pos: 'enterLast',
-                arrow: 'three'
-            }],
+            // hightlight: [{
+            //     class: 'warehouselight'
+            // }],
+            // totals: [{
+            //     text: '在凤凰山茶库，新建该出库的批次，还没进行包装等的毛茶入库，制定生产任务即计划，制定领取毛茶的领料单，完成一系列的包装等工序之后进入仓库。'
+            // }],
+            // tips: [{
+            //     text: '可对凤凰山茶库出库信息进行管理，订单状态可以选择，可以生成二维码',
+            //     pos: 'first',
+            //     arrow: 'one'
+            // },
+            // {
+            //     text: '扫描出库单二维码生成调拨单，审批后生成出库单号',
+            //     pos: 'enterOrigin',
+            //     arrow: 'two'
+            // },
+            // {
+            //     text: '生产任务单号的增删改查',
+            //     pos: 'plan',
+            //     arrow: 'three'
+            // },
+            // {
+            //     text: '领料单生成后自动生成领料单号',
+            //     pos: 'take',
+            //     arrow: 'four'
+            // },
+            // {
+            //     text: '产品进入仓库包装等工序',
+            //     pos: 'enterLast',
+            //     arrow: 'three'
+            // }],
             typeComponent: [{
                 component: output
             },
@@ -4108,27 +4108,27 @@ export default {
         tab: '销售商品库管理',
         url: 'sell-store',
         roleKey: 'product',
-        jumpTo: 'saleOrder',
+        // jumpTo: 'saleOrder',
         searchPlaceholder: '请输入产品名称进行搜索',
         theads: ['产品代号', '产品名称', '规格型号', '库存数量', '单位', '图片', '产品简介', '备注'],
         protos: ['product_number', 'product_name', 'specification', 'storage_number', 'unit', 'img', 'desc', 'memo'],
         widths: [50, 50, 50, 50, 50, 50, 50, 50],
-        hightlight: [{
-            class: 'salelight'
-        }],
-        totals: [{
-            text: '对已经可以出产销售的产品进行信息录入，以及客户信息的录入，方便对接用户信息。'
-        }],
-        tips: [{
-            text: '对商品信息进行增删改查',
-            pos: 'first',
-            arrow: 'one'
-        },
-        {
-            text: '对客户信息的管理，点击查看按钮查看客户记录',
-            pos: 'detect',
-            arrow: 'two'
-        }],
+        // hightlight: [{
+        //     class: 'salelight'
+        // }],
+        // totals: [{
+        //     text: '对已经可以出产销售的产品进行信息录入，以及客户信息的录入，方便对接用户信息。'
+        // }],
+        // tips: [{
+        //     text: '对商品信息进行增删改查',
+        //     pos: 'first',
+        //     arrow: 'one'
+        // },
+        // {
+        //     text: '对客户信息的管理，点击查看按钮查看客户记录',
+        //     pos: 'detect',
+        //     arrow: 'two'
+        // }],
         typeComponent: [{
             component: output
         },
@@ -4571,29 +4571,29 @@ export default {
         tab: '销售订单管理',
         url: 'sell',
         roleKey: 'batch',
-        jumpTo: 'userOperate',
+        // jumpTo: 'userOperate',
         batch: 'saleOrderBatch',
         searchPlaceholder: '请输入订货单号',
         changeDataArr: [{transportable_type: {'self': '自运', 'consign': '托运'}}],
         theads: ['订单批次号', '订购公司', '联系人', '联系电话', '送货地址', '业务员', '制单人', '下单日期', '运输方式', '汇款账户', '物流单号', '备注'],
         protos: ['serial', 'company_name', 'contact', 'phone', 'address', 'sale_person', 'operate', 'date', 'transportable_type', 'bank_account', 'delivery_serial', 'memo'],
         widths: [50, 50, 50, 50, 50, 50, 50, 50, 50],
-        hightlight: [{
-            class: 'salelight'
-        }],
-        totals: [{
-            text: '新建订单后生成订单批次号，并新建发货信息，确定发货日期和客户信息等。'
-        }],
-        tips: [{
-            text: '新建生产订货单后，通过订单批次号查看订单信息',
-            pos: 'first',
-            arrow: 'one'
-        },
-        {
-            text: '新建发货单之后生成发货单批次号',
-            pos: 'detect',
-            arrow: 'two'
-        }],
+        // hightlight: [{
+        //     class: 'salelight'
+        // }],
+        // totals: [{
+        //     text: '新建订单后生成订单批次号，并新建发货信息，确定发货日期和客户信息等。'
+        // }],
+        // tips: [{
+        //     text: '新建生产订货单后，通过订单批次号查看订单信息',
+        //     pos: 'first',
+        //     arrow: 'one'
+        // },
+        // {
+        //     text: '新建发货单之后生成发货单批次号',
+        //     pos: 'detect',
+        //     arrow: 'two'
+        // }],
         typeComponent: [{
             component: output
         },
@@ -4899,7 +4899,7 @@ export default {
         key: 'role',
         roleKey: 'role',
         url: 'role',
-        jumpTo: 'systemLog',
+        // jumpTo: 'systemLog',
         roleName: ['system/role', 0],
         hiddenValue: {'fixation': 0},
         searchPlaceholder: '请输入中文名称进行搜索',
@@ -5645,8 +5645,8 @@ export default {
         batch: 'companyUser',
         hiddePermission: true,
         searchPlaceholder: '请输入公司名称进行搜索',
-        theads: ['公司名称', '公司编码', '公司Logo', '负责人/法人', '公司简称', '域名前缀', '统一码', '电话', '地址', '经营范围', '员工总数', '公司网站', '销售网站'],
-        protos: ['name', 'coding', 'logo', 'legal_person', 'short_name', 'pre_routes', 'USCC', 'phone', 'address', 'business_scope', 'total_staff', 'website', 'sell_website'],
+        theads: ['公司名称', '公司编码', '公司Logo', '负责人/法人', '公司简称', '域名前缀', '统一码', '电话', '地址', '经营范围', '员工总数', '公司网站', '传感器编号', '销售网站'],
+        protos: ['name', 'coding', 'logo', 'legal_person', 'short_name', 'pre_routes', 'USCC', 'phone', 'address', 'business_scope', 'total_staff', 'website', 'sensor', 'sell_website'],
         widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
         typeComponent: [{
             component: output
@@ -5757,6 +5757,15 @@ export default {
                 isNull: false,
                 label: '公司网站',
                 placeholder: '请输入公司网站',
+                rule: null
+            },
+            {
+                name: 'sensor',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '传感器编号',
+                placeholder: '',
                 rule: null
             },
             {
@@ -5888,6 +5897,15 @@ export default {
                 isNull: false,
                 label: '公司网站',
                 placeholder: '请输入公司网站',
+                rule: null
+            },
+            {
+                name: 'sensor',
+                type: 'text',
+                component: null,
+                isNull: false,
+                label: '传感器编号',
+                placeholder: '',
                 rule: null
             },
             {
