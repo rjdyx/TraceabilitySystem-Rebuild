@@ -79,6 +79,12 @@ export default {
         if (!window.isPC) {
             this.$router.push('/appIndex')
         }
+        axios.get('/api/index').then((responce) => {
+            localStorage.setItem('stepsBol', responce.data.wap_on)
+            if (Number(localStorage.getItem('stepsBol'))) {
+                this.tipShow = true
+            }
+        })
     },
     watch: {
     },

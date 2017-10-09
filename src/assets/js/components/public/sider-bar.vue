@@ -43,6 +43,7 @@ export default {
     data () {
         return {
             record: '',
+            tipShow: false,
             tips: [
                 {
                     text: '展开显示溯源系统的一系列流程',
@@ -72,15 +73,10 @@ export default {
         this.$nextTick(() => {
             this.record = this.record1
         })
-        // 判断第一次登录时侧边栏选中的会高亮
-        // let at = $('.is-active')
-        // console.log(at)
-        // at.css('position', 'relative')
-        // at.css('zIndex', '99999999')
         // 判断第一次登录时提示遮罩显示
         axios.get('/api/index').then((responce) => {
-            localStorage.setItem('stepsBol', responce.data.wap_on)
-            if (Number(localStorage.getItem('stepsBol'))) {
+            localStorage.setItem('tips', responce.data.pc_on)
+            if (Number(localStorage.getItem('tips'))) {
                 this.tipShow = true
             }
         })
@@ -103,13 +99,6 @@ export default {
             this.$router.push(tip.path)
             this.tipShow = false
             this.record = tip.path
-            let params = {'flag': 'wap'}
-            axios.get('/api/index/seton', {params: params})
-                .then((responce) => {
-                    if (responce.data !== 'false') {
-                        localStorage.setItem('stepsBol', '0')
-                    }
-                })
         }
     },
     watch: {

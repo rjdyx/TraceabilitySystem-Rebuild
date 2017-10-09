@@ -284,7 +284,7 @@ export default {
             selectVal: [],
             // 分页
             pageVal: 1,
-            tipshow: true,
+            tipshow: false,
             i: 0,
             // tab模块选择标志
             modelIndex: localStorage.getItem('tab') !== null ? localStorage.getItem('tab') : 0,
@@ -353,12 +353,13 @@ export default {
                 this.tipshow = false
             }
             console.log(this.i)
-            // let params = {'flag': 'wap'}
-            // axios.get('/api/index/seton', {params: params}).then((responce) => {
-            //     if (responce.data !== 'false') {
-            //         localStorage.setItem('stepsBol', '0')
-            //     }
-            // })
+            let params = {'flag': 'pc'}
+            axios.get('/api/index/seton', {params: params})
+                .then((responce) => {
+                    if (responce.data !== 'false') {
+                        localStorage.setItem('tips', '0')
+                    }
+                })
         },
         preview () {
             this.i--
@@ -1074,11 +1075,10 @@ export default {
         change.css('display', 'none')
         this.theads.length > 8 ? this.expandMore = true : this.expandMore = false
         // 判断第一次登录时提示遮罩显示
-        // this.tipshow = false
         axios.get('/api/index').then((responce) => {
-            localStorage.setItem('stepsBol', responce.data.wap_on)
-            if (Number(localStorage.getItem('stepsBol'))) {
-                this.tipShow = true
+            localStorage.setItem('tips', responce.data.pc_on)
+            if (Number(localStorage.getItem('tips'))) {
+                this.tipshow = true
             }
         })
     },
