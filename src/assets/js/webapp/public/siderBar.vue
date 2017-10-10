@@ -6,15 +6,16 @@
  * 
  */ 
  <template>
+ <div>
  	<transition-group
         name="animate-class-transition"
         enter-active-class="animated slideInLeft"
         leave-active-class="animated slideOutLeft">
         <div key='black' class="black-layer" v-if="show" @click="initTouch">
-   		   <div class="app-menu" key="menu">
+   		    <div class="app-menu" key="menu">
 	            <el-menu
 	                :router="true" 
-	                :unique-opened="true"
+	                :unique-opened="!stepsBol"
                     :default-openeds="defaultOpeneds"
 	                class="menulist" theme="dark" @close="handleClose">
                     <div class="el-submenu__title" @click="hidemenu">
@@ -44,6 +45,7 @@
     	    </div>
         </div>
     </transition-group>
+</div>
 </template>
 
 <script>
@@ -55,23 +57,31 @@ export default {
             children: '',
             data: [],
             steps: [
-                {
-                    element: '.app-menu .el-menu-item',
-                    intro: '施肥管理',
-                    class: 'siderBarTip1_1'
-                },
-                {
-                    element: '.app-menu .el-menu-item',
-                    intro: '检测管理',
-                    class: 'siderBarTip1_2'
-                },
-                {
-                    element: '.app-menu .el-menu-item',
-                    intro: '农事管理',
-                    class: 'siderBarTip1_3'
-                }
+                [
+                    {
+                        element: 'li.el-submenu .el-menu-item',
+                        intro: '施肥管理',
+                        class: 'siderBarTip1_1'
+                    },
+                    {
+                        element: 'li.el-submenu .el-menu-item',
+                        intro: '检测管理',
+                        class: 'siderBarTip1_2'
+                    },
+                    {
+                        element: 'li.el-submenu .el-menu-item',
+                        intro: '农事管理',
+                        class: 'siderBarTip1_3'
+                    },
+                    {
+                        element: 'li.el-submenu .el-menu-item',
+                        intro: '批次管理',
+                        class: 'siderBarTip1_4'
+                    }
+                ]
             ],
-            defaultOpeneds: []
+            defaultOpeneds: [],
+            stepsBol: false
         }
     },
     props: {
@@ -102,9 +112,7 @@ export default {
         },
         initTouch (event) {
             if (event.target.className.indexOf('el-submenu') && event.target.className.indexOf('el-menu-item') === -1) {
-                if (!localStorage.getItem('tipNum') === '1') {
-                    this.hidemenu()
-                }
+                this.hidemenu()
             }
         },
         logout () {
