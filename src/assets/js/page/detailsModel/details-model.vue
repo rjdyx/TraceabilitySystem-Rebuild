@@ -57,13 +57,13 @@
                 </div>
 
                 <!-- 步骤提示 -->
-                <div class="tipdel" v-if="tipdel">
+                <!-- <div class="tipdel" v-if="tipdel">
                     <template>
                         <div class="tipdes">
                             在此页面可以新建编辑批次的详细信息，进行有秩序的管理。
                         </div>
                     </template>
-                </div>
+                </div> -->
 
             </div>
         
@@ -917,9 +917,9 @@ export default {
         this.printf.detailsBatch = this.models
         // 判断是否是示例页面，是的话就显示
         // 判断是否是第一次登录，是的话就显示
-        if (path.indexOf('plantSerial') !== -1) {
-            this.tipdel = true
-        }
+        // if (path.indexOf('plantSerial') !== -1) {
+        //     this.tipdel = true
+        // }
     },
     watch: {
         tabItem () {
@@ -1105,32 +1105,32 @@ export default {
         color: #99a9bf;
     }
 }
-   .tipdel{
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.3);
-        top: 0;
-        left: 0;
-        z-index: 2000;
-        position: absolute;
-        .tipdes{
-            width: 400px;
-            min-height: 100px;
-            top: 50%;
-            left: 50%;
-            margin-left: -200px;
-            margin-top: -100px;
-            position: absolute;
-            background: #fff;
-            box-shadow: 0 2px 15px rgba(0,0,0,.4);
-            border-radius: 5px;
-            padding: 10px;
-            font-weight: bold;
-            text-indent: 32px;
-            font-size: 16px;
-            z-index: 999999;
-        }
-   } 
+   // .tipdel{
+   //      width: 100%;
+   //      height: 100%;
+   //      background: rgba(0, 0, 0, 0.3);
+   //      top: 0;
+   //      left: 0;
+   //      z-index: 2000;
+   //      position: absolute;
+   //      .tipdes{
+   //          width: 400px;
+   //          min-height: 100px;
+   //          top: 50%;
+   //          left: 50%;
+   //          margin-left: -200px;
+   //          margin-top: -100px;
+   //          position: absolute;
+   //          background: #fff;
+   //          box-shadow: 0 2px 15px rgba(0,0,0,.4);
+   //          border-radius: 5px;
+   //          padding: 10px;
+   //          font-weight: bold;
+   //          text-indent: 32px;
+   //          font-size: 16px;
+   //          z-index: 999999;
+   //      }
+   // } 
 }
 
 </style>

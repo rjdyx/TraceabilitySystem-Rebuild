@@ -8,7 +8,7 @@
 	<div class="appCanvas">
 		<div class="con">
 			<div class="head">
-				<span class="headLT">数据统计</span>
+				<span class="headLT">实时数据监测</span>
 				<div class='headRT' @click="rotate360Fn">
 					<img src="/public/images/shuaxin.png" alt="">
 					<span>刷新</span>
@@ -106,31 +106,32 @@ export default{
     data () {
         return {
             list: [{
-                value: '65%',
-                label: '湿度',
-                symbol: '%'
+                value: '0%RH',
+                label: '土壤湿度',
+                symbol: '%RH'
             }, {
-                value: '5000pa',
+                value: '0hpa',
                 label: '数字气压',
-                symbol: 'pa'
+                symbol: 'hpa'
             }, {
-                value: '28%',
-                label: '温度',
+                value: '0℃',
+                label: '土壤温度',
                 symbol: '℃'
             }, {
                 value: '东北风',
                 label: '风向',
                 symbol: ''
             }, {
-                value: '50',
+                value: '0m/s',
                 label: '风速',
                 symbol: 'm/s'
             }, {
-                value: '1',
+                value: '0mm/min',
                 label: '雨量',
-                symbol: 'mm'
+                symbol: 'mm/min'
             }],
-            arr: ['北风', '东北风', '东风', '东南风', '南风', '西南风', '西风', '西北风']
+            arr: ['北风', '东北风', '东风', '东南风', '南风', '西南风', '西风', '西北风'],
+            dateTime: ''
         }
     },
     mounted () {
@@ -147,18 +148,38 @@ export default{
             this.closePath()
             return this
         }
-        this.drawInit()
+        this.getWatchData()
         $(window).on('resize', () => {
             this.drawInit()
         })
     },
     methods: {
         rotate360Fn () {
+            this.getWatchData()
+        },
+        // 提示弹窗
+        setToast (type, text, width = '7.6em') {
+            this.$vux.toast.show({
+                type: type,
+                text: text,
+                width: width,
+                position: 'middle'
+            })
+        },
+        getWatchData () {
+            this.dateTime = this.getNewDate()
             $('.headRT>img').css('animation-name', 'rotatefn')
-            var timer = setTimeout(() => {
-                $('.headRT>img').css('animation-name', '')
-                clearTimeout(timer)
-            }, 3000)
+            axios.get('/api/maxdata')
+                .then((responce) => {
+                    if (responce.data) {
+                        this.getValue(responce.data)
+                        this.drawInit()
+                        this.setToast('text', '刷新数据成功', '10em')
+                    } else {
+                        this.setToast('text', '刷新数据失败', '10em')
+                    }
+                    $('.headRT>img').css('animation-name', '')
+                })
         },
         drawCursorFn (w, h, pen, title, targetDeg) {
             var ber = 10000
@@ -174,7 +195,7 @@ export default{
             pen.fill()
             pen.closePath()
             // 彩色圆
-            pen.fillStyle = '#f78561'
+            pen.fillStyle = '#5DAFE1'
             pen.beginPath()
             pen.moveTo(290, 290)
             pen.arc(290, 290, 190, Math.PI, Math.PI * ((num / ber) + 1), false)
@@ -192,7 +213,7 @@ export default{
             pen.save()
             // 湿度
             pen.beginPath()
-            pen.fillStyle = '#f78561'
+            pen.fillStyle = '#5DAFE1'
             pen.font = '26px Arial'
             pen.fillText(title, 110, 30)
             // 可变65%
@@ -201,7 +222,7 @@ export default{
             pen.fillStyle = '#a0a0a0'
             pen.font = '32px Arial'
             pen.textAlign = 'center'
-            pen.fillText('时间：2017-9-9 10:30', 290, 350)
+            pen.fillText('时间：' + this.dateTime, 290, 350)
             pen.closePath()
             pen.fillStyle = '#787878'
             // 指针 这里也变 角度变
@@ -235,7 +256,7 @@ export default{
             pen.fill()
             pen.closePath()
             // 彩色圆
-            pen.fillStyle = '#5dafe1'
+            pen.fillStyle = '#55CBBD'
             pen.beginPath()
             pen.fillRect(50, 115, 490 * (num / ber), 150)
             pen.closePath()
@@ -251,7 +272,7 @@ export default{
             pen.fillStyle = '#a0a0a0'
             pen.font = '32px Arial'
             pen.textAlign = 'center'
-            pen.fillText('时间：2017-9-9 10:30', 290, 350)
+            pen.fillText('时间：' + this.dateTime, 290, 350)
             pen.closePath()
             pen.restore()
         },
@@ -270,7 +291,7 @@ export default{
             pen.closePath()
             pen.fill()
             pen.beginPath()
-            pen.fillStyle = '#55cbbd'
+            pen.fillStyle = '#f78561'
             pen.arc(115, 220, 65, Math.PI / 4, Math.PI / 4 * 7, false)
             pen.closePath()
             pen.fill()
@@ -287,7 +308,7 @@ export default{
             pen.fillStyle = '#a0a0a0'
             pen.font = '32px Arial'
             pen.textAlign = 'center'
-            pen.fillText('时间：2017-9-9 10:30', 290, 350)
+            pen.fillText('时间：' + this.dateTime, 290, 350)
             pen.closePath()
             pen.strokeStyle = '#a0a0a0'
             for (var i = 1; i < 370 / 8; i++) {
@@ -375,7 +396,7 @@ export default{
             pen.fill()
             pen.closePath()
             // 彩色圆
-            pen.fillStyle = '#5dafe1'
+            pen.fillStyle = '#273234'
             pen.beginPath()
             var y = 260 * (num / 32)
             pen.globalCompositeOperation = 'source-atop'
@@ -385,7 +406,7 @@ export default{
             pen.save()
             // 湿度
             pen.beginPath()
-            pen.fillStyle = '#5dafe1'
+            pen.fillStyle = '#273234'
             pen.font = '26px Arial'
             pen.fillText(title, 110, 30)
             // 可变65%
@@ -410,7 +431,7 @@ export default{
             pen.fillStyle = '#a0a0a0'
             pen.font = '32px Arial'
             pen.textAlign = 'center'
-            pen.fillText('时间：2017-9-9 10:30', 290, 400)
+            pen.fillText('时间：' + this.dateTime, 290, 400)
             pen.closePath()
             pen.restore()
         },
@@ -468,6 +489,52 @@ export default{
                 }
                 }
             }
+        },
+        // 获取最新时间
+        getNewDate () {
+            var now = new Date()
+            var year = now.getFullYear()
+            var month = now.getMonth()
+            var date = now.getDate()
+            var hour = now.getHours()
+            var min = now.getMinutes()
+            month = month + 1
+            if (month < 10) month = '0' + month
+            if (date < 10) date = '0' + date
+            if (hour < 10) hour = '0' + hour
+            if (min < 10) min = '0' + min
+            var time = year + '-' + month + '-' + date + ' ' + hour + ':' + min
+            return time
+        },
+        getValue (data) {
+            this.list[0].value = parseFloat(data.content[0].e4).toFixed(1) + '%RH'
+            this.list[1].value = parseFloat(data.content[0].e9).toFixed(1) + 'hpa'
+            this.list[2].value = parseFloat(data.content[0].e6).toFixed(1) + '℃'
+            this.list[3].value = this.directionWind(data.content[0].e3)
+            this.list[4].value = parseFloat(data.content[0].e1).toFixed(2) + 'm/s'
+            this.list[5].value = data.content[0].e2 + 'mm/min'
+        },
+        // 绘制风向
+        directionWind (data) {
+            var value
+            if (data === 0 || data === 360) {
+                value = this.arr[0]
+            } else if (data < 90 && data > 0) {
+                value = this.arr[1]
+            } else if (data === 90) {
+                value = this.arr[2]
+            } else if (data > 90 && data < 180) {
+                value = this.arr[3]
+            } else if (data === 180) {
+                value = this.arr[4]
+            } else if (data > 180 && data < 270) {
+                value = this.arr[5]
+            } else if (data === 270) {
+                value = this.arr[6]
+            } else {
+                value = this.arr[7]
+            }
+            return value
         }
     }
 }

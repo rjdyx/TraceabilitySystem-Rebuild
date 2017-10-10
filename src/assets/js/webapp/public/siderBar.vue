@@ -120,7 +120,6 @@ export default {
                 if (responce.data === 200) {
                     window.Roles = {}
                     this.$router.push('/waplogin')
-                    localStorage.setItem('stepsIndex', '0')
                 }
             })
         }

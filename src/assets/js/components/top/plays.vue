@@ -35,9 +35,7 @@
 
 <script>
 import ContainTitle from '../layout/contain-title.vue'
-import {mapActions} from 'vuex'
 export default{
-    name: 'home',
     data () {
         return {
             settitle: '实时视频',
@@ -45,9 +43,6 @@ export default{
             desc: '',
             playState: false
         }
-    },
-    components: {
-        ContainTitle
     },
     methods: {
         videoPlay: function (e) {
@@ -90,6 +85,9 @@ export default{
                 this.playState = true
             }
         })
+    },
+    components: {
+        ContainTitle
     },
     created () {
         document.title = this.settitle
