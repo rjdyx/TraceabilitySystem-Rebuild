@@ -34,7 +34,9 @@ export default{
     props: {
         steps: {
             type: Array,
-            default: []
+            default: function () {
+                return []
+            }
         }
     },
     mounted () {

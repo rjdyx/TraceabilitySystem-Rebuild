@@ -10,7 +10,7 @@
 		<app-header @parentClick="showsider" :settitle="settitle" :homeShow="homeShow" :back="back" :growPicture="growPicture">
             <span class="left-btn" @click="showmenu" slot="menu"></span>
         </app-header>
-		<sider-bar :menus='menus' :show="show" @hidetoggle="hidesider" @children-info="getinfo"></sider-bar>
+		<sider-bar ref="siderBar" :menus='menus' :show="show" @hidetoggle="hidesider" @children-info="getinfo"></sider-bar>
 		<router-view></router-view>
 	</div>
 </template>

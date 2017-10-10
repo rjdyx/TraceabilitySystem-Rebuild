@@ -37,7 +37,7 @@
 				</div>
 			</div>
 		</div>
-        <guide v-if="stepsBol" :steps="steps[stepsIndex]" @return-nextFn="nextFn" @return-prevFn="prevFn"></guide>
+        <guide ref="guide" v-if="stepsBol" :steps="steps[stepsIndex]" @return-nextFn="nextFn" @return-prevFn="prevFn"></guide>
 	</div>
 </template>
 
@@ -54,6 +54,8 @@ export default{
             loginDate: '',
             userType: '',
             timer: null,
+            stepsIndex: 0,
+            stepsBol: false,
             steps: [
                 [
                     {
@@ -61,7 +63,9 @@ export default{
                         intro: '种植管理，采制管理的操作目录',
                         class: 'tip1',
                         index: 0
-                    },
+                    }
+                ],
+                [
                     {
                         element: '.app-header .growPicture',
                         intro: '添加种植批次的生长图片',
@@ -71,61 +75,60 @@ export default{
                 ],
                 [
                     {
-                        element: '.app-menu .el-submenu',
-                        intro: '1.对批次进行施肥，检测，农事管理',
-                        class: 'siderBarTip1',
-                        index: 0
+                        element: 'li.el-submenu .el-menu-item',
+                        intro: '对批次进行施肥管理',
+                        class: 'siderBarTip1'
                     },
                     {
-                        element: '.app-menu .el-submenu',
-                        intro: '2.对可采收的批次进行采制管理',
-                        class: 'siderBarTip2',
-                        index: 1
+                        element: 'li.el-submenu .el-menu-item',
+                        intro: '对批次进行检测管理',
+                        class: 'siderBarTip1'
+                    },
+                    {
+                        element: 'li.el-submenu .el-menu-item',
+                        intro: '对批次进行农事管理',
+                        class: 'siderBarTip1'
+                    },
+                    {
+                        element: 'li.el-submenu .el-menu-item',
+                        intro: '对可采收的批次进行批次管理',
+                        class: 'siderBarTip1'
                     }
                 ]
-                // ,
-                // [
-                //     {
-                //         element: '.app-menu .el-submenu',
-                //         intro: '种植管理-->施肥管理',
-                //         class: 'siderBarTip1_1',
-                //         index: 0
-                //     },
-                //     {
-                //         element: '.app-menu .el-menu-item',
-                //         intro: '种植管理-->检测管理',
-                //         class: 'siderBarTip1_2',
-                //         index: 1
-                //     },
-                //     {
-                //         element: '.app-menu .el-menu-item',
-                //         intro: '种植管理-->农事管理',
-                //         class: 'siderBarTip1_3',
-                //         index: 2
-                //     }
-                // ]
-            ],
-            stepsIndex: 0,
-            stepsBol: false
+            ]
         }
     },
     methods: {
         nextFn () {
-            $('.left-btn').click()
             if (this.stepsIndex <= this.steps.length - 1) {
                 this.stepsIndex += 1
-                if (this.stepsIndex === 1) {
-                    $('.left-btn').eq(0).click()
-                } else if (this.stepsIndex === 2) {
-                    this.stepsIndex = 1
-                    $('.el-menu-item').eq(0).click()
-                }
             }
         },
         prevFn () {
             if (this.stepsIndex > 0) {
                 this.stepsIndex -= 1
                 $('.el-submenu__title').click()
+            }
+            this.$nextTick(() => {
+                this.$refs.guide.stepsFn()
+            })
+        },
+        gideFn () {
+            if (this.stepsIndex === 1) {
+                this.$nextTick(() => {
+                    this.$refs.guide.stepsFn()
+                })
+            } else if (this.stepsIndex === 2) {
+                $('.left-btn').eq(0).click()
+                this.$nextTick(() => {
+                    $('li.el-submenu .el-submenu__title').click()
+                    setTimeout(() => {
+                        this.$refs.guide.stepsFn()
+                    }, 300)
+                })
+            } else if (this.stepsIndex === 3) {
+                $('body').find('.el-menu-item').eq(0).click()
+                this.stepsBol = false
             }
         },
         push () {
@@ -221,6 +224,10 @@ export default{
         }
     },
     mounted () {
+        // this.stepsBol = true
+        // 引导图初始不加载
+        localStorage.setItem('stepsBol', '0')
+        // this.stepsIndex = localStorage.getItem('stepsIndex') ? Number(localStorage.getItem('stepsIndex')) : 0
         axios.get('/api/index')
             .then((responce) => {
                 this.company = responce.data.company_name
@@ -231,12 +238,19 @@ export default{
                 localStorage.setItem('stepsBol', responce.data.wap_on)
                 if (Number(localStorage.getItem('stepsBol'))) {
                     this.stepsBol = true
+                    this.$parent.$refs.siderBar.stepsBol = true
                 }
             })
         this.drawInit()
         $(window).on('resize', () => {
             this.drawInit()
         })
+    },
+    watch: {
+        stepsIndex () {
+            // localStorage.setItem('stepsIndex', this.stepsIndex)
+            this.gideFn()
+        }
     }
 }
 </script>

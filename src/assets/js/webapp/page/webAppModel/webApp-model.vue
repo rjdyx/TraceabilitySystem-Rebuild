@@ -116,7 +116,7 @@
             <paginator :total="total" @pageEvent="pageChange"></paginator>
         </div>
     </div>
-    <guide2 v-if="stepsBol" :steps="steps[stepsIndex]" @return-nextFn="nextFn" @return-prevFn="prevFn"></guide2>
+    <guide v-if="stepsBol" ref='guide' :steps="steps[stepsIndex]" @return-nextFn="nextFn" @return-prevFn="prevFn"></guide>
   </div>
 </div>
 </template> 
@@ -129,7 +129,7 @@ import siderBar from '../../public/siderBar.vue'
 import paginator from '../../public/paginator.vue'
 import computed from '../webAppModel/appcomputed.js'
 import appfunction from '../../directive/appfunction.js'
-import Guide2 from '../../public/guide2.vue'
+import Guide from '../../public/guide.vue'
 export default {
     name: 'BasicModel',
     directives: {
@@ -207,17 +207,10 @@ export default {
                 if (this.stepsIndex <= this.steps.length - 1) {
                     this.stepsIndex ++
                     if (this.stepsIndex === 1) {
-                        $('.applist').animate({top: '7px'})
-                    }
-                    if (this.stepsIndex === 2) {
-                        $('.closeOperate').click()
-                    }
-                    if (this.stepsIndex === 4) {
-                        if (this.checkAll) {
-                            $('.webApp_model .allcheck').click()
-                        }
-                    }
-                    if (this.stepsIndex === this.steps.length) {
+                        this.$nextTick(() => {
+                            this.$refs.guide.stepsFn()
+                        })
+                    } else if (this.stepsIndex === this.steps.length) {
                         this.stepsIndex = this.steps.length - 1
                         this.stepsBol = false
                         $('.guide_relativePosition').removeClass('guide_relativePosition guide_showElement')
@@ -226,6 +219,8 @@ export default {
                             .then((responce) => {
                                 if (responce.data !== 'false') {
                                     localStorage.setItem('stepsBol', '0')
+                                    localStorage.setItem('stepsIndex', '0')
+                                    this.$parent.$parent.$parent.$refs.siderBar.stepsBol = false
                                 }
                             })
                     }
@@ -239,6 +234,7 @@ export default {
                     if (this.stepsIndex < 0) {
                         this.stepsIndex = 0
                         $('.right-btn').click()
+                        localStorage.setItem('stepsIndex', '2')
                     }
                     if (this.stepsIndex === 0) {
                         $('.closeOperate').click()
@@ -247,6 +243,9 @@ export default {
                         $('.applist').animate({top: '7px'})
                     }
                 }
+                this.$nextTick(() => {
+                    this.$refs.guide.stepsFn()
+                })
             }
         },
         init (index = 0) {
@@ -508,7 +507,7 @@ export default {
         XDialog,
         XSwitch,
         Qrcode,
-        Guide2
+        Guide
     }
 }
 </script>
