@@ -26,7 +26,7 @@
                     <img :src="menu.src" class="menu-img">
                         {{menu.name}}
                     </template>
-                    <el-menu-item v-for="(subMenu, subIndex) in menu.children" :index="subMenu.path" v-if="subMenu.role" exact @click="toggle(subIndex, subMenu.name)"> 
+                    <el-menu-item v-for="(subMenu, subIndex) in menu.children" :index="subMenu.path" v-if="subMenu.role" exact @click="toggle(subIndex, subMenu.name)" :class="{'relative':isRelative}"> 
                         {{subMenu.name}}
                     </el-menu-item>
                 </el-submenu>
@@ -44,6 +44,7 @@ export default {
         return {
             record: '',
             tipShow: false,
+            isRelative: false,
             tips: [
                 {
                     text: '展开显示溯源系统的一系列流程',
@@ -79,6 +80,10 @@ export default {
             if (Number(localStorage.getItem('tips'))) {
                 this.tipShow = true
             }
+            responce.data.pc_on === 1 ? this.isRelative = true : this.isRelative = false
+            if (this.$route.path.indexOf('company') !== -1) {
+                this.isRelative = false
+            }
         })
     },
     methods: {
@@ -107,6 +112,11 @@ export default {
                 this.$children[0].$children[0].closeMenu()
                 this.$children[0].$children[0].activedIndex = ''
                 this.$store.dispatch('switch_record', '')
+            }
+        },
+        $route () {
+            if (this.$route.path.indexOf('company') !== -1) {
+                this.isRelative = false
             }
         }
     },
@@ -142,6 +152,10 @@ export default {
     //     position: relative;
     //     z-index: 8989898;
     // }
+    .relative{
+        position: relative;
+        z-index: 8989898;
+    }
     .next{
         position: absolute;
         bottom: 10px;
