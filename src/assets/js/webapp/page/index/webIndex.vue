@@ -98,13 +98,12 @@ export default{
             }
         }, 1000)
         localStorage.setItem('trends', 0)
-        axios.get('/api/index')
-            .then((responce) => {
-                this.company = responce.data.company_name
-                this.user = responce.data.name
-                this.userType = responce.data.type
-                this.loginDate = this.getLoginTime(localStorage.getItem('loginDate'))
-            })
+        axios.get('/api/index').then((responce) => {
+            this.company = responce.data.company_name
+            this.user = responce.data.name
+            this.userType = responce.data.type
+            this.loginDate = this.getLoginTime(localStorage.getItem('loginDate'))
+        })
     }
 }
 </script>

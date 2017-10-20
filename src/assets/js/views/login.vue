@@ -35,9 +35,10 @@
 						</el-form-item>
 						<el-form-item label="" prop="code">
 							<el-input 
-								v-model.number="ruleForm2.code" 
+								v-model="ruleForm2.code" 
 								placeholder="请输入验证码" 
-								class="code" @keyup.enter.native="passTo">
+								class="code" @keyup.enter.native="passTo"
+								type="number">
 							</el-input>
 							<img :src="kit_url" alt="" class="kit" @click="Kit">
 							<span class="loading">
@@ -149,8 +150,6 @@ export default {
                         } else {
                             // history.go(0) // 刷新更新权限数据
                             this.$store.dispatch('switch_record', '')
-                            var myDate = new Date()
-                            localStorage.setItem('loginDate', myDate.toLocaleString())
                             if (this.recordeChecked) {
                                 localStorage.setItem('recordUser', this.ruleForm2.name)
                             } else {
@@ -161,7 +160,12 @@ export default {
                             json.record = ''
                             let jsonStr = JSON.stringify(json)
                             localStorage.setItem('record', jsonStr)
-                            this.$router.push('/index/home')
+                            localStorage.setItem('loginDate', new Date())
+                            if (window.isPC) {
+                                this.$router.push('/index/home')
+                            } else {
+                                this.$router.push('/appIndex')
+                            }
                         }
                     })
                 } else {

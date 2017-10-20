@@ -81,7 +81,12 @@ export default{
         // 获取溯源码
         this.code = this.$route.params.code
         // 查询首页产品数据
-        var params = {code: this.code}
+        var params = {code: this.code, teaTrace: 0}
+        // 追溯次数判断、操作
+        if (sessionStorage.getItem('teaTrace') === null) {
+            params['teaTrace'] = 1
+            sessionStorage.setItem('teaTrace', 1)
+        }
         axios.get('run/plant/index', {params: params})
             .then((responce) => {
                 var lists = responce.data
@@ -96,21 +101,30 @@ export default{
                     this.video = lists.video
                 } else {
                     if (lists === 404) {
-                        alert('溯源码无效！')
-                        this.$router.go('-1')
+                        this.setToast('text', '当前溯源码无效', '12em')
+                        this.$router.push('/404')
                     }
                     if (lists === 403) {
-                        alert('商家已关闭溯源码追溯！')
-                        this.$router.go('-1')
+                        this.setToast('text', '商家已关闭溯源码追溯', '12em')
+                        this.$router.push('/404')
                     }
                     if (lists === 400) {
-                        alert('该溯源码无相关信息！')
-                        this.$router.go('-1')
+                        this.setToast('text', '该溯源码无相关信息', '12em')
+                        this.$router.push('/404')
                     }
                 }
             })
     },
     methods: {
+        // 提示弹窗
+        setToast (type, text, width = '7.6em') {
+            this.$vux.toast.show({
+                type: type,
+                text: text,
+                width: width,
+                position: 'middle'
+            })
+        }
     }
 }
 </script>
