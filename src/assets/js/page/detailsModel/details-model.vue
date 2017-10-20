@@ -179,7 +179,8 @@ export default {
                     theads: [],
                     changeDataArr: [],
                     protos: [],
-                    tabList: []
+                    tabList: [],
+                    obt: 2
                 }
             }
         }
@@ -208,7 +209,8 @@ export default {
             selectNewEdit: [],
             index: localStorage.getItem('tabL') !== null ? localStorage.getItem('tabL') : 0,
             rowId: null,
-            routeId: this.$route.params.id,
+            // routeId: this.$route.params.id,
+            routeId: localStorage.getItem('detailsId'),
             isShow: true,
             listLoading: false,
             tableListBollean: true
@@ -227,7 +229,10 @@ export default {
         },
         jumpDetails (row, cid) {
             var id = row.id
-            this.$router.push('/index/details/' + this.batch + '/' + id)
+            this.$router.push('/index/details/' + this.batch)
+            if (id) {
+                localStorage.setItem('detailSecondId', id)
+            }
         },
         // 显示新建表单
         changeNewShow () {
@@ -433,10 +438,10 @@ export default {
         },
         // 获取Api接口数据
         getApiUrl () {
-            this.apiUrlArr[this.url] = this.url + '/' + this.$route.params.id
+            this.apiUrlArr[this.url] = this.url + '/' + this.routeId
             for (var i in this.tabList) {
                 if (this.tabList[i].split === undefined || this.tabList[i].split === false) {
-                    this.apiUrlArr[this.tabList[i].url] = this.$route.params.id + '/' + this.tabList[i].url
+                    this.apiUrlArr[this.tabList[i].url] = this.routeId + '/' + this.tabList[i].url
                 } else {
                     this.apiUrlArr[this.tabList[i].url] = this.tabList[i].url
                 }
@@ -481,7 +486,7 @@ export default {
                 }
             }
             if (names !== undefined && names !== null) {
-                data[names] = this.$route.params.id
+                data[names] = this.$routeId
             }
             if (flag) {
                 this.listLoading = true
@@ -740,10 +745,21 @@ export default {
         importChange () {
             this.getDetailSerial()
             this.boxArr(this.dataArr, false)
+        },
+        // 判断第二还是第三级
+        secondOrThird () {
+            if (this.obt !== undefined) {
+                if (this.obt === 2) {
+                    this.routeId = localStorage.getItem('detailsId')
+                } else {
+                    this.routeId = localStorage.getItem('detailSecondId')
+                }
+            }
         }
     },
     mounted () {
         this.change_siderBar(false)
+        this.secondOrThird()
         this.tabItem = this.tabList[localStorage.getItem('tabL') !== null ? localStorage.getItem('tabL') : 0]
         this.activeName = this.tabList[localStorage.getItem('tabL') !== null ? localStorage.getItem('tabL') : 0].tab
         localStorage.setItem('tab', 0)
@@ -762,6 +778,7 @@ export default {
             document.title = this.tab
         },
         tab () {
+            this.secondOrThird()
             this.tabItem = this.tabList[0]
             this.activeName = this.tabList[0].tab
             this.getApiUrl()

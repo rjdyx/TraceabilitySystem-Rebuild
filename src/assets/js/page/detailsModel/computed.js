@@ -26,6 +26,9 @@ export default {
         },
         roleName () {
             return this.models.roleName
+        },
+        obt () {
+            return this.models.obt
         }
     }
 }

@@ -720,6 +720,7 @@ export default {
         protos: ['serial', 'date', 'amount', 'unit', 'operate_name', 'memo'],
         batch: 'beastPackProduct',
         url: 'pack',
+        obt: 2,
         tabList: [{
             url: 'pack-product',
             tab: '加工批次产品信息',
@@ -761,6 +762,7 @@ export default {
         theads: ['产品名称', '执行标准', '商品型号', '包装规格', '保质期', '存储方法'],
         protos: ['name', 'enforce_standard', 'marque', 'specification', 'expiration_date', 'storage_means'],
         url: '{x}/pack-product',
+        obt: 3,
         tabList: [{
             url: 'pack-product-rfid',
             tab: '加工产品溯源码信息',
@@ -1384,6 +1386,7 @@ export default {
         protos: ['serial', 'date', 'amount', 'origin', 'operate_name', 'memo'],
         batch: 'plantPackProduct',
         url: 'pack',
+        obt: 2,
         tabList: [{
             url: 'pack-product',
             tab: '加工批次产品信息',
@@ -1425,6 +1428,7 @@ export default {
         theads: ['产品名称', '执行标准', '商品型号', '包装规格', '保质期', '存储方法'],
         protos: ['name', 'enforce_standard', 'marque', 'specification', 'expiration_date', 'storage_means'],
         url: '{x}/pack-product',
+        obt: 3,
         tabList: [{
             url: 'pack-product-harvest',
             tab: '加工产品溯源码信息',

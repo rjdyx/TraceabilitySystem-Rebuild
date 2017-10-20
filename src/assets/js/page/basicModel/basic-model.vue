@@ -290,16 +290,19 @@ export default {
             } else if (row.harvest_change !== undefined) {
                 id = row.cultivate_id
             }
+            if (id) {
+                localStorage.setItem('detailsId', id)
+            }
             if (this.key === 'plan-beast') {
                 if (['饲养', '检测'].indexOf(row.type) >= 0) {
-                    this.$router.push('/index/details/planBreedBatch/' + id)
+                    this.$router.push('/index/details/planBreedBatch')
                     return
                 } else {
-                    this.$router.push('/index/details/planRfidBatch/' + id)
+                    this.$router.push('/index/details/planRfidBatch')
                     return
                 }
             }
-            this.$router.push('/index/details/' + this.batch + '/' + id)
+            this.$router.push('/index/details/' + this.batch)
         },
         /**
          * 列表选择事件
@@ -840,7 +843,10 @@ export default {
         },
         detailShow (index, row) {
             var id = row.id
-            this.$router.push('/index/details/' + this.batch + '/' + id)
+            if (id) {
+                localStorage.setItem('detailsId', id)
+            }
+            this.$router.push('/index/details/' + this.batch)
         },
         getPermission (data) {
             this.checkeds = data
