@@ -4309,7 +4309,7 @@ export default {
                     isNull: false,
                     label: '性别',
                     placeholder: '请选择性别',
-                    rule: {required: true, trigger: 'blur', type: 'number'},
+                    rule: {required: true, type: 'number'},
                     options: [{
                         value: 0,
                         label: '男'
@@ -4420,7 +4420,7 @@ export default {
                     isNull: false,
                     label: '性别',
                     placeholder: '请选择性别',
-                    rule: {required: true, trigger: 'blur', type: 'number'},
+                    rule: {required: true, type: 'number'},
                     options: [{
                         value: 0,
                         label: '男'
