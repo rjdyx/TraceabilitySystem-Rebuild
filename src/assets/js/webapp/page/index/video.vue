@@ -4,7 +4,8 @@
         <video  id="myPlayer" poster="" controls playsInline webkit-playsinline autoplay width="100%">
             <source v-if="videoShow" :src="videoUrl" type="application/x-mpegURL"/>
         </video>
-        <div v-for="(item,index) in lives" class="playks" :play="item.play" :class="{play_active:(index==0?true:false)}" @click="videoPlay">
+        <div v-for="(item,index) in lives" class="playks" :play="item.play" :class="{play_active:(index==0?true:false)}"
+             @click="videoPlay(index)">
             {{item.name}}
         </div>
 	</div>
@@ -34,10 +35,15 @@ export default{
     },
     methods: {
         videoPlay: function (e) {
-            $(e.target).addClass('play_active').siblings('div').removeClass('play_active')
-            var live = $(e.target).attr('play')
-            this.videoShow = false
-            this.getVideoLive(live)
+            localStorage.setItem('index', e)
+            location.reload()
+            // var target = localstorage.getItem('tardiv')
+            // $(target).addClass('play_active').siblings('div').removeClass('play_active')
+            // $(e.target).addClass('play_active').siblings('div').removeClass('play_active')
+            // var live = $(e.target).attr('play')
+            // this.videoShow = false
+            // this.getVideoLive(live)
+            // location.reload()
         },
         // 提示弹窗
         setToast (type, text, width = '7.6em') {
@@ -49,15 +55,16 @@ export default{
             })
         },
         getVideoLive (live) {
-            this.videoUrl = 'http://hls.open.ys7.com/openlive/' + live + '.m3u8'
             this.videoShow = true
+            this.videoUrl = 'http://hls.open.ys7.com/openlive/' + live + '.m3u8'
         }
     },
     mounted () {
         axios.get('api/get/play').then((res) => {
             if (res.data.length) {
+                var i = localStorage.getItem('index') !== null ? localStorage.getItem('index') : 0
                 this.lives = res.data
-                var live = res.data[0].play
+                var live = res.data[i].play
                 this.getVideoLive(live)
             } else {
                 this.setToast('text', '监测视频无数值', '12em')
