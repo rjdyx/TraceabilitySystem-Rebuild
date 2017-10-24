@@ -4,7 +4,7 @@
         <video  id="myPlayer" poster="" controls playsInline webkit-playsinline autoplay width="100%">
             <source v-if="videoShow" :src="videoUrl" type="application/x-mpegURL"/>
         </video>
-        <div v-for="(item,index) in lives" class="playks" :play="item.play" :class="{play_active:(index==0?true:false)}"
+        <div v-for="(item,index) in lives" class="playks" :play="item.play" :class="{play_active:(index==vidIndex?true:false)}"
              @click="videoPlay(index)">
             {{item.name}}
         </div>
@@ -30,20 +30,14 @@ export default{
             settitle: '实时视频',
             lives: {},
             videoShow: false,
-            videoUrl: ''
+            videoUrl: '',
+            vidIndex: localStorage.getItem('index') !== null ? localStorage.getItem('index') : 0
         }
     },
     methods: {
         videoPlay: function (e) {
             localStorage.setItem('index', e)
             location.reload()
-            // var target = localstorage.getItem('tardiv')
-            // $(target).addClass('play_active').siblings('div').removeClass('play_active')
-            // $(e.target).addClass('play_active').siblings('div').removeClass('play_active')
-            // var live = $(e.target).attr('play')
-            // this.videoShow = false
-            // this.getVideoLive(live)
-            // location.reload()
         },
         // 提示弹窗
         setToast (type, text, width = '7.6em') {
