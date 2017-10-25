@@ -162,7 +162,6 @@ import popEdit from '../../components/public/popEdit.vue'
 import operate from '../../components/public/operate.vue'
 import clickMore from '../../components/public/clickMore.vue'
 import lotOpearte from '../../components/public/lotOpearte.vue'
-import newMessage from '../plant-details/newMessage.js'
 import printf from '../../components/public/printf.vue'
 import roleCheckbox from '../../components/public/roleCheckbox.vue'
 export default {
