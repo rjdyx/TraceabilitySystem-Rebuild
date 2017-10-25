@@ -485,7 +485,7 @@ export default {
                 }
             }
             if (names !== undefined && names !== null) {
-                data[names] = this.$routeId
+                data[names] = localStorage.getItem('detailsId')
             }
             if (flag) {
                 this.listLoading = true
