@@ -1,4 +1,3 @@
-import importBtn from 'components/public/import-btn.vue'
 import newbuildBtn from 'components/public/newbuild-btn.vue'
 import output from 'components/public/output.vue'
 import selectSection from 'components/public/select-section.vue'
