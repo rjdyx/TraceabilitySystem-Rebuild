@@ -25,9 +25,6 @@ export let logOperate = {
         widths: [50, 50, 50, 50, 50, 50, 50, 50],
         typeComponent: [{
             component: output
-        },
-        {
-            component: newbuildBtn
         }],
         listComponent: [{
             components: [{
@@ -57,54 +54,6 @@ export let logOperate = {
                 components: 'datePick'
             }
             ]
-        }],
-        newComponent: [{
-            tab: '新建日志信息',
-            components: [{
-                name: 'module',
-                type: 'text',
-                component: null,
-                isNull: false,
-                label: '模块名称',
-                placeholder: '请输入模块名称',
-                rule: {required: true, trigger: 'blur'}
-            },
-            {
-                name: 'operate',
-                type: 'text',
-                component: null,
-                isNull: false,
-                label: '操作',
-                placeholder: '',
-                rule: {required: true, trigger: 'blur'}
-            },
-            {
-                name: 'content',
-                type: 'text',
-                component: null,
-                isNull: false,
-                label: '内容',
-                placeholder: '',
-                rule: {required: true, trigger: 'blur'}
-            },
-            {
-                name: 'ip',
-                type: 'text',
-                component: null,
-                isNull: false,
-                label: '客户端ip',
-                placeholder: '',
-                rule: null
-            },
-            {
-                name: 'memo',
-                type: 'textarea',
-                component: null,
-                isNull: false,
-                label: '备注',
-                placeholder: '',
-                rule: null
-            }]
         }],
         editComponent: [{
             tab: '编辑日志信息',

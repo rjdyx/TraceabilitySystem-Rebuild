@@ -410,6 +410,7 @@ export default {
             if (com.selectUrl2) {
                 for (let key in com.selectUrl2) {
                     let newArr = this.$addAndEditSelectMethod(com.selectUrl2[key])
+                    console.log(newArr)
                     let data = {table: newArr.selectUrl}
                     let field = com.selectWhere2
                     if (com.selectWhere2 !== undefined) {

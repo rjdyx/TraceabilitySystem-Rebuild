@@ -382,6 +382,9 @@ export default {
             var seed2 = []
             if (val !== '') {
                 if (name === 'pid' || name === 'farm_id' || name === 'plantation_id') {
+                    if (subItem.permissionCat !== undefined) {
+                        return false
+                    }
                     if (this.url !== 'farmcd' && this.url !== 'planta') {
                         let params = {id: val}
                         let sid = this.editDefault.pid !== undefined ? this.editDefault.pid : this.editDefault.farm_id !== undefined ? this.editDefault.farm_id : this.editDefault.plantation_id
