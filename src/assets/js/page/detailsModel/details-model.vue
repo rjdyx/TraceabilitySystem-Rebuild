@@ -252,7 +252,7 @@ export default {
                 data.type = ''
                 data.wheres = []
                 if (com.paramsIndex !== undefined) {
-                    type = com.paramsIndex
+                    data.type = com.paramsIndex
                 }
                 if (com.whereArr !== undefined) {
                     for (let ka in com.whereArr) {

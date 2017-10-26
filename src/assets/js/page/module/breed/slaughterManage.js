@@ -21,9 +21,10 @@ export let slaughterManage = {
         // 链接批次信息模块数据的桥（养殖批次详情）
         batch: 'slaughterBatch',
         searchPlaceholder: '请输入出栏批次进行搜索',
-        theads: ['出栏批次号', '出栏日期', '出栏数量', '出栏人员', '备注'],
-        protos: ['serial', 'date', 'amount', 'operate_name', 'memo'],
-        widths: [50, 50, 50, 50, 50],
+        changeDataArr: [{state: {0: '未完成', 1: '已完成'}}],
+        theads: ['出栏批次号', '出栏日期', '出栏数量', '出栏人员', '状态', '备注'],
+        protos: ['serial', 'date', 'amount', 'operate_name', 'state', 'memo'],
+        widths: [50, 50, 50, 50, 50, 50],
         typeComponent: [{
             component: output
         },
