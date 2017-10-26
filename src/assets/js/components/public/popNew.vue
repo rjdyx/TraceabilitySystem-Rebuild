@@ -384,24 +384,26 @@ export default {
             } else if (name === 'harvest_id' || name === 'sf_id') {
                 this.ids = [1]
             } else if (name === 'pid' || name === 'farm_id' || name === 'plantation_id') {
-                if (val !== '') {
-                    let params = {id: val}
-                    axios.get(this.$adminUrl(this.url + '/getArea'), {params: params}).then((responce) => {
-                        if (responce.data['num'] === 0) {
-                            this.allowance = -1
-                        } else {
-                            this.allowance = responce.data['num']
-                        }
-                        this.tableForm['unit'] = responce.data['unit']
-                        let nc = this.newComponent[0]
-                        this.disabledV = false
-                        nc.components[nc.limit].rule[1]['getMax'] = responce.data['num']
-                        nc.components[nc.limit].rule[1]['getMessage'] = nc.getMessage
-                    })
-                } else {
-                    this.tableForm['unit'] = '亩'
-                    this.allowance = 0
-                    this.disabledV = true
+                if (subItem.permissionCat === undefined) {
+                    if (val !== '') {
+                        let params = {id: val}
+                        axios.get(this.$adminUrl(this.url + '/getArea'), {params: params}).then((responce) => {
+                            if (responce.data['num'] === 0) {
+                                this.allowance = -1
+                            } else {
+                                this.allowance = responce.data['num']
+                            }
+                            this.tableForm['unit'] = responce.data['unit']
+                            let nc = this.newComponent[0]
+                            this.disabledV = false
+                            nc.components[nc.limit].rule[1]['getMax'] = responce.data['num']
+                            nc.components[nc.limit].rule[1]['getMessage'] = nc.getMessage
+                        })
+                    } else {
+                        this.tableForm['unit'] = '亩'
+                        this.allowance = 0
+                        this.disabledV = true
+                    }
                 }
             }
         },

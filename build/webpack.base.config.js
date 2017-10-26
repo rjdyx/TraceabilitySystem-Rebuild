@@ -93,7 +93,8 @@ const webpackConfig = {
             'sass': path.resolve(__dirname, '../src/assets/sass'),
             'jsPath': path.resolve(__dirname, '../src/assets/js'),
             'lang': path.resolve(__dirname, '../src/lang'),
-            'components': path.resolve(__dirname, '../src/assets/js/components')
+            'components': path.resolve(__dirname, '../src/assets/js/components'),
+            'utils': path.resolve(__dirname, '../src/assets/js/utils')
         }
     },
     
