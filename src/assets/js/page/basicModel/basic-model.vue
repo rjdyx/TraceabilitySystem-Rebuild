@@ -471,7 +471,7 @@ export default {
         },
         // 点击删除
         handelDel (index, row) {
-            this.$confirm('你确定要删除该信息吗?', '信息', {
+            this.$confirm('您确定要删除该信息吗?', '信息', {
                 cancelButtonText: '取消',
                 confirmButtonText: '确定',
                 type: 'error'
