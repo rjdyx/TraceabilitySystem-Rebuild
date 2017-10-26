@@ -59,7 +59,7 @@ export let systemUser = {
                 isNull: false,
                 label: '性别',
                 placeholder: '请选择性别',
-                rule: {required: true, trigger: 'blur', type: 'number'},
+                rule: null,
                 options: [{
                     value: 0,
                     label: '男'
@@ -145,7 +145,7 @@ export let systemUser = {
         editComponent: [{
             tab: '编辑用户信息',
             hiddenValue: {type: 0},
-            checkNumber: [0, 1],
+            checkNumber: [0, 1, 5],
             components: [{
                 name: 'name',
                 type: 'text',
@@ -171,7 +171,7 @@ export let systemUser = {
                 isNull: false,
                 label: '性别',
                 placeholder: '请选择性别',
-                rule: {required: true, trigger: 'blur', type: 'number'},
+                rule: null,
                 options: [{
                     value: 0,
                     label: '男'
@@ -196,7 +196,7 @@ export let systemUser = {
                 isNull: false,
                 label: '出生日期',
                 placeholder: '请选择日期',
-                rule: {required: false, trigger: 'blur', type: 'date'}
+                rule: {required: false, trigger: 'blur'}
             },
             {
                 name: 'phone',
@@ -232,7 +232,7 @@ export let systemUser = {
                 isNull: false,
                 label: '工号',
                 placeholder: '请输入工号',
-                rule: {required: true, trigger: 'blur', type: 'number', message: '请输入工号'}
+                rule: {required: true, trigger: 'blur', message: '请输入工号'}
             },
             {
                 name: 'img',
