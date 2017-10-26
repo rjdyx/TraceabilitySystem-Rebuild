@@ -359,6 +359,7 @@ export default {
                         seed2 = []
                     }
                     for (let k2 in number[k]) {
+                        //  表单中部分组件通过hiddenSelect属性进行判断是否显示
                         com[number[k][k2]].hiddenSelect = state
                         if (com[number[k][k2]].type === 'table') {
                             this.tableForm[com[number[k][k2]].valueId] = seed2
@@ -419,7 +420,7 @@ export default {
         // 新增成功调用方法
         successCallback () {
             this.$parent.closeNewShow()
-            var com = this.newComponent[0].components
+            var com = this.newComponent[0]
             if (com.type === 'assoc' || com.type === 'selectAssoc' || com.type === 'planAssoc') {
                 for (let k in com.components) {
                     if (com.components[k].hiddenSelect !== undefined) {

@@ -96,7 +96,7 @@ export let beastPackProduct = {
                         label: '入库批次',
                         assocNum: 8,
                         placeholder: '',
-                        rule: {required: true, trigger: 'blur', type: 'number'},
+                        rule: {required: true, trigger: 'blur', message: '请选择入库批次', type: 'number'},
                         options: []
                     },
                     {
@@ -107,7 +107,7 @@ export let beastPackProduct = {
                         hiddenSelect: true,
                         label: '入库批次',
                         placeholder: '',
-                        rule: {required: true, trigger: 'blur', type: 'number'},
+                        rule: {required: true, trigger: 'blur', message: '请选择入库批次', type: 'number'},
                         options: []
                     },
                     {
