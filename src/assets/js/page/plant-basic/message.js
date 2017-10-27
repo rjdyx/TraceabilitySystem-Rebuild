@@ -2127,7 +2127,7 @@ export default {
             hiddeRole: false,
             jumpTo: 'logisticsBatch',
             roleName: ['delivery/logistic', 0],
-            searchPlaceholder: '请输入物理公司名搜索',
+            searchPlaceholder: '请输入物流公司名搜索',
             theads: ['物流公司名称', '联系人', '联系电话', '地址', '备注'],
             protos: ['name', 'contacts', 'phone', 'address', 'memo'],
             widths: [50, 50, 50, 50, 50],
