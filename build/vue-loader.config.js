@@ -6,7 +6,13 @@ const VueConfig = {
 		require('autoprefixer')({
 		  browsers: ['last 3 versions']
 		})
-	]
+	],
+	loaders:{
+		js: 'babel-loader'
+	},
+	postLoaders: {
+		js: 'istanbul-instrument-loader?esMoudles=true'
+	}
 }
 
 module.exports = VueConfig

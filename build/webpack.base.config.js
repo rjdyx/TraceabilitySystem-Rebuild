@@ -36,7 +36,7 @@ const webpackConfig = {
                 enforce: 'pre',
                 include: [resolve('src'), resolve('test')],
                 options: {
-                  formatter: require('eslint-friendly-formatter')
+                    formatter: require('eslint-friendly-formatter')
                 }
             },
             {
@@ -53,9 +53,9 @@ const webpackConfig = {
                 test: /\.json$/,
                 loader: 'json-loader'
             },
-            { 
-                test: /iview.src.*?js$/, 
-                loader: 'babel-loader' 
+            {
+                test: /iview.src.*?js$/,
+                loader: 'babel-loader'
             },
             {
                 test: /\.js$/,
