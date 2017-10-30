@@ -5,9 +5,7 @@
 * */
 <template>
 	<div>
-		<div class="content">
-			404
-		</div>
+		<div class="content">404</div>
 	</div>
 </template>
 <style lang="sass" scoped>
