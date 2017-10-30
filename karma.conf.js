@@ -1,6 +1,7 @@
 // Karma configuration
 // Generated on Wed Oct 25 2017 16:48:48 GMT+0800 (中国标准时间)
 var webpack = require('webpack')
+var webpackConfig = require('./build/webpack.base.config.js')
 
 module.exports = function(config) {
   config.set({
@@ -71,6 +72,7 @@ module.exports = function(config) {
     coverageIstanbulReporter: {
         reports: ['text-summary', 'html'],
         fixWebpackSourcePaths: true
-    }
+    },
+    webpack: webpackConfig
   })
 }
