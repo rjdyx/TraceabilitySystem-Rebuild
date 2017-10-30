@@ -877,7 +877,7 @@ export default {
                 this.$message('请选择序号')
             }
         },
-        // 更改批次状态
+        // 赋初值
         createDemo (index, row) {
             this.$confirm('你是否要给当前公司默认添加一些基础信息', '信息', {
                 confirmButtonText: '确定',
@@ -901,15 +901,16 @@ export default {
                 })
             })
         },
-        // 赋初值
-        changeSerialState () {
+        // 更改批次状态
+        changeSerialState (index, row) {
             this.$confirm('你确定要修改此批次状态?,修改完后无法对该批次进行编辑删除操作,且无法逆转', '信息', {
                 confirmButtonText: '确定',
                 cancelButtonText: '取消',
                 type: 'error'
             }).then(() => {
-                axios.get(this.$adminUrl('util/status/' + this.url + '/' + row.id))
+                axios.get(this.$adminUrl('util/status/' + this.url + '/' + row.id), {})
                     .then((responce) => {
+                        console.log(responce.data)
                         if (responce.data === 'true') {
                             this.getSelect()
                             this.boxArr(this.dataArr, false)
