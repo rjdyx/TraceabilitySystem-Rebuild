@@ -9,7 +9,7 @@
 <div class="basic_model">   
   <div class="basic-wrap">
       <!-- websocket组件 -->
-    <webSocket :rt="$route.path" @aaa="websocketrelf" :md="models" :num="modelIndex"></webSocket>
+    <!-- <webSocket :rt="$route.path" @aaa="websocketrelf" :md="models" :num="modelIndex"></webSocket> -->
 
       <!-- 标题 -->
     <contain-title :settitle="settitle">
@@ -290,7 +290,8 @@ export default {
             // tab模块选择标志
             modelIndex: localStorage.getItem('tab') !== null ? localStorage.getItem('tab') : 0,
             activeName: 'index0',
-            modelName: this.$route.params,
+            // modelName: this.$route.params,
+            modelName: 'plantBase',
             // 列表数据
             tableData: [],
             // 被选中的列表项数组
@@ -807,6 +808,7 @@ export default {
         // 文本与时间按钮查询
         textAndDateFind () {
             this.dataArr['query_text'] = this.inputValue
+            // this.dataArr['query_text'] = '新环养殖场'
             this.dataArr['page'] = 1
             this.boxArr(this.dataArr, true)
         },

@@ -19,7 +19,7 @@
                     </div>
                     <!-- 图片 -->
                     <div class="hg_content_li_bottom">
-                        <img :src="grow.img" height="322" width="670" alt="">
+                        <img :src="grow.img" :alt="grow.name">
                         <p>{{grow.desc}}</p>
                     </div>
                 </li>

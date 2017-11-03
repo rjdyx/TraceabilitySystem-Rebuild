@@ -153,7 +153,8 @@ canvas{
         background:none;
         img{
             width: 100%;
-            height:100%;
+            height:auto;
+            max-height: 80%;
             box-sizing: border-box;
         }
     }

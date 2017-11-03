@@ -141,6 +141,17 @@ export default {
 .breedFontCol{
     color:#93bf46!important;
 }
+.dialogImg{
+    .weui-dialog{
+        background:none;
+        img{
+            width: 100%;
+            height:auto;
+            max-height: 80%;
+            box-sizing: border-box;
+        }
+    }
+}
 #pBasic{
     width:100%;
     padding-bottom: .5rem;
