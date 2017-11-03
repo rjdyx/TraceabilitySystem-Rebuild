@@ -9,7 +9,7 @@
 	<div class="phoneIndex">
 		<!-- 头部 -->
 			<div class="phoneHeader">
-				<h2>天池茶叶</h2>
+				<h2>{{short_name}}</h2>
 		</div>
 		<!-- 中间 <-->
 		<div class="mainWrap">
@@ -30,7 +30,7 @@
 		</div>
 		<!-- 信息 -->
 		<div class="info">
-			<p class="subscription">天池茶叶</p>
+			<p class="subscription">{{short_name}}</p>
 			<p class="description">{{product_name}}</p>
 		</div>
 		<!-- 底部菜单 -->
@@ -76,7 +76,8 @@ export default{
             video: 'video',
             product_name: '',
             tea_img: this.$img('/images/tea_default.jpg'),
-            sell_network: ''
+            sell_network: '',
+            short_name: ''
         }
     },
     // 路由进入前
@@ -110,6 +111,7 @@ export default{
         this.code = this.$route.params.code
         var tabLocal = JSON.parse(sessionStorage.getItem(this.code + '/index'))
         this.product_name = tabLocal.product_name
+        this.short_name = tabLocal.short_name
         if (tabLocal.img !== '' && tabLocal.img !== 'null' && tabLocal.img !== null) {
             this.tea_img = tabLocal.img
         }

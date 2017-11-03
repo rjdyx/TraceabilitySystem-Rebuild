@@ -439,13 +439,16 @@ export default {
                         value: '水仙', label: '水仙'
                     },
                     {
-                        value: '芝兰', label: '芝兰'
+                        value: '芝兰香', label: '芝兰香'
                     },
                     {
-                        value: '杏仁', label: '杏仁'
+                        value: '杏仁香', label: '杏仁香'
                     },
                     {
-                        value: '鸭屎', label: '鸭屎'
+                        value: '鸭屎香', label: '鸭屎香'
+                    },
+                    {
+                        value: '蜜兰香', label: '蜜兰香'
                     },
                     {
                         value: '其他', label: '其他'
@@ -529,7 +532,7 @@ export default {
                 components: [{
                     name: 'name',
                     type: 'selectOther',
-                    categoryBox: ['八仙', '黄枝香', '水仙', '芝兰', '杏仁', '鸭屎'],
+                    categoryBox: ['八仙', '黄枝香', '水仙', '芝兰香', '杏仁香', '鸭屎香', '蜜兰香'],
                     component: inputSelectOther,
                     isNull: false,
                     label: '茶叶品种',
@@ -546,13 +549,16 @@ export default {
                         value: '水仙', label: '水仙'
                     },
                     {
-                        value: '芝兰', label: '芝兰'
+                        value: '芝兰香', label: '芝兰香'
                     },
                     {
-                        value: '杏仁', label: '杏仁'
+                        value: '杏仁香', label: '杏仁香'
                     },
                     {
-                        value: '鸭屎', label: '鸭屎'
+                        value: '鸭屎香', label: '鸭屎香'
+                    },
+                    {
+                        value: '蜜兰香', label: '蜜兰香'
                     },
                     {
                         value: '其他', label: '其他'
