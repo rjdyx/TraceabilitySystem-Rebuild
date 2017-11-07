@@ -20,7 +20,7 @@ const pre3 = '/index/details/'
 const excepts = ['/index/home/canvas', '/index/home/echarts', '/index/plays', pre + 'set', pre + 'test', pre + 'help', pre + 'question', pre + '404', pre + 'ondone', '/test1', '/printf', '/qrcodePrintf']
 const pxcepts = ['/appIndex', pre + '404', '/appIndex/appCanvas', '/appIndex/appVideo']
 // 管理员路由
-const admins = [pre2 + 'adminRole', pre2 + 'adminCompany', pre2 + 'adminFeedback', pre2 + 'adminLog']
+const admins = [pre2 + 'adminRole', pre2 + 'adminCompany', pre2 + 'adminFeedback', pre2 + 'adminLog', pre2 + 'adminManage']
 const aDetails = [pre3 + 'companyUser']
 // pc端登录后不能访问的路由
 const any = ['/protocol', '/forget', '/login', '/404']

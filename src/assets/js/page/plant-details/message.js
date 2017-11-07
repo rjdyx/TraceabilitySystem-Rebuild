@@ -1865,6 +1865,15 @@ export default {
                     rule: {required: false, trigger: 'blur'}
                 },
                 {
+                    name: 'token_key',
+                    type: 'text',
+                    component: null,
+                    isNull: false,
+                    label: '审核码',
+                    placeholder: '请输入申请审核码',
+                    rule: null
+                },
+                {
                     name: 'birth_date',
                     type: 'date',
                     component: inputDate,
@@ -1974,6 +1983,15 @@ export default {
                     label: '姓名',
                     placeholder: '请输入姓名',
                     rule: {required: false, trigger: 'blur'}
+                },
+                {
+                    name: 'token_key',
+                    type: 'text',
+                    component: null,
+                    isNull: false,
+                    label: '审核码',
+                    placeholder: '请输入申请审核码',
+                    rule: null
                 },
                 {
                     name: 'birth_date',

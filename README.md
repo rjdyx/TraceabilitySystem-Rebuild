@@ -1,6 +1,6 @@
 # TraceabilitySystem-Webapp
 
-溯源webapp版，由Vue 2.0 + vue-router + vuex构建，附加服务端渲染.
+茶叶溯源前端项目代码
 
 <p align="center">
   <a href="http://m.find360.cn:8080/" target="_blank">

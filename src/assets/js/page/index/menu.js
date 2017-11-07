@@ -104,7 +104,7 @@ export default[{
 {
     name: '运营管理',
     key: 'admin',
-    childrenKey: ['admin', 'admin', 'admin', 'admin'],
+    childrenKey: ['admin', 'admin', 'admin', 'admin', 'admin'],
     role: 0,
     src: '/public/images/system.png',
     children: [{
@@ -121,6 +121,11 @@ export default[{
         role: 0,
         path: '/index/message/adminFeedback',
         name: '用户反馈管理'
+    },
+    {
+        role: 0,
+        path: '/index/message/adminManage',
+        name: '申请入驻管理'
     },
     {
         role: 0,

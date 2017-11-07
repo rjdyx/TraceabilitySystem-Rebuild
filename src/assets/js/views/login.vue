@@ -20,8 +20,7 @@
 								type="text" 
 								v-model="ruleForm2.name" 
 								auto-complete="off" 
-								placeholder="请输入用户名或注册邮箱或电话" @keyup.enter.native="passTo"
-								@blur="getChangeUser(ruleForm2.name)">
+								placeholder="请输入用户名或注册邮箱或电话" @keyup.enter.native="passTo">
 							</el-input>
 						</el-form-item>
 						<el-form-item label="" prop="password">
@@ -184,31 +183,9 @@ export default {
         },
         handle () {
             console.log('iwgufewgfyefheufeuf')
-        },
-        getHeadTitle (urlBefore) {
-            let params = {urlBefore: urlBefore}
-            axios.get('/kit/head-title', {params: params}).then((responce) => {
-                this.head_short_name = responce.data
-                this.ruleForm2['pre_routes'] = urlBefore
-            })
-        },
-        getChangeUser (val) {
-            if (this.urlBefore !== 'szy' && window.location.host !== 'localhost:8080') {
-                let params = {urlBefore: this.urlBefore, val: val}
-                axios.get('/kit/get-user', {params: params}).then((responce) => {
-                    if (responce.data === 'false') {
-                        this.$message('你所输入的用户名不存在于当前系统')
-                        this.ruleForm2.name = ''
-                    }
-                })
-            }
         }
     },
     mounted () {
-        if (window.location.host !== 'localhost:8080') {
-            this.urlBefore = window.location.host.split('.find')[0]
-            this.getHeadTitle(this.urlBefore)
-        }
         this.Kit()
         // 记住账号
         if (localStorage.getItem('recordUser') === '' || localStorage.getItem('recordUser') === undefined) {
