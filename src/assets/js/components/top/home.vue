@@ -77,7 +77,7 @@ export default{
         localStorage.setItem('tab', 0)
         axios.get('/api/index').then((responce) => {
             this.listV = responce.data
-            this.listV.date = localStorage.getItem('loginDate')
+            // this.listV.date = localStorage.getItem('loginDate')
         })
     },
     created () {
