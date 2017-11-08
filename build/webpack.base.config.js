@@ -4,7 +4,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const vueConfig = require('./vue-loader.config');
 const projectRoot = path.resolve(__dirname, '../');
 const vuxLoader = require('vux-loader')
-const WebpackDevServer = require('webpack-dev-server')
+// const WebpackDevServer = require('webpack-dev-server')
 // const env = require('../env.js')
 
 function resolve (dir) {
