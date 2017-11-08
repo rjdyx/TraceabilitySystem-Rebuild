@@ -7,11 +7,9 @@
     <div class="webLogin">
     	<div class="webloginImg">
             <div class="mainImg">
-                <!-- <img src="/public/images/tea-tit.png" class="tit" id="tit_head"> -->
                 <img src="" class="tit" id="tit_head">
                 <img src="/public/images/tea-sideOne.png" class="sideLeft side">
                 <img src="/public/images/tea-sideTwo.png" class="sideRight side">
-                <!-- <img src="/public/images/tea-seal.png" class="seal" id="tit_seal"> -->
                 <img src="" class="seal" id="tit_seal">
             </div>
         </div>
