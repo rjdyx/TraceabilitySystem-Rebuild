@@ -1,6 +1,6 @@
 <template>
 	<div class="wrap">
-		<my-header :navbars="navbars"></my-header>
+		<my-header :navbars="navbars" :host="host"></my-header>
 		<sider-bar :menus='menus' :show="show" ></sider-bar>
 		<router-view></router-view>
     </div>
@@ -45,7 +45,8 @@ export default {
             ],
             menus: menu,
             show: true,
-            arr: []
+            arr: [],
+            host: ''
         }
     },
     components: {
@@ -80,6 +81,7 @@ export default {
             this.$router.push('/appIndex')
         }
         axios.get('/api/index').then((responce) => {
+            this.host = responce.data.host
             localStorage.setItem('stepsBol', responce.data.wap_on)
             if (Number(localStorage.getItem('stepsBol'))) {
                 this.tipShow = true
