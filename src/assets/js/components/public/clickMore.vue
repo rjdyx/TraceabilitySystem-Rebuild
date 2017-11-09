@@ -8,7 +8,7 @@
 
 <template>
 <div class="clickmore">
-	<div>
+	<div v-if="moreTip">
         <!-- 更多选项 --> 
 		<el-dropdown class="more" @command="handleCommand">
 			<span class="el-dropdown-link">
@@ -85,7 +85,8 @@
                 tipShow: true,
                 aaa: false,
                 bigShow: false,
-                uniqueFileName: ''
+                uniqueFileName: '',
+                moreTip: true
             }
         },
         methods: {
@@ -119,6 +120,8 @@
                     this.$emit('communkation')
                 } else if (command === '赋值') {
                     this.$emit('create-demo')
+                } else if (command === '通过') {
+                    this.$emit('throuth-create')
                 }
             },
             closeClick () {
@@ -191,6 +194,15 @@
             changeBig () {
                 this.isShow = !this.isShow
                 this.bigShow = !this.bigShow
+            },
+            initMore () {
+                if (this.row.token_key !== undefined) {
+                    if (this.row.state === '已审核') {
+                        this.moreTip = false
+                    } else {
+                        this.moreTip = true
+                    }
+                }
             }
         },
         components: {
@@ -198,6 +210,12 @@
             videoPlayer
         },
         mounted () {
+            this.initMore()
+        },
+        watch: {
+            row () {
+                this.initMore()
+            }
         }
     }
 </script>

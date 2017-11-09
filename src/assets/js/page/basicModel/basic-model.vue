@@ -151,15 +151,16 @@
         label="操作" v-if="checkOperate==null" width="180">
             <template scope="scope">
                 <template v-if="moreComponent!=null">
-                    <clickMore :companyId="companyId" :moreComponent="moreComponent" :row="scope.row" 
-                    @showMore="moreShow(scope.$index,scope.row)" @showPermission="permissionShow(scope.$index,scope.row)" 
-                    @showDetail="detailShow(scope.$index,scope.row)" class="clickMoreBtn" @return-permission="getPermission" 
-                    :class="{'relative':isClick}"
-                    @changeState="changeSerialState(scope.$index,scope.row)"
-                    @shipGoods="shipGood(scope.$index,scope.row)"
-                    @communkation="communkationFn(scope.$index,scope.row)"
-                    @showlist="getListFlash()"
-                    @create-demo="createDemo(scope.$index,scope.row)">
+                    <clickMore :companyId="companyId" :moreComponent="moreComponent" :row="scope.row" class="clickMoreBtn"
+                        @showMore="moreShow(scope.$index,scope.row)" @showPermission="permissionShow(scope.$index,scope.row)" 
+                        @showDetail="detailShow(scope.$index,scope.row)" @return-permission="getPermission" 
+                        :class="{'relative':isClick}"
+                        @changeState="changeSerialState(scope.$index,scope.row)"
+                        @shipGoods="shipGood(scope.$index,scope.row)"
+                        @communkation="communkationFn(scope.$index,scope.row)"
+                        @showlist="getListFlash()"
+                        @create-demo="createDemo(scope.$index,scope.row)"
+                        @throuth-create="throuthCreate(scope.$index,scope.row)">
                     </clickMore>
                 </template>
                 <template>
@@ -1048,6 +1049,31 @@ export default {
                 this.$message({
                     type: 'info',
                     message: '已取消'
+                })
+            })
+        },
+        throuthCreate (index, row) {
+            this.$confirm('你确定要通过此次入驻申请审核并创建公司？', '信息', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                type: 'error'
+            }).then(() => {
+                axios.get(this.$adminUrl(this.url + '/apply_company'), {params: row})
+                    .then((responce) => {
+                        if (responce.data === 'true') {
+                            this.boxArr(this.dataArr, false)
+                            this.$message({
+                                type: 'success',
+                                message: '操作成功'
+                            })
+                        } else {
+                            this.$message.error('操作失败')
+                        }
+                    })
+            }).catch(() => {
+                this.$message({
+                    type: 'info',
+                    message: '已取消通过审核'
                 })
             })
         },

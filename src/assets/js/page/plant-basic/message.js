@@ -6089,11 +6089,13 @@ export default {
         key: 'apply',
         tab: '申请入驻信息',
         url: 'apply',
+        changeDataArr: [{state: {0: '未审核', 1: '已审核'}}],
         searchPlaceholder: '请输入公司名进行搜索',
-        theads: ['所属公司', '用户名', '姓名', '电子邮箱', '联系电话', '营业执照', '申请日期', '审核码'],
-        protos: ['company_name', 'name', 'real_name', 'email', 'phone', 'img', 'date', 'token_key'],
+        theads: ['所属公司', '用户名', '姓名', '电子邮箱', '联系电话', '营业执照', '申请日期', '审核状态'],
+        protos: ['company_name', 'name', 'real_name', 'email', 'phone', 'img', 'date', 'state'],
         widths: [50, 50, 50, 50, 50, 50, 50, 50, 50],
         hiddeEdit: true,
+        moreComponent: [{value: '通过'}],
         typeComponent: [],
         listComponent: []
     }]
