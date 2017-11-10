@@ -7,11 +7,8 @@
 <template>
 	<header class="header">
 		<div class="head_logo">
-			<img src="/public/images/logo2.png" />
+			<img src="/public/images/logo2.png" width="160"/>
 		</div>
-		<div class="head_des">
-			{{logo}}
-		</div> 
 		<!--右侧菜单栏-->
 		<div class="head_right">
 			<ul>
