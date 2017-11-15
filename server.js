@@ -27,7 +27,7 @@ if (isProd) {
 }
 
 // proxy
-const proxyTable = ['/images/upload/**', '/token', '/api/**', '/userTokenKey', '/wap/**',
+const proxyTable = ['/images/upload/**', '/token', '/api/**', '/userTokenKey', '/wap/**', '/get_data', '/checkData'
                     '/teaTrace/**', '/login', '/logout', '/kit', '/kit-check', '/video/**']
 const options = {target: env.app_url, changeOrigin: true}
 proxyTable.forEach(function (context) {
