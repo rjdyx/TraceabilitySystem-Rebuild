@@ -34,7 +34,7 @@ export let companyUser = {
             }],
             rightOperateComponent: [{component: output}, {component: newbuildBtn}],
             changeDataArr: [{gender: {0: '男', 1: '女'}}],
-            headList: ['用户名', '姓名', '工号', '邮箱', '性别', '电话号码', '出生日期', '所属部门', '入职日期', '头像', '备注22'],
+            headList: ['用户名', '姓名', '工号', '邮箱', '性别', '电话号码', '出生日期', '所属部门', '入职日期', '头像', '备注'],
             protos: ['name', 'realname', 'number', 'email', 'gender', 'phone', 'birth_date', 'department', 'hiredate', 'thumb', 'memo'],
             widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
             typeComponent: [{component: newbuildBtn}],

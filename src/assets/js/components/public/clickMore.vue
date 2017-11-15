@@ -8,7 +8,7 @@
 
 <template>
 <div class="clickmore">
-	<div>
+	<div v-if="moreTip">
         <!-- 更多选项 --> 
 		<el-dropdown class="more" @command="handleCommand">
 			<span class="el-dropdown-link">
@@ -43,14 +43,16 @@
                 isNewShow: false,
                 isShow: false,
                 more: more,
-                checkeds: {}
+                checkeds: {},
+                moreTip: true
             }
         },
         props: {
             moreComponent: {
                 type: Array,
                 default: []
-            }
+            },
+            row: {}
         },
         methods: {
             handleCommand (command) {
@@ -64,15 +66,32 @@
                     this.$emit('showPermission')
                 } else if (command === '用户') {
                     this.$emit('showDetail')
+                } else if (command === '通过') {
+                    this.$emit('throuth-create')
                 }
             },
             closeClick () {
                 this.isShow = !this.isShow
+            },
+            initMore () {
+                if (this.row.token_key !== undefined) {
+                    if (this.row.state === '已审核') {
+                        this.moreTip = false
+                    } else {
+                        this.moreTip = true
+                    }
+                }
             }
         },
         components: {
         },
         mounted () {
+            this.initMore()
+        },
+        watch: {
+            row () {
+                this.initMore()
+            }
         }
     }
 </script>

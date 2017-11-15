@@ -61,7 +61,7 @@
             <!-- 编辑模块 -->
             <transition name="fade">
                 <popEdit v-if="isEditShow" :editComponent="tabItem.editComponent" :url="apiUrlArr[tabList[index].url]" :editForm="editForm"
-                     @submitEdit="hangeEdit" :changeDataArr="changeDataArr" :editDefault="editDefault"></popEdit>
+                     @submitEdit="hangeEdit" :changeDataArr="tabItem.changeDataArr" :editDefault="editDefault"></popEdit>
             </transition>
             <!-- 打印模块 -->
             <transition name="fade">

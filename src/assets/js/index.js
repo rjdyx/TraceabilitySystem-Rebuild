@@ -19,7 +19,7 @@ const pre3 = '/index/details/'
 const excepts = ['/index/home', pre + 'set', pre + 'test', pre + 'help', pre + 'question', pre + 'ondone', '/appIndex']
 const all = ['/404']
 // 管理员路由
-const admins = [pre2 + 'rightsOperate', pre2 + 'settleOperate', pre2 + 'usersOperate', pre2 + 'logOperate']
+const admins = [pre2 + 'rightsOperate', pre2 + 'settleOperate', pre2 + 'usersOperate', pre2 + 'logOperate', pre2 + 'applyOperate']
 const aDetails = [pre3 + 'companyUser']
 // 登录后不能访问的路由
 const any = ['/protocol', '/forget', '/login', '/waplogin']
