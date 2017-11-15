@@ -54,6 +54,7 @@ export default {
     },
     mounted () {
         this.record = this.$store.getters.getRecord
+        console.log(123)
     },
     methods: {
         handle (index) {

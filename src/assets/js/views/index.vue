@@ -1,6 +1,6 @@
 <template>
 	<div class="wrap">
-		<my-header :navbars="navbars" :host="host"></my-header>
+		<my-header :navbars="navbars"></my-header>
 		<sider-bar :menus='getForeach(menus)' :show="show" ></sider-bar>
 		<router-view></router-view>
 	</div>
@@ -42,8 +42,7 @@ export default {
                 }
             ],
             menus: menu,
-            show: true,
-            host: ''
+            show: true
         }
     },
     components: {
@@ -83,9 +82,6 @@ export default {
         if (!window.isPC) {
             this.$router.push('/appIndex')
         }
-        axios.get('/api/index').then((responce) => {
-            this.host = responce.data.host
-        })
     },
     created () {
     }

@@ -207,7 +207,7 @@ export default[{
 {
     name: '运营管理',
     key: 'admin',
-    childrenKey: ['admin', 'admin', 'admin', 'admin', 'admin'],
+    childrenKey: ['admin', 'admin', 'admin', 'admin'],
     src: '/public/images/system.png',
     children: [{
         path: '/index/message/rightsOperate',
@@ -220,10 +220,6 @@ export default[{
     {
         path: '/index/message/usersOperate',
         name: '用户反馈管理'
-    },
-    {
-        path: '/index/message/applyOperate',
-        name: '入驻申请管理'
     },
     {
         path: '/index/message/logOperate',

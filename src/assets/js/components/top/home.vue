@@ -172,6 +172,7 @@ export default{
         axios.get('api/index')
             .then((responce) => {
                 this.listV = responce.data
+                this.listV.date = localStorage.getItem('loginDate')
             })
         axios.get('api/index/district')
             .then((responce) => {
