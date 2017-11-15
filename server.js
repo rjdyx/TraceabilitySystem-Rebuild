@@ -27,7 +27,7 @@ if (isProd) {
 }
 
 // proxy
-const proxyTable = ['/images/upload/**', '/token', '/api/**', '/wap/**', '/run/**', '/login', '/logout', '/kit', '/kit-check']
+const proxyTable = ['/images/upload/**', '/token', '/api/**', '/wap/**', '/run/**', '/userTokenKey', '/login', '/logout', '/kit', '/kit-check']
 const options = {target: env.app_url, changeOrigin: true}
 proxyTable.forEach(function (context) {
     app.use(proxyMiddleware(context, options))
@@ -50,7 +50,7 @@ app.get(['/webapp', '/webapp/**', '/'], (req, res) => {
     console.log(`whole request: ${Date.now() - s}ms`)
 })
 
-const port = process.env.PORT || 8080
+const port = process.env.PORT || env.app_port
 app.listen(port, () => {
     console.log(`server started at localhost:${port}`)
 })
