@@ -27,7 +27,8 @@ if (isProd) {
 }
 
 // proxy
-const proxyTable = ['/images/upload/**', '/token', '/api/**', '/wap/**', '/run/**', '/userTokenKey', '/login', '/logout', '/kit', '/kit-check']
+const proxyTable = ['/images/upload/**', '/token', '/api/**', '/wap/**', '/run/**', '/userTokenKey', '/get_data', '/checkData'
+                    '/login', '/logout', '/kit', '/kit-check']
 const options = {target: env.app_url, changeOrigin: true}
 proxyTable.forEach(function (context) {
     app.use(proxyMiddleware(context, options))
