@@ -7,7 +7,7 @@
 <template>
 	<header class="header">
 		<div class="head_logo">
-			<img src="/public/images/logo2.png" />
+			<img src="/public/images/logo2.png" width="160"/>
 		</div>
 		<div class="head_des">
 			{{logo}}
@@ -31,7 +31,8 @@
 				</template>
 				<li @click="back">
 					<img src="/public/images/back.png" />
-					<p>退出</p>
+					<p v-if="host!=null">返回</p>
+					<p v-else>退出</p>
 				</li>
 			</ul>
 		</div>
@@ -54,7 +55,8 @@ export default {
         navbars: {
             type: Array,
             default: []
-        }
+        },
+        host: ''
     },
     methods: {
         ...mapActions([
@@ -87,12 +89,20 @@ export default {
             1000)
         },
         back () {
-            axios.post('logout', this.data).then((responce) => {
-                if (responce.data === 200) {
-                    window.Roles = {}
-                    this.$router.push('/login')
-                }
-            })
+            if (this.host !== null) {
+                axios.post('logout', this.data).then((responce) => {
+                    if (responce.data === 200) {
+                        window.location.href = 'http://' + this.host
+                    }
+                })
+            } else {
+                axios.post('logout', this.data).then((responce) => {
+                    if (responce.data === 200) {
+                        window.Roles = {}
+                        this.$router.push('/login')
+                    }
+                })
+            }
         },
         changeSub () {
             this.$Progress.start()
