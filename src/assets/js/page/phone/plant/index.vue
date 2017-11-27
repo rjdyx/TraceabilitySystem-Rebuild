@@ -134,7 +134,7 @@ export default{
         // 获取视频
         getVideo () {
             if (this.company_id !== 0) {
-                window.location.href = 'http://www.teaTraceSystem.com/vidurl/' + this.company_id
+                window.location.href = require('projectRoot/env.js').app_ano_url + '/vidurl/' + this.company_id
             } else {
                 this.setToast('text', '视频直播地址不存在', '14em')
             }
