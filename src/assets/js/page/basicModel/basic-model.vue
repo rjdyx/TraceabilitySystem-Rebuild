@@ -361,7 +361,6 @@ export default {
                 this.tipshow = false
                 $('.el-tabs__nav').removeClass('relative')
             }
-            console.log(this.i)
             let params = {'flag': 'pc'}
             axios.get('/api/index/seton', {params: params})
                 .then((responce) => {

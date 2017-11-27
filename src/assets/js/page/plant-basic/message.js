@@ -6014,7 +6014,7 @@ export default {
         url: 'play',
         selectSearch: ['name'],
         searchPlaceholder: '请输入名称进行搜索',
-        theads: ['视频名称', '视频设备号', '备注'],
+        theads: ['视频名称', '视频设备号', '视频标题'],
         protos: ['name', 'play', 'memo'],
         widths: [50, 50, 50],
         listComponent: [],
@@ -6047,7 +6047,7 @@ export default {
                 name: 'memo',
                 type: 'textarea',
                 component: null,
-                label: '备注信息',
+                label: '视频标题',
                 placeholder: '',
                 rule: null
             }
@@ -6076,7 +6076,7 @@ export default {
                 name: 'memo',
                 type: 'textarea',
                 component: null,
-                label: '备注信息',
+                label: '视频标题',
                 placeholder: '',
                 rule: null
             }
