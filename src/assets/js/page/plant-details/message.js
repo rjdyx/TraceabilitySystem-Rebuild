@@ -238,9 +238,9 @@ export default {
             url: 'colect-process',
             tab: '采制信息',
             searchPlaceholder: '',
-            headList: ['采制日期', '采制人', '毛茶重量(kg)', '毛茶数量', '散茶重量(kg)', '散茶数量', '损耗率', '备注', '晒青时间', '晾青时间', '做青时间', '杀青时间', '揉稔时间', '解块时间', '干燥时间', '筛选时间', '复火时间'],
+            headList: ['制茶时间', '采制人', '毛茶重量(kg)', '毛茶数量', '散茶重量(kg)', '散茶数量', '损耗率', '备注', '晒青时间', '晾青时间', '做青时间', '杀青时间', '揉稔时间', '解块时间', '干燥时间', '筛选时间', '复火时间'],
             protos: ['date', 'operate', 'raw_tea_weight', 'raw_tea_count', 'bulk_tea_weight', 'bulk_tea_count', 'attrition_rate', 'memo', 'sunning_date', 'cooling_date', 'make_green_date', 'kill_out_date', 'knead_nori_date', 'deblock_date', 'dry_date', 'filtrate_date', 'refiring_date'],
-            widths: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
+            widths: [80, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
             hiddeEdit: true,
             searchText: false,
             typeComponent: [{
@@ -257,70 +257,69 @@ export default {
             }],
             harvestMore: [{
                 name: 'sunning_date',
-                type: 'datetimerange',
-                component: inputDateTimes,
-                label: '晒青时间'
+                type: 'text',
+                component: null,
+                label: '晒青时长'
             },
             {
                 name: 'cooling_date',
-                type: 'datetimerange',
-                component: inputDateTimes,
-                label: '晾青时间'
+                type: 'text',
+                component: null,
+                label: '晾青时长'
             },
             {
                 name: 'make_green_date',
-                type: 'datetime',
-                component: inputDateTimes,
-                label: '做青时间'
+                type: 'text',
+                component: null,
+                label: '做青时长'
             },
             {
                 name: 'kill_out_date',
-                type: 'datetime',
-                component: inputDateTimes,
-                label: '杀青时间'
+                type: 'text',
+                component: null,
+                label: '杀青时长'
             },
             {
                 name: 'knead_nori_date',
-                type: 'datetime',
-                component: inputDateTimes,
-                label: '揉稔时间'
+                type: 'text',
+                component: null,
+                label: '揉稔时长'
             },
             {
                 name: 'deblock_date',
-                type: 'datetime',
-                component: inputDateTimes,
-                label: '解块时间'
+                type: 'text',
+                component: null,
+                label: '解块时长'
             },
             {
                 name: 'dry_date',
-                type: 'datetime',
-                component: inputDateTimes,
-                label: '干燥时间'
+                type: 'text',
+                component: null,
+                label: '干燥时长'
             },
             {
                 name: 'filtrate_date',
-                type: 'datetime',
-                component: inputDateTimes,
-                label: '筛选时间'
+                type: 'text',
+                component: null,
+                label: '筛选时长'
             },
             {
                 name: 'refiring_date',
-                type: 'datetime',
-                component: inputDateTimes,
+                type: 'text',
+                component: null,
                 label: '复火时间'
             }],
             newComponent: [{
                 tab: '新建采制信息',
                 type: 'assoc',
-                // selectMore: ['sunning', 'cooling', 'make_green', 'kill_out', 'knead_nori', 'deblock', 'dry', 'filtrate', 'refiring'],
                 components: [{
-                    name: 'date',
-                    type: 'date',
-                    component: inputDate,
+                    name: 'tea_date',
+                    type: 'daterange',
+                    component: inputDateTimes,
                     isNull: false,
-                    label: '采制日期',
+                    label: '制茶时间',
                     placeholder: '',
-                    rule: [{required: true, message: '请输入采制日期'}, {validator: validate2.reDate, message: '请输入采制日期'}]
+                    rule: [{required: true, message: '请输入制茶时间'}, {validator: validate2.reDate, message: '请输入制茶时间'}]
                 },
                 {
                     name: 'operate',
@@ -367,132 +366,132 @@ export default {
                     placeholder: '',
                     rule: [{validator: validate2.reNumber}]
                 },
+                // {
+                //     name: 'opera_id',
+                //     type: 'selectMore',
+                //     component: null,
+                //     isNull: false,
+                //     label: '操作模块',
+                //     placeholder: '必填',
+                //     selectNumber: {sunning: [7], cooling: [8], make_green: [9], kill_out: [10], knead_nori: [11], deblock: [12], dry: [13], filtrate: [14], refiring: [15]},
+                //     rule: {required: false, trigger: 'blur', type: 'array'},
+                //     options: [{
+                //         value: 'sunning', label: '晒青'
+                //     },
+                //     {
+                //         value: 'cooling', label: '晾青'
+                //     },
+                //     {
+                //         value: 'make_green', label: '做青'
+                //     },
+                //     {
+                //         value: 'kill_out', label: '杀青'
+                //     },
+                //     {
+                //         value: 'knead_nori', label: '揉稔'
+                //     },
+                //     {
+                //         value: 'deblock', label: '解块'
+                //     },
+                //     {
+                //         value: 'dry', label: '干燥'
+                //     },
+                //     {
+                //         value: 'filtrate', label: '筛选'
+                //     },
+                //     {
+                //         value: 'refiring', label: '复火'
+                //     }]
+                // },
                 {
-                    name: 'opera_id',
-                    type: 'selectMore',
+                    name: 'sunning_date',
+                    type: 'text',
                     component: null,
                     isNull: false,
-                    label: '操作模块',
-                    placeholder: '必填',
-                    selectNumber: {sunning: [7], cooling: [8], make_green: [9], kill_out: [10], knead_nori: [11], deblock: [12], dry: [13], filtrate: [14], refiring: [15]},
-                    rule: {required: false, trigger: 'blur', type: 'array'},
-                    options: [{
-                        value: 'sunning', label: '晒青'
-                    },
-                    {
-                        value: 'cooling', label: '晾青'
-                    },
-                    {
-                        value: 'make_green', label: '做青'
-                    },
-                    {
-                        value: 'kill_out', label: '杀青'
-                    },
-                    {
-                        value: 'knead_nori', label: '揉稔'
-                    },
-                    {
-                        value: 'deblock', label: '解块'
-                    },
-                    {
-                        value: 'dry', label: '干燥'
-                    },
-                    {
-                        value: 'filtrate', label: '筛选'
-                    },
-                    {
-                        value: 'refiring', label: '复火'
-                    }]
+                    // hiddenSelect: true,
+                    label: '晒青时长',
+                    placeholder: '',
+                    rule: {required: true, message: '请输入晒青时长'}
                 },
                 {
-                    name: 'sunning',
-                    type: 'datetimerange',
-                    component: inputDateTimes,
+                    name: 'cooling_date',
+                    type: 'text',
+                    component: null,
                     isNull: false,
-                    hiddenSelect: true,
-                    label: '晒青时间',
+                    // hiddenSelect: true,
+                    label: '晾青时长',
                     placeholder: '',
-                    rule: [{required: true, message: '请选择晒青时间'}, {validator: validate2.reDate, message: '请输入晒青时间'}]
+                    rule: {required: true, message: '请输入晾青时长'}
                 },
                 {
-                    name: 'cooling',
-                    type: 'datetimerange',
-                    component: inputDateTimes,
+                    name: 'make_green_date',
+                    type: 'text',
+                    component: null,
                     isNull: false,
-                    hiddenSelect: true,
-                    label: '晾青时间',
+                    // hiddenSelect: true,
+                    label: '做青时长',
                     placeholder: '',
-                    rule: [{required: true, message: '请选择晾青时间'}, {validator: validate2.reDate, message: '请输入晾青时间'}]
+                    rule: {required: true, message: '请输入做青时长'}
                 },
                 {
-                    name: 'make_green',
-                    type: 'datetime',
-                    component: inputDateTimes,
+                    name: 'kill_out_date',
+                    type: 'text',
+                    component: null,
                     isNull: false,
-                    hiddenSelect: true,
-                    label: '做青时间',
+                    // hiddenSelect: true,
+                    label: '杀青时长',
                     placeholder: '',
-                    rule: [{required: true, message: '请选择做青时间'}, {validator: validate2.reDate, message: '请输入做青时间'}]
+                    rule: {required: true, message: '请输入杀青时长'}
                 },
                 {
-                    name: 'kill_out',
-                    type: 'datetime',
-                    component: inputDateTimes,
+                    name: 'knead_nori_date',
+                    type: 'text',
+                    component: null,
                     isNull: false,
-                    hiddenSelect: true,
-                    label: '杀青时间',
+                    // hiddenSelect: true,
+                    label: '揉稔时长',
                     placeholder: '',
-                    rule: [{required: true, message: '请选择杀青时间'}, {validator: validate2.reDate, message: '请输入杀青时间'}]
+                    rule: {required: true, message: '请输入揉稔时长'}
                 },
                 {
-                    name: 'knead_nori',
-                    type: 'datetime',
-                    component: inputDateTimes,
+                    name: 'deblock_date',
+                    type: 'text',
+                    component: null,
                     isNull: false,
-                    hiddenSelect: true,
-                    label: '揉稔时间',
+                    // hiddenSelect: true,
+                    label: '解块时长',
                     placeholder: '',
-                    rule: [{required: true, message: '请选择揉稔时间'}, {validator: validate2.reDate, message: '请输入揉稔时间'}]
+                    rule: {required: true, message: '请输入解块时长'}
                 },
                 {
-                    name: 'deblock',
-                    type: 'datetime',
-                    component: inputDateTimes,
+                    name: 'dry_date',
+                    type: 'text',
+                    component: null,
                     isNull: false,
-                    hiddenSelect: true,
-                    label: '解块时间',
+                    // hiddenSelect: true,
+                    label: '干燥时长',
                     placeholder: '',
-                    rule: [{required: true, message: '请选择解块时间'}, {validator: validate2.reDate, message: '请输入解块时间'}]
+                    rule: {required: true, message: '请输入干燥时长'}
                 },
                 {
-                    name: 'dry',
-                    type: 'datetime',
-                    component: inputDateTimes,
+                    name: 'filtrate_date',
+                    type: 'text',
+                    component: null,
                     isNull: false,
-                    hiddenSelect: true,
-                    label: '干燥时间',
+                    // hiddenSelect: true,
+                    label: '筛选时长',
                     placeholder: '',
-                    rule: [{required: true, message: '请选择干燥时间'}, {validator: validate2.reDate, message: '请输入干燥时间'}]
+                    rule: {required: true, message: '请选择筛选时长'}
                 },
                 {
-                    name: 'filtrate',
-                    type: 'datetime',
-                    component: inputDateTimes,
+                    name: 'refiring_date',
+                    type: 'text',
+                    component: null,
                     isNull: false,
-                    hiddenSelect: true,
-                    label: '筛选时间',
+                    // hiddenSelect: true,
+                    label: '复火时长',
                     placeholder: '',
-                    rule: [{required: true, message: '请选择筛选时间'}, {validator: validate2.reDate, message: '请输入筛选时间'}]
-                },
-                {
-                    name: 'refiring',
-                    type: 'datetime',
-                    component: inputDateTimes,
-                    isNull: false,
-                    hiddenSelect: true,
-                    label: '复火时间',
-                    placeholder: '',
-                    rule: [{required: true, message: '请选择复火时间'}, {validator: validate2.reDate, message: '请输入复火时间'}]
+                    rule: {required: true, message: '请选择复火时长'}
                 },
                 {
                     name: 'memo',
@@ -507,7 +506,7 @@ export default {
             editComponent: [{
                 tab: '编辑采制信息',
                 components: [{
-                    name: 'date',
+                    name: 'tea_date',
                     type: 'date',
                     component: inputDate,
                     isNull: false,
@@ -559,6 +558,96 @@ export default {
                     label: '散茶数量',
                     placeholder: '',
                     rule: [{validator: validate2.reNumber}]
+                },
+                {
+                    name: 'sunning_date',
+                    type: 'text',
+                    component: null,
+                    isNull: false,
+                    // hiddenSelect: true,
+                    label: '晒青时长',
+                    placeholder: '',
+                    rule: {required: true, message: '请输入晒青时长'}
+                },
+                {
+                    name: 'cooling_date',
+                    type: 'text',
+                    component: null,
+                    isNull: false,
+                    // hiddenSelect: true,
+                    label: '晾青时长',
+                    placeholder: '',
+                    rule: {required: true, message: '请输入晾青时长'}
+                },
+                {
+                    name: 'make_green_date',
+                    type: 'text',
+                    component: null,
+                    isNull: false,
+                    // hiddenSelect: true,
+                    label: '做青时长',
+                    placeholder: '',
+                    rule: {required: true, message: '请输入做青时长'}
+                },
+                {
+                    name: 'kill_out_date',
+                    type: 'text',
+                    component: null,
+                    isNull: false,
+                    // hiddenSelect: true,
+                    label: '杀青时长',
+                    placeholder: '',
+                    rule: {required: true, message: '请输入杀青时长'}
+                },
+                {
+                    name: 'knead_nori_date',
+                    type: 'text',
+                    component: null,
+                    isNull: false,
+                    // hiddenSelect: true,
+                    label: '揉稔时长',
+                    placeholder: '',
+                    rule: {required: true, message: '请输入揉稔时长'}
+                },
+                {
+                    name: 'deblock_date',
+                    type: 'text',
+                    component: null,
+                    isNull: false,
+                    // hiddenSelect: true,
+                    label: '解块时长',
+                    placeholder: '',
+                    rule: {required: true, message: '请输入解块时间'}
+                },
+                {
+                    name: 'dry_date',
+                    type: 'text',
+                    component: null,
+                    isNull: false,
+                    // hiddenSelect: true,
+                    label: '干燥时长',
+                    placeholder: '',
+                    rule: {required: true, message: '请输入干燥时长'}
+                },
+                {
+                    name: 'filtrate_date',
+                    type: 'text',
+                    component: null,
+                    isNull: false,
+                    // hiddenSelect: true,
+                    label: '筛选时长',
+                    placeholder: '',
+                    rule: {required: true, message: '请选择筛选时长'}
+                },
+                {
+                    name: 'refiring_date',
+                    type: 'text',
+                    component: null,
+                    isNull: false,
+                    // hiddenSelect: true,
+                    label: '复火时长',
+                    placeholder: '',
+                    rule: {required: true, message: '请选择复火时长'}
                 },
                 {
                     name: 'memo',

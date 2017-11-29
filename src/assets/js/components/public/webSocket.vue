@@ -48,7 +48,6 @@ export default {
                 // 握手成功成功
                 socket.onopen = function () {
                     // socket.send('test')
-                    console.log('数据发送中...')
                 }
                 // 后台返回数据时
                 socket.onmessage = function (ev) {
@@ -57,14 +56,11 @@ export default {
                 }
                 // 错误时
                 socket.onerror = function (ev) {
-                    console.log('error')
                 }
                 // 关闭时
                 socket.onclose = function (ev) {
-                    console.log('close')
                 }
             } else {
-                console.log('浏览器不支持webSocket')
             }
         }
     },
@@ -182,9 +178,6 @@ export default {
                     }
                 }
             }
-            console.log(token)
-            console.log(data)
-            console.log('数据接收中...')
             localStorage.setItem('webToken', '')
         },
         updateData () {
