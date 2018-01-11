@@ -371,7 +371,6 @@ export default {
                     return false
                 }
             }
-            console.log(this.tableForm)
             this.$refs[formName][0].validate((valid) => {
                 if (valid) {
                     $('#newWeb').fadeOut(300)
