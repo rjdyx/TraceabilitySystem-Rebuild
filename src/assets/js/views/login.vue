@@ -145,6 +145,7 @@ export default {
             this.$refs[formName].validate((valid) => {
                 if (valid) {
                     this.$Progress.start()
+                    this.ruleForm2.password = this.passEncode(this.ruleForm2.password, require('projectRoot/env.js').key)
                     axios.post('/login', this.ruleForm2).then((responce) => {
                         this.$Progress.finish()
                         if (responce.data !== 200) {
@@ -202,6 +203,20 @@ export default {
                     }
                 })
             }
+        },
+        /*
+         * 密码加密
+         * xor方法
+         */
+        passEncode (str, key) {
+            var crytxt = ''
+            var k
+            var keylen = key.length
+            for (let i in str) {
+                k = i % keylen
+                crytxt += String.fromCharCode(str.charCodeAt(i) ^ key.charCodeAt(k))
+            }
+            return crytxt
         }
     },
     mounted () {
