@@ -4,6 +4,8 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const vueConfig = require('./vue-loader.config');
 const projectRoot = path.resolve(__dirname, '../');
 const vuxLoader = require('vux-loader')
+// const WebpackDevServer = require('webpack-dev-server')
+// const env = require('../env.js')
 
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
@@ -119,7 +121,7 @@ const webpackConfig = {
             Vue: 'vue',
             'window.Vue': 'vue'
         }),
-        new webpack.NormalModuleReplacementPlugin(/element-ui[\/\\]lib[\/\\]locale[\/\\]lang[\/\\]zh-CN/, 'element-ui/lib/locale/lang/en'),
+        new webpack.NormalModuleReplacementPlugin(/element-ui[\/\\]lib[\/\\]locale[\/\\]lang[\/\\]zh-CN/, 'element-ui/lib/locale/lang/en')
         // new webpack.LoaderOptionsPlugin({
         //     options: {
         //         eslint: {
@@ -128,12 +130,25 @@ const webpackConfig = {
         //     }
         // })
     ]
-
 }
 
 module.exports = vuxLoader.merge(webpackConfig, {
     options: {},
     plugins: [{
         name: 'vux-ui'
-    }]
+    }],
+    // devServer: {
+    //     historyApiFallback: true,
+    //     hot: true,
+    //     inline: true,
+    //     progress: true,
+    //     // port: '9876', //设置端口号
+    //     proxy: {
+    //         '/**': {
+    //             changeOrigin: true,
+    //             target: 'http://www.teatracesystem.com',
+    //             secure: false
+    //         }
+    //     }
+    // }
 })

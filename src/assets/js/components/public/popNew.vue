@@ -252,8 +252,9 @@ export default {
             permissionCompany: this.newComponent[0].permissionCompany,
             permissionShow: this.newComponent[0].permissionShow,
             news: 'new',
-            operateArr1: ['sunning', 'cooling'],
-            operateArr2: ['make_green', 'kill_out', 'knead_nori', 'deblock', 'dry', 'filtrate', 'refiring'],
+            // operateArr1: ['sunning', 'cooling', 'tea_date'],
+            // operateArr2: ['make_green', 'kill_out', 'knead_nori', 'deblock', 'dry', 'filtrate', 'refiring'],
+            operateArr1: ['tea_date'],
             selectIdArr: ['picking_list_product_id', 'storage_order_product_id', 'client_id', 'delivery_id', 'sell_store_id', 'tea_order_product_id', 'harvest_id']
         }
     },
@@ -287,12 +288,13 @@ export default {
                 }
             }
             if (this.operateArr1.indexOf(data.name) !== -1) {
-                let a = this.$changeDateTime(data.value[0])
-                let b = this.$changeDateTime(data.value[1])
-                this.tableForm[data.name + '_date'] = a + '至' + b
-            } else if (this.operateArr2.indexOf(data.name) !== -1) {
-                this.tableForm[data.name + '_date'] = this.$changeDateTime(data.value)
+                let a = this.$changeDateTime(data.value[0], 0)
+                let b = this.$changeDateTime(data.value[1], 0)
+                this.tableForm['date'] = a + '至' + b
             }
+            // else if (this.operateArr2.indexOf(data.name) !== -1) {
+            //     this.tableForm[data.name + '_date'] = this.$changeDateTime(data.value)
+            // }
             if (data.name === 'datetime') {
                 this.tableForm[data.name] = this.$changeDateTime(data.value)
             } else {

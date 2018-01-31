@@ -136,7 +136,7 @@ export default {
             checked: true,
             loading: false,
             codeLoading: false,
-            head_short_name: '生之园茶叶',
+            head_short_name: '生之园茶业',
             urlBefore: 'szy'
         }
     },
@@ -145,12 +145,15 @@ export default {
             this.$refs[formName].validate((valid) => {
                 if (valid) {
                     this.$Progress.start()
+                    this.ruleForm2.password = this.passEncode(this.ruleForm2.password, require('projectRoot/env.js').key)
+                    console.log(this.ruleForm2)
                     axios.post('/login', this.ruleForm2).then((responce) => {
                         console.log(this.ruleForm2)
                         console.log(responce)
                         this.$Progress.finish()
                         if (responce.data !== 200) {
                             this.$message.error('用户名或密码错误')
+                            this.ruleForm2.password = ''
                         } else {
                             this.$store.dispatch('switch_record', '')
                             var myDate = new Date()
@@ -186,7 +189,6 @@ export default {
             this.$emit('show', this.codeLoading)
         },
         handle () {
-            console.log('iwgufewgfyefheufeuf')
         },
         getHeadTitle (urlBefore) {
             let params = {urlBefore: urlBefore}
@@ -205,6 +207,20 @@ export default {
                     }
                 })
             }
+        },
+        /*
+         * 密码加密
+         * xor方法
+         */
+        passEncode (str, key) {
+            var crytxt = ''
+            var k
+            var keylen = key.length
+            for (let i in str) {
+                k = i % keylen
+                crytxt += String.fromCharCode(str.charCodeAt(i) ^ key.charCodeAt(k))
+            }
+            return crytxt
         }
     },
     mounted () {

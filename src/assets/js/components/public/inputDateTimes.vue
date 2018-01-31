@@ -11,6 +11,7 @@
       :type="type"
       :placeholder="plaType()"
       size="small"
+      range-separator="至"
       :picker-options="dateOptions()">
     </el-date-picker>
 </template>

@@ -81,20 +81,8 @@
             <transition name="fade">
                 <roleCheckbox v-if="isRoleShow" :rowId="rowId"></roleCheckbox>
             </transition>
-            <!-- 打印单据模块 -->
-            <!-- <printfPreview 
-                ref='printfPreview'
-                :theads="theads"
-                :headData="headData"
-                :tableData="tableData"
-                :tabItem="tabItem"
-                :protos="protos"
-                :odd="odd"
-                :filter="filter"
-                >
-            </printfPreview> -->
         <!-- 列表模块 -->
-        <el-table :data="tableData"  @selection-change="handleSelectionChange" v-loading="listLoading" @expand="expandDo">
+        <el-table :data="tableData"  @selection-change="handleSelectionChange" v-loading="listLoading">
             <!-- checkbox -->
             <el-table-column width="50" type="selection" :selectable="checkDisabled">
             </el-table-column> 
@@ -136,18 +124,10 @@
                         </template>
 
                         <el-form-item v-for="(subItem,init) in tabItem.harvestMore" class="left">
-                            <span class="timeEdit" @click="timeEdit(subItem,index)">
+                            <span class="timeEdit">
                                 <span class="timeLabel">{{subItem.label}}</span>
                                 <span v-if="subItem.nameHide">{{ tableData[props.$index][subItem.name] }}</span>
-                                <component
-                                    v-if="subItem.showHarvest"
-                                    :is="subItem.component"
-                                    :rowid="props.row.id"
-                                    :shuju="subItem"
-                                    :type="subItem.type"
-                                    @return-shuju="insertTimes"
-                                    class="dateEdit"
-                                ></component></span>
+                            </span>
                         </el-form-item>
 
                     </el-form>
@@ -191,11 +171,6 @@
                                 <clickMore :moreComponent="tabItem.moreComponent" 
                                 @showMore="moreShow(scope.$index,scope.row)" class="clickMoreBtn"></clickMore>
                             </template>
-
-                        <template v-if="harvestMore!=null">
-                            <harvestMore :harvestMore="harvestMore" :row="scope.row">
-                            </harvestMore>
-                        </template>
 
                             <template v-if="hiddeOperate">
                                 <el-button type="text" size="small" @click="changeEditShow(scope.$index,scope.row)"
@@ -242,7 +217,6 @@ import ContainTitle from 'components/layout/contain-title.vue'
 import popEdit from '../../components/public/popEdit.vue'
 import operate from '../../components/public/operate.vue'
 import clickMore from '../../components/public/clickMore.vue'
-import harvestMore from '../../components/public/harvestMore.vue'
 import lotOpearte from '../../components/public/lotOpearte.vue'
 import roleCheckbox from '../../components/public/roleCheckbox.vue'
 import webSocket from '../../components/public/webSocket.vue'
@@ -832,53 +806,6 @@ export default {
             this.getDetailSerial()
             this.boxArr(this.dataArr, false)
         },
-        // 列表时间便捷录入
-        timeEdit (subItem, index) {
-            this.$nextTick(function () {
-                this.tabItem.harvestMore.forEach(function (subItem) {
-                    Vue.set(subItem, 'showHarvest', false)
-                    Vue.set(subItem, 'nameHide', true)
-                })
-                Vue.set(subItem, 'showHarvest', true)
-                Vue.set(subItem, 'nameHide', false)
-            })
-        },
-        // 列表时间插入
-        insertTimes (data) {
-            this.timeParams['id'] = data.id
-            if (this.operateArr1.indexOf(data.name) !== -1) {
-                let a = this.$changeDateTime(data.value[0])
-                let b = this.$changeDateTime(data.value[1])
-                this.timeParams[data.name] = a + '至' + b
-            } else if (this.operateArr2.indexOf(data.name) !== -1) {
-                this.timeParams[data.name] = this.$changeDateTime(data.value)
-            }
-            this.$dataGet(this, this.apiUrlArr[this.tabList[this.index].url] + '/setDateTime', this.timeParams)
-                .then((responce) => {
-                    if (responce.data !== 'false') {
-                        this.$message({
-                            type: 'success',
-                            message: '修改时间数据成功'
-                        })
-                        this.boxArr(this.dataArr, true)
-                        this.timeParams = {}
-                        this.tabItem.harvestMore.forEach(function (subItem) {
-                            Vue.set(subItem, 'showHarvest', false)
-                            Vue.set(subItem, 'nameHide', true)
-                        })
-                    } else {
-                        this.$message('修改时间数据失败')
-                    }
-                })
-        },
-        // 展开事件
-        expandDo () {
-            if (this.tabItem.harvestMore !== null && this.tabItem.harvestMore !== undefined) {
-                this.tabItem.harvestMore.forEach(function (subItem) {
-                    Vue.set(subItem, 'showHarvest', false)
-                })
-            }
-        },
         // 判断第二还是第三级
         secondOrThird () {
             if (this.obt !== undefined) {
@@ -959,7 +886,7 @@ export default {
         clickMore,
         lotOpearte,
         roleCheckbox,
-        harvestMore,
+        // harvestMore,
         webSocket
     }
 }

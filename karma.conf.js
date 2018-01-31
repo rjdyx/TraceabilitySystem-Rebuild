@@ -1,7 +1,12 @@
 // Karma configuration
 // Generated on Wed Oct 25 2017 16:48:48 GMT+0800 (中国标准时间)
 var webpack = require('webpack')
+<<<<<<< HEAD
 var webpackconfig = require('./build/webpack.base.config');
+=======
+var webpackConfig = require('./build/webpack.base.config.js')
+
+>>>>>>> 8009cbd4ea3cb46b83214b0fc945f3098ca338b7
 module.exports = function(config) {
   config.set({
 
@@ -74,10 +79,14 @@ module.exports = function(config) {
         reports: ['text-summary', 'html'],
         fixWebpackSourcePaths: true
     },
+<<<<<<< HEAD
     jasmineNodeOpts: {
         showColors: true,
         includeStackTrace: true,
         defaultTimeoutInterval: 1440000
     }
+=======
+    webpack: webpackConfig
+>>>>>>> 8009cbd4ea3cb46b83214b0fc945f3098ca338b7
   })
 }

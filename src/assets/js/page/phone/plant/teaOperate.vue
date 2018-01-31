@@ -26,7 +26,7 @@
                             <tr v-for="(v,k) in models.tableProtos">
                                 <td style="width: 28%">{{models.tableTheads[k] }}</td>
                                 <td style="width: 72%" v-if="v!='img'">{{item[v]}}</td>
-                                <td style="width: 72%" v-else><img :src="item[v]" height="30" @click="enlargeImgFn(item[v])"></td>
+                                <td style="width: 72%" v-else><img v-if="item[v]" :src="item[v]" height="30" @click="enlargeImgFn(item[v])"></td>
                             </tr>
                         </tbody>
                     </table>
@@ -69,7 +69,7 @@ export default {
             lack: '无相关记录',
             i: 0,
             canvasShow: true,
-            dataArr: [{result: {'0': '合格', '1': '不合格'}}, {transportable_type: {'self': '自运', 'consign': '托运'}}],
+            dataArr: [{result: {0: '合格', 1: '不合格'}}, {transportable_type: {'self': '自运', 'consign': '托运'}}],
             flag: false,
             showHideOnBlur: false,
             enlargeImg: ''
@@ -114,6 +114,7 @@ export default {
         } else if (urlName === 'fertilize') {
             tabLocalOperate = this.$eltable(tabLocalOperate)
         }
+        tabLocalOperate = this.$conversion(this.dataArr, tabLocalOperate, 1)
         this.datas = tabLocalOperate
     },
     methods: {
@@ -153,7 +154,8 @@ canvas{
         background:none;
         img{
             width: 100%;
-            height:100%;
+            height:auto;
+            max-height: 80%;
             box-sizing: border-box;
         }
     }

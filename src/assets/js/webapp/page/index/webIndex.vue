@@ -261,10 +261,11 @@ export default{
                 this.userType = responce.data.type
                 this.loginDate = localStorage.getItem('loginDate')
                 localStorage.setItem('trends', 0)
-                localStorage.setItem('stepsBol', 0)
+                localStorage.setItem('stepsBol', responce.data.wap_on)
                 if (Number(localStorage.getItem('stepsBol'))) {
                     this.stepsBol = true
                     this.$parent.$refs.siderBar.stepsBol = true
+                    console.log('this.stepsBol:' + this.stepsBol)
                 }
             })
         axios.get('/api/maxdata')

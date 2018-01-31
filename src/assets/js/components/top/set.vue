@@ -30,15 +30,15 @@
 						</el-radio-group>
 					</el-form-item>
 
-					<el-form-item label="原始密码" prop='old_password'>
+					<el-form-item label="原始密码" prop='old_password' v-if="!role">
 						<el-input type="password" auto-complete="off" placeholder="不填提交则不修改" v-model="editForm.old_password"></el-input>
 					</el-form-item>
 
-					<el-form-item label="新密码" prop='password' >
+					<el-form-item label="新密码" prop='password' v-if="!role">
 						<el-input type="password" auto-complete="off" placeholder="至少6位字符" v-model="editForm.password"></el-input>
 					</el-form-item>
 
-                    <el-form-item label="确认新密码" prop='checkPass' >
+                    <el-form-item label="确认新密码" prop='checkPass' v-if="!role">
                         <el-input type="password" auto-complete="off" placeholder="至少6位字符" v-model="editForm.checkPass"></el-input>
                     </el-form-item>
 
@@ -179,16 +179,11 @@ export default {
             if (data === 'old_error') {
                 this.$message('原始密码错误')
                 this.editForm.old_password = null
-            } else if (data === 'pas_error') {
-                this.$message('新密码长度有误')
-                this.editForm.password = null
             } else if (data === 'false') {
                 this.$message.error('修改数据失败')
                 this.editForm.password = null
                 this.editForm.checkPass = null
                 this.editForm.old_password = null
-            } else if (data === 'set') {
-                this.$message('请输入原始密码')
             } else {
                 this.$message({
                     message: '修改数据成功',
@@ -211,12 +206,14 @@ export default {
                 var data = responce.data.system
                 if (data !== null && data !== undefined) {
                     _this.editForm['id'] = data.id
-                    _this.editForm['name'] = data.name
-                    _this.editForm['keywords'] = data.keywords
-                    _this.editForm['verify_state'] = data.verify_state
-                    _this.editForm['web_state'] = data.web_state
-                    _this.editForm['record_number'] = data.record_number
-                    _this.pdfName = data.help
+                    if (_this.role) {
+                        _this.editForm['name'] = data.name
+                        _this.editForm['keywords'] = data.keywords
+                        _this.editForm['verify_state'] = data.verify_state
+                        _this.editForm['web_state'] = data.web_state
+                        _this.editForm['record_number'] = data.record_number
+                        _this.pdfName = data.help
+                    }
                 }
             })
         },
@@ -224,6 +221,18 @@ export default {
           * 提交表单
           */
         submitForm (formName) {
+            if (!this.role) {
+                if (this.editForm.old_password === '') {
+                    this.$message('请输入原始密码')
+                    return false
+                } else if (this.editForm.password === '') {
+                    this.$message('请输入新密码')
+                    return false
+                }
+                this.editForm['role'] = this.role
+            } else {
+                this.editForm['role'] = this.role
+            }
             this.$refs[formName].validate((valid) => {
                 if (valid) {
                     var ret = this.editForm

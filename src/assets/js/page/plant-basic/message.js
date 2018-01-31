@@ -439,13 +439,16 @@ export default {
                         value: '水仙', label: '水仙'
                     },
                     {
-                        value: '芝兰', label: '芝兰'
+                        value: '芝兰香', label: '芝兰香'
                     },
                     {
-                        value: '杏仁', label: '杏仁'
+                        value: '杏仁香', label: '杏仁香'
                     },
                     {
-                        value: '鸭屎', label: '鸭屎'
+                        value: '鸭屎香', label: '鸭屎香'
+                    },
+                    {
+                        value: '蜜兰香', label: '蜜兰香'
                     },
                     {
                         value: '其他', label: '其他'
@@ -529,7 +532,7 @@ export default {
                 components: [{
                     name: 'name',
                     type: 'selectOther',
-                    categoryBox: ['八仙', '黄枝香', '水仙', '芝兰', '杏仁', '鸭屎'],
+                    categoryBox: ['八仙', '黄枝香', '水仙', '芝兰香', '杏仁香', '鸭屎香', '蜜兰香'],
                     component: inputSelectOther,
                     isNull: false,
                     label: '茶叶品种',
@@ -546,13 +549,16 @@ export default {
                         value: '水仙', label: '水仙'
                     },
                     {
-                        value: '芝兰', label: '芝兰'
+                        value: '芝兰香', label: '芝兰香'
                     },
                     {
-                        value: '杏仁', label: '杏仁'
+                        value: '杏仁香', label: '杏仁香'
                     },
                     {
-                        value: '鸭屎', label: '鸭屎'
+                        value: '鸭屎香', label: '鸭屎香'
+                    },
+                    {
+                        value: '蜜兰香', label: '蜜兰香'
                     },
                     {
                         value: '其他', label: '其他'
@@ -2127,7 +2133,7 @@ export default {
             hiddeRole: false,
             jumpTo: 'logisticsBatch',
             roleName: ['delivery/logistic', 0],
-            searchPlaceholder: '请输入物理公司名搜索',
+            searchPlaceholder: '请输入物流公司名搜索',
             theads: ['物流公司名称', '联系人', '联系电话', '地址', '备注'],
             protos: ['name', 'contacts', 'phone', 'address', 'memo'],
             widths: [50, 50, 50, 50, 50],
@@ -6008,7 +6014,7 @@ export default {
         url: 'play',
         selectSearch: ['name'],
         searchPlaceholder: '请输入名称进行搜索',
-        theads: ['视频名称', '视频设备号', '备注'],
+        theads: ['视频名称', '视频设备号', '视频标题'],
         protos: ['name', 'play', 'memo'],
         widths: [50, 50, 50],
         listComponent: [],
@@ -6041,7 +6047,7 @@ export default {
                 name: 'memo',
                 type: 'textarea',
                 component: null,
-                label: '备注信息',
+                label: '视频标题',
                 placeholder: '',
                 rule: null
             }
@@ -6070,7 +6076,7 @@ export default {
                 name: 'memo',
                 type: 'textarea',
                 component: null,
-                label: '备注信息',
+                label: '视频标题',
                 placeholder: '',
                 rule: null
             }

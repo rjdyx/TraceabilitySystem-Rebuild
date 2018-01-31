@@ -9,7 +9,7 @@
 	<div class="phoneIndex">
 		<!-- 头部 -->
 			<div class="phoneHeader">
-				<h2>天池茶叶</h2>
+				<h2>{{short_name}}</h2>
 		</div>
 		<!-- 中间 <-->
 		<div class="mainWrap">
@@ -30,7 +30,7 @@
 		</div>
 		<!-- 信息 -->
 		<div class="info">
-			<p class="subscription">天池茶叶</p>
+			<p class="subscription">{{short_name}}</p>
 			<p class="description">{{product_name}}</p>
 		</div>
 		<!-- 底部菜单 -->
@@ -76,7 +76,9 @@ export default{
             video: 'video',
             product_name: '',
             tea_img: this.$img('/images/tea_default.jpg'),
-            sell_network: ''
+            sell_network: '',
+            short_name: '',
+            company_id: 0
         }
     },
     // 路由进入前
@@ -110,8 +112,12 @@ export default{
         this.code = this.$route.params.code
         var tabLocal = JSON.parse(sessionStorage.getItem(this.code + '/index'))
         this.product_name = tabLocal.product_name
+        this.short_name = tabLocal.short_name
         if (tabLocal.img !== '' && tabLocal.img !== 'null' && tabLocal.img !== null) {
             this.tea_img = tabLocal.img
+        }
+        if (tabLocal.play_id !== 'null' && tabLocal.play_id !== null) {
+            this.company_id = tabLocal.id
         }
         this.sell_network = tabLocal.sell_network
     },
@@ -127,7 +133,11 @@ export default{
         },
         // 获取视频
         getVideo () {
-            this.setToast('text', '该功能尚在完善中', '14em')
+            if (this.company_id !== 0) {
+                window.location.href = require('projectRoot/env.js').app_url + '/vidurl/' + this.company_id
+            } else {
+                this.setToast('text', '视频直播地址不存在', '14em')
+            }
         },
         // 获取购买地址
         getBuyUrl () {

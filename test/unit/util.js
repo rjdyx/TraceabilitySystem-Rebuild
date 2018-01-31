@@ -8,10 +8,8 @@ let id = 0
 
 const createElm = function () {
     const elm = document.createElement('div')
-
     elm.id = 'app' + ++id
     document.body.appendChild(elm)
-
     return elm
 }
 
@@ -66,7 +64,10 @@ exports.createTest = function (Compo, propsData = {}, mounted = false) {
  */
 exports.triggerEvent = function (elm, name, ...opts) {
     let eventName
+<<<<<<< HEAD
 
+=======
+>>>>>>> 8009cbd4ea3cb46b83214b0fc945f3098ca338b7
     if (/^mouse|click/.test(name)) {
         eventName = 'MouseEvents'
     } else if (/^key/.test(name)) {
@@ -75,12 +76,18 @@ exports.triggerEvent = function (elm, name, ...opts) {
         eventName = 'HTMLEvents'
     }
     const evt = document.createEvent(eventName)
+<<<<<<< HEAD
 
+=======
+>>>>>>> 8009cbd4ea3cb46b83214b0fc945f3098ca338b7
     evt.initEvent(name, ...opts)
     elm.dispatchEvent
       ? elm.dispatchEvent(evt)
       : elm.fireEvent('on' + name, evt)
+<<<<<<< HEAD
 
+=======
+>>>>>>> 8009cbd4ea3cb46b83214b0fc945f3098ca338b7
     return elm
 }
 
@@ -92,6 +99,9 @@ exports.triggerEvent = function (elm, name, ...opts) {
 exports.triggerClick = function (elm, ...opts) {
     exports.triggerEvent(elm, 'mousedown', ...opts)
     exports.triggerEvent(elm, 'mouseup', ...opts)
+<<<<<<< HEAD
 
+=======
+>>>>>>> 8009cbd4ea3cb46b83214b0fc945f3098ca338b7
     return elm
 }

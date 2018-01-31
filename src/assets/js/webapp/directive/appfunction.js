@@ -39,12 +39,12 @@ export default {
         })
         let path = this.$route.path
         if (path === '/appIndex') {
-            this.settitle = '天池茶叶溯源系统'
+            this.settitle = '天池茶业溯源系统'
             this.homeShow = false
             this.back = false
             this.growPicture = true
         } else if (path === '/appIndex/appCanvas' || path === '/appIndex/appVideo') {
-            this.settitle = '天池茶叶溯源系统'
+            this.settitle = '天池茶业溯源系统'
             this.homeShow = false
             this.back = true
             this.growPicture = false
@@ -74,12 +74,12 @@ export default {
         $route () {
             let path = this.$route.path
             if (path === '/appIndex') {
-                this.settitle = '天池茶叶溯源系统'
+                this.settitle = '天池茶业溯源系统'
                 this.homeShow = false
                 this.back = false
                 this.growPicture = true
             } else if (path === '/appIndex/appCanvas' || path === '/appIndex/appVideo') {
-                this.settitle = '天池茶叶溯源系统'
+                this.settitle = '天池茶业溯源系统'
                 this.homeShow = false
                 this.back = true
                 this.growPicture = false

@@ -40,7 +40,7 @@ export default{
         isTrue: true,
         title: '采制信息',
         tableName: '采制记录',
-        tableTheads: ['采制日期', '采制人', '毛茶重量', '散茶重量', '损耗率', '晒青时间', '晾青时间', '做青时间', '杀青时间', '揉稔时间', '解块时间', '干燥时间', '筛选时间', '复火时间'],
+        tableTheads: ['制茶时间', '采制人', '毛茶重量', '散茶重量', '损耗率', '晒青时长', '晾青时长', '做青时长', '杀青时长', '揉稔时长', '解块时长', '干燥时长', '筛选时长', '复火时长'],
         tableProtos: ['date', 'operate', 'raw_tea_weight', 'bulk_tea_weight', 'attrition_rate', 'sunning_date', 'cooling_date', 'make_green_date', 'kill_out_date', 'knead_nori_date', 'deblock_date', 'dry_date', 'filtrate_date', 'refiring_date']
     },
     // 物流销售信息
