@@ -5,9 +5,9 @@
 * */
 <template>
 	<div class="login">
-		<img src="/public/images/rfid-bg.png" class="bg">
+		<img src="/public/images/WPtFM0Or.webp" class="bg">
 		<h1 class="logintitle">茶叶质量安全溯源预警系统</h1>
-		<img src="/public/images/rfid-main.png" class="main-bg">
+		<img src="/public/images/t7TclwhC.webp" class="main-bg">
 
 		<div class="logincontent">
 				<div class="login-logo">
@@ -18,8 +18,8 @@
 						<el-form-item label="" prop="name">
 							<el-input 
 								type="text" 
-								v-model="ruleForm2.name" 
-								auto-complete="off" 
+								v-model="ruleForm2.name"
+								auto-complete="off"
 								placeholder="请输入用户名或注册邮箱或电话" @keyup.enter.native="passTo"
 								@blur="getChangeUser(ruleForm2.name)">
 							</el-input>
@@ -37,12 +37,12 @@
 						<el-form-item label="" prop="code">
 							<el-input 
 								v-model="ruleForm2.code" 
-								placeholder="请输入验证码" 
+								placeholder="请输入验证码"
 								class="code" @keyup.enter.native="passTo">
 							</el-input>
 							<img :src="kit_url" alt="" class="kit" @click="Kit">
 							<span class="loading">
-								<vue-loading type="spin" color="#d5dde0" :size="{width:'100%',height:'100%'}" v-show="codeLoading" class="codeLoading"></vue-loading>
+								<vue-loading type="spin" color="#d5dde0" :size="{width:'100%',height:'100%'}" v-show="codeLoading"></vue-loading>
 							</span>
 						</el-form-item>
 						<el-form-item class="receive">
@@ -77,7 +77,6 @@
 				</p>
 				<p>最佳浏览器体验:360极速模式浏览器，最佳分别率：1680*1050</p>
 			</div>
-			 
 			<vue-progress-bar></vue-progress-bar>
 	</div>
 </template>
@@ -106,6 +105,7 @@ export default {
             } else {
                 axios.get('/kit-check', { params: { kit: value } })
                     .then((responce) => {
+                        // console.log(responce)
                         if (responce.data === 422) {
                             callback(new Error('验证码错误'))
                         } else {
@@ -146,6 +146,8 @@ export default {
                 if (valid) {
                     this.$Progress.start()
                     axios.post('/login', this.ruleForm2).then((responce) => {
+                        console.log(this.ruleForm2)
+                        console.log(responce)
                         this.$Progress.finish()
                         if (responce.data !== 200) {
                             this.$message.error('用户名或密码错误')
@@ -181,6 +183,7 @@ export default {
                 this.kit_url = responce.data
                 this.codeLoading = false
             })
+            this.$emit('show', this.codeLoading)
         },
         handle () {
             console.log('iwgufewgfyefheufeuf')
@@ -227,6 +230,11 @@ export default {
                 this.$router.push('/waplogin')
             }
         }
+        var input = $('.el-input input')
+        input[0].setAttribute('value', 'sdt')
+        input[1].setAttribute('value', '000000')
+        input[2].setAttribute('value', '6135')
+        console.log(input[0])
     },
     components: {
         vueLoading

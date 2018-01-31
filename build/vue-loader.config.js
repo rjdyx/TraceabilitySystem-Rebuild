@@ -10,9 +10,8 @@ const VueConfig = {
 	loaders:{
 		js: 'babel-loader'
 	},
-	postLoaders: {
-		js: 'istanbul-instrument-loader?esMoudles=true'
-	}
+	scss: 'vue-style-loader!css-loader!sass-loader',
+	sass: 'vue-style-loader!css-loader!sass-loader?indentedSyntax'
 }
 
 module.exports = VueConfig

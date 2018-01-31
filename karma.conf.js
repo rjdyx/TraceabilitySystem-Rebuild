@@ -1,7 +1,7 @@
 // Karma configuration
 // Generated on Wed Oct 25 2017 16:48:48 GMT+0800 (中国标准时间)
 var webpack = require('webpack')
-
+var webpackconfig = require('./build/webpack.base.config');
 module.exports = function(config) {
   config.set({
 
@@ -16,7 +16,8 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      'test/unit/**/*.spec.js'
+      'test/unit/**/*.spec.js',
+      '../node_modules/sinon/pkg/sinon.js'
     ],
 
 
@@ -68,9 +69,15 @@ module.exports = function(config) {
     // how many browser should be started simultaneous
     concurrency: Infinity,
 
+    webpack: webpackconfig,
     coverageIstanbulReporter: {
         reports: ['text-summary', 'html'],
         fixWebpackSourcePaths: true
+    },
+    jasmineNodeOpts: {
+        showColors: true,
+        includeStackTrace: true,
+        defaultTimeoutInterval: 1440000
     }
   })
 }

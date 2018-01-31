@@ -61,7 +61,10 @@ const webpackConfig = {
                 test: /\.js$/,
                 loader: 'babel-loader',
                 include: projectRoot,
-                exclude: /node_modules/
+                exclude: /node_modules/,
+                query: {
+                    presets: ['es2015']
+                }
             },
             {
                 test: /\.scss$/,
@@ -95,8 +98,7 @@ const webpackConfig = {
             'lang': path.resolve(__dirname, '../src/lang'),
             'components': path.resolve(__dirname, '../src/assets/js/components')
         }
-    },
-    
+    }, 
     plugins: [
         new ExtractTextPlugin({filename:'[name].[chunkhash].css', allChunks: true}),
         new webpack.ProvidePlugin({
