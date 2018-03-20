@@ -21,7 +21,7 @@ const webpackConfig = {
             'lodash',
             'velocity-animate',
             'vue',
-            'vue-router', 
+            'vue-router',
             'vuex'
         ]
     },
