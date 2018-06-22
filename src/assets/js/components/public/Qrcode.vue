@@ -39,6 +39,7 @@
                 url += 'breed'
             }
             this.qrText = url + '/index/' + this.editValue
+            console.log('this.qrText---')
             console.log(this.qrText)
         }
     }
